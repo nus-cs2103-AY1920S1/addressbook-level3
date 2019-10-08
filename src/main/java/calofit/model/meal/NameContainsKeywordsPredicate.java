@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Meal}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Dish}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Meal> {
+public class NameContainsKeywordsPredicate implements Predicate<Dish> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -16,9 +16,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Meal> {
     }
 
     @Override
-    public boolean test(Meal meal) {
+    public boolean test(Dish dish) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(meal.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(dish.getName().fullName, keyword));
     }
 
     @Override

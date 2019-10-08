@@ -14,7 +14,7 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meals whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all dishes whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
@@ -28,9 +28,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredMealList(predicate);
+        model.updateFilteredDishList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_MEALS_LISTED_OVERVIEW, model.getFilteredMealList().size()));
+                String.format(Messages.MESSAGE_DISHES_LISTED_OVERVIEW, model.getFilteredDishList().size()));
     }
 
     @Override

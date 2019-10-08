@@ -1,13 +1,13 @@
 package calofit.logic.commands;
 
-import calofit.testutil.MealBuilder;
-import calofit.testutil.TypicalMeals;
+import calofit.model.meal.Dish;
+import calofit.testutil.DishBuilder;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-import calofit.model.meal.Meal;
 
 import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -21,24 +21,24 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalMeals.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
-    public void execute_newMeal_success() {
-        Meal validMeal = new MealBuilder().withName("Charlie").build();
+    public void execute_newDish_success() {
+        Dish validDish = new DishBuilder().withName("Charlie").build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addMeal(validMeal);
+        expectedModel.addDish(validDish);
 
-        assertCommandSuccess(new AddCommand(validMeal), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validMeal), expectedModel);
+        assertCommandSuccess(new AddCommand(validDish), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validDish), expectedModel);
     }
 
     @Test
-    public void execute_duplicateMeal_throwsCommandException() {
-        Meal mealInList = model.getAddressBook().getMealList().get(0);
-        assertCommandFailure(new AddCommand(mealInList), model, AddCommand.MESSAGE_DUPLICATE_MEAL);
+    public void execute_duplicateDish_throwsCommandException() {
+        Dish dishInList = model.getAddressBook().getDishList().get(0);
+        assertCommandFailure(new AddCommand(dishInList), model, AddCommand.MESSAGE_DUPLICATE_MEAL);
     }
 
 }

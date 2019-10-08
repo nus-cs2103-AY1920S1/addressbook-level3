@@ -37,17 +37,17 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditMealDescriptor editMealDescriptor = new EditCommand.EditMealDescriptor();
+        EditCommand.EditDishDescriptor editDishDescriptor = new EditCommand.EditDishDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editMealDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editDishDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMealDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editDishDescriptor::setTags);
 
-        if (!editMealDescriptor.isAnyFieldEdited()) {
+        if (!editDishDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editMealDescriptor);
+        return new EditCommand(index, editDishDescriptor);
     }
 
     /**

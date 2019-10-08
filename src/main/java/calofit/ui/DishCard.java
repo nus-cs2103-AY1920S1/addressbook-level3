@@ -1,6 +1,6 @@
 package calofit.ui;
 
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,11 +10,11 @@ import javafx.scene.layout.Region;
 import java.util.Comparator;
 
 /**
- * An UI component that displays information of a {@code Meal}.
+ * An UI component that displays information of a {@code Dish}.
  */
-public class MealCard extends UiPart<Region> {
+public class DishCard extends UiPart<Region> {
 
-    private static final String FXML = "MealListCard.fxml";
+    private static final String FXML = "DishListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class MealCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Meal meal;
+    public final Dish dish;
 
     @FXML
     private HBox cardPane;
@@ -35,12 +35,12 @@ public class MealCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public MealCard(Meal meal, int displayedIndex) {
+    public DishCard(Dish dish, int displayedIndex) {
         super(FXML);
-        this.meal = meal;
+        this.dish = dish;
         id.setText(displayedIndex + ". ");
-        name.setText(meal.getName().fullName);
-        meal.getTags().stream()
+        name.setText(dish.getName().fullName);
+        dish.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -53,13 +53,13 @@ public class MealCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MealCard)) {
+        if (!(other instanceof DishCard)) {
             return false;
         }
 
         // state check
-        MealCard card = (MealCard) other;
+        DishCard card = (DishCard) other;
         return id.getText().equals(card.id.getText())
-                && meal.equals(card.meal);
+                && dish.equals(card.dish);
     }
 }

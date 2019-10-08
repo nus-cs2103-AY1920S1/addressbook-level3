@@ -1,10 +1,10 @@
 package calofit.logic.commands;
 
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static calofit.logic.commands.CommandTestUtil.showMealAtIndex;
+import static calofit.logic.commands.CommandTestUtil.showDishAtIndex;
 
 import calofit.testutil.TypicalIndexes;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalMeals.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showMealAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
+        showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

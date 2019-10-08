@@ -2,7 +2,7 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.AddCommand;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.model.meal.Name;
 import calofit.model.tag.Tag;
 
@@ -35,9 +35,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Meal meal = new Meal(name, tagList);
+        Dish dish = new Dish(name, tagList);
 
-        return new AddCommand(meal);
+        return new AddCommand(dish);
     }
 
     /**

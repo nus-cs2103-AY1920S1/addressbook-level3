@@ -6,7 +6,7 @@ import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.Model;
 import calofit.model.ReadOnlyAddressBook;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 
 import java.nio.file.Path;
@@ -31,8 +31,8 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of meals */
-    ObservableList<Meal> getFilteredMealList();
+    /** Returns an unmodifiable view of the filtered list of dishes */
+    ObservableList<Dish> getFilteredDishList();
 
     /**
      * Returns the user prefs' address book file path.

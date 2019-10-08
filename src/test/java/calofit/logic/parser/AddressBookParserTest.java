@@ -2,7 +2,7 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.*;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.model.meal.NameContainsKeywordsPredicate;
 import calofit.testutil.*;
 import org.junit.jupiter.api.Test;
@@ -22,9 +22,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Meal meal = new MealBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(MealUtil.getAddCommand(meal));
-        assertEquals(new AddCommand(meal), command);
+        Dish dish = new DishBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(DishUtil.getAddCommand(dish));
+        assertEquals(new AddCommand(dish), command);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Meal meal = new MealBuilder().build();
-        EditCommand.EditMealDescriptor descriptor = new EditMealDescriptorBuilder(meal).build();
+        Dish dish = new DishBuilder().build();
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder(dish).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased() + " " + MealUtil.getEditMealDescriptorDetails(descriptor));
+                + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased() + " " + DishUtil.getEditDishDescriptorDetails(descriptor));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, descriptor), command);
     }
 

@@ -5,7 +5,7 @@ import calofit.commons.util.AppUtil;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Meal's name in the address book.
+ * Represents a Dish's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

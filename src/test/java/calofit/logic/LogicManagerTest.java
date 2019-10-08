@@ -10,13 +10,13 @@ import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.ReadOnlyAddressBook;
 import calofit.model.UserPrefs;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.storage.JsonAddressBookStorage;
 import calofit.storage.JsonUserPrefsStorage;
 import calofit.storage.StorageManager;
 import calofit.testutil.Assert;
-import calofit.testutil.MealBuilder;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.DishBuilder;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -76,16 +76,16 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY;
-        Meal expectedMeal = new MealBuilder(TypicalMeals.AMY).withTags().build();
+        Dish expectedDish = new DishBuilder(TypicalDishes.AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addMeal(expectedMeal);
+        expectedModel.addDish(expectedDish);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredMealList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredMealList().remove(0));
+    public void getFilteredDishList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDishList().remove(0));
     }
 
     /**

@@ -4,14 +4,14 @@ import calofit.commons.core.GuiSettings;
 import calofit.model.meal.NameContainsKeywordsPredicate;
 import calofit.testutil.AddressBookBuilder;
 import calofit.testutil.Assert;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import static calofit.model.Model.PREDICATE_SHOW_ALL_MEALS;
+import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ModelManagerTest {
@@ -69,29 +69,29 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasMeal_nullMeal_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasMeal(null));
+    public void hasDish_nullDish_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasDish(null));
     }
 
     @Test
-    public void hasMeal_mealNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasMeal(TypicalMeals.ALICE));
+    public void hasDish_dishNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasDish(TypicalDishes.ALICE));
     }
 
     @Test
-    public void hasMeal_mealInAddressBook_returnsTrue() {
-        modelManager.addMeal(TypicalMeals.ALICE);
-        assertTrue(modelManager.hasMeal(TypicalMeals.ALICE));
+    public void hasDish_dishInAddressBook_returnsTrue() {
+        modelManager.addDish(TypicalDishes.ALICE);
+        assertTrue(modelManager.hasDish(TypicalDishes.ALICE));
     }
 
     @Test
-    public void getFilteredMealList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredMealList().remove(0));
+    public void getFilteredDishList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDishList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withMeal(TypicalMeals.ALICE).withMeal(TypicalMeals.BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withDish(TypicalDishes.ALICE).withDish(TypicalDishes.BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -113,12 +113,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalMeals.ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredMealList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = TypicalDishes.ALICE.getName().fullName.split("\\s+");
+        modelManager.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredMealList(PREDICATE_SHOW_ALL_MEALS);
+        modelManager.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

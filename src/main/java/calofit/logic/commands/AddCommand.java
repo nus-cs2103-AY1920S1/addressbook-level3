@@ -2,20 +2,20 @@ package calofit.logic.commands;
 
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 
 import static java.util.Objects.requireNonNull;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
- * Adds a meal to the address book.
+ * Adds a dish to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meal to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dish to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -24,28 +24,28 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New meal added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEAL = "This meal already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New dish added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the address book";
 
-    private final Meal toAdd;
+    private final Dish toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Meal}
+     * Creates an AddCommand to add the specified {@code Dish}
      */
-    public AddCommand(Meal meal) {
-        requireNonNull(meal);
-        toAdd = meal;
+    public AddCommand(Dish dish) {
+        requireNonNull(dish);
+        toAdd = dish;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasMeal(toAdd)) {
+        if (model.hasDish(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEAL);
         }
 
-        model.addMeal(toAdd);
+        model.addDish(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

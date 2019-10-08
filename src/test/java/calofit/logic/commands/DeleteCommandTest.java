@@ -5,9 +5,9 @@ import calofit.commons.core.index.Index;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.testutil.TypicalIndexes;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 
 import static calofit.logic.commands.CommandTestUtil.*;
@@ -20,24 +20,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalMeals.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Meal mealToDelete = model.getFilteredMealList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        Dish dishToDelete = model.getFilteredDishList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, mealToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, dishToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteMeal(mealToDelete);
+        expectedModel.deleteDish(dishToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMealList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDishList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
@@ -45,27 +45,27 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showMealAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
+        showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
 
-        Meal mealToDelete = model.getFilteredMealList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        Dish dishToDelete = model.getFilteredDishList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, mealToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS, dishToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteMeal(mealToDelete);
-        showNoMeal(expectedModel);
+        expectedModel.deleteDish(dishToDelete);
+        showNoDish(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showMealAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
+        showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
 
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_MEAL;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMealList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getDishList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -90,16 +90,16 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different meal -> returns false
+        // different dish -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoMeal(Model model) {
-        model.updateFilteredMealList(p -> false);
+    private void showNoDish(Model model) {
+        model.updateFilteredDishList(p -> false);
 
-        assertTrue(model.getFilteredMealList().isEmpty());
+        assertTrue(model.getFilteredDishList().isEmpty());
     }
 }

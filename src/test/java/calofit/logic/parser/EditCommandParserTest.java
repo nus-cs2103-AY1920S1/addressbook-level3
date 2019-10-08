@@ -2,7 +2,7 @@ package calofit.logic.parser;
 
 import calofit.logic.commands.CommandTestUtil;
 import calofit.logic.commands.EditCommand;
-import calofit.testutil.EditMealDescriptorBuilder;
+import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 import calofit.commons.core.index.Index;
@@ -52,7 +52,7 @@ public class EditCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Meal} being edited,
+        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Dish} being edited,
         // parsing it together with a valid tag results in error
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.TAG_DESC_FRIEND + CommandTestUtil.TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.TAG_DESC_FRIEND + TAG_EMPTY + CommandTestUtil.TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
@@ -66,7 +66,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + CommandTestUtil.TAG_DESC_HUSBAND
                 + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND;
 
-        EditCommand.EditMealDescriptor descriptor = new EditMealDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -78,13 +78,13 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = TypicalIndexes.INDEX_THIRD_MEAL;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
-        EditCommand.EditMealDescriptor descriptor = new EditMealDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY).build();
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + CommandTestUtil.TAG_DESC_FRIEND;
-        descriptor = new EditMealDescriptorBuilder().withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
+        descriptor = new EditDishDescriptorBuilder().withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -94,7 +94,7 @@ public class EditCommandParserTest {
         Index targetIndex = TypicalIndexes.INDEX_THIRD_MEAL;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditCommand.EditMealDescriptor descriptor = new EditMealDescriptorBuilder().withTags().build();
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);

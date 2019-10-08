@@ -5,7 +5,7 @@ import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.commons.util.CollectionUtil;
 import calofit.model.Model;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.model.meal.Name;
 import calofit.model.tag.Tag;
 
@@ -14,74 +14,74 @@ import java.util.*;
 import static java.util.Objects.requireNonNull;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
-import static calofit.model.Model.PREDICATE_SHOW_ALL_MEALS;
+import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 
 /**
- * Edits the details of an existing meal in the address book.
+ * Edits the details of an existing dish in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meal identified "
-            + "by the index number used in the displayed meal list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the dish identified "
+            + "by the index number used in the displayed dish list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_MEAL_SUCCESS = "Edited Meal: %1$s";
+    public static final String MESSAGE_EDIT_MEAL_SUCCESS = "Edited Dish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEAL = "This meal already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the address book.";
 
     private final Index index;
-    private final EditMealDescriptor editMealDescriptor;
+    private final EditDishDescriptor editDishDescriptor;
 
     /**
-     * @param index of the meal in the filtered meal list to edit
-     * @param editMealDescriptor details to edit the meal with
+     * @param index of the dish in the filtered dish list to edit
+     * @param editDishDescriptor details to edit the dish with
      */
-    public EditCommand(Index index, EditMealDescriptor editMealDescriptor) {
+    public EditCommand(Index index, EditDishDescriptor editDishDescriptor) {
         requireNonNull(index);
-        requireNonNull(editMealDescriptor);
+        requireNonNull(editDishDescriptor);
 
         this.index = index;
-        this.editMealDescriptor = new EditMealDescriptor(editMealDescriptor);
+        this.editDishDescriptor = new EditDishDescriptor(editDishDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Meal> lastShownList = model.getFilteredMealList();
+        List<Dish> lastShownList = model.getFilteredDishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
         }
 
-        Meal mealToEdit = lastShownList.get(index.getZeroBased());
-        Meal editedMeal = createEditedMeal(mealToEdit, editMealDescriptor);
+        Dish dishToEdit = lastShownList.get(index.getZeroBased());
+        Dish editedDish = createEditedDish(dishToEdit, editDishDescriptor);
 
-        if (!mealToEdit.isSameMeal(editedMeal) && model.hasMeal(editedMeal)) {
+        if (!dishToEdit.isSameDish(editedDish) && model.hasDish(editedDish)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEAL);
         }
 
-        model.setMeal(mealToEdit, editedMeal);
-        model.updateFilteredMealList(PREDICATE_SHOW_ALL_MEALS);
-        return new CommandResult(String.format(MESSAGE_EDIT_MEAL_SUCCESS, editedMeal));
+        model.setDish(dishToEdit, editedDish);
+        model.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        return new CommandResult(String.format(MESSAGE_EDIT_MEAL_SUCCESS, editedDish));
     }
 
     /**
-     * Creates and returns a {@code Meal} with the details of {@code mealToEdit}
-     * edited with {@code editMealDescriptor}.
+     * Creates and returns a {@code Dish} with the details of {@code dishToEdit}
+     * edited with {@code editDishDescriptor}.
      */
-    private static Meal createEditedMeal(Meal mealToEdit, EditMealDescriptor editMealDescriptor) {
-        assert mealToEdit != null;
+    private static Dish createEditedDish(Dish dishToEdit, EditDishDescriptor editDishDescriptor) {
+        assert dishToEdit != null;
 
-        Name updatedName = editMealDescriptor.getName().orElse(mealToEdit.getName());
-        Set<Tag> updatedTags = editMealDescriptor.getTags().orElse(mealToEdit.getTags());
+        Name updatedName = editDishDescriptor.getName().orElse(dishToEdit.getName());
+        Set<Tag> updatedTags = editDishDescriptor.getTags().orElse(dishToEdit.getTags());
 
-        return new Meal(updatedName, updatedTags);
+        return new Dish(updatedName, updatedTags);
     }
 
     @Override
@@ -99,24 +99,24 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editMealDescriptor.equals(e.editMealDescriptor);
+                && editDishDescriptor.equals(e.editDishDescriptor);
     }
 
     /**
-     * Stores the details to edit the meal with. Each non-empty field value will replace the
-     * corresponding field value of the meal.
+     * Stores the details to edit the dish with. Each non-empty field value will replace the
+     * corresponding field value of the dish.
      */
-    public static class EditMealDescriptor {
+    public static class EditDishDescriptor {
         private Name name;
         private Set<Tag> tags;
 
-        public EditMealDescriptor() {}
+        public EditDishDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditMealDescriptor(EditMealDescriptor toCopy) {
+        public EditDishDescriptor(EditDishDescriptor toCopy) {
             setName(toCopy.name);
             setTags(toCopy.tags);
         }
@@ -161,12 +161,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditMealDescriptor)) {
+            if (!(other instanceof EditDishDescriptor)) {
                 return false;
             }
 
             // state check
-            EditMealDescriptor e = (EditMealDescriptor) other;
+            EditDishDescriptor e = (EditDishDescriptor) other;
 
             return getName().equals(e.getName())
                     && getTags().equals(e.getTags());

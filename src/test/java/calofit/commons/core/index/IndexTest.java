@@ -37,22 +37,22 @@ public class IndexTest {
 
     @Test
     public void equals() {
-        final Index fifthMealIndex= Index.fromOneBased(5);
+        final Index fifthDishIndex= Index.fromOneBased(5);
 
         // same values -> returns true
-        assertTrue(fifthMealIndex.equals(Index.fromOneBased(5)));
-        assertTrue(fifthMealIndex.equals(Index.fromZeroBased(4)));
+        assertTrue(fifthDishIndex.equals(Index.fromOneBased(5)));
+        assertTrue(fifthDishIndex.equals(Index.fromZeroBased(4)));
 
         // same object -> returns true
-        assertTrue(fifthMealIndex.equals(fifthMealIndex));
+        assertTrue(fifthDishIndex.equals(fifthDishIndex));
 
         // null -> returns false
-        assertFalse(fifthMealIndex.equals(null));
+        assertFalse(fifthDishIndex.equals(null));
 
         // different types -> returns false
-        assertFalse(fifthMealIndex.equals(5.0f));
+        assertFalse(fifthDishIndex.equals(5.0f));
 
         // different index -> returns false
-        assertFalse(fifthMealIndex.equals(Index.fromOneBased(1)));
+        assertFalse(fifthDishIndex.equals(Index.fromOneBased(1)));
     }
 }

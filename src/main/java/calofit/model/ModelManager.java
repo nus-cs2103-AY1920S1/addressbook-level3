@@ -3,7 +3,7 @@ package calofit.model;
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Meal> filteredMeals;
+    private final FilteredList<Dish> filteredDishes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMeals = new FilteredList<>(this.addressBook.getMealList());
+        filteredDishes = new FilteredList<>(this.addressBook.getDishList());
     }
 
     public ModelManager() {
@@ -89,44 +89,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasMeal(Meal meal) {
-        requireNonNull(meal);
-        return addressBook.hasMeal(meal);
+    public boolean hasDish(Dish dish) {
+        requireNonNull(dish);
+        return addressBook.hasDish(dish);
     }
 
     @Override
-    public void deleteMeal(Meal target) {
-        addressBook.removeMeal(target);
+    public void deleteDish(Dish target) {
+        addressBook.removeDish(target);
     }
 
     @Override
-    public void addMeal(Meal meal) {
-        addressBook.addMeal(meal);
-        updateFilteredMealList(PREDICATE_SHOW_ALL_MEALS);
+    public void addDish(Dish dish) {
+        addressBook.addDish(dish);
+        updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
     }
 
     @Override
-    public void setMeal(Meal target, Meal editedMeal) {
-        CollectionUtil.requireAllNonNull(target, editedMeal);
+    public void setDish(Dish target, Dish editedDish) {
+        CollectionUtil.requireAllNonNull(target, editedDish);
 
-        addressBook.setMeal(target, editedMeal);
+        addressBook.setDish(target, editedDish);
     }
 
-    //=========== Filtered Meal List Accessors =============================================================
+    //=========== Filtered Dish List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Meal} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Dish} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Meal> getFilteredMealList() {
-        return filteredMeals;
+    public ObservableList<Dish> getFilteredDishList() {
+        return filteredDishes;
     }
 
     @Override
-    public void updateFilteredMealList(Predicate<Meal> predicate) {
+    public void updateFilteredDishList(Predicate<Dish> predicate) {
         requireNonNull(predicate);
-        filteredMeals.setPredicate(predicate);
+        filteredDishes.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredMeals.equals(other.filteredMeals);
+                && filteredDishes.equals(other.filteredDishes);
     }
 
 }

@@ -2,7 +2,7 @@ package calofit.logic.commands;
 
 import calofit.model.Model;
 
-import static calofit.model.Model.PREDICATE_SHOW_ALL_MEALS;
+import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -12,13 +12,13 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all meals";
+    public static final String MESSAGE_SUCCESS = "Listed all dishes";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredMealList(PREDICATE_SHOW_ALL_MEALS);
+        model.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

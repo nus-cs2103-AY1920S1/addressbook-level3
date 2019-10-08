@@ -1,6 +1,6 @@
 package calofit.model.util;
 
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.model.meal.Name;
 import calofit.model.AddressBook;
 import calofit.model.ReadOnlyAddressBook;
@@ -14,27 +14,27 @@ import java.util.stream.Collectors;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Meal[] getSampleMeals() {
-        return new Meal[] {
-            new Meal(new Name("Alex Yeoh"),
+    public static Dish[] getSampleDishes() {
+        return new Dish[] {
+            new Dish(new Name("Alex Yeoh"),
                 getTagSet("friends")),
-            new Meal(new Name("Bernice Yu"),
+            new Dish(new Name("Bernice Yu"),
                 getTagSet("colleagues", "friends")),
-            new Meal(new Name("Charlotte Oliveiro"),
+            new Dish(new Name("Charlotte Oliveiro"),
                 getTagSet("neighbours")),
-            new Meal(new Name("David Li"),
+            new Dish(new Name("David Li"),
                 getTagSet("family")),
-            new Meal(new Name("Irfan Ibrahim"),
+            new Dish(new Name("Irfan Ibrahim"),
                 getTagSet("classmates")),
-            new Meal(new Name("Roy Balakrishnan"),
+            new Dish(new Name("Roy Balakrishnan"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Meal sampleMeal : getSampleMeals()) {
-            sampleAb.addMeal(sampleMeal);
+        for (Dish sampleDish : getSampleDishes()) {
+            sampleAb.addDish(sampleDish);
         }
         return sampleAb;
     }

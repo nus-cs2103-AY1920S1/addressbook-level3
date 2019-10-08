@@ -2,7 +2,7 @@ package calofit.testutil;
 
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the meal in the {@code model}'s meal list.
+     * Returns the middle index of the dish in the {@code model}'s dish list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredMealList().size() / 2);
+        return Index.fromOneBased(model.getFilteredDishList().size() / 2);
     }
 
     /**
-     * Returns the last index of the meal in the {@code model}'s meal list.
+     * Returns the last index of the dish in the {@code model}'s dish list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredMealList().size());
+        return Index.fromOneBased(model.getFilteredDishList().size());
     }
 
     /**
-     * Returns the meal in the {@code model}'s meal list at {@code index}.
+     * Returns the dish in the {@code model}'s dish list at {@code index}.
      */
-    public static Meal getMeal(Model model, Index index) {
-        return model.getFilteredMealList().get(index.getZeroBased());
+    public static Dish getDish(Model model, Index index) {
+        return model.getFilteredDishList().get(index.getZeroBased());
     }
 }

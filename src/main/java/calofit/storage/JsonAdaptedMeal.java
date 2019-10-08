@@ -1,6 +1,6 @@
 package calofit.storage;
 
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import calofit.commons.exceptions.IllegalValueException;
@@ -14,20 +14,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Jackson-friendly version of {@link Meal}.
+ * Jackson-friendly version of {@link Dish}.
  */
-class JsonAdaptedMeal {
+class JsonAdaptedDish {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meal's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Dish's %s field is missing!";
 
     private final String name;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedMeal} with the given meal details.
+     * Constructs a {@code JsonAdaptedDish} with the given dish details.
      */
     @JsonCreator
-    public JsonAdaptedMeal(@JsonProperty("name") String name,
+    public JsonAdaptedDish(@JsonProperty("name") String name,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         if (tagged != null) {
@@ -36,9 +36,9 @@ class JsonAdaptedMeal {
     }
 
     /**
-     * Converts a given {@code Meal} into this class for Jackson use.
+     * Converts a given {@code Dish} into this class for Jackson use.
      */
-    public JsonAdaptedMeal(Meal source) {
+    public JsonAdaptedDish(Dish source) {
         name = source.getName().fullName;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -46,14 +46,14 @@ class JsonAdaptedMeal {
     }
 
     /**
-     * Converts this Jackson-friendly adapted meal object into the model's {@code Meal} object.
+     * Converts this Jackson-friendly adapted dish object into the model's {@code Dish} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted meal.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted dish.
      */
-    public Meal toModelType() throws IllegalValueException {
-        final List<Tag> mealTags = new ArrayList<>();
+    public Dish toModelType() throws IllegalValueException {
+        final List<Tag> dishTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            mealTags.add(tag.toModelType());
+            dishTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -64,8 +64,8 @@ class JsonAdaptedMeal {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(mealTags);
-        return new Meal(modelName, modelTags);
+        final Set<Tag> modelTags = new HashSet<>(dishTags);
+        return new Dish(modelName, modelTags);
     }
 
 }

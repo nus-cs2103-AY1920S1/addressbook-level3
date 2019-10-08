@@ -1,7 +1,7 @@
 package calofit.testutil;
 
 import calofit.model.AddressBook;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -21,10 +21,10 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds a new {@code Meal} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Dish} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withMeal(Meal meal) {
-        addressBook.addMeal(meal);
+    public AddressBookBuilder withDish(Dish dish) {
+        addressBook.addDish(dish);
         return this;
     }
 

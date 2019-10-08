@@ -4,7 +4,7 @@ import calofit.commons.exceptions.IllegalValueException;
 import calofit.commons.util.JsonUtil;
 import calofit.model.AddressBook;
 import calofit.testutil.Assert;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
@@ -15,24 +15,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JsonSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_MEALS_FILE = TEST_DATA_FOLDER.resolve("typicalMealsAddressBook.json");
-    private static final Path INVALID_MEAL_FILE = TEST_DATA_FOLDER.resolve("invalidMealAddressBook.json");
-    private static final Path DUPLICATE_MEAL_FILE = TEST_DATA_FOLDER.resolve("duplicateMealAddressBook.json");
+    private static final Path TYPICAL_DISHES_FILE = TEST_DATA_FOLDER.resolve("typicalDishesAddressBook.json");
+    private static final Path INVALID_MEAL_FILE = TEST_DATA_FOLDER.resolve("invalidDishAddressBook.json");
+    private static final Path DUPLICATE_MEAL_FILE = TEST_DATA_FOLDER.resolve("duplicateDishAddressBook.json");
 
     @Test
-    public void toModelType_typicalMealsFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_MEALS_FILE,
+    public void toModelType_typicalDishesFile_success() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_DISHES_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalMealsAddressBook = TypicalMeals.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalMealsAddressBook);
+        AddressBook typicalDishesAddressBook = TypicalDishes.getTypicalAddressBook();
+        assertEquals(addressBookFromFile, typicalDishesAddressBook);
     }
 
     @Test
-    public void toModelType_duplicateMeals_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateDishes_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MEAL_FILE,
                 JsonSerializableAddressBook.class).get();
-        Assert.assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_MEALS,
+        Assert.assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_DISHES,
                 dataFromFile::toModelType);
     }
 

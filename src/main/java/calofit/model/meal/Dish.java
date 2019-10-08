@@ -10,10 +10,10 @@ import java.util.Set;
 import static calofit.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Meal in the address book.
+ * Represents a Dish in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Meal {
+public class Dish {
 
     // Identity fields
     private final Name name;
@@ -23,7 +23,7 @@ public class Meal {
     /**
      * Every field must be present and not null.
      */
-    public Meal(Name name, Set<Tag> tags) {
+    public Dish(Name name, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
         this.tags.addAll(tags);
@@ -45,13 +45,13 @@ public class Meal {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameMeal(Meal otherMeal) {
-        if (otherMeal == this) {
+    public boolean isSameDish(Dish otherDish) {
+        if (otherDish == this) {
             return true;
         }
 
-        return otherMeal != null
-                && otherMeal.getName().equals(getName());
+        return otherDish != null
+                && otherDish.getName().equals(getName());
     }
 
     /**
@@ -64,13 +64,13 @@ public class Meal {
             return true;
         }
 
-        if (!(other instanceof Meal)) {
+        if (!(other instanceof Dish)) {
             return false;
         }
 
-        Meal otherMeal = (Meal) other;
-        return otherMeal.getName().equals(getName())
-                && otherMeal.getTags().equals(getTags());
+        Dish otherDish = (Dish) other;
+        return otherDish.getName().equals(getName())
+                && otherDish.getTags().equals(getTags());
     }
 
     @Override

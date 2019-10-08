@@ -5,7 +5,7 @@ import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.AddressBookParser;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
@@ -57,8 +57,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Meal> getFilteredMealList() {
-        return model.getFilteredMealList();
+    public ObservableList<Dish> getFilteredDishList() {
+        return model.getFilteredDishList();
     }
 
     @Override

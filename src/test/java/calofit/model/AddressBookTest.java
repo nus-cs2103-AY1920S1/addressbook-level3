@@ -1,10 +1,10 @@
 package calofit.model;
 
-import calofit.model.meal.Meal;
-import calofit.model.meal.exceptions.DuplicateMealException;
+import calofit.model.meal.Dish;
+import calofit.model.meal.exceptions.DuplicateDishException;
 import calofit.testutil.Assert;
-import calofit.testutil.MealBuilder;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.DishBuilder;
+import calofit.testutil.TypicalDishes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getMealList());
+        assertEquals(Collections.emptyList(), addressBook.getDishList());
     }
 
     @Test
@@ -33,64 +33,64 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = TypicalMeals.getTypicalAddressBook();
+        AddressBook newData = TypicalDishes.getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
 
     @Test
-    public void resetData_withDuplicateMeals_throwsDuplicateMealsException() {
-        // Two meals with the same identity fields
-        Meal editedAlice = new MealBuilder(TypicalMeals.ALICE).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateDishes_throwsDuplicateDishesException() {
+        // Two dishes with the same identity fields
+        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Meal> newMeals = Arrays.asList(TypicalMeals.ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newMeals);
+        List<Dish> newDishes = Arrays.asList(TypicalDishes.ALICE, editedAlice);
+        AddressBookStub newData = new AddressBookStub(newDishes);
 
-        Assert.assertThrows(DuplicateMealException.class, () -> addressBook.resetData(newData));
+        Assert.assertThrows(DuplicateDishException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
-    public void hasMeal_nullMeal_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> addressBook.hasMeal(null));
+    public void hasDish_nullDish_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> addressBook.hasDish(null));
     }
 
     @Test
-    public void hasMeal_mealNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasMeal(TypicalMeals.ALICE));
+    public void hasDish_dishNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasDish(TypicalDishes.ALICE));
     }
 
     @Test
-    public void hasMeal_mealInAddressBook_returnsTrue() {
-        addressBook.addMeal(TypicalMeals.ALICE);
-        assertTrue(addressBook.hasMeal(TypicalMeals.ALICE));
+    public void hasDish_dishInAddressBook_returnsTrue() {
+        addressBook.addDish(TypicalDishes.ALICE);
+        assertTrue(addressBook.hasDish(TypicalDishes.ALICE));
     }
 
     @Test
-    public void hasMeal_mealWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addMeal(TypicalMeals.ALICE);
-        Meal editedAlice = new MealBuilder(TypicalMeals.ALICE).withTags(VALID_TAG_HUSBAND)
+    public void hasDish_dishWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addDish(TypicalDishes.ALICE);
+        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasMeal(editedAlice));
+        assertTrue(addressBook.hasDish(editedAlice));
     }
 
     @Test
-    public void getMealList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> addressBook.getMealList().remove(0));
+    public void getDishList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> addressBook.getDishList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose meals list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose dishes list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Meal> meals = FXCollections.observableArrayList();
+        private final ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Meal> meals) {
-            this.meals.setAll(meals);
+        AddressBookStub(Collection<Dish> dishes) {
+            this.dishes.setAll(dishes);
         }
 
         @Override
-        public ObservableList<Meal> getMealList() {
-            return meals;
+        public ObservableList<Dish> getDishList() {
+            return dishes;
         }
     }
 

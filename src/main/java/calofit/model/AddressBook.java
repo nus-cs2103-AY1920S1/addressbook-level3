@@ -1,7 +1,7 @@
 package calofit.model;
 
-import calofit.model.meal.Meal;
-import calofit.model.meal.UniqueMealList;
+import calofit.model.meal.Dish;
+import calofit.model.meal.UniqueDishList;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueMealList meals;
+    private final UniqueDishList dishes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        meals = new UniqueMealList();
+        dishes = new UniqueDishList();
     }
 
     public AddressBook() {}
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the meal list with {@code meals}.
-     * {@code meals} must not contain duplicate meals.
+     * Replaces the contents of the dish list with {@code dishes}.
+     * {@code dishes} must not contain duplicate dishes.
      */
-    public void setMeals(List<Meal> meals) {
-        this.meals.setMeals(meals);
+    public void setDishes(List<Dish> dishes) {
+        this.dishes.setDishes(dishes);
     }
 
     /**
@@ -53,68 +53,68 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setMeals(newData.getMealList());
+        setDishes(newData.getDishList());
     }
 
-    //// meal-level operations
+    //// dish-level operations
 
     /**
-     * Returns true if a meal with the same identity as {@code meal} exists in the address book.
+     * Returns true if a dish with the same identity as {@code dish} exists in the address book.
      */
-    public boolean hasMeal(Meal meal) {
-        requireNonNull(meal);
-        return meals.contains(meal);
+    public boolean hasDish(Dish dish) {
+        requireNonNull(dish);
+        return dishes.contains(dish);
     }
 
     /**
-     * Adds a meal to the address book.
-     * The meal must not already exist in the address book.
+     * Adds a dish to the address book.
+     * The dish must not already exist in the address book.
      */
-    public void addMeal(Meal p) {
-        meals.add(p);
+    public void addDish(Dish p) {
+        dishes.add(p);
     }
 
     /**
-     * Replaces the given meal {@code target} in the list with {@code editedMeal}.
+     * Replaces the given dish {@code target} in the list with {@code editedDish}.
      * {@code target} must exist in the address book.
-     * The meal identity of {@code editedMeal} must not be the same as another existing meal in the address book.
+     * The dish identity of {@code editedDish} must not be the same as another existing dish in the address book.
      */
-    public void setMeal(Meal target, Meal editedMeal) {
-        requireNonNull(editedMeal);
+    public void setDish(Dish target, Dish editedDish) {
+        requireNonNull(editedDish);
 
-        meals.setMeal(target, editedMeal);
+        dishes.setDish(target, editedDish);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeMeal(Meal key) {
-        meals.remove(key);
+    public void removeDish(Dish key) {
+        dishes.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return meals.asUnmodifiableObservableList().size() + " meals";
+        return dishes.asUnmodifiableObservableList().size() + " dishes";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Meal> getMealList() {
-        return meals.asUnmodifiableObservableList();
+    public ObservableList<Dish> getDishList() {
+        return dishes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && meals.equals(((AddressBook) other).meals));
+                && dishes.equals(((AddressBook) other).dishes));
     }
 
     @Override
     public int hashCode() {
-        return meals.hashCode();
+        return dishes.hashCode();
     }
 }

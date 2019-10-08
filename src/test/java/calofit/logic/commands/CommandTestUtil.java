@@ -5,10 +5,10 @@ import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.CliSyntax;
 import calofit.model.AddressBook;
 import calofit.model.Model;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.model.meal.NameContainsKeywordsPredicate;
 import calofit.testutil.Assert;
-import calofit.testutil.EditMealDescriptorBuilder;
+import calofit.testutil.EditDishDescriptorBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,13 +38,13 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMealDescriptor DESC_AMY;
-    public static final EditCommand.EditMealDescriptor DESC_BOB;
+    public static final EditCommand.EditDishDescriptor DESC_AMY;
+    public static final EditCommand.EditDishDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditMealDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditDishDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditMealDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditDishDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
@@ -78,30 +78,30 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered meal list and selected meal in {@code actualModel} remain unchanged
+     * - the address book, filtered dish list and selected dish in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Meal> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMealList());
+        List<Dish> expectedFilteredList = new ArrayList<>(actualModel.getFilteredDishList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredMealList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredDishList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the meal at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the dish at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showMealAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredMealList().size());
+    public static void showDishAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDishList().size());
 
-        Meal meal = model.getFilteredMealList().get(targetIndex.getZeroBased());
-        final String[] splitName = meal.getName().fullName.split("\\s+");
-        model.updateFilteredMealList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Dish dish = model.getFilteredDishList().get(targetIndex.getZeroBased());
+        final String[] splitName = dish.getName().fullName.split("\\s+");
+        model.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredMealList().size());
+        assertEquals(1, model.getFilteredDishList().size());
     }
 
 }

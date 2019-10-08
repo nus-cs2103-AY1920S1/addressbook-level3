@@ -1,7 +1,7 @@
 package calofit.model;
 
 import calofit.commons.core.GuiSettings;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import javafx.collections.ObservableList;
 
 import java.nio.file.Path;
@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Meal> PREDICATE_SHOW_ALL_MEALS = unused -> true;
+    Predicate<Dish> PREDICATE_SHOW_ALL_DISHES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,35 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a meal with the same identity as {@code meal} exists in the address book.
+     * Returns true if a dish with the same identity as {@code dish} exists in the address book.
      */
-    boolean hasMeal(Meal meal);
+    boolean hasDish(Dish dish);
 
     /**
-     * Deletes the given meal.
-     * The meal must exist in the address book.
+     * Deletes the given dish.
+     * The dish must exist in the address book.
      */
-    void deleteMeal(Meal target);
+    void deleteDish(Dish target);
 
     /**
-     * Adds the given meal.
-     * {@code meal} must not already exist in the address book.
+     * Adds the given dish.
+     * {@code dish} must not already exist in the address book.
      */
-    void addMeal(Meal meal);
+    void addDish(Dish dish);
 
     /**
-     * Replaces the given meal {@code target} with {@code editedMeal}.
+     * Replaces the given dish {@code target} with {@code editedDish}.
      * {@code target} must exist in the address book.
-     * The meal identity of {@code editedMeal} must not be the same as another existing meal in the address book.
+     * The dish identity of {@code editedDish} must not be the same as another existing dish in the address book.
      */
-    void setMeal(Meal target, Meal editedMeal);
+    void setDish(Dish target, Dish editedDish);
 
-    /** Returns an unmodifiable view of the filtered meal list */
-    ObservableList<Meal> getFilteredMealList();
+    /** Returns an unmodifiable view of the filtered dish list */
+    ObservableList<Dish> getFilteredDishList();
 
     /**
-     * Updates the filter of the filtered meal list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered dish list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredMealList(Predicate<Meal> predicate);
+    void updateFilteredDishList(Predicate<Dish> predicate);
 }

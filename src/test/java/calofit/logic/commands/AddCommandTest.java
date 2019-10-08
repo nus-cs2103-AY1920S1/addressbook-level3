@@ -6,9 +6,9 @@ import calofit.model.AddressBook;
 import calofit.model.Model;
 import calofit.model.ReadOnlyAddressBook;
 import calofit.model.ReadOnlyUserPrefs;
-import calofit.model.meal.Meal;
+import calofit.model.meal.Dish;
 import calofit.testutil.Assert;
-import calofit.testutil.MealBuilder;
+import calofit.testutil.DishBuilder;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
@@ -23,34 +23,34 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullMeal_throwsNullPointerException() {
+    public void constructor_nullDish_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_mealAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingMealAdded modelStub = new ModelStubAcceptingMealAdded();
-        Meal validMeal = new MealBuilder().build();
+    public void execute_dishAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingDishAdded modelStub = new ModelStubAcceptingDishAdded();
+        Dish validDish = new DishBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validMeal).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validDish).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validMeal), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validMeal), modelStub.mealsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDish), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validDish), modelStub.dishesAdded);
     }
 
     @Test
-    public void execute_duplicateMeal_throwsCommandException() {
-        Meal validMeal = new MealBuilder().build();
-        AddCommand addCommand = new AddCommand(validMeal);
-        ModelStub modelStub = new ModelStubWithMeal(validMeal);
+    public void execute_duplicateDish_throwsCommandException() {
+        Dish validDish = new DishBuilder().build();
+        AddCommand addCommand = new AddCommand(validDish);
+        ModelStub modelStub = new ModelStubWithDish(validDish);
 
         Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Meal alice = new MealBuilder().withName("Alice").build();
-        Meal bob = new MealBuilder().withName("Bob").build();
+        Dish alice = new DishBuilder().withName("Alice").build();
+        Dish bob = new DishBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -67,7 +67,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different meal -> returns false
+        // different dish -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -106,7 +106,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addMeal(Meal meal) {
+        public void addDish(Dish dish) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -121,65 +121,65 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasMeal(Meal meal) {
+        public boolean hasDish(Dish dish) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteMeal(Meal target) {
+        public void deleteDish(Dish target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setMeal(Meal target, Meal editedMeal) {
+        public void setDish(Dish target, Dish editedDish) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Meal> getFilteredMealList() {
+        public ObservableList<Dish> getFilteredDishList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredMealList(Predicate<Meal> predicate) {
+        public void updateFilteredDishList(Predicate<Dish> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single meal.
+     * A Model stub that contains a single dish.
      */
-    private class ModelStubWithMeal extends ModelStub {
-        private final Meal meal;
+    private class ModelStubWithDish extends ModelStub {
+        private final Dish dish;
 
-        ModelStubWithMeal(Meal meal) {
-            requireNonNull(meal);
-            this.meal = meal;
+        ModelStubWithDish(Dish dish) {
+            requireNonNull(dish);
+            this.dish = dish;
         }
 
         @Override
-        public boolean hasMeal(Meal meal) {
-            requireNonNull(meal);
-            return this.meal.isSameMeal(meal);
+        public boolean hasDish(Dish dish) {
+            requireNonNull(dish);
+            return this.dish.isSameDish(dish);
         }
     }
 
     /**
-     * A Model stub that always accept the meal being added.
+     * A Model stub that always accept the dish being added.
      */
-    private class ModelStubAcceptingMealAdded extends ModelStub {
-        final ArrayList<Meal> mealsAdded = new ArrayList<>();
+    private class ModelStubAcceptingDishAdded extends ModelStub {
+        final ArrayList<Dish> dishesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasMeal(Meal meal) {
-            requireNonNull(meal);
-            return mealsAdded.stream().anyMatch(meal::isSameMeal);
+        public boolean hasDish(Dish dish) {
+            requireNonNull(dish);
+            return dishesAdded.stream().anyMatch(dish::isSameDish);
         }
 
         @Override
-        public void addMeal(Meal meal) {
-            requireNonNull(meal);
-            mealsAdded.add(meal);
+        public void addDish(Dish dish) {
+            requireNonNull(dish);
+            dishesAdded.add(dish);
         }
 
         @Override

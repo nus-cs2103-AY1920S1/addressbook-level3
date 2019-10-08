@@ -4,7 +4,7 @@ import calofit.commons.core.GuiSettings;
 import calofit.model.AddressBook;
 import calofit.model.ReadOnlyAddressBook;
 import calofit.model.UserPrefs;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -53,7 +53,7 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = TypicalMeals.getTypicalAddressBook();
+        AddressBook original = TypicalDishes.getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));

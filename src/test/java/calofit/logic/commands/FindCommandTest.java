@@ -4,13 +4,13 @@ import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
 import calofit.model.meal.NameContainsKeywordsPredicate;
-import calofit.testutil.TypicalMeals;
+import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static calofit.commons.core.Messages.MESSAGE_MEALS_LISTED_OVERVIEW;
+import static calofit.commons.core.Messages.MESSAGE_DISHES_LISTED_OVERVIEW;
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalMeals.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalMeals.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalDishes.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -44,28 +44,28 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different meal -> returns false
+        // different dish -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noMealFound() {
-        String expectedMessage = String.format(MESSAGE_MEALS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noDishFound() {
+        String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMealList(predicate);
+        expectedModel.updateFilteredDishList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredMealList());
+        assertEquals(Collections.emptyList(), model.getFilteredDishList());
     }
 
     @Test
-    public void execute_multipleKeywords_multipleMealsFound() {
-        String expectedMessage = String.format(MESSAGE_MEALS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_multipleDishesFound() {
+        String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMealList(predicate);
+        expectedModel.updateFilteredDishList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalMeals.CARL, TypicalMeals.ELLE, TypicalMeals.FIONA), model.getFilteredMealList());
+        assertEquals(Arrays.asList(TypicalDishes.CARL, TypicalDishes.ELLE, TypicalDishes.FIONA), model.getFilteredDishList());
     }
 
     /**
