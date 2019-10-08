@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team UnrealUnity`  	Since: `Sept 2019`  	Licence: `MIT`
 
 == Setting up
 
@@ -301,7 +301,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |view the full profile of a patient by searching for his/her name |see all details regarding a patient easily
+
+|`* * *` |user |record down details of each <<visitation,visitation>> |keep track of the patients situation
+
+|`* * *` |user |have daily reminders of important deadlines |keep track of appointments and visitations easily
+
+|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+
+|`* * *` |user |have <<user-defined-macros,user-defined macros>> |streamline my diagnosis documentation
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -341,6 +349,212 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: View patient profile
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to view patient profile by name/index
+4.  AddressBook shows patient profile
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3. The given name/index is invalid.
++
+[none]
+** 3a. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 4. The profile is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Record visitation details
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to add new visitation record for a specific patient in the list
+4.  AddressBook adds new visitation record for chosen patient
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit visitation record
+
+*MSS*
+
+1.  User requests to edit visitation record for specific patient on specific date
+2.  AddressBook shows pop-up form for user to edit visitation record
+3.  User saves edit
+4.  AddressBook saves edit
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The record does not exist.
++
+[none]
+** 1a1. AddressBook shows an error message.
+
+Use case resumes at step 1.
+
+* 1b. There are multiple records with the same name and date
++
+[none]
+** 1b1. AddressBook shows list of records and prompts user to re-enter last command with index of record to edit.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete visitation record
+
+*MSS*
+
+1.  User requests to delete visitation record for specific patient on specific date
+2.  AddressBook deletes visitation record
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The record does not exist.
++
+[none]
+** 1a1. AddressBook shows an error message.
+
+Use case resumes at step 1.
+
+* 1b. There are multiple records with the same name and date
++
+[none]
+** 1b1. AddressBook shows list of records and prompts user to re-enter last command with index of record to delete.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Save user-defined macros
+
+*MSS*
+
+1.  User requests to save user-defined macros
+2.  AddressBook saves user-defined macros
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The content of the macro is empty.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The shortcut of the macro is illegal.
++
+[none]
+** 1b1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Invoke user-defined macros
+
+*MSS*
+
+1.  User requests to invoke user-defined macros
+2.  AddressBook outputs user-defined data
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The command is not defined.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: View reminders
+
+*MSS*
+
+1.  User starts up AddressBook
+2.  Reminders are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No reminders are set to show
++
+[none]
+** 2a. AddressBook shows no reminder message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View follow-up reminders
+
+*MSS*
+
+1.  User starts up AddressBook
+2.  Follow-up reminders for the day are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No reminders are scheduled for the day
++
+[none]
+** 2a. AddressBook shows no reminder message.
++
+Use case ends.
+
 _{More to be added}_
 
 [appendix]
@@ -360,6 +574,12 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[user-defined-macros]] User-defined macros::
+User-defined shortcuts for large chunks of commonly used text for diagnosis
+
+[[visitation]] Visitation::
+A housecall or appointment with the patient
 
 [appendix]
 == Product Survey
