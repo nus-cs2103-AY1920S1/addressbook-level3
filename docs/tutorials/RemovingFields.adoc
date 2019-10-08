@@ -14,9 +14,9 @@ Perfection is achieved, not when there is nothing more to add, but when there is
 
 == Introduction
 When working on Address Book, you will most likely find that some features and fields that are no longer necessary.
-In scenarios like this, you can consider refactoring the existing `Person` model to suit your use case.
+In scenarios like this, you can consider refactoring the existing `Student` model to suit your use case.
 
-In this tutorial, we'll do exactly just that and remove the `address` field from `Person`.
+In this tutorial, we'll do exactly just that and remove the `address` field from `Student`.
 
 == Safely deleting `Address`
 
@@ -24,7 +24,7 @@ Fortunately, the IntelliJ IDEA provides a robust refactoring tool that can ident
 Let's try to use it as much as we can.
 
 === Assisted refactoring
-The `address` field in `Person` is actually an instance of the `seedu.address.model.person.Address` class.
+The `address` field in `Student` is actually an instance of the `seedu.address.model.person.Address` class.
 Since removing the `Address` class will break the application, we start by identifying ``Address``'s usages.
 This allows us to see code that depends on `Address` to function properly and edit them on a case-by-case basis.
 Right-click the `Address` class and select `Refactor` > `Safe Delete` through the menu.
@@ -52,7 +52,7 @@ Let's try removing references to `Address` in `EditPersonDescriptor`.
 +
 TIP: Removing usages may result in errors.
 Exercise discretion and fix them.
-For example, removing the `address` field from the `Person` class will require you to modify its constructor.
+For example, removing the `address` field from the `Student` class will require you to modify its constructor.
 
 . Repeat the steps for the remaining usages of `Address`
 
@@ -107,7 +107,7 @@ While keeping the `address` field in the json files does not cause the tests to 
 ```
 {
   "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "name": "Student with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
     "address": "4th street"

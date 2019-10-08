@@ -10,12 +10,12 @@ UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniquePersonList o-right-> Student
 
-Person o-up-> "*" Tag
+Student o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Student *--> Name
+Student *--> Phone
+Student *--> Email
+Student *--> Address
 @enduml
