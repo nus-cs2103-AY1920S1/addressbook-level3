@@ -96,12 +96,14 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
 
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().build();
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
+                .withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    // TODO add tests for member and progress
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
@@ -122,10 +124,11 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY
-                + TAG_DESC_FRIEND + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND;
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND
+                + NAME_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -135,7 +138,7 @@ public class EditCommandParserTest {
 
     // TODO redo this test
     // previously ignored as @ambhinav realised that the only other value left is email
-    // which is soon to be removed when  @ambhinav morphs
+    // which is soon to be removed when  task is morphed
 //    @Test
 //    public void parse_invalidValueFollowedByValidValue_success() {
 //        // no other valid values specified

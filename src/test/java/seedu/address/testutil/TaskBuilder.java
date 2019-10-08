@@ -13,7 +13,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TaskBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Sample Task Name";
 
     private Name name;
     private Set<Tag> tags;
