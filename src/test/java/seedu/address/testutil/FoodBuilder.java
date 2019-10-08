@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
@@ -18,16 +19,19 @@ public class FoodBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PRICE = "85355255";
     public static final String DEFAULT_DESCRIPTION = "Test Description.";
+    public static final String DEFAULT_CATEGORY = "Test Category";
 
     private Name name;
     private Price price;
     private Description description;
+    private Category category;
     private Set<Tag> tags;
 
     public FoodBuilder() {
         name = new Name(DEFAULT_NAME);
         price = new Price(DEFAULT_PRICE);
         description = new Description(DEFAULT_DESCRIPTION);
+        category = new Category(DEFAULT_CATEGORY);
         tags = new HashSet<>();
     }
 
@@ -38,6 +42,7 @@ public class FoodBuilder {
         name = foodToCopy.getName();
         price = foodToCopy.getPrice();
         description = foodToCopy.getDescription();
+        category = foodToCopy.getCategory();
         tags = new HashSet<>(foodToCopy.getTags());
     }
 
@@ -73,8 +78,16 @@ public class FoodBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Category} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withCategory(String category) {
+        this.category = new Category(category);
+        return this;
+    }
+
     public Food build() {
-        return new Food(name, price, description, tags);
+        return new Food(name, price, description, category, tags);
     }
 
 }

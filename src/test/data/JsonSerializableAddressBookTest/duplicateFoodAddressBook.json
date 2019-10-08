@@ -3,10 +3,13 @@
     "name": "Alice Pauline",
     "price": "94351253",
     "description": "alice@example.com",
+    "category": "OOPSduke",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "price": "94351253",
-    "description": "pauline@example.com"
+    "description": "alice@example.com",
+    "category": "OOPSduke",
+    "tagged": [ "friends" ]
   } ]
 }

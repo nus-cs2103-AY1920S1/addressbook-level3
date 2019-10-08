@@ -18,6 +18,7 @@ Class ReadOnlyUserPrefs
 Package Food {
 Class Food
 Class Description
+Class Category
 Class Name
 Class Price
 Class UniqueFoodList
@@ -44,11 +45,12 @@ UniqueFoodList o--> "*" Food
 Food *--> Name
 Food *--> Price
 Food *--> Description
+Food *--> Category
 Food *--> "*" Tag
 
 Name -[hidden]right-> Price
-Price -[hidden]right-> Address
-Address -[hidden]right-> Description
+Price -[hidden]right-> Description
+Description -[hidden]right-> Category
 
 ModelManager -->"1" Food : filtered list
 @enduml

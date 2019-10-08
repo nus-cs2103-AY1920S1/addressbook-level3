@@ -2,6 +2,7 @@
   "foods": [ {
     "name": "Hans Muster",
     "price": "9482424",
-    "description": "   "
+    "description": "   ",
+    "category": "canwedobetter"
   } ]
 }

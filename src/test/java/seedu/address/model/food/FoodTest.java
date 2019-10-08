@@ -39,17 +39,17 @@ public class FoodTest {
         editedAlice = new FoodBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameFood(editedAlice));
 
-        // same name, same price, different attributes -> returns true
+        // same name, same price, different description -> returns false
         editedAlice = new FoodBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFood(editedAlice));
+                .build();
+        assertFalse(ALICE.isSameFood(editedAlice));
 
-        // same name, same description, different attributes -> returns true
+        // same name, same description, different price -> returns false
         editedAlice = new FoodBuilder(ALICE).withPrice(VALID_PRICE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFood(editedAlice));
+                .build();
+        assertFalse(ALICE.isSameFood(editedAlice));
 
-        // same name, same price, same description, different attributes -> returns true
+        // same name, same price, same description, different tags -> returns true
         editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameFood(editedAlice));
     }
