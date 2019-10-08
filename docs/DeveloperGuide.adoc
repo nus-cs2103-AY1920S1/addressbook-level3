@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Typee - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::Typee_highlevel_architecture_diagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -412,7 +412,14 @@ Use case resumes at step 2.
 
 //
 [discrete]
-=== Use case: (UC07) Load and save data
+=== Use case: (UC07) Save updated Appointment data
+*MSS*
+
+1. User make changes in the appointment list, or a specific appointment via CRUD.
+2. System saves the updated data
+3. System displays the updated appointment data
++
+Use case ends
 
 //updated by Ko Gi Hun 7/10/19
 [discrete]
