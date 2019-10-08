@@ -52,7 +52,6 @@ public class LogicManager implements Logic {
         */
         Command command = addressBookParser.parseCommand(commandText);
 
-<<<<<<< HEAD
         /*
         Step 11.
         Extends to Step 13 in Command.java
@@ -60,7 +59,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         commandResult = command.execute(model);
-=======
         if (command instanceof GameCommand) {
             //Game logic
             commandResult = new GameLogic(model, (GameCommand) command).process();
@@ -68,7 +66,6 @@ public class LogicManager implements Logic {
             //Non-game Logic
             commandResult = command.execute(model);
         }
->>>>>>> e91fbbf... Implemented a skeletal Game logic and Model
 
         /*
         Step 12.

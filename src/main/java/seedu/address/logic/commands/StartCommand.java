@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
 Step 14.
 
@@ -7,7 +6,6 @@ It has to override execute() from command interface.
 Interacts with Game interface.
 Extends to Step 15 in Game.java
  */
-=======
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -44,4 +42,3 @@ public class StartCommand extends GameCommand {
                 , true);
     }
 }
->>>>>>> e91fbbf... Implemented a skeletal Game logic and Model
