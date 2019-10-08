@@ -80,7 +80,7 @@ class JsonAdaptedModule {
      * only creates an incomplete {@code Module} object, which will only be further furnished when its
      * study plan is active.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted semester.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
     public Module toModelType() throws IllegalValueException {
         List<Tag> tags = new ArrayList<>();
