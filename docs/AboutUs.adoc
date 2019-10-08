@@ -38,8 +38,8 @@ Responsibilities: Testing + In charge of `UI`
 '''
 
 === Cheryl Ng
-image::Yoshi275.png[width="300", align="left"]
-{empty}[http://github.com/Yoshi275[github]] [<<Cheryl#, portfolio>>]
+image::yoshi275.png[width="300", align="left"]
+{empty}[http://github.com/yoshi275[github]] [<<Cheryl#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration + In charge of `Incident` Model
