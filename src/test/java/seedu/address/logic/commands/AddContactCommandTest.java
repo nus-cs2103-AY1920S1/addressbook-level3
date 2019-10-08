@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -23,9 +25,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 import seedu.address.model.person.Person;
-
-import javafx.collections.ObservableList;
-
 import seedu.address.testutil.PersonBuilder;
 
 public class AddContactCommandTest {
