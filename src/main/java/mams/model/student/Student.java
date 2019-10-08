@@ -67,7 +67,6 @@ public class Student {
         if (otherStudent == this) {
             return true;
         }
-
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
                 && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()));
