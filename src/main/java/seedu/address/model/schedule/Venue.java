@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Schedule's venue in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
  */
-public class Venue {
+public class Venue implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS = "Venue can take any string, and it should not be blank";
 
@@ -43,6 +43,11 @@ public class Venue {
         return other == this // short circuit if same object
                 || (other instanceof Venue // instanceof handles nulls
                 && venue.equals(((Venue) other).venue)); // state check
+    }
+
+    @Override
+    protected Object clone() {
+        return new Venue(new String(venue));
     }
 
     @Override

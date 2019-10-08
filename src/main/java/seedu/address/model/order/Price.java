@@ -3,18 +3,16 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-
-
 /**
  * Represents a Phone's selling price in an Order in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
-public class Price {
+public class Price implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Prices must be non-negative, start with \'$\' and have at most 2 decimals.";
+            "Costs must start with $, have at most 2 decimals and be non-negative.";
+
+    public static final String VALIDATION_REGEX = "\\$\\d+(\\.\\d{1,2})?";
 
     public final String value;
 
@@ -32,13 +30,8 @@ public class Price {
     /**
      * Returns true if a given string is a valid price.
      */
-    public static boolean isValidPrice(String price) {
-        try {
-            Number number = NumberFormat.getCurrencyInstance().parse(price);
-            return number != null;
-        } catch (ParseException e) {
-            return false;
-        }
+    public static boolean isValidPrice(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -51,6 +44,11 @@ public class Price {
         return other == this // short circuit if same object
                 || (other instanceof Price // instanceof handles nulls
                 && value.equals(((Price) other).value)); // state check
+    }
+
+    @Override
+    protected Object clone() {
+        return new Price(new String(value));
     }
 
     @Override
