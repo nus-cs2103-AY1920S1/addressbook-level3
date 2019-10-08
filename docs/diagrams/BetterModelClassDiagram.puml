@@ -16,5 +16,5 @@ Food o-up-> "*" Tag
 
 Food *--> Name
 Food *--> Price
-Food *--> Email
+Food *--> Description
 @enduml

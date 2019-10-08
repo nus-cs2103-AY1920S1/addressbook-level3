@@ -2,11 +2,11 @@
   "foods": [ {
     "name": "Alice Pauline",
     "price": "94351253",
-    "email": "alice@example.com",
+    "description": "alice@example.com",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "price": "94351253",
-    "email": "pauline@example.com"
+    "description": "pauline@example.com"
   } ]
 }

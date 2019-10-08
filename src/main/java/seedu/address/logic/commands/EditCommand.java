@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,7 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.Email;
+import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.Price;
@@ -37,11 +37,11 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_DESCRIPTION + "description";
 
     public static final String MESSAGE_EDIT_FOOD_SUCCESS = "Edited Food: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -92,10 +92,10 @@ public class EditCommand extends Command {
 
         Name updatedName = editFoodDescriptor.getName().orElse(foodToEdit.getName());
         Price updatedPrice = editFoodDescriptor.getPrice().orElse(foodToEdit.getPrice());
-        Email updatedEmail = editFoodDescriptor.getEmail().orElse(foodToEdit.getEmail());
+        Description updatedDescription = editFoodDescriptor.getDescription().orElse(foodToEdit.getDescription());
         Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
 
-        return new Food(updatedName, updatedPrice, updatedEmail, updatedTags);
+        return new Food(updatedName, updatedPrice, updatedDescription, updatedTags);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class EditCommand extends Command {
     public static class EditFoodDescriptor {
         private Name name;
         private Price price;
-        private Email email;
+        private Description description;
         private Set<Tag> tags;
 
         public EditFoodDescriptor() {}
@@ -135,7 +135,7 @@ public class EditCommand extends Command {
         public EditFoodDescriptor(EditFoodDescriptor toCopy) {
             setName(toCopy.name);
             setPrice(toCopy.price);
-            setEmail(toCopy.email);
+            setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
 
@@ -143,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, price, email, tags);
+            return CollectionUtil.isAnyNonNull(name, price, description, tags);
         }
 
         public void setName(Name name) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(price);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /**
@@ -204,7 +204,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPrice().equals(e.getPrice())
-                    && getEmail().equals(e.getEmail())
+                    && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

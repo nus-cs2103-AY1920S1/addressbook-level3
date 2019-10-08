@@ -2,10 +2,10 @@
   "foods": [ {
     "name": "Valid food",
     "price": "9482424",
-    "email": "hans@example.com"
+    "description": "hans@example.com"
   }, {
     "name": "food With Invalid Price Field",
     "price": "948asdf2424",
-    "email": "hans@example.com"
+    "description": "hans@example.com"
   } ]
 }
