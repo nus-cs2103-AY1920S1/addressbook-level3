@@ -2,8 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -88,5 +95,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static LocalDate parseDate(String input) throws ParseException {
+        try {
+            int currentYear = LocalDate.now().getYear();
+            DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder()
+                    .appendPattern("MM-d")
+                    .parseDefaulting(ChronoField.YEAR, currentYear)
+                    .toFormatter(Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(input, inputFormatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Input date is not in MM-d format :-(");
+        }
+    }
+
+    public static Period parsePeriod(String input) throws ParseException {
+        switch (input) {
+        case "week":
+            return Period.ofWeeks(1);
+        case "month":
+            return Period.ofMonths(1);
+        case "year":
+            return Period.ofYears(1);
+        default:
+            throw new ParseException("Input period is not week/month/year");
+        }
     }
 }
