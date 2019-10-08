@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.model.Model;
+import seedu.address.model.category.Category;
+import seedu.address.model.util.FilePath;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
 
 /**
  * Finds and lists all persons in address book whose question contains any of the argument keywords.
@@ -24,12 +26,12 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105"
             + PREFIX_FILE_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    private final String categoryString;
-    private final String filePathString;
+    private final Category category;
+    private final FilePath filePath;
 
-    public ExportCommand(String categoryString, String filePathString) {
-        this.categoryString = categoryString;
-        this.filePathString = filePathString;
+    public ExportCommand(Category category, FilePath filePath) {
+        this.category = category;
+        this.filePath = filePath;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ExportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExportCommand // instanceof handles nulls
-                && categoryString.equals(((ExportCommand) other).categoryString)
-                && filePathString.equals(((ExportCommand) other).filePathString)); // state check
+                && category.equals(((ExportCommand) other).category)
+                && filePath.equals(((ExportCommand) other).filePath)); // state check
     }
 }
