@@ -36,13 +36,13 @@ public class FindCommand extends Command {
             if (flag.equals("b")) {
                 model.updateFilteredBodyList(predicate);
                 return new CommandResult(
-                        String.format(Messages.MESSAGE_BODIES_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
+                        String.format(Messages.MESSAGE_BODIES_LISTED_OVERVIEW, model.getFilteredBodyList().size()));
             } else if (flag.equals("w")) {
                 model.updateFilteredWorkerList(predicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
             } else {
-                throw new CommandException("Please flag the command with '-b' or '-w'");
+                throw new CommandException("Please flag the command with '-b' or '-w' to indicate bodies or workers");
             }
         } catch (CommandException e) {
             return new CommandResult(e.getMessage());

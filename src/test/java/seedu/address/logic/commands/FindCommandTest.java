@@ -63,40 +63,44 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noBodyFound() {
         String expectedMessage = String.format(MESSAGE_BODIES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate("");
+        CommandResult expectedResult = new CommandResult(expectedMessage);
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate, BODY_FLAG);
         expectedModel.updateFilteredBodyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredBodyList());
     }
 
     @Test
     public void execute_zeroKeywords_noWorkerFound() {
-        String expectedMessage = String.format(MESSAGE_BODIES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate("");
+        String expectedMessage = String.format(MESSAGE_WORKERS_LISTED_OVERVIEW, 0);
+        CommandResult expectedResult = new CommandResult(expectedMessage);
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate, WORKER_FLAG);
         expectedModel.updateFilteredWorkerList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredWorkerList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleBodiesFound() {
         String expectedMessage = String.format(MESSAGE_BODIES_LISTED_OVERVIEW, 2);
+        CommandResult expectedResult = new CommandResult(expectedMessage);
         NameContainsKeywordsPredicate predicate = preparePredicate("Alice Bob");
         FindCommand command = new FindCommand(predicate, BODY_FLAG);
         expectedModel.updateFilteredBodyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedResult, expectedModel);
         assertEquals(Arrays.asList(ALICE, BOB), model.getFilteredBodyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleWorkersFound() {
         String expectedMessage = String.format(MESSAGE_WORKERS_LISTED_OVERVIEW, 2);
+        CommandResult expectedResult = new CommandResult(expectedMessage);
         NameContainsKeywordsPredicate predicate = preparePredicate("Benson Charlie");
         FindCommand command = new FindCommand(predicate, WORKER_FLAG);
         expectedModel.updateFilteredWorkerList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedResult, expectedModel);
         assertEquals(Arrays.asList(BENSON, CHARLIE), model.getFilteredWorkerList());
     }
 
