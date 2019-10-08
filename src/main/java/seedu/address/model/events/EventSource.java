@@ -2,49 +2,40 @@ package seedu.address.model.events;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Event in Horo.
+ * Represents an EventSource in Horo.
  * It is immutable.
  */
 public class EventSource {
 
-    // Identity fields
+    // Required
     private final String description;
-    private final Time time;
-    private Time end;
+    private final DateTime start;
 
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    // Optional
+    private DateTime end;
+    private Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Creates an EventSource.
+     * All fields must be non null.
      */
-    public EventSource(String description, Time time, Set<Tag> tags) {
-        requireAllNonNull(description, time, tags);
+    public EventSource(String description, DateTime start) {
+        requireAllNonNull(description, start);
         this.description = description;
-        this.time = time;
-        this.tags.addAll(tags);
+        this.start = start;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public DateTime getStartDateTime() {
+        return start;
     }
 }
