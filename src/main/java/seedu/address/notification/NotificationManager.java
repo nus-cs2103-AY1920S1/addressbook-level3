@@ -1,0 +1,56 @@
+package seedu.address.notification;
+
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.events.ReadOnlyEventList;
+
+import java.util.logging.Logger;
+
+/**
+ * The implementing class of the Notification interface.
+ */
+public class NotificationManager implements Notification {
+    private static final Logger logger = LogsCenter.getLogger(NotificationManager.class);
+
+    private EventNotificationThread currentEventNotificationThread;
+    private SystemTrayCommunicator systemTrayCommunicator;
+
+    /**
+     * Generates a new NotificationManager.
+     */
+    public NotificationManager() {
+        systemTrayCommunicator = new SystemTrayCommunicator();
+        systemTrayCommunicator.initialise();
+    }
+    
+    public void updateNotificationQueue(ReadOnlyEventList readOnlyEventList) {
+        interruptExistingThread();
+        createNewThread(readOnlyEventList);
+    }
+
+    /**
+     * Interrupts any ongoing threads so that the program may shutdown gracefully
+     */
+    public void shutDown() {
+        interruptExistingThread();
+    }
+
+    /**
+     * Interrupts the currentEventNotificationThread if it exists, and does nothing otherwise.
+     */
+    private void interruptExistingThread () {
+        if (currentEventNotificationThread != null) {
+            currentEventNotificationThread.interrupt();
+        }
+    }
+
+    /**
+     * Generates and starts a new EventNotificationThread.
+     * 
+     * @param readOnlyEventList The ReadOnlyEventList through which notifications can be generated.
+     */
+    private void createNewThread(ReadOnlyEventList readOnlyEventList) {
+        currentEventNotificationThread = new EventNotificationThread(systemTrayCommunicator, readOnlyEventList);
+        currentEventNotificationThread.setDaemon(true);
+        currentEventNotificationThread.start();
+    }
+}

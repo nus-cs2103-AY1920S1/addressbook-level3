@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.person.Person;
+import seedu.address.notification.Notification;
 import seedu.address.storage.Storage;
 
 /**
@@ -27,11 +28,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final Notification notification;
     private final CommandParser commandParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Notification notification) {
         this.model = model;
         this.storage = storage;
+        this.notification = notification;
         this.commandParser = new CommandParser();
     }
 
@@ -42,6 +45,8 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = this.commandParser.parse(commandText);
         commandResult = command.execute(model);
+
+        notification.updateNotificationQueue(model.getEventList());
 
         try {
             storage.saveAddressBook(model.getAddressBook());
