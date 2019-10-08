@@ -1,18 +1,24 @@
 package seedu.address.model.person;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
+
+/**
+ * Visit Report object with name, date, medication, diagnosis and remarks field.
+ */
 public class VisitReport {
-    public final String date;
+
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+
+    public final String date;
 
     private String medication;
     private String diagnosis;
     private String remarks;
-    public Name name;
+    private Name name;
 
     public VisitReport(String value) {
         requireNonNull(value);
@@ -55,7 +61,7 @@ public class VisitReport {
                 && date.equals(((VisitReport) other).date))
                 && medication.equals(((VisitReport) other).medication)
                 && diagnosis.equals(((VisitReport) other).diagnosis)
-                && remarks.equals(((VisitReport) other).remarks);// state check
+                && remarks.equals(((VisitReport) other).remarks); // state check
     }
 
     @Override

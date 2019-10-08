@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -11,7 +10,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.VisitReport;
-import seedu.address.ui.VisitRecordWindow;
+
+/**
+ * Saves new record to Visit List.
+ */
 public class SaveVisitCommand extends Command {
     public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Added visit to Person: %1$s";
 
@@ -24,7 +26,6 @@ public class SaveVisitCommand extends Command {
 
     public SaveVisitCommand(int index, String date, String meds, String dg, String rmk) {
         requireAllNonNull(index, date);
-        System.out.println("INDEX = " + index + "\n");
         this.index = Index.fromOneBased(index);
         this.visitReport = new VisitReport(date);
         this.medication = meds;
@@ -44,7 +45,7 @@ public class SaveVisitCommand extends Command {
         visitReport.setName(personToEdit.getName());
         visitReport.setDetails(medication, diagnosis, remarks);
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(),personToEdit.getVisitList().addRecord(visitReport) , personToEdit.getTags());
+                personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -67,7 +68,10 @@ public class SaveVisitCommand extends Command {
         // state check
         SaveVisitCommand e = (SaveVisitCommand) other;
         return index.equals(e.index)
-                && visitReport.equals(e.visitReport);
+                && medication.equals(e.medication)
+                && diagnosis.equals(e.diagnosis)
+                && remarks.equals(e.remarks);
+
     }
 
 }

@@ -1,19 +1,17 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.util.Objects.requireNonNull;
-
 /**
- * Represents a Person's remark in the address book.
- * Guarantees: immutable; is always valid
+ * Represents a Person's List of records in the address book.
+ *
  */
 public class VisitList {
-    //public final String value = "";
+
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 
@@ -24,6 +22,10 @@ public class VisitList {
         records = lst;
     }
 
+    /**
+     * Adds a new record to the visit list.
+     *
+     */
     public VisitList addRecord(VisitReport report) {
         records.add(report);
         return this;
@@ -49,23 +51,26 @@ public class VisitList {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Deletes record from the list by index.
+     */
     public VisitList deleteRecord(int id) throws IndexOutOfBoundsException {
         this.records.remove(id - 1);
         return this;
     }
-    /*
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VisitList // instanceof handles nulls
-                && value.equals(((VisitList) other).value)); // state check
+                && records.equals(((VisitList) other).records)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(records);
     }
-    */
+
 
 
 }

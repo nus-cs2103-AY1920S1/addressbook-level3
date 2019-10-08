@@ -11,8 +11,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.VisitReport;
-import seedu.address.ui.VisitRecordWindow;
 
 /**
  * Changes the visitList of an existing person in the address book.
@@ -20,13 +18,13 @@ import seedu.address.ui.VisitRecordWindow;
 public class AddVisitCommand extends Command {
     public static final String COMMAND_WORD = "addVisit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the visitation record of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add the visitation record of the person identified "
             + "by the index number used in the last person listing. "
-            + "Existing record will be overwritten by the input.\n"
+            + "Calls window popup for user to fill in details.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_VISIT + "[DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_VISIT + "31/12/2019";
+            + PREFIX_VISIT + "01/01/2019";
 
     public static final String MESSAGE_ADD_VISIT_SUCCESS = "Added visit to Person: %1$s";
 
@@ -35,7 +33,7 @@ public class AddVisitCommand extends Command {
 
     /**
      * @param index of the person in the filtered person list to edit the visitList
-     * @param date of the person to be updated to
+     * @param date of the VisitReport
      */
     public AddVisitCommand(Index index, String date) {
         requireAllNonNull(index, date);

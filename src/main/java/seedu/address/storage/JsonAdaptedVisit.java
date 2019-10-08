@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
@@ -21,23 +20,23 @@ class JsonAdaptedVisit {
     private final String remarks;
 
     /**
-     * Constructs a {@code JsonAdaptedVisit} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedVisit} with the given {@code name} and  {@code date}.
      */
     @JsonCreator
-    public JsonAdaptedVisit(@JsonProperty("name") String name,@JsonProperty("date") String date) {
+    public JsonAdaptedVisit(@JsonProperty("name") String name, @JsonProperty("date") String date) {
         this.visitDate = date;
         this.name = name;
-        this.medicine = "meds";
-        this.diagnosis = "chemo";
-        this.remarks = "dying soon";
+        this.medicine = "placeholder";
+        this.diagnosis = "placeholder";
+        this.remarks = "placeholder";
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code VisitReport} into this class for Jackson use.
      */
     public JsonAdaptedVisit(VisitReport source) {
         visitDate = source.date;
-        name = source.name.toString();
+        name = source.getName();
         medicine = source.getMedication();
         diagnosis = source.getDiagnosis();
         remarks = source.getRemarks();
@@ -51,7 +50,7 @@ class JsonAdaptedVisit {
      */
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted VisitReport object into the model's {@code VisitReport} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */

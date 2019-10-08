@@ -5,17 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.TypicalVisits;
+
 public class VisitListTest {
 
     @Test
     public void equals() {
-        VisitList visitList = new VisitList("Hello");
+        VisitList visitList = TypicalVisits.getLongTypicalVisitList("peter");
 
         // same object -> returns true
         assertTrue(visitList.equals(visitList));
 
         // same values -> returns true
-        VisitList visitListCopy = new VisitList(visitList.value);
+        VisitList visitListCopy = new VisitList(visitList.getRecords());
         assertTrue(visitList.equals(visitListCopy));
 
         // different types -> returns false
@@ -25,7 +27,7 @@ public class VisitListTest {
         assertFalse(visitList.equals(null));
 
         // different visitList -> returns false
-        VisitList differentVisitList = new VisitList("Bye");
+        VisitList differentVisitList = TypicalVisits.getShortTypicalVisitList("peter");
         assertFalse(visitList.equals(differentVisitList));
     }
 }
