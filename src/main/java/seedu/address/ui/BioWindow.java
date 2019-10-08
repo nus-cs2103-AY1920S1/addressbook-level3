@@ -24,6 +24,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,7 +35,7 @@ public class BioWindow extends UiPart<Stage> {
     private static final String FXML = "BioWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static String displayImage = "/images/user.png";
 
     private Stage primaryStage;
     private Logic logic;
@@ -125,7 +126,7 @@ public class BioWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        Image img = new Image(MainApp.class.getResourceAsStream(ICON_APPLICATION));
+        Image img = new Image(MainApp.class.getResourceAsStream(displayImage));
 
         String manyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed mollis quam, vitae iaculis risus. Suspendisse potenti. Cras sit amet magna tempus, pellentesque enim vulputate, commodo diam. Cras a tristique lacus. Maecenas non cursus ipsum. Nunc sit amet interdum diam, at ultrices nunc. Sed non dignissim risus, sit amet egestas ipsum. Aenean quis nisl non massa lobortis tristique in sit amet tellus. Aenean non lectus sed lectus aliquet interdum eget a mi. Morbi eget porta leo. Pellentesque a pretium lorem, sit amet semper ante. Phasellus pellentesque ante sit amet eros maximus aliquet in ut purus. In maximus lectus quis tellus pulvinar, a malesuada orci suscipit. Aenean sodales euismod mauris, sit amet vehicula eros placerat nec. Nullam in tincidunt lectus.\n" +
                 "\n" +
@@ -140,11 +141,27 @@ public class BioWindow extends UiPart<Stage> {
         String abit = "Example Age \nExample Gender \nExample Address";
         String little = "Example Profile";
 
-        profile = new Profile(img, "Example Name", manyText);
-//        profile = new Profile(img, "Example Name", "Example Profile");
+        BioTableFieldDataPair name = new BioTableFieldDataPair("Name:", "Amy");
+        BioTableFieldDataPair nric = new BioTableFieldDataPair("NRIC:", "S1234567Z");
+        BioTableFieldDataPair gender = new BioTableFieldDataPair("Gender:", "Female");
+        BioTableFieldDataPair dob = new BioTableFieldDataPair("DOB:", "21/03/1940");
+        BioTableFieldDataPair hp = new BioTableFieldDataPair("HP:", "98765432");
+        BioTableFieldDataPair emergencyHp = new BioTableFieldDataPair("Emergency HP:", "91234567");
+        BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:", "Type II Diabetes, High Blood Pressure");
+        BioTableFieldDataPair address = new BioTableFieldDataPair("Address:", "Blk 123 Example Road\n#12-34\nS(612345)");
+        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:", "/Users/Bob/dp.png");
+        BioTableFieldDataPair bgColour = new BioTableFieldDataPair("Background Colour:", "navy-blue");
+        BioTableFieldDataPair fontColour = new BioTableFieldDataPair("Font Colour:", "yellow");
+        BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:", "lose 4kg from 29/09/2019 to 30/09/2019");
+
+        ObservableList<BioTableFieldDataPair> list = FXCollections.observableArrayList();
+        list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour, fontColour, myGoals);
+
+        profile = new Profile(img, "Amy", "79 years old, Female\n\nBlk 123 Example Road\n#12-34\nS(612345)");
         profilePlaceholder.getChildren().add(profile.getRoot());
 
         bioTable = new BioTable();
+        bioTable.getTableView().setItems(list);
         bioTablePlaceholder.getChildren().add(bioTable.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());

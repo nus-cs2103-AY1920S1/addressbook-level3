@@ -184,6 +184,18 @@
     -fx-background-color: transparent;
 }
 
+.bio-table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.field-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-font-weight: bold !important;
+    -fx-text-fill: white !important;
+}
+
 .field-column .label {
     -fx-font-family: "Arial" !important;
     -fx-font-size: 10pt !important;
