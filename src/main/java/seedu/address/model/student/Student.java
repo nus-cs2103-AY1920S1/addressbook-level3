@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Student {
 
     // Identity fields
-    private final Name name;
+    private Name name;
 
     /**
      * Every field must be present and not null.
@@ -54,6 +54,11 @@ public class Student {
 
         Student otherStudent = (Student) other;
         return otherStudent.getName().equals(getName());
+    }
+
+    public void setName(String name) {
+        Name studentName = new Name(name);
+        this.name = studentName;
     }
 
     @Override

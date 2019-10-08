@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
+import seedu.address.model.student.Student;
 
 /**
  * The API of the Model component.
@@ -56,6 +57,37 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    //=========== Students ================================================================================
+    /**
+     * Adds the given student.
+     * {@code student} must not exist in the student list.
+     */
+    void addStudent(Student student);
+
+    /**
+     * Returns the student that has been deleted based on the index.
+     * @return
+     */
+    Student deleteStudent(Index index);
+
+    /**
+     * Returns the student based on its Index.
+     */
+    Student getStudent(Index index);
+
+    /**
+     * Replaces the student at the specified index.
+     */
+    void setStudent(Index index, Student student);
+
+    /**
+     * Returns the list of students.
+     *
+     * @return list of students
+     */
+    String getStudentList();
+
 
     //=========== Questions ================================================================================
     /**
