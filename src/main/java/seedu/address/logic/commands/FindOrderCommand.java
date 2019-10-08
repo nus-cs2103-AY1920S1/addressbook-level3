@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.order.IdContainsKeywordsPredicate;
 
 /**
- * Finds and lists all orders in order book whose name contains any of the argument keywords.
+ * Finds and lists all orders in order book whose id contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindOrderCommand extends Command {
