@@ -1,14 +1,13 @@
 package seedu.address.person.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import seedu.address.person.commons.core.Messages;
 import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -31,7 +30,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 

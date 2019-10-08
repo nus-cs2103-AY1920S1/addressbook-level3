@@ -2,8 +2,8 @@ package seedu.address.transaction.ui;
 
 import java.util.Scanner;
 import seedu.address.transaction.commands.CommandResult;
-import seedu.address.transaction.commands.exception.NoSuchPersonException;
 import seedu.address.transaction.logic.Logic;
+import seedu.address.transaction.model.exception.NoSuchPersonException;
 
 //NO LONGER USED (USED FOR CLI, NO UI)
 public class Start {

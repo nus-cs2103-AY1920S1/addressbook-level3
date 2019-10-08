@@ -11,13 +11,21 @@ public interface Model {
 
     void deleteTransaction(int index);
 
-    void writeInTransactionFile() throws Exception;
+    //void writeInTransactionFile() throws Exception;
 
     TransactionList getTransactionList();
 
-    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception;
+    void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException;
 
-    boolean hasTransaction(Transaction editedTransaction);
+    boolean hasTransaction(Transaction editedTransaction) throws NoSuchIndexException;
 
     void updateIndexes() throws Exception;
+
+    void sortByDate();
+
+    void sortByName();
+
+    void sortByAmount();
+
+    void sortReset();
 }

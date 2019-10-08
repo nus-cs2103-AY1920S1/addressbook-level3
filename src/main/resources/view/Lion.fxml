@@ -19,17 +19,18 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="545.0" prefWidth="205.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="545.0" prefWidth="205.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@Extensions.css">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="response" alignment="TOP_LEFT" layoutX="14.0" layoutY="30.0" maxHeight="466.0" maxWidth="167.0" prefHeight="362.0" prefWidth="167.0" text="Hi! I am Leo your trusty helper!" wrapText="true" />
-                  <ImageView fx:id="lionMascot" fitHeight="120.0" fitWidth="120.0" layoutX="76.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="response" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" maxHeight="466.0" maxWidth="167.0" prefHeight="362.0" prefWidth="167.0" text="Hi! I am Leo your trusty helper!" wrapText="true" />
+                  <ImageView fx:id="lionMascot" fitHeight="120.0" fitWidth="120.0" layoutX="38.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/TempMascot.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
         </content>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />

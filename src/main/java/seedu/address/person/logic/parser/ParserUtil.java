@@ -16,7 +16,7 @@ import seedu.address.person.model.person.Phone;
 import seedu.address.person.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *GeneralParser classes.
  */
 public class ParserUtil {
 

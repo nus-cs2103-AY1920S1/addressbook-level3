@@ -1,4 +1,4 @@
-package seedu.address.transaction.logic;
+/*package seedu.address.transaction.logic;
 
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.logic.parser.AddCommandParser;
@@ -12,4 +12,4 @@ public class PersonCommandParser {
         AddCommand personAddCommand = addCommandParser.parse(args);
         return new PersonCommand(personAddCommand);
     }
-}
+}*/

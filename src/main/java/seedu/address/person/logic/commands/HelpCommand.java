@@ -15,7 +15,8 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }
