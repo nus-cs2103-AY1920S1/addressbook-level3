@@ -15,17 +15,17 @@ public class Vehicle {
 
     // Data fields
     private final District district; // where the vehicle is parked at
-    private final boolean available;
+    private Availability availability;
 
     /**
      * Every field must be present and not null.
      */
-    public Vehicle(VehicleType vehicleType, VehicleNumber vehicleNumber, District district) {
+    public Vehicle(VehicleType vehicleType, VehicleNumber vehicleNumber, District district, Availability availability) {
         requireAllNonNull(vehicleType, vehicleNumber, district);
         this.vehicleType = vehicleType;
         this.vehicleNumber = vehicleNumber;
         this.district = district;
-        this.available = true; // they all start off available
+        this.availability = availability; // vehicles start off available
     }
 
     public VehicleType getVehicleType() {
@@ -40,8 +40,8 @@ public class Vehicle {
         return district;
     }
 
-    public boolean getAvailablity() {
-        return available;
+    public Availability getAvailability() {
+        return availability;
     }
 
     /**
@@ -80,7 +80,7 @@ public class Vehicle {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(vehicleType, vehicleNumber, district, available);
+        return Objects.hash(vehicleType, vehicleNumber, district, availability);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Vehicle {
                 .append(getVehicleNumber())
                 .append(" District: ")
                 .append(getDistrict())
-                .append(" available: ")
-                .append(getAvailablity());
+                .append(" Availability: ")
+                .append(getAvailability());
         return builder.toString();
     }
 

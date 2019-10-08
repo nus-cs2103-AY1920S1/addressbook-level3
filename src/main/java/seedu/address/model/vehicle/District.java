@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's  in the address book.
+ * Represents a district in the IMS.
  * Guarantees: immutable; is valid as declared in {@link #isValidDistrict(String)}
  */
 public class District {
