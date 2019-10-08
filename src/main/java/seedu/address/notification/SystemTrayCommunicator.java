@@ -9,12 +9,18 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 
+import java.util.logging.Logger;
+
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+
 /**
  * Controls interactions between the main program and the System Tray.
  */
 public class SystemTrayCommunicator {
+    private static final Logger logger = LogsCenter.getLogger(NotificationManager.class);
     private static final String TRAY_ICON_NAME = "Horo";
-    private static final String TRAY_ICON_IMAGE_PATH = "system_tray_icon.png";
+    private static final String TRAY_ICON_IMAGE_PATH = "/images/system_tray_icon.png";
 
     private static TrayIcon trayIcon;
     private static boolean systemTrayIsSupported;
@@ -26,14 +32,18 @@ public class SystemTrayCommunicator {
         systemTrayIsSupported = SystemTray.isSupported();
 
         if (systemTrayIsSupported) {
+            logger.info("System tray is supported.");
+
             SystemTray tray = SystemTray.getSystemTray();
             trayIcon = getTrayIcon();
 
             try {
                 tray.add(trayIcon);
             } catch (AWTException e) {
-                System.err.println(e);
+                logger.warning(e.toString());
             }
+        } else {
+            logger.info("System tray is not supported.");
         }
     }
 
@@ -67,8 +77,7 @@ public class SystemTrayCommunicator {
      * @return the image to be used as the Tray Icon.
      */
     private static Image getImage() {
-        return Toolkit.getDefaultToolkit()
-            .getImage(System.getProperty("user.dir") + "/" + TRAY_ICON_IMAGE_PATH);
+        return Toolkit.getDefaultToolkit().getImage(MainApp.class.getResource(TRAY_ICON_IMAGE_PATH));
     }
 
     /**
@@ -79,10 +88,10 @@ public class SystemTrayCommunicator {
     private static PopupMenu getPopupMenu() {
         PopupMenu popup = new PopupMenu();
 
-        // popup menu items
+        // Create pop-up menu items
         MenuItem aboutItem = new MenuItem("Hi this is Horo.");
 
-        //Add components to pop-up menu
+        // Add created items to the pop-up menu
         popup.add(aboutItem);
 
         return popup;
