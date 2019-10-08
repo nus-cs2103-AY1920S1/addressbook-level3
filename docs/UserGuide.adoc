@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= +Work - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
++Work is a project management tool that allows the project leader of a small group (less than 20 people) to manage this group to achieve their objectives for a single project. To increase efficiency of the group we help the group manage their meeting times, task allocation as well as personal claims for equipment purchased. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `+Work.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`add member`**`Abhinav Ramnath` : Adds member m/Abhinav Ramnath
+* **`add task`**`t/Finish up milestone setting mi/1` : adds a task called 'Finish up milestone' and and assigns it to the first member, Gabriel Seow.
+* **`assign`**`ti/5 m/3` : assigns the 3rd member, Seah Lynn, to the 5th task
+* **`doing task`**`ti/3` : changes status of task 3 from 'to be done'to 'doing'
 
 .  Refer to <<Features>> for details of each command.
 
@@ -44,77 +44,266 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* The command begins with the type of command to be executed
+
+** Example: in `remove member [mi/MEMBER_ID]`, remove member is the type of command
+
+* The words in UPPER_CASE corresponds to the parameters given by the user
+
+** Example: In `add member [m/MEMBER_NAME]`, MEMBER_NAME is the input specified by the user, such as: add member m/Gabriel Seow
+
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found below.
+
+** Example: In `add task [t/TASK_NAME] [m/MEMBER_NAME]`, the user inputs the name of the task after t/ and inputs the name of the member after m/, such as: +
+ `add task t/Finish Project Draft m/Elsa Koh`
+
+* Parameters can be given in any order
+
+** Example: If the command specifies `[t/TASK_NAME] [m/MEMBER_NAME]`, +
+`[m/MEMBER_NAME] [t/TASK_NAME]` is also acceptable`
+
+* Date and Time is specified in the format `dd-mm-yyyy hh:mm`
+
 ====
 
-=== Viewing help : `help`
+'''
 
-Format: `help`
+=== Universal Commands
 
-=== Adding a person: `add`
+==== Accessing project dashboard page: `/home` +
+Returns to project dashboard page +
+Format: `/home`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Accessing time management page: `/calendar` +
+Returns to time management page where calendar and meeting times are displayed +
+Format: `/calendar`
+
+==== Accessing inventory management page: `/inventory` +
+Returns to inventory management page  +
+Format: `/inventory`
+
+==== View help: `/help` +
+Displays a list of possible commands for the user +
+Format: `/help`
+
+'''
+
+=== Member-related Commands
+
+==== Add a member: `add member` +
+Adds a team member to the list of team members +
+Format: `add member [m/MEMBER_NAME]`
+
+Example:
+
+* `add member m/Gabriel Seow`
+
+* `add member m/Abhinav Ramnath`
+
+==== List existing members: `list members` +
+Shows a list of all team members in the dashboard +
+Format: `list members`
+
+==== Remove a member: `remove member` +
+Removes a team member from the dashboard, and removes the team member from associated tasks +
+Format: `remove member [mi/MEMBER_ID]`
+
+Example:
+
+* `remove member mi/9` +
+Removes the member with member ID 9 from the dashboard and removes her from associated tasks
+
+==== Assign a task to a member: `assign` +
+Assigns a task to the specified team member +
+Format: `assign [ti/TASK_ID] [mi/MEMBER_ID]`
+
+Example:
+
+* `assign ti/5 m/3` +
+Assigns the task with ID 5 to the team member 3
+
+==== Remove a task for a member: `fire` +
+Removes a task for the specified team member +
+Format: `fire [ti/TASK_ID] [mi/MEMBER_ID]`
+
+Example:
+
+* `fire ti/9 mi/3` +
+Removes the task with ID 9 from the team member with ID 3
+
+'''
+
+=== Task-related Commands
+
+==== Add a task: `add task`
+
+Adds a task into project dashboard
+
+Format: `add task [t/TASK_NAME]  [m/MEMBER_NAME]`
+
+Example:
+
+* `add task t/Finish up milestone setting m/Gabriel Seow` +
+A new task will be added to the project dashboard
+
+==== Set a task status to ‘Doing’: `doing`
+
+Updates task status to ‘Doing’
+
+Format: `doing task [ti/TASK_ID]`
+
+Example:
+
+* `doing task ti/3` +
+Marks the status of task 3 as doing
+
+==== Set a task status to ‘Done’: done
+
+Updates task status to ‘Done’
+
+Format: `done task [ti/TASK_ID]`
+
+Example:
+
+* `done task ti/2`
+
+Marks the status of task 2 as done.
+
+==== List the existing tasks: `list tasks`
+
+List all the tasks on the dashboard
+
+Format: 'list tasks'
+
+
+==== Remove a task: remove task
+
+Removes a task from the dashboard
+
+Format: `remove task [ti/TASK_ID]`
+
+Example:
+
+* `remove task 2` +
+Removes the 2nd task in the dashboard
+
+==== Set deadline for a task: `deadline task`
+
+Sets deadline for existing tasks on dashboard
+
+Format: `deadline task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
 
 [TIP]
-A person can have any number of tags (including 0)
+Remember to input using 24 hour time format
+
+Example:
+
+* `deadline task ti/21 at/21-09-19 15:00`  +
+Deadline for task 21 will be specified as 21/09/19 1500
+
+'''
+
+=== Calendar Commands
+
+==== Add a member’s calendar
+
+Adds a calendar to the required member's profile
+
+****
+
+Steps
+
+* User first exports their .ics file from NUSmods
+
+* Then import it into their google calendar
+
+* Add any weekly commitments to their google calendar
+
+* Export .ics file again
+
+* Import all to our application
+
+* generate timings
+
+* Choose the desired timing for the weekly meetings from the grid displayed
+
+****
+
+==== Generate free time across all calendars uploaded: `generate timings`
+
+Format: `generate timings`
+
+Example:
+
+* `generate timings` +
+Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
+
+==== Add a meeting: `add meeting`
+
+Format: `Add meeting [at/ dd-mm-yyyy hh:mm]  [l/LOCATION]`
+
+to add a new meeting
+
+Example:
+
+* `add meeting at/10-10-2018 19:00 l/COM2-0204` +
+User chooses the meeting time from the grid displayed from generate timings commands (3.4.2) . A meeting is added to the internal calendar of the application, which will be displayed on the dashboard.
+
+'''
+
+=== Inventory Commands
+
+==== Adding an inventory: `add inventory`
+
+Adds an inventory item bought or required for a specific project task.
+
+Format: `add inventory [ti/TASK_ID] [i/ITEM_NAME] [mi/MEMBER_ID] [p/PRICE(optional)]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add inventory ti/2 i/Mahjong Paper mi/3 p/8.50` +
+Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member 3.
 
-=== Listing all persons : `list`
+* `add inventory ti/4 i/scissors mi/1` +
+Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member 1 for no cost.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Deleting an inventory: `delete inventory`
 
-=== Editing a person : `edit`
+Deletes an inventory item.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `delete inventory [ii/ITEM_ID]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `delete inventory ii/3` +
+Deletes the third item from the inventory list
 
-=== Locating persons by name: `find`
+==== Generating a report of inventory by task: `generate inventory /task`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Generates a PDF report containing all inventories grouped by tasks for easier sharing.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `generate inventory /task`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `generate inventory /task` +
+File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
 
-// tag::delete[]
+==== Generating a report of inventory by people: `generate inventory /person`
+
+Generates a PDF report containing all inventories grouped by members for easier understanding of claims.
+
+Format: `generate inventory /person`
+
+Examples:
+
+* `generate inventory /person` +
+File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
+
+////
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -141,15 +330,23 @@ Deletes the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
+////
+
+'''
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+////
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -157,21 +354,71 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+////
+
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Can I use file formats other than ics for the calendar feature? +
+*A*: No, the file format has to be in ics folder, downloaded either from NUSmods or Google Calendar.
+
+*Q*: Can I export the claims report as a word document? +
+*A*: No, the application only supports exporting of files in PDF format.
+
+*Q*: What if the calendar cannot find a timing where everyone is free? +
+*A*: There will be a grid showing the number of available members by time, so it will be easier for the user to choose the best possible time for the meeting.
+
+*Q*: My project has a budget, does the application help me keep track of the projects financial status? +
+*A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
+
+*Q*: Some of the tasks for my project require sub tasks to be completed, is there a way to add them? +
+*A*: Ideally since the user is the project leader, they should only see the main tasks to be accomplished for the project. This would help facilitate their managerial role within the project. Hence, the application does not support subtasks.
+
+*Q*: How can I add multiple users to the same task? +
+*A*: Since +Work is member-oriented, the application displays information according to members. Hence, you have to assign task to all the different members that are working on the task.
+
+*Q*: What happens when a task has been completed? +
+*A*: You can mark the task as ‘Done’, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Project dashboard*: `/home`
+
+* *Time management page*: `/calendar`
+
+* *Inventory management page*: `/inventory`
+
+* *Help*: `/help`
+
+* *Add member*: `add member [m/MEMBER_NAME]`
+
+* *List members*: `list members`
+
+* *Remove member*: `remove member [m/MEMBER_NAME]`
+
+* *Add task to member*: `assign [ti/TASK_ID] [mi/MEMBER_ID]`
+
+* *Remove task from member*: `fire [ti/TASK_ID] [mi/MEMBER_ID]`
+
+* *Add task*: `add task [t/TASK_NAME]  [m/MEMBER_NAME]`
+
+* *Doing task*: `doing task [ti/TASK_ID]`
+
+* *Done task*: `done task [ti/TASK_ID]`
+
+* *List tasks*: `list tasks`
+
+* *Remove task*: `remove task [ti/TASK_ID]`
+
+* *Deadline*:  `deadline task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`
+
+* *Generate timings*: `generate timings`
+
+* *add meeting*: `add meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`
+
+* *Adding an inventory*: `add inventory`
+
+* *Deleting an inventory*: `delete inventory`
+
+* *Generating report of inventory by task*: `generate inventory /task`
+
+* *Generating report of inventory by person*: `generate inventory /person`

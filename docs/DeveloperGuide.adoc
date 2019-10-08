@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= +Work - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,8 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
-
+By: `T12-1`      Since: `Sep 2019`      Licence: `MIT`
+////
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a task).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -273,19 +273,21 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
-
+////
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* an NUS student
+* managing an NUS project team.
+* has a significant amount of tasks to manage among team members
 * can type fast
+* prefers desktop apps over mobile apps
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tasks assigned to project mates, finding common time slots and keep track of inventory faster than GUI apps.
 
 [appendix]
 == User Stories
@@ -295,17 +297,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |New user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |Project leader |Add a project member | Assign tasks to them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Project leader |Add tasks |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Project leader |Change task status | Get reminder of the progress of each task
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |Project leader |Sync team members schedules |Find a time slot where the maximum number of people, if not all, can attend
+|`* *` |Project leader with many members and tasks|Find out which group members are working on a particular task |Distribute workload evenly
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |Project leader with tasks that require inventory|Assign inventory to tasks or materials that are needed |Download an inventory report whenever required
+
+|`* *` |Project leader |Create a meeting |Secure meeting slot at my desired time and place
+
+|`* *`|Project leader |View my next meeting in the home page |I know my team's schedule at a glance
+
+|`* *`|Project leader who is keeping track of purchases|Tag the inventory purchase to the member who bought it|Produce an accurate claims report at the end of the project
+
+|`*`|Project leader with a long-term project with ad-hoc members|Change members working on a task|Reassign tasks to incoming members
+
 |=======================================================================
 
 _{More to be added}_
@@ -315,39 +327,341 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
+
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a team member
 
-*MSS*
+*Main Success Scenario*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a team member and gives name of member
+2. +Work informs user that member was successfully added
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 1a. The user does not specify name
+** 1a1. +Work requests user for a name
+** 1a2. User enters members name
+** Steps 1a1 - 1a2 are repeated until user provides a name
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: List all team members
+
+*Main Success Scenario*
+
+1. User requests to list team members
+2. +Work displays list of team members
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+* 2a. The list is empty
+** 2a1. +Work informs user that there are no members added yet
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete member
+
+*Main Success Scenario*
+
+1. User requests to list members
+2. +Work shows a list of persons
+3. User requests to delete a specific person in the list and specifies the ID of the person
+4. +Work deletes the person
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The list is empty.
+** 1a1. +Work informs user that there are no members
++
+Use case ends.
+
+* 1b. The user specifies an invalid member ID
+** 1b1. +Work informs user that they have entered an invalid ID
+** 1b2. User enters a valid ID
+** Steps 1b1 - 1b2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case:  Assign a task to a team member
+
+*Main Success Scenario*
+
+1. User requests to assign a task to a team member and specifies the task ID and the corresponding team member ID
+2. +Work informs user that task has been assigned to the member successfully
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+* 1a. The user specifies an invalid team member and/or task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+* 1b. The user does not specify either/both team member and member ID
+** 1b1. +Work informs user that they need to enter a valid ID
+** 1b2. User enters specifies the valid ID
+** Steps 1b1 - 1b2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case:  Remove a task for a team member
+
+*Main Success Scenario*
+
+1. User requests to remove a task for a team member and specifies the task ID and the corresponding team member ID
+2. +Work informs user that member is not assigned to task any longer
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid team member and/or task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+* 1b. The user does not specify either/both team member and member ID
+** 1b1. +Work informs user that they need to enter the valid ID
+** 1b2. User enters specifies the valid ID
+** Steps 1b1 - 1b2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Add a task
+
+*Main Success Scenario*
+
+1. User requests to add a task and specifies the name of the task and may specify the member id of the member assigned to the task
+2. +Work informs the user that task has been updated
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid team member ID and/or does not give a task name
+** 1a1. +Work informs user that they have entered an incomplete command
+** 1a2. User enters a valid command
+** Steps 1a1 - 1a2 are repeated until user provides a valid command
++
+Use case resumes from step 2.
+
+
+[discrete]
+=== Use case: Mark a task as ‘done’
+
+*Main Success Scenario*
+
+1. User requests to mark a task as ‘done’ and specifies the ID of the task
+2. +Work informs user that the task is marked as done successfully
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid id
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Mark a task as ‘doing’
+
+*Main Success Scenario*
+
+1. User requests to mark a task as ‘doing’ and specifies the ID of the task
+2. +Work informs user that the task is marked as ’doing’ successfully
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid id
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: List all tasks in the dashboard
+
+*Main Success Scenario*
+
+1. User requests to list all tasks in the dashboard
+2. +Work displays list of tasks
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The list is empty
+** 1a1. +Work informs user that there are no tasks
++
+Use case ends.
+
+[discrete]
+=== Use case: Remove a task from the dashboard
+
+*Main Success Scenario*
+
+1. User requests to remove a task from the dashboard and specifies the task ID
+2. +Work informs the user that task is removed succesfully
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid id
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Assign a deadline to a task
+
+*Main Success Scenario*
+
+1. User requests to assign a deadline to a task and specifies the task ID and the corresponding deadline
+2. +Work informs user that task deadline set successfully
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid task ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+* 1b. The user gives the deadline in the wrong format
+** 1b1. +Work informs user that deadline must be in the format `dd-mm-yy hh:mm`
+** 1b2. User enters the deadline in the correct format
+** Steps 1b1 - 1b2 are repeated until user provides a valid deadline
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Generate availability timings of team members
+
+*Main Success Scenario*
+
+1. User adds timetable of team mates to +Work
+2. User requests to generate availability timings of team members
+3. +Work displays list of timings where the most number of team members are available
++
+Use case ends.
+
+*Extensions*
+
+* 2a. +Work finds that there are no available timings
+** 2a1. +Work informs user that no available timings were found
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a meeting to the timetable
+
+*Main Success Scenario*
+
+1. User requests to add a meeting and specifies a description and the time of the meeting
+2. +Work informs user that meeting was succesfully created
+3. +Work updates the dashboard
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User specifies the time in an invalid format
+** 1a1. +Work informs user that meeting time must be in format `dd-mm-yy hh:mm`
+** 1a2. User enters the time in the correct format
+** Steps 1a1 - 1a2 are repeated until user provides a valid time
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Add an item to the inventory
+
+*Main Success Scenario*
+
+1. User requests to add an item to the inventory and specifies the name and price of the inventory item, ID of the member as well as task associated with the item
+2. +Work informs user that the inventory has been added successfully
+3. +Work updates the inventory
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User specifies an invalid or missing value
+** 1a1. +Work informs the user that command is incomplete
+** 1a2. User enters complete command
+** Steps 1a1 - 1a2 are repeated until user provides complete command
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Delete an item from the inventory
+
+*Main Success Scenario*
+
+1. User requests to delete an item from the inventory and specifies the item ID
+2. +Work informs user that the inventory item has been successfully deleted
+3. +Work updates the inventory
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid inventory ID
+** 1a1. +Work informs user that they have entered an invalid ID
+** 1a2. User enters a valid ID
+** Steps 1a1 - 1a2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Generate an inventory report
+
+*Main Success Scenario*
+
+1. User requests to generate an inventory report
+2. User specifies whether inventory is generated based on the member or task
+3. +Work displays the inventory report
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -358,9 +672,17 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[NUSl]] NUS::
+National University of Singapore
 
+[[CLI]] CLI::
+command line interface (bash, git)
+
+[[GUI]] GUI::
+graphical user interface
+
+
+////
 [appendix]
 == Product Survey
 
@@ -402,15 +724,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a task
 
-. Deleting a person while all persons are listed
+. Deleting a task while all tasks are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
@@ -423,3 +745,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+////
