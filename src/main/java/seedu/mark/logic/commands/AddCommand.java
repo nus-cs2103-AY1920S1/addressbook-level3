@@ -53,6 +53,7 @@ public class AddCommand extends Command {
         }
 
         model.addBookmark(toAdd);
+        model.commitMark();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
