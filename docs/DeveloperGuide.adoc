@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-4/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -279,76 +279,687 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* has a need to manage expenses,
+* requires categorization of expenses,
+* prefer desktop apps,
+* prefers CLI type interfaces.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* manage expenses faster than a typical mouse/GUI driven app.
+* easily view metrics of spending.
+* easily identify spending behaviour and tweak to meet budgeting goals.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="80%",cols="1%,<25%,<25%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+4.+| *Basic Functionality*
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |create a plain old expense |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |create an expense with a tag |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |create a recurring expense |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |retrieve all expenses |review all my spending
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |retrieve all expenses for today |review my spending for the day
+
+|`* * *` |user |retrieve list of all recurring expenses |
+
+|`* *` |user |retrieve all expenses for the week |review my spending for the week
+
+|`* *` |user |retrieve all expenses for the month |review my spending for the month
+
+|`* *` |user |retrieve all expenses for the year |review my spending for the year
+
+|`* * *` |user |find an expense name |locate a specific expense without having to go through the entire list
+
+|`* * *` |user |edit an expense |change the expense amount or tag
+
+|`* * *` |user |delete an expense |
+
+|`* * *` |user |terminate a recurring expense |
+
+4.+| *Budgeting*
+
+|`* * *` |user |set a budget for the month |
+
+|`* * *` |user |check how much of my budget is left |know how much I can spend
+
+|`* * *` |user |notified every time I add an expense if I have less than 50% of my budget left  |know how much I can spend
+
+4.+| *UI*
+
+|`* * *` |user |view in a pie chart expenditure breakdown by tag  |
+
+|`* * *` |user |view in a pie chart how much of my budget is spent/available for the current month | manage my spending
+
+|`* *` |user |view in a bar chart my expenditure | visualise my spending habits
+
+4.+| *Inputs*
+
+|`*` |user | command autocomplete suggestions| improve my productivity
+
+|`* *` |user | recall commands previously used in session | improve my productivity
+
+4.+| *Multi-Currency*
+
+|`* *` |user | set my default currency for tracking |
+
+|`* *` |user | store expenses in a specific currency | track expenses when I travel
+
+|`* *` |user | automatically convert the expense to my local currency | track expenses in one currency
+
 |=======================================================================
 
-_{More to be added}_
+_{More may be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+Note: For all use cases below, the *System* is `MyMorise(MM)`, the *Actor* is the `user` and the *Precondition* is `MyMorise is running`, unless specified otherwise).
+Inputs specified in a square bracket i.e [input] are optional inputs from the user.
 
-[discrete]
-=== Use case: Delete person
+[none]
+[#_UC01]
+=== UC01 - Get Help +
+Guarantees:
 
+* The list of all commands will be shown.
+
+
+[none]
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+. User requests for help.
+. MM responds with the list of all commands.
 +
 Use case ends.
 
+//[none]
+//*Extensions*
+//
+//[none]
+//* 1a. AltScene1
+//+
+//Use case ends.
+//* 2a. AltScene2
+//+
+//Use case ends.
+//
+//* 3a. AltScene3
+//+
+//[none]
+//** 3a1. A
+//+
+//Use case resumes at step 2.
+//
+//_{More may be added}_
+
+[none]
+[#_UC02]
+=== UC02 - Create an expense +
+Guarantees:
+
+* A new expense will be added into MM if valid data were specified.
+
+[none]
+*MSS*
+
+. User requests to add an expense specifying data.
+. MM creates and stores the expense with the specified data.
++
+Use case ends.
+
+[none]
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. MM detects an error in entered data.
+[none]
+** 1a1. MM informs the user what data was invalid.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
 [none]
-** 3a1. AddressBook shows an error message.
+[#_UC03]
+=== UC03 - Create a recurring expense +
+Guarantees:
+
+* A new recurring expense with will be added into MM if valid data were specified.
+* A single expense with will be added into MM if valid data were specified.
+
+*MSS*
+
+. User requests to add a recurring expense specifying data.
+. MM creates and stores the expense with the specified data .
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. MM detects an error in entered data.
+[none]
+** 1a1. MM informs the user what data was invalid.
++
+Use case ends.
+
+[none]
+[#_UC04]
+=== UC04 - Retrieve all expenses +
+Preconditions: MyMorise is running, there is at least 1 expense stored.
+Guarantees:
+
+* A list of all expenses is shown.
+
+[none]
+*MSS*
+
+. User requests to see all expenses.
+. MM shows all expenses.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. User requests to see all expenses made today.
+[none]
+** 1a1. MM shows a list of all expenses made today.
++
+Use case ends.
+
+[none]
+* 1b. User requests to see all expenses made for the current week.
+[none]
+** 1b1. MM shows a list of all expenses made for the current week.
++
+Use case ends.
+
+[none]
+* 1c. User requests to see all expenses made for the current month.
+[none]
+** 1c1. MM shows a list of all expenses made for the current month.
++
+Use case ends.
+
+[none]
+* 1d. User requests to see all expenses made for the specified date range.
+[none]
+** 1d1. MM shows a list of all expenses made for the the specified date range.
++
+Use case ends.
+
+[none]
+[#_UC05]
+=== UC05 - Retrieve all recurring expenses +
+Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* A list of all recurring expenses is shown.
+
+[none]
+*MSS*
+
+. User requests to see for all recurring expenses.
+. MM shows a list of all expenses made for the day.
++
+Use case ends.
+
+[none]
+[#_UC06]
+=== UC06 - Find an expense +
+Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* A list of all expenses containing the specified keyword if any were found
+
+[none]
+*MSS*
+
+. User requests for all expenses containing a keyword.
+. MM shows a list of all expenses containing the keyword.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. No expenses contain the keyword specified.
+[none]
+** 1a1. MM informs user that no matching expenses were found.
++
+Use case ends.
+
+[none]
+[#_UC07]
+=== UC07 - Update an expense +
+Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Guarantees:
+
+* The expense selected for editing will be updated with the new data.
+
+[none]
+*MSS*
+
+. User  <<_UC04, requests to see all expenses (UC04).>>
+. User reviews the list of expenses.
+. User requests to update an expense from the list and provides the new data.
+. MM updates the selected expense with the new data.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to edit the expense.
++
+Use case ends.
+
+[none]
+* 2b. User could not locate the expense to be edited.
++
+Use case resumes at step 1.
+
+* 3a. MM detects an error in entered data.
+[none]
+** 3a1. MM informs the user what data was invalid.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[none]
+[#_UC08]
+=== UC08 - Delete an expense +
+Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Guarantees:
+
+* The expense specified for deletion will be deleted.
+
+[none]
+*MSS*
+
+. User <<_UC04, requests to see all expenses (UC04).>>
+. User reviews the list of expenses.
+. User requests to delete the expense with a specific index from the list.
+. MM deletes the expense with the specified index.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to delete the expense.
++
+Use case ends.
+
+[none]
+* 2b. User could not locate the expense to be deleted.
++
+Use case resumes at step 1.
+
+* 3a. MM detects an error in entered data.
+[none]
+** 3a1. MM informs the user what data was invalid.
++
+Use case resumes at step 2.
+
+[none]
+[#_UC09]
+=== UC09 - Delete a recurring expense +
+Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Guarantees:
+
+* The recurring expense specified for deletion will be deleted.
+
+[none]
+*MSS*
+
+. User <<_UC05, requests to see all recurring expenses (UC05)>>
+. User reviews the list of recurring expenses.
+. User requests to delete the recurring expense with a specific index from the list.
+. MM deletes the expense with the specified index.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. User decides not to delete the recurring expense.
++
+Use case ends.
+
+* 3a. MM detects an error in entered data.
+[none]
+** 3a1. MM informs the user what data was invalid.
++
+Use case resumes at step 2.
+
+[none]
+[#_UC10]
+=== UC10 - Set a budget for the current month +
+Guarantees:
+
+* The budget will be set to the specified amount.
+
+[none]
+*MSS*
+
+. User requests to set the budget, specifying the amount for the month.
+. MM sets the budget of the month.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. An existing budget has already been set.
+[none]
+** 1a1. MM sets the budget for the month to the newly specified amount.
++
+Use case ends.
+
+[none]
+[#_UC11]
+=== UC11 - Visualize funds left for current month +
+Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+Guarantees:
+
+* Visualization of funds left for current month will be updated.
+
+[none]
+*MSS*
+
+. User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
+. MM updates the visualization of funds left for the month.
++
+Use case ends.
+
+
+[none]
+[#_UC12]
+=== UC12 - Notify when funds are < 50% +
+Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+
+Guarantees:
+
+* The user is notified that funds are low, if resulting budget balance is < 50%.
+
+[none]
+*MSS*
+
+. User <<_UC02, adds an expense (UC02)>>
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. Resulting budget balance is < 50%
+[none]
+** 1a1. MM informs the user the new budget balance and that funds are running low.
++
+Use case ends.
+
+[none]
+[#_UC13]
+=== UC13 - Visualize expenditure +
+
+Guarantees:
+
+* Visualisation of expenditure will be shown if there is sufficient data.
+
+[none]
+*MSS*
+
+. User <<_UC04, requests for all expenses>>
+. MM updates visualization based on expenses requested in Step 1.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. There are no expenditures.
+[none]
+** 2a1. MM informs User that there is not enough data to visualise expenditure breakdown by tag.
++
+Use case ends.
+
+
+[none]
+[#_UC14]
+=== UC14 - Visualize expenditure breakdown by tag +
+
+Guarantees:
+
+* Breakdown by tag visualisation will be shown if there is sufficient data.
+
+[none]
+*MSS*
+
+. User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
+. MM updates the breakdown of expenditure by tag visualisation.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 2a. There are no expenditures.
+[none]
+** 2a1. MM informs User that there is not enough data to visualise expenditure breakdown by tag.
++
+Use case ends.
+
+
+
+[none]
+[#_UC15]
+=== UC15 - Recall commands previously used in current session +
+
+Guarantees:
+
+* Commands used previously can be cycled through by the user if there are previously used commands in the current session.
+
+[none]
+*MSS*
+
+. User request for previous command.
+. Step 1 is repeated till user found the target command.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. No prior commands entered.
++
+Use case ends.
+
+[none]
+[#_UC16]
+=== UC16 - Set default currency of expenses +
+
+Guarantees:
+
+* MyMorise will convert display amounts in the specified currency, if the specified currency is valid..
+
+[none]
+*MSS*
+
+. User requests to set the default currency
+. MM converts all expenses into the defualt currency and updates the display.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. The specified currency is not valid.
+[none]
+** 1a1. MM informs the user that the currency specified is not valid.
++
+Use case ends.
+
+[none]
+[#_UC17]
+=== UC17 - Create expense with specific currency +
+Guarantees:
+
+* A new expense with the specified currency will be added into MM if the specified data is valid.
+
+[none]
+*MSS*
+
+. User requests to create an expense specifying required data.
+. MM creates and stores the expense with the specified data.
++
+Use case ends.
+
+[none]
+*Extensions*
+
+[none]
+* 1a. MM detects an error in entered data.
+[none]
+** 1a1. MM informs the user what data was invalid.
++
+Use case ends.
+
+[none]
+[#_UC18]
+=== UC18 - Automatically convert expenses in foreign currencies to default currency +
+Preconditions: Preconditions: MyMorise is running, at least 1 expense stored in foreign currency +
+
+Guarantees:
+
+* Expense will display expense amount in both default and foreign currencies
+but all computations will default converted amount.
+
+[none]
+*MSS*
+
+. User <<_UC17,  creates an expense with specific currency>>
+. User <<_UC05, requests for all expenses>>
+. MM shows list of expenses. Expenses with foreign currencies are shown together with their default currency converted amounts.
++
+Use case ends.
+
+//[none]
+//[#_UC19]
+//=== UC19 - Description +
+//Preconditions: precond
+//
+//Guarantees:
+//
+//* g1
+//* g2
+//
+//[none]
+//*MSS*
+//
+//.
+//.
+//.
+//.
+//+
+//Use case ends.
+//
+//[none]
+//*Extensions*
+//
+//[none]
+//* 1a. AltScene1
+//[none]
+//** 1a1. AltScene1a
+//+
+//Use case ends.
+//
+//* 2a. AltScene2
+//[none]
+//** 2a1. AltScene2a
+//+
+//Use case ends.
+//
+//* 3a. AltScene3
+//[none]
+//** 3a1. AltScene3a
+//** 3a2. AltScene3b
+//+
+//Use case resumes at step 2.
+//
+//[none]
+//[#_UC20]
+//=== UC20 - Description +
+//Preconditions: precond
+//
+//Guarantees:
+//
+//* g1
+//* g2
+//
+//[none]
+//*MSS*
+//
+//.
+//.
+//.
+//.
+//+
+//Use case ends.
+//
+//[none]
+//*Extensions*
+//
+//[none]
+//* 1a. AltScene1
+//[none]
+//** 1a1. AltScene1a
+//+
+//Use case ends.
+//
+//* 2a. AltScene2
+//[none]
+//** 2a1. AltScene2a
+//+
+//Use case ends.
+//
+//* 3a. AltScene3
+//[none]
+//** 3a1. AltScene3a
+//** 3a2. AltScene3b
+//+
+//Use case resumes at step 2.
+
+_{More may be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  (Technical) Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  (Capacity, Performance) Should be able to hold up to 10000 expenses without a noticeable sluggishness in performance for typical usage.
+.  (Scalability) Should be able to handle expense amounts up to 10^12^.
+.  (Process) Project should be production ready by 11th November 2019.
 
 _{More to be added}_
 
@@ -357,9 +968,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
