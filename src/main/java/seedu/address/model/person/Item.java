@@ -10,8 +10,6 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * Represents an Item in Elisa.
  * Guarantees: ItemDescription is present and not null. 

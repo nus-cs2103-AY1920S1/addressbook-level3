@@ -2,7 +2,6 @@ package seedu.address.model.person;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
@@ -15,20 +14,22 @@ import static java.util.Objects.requireNonNull;
  */
 public class Event {
 
-    public final LocalDateTime startDateTime;
-    public final LocalDateTime endDateTime;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
     
     //Duration chosen over Period as Events are unlikely to exceed a day.
-    public final Duration duration;
-    public final Priority priority;
+    private final Duration duration;
+    private final Priority priority;
 
     /**
      * Constructs an {@code Event}.
      *
-     * @param startDateTimeString A valid LocalDateTime String that denotes the start of the event.
+     * @param startDateTime A valid LocalDateTime object that denotes the start of the event.
+     * @param duration A Duration of the event. Defaults to Duration.ZERO if null.
+     * @param priority A Priority of the event. Defaults to Priority.MEDIUM if null.
      */
-    public Event(String startDateTimeString, Duration duration, Priority priority) throws IllegalArgumentException{
-        requireNonNull(startDateTimeString);
+    public Event(LocalDateTime startDateTime, Duration duration, Priority priority) throws IllegalArgumentException{
+        requireNonNull(startDateTime);
         
         if (duration != null) {
             this.duration = duration;
@@ -41,8 +42,11 @@ public class Event {
         } else {
             this.priority = Priority.MEDIUM;
         }
+
+        this.startDateTime = startDateTime;
+        this.endDateTime = startDateTime.plus(duration);
         
-        
+        /*
         try {
             //Check validity of startDateTimeString by parsing
             this.startDateTime = LocalDateTime.parse(startDateTimeString);
@@ -51,6 +55,7 @@ public class Event {
             throw new IllegalArgumentException("DateTimeString Invalid! It should follow the ISO_LOCAL_DATE_TIME format:" +
                     " YYYY-MM-DDTHH:MM. Eg.2019-10-09T02:00");
         }
+         */
     }
     
     public LocalDateTime getStartDateTime() {
@@ -67,6 +72,18 @@ public class Event {
 
     public Priority getPriority() {
         return priority;
+    }
+    
+    public Event changeStartDateTime(LocalDateTime newStartDateTime) {
+        return new Event(newStartDateTime, getDuration(), getPriority());
+    }
+
+    public Event changeDuration(Duration newDuration) {
+        return new Event(getStartDateTime(), newDuration, getPriority());
+    }
+
+    public Event changePriority(Priority newPriority) {
+        return new Event(getStartDateTime(), getDuration(), newPriority);
     }
     
     @Override
