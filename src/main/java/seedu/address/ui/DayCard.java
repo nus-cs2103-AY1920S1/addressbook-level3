@@ -1,15 +1,12 @@
 package seedu.address.ui;
 
-import java.time.YearMonth;
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
-
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+
 import seedu.address.model.events.EventSource;
 
 /**
@@ -34,12 +31,16 @@ public class DayCard extends UiPart<Region> {
         super(FXML);
         String currentIndex = day + ". ";
         this.index.setText(currentIndex);
-        for(EventSource event : eventList) {
+        for (EventSource event : eventList) {
             String eventDescription = event.getDescription().substring(0, 15);
             Label eventLabel = new Label(eventDescription);
         }
     }
 
+    /**
+     * Adds an event to the arrayList.
+     * @param event The event to be added.
+     */
     public void updateEventList(EventSource event) {
         this.eventList.add(event);
     }

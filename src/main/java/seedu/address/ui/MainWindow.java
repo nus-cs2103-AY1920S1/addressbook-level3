@@ -210,6 +210,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         // Temporary Stub for UI testing.
+        /*
         if(commandText.equals("view")) {
             viewPanelPlaceholder.getChildren().clear();
             if(calendarMode) {
@@ -221,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             }
             return null;
         }
+        */
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
