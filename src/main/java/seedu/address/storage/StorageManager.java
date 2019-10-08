@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
@@ -21,14 +22,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private TimeBookStorage timeBookStorage;
+    private NusModsDataStorage nusModsDataStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage,
-                          UserPrefsStorage userPrefsStorage, TimeBookStorage timeBookStorage) {
+                          UserPrefsStorage userPrefsStorage, TimeBookStorage timeBookStorage,
+                          NusModsDataStorage nusModsDataStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.timeBookStorage = timeBookStorage;
+        this.nusModsDataStorage = nusModsDataStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -103,5 +107,31 @@ public class StorageManager implements Storage {
         timeBookStorage.saveTimeBook(timeBook, filePath);
     }
 
+    // ================ NusModsData methods ==============================
+
+    @Override
+    public Path getNusModsDataFilePath() {
+        return nusModsDataStorage.getNusModsDataFilePath();
+    }
+
+    @Override
+    public Optional<NusModsData> readNusModsData() throws DataConversionException, IOException {
+        return readNusModsData(nusModsDataStorage.getNusModsDataFilePath());
+    }
+
+    @Override
+    public Optional<NusModsData> readNusModsData(Path filePath) throws DataConversionException, IOException {
+        return nusModsDataStorage.readNusModsData(filePath);
+    }
+
+    @Override
+    public void saveNusModsData(NusModsData nusModsData) throws IOException {
+        saveNusModsData(nusModsData, nusModsDataStorage.getNusModsDataFilePath());
+    }
+
+    @Override
+    public void saveNusModsData(NusModsData nusModsData, Path filePath) throws IOException {
+        nusModsDataStorage.saveNusModsData(nusModsData, filePath);
+    }
 
 }

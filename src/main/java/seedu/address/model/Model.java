@@ -2,9 +2,11 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
@@ -13,6 +15,13 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleList;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -42,6 +51,16 @@ public interface Model {
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
+     * Returns the user prefs' App settings.
+     */
+    AppSettings getAppSettings();
+
+    /**
+     * Sets the user prefs' App settings.
+     */
+    void setAppSettings(AppSettings appSettings);
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -60,6 +79,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the user prefs' NusModsData file path.
+     */
+    Path getNusModsDataFilePath();
+
+    /**
+     * Sets the user prefs' NusModsData file path.
+     */
+    void setNusModsDataFilePath(Path nusModsDataFilePath);
 
     //=========== AddressBook ================================================================================
 
@@ -197,6 +226,30 @@ public interface Model {
      * Deletes all mappings with GroupId.
      */
     void deleteGroupFromMapping(GroupId groupId);
+
+
+    //=========== NusModsData ================================================================================
+
+    /**
+     * Returns the NusModsData
+     */
+    NusModsData getNusModsData();
+
+    String getAcadSemesterStartDateString(AcadYear acadYear, SemesterNo semesterNo);
+
+    void setAcademicCalendar(AcadCalendar acadCalendar);
+
+    List<String> getHolidayDateStrings();
+
+    void setHolidays(Holidays holidays);
+
+    //=========== Module Accessors =============================================================
+
+    ModuleList getModuleList();
+
+    void addModule(Module module);
+
+    Module findModule(ModuleCode moduleCode);
 
     //=========== Others =============================================================
 
