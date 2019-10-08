@@ -6,14 +6,16 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -25,9 +27,9 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = TestUtil.getTypicalModelManager();
+        Model expectedModel1 = TestUtil.getTypicalModelManager();
+        Model expectedModel2 = TestUtil.getTypicalModelManager();
         expectedModel1.addPerson(validPerson);
 
         assertCommandSuccess(command, model,
@@ -42,8 +44,8 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model model = TestUtil.getTypicalModelManager();
+        Model expectedModel = TestUtil.getTypicalModelManager();
 
         assertUndoCommandFailure(command, model,
                 String.format(AddCommand.MESSAGE_UNDO_ADD_ERROR, validPerson));
@@ -54,7 +56,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = TestUtil.getTypicalModelManager();
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

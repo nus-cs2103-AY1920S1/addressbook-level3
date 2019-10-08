@@ -27,8 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {
-    }
+    public AddressBook() { }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -65,6 +64,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if an exact {@code person} exists in the address book.
+     */
+    public boolean hasExactPerson(Person person) {
+        requireNonNull(person);
+        return persons.containsExact(person);
     }
 
     /**
