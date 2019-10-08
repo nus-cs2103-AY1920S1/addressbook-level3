@@ -7,6 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Customer's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCustomerName(String)}
  */
+
 public class CustomerName implements Cloneable {
 
     public static final String MESSAGE_CONSTRAINTS =
