@@ -32,7 +32,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     }
 
     public boolean hasBorrower(Borrower borrower) {
-        return listOfBorrowers.stream().anyMatch(item -> item.equals(borrower));
+        return listOfBorrowers.stream().anyMatch(item -> item.isSameBorrower(borrower));
     }
 
     public void addBorrower(Borrower borrower) {
