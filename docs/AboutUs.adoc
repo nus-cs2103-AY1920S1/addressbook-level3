@@ -27,3 +27,21 @@ Role: Developer +
 Responsibilities: TBC
 
 '''
+
+=== Tan Yan Zhen, Natalie
+image::nattanyz.png[width="150", align="left"]
+{empty}[http://github.com/nattanyz[github]] [<<nattanyz#, portfolio>>]
+
+Role: Developer +
+Responsibilities: TBC
+
+'''
+
+=== Abdul Haliq
+image::ahaliq.jpg[width="150", align="left"]
+{empty}[https://github.com/ahaliq[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: TBC
+
+'''
