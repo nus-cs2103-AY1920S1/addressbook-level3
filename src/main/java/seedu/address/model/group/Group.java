@@ -16,6 +16,16 @@ public class Group {
         counter += 1;
     }
 
+    public Group(GroupId groupId, GroupName groupName, GroupRemark groupRemark) {
+        this.groupName = groupName;
+        this.groupRemark = groupRemark;
+        this.groupId = groupId;
+    }
+
+    public static void setCounter(int i) {
+        counter = i;
+    }
+
     /**
      * Reset counter for testing purposes.
      */

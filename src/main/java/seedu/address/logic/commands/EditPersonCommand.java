@@ -9,13 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
-
 
 /**
  * Edits the details of an existing person in the address book.
@@ -66,6 +69,12 @@ public class EditPersonCommand extends Command {
         if (person == null) {
             return new CommandResult(MESSAGE_FAILURE);
         } else {
+            // update main window display
+            model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+
+            // update side panel display
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+
             return new CommandResult(MESSAGE_SUCCESS + person.details());
         }
     }

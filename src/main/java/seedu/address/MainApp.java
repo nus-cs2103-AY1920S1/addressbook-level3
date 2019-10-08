@@ -20,16 +20,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.group.GroupList;
-import seedu.address.model.mapping.PersonToGroupMappingList;
-import seedu.address.model.person.PersonList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TimeBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -61,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
 
         initLogging(config);
 
@@ -80,6 +81,8 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+
+        // legacy code: to be deleted
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -96,30 +99,22 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        PersonList personList;
-        GroupList groupList;
-        PersonToGroupMappingList personToGroupMappingList;
+
+        Optional<TimeBook> timeBookOptional;
+        TimeBook timeBook;
+
         try {
-            personList = storage.getPersonList();
-            groupList = storage.getGroupList();
-            personToGroupMappingList = storage.getPersonToGroupMappingList();
-
-            if (personList == null || groupList == null || personToGroupMappingList == null) {
-                throw new NullPointerException();
+            timeBookOptional = storage.readTimeBook();
+            if (!timeBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty timebook");
             }
-
-            logger.info("Loading personlist, grouplist and mappinglist");
-
+            timeBook = timeBookOptional.orElse(new TimeBook());
         } catch (Exception e) {
-            personList = new PersonList();
-            groupList = new GroupList();
-            personToGroupMappingList = new PersonToGroupMappingList();
-
-            logger.severe("Failed to load personlist, grouplist and mappinglist, starting with a new instance");
-
+            timeBook = new TimeBook();
+            logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        return new ModelManager(initialData, personList, groupList, personToGroupMappingList, userPrefs);
+        return new ModelManager(initialData, timeBook, userPrefs);
     }
 
     private void initLogging(Config config) {

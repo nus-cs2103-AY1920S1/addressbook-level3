@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+import seedu.address.model.display.detailwindow.DayTimeslot;
+import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -28,8 +31,7 @@ import seedu.address.model.person.schedule.Timeslot;
  * A class to generate a schedule table (ui) from a Schedule object.
  */
 public class ScheduleView extends UiPart<Region> {
-    //Schedule to be received from logic MUST be in chronological order from Monday -> Friday and events must be
-    //in chronological order as well.
+    //Schedule to be received from logic MUST have timeslots in chronological order.
     //ScheduleView must be wrapped in a scroll pane otherwise the view will become distorted.
     private static final String FXML = "ScheduleView.fxml";
     private static ArrayList<String> dayNames = new ArrayList<String>(List.of("Monday", "Tuesday",
@@ -47,6 +49,7 @@ public class ScheduleView extends UiPart<Region> {
     private int endTime = 20;
     private int currentDay;
 
+    /*
     public ScheduleView(Schedule schedule) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
@@ -56,7 +59,31 @@ public class ScheduleView extends UiPart<Region> {
         HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hashMap = getScheduleMap(schedule);
         showIndividualSchedule(hashMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
     }
+    */
 
+    public ScheduleView(WeekSchedule weekSchedule) {
+        super(FXML);
+        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
+        initialise();
+        initialiseHeaders();
+        initialiseTableCells();
+        HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap = weekSchedule.getWeekSchedule();
+        showIndividualSchedule(scheduleMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
+    }
+
+    public ScheduleView(ArrayList<WeekSchedule> weekSchedules) {
+        super(FXML);
+        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
+        initialise();
+        initialiseHeaders();
+        initialiseTableCells();
+        for (WeekSchedule wk : weekSchedules) {
+            System.out.println(wk.toString());
+        }
+        showGroupSchedule(weekSchedules);
+    }
+
+    /*
     public ScheduleView(ArrayList<Schedule> schedules) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
@@ -71,6 +98,7 @@ public class ScheduleView extends UiPart<Region> {
         }
         showGroupSchedule(scheduleMapsList);
     }
+     */
 
     private ScheduleView initialise() {
         scheduleView = new GridPane();
@@ -207,15 +235,20 @@ public class ScheduleView extends UiPart<Region> {
         return hours * 60 + minutes;
     }
 
-    private VBox getDayVBoxOfIndividualSchedule(ArrayList<Pair<Integer, Integer>> daySchedule, String color) {
+    private int formatTimeToInt(LocalTime localTime) {
+        return localTime.getHour() * 100 + localTime.getMinute();
+    }
+
+    private VBox getDayVBoxOfIndividualSchedule(ArrayList<DayTimeslot> daySchedule, String color) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
         timeslotContainer.getChildren().add(makeEmptyTimeslot(30));
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
-            Pair<Integer, Integer> timeslot = daySchedule.get(j);
-            int startTime = (int) timeslot.getKey();
-            int endTime = (int) timeslot.getValue();
+            DayTimeslot timeslot = daySchedule.get(j);
+            int startTime = formatTimeToInt(timeslot.getStartTime());
+            int endTime = formatTimeToInt(timeslot.getEndTime());
+            System.out.println(startTime + "---" + endTime);
             Region busyTimeslot = makeColouredTimeslot(getTimeDifference(startTime, endTime), color);
             if (originalTimeStamp != startTime) {
                 int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
@@ -249,6 +282,7 @@ public class ScheduleView extends UiPart<Region> {
         return colors;
     }
 
+    /*
     private HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> getScheduleMap(Schedule schedule) {
         HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> hashMap =
                 new HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>();
@@ -290,22 +324,20 @@ public class ScheduleView extends UiPart<Region> {
 
         return hashMap;
     }
+     */
 
     /**
      * Method to obtain a table view of an individual's schedule.
-     * @param map ScheduleMap obtained by calling getScheduleMap on a Schedule object.
+     * @param scheduleMap ScheduleMap obtained by calling getScheduleMap on a Schedule object.
      * @param color Color of the blocks in the table view.
      * @return  GridPane table view of the individual's schedule.
      */
-    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> map,
+    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap,
                                            String color) {
         for (int i = 1; i <= 7; i++) {
-            ArrayList<Pair<PersonId, Pair<Integer, Integer>>> daySchedule = map.get(DayOfWeek.of(i));
+            ArrayList<DayTimeslot> daySchedule = scheduleMap.get(DayOfWeek.of(i));
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
-            ArrayList<Pair<Integer, Integer>> startEndTimes = daySchedule.stream()
-                    .map(p -> p.getValue())
-                    .collect(Collectors.toCollection(ArrayList::new));
-            VBox timeslotContainer = getDayVBoxOfIndividualSchedule(startEndTimes, color);
+            VBox timeslotContainer = getDayVBoxOfIndividualSchedule(daySchedule, color);
             dayStackPane.getChildren().add(timeslotContainer);
         }
         return scheduleView;
@@ -316,8 +348,7 @@ public class ScheduleView extends UiPart<Region> {
      * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
      * @return  GridPane table view of schedules.
      */
-    public GridPane showGroupSchedule(ArrayList<HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>>>
-                                              schedules) {
+    public GridPane showGroupSchedule(ArrayList<WeekSchedule> schedules) {
         //Assign colors to each schedule.
         //Draw VBox of each individual's schedule.
         //Put VBoxes of all individuals' timeslot for the day into HBox.
@@ -329,11 +360,9 @@ public class ScheduleView extends UiPart<Region> {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             HBox groupTimeslot = new HBox();
             for (int j = 0; j < schedules.size(); j++) {
-                HashMap<DayOfWeek, ArrayList<Pair<PersonId, Pair<Integer, Integer>>>> personSchedule = schedules.get(j);
-                ArrayList<Pair<Integer, Integer>> daySchedule = personSchedule.get(DayOfWeek.of(i)).stream()
-                        .map(p -> p.getValue())
-                        .collect(Collectors.toCollection(ArrayList::new));
-                VBox dayScheduleVBox = getDayVBoxOfIndividualSchedule(daySchedule, colors.get(j));
+                HashMap<DayOfWeek, ArrayList<DayTimeslot>> personSchedule = schedules.get(j).getWeekSchedule();
+                VBox dayScheduleVBox = getDayVBoxOfIndividualSchedule(personSchedule.get(DayOfWeek.of(i)),
+                        colors.get(j));
                 HBox.setHgrow(dayScheduleVBox, Priority.ALWAYS);
                 groupTimeslot.getChildren().add(dayScheduleVBox);
             }

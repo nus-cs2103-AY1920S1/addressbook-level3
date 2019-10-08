@@ -2,6 +2,8 @@ package seedu.address.model.mapping;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.person.PersonId;
 
@@ -17,6 +19,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Adds a mapping to the list of mappings, will not add when a duplicate is found.
+     *
      * @param map mapping to be added
      * @return true when mapping is added, false when mapping already exists
      */
@@ -33,8 +36,9 @@ public class PersonToGroupMappingList {
 
     /**
      * finds a mapping with personId and groupId and returns the mapping.
+     *
      * @param personId of the mapping
-     * @param groupId of the mapping
+     * @param groupId  of the mapping
      * @return mapping found
      */
     public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) {
@@ -49,6 +53,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Deletes a mapping from the list of mapping.
+     *
      * @param mapping to be deleted
      * @return true when mapping found and deleted
      */
@@ -65,6 +70,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Deletes all mapping with personId.
+     *
      * @param personId to be deleted
      */
     public void deletePersonFromMapping(PersonId personId) {
@@ -79,6 +85,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Deletes all mapping with groupId.
+     *
      * @param groupId to be deleted
      */
     public void deleteGroupFromMapping(GroupId groupId) {
@@ -93,6 +100,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Finds all groups with person with personId.
+     *
      * @param personId to be found
      * @return list of groupId
      */
@@ -109,6 +117,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Finds all persons of a Group with groupId.
+     *
      * @param groupId to be found
      * @return list of personId
      */
@@ -125,6 +134,7 @@ public class PersonToGroupMappingList {
 
     /**
      * Converts to String.
+     *
      * @return String
      */
     public String toString() {
@@ -135,5 +145,14 @@ public class PersonToGroupMappingList {
             output += "\n";
         }
         return output;
+    }
+
+    /**
+     * Returns an unmodifiable observable list of mappings.
+     * @return ObservableList
+     */
+    public ObservableList<PersonToGroupMapping> asUnmodifiableObservableList() {
+        ObservableList<PersonToGroupMapping> observableList = FXCollections.observableArrayList(mappings);
+        return FXCollections.unmodifiableObservableList(observableList);
     }
 }

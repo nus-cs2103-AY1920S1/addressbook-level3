@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,6 +13,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
@@ -39,15 +47,24 @@ public class ModelManager implements Model {
     //To Do.
     //private final FilteredList<Group> groupFilteredList;
 
+    private TimeBook timeBook = null;
+
     private PersonList personList;
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
 
+    // UI display
+    private DetailWindowDisplay detailWindowDisplay;
+    private SidePanelDisplay sidePanelDisplay;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, PersonList personList, GroupList groupList,
-                        PersonToGroupMappingList personToGroupMappingList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        PersonList personList,
+                        GroupList groupList,
+                        PersonToGroupMappingList personToGroupMappingList,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -61,6 +78,36 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
+    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook, ReadOnlyUserPrefs userPrefs) {
+        this.addressBook = new AddressBook(addressBook);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.timeBook = timeBook;
+        this.personList = timeBook.getPersonList();
+        this.groupList = timeBook.getGroupList();
+        this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
+
+        int personCounter = -1;
+        for (int i = 0; i < personList.getPersons().size(); i++) {
+            if (personList.getPersons().get(i).getPersonId().getIdentifier() > personCounter) {
+                personCounter = personList.getPersons().get(i).getPersonId().getIdentifier();
+            }
+        }
+
+        int groupCounter = -1;
+        for (int i = 0; i < groupList.getGroups().size(); i++) {
+            if (groupList.getGroups().get(i).getGroupId().getIdentifier() > groupCounter) {
+                groupCounter = groupList.getGroups().get(i).getGroupId().getIdentifier();
+            }
+        }
+
+        // sets the appropriate counter for person and group constructor
+        Person.setCounter(personCounter + 1);
+        Group.setCounter(groupCounter + 1);
+
+        this.userPrefs = new UserPrefs(userPrefs);
+    }
+
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         this(addressBook, new PersonList(), new GroupList(), new PersonToGroupMappingList(), userPrefs);
     }
@@ -68,7 +115,11 @@ public class ModelManager implements Model {
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
         //Edit addressbook with the details here?
-        this.addressBook.setPersons(personList.getPersonList());
+        this.addressBook.setPersons(personList.getPersons());
+    }
+
+    public ModelManager(TimeBook timeBook) {
+        this(new AddressBook(), timeBook, new UserPrefs());
     }
 
     public ModelManager() {
@@ -309,6 +360,115 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
+    //=========== UI Model =============================================================
+
+    @Override
+    public DetailWindowDisplay getDetailWindowDisplay() {
+        return detailWindowDisplay;
+    }
+
+    @Override
+    public SidePanelDisplay getSidePanelDisplay() {
+        return sidePanelDisplay;
+    }
+
+    @Override
+    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
+        this.detailWindowDisplay = detailWindowDisplay;
+    }
+
+    @Override
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name));
+        weekSchedules.add(weekSchedule);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        updateDetailWindowDisplay(detailWindowDisplay);
+    }
+
+    @Override
+    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
+        Group group = groupList.findGroup(groupName);
+        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        for (int i = 0; i < personIds.size(); i++) {
+            Person person = findPerson(personIds.get(i));
+            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
+        }
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        updateDetailWindowDisplay(detailWindowDisplay);
+    }
+
+    @Override
+    public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
+        this.sidePanelDisplay = sidePanelDisplay;
+    }
+
+    @Override
+    public void updateSidePanelDisplay(SidePanelDisplayType type) {
+        SidePanelDisplay sidePanelDisplay;
+        ArrayList<PersonDisplay> displayPersons = new ArrayList<>();
+        ArrayList<GroupDisplay> displayGroups = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+        for (int i = 0; i < persons.size(); i++) {
+            displayPersons.add(new PersonDisplay(persons.get(i)));
+        }
+        for (int i = 0; i < groups.size(); i++) {
+            displayGroups.add(new GroupDisplay(groups.get(i)));
+        }
+        sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
+        updateSidePanelDisplay(sidePanelDisplay);
+    }
+
+    //=========== Suggesters =============================================================
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+
+        for (int i = 0; i < persons.size(); i++) {
+            String name = persons.get(i).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix, String groupName) {
+        ArrayList<String> suggestions = new ArrayList<>();
+
+        Group group = findGroup(new GroupName(groupName));
+        if (group == null) {
+            return suggestions;
+        }
+
+        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+        for (int i = 0; i < personIds.size(); i++) {
+            String name = findPerson(personIds.get(i)).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> groupSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+
+        for (int i = 0; i < groups.size(); i++) {
+            String name = groups.get(i).getGroupName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
 
     //=========== Others =============================================================
 
@@ -328,4 +488,10 @@ public class ModelManager implements Model {
 
         return output;
     }
+
+    @Override
+    public TimeBook getTimeBook() {
+        return this.timeBook;
+    }
+
 }

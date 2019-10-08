@@ -10,6 +10,10 @@ public class GroupId {
         this.identifier = id;
     }
 
+    public GroupId(String id) {
+        this.identifier = Integer.parseInt(id);
+    }
+
     public Integer getIdentifier() {
         return identifier;
     }

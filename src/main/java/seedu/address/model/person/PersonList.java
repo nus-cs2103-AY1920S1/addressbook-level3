@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * List of Persons.
  */
@@ -26,6 +29,10 @@ public class PersonList {
             return person;
         }
         return null;
+    }
+
+    public void addPerson(Person person) {
+        this.persons.add(person);
     }
 
     /**
@@ -55,23 +62,23 @@ public class PersonList {
     public Person editPerson(Name name, PersonDescriptor personDescriptor) {
         Person toEdit = findPerson(name);
 
-        if (personDescriptor.getName() != null) {
+        if (!personDescriptor.getName().equals(Name.emptyName())) {
             Name otherName = personDescriptor.getName();
             if (findPerson(otherName) != null) {
                 return null;
             }
             toEdit.setName(personDescriptor.getName());
         }
-        if (personDescriptor.getPhone() != null) {
+        if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
             toEdit.setPhone(personDescriptor.getPhone());
         }
-        if (personDescriptor.getEmail() != null) {
+        if (!personDescriptor.getEmail().equals(Email.emptyEmail())) {
             toEdit.setEmail(personDescriptor.getEmail());
         }
-        if (personDescriptor.getAddress() != null) {
+        if (!personDescriptor.getAddress().equals(Address.emptyAddress())) {
             toEdit.setAddress(personDescriptor.getAddress());
         }
-        if (personDescriptor.getRemark() != null) {
+        if (!personDescriptor.getRemark().equals(Remark.emptyRemark())) {
             toEdit.setRemark(personDescriptor.getRemark());
         }
         if (personDescriptor.getTags() != null) {
@@ -128,10 +135,15 @@ public class PersonList {
     }
 
     /**
-     * Method to return person list.
-     * @return List of persons.
+     * Returns an unmodifiable observable list of Persons.
+     * @return ObservableList
      */
-    public List<Person> getPersonList() {
-        return persons;
+    public ObservableList<Person> asUnmodifiableObservableList() {
+        ObservableList<Person> observableList = FXCollections.observableArrayList(persons);
+        return FXCollections.unmodifiableObservableList(observableList);
+    }
+
+    public ArrayList<Person> getPersons() {
+        return this.persons;
     }
 }

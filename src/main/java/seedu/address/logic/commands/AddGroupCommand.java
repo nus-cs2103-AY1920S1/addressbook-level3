@@ -3,8 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 
@@ -34,6 +38,13 @@ public class AddGroupCommand extends Command {
 
         Group group = model.addGroup(groupDescriptor);
         if (group != null) {
+
+            // updates main window
+            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+
+            // updates side panel
+            model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+
             return new CommandResult(MESSAGE_SUCCESS + group.details());
         } else {
             return new CommandResult(MESSAGE_FAILURE);

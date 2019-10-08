@@ -20,6 +20,10 @@ public class Name {
 
     public final String fullName;
 
+    private Name() {
+        this.fullName = "";
+    }
+
     /**
      * Constructs a {@code Name}.
      *
@@ -29,6 +33,10 @@ public class Name {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
+    }
+
+    public static Name emptyName() {
+        return new Name();
     }
 
     /**

@@ -10,6 +10,10 @@ public class PersonId {
         this.identifier = id;
     }
 
+    public PersonId(String id) {
+        this.identifier = Integer.parseInt(id);
+    }
+
     public Integer getIdentifier() {
         return this.identifier;
     }

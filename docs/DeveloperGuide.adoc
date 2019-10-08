@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to coordinate meetings with many groups/projects
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: find a common time and venue amongst group members to schedule meetings faster
 
 [appendix]
 == User Stories
@@ -299,16 +299,56 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a person |remove contacts that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add a new group |create a group for scheduling meetings
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add person to group |
+
+|`* * *` |user |delete a group |remove groups that I no longer need
+
+|`* * *` |user |find a group by name |locate details of groups without having to go through the entire list
+
+|`* * *` |user |import my current schedule |do not have to manually add my calendar events
+
+|`* * *` |user |import my friends' schedule easily |do not have to manually add their calendar events
+
+|`* * *` |user |view my schedule |see what's on my schedule
+
+|`* * *` |user |find a common free time between multiple schedules |schedule a meeting between multiple people quickly
+
+|`* * *` |user |schedule meetings with different intervals (multiple times a week, every week, biweekly) | arrange more regular meetings
+
+|`* * *` |user |import my current schedule |do not have to manually add my calendar events
+
+|`* * *` |user |add ad-hoc events |can de-conflict
+
+|`* * *` |user |export/share scheduled meetings |share it with other members of the group/project
+
+|`* * *` |user |savable data |share it with other members of the group/project
+
+|`* *` |user |know the best meeting location |arrange the meeting at a convenient place for all members
+
+|`* *` |user |know which bus to take |get to the meeting location
+
+|`* *` |experienced user |only use the keyboard |get things done faster
+
+|`* *` |user |tab complete |type my commands faster
+
+|`* *` |forgetful user |have guidance when typing |complete my commands easily
+
+|`* *` |careless user who type wrong commands frequently|undo my commands |do not have to manually reverse my mistakes
+
+|`* *` |inexperienced user |group people’s timetables |complete my commands easily
+
+|`* *` |user |generate email invite |notify other members of the group/project about the scheduled meeting
+
+|`*` |user |have a change log |view past changes
+
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -321,9 +361,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TimeBook shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TimeBook deletes the person
 +
 Use case ends.
 
@@ -341,7 +381,20 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Schedule a meeting
+Preconditions: meeting group is created.
+
+*MSS*
+
+1. User requests to arrange a meeting for a group
+2. TimeBook searches for common free timeslots between all group members' schedules
+3. User chooses a free timeslot to schedule a meeting
+4. TimeBook adds the scheduled meeting to all members' schedules
+
+*Extensions*
+
+
 
 [appendix]
 == Non Functional Requirements
@@ -349,17 +402,18 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. The application should be user-friendly to novices who have not used a command line interface before.
+. The application should primarily cater to NUS students who already uses NUSMods to find free time.
+. The UI design of the application should be intuitive to users to navigate.
+. The application size should not be too big.
+. The application should save data real time and not require users to invoke save manually.
+. Our code should allow other developers to add new features in the application easily.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey

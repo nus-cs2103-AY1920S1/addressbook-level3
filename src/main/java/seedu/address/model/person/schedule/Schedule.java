@@ -16,6 +16,11 @@ public class Schedule {
         this.events = new ArrayList<Event>();
     }
 
+    public Schedule(PersonId personId, ArrayList<Event> events) {
+        this.personId = personId;
+        this.events = events;
+    }
+
     public void addEvent(Event event) {
         this.events.add(event);
     }

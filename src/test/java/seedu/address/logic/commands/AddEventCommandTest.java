@@ -36,12 +36,6 @@ class AddEventCommandTest {
     }
 
     @Test
-    public void constructor_nullEvent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-                new AddEventCommand(ALICE.getName(), null));
-    }
-
-    @Test
     void execute_success() throws CommandException {
         Event event = TypicalEvents.generateTypicalEvent1();
 

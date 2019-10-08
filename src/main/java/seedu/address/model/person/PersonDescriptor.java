@@ -9,6 +9,7 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonDescriptor {
 
+    private static final Name DEFAULT_NAME = Name.emptyName();
     private static final Phone DEFAULT_PHONE = Phone.emptyPhone();
     private static final Email DEFAULT_EMAIL = Email.emptyEmail();
     private static final Address DEFAULT_ADDRESS = Address.emptyAddress();
@@ -22,7 +23,7 @@ public class PersonDescriptor {
     private Set<Tag> tags;
 
     public PersonDescriptor() {
-        this.name = null;
+        this.name = DEFAULT_NAME;
         this.phone = DEFAULT_PHONE;
         this.email = DEFAULT_EMAIL;
         this.address = DEFAULT_ADDRESS;
@@ -36,7 +37,7 @@ public class PersonDescriptor {
      * @return boolean
      */
     public boolean isAnyFieldEdited() {
-        if (this.name == null && this.phone.equals(DEFAULT_PHONE) && this.email.equals(DEFAULT_EMAIL)
+        if (this.name.equals(DEFAULT_NAME) && this.phone.equals(DEFAULT_PHONE) && this.email.equals(DEFAULT_EMAIL)
                 && this.address.equals(DEFAULT_ADDRESS)
                 && this.remark.equals(DEFAULT_REMARK) && this.tags == null) {
             return false;

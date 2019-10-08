@@ -10,9 +10,17 @@ public class GroupRemark {
         this.remark = remark;
     }
 
+    private GroupRemark() {
+        remark = "";
+    }
+
     @Override
     public String toString() {
         return remark;
+    }
+
+    public static GroupRemark emptyRemark() {
+        return new GroupRemark();
     }
 
     /**

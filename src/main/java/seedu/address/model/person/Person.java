@@ -43,6 +43,19 @@ public class Person {
         counter += 1;
     }
 
+    public Person(PersonId personId, Name name, Phone phone, Email email,
+                  Address address, Remark remark, Schedule schedule, Set<Tag> tags) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        this.tags.addAll(tags);
+        this.personId = personId;
+        this.schedule = schedule;
+    }
+
     public Person(PersonDescriptor personDescriptor) {
         this.name = personDescriptor.getName();
         this.phone = personDescriptor.getPhone();
@@ -62,6 +75,14 @@ public class Person {
      */
     public static void counterReset() {
         counter = 0;
+    }
+
+    /**
+     * Sets the counter to a specific value.
+     * @param i value to be set to
+     */
+    public static void setCounter(int i) {
+        counter = i;
     }
 
     /**
