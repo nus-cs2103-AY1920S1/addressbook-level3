@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jdk.jfr.Event;
+
 import seedu.address.model.events.exceptions.EventNotFoundException;
 
 /**
