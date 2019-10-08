@@ -67,7 +67,7 @@ public class JsonStudentRecordStorage implements StudentRecordStorage {
     /**
      * Similar to {@link #saveStudentRecord(ReadOnlyStudentRecord)}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param filePath location of the data.
      */
     public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
         requireNonNull(studentRecord);
