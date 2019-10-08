@@ -41,16 +41,19 @@ public abstract class Argument<T> {
      * @throws ParseException if the user input is invalid
      */
     public T build(boolean required) throws ArgumentException, ParseException {
-        if (required && this.userInput == null) {
-            throw new ArgumentException(String.format(MESSAGE_REQUIRED_COMMAND_ARGUMENT, this.description));
+        if (this.userInput == null) {
+            if (required) {
+                throw new ArgumentException(String.format(MESSAGE_REQUIRED_COMMAND_ARGUMENT, this.description));
+            }
+        } else {
+            this.value = this.parse(userInput);
         }
-        this.value = this.parse(userInput);
         return this.value;
     }
+
+    abstract T parse(String userInput) throws ParseException;
 
     T getValue() {
         return value;
     }
-
-    abstract T parse(String userInput) throws ParseException;
 }

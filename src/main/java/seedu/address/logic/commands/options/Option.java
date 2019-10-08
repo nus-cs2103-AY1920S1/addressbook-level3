@@ -32,9 +32,8 @@ public class Option {
     /**
      * Accepts user input and passes it to the next argument for parsing.
      * @param argument the user input
-     * @throws ParseException if any argument fails to parse the user input
      */
-    public void acceptArgument(String argument) throws ParseException {
+    public void acceptArgument(String argument) {
         if (this.argumentIndex < this.arguments.size()) {
             this.arguments.get(this.argumentIndex).accept(argument);
             this.argumentIndex++;
@@ -51,6 +50,10 @@ public class Option {
     public void build() throws ArgumentException, ParseException {
         for (Argument argument : this.arguments) {
             argument.build(this.active);
+        }
+
+        if (this.variableArguments != null) {
+            this.variableArguments.build();
         }
     }
 

@@ -44,9 +44,8 @@ public abstract class CommandBuilder {
      * Accepts a sentence from user input tokens.
      * A sentence can either be an option or an argument.
      * @param sentence a sentence from user input
-     * @throws ParseException thrown if the sentence is an argument, but failed to be parsed
      */
-    public void acceptSentence(String sentence) throws ParseException {
+    public void acceptSentence(String sentence) {
         if (this.options.containsKey(sentence)) {
             // Sets the context.
             this.context = this.options.get(sentence);
@@ -61,8 +60,9 @@ public abstract class CommandBuilder {
      * Builds all arguments and returns a Command.
      * @return the built Command
      * @throws ArgumentException if any argument is required but null
+     * @throws ParseException if any argument is required but null
      */
-    public Command build() throws ArgumentException {
+    public Command build() throws ArgumentException, ParseException {
         this.arguments.build();
         for (Option option : this.options.values()) {
             option.build();
