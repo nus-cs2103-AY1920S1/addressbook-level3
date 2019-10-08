@@ -21,22 +21,21 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+        String flag = "";
+        String[] nameKeywords = new String[10];
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FLAG);
-        String flag = argMultimap.getValue(PREFIX_FLAG).orElse("");
+        String tokenizedFlag = argMultimap.getValue(PREFIX_FLAG).orElse("");
 
-        if (!flag.equals("")) {
-            flag = Character.toString(flag.charAt(0));
+        if (!tokenizedFlag.equals("")) {
+            flag = Character.toString(tokenizedFlag.charAt(0));
+            nameKeywords = tokenizedFlag.substring(2).trim().split("\\s+");
         }
-
-        System.out.println(flag);
 
         return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)), flag);
     }

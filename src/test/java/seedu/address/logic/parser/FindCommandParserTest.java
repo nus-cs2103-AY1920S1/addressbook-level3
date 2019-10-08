@@ -13,7 +13,8 @@ import seedu.address.model.entity.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
-    private static final String BODY_FLAG = "-b";
+    private static final String BODY_FLAG = "b";
+    private static final String WORKER_FLAG = "w";
 
     private FindCommandParser parser = new FindCommandParser();
 
@@ -25,12 +26,16 @@ public class FindCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
+        FindCommand expectedFindCommand1 =
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")), BODY_FLAG);
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        FindCommand expectedFindCommand2 =
+                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")), WORKER_FLAG);
+        assertParseSuccess(parser, " -b Alice Bob", expectedFindCommand1);
+        assertParseSuccess(parser, " -w Alice Bob", expectedFindCommand1);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " -b   Alice  Bob  ", expectedFindCommand1);
+        assertParseSuccess(parser, " -w   Alice  Bob  ", expectedFindCommand1);
     }
 
 }
