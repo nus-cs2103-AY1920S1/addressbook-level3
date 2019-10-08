@@ -1,23 +1,22 @@
 package seedu.address.model.student;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.student.Student;
-import seedu.address.model.student.exceptions.DuplicateStudentException;
-import seedu.address.model.student.exceptions.StudentNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
+import seedu.address.model.student.exceptions.StudentNotFoundException;
 
 /**
  * A list of Students that enforces uniqueness between its elements and does not allow nulls.
- * A Student is considered unique by comparing using {@code Student#isSameStudent(Student)}. As such, adding and updating of
- * Students uses Student#isSameStudent(Student) for equality so as to ensure that the Student being added or updated is
- * unique in terms of identity in the UniqueStudentList. However, the removal of a Student uses Student#equals(Object) so
- * as to ensure that the Student with exactly the same fields will be removed.
+ * A Student is considered unique by comparing using {@code Student#isSameStudent(Student)}. As such, adding and
+ * updating of Students uses Student#isSameStudent(Student) for equality so as to ensure that the
+ * Student being added or updated is unique in terms of identity in the UniqueStudentList. However, the removal of
+ * a Student uses Student#equals(Object) so as to ensure that the Student with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -89,13 +88,13 @@ public class UniqueStudentList implements Iterable<Student> {
      * Replaces the contents of this list with {@code Students}.
      * {@code Students} must not contain duplicate Students.
      */
-    public void setStudents(List<Student> Students) {
-        requireAllNonNull(Students);
-        if (!StudentsAreUnique(Students)) {
+    public void setStudents(List<Student> students) {
+        requireAllNonNull(students);
+        if (!studentsAreUnique(students)) {
             throw new DuplicateStudentException();
         }
 
-        internalList.setAll(Students);
+        internalList.setAll(students);
     }
 
     /**
@@ -125,10 +124,10 @@ public class UniqueStudentList implements Iterable<Student> {
     /**
      * Returns true if {@code Students} contains only unique Students.
      */
-    private boolean StudentsAreUnique(List<Student> Students) {
-        for (int i = 0; i < Students.size() - 1; i++) {
-            for (int j = i + 1; j < Students.size(); j++) {
-                if (Students.get(i).isSameStudent(Students.get(j))) {
+    private boolean studentsAreUnique(List<Student> students) {
+        for (int i = 0; i < students.size() - 1; i++) {
+            for (int j = i + 1; j < students.size(); j++) {
+                if (students.get(i).isSameStudent(students.get(j))) {
                     return false;
                 }
             }

@@ -24,7 +24,7 @@ public class StorageManager implements Storage {
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-						  StudentRecordStorage studentRecordStorage) {
+                          StudentRecordStorage studentRecordStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -78,33 +78,34 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-	// ================ StudentRecord methods ==============================
+    // ================ StudentRecord methods ==============================
 
-	@Override
-	public Path getStudentRecordFilePath() {
-		return studentRecordStorage.getStudentRecordFilePath();
-	}
+    @Override
+    public Path getStudentRecordFilePath() {
+        return studentRecordStorage.getStudentRecordFilePath();
+    }
 
-	@Override
-	public Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException {
-		return readStudentRecord(studentRecordStorage.getStudentRecordFilePath());
-	}
+    @Override
+    public Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException {
+        return readStudentRecord(studentRecordStorage.getStudentRecordFilePath());
+    }
 
-	@Override
-	public Optional<ReadOnlyStudentRecord> readStudentRecord(Path filePath) throws DataConversionException, IOException {
-		logger.fine("Attempting to read student data from file: " + filePath);
-		return studentRecordStorage.readStudentRecord(filePath);
-	}
+    @Override
+    public Optional<ReadOnlyStudentRecord> readStudentRecord(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read student data from file: " + filePath);
+        return studentRecordStorage.readStudentRecord(filePath);
+    }
 
-	@Override
-	public void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException {
-		saveStudentRecord(studentRecord, studentRecordStorage.getStudentRecordFilePath());
-	}
+    @Override
+    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException {
+        saveStudentRecord(studentRecord, studentRecordStorage.getStudentRecordFilePath());
+    }
 
-	@Override
-	public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
-		logger.fine("Attempting to write to student data file: " + filePath);
-		studentRecordStorage.saveStudentRecord(studentRecord, filePath);
-	}
+    @Override
+    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
+        logger.fine("Attempting to write to student data file: " + filePath);
+        studentRecordStorage.saveStudentRecord(studentRecord, filePath);
+    }
 
 }

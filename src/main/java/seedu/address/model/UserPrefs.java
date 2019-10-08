@@ -15,10 +15,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-	private Path studentRecordFilePath = Paths.get("data" , "students.json");
+    private Path studentRecordFilePath = Paths.get("data" , "students.json");
 
 
-	/**
+    /**
      * Creates a {@code UserPrefs} with default values.
      */
     public UserPrefs() {}
@@ -38,7 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
-		setStudentRecordFilePath(newUserPrefs.getStudentRecordFilePath());
+        setStudentRecordFilePath(newUserPrefs.getStudentRecordFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -59,14 +59,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-	public Path getStudentRecordFilePath() {
-		return studentRecordFilePath;
-	}
+    public Path getStudentRecordFilePath() {
+        return studentRecordFilePath;
+    }
 
-	public void setStudentRecordFilePath(Path studentsFilePath) {
-		requireNonNull(studentsFilePath);
-		this.studentRecordFilePath = studentsFilePath;
-	}
+    public void setStudentRecordFilePath(Path studentsFilePath) {
+        requireNonNull(studentsFilePath);
+        this.studentRecordFilePath = studentsFilePath;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -81,7 +81,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-				&& studentRecordFilePath.equals(o.studentRecordFilePath);
+                && studentRecordFilePath.equals(o.studentRecordFilePath);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal address book data file location : " + addressBookFilePath);
-		sb.append("\nLocal student data file location : " + studentRecordFilePath);
+        sb.append("\nLocal student data file location : " + studentRecordFilePath);
         return sb.toString();
     }
 

@@ -21,7 +21,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-	// ================ AddressBook methods ==============================
+    // ================ AddressBook methods ==============================
 
     @Override
     Path getAddressBookFilePath();
@@ -32,14 +32,14 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
-	// ================ StudentRecord methods ==============================
+    // ================ StudentRecord methods ==============================
 
-	@Override
-	Path getStudentRecordFilePath();
+    @Override
+    Path getStudentRecordFilePath();
 
-	@Override
-	Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException;
+    @Override
+    Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException;
 
-	@Override
-	void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException;
+    @Override
+    void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException;
 }

@@ -1,12 +1,12 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.student.Student;
-import seedu.address.model.student.UniqueStudentList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
 
 /**
  * Wraps all data at the address-book level
@@ -24,7 +24,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
      *   among constructors.
      */
     {
-		students = new UniqueStudentList();
+        students = new UniqueStudentList();
     }
 
     public StudentRecord() {}
@@ -43,8 +43,8 @@ public class StudentRecord implements ReadOnlyStudentRecord {
      * Replaces the contents of the Student list with {@code Students}.
      * {@code Students} must not contain duplicate Students.
      */
-    public void setStudents(List<Student> Students) {
-        this.students.setStudents(Students);
+    public void setStudents(List<Student> students) {
+        this.students.setStudents(students);
     }
 
     /**
@@ -61,9 +61,9 @@ public class StudentRecord implements ReadOnlyStudentRecord {
     /**
      * Returns true if a Student with the same identity as {@code Student} exists in the address book.
      */
-    public boolean hasStudent(Student Student) {
-        requireNonNull(Student);
-        return students.contains(Student);
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return students.contains(student);
     }
 
     /**
@@ -71,18 +71,19 @@ public class StudentRecord implements ReadOnlyStudentRecord {
      * The Student must not already exist in the address book.
      */
     public void addStudent(Student p) {
-		students.add(p);
+        students.add(p);
     }
 
     /**
      * Replaces the given Student {@code target} in the list with {@code editedStudent}.
      * {@code target} must exist in the address book.
-     * The Student identity of {@code editedStudent} must not be the same as another existing Student in the address book.
+     * The Student identity of {@code editedStudent} must not be the same as another
+     * existing Student in the address book.
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
 
-		students.setStudent(target, editedStudent);
+        students.setStudent(target, editedStudent);
     }
 
     /**
@@ -90,7 +91,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
      * {@code key} must exist in the address book.
      */
     public void removeStudent(Student key) {
-		students.remove(key);
+        students.remove(key);
     }
 
     //// util methods
