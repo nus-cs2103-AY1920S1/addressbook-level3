@@ -21,9 +21,19 @@ Role: Project Advisor
 image::SakuraBlossom.png[width="150", align="left"]
 {empty}[http://github.com/SakuraBlossom[github]]
 
-Role: Team Lead +
-Responsibilities: Undo/Redo functionality, Eager Evaluation +
-Component(s) In Charge: Logic, Storage
+Role: Team Lead
+
+Responsibilities:
+
+. Undo/Redo functionality
+. Eager Evaluation
+. CRUD for patients, doctors, appointment models
+
+
+Component(s) In Charge:
+
+. Logic
+. Storage
 
 '''
 
@@ -31,9 +41,16 @@ Component(s) In Charge: Logic, Storage
 image::CarbonGrid.png[width="150", align="left"]
 {empty}[http://github.com/CarbonGrid[github]]
 
-Role: Developer +
-Responsibilities: AutoCompleter, History +
-Component(s) In Charge: UI
+Role: Developer
+
+Responsibilities:
+
+. AutoCompleter
+. History
+
+Component(s) In Charge:
+
+. UI
 
 '''
 
@@ -41,8 +58,11 @@ Component(s) In Charge: UI
 image::woon17.png[width="150", align="left"]
 {empty}[http://github.com/woon17[github]]
 
-Role: Developer +
-Responsibilities: Doctors, Patients, Appointments, Scheduling
+Role: Developer
+
+Responsibilities:
+
+. Logic for Appointment models & Scheduling
 
 '''
 
@@ -50,7 +70,10 @@ Responsibilities: Doctors, Patients, Appointments, Scheduling
 image::wongsm7.png[width="150", align="left"]
 {empty}[http://github.com/wongsm7[github]]
 
-Role: Developer +
-Responsibilities: Queue Management
+Role: Developer
+
+Responsibilities:
+
+. Logic for Queue Management System
 
 '''
