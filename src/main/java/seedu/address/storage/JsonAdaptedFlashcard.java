@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -62,7 +62,8 @@ class JsonAdaptedFlashcard {
         }
 
         if (question == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
         }
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);
