@@ -4,6 +4,7 @@ import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.util.FilePath;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
@@ -35,13 +36,11 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         // TODO
-        /*requireNonNull(model);
-        model.updateFilteredFlashCardList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW,
-                        model.getFilteredFlashCardList().size()));
+        requireNonNull(model);
 
-         */
+        // exportflashcards(model.getthoseflashcards(category), filepath)
+
+
         return new CommandResult("marmalade ni sugar song peanuts and bitter step");
     }
 
