@@ -4,43 +4,50 @@
     "name" : "Walking",
     "date" : "26/09/2019",
     "calories" : "222",
-    "quantity" : "Run for 30h",
+    "quantity" : "30",
+    "unit" : "hours",
     "muscles" : [ "Legs" ]
   }, {
     "name" : "Swimming",
     "date" : "26/09/2019",
     "calories" : "333",
-    "quantity" : "10 laps",
+    "quantity" : "10",
+    "unit" : "laps",
     "muscles" : [ "Legs", "Core" ]
   }, {
     "name" : "Dancing",
     "date" : "26/09/2019",
     "calories" : "456",
-    "quantity" : "Danced 2h",
+    "quantity" : "2",
+    "unit" : "hours",
     "muscles" : [  ]
   }, {
     "name" : "Bench Press",
     "date" : "26/09/2019",
     "calories" : "234",
-    "quantity" : "10 counts of 5",
+    "quantity" : "10",
+    "unit" : "counts",
     "muscles" : [ "Biceps" ]
   }, {
     "name" : "Skipping",
     "date" : "26/09/2019",
     "calories" : "333",
-    "quantity" : "160 skips",
+    "quantity" : "160",
+    "unit" : "skips",
     "muscles" : [  ]
   }, {
     "name" : "Sprinting",
     "date" : "26/09/2019",
     "calories" : "345",
-    "quantity" : "30 sprints",
+    "quantity" : "30",
+    "unit" : "sprints",
     "muscles" : [  ]
   }, {
     "name" : "Snapping",
     "date" : "26/09/2019",
     "calories" : "332",
-    "quantity" : "Snap 800 times",
+    "quantity" : "800",
+    "unit" : "times",
     "muscles" : [  ]
   } ]
 }

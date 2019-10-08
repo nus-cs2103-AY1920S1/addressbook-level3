@@ -3,6 +3,7 @@
     "name": "Running",
     "date": "26/09/2019",
     "calories": "invalid calories",
-    "quantity": "2.4km"
+    "quantity": "2.4km",
+    "unit" : " "
   } ]
 }
