@@ -15,7 +15,7 @@
 
 <?import javafx.scene.control.SplitPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="600" minHeight="800" onCloseRequest="#handleExit">
+         title="Address App" minWidth="500" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/address_book_32.png" />
     </icons>
@@ -35,13 +35,14 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
+
                 <AnchorPane fx:id="anchorPane" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                     <children>
 
-                        <SplitPane AnchorPane.topAnchor="0.0"
-                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" VBox.vgrow="ALWAYS">
-                            <VBox fx:id="personList" styleClass="pane-with-border"
-                                  HBox.hgrow="SOMETIMES" minWidth="400" maxWidth="Infinity">
+                        <SplitPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="100.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" VBox.vgrow="SOMETIMES">
+                            <VBox fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS"
+                                  HBox.hgrow="SOMETIMES" minWidth="300" maxWidth="Infinity">
                                 <padding>
                                     <Insets top="5" right="10" bottom="10" left="10" />
                                 </padding>
@@ -49,7 +50,8 @@
                             </VBox>
 
                             <VBox fx:id="queueList" styleClass="pane-with-border"
-                                  minWidth="200" maxWidth="500">
+                                  HBox.hgrow="ALWAYS"
+                                  minWidth="200" maxWidth="500" prefWidth="500" minHeight="200">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10" />
                                 </padding>
