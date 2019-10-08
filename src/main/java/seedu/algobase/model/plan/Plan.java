@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.task.Task;
 
 /**
  * Represents a Plan in the algobase.
@@ -23,21 +23,20 @@ public class Plan {
     private final Description description;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final Set<Problem> problems;
-
+    private final Set<Task> tasks;
 
     /**
      * Every field must be present and not null.
      */
     public Plan(Name name, Description description, LocalDateTime startDate, LocalDateTime endDate,
-                Set<Problem> problems) {
-        requireAllNonNull(name, description, startDate, endDate, problems);
+                Set<Task> tasks) {
+        requireAllNonNull(name, description, startDate, endDate, tasks);
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.problems = new HashSet<>();
-        this.problems.addAll(problems);
+        this.tasks = new HashSet<>();
+        this.tasks.addAll(tasks);
     }
 
     public Name getName() {
@@ -60,8 +59,8 @@ public class Plan {
      * Returns an immutable problem set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Problem> getProblems() {
-        return Collections.unmodifiableSet(problems);
+    public Set<Task> getTasks() {
+        return Collections.unmodifiableSet(tasks);
     }
 
     /**
@@ -96,13 +95,13 @@ public class Plan {
                 && otherPlan.getDescription().equals(getDescription())
                 && otherPlan.getStartDate().equals(getStartDate())
                 && otherPlan.getEndDate().equals(getEndDate())
-                && otherPlan.getProblems().equals(getProblems());
+                && otherPlan.getTasks().equals(getTasks());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, problems);
+        return Objects.hash(name, description, tasks, startDate, endDate);
     }
 
     @Override
@@ -115,8 +114,8 @@ public class Plan {
                 .append(getStartDate())
                 .append(" End Date: ")
                 .append(getEndDate())
-                .append(" Problems: ");
-        getProblems().forEach(builder::append);
+                .append(" Tasks: ");
+        getTasks().forEach(builder::append);
         return builder.toString();
     }
 

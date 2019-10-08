@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 
 /**
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Problem> filteredProblems;
     private final SortedList<Problem> sortedProblems;
+    private final FilteredList<Plan> filteredPlans;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         sortedProblems = new SortedList<>(filteredProblems);
+        filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
     }
 
     public ModelManager() {
@@ -115,7 +118,7 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    //=========== Filtered Problem List Accessors =============================================================
+    //=========== Problem List =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
@@ -144,6 +147,18 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
+    //=========== Plan List =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
+     * {@code versionedAlgoBase}
+     */
+    @Override
+    public ObservableList<Plan> getFilteredPlanList() {
+        return filteredPlans;
+    }
+
+    //============== Util ==================================================================
 
     @Override
     public boolean equals(Object obj) {

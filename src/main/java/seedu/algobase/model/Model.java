@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 
 /**
@@ -14,6 +15,8 @@ import seedu.algobase.model.problem.Problem;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
+
+    //=========== UserPref =============================================================
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -45,6 +48,8 @@ public interface Model {
      */
     void setAlgoBaseFilePath(Path algoBaseFilePath);
 
+    //=========== AlgoBase =============================================================
+
     /**
      * Replaces algobase data with the data in {@code algoBase}.
      */
@@ -52,6 +57,8 @@ public interface Model {
 
     /** Returns the AlgoBase */
     ReadOnlyAlgoBase getAlgoBase();
+
+    //=========== Problem List =============================================================
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the algobase.
@@ -92,4 +99,9 @@ public interface Model {
      * @throws NullPointerException if {@code problemComparator} is null;
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
+
+    //=========== Plan List =============================================================
+
+    /** Returns an unmodifiable view of the filtered Problem list */
+    ObservableList<Plan> getFilteredPlanList();
 }
