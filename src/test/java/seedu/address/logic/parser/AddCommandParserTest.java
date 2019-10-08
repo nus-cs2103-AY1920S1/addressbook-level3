@@ -89,10 +89,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PRICE_BOB + DESCRIPTION_DESC_BOB,
                 expectedMessage);
 
-        // missing description prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + VALID_DESCRIPTION_BOB,
-                expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PRICE_BOB + VALID_DESCRIPTION_BOB,
                 expectedMessage);
