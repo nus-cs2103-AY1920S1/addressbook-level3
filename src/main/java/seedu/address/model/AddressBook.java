@@ -69,7 +69,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// expense-level operations
 
     /**
-     * Returns true if a expense with the same identity as {@code expense}
+     * Returns true if an expense with the same identity as {@code expense}
      * exists in the address book.
      */
     public boolean hasExpense(Expense expense) {
@@ -78,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a expense to the address book.
+     * Adds an expense to the address book.
      * The expense must not already exist in the address book.
      */
     public void addExpense(Expense p) {
@@ -105,11 +105,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         expenses.remove(key);
     }
 
+    /**
+     * Returns true if a budget with the same identity as {@code budget}
+     * exists in Moolah.
+     */
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
         return budgets.contains(budget);
     }
 
+    /**
+     * Adds a budget to Moolah.
+     * The budget must not already exist in Moolah.
+     */
     public void addBudget(Budget budget) {
         budgets.add(budget);
     }

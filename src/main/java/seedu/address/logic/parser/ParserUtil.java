@@ -97,22 +97,36 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static LocalDate parseDate(String input) throws ParseException {
+    /**
+     * Parses {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid (not in MM-d format).
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
         try {
+            String trimmedDate = date.trim();
             int currentYear = LocalDate.now().getYear();
             DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder()
                     .appendPattern("MM-d")
                     .parseDefaulting(ChronoField.YEAR, currentYear)
                     .toFormatter(Locale.ENGLISH);
-            LocalDate date = LocalDate.parse(input, inputFormatter);
-            return date;
+            LocalDate parsedDate = LocalDate.parse(trimmedDate, inputFormatter);
+            return parsedDate;
         } catch (DateTimeParseException e) {
             throw new ParseException("Input date is not in MM-d format :-(");
         }
     }
 
-    public static Period parsePeriod(String input) throws ParseException {
-        switch (input) {
+    /**
+     * Parses {@code String period} into a {@code Period}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code period} is invalid.
+     */
+    public static Period parsePeriod(String period) throws ParseException {
+        String trimmedPeriod = period.trim();
+        switch (trimmedPeriod) {
         case "week":
             return Period.ofWeeks(1);
         case "month":

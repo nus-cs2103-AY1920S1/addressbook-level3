@@ -9,6 +9,10 @@ import java.util.Objects;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 
+/**
+ * Represents a Budget in Moolah.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Budget {
     private final Description description;
     private final LocalDate startDate;
@@ -46,6 +50,9 @@ public class Budget {
         return amount;
     }
 
+    /**
+     * Returns true if both budgets have the same description, amount, start date and period.
+     */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
             return true;

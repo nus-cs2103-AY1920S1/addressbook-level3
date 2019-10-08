@@ -4,13 +4,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Adds a budget to Moolah.
+ */
 public class BudgetCommand extends Command {
     public static final String COMMAND_WORD = "budget";
 

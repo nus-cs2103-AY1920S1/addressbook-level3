@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expense.Description;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 
 /**
@@ -21,6 +21,11 @@ import seedu.address.model.expense.Price;
  */
 public class BudgetCommandParser implements Parser<BudgetCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the BudgetCommand
+     * and returns a BudgetCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public BudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_PERIOD, PREFIX_PRICE);
