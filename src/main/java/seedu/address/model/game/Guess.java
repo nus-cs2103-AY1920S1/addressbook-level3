@@ -1,6 +1,6 @@
 package seedu.address.model.game;
 
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Word;
 
 public class Guess {
 
@@ -14,9 +14,9 @@ public class Guess {
         return this.guessString;
     }
 
-    public boolean matches(Name name) {
+    public boolean matches(Word word) {
 //        System.out.println("Guess String is: " + guessString );
 //        System.out.println("Answer String is: " + answer.getAnswerString());
-        return guessString.toLowerCase().equals(name.value.toLowerCase());
+        return guessString.toLowerCase().equals(word.value.toLowerCase());
     }
 }

@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<Card> lastShownList = model.getFilteredCardList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
         Card personToDelete = lastShownList.get(targetIndex.getZeroBased());

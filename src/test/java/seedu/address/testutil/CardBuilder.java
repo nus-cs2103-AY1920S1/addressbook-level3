@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Description;
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Meaning;
+import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,13 +18,13 @@ public class CardBuilder {
     public static final String DEFAULT_DESCRIPTION = "This forest-dwelling Pokémon stores electricity in its cheeks, "
             + "so you'll feel a tingly shock if you touch it.";
 
-    private Name name;
-    private Description description;
+    private Word word;
+    private Meaning meaning;
     private Set<Tag> tags;
 
     public CardBuilder() {
-        name = new Name(DEFAULT_NAME);
-        description = new Description(DEFAULT_DESCRIPTION);
+        word = new Word(DEFAULT_NAME);
+        meaning = new Meaning(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
 
@@ -32,8 +32,8 @@ public class CardBuilder {
      * Initializes the CardBuilder with the data of {@code cardToCopy}.
      */
     public CardBuilder(Card cardToCopy) {
-        name = cardToCopy.getName();
-        description = cardToCopy.getDescription();
+        word = cardToCopy.getWord();
+        meaning = cardToCopy.getMeaning();
         tags = new HashSet<>(cardToCopy.getTags());
     }
 
@@ -41,7 +41,7 @@ public class CardBuilder {
      * Sets the {@code Name} of the {@code Card} that we are building.
      */
     public CardBuilder withName(String name) {
-        this.name = new Name(name);
+        this.word = new Word(name);
         return this;
     }
 
@@ -57,12 +57,12 @@ public class CardBuilder {
      * Sets the {@code Description} of the {@code Card} that we are building.
      */
     public CardBuilder withDescription(String description) {
-        this.description = new Description(description);
+        this.meaning = new Meaning(description);
         return this;
     }
 
     public Card build() {
-        return new Card(name, description, tags);
+        return new Card(word, meaning, tags);
     }
 
 }

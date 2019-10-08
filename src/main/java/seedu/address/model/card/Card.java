@@ -16,8 +16,8 @@ import seedu.address.model.tag.Tag;
 public class Card {
 
     // field values
-    private final Name name;
-    private final Description description;
+    private final Word word;
+    private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
 
     // stateful objects
@@ -26,20 +26,20 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Name name, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, description, tags);
-        this.name = name;
-        this.description = description;
+    public Card(Word word, Meaning meaning, Set<Tag> tags) {
+        requireAllNonNull(word, meaning, tags);
+        this.word = word;
+        this.meaning = meaning;
         this.tags.addAll(tags);
-        this.hintSupplier = new HintSupplier(name.value);
+        this.hintSupplier = new HintSupplier(word.value);
     }
 
-    public Name getName() {
-        return name;
+    public Word getWord() {
+        return word;
     }
 
-    public Description getDescription() {
-        return description;
+    public Meaning getMeaning() {
+        return meaning;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Card {
         if (other == null) {
             return false;
         }
-        return getName().equals(other.getName());
+        return getWord().equals(other.getWord());
     }
 
     /**
@@ -82,23 +82,23 @@ public class Card {
         }
 
         Card otherPerson = (Card) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getDescription().equals(getDescription())
+        return otherPerson.getWord().equals(getWord())
+                && otherPerson.getMeaning().equals(getMeaning())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, tags);
+        return Objects.hash(word, meaning, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Description: ")
-                .append(getDescription())
+        builder.append(getWord())
+                .append(" Meaning: ")
+                .append(getMeaning())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

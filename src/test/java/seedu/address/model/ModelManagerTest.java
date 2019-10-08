@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.card.NameContainsKeywordsPredicate;
+import seedu.address.model.card.WordContainsKeywordsPredicate;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.WordBankBuilder;
 
@@ -118,8 +118,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentWordBank, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ABRA.getName().value.split("\\s+");
-        modelManager.updateFilteredCardList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = ABRA.getWord().value.split("\\s+");
+        modelManager.updateFilteredCardList(new WordContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(wordBank, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Card's description.
- * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ * Represents a Card's meaning.
+ * Guarantees: immutable; is valid as declared in {@link #isValidMeaning(String)}
  */
-public class Description {
+public class Meaning {
 
     public static final int MAX_LEN = 512;
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
+            "Meanings should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
     /*
      * The description should contain 1-MAX_LEN characters, and not all are white spaces.
@@ -21,20 +21,20 @@ public class Description {
     public final String value;
 
     /**
-     * Constructs a {@code Description}.
+     * Constructs a {@code Meaning}.
      *
-     * @param description A valid description.
+     * @param meaning A valid meaning.
      */
-    public Description(String description) {
-        requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
-        this.value = description;
+    public Meaning(String meaning) {
+        requireNonNull(meaning);
+        checkArgument(isValidMeaning(meaning), MESSAGE_CONSTRAINTS);
+        this.value = meaning;
     }
 
     /**
-     * Returns true if a given string is a valid description.
+     * Returns true if a given string is a valid meaning.
      */
-    public static boolean isValidDescription(String test) {
+    public static boolean isValidMeaning(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -46,8 +46,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && value.equals(((Description) other).value)); // state check
+                || (other instanceof Meaning // instanceof handles nulls
+                && value.equals(((Meaning) other).value)); // state check
     }
 
     @Override

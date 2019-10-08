@@ -27,18 +27,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code CardCard}.
      */
     class PersonListViewCell extends ListCell<Card> {
         @Override
-        protected void updateItem(Card person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Card card, boolean empty) {
+            super.updateItem(card, empty);
 
-            if (empty || person == null) {
+            if (empty || card == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CardCard(person, getIndex() + 1).getRoot());
+                setGraphic(new CardCard(card, getIndex() + 1).getRoot());
             }
         }
     }

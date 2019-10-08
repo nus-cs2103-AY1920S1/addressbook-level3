@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Card's name.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Card's word.
+ * Guarantees: immutable; is valid as declared in {@link #isValidWord(String)}
  */
-public class Name {
+public class Word {
 
     public static final int MAX_LEN = 256;
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
+            "Words should be 1-" + MAX_LEN + " characters long, and not all are white spaces.";
 
     /*
      * The name should contain 1-256 characters, and not all are white spaces.
@@ -21,20 +21,20 @@ public class Name {
     public final String value;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Word}.
      *
-     * @param name A valid name.
+     * @param word A valid word.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.value = name;
+    public Word(String word) {
+        requireNonNull(word);
+        checkArgument(isValidWord(word), MESSAGE_CONSTRAINTS);
+        this.value = word;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid word.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidWord(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -47,8 +47,8 @@ public class Name {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && value.equals(((Name) other).value)); // state check
+                || (other instanceof Word // instanceof handles nulls
+                && value.equals(((Word) other).value)); // state check
     }
 
     @Override

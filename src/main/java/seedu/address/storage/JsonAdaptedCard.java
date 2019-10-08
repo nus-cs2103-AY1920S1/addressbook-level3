@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Description;
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Meaning;
+import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,8 +43,8 @@ class JsonAdaptedCard {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedCard(Card source) {
-        name = source.getName().value;
-        description = source.getDescription().value;
+        name = source.getWord().value;
+        description = source.getMeaning().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -62,24 +62,24 @@ class JsonAdaptedCard {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Word.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Word.isValidWord(name)) {
+            throw new IllegalValueException(Word.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Word modelWord = new Word(name);
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                    Meaning.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        if (!Meaning.isValidMeaning(description)) {
+            throw new IllegalValueException(Meaning.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        final Meaning modelMeaning = new Meaning(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Card(modelName, modelDescription, modelTags);
+        return new Card(modelWord, modelMeaning, modelTags);
     }
 
 }

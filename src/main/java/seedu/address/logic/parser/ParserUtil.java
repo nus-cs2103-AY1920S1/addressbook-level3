@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.card.Description;
-import seedu.address.model.card.Name;
+import seedu.address.model.card.Meaning;
+import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,33 +34,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String word} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code word} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Word parseWord(String word) throws ParseException {
+        requireNonNull(word);
+        String trimmedName = word.trim();
+        if (!Word.isValidWord(trimmedName)) {
+            throw new ParseException(Word.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Word(trimmedName);
     }
 
     /**
-     * Parses a {@code String description} into a {@code Description}.
+     * Parses a {@code String meaning} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code description} is invalid.
+     * @throws ParseException if the given {@code meaning} is invalid.
      */
-    public static Description parseDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+    public static Meaning parseMeaning(String meaning) throws ParseException {
+        requireNonNull(meaning);
+        String trimmedDescription = meaning.trim();
+        if (!Meaning.isValidMeaning(trimmedDescription)) {
+            throw new ParseException(Meaning.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedDescription);
+        return new Meaning(trimmedDescription);
     }
 
     /**

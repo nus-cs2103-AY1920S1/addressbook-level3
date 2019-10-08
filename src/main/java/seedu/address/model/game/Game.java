@@ -21,11 +21,11 @@ public class Game {
     }
 
     public String showCurrQuestion() {
-        return getCurrCard().getDescription().toString();
+        return getCurrCard().getMeaning().toString();
     }
 
     public int makeGuess(Guess inputGuess) {
-        return inputGuess.matches(getCurrCard().getName()) ? CORRECT_GUESS : WRONG_GUESS;
+        return inputGuess.matches(getCurrCard().getWord()) ? CORRECT_GUESS : WRONG_GUESS;
     }
 
     private Index getCurrIndex() {
