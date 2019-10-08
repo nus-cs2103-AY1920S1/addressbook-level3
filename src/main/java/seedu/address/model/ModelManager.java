@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionList;
@@ -25,6 +27,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final QuestionList questions;
+    private final NoteList notes;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.questions = new QuestionList();
+        this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -120,6 +124,33 @@ public class ModelManager implements Model {
     @Override
     public String getQuestionsSummary() {
         return questions.getQuestionsSummary();
+    }
+
+    //=========== Notes ================================================================================
+
+    @Override
+    public void addNote(Note note) {
+        notes.addNote(note);
+    }
+
+    @Override
+    public Note deleteNote(Index index) {
+        return notes.deleteNote(index);
+    }
+
+    @Override
+    public Note getNote(Index index) {
+        return notes.getNote(index);
+    }
+
+    @Override
+    public void setNote(Index index, Note question) {
+        notes.setNote(index, question);
+    }
+
+    @Override
+    public String getNoteList() {
+        return notes.getNoteList();
     }
 
     //=========== Person ================================================================================
