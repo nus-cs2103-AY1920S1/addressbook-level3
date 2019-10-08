@@ -28,7 +28,6 @@ We are targeting youth and young adults in Singapore aged 20-30 who are interest
 == Site Map
 
 * <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 

@@ -11,46 +11,47 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ong Ming Chun
+image::(enter file name)[width="150", align="left"]
+{empty}[https://github.com/Dandford[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Leader
+Responsibilities:
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
+=== Jessica Phua Shu Xin
+image::(enter file name)[width="150", align="left"]
+{empty}[https://github.com/jessicax941[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+'''
+
+=== Chan Jing Rong
+image::(enter file name)[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
+Role: Developer +
+Responsibilities:
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Tan Yee Jian
+image::(enter file name)[width="150", align="left"]
+{empty}[https://github.com/SwampertX[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Tay Yu Hong
+image::(enter file name)[width="150", align="left"]
+{empty}[https://github.com/yuhongtay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities:
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
-
-'''
