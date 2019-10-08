@@ -28,7 +28,6 @@ public class HelpCommand extends Command {
             + "For more details, press F1 for list of available Commands and Types";
 
     public static String helpMessage = "Opened help window.";
-    
     private Type type;
     private SecondaryCommand command;
 
