@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 import javafx.stage.Window;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.SuggestingCommandUtil;
 
 /**
@@ -148,13 +149,7 @@ public class SuggestingCommandBox extends CommandBox {
         });
 
         commandTextField.textProperty().addListener((unused1, unused2, userCommand) -> {
-            final char spaceCharacter = ' ';
-            int spaceCharIdx = userCommand.indexOf(spaceCharacter);
-            if (spaceCharIdx == -1) {
-                spaceCharIdx = userCommand.length();
-            }
-
-            final String userCommandWord = userCommand.substring(0, spaceCharIdx);
+            final String userCommandWord = StringUtil.substringBefore(userCommand, " ");
 
             if (commandSuggestions.contains(userCommandWord)) {
                 // the userCommandWord exactly matches a command, so we stop showing suggestions
