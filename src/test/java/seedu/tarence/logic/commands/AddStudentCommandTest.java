@@ -209,7 +209,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredStudentList() {
+        public ObservableList<Student> getFilteredStudentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,7 +229,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void updateFilteredStudentList(Predicate<Person> predicate) {
+        public void updateFilteredStudentList(Predicate<Student> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

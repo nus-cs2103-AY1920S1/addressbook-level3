@@ -27,7 +27,7 @@ public class ModelManager implements Model {
     private final Application application;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Person> filteredStudents;
+    private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Tutorial> filteredTutorials;
 
@@ -133,7 +133,7 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student) {
         application.addStudent(student);
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
@@ -225,7 +225,7 @@ public class ModelManager implements Model {
      * the internal list of {@code versionedApplication}
      */
     @Override
-    public ObservableList<Person> getFilteredStudentList() {
+    public ObservableList<Student> getFilteredStudentList() {
         return filteredStudents;
     }
 
@@ -254,7 +254,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredStudentList(Predicate<Person> predicate) {
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
     }
