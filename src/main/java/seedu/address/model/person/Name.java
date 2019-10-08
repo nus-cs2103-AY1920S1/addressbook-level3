@@ -38,11 +38,17 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * TODO: Better documentation
+     * Formats name.
+     * @param name name
+     * @return
+     */
     private String formatName(String name) {
         String[] nameSplitBySpace = name.toLowerCase().split(" ");
         StringBuilder formattedName = new StringBuilder();
         for (int i = 0; i < nameSplitBySpace.length; i++) {
-            String firstLetter = nameSplitBySpace[i].substring(0,1);
+            String firstLetter = nameSplitBySpace[i].substring(0, 1);
             String remainingLetters = nameSplitBySpace[i].substring(1);
             formattedName.append(firstLetter.toUpperCase() + remainingLetters);
             formattedName.append(" ");
