@@ -27,7 +27,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final String destination;
-    private final Optional<Double> totalBudget;
+    private final Double totalBudget;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
     /**
@@ -39,7 +39,7 @@ public class JsonAdaptedTrip {
             @JsonProperty("startDate")LocalDateTime startDate,
             @JsonProperty("endDate") LocalDateTime endDate,
             @JsonProperty("destination")String destination,
-            @JsonProperty("totalBudget") Optional<Double> totalBudget,
+            @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList) {
         this.name = name;
         this.startDate = startDate;
@@ -59,8 +59,7 @@ public class JsonAdaptedTrip {
         this.startDate = source.getStartDate();
         this.endDate = source.getEndDate();
         this.destination = source.getDestination().value;
-        this.totalBudget = source.getBudget().isPresent() ?
-                Optional.of(source.getBudget().get().value) : Optional.empty();
+        this.totalBudget = source.getBudget().value;
         this.dayList.addAll(source.getDayList()
                 .asUnmodifiableObservableList()
                 .stream().map(JsonAdaptedDay::new)
@@ -114,12 +113,8 @@ public class JsonAdaptedTrip {
         final Location modelDestination = new Location(destination);
 
         //No check for TotalBudget (defaults to 0)
-        final Optional<Expenditure> modelTotalBudget;
-        if (totalBudget.isPresent()) {
-            modelTotalBudget = Optional.of(new Expenditure(totalBudget.get()));
-        } else {
-            modelTotalBudget = Optional.empty();
-        }
+        Expenditure modelTotalBudget = new Expenditure(totalBudget);
+
 
         DayList modelDayList = new DayList();
         modelDayList.set(days);

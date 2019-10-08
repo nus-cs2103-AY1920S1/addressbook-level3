@@ -14,8 +14,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Trip in TravelPal.
- * Compulsory fields: name, startDate, endDate, destination, dayList.
- * Optional fields: totalBudget.
+ * Compulsory fields: name, startDate, endDate, destination, dayList, totalBudget
  */
 public class Trip {
     // Compulsory Fields
@@ -25,8 +24,6 @@ public class Trip {
     private final TripId tripId;
     private final Location destination;
     private final DayList dayList;
-
-    // Optional Fields
     private final Expenditure totalBudget;
 
     /**
@@ -39,24 +36,6 @@ public class Trip {
         this.endDate = endDate;
         this.destination = destination;
         this.totalBudget = totalBudget;
-        this.dayList = dayList;
-        this.tripId = new TripId();
-    }
-
-    /**
-     * Constructs a trip with optional totalBudget field.
-     */
-    public Trip (Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Location destination, Optional<Expenditure> totalBudget, DayList dayList) {
-        this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.destination = destination;
-        if(totalBudget.isPresent()) {
-            this.totalBudget = totalBudget.get();
-        } else {
-            this.totalBudget = null;
-        }
         this.dayList = dayList;
         this.tripId = new TripId();
     }
@@ -106,9 +85,8 @@ public class Trip {
         return dayList;
     }
 
-    // Optional field getters
-    public Optional<Expenditure> getBudget() {
-        return Optional.ofNullable(totalBudget);
+    public Expenditure getBudget() {
+        return totalBudget;
     }
 
     /**
