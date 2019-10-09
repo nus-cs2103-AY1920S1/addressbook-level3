@@ -15,8 +15,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.core.Command;
-import seedu.address.logic.commands.core.CommandHistory;
+import seedu.address.logic.commands.common.Command;
+import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

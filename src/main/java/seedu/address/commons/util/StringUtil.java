@@ -40,6 +40,19 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if {@code substring} is blank or the {@code sentence} contains the {@code substring}, ignores case.
+     * @param sentence  cannot be null
+     * @param substring cannot be null
+     */
+    public static boolean containsIgnoreCase(String sentence, String substring) {
+        requireNonNull(sentence);
+        requireNonNull(substring);
+
+        return substring.isBlank() || sentence.toUpperCase().contains(substring.toUpperCase());
+    }
+
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
