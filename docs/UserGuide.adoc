@@ -15,7 +15,9 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
 By: `Team CS2103-T11`      Since: `Jun 2016`      Licence: `MIT`
-![Alt text](main/docs/images/Ui.png?raw=true "Title")
+
+![Image](main/docs/images/Ui.png)
+
 == Introduction
 
 A powerlifting competition/meet consists of 3 lifts, the Squat, Bench and Deadlift. With 3 attempts, athletes will try to outdo and challenge themselves and lift as heavy as they can. 
