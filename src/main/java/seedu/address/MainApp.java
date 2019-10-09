@@ -1,8 +1,7 @@
 package seedu.address;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -26,7 +25,7 @@ import java.util.logging.Logger;
 /**
  * Runs the application.
  */
-public class MainApp extends Application implements EventHandler<KeyEvent> {
+public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
@@ -37,7 +36,7 @@ public class MainApp extends Application implements EventHandler<KeyEvent> {
     protected Storage storage;
     protected Model model;
     protected Config config;
-
+    protected Text text;
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -171,10 +170,5 @@ public class MainApp extends Application implements EventHandler<KeyEvent> {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-    }
-
-    @Override
-    public void handle(KeyEvent event) {
-
     }
 }

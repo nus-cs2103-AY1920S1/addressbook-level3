@@ -1,18 +1,24 @@
 package seedu.address.ui;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.ArrayDeque;
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region> {
+public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent> {
 
+    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
@@ -34,10 +40,22 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            String command = commandTextField.getText();
+            pastCommands.push(command);
+            commandExecutor.execute(command);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        }
+    }
+    @FXML
+    private void handleKeyPress() {
+        commandTextField.setOnKeyPressed(event -> upKeyPressed(event.getCode()));
+
+    }
+    private void upKeyPressed(KeyCode keyCode){
+        if (keyCode == KeyCode.UP ){
+            commandTextField.setText((pastCommands.pop()));
         }
     }
 
@@ -59,6 +77,11 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    @Override
+    public void handle(KeyEvent event) {
+        commandTextField.setText("hi");
     }
 
     /**
