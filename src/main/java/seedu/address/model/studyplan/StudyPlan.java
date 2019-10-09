@@ -21,6 +21,7 @@ public class StudyPlan implements Cloneable {
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
+    // TODO: change to hash map
     private final UniqueModuleList modules;
 
     // the unique list of tags of this study plan.
