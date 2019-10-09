@@ -1,50 +1,42 @@
 {
-  "flashcards": [
-    {
-      "question": "What is pointer in C ?",
-      "answer": "A pointer variable stores the address of a memory location",
-      "rating": "easy",
-      "categories": [
-        "CS2100",
-        "pointer",
-        "C"
-      ]
-    },
-    {
-      "question": "How to declare a pointer in C ?",
-      "answer": "& + variable name",
-      "rating": "good",
-      "categories": [
-        "CS2100"
-      ]
-    },
-    {
-      "question": "What is internet",
-      "answer": "The Internet is a network of connected computing devices",
-      "rating": "good",
-      "categories": [
-        "CS2105"
-      ]
-    },
-    {
-      "question": "How is data transmitted through net?",
-      "answer": "Circuit switching / Packet switching",
-      "rating": "easy",
-      "categories": []
-    },
-    {
-      "question": "What is link transmission rate?",
-      "answer": "It is aka link capacity or link bandwidth",
-      "rating": "easy",
-      "categories": []
-    },
-    {
-      "question": "Transmission delay",
-      "answer": "L (bit) / R (bits.sec)",
-      "rating": "good",
-      "categories": []
-    }
-  ]
+  "flashcards" : [ {
+    "question" : "What is pointer in C ?",
+    "answer" : "A pointer variable stores the address of a memory location",
+    "rating" : "easy",
+    "categories" : [ "CS2100", "pointer", "C" ]
+  }, {
+    "question" : "How to declare a pointer in C ?",
+    "answer" : "& + variable name",
+    "rating" : "good",
+    "categories" : [ "CS2100" ]
+  }, {
+    "question" : "What is internet",
+    "answer" : "The Internet is a network of connected computing devices",
+    "rating" : "good",
+    "categories" : [ "CS2105" ]
+  }, {
+    "question" : "How is data transmitted through net?",
+    "answer" : "Circuit switching / Packet switching",
+    "rating" : "easy",
+    "categories" : [ ]
+  }, {
+    "question" : "What is link transmission rate?",
+    "answer" : "It is aka link capacity or link bandwidth",
+    "rating" : "easy",
+    "categories" : [ ]
+  }, {
+    "question" : "Transmission delay",
+    "answer" : "L (bit) / R (bits.sec)",
+    "rating" : "good",
+    "categories" : [ ]
+  }, {
+    "question" : "hello",
+    "answer" : "Bye",
+    "rating" : "hard",
+    "categories" : [ "CS2100" ]
+  } ],
+  "deadlines" : [ {
+    "task" : "complete",
+    "date" : "10/10/2018"
+  } ]
 }
-
-
