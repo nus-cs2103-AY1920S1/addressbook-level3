@@ -2,25 +2,53 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
-    "nric" : "S000007J",
+    "nric" : "S000001J",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "date of birth" : "12.12.1992",
-    "policies" : [ ["teenage insured", "teenage insured", "days/12", "$100"] ],
+    "policies" : [ {
+      "name": "Health Insurance",
+      "description": "Health Insurance",
+      "coverage": " days/10 months/11 years/12",
+      "price": "$500",
+      "start age": "50",
+      "end age": "75",
+      "criteria": [ "diabetic" ],
+      "tagged": [ "sample" ]
+    } ],
     "tagged" : [ "diabetic" ]
   }, {
     "name" : "Benson Meier",
-    "nric" : "S000006J",
+    "nric" : "S000002J",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "date of birth" : "12.12.1922",
-    "policies" : [ ["SeniorCare", "SeniorCare", "months/12", "$1000" ],
+    "policies" : [ {
+      "name": "Health Insurance",
+      "description": "Health Insurance",
+      "coverage": " days/10 months/11 years/12",
+      "price": "$500",
+      "start age": "50",
+      "end age": "75",
+      "criteria": [ "diabetic" ],
+      "tagged": [ "sample" ]
+    },
+      {
+        "name": "Life Insurance",
+        "description": "Life Insurance",
+        "coverage": " days/10 months/11 years/12",
+        "price": "$500",
+        "start age": "50",
+        "end age": "75",
+        "criteria": [ "diabetic" ],
+        "tagged": [ "sample" ]
+      }],
     "tagged" : [ "smoker", "disabled" ]
   }, {
     "name" : "Carl Kurz",
-    "nric" : "S000005J",
+    "nric" : "S000003J",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
@@ -34,12 +62,12 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "date of birth" : "14.2.2019",
-    "policies" : [ ["Infant Insurance", "Infant Insurance", "years/2", "$1000"] ],
+    "policies" : [],
     "tagged" : [ ]
   }, {
     "name" : "Elle Meyer",
-    "nric" : "S000035J",
-    "phone" : "9482224",
+    "nric" : "S000005J",
+    "phone" : "94822247",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "date of birth" : "17.5.2000",
@@ -47,8 +75,8 @@
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "nric" : "S000002J",
-    "phone" : "9482427",
+    "nric" : "S000006J",
+    "phone" : "94824279",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "date of birth" : "15.8.2008",
@@ -56,11 +84,11 @@
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "nric" : "S000001J",
-    "phone" : "9482442",
+    "nric" : "S000007J",
+    "phone" : "94824425",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "date of birth" : "16.7.2017",
+    "date of birth" : "5.5.2015",
     "policies" : [ ],
     "tagged" : [ ]
   } ]

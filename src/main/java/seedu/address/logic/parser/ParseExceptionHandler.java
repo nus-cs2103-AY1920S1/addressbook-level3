@@ -13,6 +13,14 @@ public class ParseExceptionHandler {
 
     public static final String CONTACT_SUGGESTION_HEADER = "You may want to contact ";
 
+    /**
+     * Returns an error message to inform the user of an invalid NRIC.
+     * The contact number and/or email address is returned if present.
+     * @param name name
+     * @param phone phone
+     * @param email email
+     * @throws ParseException
+     */
     public static void handleNricException(Name name, Phone phone, Email email) throws ParseException {
         StringBuilder exceptionMessage = new StringBuilder();
         StringBuilder suggestionMessage = new StringBuilder();
@@ -35,6 +43,13 @@ public class ParseExceptionHandler {
         }
     }
 
+    /**
+     * Returns an error message to inform the user of an invalid contact number.
+     * The email address is returned if present.
+     * @param name name
+     * @param email email
+     * @throws ParseException parse exception
+     */
     public static void handlePhoneException(Name name, Email email) throws ParseException {
         StringBuilder exceptionMessage = new StringBuilder();
         StringBuilder suggestionMessage = new StringBuilder();
@@ -53,6 +68,12 @@ public class ParseExceptionHandler {
         }
     }
 
+    /**
+     * Returns an error message to inform the user of an invalid email address. The phone number is returned if present.
+     * @param name name
+     * @param phone phone
+     * @throws ParseException parse exception
+     */
     public static void handleEmailException(Name name, Phone phone) throws ParseException {
         StringBuilder exceptionMessage = new StringBuilder();
         StringBuilder suggestionMessage = new StringBuilder();

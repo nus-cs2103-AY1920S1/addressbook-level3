@@ -28,20 +28,21 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
+    // TODO: Add back policies (removed for now to ease debugging process)
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withNric("S000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253").withDateOfBirth("12.12.1992").withPolicies("teenage insured")
+            .withPhone("94351253").withDateOfBirth("12.12.1992").withPolicies("Health Insurance")
             .withTags("diabetic").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withNric("S000002J").withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922")
-            .withPolicies("SeniorCare").withTags("smoker", "disabled").build();
+            .withPolicies("Health Insurance", "Life Insurance").withTags("smoker", "disabled").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S000003J")
             .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
             .withDateOfBirth("6.6.1996").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withNric("S000004J")
             .withPhone("87652533").withEmail("cornelia@example.com").withAddress("10th street")
-            .withDateOfBirth("14.2.2019").withPolicies("Infant Insurance").build();
+            .withDateOfBirth("14.2.2019").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S000005J")
             .withPhone("94822247").withEmail("werner@example.com").withAddress("michegan ave")
             .withDateOfBirth("17.5.2000").build();

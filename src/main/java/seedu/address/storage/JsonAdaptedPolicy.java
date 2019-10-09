@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedPolicy {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Policy's %s field is missing!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Policy's %s field is missing!";
 
     private final String name;
     private final String description;
@@ -68,6 +68,9 @@ class JsonAdaptedPolicy {
         price = source.getPrice().price;
         startAge = source.getStartAge().getAge();
         endAge = source.getEndAge().getAge();
+        criteria.addAll(source.getCriteria().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -79,7 +82,7 @@ class JsonAdaptedPolicy {
      * @throws seedu.address.commons.exceptions.IllegalValueException if there were
      * any data constraints violated in the adapted person.
      */
-    public Policy toModelType() throws IllegalValueException {
+    Policy toModelType() throws IllegalValueException {
         final List<Tag> policyTags = new ArrayList<>();
         final List<Tag> criteriaTags = new ArrayList<>();
 

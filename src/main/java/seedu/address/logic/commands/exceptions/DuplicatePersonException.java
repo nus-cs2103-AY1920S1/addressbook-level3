@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.exceptions;
 
-import seedu.address.model.person.Person;
-
 /**
  * Represents a duplicate error which occurs during execution of a {@link AddCommand}.
  */
