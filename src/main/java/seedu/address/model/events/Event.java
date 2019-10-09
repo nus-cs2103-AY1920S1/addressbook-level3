@@ -26,7 +26,7 @@ public class Event {
         requireAllNonNull(personId, timing, status);
         this.personId = personId;
         this.timing = timing;
-       this.status = Status.APPROVED;
+       this.status = status;
     }
 
     public ReferenceId getPersonId() {
@@ -42,24 +42,19 @@ public class Event {
     }
 
    public void setStausAsAck() {
-       status = Status.ACK;
+       status.setAckStatus();
    }
-
-   public void setStausAsWaiting() {
-       status = Status.WAITING;
-   }
-
 
    public void setStausAsMISS() {
-       status = Status.MISSED;
+       status.setMissStatus();
    }
 
    public void setStausAsSettle() {
-       status = Status.SETTLE;
+       status.setSettleStatus();
    }
 
    public void setStausAsCancell() {
-       status = Status.CANCELLED;
+       status.setCancelStatus();
    }
 
     /**

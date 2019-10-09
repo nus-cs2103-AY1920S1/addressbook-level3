@@ -48,7 +48,7 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
 
         Timing timing = ParserUtil.parseTiming(startString, endString);
 
-        Appointment event = new Appointment(referenceId, timing, Status.APPROVED);
+        Appointment event = new Appointment(referenceId, timing, new Status());
         return new AddAppCommand(event);
     }
 

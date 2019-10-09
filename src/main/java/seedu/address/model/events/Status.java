@@ -3,22 +3,56 @@ package seedu.address.model.events;
 /**
  * Describes the status of an appointment
  */
-public enum Status {
+public class Status{
+    public static String APPROVED_MESS = "patient appointment was made";
+    public static String ACK_MESS = "patient is arrived";
+    public static String MISSED_MESS = "patient missed appointment, need to settle";
+    public static String SETTLE_MESS = "this missed appointment have been settled";
+    public static String CANCELL_MESS = "this appointment have been cancelled";
+    private String status;
 
-    APPROVED("patient appointment was made"),
-    ACK("patient is arrived"),
-    WAITING("patient comes for appointment but is waiting now"),
-    MISSED("patient missed appointment, need to settle"),
-    SETTLE("patient does not come for appointment but is settled "),
-    CANCELLED("patient appointment has been cancelled");
+    public Status(String statusMess){
+        this.status = statusMess;
+    }
 
-    private String statusMess;
-
-    Status(String status) {
-        this.statusMess = status;
+    public Status(){
+        this.status = "APPROVED";
     }
 
     public String getStatusMess() {
-        return statusMess;
+        switch (status) {
+
+        case "APPROVED":
+        return APPROVED_MESS;
+        case "ACKED":
+        return ACK_MESS;
+        case "MISSED":
+        return MISSED_MESS;
+        case "SETTLE":
+        return SETTLE_MESS;
+        default:
+        return "status is wrong";
+    }
+}
+
+    public void setAckStatus(){
+        this.status = "ACKED";
+    }
+
+    public void setSettleStatus(){
+        this.status = "SETTLED";
+    }
+
+    public void setMissStatus(){
+        this.status = "MISSED";
+    }
+
+    public void setCancelStatus(){
+        this.status = "CANCELLED";
+    }
+
+    @Override
+    public String toString() {
+        return this.status;
     }
 }

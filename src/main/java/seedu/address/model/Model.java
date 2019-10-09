@@ -164,7 +164,7 @@ public interface Model {
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
     void setEvent(Event target, Event editedEvent);
-
+    Event ackEvent(ObservableList<Event> filteredEventList);
 
     //=========== Filtered Event List Accessors ==============================================================
 
