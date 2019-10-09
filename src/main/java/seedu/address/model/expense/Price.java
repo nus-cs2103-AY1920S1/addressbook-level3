@@ -34,6 +34,10 @@ public class Price {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public double getAsDouble() {
+        return Double.parseDouble(value);
+    }
+
     @Override
     public String toString() {
         return value;
