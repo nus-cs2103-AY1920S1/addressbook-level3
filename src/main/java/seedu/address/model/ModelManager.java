@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Project;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,11 +24,16 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ProjectList projectList;
+    private final FilteredList<Project> filteredProjects;
+
+    // this is the current branch
+    private Project workingProject;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyProjectList projectList) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -34,13 +41,34 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.projectList = new ProjectList(projectList);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredProjects = new FilteredList<>(this.projectList.getProjectList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new ProjectList());
     }
 
+    /**
+     * Mimic a git checkout action. What it does is simply assign the project as the working
+     * project.
+     * @param project
+     */
+    public void setWorkingProject(Project project) {
+        this.workingProject = project;
+    }
+
+    /**
+     * @return An Optional object containing the working project.
+     */
+    public Optional<Project> getWorkingProject() {
+        if (workingProject == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(workingProject);
+        }
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -65,6 +93,8 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== AddressBook ================================================================================
+
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -75,8 +105,6 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
-
-    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -129,6 +157,70 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== ProjectList ================================================================================
+
+    @Override
+    public Path getProjectListFilePath() {
+        return userPrefs.getProjectListFilePath();
+    }
+
+    @Override
+    public void setProjectListFilePath(Path ProjectListFilePath) {
+        requireNonNull(ProjectListFilePath);
+        userPrefs.setProjectListFilePath(ProjectListFilePath);
+    }
+
+    @Override
+    public void setProjectList(ReadOnlyProjectList projectList) {
+        this.projectList.resetData(projectList);
+    }
+
+    @Override
+    public ReadOnlyProjectList getProjectList() {
+        return projectList;
+    }
+
+    @Override
+    public boolean hasProject(Project project) {
+        requireNonNull(project);
+        return projectList.hasProject(project);
+    }
+
+    @Override
+    public void deleteProject(Project target) {
+        projectList.removeProject(target);
+    }
+
+    @Override
+    public void addProject(Project Project) {
+        projectList.addProject(Project);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
+    @Override
+    public void setProject(Project target, Project editedProject) {
+        requireAllNonNull(target, editedProject);
+
+        projectList.setProject(target, editedProject);
+    }
+
+    //=========== Filtered Project List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedProjectList}
+     */
+    @Override
+    public ObservableList<Project> getFilteredProjectList() {
+        return filteredProjects;
+    }
+
+    @Override
+    public void updateFilteredProjectList(Predicate<Project> predicate) {
+        requireNonNull(predicate);
+        filteredProjects.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -145,7 +237,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && projectList.equals(other.projectList)
+                && filteredProjects.equals(other.filteredProjects);
     }
 
 }

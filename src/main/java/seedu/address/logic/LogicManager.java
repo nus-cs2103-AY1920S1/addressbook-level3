@@ -14,7 +14,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Project;
 import seedu.address.storage.Storage;
 
 /**
@@ -44,12 +46,15 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveProjectList(model.getProjectList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         return commandResult;
     }
+
+    //======== AddressBook =======================================================================
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -65,6 +70,25 @@ public class LogicManager implements Logic {
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
+
+    //======== ProjectList =======================================================================
+
+    @Override
+    public ReadOnlyProjectList getProjectList() {
+        return model.getProjectList();
+    }
+
+    @Override
+    public ObservableList<Project> getFilteredProjectList() {
+        return model.getFilteredProjectList();
+    }
+
+    @Override
+    public Path getProjectListFilePath() {
+        return model.getProjectListFilePath();
+    }
+
+    //======== GUI =======================================================================
 
     @Override
     public GuiSettings getGuiSettings() {
