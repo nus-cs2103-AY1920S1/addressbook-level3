@@ -2,11 +2,12 @@ package calofit.model.dish;
 
 import static calofit.commons.util.CollectionUtil.requireAllNonNull;
 
-import calofit.model.tag.Tag;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import calofit.model.tag.Tag;
 
 /**
  * Represents a Dish in the dish database.

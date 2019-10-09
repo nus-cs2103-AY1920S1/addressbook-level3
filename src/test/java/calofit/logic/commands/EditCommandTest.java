@@ -3,6 +3,8 @@ package calofit.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
@@ -14,7 +16,6 @@ import calofit.testutil.DishBuilder;
 import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.TypicalDishes;
 import calofit.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

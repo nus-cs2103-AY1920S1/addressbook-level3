@@ -1,5 +1,11 @@
 package calofit.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
+import javafx.collections.ObservableList;
+
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.logic.commands.Command;
@@ -12,10 +18,6 @@ import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.storage.Storage;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.
@@ -65,7 +67,8 @@ public class LogicManager implements Logic {
     public ObservableList<Meal> getFilteredMealList() {
         return model.getFilteredMealList();
     }
-        @Override
+
+    @Override
     public Path getDishDatbaseFilePath() {
         return model.getDishDatabaseFilePath();
     }

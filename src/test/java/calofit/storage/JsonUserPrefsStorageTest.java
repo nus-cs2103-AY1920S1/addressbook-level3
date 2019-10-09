@@ -3,16 +3,18 @@ package calofit.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import calofit.commons.core.GuiSettings;
-import calofit.commons.exceptions.DataConversionException;
-import calofit.model.UserPrefs;
-import calofit.testutil.Assert;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import calofit.commons.core.GuiSettings;
+import calofit.commons.exceptions.DataConversionException;
+import calofit.model.UserPrefs;
+import calofit.testutil.Assert;
 
 public class JsonUserPrefsStorageTest {
 

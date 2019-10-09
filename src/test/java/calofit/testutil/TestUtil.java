@@ -1,12 +1,13 @@
 package calofit.testutil;
 
-import calofit.commons.core.index.Index;
-import calofit.model.Model;
-import calofit.model.dish.Dish;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import calofit.commons.core.index.Index;
+import calofit.model.Model;
+import calofit.model.dish.Dish;
 
 /**
  * A utility class for test cases.

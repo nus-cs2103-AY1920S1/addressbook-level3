@@ -2,16 +2,18 @@ package calofit.model.dish;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import calofit.logic.commands.CommandTestUtil;
 import calofit.model.dish.exceptions.DishNotFoundException;
 import calofit.model.dish.exceptions.DuplicateDishException;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import org.junit.jupiter.api.Test;
 
 public class UniqueDishListTest {
 

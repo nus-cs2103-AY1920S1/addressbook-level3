@@ -5,14 +5,15 @@ import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
-import calofit.commons.core.index.Index;
-import calofit.logic.commands.EditCommand;
-import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.tag.Tag;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+
+import calofit.commons.core.index.Index;
+import calofit.logic.commands.EditCommand;
+import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

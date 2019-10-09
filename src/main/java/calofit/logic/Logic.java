@@ -1,5 +1,9 @@
 package calofit.logic;
 
+import java.nio.file.Path;
+
+import javafx.collections.ObservableList;
+
 import calofit.commons.core.GuiSettings;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
@@ -8,8 +12,6 @@ import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
-import java.nio.file.Path;
-import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

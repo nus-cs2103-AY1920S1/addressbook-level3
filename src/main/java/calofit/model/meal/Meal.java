@@ -1,8 +1,9 @@
 package calofit.model.meal;
 
+import java.util.Objects;
+
 import calofit.model.dish.Dish;
 import calofit.model.util.Timestamp;
-import java.util.Objects;
 
 public class Meal implements Comparable<Meal> {
     private Dish dish;
@@ -15,11 +16,15 @@ public class Meal implements Comparable<Meal> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Meal meal = (Meal) o;
-        return Objects.equals(dish, meal.dish) &&
-                Objects.equals(timestamp, meal.timestamp);
+        return Objects.equals(dish, meal.dish)
+                && Objects.equals(timestamp, meal.timestamp);
     }
 
     @Override

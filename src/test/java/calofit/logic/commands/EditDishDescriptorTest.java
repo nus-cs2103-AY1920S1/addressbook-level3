@@ -1,8 +1,9 @@
 package calofit.logic.commands;
 
-import calofit.testutil.EditDishDescriptorBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import calofit.testutil.EditDishDescriptorBuilder;
 
 public class EditDishDescriptorTest {
 

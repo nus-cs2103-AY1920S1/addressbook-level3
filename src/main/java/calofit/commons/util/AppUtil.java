@@ -2,8 +2,9 @@ package calofit.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import calofit.MainApp;
 import javafx.scene.image.Image;
+
+import calofit.MainApp;
 
 /**
  * A container for App specific utility functions

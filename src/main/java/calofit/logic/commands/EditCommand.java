@@ -5,6 +5,12 @@ import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.commons.util.CollectionUtil;
@@ -13,7 +19,6 @@ import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
-import java.util.*;
 
 /**
  * Edits the details of an existing dish in the dish database.

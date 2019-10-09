@@ -1,12 +1,7 @@
 package calofit.ui;
 
-import calofit.commons.core.GuiSettings;
-import calofit.commons.core.LogsCenter;
-import calofit.logic.Logic;
-import calofit.logic.commands.CommandResult;
-import calofit.logic.commands.exceptions.CommandException;
-import calofit.logic.parser.exceptions.ParseException;
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -15,6 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import calofit.commons.core.GuiSettings;
+import calofit.commons.core.LogsCenter;
+import calofit.logic.Logic;
+import calofit.logic.commands.CommandResult;
+import calofit.logic.commands.exceptions.CommandException;
+import calofit.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing

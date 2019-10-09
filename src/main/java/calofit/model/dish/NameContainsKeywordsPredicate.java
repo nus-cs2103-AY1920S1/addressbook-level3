@@ -1,8 +1,9 @@
 package calofit.model.dish;
 
-import calofit.commons.util.StringUtil;
 import java.util.List;
 import java.util.function.Predicate;
+
+import calofit.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Dish}'s {@code Name} matches any of the keywords given.

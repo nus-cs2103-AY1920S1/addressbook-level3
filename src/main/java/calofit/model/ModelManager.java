@@ -2,6 +2,15 @@ package calofit.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
@@ -10,13 +19,6 @@ import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
-import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the dish database data.

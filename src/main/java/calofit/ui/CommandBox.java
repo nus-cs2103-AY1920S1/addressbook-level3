@@ -1,13 +1,14 @@
 package calofit.ui;
 
-import calofit.logic.Logic;
-import calofit.logic.commands.CommandResult;
-import calofit.logic.commands.exceptions.CommandException;
-import calofit.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+
+import calofit.logic.Logic;
+import calofit.logic.commands.CommandResult;
+import calofit.logic.commands.exceptions.CommandException;
+import calofit.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

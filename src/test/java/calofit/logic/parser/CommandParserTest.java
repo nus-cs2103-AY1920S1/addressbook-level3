@@ -5,15 +5,28 @@ import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import calofit.logic.commands.*;
-import calofit.logic.parser.exceptions.ParseException;
-import calofit.model.dish.Dish;
-import calofit.model.dish.NameContainsKeywordsPredicate;
-import calofit.testutil.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
+
+import calofit.logic.commands.AddCommand;
+import calofit.logic.commands.ClearCommand;
+import calofit.logic.commands.DeleteCommand;
+import calofit.logic.commands.EditCommand;
+import calofit.logic.commands.ExitCommand;
+import calofit.logic.commands.FindCommand;
+import calofit.logic.commands.HelpCommand;
+import calofit.logic.commands.ListCommand;
+import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.dish.Dish;
+import calofit.model.dish.NameContainsKeywordsPredicate;
+import calofit.testutil.Assert;
+import calofit.testutil.DishBuilder;
+import calofit.testutil.DishUtil;
+import calofit.testutil.EditDishDescriptorBuilder;
+import calofit.testutil.TypicalIndexes;
 
 public class CommandParserTest {
 

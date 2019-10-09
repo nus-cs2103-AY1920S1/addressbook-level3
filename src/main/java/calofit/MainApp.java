@@ -1,5 +1,13 @@
 package calofit;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import calofit.commons.core.Config;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.core.Version;
@@ -16,15 +24,14 @@ import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.MealLog;
 import calofit.model.util.SampleDataUtil;
-import calofit.storage.*;
+import calofit.storage.DishDatabaseStorage;
+import calofit.storage.JsonDishDatabaseStorage;
+import calofit.storage.JsonUserPrefsStorage;
+import calofit.storage.Storage;
+import calofit.storage.StorageManager;
+import calofit.storage.UserPrefsStorage;
 import calofit.ui.Ui;
 import calofit.ui.UiManager;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 /**
  * Runs the application.

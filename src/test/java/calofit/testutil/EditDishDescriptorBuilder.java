@@ -1,12 +1,13 @@
 package calofit.testutil;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import calofit.logic.commands.EditCommand;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A utility class to help with building EditDishDescriptor objects.

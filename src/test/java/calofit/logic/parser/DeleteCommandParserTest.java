@@ -2,9 +2,10 @@ package calofit.logic.parser;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
 import calofit.logic.commands.DeleteCommand;
 import calofit.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

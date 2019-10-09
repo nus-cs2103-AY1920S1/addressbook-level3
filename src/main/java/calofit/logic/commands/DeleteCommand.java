@@ -2,12 +2,13 @@ package calofit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
-import java.util.List;
 
 /**
  * Deletes a dish identified using it's displayed index from the dish database.

@@ -1,7 +1,8 @@
 package calofit.model.tag;
 
-import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
+
+import calofit.testutil.Assert;
 
 public class TagTest {
 

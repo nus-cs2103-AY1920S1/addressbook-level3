@@ -2,11 +2,13 @@ package calofit.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import calofit.testutil.SerializableTestClass;
-import calofit.testutil.TestUtil;
 import java.io.IOException;
 import java.nio.file.Path;
+
 import org.junit.jupiter.api.Test;
+
+import calofit.testutil.SerializableTestClass;
+import calofit.testutil.TestUtil;
 
 /**
  * Tests JSON Read and Write

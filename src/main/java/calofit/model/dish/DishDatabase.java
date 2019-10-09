@@ -3,6 +3,7 @@ package calofit.model.dish;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+
 import javafx.collections.ObservableList;
 
 /**

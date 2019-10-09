@@ -4,6 +4,8 @@ import static calofit.logic.commands.CommandTestUtil.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
@@ -12,7 +14,6 @@ import calofit.model.UserPrefs;
 import calofit.model.dish.Dish;
 import calofit.testutil.TypicalDishes;
 import calofit.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

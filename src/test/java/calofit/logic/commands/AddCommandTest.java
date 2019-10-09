@@ -3,6 +3,15 @@ package calofit.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
+
+import org.junit.jupiter.api.Test;
+
 import calofit.commons.core.GuiSettings;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
@@ -13,12 +22,6 @@ import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 
 public class AddCommandTest {
 

@@ -1,11 +1,12 @@
 package calofit.model.dish;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import calofit.logic.commands.CommandTestUtil;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class DishTest {
 

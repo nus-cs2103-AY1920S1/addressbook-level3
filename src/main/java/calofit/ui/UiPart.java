@@ -2,10 +2,12 @@ package calofit.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import calofit.MainApp;
 import java.io.IOException;
 import java.net.URL;
+
 import javafx.fxml.FXMLLoader;
+
+import calofit.MainApp;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.

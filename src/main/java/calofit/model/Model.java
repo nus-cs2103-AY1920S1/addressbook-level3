@@ -1,12 +1,14 @@
 package calofit.model;
 
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
+
 import calofit.commons.core.GuiSettings;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
-import java.nio.file.Path;
-import java.util.function.Predicate;
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

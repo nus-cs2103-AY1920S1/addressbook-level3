@@ -1,9 +1,10 @@
 package calofit.storage;
 
-import calofit.commons.exceptions.IllegalValueException;
-import calofit.model.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import calofit.commons.exceptions.IllegalValueException;
+import calofit.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

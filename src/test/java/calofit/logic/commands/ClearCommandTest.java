@@ -2,12 +2,13 @@ package calofit.logic.commands;
 
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import org.junit.jupiter.api.Test;
+
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Test;
 
 public class ClearCommandTest {
 
