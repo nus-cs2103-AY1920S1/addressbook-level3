@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands.commandresult;
+package seedu.mark.logic.commands.results;
 
 import static java.util.Objects.requireNonNull;
 

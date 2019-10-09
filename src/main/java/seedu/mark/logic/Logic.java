@@ -4,8 +4,8 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;

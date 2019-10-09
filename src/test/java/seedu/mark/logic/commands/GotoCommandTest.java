@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.commandresult.CommandResult;
-import seedu.mark.logic.commands.commandresult.GotoCommandResult;
+import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.logic.commands.results.GotoCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
