@@ -76,8 +76,7 @@ public class TypicalExpenses {
             .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED)
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-00000000000b").build();
 
-    // A keyword that matches MEIER
-    public static final String KEYWORD_MATCHING_MEIER = "Meier";
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalExpenses() {} // prevents instantiation
 

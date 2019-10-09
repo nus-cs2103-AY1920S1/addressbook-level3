@@ -35,5 +35,6 @@
     "price" : "125.35",
     "tagged" : [ ],
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007"
-  } ]
+  } ],
+  "events" : []
 }
