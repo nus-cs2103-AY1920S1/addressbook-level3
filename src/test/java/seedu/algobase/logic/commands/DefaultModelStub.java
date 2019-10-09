@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 
 import seedu.algobase.commons.core.GuiSettings;
@@ -76,6 +77,11 @@ public class DefaultModelStub implements Model {
 
     @Override
     public void setProblem(Problem target, Problem editedProblem) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableIntegerValue getDisplayTabPaneIndex() {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -2,6 +2,7 @@ package seedu.algobase.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
@@ -30,8 +31,15 @@ public interface Logic {
      */
     ReadOnlyAlgoBase getAlgoBase();
 
-    /** Returns an unmodifiable view of the filtered list of problems */
+    /**
+     * Returns an unmodifiable view of the processed list of problems.
+     */
     ObservableList<Problem> getProcessedProblemList();
+
+    /**
+     * Returns the current index of the tab pane.
+     */
+    ObservableIntegerValue getDisplayTabPaneIndex();
 
     /**
      * Returns the user prefs' algobase file path.

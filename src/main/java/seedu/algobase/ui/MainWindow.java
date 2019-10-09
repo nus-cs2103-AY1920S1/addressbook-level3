@@ -113,7 +113,8 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab tagListPanelTab = new DisplayTab("Tags");
         DisplayTab planListPanelTab = new DisplayTab("Plans");
 
-        displayTabPane = new DisplayTabPane(problemListPanelTab, tagListPanelTab, planListPanelTab);
+        displayTabPane =
+            new DisplayTabPane(logic.getDisplayTabPaneIndex(), problemListPanelTab, tagListPanelTab, planListPanelTab);
         displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();

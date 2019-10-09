@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
 
     private final AlgoBase algoBase;
     private final UserPrefs userPrefs;
+    private final GuiState guiState;
     private final FilteredList<Problem> filteredProblems;
     private final SortedList<Problem> sortedProblems;
     private final FilteredList<Plan> filteredPlans;
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
 
         this.algoBase = new AlgoBase(algoBase);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.guiState = new GuiState();
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         sortedProblems = new SortedList<>(filteredProblems);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
@@ -116,6 +119,12 @@ public class ModelManager implements Model {
     public void setProblem(Problem target, Problem editedProblem) {
         requireAllNonNull(target, editedProblem);
         algoBase.setProblem(target, editedProblem);
+    }
+
+    //=========== GUI state =============================================================
+    @Override
+    public ObservableIntegerValue getDisplayTabPaneIndex() {
+        return guiState.getDisplayTabPaneIndex();
     }
 
     //=========== Problem List =============================================================
