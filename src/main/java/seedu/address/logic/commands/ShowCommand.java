@@ -2,15 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.ui.UiViewManager;
 
 /**
  * Shows details of a person or a group.
@@ -23,12 +23,10 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_USAGE = "Show command takes in a person's name as argument!";
 
     private final Name name;
-    private final UiViewManager uiViewManager;
 
     public ShowCommand(Name name) {
         requireNonNull(name);
         this.name = name;
-        this.uiViewManager = new UiViewManager();
     }
 
     @Override
@@ -48,8 +46,9 @@ public class ShowCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
+        model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                false, "show", new PersonDisplay(person.get()));
+                false, COMMAND_WORD);
     }
 
     @Override

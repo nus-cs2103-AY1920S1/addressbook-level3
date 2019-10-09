@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.util.Pair;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;

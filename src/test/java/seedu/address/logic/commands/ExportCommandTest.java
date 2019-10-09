@@ -52,7 +52,7 @@ public class ExportCommandTest {
             actualMessage = (new ExportCommand(alice.getName())).execute(model);
             expectedMessage = new CommandResult(String.format(ExportCommand.MESSAGE_SUCCESS, alice));
         } catch (CommandException e) {
-
+            //Fails the test.
         }
         assertEquals(expectedMessage, actualMessage);
     }

@@ -2,12 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
@@ -45,8 +46,10 @@ public class ExportCommand extends Command {
         if (person.isEmpty()) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
+
+        model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                false, COMMAND_WORD, new PersonDisplay(person.get()));
+                false, COMMAND_WORD);
     }
 
     @Override

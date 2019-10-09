@@ -1,7 +1,5 @@
 package seedu.address.model.display.detailwindow;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,25 +1,16 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.export.VisualExporter;
-import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.model.group.Group;
-import seedu.address.model.person.Person;
 
 /**
  * The manager of the UI component.
@@ -57,26 +48,7 @@ public class UiManager implements Ui {
         }
     }
 
-    @Override
-    public void changeView(PersonDisplay person) {
-        DetailsView detailsView = new DetailsView(person);
-        mainWindow.handleChangeOnDetailsView(detailsView.getRoot());
-    }
-
-    @Override
-    public void changeView(Group group) {
-        //To do.
-        //mainWindow.handleChangeOnDetailsView(group.getDetails());
-    }
-
-    @Override
-    public void changeView(String message) {
-        TextArea textArea = new TextArea(message);
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(textArea);
-        mainWindow.handleChangeOnDetailsView(scrollPane);
-    }
-
+    /*
     @Override
     public void exportVisual(PersonDisplay p) {
         DetailsView detailsView = new DetailsView(p);
@@ -86,14 +58,11 @@ public class UiManager implements Ui {
         try {
             VisualExporter.exportTo(sp, "png", "./export.png");
         } catch (IOException e) {
-            changeView(e.getMessage());
+            //Do nothing.
         }
     }
+     */
 
-    @Override
-    public void exportVisual(Group group) {
-        //To do.
-    }
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));

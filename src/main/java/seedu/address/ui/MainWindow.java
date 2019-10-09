@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -224,6 +225,13 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             handleChangeOnSidePanelView();
+            DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
+            if (detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.PERSON)
+                || detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.GROUP)) {
+                DetailsView detailsView = new DetailsView(detailWindowDisplay);
+                handleChangeOnDetailsView(detailsView.getRoot());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

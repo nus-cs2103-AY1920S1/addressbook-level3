@@ -4,11 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.model.group.Group;
-import seedu.address.model.person.Person;
-import seedu.address.ui.UiViewManager;
-
 /**
  * Represents the result of a command execution.
  */
@@ -27,9 +22,9 @@ public class CommandResult {
     private final boolean exit;
 
     /**
-     * The platform that manages between Logic and UI.
+     * The command that was used.
      */
-    private final UiViewManager uiViewManager;
+    private final String commandWord;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -38,52 +33,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.uiViewManager = null;
+        this.commandWord = null;
     }
 
     /**
-     * Constructs an alternative CommandResult that would affect the UI. (Showing person).
+     * Constructs an alternative CommandResult that would affect the UI.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, PersonDisplay p) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.uiViewManager = new UiViewManager();
-        if (commandWord.equals("show")) {
-            uiViewManager.changeUiDetailsView(p);
-        }
-        if (commandWord.equals("export")) {
-            uiViewManager.exportVisual(p);
-        }
-    }
-
-    /**
-     * Constructs an alternative CommandResult that would affect the UI. (Showing groups).
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, Group g) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.uiViewManager = new UiViewManager();
-        if (commandWord.equals("show")) {
-            uiViewManager.changeUiDetailsView(g);
-        }
-        if (commandWord.equals("export")) {
-            uiViewManager.exportVisual(g);
-        }
-    }
-
-    /**
-     * Constructs an alternative CommandResult that would affect the UI. (Showing strings).
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, String msg) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.uiViewManager = new UiViewManager();
-        if (commandWord.equals("show")) {
-            uiViewManager.changeUiDetailsView(msg);
-        }
+        this.commandWord = commandWord;
     }
 
 
@@ -105,6 +65,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
     }
 
     @Override

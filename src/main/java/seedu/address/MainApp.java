@@ -33,7 +33,6 @@ import seedu.address.storage.TimeBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.address.ui.UiViewManager;
 
 /**
  * Runs the application.
@@ -72,7 +71,6 @@ public class MainApp extends Application {
 
         Ui uiUsed = new UiManager(logic);
         ui = uiUsed;
-        UiViewManager.setUi(uiUsed);
     }
 
     /**
