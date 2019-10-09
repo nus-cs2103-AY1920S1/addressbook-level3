@@ -2,6 +2,9 @@ package seedu.address.model.common;
 
 import seedu.address.model.person.Person;
 
+/**
+ * API of the Reference Id Resolver component.
+ */
 public interface ReferenceIdResolver {
 
     /**

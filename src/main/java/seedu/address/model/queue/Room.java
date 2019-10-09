@@ -2,6 +2,10 @@ package seedu.address.model.queue;
 
 import seedu.address.model.common.ReferenceId;
 
+/**
+ * Represents a consultation room involving a single doctor and an optional patient.
+ * Guarantees: Reference Id to a doctor is immutable and validated.
+ */
 public class Room {
     private final ReferenceId doctor;
     private final ReferenceId patientCurrentlyBeingServed;
