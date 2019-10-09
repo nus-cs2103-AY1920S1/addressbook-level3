@@ -16,6 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * User login form.
+ */
 public class LoginForm implements Initializable {
 
     @FXML
@@ -30,6 +33,9 @@ public class LoginForm implements Initializable {
     @FXML
     private JFXPasswordField password;
 
+    /**
+     * Authenticates user's credentials.
+     */
     @FXML
     void handleLogin(ActionEvent event) {
         final String username = this.username.getText();
@@ -41,6 +47,9 @@ public class LoginForm implements Initializable {
         }
     }
 
+    /**
+     * Navigates user to sign up form.
+     */
     @FXML
     void handleRegister(ActionEvent event) throws IOException {
         this.login.getScene().getWindow().hide();

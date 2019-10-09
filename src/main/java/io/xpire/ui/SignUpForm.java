@@ -16,6 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * User sign up form.
+ */
 public class SignUpForm implements Initializable {
 
     @FXML
@@ -33,6 +36,9 @@ public class SignUpForm implements Initializable {
     @FXML
     private JFXPasswordField confirmPassword;
 
+    /**
+     * Navigates user back to login form.
+     */
     @FXML
     void handleBack(ActionEvent event) throws IOException {
         this.signUp.getScene().getWindow().hide();
