@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,7 +10,9 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
+import seedu.address.model.userprefs.UserPrefs;
 
 /**
  * A utility class for test cases.
@@ -52,4 +57,12 @@ public class TestUtil {
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
     }
+
+    /**
+     * Returns a {@code ModelManager} with all the typical persons and appointments.
+     */
+    public static ModelManager getTypicalModelManager() {
+        return new ModelManager(new UserPrefs(), getTypicalAddressBook(), getTypicalAppointmentBook());
+    }
+
 }

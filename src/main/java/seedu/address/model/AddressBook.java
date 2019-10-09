@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -16,7 +17,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
 
-    /*
+    /**
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -27,7 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public AddressBook() { }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -59,11 +60,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
+     * Returns true if a person with the same identity as {@code ReferenceId} exists in the address book.
+     */
+    public boolean hasPerson(ReferenceId id) {
+        requireNonNull(id);
+        return persons.contains(id);
+    }
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if an exact {@code person} exists in the address book.
+     */
+    public boolean hasExactPerson(Person person) {
+        requireNonNull(person);
+        return persons.containsExact(person);
     }
 
     /**
@@ -93,6 +110,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns a person with the same identity as {@code ReferenceId} who exists in the address book, otherwise null.
+     */
+    public Person resolve(ReferenceId id) {
+        return persons.getPerson(id);
+    }
+
     //// util methods
 
     @Override
@@ -109,8 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && persons.equals(((AddressBook) other).persons));
     }
 
     @Override
