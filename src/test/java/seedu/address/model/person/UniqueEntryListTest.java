@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -42,7 +41,11 @@ public class UniqueEntryListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+<<<<<<< Updated upstream:src/test/java/seedu/address/model/person/UniquePersonListTest.java
+        Person editedAlice = new EntryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+=======
+        Entry editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+>>>>>>> Stashed changes:src/test/java/seedu/address/model/person/UniqueEntryListTest.java
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -85,7 +88,11 @@ public class UniqueEntryListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+<<<<<<< Updated upstream:src/test/java/seedu/address/model/person/UniquePersonListTest.java
+        Person editedAlice = new EntryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+=======
+        Entry editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+>>>>>>> Stashed changes:src/test/java/seedu/address/model/person/UniqueEntryListTest.java
                 .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniqueEntryList expectedUniquePersonList = new UniqueEntryList();
@@ -143,14 +150,14 @@ public class UniqueEntryListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setEntries((List<Person>) null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setEntries((List<Entry>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniquePersonList.add(ALICE);
-        List<Person> personList = Collections.singletonList(BOB);
-        uniquePersonList.setEntries(personList);
+        List<Entry> entryList = Collections.singletonList(BOB);
+        uniquePersonList.setEntries(entryList);
         UniqueEntryList expectedUniquePersonList = new UniqueEntryList();
         expectedUniquePersonList.add(BOB);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -158,8 +165,8 @@ public class UniqueEntryListTest {
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateEntryException.class, () -> uniquePersonList.setEntries(listWithDuplicatePersons));
+        List<Entry> listWithDuplicateEntries = Arrays.asList(ALICE, ALICE);
+        assertThrows(DuplicateEntryException.class, () -> uniquePersonList.setEntries(listWithDuplicateEntries));
     }
 
     @Test

@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,11 +20,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+//import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Description;
+//import seedu.address.model.person.Email;
+//import seedu.address.model.person.Phone;
+import seedu.address.model.person.Entry;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,69 +39,67 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DESC + "NAME] "
+            + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_AMOUNT + "5.60";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditEntryDescriptor editEntryDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param editEntryDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditEntryDescriptor editEntryDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editEntryDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editEntryDescriptor = new EditEntryDescriptor(editEntryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Entry> lastShownList = model.getFilteredEntryList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Entry entryToEdit = lastShownList.get(index.getZeroBased());
+        Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setEntry(entryToEdit, editedEntry);
+        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
+        assert entryToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+//        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+//        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+//        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
+        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Entry(updatedName, updatedAmount, updatedTags);
     }
 
     @Override
@@ -117,31 +117,33 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editEntryDescriptor.equals(e.editEntryDescriptor);
     }
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+    public static class EditEntryDescriptor {
+        private Description desc;
+//        private Phone phone;
+//        private Email email;
+//        private Address address;
+        private Amount amt;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditEntryDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+        public EditEntryDescriptor(EditEntryDescriptor toCopy) {
+            setDesc(toCopy.desc);
+//            setPhone(toCopy.phone);
+//            setEmail(toCopy.email);
+//            setAddress(toCopy.address);
+            setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
 
@@ -149,39 +151,39 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(desc, amt, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setDesc(Description desc) {
+            this.desc = desc;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Description> getDesc() {
+            return Optional.ofNullable(desc);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+//        public void setPhone(Phone phone) {
+//            this.phone = phone;
+//        }
+//
+//        public Optional<Phone> getPhone() {
+//            return Optional.ofNullable(phone);
+//        }
+//
+//        public void setEmail(Email email) {
+//            this.email = email;
+//        }
+//
+//        public Optional<Email> getEmail() {
+//            return Optional.ofNullable(email);
+//        }
+
+        public void setAmount(Amount amt) {
+            this.amt = amt;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(amt);
         }
 
         /**
@@ -209,17 +211,18 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditEntryDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditEntryDescriptor e = (EditEntryDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+            return getDesc().equals(e.getDesc())
+//                    && getPhone().equals(e.getPhone())
+//                    && getEmail().equals(e.getEmail())
+//                    && getAddress().equals(e.getAddress())
+                    && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }
     }
