@@ -13,16 +13,18 @@ public class Item {
     private int quantity;
     private final double cost;
     private static double price;
+    private static String id;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String description, String category, int quantity, double cost, double price) {
+    public Item(String description, String category, int quantity, double cost, double price, int id) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
         this.price = price;
+        this.id = "" + id;
     }
 
     /**
@@ -62,6 +64,14 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(int i) {
+        this.id = "" + i;
     }
 
     /**

@@ -30,8 +30,8 @@ public class StorageManager implements Storage {
 
     public static Item readInFileLine(String line) {
         String[] stringArr = line.split(" [|] ", 0);
-        String[] dateTimeArr = stringArr[0].split(" ");
-        Item t = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]), Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]));
+        Item t = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
+                Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]), Integer.parseInt(stringArr[5]));
         return t;
     }
 
