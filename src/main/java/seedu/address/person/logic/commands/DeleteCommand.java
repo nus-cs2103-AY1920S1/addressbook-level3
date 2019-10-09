@@ -3,6 +3,7 @@ package seedu.address.person.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+
 import seedu.address.person.commons.core.Messages;
 import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.logic.commands.exceptions.CommandException;
@@ -32,7 +33,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                 seedu.address.cashier.logic.Logic cashierLogic) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -55,7 +57,7 @@ public class DeleteCommand extends Command {
      */
     private static void checkIfPersonHasTransactionRecords(seedu.address.transaction.logic.Logic transactionLogic,
                                                            Person personToDelete)
-            throws CommandException{
+                                                            throws CommandException {
         for (int i = 0; i < transactionLogic.getTransactionList().size(); i++) {
             if (transactionLogic.getTransactionList().get(i).getPerson().equals(personToDelete)) {
                 throw new CommandException(TransactionMessages.MESSAGE_PERSON_CANNOT_BE_DELETED);

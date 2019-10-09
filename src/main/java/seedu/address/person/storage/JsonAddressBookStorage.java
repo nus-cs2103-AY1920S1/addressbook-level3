@@ -1,17 +1,18 @@
 package seedu.address.person.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.exceptions.DataConversionException;
 import seedu.address.person.commons.exceptions.IllegalValueException;
 import seedu.address.person.commons.util.FileUtil;
 import seedu.address.person.commons.util.JsonUtil;
 import seedu.address.person.model.ReadOnlyAddressBook;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

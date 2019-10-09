@@ -6,6 +6,9 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Represents the command to sort by name
+ */
 public class SortNameCommand extends Command {
     public static final String COMMAND_WORD = "sort name";
     private final Logger logger = LogsCenter.getLogger(getClass());

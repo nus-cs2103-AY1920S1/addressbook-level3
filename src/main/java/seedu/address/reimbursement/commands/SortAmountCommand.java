@@ -6,7 +6,10 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
-public class SortAmountCommand extends Command{
+/**
+ * Represents a command to sort by amount.
+ */
+public class SortAmountCommand extends Command {
     public static final String COMMAND_WORD = "sort amount";
     private final Logger logger = LogsCenter.getLogger(getClass());
 

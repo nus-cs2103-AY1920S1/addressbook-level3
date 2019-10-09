@@ -23,17 +23,20 @@ public class UiManager implements Ui {
 
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
+    private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
     private seedu.address.cashier.logic.Logic cashierLogic;
     private MainWindow mainWindow;
 
     public UiManager(seedu.address.transaction.logic.Logic transactionLogic,
                      seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                     seedu.address.inventory.logic.Logic inventoryLogic,
                      seedu.address.person.logic.Logic personLogic,
                      seedu.address.cashier.logic.Logic cashierLogic) {
         super();
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
+        this.inventoryLogic = inventoryLogic;
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
     }
@@ -46,7 +49,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, transactionLogic, reimbursementLogic, personLogic, cashierLogic);
+            mainWindow = new MainWindow(primaryStage, transactionLogic, reimbursementLogic, inventoryLogic, personLogic, cashierLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import seedu.address.transaction.model.Transaction;
 
+/**
+ * Stores the description of a Reimbursement.
+ */
 public class Description {
     private String description;
 
