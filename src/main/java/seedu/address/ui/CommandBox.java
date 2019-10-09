@@ -10,7 +10,6 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.util.ArrayDeque;
 import java.util.NoSuchElementException;
 
@@ -19,12 +18,13 @@ import java.util.NoSuchElementException;
  */
 public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent> {
 
-    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
-    private ArrayDeque<String> nextCommands = new ArrayDeque<>();
+
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
+    private ArrayDeque<String> nextCommands = new ArrayDeque<>();
 
     @FXML
     private TextField commandTextField;
@@ -63,22 +63,22 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         commandTextField.setOnKeyPressed(event -> keyPressed(event.getCode()));
     }
 
+    /**
+     * sets textfield according to key press
+     * for up and down arrow, handles previous and next commands
+     * with 2 stacks, enabling user to scroll through past commands
+     * if no more past or future commands, the textfield will be blank
+     *
+     * @param keyCode
+     */
+    private void keyPressed(KeyCode keyCode) {
 
-    private void keyPressed(KeyCode keyCode){
-        /**
-         * sets textfield according to key press
-         * for up and down arrow, handles previous and next commands
-         * with 2 stacks, enabling user to scroll through past commands
-         * if no more past or future commands, the textfield will be blank
-         *
-         * @param keyCode
-         */
-        if (keyCode == KeyCode.UP ){
+        if (keyCode == KeyCode.UP) {
             try {
                 String previousCommand = pastCommands.pop();
                 nextCommands.push(previousCommand);
                 commandTextField.setText((previousCommand));
-            } catch(NoSuchElementException ex) {
+            } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
             }
         }
@@ -87,7 +87,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
                 String nextCommand = nextCommands.pop();
                 pastCommands.push(nextCommand);
                 commandTextField.setText((nextCommand));
-            } catch(NoSuchElementException ex) {
+            } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
             }
         }
