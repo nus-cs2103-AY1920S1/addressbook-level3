@@ -50,14 +50,22 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + CommandTestUtil.INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Dish} being edited,
         // parsing it together with a valid tag results in error
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.TAG_DESC_FRIEND + CommandTestUtil.TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.TAG_DESC_FRIEND + TAG_EMPTY + CommandTestUtil.TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_EMPTY + CommandTestUtil.TAG_DESC_FRIEND + CommandTestUtil.TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + CommandTestUtil.TAG_DESC_FRIEND
+                        + CommandTestUtil.TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + CommandTestUtil.TAG_DESC_FRIEND + TAG_EMPTY
+                        + CommandTestUtil.TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + TAG_EMPTY + CommandTestUtil.TAG_DESC_FRIEND
+                        + CommandTestUtil.TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
     }
 
@@ -67,7 +75,8 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + CommandTestUtil.TAG_DESC_HUSBAND
                 + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND;
 
-        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_AMY)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -79,7 +88,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = TypicalIndexes.INDEX_THIRD_MEAL;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
-        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY).build();
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 

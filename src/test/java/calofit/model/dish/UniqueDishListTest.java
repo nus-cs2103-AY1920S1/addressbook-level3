@@ -1,6 +1,8 @@
 package calofit.model.dish;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -61,12 +63,14 @@ public class UniqueDishListTest {
 
     @Test
     public void setDish_nullEditedDish_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueDishList.setDish(TypicalDishes.ALICE, null));
+        Assert.assertThrows(NullPointerException.class, () ->
+            uniqueDishList.setDish(TypicalDishes.ALICE, null));
     }
 
     @Test
     public void setDish_targetDishNotInList_throwsDishNotFoundException() {
-        Assert.assertThrows(DishNotFoundException.class, () -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.ALICE));
+        Assert.assertThrows(DishNotFoundException.class, ()
+            -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.ALICE));
     }
 
     @Test
@@ -102,7 +106,8 @@ public class UniqueDishListTest {
     public void setDish_editedDishHasNonUniqueIdentity_throwsDuplicateDishException() {
         uniqueDishList.add(TypicalDishes.ALICE);
         uniqueDishList.add(TypicalDishes.BOB);
-        Assert.assertThrows(DuplicateDishException.class, () -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.BOB));
+        Assert.assertThrows(DuplicateDishException.class, ()
+            -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.BOB));
     }
 
     @Test

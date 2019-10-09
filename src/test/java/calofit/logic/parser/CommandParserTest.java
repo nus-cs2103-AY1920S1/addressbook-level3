@@ -57,7 +57,8 @@ public class CommandParserTest {
         Dish dish = new DishBuilder().build();
         EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder(dish).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased() + " " + DishUtil.getEditDishDescriptorDetails(descriptor));
+                + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased() + " "
+                + DishUtil.getEditDishDescriptorDetails(descriptor));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, descriptor), command);
     }
 
@@ -89,12 +90,14 @@ public class CommandParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        Assert.assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        Assert.assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        Assert.assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        Assert.assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () ->
+            parser.parseCommand("unknownCommand"));
     }
 }

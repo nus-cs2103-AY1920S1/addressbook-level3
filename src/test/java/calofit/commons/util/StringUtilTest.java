@@ -57,7 +57,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
+        Assert.assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
     @Test
@@ -74,7 +75,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
+        Assert.assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordIgnoreCase(null, "abc"));
     }
 
     /*
@@ -133,7 +135,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertTrue(StringUtil.getDetails(new FileNotFoundException("file not found"))
-            .contains("java.io.FileNotFoundException: file not found"));
+                .contains("java.io.FileNotFoundException: file not found"));
     }
 
     @Test

@@ -1,8 +1,13 @@
 {
-  "dishes": [ {
-    "name": "Alice Pauline",
-    "tagged": [ "friends" ]
-  }, {
-    "name": "Alice Pauline"
-  } ]
+  "dishes": [
+    {
+      "name": "Alice Pauline",
+      "tagged": [
+        "friends"
+      ]
+    },
+    {
+      "name": "Alice Pauline"
+    }
+  ]
 }

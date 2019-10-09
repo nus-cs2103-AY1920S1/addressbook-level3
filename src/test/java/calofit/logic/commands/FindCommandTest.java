@@ -2,7 +2,9 @@ package calofit.logic.commands;
 
 import static calofit.commons.core.Messages.MESSAGE_DISHES_LISTED_OVERVIEW;
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -66,7 +68,8 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDishList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalDishes.CARL, TypicalDishes.ELLE, TypicalDishes.FIONA), model.getFilteredDishList());
+        assertEquals(Arrays.asList(TypicalDishes.CARL, TypicalDishes.ELLE, TypicalDishes.FIONA),
+                model.getFilteredDishList());
     }
 
     /**

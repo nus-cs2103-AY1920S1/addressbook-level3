@@ -1,7 +1,9 @@
 package calofit.model;
 
 import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -93,7 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        DishDatabase dishDatabase = new DishDatabaseBuilder().withDish(TypicalDishes.ALICE).withDish(TypicalDishes.BENSON).build();
+        DishDatabase dishDatabase = new DishDatabaseBuilder().withDish(TypicalDishes.ALICE)
+                .withDish(TypicalDishes.BENSON).build();
         DishDatabase differentDishDatabase = new DishDatabase();
         UserPrefs userPrefs = new UserPrefs();
 

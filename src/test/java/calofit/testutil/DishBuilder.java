@@ -42,7 +42,7 @@ public class DishBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Dish} that we are building.
      */
-    public DishBuilder withTags(String ... tags) {
+    public DishBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

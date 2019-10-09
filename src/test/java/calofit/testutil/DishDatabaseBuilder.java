@@ -6,7 +6,7 @@ import calofit.model.dish.DishDatabase;
 /**
  * A utility class to help with building {@link DishDatabase} objects.
  * Example usage: <br>
- *     {@code DishDatabase ab = new DishDatabaseBuilder().withPerson("John", "Doe").build();}
+ * {@code DishDatabase ab = new DishDatabaseBuilder().withPerson("John", "Doe").build();}
  */
 public class DishDatabaseBuilder {
 

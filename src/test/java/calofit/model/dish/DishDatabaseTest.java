@@ -1,7 +1,9 @@
 package calofit.model.dish;
 
 import static calofit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;

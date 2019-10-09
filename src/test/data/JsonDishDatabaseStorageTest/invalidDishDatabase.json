@@ -1,5 +1,7 @@
 {
-  "dishes": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-  } ]
+  "dishes": [
+    {
+      "name": "Person with invalid name field: Ha!ns Mu@ster"
+    }
+  ]
 }

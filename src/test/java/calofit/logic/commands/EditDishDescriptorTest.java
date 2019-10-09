@@ -10,7 +10,8 @@ public class EditDishDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditDishDescriptor descriptorWithSameValues = new EditCommand.EditDishDescriptor(CommandTestUtil.DESC_AMY);
+        EditCommand.EditDishDescriptor descriptorWithSameValues =
+            new EditCommand.EditDishDescriptor(CommandTestUtil.DESC_AMY);
         Assertions.assertTrue(CommandTestUtil.DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -26,11 +27,14 @@ public class EditDishDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditDishDescriptor editedAmy = new EditDishDescriptorBuilder(CommandTestUtil.DESC_AMY).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditCommand.EditDishDescriptor editedAmy =
+            new EditDishDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditDishDescriptorBuilder(CommandTestUtil.DESC_AMY).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+        editedAmy = new EditDishDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
     }
 }

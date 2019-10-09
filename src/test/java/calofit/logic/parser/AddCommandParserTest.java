@@ -17,21 +17,26 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Dish expectedDish = new DishBuilder(TypicalDishes.BOB).withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
+        Dish expectedDish = new DishBuilder(TypicalDishes.BOB)
+                .withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE + CommandTestUtil.NAME_DESC_BOB
+        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE
+                + CommandTestUtil.NAME_DESC_BOB
                 + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedDish));
 
         // multiple names - last name accepted
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.NAME_DESC_BOB
+        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_AMY
+                + CommandTestUtil.NAME_DESC_BOB
                 + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedDish));
 
         // multiple tags - all accepted
-        Dish expectedDishMultipleTags = new DishBuilder(TypicalDishes.BOB).withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
+        Dish expectedDishMultipleTags = new DishBuilder(TypicalDishes.BOB)
+                .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB
-                + CommandTestUtil.TAG_DESC_HUSBAND + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedDishMultipleTags));
+                + CommandTestUtil.TAG_DESC_HUSBAND + CommandTestUtil.TAG_DESC_FRIEND,
+                new AddCommand(expectedDishMultipleTags));
     }
 
     @Test
@@ -66,8 +71,9 @@ public class AddCommandParserTest {
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY + CommandTestUtil.NAME_DESC_BOB
-                + CommandTestUtil.TAG_DESC_HUSBAND + CommandTestUtil.TAG_DESC_FRIEND,
+        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY
+                        + CommandTestUtil.NAME_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND
+                        + CommandTestUtil.TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

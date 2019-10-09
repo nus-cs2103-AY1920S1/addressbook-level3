@@ -44,9 +44,11 @@ public class EditCommandTest {
         Dish lastDish = model.getFilteredDishList().get(indexLastDish.getZeroBased());
 
         DishBuilder dishInList = new DishBuilder(lastDish);
-        Dish editedDish = dishInList.withName(CommandTestUtil.VALID_NAME_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+        Dish editedDish = dishInList.withName(CommandTestUtil.VALID_NAME_BOB)
+                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastDish, descriptor);
 
@@ -60,7 +62,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, new EditCommand.EditDishDescriptor());
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL,
+                new EditCommand.EditDishDescriptor());
         Dish editedDish = model.getFilteredDishList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
@@ -111,7 +114,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidDishIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDishList().size() + 1);
-        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
@@ -153,7 +157,8 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_MEAL, CommandTestUtil.DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_MEAL,
+                CommandTestUtil.DESC_AMY)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, CommandTestUtil.DESC_BOB)));

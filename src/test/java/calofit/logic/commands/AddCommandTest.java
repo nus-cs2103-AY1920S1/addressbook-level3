@@ -1,7 +1,9 @@
 package calofit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -47,7 +49,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validDish);
         ModelStub modelStub = new ModelStubWithDish(validDish);
 
-        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL, () -> addCommand.execute(modelStub));
+        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL, ()
+            -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -79,12 +82,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setDishDatabase(ReadOnlyDishDatabase dishDatabase) {
+        public ReadOnlyDishDatabase getDishDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDishDatabase getDishDatabase() {
+        public void setDishDatabase(ReadOnlyDishDatabase dishDatabase) {
             throw new AssertionError("This method should not be called.");
         }
 

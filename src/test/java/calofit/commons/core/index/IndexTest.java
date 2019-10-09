@@ -1,6 +1,8 @@
 package calofit.commons.core.index;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +40,7 @@ public class IndexTest {
 
     @Test
     public void equals() {
-        final Index fifthDishIndex= Index.fromOneBased(5);
+        final Index fifthDishIndex = Index.fromOneBased(5);
 
         // same values -> returns true
         assertTrue(fifthDishIndex.equals(Index.fromOneBased(5)));

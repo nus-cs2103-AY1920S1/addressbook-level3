@@ -1,6 +1,8 @@
 package calofit.logic.commands;
 
-import static calofit.logic.commands.CommandTestUtil.*;
+import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
+import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static calofit.logic.commands.CommandTestUtil.showDishAtIndex;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

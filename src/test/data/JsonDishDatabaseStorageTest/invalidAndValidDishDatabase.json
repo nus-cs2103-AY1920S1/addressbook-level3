@@ -1,7 +1,10 @@
 {
-  "dishes": [ {
-    "name": "Valid Person"
-  }, {
-    "name": "Person With Invalid Phone Field"
-  } ]
+  "dishes": [
+    {
+      "name": "Valid Person"
+    },
+    {
+      "name": "Person With Invalid Phone Field"
+    }
+  ]
 }
