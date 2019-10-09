@@ -42,7 +42,7 @@ public class Restrictions {
     public boolean equals(Object other) {
         return other == this // short circuit if object is the same.
                 || (other instanceof Restrictions // instanceof handles nulls.
-                && restrictions.equals(((Restrictions) other).restrictions));  // State check.
+                && restrictions.equals(((Restrictions) other).restrictions)); // State check.
     }
 
     @Override

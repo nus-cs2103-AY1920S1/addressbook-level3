@@ -32,6 +32,11 @@ public class OpeningHours {
         openingHours = hours;
     }
 
+    /**
+     * Checking whether the opening hours is valid or not.
+     *
+     * @return True if valid, false otherwise.
+     */
     public static boolean isValidOpeningHours(String hours) {
         if (hours.equals(OpeningHours.DEFAULT_VALUE)) {
             return true;
@@ -49,7 +54,7 @@ public class OpeningHours {
     public boolean equals(Object other) {
         return other == this // Short circuit if same object.
                 || (other instanceof OpeningHours // To handle nulls
-                && openingHours.equals(((OpeningHours) other).openingHours));   // Checks the state.
+                && openingHours.equals(((OpeningHours) other).openingHours)); // Checks the state.
     }
 
     @Override
