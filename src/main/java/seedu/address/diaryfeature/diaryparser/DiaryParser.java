@@ -17,21 +17,24 @@ public class DiaryParser implements Parser {
      */
     @Override
     public Command parse(String userInput)  {
-        String trimmed = userInput.trim();
-        if(trimmed.startsWith("add entry")) {
-            //Note that "add entry" counts as 9 characters, and hence the added task
-            //only starts from pos 10
-            String entry = trimmed.substring(10);
-            return new AddDiaryEntryCommand(entry);
-        } else if (trimmed.startsWith("delete Entry")) {
-            //Note that "delete Entry" counts as 12 characters,
-            //and hence, we start from pos 13
-            int deleteIndex = Integer.parseInt(trimmed.substring(13));
-            return new DeleteDiaryEntryCommand(deleteIndex);
-        } else {
-            CommandNotFoundException notFound =
-                    new CommandNotFoundException("No such command yet");
-            return new DiaryErrorCommand(notFound);
+        try {
+            String trimmed = userInput.trim();
+            if (trimmed.startsWith("add entry")) {
+                //Note that "add entry" counts as 9 characters, and hence the added task
+                //only starts from pos 10
+                String entry = trimmed.substring(10);
+                return new AddDiaryEntryCommand(entry);
+            } else if (trimmed.startsWith("delete Entry")) {
+                //Note that "delete Entry" counts as 12 characters,
+                //and hence, we start from pos 13
+                int deleteIndex = Integer.parseInt(trimmed.substring(13));
+                return new DeleteDiaryEntryCommand(deleteIndex);
+            } else {
+                throw new CommandNotFoundException("No such command yet");
+            }
+        }
+        catch (Exception x) {
+            return new DiaryErrorCommand(x);
         }
     }
 }
