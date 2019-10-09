@@ -11,7 +11,9 @@ import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -81,6 +83,12 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand(commandHistory);
+
+        case EnqueueCommand.COMMAND_WORD:
+            return new EnqueueCommandParser().parse(arguments);
+
+        case DequeueCommand.COMMAND_WORD:
+            return new DequeueCommandParser().parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:
             return new AddAppCommandParser().parse(arguments);

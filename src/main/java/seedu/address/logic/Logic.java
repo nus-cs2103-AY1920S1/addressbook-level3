@@ -12,9 +12,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.Room;
 
 /**
  * API of the Logic component
@@ -54,6 +56,16 @@ public interface Logic {
      * Returns the a resolver class for mapping {@code ReferenceId} to {@code Person}.
      */
     ReferenceIdResolver getReferenceIdResolver();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of rooms
+     */
+    ObservableList<Room> getFilteredRoomList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of ids
+     */
+    ObservableList<ReferenceId> getFilteredReferencedIdList();
 
     /**
      * Returns the user prefs' address book file path.
