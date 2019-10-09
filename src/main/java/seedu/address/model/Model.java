@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -64,10 +65,29 @@ public interface Model {
     void deleteFlashCard(FlashCard target);
 
     /**
+     * Adds the given deadline.
+     * {@code deadline} must not already exist in the address book.
+     */
+    void addDeadline(Deadline deadline);
+
+    /**
+     * Returns true if a deadline with the same identity as {@code deadline} exists in the address book.
+     */
+    boolean hasDeadline(Deadline deadline);
+
+    /**
+     * Deletes the given deadline.
+     * The deadline must exist in the address book.
+     */
+    void deleteDeadline(Deadline deadline);
+
+    /**
      * Adds the given flashCard.
      * {@code flashCard} must not already exist in the address book.
      */
     void addFlashCard(FlashCard flashCard);
+
+
 
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
@@ -76,6 +96,7 @@ public interface Model {
      * must not be the same as another existing flashCard in the address book.
      */
     void setFlashCard(FlashCard target, FlashCard editedFlashCard);
+
 
     /** Returns an unmodifiable view of the filtered flashCard list */
     ObservableList<FlashCard> getFilteredFlashCardList();

@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.testutil.FlashCardBuilder;
 
@@ -166,6 +167,21 @@ public class AddCommandTest {
 
         @Override
         public void deleteFlashCard(FlashCard target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDeadline(Deadline deadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDeadline(Deadline deadline) {
             throw new AssertionError("This method should not be called.");
         }
 

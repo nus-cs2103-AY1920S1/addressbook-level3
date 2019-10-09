@@ -4,6 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 image:https://travis-ci.org/AY1920S1-CS2103T-T12-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T12-4/main"]
 https://ci.appveyor.com/project/LeowWB/main[image:https://ci.appveyor.com/api/projects/status/ulv9a15d5m66r77j/branch/master?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T12-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T12-4/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.netlify.com/api/v1/badges/95133284-8c5e-44f8-b437-958adf99f239/deploy-status["Netlify Status", link="https://app.netlify.com/sites/team-kfc/deploys"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

@@ -24,12 +24,13 @@
     "answer" : "It is aka link capacity or link bandwidth",
     "rating" : "easy",
     "categories" : [ ]
-  }, {
-    "question" : "Transmission delay",
-    "answer" : "L (bit) / R (bits.sec)",
-    "rating" : "good",
-    "categories" : [ ]
-  } ]
+  },
+    {
+      "question": "Transmission delay",
+      "answer": "L (bit) / R (bits.sec)",
+      "rating": "good",
+      "categories": []
+    } ]
 }
 
 

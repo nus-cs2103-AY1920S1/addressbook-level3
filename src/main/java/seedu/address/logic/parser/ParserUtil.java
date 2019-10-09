@@ -10,6 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
+import seedu.address.model.deadline.DueDate;
+import seedu.address.model.deadline.Task;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
@@ -105,6 +107,36 @@ public class ParserUtil {
             categorySet.add(parseCategory(categoryName));
         }
         return categorySet;
+    }
+
+    /**
+     * Parses a {@code String task} into a {@code Task}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code question} is invalid.
+     */
+    public static Task parseTask(String task) throws ParseException {
+        requireNonNull(task);
+        String trimmedTask = task.trim();
+        if (!Task.isValidTask(trimmedTask)) {
+            throw new ParseException(Question.MESSAGE_CONSTRAINTS);
+        }
+        return new Task(trimmedTask);
+    }
+
+    /**
+     * Parses a {@code String task} into a {@code Task}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code question} is invalid.
+     */
+    public static DueDate parseDueDate(String dateStr) throws ParseException {
+        requireNonNull(dateStr);
+        String trimmedDateStr = dateStr.trim();
+        if (!DueDate.isValidDate(trimmedDateStr)) {
+            throw new ParseException(DueDate.MESSAGE_CONSTRAINTS);
+        }
+        return new DueDate(trimmedDateStr);
     }
 
     /**
