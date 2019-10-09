@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -39,7 +40,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        Timekeeper timekeeper = new Timekeeper(model);
+        logic = new LogicManager(model, storage, timekeeper);
     }
 
     @Test
@@ -60,7 +62,26 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
-    //@Test no longer throws exception since identity is not assigned by user, it is randomly generated
+    //    @Test
+    //    public void execute_storageThrowsIoException_throwsCommandException() {
+    //        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+    //        JsonAddressBookStorage addressBookStorage =
+    //                new JsonAddressBookIoExceptionThrowingStub(
+    //                        temporaryFolder.resolve("ioExceptionAddressBook.json"));
+    //        JsonUserPrefsStorage userPrefsStorage =
+    //                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+    //        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+    //        Timekeeper timekeeper = new Timekeeper(model);
+    //        logic = new LogicManager(model, storage, timekeeper);
+
+    // Execute add command
+    //        String addCommand = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN;
+    //        Expense expectedExpense = new ExpenseBuilder(CHICKEN).withTags().build();
+    //        ModelManager expectedModel = new ModelManager();
+    //        expectedModel.addExpense(expectedExpense);
+    //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+    //        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    //    }
 
     @Test
     public void getFilteredExpenseList_modifyList_throwsUnsupportedOperationException() {

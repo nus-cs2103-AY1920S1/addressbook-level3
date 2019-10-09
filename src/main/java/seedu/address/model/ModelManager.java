@@ -13,6 +13,8 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -24,6 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +39,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
     }
 
@@ -130,6 +134,46 @@ public class ModelManager implements Model {
         addressBook.setExpense(target, editedExpense);
     }
 
+    @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return addressBook.hasBudget(budget);
+    }
+
+    @Override
+    public void addBudget(Budget budget) {
+        addressBook.addBudget(budget);
+    }
+
+    @Override
+    public void setPrimary(Budget budget) {
+        addressBook.setPrimary(budget);
+    }
+
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return addressBook.hasEvent(event);
+    }
+
+    //    @Override
+    //    public void deleteEvent(Event target) {
+    //        addressBook.removeEvent(target);
+    //    }
+
+    @Override
+    public void addEvent(Event event) {
+        addressBook.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+    }
+
+    //    @Override
+    //    public void setEvent(Event target, Event editedEvent) {
+    //        requireAllNonNull(target, editedEvent);
+    //
+    //        addressBook.setEvent(target, editedEvent);
+    //    }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
@@ -145,6 +189,21 @@ public class ModelManager implements Model {
     public void updateFilteredExpenseList(Predicate<Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvents;
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
     }
 
     @Override
@@ -163,7 +222,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExpenses.equals(other.filteredExpenses);
+                && filteredExpenses.equals(other.filteredExpenses)
+                && filteredEvents.equals(other.filteredEvents);
     }
 
 }

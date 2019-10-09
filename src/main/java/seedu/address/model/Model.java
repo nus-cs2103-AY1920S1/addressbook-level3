@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -15,6 +17,9 @@ import seedu.address.model.expense.Expense;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -101,6 +106,12 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
+    boolean hasBudget(Budget budget);
+
+    void addBudget(Budget budget);
+
+    void setPrimary(Budget budget);
+
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
@@ -109,4 +120,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate);
+
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventList(Predicate<Event> predicate);
+
+    boolean hasEvent(Event event);
+
+    void addEvent(Event event);
 }

@@ -8,8 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.exceptions.DuplicateExpenseException;
-import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
+import seedu.address.model.expense.exceptions.DuplicateEventException;
 
 /**
  * A list of expenses that enforces uniqueness between its elements and does not allow nulls.
@@ -21,30 +20,30 @@ import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Expense#isSameExpense(Expense)
+ * @see Event#isSameEvent(Event)
  */
-public class UniqueExpenseList implements Iterable<Expense> {
+public class UniqueEventList implements Iterable<Event> {
 
-    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Expense> internalUnmodifiableList =
+    private final ObservableList<Event> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Event> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent expense as the given argument.
      */
-    public boolean contains(Expense toCheck) {
+    public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameExpense);
+        return internalList.stream().anyMatch(toCheck::isSameEvent);
     }
 
     /**
      * Adds a expense to the list.
      * The expense must not already exist in the list.
      */
-    public void add(Expense toAdd) {
+    public void add(Event toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateExpenseException();
+            throw new DuplicateEventException(); // rmb to add DuplicateEventException
         }
         internalList.add(toAdd);
     }
@@ -54,33 +53,35 @@ public class UniqueExpenseList implements Iterable<Expense> {
      * {@code target} must exist in the list.
      * The expense identity of {@code editedExpense} must not be the same as another existing expense in the list.
      */
-    public void setExpense(Expense target, Expense editedExpense) {
-        requireAllNonNull(target, editedExpense);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new ExpenseNotFoundException();
-        }
-
-        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
-            throw new DuplicateExpenseException();
-        }
-
-        internalList.set(index, editedExpense);
-    }
+    //    IMPLEMENT AFTER WK 7
+    //    public void setExpense(Expense target, Expense editedExpense) {
+    //        requireAllNonNull(target, editedExpense);
+    //
+    //        int index = internalList.indexOf(target);
+    //        if (index == -1) {
+    //            throw new ExpenseNotFoundException();
+    //        }
+    //
+    //        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
+    //            throw new DuplicateExpenseException();
+    //        }
+    //
+    //        internalList.set(index, editedExpense);
+    //    } IMPLEMENT AFTER WK 7
 
     /**
      * Removes the equivalent expense from the list.
      * The expense must exist in the list.
      */
-    public void remove(Expense toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ExpenseNotFoundException();
-        }
-    }
+    //    IMPLEMENT AFTER WK 7
+    //    public void remove(Expense toRemove) {
+    //        requireNonNull(toRemove);
+    //        if (!internalList.remove(toRemove)) {
+    //            throw new ExpenseNotFoundException();
+    //        }
+    //    } IMPLEMENT AFTER WK 7
 
-    public void setExpenses(UniqueExpenseList replacement) {
+    public void setEvents(UniqueEventList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -89,36 +90,32 @@ public class UniqueExpenseList implements Iterable<Expense> {
      * Replaces the contents of this list with {@code expenses}.
      * {@code expenses} must not contain duplicate expenses.
      */
-    public void setExpenses(List<Expense> expenses) {
-        requireAllNonNull(expenses);
-        if (!expensesAreUnique(expenses)) {
-            throw new DuplicateExpenseException();
+    public void setEvents(List<Event> events) {
+        requireAllNonNull(events);
+        if (!eventsAreUnique(events)) {
+            throw new DuplicateEventException();
         }
 
-        internalList.setAll(expenses);
-    }
-
-    public int getSize() {
-        return internalList.size();
+        internalList.setAll(events);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Expense> asUnmodifiableObservableList() {
+    public ObservableList<Event> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Expense> iterator() {
+    public Iterator<Event> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueExpenseList // instanceof handles nulls
-                        && internalList.equals(((UniqueExpenseList) other).internalList));
+                || (other instanceof UniqueEventList // instanceof handles nulls
+                && internalList.equals(((UniqueEventList) other).internalList));
     }
 
     @Override
@@ -127,12 +124,12 @@ public class UniqueExpenseList implements Iterable<Expense> {
     }
 
     /**
-     * Returns true if {@code expenses} contains only unique expenses.
+     * Returns true if {@code events} contains only unique events.
      */
-    private boolean expensesAreUnique(List<Expense> expenses) {
-        for (int i = 0; i < expenses.size() - 1; i++) {
-            for (int j = i + 1; j < expenses.size(); j++) {
-                if (expenses.get(i).isSameExpense(expenses.get(j))) {
+    private boolean eventsAreUnique(List<Event> events) {
+        for (int i = 0; i < events.size() - 1; i++) {
+            for (int j = i + 1; j < events.size(); j++) {
+                if (events.get(i).isSameEvent(events.get(j))) {
                     return false;
                 }
             }
@@ -140,3 +137,4 @@ public class UniqueExpenseList implements Iterable<Expense> {
         return true;
     }
 }
+
