@@ -128,7 +128,7 @@ public class ParserUtil {
         }
         return new Alias(aliasName, input);
     }
-  
+
     /**
      * Parses {@code String date} into a {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
@@ -169,5 +169,4 @@ public class ParserUtil {
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
     }
-  
 }

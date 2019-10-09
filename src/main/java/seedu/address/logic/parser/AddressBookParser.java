@@ -53,40 +53,28 @@ public class AddressBookParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
         case AliasCommand.COMMAND_WORD:
             return new AliasCommandParser().parse(arguments);
-            
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
-            
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
         case RemindersCommand.COMMAND_WORD:
             return new RemindersCommand();
-
         case EventCommand.COMMAND_WORD:
             return new EventCommandParser().parse(arguments);
-
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {
