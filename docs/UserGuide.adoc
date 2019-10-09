@@ -57,6 +57,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Change tab : `tab`
+
+Change tab to any of the available ones +
+Format: `tab TAB_DESTINATION`
+
+Examples:
+
+* `tab calendar`
+* `tab student profile`
+
+==== Hello: `hi`
+
+
 === Adding a person: `add`
 
 Adds a person to the address book +
