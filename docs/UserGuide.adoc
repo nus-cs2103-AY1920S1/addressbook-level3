@@ -1,4 +1,4 @@
-= CS ModBuddy - User Guide
+= CSmodbuddy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -13,6 +13,8 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F09-3/main
+
+image::title.png[width="600"]
 
 == Introduction
 
