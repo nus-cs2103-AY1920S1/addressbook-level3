@@ -1,11 +1,12 @@
 package seedu.mark.model.reminder;
 
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Date;
 import java.util.Objects;
 
 import seedu.mark.model.bookmark.Bookmark;
 
-import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represent a reminder in Mark.
