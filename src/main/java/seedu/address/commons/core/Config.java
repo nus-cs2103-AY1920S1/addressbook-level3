@@ -56,7 +56,7 @@ public class Config {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
+        sb.append("\nPreference file Address : " + userPrefsFilePath);
         return sb.toString();
     }
 
