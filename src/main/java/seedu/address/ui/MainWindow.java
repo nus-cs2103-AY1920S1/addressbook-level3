@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
     private seedu.address.person.logic.Logic personLogic;
+    private seedu.address.cashier.logic.Logic cashierLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -87,7 +88,8 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
-                      seedu.address.person.logic.Logic personLogic) {
+                      seedu.address.person.logic.Logic personLogic,
+                      seedu.address.cashier.logic.Logic cashierLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -96,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
         this.personLogic = personLogic;
+        this.cashierLogic = cashierLogic;
         //add all our logicManager
 
         // Configure the UI
@@ -157,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
         reimbursements = new Reimbursements();
         reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
 
-        cashier = new Cashier();
+        cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
 
         overview = new Overview();
@@ -254,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
             reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
 
             cashierPlaceholder.getChildren().removeAll();
-            cashierPlaceholder.getChildren().add(new Cashier().getRoot());
+            cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
 
             overviewPlaceholder.getChildren().removeAll();
             overviewPlaceholder.getChildren().add(new Overview().getRoot());
