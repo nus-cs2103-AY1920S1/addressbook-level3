@@ -14,7 +14,9 @@ public class CommandResult {
     /** Help information should be shown to the user in a separate window. */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
     /** Bio information should be shown to the user in the same window. */
