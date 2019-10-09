@@ -164,7 +164,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addEvent(Event event) {
         events.add(event);
     }
-  
+
     //// util methods
 
     @Override
