@@ -1,5 +1,6 @@
 package com.dukeacademy.compiler.environment;
 
+import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.compiler.exceptions.FileCreationException;
 import com.dukeacademy.compiler.exceptions.FileDeletionException;
@@ -8,6 +9,7 @@ import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.logging.Logger;
 
 /**
  * The standard environment class used by the compiler to perform file management.
@@ -17,6 +19,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     private String MESSAGE_ENVIRONMENT_NOT_CLOSED = "Compiler environment failed to close, remnant files may persist.";
     private String MESSAGE_ENVIRONMENT_NOT_CLEARED = "Compiler environment could not be cleared.";
 
+    private Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
     private StandardCompilerFileManager fileManager;
     private boolean isInitialized;
 
@@ -28,8 +31,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         return this.fileManager.getDirectoryPath();
     }
 
-    @Override
-    public void initiate(String locationPath) throws CompilerEnvironmentException {
+    public void initialize(String locationPath) throws CompilerEnvironmentException {
         try {
             this.fileManager = new StandardCompilerFileManager(locationPath);
             this.isInitialized = true;
@@ -39,12 +41,12 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public void createJavaFile(String name, String content) throws FileCreationException, CompilerEnvironmentException {
+    public File createJavaFile(String name, String content) throws FileCreationException, CompilerEnvironmentException {
         if (!this.isInitialized) {
             throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_INITIALIZED);
         }
 
-        this.fileManager.createFile(name + ".java", content);
+        return this.fileManager.createFile(name + ".java", content);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         try {
             this.fileManager.deleteDirectory();
         } catch (FileDirectoryDeletionException e) {
-            throw new CompilerEnvironmentException(MESSAGE_ENVIRONMENT_NOT_CLOSED);
+            logger.fine(MESSAGE_ENVIRONMENT_NOT_CLOSED);
         }
     }
 }

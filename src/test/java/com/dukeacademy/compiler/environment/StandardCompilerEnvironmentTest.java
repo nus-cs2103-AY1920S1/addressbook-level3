@@ -2,14 +2,11 @@ package com.dukeacademy.compiler.environment;
 
 import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.compiler.exceptions.FileCreationException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,7 +25,7 @@ class StandardCompilerEnvironmentTest {
     void initializeTest() throws CompilerEnvironmentException {
         compilerEnvironment = new StandardCompilerEnvironment();
         environmentPath = temporaryFolder.resolve("compiler");
-        compilerEnvironment.initiate(environmentPath.toUri().getPath());
+        compilerEnvironment.initialize(environmentPath.toUri().getPath());
     }
 
     @Test

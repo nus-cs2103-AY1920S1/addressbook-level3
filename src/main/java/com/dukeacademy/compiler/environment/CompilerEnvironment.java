@@ -12,19 +12,13 @@ import java.io.FileNotFoundException;
  */
 public interface CompilerEnvironment {
     /**
-     * Sets up the compiler environment at the specified location path.
-     * @param locationPath path of the location to set up the environment.
-     * @throws CompilerEnvironmentException if the environment fails to set up.
-     */
-    public void initiate(String locationPath) throws CompilerEnvironmentException;
-
-    /**
      * Creates a Java file within the compiler environment.
      * @param name the name of the file to be created, without extension.
      * @param content the contents of the Java file.
+     * @return the file created.
      * @throws CompilerContentException if the contents provided is invalid.
      */
-    public void createJavaFile(String name, String content) throws CompilerContentException, FileCreationException, CompilerEnvironmentException;
+    public File createJavaFile(String name, String content) throws FileCreationException, CompilerEnvironmentException;
 
     /**
      * Returns the file corresponding to the name provided.
