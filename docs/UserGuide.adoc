@@ -104,53 +104,68 @@ Clearing of waste list is done automatically at the start of every month.
 
 ==== Adding a food item
 
-Format: `add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT u/UNIT [t/TAG]`
-
 Adds a food item to the grocery list
+Format: `add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
+
+****
+* `e/EXPIRY_DATE` must follow the format `ddMMyyyy`
+* `a/AMOUNT` must be have both magnitude and unit, not separated by space. e.g. `a/500g`, `a/2kg`
+****
 
 ==== Listing all food items
-Format: `list`
 
-Shows a list of food items in the grocery list
+Shows a list of food items in the grocery list. +
+Format: `list`
 
 ==== Deleting a food item (Throw away)
 
+Deletes the specified food item from the grocery list when it is done being used.
+If the amount of the food item left > 0, the item will be moved to the waste list. +
 Format: `delete INDEX`
 
-Deletes the specified food item from the grocery list when it is done being used
-If the amount of the food item left > 0, the item will be moved to the waste list
+==== Use an item: `use`
 
-==== Tagging a food item
-
-Format: `tag INDEX t/TAG`
-
-Adds a tag to the specified food item in the grocery list
-
-==== Remove a tag from an item
-
-Format: `remove INDEX t/TAG`
-
-Removes the specified tag from the specified food item from the grocery list
-
-==== Use an item (Subtract by the amount)
-
+Reduces the amount left of the item by the specified amount. +
 Format: `use INDEX a/AMOUNT`
 
-Decreases the amount left of the item by the specified amount.
+****
+* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Metric units with different metric prefixes is allowed. e.g. gram, milliliter.
+****
 
-==== Edit an item
+Examples:
 
-Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [a/AMOUNT]`
+* `use 2 a/300g` +
+Reduces the amount of 2nd item by 300 grams.
+* `use 3 a/5L` +
+Reduces the amount of 3rd item by 5 liters.
 
-Edits an item based on the arguments provided
+==== Edit an item: `edit`
 
-=== Viewing Grocery List
+Edits an existing item in the grocery list. +
+Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
 
-==== Sort the grocery list
+****
+* Edits an item at the specified `INDEX`. The index refers to the number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional field must be provided.
+* Amount cannot be edited, but can only be modified through `use`.
+* Existing values will be updated to input values.
+* When editing tags, the existing tags of the item will be removed. i.e. adding of tags is not cumulative.
+* You can remove all the item's tags by typing `t/` without specifying any tags after it.
+****
 
+Examples:
+
+* `edit 1 n/Fuji apple t/healthy` +
+Edits the name and tag of the 1st item to be `Fuji apple` and `healthy` respectively.
+* `edit 2 n/Olive oil t/` +
+Edits the name of the 2nd item to `Olive oil` and clears all existing tags.
+
+==== Sort the grocery list: `sort`
+
+Sorts the grocery list based on the type of sorting. +
 Format: `sort by/TYPE`
 
-Sorts the grocery list based on the type of sorting
 The type of sorting is as follows:
 ****
 * alphabetical: Sort the grocery list in alphabetical order
@@ -164,15 +179,28 @@ Examples:
 
 ==== Filter
 
+Returns a list of food items that matches the specified tag. +
 Format: `filter t/TAG`
 
-From the grocery list, returns a list of food items with the specified tag
+==== Locating items by name: `find`
 
-==== Find an item
+Finds items whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-Format: `find STRING`
+****
+* The search is case insensitive. e.g `apple` will match `Apple`
+* The order of the keywords does not matter. e.g. `apple milk` will match `milk apple`
+* Only the item name is searched.
+* Only full words will be matched e.g. `appl` will not match `apple`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `apple milk` will return `Apple juice`, `Mango milk`
+****
 
-Returns a list of items, of which the items contain the input string
+Examples:
+
+* `find apple` +
+Returns `Fuji apple` and `Apple loaf cake`
+* `find milo doughnut roasted` +
+Returns any person having names `milo`, `doughnut`, or `roasted`
 
 === Waste List Management
 
