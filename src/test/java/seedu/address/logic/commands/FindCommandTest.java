@@ -71,7 +71,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTasksList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(GET_SPONSORS, ORGANISE_STORE, BRIEFING_PREPARATION), model.getFilteredTasksList());
+        assertEquals(Arrays.asList(GET_SPONSORS, BRIEFING_PREPARATION, ORGANISE_STORE), model.getFilteredTasksList());
     }
 
     /**

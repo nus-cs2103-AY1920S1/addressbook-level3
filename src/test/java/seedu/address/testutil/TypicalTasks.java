@@ -26,7 +26,7 @@ public class TypicalTasks {
             .withTags("urgent", "publicity").build();
     public static final Task GET_SPONSORS = new TaskBuilder().withName("Get sponsors for student fair")
             .withStatus(TaskStatus.DOING).build();
-    public static final Task RECRUIT_MEMBERS = new TaskBuilder().withName("Recruit part-time members for student fair")
+    public static final Task RECRUIT_MEMBERS = new TaskBuilder().withName("Recruit members for student fair")
             .withStatus(TaskStatus.DONE)
             .withTags("manpower").build();
     public static final Task ORDER_CATERING = new TaskBuilder().withName("Find caterers for snacks in student fair booth")

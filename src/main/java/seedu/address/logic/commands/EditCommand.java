@@ -186,7 +186,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName())
-                    && (getTaskStatus() == e.getTaskStatus())
+                    && (getTaskStatus().equals(e.getTaskStatus()))
                     && getTags().equals(e.getTags());
         }
     }

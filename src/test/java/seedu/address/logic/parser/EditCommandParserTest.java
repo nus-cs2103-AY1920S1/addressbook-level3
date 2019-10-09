@@ -3,11 +3,20 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_URGENCY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_STATUS_PUBLICITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -22,6 +31,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -81,10 +91,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_TASK;
         String userInput = targetIndex.getOneBased() + TAG_DESC_FINANCE
-                + TASK_NAME_DESC_FINANCE + TAG_DESC_PUBLICITY;
+                + TASK_NAME_DESC_FINANCE;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
-                .withTags(VALID_TAG_PUBLICITY).build();
+                .withTags(VALID_TAG_FINANCE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -122,13 +132,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TASK;
-        String userInput = targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE
-                + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE
-                + TASK_NAME_DESC_FINANCE + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE;
+        String userInput = targetIndex.getOneBased()
+                + TASK_NAME_DESC_FINANCE
+                + TASK_STATUS_DESC_FINANCE + TAG_DESC_URGENCY
+                + TASK_NAME_DESC_PUBLICITY
+                + TASK_STATUS_DESC_PUBLICITY + TAG_DESC_PUBLICITY;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
-                .withName(VALID_TASK_NAME_FINANCE)
-                .withTags(VALID_TAG_PUBLICITY)
+                .withName(VALID_TASK_NAME_PUBLICITY)
+                .withStatus(TaskStatus.valueOf(VALID_TASK_STATUS_PUBLICITY.toUpperCase()))
+                .withTags(VALID_TAG_PUBLICITY, VALID_TAG_URGENCY)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

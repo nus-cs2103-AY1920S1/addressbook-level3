@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -16,6 +17,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /**
@@ -26,16 +28,22 @@ public class CommandTestUtil {
     /* Task related names will be split into four categories: Finance and Publicity */
     public static final String VALID_TASK_NAME_FINANCE = "Review Project Budget";
     public static final String VALID_TASK_NAME_PUBLICITY = "Build Project Website";
-    public static final String VALID_TAG_FINANCE = "Finance";
-    public static final String VALID_TAG_PUBLICITY = "Publicity";
-    public static final String VALID_TAG_URGENCY = "Urgent";
+    public static final String VALID_TASK_STATUS_FINANCE = "unbegun";
+    public static final String VALID_TASK_STATUS_PUBLICITY = "doing";
+    public static final String VALID_TAG_FINANCE = "finance";
+    public static final String VALID_TAG_PUBLICITY = "publicity";
+    public static final String VALID_TAG_URGENCY = "urgent";
 
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
     public static final String TASK_NAME_DESC_PUBLICITY = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_PUBLICITY;
+    public static final String TASK_STATUS_DESC_FINANCE = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_FINANCE;
+    public static final String TASK_STATUS_DESC_PUBLICITY = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_PUBLICITY;
     public static final String TAG_DESC_PUBLICITY = " " + PREFIX_TASK_TAG + VALID_TAG_PUBLICITY;
+    public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
 
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME + "Project Review&"; // '&' not allowed in names
+    public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS + "reviewing"; // statuses are determined in {@code TaskStatus}
     public static final String INVALID_TAG_DESC = " " + PREFIX_TASK_TAG + "paused*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -46,9 +54,11 @@ public class CommandTestUtil {
 
     static {
         TASK_DESC_FINANCE = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
-                .withTags(VALID_TAG_PUBLICITY).build();
+                .withStatus(TaskStatus.UNBEGUN)
+                .withTags(VALID_TAG_FINANCE).build();
         TASK_DESC_PUBLICITY = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_PUBLICITY)
-                .withTags(VALID_TAG_FINANCE, VALID_TAG_PUBLICITY).build();
+                .withStatus(TaskStatus.DOING)
+                .withTags(VALID_TAG_PUBLICITY).build();
     }
 
     /**

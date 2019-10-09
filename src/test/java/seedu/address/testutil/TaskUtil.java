@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.Set;
@@ -28,6 +29,7 @@ public class TaskUtil {
     public static String getTaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TASK_NAME + task.getName().fullName + " ");
+        sb.append(PREFIX_TASK_STATUS + task.getTaskStatus().toString().toLowerCase() + " ");
         task.getTags().stream().forEach(
             s -> sb.append(PREFIX_TASK_TAG + s.tagName + " ")
         );
@@ -40,6 +42,7 @@ public class TaskUtil {
     public static String getEditTaskDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_TASK_NAME).append(name.fullName).append(" "));
+        descriptor.getTaskStatus().ifPresent(taskStatus -> sb.append(PREFIX_TASK_STATUS).append(taskStatus.toString().toLowerCase()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

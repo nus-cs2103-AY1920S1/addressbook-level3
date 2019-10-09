@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLI
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditTaskDescriptorTest {
@@ -35,6 +36,11 @@ public class EditTaskDescriptorTest {
         // different name -> returns false
         EditTaskDescriptor editedFinanceTask = new EditTaskDescriptorBuilder(TASK_DESC_FINANCE)
                 .withName(VALID_TASK_NAME_PUBLICITY).build();
+        assertFalse(TASK_DESC_FINANCE.equals(editedFinanceTask));
+
+        // different task status -> returns false
+        editedFinanceTask = new EditTaskDescriptorBuilder(TASK_DESC_FINANCE)
+                .withStatus(TaskStatus.DOING).build();
         assertFalse(TASK_DESC_FINANCE.equals(editedFinanceTask));
 
         // different tags -> returns false

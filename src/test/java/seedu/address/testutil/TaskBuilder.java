@@ -22,6 +22,7 @@ public class TaskBuilder {
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
+        taskStatus = TaskStatus.UNBEGUN;
         tags = new HashSet<>();
     }
 
@@ -30,6 +31,7 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
+        taskStatus = taskToCopy.getTaskStatus();
         tags = new HashSet<>(taskToCopy.getTags());
     }
 
@@ -45,7 +47,7 @@ public class TaskBuilder {
      * Sets the {@code TaskStatus} of the {@code Task} that we are building.
      */
     public TaskBuilder withStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
+        this.taskStatus = TaskStatus.valueOf(taskStatus.toString());
         return this;
     }
 
