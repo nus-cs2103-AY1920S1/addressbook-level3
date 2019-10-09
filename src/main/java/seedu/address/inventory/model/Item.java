@@ -1,4 +1,4 @@
-package seedu.address.inventory;
+package seedu.address.inventory.model;
 
 import java.util.Objects;
 
@@ -10,17 +10,30 @@ public class Item {
 
     private final String category;
     private final String description;
-    private final int quantity;
+    private int quantity;
     private final double cost;
+    private static double price;
 
     /**
      * Every field must be present and not null.
+     */
+    public Item(String description, String category, int quantity, double cost, double price) {
+        this.description = description;
+        this.category = category;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.price = price;
+    }
+
+    /**
+     * A separate constructor in the event that the Item is not for sale. Price can be set later.
      */
     public Item(String description, String category, int quantity, double cost) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.price = 0;
     }
 
     public String getDescription() {
@@ -39,6 +52,28 @@ public class Item {
         return cost;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * Stores the attributes of the Item into a String, for storage in a File.
+     * @return a String containing the attributes of the Item.
+     */
+    public String toWriteIntoFile() {
+        String msg = this.description + " | " + this.category +
+                " | " + this.quantity + " | " + this.cost + " | " + this.price;
+        return msg;
+    }
+
     /**
      * Returns true if both items of the same description have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two items.
@@ -50,7 +85,8 @@ public class Item {
 
         return otherItem != null
                 && otherItem.getDescription().equalsIgnoreCase(getDescription())
-                && (otherItem.getCategory().equals(getCategory()) || otherItem.getCost() == (getCost()));
+                && (otherItem.getCategory().equals(getCategory()) || otherItem.getCost() == (getCost())
+                    || otherItem.getPrice() == getPrice());
     }
 
     /**
@@ -70,29 +106,35 @@ public class Item {
         Item otherItem = (Item) other;
         return otherItem.getDescription().equals(getDescription())
                 && otherItem.getCategory().equals(getCategory())
-                && otherItem.getQuantity() == getQuantity()
-                && otherItem.getCost() == getCost();
+                //&& otherItem.getQuantity() == getQuantity()
+                && otherItem.getCost() == getCost()
+                && otherItem.getPrice() == getPrice();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, category, quantity, cost);
+        return Objects.hash(description, category, quantity, cost, price);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDescription())
-                .append(" Description: ")
-                .append(getCategory())
+        builder.append("Description: ")
+                .append(getDescription())
                 .append(" Category: ")
-                .append(getQuantity())
+                .append(getCategory())
                 .append(" Quantity: ")
+                .append(getQuantity())
+                .append(" Cost: ")
                 .append(getCost())
-                .append(" Cost: ");
+                .append(" Price: ")
+                .append(getPrice());
         return builder.toString();
     }
 
+    public void setId(int i) {
+
+    }
 }
 
