@@ -22,7 +22,7 @@ public class Reminder {
     /**
      * Every field must be present and not null.
      */
-    Reminder(Bookmark bookmark, Date time, Note note) {
+    public Reminder(Bookmark bookmark, Date time, Note note) {
         requireAllNonNull(bookmark, time, note);
         this.bookmark = bookmark;
         this.remindTime = time;
