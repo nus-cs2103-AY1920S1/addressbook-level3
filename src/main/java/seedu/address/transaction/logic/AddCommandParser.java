@@ -1,6 +1,13 @@
 package seedu.address.transaction.logic;
 
+import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.transaction.logic.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.transaction.logic.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
+
 import java.util.stream.Stream;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
@@ -9,12 +16,6 @@ import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
-
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
 
 public class AddCommandParser {
 

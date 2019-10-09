@@ -33,7 +33,7 @@ public class Home extends UiPart<Region> {
         // and return the list
         List<Transaction> list = new ArrayList<>();
         for (int i = 0; i < logic.getTransactionList().size(); i++) {
-            logic.getTransactionList().get(i).setId(i + 1);
+            //logic.getTransactionList().get(i).setId(i + 1);
             list.add(logic.getTransactionList().get(i));
 
         }
