@@ -149,6 +149,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Handles change of sidepanel view.
+     */
+    public void handleChangeOnSidePanelView() {
+        sideBarPlaceholder.getChildren().clear();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
+        TabPanel tabPanel = new TabPanel();
+        //To do for logic -> getGroupList.
+        groupListPanel = new GroupListPanel(logic.getGroupList());
+        tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
+        sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
+    }
+
+    /**
      * Handles tab switch view.
      * @param num Tab number to be switched to. 1 for person, 2 for group.
      */
@@ -210,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
+            handleChangeOnSidePanelView();
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
