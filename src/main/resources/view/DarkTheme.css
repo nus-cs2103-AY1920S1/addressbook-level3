@@ -157,6 +157,25 @@
     -fx-text-fill: black !important;
 }
 
+.left-right-panel > TextArea {
+    -fx-border-color: derive(#1d1d1d, 70%);
+    -fx-border-radius: 5;
+    -fx-border-width: 1pt;
+}
+
+.left-right-panel > TextArea:focused {
+    -fx-border-color: derive(#1d1d1d, 70%), derive(#3e7b91, 40%), derive(#3e7b91, 30%), derive(#3e7b91, 10%);
+    -fx-border-width: 1pt;
+    -fx-border-insets: 2, 3, 4, 5;
+}
+
+.left-right-panel * {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;

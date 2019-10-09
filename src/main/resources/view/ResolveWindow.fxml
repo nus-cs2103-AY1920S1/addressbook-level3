@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+
+<?import javafx.scene.image.Image?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
+         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#hideAndClearText">
+    <icons>
+        <Image url="@/images/ExerHealth.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value = "@DarkTheme.css"/>
+                <URL value = "@Extensions.css"/>
+            </stylesheets>
+            <VBox>
+                <StackPane fx:id="commandBoxPlaceHolder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom = "5" left = "10" right = "10" top = "5"/>
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="resultDisplayPlaceHolder" maxHeight="100" minHeight="100" prefHeight="100"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="leftRightPanelPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom = "5" left = "10" right = "10" top = "5"/>
+                    </padding>
+                </StackPane>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

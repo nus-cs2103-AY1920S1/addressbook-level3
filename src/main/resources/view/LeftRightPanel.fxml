@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+      styleClass="left-right-panel">
+    <TextArea fx:id="leftPanel" editable="false" wrapText="true" HBox.hgrow="ALWAYS">
+        <HBox.margin>
+            <Insets top="10" left="10" right="10" bottom="10"/>
+        </HBox.margin>
+        <padding>
+            <Insets left="3" top="3" bottom="3" right="3"/>
+        </padding>
+    </TextArea>
+    <TextArea fx:id="rightPanel" editable="false" wrapText="true" HBox.hgrow="ALWAYS">
+        <HBox.margin>
+            <Insets top="10" left="10" right="10" bottom="10"/>
+        </HBox.margin>
+        <padding>
+            <Insets left="3" top="3" bottom="3" right="3"/>
+        </padding>
+    </TextArea>
+</HBox>
