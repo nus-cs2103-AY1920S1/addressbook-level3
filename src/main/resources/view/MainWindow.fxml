@@ -51,7 +51,7 @@
             </padding>
           </StackPane>
 
-          <BorderPane maxWidth="360.0" minWidth="360.0" prefWidth="360.0" HBox.hgrow="NEVER" stylesheets="DarkTheme.css">
+          <BorderPane maxWidth="360.0" minWidth="360.0" prefWidth="360.0" HBox.hgrow="NEVER" styleClass="pane-with-border">
             <padding>
               <Insets bottom="5" right="10" top="5" />
             </padding>
