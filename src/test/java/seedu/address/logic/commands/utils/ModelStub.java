@@ -115,7 +115,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void removePatient(ReferenceId target) {
+    public void removeFromQueue(ReferenceId target) {
         throw new AssertionError("This method should not be called.");
     }
 
