@@ -88,7 +88,7 @@ public class LogicManagerTest {
         Bookmark expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addBookmark(expectedBookmark);
-        expectedModel.commitMark();
+        expectedModel.saveMark();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

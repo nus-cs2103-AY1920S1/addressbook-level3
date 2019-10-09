@@ -114,7 +114,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void commitMark() {
+    public void saveMark() {
         throw new AssertionError("This method should not be called.");
     }
 }

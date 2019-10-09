@@ -113,5 +113,5 @@ public interface Model {
     /**
      * Saves the current mark state for undo/redo.
      */
-    void commitMark();
+    void saveMark();
 }

@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitMark() {
+        public void saveMark() {
             // called by {@code AddCommand#execute()}
         }
 

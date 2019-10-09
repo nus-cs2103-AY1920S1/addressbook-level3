@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
-        expectedModel.commitMark();
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -64,7 +64,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
-        expectedModel.commitMark();
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -77,7 +77,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
-        expectedModel.commitMark();
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -95,7 +95,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
-        expectedModel.commitMark();
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

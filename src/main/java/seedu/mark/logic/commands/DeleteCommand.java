@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
-        model.commitMark();
+        model.saveMark();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
     }
 

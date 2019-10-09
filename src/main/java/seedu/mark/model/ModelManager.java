@@ -165,8 +165,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitMark() {
-        versionedMark.commit();
+    public void saveMark() {
+        versionedMark.save();
     }
 
     @Override

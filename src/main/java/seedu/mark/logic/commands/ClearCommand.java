@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setMark(new Mark());
-        model.commitMark();
+        model.saveMark();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

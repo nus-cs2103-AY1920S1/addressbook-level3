@@ -23,7 +23,7 @@ public class VersionedMark extends Mark {
      * Appends a copy of the current {@code Mark} state to the end of the state list.
      * Undone states after the current state pointer are removed from the state list.
      */
-    public void commit() {
+    public void save() {
         removeStatesAfterCurrentPointer();
         markStateList.add(new Mark(this));
         currentStatePointer++;
@@ -38,7 +38,7 @@ public class VersionedMark extends Mark {
      */
     public void undo() {
         if (!canUndo()) {
-            throw new CannotUndoException();
+            throw new CannotUndoMarkException();
         }
         currentStatePointer--;
         resetData(markStateList.get(currentStatePointer));
@@ -49,7 +49,7 @@ public class VersionedMark extends Mark {
      */
     public void redo() {
         if (!canRedo()) {
-            throw new CannotRedoException();
+            throw new CannotRedoMarkException();
         }
         currentStatePointer++;
         resetData(markStateList.get(currentStatePointer));
@@ -92,18 +92,18 @@ public class VersionedMark extends Mark {
     /**
      * Thrown when trying to {@code undo()} but can't.
      */
-    private static class CannotUndoException extends RuntimeException {
-        private CannotUndoException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+    private static class CannotUndoMarkException extends RuntimeException {
+        private CannotUndoMarkException() {
+            super("Current state pointer at start of markState list, unable to undo.");
         }
     }
 
     /**
      * Thrown when trying to {@code redo()} but can't.
      */
-    private static class CannotRedoException extends RuntimeException {
-        private CannotRedoException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+    private static class CannotRedoMarkException extends RuntimeException {
+        private CannotRedoMarkException() {
+            super("Current state pointer at end of markState list, unable to redo.");
         }
     }
 }
