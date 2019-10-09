@@ -1,8 +1,5 @@
 package seedu.address.model.day;
 
-import seedu.address.commons.core.index.Index;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Day {
