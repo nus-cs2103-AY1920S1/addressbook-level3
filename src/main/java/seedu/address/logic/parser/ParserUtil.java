@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
+import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
@@ -162,8 +163,18 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static Timing parseTiming(String startTiming, String endTiming) throws ParseException {
-        requireNonNull(startTiming, endTiming);
+    public static Timing parseTiming(String start, String end) throws ParseException {
+        requireNonNull(start, end);
+        DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);
+        if (startTiming == null) {
+            throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
+        }
+
+        DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
+        if (endTiming == null) {
+            throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
+        }
+
         if (!Timing.isValidTiming(startTiming, endTiming)) {
             throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
         }

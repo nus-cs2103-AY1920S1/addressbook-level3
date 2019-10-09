@@ -156,11 +156,6 @@ public interface Model extends ReferenceIdResolver {
     void addEvent(Event event);
 
     /**
-     * clear the current filteredEventList
-     */
-    void clearFilterEventList();
-
-    /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.

@@ -1,17 +1,23 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
+
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.*;
+
+import java.util.Arrays;
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.*;
-import java.util.Arrays;
-import java.util.Optional;
 
+/**
+ * Acknowledge a person to the address book.
+ */
 public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
     private Event appointment;
@@ -52,10 +58,9 @@ public class AckAppCommand extends ReversibleCommand {
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
 
-
         if (!model.hasPerson(referenceId)) {
             throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
-        }else if (filterEventList.size() == 0) {
+        } else if (filterEventList.size() == 0) {
             throw new CommandException(MESSAGE_NOTING_ACK);
         } else if (filterEventList.get(0).getStatus().isAcked()) {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);

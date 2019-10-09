@@ -35,20 +35,6 @@ public class Timing implements Comparable<Timing> {
     }
 
     /**
-     * Constructs a {@code Timing}.
-     *
-     * @param startTiming A valid string describing the start of event.
-     * @param endTiming   A valid string describing the end of event.
-     */
-    public Timing(String startTiming, String endTiming) {
-        requireAllNonNull(startTiming, endTiming);
-        checkArgument(isValidTiming(startTiming, endTiming), MESSAGE_CONSTRAINTS);
-
-        this.startTiming = DateTime.tryParseSimpleDateFormat(startTiming);
-        this.endTiming = DateTime.tryParseSimpleDateFormat(endTiming);
-    }
-
-    /**
      * Returns true if the start dateTime is before the end dateTime.
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
@@ -57,16 +43,6 @@ public class Timing implements Comparable<Timing> {
         return testStart.getTime().before(testEnd.getTime())
                 && testStart.getTime().after(current);
     }
-
-    /**
-     * Returns true if the start dateTime is before the end dateTime.
-     */
-    public static boolean isValidTiming(String testStart, String testEnd) {
-        DateTime startDate = DateTime.tryParseSimpleDateFormat(testStart);
-        DateTime endDate = DateTime.tryParseSimpleDateFormat(testEnd);
-        return isValidTiming(startDate, endDate);
-    }
-
 
     public DateTime getStartTime() {
         return startTiming;
