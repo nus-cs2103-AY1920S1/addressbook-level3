@@ -88,7 +88,24 @@ public class ItemList {
         return list.indexOf(item);
     }
 
-    public Item set(int index, Item item) {
+    public Item setItem(int index, Item item) {
         return list.set(index, item);
+    }
+
+    /**
+     * Returns the item at the index within the list.
+     * @param index the index of the item within the list
+     * @return the item that has that index in the list
+     */
+    public Item get(int index) {
+        return list.get(index);
+    }
+
+    /**
+     * The size of the list
+     * @return the integer value of the size of the list
+     */
+    public int size() {
+        return list.size();
     }
 }

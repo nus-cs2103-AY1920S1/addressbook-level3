@@ -51,7 +51,7 @@ public interface ItemModel {
 
     public void addItem(Item item);
 
-    public void setItem(Item item, Item newItem);
+    public void replaceItem(Item item, Item newItem);
 
     public Item removeItem(int index);
 

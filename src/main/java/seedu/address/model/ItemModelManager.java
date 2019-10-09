@@ -154,24 +154,29 @@ public class ItemModelManager implements ItemModel {
         this.visualList = il;
     }
 
-    public void setItem(Item item, Item newItem) {
+    /**
+     * Replaces one item with another item.
+     * @param item the item to be replace
+     * @param newItem the item that will replace the previous item
+     */
+    public void replaceItem(Item item, Item newItem) {
         int index = visualList.indexOf(item);
-        visualList.set(index, newItem);
+        visualList.setItem(index, newItem);
 
         if ((index = itemList.indexOf(item)) >= 0) {
-            taskList.set(index, newItem);
+            taskList.setItem(index, newItem);
         }
 
         if ((index = taskList.indexOf(item)) >= 0) {
-            taskList.set(index, newItem);
+            taskList.setItem(index, newItem);
         }
 
         if ((index = eventList.indexOf(item)) >= 0) {
-            eventList.set(index, newItem);
+            eventList.setItem(index, newItem);
         }
 
         if ((index = reminderList.indexOf(item)) >= 0) {
-            reminderList.set(index, newItem);
+            reminderList.setItem(index, newItem);
         }
     }
 
