@@ -18,6 +18,7 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
         return null;
     }
 
