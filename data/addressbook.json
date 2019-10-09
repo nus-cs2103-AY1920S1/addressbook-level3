@@ -1,0 +1,11 @@
+{
+  "foods" : [ {
+    "name" : "Mala Xiang Guo",
+    "price" : "9.20",
+    "description" : "Spicy goodness from China",
+    "category" : "Chinese",
+    "tagged" : [ "Vegetables", "Spicy" ],
+    "openingHours" : "0800 1900",
+    "restrictions" : "Not halal"
+  } ]
+}

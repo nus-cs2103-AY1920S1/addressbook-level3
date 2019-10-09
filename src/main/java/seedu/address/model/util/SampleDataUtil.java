@@ -10,7 +10,9 @@ import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.OpeningHours;
 import seedu.address.model.food.Price;
+import seedu.address.model.food.Restrictions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,18 +21,26 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Food[] getSampleFood() {
         return new Food[] {
-            new Food(new Name("Alex Yeoh"), new Price("87438807"), new Description("First description"),
-                new Category("abc"), getTagSet("friends")),
-            new Food(new Name("Bernice Yu"), new Price("99272758"), new Description("Bernice Yu's description"),
-                    new Category("def"), getTagSet("colleagues", "friends")),
-            new Food(new Name("Charlotte Oliveiro"), new Price("93210283"), new Description("Description 3"),
-                    new Category("ghi"), getTagSet("neighbours")),
-            new Food(new Name("David Li"), new Price("91031282"), new Description("Another description"),
-                    new Category("jkl"), getTagSet("family")),
-            new Food(new Name("Irfan Ibrahim"), new Price("92492021"), new Description("Description #5"),
-                    new Category("mno"), getTagSet("classmates")),
-            new Food(new Name("Roy Balakrishnan"), new Price("92624417"), new Description("Last description."),
-                    new Category("pqrst"), getTagSet("colleagues"))
+            new Food(new Name("Mala Xiang Guo"), new Price("10"), new Description("Spicy goodness from China"),
+                    new Category("Chinese"), getTagSet("Spicy"), new OpeningHours("0900 1930"),
+                    new Restrictions("Not Halal")),
+            new Food(new Name("Ji Fan"), new Price("3.99"), new Description("Staple food for students"),
+                    new Category("Chinese"), getTagSet("Chicken", "Rice"),
+                    new OpeningHours("0800 1700"), new Restrictions("Not Halal")),
+            new Food(new Name("Wagyu steak"), new Price("50"), new Description("Most expensive food in NUS"),
+                    new Category("Western"), getTagSet("Japanese", "Expensive"),
+                    new OpeningHours("1000 1700"), new Restrictions("Expensive")),
+            new Food(new Name("Chicken noodle soup"), new Price("5.99"), new Description("Chicken and noodle and soup"),
+                    new Category("Taiwanese"), getTagSet("Healthy", "Earthy"),
+                    new OpeningHours("1000 1700"), new Restrictions("Not Halal")),
+            new Food(new Name("Chessy spaghetti"), new Price("5.80"),
+                    new Description("Italian noodle with epic cheese"), new Category("Italian"),
+                    getTagSet("Cheese", "Pasta", "Healthy"), new OpeningHours("1100 1900"),
+                    new Restrictions("Contains Dairy")),
+            new Food(new Name("Vending Machine Sandwich"), new Price("4"),
+                    new Description("Companion for boring ICube Lectures"), new Category("Vending Machine Food"),
+                    getTagSet("colleagues"), new OpeningHours("0000 2359"),
+                    new Restrictions(Restrictions.DEFAULT_VALUE))
         };
     }
 

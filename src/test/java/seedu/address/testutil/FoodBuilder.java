@@ -7,7 +7,9 @@ import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.OpeningHours;
 import seedu.address.model.food.Price;
+import seedu.address.model.food.Restrictions;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,12 +22,16 @@ public class FoodBuilder {
     public static final String DEFAULT_PRICE = "85355255";
     public static final String DEFAULT_DESCRIPTION = "Test Description.";
     public static final String DEFAULT_CATEGORY = "Test Category";
+    public static final String DEFAULT_OPENING_HOURS = "0800 1800";
+    public static final String DEFAULT_RESTRICTIONS = "Test Restrictions";
 
     private Name name;
     private Price price;
     private Description description;
     private Category category;
     private Set<Tag> tags;
+    private OpeningHours openingHours;
+    private Restrictions restrictions;
 
     public FoodBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +39,8 @@ public class FoodBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         category = new Category(DEFAULT_CATEGORY);
         tags = new HashSet<>();
+        openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
+        restrictions = new Restrictions(DEFAULT_RESTRICTIONS);
     }
 
     /**
@@ -44,6 +52,8 @@ public class FoodBuilder {
         description = foodToCopy.getDescription();
         category = foodToCopy.getCategory();
         tags = new HashSet<>(foodToCopy.getTags());
+        openingHours = foodToCopy.getOpeningHours();
+        restrictions = foodToCopy.getRestrictions();
     }
 
     /**
@@ -86,8 +96,24 @@ public class FoodBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code OpeningHours} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withOpeningHours(String openingHours) {
+        this.openingHours = new OpeningHours(openingHours);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Restrictions} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withRestrictions(String restrictions) {
+        this.restrictions = new Restrictions(restrictions);
+        return this;
+    }
+
     public Food build() {
-        return new Food(name, price, description, category, tags);
+        return new Food(name, price, description, category, tags, openingHours, restrictions);
     }
 
 }

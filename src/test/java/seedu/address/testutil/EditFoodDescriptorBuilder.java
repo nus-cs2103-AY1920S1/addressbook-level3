@@ -9,7 +9,9 @@ import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.OpeningHours;
 import seedu.address.model.food.Price;
+import seedu.address.model.food.Restrictions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,6 +39,8 @@ public class EditFoodDescriptorBuilder {
         descriptor.setDescription(food.getDescription());
         descriptor.setCategory(food.getCategory());
         descriptor.setTags(food.getTags());
+        descriptor.setOpeningHours(food.getOpeningHours());
+        descriptor.setRestrictions(food.getRestrictions());
     }
 
     /**
@@ -78,6 +82,22 @@ public class EditFoodDescriptorBuilder {
     public EditFoodDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code OpeningHours} of the {@code EditFoodDescriptor} that we are building.
+     */
+    public EditFoodDescriptorBuilder withOpeningHours(String openingHours) {
+        descriptor.setOpeningHours(new OpeningHours(openingHours));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Restrictions} of the {@code EditFoodDescriptor} that we are building.
+     */
+    public EditFoodDescriptorBuilder withRestrictions(String restrictions) {
+        descriptor.setRestrictions(new Restrictions(restrictions));
         return this;
     }
 

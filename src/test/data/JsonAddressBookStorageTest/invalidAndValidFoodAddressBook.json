@@ -1,13 +1,17 @@
 {
   "foods": [ {
-    "name": "Valid food",
-    "price": "9482424",
-    "description": "hans@example.com",
-    "category": "Pizza"
+    "name": "Valid Food",
+    "price": "6.99",
+    "description": "This valid food is very delicious",
+    "category": "Pizza",
+    "openingHours": "0800 2100",
+    "restrictions": "Deliciouso valid"
   }, {
-    "name": "food With Invalid Price Field",
+    "name": "Food With Invalid Price Field",
     "price": "948asdf2424",
-    "description": "hans@example.com",
-    "category": "Oops"
+    "description": "This invalid food is not delicious",
+    "category": "Oops",
+    "openingHours": "0800 2100",
+    "restrictions": "Haram"
   } ]
 }

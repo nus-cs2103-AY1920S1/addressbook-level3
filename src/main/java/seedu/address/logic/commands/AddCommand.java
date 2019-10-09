@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,14 +27,18 @@ public class AddCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CATEGORY + "CATEGORY "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + PREFIX_OPENING_HOURS + "OPENING HOURS "
+            + PREFIX_RESTRICTIONS + "RESTRICTIONS\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PRICE + "98765432 "
-            + PREFIX_DESCRIPTION + "description "
-            + PREFIX_CATEGORY + "category "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Mala Xiang Guo "
+            + PREFIX_PRICE + "6.80 "
+            + PREFIX_DESCRIPTION + "Spicy goodness "
+            + PREFIX_CATEGORY + "Chinese "
+            + PREFIX_TAG + "Spicy "
+            + PREFIX_TAG + "Healthy "
+            + PREFIX_OPENING_HOURS + "0800 2000 "
+            + PREFIX_RESTRICTIONS + "Vegetarian";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the address book";
