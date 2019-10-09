@@ -206,7 +206,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isOpen()) {
+            if (commandResult.isGoto()) {
                 handleOpen(commandResult.getUrl());
             }
 

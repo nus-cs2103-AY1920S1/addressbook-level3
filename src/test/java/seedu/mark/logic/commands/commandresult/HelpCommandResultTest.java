@@ -14,7 +14,7 @@ public class HelpCommandResultTest {
 
         assertTrue(commandResult.isShowHelp());
         assertFalse(commandResult.isExit());
-        assertFalse(commandResult.isOpen());
+        assertFalse(commandResult.isGoto());
         assertNull(commandResult.getUrl());
     }
 }

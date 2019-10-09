@@ -15,7 +15,7 @@ public class GotoCommandResultTest {
     public void isOpen() {
         GotoCommandResult commandResult = new GotoCommandResult("feedback", new Url(VALID_URL_AMY));
 
-        assertTrue(commandResult.isOpen());
+        assertTrue(commandResult.isGoto());
         assertFalse(commandResult.isShowHelp());
         assertFalse(commandResult.isExit());
     }

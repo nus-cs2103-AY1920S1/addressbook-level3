@@ -22,7 +22,7 @@ public class GotoCommandResult extends CommandResult {
     }
 
     @Override
-    public boolean isOpen() {
+    public boolean isGoto() {
         return true;
     }
 

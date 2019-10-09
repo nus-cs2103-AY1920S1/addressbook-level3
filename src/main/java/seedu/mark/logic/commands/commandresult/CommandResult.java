@@ -32,7 +32,7 @@ public class CommandResult {
         return false;
     }
 
-    public boolean isOpen() {
+    public boolean isGoto() {
         return false;
     }
 
@@ -55,12 +55,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
                 && isExit() == otherCommandResult.isExit()
+                && isGoto() == otherCommandResult.isGoto()
                 && getUrl() == otherCommandResult.getUrl();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isShowHelp(), isExit(), getUrl());
+        return Objects.hash(feedbackToUser, isShowHelp(), isExit(), isGoto(), getUrl());
     }
 
 }

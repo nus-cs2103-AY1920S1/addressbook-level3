@@ -14,7 +14,7 @@ public class ExitCommandResultTest {
 
         assertTrue(commandResult.isExit());
         assertFalse(commandResult.isShowHelp());
-        assertFalse(commandResult.isOpen());
+        assertFalse(commandResult.isGoto());
         assertNull(commandResult.getUrl());
     }
 }
