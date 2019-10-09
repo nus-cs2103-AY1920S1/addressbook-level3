@@ -9,7 +9,7 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Folder;
 
 /**
- * Parses input arguments and creates a new {@code RemarkCommand} object
+ * Parses input arguments and creates a new {@code AddFolderCommand} object
  */
 public class AddFolderCommandParser implements Parser<AddFolderCommand> {
     /**
