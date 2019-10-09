@@ -31,12 +31,39 @@
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}
+
+
+.tab-pane .tab  {
+    -fx-background-color: grey;
+    -fx-border-radius: 5;
+    -fx-pref-height: 50;
+    -fx-pref-width: 150;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: slategray;
+}
+
+.tab-pane .tab-label {
+    -fx-text-fill: white;
+    -fx-pref-width: 140;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 15;
+    -fx-alignment: center;
 }
 
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: transparent;
+    -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
 }
 
 .table-view {
@@ -326,6 +353,10 @@
     -fx-font-family: "Courier New";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+}
+
+#detailsView {
+    -fx-background-color: transparent;
 }
 
 #filterField, #personListPanel, #personWebpage {

@@ -22,13 +22,30 @@ public class CommandResult {
     private final boolean exit;
 
     /**
+     * The command that was used.
+     */
+    private final String commandWord;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.commandWord = null;
     }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.commandWord = commandWord;
+    }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -48,6 +65,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
     }
 
     @Override
