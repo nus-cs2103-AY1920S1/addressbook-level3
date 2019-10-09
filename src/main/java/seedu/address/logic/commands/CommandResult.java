@@ -58,7 +58,7 @@ public class CommandResult {
     }
 
     public boolean isShowPage() {
-        return isShowPage();
+        return showPage;
     }
 
     @Override

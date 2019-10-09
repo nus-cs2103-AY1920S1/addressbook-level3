@@ -4,12 +4,15 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -34,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CalendarPage calendarPage;
+    private Scene primaryScene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        calendarPage = new CalendarPage();
     }
 
     public Stage getPrimaryStage() {
@@ -157,16 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!calendarPage.isOpened()) {
             primaryScene = primaryStage.getScene();
             primaryStage.setScene(calendarPage.getCalendar());
-            primaryStage.setScene(primaryScene);
         }
-        /*
-        primaryScene = primaryStage.getScene();
-        StackPane root = new StackPane();
-        Label label = new Label("Hey");
-        root.getChildren().addAll(label);
-        Scene newScene = new Scene(root);
-        primaryStage.setScene(newScene);
-        // primaryStage.setScene(primaryScene); */
     }
 
 
