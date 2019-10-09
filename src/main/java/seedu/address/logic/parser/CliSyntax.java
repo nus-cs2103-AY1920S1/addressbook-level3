@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     //// Phone
+    public static final Prefix PREFIX_PHONENAME = new Prefix("n/");
     public static final Prefix PREFIX_BRAND = new Prefix("b/");
     public static final Prefix PREFIX_CAPACITY = new Prefix("cp/");
     public static final Prefix PREFIX_COLOUR = new Prefix("cl/");
