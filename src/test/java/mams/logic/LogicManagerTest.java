@@ -1,9 +1,7 @@
 package mams.logic;
 
-import static mams.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static mams.testutil.Assert.assertThrows;
-import static mams.testutil.TypicalStudents.AMY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -13,9 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import mams.logic.commands.AddCommand;
 import mams.logic.commands.CommandResult;
-import mams.logic.commands.CommandTestUtil;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.exceptions.ParseException;
@@ -23,11 +19,9 @@ import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
-import mams.model.student.Student;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.StorageManager;
-import mams.testutil.StudentBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -55,8 +49,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        // delete command removed. New tests to be implemented later.
     }
 
     @Test
@@ -75,15 +68,7 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY
-                + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY
-                + CommandTestUtil.ADDRESS_DESC_AMY;
-        Student expectedStudent = new StudentBuilder(AMY).withTags().build();
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.addStudent(expectedStudent);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        // Execute add command removed, to be implemented with new test later.
     }
 
     @Test
