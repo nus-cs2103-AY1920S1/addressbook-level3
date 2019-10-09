@@ -26,8 +26,7 @@ class CompilerTest {
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
         environmentPath = tempFolder.resolve("compiler");
-        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath.toUri().getPath());
-
+        TestEnvironment environment = new TestEnvironment(environmentPath);
         compiler = new Compiler(environment);
 
         validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
