@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -138,6 +139,89 @@ public class StringUtilTest {
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
+    }
+
+    //---------------- Tests for substringBefore --------------------------------------
+
+    @Test
+    void substringBefore_nullGiven_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> {
+            StringUtil.substringBefore(null, null);
+        });
+
+        assertThrows(NullPointerException.class, () -> {
+            StringUtil.substringBefore("my string", null);
+        });
+
+        assertThrows(NullPointerException.class, () -> {
+            StringUtil.substringBefore(null, "my delimiter");
+        });
+    }
+
+    @Test
+    void substringBefore_delimiterPresent_substring() {
+        final String inputString = "hello world";
+        final String delimiter = " ";
+
+        final String expectedSubstring = "hello";
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
+    }
+
+    @Test
+    void substringBefore_multipleDelimitersPresent_firstSubstring() {
+        final String inputString = "first second third";
+        final String delimiter = " ";
+
+        final String expectedSubstring = "first";
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
+    }
+
+    @Test
+    void substringBefore_multiCharacterDelimiter_substring() {
+        final String inputString = "hello";
+        final String delimiter = "ll";
+
+        final String expectedSubstring = "he";
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
+    }
+
+    @Test
+    void substringBefore_delimiterAtStart_emptySubstring() {
+        final String inputString = " hello";
+        final String delimiter = " ";
+
+        final String expectedSubstring = "";
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
+    }
+
+    @Test
+    void substringBefore_emptyString_emptySubstring() {
+        final String inputString = "";
+        final String delimiter = " ";
+
+        final String expectedSubstring = "";
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
+    }
+
+    @Test
+    void substringBefore_delimiterAbsent_originalString() {
+        final String inputString = "hello";
+        final String delimiter = " ";
+
+        final String expectedSubstring = inputString;
+        final String actualSubstring = StringUtil.substringBefore(inputString, delimiter);
+
+        assertEquals(expectedSubstring, actualSubstring);
     }
 
 }
