@@ -6,14 +6,14 @@
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <Label fx:id="nowServing" text="Now Serving" styleClass="cell_big_label">
+  <Label fx:id="nowServing" text="Now Serving" styleClass="cell_big_label_white_font">
     <padding>
       <Insets top="5" right="10" bottom="5" left="10" />
     </padding>
   </Label>
   <ListView fx:id="roomListView" VBox.vgrow="SOMETIMES" minHeight="10"/>
 
-  <Label fx:id="inQueue" text="In Queue" styleClass="cell_big_label">
+  <Label fx:id="inQueue" text="In Queue" styleClass="cell_big_label_white_font">
     <padding>
       <Insets top="5" right="10" bottom="5" left="10" />
     </padding>
