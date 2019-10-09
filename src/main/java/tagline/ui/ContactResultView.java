@@ -8,16 +8,16 @@ import tagline.model.person.Person;
 /**
  * The UI component that displays the contact list as a result.
  */
-public class ContactResultPane extends ResultPane {
+public class ContactResultView extends ResultView {
 
-    private static final String FXML = "ContactResultPane.fxml";
+    private static final String FXML = "ContactResultView.fxml";
 
     private PersonListPanel personListPanel;
 
     @FXML
     private StackPane personListPanelPlaceholder;
 
-    public ContactResultPane() {
+    public ContactResultView() {
         super(FXML);
     }
 

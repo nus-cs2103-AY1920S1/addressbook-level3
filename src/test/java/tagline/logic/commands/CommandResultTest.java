@@ -33,6 +33,9 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different view type -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResult.ViewType.CONTACT)));
     }
 
     @Test
@@ -50,5 +53,9 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different view type -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.ViewType.CONTACT).hashCode());
     }
 }

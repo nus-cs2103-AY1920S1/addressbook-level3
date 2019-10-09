@@ -5,8 +5,8 @@ import javafx.scene.layout.VBox;
 /**
  * Abstract class for a UI component that displays a command result.
  */
-public abstract class ResultPane extends UiPart<VBox> {
-    public ResultPane(String fxml) {
+public abstract class ResultView extends UiPart<VBox> {
+    public ResultView(String fxml) {
         super(fxml);
     }
 }
