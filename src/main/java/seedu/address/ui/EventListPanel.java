@@ -17,6 +17,8 @@ public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
+    private UiParser uiParser;
+
     @FXML
     private ListView<EventSource> eventListView;
 
@@ -24,8 +26,9 @@ public class EventListPanel extends UiPart<Region> {
      * Constructor for EventListPanel. Creates an instance of a panel to store the Event Cards.
      * @param eventList The list containing all the events.
      */
-    public EventListPanel(ObservableList<EventSource> eventList) {
+    public EventListPanel(ObservableList<EventSource> eventList, UiParser uiParser) {
         super(FXML);
+        this.uiParser = uiParser;
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
@@ -41,7 +44,7 @@ public class EventListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(eventSource, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(eventSource, getIndex() + 1, uiParser).getRoot());
             }
         }
     }
