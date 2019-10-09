@@ -9,8 +9,9 @@ public abstract class Show {
     private boolean isWatched;
     private Date dateOfRelease;
     private RunTime runTime;
-
+}
+/*
     public String toString() {
 
     }
-}
+}*/
