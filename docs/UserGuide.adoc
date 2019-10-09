@@ -1,4 +1,4 @@
-= MYMorize - User Guide
+= MYMorise - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team 14-4`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 

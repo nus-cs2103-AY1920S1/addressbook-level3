@@ -2,8 +2,6 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T14-4/main[image:https://travis-ci.org/AY1920S1-CS2103-T14-4/main.svg?branch=master[Build Status]]
-
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://ci.appveyor.com/project/Cary-Xx/main/branch/master[image:https://ci.appveyor.com/api/projects/status/lg8ga460l5xgq9ab/branch/master?svg=true[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103-T14-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-T14-4/main/badge.svg?branch=master[Coverage Status]]
 
