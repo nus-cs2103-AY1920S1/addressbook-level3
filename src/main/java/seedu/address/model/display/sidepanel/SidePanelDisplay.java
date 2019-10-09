@@ -7,21 +7,23 @@ import java.util.ArrayList;
  */
 public class SidePanelDisplay {
 
-    private ArrayList<Display> display;
+    private ArrayList<PersonDisplay> personDisplays;
+    private ArrayList<GroupDisplay> groupDisplays;
     private SidePanelDisplayType sidePanelDisplayType;
 
-    public SidePanelDisplay(ArrayList<Display> display, SidePanelDisplayType sidePanelDisplayType) {
-        this.display = display;
+    public SidePanelDisplay(ArrayList<PersonDisplay> personDisplays, ArrayList<GroupDisplay> groupDisplays,
+                            SidePanelDisplayType sidePanelDisplayType) {
+        this.personDisplays = personDisplays;
+        this.groupDisplays = groupDisplays;
         this.sidePanelDisplayType = sidePanelDisplayType;
     }
 
-    public SidePanelDisplay() {
-        this.display = null;
-        this.sidePanelDisplayType = SidePanelDisplayType.EMPTY;
+    public ArrayList<PersonDisplay> getPersonDisplay() {
+        return personDisplays;
     }
 
-    public ArrayList<Display> getDisplay() {
-        return display;
+    public ArrayList<GroupDisplay> getGroupDisplay() {
+        return groupDisplays;
     }
 
     public SidePanelDisplayType getSidePanelDisplayType() {

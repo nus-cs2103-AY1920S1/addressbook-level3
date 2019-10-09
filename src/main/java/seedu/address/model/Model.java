@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -156,6 +156,11 @@ public interface Model {
     GroupList getGroupList();
 
     /**
+     * Returns an observable list of groups.
+     */
+    ObservableList<Group> getObservableGroupList();
+
+    /**
      * Adds a Group with groupDescriptor into the list of Groups.
      */
     Group addGroup(GroupDescriptor groupDescriptor);
@@ -222,7 +227,7 @@ public interface Model {
     /**
      * Returns the current main window display model.
      */
-    MainWindowDisplay getMainWindowDisplay();
+    DetailWindowDisplay getDetailWindowDisplay();
 
     /**
      * Returns the current side panel display model.
@@ -232,17 +237,17 @@ public interface Model {
     /**
      * Updates the current main window display.
      */
-    void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay);
+    void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay);
 
     /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type);
+    void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type);
+    void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current side panel display.

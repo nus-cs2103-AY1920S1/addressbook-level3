@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.schedule.Event;
@@ -49,7 +49,7 @@ public class AddEventCommand extends Command {
         } else if (model.addEvent(name, event)) {
 
             // updates main window
-            model.updateMainWindowDisplay(name, LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+            model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
