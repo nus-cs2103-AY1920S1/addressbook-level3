@@ -3,6 +3,7 @@ package seedu.address.transaction.commands;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
+
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
@@ -13,17 +14,16 @@ import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
 
 /**
- * Edits a transaction to the transaction list.
+ * Edits a transaction in the transaction list.
  */
 public class EditCommand extends Command {
+    public static final String COMMAND_WORD = "edit";
     private static int id;
     private int index;
     private EditTransactionDescriptor editTransactionDescriptor;
-    public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction is already recorded.";
 
     /**
-     * Creates an EditCommand to add the specified {@code Transaction}
+     * Creates an EditCommand to edit the specified {@code Transaction}
      */
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
         this.index = index;
@@ -37,32 +37,42 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
         TransactionMessages transactionMessages = new TransactionMessages();
-        Transaction transactionToEdit = model.findTransactionByIndex(index);
+        Transaction transactionToEdit = model.findTransactionInFilteredListByIndex(index);
 
-        Transaction editedTransaction = createdEditedTransaction(transactionToEdit, editTransactionDescriptor, personModel);
+        Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
+                editTransactionDescriptor, personModel);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+            throw new CommandException(TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
             //personModel.addPerson(editedTransaction.getPerson());
-            throw new NoSuchPersonException(TransactionMessages.NO_SUCH_PERSON);
+            throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         }
         model.setTransaction(transactionToEdit, editedTransaction);
         return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
     }
 
+    /**
+     * Creates the edited transaction according to new inputted attributes.
+     * @param transactionToEdit Transaction to be edited.
+     * @param editTransactionDescriptor New Transaction descripter with edited attributes.
+     * @param personModel model of address book.
+     * @return Edited transaction.
+     */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
                                                         seedu.address.person.model.Model personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
-        String updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
+        String updatedDescription =
+                editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Person updatedPerson =
                 personModel.getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
-        boolean updatedIsReimbursed = editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
+        boolean updatedIsReimbursed =
+                editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
                 updatedPerson, id, updatedIsReimbursed);
     }

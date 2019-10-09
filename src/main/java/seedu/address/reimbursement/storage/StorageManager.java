@@ -57,7 +57,7 @@ public class StorageManager implements Storage {
             while ((line = bfr.readLine()) != null) {
                 this.readInFileLine(map, line, personModel);
             }
-            TransactionList transList = transactionStorageManager.getTransactionList();
+            TransactionList transList = transactionStorageManager.readTransactionList();
             ReimbursementList newList = new ReimbursementList(transList);
             matchDeadline(newList, map);
             this.writeFile(newList);
