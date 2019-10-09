@@ -154,7 +154,7 @@ _{explain how the user can enable/disable data encryption}_
 
 === Add Schedule: `add-schedule`
 
-Adds a schedule to a person in TimeBook
+Adds a schedule to a person in TimeBook. Only schedules without clashes between time slots can be added to TimeBook.
 Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
 Format:
 
@@ -245,10 +245,10 @@ Examples:
 
 === Export VR(Virtual Representation): `export-vr`
 
-Exports a visualisation representation of the schedule (timetable) of a group or person(s) +
+Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
 Format:
 
-* `export-vr [-n NAME]… [-g GROUP_NAME]… -o OUTPUT_FILE` +
+* `export-vr [-n NAME]… [-g GROUP_NAME]…` +
 
 Examples:
 
