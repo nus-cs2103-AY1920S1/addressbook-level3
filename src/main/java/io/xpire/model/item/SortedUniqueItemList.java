@@ -27,8 +27,12 @@ import javafx.collections.transformation.SortedList;
 public class SortedUniqueItemList implements Iterable<Item> {
     private final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
             String.CASE_INSENSITIVE_ORDER);
+    private final Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
+            Comparator.nullsFirst(Comparator.naturalOrder()));
+    private final Comparator<Item>nameThenDateSorter = nameSorter.thenComparing(dateSorter);
+
     private final ObservableList<Item> internalList = FXCollections.observableArrayList();
-    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList, nameSorter);
+    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList, nameThenDateSorter);
     private final ObservableList<Item> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(this.sortedInternalList);
 
