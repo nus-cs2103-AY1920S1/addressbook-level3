@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.exceptions.DataConversionException;
+import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
@@ -118,7 +119,7 @@ public class ImportCommandTest {
             if (filePath.endsWith("problemFile")) {
                 throw new IOException();
             } else if (filePath.endsWith("invalidFormatFile")) {
-                throw new DataConversionException(new Exception());
+                throw new DataConversionException(new CommandException("Invalid data format"));
             } else if (filePath.endsWith("nonExistentFile")) {
                 return Optional.empty();
             }

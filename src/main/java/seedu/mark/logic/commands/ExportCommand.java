@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,8 +32,7 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
-        requireNonNull(storage);
+        requireAllNonNull(model, storage);
 
         try {
             storage.saveMark(model.getMark(), filePath);
