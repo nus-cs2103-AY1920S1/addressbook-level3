@@ -1,8 +1,8 @@
 package dream.fcard.model;
 
-import dream.fcard.model.exceptions.DeckNotFoundException;
-
 import java.util.ArrayList;
+
+import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
  * Running state of the program
@@ -32,7 +32,7 @@ public class State {
      */
     public void removeDeck(String deckname) throws DeckNotFoundException {
         int deckIndex = getDeckIndex(deckname);
-        if(deckIndex == -1){
+        if (deckIndex == -1) {
             throw new DeckNotFoundException(new Exception());
         }
         decks.remove(deckIndex);

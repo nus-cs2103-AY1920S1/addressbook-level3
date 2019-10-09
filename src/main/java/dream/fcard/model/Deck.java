@@ -32,14 +32,14 @@ public class Deck implements JsonInterface {
         deckName = name;
     }
 
-    public String getDeckName(){
+    public String getDeckName() {
         return deckName;
     }
 
     /**
      * Adds new card to the ArrayList of card objects.
      */
-    public void addNewCard(FlashCard newCard){
+    public void addNewCard(FlashCard newCard) {
         cards.add(newCard);
     }
 

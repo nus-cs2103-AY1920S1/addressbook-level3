@@ -1,7 +1,6 @@
 package dream.fcard.model.cards;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import dream.fcard.util.json.jsontypes.JsonValue;
 
