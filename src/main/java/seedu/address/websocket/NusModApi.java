@@ -18,8 +18,6 @@ import seedu.address.websocket.util.QueryResult;
  */
 public class NusModApi {
     private static final String BASE_URL = "https://api.nusmods.com/v2";
-    private static final String BASE_URL2 = "http://api.nusmods.com/v2";
-
     private static final String ACADEMIC_CALENDAR_URL =
             "https://raw.githubusercontent.com/nusmodifications/nusmods/master/website/src/data/academic-calendar.json";
     private static final String HOLIDAYS_URL =

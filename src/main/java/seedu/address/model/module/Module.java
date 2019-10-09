@@ -46,9 +46,9 @@ public class Module {
     }
 
     public Semester getSemester(SemesterNo semesterNo) {
-        for (int i = 0; i < semesterData.size(); i++) {
-            if (semesterData.get(i).getSemesterNo().equals(semesterNo)) {
-                return semesterData.get(i);
+        for (Semester semester : semesterData) {
+            if (semester.getSemesterNo().equals(semesterNo)) {
+                return semester;
             }
         }
         throw new SemesterNotFoundException();

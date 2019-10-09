@@ -25,10 +25,9 @@ public class ModuleCondensedList {
      * @return condensed module found
      */
     public ModuleCondensed findModuleCondensed(AcadYear acadYear, ModuleCode code) {
-        for (int i = 0; i < moduleCondensedList.size(); i++) {
-            ModuleCondensed moduleCondensed = moduleCondensedList.get(i);
+        for (ModuleCondensed moduleCondensed : moduleCondensedList) {
             if (moduleCondensed.getAcadYear().equals(acadYear) && moduleCondensed.getModuleCode().equals(code)) {
-                return moduleCondensedList.get(i);
+                return moduleCondensed;
             }
         }
         throw new ModuleNotFoundException();

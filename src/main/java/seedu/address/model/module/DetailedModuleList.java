@@ -28,10 +28,9 @@ public class DetailedModuleList {
      * @return module found
      */
     public Module findModule(AcadYear acadYear, ModuleCode code) {
-        for (int i = 0; i < modules.size(); i++) {
-            Module module = modules.get(i);
+        for (Module module : modules) {
             if (module.getAcadYear().equals(acadYear) && module.getModuleCode().equals(code)) {
-                return modules.get(i);
+                return module;
             }
         }
         throw new ModuleNotFoundException();

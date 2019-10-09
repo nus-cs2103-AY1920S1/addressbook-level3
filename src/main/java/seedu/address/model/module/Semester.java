@@ -25,9 +25,9 @@ public class Semester {
      */
     public ArrayList<Lesson> findLessons(LessonNo lessonNo) {
         ArrayList<Lesson> lessons = new ArrayList<>();
-        for (int i = 0; i < timetable.size(); i++) {
-            if (timetable.get(i).getLessonNo().equals(lessonNo)) {
-                lessons.add(timetable.get(i));
+        for (Lesson lesson : timetable) {
+            if (lesson.getLessonNo().equals(lessonNo)) {
+                lessons.add(lesson);
             }
         }
         return lessons;

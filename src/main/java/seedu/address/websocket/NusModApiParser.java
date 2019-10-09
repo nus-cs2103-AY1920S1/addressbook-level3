@@ -33,6 +33,7 @@ import seedu.address.model.module.Weeks;
  * Parse data from NusModsApi
  */
 public class NusModApiParser {
+    //TODO: checks to throw parseException if missing compulsory keys
     /**
      * Parse a Module from JSONObject.
      * @param obj JSONObject to parse from.
@@ -40,22 +41,11 @@ public class NusModApiParser {
      */
     public static Module parseModule(JSONObject obj) {
         requireNonNull(obj);
-        //TODO: better checks to remove invalid/missing data
-        ModuleCode moduleCode = obj.containsKey("moduleCode")
-                ? new ModuleCode(obj.get("moduleCode").toString())
-                : new ModuleCode("");
 
-        Title title = obj.containsKey("title")
-                ? new Title(obj.get("title").toString())
-                : new Title("");
-
-        Description description = obj.containsKey("description")
-                ? new Description(obj.get("description").toString())
-                : new Description("");
-
-        AcadYear acadYear = obj.containsKey("acadYear")
-                ? new AcadYear(obj.get("acadYear").toString())
-                : new AcadYear("");
+        ModuleCode moduleCode = new ModuleCode(obj.getOrDefault("moduleCode", "").toString());
+        Title title = new Title(obj.getOrDefault("title", "").toString());
+        Description description = new Description(obj.getOrDefault("description", "").toString());
+        AcadYear acadYear = new AcadYear(obj.getOrDefault("acadYear", "").toString());
 
         List<Semester> semesterData = new ArrayList<>();
         if (obj.containsKey("semesterData")) {
@@ -75,9 +65,8 @@ public class NusModApiParser {
      */
     public static Semester parseSemester(JSONObject obj) {
         requireNonNull(obj);
-        SemesterNo semesterNo = obj.containsKey("semester")
-                ? new SemesterNo(obj.get("semester").toString())
-                : new SemesterNo("");
+
+        SemesterNo semesterNo = new SemesterNo(obj.getOrDefault("semester", "").toString());
 
         ArrayList<Lesson> timetable = new ArrayList<>();
         if (obj.containsKey("timetable")) {
@@ -87,8 +76,8 @@ public class NusModApiParser {
             }
         }
 
-        String examDate = obj.containsKey("examDate") ? obj.get("examDate").toString() : "";
-        String examDuration = obj.containsKey("examDuration") ? obj.get("examDuration").toString() : "";
+        String examDate = obj.getOrDefault("examDate", "").toString();
+        String examDuration = obj.getOrDefault("examDuration", "").toString();
         Exam exam = new Exam(examDate, examDuration);
 
         return new Semester(semesterNo, timetable, exam);
@@ -101,33 +90,17 @@ public class NusModApiParser {
      */
     public static Lesson parseLesson(JSONObject obj) {
         requireNonNull(obj);
-        LessonNo lessonNo = obj.containsKey("classNo")
-                ? new LessonNo(obj.get("classNo").toString())
-                : new LessonNo("");
-
-        StartTime startTime = obj.containsKey("startTime")
-                ? new StartTime(obj.get("startTime").toString())
-                : new StartTime("");
-
-        EndTime endTime = obj.containsKey("endTime")
-                ? new EndTime(obj.get("endTime").toString())
-                : new EndTime("");
+        LessonNo lessonNo = new LessonNo(obj.getOrDefault("classNo", "").toString());
+        StartTime startTime = new StartTime(obj.getOrDefault("startTime", "").toString());
+        EndTime endTime = new EndTime(obj.getOrDefault("endTime", "").toString());
 
         Weeks weeks = obj.containsKey("weeks")
                 ? parseWeeks(obj.get("weeks"))
                 : Weeks.emptyWeeks();
 
-        LessonType lessonType = obj.containsKey("lessonType")
-                ? new LessonType(obj.get("lessonType").toString())
-                : new LessonType("");
-
-        Day day = obj.containsKey("day")
-                ? new Day(obj.get("day").toString())
-                : new Day("");
-
-        Venue venue = obj.containsKey("venue")
-                ? new Venue(obj.get("venue").toString())
-                : new Venue("");
+        LessonType lessonType = new LessonType(obj.getOrDefault("lessonType", "").toString());
+        Day day = new Day(obj.getOrDefault("day", "").toString());
+        Venue venue = new Venue(obj.getOrDefault("venue", "").toString());
 
         return new Lesson(lessonNo, startTime, endTime, weeks, lessonType, day, venue);
     }
@@ -143,7 +116,7 @@ public class NusModApiParser {
         String startDateString = "";
         String endDateString = "";
         int weekInterval = -1;
-        int type; //TODO: convert to enum
+        int type;
 
         // weekNumbers only format
         if (obj.toString().startsWith("[")) {
