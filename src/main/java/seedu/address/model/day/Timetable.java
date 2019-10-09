@@ -41,6 +41,14 @@ public class Timetable {
         }
     }
 
+    public ActivityStub getActivityAtIndex(Index index) {
+        return timeSlots[index.getZeroBased()].getActivity();
+    }
+
+    public boolean getIsOccupiedAtIndex(Index index) {
+        return timeSlots[index.getZeroBased()].getIsOccupied();
+    }
+
     /**
      * Adds an activity to timetable.
      *
