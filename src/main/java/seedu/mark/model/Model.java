@@ -85,7 +85,7 @@ public interface Model {
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
 
-    void createFolder(String folderName, String parentFolderName);
+    void addFolder(String folderName, String parentFolderName);
 
     boolean hasFolder(String folderName);
 }

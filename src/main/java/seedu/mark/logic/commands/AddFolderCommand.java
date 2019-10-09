@@ -52,7 +52,7 @@ public class AddFolderCommand extends Command {
                     String.format(MESSAGE_PARENT_FOLDER_NOT_FOUND, parentFolderName));
         }
 
-        model.createFolder(folderName, parentFolderName);
+        model.addFolder(folderName, parentFolderName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, folderName));
     }

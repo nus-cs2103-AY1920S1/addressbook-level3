@@ -81,7 +81,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void createFolder(String folderName, String parentFolderName) {
+    public void addFolder(String folderName, String parentFolderName) {
         throw new AssertionError("This method should not be called.");
     }
 

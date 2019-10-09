@@ -114,7 +114,7 @@ public class ModelManager implements Model {
 
 
     @Override
-    public void createFolder(String folderName, String parentFolderName) {
+    public void addFolder(String folderName, String parentFolderName) {
         requireAllNonNull(folderName, parentFolderName);
         mark.createFolder(folderName, parentFolderName);
     }
