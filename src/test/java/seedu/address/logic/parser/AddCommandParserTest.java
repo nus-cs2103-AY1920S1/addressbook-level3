@@ -1,21 +1,21 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalTasks.AMY;
-import static seedu.address.testutil.TypicalTasks.BOB;
+import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
+import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,33 +30,33 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Task expectedTask = new TaskBuilder(BUILD_WEBSITE).withTags(VALID_TAG_PUBLICITY).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedTask));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + TASK_NAME_DESC_PUBLICITY
+                + TAG_DESC_PUBLICITY, new AddCommand(expectedTask));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedTask));
+        assertParseSuccess(parser, TASK_NAME_DESC_FINANCE + TASK_NAME_DESC_PUBLICITY
+                + TAG_DESC_PUBLICITY, new AddCommand(expectedTask));
 
         // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
+        assertParseSuccess(parser, TASK_NAME_DESC_PUBLICITY + TAG_DESC_PUBLICITY, new AddCommand(expectedTask));
 
         // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
+        assertParseSuccess(parser, TASK_NAME_DESC_PUBLICITY + TAG_DESC_PUBLICITY, new AddCommand(expectedTask));
 
         // multiple tags - all accepted
-        Task expectedTaskMultipleTags = new TaskBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Task expectedTaskMultipleTags = new TaskBuilder(BUILD_WEBSITE).withTags(VALID_TAG_PUBLICITY, VALID_TAG_URGENCY)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedTaskMultipleTags));
+        assertParseSuccess(parser, TASK_NAME_DESC_PUBLICITY + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY, new AddCommand(expectedTaskMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Task expectedTask = new TaskBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY, new AddCommand(expectedTask));
+        Task expectedTask = new TaskBuilder(REVIEW_BUDGET).withTags().build();
+        assertParseSuccess(parser, TASK_NAME_DESC_FINANCE, new AddCommand(expectedTask));
     }
 
     @Test
@@ -64,26 +64,26 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_TASK_NAME_FINANCE, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_TASK_NAME_FINANCE, expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_TASK_NAME_DESC + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY, Name.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TASK_NAME_DESC_PUBLICITY + INVALID_TAG_DESC + VALID_TAG_PUBLICITY, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + TASK_NAME_DESC_PUBLICITY
+                + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

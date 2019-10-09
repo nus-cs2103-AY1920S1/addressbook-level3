@@ -2,11 +2,12 @@ package seedu.address.model.task;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALICE;
-import static seedu.address.testutil.TypicalTasks.BOB;
+import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
+import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,52 +24,59 @@ public class TaskTest {
     @Test
     public void isSameTask() {
         // same object -> returns true
-        assertTrue(ALICE.isSameTask(ALICE));
+        assertTrue(ORDER_SHIRTS.isSameTask(ORDER_SHIRTS));
 
         // null -> returns false
-        assertFalse(ALICE.isSameTask(null));
+        assertFalse(ORDER_SHIRTS.isSameTask(null));
 
-        // different email -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).build();
+        Task editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).build();
 
         // different name -> returns false
-        editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameTask(editedAlice));
+        editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS)
+                .withName(VALID_TASK_NAME_FINANCE).build();
+        assertFalse(ORDER_SHIRTS.isSameTask(editedShirtOrderTask));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new TaskBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameTask(editedAlice));
+        // same name, different attributes -> returns true
+        editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS)
+                .withStatus(TaskStatus.DOING)
+                .build();
+        assertTrue(ORDER_SHIRTS.isSameTask(editedShirtOrderTask));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new TaskBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameTask(editedAlice));
+        // same name, different attributes -> returns true
+        editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS)
+                .withTags(VALID_TAG_PUBLICITY)
+                .build();
+        assertTrue(ORDER_SHIRTS.isSameTask(editedShirtOrderTask));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Task aliceCopy = new TaskBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Task orderShirtsCopy = new TaskBuilder(ORDER_SHIRTS).build();
+        assertTrue(ORDER_SHIRTS.equals(orderShirtsCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ORDER_SHIRTS.equals(ORDER_SHIRTS));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ORDER_SHIRTS.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(ORDER_SHIRTS.equals(5));
 
         // different task -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ORDER_SHIRTS.equals(BUILD_WEBSITE));
 
         // different name -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Task editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withName(VALID_TASK_NAME_PUBLICITY).build();
+        assertFalse(ORDER_SHIRTS.equals(editedShirtOrderTask));
 
         // different tags -> returns false
-        editedAlice = new TaskBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withTags(VALID_TAG_PUBLICITY).build();
+        assertFalse(ORDER_SHIRTS.equals(editedShirtOrderTask));
+
+        // different task status return false
+        editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withStatus(TaskStatus.DOING).build();
+        assertFalse(ORDER_SHIRTS.equals(editedShirtOrderTask));
     }
 }

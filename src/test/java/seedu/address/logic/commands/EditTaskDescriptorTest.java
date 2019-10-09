@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,27 +17,28 @@ public class EditTaskDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditTaskDescriptor descriptorWithSameValues = new EditCommand.EditTaskDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditTaskDescriptor descriptorWithSameValues = new EditCommand.EditTaskDescriptor(TASK_DESC_FINANCE);
+        assertTrue(TASK_DESC_FINANCE.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(TASK_DESC_FINANCE.equals(TASK_DESC_FINANCE));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(TASK_DESC_FINANCE.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(TASK_DESC_FINANCE.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(TASK_DESC_FINANCE.equals(TASK_DESC_PUBLICITY));
 
         // different name -> returns false
-        EditTaskDescriptor editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditTaskDescriptor editedFinanceTask = new EditTaskDescriptorBuilder(TASK_DESC_FINANCE)
+                .withName(VALID_TASK_NAME_PUBLICITY).build();
+        assertFalse(TASK_DESC_FINANCE.equals(editedFinanceTask));
 
         // different tags -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedFinanceTask = new EditTaskDescriptorBuilder(TASK_DESC_FINANCE).withTags(VALID_TAG_PUBLICITY).build();
+        assertFalse(TASK_DESC_FINANCE.equals(editedFinanceTask));
     }
 }

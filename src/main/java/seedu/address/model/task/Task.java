@@ -50,7 +50,7 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameTask(Task otherTask) {
@@ -58,7 +58,7 @@ public class Task {
             return true;
         }
 
-        // TODO change the logic to suit a task
+        // TODO change the logic to check for the identity fields of status and member
         // basically the name cannot be the same, that's it
         return otherTask != null
             && otherTask.getName().equals(getName());
@@ -80,6 +80,7 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
+                && (otherTask.getTaskStatus() == getTaskStatus())
                 && otherTask.getTags().equals(getTags());
     }
 
