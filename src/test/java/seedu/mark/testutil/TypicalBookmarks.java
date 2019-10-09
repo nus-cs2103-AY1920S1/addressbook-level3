@@ -67,14 +67,14 @@ public class TypicalBookmarks {
         for (Bookmark bookmark : getTypicalBookmarks()) {
             mark.addBookmark(bookmark);
         }
+        mark.setFolderStructure(getTypicalFolderStructure());
         return mark;
     }
 
     public static FolderStructure getTypicalFolderStructure() {
         FolderStructure family = new FolderStructure(CARL.getFolder().folderName, new ArrayList<>());
         FolderStructure contacts = new FolderStructure(BENSON.getFolder().folderName, List.of(family));
-        FolderStructure friends = new FolderStructure(ALICE.getFolder().folderName, new ArrayList<>());
-        return new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts, friends));
+        return new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts));
     }
 
     public static List<Bookmark> getTypicalBookmarks() {

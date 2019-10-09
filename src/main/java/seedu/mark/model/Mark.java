@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Objects;
 import javafx.collections.ObservableList;
 
 import seedu.mark.model.bookmark.Bookmark;
@@ -142,6 +143,6 @@ public class Mark implements ReadOnlyMark {
 
     @Override
     public int hashCode() {
-        return bookmarks.hashCode();
+        return Objects.hash(bookmarks, folderStructure);
     }
 }

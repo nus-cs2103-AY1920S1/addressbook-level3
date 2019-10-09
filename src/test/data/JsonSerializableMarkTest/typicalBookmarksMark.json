@@ -16,7 +16,7 @@
     "name" : "Carl Kurz",
     "url" : "https://heinz@example.com",
     "remark" : "wall street",
-    "folder" : "ROOT",
+    "folder" : "family",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -28,7 +28,7 @@
     "name" : "Elle Meyer",
     "url" : "https://werner@example.com",
     "remark" : "michegan ave",
-    "folder" : "ROOT",
+    "folder" : "family",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -45,6 +45,12 @@
   } ],
   "folderStructure": {
     "name": "ROOT",
-    "subfolders": []
+    "subfolders": [ {
+      "name": "contacts",
+      "subfolders": [ {
+        "name": "family",
+        "subfolders": []
+      } ]
+    } ]
   }
 }

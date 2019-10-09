@@ -5,6 +5,7 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import java.util.stream.Collectors;
@@ -103,7 +104,8 @@ public class FolderStructure {
         FolderStructure otherFolderStructure = (FolderStructure) other;
 
         return otherFolderStructure.getName().equals(getName())
-                && otherFolderStructure.getSubfolders().equals(getSubfolders());
+                && new HashSet<>(otherFolderStructure.getSubfolders()).equals(
+                        new HashSet<>(getSubfolders()));
     }
 
     /**
@@ -138,5 +140,10 @@ public class FolderStructure {
     public FolderStructure clone() {
         return new FolderStructure(
                 name, subfolders.stream().map(FolderStructure::clone).collect(Collectors.toList()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, subfolders);
     }
 }

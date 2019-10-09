@@ -6,11 +6,16 @@ import static seedu.mark.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.commons.util.JsonUtil;
 import seedu.mark.model.Mark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.testutil.TypicalBookmarks;
 
 public class JsonSerializableMarkTest {
@@ -22,6 +27,11 @@ public class JsonSerializableMarkTest {
 
     @Test
     public void toModelType_typicalBookmarksFile_success() throws Exception {
+        FolderStructure family = new FolderStructure("family", new ArrayList<>());
+        FolderStructure contacts = new FolderStructure("contacts", List.of(family));
+        FolderStructure friends = new FolderStructure("friends", new ArrayList<>());
+        FolderStructure f = new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts, friends));
+        assertEquals(f, f.clone());
         JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(TYPICAL_BOOKMARKS_FILE,
                 JsonSerializableMark.class).get();
         Mark markFromFile = dataFromFile.toModelType();
