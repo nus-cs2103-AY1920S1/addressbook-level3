@@ -1,6 +1,7 @@
 package dream.fcard.model.cards;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dream.fcard.util.json.jsontypes.JsonValue;
 
@@ -16,6 +17,11 @@ public class MultipleChoiceCard extends FrontBackCard {
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
         choices = choicesArg;
+    }
+
+    @Override
+    public Boolean evaluate(String in) {
+        return in.equals(back);
     }
 
     @Override
