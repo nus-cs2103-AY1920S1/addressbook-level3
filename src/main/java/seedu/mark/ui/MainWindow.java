@@ -121,9 +121,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         dashboardPanel = new DashboardPanel();
         offlinePanel = new OfflinePanel();
-        mainViewAreaPlaceholder.getChildren().addAll(
-                offlinePanel.getRoot(),
-                browserPanel.getRoot(),
+        mainViewAreaPlaceholder.getChildren().add(//All(
+             //   offlinePanel.getRoot(),
+             //   browserPanel.getRoot(),
                 dashboardPanel.getRoot());
         //browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
@@ -183,16 +183,19 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToDashboard() {
         //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
     }
 
     @FXML
     private void handleSwitchToOnline() {
         //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
     }
 
     @FXML
     private void handleSwitchToOffline() {
         //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
     public BookmarkListPanel getBookmarkListPanel() {

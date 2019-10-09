@@ -32,11 +32,11 @@ public class TabCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (index.getOneBased() < 0 || index.getOneBased() > 0) {
+        if (index.getOneBased() < 1 || index.getOneBased() > 3) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
 
-        Tab tabType = convertToTab(index)
+        Tab tabType = convertToTab(index);
         boolean isSwitchToOnline = false,
                 isSwitchToOffline = false,
                 isSwitchToDashboard = false;
@@ -53,6 +53,7 @@ public class TabCommand extends Command {
             break;
         default:
             assert false : "execute forced to handle invalid tab type.";
+            break;
         }
 
         return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tabType.toString()),
@@ -60,16 +61,23 @@ public class TabCommand extends Command {
     }
 
     private Tab convertToTab(Index index) {
+        Tab type = null;
         switch (index.getOneBased()) {
         case 1:
-            return Tab.DASHBOARD;
+            type = Tab.DASHBOARD;
+            break;
         case 2:
-            return Tab.ONLINE;
+            type = Tab.ONLINE;
+            break;
         case 3:
-            return Tab.OFFLINE;
+            type = Tab.OFFLINE;
+            break;
         default:
             assert false : "convertToTab forced to handle invalid index.";
+            break;
         }
+
+        return type;
     }
 
 
