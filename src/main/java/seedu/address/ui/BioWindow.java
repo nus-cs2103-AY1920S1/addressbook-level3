@@ -196,10 +196,14 @@ public class BioWindow extends UiPart<Stage> {
     @FXML
     public void switchToMainWindow(String feedbackToUser) {
         hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
         mainWindow.show();
         mainWindow.fillInnerParts();
         mainWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+
     }
 
     void show() {
