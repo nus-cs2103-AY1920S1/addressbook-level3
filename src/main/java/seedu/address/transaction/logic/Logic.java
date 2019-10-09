@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic;
 
+import java.io.IOException;
 import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
@@ -21,7 +22,7 @@ public interface Logic {
      * Writes the transaction list into the transactionHistory text file.
      * @throws Exception If an error occurs when writing into the text file.
      */
-    void writeIntoTransactionFile() throws Exception;
+    void writeIntoTransactionFile() throws IOException;
 
     /**
      *Sets the transaction in the transaction list to a new transaction to replace it.

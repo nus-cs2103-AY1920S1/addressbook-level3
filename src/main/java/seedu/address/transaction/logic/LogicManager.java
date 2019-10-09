@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic;
 
+import java.io.IOException;
 import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.model.Model;
@@ -50,7 +51,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void writeIntoTransactionFile() throws Exception {
+    public void writeIntoTransactionFile() throws IOException {
         storage.writeFile(model.getTransactionList());
     }
 

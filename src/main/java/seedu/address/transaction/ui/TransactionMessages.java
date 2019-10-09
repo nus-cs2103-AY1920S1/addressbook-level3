@@ -40,6 +40,10 @@ public class TransactionMessages {
 
     public static final String MESSAGE_NOT_A_NUMBER = "Please input the index of the transaction.";
 
+    public static final String MESSAGE_PERSON_CANNOT_BE_DELETED = "Sorry! This person that you are intending to "
+            + "delete still has transaction records. Please make sure the person is reimbursed and delete "
+            + "those transaction records first.";
+
     public static String editedTransaction(Transaction editedTransaction) {
         return "Edited Transaction:\n" + editedTransaction;
     }
