@@ -37,13 +37,13 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns false
         assertFalse(commandResult.equals(new CommandResult("different")));
 
-        // different showHelp value -> returns false
+        // different isShowHelp() value -> returns false
         assertFalse(commandResult.equals(new HelpCommandResult("feedback")));
 
-        // different exit value -> returns false
+        // different isExit() value -> returns false
         assertFalse(commandResult.equals(new ExitCommandResult("feedback")));
 
-        // different goto value -> returns false
+        // different isGoto() and getURL() value -> returns false
         assertFalse(commandResult.equals(new GotoCommandResult("feedback",
                 new Url(VALID_URL_AMY))));
     }
@@ -58,13 +58,13 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
-        // different showHelp value -> returns different hashcode
+        // different isShowHelp() value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new HelpCommandResult("feedback").hashCode());
 
-        // different exit value -> returns different hashcode
+        // different isExit() value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new ExitCommandResult("feedback").hashCode());
 
-        // different goto value -> returns different hashcode
+        // different isGoto() and getUrl() value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new GotoCommandResult("feedback",
                 new Url(VALID_URL_AMY)).hashCode());
     }

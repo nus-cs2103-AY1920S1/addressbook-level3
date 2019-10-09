@@ -21,6 +21,7 @@ import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.FindCommand;
+import seedu.mark.logic.commands.GotoCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.commands.RedoCommand;
@@ -62,6 +63,13 @@ public class MarkParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
+    public void parseCommand_goto() throws Exception {
+        GotoCommand command = (GotoCommand) parser.parseCommand(
+                GotoCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new GotoCommand(INDEX_FIRST_BOOKMARK), command);
     }
 
     @Test
