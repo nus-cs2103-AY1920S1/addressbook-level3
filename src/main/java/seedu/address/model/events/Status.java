@@ -12,18 +12,23 @@ public class Status {
     public static String SETTLE_MESS = "this missed appointment have been settled";
     public static String CANCEL_MESS = "this appointment have been cancelled";
 
-    private enum AppointmentStatuses {
+    public enum AppointmentStatuses {
         APPROVED,
         CANCELLED,
         ACKNOWLEDGED,
         MISSED,
         SETTLED
     };
-    private AppointmentStatuses status;
+    private final AppointmentStatuses status;
 
     public Status(String status) {
         requireNonNull(status);
         this.status = AppointmentStatuses.valueOf(status.trim().toUpperCase());
+    }
+
+    public Status(AppointmentStatuses status) {
+        requireNonNull(status);
+        this.status = status;
     }
 
     public Status() {
@@ -67,21 +72,21 @@ public class Status {
     }
 
 
-    public void setAckStatus() {
-        this.status = AppointmentStatuses.ACKNOWLEDGED;
-    }
-
-    public void setSettleStatus() {
-        this.status = AppointmentStatuses.SETTLED;
-    }
-
-    public void setMissStatus() {
-        this.status = AppointmentStatuses.MISSED;
-    }
-
-    public void setCancelStatus() {
-        this.status = AppointmentStatuses.CANCELLED;
-    }
+//    public void setAckStatus() {
+//        this.status = AppointmentStatuses.ACKNOWLEDGED;
+//    }
+//
+//    public void setSettleStatus() {
+//        this.status = AppointmentStatuses.SETTLED;
+//    }
+//
+//    public void setMissStatus() {
+//        this.status = AppointmentStatuses.MISSED;
+//    }
+//
+//    public void setCancelStatus() {
+//        this.status = AppointmentStatuses.CANCELLED;
+//    }
 
     public boolean isAcked(){
         return status.equals(AppointmentStatuses.ACKNOWLEDGED);

@@ -218,12 +218,12 @@ public class ModelManager implements Model {
         appointmentBook.setEvent(target, editedEvent);
     }
 
-    @Override
-    public void ackEvent(Event appointment) {
-        requireAllNonNull(appointment);
-        appointment.setStausAsAck();
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-    }
+//    @Override
+//    public void ackEvent(Event appointment) {
+//        requireAllNonNull(appointment);
+//        appointment.setStausAsAck();
+//        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+//    }
 
     //=========== Filtered Person List Accessors =============================================================
 

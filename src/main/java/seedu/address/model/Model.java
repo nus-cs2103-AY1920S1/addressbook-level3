@@ -167,7 +167,7 @@ public interface Model extends ReferenceIdResolver {
      */
     void setEvent(Event target, Event editedEvent);
 
-    void ackEvent(Event appointment);
+//    void ackEvent(Event appointment);
 
     //=========== Filtered Event List Accessors ==============================================================
 

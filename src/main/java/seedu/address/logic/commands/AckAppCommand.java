@@ -1,34 +1,25 @@
 package seedu.address.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
-
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AckAppCommandParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.Appointment;
-import seedu.address.model.events.ContainsKeywordsPredicate;
-import seedu.address.model.events.Event;
-import seedu.address.ui.UiManager;
-
+import seedu.address.model.events.*;
 import java.util.Arrays;
-import java.util.logging.Logger;
+import java.util.Optional;
 
 public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
     private Event appointment;
     private final ReferenceId referenceId;
+    private final EditEventStatus editEventStatus;
+    private Event eventToAck;
+    private Event ackedEvent;
+
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
             + "the specified keywords (case-insensitive).\n"
@@ -45,8 +36,11 @@ public class AckAppCommand extends ReversibleCommand {
     /**
      * Creates an AckAppCommand to add the specified {@code Person}
      */
-    public AckAppCommand(ReferenceId referenceId) {
+    public AckAppCommand(ReferenceId referenceId, EditEventStatus editEventStatus) {
         this.referenceId = referenceId;
+        this.editEventStatus = new EditEventStatus(editEventStatus);
+        eventToAck = null;
+        ackedEvent = null;
     }
 
     @Override
@@ -57,6 +51,8 @@ public class AckAppCommand extends ReversibleCommand {
         appList.execute(model);
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
+
+
         if (!model.hasPerson(referenceId)) {
             throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
         }else if (filterEventList.size() == 0) {
@@ -65,12 +61,29 @@ public class AckAppCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);
         }
 
-        appointment = model.getFilteredEventList().get(0);
+        if (eventToAck == null && ackedEvent == null) {
+            eventToAck = filterEventList.get(0);
+            ackedEvent = createEditedEvent(eventToAck, editEventStatus);
+        }
 
-        model.ackEvent(appointment);
-
+//        model.ackEvent(eventToAck);
+        model.setEvent(eventToAck, ackedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ackedEvent));
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Event createEditedEvent(Event EventToEdit, EditEventStatus editEventStatus) {
+        assert EventToEdit != null;
+
+        ReferenceId updatedRefId = editEventStatus.getReferenceId().orElse(EventToEdit.getPersonId());
+        Timing updatedTiming = editEventStatus.getTiming().orElse(EventToEdit.getEventTiming());
+        Status updatedStatus = editEventStatus.getStatus().orElse(EventToEdit.getStatus());
+
+        return new Event(updatedRefId, updatedTiming, updatedStatus);
     }
 
     @Override
@@ -90,6 +103,74 @@ public class AckAppCommand extends ReversibleCommand {
         return other == this // short circuit if same object
                 || (other instanceof AckAppCommand // instanceof handles nulls
                 && appointment.equals(((AckAppCommand) other).appointment));
+    }
+
+    /**
+     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * corresponding field value of the person.
+     */
+    public static class EditEventStatus {
+        private ReferenceId referenceId;
+        private Timing timing;
+        private Status status;
+
+        public EditEventStatus() {
+        }
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditEventStatus(EditEventStatus toCopy) {
+            setReferenceId(toCopy.referenceId);
+            setTiming(toCopy.timing);
+            ackStatus();
+        }
+
+
+        public void setReferenceId(ReferenceId referenceId) {
+            this.referenceId = referenceId;
+        }
+
+        public Optional<ReferenceId> getReferenceId() {
+            return Optional.ofNullable(referenceId);
+        }
+
+        public void setTiming(Timing timing) {
+            this.timing = timing;
+        }
+
+        public Optional<Timing> getTiming() {
+            return Optional.ofNullable(timing);
+        }
+
+        public void ackStatus() {
+            this.status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditEventStatus)) {
+                return false;
+            }
+
+            // state check
+            EditEventStatus e = (EditEventStatus) other;
+
+            return getReferenceId().equals(getReferenceId())
+                    && getTiming().equals(e.getTiming())
+                    && getStatus().equals(e.getStatus());
+        }
     }
 
 }

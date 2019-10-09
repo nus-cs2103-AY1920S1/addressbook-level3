@@ -40,21 +40,21 @@ public class Event implements Comparable<Event> {
         return status;
     }
 
-    public void setStausAsAck() {
-        status.setAckStatus();
-    }
+//    public void setStausAsAck() {
+//        status.setAckStatus();
+//    }
 
-    public void setStausAsMISS() {
-        status.setMissStatus();
-    }
-
-    public void setStausAsSettle() {
-        status.setSettleStatus();
-    }
-
-    public void setStausAsCancell() {
-        status.setCancelStatus();
-    }
+//    public void setStausAsMISS() {
+//        status.setMissStatus();
+//    }
+//
+//    public void setStausAsSettle() {
+//        status.setSettleStatus();
+//    }
+//
+//    public void setStausAsCancell() {
+//        status.setCancelStatus();
+//    }
 
 
     public boolean conflictsWith(Event otherEvent) {
