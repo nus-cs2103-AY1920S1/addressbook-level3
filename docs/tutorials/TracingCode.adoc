@@ -179,8 +179,8 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+    Student personToEdit = lastShownList.get(index.getZeroBased());
+    Student editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
     if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
@@ -212,7 +212,7 @@ public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
               .collect(Collectors.toList()));
 }
 ----
-. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the
+. It appears that a `JsonAdaptedPerson` is created for each `Student` and then added to the
 `JsonSerializableAddressBook`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
 . Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
@@ -253,6 +253,6 @@ handled?
 .. Allow `delete` to remove more than one index at a time
 .. Save the address book in the CSV format instead
 .. Add a new command
-.. Add a new field to `Person`
+.. Add a new field to `Student`
 .. Add a new entity to the address book
 ****

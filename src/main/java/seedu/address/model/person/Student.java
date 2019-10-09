@@ -13,12 +13,17 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * Represents a Student in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Student {
 
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private String parent_phone;
+    private String medical_conditions;
+    private String tag;
+    private String assignment_name;
+    private String assignment_grade;
 
     // Data fields
     private final Address address;
@@ -27,13 +32,17 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Student(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.assignment_grade = "A";
+        this.assignment_name = "None";
+        this.medical_conditions = "None";
+        this.parent_phone = "999";
     }
 
     public Name getName() {
@@ -64,7 +73,7 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean isSamePerson(Student otherPerson) {
         if (otherPerson == this) {
             return true;
         }
@@ -84,11 +93,11 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Student)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Student otherPerson = (Student) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
