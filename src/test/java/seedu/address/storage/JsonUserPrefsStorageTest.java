@@ -73,7 +73,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setDukeCooksFilePath(Paths.get("data/dukecooks.json"));
+        userPrefs.setDukeCooksFilePath(Paths.get("dukecooks.json"));
         return userPrefs;
     }
 
