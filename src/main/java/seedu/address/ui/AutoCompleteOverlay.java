@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
-    private static final int NUM_IN_VIEW = 2;
+    private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
 
     @FXML
@@ -37,7 +38,8 @@ public class AutoCompleteOverlay extends UiPart<Region> {
      */
     public void showSuggestions(String prefix, List<String> listOfSuggestions) {
         if (prefix.isBlank() || listOfSuggestions.isEmpty()) {
-            autoCompleteOverlay.setPrefHeight(0);
+            autoCompleteOverlay.setVisible(false);
+            autoCompleteOverlay.getItems().setAll(new ArrayList<>());
             return;
         }
         ObservableList<TextFlow> ols = autoCompleteOverlay.getItems();
@@ -56,6 +58,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         ols.setAll(arrls);
         autoCompleteOverlay.getSelectionModel().select(0);
         autoCompleteOverlay.setPrefHeight(listOfSuggestions.size() * CELL_HEIGHT);
+        autoCompleteOverlay.setVisible(true);
     }
 
     /**

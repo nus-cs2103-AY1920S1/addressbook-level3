@@ -16,6 +16,7 @@ public class AutoCompleter {
             "dequeue",
             "doctors",
             "exit",
+            "find",
             "help",
             "missed",
             "next",
