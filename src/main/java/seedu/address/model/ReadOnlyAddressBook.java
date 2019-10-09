@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -17,4 +18,5 @@ public interface ReadOnlyAddressBook {
 
     ObservableList<Budget> getBudgetList();
 
+    ObservableList<Event> getEventList();
 }

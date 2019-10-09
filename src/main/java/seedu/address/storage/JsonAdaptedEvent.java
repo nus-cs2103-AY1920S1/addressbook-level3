@@ -1,60 +1,59 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+// import java.time.LocalDate;
+// import java.util.ArrayList;
+// import java.util.HashSet;
+// import java.util.List;
+// import java.util.Set;
+// import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Price;
-import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.expense.Timestamp;
+// import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Expense}.
+ * Jackson-friendly version of {@link Event}.
  */
-class JsonAdaptedExpense {
+class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
     private final String description;
     private final String price;
-    private final String uniqueIdentifier;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String rawTimestamp;
+    // private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("description") String description,
+    public JsonAdaptedEvent(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
+                              @JsonProperty("timestamp") String rawTimestamp) {
         this.description = description;
         this.price = price;
-        this.uniqueIdentifier = uniqueIdentifier;
-
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.rawTimestamp = rawTimestamp;
+        //        if (tagged != null) {
+        //            this.tagged.addAll(tagged);
+        //        }
     }
 
     /**
      * Converts a given {@code Expense} into this class for Jackson use.
      */
-    public JsonAdaptedExpense(Expense source) {
+    public JsonAdaptedEvent(Event source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
-        uniqueIdentifier = source.getUniqueIdentifier().value;
+        rawTimestamp = source.getTimestamp().toString();
+        //        tagged.addAll(source.getTags().stream()
+        //                .map(JsonAdaptedTag::new)
+        //                .collect(Collectors.toList()));
     }
 
     /**
@@ -62,11 +61,11 @@ class JsonAdaptedExpense {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
-    public Expense toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            expenseTags.add(tag.toModelType());
-        }
+    public Event toModelType() throws IllegalValueException {
+        //        final List<Tag> expenseTags = new ArrayList<>();
+        //        for (JsonAdaptedTag tag : tagged) {
+        //            expenseTags.add(tag.toModelType());
+        //        }
 
         if (description == null) {
             throw new IllegalValueException(
@@ -86,18 +85,17 @@ class JsonAdaptedExpense {
         }
         final Price modelPrice = new Price(price);
 
-
-        if (uniqueIdentifier == null) {
+        if (rawTimestamp == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueIdentifier.class.getSimpleName()));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
-        if (!UniqueIdentifier.isValidUniqueIdentifier(uniqueIdentifier)) {
-            throw new IllegalValueException(UniqueIdentifier.MESSAGE_CONSTRAINTS);
+        if (!Timestamp.isValidTimestamp(rawTimestamp)) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS);
         }
-        final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
+        final Timestamp modelTimestamp = new Timestamp(rawTimestamp);
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier);
+        // final Set<Tag> modelTags = new HashSet<>(expenseTags);
+        return new Event(modelDescription, modelPrice, modelTimestamp);
     }
 
 }

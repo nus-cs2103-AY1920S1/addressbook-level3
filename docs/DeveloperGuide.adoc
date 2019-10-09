@@ -491,6 +491,138 @@ Use case ends.
 +
 Use case ends.
 
+==Idk why==
+
+[discrete]
+=== Use case: Viewing Statistics summary
+
+*MSS*
+
+1. User requests to view statistics
+2. NUSpend prompts user for start date
+3. User enters start date
+4. NUSpend prompts user for end date
+5. User enters end date
+6. NUSpend displays the statistics requested
+Use case ends
+
+
+*Extensions*
+[none]
+* *a. NUSpend detects incorrect date format
++
+[none]
+** *a1.NUSpend throws Exception
++
+Use case ends.
+
+
+
+* 5a. The user enters a start date, but does not enter an end date
++
+[none]
+** 5a1. NUSpend displays the statistics 1 month after start date
++
+Use case ends.
+
+
+
+* 5b. The user does not enter a start date, but enters an end date
++
+[none]
+** 5b1. NUSpend displays the statistics 1 month before end date
++
+Use case ends.
+
+
+
+=== Use case: Viewing Statistics compare
+
+*MSS*
+
+1. User requests to view statistics
+2. NUSpend prompts user for date 1
+3. User enters date 1
+4. NUSpend prompts user for date 2
+5. User enters date 2
+6. NUSpend prompts user for period
+7. User enters period
+8. NUSpend displays the statistics requested
+Use case ends
+
+
+*Extensions*
+[none]
+* *a. NUSpend detects incorrect date format or missing parameters
++
+[none]
+** *a1.NUSpend throws Exception
++
+Use case ends
+
+
+[discrete]
+=== Use case: Adding an alias
+
+*MSS*
+
+1. User assigns an Alias name for some input.
+2. NUSpend confirms that the input is alias name is valid.
+3. NUSpend saves the alias to the user's preferences.
+4. NUSpend informs the user that the alias was successfully created.
++
+Use case Ends.
+
+*Extensions*
+[none]
+* 1a. Alias name is invalid.
+[none]
+** 1a1. NUSpend informs the User that the alias name is invalid.
++
+Use case Ends
+* 2a. An Alias with the same name exists.
+[None]
+** 2a1. NUSpend overwrites the existing Alias with the same name in the User's preferences.
++
+Use case resumes from step 4.
+
+[discrete]
+=== Use case: Using an alias
+
+*MSS*
+
+1. User types alias into CLI.
+2. User enters the command
+3. NUSpend attempts to execute the input mapped to the alias.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Users enters additional details after alias name
+[none]
+** 1a1. User enters the command
+** 1a2. NUSpend attempts to execute the input mapped to the alias with the additional details appended.
++
+Use case ends.
+
+[discrete]
+=== Use case: Spending beyond budget
+
+*MSS*
+
+1. User adds an expense to a budget.
+2. NUSpend displays the updated expense list.
+3. NUSpend finds that the total amount spent in the budget exceeds the allocated budget amount.
+4. NUSpend warns the User that they have overspent.
++
+Use case ends
+
+
+
+
+
+
 _{More to be added}_
 
 [appendix]

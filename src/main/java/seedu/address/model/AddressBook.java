@@ -7,7 +7,9 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.UniqueBudgetList;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.UniqueEventList;
 import seedu.address.model.expense.UniqueExpenseList;
 
 /**
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueExpenseList expenses;
     private final UniqueBudgetList budgets;
+    private final UniqueEventList events;
 
     /*
      * The 'unusual' code block below is a non-static initialization block,
@@ -30,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
+        events = new UniqueEventList();
     }
 
     public AddressBook() {}
@@ -62,6 +66,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the expense list with {@code expenses}.
+     * {@code expenses} must not contain duplicate expenses.
+     */
+    public void setEvents(List<Event> events) {
+        this.events.setEvents(events);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -69,6 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
+        setEvents(newData.getEventList());
     }
 
     //// expense-level operations
@@ -137,6 +150,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         budgets.add(budget);
     }
 
+    //// event-level operations
+
+    /**
+     * Returns true if an event with the same identity as {@code event}
+     * exists in the address book.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
+    }
+  
     //// util methods
 
     @Override
@@ -153,6 +181,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Budget> getBudgetList() {
         return budgets.asUnmodifiableObservableList();
+
+    public ObservableList<Event> getEventList() {
+        return events.asUnmodifiableObservableList();
     }
 
     @Override

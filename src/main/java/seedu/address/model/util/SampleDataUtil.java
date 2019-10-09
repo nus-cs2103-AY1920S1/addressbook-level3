@@ -10,26 +10,28 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.util.UniqueIdentifierGenerator;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
-            new Expense(new Description("Alex Yeoh"), new Price("87438807"),
-                    getTagSet("friends")),
-            new Expense(new Description("Bernice Yu"), new Price("99272758"),
-                    getTagSet("colleagues", "friends")),
-            new Expense(new Description("Charlotte Oliveiro"), new Price("93210283"),
-                    getTagSet("neighbours")),
-            new Expense(new Description("David Li"), new Price("91031282"),
-                getTagSet("family")),
-            new Expense(new Description("Irfan Ibrahim"), new Price("92492021"),
-                getTagSet("classmates")),
-            new Expense(new Description("Roy Balakrishnan"), new Price("92624417"),
-                getTagSet("colleagues"))
+            new Expense(new Description("Chickens"), new Price("30"),
+                    getTagSet("friends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+            new Expense(new Description("Chicken Rice"), new Price("2.50"),
+                    getTagSet("nusDeck", "oldFriends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+            new Expense(new Description("Popcorn Chicken"), new Price("12"),
+                    getTagSet("fairprice", "frozen"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+            new Expense(new Description("David Li"), new Price("15000"),
+                getTagSet("family"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+            new Expense(new Description("Invite only Chicken Event"), new Price("1000"),
+                getTagSet("chickenNetworking"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+            new Expense(new Description("Chicken Rice extra Chicken"), new Price("15"),
+                getTagSet("nusDeck"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier())
         };
     }
 

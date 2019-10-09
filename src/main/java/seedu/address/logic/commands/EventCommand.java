@@ -7,17 +7,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Event;
 
 /**
- * Adds a expense to the address book.
+ * Adds an event to the address book.
  */
-public class AddCommand extends Command {
+public class EventCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the address book. \n"
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
+            + "Parameters: " // need to change later
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -27,35 +27,35 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "nusDeck "
             + PREFIX_TAG + "chicken";
 
-    public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the tracker";
 
-    private final Expense toAdd;
+    private final Event toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Expense}
      */
-    public AddCommand(Expense expense) {
-        requireNonNull(expense);
-        toAdd = expense;
+    public EventCommand(Event event) {
+        requireNonNull(event);
+        toAdd = event;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExpense(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
+        if (model.hasEvent(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addExpense(toAdd);
+        model.addEvent(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof EventCommand // instanceof handles nulls
+                && toAdd.equals(((EventCommand) other).toAdd));
     }
 }
