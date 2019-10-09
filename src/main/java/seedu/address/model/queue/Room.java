@@ -1,10 +1,11 @@
 package seedu.address.model.queue;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 import seedu.address.model.common.ReferenceId;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a consultation room involving a single doctor and an optional patient.
