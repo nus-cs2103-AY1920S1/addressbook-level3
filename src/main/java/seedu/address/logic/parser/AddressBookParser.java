@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.ClosestLocationCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
@@ -96,7 +97,8 @@ public class AddressBookParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
-
+        case ClosestLocationCommand.COMMAND_WORD:
+            return new ClosestLocationCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

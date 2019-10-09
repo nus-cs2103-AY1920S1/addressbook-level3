@@ -21,7 +21,7 @@ public class GmapsApi {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "AIzaSyDTTisjkJJnVDyKVTuNL5POQis87wtA5D8";
+        this.apiKey = "AIzaSyDGlMk_KU_5vCmEnfH28nwX7hcb1NV1CN4";
     }
 
     /**
@@ -65,6 +65,7 @@ public class GmapsApi {
         String apiKeyQueryParams = "key=" + apiKey + "&";
         String queryParams = "query=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
+        System.out.println(fullUrl);
         ApiQuery query = new ApiQuery(fullUrl);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {

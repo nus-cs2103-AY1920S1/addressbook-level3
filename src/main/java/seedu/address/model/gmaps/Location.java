@@ -2,11 +2,13 @@ package seedu.address.model.gmaps;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serializable;
+
 /**
  * Represent a location object for the various venues in NUS
  */
 
-public class Location {
+public class Location implements Serializable {
 
     private final String locationName;
     private String googleRecognisedLocation = null;
