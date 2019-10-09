@@ -15,7 +15,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 /**
  * Adds a customer to the system.
  */
-public class AddCommand {
+public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
