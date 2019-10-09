@@ -2,6 +2,8 @@ package seedu.mark.model.reminder;
 
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,17 +14,24 @@ import seedu.mark.model.bookmark.Bookmark;
  * Represent a reminder in Mark.
  */
 public class Reminder {
-    //date field
+    //data field
     private Bookmark bookmark;
-    private Date remindTime;
+    private LocalDateTime remindTime;
 
     //identity field
     private Note note;
 
+    //temporarily
+    private static final String DATE_FORMATTER= "dd/MM/yyyy HHmm";
+
     /**
      * Every field must be present and not null.
+     *
+     * @param bookmark the bookmark the reminder should open.
+     * @param time the reminding time.
+     * @param note the note for reminder.
      */
-    public Reminder(Bookmark bookmark, Date time, Note note) {
+    public Reminder(Bookmark bookmark, LocalDateTime time, Note note) {
         requireAllNonNull(bookmark, time, note);
         this.bookmark = bookmark;
         this.remindTime = time;
@@ -33,7 +42,7 @@ public class Reminder {
         return bookmark;
     }
 
-    public Date getRemindTime() {
+    public LocalDateTime getRemindTime() {
         return remindTime;
     }
 
@@ -49,10 +58,17 @@ public class Reminder {
 
     @Override
     public String toString() {
+
         final StringBuilder builder = new StringBuilder();
         builder.append(getNote())
                 .append(" by ")
-                .append(getRemindTime());
+                .append(timeFormatter());
         return builder.toString();
+    }
+
+    public String timeFormatter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+        String formatTime = remindTime.format(formatter);
+        return formatTime;
     }
 }
