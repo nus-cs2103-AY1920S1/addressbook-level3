@@ -203,16 +203,19 @@ public class ParserUtilTest {
 
     @Test
     public void parsePatientReferenceId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS,
-                        () -> ParserUtil.parsePatientReferenceId(INVALID_ID1));
-        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS,
-            () -> ParserUtil.parsePatientReferenceId(INVALID_ID2));
+        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(INVALID_ID1);
+        });
+        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(INVALID_ID2);
+        });
     }
 
     @Test
     public void parsePatientReferenceId_validStaffId_throwsParseException() {
-        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS,
-            () -> ParserUtil.parsePatientReferenceId(VALID_STAFF_ID));
+        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(VALID_STAFF_ID);
+        });
     }
 
     @Test
@@ -230,16 +233,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseStaffReferenceId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS,
-            () -> ParserUtil.parseStaffReferenceId(INVALID_ID1));
-        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS,
-            () -> ParserUtil.parseStaffReferenceId(INVALID_ID2));
+        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(INVALID_ID1);
+        });
+        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(INVALID_ID2);
+        });
     }
 
     @Test
     public void parseStaffReferenceId_validPatientId_throwsParseException() {
-        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS,
-            () -> ParserUtil.parseStaffReferenceId(VALID_PATIENT_ID));
+        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(VALID_PATIENT_ID);
+        });
     }
 
     @Test
