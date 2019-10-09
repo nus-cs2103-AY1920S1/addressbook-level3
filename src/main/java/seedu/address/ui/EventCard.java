@@ -45,7 +45,7 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
-        refId.setText(String.format("[%s] ", event.getPersonId().getReferenceIdentifier()));
+        refId.setText(String.format("[%s] ", event.getPersonId().toString()));
 //        name.setText(event.getName().fullName);
           timing.setText(event.getEventTiming().toString());
           status.setText("Status: " + event.getStatus().getStatusMess());

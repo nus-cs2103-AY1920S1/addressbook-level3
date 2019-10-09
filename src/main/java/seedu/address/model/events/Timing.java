@@ -1,6 +1,7 @@
 //shawns version
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Represents a Date time in the schedule.
  * Guarantees: immutable; is valid as declared in {@link #isValidTiming(DateTime, DateTime)}
  */
-public class Timing {
+public class Timing implements Comparable<Timing> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "The event start timing must be before the end timing and after current dateTime.";
@@ -50,21 +51,21 @@ public class Timing {
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
-    public static boolean isValidTiming(String testStart, String testEnd) {
-        DateTime startDate = DateTime.tryParseSimpleDateFormat(testStart);
-        DateTime endDate = DateTime.tryParseSimpleDateFormat(testEnd);
-        return isValidTiming(startDate, endDate);
+    public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
+        requireAllNonNull(testStart, testEnd);
+        Date current = new Date();
+        return testStart.getTime().before(testEnd.getTime())
+                && testStart.getTime().after(current);
     }
 
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
-    public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
-        Date current = new Date();
-        return testStart != null && testEnd != null && testStart.getTime().before(testEnd.getTime())
-                && testStart.getTime().after(current);
+    public static boolean isValidTiming(String testStart, String testEnd) {
+        DateTime startDate = DateTime.tryParseSimpleDateFormat(testStart);
+        DateTime endDate = DateTime.tryParseSimpleDateFormat(testEnd);
+        return isValidTiming(startDate, endDate);
     }
-
 
 
     public DateTime getStartTime() {
@@ -75,9 +76,30 @@ public class Timing {
         return endTiming;
     }
 
+    /**
+     * Returns true if the another timing is staggering within the start or end dateTime.
+     */
+    public boolean conflictsWith(Timing other) {
+        requireNonNull(other);
+        return other != this
+                && getStartTime().before(other.getEndTime())
+                && other.getStartTime().before(getEndTime());
+    }
+
     @Override
     public String toString() {
         return String.format("%s - %s", startTiming.toString(), endTiming.toString());
+    }
+
+    @Override
+    public int compareTo(Timing t) {
+        requireNonNull(t);
+        int cmpStartTimingResult = getStartTime().compareTo(t.getStartTime());
+        if (cmpStartTimingResult != 0) {
+            return cmpStartTimingResult;
+        }
+
+        return getEndTime().compareTo(t.getEndTime());
     }
 
     @Override

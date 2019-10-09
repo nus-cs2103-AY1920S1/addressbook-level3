@@ -39,11 +39,4 @@ public class StaffReferenceId extends PersonReferenceId {
     public boolean isPatient() {
         return true;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof StaffReferenceId // instanceof handles nulls
-            && getReferenceIdentifier().equals(((StaffReferenceId) other).getReferenceIdentifier())); // state check
-    }
 }

@@ -22,7 +22,7 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
                 .anyMatch(keyword ->
                     StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
                     || (keyword.length() >= 3
-                            && StringUtil.containsIgnoreCase(person.getReferenceId().getReferenceIdentifier(), keyword))
+                            && StringUtil.containsIgnoreCase(person.getReferenceId().toString(), keyword))
                     || (keyword.length() >= 4 && StringUtil.containsIgnoreCase(person.getPhone().toString(), keyword)));
     }
 

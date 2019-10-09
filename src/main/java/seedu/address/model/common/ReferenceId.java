@@ -3,13 +3,7 @@ package seedu.address.model.common;
 /**
  * Unmodifiable reference ID for a person.
  */
-public interface ReferenceId {
-
-    /**
-     * Gets the reference identifier of the person.
-     */
-    String getReferenceIdentifier();
-
+public interface ReferenceId extends Comparable<ReferenceId> {
     /**
      * Checks whether the person is a doctor working as part of the staff.
      */

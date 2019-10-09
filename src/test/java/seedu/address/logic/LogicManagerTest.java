@@ -26,9 +26,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAppointmentBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -48,7 +50,10 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonAppointmentBookStorage appointmentBookStorage =
+            new JsonAppointmentBookStorage(temporaryFolder.resolve("appointmentBook.json"));
+
+        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -77,7 +82,10 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonAppointmentBookIoExceptionThrowingStub appointmentBookStorage =
+                new JsonAppointmentBookIoExceptionThrowingStub(
+                    temporaryFolder.resolve("ioExceptionAppointmentBook.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -157,6 +165,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonAppointmentBookIoExceptionThrowingStub extends JsonAppointmentBookStorage {
+        private JsonAppointmentBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveAppointmentBook(ReadOnlyAppointmentBook addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

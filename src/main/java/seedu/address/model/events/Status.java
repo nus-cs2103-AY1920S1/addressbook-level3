@@ -32,8 +32,15 @@ public class Status{
         return SETTLE_MESS;
         default:
         return "status is wrong";
+        }
     }
-}
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Status;
+    }
+
+
 
     public void setAckStatus(){
         this.status = "ACKED";

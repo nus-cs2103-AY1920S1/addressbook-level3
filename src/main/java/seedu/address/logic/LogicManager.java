@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
@@ -18,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -33,12 +35,14 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
+    private final AutoCompleter autoCompleter;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
+        this.autoCompleter = new AutoCompleter();
     }
 
     @Override
@@ -61,6 +65,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public AutoCompleter updateAutoCompleter(String commandText) {
+        return autoCompleter.update(commandText);
     }
 
     @Override
@@ -89,6 +98,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReferenceIdResolver getReferenceIdResolver() {
+        return model;
+    }
+
+    @Override
     public Path getAppointmentBookFilePath() {
         return model.getAppointmentBookFilePath();
     }
@@ -102,5 +116,4 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-
 }

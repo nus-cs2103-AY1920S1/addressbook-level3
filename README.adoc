@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= ClerkPro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-T09-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-T09-3/main"]
@@ -14,22 +14,31 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* ClerkPro is a clinic management application reduces the workload of the clerk.
+* ClerkPro is a CLI (Command Line Interface).
+* ClerkPro is intended for clerks/receptionists at small neighbourhood clinics.
+** Manages patient appointments; arrange follow-up appointment dates.
+** Assists in the queue management, by allocating patients to available doctors.
+** Monitors inventory in the clinic (v2)
+** Manages patients’ contact information.
+** View the summary of ad-hoc and appointment visits; busy hours of the day.
+** Be alerted about patients missing their appointments.
+** Auto suggestion for CLI commands.
+
+
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
+* This project was built off from AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org[se-edu]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/JFXtras/jfxtras[JFXtras]
 
 == Licence : link:LICENSE[MIT]

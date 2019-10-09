@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
@@ -25,12 +26,22 @@ public class UniquePersonListTest {
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.contains((Person) null));
+    }
+
+    @Test
+    public void contains_nullReferenceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.contains((ReferenceId) null));
     }
 
     @Test
     public void contains_personNotInList_returnsFalse() {
         assertFalse(uniquePersonList.contains(ALICE));
+    }
+
+    @Test
+    public void contains_referenceIdNotInList_returnsFalse() {
+        assertFalse(uniquePersonList.contains(ALICE.getReferenceId()));
     }
 
     @Test
@@ -40,11 +51,18 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void contains_referenceIdInList_returnsTrue() {
+        uniquePersonList.add(ALICE);
+        assertTrue(uniquePersonList.contains(ALICE.getReferenceId()));
+    }
+
+    @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
+        assertTrue(uniquePersonList.contains(editedAlice.getReferenceId()));
     }
 
     @Test

@@ -1,18 +1,17 @@
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import seedu.address.model.common.ReferenceId;
 
-//TODO: Stub models for now
-
 /**
  * Represents an event involving a single Person.
- * Guarantees: Reference Id to a person, the event timing and status are present, validated and immutable.
+ * Guarantees: Reference Id to a patient, the event timing and status are present, validated and immutable.
  */
-public class Event {
+public class Event implements Comparable<Event> {
 
     // Identity fields
     private final ReferenceId personId;
@@ -57,6 +56,11 @@ public class Event {
        status.setCancelStatus();
    }
 
+
+    public boolean conflictsWith(Event otherEvent) {
+        return getEventTiming().conflictsWith(otherEvent.getEventTiming());
+    }
+
     /**
      * Returns true if both Event of the same patient and timing.
      * This defines a weaker notion of equality between two events.
@@ -88,6 +92,17 @@ public class Event {
         Event otherEvent = (Event) other;
         return otherEvent.getPersonId().equals(getPersonId())
                 && otherEvent.getEventTiming().equals(getEventTiming());
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        requireNonNull(o);
+        int cmpTimingResult = getEventTiming().compareTo(o.getEventTiming());
+        if (cmpTimingResult != 0) {
+            return cmpTimingResult;
+        }
+
+        return getPersonId().compareTo(o.getPersonId());
     }
 
     @Override

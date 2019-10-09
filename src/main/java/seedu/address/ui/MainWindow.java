@@ -2,12 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,6 +20,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.person.Person;
+import seedu.address.model.queue.Room;
+import seedu.address.ui.queue.QueueListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,7 +39,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private AutoCompleteOverlay aco;
     private PersonListPanel personListPanel;
+    private QueueListPanel queueListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -49,10 +59,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane eventListPanelPlaceholder;
 
     @FXML
+    private StackPane queueListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -79,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -117,14 +134,23 @@ public class MainWindow extends UiPart<Stage> {
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
+        //TODO: EDIT HERE
+        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(),
+                                             FXCollections.observableArrayList(), logic.getReferenceIdResolver());
+        queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        aco = new AutoCompleteOverlay();
+        anchorPane.getChildren().add(aco.getRoot());
+        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::updateAutoCompleter);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
 
     /**
@@ -161,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -199,5 +225,9 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void updateAutoCompleter(String commandText) {
+        aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
     }
 }
