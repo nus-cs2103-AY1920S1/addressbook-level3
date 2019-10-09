@@ -4,9 +4,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 
 /**
@@ -19,6 +22,8 @@ public class Budget {
     private final LocalDate endDate;
     private final Period period;
     private final Price amount;
+    private final List<Expense> expenses;
+    private boolean isPrimary;
 
 
     public Budget(Description description, Price amount, LocalDate startDate, Period period) {
@@ -28,6 +33,8 @@ public class Budget {
         this.startDate = startDate;
         this.period = period;
         this.endDate = startDate.plus(period);
+        this.expenses = new ArrayList<>();
+        this.isPrimary = false;
     }
 
     public Description getDescription() {
@@ -48,6 +55,34 @@ public class Budget {
 
     public Price getAmount() {
         return amount;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void addExpense(Expense e) {
+        expenses.add(e);
+    }
+
+    public boolean isExceeded() {
+        double sum = 0;
+        for (int i = 0; i < expenses.size(); i++) {
+            sum = sum + expenses.get(i).getPrice().getAsDouble();
+        }
+        return sum > amount.getAsDouble();
+    }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary() {
+        isPrimary = true;
+    }
+
+    public void setNotPrimary() {
+        isPrimary = false;
     }
 
     /**
@@ -80,7 +115,9 @@ public class Budget {
                 && otherBudget.getAmount().equals(getAmount())
                 && otherBudget.getStartDate().equals(getStartDate())
                 && otherBudget.getPeriod().equals(getPeriod())
-                && otherBudget.getEndDate().equals(getEndDate());
+                && otherBudget.getEndDate().equals(getEndDate())
+                && otherBudget.isPrimary() == isPrimary()
+                && otherBudget.getExpenses().equals(getExpenses());
     }
 
     @Override
