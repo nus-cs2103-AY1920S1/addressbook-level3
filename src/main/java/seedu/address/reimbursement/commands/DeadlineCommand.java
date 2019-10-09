@@ -8,10 +8,14 @@ import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
-public class DeadlineCommand extends Command{
+/**
+ * Represents a command to add a deadline.
+ */
+public class DeadlineCommand extends Command {
+    public static final String COMMAND_WORD = "deadline";
+
     private Person person;
     private String deadline;
-    public static final String COMMAND_WORD = "deadline";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public DeadlineCommand(Person person, String deadline) {

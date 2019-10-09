@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -76,14 +77,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab homeTab;
 
-//    @FXML
-//    private StackPane personListPanelPlaceholder;
-//
-//    @FXML
-//    private StackPane resultDisplayPlaceholder;
-//
-//    @FXML
-//    private StackPane statusbarPlaceholder;
+    //@FXML
+    //private StackPane personListPanelPlaceholder;
+
+    //@FXML
+    //private StackPane resultDisplayPlaceholder;
+
+    //@FXML
+    //private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
@@ -149,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() throws  Exception{
+    void fillInnerParts() throws Exception {
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
@@ -216,29 +217,32 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }*/
 
-//    public PersonListPanel getPersonListPanel() {
-//        return personListPanel;
-//    }
+    //public PersonListPanel getPersonListPanel() {
+    //    return personListPanel;
+    //}
 
     /**
      * Executes the command and returns the result.
      *
      */
-    private OverallCommandResult executeCommand(String commandText) throws Exception{
+    private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
             if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
-            }   else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
-                commandResult = new OverallCommandResult("Implement inventory logic"); //should be replace with inventory's logic
+                commandResult = new OverallCommandResult("Implement inventory logic");
+                //should be replace with inventory's logic
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic"); //should be replace with cashier's logic
+                commandResult = new OverallCommandResult("Implement cashier logic");
+                //should be replace with cashier's logic
             } else {
-                commandResult = new OverallCommandResult("Implement overview logic"); //should be replace with overview's logic
+                commandResult = new OverallCommandResult("Implement overview logic");
+                //should be replace with overview's logic
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

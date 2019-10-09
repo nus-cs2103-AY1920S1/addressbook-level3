@@ -12,8 +12,6 @@ import seedu.address.reimbursement.commands.SortAmountCommand;
 import seedu.address.reimbursement.commands.SortDeadlineCommand;
 import seedu.address.reimbursement.commands.SortNameCommand;
 import seedu.address.reimbursement.logic.exception.ParseException;
-
-
 import seedu.address.reimbursement.logic.parser.DeadlineCommandParser;
 import seedu.address.reimbursement.logic.parser.DoneCommandParser;
 import seedu.address.reimbursement.logic.parser.FindCommandParser;
@@ -22,10 +20,20 @@ import seedu.address.reimbursement.logic.parser.SortDeadlineCommandParser;
 import seedu.address.reimbursement.logic.parser.SortNameCommandParser;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Parser for the Reimbursement tab.
+ */
 public class ReimbursementTabParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 
+    /**
+     * Routes the command to the appropriate parser.
+     * @param userInput the command input by the user.
+     * @param personModel the person involved in the command.
+     * @return a command representing the user's desired action.
+     * @throws Exception if the command syntax is incorrect.
+     */
     public Command parseCommand(String userInput, Model personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

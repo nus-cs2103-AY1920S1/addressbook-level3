@@ -12,6 +12,9 @@ import javafx.scene.layout.Region;
 import seedu.address.cashier.logic.Logic;
 import seedu.address.inventory.model.Item;
 
+/**
+ * Defines the display for the Cashier tab in the user interface.
+ */
 public class Cashier extends UiPart<Region> {
 
     @FXML
