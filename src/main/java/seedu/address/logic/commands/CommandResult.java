@@ -23,11 +23,11 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchViews, String targetView) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews, String targetView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.switchViews = switchViews;
+        this.switchViews = sViews;
         this.targetView = targetView;
     }
 

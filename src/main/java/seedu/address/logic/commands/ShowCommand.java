@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Switches the current view to the desired view.
  */
-public class ShowCommand extends Command{
+public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
 
@@ -25,20 +25,20 @@ public class ShowCommand extends Command{
     public ShowCommand(String targetView) {
         this.targetView = targetView;
         switch(targetView) {
-            case "T":
-                this.targetList = "task";
-                break;
-            case "E":
-                this.targetList = "event";
-                break;
-            case "R":
-                this.targetList = "reminder";
-                break;
-            case "C":
-                this.targetList = "event";
-                break;
-            default:
-                this.targetList = null;
+        case "T":
+            this.targetList = "task";
+            break;
+        case "E":
+            this.targetList = "event";
+             break;
+        case "R":
+             this.targetList = "reminder";
+             break;
+        case "C":
+             this.targetList = "event";
+             break;
+        default:
+             this.targetList = null;
         }
     }
 
