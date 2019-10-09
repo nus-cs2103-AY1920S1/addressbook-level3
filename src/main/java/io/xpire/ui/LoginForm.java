@@ -1,5 +1,6 @@
 package io.xpire.ui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,7 +10,11 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class LoginForm implements Initializable {
 
@@ -37,8 +42,15 @@ public class LoginForm implements Initializable {
     }
 
     @FXML
-    void handleRegister(ActionEvent event) {
+    void handleRegister(ActionEvent event) throws IOException {
+        this.login.getScene().getWindow().hide();
 
+        Stage register = new Stage();
+        Parent root = FXMLLoader.load(LoginForm.class.getResource("/view/SignUpForm.fxml"));
+        Scene scene = new Scene(root);
+        register.setScene(scene);
+        register.show();
+        register.setResizable(false);
     }
 
     @Override
