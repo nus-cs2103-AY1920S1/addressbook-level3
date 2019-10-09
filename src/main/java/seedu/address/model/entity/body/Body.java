@@ -244,7 +244,7 @@ public class Body implements Entity {
      * @param o An object.
      * @return whether the object is equal to this object.
      */
-    public boolean isSameBodyIdNum(Object o) { //todo: add test cases
+    public boolean isSameBodyIdNum(Object o) {
         if (this == o) {
             return true;
         }
@@ -252,7 +252,7 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return body.getBodyIdNum().equals(((Body) o).getBodyIdNum());
+        return getBodyIdNum().equals(body.getBodyIdNum());
     }
 
     @Override
