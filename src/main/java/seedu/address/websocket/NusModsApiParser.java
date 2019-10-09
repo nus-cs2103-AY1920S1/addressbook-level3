@@ -32,7 +32,7 @@ import seedu.address.model.module.Weeks;
 /**
  * Parse data from NusModsApi
  */
-public class NusModApiParser {
+public class NusModsApiParser {
     //TODO: checks to throw parseException if missing compulsory keys
     /**
      * Parse a Module from JSONObject.

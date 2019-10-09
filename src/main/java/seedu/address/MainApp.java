@@ -41,7 +41,7 @@ import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 import seedu.address.ui.UiViewManager;
 import seedu.address.websocket.ApiCache;
-import seedu.address.websocket.NusModApiParser;
+import seedu.address.websocket.NusModsApiParser;
 
 /**
  * Runs the application.
@@ -140,10 +140,10 @@ public class MainApp extends Application {
 
         //TODO: if not found in cache, call API and save in cache
 
-        Holidays holidays = NusModApiParser.parseHolidays((JSONArray) cache.readJson(userPrefs.getHolidaysFilePath()));
+        Holidays holidays = NusModsApiParser.parseHolidays((JSONArray) cache.readJson(userPrefs.getHolidaysFilePath()));
         nusModsData.setHolidays(holidays);
 
-        AcadCalendar acadCalendar = NusModApiParser.parseAcadCalendar(
+        AcadCalendar acadCalendar = NusModsApiParser.parseAcadCalendar(
                 (JSONObject) cache.readJson(userPrefs.getAcademicCalendarFilePath()));
         nusModsData.setAcadCalendar(acadCalendar);
 

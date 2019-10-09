@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import seedu.address.commons.core.AppSettings;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.GmapsApi;
-import seedu.address.websocket.NusModApi;
+import seedu.address.websocket.NusModsApi;
 
 /**
  * This class is used to get nus venues
@@ -118,7 +117,7 @@ public class ProcessVenues implements Serializable {
     }
 
     private ProcessVenues getVenuesJsonArray() {
-        NusModApi nusmodApi = new NusModApi();
+        NusModsApi nusmodApi = new NusModsApi();
         JSONArray currVenuesNusMod = nusmodApi.getVenues("/1");
         return new ProcessVenues(currVenuesNusMod, gmapsRecognisedLocationList, venues);
     }

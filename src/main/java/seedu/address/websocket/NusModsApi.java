@@ -17,7 +17,7 @@ import seedu.address.websocket.util.QueryResult;
  * NUSMods API websocket
  * Refer to https://api.nusmods.com/v2/#/ for more detailed information
  */
-public class NusModApi {
+public class NusModsApi {
     //TODO: refactor nulls to use Optional pattern.
     private static final String BASE_URL = "https://api.nusmods.com/v2";
     private static final String ACADEMIC_CALENDAR_URL =
@@ -39,17 +39,17 @@ public class NusModApi {
     private AcadYear acadYear;
 
     /**
-     * Default constructor for NusModApi object, uses AppSettings.DEFAULT_ACAD_YEAR.
+     * Default constructor for NusModsApi object, uses AppSettings.DEFAULT_ACAD_YEAR.
      */
-    public NusModApi() {
+    public NusModsApi() {
         this.acadYear = AppSettings.DEFAULT_ACAD_YEAR;
     }
 
     /**
-     * Constructor for NusModApi object.
+     * Constructor for NusModsApi object.
      * @param acadYear academic year, e.g. 2019/2020
      */
-    public NusModApi(AcadYear acadYear) {
+    public NusModsApi(AcadYear acadYear) {
         this.acadYear = acadYear;
     }
 

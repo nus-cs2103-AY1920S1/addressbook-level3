@@ -40,8 +40,8 @@ import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 //import seedu.address.websocket.ApiCache;
-import seedu.address.websocket.NusModApi;
-import seedu.address.websocket.NusModApiParser;
+import seedu.address.websocket.NusModsApi;
+import seedu.address.websocket.NusModsApiParser;
 
 
 /**
@@ -516,11 +516,11 @@ public class ModelManager implements Model {
                 Path path = this.userPrefs.getDetailedModuleListFilePath();
                 String key = acadYear.toString() + " " + moduleCode.toString();
                 //TODO: implement ApiCache first
-                // module = NusModApiParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
+                // module = NusModsApiParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
                 throw ex1;
             } catch (ModuleNotFoundException ex2) {
                 try {
-                    module = NusModApiParser.parseModule(new NusModApi(acadYear).getModule(moduleCode));
+                    module = NusModsApiParser.parseModule(new NusModsApi(acadYear).getModule(moduleCode));
                 } catch (ModuleNotFoundException ex3) {
                     throw new ModuleNotFoundException();
                 }
