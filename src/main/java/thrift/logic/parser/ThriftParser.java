@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import thrift.logic.commands.AddExpenseCommand;
+import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.ClearCommand;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.DeleteCommand;
@@ -47,6 +48,9 @@ public class ThriftParser {
 
         case AddExpenseCommand.COMMAND_WORD:
             return new AddExpenseCommandParser().parse(arguments);
+
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

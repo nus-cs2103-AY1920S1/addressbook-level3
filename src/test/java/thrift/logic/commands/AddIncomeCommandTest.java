@@ -9,13 +9,10 @@ import static thrift.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
 import thrift.model.Model;
@@ -25,51 +22,38 @@ import thrift.model.Thrift;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
-import thrift.testutil.ExpenseBuilder;
+import thrift.testutil.IncomeBuilder;
 
-public class AddExpenseCommandTest {
+public class AddIncomeCommandTest {
 
     @Test
-    public void constructor_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddExpenseCommand(null));
+    public void constructor_nullIncome_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddIncomeCommand(null));
     }
 
     @Test
-    public void execute_expenseAcceptedByModel_addSuccessful() {
+    public void execute_incomeAcceptedByModel_addSuccessful() {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
-        Expense validExpense = new ExpenseBuilder().build();
+        Income validIncome = new IncomeBuilder().build();
 
-        CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub);
+        CommandResult commandResult = new AddIncomeCommand(validIncome).execute(modelStub);
 
-        assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExpense), modelStub.transactionsAdded);
-    }
-
-    @Test
-    public void undo_undoSuccessful() {
-        ModelStubUndoAddExpenses modelStub = new ModelStubUndoAddExpenses();
-        Expense validExpense = new ExpenseBuilder().build();
-        modelStub.addExpense(validExpense);
-        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
-        modelStub.keepTrackCommands(addExpenseCommand);
-        Undoable undoable = modelStub.getPreviousUndoableCommand();
-        undoable.undo(modelStub);
-        assertEquals(0, modelStub.getThrift().getTransactionList().size());
-        assertTrue(modelStub.undoableCommandStack.isEmpty());
+        assertEquals(String.format(AddIncomeCommand.MESSAGE_SUCCESS, validIncome), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validIncome), modelStub.transactionsAdded);
     }
 
     @Test
     public void equals() {
-        Expense one = new ExpenseBuilder().withDescription("Expense One").build();
-        Expense two = new ExpenseBuilder().withDescription("Expense Two").build();
-        AddExpenseCommand addOneCommand = new AddExpenseCommand(one);
-        AddExpenseCommand addTwoCommand = new AddExpenseCommand(two);
+        Income one = new IncomeBuilder().withDescription("Income One").build();
+        Income two = new IncomeBuilder().withDescription("Income Two").build();
+        AddIncomeCommand addOneCommand = new AddIncomeCommand(one);
+        AddIncomeCommand addTwoCommand = new AddIncomeCommand(two);
 
         // same object -> returns true
         assertTrue(addOneCommand.equals(addOneCommand));
 
         // same values -> returns true
-        AddExpenseCommand addOneCommandCopy = new AddExpenseCommand(one);
+        AddIncomeCommand addOneCommandCopy = new AddIncomeCommand(one);
         assertTrue(addOneCommand.equals(addOneCommandCopy));
 
         // different types -> returns false
@@ -208,72 +192,14 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public void addExpense(Expense expense) {
-            requireNonNull(expense);
-            transactionsAdded.add(expense);
+        public void addIncome(Income income) {
+            requireNonNull(income);
+            transactionsAdded.add(income);
         }
 
         @Override
         public ReadOnlyThrift getThrift() {
             return new Thrift();
-        }
-    }
-
-    /**
-     * A Model stub that allows user to perform undo operation.
-     */
-    private class ModelStubUndoAddExpenses extends ModelStub {
-        final Stack<Undoable> undoableCommandStack = new Stack<>();
-        final ThriftStubForUndoAddExpenses thriftStub;
-
-        public ModelStubUndoAddExpenses() {
-            thriftStub = new ThriftStubForUndoAddExpenses();
-        }
-
-        @Override
-        public void keepTrackCommands(Undoable command) {
-            undoableCommandStack.push(command);
-        }
-
-        @Override
-        public Undoable getPreviousUndoableCommand() {
-            return undoableCommandStack.pop();
-        }
-
-        @Override
-        public Thrift getThrift() {
-            return thriftStub;
-        }
-
-        @Override
-        public void addExpense(Expense expense) {
-            thriftStub.addTransaction(expense);
-        }
-
-        @Override
-        public void deleteTransaction(Transaction transaction) {
-            thriftStub.removeTransaction(transaction);
-        }
-    }
-
-    /**
-     * A Thrift stub that contains an empty list of transaction.
-     */
-    private class ThriftStubForUndoAddExpenses extends Thrift {
-        final List<Transaction> transactionsAdded = new ArrayList<>();
-        @Override
-        public void removeTransaction(Transaction transaction) {
-            transactionsAdded.remove(transaction);
-        }
-
-        @Override
-        public void addTransaction(Transaction transaction) {
-            transactionsAdded.add(transaction);
-        }
-
-        @Override
-        public ObservableList<Transaction> getTransactionList() {
-            return FXCollections.observableArrayList(transactionsAdded);
         }
     }
 }

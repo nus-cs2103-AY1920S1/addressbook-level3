@@ -21,7 +21,7 @@ public class Value {
             "Currency should only be 'SGD', 'MYR', 'USD' OR 'EUR'!";
     public static final String VALIDATION_REGEX = "^\\d+\\.?\\d{0,2}$";
     public static final String DEFAULT_CURRENCY = "SGD";
-    private static final DecimalFormat decimalFormatter = new DecimalFormat("0.00");
+    private static final DecimalFormat decimalFormatter = new DecimalFormat("#,##0.00");
 
     public final Double amount;
     public final String currency;
@@ -83,6 +83,14 @@ public class Value {
     public double getMonetaryValue() {
         Map<String, Double> currencyMappings = CurrencyUtil.getCurrencyMap();
         return CurrencyUtil.convertFromDefaultCurrency(currencyMappings, amount, currency);
+    }
+
+    /**
+     * Returns the value from {@link #getMonetaryValue()} in String type. This is useful for formatting to JSON and
+     * storing.
+     */
+    public String getUnformattedString() {
+        return Double.toString(getMonetaryValue());
     }
 
     @Override

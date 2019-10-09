@@ -13,10 +13,8 @@ import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
-import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.ExpenseBuilder;
-import thrift.testutil.IncomeBuilder;
 import thrift.testutil.TypicalTransactions;
 
 /**
@@ -40,17 +38,6 @@ public class AddExpenseCommandIntegrationTest {
 
         assertCommandSuccess(new AddExpenseCommand(validExpense), model,
                 String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
-    }
-
-    @Test
-    public void execute_newIncome_success() {
-        Income validIncome = new IncomeBuilder().build();
-
-        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
-        expectedModel.addIncome(validIncome);
-
-        assertCommandSuccess(new AddIncomeCommand(validIncome), model,
-                String.format(AddIncomeCommand.MESSAGE_SUCCESS, validIncome), expectedModel);
     }
 
     @Test

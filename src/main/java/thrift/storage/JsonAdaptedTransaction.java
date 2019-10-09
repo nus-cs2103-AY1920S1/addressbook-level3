@@ -57,7 +57,7 @@ class JsonAdaptedTransaction {
             type = "income";
         }
         description = source.getDescription().toString();
-        value = source.getValue().toString();
+        value = source.getValue().getUnformattedString();
         date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

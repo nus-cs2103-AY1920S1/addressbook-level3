@@ -50,8 +50,6 @@ public class AddExpenseCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-
-
         // invalid value
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.DESC_LAKSA
                 + CommandTestUtil.INVALID_VALUE + CommandTestUtil.TAG_LAKSA
