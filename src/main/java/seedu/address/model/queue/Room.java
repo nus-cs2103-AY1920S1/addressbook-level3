@@ -47,6 +47,9 @@ public class Room {
             || doctor.equals(((Room) other).doctor);
     }
 
+    public void serve(ReferenceId id) {
+        patientCurrentlyBeingServed.of(id);
+    }
 
     /**
      * Returns true if both rooms occupied by the same staff and patient.
