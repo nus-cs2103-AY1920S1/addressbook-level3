@@ -24,6 +24,11 @@ public class JsonSerializableMarkTest {
     private static final Path TYPICAL_BOOKMARKS_FILE = TEST_DATA_FOLDER.resolve("typicalBookmarksMark.json");
     private static final Path INVALID_BOOKMARK_FILE = TEST_DATA_FOLDER.resolve("invalidBookmarkMark.json");
     private static final Path DUPLICATE_BOOKMARK_FILE = TEST_DATA_FOLDER.resolve("duplicateBookmarkMark.json");
+    private static final Path DUPLICATE_FOLDER_IN_STRUCTURE_FILE =
+            TEST_DATA_FOLDER.resolve("duplicateFolderInFolderStructureMark.json");
+    private static final Path NO_ROOT_FOLDER_IN_STRUCTURE_FILE =
+            TEST_DATA_FOLDER.resolve("noRootFolderInStructureMark.json");
+
 
     @Test
     public void toModelType_typicalBookmarksFile_success() throws Exception {
@@ -54,4 +59,19 @@ public class JsonSerializableMarkTest {
                 dataFromFile::toModelType);
     }
 
+    @Test
+    public void toModelType_duplicateFolderInStrucutre_throwsIllegalValueException() throws Exception {
+        JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(DUPLICATE_FOLDER_IN_STRUCTURE_FILE,
+                JsonSerializableMark.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMark.MESSAGE_DUPLICATE_FOLDER,
+                dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_noRootFolderInStructure_throwsIllegalValueException() throws Exception {
+        JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(NO_ROOT_FOLDER_IN_STRUCTURE_FILE,
+                JsonSerializableMark.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMark.MESSAGE_NO_ROOT_FOLDER,
+                dataFromFile::toModelType);
+    }
 }
