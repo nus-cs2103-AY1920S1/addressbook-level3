@@ -306,6 +306,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
 
+|`* * *` |competitive student |add some questions and answers that I have learnt today |read again and attempt them before exam
+
 |`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
 
 |`* * ` |student |view details of modules I have taken in previous semesters |see my progress
