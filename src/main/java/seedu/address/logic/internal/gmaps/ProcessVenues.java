@@ -128,7 +128,7 @@ public class ProcessVenues implements Serializable {
                    + "getVenuesJsonArray");
         } else {
             String currLocationName = (String) venuesNusMods.get(i);
-            Location currLocation = new Location(currLocationName, i);
+            Location currLocation = new Location(currLocationName);
             String gmapsRecognisedLocation = "NUS_" + currLocationName;
             String newGmapsRecognisedLocation = gmapsRecognisedLocation.split("-")[0];
             if (gmapsRecognisedLocationList.contains(newGmapsRecognisedLocation)) {

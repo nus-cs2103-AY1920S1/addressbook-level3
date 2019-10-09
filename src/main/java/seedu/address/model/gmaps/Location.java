@@ -14,18 +14,13 @@ public class Location implements Serializable {
     private String googleRecognisedLocation = null;
     private int index;
 
-    public Location(String locationName, int index) {
+    public Location(String locationName) {
         requireNonNull(locationName);
         this.locationName = locationName;
-        this.index = index;
     }
 
     public void setGoogleRecognisedLocation(String googleRecognisedLocation) {
         this.googleRecognisedLocation = googleRecognisedLocation;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public String getLocationName() {
