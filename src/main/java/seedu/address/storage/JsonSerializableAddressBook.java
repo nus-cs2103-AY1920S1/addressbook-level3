@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -22,14 +23,20 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "Flashcards list contains duplicate flashCard(s).";
 
     private final List<JsonAdaptedFlashcard> flashcards = new ArrayList<>();
+    private final List<JsonAdaptedDeadline> deadlines = new ArrayList<>();
 
-    /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given flashcards.
-     */
+
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards) {
         this.flashcards.addAll(flashcards);
     }
+
+    //@JsonCreator
+    //public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards,
+    //                                   @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines) {
+    //    this.flashcards.addAll(flashcards);
+    //    this.deadlines.addAll(deadlines);
+    //}
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
@@ -41,6 +48,11 @@ class JsonSerializableAddressBook {
                 source.getFlashcardList()
                         .stream()
                         .map(JsonAdaptedFlashcard::new)
+                        .collect(Collectors.toList()));
+        deadlines.addAll(
+                source.getDeadlineList()
+                        .stream()
+                        .map(JsonAdaptedDeadline::new)
                         .collect(Collectors.toList()));
     }
 
@@ -58,7 +70,11 @@ class JsonSerializableAddressBook {
             }
             addressBook.addFlashcard(flashCard);
         }
+
+        for (JsonAdaptedDeadline jsonAdaptedDeadline : deadlines) {
+            Deadline deadline = jsonAdaptedDeadline.toModelType();
+            addressBook.addDeadline(deadline);
+        }
         return addressBook;
     }
-
 }
