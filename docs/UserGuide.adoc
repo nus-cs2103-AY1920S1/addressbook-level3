@@ -71,11 +71,10 @@ this can be used to change the image. At least one of `t/`, `c/` and `i/` must b
 The index must be between 1 and the number of notes and flashcards combined, inclusive. +
 Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
 
-==== Viewing lecture notes: `shownote`
-If an index is provided, a number prefixed with a # (e.g. #1), show the lecture note with that index.
-Otherwise, search for lecture notes whose title contains every given word (space-separated, ignoring case),
+==== Viewing lecture notes: `findnote`
+Find lecture notes whose title contains every given word (space-separated, ignoring case),
 and display them. +
-Format: `shownote [#INDEX | WORDS]`
+Format: `findnote WORD [WORD]…`
 
 ==== Deleting lecture notes: `deletenote`
 Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
