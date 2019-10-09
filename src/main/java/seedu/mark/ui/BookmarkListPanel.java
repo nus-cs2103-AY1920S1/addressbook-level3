@@ -11,7 +11,7 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of bookmarks.
  */
 public class BookmarkListPanel extends UiPart<Region> {
     private static final String FXML = "BookmarkListPanel.fxml";
