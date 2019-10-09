@@ -9,10 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.student.Address;
+import seedu.address.model.student.Email;
+import seedu.address.model.student.MedicalCondition;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.ParentPhone;
+import seedu.address.model.student.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -66,6 +68,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String parentPhone} into a {@code ParentPhone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code parentPhone} is invalid.
+     */
+    public static ParentPhone parseParentPhone(String parentPhone) throws ParseException {
+        requireNonNull(parentPhone);
+        String trimmedParentPhone = parentPhone.trim();
+        if (!ParentPhone.isValidParentPhone(trimmedParentPhone)) {
+            throw new ParseException(ParentPhone.MESSAGE_CONSTRAINTS);
+        }
+        return new ParentPhone(trimmedParentPhone);
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -93,6 +110,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String medicalCondition} into an {@code MedicalCondition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicalCondition} is invalid.
+     */
+    public static MedicalCondition parseMedicalCondition(String medicalCondition) throws ParseException {
+        requireNonNull(medicalCondition);
+        String trimmedMedicalCondition = medicalCondition.trim();
+        if (!MedicalCondition.isValidMedicalCondition(trimmedMedicalCondition)) {
+            throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);
+        }
+        return new MedicalCondition(trimmedMedicalCondition);
     }
 
     /**
