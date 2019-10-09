@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -181,6 +182,22 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void getPerson_nullReferenceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.getPerson(null));
+    }
+
+    @Test
+    public void getPerson_personNotInList_throwsPersonNotFoundException() {
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.getPerson(ALICE.getReferenceId()));
+    }
+
+    @Test
+    public void getPerson_referenceIdInList_returnsPerson() {
+        uniquePersonList.add(ALICE);
+        assertTrue(uniquePersonList.getPerson(ALICE.getReferenceId()).equals(ALICE));
+    }
+
+        @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));

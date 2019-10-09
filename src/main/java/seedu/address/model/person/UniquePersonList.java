@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,9 +156,14 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns a person with the same identity as {@code ReferenceId} who exists in the address book, otherwise null.
      */
-    public Person getPerson(ReferenceId id) {
+    public Person getPerson(ReferenceId id) throws PersonNotFoundException {
         requireNonNull(id);
-        return internalList.stream().filter(p -> p.isSamePerson(id))
-                .findFirst().orElse(null);
+        Optional<Person> result = internalList.stream().filter(p -> p.isSamePerson(id)).findFirst();
+
+        if (result.isEmpty()) {
+            throw new PersonNotFoundException();
+        }
+
+        return result.get();
     }
 }

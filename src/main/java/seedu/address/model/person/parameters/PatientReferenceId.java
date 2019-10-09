@@ -7,13 +7,8 @@ package seedu.address.model.person.parameters;
  */
 public class PatientReferenceId extends PersonReferenceId {
 
-    public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id for patients should not start with 'STAFF'";
+    public static final String MESSAGE_CONSTRAINTS = StaffReferenceId.MESSAGE_CONSTRAINTS_NONSTAFF;
 
-    /*
-     * The reference ID should only contain alphanumeric characters.
-     */
-    public static final String VALIDATION_REGEX = "STAFF\\w*";
     /**
      * Constructs a {@code PatientReferenceId}.
      *
@@ -27,7 +22,7 @@ public class PatientReferenceId extends PersonReferenceId {
      * Returns true if a given string is a valid reference id for patient.
      */
     public static boolean isValidPatientId(String test) {
-        return isValidId(test) && !test.matches(VALIDATION_REGEX);
+        return isValidId(test) && !test.toUpperCase().contains("STAFF");
     }
 
     @Override
