@@ -14,15 +14,16 @@ import seedu.mark.model.bookmark.Bookmark;
  * Represent a reminder in Mark.
  */
 public class Reminder {
+
+    //temporarily
+    private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
+
     //data field
     private Bookmark bookmark;
     private LocalDateTime remindTime;
 
     //identity field
     private Note note;
-
-    //temporarily
-    private static final String DATE_FORMATTER= "dd/MM/yyyy HHmm";
 
     /**
      * Every field must be present and not null.

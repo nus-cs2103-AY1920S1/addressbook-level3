@@ -7,10 +7,11 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
  * Represent a note in reminder.
  */
 public class Note {
-    private String noteContent;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Notess should only contain alphanumeric characters and spaces, and it should not be blank";
+
+    private String noteContent;
 
     /*
      * The first character of the note must not be a whitespace,
