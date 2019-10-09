@@ -32,6 +32,7 @@ public class QueueCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        refId.setText(person.getReferenceId().toString());
         phone.setText(person.getPhone().value);
     }
 
