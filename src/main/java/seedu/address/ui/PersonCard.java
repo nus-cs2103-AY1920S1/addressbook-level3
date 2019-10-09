@@ -29,9 +29,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
-    @FXML
     private Label id;
+    @FXML
+    private Label refId;
+    @FXML
+    private Label name;
     @FXML
     private Label phone;
     @FXML
@@ -45,6 +47,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
+        refId.setText(String.format("[%s] ", person.getReferenceId().toString()));
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
