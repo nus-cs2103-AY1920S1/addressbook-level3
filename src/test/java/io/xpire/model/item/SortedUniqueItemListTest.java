@@ -18,9 +18,9 @@ import io.xpire.model.item.exceptions.ItemNotFoundException;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.TypicalItems;
 
-public class UniqueItemListTest {
+public class SortedUniqueItemListTest {
 
-    private final UniqueItemList uniqueItemList = new UniqueItemList();
+    private final SortedUniqueItemList uniqueItemList = new SortedUniqueItemList();
 
     @Test
     public void contains_nullItem_throwsNullPointerException() {
@@ -76,7 +76,7 @@ public class UniqueItemListTest {
     public void setItem_editedItemIsSameItem_success() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.setItem(TypicalItems.KIWI, TypicalItems.KIWI);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(TypicalItems.KIWI);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -89,7 +89,7 @@ public class UniqueItemListTest {
                 .withTags(VALID_TAG_FRUIT)
                 .build();
         uniqueItemList.setItem(TypicalItems.KIWI, editedAlice);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(editedAlice);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -98,7 +98,7 @@ public class UniqueItemListTest {
     public void setItem_editedItemHasDifferentIdentity_success() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.setItem(TypicalItems.KIWI, TypicalItems.APPLE);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(TypicalItems.APPLE);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -124,19 +124,19 @@ public class UniqueItemListTest {
     public void remove_existingItem_removesItem() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.remove(TypicalItems.KIWI);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setItems_nullUniqueItemList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((UniqueItemList) null));
+        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((SortedUniqueItemList) null));
     }
 
     @Test
     public void setItems_uniqueItemList_replacesOwnListWithProvidedUniqueItemList() {
         uniqueItemList.add(TypicalItems.KIWI);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(TypicalItems.APPLE);
         uniqueItemList.setItems(expectedUniqueItemList);
         assertEquals(expectedUniqueItemList, uniqueItemList);
@@ -152,7 +152,7 @@ public class UniqueItemListTest {
         uniqueItemList.add(TypicalItems.APPLE);
         List<Item> personList = Collections.singletonList(TypicalItems.KIWI);
         uniqueItemList.setItems(personList);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(TypicalItems.KIWI);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }

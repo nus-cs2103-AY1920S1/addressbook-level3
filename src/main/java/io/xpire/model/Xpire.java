@@ -1,11 +1,10 @@
 package io.xpire.model;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import io.xpire.model.item.Item;
-import io.xpire.model.item.UniqueItemList;
+import io.xpire.model.item.SortedUniqueItemList;
 import javafx.collections.ObservableList;
 
 /**
@@ -14,7 +13,7 @@ import javafx.collections.ObservableList;
  */
 public class Xpire implements ReadOnlyXpire {
 
-    private final UniqueItemList items = new UniqueItemList();
+    private final SortedUniqueItemList items = new SortedUniqueItemList();
 
     public Xpire() {}
 

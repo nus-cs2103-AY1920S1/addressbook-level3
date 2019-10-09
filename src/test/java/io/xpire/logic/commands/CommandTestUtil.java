@@ -33,7 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_MILK = "01/02/2019";
 
     public static final String VALID_TAG_FRUIT = "fruit";
-    public static final String VALID_TAG_DRINK = "drink";
+    public static final String VALID_TAG_DRINK = "drinks";
     public static final String VALID_TAG_GREEN = "green";
 
     public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;

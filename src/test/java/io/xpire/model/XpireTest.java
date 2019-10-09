@@ -40,7 +40,7 @@ public class XpireTest {
     public void resetData_withValidReadOnlyExpiryDateTracker_replacesData() {
         Xpire newData = getTypicalExpiryDateTracker();
         xpire.resetData(newData);
-        assertEquals(newData, xpire);
+        assertEquals(newData.getItemList(), xpire.getItemList());
     }
 
     @Test

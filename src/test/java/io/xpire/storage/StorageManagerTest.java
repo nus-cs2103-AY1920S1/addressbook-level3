@@ -57,7 +57,7 @@ public class StorageManagerTest {
         Xpire original = TypicalItems.getTypicalExpiryDateTracker();
         storageManager.saveXpire(original);
         ReadOnlyXpire retrieved = storageManager.readXpire().get();
-        assertEquals(original, new Xpire(retrieved));
+        assertEquals(original.getItemList(), new Xpire(retrieved).getItemList());
     }
 
     @Test

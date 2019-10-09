@@ -1,7 +1,7 @@
 package io.xpire.model.item;
-
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,24 +10,27 @@ import io.xpire.model.item.exceptions.DuplicateItemException;
 import io.xpire.model.item.exceptions.ItemNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
  * An item is considered unique by comparing using {@code Item#isSameItem(Item)}. As such, adding and updating of
  * items uses Item#isSameItem(Item) for equality so as to ensure that the item being added or updated is
- * unique in terms of identity in the UniqueItemList. However, the removal of a item uses Item#equals(Object) so
+ * unique in terms of identity in the SortedUniqueItemList. However, the removal of a item uses Item#equals(Object) so
  * as to ensure that the item with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Item#isSameItem(Item)
  */
-public class UniqueItemList implements Iterable<Item> {
-
+public class SortedUniqueItemList implements Iterable<Item> {
+    private final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
+            String.CASE_INSENSITIVE_ORDER);
     private final ObservableList<Item> internalList = FXCollections.observableArrayList();
+    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList, nameSorter);
     private final ObservableList<Item> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(this.internalList);
+            FXCollections.unmodifiableObservableList(this.sortedInternalList);
 
     /**
      * Returns true if the list contains an equivalent item as the given argument.
@@ -50,7 +53,7 @@ public class UniqueItemList implements Iterable<Item> {
     }
 
     /**
-     * Replaces the item {@code target} in the list with {@code editedItem}.
+     * Replaces the item { @code target} in the list with {@code editedItem}.
      * {@code target} must exist in the list.
      * The item identity of {@code editedItem} must not be the same as another existing item in the list.
      */
@@ -80,9 +83,9 @@ public class UniqueItemList implements Iterable<Item> {
         }
     }
 
-    public void setItems(UniqueItemList replacement) {
+    public void setItems(SortedUniqueItemList replacement) {
         requireNonNull(replacement);
-        this.internalList.setAll(replacement.internalList);
+        this.internalList.setAll(replacement.sortedInternalList);
     }
 
     /**
@@ -106,17 +109,17 @@ public class UniqueItemList implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return this.internalList.iterator();
+        return this.sortedInternalList.iterator();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (!(obj instanceof UniqueItemList)) {
+        } else if (!(obj instanceof SortedUniqueItemList)) {
             return false;
         } else {
-            UniqueItemList other = (UniqueItemList) obj;
+            SortedUniqueItemList other = (SortedUniqueItemList) obj;
             return this.internalList.equals(other.internalList);
         }
     }
