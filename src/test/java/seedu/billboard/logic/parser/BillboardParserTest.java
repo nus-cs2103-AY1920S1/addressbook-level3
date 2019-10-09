@@ -17,27 +17,27 @@ import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.commands.ClearCommand;
 import seedu.billboard.logic.commands.DeleteCommand;
 import seedu.billboard.logic.commands.EditCommand;
-import seedu.billboard.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.billboard.logic.commands.ExitCommand;
 import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.ListCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.person.Expense;
 import seedu.billboard.model.person.NameContainsKeywordsPredicate;
-import seedu.billboard.model.person.Person;
-import seedu.billboard.testutil.EditPersonDescriptorBuilder;
+import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.PersonBuilder;
 import seedu.billboard.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class BillboardParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final BillboardParser parser = new BillboardParser();
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Expense expense = new PersonBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(expense));
+        assertEquals(new AddCommand(expense), command);
     }
 
     @Test
@@ -55,8 +55,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Expense expense = new PersonBuilder().build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

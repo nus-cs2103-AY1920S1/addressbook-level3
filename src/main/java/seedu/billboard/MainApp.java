@@ -15,12 +15,8 @@ import seedu.billboard.commons.util.ConfigUtil;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.Logic;
 import seedu.billboard.logic.LogicManager;
-import seedu.billboard.model.AddressBook;
-import seedu.billboard.model.Model;
-import seedu.billboard.model.ModelManager;
-import seedu.billboard.model.ReadOnlyAddressBook;
-import seedu.billboard.model.ReadOnlyUserPrefs;
-import seedu.billboard.model.UserPrefs;
+import seedu.billboard.model.*;
+import seedu.billboard.model.Billboard;
 import seedu.billboard.model.util.SampleDataUtil;
 import seedu.billboard.storage.AddressBookStorage;
 import seedu.billboard.storage.JsonAddressBookStorage;
@@ -36,7 +32,7 @@ import seedu.billboard.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 1, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -48,7 +44,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Billboard ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -74,20 +70,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyBillboard> addressBookOptional;
+        ReadOnlyBillboard initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readBillboard();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample Billboard");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Billboard");
+            initialData = new Billboard();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Billboard");
+            initialData = new Billboard();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +147,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Billboard");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +163,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Billboard " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Billboard ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
