@@ -10,5 +10,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ANSWER = new Prefix("a/");
     public static final Prefix PREFIX_RATING = new Prefix("r/");
     public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
+    public static final Prefix PREFIX_FILE_PATH = new Prefix("p/");
 
 }
