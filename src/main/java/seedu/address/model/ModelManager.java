@@ -9,8 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
@@ -110,6 +112,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(ReferenceId id) {
+        requireNonNull(id);
+        return addressBook.hasPerson(id);
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
@@ -137,6 +145,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Person resolve(ReferenceId id) {
+        return addressBook.resolve(id);
     }
 
 
@@ -171,7 +184,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event){
+    public boolean hasEvent(Event event) {
         requireNonNull(event);
         return appointmentBook.hasEvent(event);
     }

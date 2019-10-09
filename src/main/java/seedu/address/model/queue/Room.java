@@ -1,39 +1,65 @@
 package seedu.address.model.queue;
 
-import seedu.address.model.person.Person;
+import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
+import seedu.address.model.common.ReferenceId;
+
+
+/**
+ * Represents a consultation room involving a single doctor and an optional patient.
+ * Guarantees: Reference Id to a doctor is immutable and validated.
+ */
 public class Room {
-    private final Person doctor;
-    private Person patientCurrentlyBeingServed;
+    private final ReferenceId doctor;
+    private final Optional<ReferenceId> patientCurrentlyBeingServed;
 
-    public Room(Person person) {
-        this.doctor = person;
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = patient;
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed == null;
+        return patientCurrentlyBeingServed.isEmpty();
     }
 
-    public void serve(Person person) {
-        patientCurrentlyBeingServed = person;
-    }
-
-    public void done() {
-        patientCurrentlyBeingServed = null;
-    }
-
-    public Person getDoctor() {
+    public ReferenceId getDoctor() {
         return doctor;
     }
 
-    public Person getCurrentPatient() {
+    public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
     }
 
+    /**
+     * Returns true if both rooms are occupied by the same staff.
+     * This defines a weaker notion of equality between two consultation rooms.
+     */
+    public boolean isSameRoom(Room other) {
+        requireNonNull(other);
+        return other == this // short circuit if same object
+            || doctor.equals(((Room) other).doctor);
+    }
+
+
+    /**
+     * Returns true if both rooms occupied by the same staff and patient.
+     * This defines a stronger notion of equality between two consultation rooms.
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof Room // instanceof handles nulls
-            && doctor.equals(((Room) other).doctor));
+        if (other == null || !(other instanceof Room)) {
+            return false;
+        }
+
+        if (other == this) {
+            return true;
+        }
+
+        Room o = (Room) other;
+        return getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
+                && (getCurrentPatient().isEmpty()
+                    || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
     }
 }

@@ -3,18 +3,13 @@ package seedu.address.logic.commands.common;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.utils.ReversibleCommandStub;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.TestUtil;
 
 class CommandHistoryTest {

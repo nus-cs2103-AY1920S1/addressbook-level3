@@ -10,7 +10,7 @@ import java.util.Objects;
  * Represents a Date time in the schedule.
  * Guarantees: immutable; is valid as declared in {@link #isValidTiming(DateTime, DateTime)}
  */
-public class Timing {
+public class Timing implements Comparable<Timing> {
 
     public static final String MESSAGE_CONSTRAINTS =
         "The event start timing must be before the end timing.";
@@ -61,6 +61,17 @@ public class Timing {
     @Override
     public String toString() {
         return String.format("%s - %s", startTiming.toString(), endTiming.toString());
+    }
+
+    @Override
+    public int compareTo(Timing t) {
+        requireNonNull(t);
+        int cmpStartTimingResult = getStartTime().compareTo(t.getStartTime());
+        if (cmpStartTimingResult != 0) {
+            return cmpStartTimingResult;
+        }
+
+        return getEndTime().compareTo(t.getEndTime());
     }
 
     @Override

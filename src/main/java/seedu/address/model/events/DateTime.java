@@ -1,12 +1,16 @@
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
-
-public class DateTime {
+/**
+ * Represents a Date Time.
+ * Guarantees: Date time is validate and immutable.
+ */
+public class DateTime implements Comparable<DateTime> {
 
     public static final String DATETIME_FORMAT = "dd/MM/yy HHmm";
     public static final String MESSAGE_CONSTRAINTS =
@@ -45,11 +49,17 @@ public class DateTime {
     }
 
     public boolean before(DateTime other) {
-        return getTime().before(other.getTime());
+        return compareTo(other) < 0;
     }
 
     public boolean beforeOrEqual(DateTime other) {
-        return getTime().compareTo(other.getTime()) <= 0;
+        return compareTo(other) <= 0;
+    }
+
+    @Override
+    public int compareTo(DateTime d) {
+        requireNonNull(d);
+        return getTime().compareTo(d.getTime());
     }
 
     @Override

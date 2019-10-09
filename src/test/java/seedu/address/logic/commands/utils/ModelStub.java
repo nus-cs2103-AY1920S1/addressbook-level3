@@ -8,12 +8,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -80,6 +78,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasPerson(ReferenceId person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasExactPerson(Person person) {
         throw new AssertionError("This method should not be called.");
     }
@@ -115,7 +118,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event){
+    public boolean hasEvent(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -146,6 +149,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredEventList(Predicate<Event> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Person resolve(ReferenceId person) {
         throw new AssertionError("This method should not be called.");
     }
 }

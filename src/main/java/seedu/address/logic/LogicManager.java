@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -97,6 +98,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReferenceIdResolver getReferenceIdResolver() {
+        return model;
+    }
+
+    @Override
     public Path getAppointmentBookFilePath() {
         return model.getAppointmentBookFilePath();
     }
@@ -110,5 +116,4 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-
 }

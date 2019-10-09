@@ -15,6 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.AddressBookBuilder;
@@ -75,18 +77,25 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson((Person) null));
+    }
+
+    @Test
+    public void hasPerson_nullReferenceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson((ReferenceId) null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(ALICE.getReferenceId()));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+        assertTrue(modelManager.hasPerson(ALICE.getReferenceId()));
     }
 
     @Test

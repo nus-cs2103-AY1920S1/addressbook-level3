@@ -1,13 +1,18 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.events.Event;
 import seedu.address.model.events.UniqueEventList;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Wraps all data at the appointment-book level
+ * Duplicates are not allowed (by .isSameEvent comparison)
+ */
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     private final UniqueEventList events;

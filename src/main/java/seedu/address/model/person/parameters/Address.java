@@ -48,10 +48,4 @@ public class Address {
             || (other instanceof Address // instanceof handles nulls
             && value.equals(((Address) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

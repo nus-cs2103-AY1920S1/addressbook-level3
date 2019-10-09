@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,7 +18,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.queue.Room;
 import seedu.address.ui.queue.QueueListPanel;
 
 /**
@@ -125,7 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         //TODO: EDIT HERE
-        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(), logic.getFilteredPersonList());
+        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(),
+                                             FXCollections.observableArrayList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

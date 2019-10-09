@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
@@ -12,12 +13,12 @@ import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model extends ReferenceIdResolver {
     /**
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Event>  PREDICATE_SHOW_ALL_EVENTS  = unused -> true;
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
 
     //=========== UserPrefs ==================================================================================

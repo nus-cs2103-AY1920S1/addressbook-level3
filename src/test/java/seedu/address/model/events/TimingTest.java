@@ -1,5 +1,6 @@
 package seedu.address.model.events;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,7 +55,8 @@ class TimingTest {
         assertFalse(Timing.isValidTiming(sampleDate4, sampleDate3));
         assertFalse(Timing.isValidTiming(sampleDate4, sampleDate4));
 
-        assertThrows(IllegalArgumentException.class, () -> new Timing(sampleDate1, sampleDate2), Timing.MESSAGE_CONSTRAINTS);
+        assertThrows(IllegalArgumentException.class, () -> new Timing(sampleDate1, sampleDate2),
+                        Timing.MESSAGE_CONSTRAINTS);
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(null, sampleDate1));
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(null, null));
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(sampleDate1, null));
@@ -111,7 +113,32 @@ class TimingTest {
     }
 
     @Test
-    void test_timing_Equals() {
+    void test_timing_compareTo() {
+        assertEquals(0, sampleEvent1.compareTo(sampleEvent1));
+        assertEquals(0, sampleEvent1.compareTo(sampleEvent2));
+        assertEquals(-1, sampleEvent1.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent1.compareTo(sampleEvent4));
+
+        assertEquals(0, sampleEvent2.compareTo(sampleEvent1));
+        assertEquals(0, sampleEvent2.compareTo(sampleEvent2));
+        assertEquals(-1, sampleEvent2.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent2.compareTo(sampleEvent4));
+
+        assertEquals(1, sampleEvent3.compareTo(sampleEvent1));
+        assertEquals(1, sampleEvent3.compareTo(sampleEvent2));
+        assertEquals(0, sampleEvent3.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent3.compareTo(sampleEvent4));
+
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent1));
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent2));
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent3));
+        assertEquals(0, sampleEvent4.compareTo(sampleEvent4));
+
+        assertThrows(NullPointerException.class, () -> sampleEvent1.compareTo(null));
+    }
+
+    @Test
+    void test_timing_equals() {
 
         assertFalse(sampleEvent1.equals(null));
         assertFalse(sampleEvent1.equals(""));

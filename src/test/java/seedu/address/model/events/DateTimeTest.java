@@ -1,15 +1,16 @@
 package seedu.address.model.events;
 
-import java.util.Date;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Date;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class DateTimeTest {
 
@@ -76,6 +77,22 @@ class DateTimeTest {
         assertTrue(sampleDate3.beforeOrEqual(sampleDate3));
     }
 
+    @Test
+    void test_timing_compareTo() {
+        assertEquals(0, sampleDate1.compareTo(sampleDate1));
+        assertEquals(0, sampleDate1.compareTo(sampleDate2));
+        assertEquals(-1, sampleDate1.compareTo(sampleDate3));
+
+        assertEquals(0, sampleDate2.compareTo(sampleDate1));
+        assertEquals(0, sampleDate2.compareTo(sampleDate2));
+        assertEquals(-1, sampleDate2.compareTo(sampleDate3));
+
+        assertEquals(1, sampleDate3.compareTo(sampleDate1));
+        assertEquals(1, sampleDate3.compareTo(sampleDate2));
+        assertEquals(0, sampleDate3.compareTo(sampleDate3));
+
+        assertThrows(NullPointerException.class, () -> sampleDate1.compareTo(null));
+    }
     @Test
     void test_testEquals() {
         assertTrue(sampleDate1.equals(sampleDate1));

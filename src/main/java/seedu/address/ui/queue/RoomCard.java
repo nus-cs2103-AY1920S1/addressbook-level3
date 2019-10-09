@@ -1,11 +1,12 @@
 package seedu.address.ui.queue;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
-import seedu.address.model.queue.Room;
 import seedu.address.ui.UiPart;
 
 /**
@@ -14,23 +15,24 @@ import seedu.address.ui.UiPart;
 public class RoomCard extends UiPart<Region> {
 
     private static final String FXML = "queue/RoomListCard.fxml";
-
-    public final Room room;
+    private final Person doctor;
+    private final Optional<Person> patient;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label doctorName;
     @FXML
-    private Label name;
+    private Label patientName;
     @FXML
     private Label refId;
 
-    public RoomCard(Room room, int displayedIndex) {
+    public RoomCard(Person doctor, Optional<Person> patient, int displayedIndex) {
         super(FXML);
-        this.room = room;
-        doctorName.setText(room.getDoctor().getName().fullName);
-        name.setText(room.getCurrentPatient().getName().fullName);
+        this.doctor = doctor;
+        this.patient = patient;
+        doctorName.setText(doctor.getName().fullName);
+        patientName.setText(patient.map(p -> p.getName().toString()).orElse("[INVALID]"));
     }
 
     @Override
@@ -47,6 +49,6 @@ public class RoomCard extends UiPart<Region> {
 
         // state check
         RoomCard card = (RoomCard) other;
-        return room.equals(card.room);
+        return doctor.equals(card.doctor) && patient.equals(card.patient);
     }
 }
