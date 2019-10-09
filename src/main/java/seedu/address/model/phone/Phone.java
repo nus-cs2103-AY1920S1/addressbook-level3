@@ -38,7 +38,7 @@ public class Phone implements Cloneable {
     }
 
 
-    private Phone(UUID id, PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
+    public Phone(UUID id, PhoneName phoneName, Brand brand, Capacity capacity, Colour colour, Cost cost,
                  Set<Tag> tags) {
         requireAllNonNull(id, phoneName, brand, capacity, colour, cost, tags);
         this.id = id;
