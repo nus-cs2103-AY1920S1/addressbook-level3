@@ -17,4 +17,21 @@ public class Commit {
         numberOfCommits++;
         index = numberOfCommits;
     }
+
+    /**
+     * This constructor is used for {@code JsonAdaptedCommit} to construct a {@code Commit} object based on
+     * given details.
+     */
+    public Commit(int index, StudyPlan studyPlan) {
+        this.index = index;
+        this.studyPlan = studyPlan;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public StudyPlan getStudyPlan() {
+        return studyPlan;
+    }
 }
