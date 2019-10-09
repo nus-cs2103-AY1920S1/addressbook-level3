@@ -16,7 +16,6 @@ public class Note {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    
     private String noteContent;
 
     public Note(String noteContent) {
