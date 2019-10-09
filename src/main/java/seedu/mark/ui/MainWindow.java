@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
-import seedu.mark.logic.commands.CommandResult;
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
@@ -34,6 +34,10 @@ public class MainWindow extends UiPart<Stage> {
     private BookmarkListPanel bookmarkListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BrowserPanel browserPanel;
+
+    @FXML
+    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -107,6 +111,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        browserPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 

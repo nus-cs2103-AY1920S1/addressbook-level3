@@ -30,13 +30,18 @@ public class BookmarkTest {
         // null -> returns false
         assertFalse(ALICE.isSameBookmark(null));
 
-        // different url -> returns false
-        Bookmark editedAlice = new BookmarkBuilder(ALICE).withUrl(VALID_URL_BOB).build();
+        // different name, different url -> returns false
+        Bookmark editedAlice = new BookmarkBuilder(ALICE).withName(VALID_NAME_BOB)
+                .withUrl(VALID_URL_BOB).build();
         assertFalse(ALICE.isSameBookmark(editedAlice));
 
-        // different name -> returns false
+        // same name, different url -> returns true
+        editedAlice = new BookmarkBuilder(ALICE).withUrl(VALID_URL_BOB).build();
+        assertTrue(ALICE.isSameBookmark(editedAlice));
+
+        // different name, same url -> returns true
         editedAlice = new BookmarkBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameBookmark(editedAlice));
+        assertTrue(ALICE.isSameBookmark(editedAlice));
 
         // same name, same url, different attributes -> returns true
         editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB)

@@ -13,11 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
@@ -45,7 +46,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob??yahoo"; // double '?'
-    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remarks
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "t/ means tag"; // '/' not allowed in remarks
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
