@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalFlashCards.PROP_DELAY;
-import static seedu.address.testutil.TypicalFlashCards.PROTOCOL;
-import static seedu.address.testutil.TypicalFlashCards.SOURCE_DELAY;
-import static seedu.address.testutil.TypicalFlashCards.THROUGHPUT;
 import static seedu.address.testutil.TypicalFlashCards.TRANS_DELAY;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
@@ -17,10 +14,10 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 
 public class FindCategoryCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
