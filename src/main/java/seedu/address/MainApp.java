@@ -15,12 +15,15 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.OrderBook;
+import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ScheduleBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -74,7 +77,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        /*Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
@@ -88,10 +91,12 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
-        }
+        }*/
 
-        // return new ModelManager(new CustomerBook(), new PhoneBook(), new OrderBook(), new ScheduleBook(), userPrefs);
-        return new ModelManager(initialData, userPrefs);
+        ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
+        ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
+        return new ModelManager(customerBook, phoneBook, new OrderBook(), new ScheduleBook(), userPrefs);
+
     }
 
     private void initLogging(Config config) {
