@@ -6,7 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AckAppCommand;
+import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -86,6 +89,15 @@ public class AddressBookParser {
 
         case DequeueCommand.COMMAND_WORD:
             return new DequeueCommandParser().parse(arguments);
+
+        case AddAppCommand.COMMAND_WORD:
+            return new AddAppCommandParser().parse(arguments);
+
+        case AppointmentsCommand.COMMAND_WORD:
+            return new AppointmentsCommandParser().parse(arguments);
+
+        case AckAppCommand.COMMAND_WORD:
+            return new AckAppCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
