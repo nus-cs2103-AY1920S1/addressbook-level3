@@ -10,15 +10,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.SplitPane?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Address App" minWidth="500" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/address_book_32.png" />
     </icons>
     <scene>
         <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
 
             <VBox>
                 <MenuBar fx:id="menuBar" focusTraversable="false" VBox.vgrow="NEVER">
@@ -29,23 +35,32 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
-                <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                            prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+
+                <AnchorPane fx:id="anchorPane" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                     <children>
 
-                        <VBox fx:id="personList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                              minWidth="340" prefWidth="340" styleClass="pane-with-border"
-                              AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10"/>
-                            </padding>
-                            <StackPane fx:id="personListPanelPlaceholder" maxHeight="1.7976931348623157E308"
-                                       maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS"/>
-                        </VBox>
+                        <SplitPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="100.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" VBox.vgrow="SOMETIMES">
+                            <VBox fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS"
+                                  HBox.hgrow="SOMETIMES" minWidth="300" maxWidth="Infinity">
+                                <padding>
+                                    <Insets top="5" right="10" bottom="10" left="10" />
+                                </padding>
+                                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
 
-                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0" maxHeight="100"
-                                   maxWidth="1.7976931348623157E308" minHeight="100" prefHeight="100" prefWidth="340.0"
+                            <VBox fx:id="queueList" styleClass="pane-with-border"
+                                  HBox.hgrow="ALWAYS"
+                                  minWidth="200" maxWidth="500" prefWidth="500" minHeight="200">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10" />
+                                </padding>
+                                <StackPane fx:id="queueListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </SplitPane>
+
+                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0"
+                                   minHeight="100" prefHeight="100" maxHeight="100"
                                    styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                             <padding>
@@ -55,21 +70,17 @@
                     </children>
                 </AnchorPane>
 
-                <StackPane fx:id="commandBoxPlaceholder" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" prefHeight="10.0" styleClass="pane-with-border"
+                <StackPane fx:id="commandBoxPlaceholder"
+                           maxWidth="Infinity" prefHeight="10.0" styleClass="pane-with-border"
                            VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="statusbarPlaceholder" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" prefHeight="10.0" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder"
+                           maxWidth="Infinity" prefHeight="10.0" VBox.vgrow="NEVER"/>
             </VBox>
-            <stylesheets>
-                <URL value="@Extensions.css"/>
-                <URL value="@DarkTheme.css"/>
-            </stylesheets>
         </Scene>
     </scene>
 </fx:root>
