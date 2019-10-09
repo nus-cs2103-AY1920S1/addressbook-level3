@@ -24,8 +24,8 @@ public class ScheduleStub {
         Schedule schedule = new Schedule(new PersonId(12345));
         Venue venue = new Venue("Central Library");
 
-        LocalDateTime startTime1 = LocalDateTime.of(2019, 10, 5, 12, 0);
-        LocalDateTime endTime1 = LocalDateTime.of(2019, 10, 5, 14, 0);
+        LocalDateTime startTime1 = LocalDateTime.of(2019, 10, 9, 12, 0);
+        LocalDateTime endTime1 = LocalDateTime.of(2019, 10, 9, 14, 0);
 
         LocalDateTime startTime2 = LocalDateTime.of(2019, 10, 10, 9, 0);
         LocalDateTime endTime2 = LocalDateTime.of(2019, 10, 10, 11, 0);
@@ -33,8 +33,8 @@ public class ScheduleStub {
         LocalDateTime startTime3 = LocalDateTime.of(2019, 10, 14, 13, 0);
         LocalDateTime endTime3 = LocalDateTime.of(2019, 10, 14, 14, 0);
 
-        LocalDateTime startTime4 = LocalDateTime.of(2019, 10, 22, 9, 0);
-        LocalDateTime endTime4 = LocalDateTime.of(2019, 10, 22, 10, 0);
+        LocalDateTime startTime4 = LocalDateTime.of(2019, 10, 15, 9, 0);
+        LocalDateTime endTime4 = LocalDateTime.of(2019, 10, 15, 10, 0);
 
         LocalDateTime startTime5 = LocalDateTime.of(2019, 10, 23, 13, 0);
         LocalDateTime endTime5 = LocalDateTime.of(2019, 10, 23, 16, 0);

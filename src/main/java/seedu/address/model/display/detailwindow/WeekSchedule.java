@@ -67,7 +67,8 @@ public class WeekSchedule {
                 LocalDateTime currentEndTime = currentTimeslot.getEndTime();
                 Venue currentVenue = currentTimeslot.getVenue();
                 if (now.toLocalDate().plusDays(7).isAfter(currentStartTime.toLocalDate())
-                        && now.toLocalDate().isBefore(currentStartTime.toLocalDate())) {
+                        && now.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())) {
+                    //Checks to see if the currentStartTime is within the upcoming 7 days.
                     DayTimeslot timeslot = new DayTimeslot(
                             eventName,
                             currentStartTime.toLocalTime(),
@@ -79,7 +80,6 @@ public class WeekSchedule {
             }
         }
 
-            //currentDate = currentDate.plusDays(1);
     }
 
     public String getWeekScheduleName() {

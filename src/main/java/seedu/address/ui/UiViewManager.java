@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
@@ -15,7 +16,7 @@ public class UiViewManager {
         UiViewManager.ui = ui;
     }
 
-    public void changeUiDetailsView(Person p) {
+    public void changeUiDetailsView(PersonDisplay p) {
         ui.changeView(p);
     }
 
@@ -31,7 +32,7 @@ public class UiViewManager {
      * Method to export visual representation of a person.
      * @param p The person to be exported.
      */
-    public void exportVisual(Person p) {
+    public void exportVisual(PersonDisplay p) {
         if (ui == null) {
             return;
         }

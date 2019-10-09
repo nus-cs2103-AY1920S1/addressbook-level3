@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.stage.Stage;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
@@ -13,7 +14,7 @@ public interface Ui {
     void start(Stage primaryStage);
 
     /** Changes the details view to this person. */
-    void changeView(Person person);
+    void changeView(PersonDisplay person);
 
     /** Changes the details view to this group. */
     void changeView(Group group);
@@ -22,7 +23,7 @@ public interface Ui {
     void changeView(String message);
 
     /**Exports visual representation for person. */
-    void exportVisual(Person person);
+    void exportVisual(PersonDisplay person);
 
     /** Exports visual representation for groups. */
     void exportVisual(Group group);

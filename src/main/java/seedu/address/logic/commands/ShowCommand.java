@@ -7,6 +7,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiViewManager;
@@ -48,7 +49,7 @@ public class ShowCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                false, "show", person.get());
+                false, "show", new PersonDisplay(person.get()));
     }
 
     @Override

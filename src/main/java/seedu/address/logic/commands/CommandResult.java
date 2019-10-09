@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiViewManager;
@@ -43,7 +44,7 @@ public class CommandResult {
     /**
      * Constructs an alternative CommandResult that would affect the UI. (Showing person).
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, Person p) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord, PersonDisplay p) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

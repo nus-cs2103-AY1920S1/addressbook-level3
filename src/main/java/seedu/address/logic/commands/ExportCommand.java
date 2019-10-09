@@ -7,6 +7,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
@@ -45,7 +46,7 @@ public class ExportCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                false, COMMAND_WORD, person.get());
+                false, COMMAND_WORD, new PersonDisplay(person.get()));
     }
 
     @Override

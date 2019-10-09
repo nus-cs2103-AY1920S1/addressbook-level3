@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ScheduleStub;
 
@@ -31,7 +32,7 @@ public class DetailsView extends UiPart<Region> {
     @FXML
     private ScrollPane container;
 
-    public DetailsView(Person person) {
+    public DetailsView(PersonDisplay person) {
         super(FXML);
         this.detailsView = new VBox();
         PersonCard personCard = new PersonCard(person, 1);

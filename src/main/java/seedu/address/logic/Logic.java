@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
@@ -96,4 +97,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    ObservableList<PersonDisplay> getFilteredPersonDisplayList();
 }

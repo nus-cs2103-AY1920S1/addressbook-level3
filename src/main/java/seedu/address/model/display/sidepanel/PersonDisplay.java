@@ -63,5 +63,20 @@ public class PersonDisplay extends Display {
         return tags;
     }
 
+    public boolean isSamePerson(PersonDisplay person) {
+        if (person == this) {
+            return true;
+        } else if (person instanceof PersonDisplay) {
+            PersonDisplay p = (PersonDisplay) person;
+            return this.name.equals(p.name)
+                    && this.phone.equals(p.phone)
+                    && this.email.equals(p.email)
+                    && this.address.equals(p.address)
+                    && this.remark.equals(p.remark)
+                    && this.tags.equals(p.tags);
+        } else {
+            return false;
+        }
+    }
 
 }

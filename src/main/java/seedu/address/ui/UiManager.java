@@ -17,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.export.VisualExporter;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
@@ -57,7 +58,7 @@ public class UiManager implements Ui {
     }
 
     @Override
-    public void changeView(Person person) {
+    public void changeView(PersonDisplay person) {
         DetailsView detailsView = new DetailsView(person);
         mainWindow.handleChangeOnDetailsView(detailsView.getRoot());
     }
@@ -77,7 +78,7 @@ public class UiManager implements Ui {
     }
 
     @Override
-    public void exportVisual(Person p) {
+    public void exportVisual(PersonDisplay p) {
         DetailsView detailsView = new DetailsView(p);
         StackPane sp = new StackPane();
         sp.getChildren().add(detailsView.exportNode());
