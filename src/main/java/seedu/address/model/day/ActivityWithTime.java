@@ -7,12 +7,12 @@ import seedu.address.model.day.time.TimeInHalfHour;
 /**
  * Wraps the Activity in a time range.
  */
-public class ActivityInTimeRange {
+public class ActivityWithTime {
     private final Activity activity;
     private final TimeInHalfHour time;
     private final DurationInHalfHour duration;
 
-    public ActivityInTimeRange(Activity activity, TimeInHalfHour time, DurationInHalfHour duration) {
+    public ActivityWithTime(Activity activity, TimeInHalfHour time, DurationInHalfHour duration) {
         this.activity = activity;
         this.time = time;
         this.duration = duration;

@@ -7,19 +7,20 @@ import seedu.address.model.activity.Activity;
 /**
  * Represents the time slots in a {@code Timetable}.
  */
-public class HalfHour {
+public class TimeSlot {
     private Activity activityAtThisTime;
 
-    public HalfHour() {
+    public TimeSlot() {
         activityAtThisTime = null;
     }
 
-    public HalfHour(Activity activity) {
+    public TimeSlot(Activity activity) {
+        requireNonNull(activity);
         this.activityAtThisTime = activity;
     }
 
-    public boolean getIsOccupied() {
-        return activityAtThisTime != null;
+    public boolean isAvailable() {
+        return activityAtThisTime == null;
     }
 
     public Activity getActivity() {
