@@ -1,47 +1,65 @@
 package seedu.address.model.gmaps;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+
+import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
+import seedu.address.logic.internal.gmaps.ProcessVenues;
+
 
 /**
  * This is the graph object that contains the information for location vertex
  */
-public class LocationGraph {
-    private Hashtable<String, LocationVertex> graph = new Hashtable<>();
-    private ArrayList<String> orderedKeys = new ArrayList<>();
+public class LocationGraph implements java.io.Serializable {
 
-    LocationGraph() {
-    }
+    private ArrayList<Location> locations;
 
-    LocationGraph(Hashtable<String, LocationVertex> graph, ArrayList<String> orderedeKeys) {
-        this.graph = graph;
-        this.orderedKeys = orderedeKeys;
-    }
+    private ArrayList<String> gmapsRecognisedLocationList;
 
-    /**
-     * Add vertex to the graph
-     * @param locationVertex
-     * @return a new LocationGraph with the newly added LocationGraph
-     */
+    private ArrayList<ArrayList<Long>> distanceMatrix = new ArrayList<>();
 
-    public LocationGraph addVertex(LocationVertex locationVertex) {
-        graph.put(locationVertex.getLocationVertexName(), locationVertex);
-        orderedKeys.add(locationVertex.getLocationVertexName());
-        return new LocationGraph(graph, orderedKeys);
-    }
+    private ProcessVenues processVenues;
 
-    public LocationVertex getVertex(String locationName) {
-        return graph.get(locationName);
-    }
-
-    @Override
-    public String toString() {
-        String returnString = "Location graph:\n\n";
-        for (int i = 0; i < orderedKeys.size(); i++) {
-            String currKey = orderedKeys.get(i);
-            LocationVertex currVertex = graph.get(currKey);
-            returnString = returnString + currVertex.toString();
+    public LocationGraph(ProcessVenues processVenues) throws ConnectException {
+        this.processVenues = processVenues;
+        this.locations = processVenues.getLocations();
+        this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
+        int gmapsRecognisedLocationListSize = gmapsRecognisedLocationList.size();
+        for (int i = 0; i < gmapsRecognisedLocationListSize; i++) {
+            distanceMatrix.add(new ArrayList<>());
         }
-        return returnString;
     }
+
+    private LocationGraph(ProcessVenues processVenues, ArrayList<ArrayList<Long>> distanceMatrix)
+            throws ConnectException {
+        this.locations = processVenues.getLocations();
+        this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
+        this.distanceMatrix = distanceMatrix;
+    }
+
+    public ArrayList<String> getGmapsRecognisedLocationList() {
+        return gmapsRecognisedLocationList;
+    }
+
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
+
+    public int getLocationIndex(String locationName) {
+        return LocationArrayListUtils.getIndex(locations, locationName);
+    }
+
+    public ArrayList<Long> getLocationRow(int index) {
+        return distanceMatrix.get(index);
+    }
+
+    public ArrayList<ArrayList<Long>> getDistanceMatrix() {
+        return distanceMatrix;
+    }
+
+    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException {
+        distanceMatrix.get(rowNum).addAll(row);
+        return new LocationGraph(processVenues, distanceMatrix);
+    }
+
 }

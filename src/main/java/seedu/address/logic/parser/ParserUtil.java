@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -199,5 +201,17 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             return null;
         }
+    }
+
+    /**
+     * Parses a String into a ArrayList of locations.
+     *
+     * @param locationsString to be parsed
+     * @return ArrayList of locations
+     */
+    public static ArrayList<String> parseLocations(String locationsString) {
+        String[] locationsArr = locationsString.split(" ");
+        ArrayList<String> locations = new ArrayList<>(Arrays.asList(locationsArr));
+        return locations;
     }
 }

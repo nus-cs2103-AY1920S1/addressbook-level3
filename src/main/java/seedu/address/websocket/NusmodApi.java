@@ -18,7 +18,7 @@ public class NusmodApi {
     private static final String BASEURL = "https://api.nusmods.com/v2";
     private static final String BASEURL2 = "http://api.nusmods.com/v2";
 
-    private static final String ACAD_YEAR = "/2018-2019";
+    private static final String ACAD_YEAR = "/2019-2020";
     private static final String MODULES = "/modules";
     private static final String SLASH = "/";
     private static final String JSON_EXTENTION = ".json";
