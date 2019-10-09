@@ -19,7 +19,12 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.phone.*;
+import seedu.address.model.phone.Brand;
+import seedu.address.model.phone.Capacity;
+import seedu.address.model.phone.Colour;
+import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.Phone;
+import seedu.address.model.phone.PhoneName;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -27,18 +27,18 @@ public class AddPhoneCommand extends Command {
             + "Parameters: "
             + PREFIX_PHONENAME + "NAME "
             + PREFIX_BRAND + "BRAND "
-            + PREFIX_CAPACITY + "CAPACITY (in GB)"
-            + PREFIX_COLOUR + "COLOUR"
-            + PREFIX_COST + "COST"
+            + PREFIX_CAPACITY + "CAPACITY (in GB) "
+            + PREFIX_COLOUR + "COLOUR "
+            + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PHONENAME + "iPhone 11"
-            + PREFIX_BRAND + "Apple"
-            + PREFIX_CAPACITY + "128"
-            + PREFIX_COLOUR + "Purple"
-            + PREFIX_COST + "$900"
+            + PREFIX_PHONENAME + "iPhone 11 "
+            + PREFIX_BRAND + "Apple "
+            + PREFIX_CAPACITY + "128 "
+            + PREFIX_COLOUR + "Purple "
+            + PREFIX_COST + "$900 "
             + PREFIX_TAG + "NEW "
-            + PREFIX_TAG + "Bought Oct 2019";
+            + PREFIX_TAG + "Cool";
 
     public static final String MESSAGE_SUCCESS = "New phone added: %1$s";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone already exists in SML.";
