@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
+import seedu.address.commons.util.ExportUtil;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.util.FilePath;
@@ -37,11 +38,14 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        // TODO
         requireNonNull(model);
 
-        // exportflashcards(model.getthoseflashcards(category), filepath)
+        // TODO PLANT CATEGORY.
 
+        ExportUtil.exportFlashCards(
+                model.getFilteredFlashCardList(),
+                this.filePath
+        );
 
         return new CommandResult("Export was (UN)successful! You can find your file at "
                 + "the following path:\n"
