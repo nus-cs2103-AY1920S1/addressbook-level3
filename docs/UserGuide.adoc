@@ -53,13 +53,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+== Viewing help : `help`
 
 Format: `help`
 
-=== Change tab : `tab`
+== Change tab : `tab`
 
-Change tab to any of the available ones +
+Change tab to any of the available ones. +
 Format: `tab TAB_DESTINATION`
 
 Examples:
@@ -67,48 +67,74 @@ Examples:
 * `tab calendar`
 * `tab student profile`
 
-==== Hello: `hi`
+== Calender
 
+=== Adding task: `add`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a task to one or more time slots. +
+Format: `add DESCRIPTION /at TIME, ...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A task can have more than one time slots.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add CS2103T Lecture /at 20/9/2019 16:00,  4/10/2019 16:00`
+* `add MA1521 Lecture /at 02/11/2020 14:00`
 
-=== Listing all persons : `list`
+=== Updating task: `update`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Update task information. +
+Format: `update INDEX ATTRIBUTE UPDATE_INFO`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `update 2 time 10/10/2019 18:00`
 
-=== Locating persons by name: `find`
+=== Deleting task: `delete`
+
+Deletes selected task. +
+Format: `delete INDEX ...`
+
+[TIP]
+You can delete more than one tasks at a time.
+
+Examples:
+
+* `delete 1 3 6`
+
+=== Finding tasks: `find`
+
+Find specific task.
+
+==== By Index:
+
+Format: `find INDEX`
+
+Examples:
+
+* `find 3`
+
+==== By Keyword:
+
+Format: `find KEYWORD, KEYWORD 2, ...`
+
+[TIP]
+You can find using more than one keyword at a time.
+
+Examples:
+
+* `find CS2103T, Lecture`
+
+==== By Time:
+
+Format: `find TIME`
+
+Examples:
+
+* `find 1400`
+
+=== Marking Tasks: `mark`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
