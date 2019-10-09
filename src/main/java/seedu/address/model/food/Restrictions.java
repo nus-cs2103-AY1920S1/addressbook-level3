@@ -12,11 +12,9 @@ public class Restrictions {
             "Restrictions should only contain alphanumeric characters and spaces, and it should not be blank";
 
     public static final String DEFAULT_VALUE = "No Restrictions";
-    /*
-     * The first character of the restrictions must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    // Restrictions cannot be blank but can contain any other characters
+    public static final String VALIDATION_REGEX = ".*\\S.*";
 
     public final String restrictions;
 
