@@ -71,7 +71,7 @@ public class Timing implements Comparable<Timing> {
             return cmpStartTimingResult;
         }
 
-        return getStartTime().compareTo(t.getStartTime());
+        return getEndTime().compareTo(t.getEndTime());
     }
 
     @Override

@@ -78,8 +78,7 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(ReferenceId id) {
-        requireNonNull(id);
-        return id.equals(getReferenceId());
+        return getReferenceId().equals(id);
     }
 
     /**
@@ -87,12 +86,7 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        requireNonNull(otherPerson);
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return isSamePerson(otherPerson.getReferenceId());
+        return otherPerson == this || (otherPerson != null && isSamePerson(otherPerson.getReferenceId()));
     }
 
     /**

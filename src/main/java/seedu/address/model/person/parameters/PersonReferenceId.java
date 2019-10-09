@@ -45,6 +45,13 @@ public abstract class PersonReferenceId implements ReferenceId {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof PersonReferenceId // instanceof handles nulls
+            && toString().equals(other.toString())); // state check
+    }
+
+    @Override
     public String toString() {
         return referenceId;
     }
