@@ -30,7 +30,8 @@ class JsonAdaptedCard {
      * Constructs a {@code JsonAdaptedCard} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedCard(@JsonProperty("name") String name, String description,
+    public JsonAdaptedCard(@JsonProperty("name") String name,
+                           @JsonProperty("description") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
