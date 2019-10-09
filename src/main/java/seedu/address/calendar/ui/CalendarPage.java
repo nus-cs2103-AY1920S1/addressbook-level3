@@ -1,5 +1,7 @@
 package seedu.address.calendar.ui;
 
+import java.util.stream.IntStream;
+
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -7,25 +9,30 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-import java.util.stream.IntStream;
-
+/**
+ * Creates a calendar page for user to view.
+ */
 public class CalendarPage {
-    private boolean isOpened = false;
     @FXML
-    Scene calendar;
+    private Scene calendar;
     @FXML
-    VBox calendarPane = new VBox();
+    private VBox calendarPane = new VBox();
     @FXML
-    GridPane weekHeader;
+    private GridPane weekHeader;
     @FXML
-    GridPane monthView;
+    private GridPane monthView;
     @FXML // todo change the following to CommandBox class?
-    TextField commandBox = new TextField();
+    private TextField commandBox = new TextField();
     @FXML
-    Label monthLabel;
+    private Label monthLabel;
+
+    private boolean isOpened = false;
 
     public CalendarPage() {
         // todo: move to week header
@@ -57,6 +64,10 @@ public class CalendarPage {
         this.isOpened = isOpened;
     }
 
+    /**
+     * Generates a header for all the days in the week.
+     * @return a header for all the days in the week
+     */
     private GridPane generateWeekHeader() {
         GridPane weekHeader = new GridPane();
         String[] days = { "Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" };
@@ -76,6 +87,10 @@ public class CalendarPage {
         return weekHeader;
     }
 
+    /**
+     * Generates a month view.
+     * @return a month view
+     */
     private GridPane generateMonthView() {
         int height = 100;
         GridPane monthView = new GridPane();
@@ -97,6 +112,12 @@ public class CalendarPage {
     }
 
     // todo change this to a class which has a setDate method
+
+    /**
+     * Generates a day view
+     * @param date day of the month
+     * @return a day view
+     */
     private VBox generateDayView(int date) {
         VBox dayView = new VBox();
         Label dateOfMonth = new Label(Integer.toString(date));
