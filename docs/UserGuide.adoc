@@ -28,6 +28,8 @@ This software is for organisers who organise powerlifting competitions. To facil
 Download the software from our git repo.
 Ensure Java 11 is downloaded into your machine.
 
+image::Ui.png[width="790"]
+
 [[Features]]
 == Features
 
