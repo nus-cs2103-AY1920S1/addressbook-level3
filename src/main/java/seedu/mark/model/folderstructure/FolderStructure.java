@@ -76,7 +76,7 @@ public class FolderStructure {
      * @param folderName the folder name
      * @return the boolean
      */
-    public boolean containsFolder(String folderName) {
+    public boolean hasFolder(String folderName) {
         return find(folderName) != null;
     }
 

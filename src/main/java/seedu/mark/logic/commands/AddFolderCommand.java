@@ -23,6 +23,7 @@ public class AddFolderCommand extends Command {
             + "Example: " + COMMAND_WORD + " school ";
     public static final String MESSAGE_DUPLICATE_FOLDER = "This folder already exists in Mark";
     public static final String MESSAGE_PARENT_FOLDER_NOT_FOUND = "The parent folder %s doesn't exist in Mark";
+    public static final String MESSAGE_SUCCESS = "Folder %s added successfuly";
 
     private final String folderName;
     private final String parentFolderName;
@@ -40,19 +41,18 @@ public class AddFolderCommand extends Command {
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
-            requireNonNull(model);
-        if (model.getMark().getFolderStructure().containsFolder(folderName)) {
+        if (model.hasFolder(folderName)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }
 
-        if (!model.getMark().getFolderStructure().containsFolder(parentFolderName)) {
+        if (!model.hasFolder(parentFolderName)) {
             throw new CommandException(
                     String.format(MESSAGE_PARENT_FOLDER_NOT_FOUND, parentFolderName));
         }
 
         model.createFolder(folderName, parentFolderName);
 
-        return new CommandResult(String.format("Folder %s added successfuly", folderName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, folderName));
     }
 
 

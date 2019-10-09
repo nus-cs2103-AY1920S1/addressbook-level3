@@ -119,6 +119,11 @@ public class ModelManager implements Model {
         mark.createFolder(folderName, parentFolderName);
     }
 
+    @Override
+    public boolean hasFolder(String folderName) {
+        return mark.getFolderStructure().hasFolder(folderName);
+    }
+
     //=========== Filtered Bookmark List Accessors =============================================================
 
     /**
