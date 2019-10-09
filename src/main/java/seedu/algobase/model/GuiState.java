@@ -19,4 +19,8 @@ public class GuiState {
     public ObservableIntegerValue getDisplayTabPaneIndex() {
         return displayTabPaneIndex;
     }
+
+    public void setDisplayTabPaneIndex(int index) {
+        displayTabPaneIndex.setValue(index);
+    }
 }
