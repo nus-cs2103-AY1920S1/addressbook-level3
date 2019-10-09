@@ -46,7 +46,7 @@ Responsibilities: UI
 '''
 
 === Karan
-image::eizon05.png[width="150", align="left"]
+image::Portrait_placeholder.png[width="150", align="left"]
 {empty}[https://github.com/eizon05[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
