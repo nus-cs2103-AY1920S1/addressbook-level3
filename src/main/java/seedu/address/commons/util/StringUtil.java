@@ -65,4 +65,20 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if two strings are equal, or both strings are null.
+     * @param a the first string to be compared.
+     * @param b the second string to be compared.
+     * @return whether two strings are equal, or both strings are null.
+     */
+    public static boolean equalOrBothNull(String a, String b) {
+        if (a == null && b == null) {
+            return true;
+        } else if (a != null && b != null) {
+            return a.equals(b);
+        } else {
+            return false;
+        }
+    }
 }
