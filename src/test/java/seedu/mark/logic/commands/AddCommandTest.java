@@ -6,21 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
-import seedu.mark.model.Model;
+import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
-import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.testutil.BookmarkBuilder;
 
