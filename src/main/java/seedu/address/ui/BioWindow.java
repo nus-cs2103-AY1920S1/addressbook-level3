@@ -239,7 +239,6 @@ public class BioWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             if (!commandResult.isShowBio()) {
-                System.out.println("Not Bio");
                 switchToMainWindow(commandResult.getFeedbackToUser());
             }
             logger.info("Result: " + commandResult.getFeedbackToUser());
