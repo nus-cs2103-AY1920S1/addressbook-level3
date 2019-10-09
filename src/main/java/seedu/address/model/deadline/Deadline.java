@@ -1,8 +1,9 @@
 package seedu.address.model.deadline;
-import java.time.LocalDate;
-import java.util.Objects;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
+
 
 /**
  * Represents a FlashCard in the address book.
@@ -10,11 +11,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Deadline {
 
-    public static final String MESSAGE_CONSTRAINTS = "Deadlines are of DD/MM/YYYY Format.";
+    public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.";
 
-    public static LocalDate today = LocalDate.now();
-    public static String dateStr;
-    public static LocalDate localDate;
+    //public static LocalDate today = LocalDate.now();
+    //public static String dateStr;
+    //public static LocalDate localDate;
 
     // Identity fields
     private final Task task;

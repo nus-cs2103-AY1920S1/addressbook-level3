@@ -1,11 +1,12 @@
 package seedu.address.model.deadline;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Deadline's Due Date in the address book.
@@ -14,11 +15,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class DueDate {
 
     public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.\n"
-            +"E.g.: 12/01/2019.";
+            + "E.g.: 12/01/2019.";
 
-    public static LocalDate today = LocalDate.now();
+    //private static LocalDate today = LocalDate.now();
     public static String dateStr;
-    public static LocalDate localDate;
+    private static LocalDate localDate;
 
     /**
      * Constructs a {@code Question}.

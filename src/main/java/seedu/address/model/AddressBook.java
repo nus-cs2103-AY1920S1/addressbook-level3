@@ -142,8 +142,4 @@ public class AddressBook implements ReadOnlyAddressBook {
         deadlines.remove(key);
     }
 
-//    public boolean hasDeadline(Deadline deadline) {
-//        requireNonNull(deadline);
-//        return deadline.contains(deadline);
-//    }
 }
