@@ -1,11 +1,7 @@
 package seedu.address.cashier.model;
 
-import seedu.address.cashier.model.exception.NoSuchIndexException;
-import seedu.address.cashier.util.InventoryList;
-import seedu.address.inventory.Item;
-
 public class SalesList {
-
+/*
     //private static HashMap<Item, Integer> itemList;
     private static InventoryList itemList;
 
@@ -28,6 +24,6 @@ public class SalesList {
     public InventoryList getItemList() {
         return this.itemList;
     }
-
+*/
 }
 

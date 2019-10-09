@@ -4,7 +4,9 @@ import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.transaction.util.TransactionList;
 
-
+/**
+ * Model interfaces. Defines the methods to be supported by the Model manager.
+ */
 public interface Model {
     ReimbursementList getReimbursementList();
 

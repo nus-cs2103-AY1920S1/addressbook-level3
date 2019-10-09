@@ -1,7 +1,5 @@
 package seedu.address.reimbursement.model;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
@@ -10,6 +8,9 @@ import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementExce
 import seedu.address.reimbursement.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * ModelManager. Manages the models for Reimbursements.
+ */
 public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final StorageManager storage;
@@ -59,7 +60,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void writeInReimbursementFile() throws Exception{
+    public void writeInReimbursementFile() throws Exception {
         storage.writeFile(reimbursementList);
     }
 

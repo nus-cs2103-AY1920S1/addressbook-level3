@@ -11,11 +11,21 @@ import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Parser for find command.
+ */
 public class FindCommandParser implements GeneralParser<FindCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Finds a command by person.
+     * @param args the arguments from the user.
+     * @param personModel the person to search by.
+     * @return a command representing the user's desired action.
+     * @throws Exception if the command syntax is invalid.
+     */
     public FindCommand parse(String args, Model personModel)
             throws Exception {
         ArgumentMultimap argMultimap =

@@ -11,11 +11,21 @@ import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Parser for done command.
+ */
 public class DoneCommandParser implements GeneralParser<DoneCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Marks a reimbursement done.
+     * @param args the arguments from the user.
+     * @param personModel the person to search by.
+     * @return a command representing the user's desired action.
+     * @throws Exception if the command syntax is invalid.
+     */
     public DoneCommand parse(String args, Model personModel)
             throws Exception {
         ArgumentMultimap argMultimap =

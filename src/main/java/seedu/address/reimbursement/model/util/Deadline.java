@@ -1,7 +1,10 @@
 package seedu.address.reimbursement.model.util;
 
+/**
+ * Stores the deadline of a Reimbursement.
+ */
 public class Deadline {
-    private static String DASH = "-";
+    private static String dash = "-";
     private int year;
     private int month;
     private int day;
@@ -28,15 +31,23 @@ public class Deadline {
         return day;
     }
 
+    /**
+     * @return a string representing the deadline.
+     */
     public String toString() {
         if (year != -1) {
-            return Integer.toString(year) + DASH + Integer.toString(month) + DASH + Integer.toString(day) + DASH;
+            return Integer.toString(year) + dash + Integer.toString(month) + dash + Integer.toString(day) + dash;
         } else {
             return "";
         }
 
     }
 
+    /**
+     * Compares two deadlines.
+     * @param anotherDeadline the deadline to compare to.
+     * @return -1 if the current deadline is smaller, 0 if they are the same, 1 if otherwise.
+     */
     public int compareTo(Deadline anotherDeadline) {
         if (this.year > anotherDeadline.year) {
             return 1;

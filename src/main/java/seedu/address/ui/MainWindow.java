@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -29,7 +30,9 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
+    private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
+    private seedu.address.cashier.logic.Logic cashierLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -75,18 +78,20 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab homeTab;
 
-//    @FXML
-//    private StackPane personListPanelPlaceholder;
-//
-//    @FXML
-//    private StackPane resultDisplayPlaceholder;
-//
-//    @FXML
-//    private StackPane statusbarPlaceholder;
+    //@FXML
+    //private StackPane personListPanelPlaceholder;
+
+    //@FXML
+    //private StackPane resultDisplayPlaceholder;
+
+    //@FXML
+    //private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
-                      seedu.address.person.logic.Logic personLogic) {
+                      seedu.address.inventory.logic.Logic inventoryLogic,
+                      seedu.address.person.logic.Logic personLogic,
+                      seedu.address.cashier.logic.Logic cashierLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -94,7 +99,9 @@ public class MainWindow extends UiPart<Stage> {
 
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
+        this.inventoryLogic = inventoryLogic;
         this.personLogic = personLogic;
+        this.cashierLogic = cashierLogic;
         //add all our logicManager
 
         // Configure the UI
@@ -146,17 +153,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() throws  Exception{
+    void fillInnerParts() throws Exception {
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
-        inventory = new Inventory();
+        inventory = new Inventory(inventoryLogic);
         inventoryPlaceholder.getChildren().add(inventory.getRoot());
 
         reimbursements = new Reimbursements();
         reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
 
-        cashier = new Cashier();
+        cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
 
         overview = new Overview();
@@ -213,29 +220,32 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }*/
 
-//    public PersonListPanel getPersonListPanel() {
-//        return personListPanel;
-//    }
+    //public PersonListPanel getPersonListPanel() {
+    //    return personListPanel;
+    //}
 
     /**
      * Executes the command and returns the result.
      *
      */
-    private OverallCommandResult executeCommand(String commandText) throws Exception{
+    private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
             if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
-            }   else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
-                commandResult = new OverallCommandResult("Implement inventory logic"); //should be replace with inventory's logic
+                commandResult = new OverallCommandResult("Implement inventory logic");
+                //should be replace with inventory's logic
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic"); //should be replace with cashier's logic
+                commandResult = new OverallCommandResult("Implement cashier logic");
+                //should be replace with cashier's logic
             } else {
-                commandResult = new OverallCommandResult("Implement overview logic"); //should be replace with overview's logic
+                commandResult = new OverallCommandResult("Implement overview logic");
+                //should be replace with overview's logic
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -244,13 +254,13 @@ public class MainWindow extends UiPart<Stage> {
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
             inventoryPlaceholder.getChildren().removeAll();
-            inventoryPlaceholder.getChildren().add(new Inventory().getRoot());
+            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
 
             reimbursementsPlaceholder.getChildren().removeAll();
             reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
 
             cashierPlaceholder.getChildren().removeAll();
-            cashierPlaceholder.getChildren().add(new Cashier().getRoot());
+            cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
 
             overviewPlaceholder.getChildren().removeAll();
             overviewPlaceholder.getChildren().add(new Overview().getRoot());

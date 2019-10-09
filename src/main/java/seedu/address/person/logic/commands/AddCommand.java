@@ -1,15 +1,15 @@
 package seedu.address.person.logic.commands;
 
-import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.person.model.Model;
-import seedu.address.person.model.person.Person;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.address.person.logic.commands.exceptions.CommandException;
+import seedu.address.person.model.Model;
+import seedu.address.person.model.person.Person;
 
 /**
  * Adds a person to the address book.
@@ -48,7 +48,8 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                 seedu.address.cashier.logic.Logic cashierLogic) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {

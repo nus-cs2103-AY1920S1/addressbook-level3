@@ -2,22 +2,35 @@ package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import seedu.address.person.model.person.Person;
+import seedu.address.reimbursement.model.comparators.SortByAmount;
+import seedu.address.reimbursement.model.comparators.SortByDeadline;
+import seedu.address.reimbursement.model.comparators.SortByName;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Reimbursement List class: Stores a list of reimbursements, allows accessing of their details and provides
+ * functionality to sort them.
+ */
 public class ReimbursementList {
-    private static String INVALIDINDEX = "Index is out of bound. Please key in a valid index.";
+    private static String invalidIndex = "Index is out of bound. Please key in a valid index.";
     private ArrayList<Reimbursement> list;
 
+    /**
+     * Creates a new ReimbursementList with a blank ArrayList of Reimbursements.
+     */
     public ReimbursementList() {
         list = new ArrayList<Reimbursement>();
     }
 
+    /**
+     * Creates a new ReimbursementList using an existing TransactionList.
+     * @param transList the existing transactionList to use.
+     */
     public ReimbursementList(TransactionList transList) {
         list = new ArrayList<Reimbursement>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
@@ -27,26 +40,38 @@ public class ReimbursementList {
         }
     }
 
+    /**
+     * Creates a new ReimbursementList with an existing ArrayList of Reimbursements.
+     * @param reimbursementList the existing ArrayList of Reimbursements.
+     */
     public ReimbursementList(ArrayList<Reimbursement> reimbursementList) {
         list = reimbursementList;
     }
 
+    /**
+     * Retrieves all the transactions whose status is pending reimbursement.
+     * @param transList the list of all transactions
+     * @return the list of transactions whose status is pending reimbursements
+     */
     private ArrayList<Transaction> checkStatus(TransactionList transList) {
-        //gets all the transactions whose status is pending reimbursement.
         ArrayList<Transaction> pendingList = new ArrayList<>(); //throws null pointer here
         for (int i = 0; i < transList.size(); i++) {
-            /*try {*/
-                Transaction trans = transList.get(i);
-                if (trans.getStatus() == false) {
-                    pendingList.add(trans);
-                }
-            /*} catch (NoSuchIndexException e) {
-                break;
-            }*/
+            //try {
+            Transaction trans = transList.get(i);
+            if (trans.getStatus() == false) {
+                pendingList.add(trans);
+            }
+            //} catch (NoSuchIndexException e) {
+            //break;
+            //}
         }
         return pendingList;
     }
 
+    /**
+     * Merges a new reimbursement record with an existing one if they are the same person.
+     * @param newRecord The merged reimbursement record.
+     */
     private void merge(Reimbursement newRecord) {
         boolean canMerge = false;
         for (Reimbursement record : list) {
@@ -63,7 +88,7 @@ public class ReimbursementList {
 
     public Reimbursement get(int index) throws NoSuchIndexException {
         if (index >= list.size()) {
-            throw new NoSuchIndexException(INVALIDINDEX);
+            throw new NoSuchIndexException(invalidIndex);
         }
         return list.get(index);
     }
@@ -80,6 +105,12 @@ public class ReimbursementList {
         Collections.sort(list, new SortByDeadline());
     }
 
+    /**
+     * Finds a reimbursement by person.
+     * @param person The person to find the reimbursements for.
+     * @return The reimbursement for that person.
+     * @throws NoSuchPersonReimbursementException If no such reimbursement for that person is found.
+     */
     public Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException {
         for (Reimbursement reim : list) {
             if (person.isSamePerson(reim.getPerson())) {
@@ -89,15 +120,27 @@ public class ReimbursementList {
         throw new NoSuchPersonReimbursementException();
     }
 
+    /**
+     * @return the size of the ReimbursementList.
+     */
     public int size() {
         return list.size();
     }
 
+    /**
+     * Adds a deadline to pay a person.
+     * @param person the person to pay to.
+     * @param date the date to pay by.
+     * @throws Exception If that person has no reimbursements.
+     */
     public void addDeadline(Person person, String date) throws Exception {
         Reimbursement rmb = findReimbursement(person);
         rmb.addDeadline(date);
     }
 
+    /**
+     * @return a string representing the reimbursement.
+     */
     public String toString() {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
@@ -108,29 +151,7 @@ public class ReimbursementList {
     }
 }
 
-class SortByName implements Comparator<Reimbursement> {
-    // Used for sorting in ascending order
-    public int compare(Reimbursement a, Reimbursement b) {
-        return a.getPerson().getName().compareTo(b.getPerson().getName());
-    }
-}
 
-class SortByAmount implements Comparator<Reimbursement> {
-    // Used for sorting in ascending order
-    public int compare(Reimbursement a, Reimbursement b) {
-        if (a.getAmount() > b.getAmount()) {
-            return 1;
-        } else if (a.getAmount() == b.getAmount()) {
-            return 0;
-        } else {
-            return -1;
-        }
-    }
-}
 
-class SortByDeadline implements Comparator<Reimbursement> {
-    // Used for sorting in ascending order
-    public int compare(Reimbursement a, Reimbursement b) {
-        return a.getDeadline().compareTo(b.getDeadline());
-    }
-}
+
+
