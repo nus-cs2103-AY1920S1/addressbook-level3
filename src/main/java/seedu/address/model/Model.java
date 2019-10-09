@@ -42,12 +42,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTravelPalFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setTravelPalFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code travelPal}.
@@ -81,16 +81,45 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Sets {@link PageStatus} with an edited version.
+     *
+     * @param editedPageStatus Edited version of {@link PageStatus}
+     */
     void setPageStatus(PageStatus editedPageStatus);
 
+    /**
+     * Returns {@link PageStatus} in TravelPal.
+     * @return {@link PageStatus} of TravelPal
+     */
     PageStatus getPageStatus();
 
+    /**
+     * Adds a {@link Trip} to TravelPal.
+     *
+     * @param trip {@link Trip} to be added
+     * @throws ClashingTripException Thrown when {@link Trip} with overlapping duration is added.
+     */
     void addTrip(Trip trip) throws ClashingTripException;
 
+    /**
+     * Replaces an existing {@link Trip} with another.
+     *
+     * @param target {@link Trip} set for replacement
+     * @param replacement Replacement {@link Trip}
+     * @throws ClashingTripException Thrown when {@link Trip} with overlapping duration is set
+     * @throws TripNotFoundException Thrown when {@code target} cannot be found
+     */
     void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException;
 
+    /**
+     * Deletes an existing {@link Trip}.
+     * @param target {@link Trip} set for deletion
+     * @throws TripNotFoundException Thrown when {@code target} cannot be found
+     */
     void deleteTrip(Trip target) throws TripNotFoundException;
 
+    /** Returns an unmodifiable view of the filtered trip list */
     FilteredList<Trip> getFilteredTripList();
 
     /** Returns an unmodifiable view of the filtered person list */

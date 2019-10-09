@@ -13,8 +13,13 @@ import seedu.address.model.trip.Trip;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
+/**
+ * Jackson friendly version of {@code Trip}.
+ */
 public class JsonAdaptedTrip {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
 
@@ -22,16 +27,19 @@ public class JsonAdaptedTrip {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final String destination;
-    private final double totalBudget;
+    private final Double totalBudget;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
+    /**
+     * Constructs a {@code JsonAdaptedTrip} with the given trip details.
+     */
     @JsonCreator
     public JsonAdaptedTrip(
             @JsonProperty("name") String name,
             @JsonProperty("startDate")LocalDateTime startDate,
             @JsonProperty("endDate") LocalDateTime endDate,
             @JsonProperty("destination")String destination,
-            @JsonProperty("totalBudget")double totalBudget,
+            @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList) {
         this.name = name;
         this.startDate = startDate;
@@ -43,6 +51,9 @@ public class JsonAdaptedTrip {
         }
     }
 
+    /**
+     * Converts a given {@code Trip} into this class for Jackson use.
+     */
     public JsonAdaptedTrip(Trip source) {
         this.name = source.getName().fullName;
         this.startDate = source.getStartDate();
@@ -56,6 +67,11 @@ public class JsonAdaptedTrip {
         );
     }
 
+    /**
+     * Converts this Jackson-friendly adapted trip object into the model's {@code Trip} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted trip.
+     */
     public Trip toModelType() throws IllegalValueException {
         final List<Day> days = new ArrayList<>();
         for (JsonAdaptedDay day : dayList){
@@ -97,8 +113,8 @@ public class JsonAdaptedTrip {
         final Location modelDestination = new Location(destination);
 
         //No check for TotalBudget (defaults to 0)
+        Expenditure modelTotalBudget = new Expenditure(totalBudget);
 
-        final Expenditure modelTotalBudget = new Expenditure(totalBudget);
 
         DayList modelDayList = new DayList();
         modelDayList.set(days);
