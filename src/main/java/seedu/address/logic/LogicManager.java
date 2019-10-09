@@ -19,9 +19,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.queue.Room;
+
 import seedu.address.storage.Storage;
 
 /**
@@ -36,12 +40,14 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
     private final AutoCompleter autoCompleter;
+    private final QueueManager queueManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
+        this.queueManager = new QueueManager();
         this.autoCompleter = new AutoCompleter();
     }
 
@@ -78,8 +84,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<ReferenceId> getFilteredReferencedIdList() {
+        return model.getFilteredReferenceIdList();
+    }
+
+    @Override
     public ObservableList<Event> getFilteredEventList() {
         return model.getFilteredEventList();
+    }
+
+    @Override
+    public ObservableList<Room> getFilteredRoomList() {
+        return model.getFilteredRoomList();
     }
 
     @Override

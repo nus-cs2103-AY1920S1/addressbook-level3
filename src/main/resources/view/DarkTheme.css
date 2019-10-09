@@ -149,7 +149,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: 'monospaced';
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
@@ -310,7 +310,6 @@
 
 #autoCompleteOverlay {
     -fx-font: 13pt 'monospaced';
-    -fx-max-height: 40;
 }
 
 #cardPane {
