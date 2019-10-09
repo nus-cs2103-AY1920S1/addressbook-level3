@@ -44,6 +44,9 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         ArrayList<TextFlow> arrls = new ArrayList<>();
         listOfSuggestions.sort(String::compareTo);
         for (String suggestion : listOfSuggestions) {
+            if (suggestion.isBlank()) {
+                break;
+            }
             Text prefixText = new Text(prefix);
             prefixText.setFill(Paint.valueOf("#0FF"));
             Text suggestionText = new Text(suggestion);
@@ -77,7 +80,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     }
 
     public boolean isSuggesting() {
-        return autoCompleteOverlay.getItems().size() > 1;
+        return !autoCompleteOverlay.getItems().isEmpty();
     }
 
     /**
