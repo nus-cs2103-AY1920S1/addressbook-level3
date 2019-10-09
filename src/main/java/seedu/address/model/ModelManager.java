@@ -32,15 +32,14 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
     private final QueueManager queueManager;
-    private final FilteredList<Person> filteredPatients;
     private final FilteredList<Room> filteredRooms;
+    private final FilteredList<ReferenceId> filteredReferenceIds;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
-    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyAddressBook addressBook,
-            ReadOnlyAppointmentBook patientSchedule) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, QueueManager queueManager,
+                        ReadOnlyAppointmentBook patientSchedule) {
         super();
         requireAllNonNull(addressBook, userPrefs);
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -49,14 +48,13 @@ public class ModelManager implements Model {
         this.appointmentBook = new AppointmentBook(patientSchedule);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredPatients = new FilteredList<>(this.queueManager.getPatientList());
         filteredRooms = new FilteredList<>(this.queueManager.getRoomList());
-        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
+        filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
+        filteredReferenceIds = new FilteredList<>(this.queueManager.getReferenceIdList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new QueueManager());
+        this(new AddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
     }
 
     //=========== QueueManager ==================================================================================
@@ -67,8 +65,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removePatient(Person target) {
+    public void removePatient(ReferenceId target) {
         queueManager.removePatient(target);
+    }
+
+    @Override
+    public void addPatient(ReferenceId id) {
+        queueManager.addPatient(id);
+        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
     }
 
     @Override
@@ -82,19 +86,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPatient(Person person) {
-        queueManager.addPatient(person);
+    public boolean hasId(ReferenceId id) {
+        requireNonNull(id);
+        return queueManager.hasId(id);
     }
 
     @Override
-    public boolean hasPatient(Person person) {
-        requireNonNull(person);
-        return queueManager.hasPatient(person);
-    }
-
-    @Override
-    public void addRoom(Person patient) {
-        queueManager.addRoom(patient);
+    public void addRoom(ReferenceId id) {
+        queueManager.addRoom(id);
     }
 
     @Override
@@ -220,23 +219,16 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Patient List Accessors =============================================================
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-
-    //=========== Scheduler ==================================================================================
-
+    //=========== Filtered Reference id List Accessors ========================================================
     @Override
-    public ObservableList<Person> getFilteredPatientList() {
-        return filteredPatients;
+    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+        return filteredReferenceIds;
     }
 
     @Override
-    public void updateFilteredPatientList(Predicate<Person> predicate) {
+    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
         requireNonNull(predicate);
-        filteredPatients.setPredicate(predicate);
+        filteredReferenceIds.setPredicate(predicate);
     }
 
     //=========== Filtered Room List Accessors =============================================================
@@ -293,7 +285,7 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Event List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -330,11 +322,9 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredPatients.equals(other.filteredPatients)
+                && filteredReferenceIds.equals(other.filteredReferenceIds)
                 && filteredRooms.equals(other.filteredRooms)
-                && queueManager.equals(other.queueManager);
-                && appointmentBook.equals(other.appointmentBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && queueManager.equals(other.queueManager)
+                && appointmentBook.equals(other.appointmentBook);
     }
 }

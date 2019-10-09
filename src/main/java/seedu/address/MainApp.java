@@ -21,8 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QueueList;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
@@ -88,8 +86,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressData;
         try {
             Optional<ReadOnlyAddressBook> addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -119,7 +116,7 @@ public class MainApp extends Application {
             initialAppointmentData = new AppointmentBook();
         }
 
-        return new ModelManager(userPrefs, initialAddressData, initialAppointmentData);
+        return new ModelManager(initialAddressData, userPrefs, queueManager, initialAppointmentData);
     }
 
     private void initLogging(Config config) {

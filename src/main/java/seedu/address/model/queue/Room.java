@@ -10,11 +10,16 @@ import seedu.address.model.common.ReferenceId;
  */
 public class Room {
     private final ReferenceId doctor;
-    private final Optional<ReferenceId> patientCurrentlyBeingServed;
+    private Optional<ReferenceId> patientCurrentlyBeingServed;
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+    }
+
+    public Room(ReferenceId doctor) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = null;
     }
 
     public boolean isReadyToServe() {
@@ -29,11 +34,14 @@ public class Room {
         return patientCurrentlyBeingServed;
     }
 
+    public void serve(ReferenceId id) {
+        this.patientCurrentlyBeingServed = Optional.of(id);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Room // instanceof handles nulls
-                && doctor.equals(((Room) other).doctor)
-                && isReady == ((Room) other).isReady);
+                && doctor.equals(((Room) other).doctor));
     }
 }

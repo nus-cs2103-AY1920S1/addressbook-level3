@@ -1,17 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.core.CommandResult;
-import seedu.address.logic.commands.core.UndoableCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
 import static java.util.Objects.requireNonNull;
 
-public class NextCommand extends UndoableCommand {
+public class NextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";
     public static final String MESSAGE_SUCCESS = "Next patient has been allocated";
     public static final String MESSAGE_UNDO_NEXT_SUCCESS = "Allocation has been undone";

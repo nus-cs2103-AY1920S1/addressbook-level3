@@ -123,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         //TODO: EDIT HERE
-        queueListPanel = new QueueListPanel(FXCollections.observableArrayList(),
-                                             FXCollections.observableArrayList(), logic.getReferenceIdResolver());
+        queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
+                                             logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

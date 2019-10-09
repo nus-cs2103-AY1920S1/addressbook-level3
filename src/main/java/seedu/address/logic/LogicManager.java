@@ -13,6 +13,7 @@ import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -82,13 +83,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return model.getFilteredEventList();
+    public ObservableList<ReferenceId> getFilteredReferencedIdList() {
+        return model.getFilteredReferenceIdList();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPatientList() {
-        return model.getFilteredPatientList();
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
     }
 
     @Override

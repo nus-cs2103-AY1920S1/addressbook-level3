@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
@@ -23,6 +24,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
 
@@ -126,13 +128,11 @@ public interface Model extends ReferenceIdResolver {
 
     public QueueManager getQueueManager();
 
-    public void removePatient(Person target);
+    public void removePatient(ReferenceId target);
 
-    public void addPatient(Person person);
+    public void addPatient(ReferenceId id);
 
-    public ObservableList<Person> getFilteredPatientList();
-
-    public boolean hasPatient(Person person);
+    public boolean hasId(ReferenceId id);
 
     public ObservableList<Room> getFilteredRoomList();
 
@@ -142,12 +142,9 @@ public interface Model extends ReferenceIdResolver {
 
     public void next(int index);
 
-    public void addRoom(Person patient);
+    public void addRoom(ReferenceId id);
 
     public void removeRoom(int index);
-
-    public void updateFilteredPatientList(Predicate<Person> predicate);
-
 
     //=========== Scheduler ==================================================================================
 
@@ -201,4 +198,8 @@ public interface Model extends ReferenceIdResolver {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    public ObservableList<ReferenceId> getFilteredReferenceIdList();
+
+    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
 }

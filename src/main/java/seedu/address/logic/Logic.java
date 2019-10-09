@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
@@ -57,14 +58,14 @@ public interface Logic {
     ReferenceIdResolver getReferenceIdResolver();
 
     /**
-     * Returns an unmodifiable view of the filtered list of patients
-     */
-    ObservableList<Person> getFilteredPatientList();
-
-    /**
      * Returns an unmodifiable view of the filtered list of rooms
      */
     ObservableList<Room> getFilteredRoomList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of ids
+     */
+    ObservableList<ReferenceId> getFilteredReferencedIdList();
 
     /**
      * Returns the user prefs' address book file path.

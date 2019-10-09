@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -65,7 +66,7 @@ public class DeleteCommand extends ReversibleCommand {
         }
 
         model.addPerson(personToDelete);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
         return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, personToDelete));
     }
 

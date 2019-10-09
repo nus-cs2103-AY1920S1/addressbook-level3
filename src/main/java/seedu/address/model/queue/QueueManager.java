@@ -3,8 +3,11 @@ package seedu.address.model.queue;
 import javafx.collections.ObservableList;
 import seedu.address.model.QueueList;
 import seedu.address.model.RoomList;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.exceptions.QueueException;
+
+import java.lang.ref.Reference;
 
 import static java.util.Objects.requireNonNull;
 
@@ -24,8 +27,7 @@ public class QueueManager {
 
     public void resetData(QueueManager newData) {
         requireNonNull(newData);
-
-        queueList.setPatients(newData.getPatientList());
+        queueList.setIds(newData.getReferenceIdList());
         roomList.setRooms(newData.getRoomList());
     }
 
@@ -37,17 +39,17 @@ public class QueueManager {
      * @param index of the room which a patient left
      */
     public void serveNext(int index) {
-        Person p = queueList.getFirstPatient();
+        ReferenceId id = queueList.getFirst();
         queueList.poll();
-        roomList.serve(index, p);
+        roomList.serve(index, id);
     }
 
-    public void addPatient(Person person) {
-        queueList.addPatient(person);
+    public void addPatient(ReferenceId id) {
+        queueList.addPatient(id);
     }
 
-    public void removePatient(Person person) {
-        queueList.removePatient(person);
+    public void removePatient(ReferenceId id) {
+        queueList.removePatient(id);
     }
 
     public void removePatient(int index) {
@@ -58,27 +60,27 @@ public class QueueManager {
         queueList.removePatient(0);
     }
 
-    public void addRoom(Person person) {
-        if(person.equals(null)) {
+    public void addRoom(ReferenceId id) {
+        if(id.equals(null)) {
             throw new QueueException("Invalid person");
         }
-        roomList.addRoom(new Room(person));
+        roomList.addRoom(new Room(id));
     }
 
-    public boolean hasPatient(Person patient) {
-        return queueList.hasPatient(patient);
+    public boolean hasId(ReferenceId id) {
+        return queueList.hasId(id);
     }
 
     public void removeRoom(int index) {
         roomList.removeRoom(index);
     }
 
-    public Person getCurrentlyServed(int index) {
+    public ReferenceId getCurrentlyServed(int index) {
         return roomList.getCurrentlyServed(index);
     }
 
-    public ObservableList<Person> getPatientList() {
-        return queueList.getPatientList();
+    public ObservableList<ReferenceId> getReferenceIdList() {
+        return queueList.getReferenceIdList();
     }
 
     public ObservableList<Room> getRoomList() {

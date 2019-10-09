@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
 
@@ -48,12 +49,12 @@ public class RoomList {
         listOfRooms.remove(index);
     }
 
-    public Person getCurrentlyServed(int index) {
-        return listOfRooms.get(index).getPatientCurrentlyBeingServed();
+    public ReferenceId getCurrentlyServed(int index) {
+        return listOfRooms.get(index).getCurrentPatient().get();
     }
 
-    public void serve(int index, Person patient) {
-        listOfRooms.get(index).serve(patient);
+    public void serve(int index, ReferenceId id) {
+        listOfRooms.get(index).serve(id);
     }
 
     public void setRooms(List<Room> rooms) {
