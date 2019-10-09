@@ -19,10 +19,10 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.field.Name;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Location;
 import seedu.address.model.day.Day;
+import seedu.address.model.field.Name;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -34,7 +34,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|person)(?<arguments>.*)");
+    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|person)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -71,6 +71,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Day
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private AddCommand parseDay(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY);
 
@@ -85,10 +90,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddCommand(days);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Activity
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private AddCommand parseActivity(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if(!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -101,6 +111,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddCommand(activity);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Person
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private AddCommand parsePerson(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
