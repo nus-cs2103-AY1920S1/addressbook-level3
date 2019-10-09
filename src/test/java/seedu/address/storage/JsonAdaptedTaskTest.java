@@ -48,16 +48,9 @@ public class JsonAdaptedTaskTest {
     }
 
     @Test
-    public void toModelType_invalidTaskStatus_throwsIllegalValueException() {
-        JsonAdaptedTask task =
-                new JsonAdaptedTask(VALID_TASK_NAME, TaskStatus.valueOf(INVALID_TASK_STATUS), VALID_TAGS);
-        assertThrows(IllegalValueException.class, task::toModelType);
-    }
-
-    @Test
     public void toModelType_nullTaskStatus_throwsIllegalValueException() {
         JsonAdaptedTask task = new JsonAdaptedTask(VALID_TASK_NAME, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskStatus.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 

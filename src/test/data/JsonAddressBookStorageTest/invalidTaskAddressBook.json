@@ -1,5 +1,5 @@
 {
   "tasks": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "name": "Task with invalid name field: Ha!ns Mu@ster",
   } ]
 }

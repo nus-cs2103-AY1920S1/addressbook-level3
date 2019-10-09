@@ -1,7 +1,7 @@
 {
   "tasks": [ {
-    "name": "Valid Person",
+    "name": "Valid Person"
   }, {
-    "name": "Person With Invalid Phone Field",
+    "name": "Person With Invalid Phone Field"
   } ]
 }

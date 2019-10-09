@@ -1,25 +1,32 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Task values as in TypicalPersons#getTypicalAddressBook()",
   "tasks" : [ {
-    "name" : "Alice Pauline",
-    "tagged" : [ "friends" ]
+    "name" : "Order shirts from supplier",
+    "tagged" : [ "inventory" ],
+    "taskStatus" : "UNBEGUN"
   }, {
-    "name" : "Benson Meier",
-    "tagged" : [ "owesMoney", "friends" ]
+    "name" : "Print posters for student fair",
+    "tagged" : [ "urgent", "publicity" ],
+    "taskStatus" : "UNBEGUN"
   }, {
-    "name" : "Carl Kurz",
-    "tagged" : [ ]
+    "name" : "Get sponsors for student fair",
+    "tagged" : [ ],
+    "taskStatus" : "DOING"
   }, {
-    "name" : "Daniel Meier",
-    "tagged" : [ "friends" ]
+    "name" : "Recruit members for student fair",
+    "tagged" : [ "manpower" ],
+    "taskStatus" : "DONE"
   }, {
-    "name" : "Elle Meyer",
-    "tagged" : [ ]
+    "name" : "Find caterers for snacks in student fair booth",
+    "tagged" : [ "inventory" ],
+    "taskStatus" : "DOING"
   }, {
-    "name" : "Fiona Kunz",
-    "tagged" : [ ]
+    "name" : "Prepare presentation briefing",
+    "tagged" : [ "personal" ],
+    "taskStatus" : "DONE"
   }, {
-    "name" : "George Best",
-    "tagged" : [ ]
+    "name" : "Organise inventory store before student fair",
+    "tagged" : [ "inventory", "urgent" ],
+    "taskStatus" : "UNBEGUN"
   } ]
 }
