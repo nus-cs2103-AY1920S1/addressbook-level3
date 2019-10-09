@@ -106,7 +106,7 @@ public class AddressBookParser {
 
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
-            
+
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser(this).parse(arguments);
 

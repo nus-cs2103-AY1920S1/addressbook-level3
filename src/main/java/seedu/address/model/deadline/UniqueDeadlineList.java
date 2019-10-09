@@ -6,11 +6,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 /**
  * A list of flash cards that enforces uniqueness between its elements and does not allow nulls.
