@@ -34,6 +34,10 @@ public class MainWindow extends UiPart<Stage> {
     private BookmarkListPanel bookmarkListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BrowserPanel browserPanel;
+
+    @FXML
+    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -110,6 +114,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        browserPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
