@@ -6,6 +6,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.MarkAttendanceCommand;
@@ -31,7 +32,7 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
                 PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE,
-                PREFIX_TUTORIAL_NAME, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS)
+                PREFIX_TUTORIAL_NAME, PREFIX_TUTORIAL_WEEKS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MarkAttendanceCommand.MESSAGE_USAGE));
@@ -40,7 +41,10 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
         ModCode modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
         TutName tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
         Week week = ParserUtil.parseWeek(argMultimap.getValue(PREFIX_TUTORIAL_WEEKS).get());
-        Name studName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Name studName = null;
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            studName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        }
 
         return new MarkAttendanceCommand(modCode, tutName, week, studName);
 
