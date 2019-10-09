@@ -120,7 +120,8 @@ public class TravelPal implements ReadOnlyTravelPal {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TravelPal // instanceof handles nulls
-                && persons.equals(((TravelPal) other).persons));
+                && persons.equals(((TravelPal) other).persons)
+                && tripList.equals(((TravelPal) other).tripList));
     }
 
     @Override
