@@ -25,12 +25,18 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedFlashcard> flashcards = new ArrayList<>();
     private final List<JsonAdaptedDeadline> deadlines = new ArrayList<>();
 
+
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards,
-                                       @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines) {
+    public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards) {
         this.flashcards.addAll(flashcards);
-        this.deadlines.addAll(deadlines);
     }
+
+    //@JsonCreator
+    //public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards,
+    //                                   @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines) {
+    //    this.flashcards.addAll(flashcards);
+    //    this.deadlines.addAll(deadlines);
+    //}
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
