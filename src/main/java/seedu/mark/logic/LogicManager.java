@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.commands.Command;
-import seedu.mark.logic.commands.CommandResult;
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.MarkParser;
 import seedu.mark.logic.parser.exceptions.ParseException;

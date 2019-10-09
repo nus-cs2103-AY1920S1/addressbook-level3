@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s mark and {@code userPrefs}. <br>
+     * The data from the sample mark will be used instead if {@code storage}'s mark is not found,
+     * or an empty mark will be used instead if errors occur when reading {@code storage}'s mark.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyMark> addressBookOptional;
+        Optional<ReadOnlyMark> markOptional;
         ReadOnlyMark initialData;
         try {
-            addressBookOptional = storage.readMark();
-            if (!addressBookOptional.isPresent()) {
+            markOptional = storage.readMark();
+            if (markOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample Mark");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleMark);
+            initialData = markOptional.orElseGet(SampleDataUtil::getSampleMark);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Mark");
             initialData = new Mark();
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Mark ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

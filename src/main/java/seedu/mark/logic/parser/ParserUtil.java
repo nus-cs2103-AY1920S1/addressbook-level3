@@ -52,15 +52,20 @@ public class ParserUtil {
     /**
      * Parses a {@code String remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
+     * Empty remarks will be replaced by the default {@code Remark}.
      *
      * @throws ParseException if the given {@code remark} is invalid.
      */
     public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
-        if (!Remark.isValidRemark(trimmedRemark)) {
+
+        if (Remark.isEmptyRemark(trimmedRemark)) {
+            return Remark.getDefaultRemark();
+        } else if (!Remark.isValidRemark(trimmedRemark)) {
             throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
+
         return new Remark(trimmedRemark);
     }
 

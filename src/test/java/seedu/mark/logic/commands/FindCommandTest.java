@@ -19,7 +19,7 @@ import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
-import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -30,10 +30,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        IdentifiersContainKeywordsPredicate firstPredicate =
+                new IdentifiersContainKeywordsPredicate(Collections.singletonList("first"));
+        IdentifiersContainKeywordsPredicate secondPredicate =
+                new IdentifiersContainKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -58,7 +58,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noBookmarkFound() {
         String expectedMessage = String.format(MESSAGE_BOOKMARKS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        IdentifiersContainKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
         assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleBookmarksFound() {
         String expectedMessage = String.format(MESSAGE_BOOKMARKS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        IdentifiersContainKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
         assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
@@ -76,9 +76,9 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code IdentifiersContainKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private IdentifiersContainKeywordsPredicate preparePredicate(String userInput) {
+        return new IdentifiersContainKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

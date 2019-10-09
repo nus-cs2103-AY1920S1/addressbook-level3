@@ -1,5 +1,7 @@
 package seedu.mark.logic.commands;
 
+import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.commandresult.ExitCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.storage.Storage;
 
@@ -14,7 +16,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new ExitCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
 }

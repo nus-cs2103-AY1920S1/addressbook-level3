@@ -6,6 +6,8 @@ import static seedu.mark.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
+import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.commandresult.ExitCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 
@@ -15,7 +17,7 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        CommandResult expectedCommandResult = new ExitCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
         assertCommandSuccess(new ExitCommand(), model, new StorageStub(),
                 expectedCommandResult, expectedModel);
     }

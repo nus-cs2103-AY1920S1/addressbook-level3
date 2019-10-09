@@ -2,6 +2,7 @@ package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.storage.Storage;

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Bookmark's name in the address book.
+ * Represents a Bookmark's name in the Mark.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -13,7 +13,7 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
@@ -37,7 +37,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {

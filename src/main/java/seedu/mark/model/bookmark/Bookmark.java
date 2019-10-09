@@ -15,7 +15,7 @@ import seedu.mark.model.tag.Tag;
  */
 public class Bookmark {
 
-    // Identity fields
+    // Identity fields (each field must be unique)
     private final Name name;
     private final Url url;
 
@@ -55,7 +55,7 @@ public class Bookmark {
     }
 
     /**
-     * Returns true if both bookmarks of the same name have at least one other identity field that is the same.
+     * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.
      */
     public boolean isSameBookmark(Bookmark otherBookmark) {
@@ -64,8 +64,8 @@ public class Bookmark {
         }
 
         return otherBookmark != null
-                && otherBookmark.getName().equals(getName())
-                && otherBookmark.getUrl().equals(getUrl());
+                && (otherBookmark.getName().equals(getName())
+                    || otherBookmark.getUrl().equals(getUrl()));
     }
 
     /**

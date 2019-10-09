@@ -67,8 +67,12 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
+        // no remark
+        Bookmark expectedBookmark = new BookmarkBuilder(AMY).withRemark(Remark.DEFAULT_VALUE).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+
         // zero tags
-        Bookmark expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
+        expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + REMARK_DESC_AMY,
                 new AddCommand(expectedBookmark));
     }
@@ -83,10 +87,6 @@ public class AddCommandParserTest {
 
         // missing url prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_URL_BOB + REMARK_DESC_BOB,
-                expectedMessage);
-
-        // missing remark prefix
-        assertParseFailure(parser, NAME_DESC_BOB + URL_DESC_BOB + VALID_REMARK_BOB,
                 expectedMessage);
 
         // all prefixes missing
@@ -113,7 +113,7 @@ public class AddCommandParserTest {
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + URL_DESC_BOB + INVALID_REMARK_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_URL_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
