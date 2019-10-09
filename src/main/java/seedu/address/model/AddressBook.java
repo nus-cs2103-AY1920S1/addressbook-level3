@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.UniqueFlashCardList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.flashcard.UniqueFlashCardList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueFlashCardList flashCards;
+    private final UniqueDeadlineList deadlines;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         flashCards = new UniqueFlashCardList();
+        deadlines = new UniqueDeadlineList();
     }
 
     public AddressBook() {}
@@ -108,6 +112,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Deadline> getDeadlineList() {
+        return deadlines.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -118,4 +127,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return flashCards.hashCode();
     }
+
+    // Deadline methods
+
+    public void addDeadline(Deadline d) {
+        deadlines.add(d);
+    }
+
+    public void setDeadlines(List<Deadline> deadlines) {
+        this.deadlines.setDeadline(deadlines);
+    }
+
+    public void removeDeadline(Deadline key) {
+        deadlines.remove(key);
+    }
+
 }
