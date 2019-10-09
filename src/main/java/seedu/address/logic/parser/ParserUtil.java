@@ -9,7 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.field.Name;
+import seedu.address.model.activity.Location;
+import seedu.address.model.day.Day;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
@@ -121,4 +124,35 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String days} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static int parseDays(String days) throws ParseException {
+        requireNonNull(days);
+        String trimmedDays = days.trim();
+        if (!Day.isValidDayNumber(trimmedDays)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+        }
+        return Integer.parseInt(days);
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Address.isValidAddress(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
 }
