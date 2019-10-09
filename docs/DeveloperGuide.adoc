@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Billboard - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of expenses
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenses faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -300,8 +300,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new record | Track my spending/income
 
 |`* * *` |Forgetful user | Add additional details through a description for each record | Better keep track of the details of an expense/income
-
-|`* * *` |Visually inclined user |Attach an image to each record |Conveniently record additional details of the expense instead of typing it all out
 
 |`* * *` |user |Delete a record |Remove expenses/income that I no longer need
 
@@ -327,6 +325,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user | Deleted an entire archive | Delete any unneeded archive
 
+|`* *` |Visually inclined user |Attach an image to each record |Conveniently record additional details of the expense instead of typing it all out
+
 |`* *` |user | Create custom tags | To better categorise my expenses
 
 |`* *` |user | Hide records | Maintain privacy on certain sensitive expenses/income
@@ -349,7 +349,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Financial Tracker` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Billboard` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === UC01: Adding a tag to an expense
@@ -357,9 +357,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list expenses
-2.  Financial tracker shows a list of recent expenses
+2.  Billboard shows a list of recent expenses
 3.  User requests to tag a specific expense in the list
-4.  Financial tracker tags the specific expense with the input tag name
+4.  Billboard tags the specific expense with the input tag name
 +
 Use case ends.
 
@@ -369,14 +369,14 @@ Use case ends.
 * 2a. There are no recent expenses.
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
 * 3a. The given index or tag name is invalid
 +
 [none]
-** 3a1.  Financial Tracker shows an error message.
+** 3a1.  Billboard shows an error message.
 +
 Use case resumes at step 2.
 
@@ -386,10 +386,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list all tags
-2. Financial tracker shows a list of tags
+1. User requests to list all tags
+2. Billboard shows a list of tags
 3. User requests to filter expenses by specific tag
-4. Financial tracker shows a list of recent expenses under the specific tag.
+4. Billboard shows a list of recent expenses under the specific tag.
 +
 Use case ends.
 
@@ -399,14 +399,14 @@ Use case ends.
 * 2a. There are no existing tags
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
 * 3a. The given tag name is invalid
 +
 [none]
-** 3a1.  Financial Tracker shows an error message.
+** 3a1.  Billboard shows an error message.
 +
 Use case resumes at step 2.
 
@@ -417,11 +417,11 @@ Use case resumes at step 2.
 *MSS*
 
 1. User requests to list recent expenses
-2. Financial Tracker shows a list of recent expenses
+2. Billboard shows a list of recent expenses
 3. User requests to list all archives
-4. Financial Tracker shows a list of archives
+4. Billboard shows a list of archives
 5. User requests to add a specific expense into a specific archive
-6. Financial Tracker removes the specific  expense from list of current records and adds it to the specific  archive
+6. Billboard removes the specific  expense from list of current records and adds it to the specific  archive
 +
 Use case ends.
 
@@ -431,21 +431,21 @@ Use case ends.
 * 2a. There is no current records
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
 * 4a. There are no existing archives
 +
 [none]
-** 4a1.  Financial Tracker shows an empty list.
+** 4a1.  Billboard shows an empty list.
 +
 Use case ends.
 
 * 5a. The given record index or archive name is invalid
 +
 [none]
-** 5a1.  Financial Tracker shows an error message.
+** 5a1.  Billboard shows an error message.
 +
 Use case resumes at step 4.
 
@@ -456,9 +456,9 @@ Use case resumes at step 4.
 *MSS*
 
 1. User requests to list all expenses under a specific archive
-2. Financial Tracker shows a list of expenses under the specific archive
+2. Billboard shows a list of expenses under the specific archive
 3. User requests to delete a specific expense from the archive
-4. Financial Tracker deletes the specific  expense from the specific  archive.
+4. Billboard deletes the specific  expense from the specific  archive.
 +
 Use case ends.
 
@@ -468,21 +468,21 @@ Use case ends.
 * 2a. The archive has no expenses in it
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
 * 2b. The archive name is invalid
 +
 [none]
-** 2b1.  Financial Tracker shows an error.
+** 2b1.  Billboard shows an error.
 +
 Use case ends.
 
 * 3a. The given record index or archive name is invalid
 +
 [none]
-** 3a1.  Financial Tracker shows an error message.
+** 3a1.  Billboard shows an error message.
 +
 Use case resumes at step 2.
 
@@ -493,9 +493,9 @@ Use case resumes at step 2.
 *MSS*
 
 1. User requests to list all existing archives
-2. Financial Tracker shows a list of all existing archives
+2. Billboard shows a list of all existing archives
 3. User requests to delete a specific archive from the list
-4. Financial Tracker deletes the specific archive
+4. Billboard deletes the specific archive
 
 +
 Use case ends.
@@ -506,14 +506,14 @@ Use case ends.
 * 2a. There are no existing archives
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
 * 3a.  The given archive name is invalid
 +
 [none]
-** 3a1.  Financial Tracker shows an error.
+** 3a1.  Billboard shows an error.
 +
 Use case resumes at step 2.
 
@@ -524,7 +524,7 @@ Use case resumes at step 2.
 *MSS*
 
 1. User enters a keyword to search for records containing it
-2. Financial Tracker displays a list of records that contains the specified keyword
+2. Billboard displays a list of records that contains the specified keyword
 +
 Use case ends.
 
@@ -534,7 +534,7 @@ Use case ends.
 * 2a. There are no records containing the specified keyword
 +
 [none]
-** 2a1. Financial tracker displays an empty list
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
