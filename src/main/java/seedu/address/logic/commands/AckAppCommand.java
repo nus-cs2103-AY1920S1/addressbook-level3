@@ -19,7 +19,6 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
 
-
 /**
  * Acknowledge a person to the address book.
  */
