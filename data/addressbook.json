@@ -29,10 +29,6 @@
     "answer" : "L (bit) / R (bits.sec)",
     "rating" : "good",
     "categories" : [ ]
-  }, {
-    "question" : "hello",
-    "answer" : "Bye",
-    "rating" : "hard",
-    "categories" : [ "CS2100" ]
-  } ]
 }
+
+
