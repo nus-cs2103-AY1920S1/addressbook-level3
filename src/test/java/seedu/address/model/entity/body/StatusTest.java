@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.entity.fridge.FridgeStatus;
+
 //@@author ambervoong
-class BodyStatusTest {
+class StatusTest {
 
     @Test
     void enumerateStatus_indexOne_correct() {
@@ -13,4 +15,3 @@ class BodyStatusTest {
     }
 
 }
-
