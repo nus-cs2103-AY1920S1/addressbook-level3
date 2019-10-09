@@ -18,4 +18,10 @@ class ReligionTest {
         assertNotEquals(Religion.ISLAM.toString(), "12345");
     }
 
+    @Test
+    void enumerateReligion_parseReligion_success() {
+        assertEquals(Religion.parseReligion(Religion.ISLAM.toString()), "ISLAM");
+    }
+
+
 }
