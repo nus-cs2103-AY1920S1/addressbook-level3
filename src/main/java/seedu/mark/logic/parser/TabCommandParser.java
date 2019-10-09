@@ -9,19 +9,12 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 
 public class TabCommandParser implements Parser<TabCommand> {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is neither 1, 2 nor 3.";
-
     public TabCommand parse(String args) throws ParseException {
         requireNonNull(args);
         Index index;
         try {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
-        }
-
-        if (index.getOneBased() < 0 || index.getOneBased() > 0) {
-            ParseException pe = new ParseException(MESSAGE_INVALID_INDEX);
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
         }
 
