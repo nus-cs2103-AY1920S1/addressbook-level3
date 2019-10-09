@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all expenses
-* **`add`**`add /n Textbook /a 23.50 /t education /t school` : adds an expense named `Textbook` to MyMorise with the tags `education` and `school`.
+* **`add`**`add /n Textbook /a 23.50 /t education /t school` : adds an expense named `Textbook` to MYMorise with the tags `education` and `school`.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
@@ -60,7 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Displays all CLI commands available. +
 Format: `help`
 
-=== Adding a expense: `add`
+=== Adding an expense: `add`
 
 Adds an expense to track. +
 Format: `add /n NAME /a AMOUNT [/t TAG]…​`
@@ -75,7 +75,7 @@ Examples:
 
 === Listing all expenses : `list`
 
-Shows a list of all expenses with optional matching criterion in MyMorise. +
+Shows a list of all expenses with optional matching criterion in MYMorise. +
 Format: `list`
 
 === Viewing expenses in a period : `view`
@@ -83,13 +83,13 @@ Format: `list`
 View daily or monthly expenses. +
 Format: `view`
 
-=== Editing a expense : `edit`
+=== Editing an expense : `edit`
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [/n NAME] [/a AMOUNT] [/t TAG]…`
 
 ****
-* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than the actual index of the expense in MyMorise.
+* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than the actual index of the expense in MYMorise.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the expense will be removed i.e adding of tags is not cumulative.
@@ -104,7 +104,7 @@ Edits the amount of the 1st expense to be `$20.10`.
 * `edit 2 /n Poets Coffee /t` +
 Replaces the name of the 2nd expense to `Poets Coffee` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating expenses by name: `find`
 
 Finds all expenses by name, date, tag. +
 Format: `find [/n NAME] [/d DATE] [/t TAG]`
@@ -125,9 +125,9 @@ Returns `coffee` and `Starbucks Coffee`.
 Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blueberry Cheesecake`.
 
 // tag::delete[]
-=== Deleting a expense : `delete`
+=== Deleting an expense : `delete`
 
-Deletes the specified expense from MyMorise. +
+Deletes the specified expense from MYMorise. +
 Format: `delete INDEX`
 
 ****
@@ -141,7 +141,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd expense in MyMorise.
+Deletes the 2nd expense in MYMorise.
 * `find Coffee` +
 `delete 1` +
 Deletes the 1st expense in the results of the find command.
@@ -155,17 +155,37 @@ Exits the program. +
 Format: `exit`
 
 // tag::saving[]
-=== Saving the data
+=== Saving data
 
 Expense data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 // end::saving[]
 
+// tag::budget[]
+=== Set a budget for a period : `budget`
+
+Specifies a budget for a specific period. +
+Format: `budget /d PERIOD /a AMOUNT`
+
+****
+* Sets a budget for the specified PERIOD. All expenses made in the month will deduct its amount from the budget to indicate how much funds are available to spend
+* The Period refers to a specific date, month or period between two dates.
+* The Amount refers to amount set for specified period.
+****
+
+Examples:
+
+* `budget /d 9-10-19 /a SGD400` +
+Sets a budget of SGD400 for Wed, 9th Oct 19.
+* `budget /d Jan-19 /a SGD200` +
+Sets a budget of SGD200 for the month of January 19.
+* `budget /d 14-10-19 - 13-11-19 /a SGD500` +
+Sets a budget of SGD500 for the period from Mon, 14th Oct 19 to Wed, 13th Nov 19.
+
+// end::budget[]
+
 === Display expense by tag in chart `[coming in v2.0]`
 {Displays the expense in a pie chart to show breakdown of expenses.}
-
-=== Set a budget for a specific month `[coming in v2.0]`
-{Sets a budget for a specific month. All expenses made in the month will deduct its amount from the budget to indicate how much funds are available to spend}
 
 === Set a Recurring Expense `[coming in v2.0]`
 {Sets a recurring expense for a specific duration and frequency.}
@@ -185,7 +205,7 @@ There is no need to save manually.
 === FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Run the app in the other computer and overwrite the empty data file it creates with the file that contains the data from your MyMorise/data folder.
+*A*: Run the app in the other computer and overwrite the empty data file it creates with the file that contains the data from your MYMorise/data folder.
 
 == Command Summary
 

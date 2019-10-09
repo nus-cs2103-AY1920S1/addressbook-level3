@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MYMorise - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,6 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T14-4/main
+
 
 By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -359,8 +360,10 @@ _{More may be added}_
 [appendix]
 == Use Cases
 
+
 Note: For all use cases below, the *System* is `MYMorise(MYM)`, the *Actor* is the `user` and the *Precondition* is
 `MyMorise is running`, unless specified otherwise).
+
 Inputs specified in a square bracket i.e [input] are optional inputs from the user.
 
 [none]
@@ -452,7 +455,7 @@ Use case ends.
 [none]
 [#_UC04]
 === UC04 - Retrieve all expenses +
-Preconditions: MyMorise is running, there is at least 1 expense stored.
+Preconditions: MYMorise is running, there is at least 1 expense stored.
 Guarantees:
 
 * A list of all expenses is shown.
@@ -499,7 +502,7 @@ Use case ends.
 [none]
 [#_UC05]
 === UC05 - Retrieve all recurring expenses +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * A list of all recurring expenses is shown.
@@ -515,7 +518,7 @@ Use case ends.
 [none]
 [#_UC06]
 === UC06 - Find an expense +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * A list of all expenses containing the specified keyword if any were found
@@ -541,7 +544,7 @@ Use case ends.
 [none]
 [#_UC07]
 === UC07 - Update an expense +
-Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
 Guarantees:
 
 * The expense selected for editing will be updated with the new data.
@@ -578,7 +581,7 @@ Use case resumes at step 2.
 [none]
 [#_UC08]
 === UC08 - Delete an expense +
-Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
 Guarantees:
 
 * The expense specified for deletion will be deleted.
@@ -615,7 +618,7 @@ Use case resumes at step 2.
 [none]
 [#_UC09]
 === UC09 - Delete a recurring expense +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * The recurring expense specified for deletion will be deleted.
@@ -672,7 +675,7 @@ Use case ends.
 [none]
 [#_UC11]
 === UC11 - Visualize funds left for current month +
-Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
 Guarantees:
 
 * Visualization of funds left for current month will be updated.
@@ -689,7 +692,7 @@ Use case ends.
 [none]
 [#_UC12]
 === UC12 - Notify when funds are < 50% +
-Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
 
 Guarantees:
 
@@ -797,7 +800,7 @@ Use case ends.
 
 Guarantees:
 
-* MyMorise will convert display amounts in the specified currency, if the specified currency is valid..
+* MYMorise will convert display amounts in the specified currency, if the specified currency is valid..
 
 [none]
 *MSS*
@@ -845,7 +848,7 @@ Use case ends.
 [none]
 [#_UC18]
 === UC18 - Automatically convert expenses in foreign currencies to default currency +
-Preconditions: Preconditions: MyMorise is running, at least 1 expense stored in foreign currency +
+Preconditions: Preconditions: MYMorise is running, at least 1 expense stored in foreign currency +
 
 Guarantees:
 
@@ -857,6 +860,7 @@ but all computations will default converted amount.
 
 . User <<_UC17,  creates an expense with specific currency>>
 . User <<_UC05, requests for all expenses>>
+
 . MYM shows list of expenses. Expenses with foreign currencies are shown together with their default currency converted
 amounts.
 +
