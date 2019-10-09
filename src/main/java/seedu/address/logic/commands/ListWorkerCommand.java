@@ -21,4 +21,10 @@ public class ListWorkerCommand extends ListCommand {
         model.updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListWorkerCommand); // instanceof handles nulls
+    }
 }

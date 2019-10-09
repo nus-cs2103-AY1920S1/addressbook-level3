@@ -18,4 +18,10 @@ public class ListFridgeCommand extends ListCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListFridgeCommand); // instanceof handles nulls
+    }
 }
