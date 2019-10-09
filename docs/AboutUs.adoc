@@ -36,3 +36,9 @@ image::profile_pic.jpg[width="150", align="left"]
 {empty}[https://github.com/r-d-d-d[github]]
 
 Role: Member
+
+=== Sng Jia Ming Fadi Faris
+image::fadisng.JPG[width="150", align="left"]
+{empty}[https://github.com/fadisng[github]]
+
+Role: Member
