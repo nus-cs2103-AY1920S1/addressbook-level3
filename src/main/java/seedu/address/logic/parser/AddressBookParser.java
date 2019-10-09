@@ -58,11 +58,10 @@ public class AddressBookParser {
             return new AddReminderCommandParser().parse(description, flags);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(description);
-            //return new EditCommandParser().parse(description, flags);
+            return new EditCommandParser().parse(description, flags);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(description);
+            return new DeleteCommandParser().parse(description, flags);
 
         //case ClearCommand.COMMAND_WORD:
         //    return new ClearCommand();
