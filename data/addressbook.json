@@ -2,7 +2,7 @@
   "flashcards" : [ {
     "question" : "What is pointer in C ?",
     "answer" : "A pointer variable stores the address of a memory location",
-    "rating" : "hard",
+    "rating" : "easy",
     "categories" : [ "CS2100", "pointer", "C" ]
   }, {
     "question" : "How to declare a pointer in C ?",
@@ -31,3 +31,5 @@
     "categories" : [ ]
   } ]
 }
+
+
