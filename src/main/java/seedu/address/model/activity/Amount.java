@@ -1,7 +1,5 @@
 package seedu.address.model.activity;
 
-import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -10,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "The amount of money spent can only be a positive number, and it should not be blank";
+            "The amount of money spent can only be a positive number";
 
     public final double value;
 
@@ -20,7 +18,6 @@ public class Amount {
      * @param amount A valid amount of money spent.
      */
     public Amount(double amount) {
-        requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         value = amount;
     }
