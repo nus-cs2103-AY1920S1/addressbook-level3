@@ -4,7 +4,7 @@ matrix:
     - jdk: openjdk11
 
 script: >-
-
+    ./config/travis/run-checks.sh
 
 deploy:
   skip_cleanup: true
