@@ -13,11 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
