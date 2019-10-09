@@ -18,8 +18,6 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label id;
-    @FXML
     private Label name;
     @FXML
     private Label dateTime;
@@ -32,8 +30,7 @@ public class EventCard extends UiPart<Region> {
     public EventCard(EventSource eventSource, int displayedIndex) {
         super(FXML);
         this.eventSource = eventSource;
-        id.setText(displayedIndex + ". ");
-        name.setText(eventSource.getDescription().toString());
+        name.setText(displayedIndex + ". " + eventSource.getDescription().toString());
         dateTime.setText(eventSource.getStartDateTime().toString());
     }
 
@@ -51,7 +48,6 @@ public class EventCard extends UiPart<Region> {
 
         // state check
         EventCard card = (EventCard) other;
-        return id.getText().equals(card.id.getText())
-                && eventSource.equals(card.eventSource);
+        return eventSource.equals(card.eventSource);
     }
 }

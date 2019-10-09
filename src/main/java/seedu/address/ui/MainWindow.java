@@ -37,9 +37,12 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EventListPanel eventListPanel;
+    private ListPanel listPanel;
+    private CalendarPanel calendarPanel;
     private LogPanel logPanel;
     private HelpWindow helpWindow;
+
+    private boolean calendarMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane viewPanelPlaceholder;
 
     @FXML
     private StackPane logPanelPlaceholder;
@@ -74,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.calendarMode = false;
 
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -124,9 +128,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        calendarPanel = new CalendarPanel(logic.getFilteredEventList());
+        listPanel = new ListPanel(logic.getFilteredEventList());
+        viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
-        personListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -148,21 +153,13 @@ public class MainWindow extends UiPart<Stage> {
         double screenHeight = primaryScreenBounds.getHeight();
         double screenWidth = primaryScreenBounds.getWidth();
 
-        logPanelPlaceholder.setPrefHeight(screenHeight);
-        personListPanelPlaceholder.setPrefHeight(screenHeight);
-
-        personListPanelPlaceholder.setMinWidth(screenWidth / 2 - WIDTH_PADDING);
-
-        logPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
-        personListPanelPlaceholder.setPrefWidth(screenWidth / 2 - WIDTH_PADDING);
+        logPanelPlaceholder.setPrefWidth(screenWidth);
+        viewPanelPlaceholder.setPrefWidth(screenWidth);
+        // listPanelPlaceholder.setPrefHeight(screenHeight);
 
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
         primaryStage.setMaxHeight(screenHeight);
-        primaryStage.setMinHeight(screenHeight / 1.25);
-        primaryStage.setMinWidth(screenWidth / 1.25);
-
-
     }
 
     /**
@@ -205,16 +202,26 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        // Temporary Stub for UI testing.
+        /*
+        if(commandText.equals("view")) {
+            viewPanelPlaceholder.getChildren().clear();
+            if(calendarMode) {
+                calendarMode = false;
+                viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+            } else {
+                calendarMode = true;
+                viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+            }
+            return null;
+        }
+        */
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
