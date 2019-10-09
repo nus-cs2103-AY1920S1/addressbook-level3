@@ -60,7 +60,7 @@ public class DequeueCommand extends ReversibleCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (referenceId == null || model.hasPerson(referenceId)) {
+        if (referenceId == null || !model.hasPerson(referenceId) || model.hasId(referenceId)) {
             throw new CommandException(MESSAGE_UNDO_DEQUEUE_ERROR);
         }
 

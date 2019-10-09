@@ -92,13 +92,15 @@ public class TypicalPersons {
     }
 
     public static QueueManager getTypicalQueueManager() {
-        QueueManager qm = new QueueManager();
+        /*QueueManager qm = new QueueManager();
         for (Person person : getTypicalPersons()) {
             qm.addPatient(person.getReferenceId());
         }
         qm.addRoom(IDA.getReferenceId());
         qm.addRoom(HOON.getReferenceId());
         return qm;
+        */
+        return new QueueManager();
     }
 
     /**

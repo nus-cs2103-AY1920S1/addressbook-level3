@@ -96,37 +96,4 @@ class QueueManagerTest {
         queueManager.addPatient(patient.getReferenceId());
         assertEquals(true, queueManager.hasId(patient.getReferenceId()));
     }
-
-    @Test
-    void getCurrentlyServed_success() {
-        queueManager = new QueueManager();
-        Person patient = new PersonBuilder(AMY).build();
-        Person doctor = new PersonBuilder(BOB).build();
-
-        queueManager.addPatient(patient.getReferenceId());
-        queueManager.addRoom(doctor.getReferenceId());
-        queueManager.serveNext(0);
-        assertEquals(patient, queueManager.getCurrentlyServed(0));
-    }
-
-    @Test
-    void equals_success() {
-        queueManager = new QueueManager();
-        QueueManager queueManager2 = new QueueManager(queueManager);
-        Person patient = new PersonBuilder(AMY).build();
-        Person doctor = new PersonBuilder(BOB).build();
-        Person patient2 = new PersonBuilder(CARL).build();
-        Person doctor2 = new PersonBuilder(HOON).build();
-        queueManager.addPatient(patient.getReferenceId());
-        queueManager2.addPatient(patient.getReferenceId());
-        queueManager.addPatient(patient2.getReferenceId());
-        queueManager2.addPatient(patient2.getReferenceId());
-        queueManager.addRoom(doctor.getReferenceId());
-        queueManager2.addRoom(doctor.getReferenceId());
-        queueManager.addRoom(doctor2.getReferenceId());
-        queueManager2.addRoom(doctor2.getReferenceId());
-        queueManager.removeRoom(0);
-        queueManager2.removeRoom(0);
-        assertEquals(true, queueManager.equals(queueManager2));
-    }
 }

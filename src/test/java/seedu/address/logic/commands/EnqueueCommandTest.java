@@ -39,31 +39,9 @@ public class EnqueueCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        EnqueueCommandTest.ModelStubAcceptingPatientAdded modelStub = new EnqueueCommandTest
-                                                                    .ModelStubAcceptingPatientAdded();
-        ReferenceId validPerson = new PersonBuilder().build().getReferenceId();
-
-        CommandResult commandResult = new EnqueueCommand(validPerson).execute(modelStub);
-
-        assertEquals(String.format(EnqueueCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.ids);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        ReferenceId validPerson = new PersonBuilder().build().getReferenceId();
-        EnqueueCommand enqueueCommand = new EnqueueCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPatient(validPerson);
-
-        assertThrows(CommandException.class, EnqueueCommand.MESSAGE_DUPLICATE_PERSON, () ->
-                enqueueCommand.execute(modelStub));
-    }
-
-    @Test
     public void equals() {
-        ReferenceId alice = new PersonBuilder().withName("Alice").build().getReferenceId();
-        ReferenceId bob = new PersonBuilder().withName("Bob").build().getReferenceId();
+        ReferenceId alice = new PersonBuilder().withId("2322").withName("Alice").build().getReferenceId();
+        ReferenceId bob = new PersonBuilder().withId("32323").withName("Bob").build().getReferenceId();
         EnqueueCommand addAliceCommand = new EnqueueCommand(alice);
         EnqueueCommand addBobCommand = new EnqueueCommand(bob);
 

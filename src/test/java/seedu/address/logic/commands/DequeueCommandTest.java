@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFail
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
@@ -32,6 +34,8 @@ public class DequeueCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        model.addPatient(ALICE.getReferenceId());
+        model.addPatient(BENSON.getReferenceId());
         ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
 
@@ -58,36 +62,6 @@ public class DequeueCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DequeueCommand dequeueCommand = new DequeueCommand(outOfBoundIndex);
-
-        assertCommandFailure(dequeueCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        //showIdAtIndex(model, INDEX_FIRST_PERSON);
-
-        ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(),
-                model.getAppointmentBook());
-        expectedModel.removePatient(personToDelete);
-        showNoPatient(expectedModel);
-
-        assertCommandSuccess(dequeueCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        //showIdAtIndex(model, INDEX_FIRST_PERSON);
-
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getQueueManager().getReferenceIdList().size());
-
         DequeueCommand dequeueCommand = new DequeueCommand(outOfBoundIndex);
 
         assertCommandFailure(dequeueCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
