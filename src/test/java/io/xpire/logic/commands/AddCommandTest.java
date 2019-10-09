@@ -43,7 +43,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateItem_throwsCommandException() {
         Item validItem = new ItemBuilder().build();
         AddCommand addCommand = new AddCommand(validItem);
         ModelStub modelStub = new ModelStubWithItem(validItem);
@@ -71,7 +71,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -161,7 +161,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single item.
      */
     private class ModelStubWithItem extends ModelStub {
         private final Item item;
@@ -179,7 +179,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the item being added.
      */
     private class ModelStubAcceptingItemAdded extends ModelStub {
         final ArrayList<Item> itemsAdded = new ArrayList<>();

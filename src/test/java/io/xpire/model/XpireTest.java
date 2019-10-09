@@ -48,8 +48,8 @@ public class XpireTest {
         // Two items with the same identity fields
         Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE).withTags(VALID_TAG_FRUIT)
                                                    .build();
-        List<Item> newPersons = Arrays.asList(APPLE, editedAlice);
-        XpireStub newData = new XpireStub(newPersons);
+        List<Item> newItems = Arrays.asList(APPLE, editedAlice);
+        XpireStub newData = new XpireStub(newItems);
 
         assertThrows(DuplicateItemException.class, () -> xpire.resetData(newData));
     }
@@ -84,7 +84,7 @@ public class XpireTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose items list can violate interface constraints.
      */
     private static class XpireStub implements ReadOnlyXpire {
         private final ObservableList<Item> items = FXCollections.observableArrayList();

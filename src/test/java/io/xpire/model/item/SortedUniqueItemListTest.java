@@ -52,23 +52,23 @@ public class SortedUniqueItemListTest {
     }
 
     @Test
-    public void add_duplicateItem_throwsDuplicatePersonException() {
+    public void add_duplicateItem_throwsDuplicateItemException() {
         uniqueItemList.add(TypicalItems.KIWI);
         assertThrows(DuplicateItemException.class, () -> uniqueItemList.add(TypicalItems.KIWI));
     }
 
     @Test
-    public void setPerson_nullTargetItem_throwsNullPointerException() {
+    public void setItem_nullTargetItem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueItemList.setItem(null, TypicalItems.KIWI));
     }
 
     @Test
-    public void setPerson_nullEditedItem_throwsNullPointerException() {
+    public void setItem_nullEditedItem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueItemList.setItem(TypicalItems.KIWI, null));
     }
 
     @Test
-    public void setPerson_targetItemNotInList_throwsPersonNotFoundException() {
+    public void setItem_targetItemNotInList_throwsItemNotFoundException() {
         assertThrows(ItemNotFoundException.class, () -> uniqueItemList.setItem(TypicalItems.KIWI, TypicalItems.KIWI));
     }
 
@@ -143,24 +143,24 @@ public class SortedUniqueItemListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setItems_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((List<Item>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setItems_list_replacesOwnListWithProvidedList() {
         uniqueItemList.add(TypicalItems.APPLE);
-        List<Item> personList = Collections.singletonList(TypicalItems.KIWI);
-        uniqueItemList.setItems(personList);
+        List<Item> itemList = Collections.singletonList(TypicalItems.KIWI);
+        uniqueItemList.setItems(itemList);
         SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
         expectedUniqueItemList.add(TypicalItems.KIWI);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Item> listWithDuplicatePersons = Arrays.asList(TypicalItems.APPLE, TypicalItems.APPLE);
-        assertThrows(DuplicateItemException.class, () -> uniqueItemList.setItems(listWithDuplicatePersons));
+    public void setItems_listWithDuplicateItems_throwsDuplicateItemException() {
+        List<Item> listWithDuplicateItems = Arrays.asList(TypicalItems.APPLE, TypicalItems.APPLE);
+        assertThrows(DuplicateItemException.class, () -> uniqueItemList.setItems(listWithDuplicateItems));
     }
 
     @Test

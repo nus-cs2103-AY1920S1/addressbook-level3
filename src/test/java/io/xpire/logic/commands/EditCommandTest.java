@@ -87,8 +87,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
-        Item personInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        Item editedItem = new ItemBuilder(personInFilteredList).withName(VALID_NAME_KIWI).build();
+        Item itemInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
+        Item editedItem = new ItemBuilder(itemInFilteredList).withName(VALID_NAME_KIWI).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
                 new EditItemDescriptorBuilder().withName(VALID_NAME_KIWI).build());
 
@@ -113,10 +113,10 @@ public class EditCommandTest {
     public void execute_duplicateItemFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
-        // edit person in filtered list into a duplicate in address book
-        Item personInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
+        // edit item in filtered list into a duplicate in address book
+        Item itemInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
-                new EditItemDescriptorBuilder(personInList).build());
+                new EditItemDescriptorBuilder(itemInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
