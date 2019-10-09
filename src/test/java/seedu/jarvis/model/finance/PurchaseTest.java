@@ -15,5 +15,4 @@ public class PurchaseTest {
     public void constructor_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Purchase(null, 0.0));
     }
-
 }

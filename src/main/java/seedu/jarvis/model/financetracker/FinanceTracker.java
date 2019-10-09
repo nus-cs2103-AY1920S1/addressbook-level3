@@ -2,6 +2,8 @@ package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
 
+import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
+
 /**
  * Manages the overall functionality of the Finance Tracker feature of JARVIS. The finance tracker manages purchases
  * spent by the user and instalments paid.
@@ -9,13 +11,13 @@ import java.util.ArrayList;
 public class FinanceTracker {
     private PurchaseList purchaseList;
     private InstallmentList installmentList;
-    private double monthlyLimit = 0;
+    private double monthlyLimit;
     private double totalSpending;
 
     public FinanceTracker() {
-        //todo assign all fields from existing model
         purchaseList = new PurchaseList(new ArrayList<>());
         installmentList = new InstallmentList(new ArrayList<>());
+        monthlyLimit = 0;
     }
 
     public void setPurchaseList(PurchaseList purchaseList) {
@@ -27,16 +29,17 @@ public class FinanceTracker {
     }
 
     public Purchase getPayment(int paymentIndex) {
-        return this.purchaseList.getPurchase(paymentIndex);
+        return purchaseList.getPurchase(paymentIndex);
     }
 
     public Installment getInstallment(int instalIndex) {
-        return this.installmentList.getInstallment(instalIndex);
+        return installmentList.getInstallment(instalIndex);
     }
 
     /**
      * Adds single use payment.
-     * @param purchase
+     *
+     * @param purchase to be added to the finance tracker
      */
     public void addSinglePayment(Purchase purchase) {
         purchaseList.addSinglePurchase(purchase);
@@ -58,7 +61,7 @@ public class FinanceTracker {
     /**
      * Adds instalment.
      *
-     * @param installment
+     * @param installment to be added to the finance tracker
      */
     public void addInstallment(Installment installment) {
         installmentList.addInstallment(installment);
@@ -67,6 +70,7 @@ public class FinanceTracker {
     public Installment deleteInstallment(int instalNumber) {
         return installmentList.deleteInstallment(instalNumber);
     }
+
     /**
      * Deletes instalment.
      *
@@ -88,12 +92,15 @@ public class FinanceTracker {
      * @param limit
      */
     public void setMonthlyLimit(double limit) {
-        assert limit > 0 : "your spending limit cannot be negative!";
-        this.monthlyLimit = limit;
+        if (limit < 0) {
+            throw new NegativeLimitException();
+        } else {
+            monthlyLimit = limit;
+        }
     }
 
     public double getMonthlyLimit() {
-        return this.monthlyLimit;
+        return monthlyLimit;
     }
 
     /**
@@ -101,7 +108,15 @@ public class FinanceTracker {
      */
     public void listSpending() {
         totalSpending = purchaseList.totalSpending() + installmentList.getTotalMoneySpentOnInstallments();
-        installmentList.toString(); //todo print this out nicely on UI
-        purchaseList.toString(); //todo print this out nicely on UI
+        installmentList.toString();
+        purchaseList.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FinanceTracker // instanceof handles nulls
+                && purchaseList.equals(((FinanceTracker) other).purchaseList)
+                && installmentList.equals(((FinanceTracker) other).installmentList));
     }
 }

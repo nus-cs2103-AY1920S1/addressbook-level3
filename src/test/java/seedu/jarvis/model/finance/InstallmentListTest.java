@@ -16,7 +16,7 @@ import seedu.jarvis.model.financetracker.InstallmentList;
  */
 public class InstallmentListTest {
 
-    private InstallmentList ip;
+    private InstallmentList installmentList;
 
     @BeforeEach
     public void setUp() {
@@ -24,68 +24,74 @@ public class InstallmentListTest {
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());
-        ip = new InstallmentList(listInstallments);
+        installmentList = new InstallmentList(listInstallments);
     }
 
     @Test
     public void getPurchase_normalInput_retrievedCorrectly() {
-        assertEquals(new InstallmentStub().getDescription(), ip.getInstallment(1).getDescription());
+        assertEquals(new InstallmentStub().getDescription(), installmentList.getInstallment(1).getDescription());
         assertEquals(new InstallmentStub().getMoneySpentOnInstallment(),
-                ip.getInstallment(1).getMoneySpentOnInstallment());
+                installmentList.getInstallment(1).getMoneySpentOnInstallment());
     }
 
     @Test
     public void addInstallment_normalInput_addedCorrectly() {
-        ip.addInstallment(new InstallmentStub());
-        assertEquals(new InstallmentStub().getDescription(), ip.getInstallment(1).getDescription());
+        installmentList.addInstallment(new InstallmentStub());
+        assertEquals(new InstallmentStub().getDescription(), installmentList.getInstallment(1).getDescription());
         assertEquals(new InstallmentStub().getMoneySpentOnInstallment(),
-                ip.getInstallment(1).getMoneySpentOnInstallment());
-        assertEquals(4, ip.getNumInstallments());
+                installmentList.getInstallment(1).getMoneySpentOnInstallment());
+        assertEquals(4, installmentList.getNumInstallments());
     }
 
     @Test
     public void countNumInstallments_normalInput_addedCorrectly() {
-        assertEquals(3, ip.getNumInstallments());
+        assertEquals(3, installmentList.getNumInstallments());
     }
 
     @Test
     public void deleteInstallment_normalInput_deletedCorrectly() {
-        Installment removedInstallment = ip.deleteInstallment(3);
+        Installment removedInstallment = installmentList.deleteInstallment(3);
         assertEquals(new InstallmentStub().getDescription(), removedInstallment.getDescription());
         assertEquals(new InstallmentStub().getMoneySpentOnInstallment(),
                 removedInstallment.getMoneySpentOnInstallment());
-        assertEquals(2, ip.getNumInstallments());
+        assertEquals(2, installmentList.getNumInstallments());
     }
 
     @Test
     public void deleteInstallment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ip.deleteInstallment(4));
-        assertEquals(3, ip.getNumInstallments());
+        assertThrows(RuntimeException.class, () -> installmentList.deleteInstallment(4));
+        assertEquals(3, installmentList.getNumInstallments());
     }
 
     @Test
     public void editInstallment_normalInputs_editedCorrectly() {
-        ip.editInstallment(1, "Spotify subscription", 9.50);
-        assertEquals("Spotify subscription", ip.getInstallment(1).getDescription());
-        assertEquals(9.50, ip.getInstallment(1).getMoneySpentOnInstallment());
+        installmentList.editInstallment(1, "Spotify subscription", 13.0);
+        assertEquals("Spotify subscription", installmentList.getInstallment(1).getDescription());
+        assertEquals(13.0, installmentList.getInstallment(1).getMoneySpentOnInstallment());
     }
 
     @Test
     public void editInstallment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, (
+        assertThrows(RuntimeException.class, (
 
-        ) -> ip.editInstallment(5, "Spotify", 9.50));
+        ) -> installmentList.editInstallment(5, "Spotify", 9.50));
     }
 
     @Test
     public void editInstalment_emptyDescription_throwsError() {
         assertThrows(NullPointerException.class, (
 
-        ) -> ip.editInstallment(3, null, 9.50));
+        ) -> installmentList.editInstallment(3, null, 9.50));
     }
 
     @Test
     public void totalMoneySpentOnInstalments_normalInputs_addedCorrectly() {
-        assertEquals(28.5, ip.getTotalMoneySpentOnInstallments());
+        assertEquals(28.5, installmentList.getTotalMoneySpentOnInstallments());
+    }
+
+    private static class InstallmentStub extends Installment {
+        public InstallmentStub() {
+            super("Spotify subscription", 9.5);
+        }
     }
 }

@@ -1,33 +1,40 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Object stores a single payment including its details such as the description and the money spent.
+ * Purchase object stores a single payment including its details such as the description and the money spent.
  */
 public class Purchase {
     private String description;
     private double moneySpent;
 
     public Purchase(String description, double moneySpent) {
-        Objects.requireNonNull(description);
+        requireNonNull(description);
         this.description = description;
         this.moneySpent = moneySpent;
     }
 
-    /**
-     * GETTER METHODS
-     */
+    //=========== Getter Methods ==================================================================================
+
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public double getMoneySpent() {
-        return this.moneySpent;
+        return moneySpent;
     }
 
     @Override
     public String toString() {
-        return this.description + " (" + this.moneySpent + ")";
+        return description + " (" + moneySpent + ")";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Installment // instanceof handles nulls
+                && description.equals(((Purchase) other).description)
+                && moneySpent == ((Purchase) other).moneySpent);
     }
 }

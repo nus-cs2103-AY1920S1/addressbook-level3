@@ -53,15 +53,6 @@ public interface FinanceTrackerModel {
     void setMonthlyLimit(double value);
 
     /**
-     * Compares the expenditure between two different months.
-     *
-     * @param monthA
-     * @param monthB
-     * todo consider removing this command
-     */
-    //void compareMonth(String monthA, String monthB);
-
-    /**
      * Lists all purchases and payments from this month.
      *
      */

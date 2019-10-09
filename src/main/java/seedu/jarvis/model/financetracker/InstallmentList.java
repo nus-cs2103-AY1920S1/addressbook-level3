@@ -1,20 +1,26 @@
 package seedu.jarvis.model.financetracker;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
-import java.util.Objects;
+
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+
 
 /**
  * Manages a list of instalments saved by the user.
  */
 public class InstallmentList {
     private ArrayList<Installment> allInstallments;
-    private double totalMoneySpentOnInstallments = 0;
+    private double totalMoneySpentOnInstallments;
 
     /**
      * Empty constructor to be used when there are no instalments previously stored by the user.
      */
     public InstallmentList() {
         allInstallments = new ArrayList<>();
+        totalMoneySpentOnInstallments = 0;
     }
 
     /**
@@ -27,37 +33,51 @@ public class InstallmentList {
 
     /**
      * Add installment to the list of installments
+     * @param newInstallment to be added
      */
     public void addInstallment(Installment newInstallment) {
         allInstallments.add(newInstallment);
-        totalMoneySpentOnInstallments = this.calculateTotalInstallmentSpending();
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
     }
 
     /**
      * User requests to edit a particular instalment based on its index. Either description or value can be changed,
      * but not both at the same time.
-     * todo parse this command before this class (assign null if no change)
+     *
+     * @param installmentNumber of the installment to be edited
+     * @param description of the installment to be edited
+     * @param value of the installment to be edited
      */
     public void editInstallment(int installmentNumber, String description, double value) {
-        //todo add exception for if the instalment does not exist and edit tests accordingly
-        Objects.requireNonNull(description);
-        allInstallments.get(installmentNumber - 1).editDescription(description);
-        allInstallments.get(installmentNumber - 1).editAmount(value);
-        totalMoneySpentOnInstallments = this.calculateTotalInstallmentSpending();
+        if (installmentNumber < 1) {
+            throw new InstallmentNotFoundException();
+        } else {
+            requireNonNull(description);
+            Index index = Index.fromOneBased(installmentNumber);
+            allInstallments.get(index.getZeroBased()).editDescription(description);
+            allInstallments.get(index.getZeroBased()).editAmount(value);
+            totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+        }
     }
 
     /**
      * Deletes instalment from the list of instalments based on the instalment number.
+     *
      * @param installmentNumber of the instalment in the list
      * @return Instalment object that has been removed from the list
      */
     public Installment deleteInstallment(int installmentNumber) {
-        //todo check if the number is within the size of the list and edit tests accordingly
-        return allInstallments.remove(installmentNumber - 1);
+        if (installmentNumber < 1) {
+            throw new InstallmentNotFoundException();
+        } else {
+            Index index = Index.fromOneBased(installmentNumber);
+            return allInstallments.remove(index.getZeroBased());
+        }
     }
 
     /**
      * Calculates the total monthly spending from all instalments currently subscribed to by the user.
+     *
      * @return double containing the total money spent to be included in monthly expenditure
      */
     private double calculateTotalInstallmentSpending() {
@@ -69,15 +89,16 @@ public class InstallmentList {
     }
 
     public double getTotalMoneySpentOnInstallments() {
-        return this.totalMoneySpentOnInstallments;
+        return totalMoneySpentOnInstallments;
     }
 
-    public Installment getInstallment(int instalNum) {
-        return allInstallments.get(instalNum - 1);
+    public Installment getInstallment(int installmentNumber) {
+        Index index = Index.fromOneBased(installmentNumber);
+        return allInstallments.get(index.getZeroBased());
     }
 
     public int getNumInstallments() {
-        return this.allInstallments.size();
+        return allInstallments.size();
     }
 
     @Override
@@ -88,5 +109,12 @@ public class InstallmentList {
             lstInstallments += index + ". " + installment.toString();
         }
         return lstInstallments;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof InstallmentList // instanceof handles nulls
+                && allInstallments.equals(((InstallmentList) other).allInstallments));
     }
 }

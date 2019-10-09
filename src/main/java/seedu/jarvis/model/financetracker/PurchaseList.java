@@ -1,6 +1,10 @@
 package seedu.jarvis.model.financetracker;
 
 import java.util.ArrayList;
+
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
+
 /**
  * Manages list of monthly expenditures made by the user.
  */
@@ -13,6 +17,7 @@ public class PurchaseList {
 
     /**
      * Adds a single-use purchases to the list of purchases
+     *
      * @param newPurchase object from newly added single-use payment
      */
     public void addSinglePurchase(Purchase newPurchase) {
@@ -20,21 +25,18 @@ public class PurchaseList {
     }
 
     /**
-     * Adds a single-time payment to a person to the list of purchases
-     * @param newPurchase of payment to a person
-     */
-    public void addSinglePayment(Purchase newPurchase) {
-        allPurchases.add(newPurchase);
-    }
-
-    /**
-     * Removes a particular purchase from the list and returns purchase. todo return object to show user
+     * Removes a particular purchase from the list and returns purchase.
+     *
      * @param purchaseIndex
-     * @return
+     * @return Purchase that was just deleted from the user's list of purchases
      */
     public Purchase deletePurchase(int purchaseIndex) {
-        //todo check if the number is within the size of the list and edit tests accordingly
-        return allPurchases.remove(purchaseIndex - 1);
+        if (purchaseIndex < 1) {
+            throw new PurchaseNotFoundException();
+        } else {
+            Index index = Index.fromOneBased(purchaseIndex);
+            return allPurchases.remove(index.getZeroBased());
+        }
     }
 
     /**
@@ -51,10 +53,18 @@ public class PurchaseList {
     }
 
     public Purchase getPurchase(int purchaseIndex) {
-        return this.allPurchases.get(purchaseIndex - 1);
+        Index index = Index.fromOneBased(purchaseIndex);
+        return allPurchases.get(index.getZeroBased());
     }
 
     public int getNumPurchases() {
-        return this.allPurchases.size();
+        return allPurchases.size();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PurchaseList // instanceof handles nulls
+                && allPurchases.equals(((PurchaseList) other).allPurchases));
     }
 }

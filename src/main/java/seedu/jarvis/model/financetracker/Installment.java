@@ -1,23 +1,22 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Object stores a single recurring payment with its details such as description and the amount spent.
+ * Installment object stores a single recurring payment with its details such as description and the amount spent.
  */
 public class Installment {
     private String description;
     private double moneySpentOnInstallment;
 
     public Installment(String description, double moneySpentOnInstallment) {
-        Objects.requireNonNull(description);
+        requireNonNull(description);
         this.description = description;
         this.moneySpentOnInstallment = moneySpentOnInstallment;
     }
 
-    /**
-     * GETTER METHODS
-     */
+    //=========== Getter Methods ==================================================================================
+
     public String getDescription() {
         return this.description;
     }
@@ -26,21 +25,32 @@ public class Installment {
         return this.moneySpentOnInstallment;
     }
 
+    //=========== Edit Methods ==================================================================================
+
     /**
-     * EDIT METHODS
+     * Edits the description of an existing installment.
+     *
+     * @param newDescription to replace original description of installment
      */
     public void editDescription(String newDescription) {
-        Objects.requireNonNull(newDescription);
+        requireNonNull(newDescription);
         this.description = newDescription;
     }
 
     public void editAmount(double newMoney) {
-        this.moneySpentOnInstallment = newMoney;
+        moneySpentOnInstallment = newMoney;
     }
 
     @Override
     public String toString() {
-        return this.description + ", " + this.moneySpentOnInstallment;
+        return description + ", " + moneySpentOnInstallment;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Installment // instanceof handles nulls
+                && description.equals(((Installment) other).description)
+                && moneySpentOnInstallment == ((Installment) other).moneySpentOnInstallment);
+    }
 }

@@ -38,10 +38,10 @@ public class FinanceTrackerTest {
 
     @Test
     public void addPayment_normalInput_addedCorrectly() {
-        financeTracker.addSinglePayment(new PurchaseStub2());
+        financeTracker.addSinglePayment(new PurchaseStub());
         Purchase addedPurchase = financeTracker.getPayment(4);
-        assertEquals(new PurchaseStub2().getDescription(), addedPurchase.getDescription());
-        assertEquals(new PurchaseStub2().getMoneySpent(), addedPurchase.getMoneySpent());
+        assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
+        assertEquals(new PurchaseStub().getMoneySpent(), addedPurchase.getMoneySpent());
         assertEquals(4, financeTracker.getTotalPurchases());
     }
 
@@ -55,7 +55,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deletePayment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, () -> financeTracker.deleteSinglePayment(4));
+        assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePayment(4));
         assertEquals(3, financeTracker.getTotalPurchases());
     }
 
@@ -79,7 +79,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deleteInstallment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, () -> financeTracker.deleteInstallment(4));
+        assertThrows(RuntimeException.class, () -> financeTracker.deleteInstallment(4));
         assertEquals(3, financeTracker.getTotalInstallments());
     }
 
@@ -94,7 +94,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void editInstallment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, (
+        assertThrows(RuntimeException.class, (
 
         ) -> financeTracker.editInstallment(5, "Spotify", 9.50));
     }
@@ -112,10 +112,24 @@ public class FinanceTrackerTest {
         assertEquals(500.0, financeTracker.getMonthlyLimit());
     }
 
-}
+    @Test
+    public void setMonthlyLimit_negativeNumber_errorThrown() {
+        assertThrows(RuntimeException.class, (
 
-class PurchaseStub2 extends Purchase {
-    public PurchaseStub2() {
-        super("lunch at deck", 5.00);
+                ) -> financeTracker.setMonthlyLimit(-500));
+    }
+
+    private static class PurchaseStub extends Purchase {
+        public PurchaseStub() {
+            super("lunch at deck", 5.00);
+        }
+    }
+
+    private static class InstallmentStub extends Installment {
+        public InstallmentStub() {
+            super("Spotify subscription", 9.5);
+        }
     }
 }
+
+

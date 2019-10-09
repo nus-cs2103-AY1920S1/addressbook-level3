@@ -20,13 +20,15 @@ public class InstalmentTest {
     public void editInstallment_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new InstallmentStub().editDescription(null));
     }
-}
 
-class InstallmentStub extends Installment {
-    public InstallmentStub() {
-        super("Spotify subscription", 9.5);
+    private static class InstallmentStub extends Installment {
+        public InstallmentStub() {
+            super("Spotify subscription", 9.5);
+        }
     }
 }
+
+
 
 
 
