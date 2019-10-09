@@ -19,16 +19,16 @@ public class Activity {
     private final Name name;
 
     //Data fields
-    private final Address address;
+    private final Location location;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Address location, Set<Tag> tags) {
+    public Activity(Name name, Location location, Set<Tag> tags) {
         requireAllNonNull(name, location, tags);
         this.name = name;
-        this.address = location;
+        this.location = location;
         this.tags.addAll(tags);
     }
 
@@ -36,8 +36,8 @@ public class Activity {
         return name;
     }
 
-    public Address getLocation() {
-        return address;
+    public Location getLocation() {
+        return location;
     }
 
     /**
@@ -84,14 +84,14 @@ public class Activity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, address, tags);
+        return Objects.hash(name, location, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
+                .append(" Location: ")
                 .append(getLocation())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
