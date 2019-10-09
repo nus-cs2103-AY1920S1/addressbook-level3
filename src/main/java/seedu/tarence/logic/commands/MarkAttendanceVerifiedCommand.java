@@ -27,13 +27,13 @@ public class MarkAttendanceVerifiedCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         targetTutorial.setAttendance(week, targetStudent);
-        
+
         boolean isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent);
         List<Student> students = targetTutorial.getStudents();
         int nextStudentIndex = students.indexOf(targetStudent) + 1;
         if (nextStudentIndex >= students.size()) {
             return new CommandResult(
-                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS, 
+                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
                 isPresent));
         }
@@ -42,9 +42,9 @@ public class MarkAttendanceVerifiedCommand extends Command {
         model.storePendingCommand(
                 new MarkAttendanceVerifiedCommand(targetTutorial, week, nextStudent));
         return new CommandResult(
-                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS, 
+                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
-                isPresent) 
+                isPresent)
                 + "\n"
                 + String.format(MarkAttendanceCommand.MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT,
                 nextStudent.getName()));

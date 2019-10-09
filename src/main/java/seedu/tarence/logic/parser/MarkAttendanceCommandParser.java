@@ -6,7 +6,6 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
-import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import seedu.tarence.logic.commands.MarkAttendanceCommand;

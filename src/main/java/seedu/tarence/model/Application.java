@@ -364,7 +364,7 @@ public class Application implements ReadOnlyApplication {
      * Removes pending command from application and returns it for execution.
      */
     public Command retrievePendingCommand() {
-        if(hasPendingCommand()) {
+        if (hasPendingCommand()) {
             return pendingCommands.pop();
         } else {
             return null;

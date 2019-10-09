@@ -40,22 +40,31 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        
+
         CommandResult commandResult;
         Command command;
-        
-        // processes input first before checking for any pending commands
-        command = applicationParser.parseCommand(commandText);
-        if (model.hasPendingCommand() && !model.peekPendingCommand().needsCommand(command)) {
-            model.getPendingCommand(); // clear any pending commands if user has entered a different command
+
+        // processes multiple commands in user input if they exit
+        String[] commandStrings = commandText.split("&");
+        // TODO: add model.appendPendingCommand()
+        for (int i = commandStrings.length - 1; i >= 0; i--) {
+            Command tempCommand = applicationParser.parseCommand(commandStrings[i]);
+            model.storePendingCommand(tempCommand);
         }
-        model.storePendingCommand(command);
 
         StringBuffer combinedFeedback = new StringBuffer();
         // clears log of pending commands until it meets a command that requires further user input
-        while(model.hasPendingCommand() && !model.peekPendingCommand().needsInput()) {
-            command = model.getPendingCommand();
-            CommandResult currCommandResult = command.execute(model); 
+        while (model.hasPendingCommand() && !model.peekPendingCommand().needsInput()) {
+            command = model.getPendingCommand(); // first user-inputted command
+
+            // if next command requires user input, checks if current command is relevant
+            if (model.hasPendingCommand()
+                    && model.peekPendingCommand().needsInput()
+                    && !model.peekPendingCommand().needsCommand(command)) {
+                model.getPendingCommand(); // clear any pending commands if user has entered a different command
+            }
+
+            CommandResult currCommandResult = command.execute(model);
 
             // concatenate all results into a single result
             combinedFeedback.append(currCommandResult.getFeedbackToUser() + "\n");
@@ -63,7 +72,7 @@ public class LogicManager implements Logic {
             // check for exit/help condition
             if (currCommandResult.isExit() || currCommandResult.isShowHelp()) {
                 // this means that previous commands won't be shown if help is inside pending commands
-                return currCommandResult; 
+                return currCommandResult;
             }
 
             try {

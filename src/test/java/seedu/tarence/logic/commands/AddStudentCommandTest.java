@@ -331,7 +331,7 @@ public class AddStudentCommandTest {
             return null;
         }
 
-        @Override 
+        @Override
         public Command peekPendingCommand() {
             return null;
         }

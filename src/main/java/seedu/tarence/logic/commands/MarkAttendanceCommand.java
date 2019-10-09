@@ -76,10 +76,11 @@ public class MarkAttendanceCommand extends Command {
 
         Student targetStudent;
         // starts the chain of commands to mark attendance of a class if targetStudName is not specified
-        if(targetStudName.isEmpty()) {
+        if (targetStudName.isEmpty()) {
             targetStudent = targetTutorial.getStudents().get(0);
             model.storePendingCommand(new MarkAttendanceVerifiedCommand(targetTutorial, week, targetStudent));
-            return new CommandResult(String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, targetStudent.getName()));
+            return new CommandResult(
+                    String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, targetStudent.getName()));
         }
 
         targetStudent = targetTutorial.getStudents().stream()
@@ -99,7 +100,7 @@ public class MarkAttendanceCommand extends Command {
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudName, isPresent));
+                targetStudent.getName(), isPresent));
     }
 
     @Override
