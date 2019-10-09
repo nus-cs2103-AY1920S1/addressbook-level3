@@ -45,3 +45,17 @@ Role: Developer +
 Responsibilities: TBC
 
 '''
+
+=== Shawn Chew
+image::shawnpunchew11.jpg[width="150", align="left"]
+{empty}[https://github.com/shawnpunchew11[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: TBC
+
+...
+
+=== Muhammad Taha bin Jailani
+image::phirehandy.jpg[width="150", align="left"]
+{empty}[https://github.com/phirehandy[github]] [<<phirehandy#, portfolio>>]
+...
