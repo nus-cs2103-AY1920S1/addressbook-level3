@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.commons.core.item;
 
 /**
  * Available priority levels for tasks and events.
