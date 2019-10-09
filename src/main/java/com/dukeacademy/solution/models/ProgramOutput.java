@@ -15,7 +15,7 @@ public class ProgramOutput {
         this.output += output;
     }
 
-    public void appendNewLine() {
-        this.output += "\n";
+    public void appendNewLine(String output) {
+        this.output += "\n" + output;
     }
 }

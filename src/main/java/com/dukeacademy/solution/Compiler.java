@@ -1,6 +1,6 @@
 package com.dukeacademy.solution;
 
-import com.dukeacademy.solution.exceptions.UserProgramException;
+import com.dukeacademy.solution.exceptions.CompilerFileContentException;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.solution.environment.CompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
@@ -41,7 +41,7 @@ public class Compiler {
         }
     }
 
-    public void compileProgram(UserProgram program) throws CompilerException, UserProgramException {
+    public void compileProgram(UserProgram program) throws CompilerException, CompilerFileContentException {
         try {
             environment.clearEnvironment();
 
@@ -63,7 +63,7 @@ public class Compiler {
             if (error.isPresent()) {
                 String errorMessage = error.map(diagnostic -> diagnostic.getMessage(null)).get();
                 this.clearEnvironmentAfterUserProgramInvalid(errorMessage);
-                throw new UserProgramException(errorMessage);
+                throw new CompilerFileContentException(errorMessage);
             }
 
         } catch (CompilerFileCreationException | CompilerEnvironmentException e) {
@@ -72,11 +72,11 @@ public class Compiler {
         }
     }
 
-    private void clearEnvironmentAfterUserProgramInvalid(String errorMessage) throws UserProgramException {
+    private void clearEnvironmentAfterUserProgramInvalid(String errorMessage) throws CompilerFileContentException {
         try {
             this.environment.clearEnvironment();
         } catch (CompilerEnvironmentException e) {
-            throw new UserProgramException(errorMessage + " " + MESSAGE_FAILED_TO_CLEAR_ENVIRONMENT);
+            throw new CompilerFileContentException(errorMessage + " " + MESSAGE_FAILED_TO_CLEAR_ENVIRONMENT);
         }
     }
 
