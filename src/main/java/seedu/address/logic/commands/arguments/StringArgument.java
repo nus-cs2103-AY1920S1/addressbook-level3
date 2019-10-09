@@ -3,14 +3,18 @@ package seedu.address.logic.commands.arguments;
 /**
  * Represents a command argument of type String.
  */
-public class StringArgument extends CommandArgument<String> {
+public class StringArgument extends Argument<String> {
 
-    public StringArgument(String description, boolean required) {
-        super(description, required);
+    StringArgument(ArgumentBuilder<String> builder) {
+        super(builder);
+    }
+
+    public static StringArgumentBuilder newBuilder(String description) {
+        return new StringArgumentBuilder(description);
     }
 
     @Override
-    public String parse(String userInput) {
+    String parse(String userInput) {
         return userInput;
     }
 }
