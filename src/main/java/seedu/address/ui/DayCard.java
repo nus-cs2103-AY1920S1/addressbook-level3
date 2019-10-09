@@ -1,22 +1,18 @@
 package seedu.address.ui;
 
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
 import seedu.address.model.events.EventSource;
 
 /**
- * An Ui that stores the logged feedback from the program to the user.
+ * An Ui that represents a box in the calendar itself, containing up to 5 events and the date.
  */
 public class DayCard extends UiPart<Region> {
 
@@ -50,6 +46,12 @@ public class DayCard extends UiPart<Region> {
         this.index.setText(currentIndex);
     }
 
+    /**
+     * Returns a boolean which checks if the given event is the same date as the current iteration of DayCard.
+     * @param eventSource The given event to check against.
+     * @param uiParser Parses the Instant date into readable langauge.
+     * @return a boolean comparing the dates.
+     */
     public boolean sameDateAsEvent(EventSource eventSource, UiParser uiParser) {
         try {
             Instant date = eventSource.getStartDateTime().getDateTime();
@@ -63,11 +65,14 @@ public class DayCard extends UiPart<Region> {
         }
     }
 
-    public void addEventLabel(EventSource event) {
+    /**
+     * Adds a DayCardEvent to the DayCard.
+     * @param event The given event required for the description.
+     */
+    public void addDayCardEvent(EventSource event) {
         // We still want to take note of the number of events on that particular day.
         this.numDayCardEvent++;
-        //this.numDayCardEvent <= 5
-        if(true) {
+        if (this.numDayCardEvent <= 5) {
             DayCardEvent addedEventLabel = new DayCardEvent(event.getDescription());
             todayEvents.getChildren().add(addedEventLabel.getRoot());
         }

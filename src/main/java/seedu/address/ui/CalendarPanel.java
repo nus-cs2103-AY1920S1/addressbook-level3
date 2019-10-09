@@ -1,11 +1,8 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -82,18 +79,30 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Creates a listener for the eventList such that it will update the Ui as necessary.
+     * @param eventList The event list containing the events.
+     */
     private void createListener(ObservableList<EventSource> eventList) {
-        eventList.addListener(new ListChangeListener<EventSource>() {
-            @Override
-            public void onChanged(Change<? extends EventSource> c) {
-                System.out.println("I've just added");
-                while (c.next()) {
-                    for (EventSource addItem : c.getAddedSubList()) {
+        eventList.addListener((ListChangeListener<EventSource>) c -> {
+            System.out.println("I've just added");
+            while (c.next()) {
+                if (c.wasPermutated()) {
+                    for (int i = c.getFrom(); i < c.getTo(); ++i) {
+                        //permutate
+                    }
+                } else if (c.wasUpdated()) {
+                    //update item
+                } else {
+                    for (EventSource removedEvent : c.getRemoved()) {
+                        // Remove items
+                    }
+                    for (EventSource addedEvent : c.getAddedSubList()) {
                         // Adds items
                         DayCard dayCard = currentMonthDayCards.get(
-                                uiParser.getDay(addItem.getStartDateTime().getDateTime()) - 1);
-                        if (dayCard.sameDateAsEvent(addItem, uiParser)) {
-                            dayCard.addEventLabel(addItem);
+                                uiParser.getDay(addedEvent.getStartDateTime().getDateTime()) - 1);
+                        if (dayCard.sameDateAsEvent(addedEvent, uiParser)) {
+                            dayCard.addDayCardEvent(addedEvent);
                         }
                     }
                 }

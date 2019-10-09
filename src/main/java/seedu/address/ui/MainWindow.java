@@ -211,17 +211,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         // Temporary Stub for UI testing.
-        if(commandText.equals("view")) {
-            // viewPanelPlaceholder.getChildren().clear();
-
-            if(calendarMode) {
+        if (commandText.equals("view")) {
+            if (calendarMode) {
                 calendarMode = false;
-                //viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
                 calendarPanel.getRoot().setVisible(false);
                 listPanel.getRoot().setVisible(true);
             } else {
                 calendarMode = true;
-                // viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
                 listPanel.getRoot().setVisible(false);
                 calendarPanel.getRoot().setVisible(true);
             }
