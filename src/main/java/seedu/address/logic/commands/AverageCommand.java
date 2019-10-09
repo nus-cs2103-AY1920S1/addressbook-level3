@@ -18,6 +18,10 @@ public class AverageCommand extends Command {
 
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
+    public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
+
+    public static final String MESSAGE_INVALID_RECORDTYPE = "r/RECORD_TYPE";
+
     private final AvgType avgType;
 
     private final RecordType recordType;

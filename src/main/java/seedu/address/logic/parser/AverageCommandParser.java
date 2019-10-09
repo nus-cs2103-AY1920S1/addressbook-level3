@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NUMBER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AVGTYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNT;
@@ -18,10 +17,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
+    /**
+     * Type of record that can be used.
+     */
     public enum RecordType {
         DIET, EXERCISE, BLOODSUGAR, HEIGHTANDWEIGHT, MEDICALEXPENSES
     }
 
+    /**
+     * Type of average that can be computed.
+     */
     public enum AvgType {
         DAILY, WEEKLY, MONTHLY
     }
@@ -35,7 +40,13 @@ public class AverageCommandParser implements Parser<AverageCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AVGTYPE, PREFIX_RECORDTYPE, PREFIX_COUNT);
 
+        if (!arePrefixesPresent(argMultimap, PREFIX_AVGTYPE, PREFIX_RECORDTYPE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
+        }
+
         AvgType avgType;
+
         switch (argMultimap.getValue(PREFIX_AVGTYPE).get().toLowerCase()) {
         case "daily":
             avgType = AvgType.DAILY;
@@ -47,10 +58,12 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             avgType = AvgType.MONTHLY;
             break;
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
+                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
         }
 
         RecordType recordType;
+
         switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toLowerCase()) {
         case "diet":
             recordType = RecordType.DIET;
@@ -68,10 +81,12 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             recordType = RecordType.MEDICALEXPENSES;
             break;
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
+                    AverageCommand.MESSAGE_INVALID_RECORDTYPE));
         }
 
         String strCount;
+
         if (arePrefixesPresent(argMultimap, PREFIX_COUNT)) {
             strCount = argMultimap.getValue(PREFIX_COUNT).get();
         } else {
