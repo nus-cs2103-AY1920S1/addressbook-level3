@@ -28,10 +28,10 @@ It also has a sequence diagram (reproduced below) that tells us how a command pr
 .Architecture sequence diagram from the developer guide
 image::../ArchitectureSequenceDiagram.png[]
 
-Note how the diagram shows only how the execution flows _between_ the main components. That is, it does not show details of
-the execution path _inside_ each component. By hiding those details, the diagram succeeds in informing the reader
-about the overall execution path of a command without overwhelming the reader with too much details.
-In this tutorial, you aim to find those omitted details so that you get a more in-depth understanding of the code base.
+Note how the diagram shows only how the execution flows _between_ the main components. That is, it does not show detail of
+the execution path _inside_ each component. By hiding those detail, the diagram succeeds in informing the reader
+about the overall execution path of a command without overwhelming the reader with too much detail.
+In this tutorial, you aim to find those omitted detail so that you get a more in-depth understanding of the code base.
 
 Before we proceed, ensure that you have done the following:
 
@@ -165,7 +165,7 @@ command and store any possible changes in an `EditPersonDescriptor`. Recall that
 image:EditCommand.png[]
 . Let's continue stepping through until we return to `LogicManager#execute()`.
 +
-The sequence diagram below shows the details of the execution path through the Logic component.
+The sequence diagram below shows the detail of the execution path through the Logic component.
 Does the execution path you traced in the code so far matches with the diagram?
 +
 .Tracing an `edit` command through the Logic component

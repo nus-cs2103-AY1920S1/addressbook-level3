@@ -23,7 +23,7 @@ If you would like to customize your AppVeyor build further, you can learn more a
 == Setting up AppVeyor
 
 .  Fork the repo to your own organization.
-.  Go to https://ci.appveyor.com/, and under `Login`, click on `GitHub` to login with your GitHub account. Enter your GitHub account details if needed.
+.  Go to https://ci.appveyor.com/, and under `Login`, click on `GitHub` to login with your GitHub account. Enter your GitHub account detail if needed.
 +
 image:appveyor/login.png[Click on GitHub in the login page]
 +

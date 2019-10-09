@@ -18,7 +18,7 @@ By: `Team AY1920S1-CS2103-F10-1`      Since: `Sep 2019`      Licence: `MIT`
 
 = Introduction
 
-ComNurse is designed for community nurses who make home visits to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visits. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ComNurse is designed for community nurses who make home visitTodoItems to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visitTodoItems. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 = Quick Start
 
@@ -38,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`patient delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for detail of each command.
 
 [[Features]]
 = Features
@@ -98,7 +98,7 @@ Examples:
 
 === Viewing a Patient: `patient view`
 
-You can see a patient's full details using `patient view`. The patient is selected by their *index*. This full details include everything from their todo list, medical conditions, prescriptions, notes, appointments etc.
+You can see a patient's full detail using `patient view`. The patient is selected by their *index*. This full detail include everything from their todo list, medical conditions, prescriptions, notes, appointments etc.
 
 Format: `patient view INDEX`
 
@@ -125,7 +125,7 @@ Format: `patient add pn/PATIENT_NAME pi/PATIENT_IC p/PHONE_NUMBER a/ADDRESS [e/E
 
 ****
  * A patient can have any number of tags.
- * A patient can have next-of-kin contact details.
+ * A patient can have next-of-kin contact detail.
  * Every patient is uniquely identified by their IC.
  * Priority can take values from 0 to 10.
 ****
@@ -322,7 +322,7 @@ Removes the 2nd todo item of the patient of index 1.
 
 You can add a note to the patient's list of notes using `patient add note`.
 
-These notes are for you to take general notes on a patient. If you want to take notes on a specific visit / while you are visiting the patient, you will want to make an appointment with `patient add appt`, begin the appointment using `appt begin` and add details to the visit.
+These notes are for you to take general notes on a patient. If you want to take notes on a specific visit / while you are visiting the patient, you will want to make an appointment with `patient add appt`, begin the appointment using `appt begin` and add detail to the visit.
 
 Format: `patient add note p/PATIENT_INDEX t/NOTE`
 
@@ -391,7 +391,7 @@ Examples:
 
 === Viewing a Medical Condition: `medcon view`
 
-You can see a medical condition's full details using `medcon view`. The medical condition is selected by their *index*.
+You can see a medical condition's full detail using `medcon view`. The medical condition is selected by their *index*.
 
 Format: `medcon view INDEX`
 
@@ -418,7 +418,7 @@ Format: `medcon add pn/PRESCRIPTION_NAME pi/PRESCRIPTION_IC p/PHONE_NUMBER a/ADD
 
 ****
  * A medical condition can have any number of tags.
- * A medical condition can have next-of-kin contact details.
+ * A medical condition can have next-of-kin contact detail.
  * Every medical condition is uniquely identified by their IC.
  * Priority can take values from 0 to 10.
 ****
@@ -540,7 +540,7 @@ Examples:
 
 === Viewing a Medicine: `med view`
 
-You can see a medicine's full details using `med view`. The medicine is selected by their *index*.
+You can see a medicine's full detail using `med view`. The medicine is selected by their *index*.
 
 Format: `med view INDEX`
 
@@ -566,7 +566,7 @@ Format: `med add pn/MEDICINE_NAME pi/MEDICINE_IC p/PHONE_NUMBER a/ADDRESS [e/EMA
 
 ****
  * A medicine can have any number of tags.
- * A medicine can have next-of-kin contact details.
+ * A medicine can have next-of-kin contact detail.
  * Every medicine is uniquely identified by their IC.
  * Priority can take values from 0 to 10.
 ****
@@ -655,7 +655,7 @@ Deletes the and 2nd medicines which had been assigned the index 1.
 ====
 *Appointments*
 
-As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
+As a community nurse, you will often make home visitTodoItems to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
 ====
 
 === Listing All Appointments: `appt list`
@@ -688,7 +688,7 @@ Examples:
 
 === Viewing an Appointment: `appt view`
 
-You can see an appointment's full details using `appt view`. The appointment is selected by their *index*.
+You can see an appointment's full detail using `appt view`. The appointment is selected by their *index*.
 
 Format: `appt view INDEX`
 
@@ -781,7 +781,7 @@ If you want to begin the next appointment that you will have, you can begin the 
 
 ****
 * Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest).
-* Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add details to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
+* Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add detail to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
 * The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance).
 * When you begin an appointment, the visit time will be updated using your system clock to reflect the actual start of the visit.
 * The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
@@ -822,7 +822,7 @@ Deletes the and 2nd appointments which had been assigned the index 1.
 ====
 *Visits*
 
-As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further details and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visits.
+As a community nurse, you will often make home visitTodoItems to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further detail and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visitTodoItems.
 
 ****
  * Adding of Visits is unallowed in the app because a community nurse should make an appointment with the patient before making a visit.
@@ -830,7 +830,7 @@ As a community nurse, you will often make home visits to your patients. When you
 ====
 
 === Listing All Visits: `visit list`
-You can see a list of all visits in the app by typing `visit list`.
+You can see a list of all visitTodoItems in the app by typing `visit list`.
 
 In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit find`.
 
@@ -838,7 +838,7 @@ Format: `visit list`
 
 === Finding Visit(s): `visit find`
 
-You can find visits that fit the parameters given using `visit find`.
+You can find visitTodoItems that fit the parameters given using `visit find`.
 
 In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit list` or if different parameters are used.
 
@@ -859,13 +859,13 @@ Examples:
 
 === Viewing a Visit: `visit view`
 
-You can see a visit's full details using `visit view`. The visit is selected by their *index*.
+You can see a visit's full detail using `visit view`. The visit is selected by their *index*.
 
 Format: `visit view INDEX`
 
 ****
 * View the visit at the specified `INDEX`.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* The index refers to the index number shown in the list of visitTodoItems displayed by `visit list` or `visit find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -873,22 +873,22 @@ Examples:
 
 * `visit list` +
 `visit view 1`
-View the item with index number 1. This index can be found from the full list of visits.
+View the item with index number 1. This index can be found from the full list of visitTodoItems.
 
 * `visit view 2`
 View the item with the index number 2.
 
 === Viewing the current Visit: `visit now`
 
-If you are currently visiting a patient, you can see the current visit's full details using `visit now`.
+If you are currently visiting a patient, you can see the current visit's full detail using `visit now`.
 
 Format: `visit now`
 
-=== Set details of a Todo Item of current Visit: `visit now todo note`
+=== Set detail of a Todo Item of current Visit: `visit now todo note`
 
-You can set the details of a todo item of a current visit using `visit now todo note`.
+You can set the detail of a todo item of a current visit using `visit now todo note`.
 
-As a community nurse, some todo items require you to record some details (e.g. a todo item of "take blood pressure" would require you to record the blood pressure). If the index of the todo note is 2, you can do something like `visit now todo note t/2 n/120 over 80 mm HG`.
+As a community nurse, some todo items require you to record some detail (e.g. a todo item of "take blood pressure" would require you to record the blood pressure). If the index of the todo note is 2, you can do something like `visit now todo note t/2 n/120 over 80 mm HG`.
 
 Format: `visit now todo note t/INDEX n/NOTE`
 
@@ -914,7 +914,7 @@ Format: `visit delete INDEX`
 
 ****
 * Deletes the visit at the specified `INDEX`.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* The index refers to the index number shown in the list of visitTodoItems displayed by `visit list` or `visit find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -935,8 +935,8 @@ You can delete a visit by *indexes* using `visit delete`.
 Format: `visit delete INDEX_1 [INDEX_2] [INDEX_3]...`
 
 ****
-* Deletes the visit at the specified `INDEX` es. You can put in as many indexes to delete as many visits as you wish.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* Deletes the visit at the specified `INDEX` es. You can put in as many indexes to delete as many visitTodoItems as you wish.
+* The index refers to the index number shown in the list of visitTodoItems displayed by `visit list` or `visit find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -947,7 +947,7 @@ Examples:
 Deletes the 2nd visit in the visit list.
 
 * `visit delete 1 2` +
-Deletes the and 2nd visits which had been assigned the index 1.
+Deletes the and 2nd visitTodoItems which had been assigned the index 1.
 
 == Todo Templates [Parameters not updated]
 ====
@@ -988,7 +988,7 @@ Examples:
 
 === Viewing a Todo Template: `todoform view`
 
-You can see a todo template's full details using `todoform view`. The todo template is selected by their *index*.
+You can see a todo template's full detail using `todoform view`. The todo template is selected by their *index*.
 
 Format: `todoform view INDEX`
 
@@ -1015,7 +1015,7 @@ Format: `todoform add pn/PRESCRIPTION_NAME pi/PRESCRIPTION_IC p/PHONE_NUMBER a/A
 
 ****
  * a todo template can have any number of tags.
- * a todo template can have next-of-kin contact details.
+ * a todo template can have next-of-kin contact detail.
  * Every todo template is uniquely identified by their IC.
  * Priority can take values from 0 to 10.
 ****
@@ -1190,7 +1190,7 @@ Examples:
 ====
 *Notifications*
 
-As a community nurse, you will often have deadlines to meet or appointments for home visits. You can schedule the application to notify you for these deadlines/events. This section describes the features that will allow you to manage such notifications.
+As a community nurse, you will often have deadlines to meet or appointments for home visitTodoItems. You can schedule the application to notify you for these deadlines/events. This section describes the features that will allow you to manage such notifications.
 ====
 
 === Enabling the Notifications `notif enable`

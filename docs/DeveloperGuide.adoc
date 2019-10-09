@@ -69,7 +69,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The sections below give more details of each component.
+The sections below give more detail of each component.
 
 [[Design-Ui]]
 === UI component
@@ -151,7 +151,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy detail on how certain features are implemented.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -301,9 +301,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a person by name |locate detail of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |hide <<private-contact-detail,private contact detail>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
@@ -410,7 +410,7 @@ _{ more test cases ... }_
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error detail shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

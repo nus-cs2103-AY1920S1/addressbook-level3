@@ -17,7 +17,7 @@ https://www.netlify.com/[Netlify] is an automated hosting platform for deploying
 == Setting up Netlify
 . Fork the repository to your own organization.
 +
-. Go to https://www.netlify.com/ and click `Sign Up`. Next, click `GITHUB SIGN IN`, enter your GitHub account details and authorize netlify.
+. Go to https://www.netlify.com/ and click `Sign Up`. Next, click `GITHUB SIGN IN`, enter your GitHub account detail and authorize netlify.
 +
 . After logging in, click `New site from Git`.
 +
@@ -29,7 +29,7 @@ image:netlify/grant_or_request_access.png[Grant or request access, width = 630]
 +
 . Pick your repository from the list.
 +
-. Fill out the details as follows and then click `Deploy site`.
+. Fill out the detail as follows and then click `Deploy site`.
 * Branch to deploy: select `master` branch
 * Build command: `./gradlew asciidoctor`
 +
@@ -47,7 +47,7 @@ image:netlify/temp_site_name.png[Temporary site name, width = 630]
 +
 * Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test status.
 +
-image:netlify/netlify_details.png[Netlify details link, width = 630]
+image:netlify/netlify_details.png[Netlify detail link, width = 630]
 
 == Changing the site name of your project
 If you don't like the site name given by Netlify, you can change it as follows:
