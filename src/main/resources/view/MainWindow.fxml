@@ -26,17 +26,11 @@
 
       <SplitPane dividerPositions="0.4612299465240642" prefHeight="520.0" prefWidth="750.0">
         <VBox>
-          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="50.0" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-            <padding>
-              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-            </padding>
-          </StackPane>
-
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <VBox fx:id="personList" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" prefHeight="184.0" prefWidth="396.0" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="personListPanelPlaceholder" prefHeight="184.0" prefWidth="330.0" VBox.vgrow="ALWAYS" />
           </VBox>
 
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
@@ -56,6 +50,13 @@
               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </padding>
           </StackPane>
+
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="50.0" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+            <padding>
+              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
+          </StackPane>
+
         </VBox>
       </SplitPane>
 
