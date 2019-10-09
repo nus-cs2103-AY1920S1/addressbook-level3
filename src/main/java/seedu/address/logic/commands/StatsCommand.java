@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
-
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 
 public class StatsCommand extends Command {
@@ -21,17 +17,17 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        int no_good=0, no_hard=0, no_easy=0;
+        int No_Good = 0, No_Hard = 0, No_Easy = 0;
 
         model.updateFilteredFlashCardList(predicate_good);
-        no_good = model.getFilteredFlashCardList().size();
+        No_Good = model.getFilteredFlashCardList().size();
         model.updateFilteredFlashCardList(predicate_hard);
-        no_hard = model.getFilteredFlashCardList().size();
+        No_Hard = model.getFilteredFlashCardList().size();
         model.updateFilteredFlashCardList(predicate_easy);
-        no_easy = model.getFilteredFlashCardList().size();
+        No_Easy = model.getFilteredFlashCardList().size();
 
         StringBuilder sb = new StringBuilder("STATISTICS" + System.getProperty("line.separator"));
-        sb.append("Good:Hard:Easy = " + no_good + ":" + no_hard + ":" + no_easy);
+        sb.append("Good:Hard:Easy = " + No_Good + ":" + No_Hard + ":" + No_Easy);
 
         return new CommandResult(sb.toString());
     }
