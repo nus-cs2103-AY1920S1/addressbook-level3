@@ -11,33 +11,30 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-public class LoginForm implements Initializable {
+public class SignUpForm implements Initializable {
 
     @FXML
-    private JFXButton register;
+    private JFXButton back;
 
     @FXML
     private JFXTextField username;
 
     @FXML
-    private JFXButton login;
+    private JFXButton signUp;
 
     @FXML
     private JFXPasswordField password;
 
     @FXML
-    void handleLogin(ActionEvent event) {
-        final String username = this.username.getText();
-        final String password = this.password.getText();
-        if (username.equals("test") && password.equals("password")) {
-            System.out.println("Login successful!");
-        } else {
-            System.out.println("Wrong credentials");
-        }
+    private JFXPasswordField confirmPassword;
+
+    @FXML
+    void handleBack(ActionEvent event) {
+
     }
 
     @FXML
-    void handleRegister(ActionEvent event) {
+    void handleSignUp(ActionEvent event) {
 
     }
 
