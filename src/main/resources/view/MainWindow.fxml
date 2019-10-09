@@ -73,7 +73,7 @@
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-               <TabPane prefHeight="576.0" prefWidth="578.0" stylesheets="@../images/tabpane.css" tabClosingPolicy="UNAVAILABLE">
+               <TabPane fx:id="viewsPlaceholder" prefHeight="576.0" prefWidth="578.0" stylesheets="@../images/tabpane.css" tabClosingPolicy="UNAVAILABLE">
                  <tabs>
                    <Tab text="(T)ask">
                      <content>
