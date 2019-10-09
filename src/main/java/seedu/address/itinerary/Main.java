@@ -1,7 +1,9 @@
-import EventItinerary.Event;
-import TravezyInterface.EventList;
-import TravezyInterface.Ui;
-import TravezyInterface.Parser;
+package seedu.address.itinerary;
+
+import seedu.address.itinerary.EventItinerary.Event;
+import seedu.address.itinerary.TravezyInterface.EventList;
+import seedu.address.itinerary.TravezyInterface.Parser;
+import seedu.address.itinerary.TravezyInterface.Ui;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package TravezyInterface;
+package seedu.address.itinerary.TravezyInterface;
 
 public class Ui {
     private int activityLevel = 1;

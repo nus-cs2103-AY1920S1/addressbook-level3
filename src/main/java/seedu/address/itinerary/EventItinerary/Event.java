@@ -1,5 +1,6 @@
-package EventItinerary;
+package seedu.address.itinerary.EventItinerary;
 
+@SuppressWarnings({"unused", "FieldCanBeLocal", "UnnecessaryLocalVariable"})
 public class Event {
     private int time, num;
     private String desc, location, tag, notes, title;

@@ -1,6 +1,6 @@
-package TravezyInterface;
+package seedu.address.itinerary.TravezyInterface;
 
-import EventItinerary.Event;
+import seedu.address.itinerary.EventItinerary.Event;
 
 import java.util.ArrayList;
 import java.util.Random;
