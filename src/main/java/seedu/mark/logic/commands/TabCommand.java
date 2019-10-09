@@ -21,27 +21,22 @@ public class TabCommand extends Command {
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    private final Index index;
+    private final Tab tab;
 
-    public TabCommand(Index index) {
-        requireNonNull(index);
+    public TabCommand(Tab tab) {
+        requireNonNull(tab);
 
-        this.index = index;
+        this.tab = tab;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (index.getOneBased() < 1 || index.getOneBased() > 3) {
-            throw new CommandException(MESSAGE_INVALID_INDEX);
-        }
-
-        Tab tabType = convertToTab(index);
         boolean isSwitchToOnline = false,
                 isSwitchToOffline = false,
                 isSwitchToDashboard = false;
 
-        switch (tabType) {
+        switch (tab) {
         case DASHBOARD:
             isSwitchToDashboard = true;
             break;
@@ -56,28 +51,15 @@ public class TabCommand extends Command {
             break;
         }
 
-        return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tabType.toString()),
+        return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tab.toString()),
                 isSwitchToDashboard, isSwitchToOnline, isSwitchToOffline);
     }
 
-    private Tab convertToTab(Index index) {
-        Tab type = null;
-        switch (index.getOneBased()) {
-        case 1:
-            type = Tab.DASHBOARD;
-            break;
-        case 2:
-            type = Tab.ONLINE;
-            break;
-        case 3:
-            type = Tab.OFFLINE;
-            break;
-        default:
-            assert false : "convertToTab forced to handle invalid index.";
-            break;
-        }
-
-        return type;
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof TabCommand
+                && ((TabCommand)other).tab == this.tab);
     }
 
 

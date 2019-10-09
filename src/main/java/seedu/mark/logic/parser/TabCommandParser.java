@@ -11,13 +11,13 @@ public class TabCommandParser implements Parser<TabCommand> {
 
     public TabCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        Index index;
+        TabCommand.Tab tab;
         try {
-            index = ParserUtil.parseIndex(args);
+            tab = ParserUtil.parseTab(args);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
+            throw pe;
         }
 
-        return new TabCommand(index);
+        return new TabCommand(tab);
     }
 }

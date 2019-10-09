@@ -1,6 +1,7 @@
 package seedu.mark.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
+import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -82,6 +84,37 @@ public class ParserUtil {
             throw new ParseException(Url.MESSAGE_CONSTRAINTS);
         }
         return new Url(trimmedUrl);
+    }
+
+    public static TabCommand.Tab parseTab(String arg) throws ParseException {
+        Index index = null;
+        try {
+            index = ParserUtil.parseIndex(arg);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (index.getOneBased() < 1 || index.getOneBased() > 3) {
+            throw new ParseException(TabCommand.MESSAGE_INVALID_INDEX);
+        }
+
+        TabCommand.Tab type = null;
+        switch (index.getOneBased()) {
+        case 1:
+            type = TabCommand.Tab.DASHBOARD;
+            break;
+        case 2:
+            type = TabCommand.Tab.ONLINE;
+            break;
+        case 3:
+            type = TabCommand.Tab.OFFLINE;
+            break;
+        default:
+            assert false : "convertToTab forced to handle invalid index.";
+            break;
+        }
+
+        return type;
     }
 
     /**
