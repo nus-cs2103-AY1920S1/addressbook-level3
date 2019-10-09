@@ -1,7 +1,10 @@
 {
   "foods": [ {
-    "name": "food with invalid name field: Ha!ns Mu@ster",
-    "price": "9482424",
-    "description": "hans@example.com"
+    "name": "food with invalid name field: X!ao L@",
+    "price": "9.70",
+    "description": "Xiao la is a heresy",
+    "category": "Spicyboi",
+    "openingHours": "0800 2100",
+    "restrictions": "Pa pu la"
   } ]
 }

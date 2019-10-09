@@ -2,9 +2,12 @@ package seedu.savenus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -33,6 +36,10 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_NASI_LEMAK = "Coconut rice with ikan kuning and fried chicken.";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_OPENING_HOURS_CHICKEN_RICE = "0800 2100";
+    public static final String VALID_OPENING_HOURS_NASI_LEMAK = "0900 1000";
+    public static final String VALID_RESTRICTIONS_CHICKEN_RICE = "Not halal";
+    public static final String VALID_RESTRICTIONS_NASI_LEMAK = "Contains dairy";
 
     public static final String NAME_DESC_CHICKEN_RICE = " " + PREFIX_NAME + VALID_NAME_CHICKEN_RICE;
     public static final String NAME_DESC_NASI_LEMAK = " " + PREFIX_NAME + VALID_NAME_NASI_LEMAK;
@@ -42,8 +49,12 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_NASI_LEMAK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_NASI_LEMAK;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String OPENING_HOURS_DESC_CHICKEN_RICE = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_CHICKEN_RICE;
+    public static final String OPENING_HOURS_DESC_NASI_LEMAK = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_NASI_LEMAK;
+    public static final String RESTRICTIONS_DESC_CHICKEN_RICE = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_CHICKEN_RICE;
+    public static final String RESTRICTIONS_DESC_NASI_LEMAK = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_NASI_LEMAK;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Chicken&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "   "; // spaces only not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -69,7 +80,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-                                            Model expectedModel) {
+            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);

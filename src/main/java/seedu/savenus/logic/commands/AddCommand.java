@@ -1,14 +1,18 @@
 package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.savenus.logic.commands.exceptions.CommandException;
-import seedu.savenus.model.Model;
-import seedu.savenus.model.food.Food;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.food.Food;
 
 /**
  * Adds a food to the $aveNUS menu.
@@ -22,12 +26,19 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PRICE + "PRICE "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + PREFIX_NAME + "Mala Xiang Guo "
+            + PREFIX_CATEGORY + "CATEGORY "
+            + "[" + PREFIX_TAG + "TAG]... "
+            + PREFIX_OPENING_HOURS + "OPENING HOURS "
+            + PREFIX_RESTRICTIONS + "RESTRICTIONS\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Mala Xiang Guo "
             + PREFIX_PRICE + "6.80 "
             + PREFIX_DESCRIPTION + "Spicy goodness "
+            + PREFIX_CATEGORY + "Chinese "
             + PREFIX_TAG + "Spicy "
-            + PREFIX_TAG + "Healthy ";
+            + PREFIX_TAG + "Healthy "
+            + PREFIX_OPENING_HOURS + "0800 2000 "
+            + PREFIX_RESTRICTIONS + "Vegetarian";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in our menu!";

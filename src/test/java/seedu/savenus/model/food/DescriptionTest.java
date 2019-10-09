@@ -34,14 +34,5 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("test@localhost")); // alphabets only
         assertTrue(Description.isValidDescription("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
         assertTrue(Description.isValidDescription("123@145")); // numeric local part and domain name
-        // mixture of alphanumeric and special characters
-        assertTrue(Description.isValidDescription("a1+be!@example1.com"));
-        assertTrue(Description.isValidDescription("peter_jack@very-very-very-long-example.com")); // long domain name
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Description.isValidDescription("if.you.dream.it_you.can.do.it@example.com")); // long local part
     }
 }

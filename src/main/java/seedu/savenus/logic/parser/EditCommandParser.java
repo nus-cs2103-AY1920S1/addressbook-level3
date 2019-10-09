@@ -1,17 +1,25 @@
 package seedu.savenus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.savenus.commons.core.index.Index;
-import seedu.savenus.logic.commands.EditCommand;
-import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.tag.Tag;
-import seedu.savenus.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditFoodDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -26,28 +34,41 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PRICE, CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DESCRIPTION,
+                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_OPENING_HOURS, PREFIX_RESTRICTIONS);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditFoodDescriptor editFoodDescriptor = new EditCommand.EditFoodDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editFoodDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+        EditFoodDescriptor editFoodDescriptor = new EditFoodDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editFoodDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_PRICE).isPresent()) {
-            editFoodDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(CliSyntax.PREFIX_PRICE).get()));
+        if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
+            editFoodDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editFoodDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
-                    .getValue(CliSyntax.PREFIX_DESCRIPTION).get()));
+                    .getValue(PREFIX_DESCRIPTION).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editFoodDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editFoodDescriptor.setCategory(ParserUtil.parseCategory(argMultimap
+                    .getValue(PREFIX_CATEGORY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_OPENING_HOURS).isPresent()) {
+            editFoodDescriptor.setOpeningHours(ParserUtil.parseOpeningHours(argMultimap
+                    .getValue(PREFIX_OPENING_HOURS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_RESTRICTIONS).isPresent()) {
+            editFoodDescriptor.setRestrictions(ParserUtil.parseRestrictions(argMultimap
+                    .getValue(PREFIX_RESTRICTIONS).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFoodDescriptor::setTags);
 
         if (!editFoodDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

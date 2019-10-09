@@ -1,10 +1,14 @@
 package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.savenus.model.Model.PREDICATE_SHOW_ALL_FOOD;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,10 +21,13 @@ import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.commons.util.CollectionUtil;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -37,7 +44,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_OPENING_HOURS + "OPENING HOURS] "
+            + "[" + PREFIX_RESTRICTIONS + "RESTRICTIONS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3.99 "
             + PREFIX_DESCRIPTION + "description";
@@ -78,7 +88,7 @@ public class EditCommand extends Command {
         }
 
         model.setFood(foodToEdit, editedFood);
-        model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOOD);
+        model.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
         return new CommandResult(String.format(MESSAGE_EDIT_FOOD_SUCCESS, editedFood));
     }
 
@@ -92,9 +102,13 @@ public class EditCommand extends Command {
         Name updatedName = editFoodDescriptor.getName().orElse(foodToEdit.getName());
         Price updatedPrice = editFoodDescriptor.getPrice().orElse(foodToEdit.getPrice());
         Description updatedDescription = editFoodDescriptor.getDescription().orElse(foodToEdit.getDescription());
+        Category updatedCategory = editFoodDescriptor.getCategory().orElse(foodToEdit.getCategory());
         Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
+        OpeningHours updatedOpeningHours = editFoodDescriptor.getOpeningHours().orElse(foodToEdit.getOpeningHours());
+        Restrictions updatedRestrictions = editFoodDescriptor.getRestrictions().orElse(foodToEdit.getRestrictions());
 
-        return new Food(updatedName, updatedPrice, updatedDescription, updatedTags);
+        return new Food(updatedName, updatedPrice, updatedDescription,
+                updatedCategory, updatedTags, updatedOpeningHours, updatedRestrictions);
     }
 
     @Override
@@ -123,7 +137,10 @@ public class EditCommand extends Command {
         private Name name;
         private Price price;
         private Description description;
+        private Category category;
         private Set<Tag> tags;
+        private OpeningHours openingHours;
+        private Restrictions restrictions;
 
         public EditFoodDescriptor() {}
 
@@ -135,7 +152,10 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPrice(toCopy.price);
             setDescription(toCopy.description);
+            setCategory(toCopy.category);
             setTags(toCopy.tags);
+            setOpeningHours(toCopy.openingHours);
+            setRestrictions(toCopy.restrictions);
         }
 
         /**
@@ -167,6 +187,30 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+
+        public void setCategory(Category category) {
+            this.category = category;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
+        }
+
+        public void setOpeningHours(OpeningHours openingHours) {
+            this.openingHours = openingHours;
+        }
+
+        public Optional<OpeningHours> getOpeningHours() {
+            return Optional.ofNullable(openingHours);
+        }
+
+        public void setRestrictions(Restrictions restrictions) {
+            this.restrictions = restrictions;
+        }
+
+        public Optional<Restrictions> getRestrictions() {
+            return Optional.ofNullable(restrictions);
         }
 
         /**
@@ -204,7 +248,10 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPrice().equals(e.getPrice())
                     && getDescription().equals(e.getDescription())
-                    && getTags().equals(e.getTags());
+                    && getCategory().equals(e.getCategory())
+                    && getTags().equals(e.getTags())
+                    && getOpeningHours().equals(e.getOpeningHours())
+                    && getRestrictions().equals(e.getRestrictions());
         }
     }
 }

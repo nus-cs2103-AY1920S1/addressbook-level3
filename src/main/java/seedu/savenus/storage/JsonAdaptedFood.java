@@ -10,10 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -26,7 +29,10 @@ class JsonAdaptedFood {
     private final String name;
     private final String price;
     private final String description;
+    private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String openingHours;
+    private final String restrictions;
 
     /**
      * Constructs a {@code JsonAdaptedFood} with the given food details.
@@ -34,13 +40,19 @@ class JsonAdaptedFood {
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name, @JsonProperty("price") String price,
                            @JsonProperty("description") String description,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("category") String category,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("openingHours") String openingHours,
+                           @JsonProperty("restrictions") String restrictions) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.category = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.openingHours = openingHours;
+        this.restrictions = restrictions;
     }
 
     /**
@@ -50,9 +62,12 @@ class JsonAdaptedFood {
         name = source.getName().fullName;
         price = source.getPrice().value;
         description = source.getDescription().value;
+        category = source.getCategory().category;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        openingHours = source.getOpeningHours().openingHours;
+        restrictions = source.getRestrictions().restrictions;
     }
 
     /**
@@ -91,8 +106,36 @@ class JsonAdaptedFood {
         }
         final Description modelDesciption = new Description(description);
 
-        final Set<Tag> modelTags = new HashSet<>(foodTags);
-        return new Food(modelName, modelPrice, modelDesciption, modelTags);
-    }
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelCategory = new Category(category);
 
+        if (openingHours == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    OpeningHours.class.getSimpleName()));
+        }
+        if (!OpeningHours.isValidOpeningHours(openingHours)) {
+            throw new IllegalValueException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        final OpeningHours modelOpeningHours = new OpeningHours(openingHours);
+
+        if (restrictions == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Restrictions.class.getSimpleName()));
+        }
+        if (!Restrictions.isValidRestrictions(restrictions)) {
+            throw new IllegalValueException(Restrictions.MESSAGE_CONSTRAINTS);
+        }
+        final Restrictions modelRestrictions = new Restrictions(restrictions);
+
+        final Set<Tag> modelTags = new HashSet<>(foodTags);
+
+        return new Food(modelName, modelPrice, modelDesciption, modelCategory, modelTags,
+                        modelOpeningHours, modelRestrictions);
+    }
 }

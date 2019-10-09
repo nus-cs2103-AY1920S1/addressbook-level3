@@ -3,10 +3,13 @@ package seedu.savenus.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.util.SampleDataUtil;
 
@@ -15,20 +18,29 @@ import seedu.savenus.model.util.SampleDataUtil;
  */
 public class FoodBuilder {
 
-    public static final String DEFAULT_NAME = "Chicken Teriyaki";
-    public static final String DEFAULT_PRICE = "2.00";
+    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_PRICE = "85355255";
     public static final String DEFAULT_DESCRIPTION = "Test Description.";
+    public static final String DEFAULT_CATEGORY = "Test Category";
+    public static final String DEFAULT_OPENING_HOURS = "0800 1800";
+    public static final String DEFAULT_RESTRICTIONS = "Test Restrictions";
 
     private Name name;
     private Price price;
     private Description description;
+    private Category category;
     private Set<Tag> tags;
+    private OpeningHours openingHours;
+    private Restrictions restrictions;
 
     public FoodBuilder() {
         name = new Name(DEFAULT_NAME);
         price = new Price(DEFAULT_PRICE);
         description = new Description(DEFAULT_DESCRIPTION);
+        category = new Category(DEFAULT_CATEGORY);
         tags = new HashSet<>();
+        openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
+        restrictions = new Restrictions(DEFAULT_RESTRICTIONS);
     }
 
     /**
@@ -38,7 +50,10 @@ public class FoodBuilder {
         name = foodToCopy.getName();
         price = foodToCopy.getPrice();
         description = foodToCopy.getDescription();
+        category = foodToCopy.getCategory();
         tags = new HashSet<>(foodToCopy.getTags());
+        openingHours = foodToCopy.getOpeningHours();
+        restrictions = foodToCopy.getRestrictions();
     }
 
     /**
@@ -73,8 +88,32 @@ public class FoodBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Category} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withCategory(String category) {
+        this.category = new Category(category);
+        return this;
+    }
+
+    /**
+     * Sets the {@code OpeningHours} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withOpeningHours(String openingHours) {
+        this.openingHours = new OpeningHours(openingHours);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Restrictions} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withRestrictions(String restrictions) {
+        this.restrictions = new Restrictions(restrictions);
+        return this;
+    }
+
     public Food build() {
-        return new Food(name, price, description, tags);
+        return new Food(name, price, description, category, tags, openingHours, restrictions);
     }
 
 }

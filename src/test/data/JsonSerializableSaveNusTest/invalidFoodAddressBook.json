@@ -1,7 +1,10 @@
 {
   "foods": [ {
-    "name": "Hans Muster",
-    "price": "9482424",
-    "description": "   "
+    "name": "Heinz Ketchup",
+    "price": "69",
+    "description": "   ",
+    "category": "canwedobetter",
+    "openingHours": "0921 0922",
+    "restrictions": "Bruh"
   } ]
 }

@@ -9,9 +9,12 @@ import java.util.Set;
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.commons.util.StringUtil;
 import seedu.savenus.logic.parser.exceptions.ParseException;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -65,6 +68,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code category} is invalid.
+     */
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
+    }
+
+    /**
      * Parses a {@code String description} into an {@code description}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -77,6 +95,39 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String openingHours} into an {@code openingHours}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code openingHours} is invalid.
+     */
+    public static OpeningHours parseOpeningHours(String openingHours) throws ParseException {
+        requireNonNull(openingHours);
+        String trimmedOpeningHours = openingHours.trim();
+        if (openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
+            return new OpeningHours(trimmedOpeningHours);
+        }
+        if (!OpeningHours.isValidOpeningHours(trimmedOpeningHours)) {
+            throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        return new OpeningHours(trimmedOpeningHours);
+    }
+
+    /**
+     * Parse a {@code String restrictions} into an {@code restrictions}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code restrictions} is invalid.
+     */
+    public static Restrictions parseRestrictions(String restrictions) throws ParseException {
+        requireNonNull(restrictions);
+        String trimmedRestrictions = restrictions.trim();
+        if (!Restrictions.isValidRestrictions(trimmedRestrictions)) {
+            throw new ParseException(Restrictions.MESSAGE_CONSTRAINTS);
+        }
+        return new Restrictions(trimmedRestrictions);
     }
 
     /**

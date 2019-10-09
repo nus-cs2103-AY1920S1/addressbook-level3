@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.savenus.model.tag.Tag;
-import seedu.savenus.commons.util.CollectionUtil;
 
 /**
  * Represents a Food in the menu.
@@ -20,6 +19,9 @@ public class Food {
     private final Name name;
     private final Price price;
     private final Description description;
+    private final Category category;
+    private final OpeningHours openingHours;
+    private final Restrictions restrictions;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -27,12 +29,16 @@ public class Food {
     /**
      * Every field must be present and not null.
      */
-    public Food(Name name, Price price, Description description, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, price, description, tags);
+    public Food(Name name, Price price, Description description, Category category, Set<Tag> tags,
+                    OpeningHours openingHours, Restrictions restrictions) {
+        requireAllNonNull(name, price, description, category, tags, openingHours, restrictions);
         this.name = name;
         this.price = price;
         this.description = description;
+        this.category = category;
         this.tags.addAll(tags);
+        this.openingHours = openingHours;
+        this.restrictions = restrictions;
     }
 
     public Name getName() {
@@ -41,6 +47,10 @@ public class Food {
 
     public Price getPrice() {
         return price;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     public Description getDescription() {
@@ -55,6 +65,14 @@ public class Food {
         return Collections.unmodifiableSet(tags);
     }
 
+    public OpeningHours getOpeningHours() {
+        return openingHours;
+    }
+
+    public Restrictions getRestrictions() {
+        return restrictions;
+    }
+
     /**
      * Returns true if both foods of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two foods.
@@ -66,7 +84,11 @@ public class Food {
 
         return otherFood != null
                 && otherFood.getName().equals(getName())
-                && (otherFood.getPrice().equals(getPrice()) || otherFood.getDescription().equals(getDescription()));
+                && otherFood.getPrice().equals(getPrice())
+                && otherFood.getDescription().equals(getDescription())
+                && otherFood.getCategory().equals(getCategory())
+                && otherFood.getOpeningHours().equals(getOpeningHours())
+                && otherFood.getRestrictions().equals(getRestrictions());
     }
 
     /**
@@ -87,13 +109,16 @@ public class Food {
         return otherFood.getName().equals(getName())
                 && otherFood.getPrice().equals(getPrice())
                 && otherFood.getDescription().equals(getDescription())
-                && otherFood.getTags().equals(getTags());
+                && otherFood.getTags().equals(getTags())
+                && otherFood.getCategory().equals(getCategory())
+                && otherFood.getOpeningHours().equals(getOpeningHours())
+                && otherFood.getRestrictions().equals(getRestrictions());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, description, tags);
+        return Objects.hash(name, price, description, category, tags, openingHours, restrictions);
     }
 
     @Override
@@ -104,8 +129,14 @@ public class Food {
                 .append(getPrice())
                 .append(" Description: ")
                 .append(getDescription())
+                .append(" Category: ")
+                .append(getCategory())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Opening Hours: ")
+                .append(getOpeningHours())
+                .append(" Restrictions: ")
+                .append(getRestrictions());
         return builder.toString();
     }
 

@@ -9,12 +9,10 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Description of food should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Description should not be blank";
+    public static final String DEFAULT_VALUE = "No Description";
 
-    /*
-     * The first character of the food item must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
+    // Description cannot be blank but can contain any other characters
     public static final String VALIDATION_REGEX = ".*\\S.*";
 
     public final String value;
