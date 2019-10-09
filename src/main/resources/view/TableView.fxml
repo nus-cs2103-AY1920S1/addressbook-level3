@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane maxHeight="593.0" maxWidth="726.0" minHeight="593.0" minWidth="726.0" prefHeight="593.0" prefWidth="726.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ScrollPane fx:id="scrollPane" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED" hvalue="1.0" layoutX="4.0" prefHeight="593.0" prefWidth="726.0" vvalue="1.0">
+                    <content>
+                        <TableView fx:id="table" prefHeight="520.0" prefWidth="932.0" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn prefWidth="130.0" text="Full Name">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="fullName" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="nusEmailColumn" prefWidth="120.0" text="NUS Email">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="nusEmail" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="120.0" text="Personal Email">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="personalEmail" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="mobileNumberColumn" prefWidth="90.0" text="Mobile">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="mobileNumber" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="schoolColumn" prefWidth="90.0" text="School/Faculty">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="school" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="acadYearColumn" prefWidth="50.0" text="Acad Year">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="acadYear" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="choiceOneColumn" prefWidth="90.0" text="Choice of Department 1">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="choiceOne" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="choiceTwoColumn" prefWidth="90.0" text="Choice of Department 2">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="choiceTwo" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="timeSlotColumn" prefWidth="150.0" text="Preferred Time">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="timeSlot" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                    </content>
+                </ScrollPane>
+                <TextField fx:id="userInput" layoutX="7.0" layoutY="538.0" prefHeight="100.0" prefWidth="329.0" />
+                <TextField fx:id="outputMessage" layoutX="7.0" layoutY="538.0" prefHeight="200.0" prefWidth="329.0"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
