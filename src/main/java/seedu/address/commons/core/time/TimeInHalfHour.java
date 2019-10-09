@@ -2,11 +2,12 @@ package seedu.address.commons.core.time;
 
 import seedu.address.commons.core.time.exceptions.NotInIntervalsOf30MinException;
 import seedu.address.commons.core.time.exceptions.TimeOutOfBoundException;
-import seedu.address.model.day.exceptions.TimeOutOfBoundsException;
+import seedu.address.commons.core.time.exceptions.TimeOutOfBoundsException;
 
 public class TimeInHalfHour {
     private final int hour;
     private final int mins;
+
     public TimeInHalfHour(int hour, int mins) throws NotInIntervalsOf30MinException, TimeOutOfBoundsException {
         if (hour < 0 || hour > 24 || mins < 0 || mins > 60) {
             throw new TimeOutOfBoundException();

@@ -12,22 +12,11 @@ public class HalfHour {
 
     public HalfHour(ActivityStub activity) {
         this.activityAtThisTime = activity;
-        isOccupied = true;
+        this.isOccupied = true;
     }
 
     public boolean getIsOccupied() {
         return isOccupied;
-    }
-
-    public void setActivity(ActivityStub activity) {
-        requireNonNull(activity);
-        this.activityAtThisTime = activity;
-        isOccupied = true;
-    }
-
-    public void clearActivity() {
-        activityAtThisTime = null;
-        isOccupied = false;
     }
 
     public ActivityStub getActivity() {
