@@ -38,7 +38,7 @@ public class VersionedMark extends Mark {
      */
     public void undo() {
         if (!canUndo()) {
-            throw new RuntimeException("Current state pointer at start of markState list, unable to undo.");
+            throw new CannotUndoException();
         }
         currentStatePointer--;
         resetData(markStateList.get(currentStatePointer));
@@ -49,7 +49,7 @@ public class VersionedMark extends Mark {
      */
     public void redo() {
         if (!canRedo()) {
-            throw new RuntimeException("Current state pointer at end of markState list, unable to redo.");
+            throw new CannotRedoException();
         }
         currentStatePointer++;
         resetData(markStateList.get(currentStatePointer));
@@ -87,5 +87,23 @@ public class VersionedMark extends Mark {
         return super.equals(otherVersionedMark)
                 && markStateList.equals(otherVersionedMark.markStateList)
                 && currentStatePointer == otherVersionedMark.currentStatePointer;
+    }
+
+    /**
+     * Thrown when trying to {@code undo()} but can't.
+     */
+    private static class CannotUndoException extends RuntimeException {
+        private CannotUndoException() {
+            super("Current state pointer at start of addressBookState list, unable to undo.");
+        }
+    }
+
+    /**
+     * Thrown when trying to {@code redo()} but can't.
+     */
+    private static class CannotRedoException extends RuntimeException {
+        private CannotRedoException() {
+            super("Current state pointer at end of addressBookState list, unable to redo.");
+        }
     }
 }
