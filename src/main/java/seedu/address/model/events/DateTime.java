@@ -1,11 +1,15 @@
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents a Date Time.
+ * Guarantees: Date time is validate and immutable.
+ */
 public class DateTime implements Comparable<DateTime> {
 
     public static final String DATETIME_FORMAT = "dd/MM/yy HHmm";

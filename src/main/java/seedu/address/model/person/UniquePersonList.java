@@ -167,11 +167,8 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns a person with the same identity as {@code ReferenceId} who exists in the address book, otherwise null.
      */
-    public Person find(ReferenceId id) {
-        if (id == null) {
-            return null;
-        }
-
+    public Person getPerson(ReferenceId id) {
+        requireNonNull(id);
         return internalList.stream().filter(p -> p.isSamePerson(id))
                 .findFirst().orElse(null);
     }

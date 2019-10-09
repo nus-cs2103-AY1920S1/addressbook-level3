@@ -1,25 +1,31 @@
 package seedu.address.model.queue;
 
+import java.util.Optional;
+
 import seedu.address.model.common.ReferenceId;
 
+/**
+ * Represents a consultation room involving a single doctor and an optional patient.
+ * Guarantees: Reference Id to a doctor is immutable and validated.
+ */
 public class Room {
     private final ReferenceId doctor;
-    private final ReferenceId patientCurrentlyBeingServed;
+    private final Optional<ReferenceId> patientCurrentlyBeingServed;
 
-    public Room(ReferenceId doctor, ReferenceId patient) {
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
     }
 
     public boolean isReadyToServe() {
-        return isReady;
+        return patientCurrentlyBeingServed.isEmpty();
     }
 
     public ReferenceId getDoctor() {
         return doctor;
     }
 
-    public ReferenceId getCurrentPatient() {
+    public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
     }
 

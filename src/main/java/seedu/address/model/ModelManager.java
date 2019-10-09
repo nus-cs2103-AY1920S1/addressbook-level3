@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.common.ReferenceId;
@@ -262,7 +263,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event){
+    public boolean hasEvent(Event event) {
         requireNonNull(event);
         return appointmentBook.hasEvent(event);
     }

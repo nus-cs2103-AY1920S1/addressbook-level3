@@ -13,9 +13,6 @@ import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * A default model stub that have all of the methods failing.
  */
@@ -121,7 +118,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event){
+    public boolean hasEvent(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 

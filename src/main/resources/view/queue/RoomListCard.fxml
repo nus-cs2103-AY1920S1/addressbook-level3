@@ -15,7 +15,7 @@
       <HBox spacing="5" alignment="CENTER_LEFT">
         <Label fx:id="doctorName" text="\$doctorName" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="name" text="\$doctorName" styleClass="cell_big_label" />
+      <Label fx:id="patientName" text="\$doctorName" styleClass="cell_big_label" />
       <Label fx:id="refId" styleClass="cell_small_label" text="\$refId" />
     </VBox>
   </GridPane>

@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSucc
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +19,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.queue.QueueManager;
-import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.TestUtil;
 
 /**

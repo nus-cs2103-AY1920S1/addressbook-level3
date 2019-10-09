@@ -54,7 +54,8 @@ class TimingTest {
         assertFalse(Timing.isValidTiming(sampleDate4, sampleDate3));
         assertFalse(Timing.isValidTiming(sampleDate4, sampleDate4));
 
-        assertThrows(IllegalArgumentException.class, () -> new Timing(sampleDate1, sampleDate2), Timing.MESSAGE_CONSTRAINTS);
+        assertThrows(IllegalArgumentException.class, () -> new Timing(sampleDate1, sampleDate2),
+                        Timing.MESSAGE_CONSTRAINTS);
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(null, sampleDate1));
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(null, null));
         assertThrows(NullPointerException.class, () -> Timing.isValidTiming(sampleDate1, null));
@@ -111,7 +112,7 @@ class TimingTest {
     }
 
     @Test
-    void test_timing_Equals() {
+    void test_timing_equals() {
 
         assertFalse(sampleEvent1.equals(null));
         assertFalse(sampleEvent1.equals(""));
