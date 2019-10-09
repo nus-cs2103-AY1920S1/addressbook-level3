@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
 
 import org.junit.jupiter.api.Test;
 
