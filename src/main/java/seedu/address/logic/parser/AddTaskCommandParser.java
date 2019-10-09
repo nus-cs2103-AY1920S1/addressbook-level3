@@ -12,7 +12,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.*;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Priority;
+import seedu.address.commons.core.item.Reminder;
+import seedu.address.commons.core.item.Task;
+//import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 
 public class AddTaskCommandParser implements Parser<AddCommand> {
@@ -26,29 +33,32 @@ public class AddTaskCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
 
-        Description description = ParserUtil.parseDescription(desc);
+        ItemDescription description = ParserUtil.parseDescription(desc);
         // Need to check if all below isPresent() first
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-        ItemReminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        Optional<Event> dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).orElse(null));
+        Optional<Reminder> itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).orElse(null));
+        Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Task task = new Task();
-        // Task.setPriority(priority);
-        Item item = new Item(description.toString(), Optional.of(task), Optional.empty(), Optional.empty(), tagList);
+        ItemBuilder itemBuilder = new ItemBuilder();
+        Task task = new Task(priority.orElse(null), null);
+        itemBuilder.setTask(task);
 
         if (dateTime.isPresent()) {
-            Event event = new Event();
-            event.setDate(dateTime.getDate());
-            item.setEvent(event);
+            itemBuilder.setEvent(dateTime.get());
         }
         if (itemReminder.isPresent()) {
-            Reminder reminder = new Reminder();
-            reminder.setDate(itemReminder.getDate());
-            item.setReminder(reminder);
+            itemBuilder.setReminder(itemReminder.get());
         }
 
-        return new AddCommand(item);
+        Item newItem;
+        try {
+            newItem = itemBuilder.build();
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
+
+        return new AddCommand(newItem);
     }
 
     /**

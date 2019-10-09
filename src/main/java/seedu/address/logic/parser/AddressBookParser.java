@@ -73,7 +73,7 @@ public class AddressBookParser {
             return new UndoCommand();
 
         case ShowCommand.COMMAND_WORD:
-            return new ShowCommand();
+            return new ShowCommandParser().parse(description, flags);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

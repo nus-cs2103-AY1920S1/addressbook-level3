@@ -12,10 +12,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.DateTime;
-import seedu.address.model.item.Description;
-import seedu.address.model.item.ItemReminder;
-import seedu.address.model.item.Priority;
+
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Reminder;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,23 +33,30 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
 
+        // Reminder must be present.
         if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Description description = ParserUtil.parseDescription(desc);
-        // Need to check if all below isPresent() first
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-        ItemReminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        ItemDescription description = ParserUtil.parseDescription(desc);
+        // Reminder must be present.
+        Reminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()).get();
+        //Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Reminder reminder = new Reminder();
-        reminder.setDate(itemReminder.getDate());
-        Item item = new Item(description.toString(), Optional.empty(), Optional.empty(), Optional.of(reminder), tagList);
+        ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setReminder(itemReminder);
+        itemBuilder.setTags(tagList);
 
-        return new AddCommand(item);
+        Item newItem;
+        try {
+            newItem = itemBuilder.build();
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
+
+        return new AddCommand(newItem);
     }
 
 

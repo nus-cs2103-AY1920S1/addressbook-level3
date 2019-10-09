@@ -14,13 +14,19 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.item.*;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ItemModel;
+//import seedu.address.model.item.*;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Priority;
+import seedu.address.commons.core.item.Reminder;
+import seedu.address.commons.core.item.Task;
+import seedu.address.model.item.EventList;
+import seedu.address.model.item.ItemList;
+import seedu.address.model.item.TaskList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -64,7 +70,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
         ItemList lastShownList = model.getVisualList();
 
@@ -76,34 +82,69 @@ public class EditCommand extends Command {
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
 //-->Stopped
 
-        model.setItem(oldItem, editedItem);
+        model.set(oldItem, editedItem);
         //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
-    private static Item createEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor, ItemList lastShownList) {
+    private static Item createEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor,
+                                         ItemList lastShownList) throws CommandException {
         assert itemToEdit != null;
 
-        Description updatedDescription = editItemDescriptor.getDescription().orElse(itemToEdit.getDescription());
-        Task updatedTask = editItemDescriptor.getTask().orElse(itemToEdit.getTask());
-        Event updatedEvent = editItemDescriptor.getEvent().orElse(itemToEdit.getEvent());
-        Reminder updatedReminder = editItemDescriptor.getReminder().orElse(itemToEdit.getReminder());
+        ItemDescription updatedDescription = editItemDescriptor
+                .getDescription()
+                .orElse(itemToEdit.getItemDescription());
+        Optional<Task> updatedTask = Optional.ofNullable(editItemDescriptor
+                .getTask()
+                .orElse(itemToEdit
+                        .getTask()
+                        .orElse(null)));
+        Optional<Event> updatedEvent = Optional.ofNullable(editItemDescriptor
+                .getEvent()
+                .orElse(itemToEdit
+                        .getEvent()
+                        .orElse(null)));
+        Optional<Reminder> updatedReminder = Optional.ofNullable(editItemDescriptor
+                .getReminder()
+                .orElse(itemToEdit
+                        .getReminder()
+                        .orElse(null)));
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
+
         if (lastShownList instanceof TaskList) {
-            //Priority updatedPriority = editItemDescriptor.getPriority().orElse(itemToEdit.getTask().getPriority());
-            updatedTask.setPriority(editItemDescriptor.getPriority().orElse(itemToEdit.getTask().getPriority()));
+            // Change the Priority of this Task. If no priority is given, change back to the default MEDIUM.
+            updatedTask.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
         } else if (lastShownList instanceof EventList) {
-            //Priority updatedPriority = editItemDescriptor.getPriority().orElse(itemToEdit.getEvent().getPriority());
-            updatedEvent.setPriority(editItemDescriptor.getPriority().orElse(itemToEdit.getEvent().getPriority()));
+            // Change the Priority of this Event. If no priority is given, change back to the default MEDIUM.
+            updatedEvent.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
         }
 
-        return new Item(updatedDescription, updatedTask, updatedEvent, updatedReminder, updatedTags);
+        ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setItemDescription(updatedDescription);
+        itemBuilder.setTags(updatedTags);
+        if (updatedTask.isPresent()) {
+            itemBuilder.setTask(updatedTask.get());
+        }
+        if (updatedEvent.isPresent()) {
+            itemBuilder.setEvent(updatedEvent.get());
+        }
+        if (updatedReminder.isPresent()) {
+            itemBuilder.setReminder(updatedReminder.get());
+        }
+
+        Item updatedItem;
+        try {
+            updatedItem = itemBuilder.build();
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
+
+        return updatedItem;
     }
 
 
-
     public static class EditItemDescriptor {
-        private Description description;
+        private ItemDescription description;
         private Task task;
         private Event event;
         private Reminder reminder;
@@ -132,11 +173,11 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(description, event, reminder, priority, tags);
         }
 
-        public void setDescription(Description description) {
+        public void setDescription(ItemDescription description) {
             this.description = description;
         }
 
-        public Optional<Description> getDescription() {
+        public Optional<ItemDescription> getDescription() {
             return Optional.ofNullable(description);
         }
 

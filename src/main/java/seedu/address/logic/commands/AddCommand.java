@@ -4,7 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemModel;
 import seedu.address.model.Model;
+<<<<<<< HEAD
+=======
+import seedu.address.commons.core.item.Item;
+>>>>>>> Resolve Merge Conflict with Commons
 
 public class AddCommand extends Command {
 
@@ -31,12 +36,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
 
+        /*
         if (model.hasItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
+        */
 
         model.add(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

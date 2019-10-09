@@ -12,7 +12,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.*;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Priority;
+import seedu.address.commons.core.item.Reminder;
+import seedu.address.commons.core.item.Task;
+//import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,21 +42,34 @@ public class AddEventCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Description description = ParserUtil.parseDescription(desc);
-        // Need to check if all below isPresent() first
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-        ItemReminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        ItemDescription description = ParserUtil.parseDescription(desc);
+        // Event must be present.
+        Event event = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()).get();
+        Optional<Reminder> itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).orElse(null));
+        Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Event event = new Event();
-        if (itemReminder.isPresent()) {
-            Reminder reminder = new Reminder();
-            reminder.setDate(itemReminder.getDate());
-        }
-        Item item = new Item(description.toString(), Optional.empty(), Optional.of(event), Optional.empty(), tagList);
 
-        return new AddCommand(item);
+        ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setTags(tagList);
+
+        if (priority.isPresent()) {
+            event.changePriority(priority.get());
+        }
+        itemBuilder.setEvent(event);
+
+        if (itemReminder.isPresent()) {
+            itemBuilder.setReminder(itemReminder.get());
+        }
+
+        Item newItem;
+        try {
+            newItem = itemBuilder.build();
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
+
+        return new AddCommand(newItem);
     }
 
 

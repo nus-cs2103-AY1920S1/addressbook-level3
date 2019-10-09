@@ -2,17 +2,23 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Priority;
+import seedu.address.commons.core.item.Reminder;
+import seedu.address.commons.core.item.Task;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.Description;
-import seedu.address.model.item.ItemReminder;
-import seedu.address.model.item.DateTime;
-import seedu.address.model.item.Priority;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,40 +41,75 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
-    public static Description parseDescription(String description) throws ParseException {
+    public static ItemDescription parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        if (!ItemDescription.isValidItemDescription(trimmedDescription)) {
+            throw new ParseException(ItemDescription.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedDescription);
+        return new ItemDescription(trimmedDescription);
     }
 
-    public static DateTime parseDateTime(String dateTime) throws ParseException {
-        requireNonNull(dateTime);
+    public static Optional<Event> parseDateTime(String dateTime) throws ParseException {
+        if (dateTime == null) {
+            return Optional.empty();
+        }
+
         String trimmedDateTime = dateTime.trim();
-        if (!DateTime.isValidDateTime(trimmedDateTime)) {
-            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+        LocalDateTime formattedDateTime;
+
+        try {
+            formattedDateTime = LocalDateTime.parse(trimmedDateTime);
+        } catch(DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. " +
+                    "Please follow this format: \"-d 2018-12-30T19:34:50.63\"");
+            //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
         }
-        return new DateTime(trimmedDateTime);
+
+        Event newEvent = new Event(formattedDateTime, null, null);
+        return Optional.of(newEvent);
     }
 
-    public static ItemReminder parseReminder(String reminder) throws ParseException {
-        requireNonNull(reminder);
+    public static Optional<Reminder> parseReminder(String reminder) throws ParseException {
+        if (reminder == null) {
+            return Optional.empty();
+        }
+
         String trimmedDateTime = reminder.trim();
-        if (!ItemReminder.isValidReminder(trimmedDateTime)) {
-            throw new ParseException(ItemReminder.MESSAGE_CONSTRAINTS);
+        LocalDateTime formattedDateTime;
+
+        try {
+            formattedDateTime = LocalDateTime.parse(trimmedDateTime);
+        } catch(DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. " +
+                    "Please follow this format: \"-r 2018-12-30T19:34:50.63\"");
+            //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
         }
-        return new ItemReminder(trimmedDateTime);
+
+        Reminder newReminder = new Reminder(formattedDateTime);
+        return Optional.of(newReminder);
     }
 
-    public static Priority parsePriority(String priority) throws ParseException {
-        requireNonNull(priority);
-        String trimmedDateTime = priority.trim();
-        if (!Priority.isValidPriority(trimmedDateTime)) {
-            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+    public static Optional<Priority> parsePriority(String priority) throws ParseException {
+        if (priority == null) {
+            return Optional.empty();
         }
-        return new Priority(trimmedDateTime); //maybe use enum here
+
+        String trimmedPriority = priority.trim();
+        Priority processedPriority;
+
+        if (trimmedPriority.equalsIgnoreCase("HIGH")){
+            processedPriority = Priority.HIGH;
+        } else if (trimmedPriority.equalsIgnoreCase("MEDIUM")) {
+            processedPriority = Priority.MEDIUM;
+        } else if (trimmedPriority.equalsIgnoreCase("LOW")) {
+            processedPriority = Priority.LOW;
+        } else {
+            throw new ParseException("Priority format given is incorrect. " +
+                    "Please follow this format \"-p High\"");
+        }
+
+        return Optional.of(processedPriority); //maybe use enum here
     }
 
     /**
