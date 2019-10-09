@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.Prefix;
@@ -8,7 +8,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Folder;
 
 /**
- * Changes the remark of an existing person in the address book.
+ * Creates a new folder in Mark.
  */
 public class AddFolderCommand extends Command {
 
