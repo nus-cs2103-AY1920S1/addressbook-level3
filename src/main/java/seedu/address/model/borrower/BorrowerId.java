@@ -35,5 +35,8 @@ public class BorrowerId {
         return value.hashCode();
     }
 
-    //TODO tostring method
+    @Override
+    public String toString() {
+        return value;
+    }
 }

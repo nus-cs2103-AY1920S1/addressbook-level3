@@ -71,8 +71,8 @@ class DateUtilTest {
     public void getNumOfDaysBetween_invalidDates_throwsAssertionError() {
         LocalDate today = LocalDate.now();
 
-        assertThrows(AssertionError.class,
-                () -> DateUtil.getNumOfDaysBetween(DateUtil.extendDate(today, 30), today));
+        assertThrows(AssertionError.class, ()
+            -> DateUtil.getNumOfDaysBetween(DateUtil.extendDate(today, 30), today));
     }
 
     @Test

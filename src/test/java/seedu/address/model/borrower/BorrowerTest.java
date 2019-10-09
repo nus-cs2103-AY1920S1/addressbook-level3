@@ -97,6 +97,6 @@ public class BorrowerTest {
     public void hashCode_sameBookSameHashCode_assertTrue() {
         Borrower borrower1 = new BorrowerBuilder(ALICE).build();
         Borrower borrower2 = new BorrowerBuilder(ALICE).build();
-        assertEquals(borrower1.hashCode(), borrower1.hashCode());
+        assertEquals(borrower1.hashCode(), borrower2.hashCode());
     }
 }
