@@ -128,14 +128,6 @@ public class BodyBuilder {
     }
 
     /**
-     * Sets the {@code religion} of the {@code Body} that we are building.
-     */
-    public BodyBuilder withNric(Religion religion) {
-        this.religion = religion;
-        return this;
-    }
-
-    /**
      * Sets the {@code causeOfDeath} of the {@code Body} that we are building.
      */
     public BodyBuilder withCauseOfDeath(String causeOfDeath) {
