@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="300" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="300" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -51,11 +50,12 @@
             </padding>
           </StackPane>
 
-          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="50.0" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="387.0" minHeight="50.0" prefHeight="134.0" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
             <padding>
               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </padding>
           </StackPane>
+               <VBox prefHeight="345.0" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
 
         </VBox>
       </SplitPane>
