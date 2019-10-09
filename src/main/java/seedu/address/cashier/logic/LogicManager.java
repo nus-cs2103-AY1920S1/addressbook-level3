@@ -8,11 +8,10 @@ import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.Model;
 
 public class LogicManager implements Logic {
 
-    private final Model model;
+    //private final Model model;
     private final ModelManager cashierManager;
     private final StorageManager storage;
     private CashierTabParser parser;
@@ -23,7 +22,8 @@ public class LogicManager implements Logic {
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.transaction.storage.Storage transactionStorage;
 
-    public LogicManager(Model inventoryModel, ModelManager cashierManager,
+    //Model inventoryModel,
+    public LogicManager(ModelManager cashierManager,
                         StorageManager cashierStorage,
                         seedu.address.person.model.Model personModel,
                         seedu.address.person.storage.Storage personStorage,
@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
                         seedu.address.reimbursement.storage.Storage reimbursementStorage,
                         seedu.address.transaction.model.Model transactionModel,
                         seedu.address.transaction.storage.Storage transactionStorage) {
-        this.model = inventoryModel;
+        //this.model = inventoryModel;
         this.cashierManager = cashierManager;
         this.storage = cashierStorage;
 

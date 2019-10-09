@@ -1,5 +1,6 @@
 package seedu.address.person.logic.commands;
 
+import java.io.IOException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 
@@ -14,10 +15,12 @@ public abstract class Command {
      * @param model {@code Model} which the command should operate on.
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
+     * @throws java.io.IOException If an error occurs when writing into transaction text file.
      */
     //public abstract CommandResult execute(Model model) throws CommandException;
     public abstract CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                          seedu.address.reimbursement.logic.Logic reimbursementLogic)
-            throws CommandException;
+                                          seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                          seedu.address.cashier.logic.Logic cashierLogic)
+            throws CommandException, IOException;
 
 }
