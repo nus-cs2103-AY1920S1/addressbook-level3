@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalTrips.TRIP_B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new TravelPal(), new TravelPal(modelManager.getTravelPal()));
+        assertEquals(new TravelPal(), modelManager.getTravelPal());
     }
 
     @Test
@@ -95,7 +96,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TravelPal travelPal = new TravelPalBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        TravelPal travelPal = new TravelPalBuilder().withPerson(ALICE).withPerson(BENSON).withTrip(TRIP_B).build();
         TravelPal differentTravelPal = new TravelPal();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -119,7 +120,7 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(travelPal, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentTravelPal, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
