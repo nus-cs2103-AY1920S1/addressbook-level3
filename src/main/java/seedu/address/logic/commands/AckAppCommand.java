@@ -16,6 +16,8 @@ import seedu.address.model.Model;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.Appointment;
 import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.Event;
 import seedu.address.ui.UiManager;
@@ -26,7 +28,7 @@ import java.util.logging.Logger;
 public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
     private Event appointment;
-    private final String predicate;
+    private final ReferenceId referenceId;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
             + "the specified keywords (case-insensitive).\n"
@@ -43,32 +45,28 @@ public class AckAppCommand extends ReversibleCommand {
     /**
      * Creates an AckAppCommand to add the specified {@code Person}
      */
-    public AckAppCommand(String predicate) {
-        this.predicate = predicate;
+    public AckAppCommand(ReferenceId referenceId) {
+        this.referenceId = referenceId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-//        if (predicate.isEmpty() || !isVaildReferenceId(argMultimap, trimmedArgs)) {
-////            throw new ParseException(
-////                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AckAppCommand.MESSAGE_USAGE));
-////        }
 
-        AppointmentsCommand appList = new AppointmentsCommand(new ContainsKeywordsPredicate(Arrays.asList(predicate.split("\\s+"))));
+        AppointmentsCommand appList = new AppointmentsCommand(new ContainsKeywordsPredicate(Arrays.asList(referenceId.toString().split("\\s+"))));
         appList.execute(model);
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
-        if (filterEventList.size() == 0) {
+        if (!model.hasPerson(referenceId)) {
+            throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
+        }else if (filterEventList.size() == 0) {
             throw new CommandException(MESSAGE_NOTING_ACK);
-        } else if (filterEventList.get(0).getStatus().getSta() == "ACKED") {
+        } else if (filterEventList.get(0).getStatus().isAcked()) {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);
         }
 
         appointment = model.getFilteredEventList().get(0);
-        if (!appointment.getPersonId().equals(predicate)) {
-            throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
-        }
+
         model.ackEvent(appointment);
 
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);

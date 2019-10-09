@@ -1,41 +1,63 @@
 package seedu.address.model.events;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Describes the status of an appointment
  */
 public class Status {
-    public static String APPROVED_MESS = "patient appointment was made";
+    public static final String APPROVED_MESS = "patient appointment was made";
     public static String ACK_MESS = "patient is arrived";
     public static String MISSED_MESS = "patient missed appointment, need to settle";
     public static String SETTLE_MESS = "this missed appointment have been settled";
-    public static String CANCELL_MESS = "this appointment have been cancelled";
-    private String status;
+    public static String CANCEL_MESS = "this appointment have been cancelled";
 
-    public Status(String statusMess) {
-        this.status = statusMess;
+    private enum AppointmentStatuses {
+        APPROVED,
+        CANCELLED,
+        ACKNOWLEDGED,
+        MISSED,
+        SETTLED
+    };
+    private AppointmentStatuses status;
+
+    public Status(String status) {
+        requireNonNull(status);
+        this.status = AppointmentStatuses.valueOf(status.trim().toUpperCase());
     }
 
     public Status() {
-        this.status = "APPROVED";
+        this.status = AppointmentStatuses.APPROVED;
+    }
+
+    public static boolean isValidStatus(String test) {
+        String toMatch = test.trim().toUpperCase();
+        for (AppointmentStatuses state: AppointmentStatuses.values()) {
+            if (state.toString().equals(toMatch)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public String getStatusMess() {
         switch (status) {
 
-        case "APPROVED":
+        case APPROVED:
             return APPROVED_MESS;
-        case "ACKED":
+        case ACKNOWLEDGED:
             return ACK_MESS;
-        case "MISSED":
+        case MISSED:
             return MISSED_MESS;
-        case "SETTLE":
+        case SETTLED:
             return SETTLE_MESS;
         default:
             return "status is wrong";
         }
     }
 
-    public String getSta() {
+    public AppointmentStatuses getSta() {
         return this.status;
     }
 
@@ -46,23 +68,27 @@ public class Status {
 
 
     public void setAckStatus() {
-        this.status = "ACKED";
+        this.status = AppointmentStatuses.ACKNOWLEDGED;
     }
 
     public void setSettleStatus() {
-        this.status = "SETTLED";
+        this.status = AppointmentStatuses.SETTLED;
     }
 
     public void setMissStatus() {
-        this.status = "MISSED";
+        this.status = AppointmentStatuses.MISSED;
     }
 
     public void setCancelStatus() {
-        this.status = "CANCELLED";
+        this.status = AppointmentStatuses.CANCELLED;
+    }
+
+    public boolean isAcked(){
+        return status.equals(AppointmentStatuses.ACKNOWLEDGED);
     }
 
     @Override
     public String toString() {
-        return this.status;
+        return this.status.toString();
     }
 }

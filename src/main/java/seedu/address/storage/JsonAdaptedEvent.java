@@ -9,6 +9,7 @@ import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
+import seedu.address.model.events.exceptions.InvalidEventStatusException;
 import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
 
@@ -56,7 +57,7 @@ public class JsonAdaptedEvent {
 
         if (patientId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                PatientReferenceId.class.getSimpleName()));
+                    PatientReferenceId.class.getSimpleName()));
         }
         if (!PersonReferenceId.isValidId(patientId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
@@ -87,7 +88,10 @@ public class JsonAdaptedEvent {
         final Timing eventTiming = new Timing(startDateTime, endDateTime);
 
         //TODO: Implement Status
-//        final Status eventStatus = Status.APPROVED;
+        if (!Status.isValidStatus(status)) {
+            throw new InvalidEventStatusException();
+        }
+
         final Status eventStatus = new Status(status);
         return new Event(patientReferenceId, eventTiming, eventStatus);
     }

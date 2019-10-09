@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.ContainsKeywordsPredicate;
 
@@ -39,25 +40,10 @@ public class AckAppCommandParser implements Parser<AckAppCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AckAppCommand.MESSAGE_USAGE));
         }
-//        String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new AckAppCommand(trimmedArgs);
+        ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
+
+
+        return new AckAppCommand(referenceId);
     }
-    //referenceId must be full Id and it must match to one person
-//    private boolean isVaildReferenceId(ArgumentMultimap argMultimap, String trimmedArgs) {
-//        try{
-//
-//            return true;
-//        }catch(ParseException e){
-//            return false;
-//        }
-//    }
-
-//    /**
-//     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-//     * {@code ArgumentMultimap}.
-//     */
-//    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-//        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-//    }
 }
