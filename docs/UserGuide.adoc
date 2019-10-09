@@ -252,7 +252,7 @@ Format: `cancel`
 ==== Move question:
 Move question from specified category to another category.
 
-Format: `move [SPECIFIED_CAT] [NUMBER] [DESTINATION_CAT]
+Format: move [SPECIFIED_CAT] [NUMBER] [DESTINATION_CAT]
 
 ==== Undo:
 Undo some of the previous action.
