@@ -1,12 +1,19 @@
 package seedu.address.person.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.person.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
-import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.core.Messages;
 import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.commons.util.CollectionUtil;
@@ -20,20 +27,10 @@ import seedu.address.person.model.person.Phone;
 import seedu.address.person.model.tag.Tag;
 import seedu.address.transaction.model.Transaction;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.person.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 /**
  * Edits the details of an existing person in the address book.
  */
 public class EditCommand extends Command {
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
@@ -70,7 +67,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException, IOException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -86,25 +83,9 @@ public class EditCommand extends Command {
         }
 
         if (editPersonDescriptor.getName().isPresent()) {
-            try {
-                int max = transactionLogic.getTransactionList().size();
-                for (int i = 0; i < max; i++) {
-                    Transaction transaction = transactionLogic.getTransactionList().get(i);
-                    logger.info("curr transaction person: " + transaction.getPerson().toString());
-                    logger.info("person I need to edit: " + personToEdit.toString());
-                    logger.info("" + max);
-                    if (transaction.getPerson().equals(personToEdit)) {
-                        Transaction transaction1 = new Transaction(transaction.getDate(),
-                                transaction.getDescription(), transaction.getCategory(),
-                                transaction.getAmount(), editedPerson, i + 1, transaction.getIsReimbursed());
-                        transactionLogic.setTransaction(transaction, transaction1);
-                        transactionLogic.writeIntoTransactionFile();
-                    }
-                }
-            } catch (Exception e) {
-                logger.info("Throws Exception for edit command.");
-            }
+            editPersonInTransactionList(editedPerson, personToEdit, transactionLogic);
         }
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
@@ -124,6 +105,29 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    }
+
+    /**
+     * Edits the transaction in transaction list if the edited person had a transaction record there.
+     * @param editedPerson Person with attributes edited.
+     * @param personToEdit Person that is being edited.
+     * @param transactionLogic Logic of transaction tab.
+     * @throws IOException If an error occurs when writing into transaction history text file.
+     */
+    private static void editPersonInTransactionList(Person editedPerson, Person personToEdit,
+                                                    seedu.address.transaction.logic.Logic transactionLogic)
+            throws IOException {
+        int max = transactionLogic.getTransactionList().size();
+        for (int i = 0; i < max; i++) {
+            Transaction transaction = transactionLogic.getTransactionList().get(i);
+            if (transaction.getPerson().equals(personToEdit)) {
+                Transaction transaction1 = new Transaction(transaction.getDate(),
+                        transaction.getDescription(), transaction.getCategory(),
+                        transaction.getAmount(), editedPerson, i + 1, transaction.getIsReimbursed());
+                transactionLogic.setTransaction(transaction, transaction1);
+                transactionLogic.writeIntoTransactionFile();
+            }
+        }
     }
 
     @Override

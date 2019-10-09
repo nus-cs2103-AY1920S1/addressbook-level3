@@ -15,7 +15,6 @@ public class ReimbursementList {
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
-
         list = new ArrayList<Reimbursement>();
     }
 
@@ -36,14 +35,14 @@ public class ReimbursementList {
         //gets all the transactions whose status is pending reimbursement.
         ArrayList<Transaction> pendingList = new ArrayList<>(); //throws null pointer here
         for (int i = 0; i < transList.size(); i++) {
-            try {
+            /*try {*/
                 Transaction trans = transList.get(i);
                 if (trans.getStatus() == false) {
                     pendingList.add(trans);
                 }
-            } catch (NoSuchIndexException e) {
+            /*} catch (NoSuchIndexException e) {
                 break;
-            }
+            }*/
         }
         return pendingList;
     }
