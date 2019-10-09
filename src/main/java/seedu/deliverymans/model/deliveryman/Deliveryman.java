@@ -1,5 +1,7 @@
 package seedu.deliverymans.model.deliveryman;
 
+import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 
 import seedu.deliverymans.model.Name;
@@ -19,7 +21,11 @@ public class Deliveryman {
     private final DeliveryHistory deliveryHistory;
     private final boolean isAvailable;
 
+    /**
+     * Every field must be present and not null.
+     */
     public Deliveryman(Name name, Phone phone) {
+        requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
         deliveryHistory = null;
@@ -36,6 +42,10 @@ public class Deliveryman {
         return phone;
     }
 
+    /**
+     * Returns true if both persons have the same identity. Data fields need not be same.
+     * This defines a stronger notion of equality between two persons.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
