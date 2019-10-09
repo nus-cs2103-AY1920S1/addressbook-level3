@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.deliverymans.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 

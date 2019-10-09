@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.deliverymans.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;

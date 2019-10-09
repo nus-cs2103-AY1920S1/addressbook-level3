@@ -5,17 +5,18 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.storage.Storage;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.storage.Storage;
+
 
 /**
  * The main LogicManager of the app.

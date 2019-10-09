@@ -1,5 +1,12 @@
 package seedu.deliverymans.logic.parser.universal;
 
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_ALREADY_IN_CONTEXT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.universal.ContextCommand;
 import seedu.deliverymans.logic.commands.universal.ExitCommand;
@@ -10,13 +17,9 @@ import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_ALREADY_IN_CONTEXT;
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
+/**
+ * (To be added)
+ */
 public class UniversalParser {
     /**
      * Used for initial separation of command word and args.
@@ -42,35 +45,35 @@ public class UniversalParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand(arguments);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand(arguments);
 
-            case SummaryCommand.COMMAND_WORD:
-                return new SummaryCommand();
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
 
-            case CustomerParser.COMMAND_WORD:
-                nextContext = Context.CUSTOMER;
-                checkContext(nextContext);
-                currentContext = nextContext;
-                return new ContextCommand(nextContext);
+        case CustomerParser.COMMAND_WORD:
+            nextContext = Context.CUSTOMER;
+            checkContext(nextContext);
+            currentContext = nextContext;
+            return new ContextCommand(nextContext);
 
-            case DeliverymanParser.COMMAND_WORD:
-                nextContext = Context.DELIVERYMEN;
-                checkContext(nextContext);
-                currentContext = nextContext;
-                return new ContextCommand(nextContext);
+        case DeliverymanParser.COMMAND_WORD:
+            nextContext = Context.DELIVERYMEN;
+            checkContext(nextContext);
+            currentContext = nextContext;
+            return new ContextCommand(nextContext);
 
-            case RestaurantParser.COMMAND_WORD:
-                nextContext = Context.RESTAURANT;
-                checkContext(nextContext);
-                currentContext = nextContext;
-                return new ContextCommand(nextContext);
+        case RestaurantParser.COMMAND_WORD:
+            nextContext = Context.RESTAURANT;
+            checkContext(nextContext);
+            currentContext = nextContext;
+            return new ContextCommand(nextContext);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

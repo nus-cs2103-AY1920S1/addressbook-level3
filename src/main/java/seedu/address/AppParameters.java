@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.commons.util.FileUtil;
 

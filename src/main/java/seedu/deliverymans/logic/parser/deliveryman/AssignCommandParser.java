@@ -12,16 +12,16 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.deliverymans.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.tag.Tag;
+import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

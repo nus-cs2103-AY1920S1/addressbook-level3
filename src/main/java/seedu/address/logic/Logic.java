@@ -3,12 +3,13 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+
 
 /**
  * API of the Logic component

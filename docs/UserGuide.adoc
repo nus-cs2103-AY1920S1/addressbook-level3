@@ -1,177 +1,356 @@
-= AddressBook Level 3 - User Guide
-:site-section: UserGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+# DeliveryMANS – User Guide
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
+By: `CS2103-T12-2`   Since: `Aug 2019`  Licence: 'NUS'
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+1. Introduction
 
-== Introduction
+2. Quick Start
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+3. Features
 
-== Quick Start
+3.1. Universal commands
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+3.1.1. Viewing help:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+3.1.2. Switching context:
 
-.  Refer to <<Features>> for details of each command.
+3.1.3. Viewing order summary:
 
-[[Features]]
-== Features
+3.1.4. Exiting program:
 
-====
-*Command Format*
+3.2. Customer commands
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+3.2.1. Listing all customers:
 
-=== Viewing help : `help`
+3.2.2. Listing specific customer:
 
-Format: `help`
+3.2.3. Editing customer info:
 
-=== Adding a person: `add`
+3.2.4. Editing specified customer info:
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+3.2.5. Sorting customer:
 
-[TIP]
-A person can have any number of tags (including 0)
+3.2.6. Viewing history:
 
-Examples:
+3.2.7. Adding order:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+3.2.8. Removing customer:
 
-=== Listing all persons : `list`
+3.3. Restaurant commands
 
-Shows a list of all persons in the address book. +
-Format: `list`
+3.3.1. Listing all restaurants:
 
-=== Editing a person : `edit`
+3.3.2. Entering specific restaurant:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+3.3.3. Adding food item:
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+3.3.4. Removing food item:
 
-Examples:
+3.3.5. Adding rating:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+3.3.6. Viewing orders:
 
-=== Locating persons by name: `find`
+3.3.7. ChefHat food item:
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+3.4. Deliverymen commands
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+3.4.1. Listing all deliverymen:
 
-Examples:
+3.4.2. Listing available deliverymen:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+3.4.3. Entering a specific deliveryman:
 
-// tag::delete[]
-=== Deleting a person : `delete`
+3.4.4. Assigning order to a deliveryman:
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+3.4.5. Viewing delivery status of a deliveryman:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+4. Command Summary
 
-Examples:
+4.1. Universal Commands
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+4.2. Customer Commands
 
-// end::delete[]
-=== Clearing all entries : `clear`
+4.3. Restaurant Commands
 
-Clears all entries from the address book. +
-Format: `clear`
+4.4. Deliverymen Commands
 
-=== Exiting the program : `exit`
+# **1.**** Introduction**
 
-Exits the program. +
-Format: `exit`
+DeliveryMANs is a command-line application designed specifically for restaurant administrators who are in charge of food delivery service. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu.
 
-=== Saving the data
+It encompasses a well-structured system for users to keep track and manage the entire delivery process.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Coalescing
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Noun: coalition
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Verb: coalesce
 
-== FAQ
+#
+# 2. Quick Start
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Ensure you have Java 11 or above installed on your computer.
 
-== Command Summary
+Install the JAR file found on this website:
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+[https://ay1920s1-cs2103t-t12-2.github.io/main](https://ay1920s1-cs2103t-t12-2.github.io/main)
+
+Open the application to begin.
+
+#
+# 3
+**.**
+# Features
+
+**Command Format**
+
+Words in curly brackets are parameters to be supplied by the user
+
+**3.1.**** Universal commands**
+
+These are general commands for controlling the app which are notdirectly related to the customer, restaurant and delivery men.
+
+**3.1.1.**** Viewing help:**
+
+Generates a list of commands and tips for the user
+
+Format: -help
+
+- Context specific: -help {context}
+  - Example: -help customer
+- Context specific commands: -help -cxt {context} -cmd {command}
+  - Example: -help -cxt customer -cmd sort
+
+**3.1.2.**** Switching context:**
+
+Switches to a specific context for targeted commands
+
+Format: -switch {context}
+
+Example: -switch restaurant
+
+**3.1.3.**** Viewing order summary:**
+
+Views the current order summary
+
+Format: -summary
+
+**3.1.4.**** Exiting program:**
+
+Exits the program
+
+Format: -exit
+
+3.2. Customer commands
+
+**3.2.1.**** Listing all customers:**
+
+Lists all current customers
+
+Format: -list
+
+**3.2.2.**** Listing specific customer:**
+
+Lists the information of a specific customer
+
+Format: -list {customer name}
+
+Example: -list John Doe
+
+**3.2.3.**** Editing customer info:**
+
+Edits all of customer&#39;s info
+
+Format: -edit {customer name} -n {name} -a {address} -rt {reward} -o {number of orders}
+
+Example: -edit John Doe -n Bob Doe -a Kent ridge -rt Gold -o 1
+
+ List of info types: Syntax:
+
+ Name   -n
+
+ Address   -a
+
+ Reward Tier  -rt
+
+ Number of orders -o
+
+3.2.4. Editing specified customer info:
+
+Edits a specified info type of a customer. See 3.2.3. Editing customer info for the list of info types
+
+Format: -edit -c {customer name} {info type} -d    {description}
+
+Example: -edit -c John Doe -a -d Kent Ridge
+
+3.2.5. Sorting customer:
+
+Sorts customers based on info type. If none is present, sort based on their names.  See 3.2.3. Editing customer info for the list of info types
+
+Format: -sort {info type}
+
+Example: -sort -rt
+
+3.2.6. Viewing history:
+
+Views order history of a customer
+
+Format: -history {customer name}
+
+Example: -history Mary
+
+3.2.7. Adding order:
+
+Adds an order for a customer
+
+Format: -order {customer name} -r {restaurant   name} -m {menu}
+
+Example: -order -c John Doe -r McDonald -m McSpicy
+
+3.2.8. Removing customer:
+
+Removes a customer from the database
+
+Format: -delete {customer name}
+
+Example: -delete Donald Trump
+
+3.3. Restaurant commands
+
+Commands in the restaurant context
+
+3.3.1. Listing all restaurants:
+
+Lists all available restaurants
+
+Format: -list
+
+3.3.2. Entering specific restaurant:
+
+Enters a specific restaurant
+
+Format: -enter {restaurant}
+
+Example: -enter muthu&#39;s curry
+
+3.3.3. Adding food item:
+
+Adds a food item for a specific restaurant
+
+Format: -add {item}
+
+Example: -add chicken rice
+
+3.3.4. Removing food item:
+
+Removes a food item for a specific restaurant
+
+Format: -remove {item}
+
+Example: -remove laksa
+
+3.3.5. Adding rating:
+
+Adds a rating (out of 5) for the restaurant
+
+Format: -rate {rating}
+
+Example: -rate 5
+
+3.3.6. Viewing orders:
+
+Views all the existing orders for the restaurant
+
+Format: -orders
+
+3.3.7. ChefHat food item:
+
+Marks a food item as Chef&#39;s recommendation
+
+Format: -chefhat {item}
+
+Example: -chefhat nasi lemak
+
+3.4. Deliverymen commands
+
+Commands in the delivery men context
+
+3.4.1. Listing all deliverymen:
+
+Lists all deliverymen
+
+Format: -list
+
+3.4.2. Listing available deliverymen:
+
+Lists all available deliverymen
+
+Format: -lista
+
+3.4.3. Entering a specific deliveryman:
+
+Shows a deliveryman&#39;s basic info
+
+Format: -list {name}
+
+Example: -list Stanley Tay
+
+3.4.4. Assigning order to a deliveryman:
+
+Assigns an order to an available deliveryman
+
+Format: -assn {name}{#orderIndex}
+
+Example: -assn Stanley Tay #12
+
+3.4.5. Viewing delivery status of a deliveryman:
+
+Shows delivery status of an assigned deliveryman
+
+Format: status {name}
+
+Example: -status Stanley Tay
+
+#
+
+# 4. Command Summary
+
+**Command:** format
+
+4.1. Universal Commands
+
+- View help: -help
+- View order summary: -summary
+- Switch to restaurant context: -restaurant
+- Switch to customer context: -customer
+- Switch to deliverymen context: -deliverymen
+- Exit application: -exit
+
+4.2. Customer Commands
+
+- List customers: -list
+- List specified customer info: -list {name}
+- Edit customer info: -edit {customer name} -n      {customer name} -a {address} -r {reward tier} -o {number of order}
+- Edit specific customer info: -edit -n {customer name} {info type} -d {description}
+- Sort customer to info type: -sort {info type}
+- Show order history of customer: -history {customer name}
+- Add order: -order {customer name} -r {restaurant name} -m {menu item}
+- Delete customer: -delete {customer name}
+
+4.3. Restaurant Commands
+
+- List restaurants: -list
+- Enter specific restaurant: -enter {restaurant}
+- Add food item: -add {item}
+- Remove food item: -remove {item}
+- View order: -orders
+- Add Rating from Customer: -rate {rating}
+- ChefHat Food Item: -chefhat {item}
+
+4.4. Deliverymen Commands
+
+- List deliverymen: -list
+- List available deliverymen: -lista
+- List specific deliveryman info: -list {name}
+- Assign order to deliveryman: -assn {name} {order}
+- Show delivery status of deliveryman: -status {name}

@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.model.person.Remark;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.RemarkCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Remark;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object

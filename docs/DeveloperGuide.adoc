@@ -1,4 +1,4 @@
-= DeliveryMANs - Developer Guide
+= DeliveryMANS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `August 2019`      Licence: `NUS`
 
 == Setting up
 
@@ -286,8 +286,10 @@ Refer to the guide <<DevOps#, here>>.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+_{More to be added}_
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Our application allows better management of all fronts for delivery-service-command-centre administrators, and allows for more efficiency and control in handling of daily tasks.
+_{More to be added}_
 
 [appendix]
 == User Stories

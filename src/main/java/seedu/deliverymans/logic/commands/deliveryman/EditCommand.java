@@ -5,10 +5,10 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.deliverymans.logic.commands.CommandResult;
-import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
 
 /**
  * Edits the details of an existing person in the address book.

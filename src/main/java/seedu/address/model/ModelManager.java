@@ -9,9 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
