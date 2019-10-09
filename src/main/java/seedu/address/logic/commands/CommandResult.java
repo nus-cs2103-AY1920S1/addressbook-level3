@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application is prompting a guess. */
+    private final boolean promptsGuess;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +27,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.promptsGuess = false;
     }
 
     /**
@@ -32,6 +36,17 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean promptsGuess) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.promptsGuess = promptsGuess;
+    }
+
+    public CommandResult(String feedbackToUser, boolean promptsGuess) {
+        this(feedbackToUser, false, false, true);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +59,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isPromptingGuess() {
+        return promptsGuess;
     }
 
     @Override

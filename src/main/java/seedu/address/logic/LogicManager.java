@@ -9,12 +9,13 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,6 +32,10 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        /*
+        Step 9.
+        this.game = game //get from constructor
+         */
         addressBookParser = new AddressBookParser();
     }
 
@@ -39,11 +44,36 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
 
+        /*
+        Step 10.
+        Modify parseCommand()
+        2 user modes: Game mode and Normal mode
+        */
+        Command command = addressBookParser.parseCommand(commandText);
+
+        /*
+        Step 11.
+        Extends to Step 13 in Command.java
+
+        commandResult = command.execute(model, game);
+         */
+        commandResult = command.execute(model);
+        if (command instanceof GameCommand) {
+            //Game logic
+            commandResult = new GameLogic(model, (GameCommand) command).process();
+        } else {
+            //Non-game Logic
+            commandResult = command.execute(model);
+        }
+
+        /*
+        Step 12.
+        We save game here too.
+        Similar methods to saveAddressBook();
+         */
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getWordBank());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +82,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyWordBank getAddressBook() {
+        return model.getWordBank();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Card> getFilteredPersonList() {
+        return model.getFilteredCardList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getWordBankFilePath();
     }
 
     @Override

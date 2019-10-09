@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 
 /**
  * API of the Storage component
@@ -24,9 +24,15 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
+
+    /*
+    Step 4.
+    Define method signature of readGame here.
+    Extends into concrete definition in StorageManager.java
+     */
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
 
 }

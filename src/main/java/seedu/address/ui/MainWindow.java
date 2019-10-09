@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.timer.GameTimer;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +35,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TimerDisplay timerDisplay;
+
+    // Timer object
+    private GameTimer gameTimer;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,6 +51,11 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+
+    //TimerDisplay placeholder
+    @FXML
+    private StackPane timerDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -113,6 +123,10 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        //Set up timer display
+        timerDisplay = new TimerDisplay();
+        timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -158,6 +172,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        //Platform.exit();
+        //System.exit(0);
+
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -170,10 +187,15 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        if (gameTimer != null) {
+            gameTimer.abortTimer();
+        }
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+            //timerDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            gameTimer = new GameTimer("Time left", 800, timerDisplay);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -187,6 +209,8 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            gameTimer = new GameTimer(
+                    "Clearing Result Display in", 800, timerDisplay);
             throw e;
         }
     }
