@@ -16,17 +16,17 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+public class PersonsDataManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(PersonsDataManager.class);
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a PersonsDataManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public PersonsDataManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -37,7 +37,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
-    public ModelManager() {
+    public PersonsDataManager() {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -137,12 +137,12 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof PersonsDataManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        PersonsDataManager other = (PersonsDataManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
