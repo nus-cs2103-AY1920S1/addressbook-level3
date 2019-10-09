@@ -17,15 +17,25 @@ import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
 
+/**
+ * Parses input arguments and creates a new AddCommand object
+ */
 public class AddCommandParser {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     * @throws NoSuchPersonException if user inputs a transaction done by someone not in date base
+     */
     public static AddCommand parse(String args, int transactionListSize, Model personModel)
-            throws Exception {
+            throws ParseException, NoSuchPersonException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
+                        PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY,
+                PREFIX_AMOUNT, PREFIX_PERSON) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }
 
@@ -42,12 +52,16 @@ public class AddCommandParser {
             return addCommand;
         } catch (PersonNotFoundException e) {
             System.out.println("invalid add command");
-            throw new NoSuchPersonException(TransactionMessages.NO_SUCH_PERSON);
+            throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         } catch (Exception e) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }
     }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

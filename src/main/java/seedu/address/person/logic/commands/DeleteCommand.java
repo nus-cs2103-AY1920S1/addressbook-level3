@@ -1,13 +1,14 @@
 package seedu.address.person.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import seedu.address.person.commons.core.Messages;
 import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
-
-import static java.util.Objects.requireNonNull;
+import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -40,10 +41,27 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        checkIfPersonHasTransactionRecords(transactionLogic, personToDelete);
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
+    /**
+     * Checks if the person to be deleted has a transaction record in the transaction list.
+     * Does not allow for deletion if the person still has a record.
+     * @param transactionLogic Logic of transaction tab
+     * @param personToDelete Person to be deleted
+     * @throws CommandException If the person has a transaction record associated to it.
+     */
+    private static void checkIfPersonHasTransactionRecords(seedu.address.transaction.logic.Logic transactionLogic,
+                                                           Person personToDelete)
+            throws CommandException{
+        for (int i = 0; i < transactionLogic.getTransactionList().size(); i++) {
+            if (transactionLogic.getTransactionList().get(i).getPerson().equals(personToDelete)) {
+                throw new CommandException(TransactionMessages.MESSAGE_PERSON_CANNOT_BE_DELETED);
+            }
+        }
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
