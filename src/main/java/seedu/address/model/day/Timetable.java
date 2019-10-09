@@ -42,45 +42,6 @@ public class Timetable {
     }
 
     /**
-     * Searches for an activity in the timetable.
-     *
-     * @param activity the activity to be searched
-     * @return a list of time-slot index where activity was found
-     */
-    public List<Index> searchForActivity(ActivityStub activity) {
-        boolean isDiffActivity = true;
-        List<Index> indexList = new ArrayList<>();
-        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            HalfHour currTime = timeSlots[i];
-            if (currTime.getActivity().equals(activity)) {
-                if (isDiffActivity) {
-                    isDiffActivity = false;
-                    indexList.add(Index.fromZeroBased(i));
-                }
-            } else {
-                isDiffActivity = true;
-            }
-        }
-        return indexList;
-    }
-
-    /**
-     * Checks if there is an occupied time slot in the time range given.
-     *
-     * @param startIndex first index to start checking if time slot is occupied
-     * @param endIndex last index to stop checking if time slot is occupied
-     * @return true if there is an activity in the time range
-     */
-    public boolean checkIfTimeRangeIsOccupied(Index startIndex, Index endIndex) {
-        for (int i = startIndex.getZeroBased(); i <= endIndex.getZeroBased(); i++) {
-            if (timeSlots[i].getIsOccupied()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Adds an activity to timetable.
      *
      * @param start first index to add activity
