@@ -194,6 +194,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearFilterEventList(){
+        filteredEvents.clear();
+    }
+
+    @Override
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
 
