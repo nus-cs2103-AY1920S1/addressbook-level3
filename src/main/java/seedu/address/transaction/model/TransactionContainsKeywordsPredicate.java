@@ -2,10 +2,11 @@ package seedu.address.transaction.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+
 import seedu.address.person.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Transactions}'s attributes matches any of the keywords given.
  */
 public class TransactionContainsKeywordsPredicate implements Predicate<Transaction> {
     private final List<String> keywords;
@@ -17,15 +18,15 @@ public class TransactionContainsKeywordsPredicate implements Predicate<Transacti
     @Override
     public boolean test(Transaction transaction) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getName(), keyword)) ||
-                keywords.stream()
-                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getDate(), keyword)) ||
-                keywords.stream()
-                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getCategory(), keyword)) ||
-                keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getName(), keyword))
+                || keywords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getDate(), keyword))
+                || keywords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getCategory(), keyword))
+                || keywords.stream()
                         .anyMatch(keyword -> StringUtil
-                                .containsWordIgnoreCase(transaction.getDescription(), keyword)) ||
-                keywords.stream()
+                                .containsWordIgnoreCase(transaction.getDescription(), keyword))
+                || keywords.stream()
                         .anyMatch(keyword -> StringUtil
                                 .containsWordIgnoreCase(String.valueOf(transaction.getAmount()), keyword));
     }

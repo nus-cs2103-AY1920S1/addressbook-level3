@@ -5,17 +5,22 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Represents the in-memory model of the address book data.
+ */
 public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
-
     private final TransactionList transactionList;
     private TransactionList filteredList;
     private Predicate<Transaction> predicate;
 
+    /**
+     * Initializes a ModelManager with the given transaction list.
+     */
     public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
         ArrayList<Transaction> actualList = new ArrayList<>();
@@ -32,7 +37,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws NoSuchIndexException {
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) {
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction curr = transactionList.get(i);
             if (curr.equals(transactionToEdit)) {
@@ -42,8 +47,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasTransaction(Transaction editedTransaction) throws NoSuchIndexException {
-        for (int i = 0 ; i < transactionList.size(); i++) {
+    public boolean hasTransaction(Transaction editedTransaction) {
+        for (int i = 0; i < transactionList.size(); i++) {
             if (transactionList.get(i).equals(editedTransaction)) {
                 return true;
             }
@@ -57,7 +62,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Transaction findTransactionByIndex(int index) throws NoSuchIndexException {
+    public Transaction findTransactionInFilteredListByIndex(int index) {
         logger.info("size of filtered list: " + filteredList.size());
         Transaction transaction = filteredList.get(index - 1);
         //Transaction transaction = transactionList.get(index - 1);
@@ -76,7 +81,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateIndexes() throws Exception {
+    public void updateIndexes() {
         for (int i = 0; i < transactionList.size(); i++) {
             transactionList.get(i).setId(i + 1);
         }
@@ -116,7 +121,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(TransactionContainsKeywordsPredicate predicate) {
+    public void updatePredicate(TransactionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

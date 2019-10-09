@@ -1,5 +1,8 @@
 package seedu.address.transaction.model.exception;
 
+/**
+ * Signals that the user input is incorrect for an index that does not exist.
+ */
 public class NoSuchIndexException extends Exception {
 
     private String msg;

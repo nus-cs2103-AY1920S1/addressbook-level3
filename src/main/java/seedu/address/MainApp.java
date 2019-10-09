@@ -28,7 +28,6 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
-import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -80,8 +79,8 @@ public class MainApp extends Application {
 
         //For Reimbursement Storage and Manager
         reimbursementStorage =
-                new seedu.address.reimbursement.storage.StorageManager("data" +
-                        "/reimbursementInformation.txt", "data/transactionHistory.txt", model);
+                new seedu.address.reimbursement.storage.StorageManager("data"
+                        + "/reimbursementInformation.txt", "data/transactionHistory.txt", model);
         reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
 
@@ -230,8 +229,6 @@ public class MainApp extends Application {
             transactionStorage.writeFile(transactionModel.getTransactionList());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        } catch (NoSuchIndexException e) {
-            logger.severe("Failed to save original transaction order into file.");
         }
     }
 }

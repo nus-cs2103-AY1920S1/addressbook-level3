@@ -7,6 +7,9 @@ import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Manages the logic behind the transaction tab.
+ */
 public class LogicManager implements Logic {
 
     private final Model model;
@@ -32,7 +35,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws Exception {
+    public CommandResult execute(String commandText)
+            throws Exception {
         model.resetPredicate();
         Command command = parser.parseCommand(commandText,
                 model.getTransactionList().size(), personModel);
@@ -45,18 +49,22 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    @Override
     public void writeIntoTransactionFile() throws Exception {
         storage.writeFile(model.getTransactionList());
     }
 
-    public void setTransaction(Transaction transaction, Transaction newTransaction) throws Exception {
+    @Override
+    public void setTransaction(Transaction transaction, Transaction newTransaction) {
         model.setTransaction(transaction, newTransaction);
     }
 
+    @Override
     public TransactionList getTransactionList() {
         return model.getTransactionList();
     }
 
+    @Override
     public TransactionList getFilteredList() {
         return model.getFilteredList();
     }

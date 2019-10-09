@@ -8,8 +8,8 @@ import seedu.address.transaction.ui.TransactionMessages;
  * Adds a transaction to the transaction list.
  */
 public class AddCommand extends Command {
-    private Transaction transaction;
     public static final String COMMAND_WORD = "add";
+    private Transaction transaction;
 
     /**
      * Creates an AddCommand to add the specified {@code Transaction}
@@ -20,8 +20,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
-        TransactionMessages transactionMessages = new TransactionMessages();
         model.addTransaction(transaction);
-        return new CommandResult(transactionMessages.addedTransaction(transaction));
+        return new CommandResult(TransactionMessages.addedTransaction(transaction));
     }
 }
