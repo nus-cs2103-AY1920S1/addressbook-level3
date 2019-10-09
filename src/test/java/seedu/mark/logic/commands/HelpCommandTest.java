@@ -5,6 +5,7 @@ import static seedu.mark.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 
@@ -15,6 +16,7 @@ public class HelpCommandTest {
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, new StorageStub(),
+                expectedCommandResult, expectedModel);
     }
 }

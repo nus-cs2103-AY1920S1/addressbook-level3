@@ -5,6 +5,7 @@ import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
@@ -17,7 +18,8 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, new StorageStub(),
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -26,7 +28,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
         expectedModel.setMark(new Mark());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, new StorageStub(),
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

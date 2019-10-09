@@ -32,6 +32,7 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
+        requireNonNull(storage);
 
         try {
             storage.saveMark(model.getMark(), filePath);

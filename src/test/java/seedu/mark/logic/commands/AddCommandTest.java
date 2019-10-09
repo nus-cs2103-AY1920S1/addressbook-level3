@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
@@ -36,7 +37,7 @@ public class AddCommandTest {
         Bookmark validBookmark = new BookmarkBuilder().build();
 
         CommandResult commandResult = new AddCommand(validBookmark)
-                .execute(modelStub, new CommandTestUtil.StorageStub());
+                .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
                 commandResult.getFeedbackToUser());
@@ -50,7 +51,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
-                addCommand.execute(modelStub, new CommandTestUtil.StorageStub()));
+                addCommand.execute(modelStub, new StorageStub()));
     }
 
     @Test

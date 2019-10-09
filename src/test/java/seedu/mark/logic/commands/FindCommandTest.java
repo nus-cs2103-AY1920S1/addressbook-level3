@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
@@ -60,7 +61,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredBookmarkList());
     }
 
@@ -70,7 +71,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredBookmarkList());
     }
 

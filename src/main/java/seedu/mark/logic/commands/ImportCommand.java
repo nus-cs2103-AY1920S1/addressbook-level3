@@ -43,6 +43,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
+        requireNonNull(storage);
 
         Optional<ReadOnlyMark> newMark;
 

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
@@ -36,7 +37,7 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -44,7 +45,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookmarkList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, new StorageStub(),
+                Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -60,7 +62,7 @@ public class DeleteCommandTest {
         expectedModel.deleteBookmark(bookmarkToDelete);
         showNoBookmark(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -73,7 +75,8 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, new StorageStub(),
+                Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test

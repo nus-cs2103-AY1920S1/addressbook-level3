@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
@@ -43,7 +44,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -64,7 +65,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -76,7 +77,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -93,7 +94,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -102,7 +103,7 @@ public class EditCommandTest {
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(firstBookmark).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_BOOKMARK, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
+        assertCommandFailure(editCommand, model, new StorageStub(), EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
     @Test
@@ -114,7 +115,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOKMARK,
                 new EditBookmarkDescriptorBuilder(bookmarkInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
+        assertCommandFailure(editCommand, model, new StorageStub(), EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
     @Test
@@ -124,7 +125,7 @@ public class EditCommandTest {
                 .withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, new StorageStub(), Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     /**
@@ -141,7 +142,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditBookmarkDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, new StorageStub(), Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test
