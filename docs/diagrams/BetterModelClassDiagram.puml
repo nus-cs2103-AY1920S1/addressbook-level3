@@ -18,4 +18,6 @@ Food *--> Name
 Food *--> Price
 Food *--> Description
 Food *--> Category
+Food *--> "Opening Hours"
+Food *--> Restrictions
 @enduml

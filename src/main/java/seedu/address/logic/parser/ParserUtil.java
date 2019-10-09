@@ -13,6 +13,8 @@ import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.Price;
+import seedu.address.model.food.OpeningHours;
+import seedu.address.model.food.Restrictions;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +95,39 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String openingHours} into an {@code openingHours}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code openingHours} is invalid.
+     */
+    public static OpeningHours parseOpeningHours(String openingHours) throws ParseException {
+        requireNonNull(openingHours);
+        String trimmedOpeningHours = openingHours.trim();
+        if (openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
+            return new OpeningHours(trimmedOpeningHours);
+        }
+        if (!OpeningHours.isValidOpeningHours(trimmedOpeningHours)) {
+            throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+        }
+        return new OpeningHours(trimmedOpeningHours);
+    }
+
+    /**
+     * Parse a {@code String restrictions} into an {@code restrictions}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code restrictions} is invalid.
+     */
+    public static Restrictions parseRestrictions(String restrictions) throws ParseException {
+        requireNonNull(restrictions);
+        String trimmedRestrictions = restrictions.trim();
+        if (!Restrictions.isValidRestrictions(trimmedRestrictions)) {
+            throw new ParseException(Restrictions.MESSAGE_CONSTRAINTS);
+        }
+        return new Restrictions(trimmedRestrictions);
     }
 
     /**

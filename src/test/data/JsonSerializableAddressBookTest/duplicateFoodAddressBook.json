@@ -1,15 +1,19 @@
 {
   "foods": [ {
-    "name": "Alice Pauline",
-    "price": "94351253",
-    "description": "alice@example.com",
-    "category": "OOPSduke",
-    "tagged": [ "friends" ]
+    "name": "Spaghetti",
+    "price": "7.99",
+    "description": "Italian noodle",
+    "category": "Italian",
+    "tagged": [ "Noodle" ],
+    "openingHours": "0800 2100",
+    "restrictions": "Epic"
   }, {
-    "name": "Alice Pauline",
-    "price": "94351253",
-    "description": "alice@example.com",
-    "category": "OOPSduke",
-    "tagged": [ "friends" ]
+    "name": "Spaghetti",
+    "price": "7.99",
+    "description": "Italian noodle",
+    "category": "Italian",
+    "tagged": [ "Noodle" ],
+    "openingHours": "0800 2100",
+    "restrictions": "Epic"
   } ]
 }

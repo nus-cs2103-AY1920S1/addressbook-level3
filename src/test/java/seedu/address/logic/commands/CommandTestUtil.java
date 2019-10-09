@@ -36,6 +36,10 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_BOB = "CatB";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_OPENING_HOURS_AMY = "0800 2100";
+    public static final String VALID_OPENING_HOURS_BOB = "0900 1000";
+    public static final String VALID_RESTRICTIONS_AMY = "Not halal";
+    public static final String VALID_RESTRICTIONS_BOB = "Contains dairy";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -47,6 +51,10 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String OPENING_HOURS_DESC_AMY = " " + PREFIX_TAG + VALID_OPENING_HOURS_AMY;
+    public static final String OPENING_HOURS_DESC_BOB = " " + PREFIX_TAG + VALID_OPENING_HOURS_BOB;
+    public static final String RESTRICTIONS_DESC_AMY = " " + PREFIX_TAG + VALID_RESTRICTIONS_AMY;
+    public static final String RESTRICTIONS_DESC_BOB = " " + PREFIX_TAG + VALID_RESTRICTIONS_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices

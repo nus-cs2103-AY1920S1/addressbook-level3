@@ -1,46 +1,60 @@
 {
-  "_comment": "AddressBook save file which contains the same food values as in Typicalfoods#getTypicalAddressBook()",
+  "_comment": "$aveNUS save file which contains the same food values as in Typicalfoods#getTypicalAddressBook()",
   "foods" : [ {
-    "name" : "Alice Pauline",
-    "price" : "94351253",
-    "description" : "First Description.",
-    "category": "abc",
-    "tagged" : [ "friends" ]
+    "name" : "Carbonara",
+    "price" : "5.00",
+    "description" : "Italian noodle with cheese and meat",
+    "category": "Italian",
+    "tagged" : [ "Noodle" ],
+    "openingHours": "0800 1700",
+    "restrictions": "Contains dairy and pork"
   }, {
-    "name" : "Benson Meier",
-    "price" : "98765432",
-    "description" : "description abc123456",
-    "category": "def",
-    "tagged" : [ "owesMoney", "friends" ]
+    "name" : "Tonkotsu Ramen",
+    "price" : "11.00",
+    "description" : "Japanese noodle with pork",
+    "category": "Japanese",
+    "tagged" : [ "Noodle", "Asian" ],
+    "openingHours": "0800 1800",
+    "restrictions": "Contains pork"
   }, {
-    "name" : "Carl Kurz",
-    "price" : "95352563",
-    "description" : "Description!@$%^&*()",
-    "category": "ghi",
-    "tagged" : [ ]
+    "name" : "Bak Kut Teh",
+    "price" : "10.00",
+    "description" : "Chinese pork soup with spices",
+    "category": "Chinese",
+    "tagged" : [ "Asian" ],
+    "openingHours": "0800 1800",
+    "restrictions": "Contains pork"
   }, {
-    "name" : "Daniel Meier",
-    "price" : "87652533",
-    "description" : "Daniel's Description?",
-    "category": "ijk",
-    "tagged" : [ "friends" ]
+    "name" : "Indomie",
+    "price" : "1.25",
+    "description" : "Really good indonesian noodles",
+    "category": "Indonesian",
+    "tagged" : [ "Noodle" , "Instant" ],
+    "openingHours": "0000 2359",
+    "restrictions": "May cause cancer"
   }, {
-    "name" : "Elle Meyer",
-    "price" : "9482224",
-    "description" : "description",
-    "category": "lmn",
-    "tagged" : [ ]
+    "name" : "Mala Xiang Guo",
+    "price" : "15.00",
+    "description" : "Spicy chinese salad",
+    "category": "Chinese",
+    "tagged" : [ "Spicy" , "Vegetables" ],
+    "openingHours": "0800 1930",
+    "restrictions": "Not halal"
   }, {
-    "name" : "Fiona Kunz",
-    "price" : "9482427",
-    "description" : "another description lydia@example.com",
-    "category": "opq",
-    "tagged" : [ ]
+    "name" : "Wagyu Donburi",
+    "price" : "17.99",
+    "description" : "Japanese rice with wagyu beef",
+    "category": "Japanese",
+    "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
+    "openingHours": "1000 1700",
+    "restrictions": "Expensive"
   }, {
-    "name" : "George Best",
-    "price" : "9482442",
-    "description" : "last description",
-    "category": "rst",
-    "tagged" : [ ]
+    "name" : "Chicken Rice",
+    "price" : "4.80",
+    "description" : "Fatty rice with chicken",
+    "category": "Chinese",
+    "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
+    "openingHours": "0900 1700",
+    "restrictions": "Not halal"
   } ]
 }
