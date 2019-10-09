@@ -2,56 +2,109 @@ package seedu.address.model.itinerary.event;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Date;
 import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
+import seedu.address.model.itinerary.event.exceptions.CompulsoryFieldEmptyException;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Event in TravelPal.
+ * Compulsory fields: name, startDate, endDate, destination.
+ * Optional fields: totalBudget, booking, inventory.
+ */
 public class Event {
+    // Compulsory fields
     private final Name name;
-    private final Date from;
-    private final Date to;
-    private final Booking booking;
-    private final Expenditure expenditure;
-    private final Inventory inventory;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
+    private final Location destination;
 
-    public Event(Name name, Date from, Date to, Booking booking, Expenditure expenditure, Inventory inventory) {
-        requireAllNonNull(name, from, to, booking, expenditure, inventory);
+    // Optional fields
+    private final Inventory inventory;
+    private final Expenditure totalBudget;
+    private final Booking booking;
+
+    /**
+     * Constructs an {@code event}.
+     */
+    public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking, Expenditure totalBudget, Inventory inventory, Location destination) {
+        requireAllNonNull(name, startDate, endDate, booking, totalBudget, inventory);
         this.name = name;
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.booking = booking;
-        this.expenditure = expenditure;
+        this.destination = destination;
+        this.totalBudget = totalBudget;
         this.inventory = inventory;
+    }
+
+    // temporary constructor until we implement booking and inventory, accepts null for now
+    public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Expenditure totalBudget, Location destination) {
+        requireAllNonNull(name, startDate, endDate, totalBudget);
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.booking = null;
+        this.destination = destination;
+        this.totalBudget = totalBudget;
+        this.inventory = null;
+    }
+    /**
+     * Constructs a trip with optional totalBudget field.
+     */
+    public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Expenditure> totalBudget, Location destination) {
+        requireAllNonNull(name, startDate, endDate, totalBudget);
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.booking = null;
+        this.destination = destination;
+        if(totalBudget.isPresent()) {
+            this.totalBudget = totalBudget.get();
+        } else{
+            this.totalBudget = null;
+        }
+        this.inventory = null;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Date getFrom() {
-        return from;
+
+    // Compulsory Field getters
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public Date getTo() {
-        return to;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Location getDestination() {
+        return destination;
     }
 
-    public Expenditure getExpenditure() {
-        return expenditure;
+    // Optional field getters
+    public Optional<Expenditure> getTotalBudget() {
+        return Optional.ofNullable(totalBudget);
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public Optional<Inventory> getInventory() {
+        return Optional.ofNullable(inventory);
+    }
+
+    public Optional<Booking> getBooking() {
+        return Optional.ofNullable(booking);
     }
 
     /**
-     * Returns true if both {@link Event} contain the same booking and their to and from time are the same.
+     * Returns true if both {@link Event} contain the same booking and their endDate and startDate time are the same.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent){
@@ -60,12 +113,16 @@ public class Event {
         }
         return otherEvent != null
                 && otherEvent.getBooking().equals(getBooking())
-                && (otherEvent.getTo().equals(getTo()) || otherEvent.getFrom().equals(getFrom()));
+                && (otherEvent.getEndDate().equals(getEndDate()) || otherEvent.getStartDate().equals(getStartDate()));
 
     }
 
     public boolean isClashingWith(Event other){
-        return (this.getFrom().compareTo(other.getTo()) == -1 && this.getTo().compareTo(other.getFrom()) == 1)
-                || (this.getTo().compareTo(other.getFrom()) == -1 && this.getFrom().compareTo(other.getTo()) == 1);
+        return (this.getStartDate().compareTo(other.getStartDate()) >= 0
+                && this.getStartDate().compareTo(other.getEndDate()) <= 0)
+                || (this.getEndDate().compareTo(other.getStartDate()) >= 0
+                && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
+
+
 }

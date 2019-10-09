@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Expenditure {
-    public static final String MESSAGE_CONSTRAINTS = "Expenditure can take any positive numerical value with "
-            + "no more than 2 decimal places, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Expenditure can take any positive numerical value with no more than 2 decimal places, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

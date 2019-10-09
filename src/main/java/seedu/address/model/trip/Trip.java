@@ -5,20 +5,31 @@ import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.exceptions.CompulsoryFieldEmptyException;
 
 import java.time.LocalDateTime;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+/**
+ * Represents a Trip in TravelPal.
+ * Compulsory fields: name, startDate, endDate, destination, dayList, totalBudget
+ */
 public class Trip {
+    // Compulsory Fields
     private final Name name;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final TripId tripId;
     private final Location destination;
-    private final Expenditure totalBudget;
     private final DayList dayList;
+    private final Expenditure totalBudget;
 
-    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                Location destination, Expenditure totalBudget, DayList dayList) {
+    /**
+     * Constructs a trip.
+     */
+    public Trip (Name name, LocalDateTime startDate, LocalDateTime endDate,
+                      Location destination, Expenditure totalBudget, DayList dayList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -28,6 +39,7 @@ public class Trip {
         this.tripId = new TripId();
     }
 
+    //Compulsory field getters
     public Name getName() {
         return name;
     }
@@ -48,12 +60,12 @@ public class Trip {
         return destination;
     }
 
-    public Expenditure getBudget() {
-        return totalBudget;
-    }
-
     public DayList getDayList() {
         return dayList;
+    }
+
+    public Expenditure getBudget() {
+        return totalBudget;
     }
 
     /**
@@ -90,10 +102,10 @@ public class Trip {
     }
 
     public boolean isClashingWith(Trip other){
-        return (this.getStartDate().compareTo(other.getEndDate()) == -1
-                && this.getEndDate().compareTo(other.getStartDate()) == 1)
-                || (this.getEndDate().compareTo(other.getStartDate()) == -1
-                        && this.getStartDate().compareTo(other.getEndDate()) == 1);
+        return (this.getStartDate().compareTo(other.getStartDate()) >= 0
+                && this.getStartDate().compareTo(other.getEndDate()) <= 0)
+                || (this.getEndDate().compareTo(other.getStartDate()) >= 0
+                        && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
     @Override
@@ -112,4 +124,5 @@ public class Trip {
 
         return builder.toString();
     }
+
 }

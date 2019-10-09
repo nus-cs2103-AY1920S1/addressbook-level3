@@ -2,6 +2,7 @@ package seedu.address.model.trip;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 import java.util.List;
@@ -26,7 +27,9 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     @Override
     public void add(Trip toAdd) throws ClashingTripException {
         requireNonNull(toAdd);
-
+        if (contains(toAdd)){
+            throw new DuplicateTripException();
+        }
         if (containsClashing(toAdd)) {
             throw new ClashingTripException();
         }
@@ -42,11 +45,15 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
             throw new TripNotFoundException();
         }
 
-        internalList.remove(index);
+        if (!targetTrip.isSameTrip(editedTrip) && contains(editedTrip)) {
+            throw new DuplicateTripException();
+        }
+
         if (containsClashing(editedTrip)) {
             internalList.add(index, targetTrip);
             throw new ClashingTripException();
         }
+        internalList.remove(index);
 
         internalList.add(index, editedTrip);
     }
@@ -66,14 +73,39 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     }
 
     @Override
-    public void set(List<Trip> persons) {
-        requireAllNonNull(persons);
+    public void set(List<Trip> trips) {
+        requireAllNonNull(trips);
+        if(!areUnique(trips)){
+            throw new DuplicateTripException();
+        }
+        if(!areConsecutive(trips)){
+            throw new ClashingTripException();
+        }
 
-        internalList.setAll(persons);
+        internalList.setAll(trips);
     }
 
     @Override
-    public boolean areConsecutive(List<Trip> persons) {
+    public boolean areConsecutive(List<Trip> trips) {
+        for (int i = 0; i < trips.size() - 1; i++) {
+            for (int j = i + 1; j < trips.size(); j++) {
+                if (trips.get(i).isClashingWith(trips.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean areUnique(List<Trip> occurrence) {
+        for (int i = 0; i < occurrence.size() - 1; i++) {
+            for (int j = i + 1; j < occurrence.size(); j++) {
+                if (occurrence.get(i).isSameTrip(occurrence.get(j))) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 }

@@ -9,14 +9,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
+import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.TravelPal;
 import seedu.address.model.Model;
+import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Location;
+import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -37,6 +44,46 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_NAME_AFRICA = "Africa Trip";
+    public static final String VALID_NAME_BALI = "Bali Trip";
+    public static final String VALID_STARTDATE_AFRICA_1 = "01/01/2019";
+    public static final String VALID_STARTDATE_AFRICA_2 = "01/01/2019 1200";
+    public static final String VALID_STARTDATE_AFRICA_3 = "1200";
+    public static final String VALID_STARTDATE_BALI_1 = "02/02/2018";
+    public static final String VALID_STARTDATE_BALI_2 = "02/02/2018 1300";
+    public static final String VALID_STARTDATE_BALI_3 = "1300";
+    public static final String VALID_ENDDATE_AFRICA_1 = "01/02/2019";
+    public static final String VALID_ENDDATE_AFRICA_2 = "01/11/2019 1200";
+    public static final String VALID_ENDDATE_AFRICA_3 = "1500";
+    public static final String VALID_ENDDATE_BALI_1 = "05/05/2018";
+    public static final String VALID_ENDDATE_BALI_2 = "07/07/2018 1300";
+    public static final String VALID_ENDDATE_BALI_3 = "2100";
+    public static final String VALID_DESTINATION_AFRICA = "Africa";
+    public static final String VALID_DESTINATION_BALI = "Bali";
+    public static final String VALID_TOTAL_BUDGET_AFRICA = "120.00";
+    public static final String VALID_TOTAL_BUDGET_BALI = "3100.00";
+
+    public static final String VALID_NAME_DAY_1 = "Arrival Day";
+    public static final String VALID_NAME_DAY_2 = "Best Day";
+    public static final String VALID_STARTDATE_DAY_1_1 = "01/01/2019";
+    public static final String VALID_STARTDATE_DAY_1_2 = "01/01/2019 1200";
+    public static final String VALID_STARTDATE_DAY_1_3 = "1200";
+    public static final String VALID_STARTDATE_DAY_2_1 = "02/02/2018";
+    public static final String VALID_STARTDATE_DAY_2_2 = "02/02/2018 1300";
+    public static final String VALID_STARTDATE_DAY_2_3 = "1300";
+    public static final String VALID_ENDDATE_DAY_1_1 = "01/02/2019";
+    public static final String VALID_ENDDATE_DAY_1_2 = "01/11/2019 1200";
+    public static final String VALID_ENDDATE_DAY_1_3 = "1500";
+    public static final String VALID_ENDDATE_DAY_2_1 = "05/05/2018";
+    public static final String VALID_ENDDATE_DAY_2_2 = "07/07/2018 1300";
+    public static final String VALID_ENDDATE_DAY_2_3 = "2100";
+    public static final String VALID_DESTINATION_DAY_1 = "Gambia";
+    public static final String VALID_DESTINATION_DAY_2_ = "Bali";
+    public static final String VALID_TOTAL_BUDGET_DAY_1 = "120.00";
+    public static final String VALID_TOTAL_BUDGET_DAY_2 = "3100.00";
+    public static final String VALID_DESCRIPTION_DAY_1 = "This is the day of arrival";
+    public static final String VALID_DESCRIPTION_DAY_2 = "This is the second day of my trip";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -54,11 +101,32 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    /** The required input date format to use. */
+    private static final String DATE_TIME_FORMAT = "d/M/y HHmm";
+    /** The required input date format to use. */
+    private static final String DATE_FORMAT = "d/M/y";
+    /** The required input time format to use. */
+    private static final String TIME_FORMAT = "HHmm";
+    /** The output format for displaying dates and times. */
+    private static final String DISPLAY_FORMAT = "d MMM y h:mma";
+    /** The dateTime formatter that uses the DATE_TIME_FORMAT pattern. */
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    /** The dateTime formatter that uses the DATE_FORMAT pattern. */
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    /** The dateTime formatter that uses the TIME_FORMAT pattern. */
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
+    /** The dateTime formatter that uses the DISPLAY_FORMAT pattern. */
+    public static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern(DISPLAY_FORMAT);
+    /** The error display message format to be shown if parsing fails. */
+    public static final String MESSAGE_INVALID_FORMAT = "Invalid %1$s inputted, use %2$s.";
+
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditTripFieldCommand.EditTripDescriptor DESC_AFRICA;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -67,6 +135,13 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_AFRICA = new EditTripFieldCommand.EditTripDescriptor();
+        DESC_AFRICA.setName(new Name(VALID_NAME_AFRICA));
+        DESC_AFRICA.setBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA));
+        DESC_AFRICA.setStartDate(LocalDateTime.parse(VALID_STARTDATE_AFRICA_2, DATE_TIME_FORMATTER));
+        DESC_AFRICA.setDestination(new Location(VALID_DESTINATION_AFRICA));
+        DESC_AFRICA.setEndDate(LocalDateTime.parse(VALID_ENDDATE_AFRICA_2, DATE_TIME_FORMATTER));
     }
 
     /**

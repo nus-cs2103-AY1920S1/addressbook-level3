@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TravelPalBuilder;
 
 public class ModelManagerTest {
 
@@ -62,14 +62,14 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setTravelPalFilePath(null));
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setTravelPalFilePath(path);
+        assertEquals(path, modelManager.getTravelPalFilePath());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TravelPal travelPal = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        TravelPal travelPal = new TravelPalBuilder().withPerson(ALICE).withPerson(BENSON).build();
         TravelPal differentTravelPal = new TravelPal();
         UserPrefs userPrefs = new UserPrefs();
 

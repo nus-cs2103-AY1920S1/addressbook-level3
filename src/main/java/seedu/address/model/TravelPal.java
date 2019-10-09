@@ -63,8 +63,6 @@ public class TravelPal implements ReadOnlyTravelPal {
     public void resetData(ReadOnlyTravelPal newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
-
         setTripList(newData.getTripList());
     }
 
@@ -76,11 +74,6 @@ public class TravelPal implements ReadOnlyTravelPal {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
-    }
-
-    public boolean hasClashingTrip(Trip trip){
-        requireNonNull(trip);
-        return tripList.containsClashing(trip);
     }
 
     /**
@@ -133,6 +126,12 @@ public class TravelPal implements ReadOnlyTravelPal {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    // trip-level operations
+    public boolean hasClashingTrip(Trip trip){
+        requireNonNull(trip);
+        return tripList.containsClashing(trip);
     }
 
     public void addTrip(Trip trip) throws ClashingTripException {
