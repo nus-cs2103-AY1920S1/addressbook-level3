@@ -83,7 +83,7 @@ public class Attendance {
         try {
             setAttendance(week, student, !isPresent(week, student));
         } catch (StudentNotFoundException e) {
-            setAttendance(week, student, false);
+            setAttendance(week, student, true);
         }
     }
 

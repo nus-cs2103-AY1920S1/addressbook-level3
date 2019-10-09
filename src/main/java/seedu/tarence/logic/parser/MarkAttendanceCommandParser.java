@@ -30,7 +30,8 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE,
+                PREFIX_TUTORIAL_NAME, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MarkAttendanceCommand.MESSAGE_USAGE));

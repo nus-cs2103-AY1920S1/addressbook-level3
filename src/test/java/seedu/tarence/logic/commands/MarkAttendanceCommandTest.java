@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
@@ -24,6 +25,7 @@ import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
@@ -33,111 +35,145 @@ import seedu.tarence.testutil.ModuleBuilder;
 import seedu.tarence.testutil.StudentBuilder;
 import seedu.tarence.testutil.TutorialBuilder;
 
-public class AddStudentCommandTest {
+public class MarkAttendanceCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
     public static final String VALID_TUT_NAME = "T02";
     public static final Integer VALID_TUT_INDEX = 1;
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new MarkAttendanceCommand(null, null, null, null));
     }
 
     @Test
-    public void indexConstructor_nullPerson_throwsNullPointerException() {
-        Student validStudent = new StudentBuilder().build();
-        assertThrows(NullPointerException.class, () -> new AddStudentCommand(validStudent, null));
-    }
-
-    @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        final String validModCode = "ES1601";
-        final String validTutName = "T02";
+    public void execute_personAcceptedByModel_markAttendanceSuccessful() throws Exception {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
-        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        modelStub.addTutorialToModule(
-                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
 
-        CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent),
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        final Name validStudName = validStudent.getName();
+
+        CommandResult commandResult = new MarkAttendanceCommand(
+                validModCode, validTutName, validWeek, validStudName).execute(modelStub);
+
+        assertEquals(String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS, validStudName, "present"),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
+        assertTrue(validTutorial.getAttendance().isPresent(validWeek, validStudent));
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Student validStudent = new StudentBuilder().build();
-        AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent);
-        ModelStub modelStub = new ModelStubWithStudent(validStudent);
+    public void execute_invalidModule_throwsCommandException() {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        final Name validStudName = validStudent.getName();
+        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
+                validModCode, validTutName, validWeek, validStudName);
 
         assertThrows(CommandException.class,
-            AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, () -> addStudentCommand.execute(modelStub));
+            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> markAttendanceCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_studentAcceptedByIndexFormat_addSuccessful() throws Exception {
-        final String validModCode = "ES1601";
-        final String validTutName = "T02";
+    public void execute_invalidTutorial_throwsCommandException() {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
-        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        modelStub.addTutorialToModule(
-                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        modelStub.addModule(validModule);
 
-        CommandResult commandResult = new AddStudentCommand(validStudent, VALID_TUT_INDEX).execute(modelStub);
-
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
-    }
-
-    @Test
-    public void execute_tutorialIndexOutOfBounds_throwsCommandException() {
-        final String validModCode = "ES1601";
-        final String validTutName = "T02";
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
-        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        modelStub.addTutorialToModule(
-                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-
-        Student bob = new StudentBuilder().withName("Bob").build();
-        Integer outOfBoundsTutorialIndex = -1;
-        AddStudentCommand addStudentCommand = new AddStudentCommand(bob, outOfBoundsTutorialIndex);
-        String tutorialIndexOutOfBoundsMessage =
-                String.format(AddStudentCommand.MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS, outOfBoundsTutorialIndex);
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        final Name validStudName = validStudent.getName();
+        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
+                validModCode, validTutName, validWeek, validStudName);
 
         assertThrows(CommandException.class,
-                tutorialIndexOutOfBoundsMessage, () -> addStudentCommand.execute(modelStub));
+            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> markAttendanceCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_invalidStudent_throwsCommandException() {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
+
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        final Name validStudName = validStudent.getName();
+        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
+                validModCode, validTutName, validWeek, validStudName);
+
+        assertThrows(CommandException.class,
+            Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL, () -> markAttendanceCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Student alice = new StudentBuilder().withName("Alice").build();
         Student bob = new StudentBuilder().withName("Bob").build();
-        AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
-        AddStudentCommand addBobCommand = new AddStudentCommand(bob);
+
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        MarkAttendanceCommand markAliceCommand = new MarkAttendanceCommand(
+                validModCode, validTutName, validWeek, alice.getName());
+        MarkAttendanceCommand markBobCommand = new MarkAttendanceCommand(
+            validModCode, validTutName, validWeek, bob.getName());
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(markAliceCommand.equals(markAliceCommand));
 
         // same values -> returns true
-        AddStudentCommand addAliceCommandCopy = new AddStudentCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        MarkAttendanceCommand markAliceCommandCopy = new MarkAttendanceCommand(
+            validModCode, validTutName, validWeek, alice.getName());
+        assertTrue(markAliceCommandCopy.equals(markAliceCommand));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(markAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(markAliceCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(markAliceCommand.equals(markBobCommand));
     }
 
     /**
@@ -338,25 +374,7 @@ public class AddStudentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single student.
-     */
-    private class ModelStubWithStudent extends ModelStub {
-        private final Student student;
-
-        ModelStubWithStudent(Student student) {
-            requireNonNull(student);
-            this.student = student;
-        }
-
-        @Override
-        public boolean hasStudent(Student student) {
-            requireNonNull(student);
-            return this.student.isSameStudent(student);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the student being added.
+     * A Model stub that always accepts the student being added.
      */
     private class ModelStubAcceptingStudentAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
@@ -443,6 +461,12 @@ public class AddStudentCommandTest {
         @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
+        }
+
+        @Override
+        public void setAttendance(Tutorial tutorial, Week week, Student student) {
+            requireAllNonNull(tutorial, week, student);
+            tutorial.setAttendance(week, student);
         }
 
         @Override

@@ -208,5 +208,7 @@ class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPendingCommand() { return false; }
+    public boolean hasPendingCommand() {
+        return false;
+    }
 }

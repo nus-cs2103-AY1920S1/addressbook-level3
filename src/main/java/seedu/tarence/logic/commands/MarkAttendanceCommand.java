@@ -1,6 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
@@ -25,7 +26,7 @@ import seedu.tarence.model.tutorial.exceptions.WeekNotFoundException;
  */
 public class MarkAttendanceCommand extends Command {
 
-    public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Attendance of %1$s marked successfully";
+    public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Attendance of %1$s marked as %2$s";
 
     public static final String COMMAND_WORD = "mark";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
@@ -48,6 +49,7 @@ public class MarkAttendanceCommand extends Command {
     private final Name targetStudName;
 
     public MarkAttendanceCommand(ModCode modCode, TutName tutName, Week week, Name studName) {
+        requireAllNonNull(modCode, tutName, week, studName);
         this.targetModCode = modCode;
         this.targetTutName = tutName;
         this.targetStudName = studName;
@@ -82,7 +84,10 @@ public class MarkAttendanceCommand extends Command {
         } catch (WeekNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_WEEK_IN_TUTORIAL);
         }
-        return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS, targetStudent));
+
+        String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
+        return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
+                targetStudName, isPresent));
     }
 
     /**
