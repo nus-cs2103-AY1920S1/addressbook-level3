@@ -12,11 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Price;
-import seedu.address.model.expense.Timestamp;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
