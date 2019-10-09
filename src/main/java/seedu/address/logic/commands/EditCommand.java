@@ -82,7 +82,7 @@ public class EditCommand extends Command {
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
 //-->Stopped
 
-        model.set(oldItem, editedItem);
+        model.replaceItem(oldItem, editedItem);
         //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }

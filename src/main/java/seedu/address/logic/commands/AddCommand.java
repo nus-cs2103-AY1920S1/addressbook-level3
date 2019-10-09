@@ -45,7 +45,7 @@ public class AddCommand extends Command {
         }
         */
 
-        model.add(toAdd);
+        model.addItem(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
