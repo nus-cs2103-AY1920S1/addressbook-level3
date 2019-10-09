@@ -11,68 +11,68 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.common.ReferenceId;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends ReversibleCommand {
+public class DequeueCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "dequeue";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Dequeues the person identified by the index number used in the displayed queue.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-    public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo successful! Person '%1$s' has been added.";
-    public static final String MESSAGE_UNDO_DELETE_ERROR = "Could not undo the removal of entry.";
+    public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued person: %1$s";
+    public static final String MESSAGE_UNDO_DEQUEUE_SUCCESS = "Undo successful! Person '%1$s' has been enqueued.";
+    public static final String MESSAGE_UNDO_DEQUEUE_ERROR = "Could not undo the dequeue of person.";
 
     private final Index targetIndex;
-    private Person personToDelete;
+    private ReferenceId referenceId;
 
-    public DeleteCommand(Index targetIndex) {
+    public DequeueCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.personToDelete = null;
+        this.referenceId = null;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<ReferenceId> lastShownList = model.getFilteredReferenceIdList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (personToDelete == null) {
-            personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        } else if (!model.hasExactPerson(personToDelete)) {
+        if (referenceId == null) {
+            referenceId = lastShownList.get(targetIndex.getZeroBased());
+        } else if (!model.hasPerson(referenceId)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        model.removeFromQueue(referenceId);
+        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, referenceId));
     }
 
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (personToDelete == null || model.hasExactPerson(personToDelete)) {
-            throw new CommandException(MESSAGE_UNDO_DELETE_ERROR);
+        if (referenceId == null || !model.hasPerson(referenceId) || model.isPatientInQueue(referenceId)) {
+            throw new CommandException(MESSAGE_UNDO_DEQUEUE_ERROR);
         }
 
-        model.addPerson(personToDelete);
+        model.enqueuePatient(referenceId);
         model.updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
-        return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_UNDO_DEQUEUE_SUCCESS, referenceId));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DequeueCommand // instanceof handles nulls
+                && targetIndex.equals(((DequeueCommand) other).targetIndex)); // state check
     }
 }
