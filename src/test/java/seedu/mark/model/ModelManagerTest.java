@@ -3,6 +3,7 @@ package seedu.mark.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.testutil.MarkBuilder;
 
@@ -86,6 +88,17 @@ public class ModelManagerTest {
     public void hasBookmark_bookmarkInMark_returnsTrue() {
         modelManager.addBookmark(ALICE);
         assertTrue(modelManager.hasBookmark(ALICE));
+    }
+
+    @Test
+    public void hasFolder_folderNotInMark_returnsFalse() {
+        assertFalse(modelManager.hasFolder(VALID_FOLDER_CS2103T));
+    }
+
+    @Test
+    public void hasFolder_folderInMark_returnsTrue() {
+        modelManager.addFolder(VALID_FOLDER_CS2103T, Folder.DEFAULT_FOLDER_NAME);
+        assertTrue(modelManager.hasFolder(VALID_FOLDER_CS2103T));
     }
 
     @Test
