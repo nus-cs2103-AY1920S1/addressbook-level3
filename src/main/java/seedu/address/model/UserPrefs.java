@@ -51,9 +51,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return dukeCooksFilePath;
     }
 
-    public void setDukeCooksFilePath(Path DukeCooksFilePath) {
-        requireNonNull(DukeCooksFilePath);
-        this.dukeCooksFilePath = DukeCooksFilePath;
+    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
+        requireNonNull(dukeCooksFilePath);
+        this.dukeCooksFilePath = dukeCooksFilePath;
     }
 
     @Override

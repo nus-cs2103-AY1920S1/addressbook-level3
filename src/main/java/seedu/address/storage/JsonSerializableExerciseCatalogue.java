@@ -32,29 +32,28 @@ class JsonSerializableExerciseCatalogue {
     }
 
     /**
-     * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
-        *
-        * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
-        */
-public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
+    * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
+    *
+    * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
+    */
+    public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        }
+    }
 
-/**
- * Converts this Exercise Catalogue into the model's {@code DukeCooks} object.
- *
- * @throws IllegalValueException if there were any data constraints violated.
- */
-public DukeCooks toModelType() throws IllegalValueException {
+    /**
+    *  Converts this Exercise Catalogue into the model's {@code DukeCooks} object.
+    *
+    * @throws IllegalValueException if there were any data constraints violated.
+    */
+    public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-        Person person = jsonAdaptedPerson.toModelType();
-        if (dukeCooks.hasPerson(person)) {
-        throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-        }
-        dukeCooks.addPerson(person);
+            Person person = jsonAdaptedPerson.toModelType();
+            if (dukeCooks.hasPerson(person)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            dukeCooks.addPerson(person);
         }
         return dukeCooks;
-        }
-
-        }
+    }
+}
