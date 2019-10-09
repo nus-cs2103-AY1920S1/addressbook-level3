@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import mams.logic.commands.AddCommand;
-import mams.logic.commands.ClearCommand;
-import mams.logic.commands.DeleteCommand;
 import mams.logic.commands.EditCommand;
 import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
@@ -31,26 +28,6 @@ import mams.testutil.StudentUtil;
 public class MamsParserTest {
 
     private final MamsParser parser = new MamsParser();
-
-    @Test
-    public void parseCommand_add() throws Exception {
-        Student student = new StudentBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(StudentUtil.getAddCommand(student));
-        assertEquals(new AddCommand(student), command);
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
-    }
-
-    @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_STUDENT.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_STUDENT), command);
-    }
 
     @Test
     public void parseCommand_edit() throws Exception {

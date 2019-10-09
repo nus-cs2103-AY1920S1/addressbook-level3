@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import mams.logic.commands.AddCommand;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.CommandTestUtil;
 import mams.logic.commands.ListCommand;
@@ -55,8 +54,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        // delete command removed. New tests to be implemented later.
     }
 
     @Test
@@ -75,15 +73,7 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY
-                + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY
-                + CommandTestUtil.ADDRESS_DESC_AMY;
-        Student expectedStudent = new StudentBuilder(AMY).withTags().build();
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.addStudent(expectedStudent);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        // Execute add command removed, to be implemented with new test later.
     }
 
     @Test
