@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.TravelPal;
+import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
@@ -18,6 +19,7 @@ public class TypicalTrips {
             .setStartDate(LocalDateTime.of(2019, 2, 6, 8, 0))
             .setEndDate(LocalDateTime.of(2019, 2, 20, 9, 0))
             .setLocation(new Location("Australia"))
+            .setTotalBudget(new Expenditure(123))
             .setDayList(new DayList())
             .build();
     public static final Trip TRIP_B = TripBuilder.newInstance().setName(new Name("Bangkok Trip"))
