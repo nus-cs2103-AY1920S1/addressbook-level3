@@ -1,21 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.Address;
-import seedu.address.model.person.parameters.Email;
-import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.

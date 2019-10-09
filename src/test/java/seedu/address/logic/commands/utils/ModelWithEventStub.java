@@ -3,7 +3,6 @@ package seedu.address.logic.commands.utils;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.events.Event;
-import seedu.address.model.person.Person;
 
 /**
  * A Model stub that contains a single person.

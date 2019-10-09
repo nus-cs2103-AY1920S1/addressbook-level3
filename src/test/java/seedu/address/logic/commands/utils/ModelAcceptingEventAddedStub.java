@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.events.Event;
-import seedu.address.model.person.Person;
 
 /**
  * A Model stub that always accept the person being added.
