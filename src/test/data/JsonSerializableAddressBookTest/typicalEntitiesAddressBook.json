@@ -46,7 +46,7 @@
   "vehicles": [{
     "vehicleType": "Patrol Car",
     "vehicleNumber": "SBH3100F",
-    "district": "16 Upper East Coast",
+    "district": 16,
     "availability": "BUSY"
   }]
 }
