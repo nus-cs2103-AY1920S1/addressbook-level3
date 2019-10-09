@@ -31,15 +31,20 @@ public class ChatPane extends UiPart<GridPane> {
 
     private Image image = new Image(getClass().getResourceAsStream(TAGLINE_RESPONSE_IMAGE));
 
-    public ChatPane(CommandExecutor commandExecutor) {
+    public ChatPane() {
         super(FXML);
-
-        commandBox = new CommandBox(commandExecutor);
-        commandBox.getRoot().prefWidthProperty().bind(getRoot().widthProperty());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting vvalue to 1.0 doesn't work
         dialogScrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts(CommandExecutor commandExecutor) {
+        commandBox = new CommandBox(commandExecutor);
+        commandBox.getRoot().prefWidthProperty().bind(getRoot().widthProperty());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
