@@ -1,19 +1,41 @@
 package seedu.address.model.gmaps;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LocationTest {
-    @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Location(null, null, null));
+class LocationTest {
+    private Location location;
+
+    @BeforeEach
+    void init() {
+        location = new Location("LTFOO");
     }
 
     @Test
-    public void test_toString() {
-        Location location = new Location("Singapore", "1.2345", "6.7890");
-        assertTrue(location.toString().equals("Location: Singapore at latitude: 1.2345, longitude: 6.7890"));
+    void setGoogleRecognisedLocation() {
+
+        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        assertEquals(location.getGoogleRecognisedLocation(), "NUS_LTFOO");
+    }
+
+    @Test
+    void getLocationName() {
+        assertEquals(location.getLocationName(), "LTFOO");
+    }
+
+    @Test
+    void testEquals() {
+        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        Location location2 = new Location("LTFOO");
+        location2.setGoogleRecognisedLocation("NUS_LTFOO");
+        assertEquals(location, location2);
+    }
+
+    @Test
+    void testToString() {
+        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        assertEquals(location.toString(), "Location: LTFOO, Google recognised location: NUS_LTFOO");
     }
 }

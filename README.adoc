@@ -1,19 +1,4 @@
-# MileStone
-- [ ] Ui Mockup (YiJie)
-
-- [x] Travis
-
-- [x] Draft UG to user guide page (Klement)
-
-- [x] About us(Aidil)
-
-- [ ] Contact us(Alvin)
-
-- [ ] Developer Guide(Marcus)
-
-- [ ] V1.1(Week 7)
-
-= Address Book (Level 3)
+= TimeBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T10-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-T10-4/main.svg?branch=master[Build Status]]
@@ -42,5 +27,5 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
-
+* AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 == Licence : link:LICENSE[MIT]
