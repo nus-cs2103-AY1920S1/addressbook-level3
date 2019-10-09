@@ -10,7 +10,7 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Item objects.
  */
 public class ItemBuilder {
 
@@ -30,10 +30,10 @@ public class ItemBuilder {
     /**
      * Initializes the ItemBuilder with the data of {@code itemToCopy}.
      */
-    public ItemBuilder(Item personToCopy) {
-        name = personToCopy.getName();
-        expiryDate = personToCopy.getExpiryDate();
-        tags = new HashSet<>(personToCopy.getTags());
+    public ItemBuilder(Item itemToCopy) {
+        name = itemToCopy.getName();
+        expiryDate = itemToCopy.getExpiryDate();
+        tags = new HashSet<>(itemToCopy.getTags());
     }
 
     /**
