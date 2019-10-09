@@ -181,6 +181,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Budget> getBudgetList() {
         return budgets.asUnmodifiableObservableList();
+    }
 
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();

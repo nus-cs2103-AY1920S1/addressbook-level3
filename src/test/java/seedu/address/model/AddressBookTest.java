@@ -106,6 +106,7 @@ public class AddressBookTest {
         @Override
         public ObservableList<Budget> getBudgetList() {
             return budgets;
+        }
 
         public ObservableList<Event> getEventList() {
             return events;

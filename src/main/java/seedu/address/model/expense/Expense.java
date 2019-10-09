@@ -47,6 +47,7 @@ public class Expense {
 
     public LocalDate getDate() {
         return date;
+    }
 
     public UniqueIdentifier getUniqueIdentifier() {
         return uniqueIdentifier;
