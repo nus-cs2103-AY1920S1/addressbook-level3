@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import java.net.URL;
-
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
