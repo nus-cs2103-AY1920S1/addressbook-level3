@@ -70,6 +70,12 @@ public class MainApp extends Application {
         ui = new UiManager(logic);
     }
 
+    /**
+     * Read the current dish database from its saved file.
+     * @param storage Storage handler object
+     * @param userPrefs User preference object
+     * @return Dish database loaded from file, or a new instance if file is missing or invalid.
+     */
     private ReadOnlyDishDatabase loadDishDatabase(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyDishDatabase> dishDatabaseOptional;
         ReadOnlyDishDatabase initialData;
@@ -88,7 +94,14 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Loads the meal log from its saved file.
+     * @param storage Storage handler object
+     * @param userPrefs User preference object
+     * @return Meal loaded from file, or a new instance if file is missing or invalidn
+     */
     private MealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        //TODO: Load from file given by userPrefs
         MealLog mealLog = new MealLog();
         return mealLog;
     }
