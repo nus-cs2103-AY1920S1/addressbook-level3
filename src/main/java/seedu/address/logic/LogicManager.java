@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AllCommands;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EventRelatedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,11 +26,13 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Model eventModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Model eventModel, Storage storage) {
         this.model = model;
+        this.eventModel = eventModel;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
     }
@@ -39,11 +42,17 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        AllCommands command = addressBookParser.parseCommand(commandText);
+        if (command instanceof EventRelatedCommand) {
+            logger.info("----------------[TEST]");
+            commandResult = command.execute(eventModel);
+        } else { //Non-Event Command
+            commandResult = command.execute(model);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveEventBook(eventModel.getEventBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
