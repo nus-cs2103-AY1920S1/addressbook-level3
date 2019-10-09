@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 
@@ -17,21 +12,21 @@
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="4.0" prefHeight="593.0" prefWidth="726.0" vvalue="1.0">
+                <ScrollPane fx:id="scrollPane" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED" hvalue="1.0" layoutX="4.0" prefHeight="593.0" prefWidth="726.0" vvalue="1.0">
                     <content>
-                        <TableView fx:id="table" prefHeight="593.0" prefWidth="726.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="table" prefHeight="520.0" prefWidth="932.0" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn prefWidth="111.0" text="Full Name">
+                                <TableColumn prefWidth="130.0" text="Full Name">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="fullName" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn fx:id="nusEmailColumn" prefWidth="112.0" text="NUS Email">
+                                <TableColumn fx:id="nusEmailColumn" prefWidth="120.0" text="NUS Email">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="nusEmail" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn prefWidth="94.0" text="Personal Email">
+                                <TableColumn prefWidth="120.0" text="Personal Email">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="personalEmail" />
                                     </cellValueFactory>
@@ -61,7 +56,7 @@
                                         <PropertyValueFactory property="choiceTwo" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn fx:id="timeSlotColumn" prefWidth="90.0" text="Preferred Time">
+                                <TableColumn fx:id="timeSlotColumn" prefWidth="150.0" text="Preferred Time">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="timeSlot" />
                                     </cellValueFactory>
@@ -70,6 +65,8 @@
                         </TableView>
                     </content>
                 </ScrollPane>
+                <TextField fx:id="userInput" layoutX="7.0" layoutY="538.0" prefHeight="100.0" prefWidth="329.0" />
+                <TextField fx:id="outputMessage" layoutX="7.0" layoutY="538.0" prefHeight="200.0" prefWidth="329.0"/>
             </children>
         </VBox>
     </children>
