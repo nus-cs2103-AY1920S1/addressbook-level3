@@ -12,7 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -66,6 +70,17 @@ public class TypicalExpenses {
             .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED)
             .build();
 
+//    public static final Expense TRANSPORT = new ExpenseBuilder()
+//            .withDescription(VALID_DESCRIPTION_TRANSPORT)
+//            .withPrice(VALID_PRICE_TRANSPORT)
+//            .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED)
+//            .build();
+//
+//    public static final Expense TRANSPORT = new ExpenseBuilder()
+//            .withDescription(VALID_DESCRIPTION_TRANSPORT)
+//            .withPrice(VALID_PRICE_TRANSPORT)
+//            .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED)
+//            .build();
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalExpenses() {} // prevents instantiation
@@ -78,6 +93,8 @@ public class TypicalExpenses {
         for (Expense expense : getTypicalExpenses()) {
             ab.addExpense(expense);
         }
+//        ab.addEvent(new Event(new Description("brian bday"), new Price("50"), new Timestamp("08/10/2019")));
+//        ab.addEvent(new Event(new Description("ryo bday"), new Price("20"), new Timestamp("15/10/2019")));
         return ab;
     }
 

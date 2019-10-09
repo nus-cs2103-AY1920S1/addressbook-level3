@@ -28,5 +28,6 @@
     "description" : "Groceries for September meal preps",
     "price" : "125.35",
     "tagged" : [ ]
-  } ]
+  } ],
+  "events" : []
 }
