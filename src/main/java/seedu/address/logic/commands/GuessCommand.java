@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.game.Game;
 import seedu.address.model.Model;
+import seedu.address.model.game.Game;
 import seedu.address.model.game.Guess;
 
+/**
+ * Make a guess.
+ */
 public class GuessCommand extends GameCommand {
     public static final String COMMAND_WORD = "guess";
     public static final String MESSAGE_WRONG_GUESS = "Guess is WRONG!";
@@ -24,14 +27,14 @@ public class GuessCommand extends GameCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (model.getGame() == null) {
-           return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
+            return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
         } else {
             int guessResult = model.getGame().makeGuess(inputGuess);
 
             if (guessResult == Game.CORRECT_GUESS) {
                 return new CommandResult(MESSAGE_CORRECT_GUESS, true);
             } else {
-                //guessResult == Game.WRONG_GUESS
+                // guessResult == Game.WRONG_GUESS
                 return new CommandResult(MESSAGE_WRONG_GUESS, true);
             }
         }

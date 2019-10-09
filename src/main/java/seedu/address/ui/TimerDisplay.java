@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents a timer display. todo give a more descriptive comment
+ */
 public class TimerDisplay extends UiPart<Region> {
 
     //Need to make TimerDisplay.fxml

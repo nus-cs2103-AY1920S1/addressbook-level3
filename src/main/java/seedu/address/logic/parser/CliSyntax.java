@@ -8,8 +8,5 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_WORD = new Prefix("w/");
     public static final Prefix PREFIX_MEANING = new Prefix("m/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
 }

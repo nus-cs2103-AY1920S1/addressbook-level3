@@ -1,22 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.Meaning;
+import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,22 +28,20 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         System.err.println("########: " + args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_MEANING, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_MEANING, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_WORD, PREFIX_ADDRESS, PREFIX_MEANING, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_WORD, PREFIX_MEANING)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_WORD).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_MEANING).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Word word = ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get());
+        Meaning meaning = ParserUtil.parseMeaning(argMultimap.getValue(PREFIX_MEANING).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Card card = new Card(word, meaning, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(card);
     }
 
     /**

@@ -38,7 +38,7 @@ public class CommandBox extends UiPart<Region> {
             CommandResult commandResult = commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
 
-            if(commandResult.isPromptingGuess()) {
+            if (commandResult.isPromptingGuess()) {
                 commandTextField.setText("guess ");
                 commandTextField.positionCaret(6);
             }

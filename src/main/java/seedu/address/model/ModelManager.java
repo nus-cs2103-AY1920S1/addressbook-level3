@@ -11,8 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.person.Person;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -20,39 +22,38 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final WordBank wordBank;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Card> filteredCards;
 
     //Placeholder game model
     private Game game = null;
 
+    /**
+     * Initializes a ModelManager with the given wordBank and userPrefs.
+     */
+    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(wordBank, userPrefs);
 
-    //Placeholder setGame method
+        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
+
+        this.wordBank = new WordBank(wordBank);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+    }
+
+    public ModelManager() {
+        this(new WordBank(), new UserPrefs());
+    }
+
+    // Placeholder setGame method
     public void setGame(Game game) {
         this.game = game;
     }
 
     public Game getGame() {
         return this.game;
-    }
-
-    /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
-     */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,67 +81,67 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getWordBankFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setWordBankFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== WordBank ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setWordBank(ReadOnlyWordBank wordBank) {
+        this.wordBank.resetData(wordBank);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyWordBank getWordBank() {
+        return wordBank;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasCard(Card person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return wordBank.hasCard(person);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteCard(Card target) {
+        wordBank.removeCard(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addCard(Card person) {
+        wordBank.addCard(person);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setCard(Card target, Card editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        wordBank.setCard(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Card List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Card> getFilteredCardList() {
+        return filteredCards;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     @Override
@@ -157,9 +158,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return wordBank.equals(other.wordBank)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredCards.equals(other.filteredCards);
     }
 
 }
