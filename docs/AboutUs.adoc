@@ -12,10 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ahmed Bahajjaj
 image::madanalogy.png[width="300", align="left"]
-{empty}[http://madanalogy.github.io[homepage]] [https://github.com/madanalogy[github]] [<<Ahmed#, portfolio>>]
+{empty}[https://github.com/madanalogy[github]] [<<Ahmed#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Login + Data I/O
+Role: Team Lead +
+Responsibilities: Scheduling and Deadlines + In charge of `Logic` and `Person` model
 
 '''
 
@@ -24,7 +24,7 @@ image::tirameshu.png[width="300", align="left"]
 {empty}[http://github.com/tirameshu[github]] [<<Mandy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: New Incident Vehicle Assignment
+Responsibilities: Documentation + In charge of `Vehicle` Model
 
 '''
 
@@ -33,16 +33,16 @@ image::atharvjoshi.png[width="300", align="left"]
 {empty}[http://github.com/atharvjoshi[github]] [<<Atharv#, portfolio>>]
 
 Role: Developer +
-Responsibilities: New Incident Details Management
+Responsibilities: Testing + In charge of `UI`
 
 '''
 
 === Cheryl Ng
-image::Yoshi275.png[width="300", align="left"]
-{empty}[http://github.com/Yoshi275[github]] [<<Cheryl#, portfolio>>]
+image::yoshi275.png[width="300", align="left"]
+{empty}[http://github.com/yoshi275[github]] [<<Cheryl#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Post Incident Search/Retrieval
+Responsibilities: Integration + In charge of `Incident` Model
 
 '''
 
@@ -51,6 +51,6 @@ image::hellopanda128.png[width="300", align="left"]
 {empty}[http://github.com/hellopanda128[github]] [<<MeiAn#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Post Incident Edit/Management
+Responsibilities: Code Quality + In charge of `Storage`
 
 '''

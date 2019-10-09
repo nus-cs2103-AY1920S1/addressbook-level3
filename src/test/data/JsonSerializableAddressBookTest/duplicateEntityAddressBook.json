@@ -10,5 +10,16 @@
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street"
-  } ]
+  } ],
+  "vehicles": [ {
+    "vehicleType": "Ambulance",
+    "vehicleNumber": "AAA1111A",
+    "district": "1 Singapore",
+    "availability": "AVAILABLE"
+  }, {
+    "vehicleType": "Ambulance",
+    "vehicleNumber": "AAA1111A",
+    "district": "1 Singapore",
+    "availability": "AVAILABLE"
+  }]
 }
