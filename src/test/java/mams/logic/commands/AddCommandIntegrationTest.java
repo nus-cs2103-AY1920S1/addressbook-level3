@@ -26,20 +26,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newStudent_success() {
-        Student validStudent = new StudentBuilder().build();
-
-        Model expectedModel = new ModelManager(model.getMams(), new UserPrefs());
-        expectedModel.addStudent(validStudent);
-
-        assertCommandSuccess(new AddCommand(validStudent), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
-    }
-
-    @Test
     public void execute_duplicateStudent_throwsCommandException() {
-        Student studentInList = model.getMams().getStudentList().get(0);
-        assertCommandFailure(new AddCommand(studentInList), model, AddCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 
 }
