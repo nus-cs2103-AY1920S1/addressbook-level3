@@ -23,7 +23,7 @@ import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
@@ -72,7 +72,7 @@ public class MarkParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new IdentifiersContainKeywordsPredicate(keywords)), command);
     }
 
     @Test

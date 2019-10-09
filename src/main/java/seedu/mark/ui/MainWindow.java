@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
-import seedu.mark.logic.commands.CommandResult;
+import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
@@ -205,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public OfflinePanel getOfflinePanel() {
         return offlinePanel;
+    }
+
+    public BrowserPanel getBrowserPanel() {
+        return browserPanel;
     }
 
     /**

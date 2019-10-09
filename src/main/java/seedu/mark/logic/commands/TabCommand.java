@@ -3,6 +3,8 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.commandresult.TabCommandResult;
 import seedu.mark.model.Model;
 
 public class TabCommand extends Command {
@@ -45,7 +47,7 @@ public class TabCommand extends Command {
         default:
             break;
         }
-        return new CommandResult(MESSAGE_SWITCH_ACKNOWLEDGEMENT, false, false,
+        return new TabCommandResult(MESSAGE_SWITCH_ACKNOWLEDGEMENT,
                 isSwitchToDashboard, isSwitchToOnline, isSwitchToOffline);
     }
 
