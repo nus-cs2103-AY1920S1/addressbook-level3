@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
     private PersonListPanel personListPanel;
     private QueueListPanel queueListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane eventListPanelPlaceholder;
 
     @FXML
     private StackPane queueListPanelPlaceholder;
@@ -123,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
         //TODO: EDIT HERE
         queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
                                              logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
@@ -184,6 +191,9 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
     }
 
     /**

@@ -5,16 +5,11 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
-import seedu.address.model.queue.QueueManager;
-import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
 
@@ -28,12 +23,9 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
-                new AppointmentBook());
-        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
-                new AppointmentBook());
-        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
-                new AppointmentBook());
+        Model model = TestUtil.getTypicalModelManager();
+        Model expectedModel1 = TestUtil.getTypicalModelManager();
+        Model expectedModel2 = TestUtil.getTypicalModelManager();
         expectedModel1.addPerson(validPerson);
 
         assertCommandSuccess(command, model,

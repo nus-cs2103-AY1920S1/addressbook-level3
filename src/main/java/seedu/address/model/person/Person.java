@@ -14,6 +14,7 @@ import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
 
+
 /**
  * Represents a Person who can be either a patient or staff doctor.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -121,15 +122,15 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getReferenceId())
-            .append(" Name: ")
-            .append(getName())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
-            .append(" Tags: ");
+                .append(" Name: ")
+                .append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

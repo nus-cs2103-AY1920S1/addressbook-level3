@@ -41,6 +41,7 @@ public class StringUtil {
 
     /**
      * Returns true if {@code substring} is blank or the {@code sentence} contains the {@code substring}, ignores case.
+     *
      * @param sentence  cannot be null
      * @param substring cannot be null
      */
