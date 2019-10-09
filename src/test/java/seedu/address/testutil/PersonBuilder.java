@@ -1,38 +1,31 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.person.Type;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building person objects.
  */
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NRIC = "S1111111A";
+    public static final String DEFAULT_TYPE = "doctor";
 
     private Name name;
     private Phone phone;
-    private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    private Nric nric;
+    private Type type;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        nric = new Nric(DEFAULT_NRIC);
+        type = new Type(DEFAULT_TYPE);
     }
 
     /**
@@ -41,9 +34,24 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+        nric = personToCopy.getNric();
+        type = personToCopy.getType();
+    }
+
+    /**
+     * Sets the {@code Type} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withType(String type) {
+        this.type = new Type(type);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nric} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
     }
 
     /**
@@ -55,22 +63,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -78,16 +70,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(type, nric, name, phone);
     }
 
 }

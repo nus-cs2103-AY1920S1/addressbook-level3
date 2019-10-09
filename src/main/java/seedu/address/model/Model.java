@@ -71,8 +71,9 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in ORGANice.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the
+     * address book.
      */
     void setPerson(Person target, Person editedPerson);
 

@@ -1,13 +1,13 @@
 {
   "persons": [ {
+    "type": "doctor",
+    "nric": "S1234567A",
     "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "phone": "9482424"
   }, {
+    "type": "doctor",
+    "nric": "S1142317A",
     "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "phone": "948asdf2424"
   } ]
 }
