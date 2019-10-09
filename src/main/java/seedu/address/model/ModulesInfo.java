@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -52,6 +53,25 @@ public class ModulesInfo {
             return false;
         }
         return moduleInfo.verify(prevSemModuleCodes);
+    }
+
+    /**
+     * Returns a list of all focus area names. Does not differentiate between electives and primaries.
+     * This method call could be expensive, so it's not meant to be called many times.
+     */
+    public HashSet<String> getFocusAreaNames() {
+        HashSet<String> set = new HashSet<>();
+        for (ModuleInfo moduleInfo : this.modulesInfo) {
+            List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
+            List<String> focusElectives = moduleInfo.getFocusElectives();
+            for (String focusPrimary : focusPrimaries) {
+                set.add(focusPrimary);
+            }
+            for (String focusElective : focusElectives) {
+                set.add(focusElective);
+            }
+        }
+        return set;
     }
 
     @Override
