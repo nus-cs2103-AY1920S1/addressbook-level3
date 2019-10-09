@@ -14,6 +14,7 @@ import seedu.address.model.studyplan.UniqueStudyPlanList;
  */
 public class ModulePlanner implements ReadOnlyModulePlanner {
 
+    private StudyPlan activeStudyPlan;
     private final UniqueStudyPlanList studyPlans;
 
     /*
@@ -84,6 +85,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         requireNonNull(editedStudyPlan);
 
         studyPlans.setStudyPlan(target, editedStudyPlan);
+    }
+
+    /**
+     * Returns the current active {@code StudyPlan}.
+     */
+    public StudyPlan getActiveStudyPlan() {
+        return activeStudyPlan;
     }
 
     /**

@@ -4,7 +4,7 @@ import java.util.List;
 
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.SemesterList;
+import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -14,7 +14,7 @@ public class StudyPlan implements Cloneable {
 
     private static int totalNumberOfStudyPlans = 0; // TODO: will this reset to zero every time application restarts?
 
-    private SemesterList semesterList;
+    private UniqueSemesterList semesters;
     private Title title;
     private boolean isActive;
     private int index; // unique identifier of this study plan
@@ -32,7 +32,7 @@ public class StudyPlan implements Cloneable {
 
     // to create a study plan without a Title
     public StudyPlan() {
-        this.semesterList = new SemesterList();
+        this.semesters = new UniqueSemesterList();
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
@@ -48,7 +48,7 @@ public class StudyPlan implements Cloneable {
     // to create a study plan with a Title
     public StudyPlan(Title title) {
         this.title = title;
-        this.semesterList = new SemesterList();
+        this.semesters = new UniqueSemesterList();
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
@@ -67,7 +67,8 @@ public class StudyPlan implements Cloneable {
         title = modelTitle;
         index = modelIndex;
         isActive = modelIsActive;
-        semesterList = new SemesterList(modelSemesters);
+        semesters = new UniqueSemesterList();
+        semesters.setSemesters(modelSemesters);
 
         modules = modelModules;
         tags = modelTags;
@@ -94,18 +95,20 @@ public class StudyPlan implements Cloneable {
         return title;
     }
 
-    public SemesterList getSemesterList() {
-        return semesterList;
+    public UniqueSemesterList getSemesters() {
+        return semesters;
     }
 
     public int getIndex() {
         return index;
     }
 
+    // "Mega-list" of modules
     public UniqueModuleList getModules() {
         return modules;
     }
 
+    // "Mega-list" of tags
     public UniqueTagList getTags() {
         return tags;
     }
@@ -126,7 +129,7 @@ public class StudyPlan implements Cloneable {
      */
     public StudyPlan clone() throws CloneNotSupportedException {
         StudyPlan clone = (StudyPlan) super.clone();
-        clone.semesterList = semesterList.clone();
+        clone.semesters = semesters.clone();
         clone.title = title.clone();
 
         // TODO: clone the two lists too.
@@ -137,7 +140,7 @@ public class StudyPlan implements Cloneable {
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
             return this.index == ((StudyPlan) other).index &&
-                    this.semesterList.equals(((StudyPlan) other).getSemesterList());
+                    this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }
