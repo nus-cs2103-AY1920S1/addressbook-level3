@@ -3,6 +3,7 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -48,12 +49,12 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Adds a UserTag to the list.
-     * The UserTag must not already exist in the list.
-     * @param toAdd The {@code UserTag} to be added.
+     * Adds a {@code Tag} to the list.
+     * The tag must not already exist in the list.
+     * @param toAdd The {@code Tag} to be added.
      * @throws DuplicateTagException if the list already contains the tag.
      */
-    public void addUserTag(UserTag toAdd) throws DuplicateTagException {
+    public void addTag(Tag toAdd) throws DuplicateTagException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
@@ -62,20 +63,35 @@ public class UniqueTagList implements Iterable<Tag> {
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
-    /**
-     * Adds a DefaultTag to the list.
-     * The DefaultTag must not already exist in the list.
-     * @param toAdd The {@code DefaultTag} to be added.
-     * @throws DuplicateTagException if the list already contains the tag.
-     */
-    private void addDefaultTag(DefaultTag toAdd) throws DuplicateTagException {
-        requireAllNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTagException();
-        }
-        internalList.add(toAdd);
-        mapTags.put(toAdd.getTagName(), toAdd);
-    }
+    //    /**
+    //     * Adds a UserTag to the list.
+    //     * The UserTag must not already exist in the list.
+    //     * @param toAdd The {@code UserTag} to be added.
+    //     * @throws DuplicateTagException if the list already contains the tag.
+    //     */
+    //    public void addUserTag(UserTag toAdd) throws DuplicateTagException {
+    //        requireNonNull(toAdd);
+    //        if (contains(toAdd)) {
+    //            throw new DuplicateTagException();
+    //        }
+    //        internalList.add(toAdd);
+    //        mapTags.put(toAdd.getTagName(), toAdd);
+    //    }
+    //
+    //    /**
+    //     * Adds a DefaultTag to the list.
+    //     * The DefaultTag must not already exist in the list.
+    //     * @param toAdd The {@code DefaultTag} to be added.
+    //     * @throws DuplicateTagException if the list already contains the tag.
+    //     */
+    //    private void addDefaultTag(DefaultTag toAdd) throws DuplicateTagException {
+    //        requireAllNonNull(toAdd);
+    //        if (contains(toAdd)) {
+    //            throw new DuplicateTagException();
+    //        }
+    //        internalList.add(toAdd);
+    //        mapTags.put(toAdd.getTagName(), toAdd);
+    //    }
 
     /**
      * Replaces the UserTag {@code target} in the list with {@code editedTag}.
@@ -123,20 +139,45 @@ public class UniqueTagList implements Iterable<Tag> {
         }
     }
 
+    //    /**
+    //     * Replaces the contents of this list with {@code UserTags}.
+    //     * {@code UserTags} must not contain duplicate UserTags.
+    //     */
+    //    public void setTags(List<UserTag> userTags) throws DuplicateTagException {
+    //        requireAllNonNull(userTags);
+    //        if (!userTagsAreUnique(userTags)) {
+    //            throw new DuplicateTagException();
+    //        }
+    //        internalList.setAll(userTags);
+    //        mapTags.clear();
+    //        initDefaultTags();
+    //        for (UserTag newUserTag: userTags) {
+    //            mapTags.put(newUserTag.getTagName(), newUserTag);
+    //        }
+    //    }
+
     /**
-     * Replaces the contents of this list with {@code UserTags}.
-     * {@code UserTags} must not contain duplicate UserTags.
+     * Replaces the contents of this list with {@code Tags}.
+     * {@code Tags} must not contain duplicate Tags.
      */
-    public void setTags(List<UserTag> userTags) throws DuplicateTagException {
-        requireAllNonNull(userTags);
+    public void setTags(List<Tag> tags) throws DuplicateTagException {
+        requireAllNonNull(tags);
+
+        List<UserTag> userTags = new ArrayList<>();
+        for (Tag tag : tags) {
+            if (tag instanceof UserTag) {
+                userTags.add((UserTag) tag);
+            }
+        }
+
         if (!userTagsAreUnique(userTags)) {
             throw new DuplicateTagException();
         }
-        internalList.setAll(userTags);
+        internalList.setAll(tags);
         mapTags.clear();
         initDefaultTags();
-        for (UserTag newUserTag: userTags) {
-            mapTags.put(newUserTag.getTagName(), newUserTag);
+        for (Tag newTag: tags) {
+            mapTags.put(newTag.getTagName(), newTag);
         }
     }
 
@@ -193,7 +234,8 @@ public class UniqueTagList implements Iterable<Tag> {
 
     private void initDefaultTags() {
         for (DefaultTagType defaultTagType: DefaultTagType.values()) {
-            addDefaultTag(new DefaultTag(defaultTagType));
+            // addDefaultTag(new DefaultTag(defaultTagType));
+            addTag(new DefaultTag(defaultTagType));
         }
     }
 }

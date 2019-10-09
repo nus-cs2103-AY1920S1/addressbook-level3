@@ -12,7 +12,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.module.Module;
 
 /**
  * A class to access ModulePlanner data stored as a json file on the hard disk.
@@ -32,17 +34,19 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
     }
 
     @Override
-    public Optional<ReadOnlyModulePlanner> readModulePlanner() throws DataConversionException {
-        return readModulePlanner(filePath);
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(ModulesInfo modulesInfo)
+            throws DataConversionException {
+        return readModulePlanner(filePath, modulesInfo);
     }
 
     /**
-     * Similar to {@link #readModulePlanner()}.
+     * Similar to {@link #readModulePlanner(ModulesInfo)}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath, ModulesInfo modulesInfo)
+            throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableModulePlanner> jsonModulePlanner = JsonUtil.readJsonFile(
@@ -52,7 +56,7 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
         }
 
         try {
-            return Optional.of(jsonModulePlanner.get().toModelType());
+            return Optional.of(jsonModulePlanner.get().toModelType(modulesInfo));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

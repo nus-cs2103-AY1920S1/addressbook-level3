@@ -11,6 +11,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.Module;
 
 /**
  * Manages storage of ModulePlanner data in local storage.
@@ -56,15 +57,17 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyModulePlanner> readModulePlanner() throws DataConversionException, IOException {
-        return readModulePlanner(modulePlannerStorage.getModulePlannerFilePath());
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(ModulesInfo modulesInfo)
+            throws DataConversionException, IOException {
+        return readModulePlanner(modulePlannerStorage.getModulePlannerFilePath(), modulesInfo);
     }
 
     @Override
-    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyModulePlanner> readModulePlanner(Path filePath, ModulesInfo modulesInfo)
+            throws DataConversionException,
             IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return modulePlannerStorage.readModulePlanner(filePath);
+        return modulePlannerStorage.readModulePlanner(filePath, modulesInfo);
     }
 
     @Override

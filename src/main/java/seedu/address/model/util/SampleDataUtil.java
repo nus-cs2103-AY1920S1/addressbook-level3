@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ModulePlanner;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
@@ -39,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyModulePlanner getSampleModulePlanner() {
-        ModulePlanner sampleAb = new ModulePlanner();
+    public static ReadOnlyModulePlanner getSampleModulePlanner(ModulesInfo modulesInfo) {
+        ModulePlanner sampleAb = new ModulePlanner(modulesInfo);
         for (StudyPlan sampleStudyPlan : getSampleStudyPlans()) {
             sampleAb.addStudyPlan(sampleStudyPlan);
         }

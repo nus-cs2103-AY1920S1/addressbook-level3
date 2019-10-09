@@ -10,6 +10,8 @@ import java.util.Set;
 
 import seedu.address.model.Color;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 
 /**
  * Represents a module for CS undergraduate students.
@@ -24,22 +26,18 @@ public class Module {
     private Color color;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<Tag>();
-    private final UniqueModuleList prerequisites = new UniqueModuleList();
+    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, ModuleCode moduleCode, int mcCount, Color color, Set<Tag> tags, UniqueModuleList prerequisites) {
-        requireAllNonNull(name, moduleCode, tags);
+    public Module(Name name, ModuleCode moduleCode, int mcCount, Color color, UniqueTagList tags) {
+        requireAllNonNull(name, moduleCode, mcCount, color, tags);
         this.name = name;
         this.moduleCode = moduleCode;
         this.mcCount = mcCount;
         this.color = color;
-        this.tags.addAll(tags);
-        for (Module prerequisite : prerequisites) {
-            this.prerequisites.add(prerequisite);
-        }
+        this.tags = tags;
     }
 
     /**
@@ -61,7 +59,8 @@ public class Module {
         requireAllNonNull(moduleCode, color, tags);
         this.moduleCode = moduleCode;
         this.color = color;
-        this.tags.addAll(tags);
+        this.tags = new UniqueTagList();
+        this.tags.setTags(tags);
     }
 
     public Name getName() {
@@ -85,7 +84,7 @@ public class Module {
         if (hasTag(tag)) {
             return false;
         }
-        tags.add(tag);
+        tags.addTag(tag);
         return true;
     }
 
@@ -98,15 +97,15 @@ public class Module {
     }
 
     /**
-     * Deletes the specified tag to the module if the module has it.
-     * @param tag Tag to be deleted from the module.
-     * @return True if the tag has been deleted and false otherwise.
+     * Deletes the specified user tag to the module if the module has it.
+     * @param userTag user tag to be deleted from the module.
+     * @return True if the user tag has been deleted and false otherwise.
      */
-    public boolean deleteTag(Tag tag) {
-        if (!hasTag(tag)) {
+    public boolean deleteUserTag(UserTag userTag) {
+        if (!hasTag(userTag)) {
             return false;
         }
-        tags.remove(tag);
+        tags.remove(userTag);
         return true;
     }
 
@@ -115,19 +114,11 @@ public class Module {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns a unique tag list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    /**
-     * Returns an immutable prerequisite set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public UniqueModuleList getPrerequisites() {
-        return prerequisites;
+    public UniqueTagList getTags() {
+        return tags;
     }
 
     /**
@@ -147,14 +138,13 @@ public class Module {
         return otherModule.getName().equals(getName())
                 && otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getMcCount() == getMcCount()
-                && otherModule.getTags().equals(getTags())
-                && otherModule.getPrerequisites().equals(getPrerequisites());
+                && otherModule.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, moduleCode, tags, prerequisites);
+        return Objects.hash(name, moduleCode, tags);
     }
 
     @Override
