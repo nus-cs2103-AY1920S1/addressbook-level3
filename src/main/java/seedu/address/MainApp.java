@@ -5,6 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -18,10 +21,13 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -34,6 +40,8 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 import seedu.address.ui.UiViewManager;
+import seedu.address.websocket.ApiCache;
+import seedu.address.websocket.NusModsApiParser;
 
 /**
  * Runs the application.
@@ -114,7 +122,32 @@ public class MainApp extends Application {
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        return new ModelManager(initialData, timeBook, userPrefs);
+        // NusModsData nusModsData = initNusModsData(storage, userPrefs);
+        NusModsData nusModsData = new NusModsData();
+
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs);
+    }
+
+    /**
+     * Returns an {@code NusModsData} with the data from {@code ApiCache}, {@code storage} and {@code userPrefs}.
+     */
+    private NusModsData initNusModsData(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        NusModsData nusModsData = new NusModsData();
+
+        ApiCache cache = new ApiCache();
+
+        //TODO: load condensedModuleList
+
+        //TODO: if not found in cache, call API and save in cache
+
+        Holidays holidays = NusModsApiParser.parseHolidays((JSONArray) cache.readJson(userPrefs.getHolidaysFilePath()));
+        nusModsData.setHolidays(holidays);
+
+        AcadCalendar acadCalendar = NusModsApiParser.parseAcadCalendar(
+                (JSONObject) cache.readJson(userPrefs.getAcademicCalendarFilePath()));
+        nusModsData.setAcadCalendar(acadCalendar);
+
+        return nusModsData;
     }
 
     private void initLogging(Config config) {

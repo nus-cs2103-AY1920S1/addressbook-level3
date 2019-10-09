@@ -21,9 +21,9 @@ import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NusmodCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowNusModCommand;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.
@@ -38,14 +38,14 @@ public class SuggestingCommandUtil {
             DeletePersonCommand.COMMAND_WORD,
             EditGroupCommand.COMMAND_WORD,
             EditPersonCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD,
             FindGroupCommand.COMMAND_WORD,
             FindPersonCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD,
-            NusmodCommand.COMMAND_WORD,
             ScheduleCommand.COMMAND_WORD,
-            ShowCommand.COMMAND_WORD
+            ShowNusModCommand.COMMAND_WORD,
+            ShowCommand.COMMAND_WORD,
+            ExitCommand.COMMAND_WORD,
+            HelpCommand.COMMAND_WORD,
+            ListCommand.COMMAND_WORD
     );
     private static ObservableList<String> readOnlyCommandWords = FXCollections.unmodifiableObservableList(commandWords);
 

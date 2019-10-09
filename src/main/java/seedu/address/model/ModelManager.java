@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.mainwindow.MainWindowDisplay;
@@ -28,12 +29,19 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
+//import seedu.address.websocket.ApiCache;
+import seedu.address.websocket.NusModsApi;
+import seedu.address.websocket.NusModsApiParser;
 
 
 /**
@@ -51,6 +59,8 @@ public class ModelManager implements Model {
     private PersonList personList;
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
+
+    private NusModsData nusModsData;
 
     // UI display
     private MainWindowDisplay mainWindowDisplay;
@@ -78,7 +88,8 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
+                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs) {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -86,6 +97,8 @@ public class ModelManager implements Model {
         this.personList = timeBook.getPersonList();
         this.groupList = timeBook.getGroupList();
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
+
+        this.nusModsData = nusModsData;
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -117,7 +130,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(TimeBook timeBook) {
-        this(new AddressBook(), timeBook, new UserPrefs());
+        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs());
     }
 
     public ModelManager() {
@@ -154,6 +167,17 @@ public class ModelManager implements Model {
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public AppSettings getAppSettings() {
+        return userPrefs.getAppSettings();
+    }
+
+    @Override
+    public void setAppSettings(AppSettings appSettings) {
+        requireNonNull(appSettings);
+        userPrefs.setAppSettings(appSettings);
     }
 
     @Override
@@ -473,6 +497,38 @@ public class ModelManager implements Model {
         }
         return suggestions;
     }
+
+    //=========== NusModsData ================================================================================
+
+    @Override
+    public NusModsData getNusModsData() {
+        return nusModsData;
+    };
+
+    @Override
+    public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) {
+        Module module;
+
+        try {
+            module = nusModsData.getDetailedModuleList().findModule(acadYear, moduleCode);
+        } catch (ModuleNotFoundException ex1) {
+            try {
+                Path path = this.userPrefs.getDetailedModuleListFilePath();
+                String key = acadYear.toString() + " " + moduleCode.toString();
+                //TODO: implement ApiCache first
+                // module = NusModsApiParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
+                throw ex1;
+            } catch (ModuleNotFoundException ex2) {
+                try {
+                    module = NusModsApiParser.parseModule(new NusModsApi(acadYear).getModule(moduleCode));
+                } catch (ModuleNotFoundException ex3) {
+                    throw new ModuleNotFoundException();
+                }
+            }
+        }
+
+        return module;
+    };
 
     //=========== Others =============================================================
 
