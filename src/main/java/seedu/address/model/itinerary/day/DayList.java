@@ -1,5 +1,8 @@
 package seedu.address.model.itinerary.day;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
 import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;

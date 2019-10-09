@@ -1,34 +1,27 @@
-package seedu.address.logic.commands.trips.edit;
+package seedu.address.logic.commands.itinerary.events.edit;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
-import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Trip;
+import seedu.address.model.itinerary.event.Event;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
-/**
- * Constructs a command that attempts to modify the current values in the edit trip page.
- * It overwrites each of the values of the current pageStatus editTripDescriptor with
- * the provided editTripDescriptor's values if they are specified.
- */
-public class EditTripFieldCommand extends Command {
+public class EditEventFieldCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -40,36 +33,38 @@ public class EditTripFieldCommand extends Command {
             + "[" + PREFIX_DATE_START + "START DATE] "
             + "[" + PREFIX_DATE_END + "END DATE] "
             + "[" + PREFIX_LOCATION + "DESTINATION] "
-            + "[" + PREFIX_BUDGET + "TOTAL BUDGET]...\n"
-            + "Example: " + COMMAND_WORD + " 1 Thailand trip"
-            + PREFIX_BUDGET + "3000";
+            + "[" + PREFIX_BUDGET + "TOTAL BUDGET "
+            + "[" + PREFIX_INVENTORY + "<to be implemented> "
+            + "|" + PREFIX_BOOKING + "<to be implemented>]...\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LOCATION + " ABC Zoo "
+            + PREFIX_BUDGET + "10";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
-    private final EditTripDescriptor editTripDescriptor;
+    private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param editTripDescriptor details to edit the trip with
+     * @param editEventDescriptor details to edit the person with
      */
-    public EditTripFieldCommand(EditTripDescriptor editTripDescriptor) {
-        requireNonNull(editTripDescriptor);
+    public EditEventFieldCommand(EditEventDescriptor editEventDescriptor) {
+        requireNonNull(editEventDescriptor);
 
-        this.editTripDescriptor = editTripDescriptor;
+        this.editEventDescriptor = editEventDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EditTripDescriptor currentDescriptor = model.getPageStatus().getEditTripDescriptor();
-        EditTripDescriptor newEditTripDescriptor = currentDescriptor == null
-                ? new EditTripDescriptor(editTripDescriptor)
-                : new EditTripDescriptor(currentDescriptor, editTripDescriptor);
+        EditEventDescriptor currentDescriptor = model.getPageStatus().getEditEventDescriptor();
+        EditEventDescriptor newEditEventDescriptor = currentDescriptor == null
+                ? new EditEventDescriptor(editEventDescriptor)
+                : new EditEventDescriptor(currentDescriptor, editEventDescriptor);
 
         model.setPageStatus(
-                model.getPageStatus().withNewEditTripDescriptor(newEditTripDescriptor));
+                model.getPageStatus().withNewEditEventDescriptor(newEditEventDescriptor));
 
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editTripDescriptor));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editEventDescriptor));
     }
 
     @Override
@@ -80,68 +75,78 @@ public class EditTripFieldCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditTripFieldCommand)) {
+        if (!(other instanceof EditEventDescriptor)) {
             return false;
         }
 
         // state check
-        EditTripFieldCommand e = (EditTripFieldCommand) other;
-        return editTripDescriptor.equals(e.editTripDescriptor);
+        EditEventFieldCommand e = (EditEventFieldCommand) other;
+        return editEventDescriptor.equals(e.editEventDescriptor);
     }
 
     /**
-     * Stores the details to edit the trip with. Each non-empty field value will replace the
-     * corresponding field value of the trip.
+     * Stores the details to edit the event with. Each non-empty field value will replace the
+     * corresponding field value of the event.
+     * WARNING: REFACTOR AFTER COMPLETING IMPLEMENTATION OF JSONADAPTED BOOKING/INVENTORY
      */
-    public static class EditTripDescriptor {
+    public static class EditEventDescriptor {
         private Optional<Name> name;
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
         private Optional<Expenditure> totalBudget;
 
-        public EditTripDescriptor() {
+        private Optional<Inventory> inventory;
+        private Optional<Booking> booking;
+
+        public EditEventDescriptor() {
             name = Optional.empty();
             startDate = Optional.empty();
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
+
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditTripDescriptor(EditTripDescriptor toCopy) {
+        public EditEventDescriptor(EditEventDescriptor toCopy) {
             name = toCopy.getName();
             startDate = toCopy.getStartDate();
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
+            inventory = toCopy.getInventory();
+            booking = toCopy.getBooking();
         }
+
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditTripDescriptor(Trip toCopy) {
+        public EditEventDescriptor(Event toCopy) {
             setName(toCopy.getName());
             setStartDate(toCopy.getStartDate());
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
-            setBudget(toCopy.getBudget());
-
+            setBudget(toCopy.getTotalBudget());
+            setInventory(toCopy.getInventory());
+            setBooking(toCopy.getBooking());
         }
+
 
         /**
          * Overwrite constructor.
-         * Constructs a new {@code EditTripDescriptor} using an {@code oldDescriptor}, overwritten with
+         * Constructs a new {@code EditEventDescriptor} using an {@code oldDescriptor}, overwritten with
          * values of the {@code newDescriptor} where they exist.
          *
-         * @param oldDescriptor Old {@code EditTripDescriptor} to use.
-         * @param newDescriptor New {@code EditTripDescriptor} to use.
+         * @param oldDescriptor Old {@code EditEventDescriptor} to use.
+         * @param newDescriptor New {@code EditEventDescriptor} to use.
          */
-        public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
+        public EditEventDescriptor(EditEventDescriptor oldDescriptor, EditEventDescriptor newDescriptor) {
             this();
             newDescriptor.name.ifPresentOrElse(this::setName,
                     () -> oldDescriptor.name.ifPresent(this::setName));
@@ -157,39 +162,51 @@ public class EditTripFieldCommand extends Command {
 
             newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
                     () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
+
+            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
+                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
+
+            newDescriptor.booking.ifPresentOrElse(this::setBooking,
+                    () -> oldDescriptor.booking.ifPresent(this::setBooking));
         }
 
+
         /**
-         * Builds a new {@code Trip} instance.
-         * Requires name, startDate, destination and budget to have been set minimally.
+         * Builds a new {@code Event} instance.
+         * Requires name, startDate, destination to have been set minimally.
+         * Uses the Optional constructor for event to accommodate missing optional fields.
          *
-         * @return New {@code Trip} created.
+         * @return New {@code Event} created.
          * @throws NullPointerException If any of the fields are empty.
          */
-        public Trip buildTrip() {
-            if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
-                return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList());
+        public Event buildEvent() {
+            if (isAllPresent(name, startDate, endDate, destination)) {
+                return new Event(name.get(), startDate.get(), endDate.get(), totalBudget, destination.get());
             } else {
                 throw new NullPointerException();
             }
         }
 
         /**
-         * Builds an edited {@code Trip} instance from this {@code EditTripDescriptor}.
-         * Uses the original trip information first, overwriting where the values exist.
+         * Builds an edited {@code Event} instance from this {@code EditEventDescriptor}.
+         * Uses the original eventrmation first, overwriting where the values exist.
+         * WARNING: USING INCOMPLETE CONSTRUCTOR, REFACTOR AFTER IMPLEMENTING BOOKING AND INVENTORY
          *
-         * @param trip Source {@code Trip} instance.
-         * @return Edited {@code Trip} instance.
+         * @param event Source {@code Event} instance.
+         * @return Edited {@code Event} instance.
+         * @param event
          */
-        public Trip buildTrip(Trip trip) {
-            Name tripName = trip.getName();
-            LocalDateTime startDate = trip.getStartDate();
-            LocalDateTime endDate = trip.getEndDate();
-            Location destination = trip.getDestination();
-            Expenditure budget = trip.getBudget();
+        public Event buildEvent(Event event) {
+            Name eventName = event.getName();
+            LocalDateTime startDate = event.getStartDate();
+            LocalDateTime endDate = event.getEndDate();
+            Location destination = event.getDestination();
+            Optional<Expenditure> budget = event.getTotalBudget();
+            Optional<Booking> booking = event.getBooking();
+            Optional<Inventory> inventory = event.getInventory();
+
             if (this.name.isPresent()) {
-                tripName = this.name.get();
+                eventName = this.name.get();
             }
             if (this.startDate.isPresent()) {
                 startDate = this.startDate.get();
@@ -201,18 +218,27 @@ public class EditTripFieldCommand extends Command {
                 destination = this.destination.get();
             }
             if (this.totalBudget.isPresent()) {
-                budget = this.totalBudget.get();
+                budget = this.totalBudget;
+            }
+            if (this.inventory.isPresent()) {
+                inventory = this.inventory;
+            }
+            if(this.booking.isPresent()) {
+                booking = this.booking;
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList());
+
+            return new Event(eventName, startDate, endDate, totalBudget, destination);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget);
+            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, booking, inventory);
         }
+
+
 
         public void setName(Name name) {
             this.name = Optional.of(name);
@@ -255,6 +281,38 @@ public class EditTripFieldCommand extends Command {
             return totalBudget;
         }
 
+        public Optional<Booking> getBooking() {
+            return booking;
+        }
+
+        public Optional<Inventory> getInventory() {
+            return inventory;
+        }
+
+        private void setInventory(Inventory inventory) {
+            this.inventory = Optional.of(inventory);
+        }
+
+        private void setBooking(Booking booking) {
+            this.booking = Optional.of(booking);
+        }
+
+        // Support optional fields from Event
+        public void setBudget(Optional<Expenditure> totalBudget) {
+            this.totalBudget = totalBudget;
+        }
+
+        public void setInventory(Optional<Inventory> inventory) {
+            this.inventory = inventory;
+        }
+
+
+
+        public void setBooking(Optional<Booking> booking) {
+            this.booking = booking;
+        }
+
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -263,33 +321,39 @@ public class EditTripFieldCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditTripFieldCommand.EditTripDescriptor)) {
+            if (!(other instanceof EditCommand.EditPersonDescriptor)) {
                 return false;
             }
 
             // state check
-            EditTripDescriptor e = (EditTripDescriptor) other;
+            EditEventDescriptor e = (EditEventDescriptor) other;
 
             return getName().equals(e.getName())
                     && getStartDate().equals(e.getStartDate())
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
                     && getBudget().equals(e.getBudget());
+//                    && getInventory().equals((e.getInventory()))
+//                    && getBooking().equals((e.getBooking()));
         }
 
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
 
-            this.name.ifPresent(name -> builder.append(" Name of trip: ").append(name));
+            this.name.ifPresent(name -> builder.append(" Name of event: ").append(name));
             this.startDate.ifPresent(startDate ->
                     builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
             this.endDate.ifPresent(endDate ->
                     builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
+//            this.inventory.ifPresent(inventory -> builder.append(" Inventory: ").append(inventory));
+//            this.booking.ifPresent(booking -> builder.append(" Booking/s: ").append(booking));
 
             return builder.toString();
         }
     }
+
+
 }

@@ -82,6 +82,7 @@ public class Day {
         return Optional.of(totalBudget);
     }
 
+
     public boolean isSameDay(Day otherDay) {
         if (otherDay == this) {
             return true;

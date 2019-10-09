@@ -137,7 +137,7 @@ public class TripListTest {
 
     @Test
     public void remove_nullTrip_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> tripList.remove(null));
+        assertThrows(NullPointerException.class, () -> tripList.remove((Trip)null));
     }
 
     @Test
