@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.commons.core.item;
 
 import java.util.Objects;
 
