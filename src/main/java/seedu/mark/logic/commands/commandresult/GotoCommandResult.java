@@ -1,10 +1,14 @@
 package seedu.mark.logic.commands.commandresult;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.mark.model.bookmark.Url;
+
 /**
  * Represents the result of a goto command execution.
  */
 public class GotoCommandResult extends CommandResult {
-    private String url;
+    private Url url;
 
     /**
      * Constructs an {@code GotoCommandResult} with the feedback and url.
@@ -12,9 +16,9 @@ public class GotoCommandResult extends CommandResult {
      * @param feedbackToUser feedback
      * @param url            url to be opened
      */
-    public GotoCommandResult(String feedbackToUser, String url) {
+    public GotoCommandResult(String feedbackToUser, Url url) {
         super(feedbackToUser);
-        this.url = url;
+        this.url = requireNonNull(url);
     }
 
     @Override
@@ -23,7 +27,7 @@ public class GotoCommandResult extends CommandResult {
     }
 
     @Override
-    public String getUrl() {
+    public Url getUrl() {
         return url;
     }
 }

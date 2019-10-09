@@ -16,6 +16,7 @@ import seedu.mark.logic.Logic;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -162,8 +163,8 @@ public class MainWindow extends UiPart<Stage> {
      * Opens an url.
      */
     @FXML
-    public void handleOpen(String url) {
-        browserPanel.loadPage(url);
+    public void handleOpen(Url url) {
+        browserPanel.loadPage(url.value);
     }
 
     void show() {

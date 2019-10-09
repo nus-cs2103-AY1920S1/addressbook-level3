@@ -4,10 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
+import static seedu.mark.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.model.bookmark.Url;
+
 public class CommandResultTest {
+
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new CommandResult(null));
+    }
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
@@ -32,6 +42,10 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new ExitCommandResult("feedback")));
+
+        // different goto value -> returns false
+        assertFalse(commandResult.equals(new GotoCommandResult("feedback",
+                new Url(VALID_URL_AMY))));
     }
 
     @Test
@@ -49,5 +63,9 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new ExitCommandResult("feedback").hashCode());
+
+        // different goto value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new GotoCommandResult("feedback",
+                new Url(VALID_URL_AMY)).hashCode());
     }
 }
