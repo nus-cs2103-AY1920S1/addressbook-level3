@@ -19,7 +19,7 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
      */
     public AddFolderCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, AddFolderCommand.PREFIX_PARENT_FOLDER);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_PARENT_FOLDER);
 
         Folder folder;
         try {
@@ -30,7 +30,7 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
         }
 
         String parentFolder =
-                argMultimap.getValue(AddFolderCommand.PREFIX_PARENT_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME);
+                argMultimap.getValue(CliSyntax.PREFIX_PARENT_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME);
 
         return new AddFolderCommand(folder, new Folder(parentFolder));
     }

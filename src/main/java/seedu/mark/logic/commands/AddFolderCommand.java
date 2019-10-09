@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.parser.Prefix;
+import seedu.mark.logic.parser.CliSyntax;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Folder;
 
@@ -15,11 +15,9 @@ public class AddFolderCommand extends Command {
 
     public static final String COMMAND_WORD = "folder";
 
-    public static final Prefix PREFIX_PARENT_FOLDER = new Prefix("p/");
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new folder with the specified name "
             + "Parameters: NAME (must not be an existing folder name) "
-            + PREFIX_PARENT_FOLDER + "[PARENT_FOLDER]\n"
+            + CliSyntax.PREFIX_PARENT_FOLDER + "[PARENT_FOLDER]\n"
             + "Example: " + COMMAND_WORD + " school ";
     public static final String MESSAGE_DUPLICATE_FOLDER = "This folder already exists in Mark";
     public static final String MESSAGE_PARENT_FOLDER_NOT_FOUND = "The parent folder %s doesn't exist in Mark";
