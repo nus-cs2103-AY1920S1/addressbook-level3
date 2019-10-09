@@ -38,8 +38,8 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_INVAILD_REFERENCEID = "the refernceId is invalid.";
     public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
+    public static final String MESSAGE_NOT_ACKED = "Could not undo Acknowledge.";
 
-    private Event appointment;
     private final ReferenceId referenceId;
     private final EditEventStatus editEventStatus;
     private Event eventToAck;
@@ -101,19 +101,36 @@ public class AckAppCommand extends ReversibleCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasEvent(appointment)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, appointment));
+        if (eventToAck == null || eventToAck == null || !model.hasExactEvent(eventToAck)) {
+            throw new CommandException(MESSAGE_NOT_ACKED);
         }
 
-        model.deleteEvent(appointment);
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
+        if (eventToAck.equals(ackedEvent) || model.hasExactEvent(eventToAck)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
+        }
+
+        if (model.hasEvent(eventToAck) && !eventToAck.isSameEvent(ackedEvent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
+        }
+
+        model.setEvent(ackedEvent, eventToAck);
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+
+        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, eventToAck));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AckAppCommand // instanceof handles nulls
-                && appointment.equals(((AckAppCommand) other).appointment));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof AckAppCommand)) {
+            return false;
+        }
+
+        AckAppCommand e = (AckAppCommand) other;
+        return referenceId.equals(e.referenceId)
+                && editEventStatus.equals(e.editEventStatus);
     }
 
     /**
