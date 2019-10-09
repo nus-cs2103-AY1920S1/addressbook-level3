@@ -21,7 +21,7 @@ public class CompilerPathUtils {
             throw new FileNotClassException();
         }
 
-        String name = file.getPath();
+        String name = file.getName();
         return name.replace(".class", "");
     }
 
