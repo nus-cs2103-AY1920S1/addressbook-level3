@@ -16,7 +16,7 @@ endif::[]
 
 By: `Team CS2103-T11`      Since: `Jun 2016`      Licence: `MIT`
 
-image::main/docs/images/Ui.png
+image::Ui.png
 
 == Introduction
 
