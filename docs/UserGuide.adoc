@@ -148,8 +148,117 @@ Prevent unauthorised access to your grades.
 
 === Quiz
 
+To enter the Quiz section please enter the command: `switch quiz`
 
+==== Sort based on priority:
+Sorting based on priority will help users to identify which questions are deemed to be important
+to them for each category. Default: sort by time.
 
+Format: `sort priority *[PRIORITY_TYPE]*` +
+Usage: *[PRIORITY_TYPE]* accepts keyword `high`, `normal`, `low` only +
+Example: *sort* priority high +
+{empty} +
+
+==== Add the details of the quiz questions:
+Users can add new quiz questions with the details in it. The details of the question should
+be added before executing `create` command, however, you update or add it later too after the `create` command.
+
+The details/instructions of the questions include: +
+- `[qns]` Indicate that the next several phrases will be the question. +
+- `[ans]` Indicate that the next several phrases will be the answer to the question. +
+- `[cat]` Indicate that the next several phrases will be the category of the question. +
+- `[type]` Indicate that the next several phrases will be the priority/importance level of the question. +
+
+*Note that:* +
+- *`[qns]` and `[ans]` are required to be added before creating the question itself.* +
+- *`[qns]` word limit is 200. `[ans]` word limit is 1500. `[cat]` word limit is 10.* +
+- *`[type]` the command after this format should only be: `high`, `normal`, `low`.* +
+- Try to avoid the above instruction in your questions, answers, category and most importantly your priority +
+
+Format: `add *[qns]* _your_question_ *[ans]* _your_answer_ *[cat]* _your_category_ *[type]* _your_priority_` +
+
+Example 1: +
+*add [qns]* _What is always coming, but never arrives?_ *[ans]* _Tomorrow_ *[type]* _high_ +
+
+Example 2: +
+*add [qns]* _What can one catch that is not thrown?_ *[type]* _normal_ *[ans]* _A cold_ *[cat]* CS2131
+
+Remark: +
+*add [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+
+Modulo will detect the question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
+{empty} +
+
+==== Delete module from record:
+Delete a specific quiz question from the group questions.
+
+Format: `delete *[CATEGORY] [NUMBER]*` +
+Usage: +
+- *[CATEGORY]* is the category of the question that you want to delete, case-insensitive. For the question that is uncategorized, put `uncategorized` +
+- *[NUMBER]* is the index/row from that category that you want to delete. +
+
+Example 1: +
+*delete* CS2103 1
+
+Example 2: +
+*delete* uncategorized 3 +
+{empty} +
+
+==== Edit details of a module : `edit`
+Specify which question you want to edit and modify it from the list of questions.
+
+*Step 1: Specify* +
+
+Format: `edit *[CATEGORY] [NUMBER]*` +
+Usage: +
+- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. For the question that is uncategorized category, put `uncategorized`. +
+- *[NUMBER]* is the index/row from that category that you want to edit. +
+
+e.g. `*edit* CS2103 1` +
+
+*Step 2: Modify* +
+The details/instructions of the new questions include: +
+- `[qns]` Indicate that the next several phrases will be the new question. +
+- `[ans]` Indicate that the next several phrases will be the answer to the new question. +
+- `[cat]` Indicate that the next several phrases will be the category of the new question. +
+- `[type]` Indicate that the next several phrases will be the priority/importance level of the new question. +
+- Try to avoid the above instruction in your questions, answers, category and most importantly your priority +
+
+*Note that:* +
+- Every instruction is optional but at least one of them should be modified. Use `cancel` command to cancel edit.
+- *`[qns]` word limit is 200. `[ans]` word limit is 1500. `[cat]` word limit is 10.* +
+- *`[type]` the command after this format should only be: `high`, `normal`, `low`.* +
+
+Format: `*modify [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_ *[type]* _your_new_priority_` +
+
+Example 1: +
+*modify [qns]* _How many mammals are there in the universe?_ *[type]* low +
+
+Example 2: +
+*cancel*
+
+Remark: +
+*add [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+
+Modulo will detect the new question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
+{empty} +
+
+==== Find the quiz questions with keyword:
+Find the quiz questions from the list of questions.
+
+Format: `find [KEYWORDS]` +
+Format: `cancel`
+
+==== Move question:
+Move question from specified category to another category.
+
+Format: `move [SPECIFIED_CAT] [NUMBER] [DESTINATION_CAT]
+
+==== Undo:
+Undo some of the previous action.
+
+Format: `undo` +
+{empty} +
 
 === Finances
 
