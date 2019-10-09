@@ -1,6 +1,8 @@
 package seedu.tarence.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.logic.parser.ArgumentPatterns.PATTERN_WEEKRANGE;
+import static seedu.tarence.logic.parser.ParserMessages.MESSAGE_INVALID_WEEK_RANGE;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -8,6 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.commons.util.StringUtil;
@@ -113,7 +116,7 @@ public class ParserUtil {
         if (!ModCode.isValidModCode(trimmedModCode)) {
             throw new ParseException(ModCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModCode(trimmedModCode);
+        return new ModCode(trimmedModCode.toUpperCase());
     }
 
     /**
@@ -189,6 +192,36 @@ public class ParserUtil {
     public static Set<Week> parseWeeks(String weeks) throws ParseException {
         requireNonNull(weeks);
         Set<Week> listOfWeeks = new TreeSet<>();
+
+        // check for user input of "odd" or "even"
+        if (weeks.toLowerCase().equals("odd")) { // weeks 3, 5, 7, 9, 11, 13
+            for (int i = 3; i <= 13; i += 2) {
+                listOfWeeks.add(new Week(i));
+            }
+            return listOfWeeks;
+        } else if (weeks.toLowerCase().equals("even")) { // weeks 2, 4, 6, 8, 10, 12
+            for (int i = 4; i <= 12; i += 2) {
+                listOfWeeks.add(new Week(i));
+            }
+            return listOfWeeks;
+        }
+
+        // check for user input of range "x-y"
+        Matcher m = PATTERN_WEEKRANGE.matcher(weeks);
+        if (m.find()) {
+            String[] weekRange = m.group().split("-");
+            int start = Integer.parseInt(weekRange[0]);
+            int end = Integer.parseInt(weekRange[1]);
+            if (start < 1 || end > 13) {
+                throw new ParseException(MESSAGE_INVALID_WEEK_RANGE);
+            }
+            for (int i = start; i <= end; i++) {
+                listOfWeeks.add(new Week(i));
+            }
+            return listOfWeeks;
+        }
+
+        // default - assume user input of list of weeks
         String[] weekNumbers = weeks.split(",");
 
         for (String weekNumber : weekNumbers) {

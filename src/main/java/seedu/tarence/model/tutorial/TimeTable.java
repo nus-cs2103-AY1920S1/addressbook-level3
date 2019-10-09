@@ -14,6 +14,9 @@ import java.util.Set;
  * values are validated, immutable.
  */
 public class TimeTable {
+    // By default, tutorials run from weeks 3-13
+    public static final String DEFAULT_WEEKS = "3-13";
+
     private final Duration duration;
     private final DayOfWeek day;
     private final LocalTime startTime;

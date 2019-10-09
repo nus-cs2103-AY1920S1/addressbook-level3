@@ -86,7 +86,7 @@ class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Person> getFilteredStudentList() {
+    public ObservableList<Student> getFilteredStudentList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -106,7 +106,7 @@ class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredStudentList(Predicate<Person> predicate) {
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -146,6 +146,9 @@ class ModelStub implements Model {
     public void deleteModule(Module module) {}
 
     @Override
+    public void deleteTutorialsFromModule(Module module) {}
+
+    @Override
     public boolean hasTutorial(Tutorial tutorial) {
         // TODO: Implement test for hasTutorial
         return false;
@@ -160,6 +163,9 @@ class ModelStub implements Model {
     public void deleteTutorial(Tutorial tutorial) {
         // TODO: Implement test for deleteTutorial
     }
+
+    @Override
+    public void deleteStudentsFromTutorial(Tutorial tutorial) {}
 
     @Override
     public boolean hasModuleOfCode(ModCode modCode) {
@@ -192,4 +198,15 @@ class ModelStub implements Model {
     public void setAttendance(Tutorial tutorial, Week week, Student student) {
         // TODO: implement
     }
+
+    @Override
+    public void storePendingCommand(Command command) {};
+
+    @Override
+    public Command getPendingCommand() {
+        return null;
+    }
+
+    @Override
+    public boolean hasPendingCommand() { return false; }
 }

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
+import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
@@ -28,8 +29,7 @@ public class ModelManager implements Model {
     private final Application application;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    // TODO: FilteredList<Student>?
-    private final FilteredList<Person> filteredStudents;
+    private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Tutorial> filteredTutorials;
 
@@ -135,7 +135,7 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student) {
         application.addStudent(student);
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
@@ -164,6 +164,12 @@ public class ModelManager implements Model {
     public void deleteModule(Module module) {
         requireNonNull(module);
         application.removeModule(module);
+    }
+
+    @Override
+    public void deleteTutorialsFromModule(Module module) {
+        requireNonNull(module);
+        application.removeTutorialsFromModule(module);
     }
 
     @Override
@@ -217,6 +223,11 @@ public class ModelManager implements Model {
         application.setAttendance(tutorial, week, student);
     }
 
+    @Override
+    public void deleteStudentsFromTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        application.removeStudentsFromTutorial(tutorial);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -233,7 +244,7 @@ public class ModelManager implements Model {
      * the internal list of {@code versionedApplication}
      */
     @Override
-    public ObservableList<Person> getFilteredStudentList() {
+    public ObservableList<Student> getFilteredStudentList() {
         return filteredStudents;
     }
 
@@ -262,7 +273,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredStudentList(Predicate<Person> predicate) {
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
     }
@@ -277,6 +288,22 @@ public class ModelManager implements Model {
     public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
         requireNonNull(predicate);
         filteredTutorials.setPredicate(predicate);
+    }
+
+    @Override
+    public void storePendingCommand(Command command) {
+        requireNonNull(command);
+        application.storePendingCommand(command);
+    }
+
+    @Override
+    public Command getPendingCommand() {
+        return application.retrievePendingCommand();
+    }
+
+    @Override
+    public boolean hasPendingCommand() {
+        return application.hasPendingCommand();
     }
 
     @Override

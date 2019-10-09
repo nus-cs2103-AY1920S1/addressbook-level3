@@ -10,6 +10,7 @@ import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -36,7 +37,7 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered list of students */
-    ObservableList<Person> getFilteredStudentList();
+    ObservableList<Student> getFilteredStudentList();
 
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();

@@ -94,6 +94,7 @@ public class LogicManagerTest {
         Module validModule = new ModuleBuilder().withModCode(VALID_MODULE_AMY).build();
         Tutorial validTutorial = new TutorialBuilder().withTutName(VALID_TUTORIAL_NAME_AMY)
                 .withModCode(VALID_MODULE_AMY).build();
+        validModule.addTutorial(validTutorial);
         expectedModel.addModule(validModule);
         model.addModule(validModule);
         expectedModel.addTutorial(validTutorial);

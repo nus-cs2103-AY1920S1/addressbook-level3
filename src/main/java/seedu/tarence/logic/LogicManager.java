@@ -9,6 +9,8 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.CommandResult;
+import seedu.tarence.logic.commands.ConfirmNoCommand;
+import seedu.tarence.logic.commands.ConfirmYesCommand;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -16,6 +18,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.storage.Storage;
 
@@ -42,6 +45,9 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = applicationParser.parseCommand(commandText);
+        if (!(command instanceof ConfirmYesCommand) && !(command instanceof ConfirmNoCommand)) {
+            model.getPendingCommand(); // clear any pending commands if user has entered a different command
+        }
         commandResult = command.execute(model);
 
         try {
@@ -64,7 +70,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredStudentList() {
+    public ObservableList<Student> getFilteredStudentList() {
         return model.getFilteredStudentList();
     }
 

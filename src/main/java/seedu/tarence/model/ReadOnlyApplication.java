@@ -3,6 +3,7 @@ package seedu.tarence.model;
 import javafx.collections.ObservableList;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -20,7 +21,7 @@ public interface ReadOnlyApplication {
      * Returns an unmodifiable view of the students list.
      * This list will not contain any duplicate students.
      */
-    ObservableList<Person> getStudentList();
+    ObservableList<Student> getStudentList();
 
     /**
      * Returns an unmodifiable view of the modules list.
