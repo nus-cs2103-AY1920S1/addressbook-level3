@@ -68,9 +68,8 @@ public class ContainsKeywordsPredicateTest {
         predicate = new ContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(testPerson));
 
-        // keyword for phone number must be at least 3 character long
-        predicate = new ContainsKeywordsPredicate(Arrays.asList("14"));
-        assertFalse(predicate.test(testPerson));
+        predicate = new ContainsKeywordsPredicate(Arrays.asList("23"));
+        assertTrue(predicate.test(testPerson));
 
         // Keywords match email and address, but does not match id, name or phone
         predicate = new ContainsKeywordsPredicate(Arrays.asList("+14598A", "alice@email.com", "Main", "Street"));
@@ -138,9 +137,8 @@ public class ContainsKeywordsPredicateTest {
         predicate = new ContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withPhone("12345").build()));
 
-        // keyword for phone number must be at least 4 character long
         predicate = new ContainsKeywordsPredicate(Arrays.asList("123"));
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345").build()));
+        assertTrue(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345").build()));
 
         // Keywords match email and address, but does not match id, name or phone
         predicate = new ContainsKeywordsPredicate(Arrays.asList("12-45", "alice@email.com", "Main", "Street"));

@@ -49,7 +49,7 @@ public class ParserUtil {
      */
     public static StaffReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
         requireNonNull(staffRefId);
-        String trimmedRefId = staffRefId.trim();
+        String trimmedRefId = staffRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
         } else if (!StaffReferenceId.isValidStaffId(trimmedRefId)) {
@@ -66,7 +66,7 @@ public class ParserUtil {
      */
     public static PatientReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
         requireNonNull(patientRefId);
-        String trimmedRefId = patientRefId.trim();
+        String trimmedRefId = patientRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
         } else if (!PatientReferenceId.isValidPatientId(trimmedRefId)) {

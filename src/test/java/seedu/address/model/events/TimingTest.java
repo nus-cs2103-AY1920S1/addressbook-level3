@@ -1,5 +1,6 @@
 package seedu.address.model.events;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -109,6 +110,31 @@ class TimingTest {
         assertTrue(sampleEvent5.conflictsWith(sampleEvent4));
         assertFalse(sampleEvent5.conflictsWith(sampleEvent5));
 
+    }
+
+    @Test
+    void test_timing_compareTo() {
+        assertEquals(0, sampleEvent1.compareTo(sampleEvent1));
+        assertEquals(0, sampleEvent1.compareTo(sampleEvent2));
+        assertEquals(-1, sampleEvent1.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent1.compareTo(sampleEvent4));
+
+        assertEquals(0, sampleEvent2.compareTo(sampleEvent1));
+        assertEquals(0, sampleEvent2.compareTo(sampleEvent2));
+        assertEquals(-1, sampleEvent2.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent2.compareTo(sampleEvent4));
+
+        assertEquals(1, sampleEvent3.compareTo(sampleEvent1));
+        assertEquals(1, sampleEvent3.compareTo(sampleEvent2));
+        assertEquals(0, sampleEvent3.compareTo(sampleEvent3));
+        assertEquals(-1, sampleEvent3.compareTo(sampleEvent4));
+
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent1));
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent2));
+        assertEquals(1, sampleEvent4.compareTo(sampleEvent3));
+        assertEquals(0, sampleEvent4.compareTo(sampleEvent4));
+
+        assertThrows(NullPointerException.class, () -> sampleEvent1.compareTo(null));
     }
 
     @Test
