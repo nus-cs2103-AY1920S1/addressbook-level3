@@ -1,6 +1,6 @@
 package seedu.address.model.day;
 
-import seedu.address.commons.core.time.DurationInHalfHours;
+import seedu.address.commons.core.time.DurationInHalfHour;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.day.exceptions.ActivityNotFoundInDayException;
 import seedu.address.model.day.exceptions.TimeOutOfBoundsException;
@@ -21,7 +21,7 @@ public class Day {
         }
     }
 
-    public void scheduleActivity(ActivityStub activity, Index firstHalfHourIndex, DurationInHalfHours duration)
+    public void scheduleActivity(ActivityStub activity, Index firstHalfHourIndex, DurationInHalfHour duration)
             throws TimeSlotOccupiedException, TimeOutOfBoundsException {
         Index lastHalfHourIndex = Index.fromZeroBased(
                 firstHalfHourIndex.getZeroBased() + duration.getNumberOfHalfHour() - 1

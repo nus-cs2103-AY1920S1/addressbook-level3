@@ -1,9 +1,9 @@
 package seedu.address.commons.core.time;
 
-public class DurationInHalfHours {
+public class DurationInHalfHour {
     private final int numberOfHalfHour;
 
-    public DurationInHalfHours(int numberOfHalfHour) {
+    public DurationInHalfHour(int numberOfHalfHour) {
         this.numberOfHalfHour = numberOfHalfHour;
     }
 
