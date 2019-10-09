@@ -81,7 +81,7 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addAliceCommandCopy));
 
         //same question different category
-        aliceCopy = new FlashCardBuilder(alice).withTags("1234123").build();
+        aliceCopy = new FlashCardBuilder(alice).withCatgeories("1234123").build();
         addAliceCommandCopy = new AddCommand(aliceCopy);
         assertFalse(addAliceCommand.equals(addAliceCommandCopy));
 
