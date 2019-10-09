@@ -1,10 +1,14 @@
 package io.xpire.model.item;
 
+import static java.util.Objects.requireNonNull;
+
 import io.xpire.commons.util.AppUtil;
 import io.xpire.commons.util.StringUtil;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents the quantity of an item.
+ * Guarantees: immutable and valid in {@link #isValidQuantity(String test)}.
+ */
 public class Quantity {
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity should be a positive integer and should not be blank";
@@ -34,6 +38,7 @@ public class Quantity {
         return "" + this.quantity;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;

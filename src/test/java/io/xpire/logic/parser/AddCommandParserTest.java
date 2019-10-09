@@ -37,7 +37,7 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
-                + "|" + VALID_EXPIRY_DATE_APPLE +  "|" + VALID_QUANTITY_APPLE + "|" + VALID_TAG_FRUIT,
+                + "|" + VALID_EXPIRY_DATE_APPLE + "|" + VALID_QUANTITY_APPLE + "|" + VALID_TAG_FRUIT,
                 new AddCommand(expectedItem));
 
         CommandParserTestUtil.assertParseSuccess(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
