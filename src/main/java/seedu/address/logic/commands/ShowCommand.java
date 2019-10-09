@@ -30,15 +30,15 @@ public class ShowCommand extends Command {
             break;
         case "E":
             this.targetList = "event";
-             break;
+            break;
         case "R":
-             this.targetList = "reminder";
-             break;
+            this.targetList = "reminder";
+            break;
         case "C":
-             this.targetList = "event";
-             break;
+            this.targetList = "event";
+            break;
         default:
-             this.targetList = null;
+            this.targetList = null;
         }
     }
 
