@@ -14,7 +14,7 @@ import seedu.address.model.events.Timing;
 import java.util.Date;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all events in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class AppointmentsCommand extends Command {
@@ -38,7 +38,7 @@ public class AppointmentsCommand extends Command {
         model.updateFilteredEventList(predicate);
         autoMissEvent(model.getFilteredEventList());
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }
 
     private void autoMissEvent(ObservableList<Event> filteredEventList) {
