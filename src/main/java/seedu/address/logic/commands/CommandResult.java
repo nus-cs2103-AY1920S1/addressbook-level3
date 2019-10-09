@@ -20,6 +20,9 @@ public class CommandResult {
     /** The application is prompting a guess. */
     private final boolean promptsGuess;
 
+    /** The application should switch game/app modes. */
+    private boolean switchMode;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -64,6 +67,10 @@ public class CommandResult {
     public boolean isPromptingGuess() {
         return promptsGuess;
     }
+
+    public boolean getSwitchMode() {return switchMode;};
+
+    public void setSwitchMode() {switchMode = true;}
 
     @Override
     public boolean equals(Object other) {
