@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ListBodyCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFridgeCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
 
 public class ListCommandParserTest {
@@ -18,7 +19,7 @@ public class ListCommandParserTest {
     public void parse_validArgs_returnsListCommand() {
         assertParseSuccess(parser, " -b", new ListBodyCommand());
         assertParseSuccess(parser, " -w", new ListWorkerCommand());
-        //assertParseSuccess(parser, " -f", new ListFridgeCommand());
+        assertParseSuccess(parser, " -f", new ListFridgeCommand());
     }
 
     @Test

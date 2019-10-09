@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import seedu.address.logic.commands.ListBodyCommand;
 import seedu.address.logic.commands.ListCommand;
 //import seedu.address.logic.commands.ListFridgeCommand;
+import seedu.address.logic.commands.ListFridgeCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -30,8 +31,8 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListWorkerCommand();
         case "b":
             return new ListBodyCommand();
-        //case "f":
-            //return new ListFridgeCommand();
+        case "f":
+            return new ListFridgeCommand();
         default:
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));

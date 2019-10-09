@@ -10,6 +10,7 @@ import seedu.address.model.Model;
  * Lists all bodies in Mortago to the manager.
  */
 public class ListBodyCommand extends ListCommand {
+
     public static final String MESSAGE_SUCCESS = "Listed all bodies";
 
     @Override

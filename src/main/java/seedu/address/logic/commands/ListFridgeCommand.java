@@ -10,7 +10,8 @@ import seedu.address.model.Model;
  * Lists all fridges in Mortago to the manager.
  */
 public class ListFridgeCommand extends ListCommand {
-    private static final String MESSAGE_SUCCESS = "Listed all fridges";
+
+    public static final String MESSAGE_SUCCESS = "Listed all fridges";
 
     @Override
     public CommandResult execute(Model model) {
