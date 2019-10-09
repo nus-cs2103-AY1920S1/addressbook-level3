@@ -1,7 +1,7 @@
 package seedu.address.model.day.time;
 
 /**
- * Represents the duration in units of thirty minutes.
+ * Represents the duration with each unit representing thirty minutes.
  */
 public class DurationInHalfHour {
     private final int numberOfHalfHour;

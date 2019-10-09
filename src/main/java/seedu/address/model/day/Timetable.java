@@ -4,7 +4,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.day.exceptions.TimeSlotOccupiedException;
+import seedu.address.model.day.exceptions.TimeSlotUnavailableException;
 import seedu.address.model.day.time.TimeInHalfHour;
 
 /**
@@ -13,40 +13,38 @@ import seedu.address.model.day.time.TimeInHalfHour;
  */
 public class Timetable {
     private static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
-    private HalfHour[] timeSlots;
+    private TimeSlot[] timetable = new TimeSlot[NUMBER_OF_HALF_HOUR_IN_A_DAY];
 
     public Timetable() {
-        timeSlots = new HalfHour[48];
         for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            timeSlots[i] = new HalfHour();
+            timetable[i] = new TimeSlot();
         }
     }
 
-    public Timetable(List<ActivityInTimeRange> activities) throws TimeSlotOccupiedException {
-        timeSlots = new HalfHour[48];
-        for (ActivityInTimeRange a : activities) {
+    public Timetable(List<ActivityWithTime> activities) throws TimeSlotUnavailableException {
+        for (ActivityWithTime a : activities) {
             Activity activity = a.getActivity();
             Index startIndex = convertTimeToIndex(a.getTime());
             Index endIndex = Index.fromZeroBased(
-                    startIndex.getZeroBased() + a.getDuration().getNumberOfHalfHour() - 1
+                    startIndex.getZeroBased() + a.getDuration().getNumberOfHalfHour()
             );
             addActivityToIndexRange(activity, startIndex, endIndex);
         }
 
         // fill up remaining time slots with empty half hours
         for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            if (timeSlots[i] == null) {
-                timeSlots[i] = new HalfHour();
+            if (timetable[i] == null) {
+                timetable[i] = new TimeSlot();
             }
         }
     }
 
     public Activity getActivityAtIndex(Index index) {
-        return timeSlots[index.getZeroBased()].getActivity();
+        return timetable[index.getZeroBased()].getActivity();
     }
 
-    public boolean getIsOccupiedAtIndex(Index index) {
-        return timeSlots[index.getZeroBased()].getIsOccupied();
+    public boolean getIsAvailableAtIndex(Index index) {
+        return timetable[index.getZeroBased()].isAvailable();
     }
 
     /**
@@ -56,12 +54,12 @@ public class Timetable {
      * @param end last index to add the activity
      */
     private void addActivityToIndexRange(Activity activity, Index start, Index end)
-            throws TimeSlotOccupiedException {
+            throws TimeSlotUnavailableException {
         for (int i = start.getZeroBased(); i <= end.getZeroBased(); i++) {
-            if (timeSlots[i] != null) {
-                throw new TimeSlotOccupiedException();
+            if (timetable[i] != null) {
+                throw new TimeSlotUnavailableException();
             }
-            timeSlots[i] = new HalfHour(activity);
+            timetable[i] = new TimeSlot(activity);
         }
     }
 

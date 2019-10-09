@@ -3,8 +3,8 @@ package seedu.address.model.day;
 import java.util.List;
 
 /**
- * Represents a Day in the itinerary.
- * Guarantees: Time-slots in timetable are not null, field values are validated, immutable.
+ * Represents a Day in the travel planner's itinerary.
+ * Guarantees: timetable is present and not null, field values are validated, immutable.
  */
 public class Day {
     private final Timetable timetable;
@@ -13,7 +13,7 @@ public class Day {
         this.timetable = new Timetable();
     }
 
-    public Day(List<ActivityInTimeRange> activitiesInDay) {
-        this.timetable = new Timetable(activitiesInDay);
+    public Day(List<ActivityWithTime> activitiesForDay) {
+        this.timetable = new Timetable(activitiesForDay);
     }
 }
