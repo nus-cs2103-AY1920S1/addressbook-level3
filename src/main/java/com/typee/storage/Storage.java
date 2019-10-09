@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, TypeeStorage, UserPrefsStorage  {
+public interface Storage extends AddressBookStorage, TypeeStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
