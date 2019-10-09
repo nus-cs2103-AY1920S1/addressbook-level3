@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalFood.CARL;
+import static seedu.address.testutil.TypicalFood.ELLE;
+import static seedu.address.testutil.TypicalFood.FIONA;
 import static seedu.address.testutil.TypicalFood.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -59,6 +62,16 @@ public class FindCommandTest {
         expectedModel.updateFilteredFoodList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredFoodList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multiplefoodsFound() {
+        String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 3);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredFoodList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredFoodList());
     }
 
     /**
