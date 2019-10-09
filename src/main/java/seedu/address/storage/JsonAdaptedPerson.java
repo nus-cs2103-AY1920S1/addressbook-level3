@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Type;
@@ -17,21 +19,27 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
-    private final String name;
-    private final String phone;
-    private final String nric;
-    private final String type;
+    protected final String name;
+    protected final String phone;
+    protected final String nric;
+    protected final String type;
+
+    //Data fields of Patient
+    protected final String age;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("type") String type, @JsonProperty("nric") String nric,
-                             @JsonProperty("name") String name, @JsonProperty("phone") String phone) {
+            @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+            @JsonProperty("age") String age) {
         this.type = type;
         this.nric = nric;
         this.name = name;
         this.phone = phone;
+
+        this.age = age;
     }
 
     /**
@@ -42,6 +50,12 @@ class JsonAdaptedPerson {
         nric = source.getNric().value;
         name = source.getName().fullName;
         phone = source.getPhone().value;
+
+        if (source instanceof Patient) {
+            age = ((Patient) source).getAge().value;
+        } else {
+            age = "";
+        }
     }
 
     /**
@@ -56,6 +70,7 @@ class JsonAdaptedPerson {
         if (!Type.isValidType(type)) {
             throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
         }
+
         final Type modelType = new Type(type);
 
         if (nric == null) {
@@ -81,6 +96,20 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
+
+        //if it is a patient
+        if (modelType.isPatient()) {
+            if (age == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
+            }
+
+            if (!Age.isValidAge(age)) {
+                throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+            }
+            final Age modelAge = new Age(age);
+
+            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge);
+        }
 
         return new Person(modelType, modelNric, modelName, modelPhone);
     }

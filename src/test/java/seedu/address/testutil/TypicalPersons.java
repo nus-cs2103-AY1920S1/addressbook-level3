@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,9 +26,9 @@ public class TypicalPersons {
             .withName("Alice Pauline").withPhone("94351253").build();
     public static final Person BENSON = new PersonBuilder().withType("doctor").withNric("T5231426Q")
             .withName("Benson Meier").withPhone("98765432").build();
-    public static final Person CARL = new PersonBuilder().withType("patient").withNric("G5642431P")
+    public static final Patient CARL = new PatientBuilder().withAge("22").withNric("G5642431P")
             .withName("Carl Kurz").withPhone("95352563").build();
-    public static final Person DANIEL = new PersonBuilder().withType("patient").withNric("F6423467F")
+    public static final Patient DANIEL = new PatientBuilder().withAge("34").withNric("F6423467F")
             .withName("Daniel Meier").withPhone("87652533").build();
     public static final Person ELLE = new PersonBuilder().withType("donor").withNric("S9374923S")
             .withName("Elle Meyer").withPhone("9482224").build();
@@ -41,6 +42,9 @@ public class TypicalPersons {
             .withPhone("8482424").build();
     public static final Person IDA = new PersonBuilder().withType("doctor").withNric("T1125125L")
             .withName("Ida Mueller").withPhone("8482131").build();
+
+    //Sample Patients
+    public static final Patient IRENE = new PatientBuilder().withAge("21").withName("Irene").build();
 
     // Manually added - person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withType(VALID_TYPE_AMY).withNric(VALID_NRIC_AMY)

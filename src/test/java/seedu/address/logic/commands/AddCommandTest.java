@@ -20,7 +20,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -42,10 +44,30 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_patientAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Patient validPatient = new PatientBuilder().withNric("S1234567A").build();
+
+        CommandResult commandResultPatient = new AddCommand(validPatient).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPatient), commandResultPatient.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPatient), modelStub.personsAdded);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicatePatient_throwsCommandException() {
+        Patient validPatient = new PatientBuilder().build();
+        AddCommand addCommand = new AddCommand(validPatient);
+        ModelStub modelStub = new ModelStubWithPerson(validPatient);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }

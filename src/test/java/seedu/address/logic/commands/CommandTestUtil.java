@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -27,12 +28,19 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_IRENE = "Irene";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+
+    public static final String VALID_PHONE_IRENE = "85355255";
     public static final String VALID_NRIC_AMY = "S1111111A";
     public static final String VALID_NRIC_BOB = "G2222222B";
+    public static final String VALID_NRIC_IRENE = "S1111111A";
     public static final String VALID_TYPE_AMY = "doctor";
     public static final String VALID_TYPE_BOB = "patient";
+    public static final String VALID_TYPE_IRENE = "patient";
+    public static final String VALID_AGE_IRENE = "21";
+    public static final String VALID_AGE_BOB = "21";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -42,12 +50,19 @@ public class CommandTestUtil {
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
     public static final String TYPE_DESC_AMY = " " + PREFIX_TYPE + VALID_TYPE_AMY;
     public static final String TYPE_DESC_BOB = " " + PREFIX_TYPE + VALID_TYPE_BOB;
+    public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
+    public static final String NAME_DESC_IRENE = " " + PREFIX_NAME + VALID_NAME_IRENE;
+    public static final String PHONE_DESC_IRENE = " " + PREFIX_PHONE + VALID_PHONE_IRENE;
+    public static final String NRIC_DESC_IRENE = " " + PREFIX_NRIC + VALID_NRIC_IRENE;
+    public static final String TYPE_DESC_IRENE = " " + PREFIX_TYPE + VALID_TYPE_IRENE;
+    public static final String AGE_DESC_IRENE = " " + PREFIX_AGE + VALID_AGE_IRENE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "G123A"; // need exactly 7 numbers in nrics
     public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "student"; // only allow 'patient','donor',
     // 'doctor'
+    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "-9";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

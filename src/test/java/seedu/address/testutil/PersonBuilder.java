@@ -16,10 +16,10 @@ public class PersonBuilder {
     public static final String DEFAULT_NRIC = "S1111111A";
     public static final String DEFAULT_TYPE = "doctor";
 
-    private Name name;
-    private Phone phone;
-    private Nric nric;
-    private Type type;
+    protected Name name;
+    protected Phone phone;
+    protected Nric nric;
+    protected Type type;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);

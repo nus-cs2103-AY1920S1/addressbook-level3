@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Patient}.
  */
-public class PersonCard extends UiPart<Region> {
+public class PatientCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PatientListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Patient patient;
 
     @FXML
     private HBox cardPane;
@@ -35,15 +35,18 @@ public class PersonCard extends UiPart<Region> {
     private Label nric;
     @FXML
     private Label type;
+    @FXML
+    private Label age;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.patient = patient;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText("Phone Number: " + person.getPhone().value);
-        nric.setText(person.getNric().value);
-        type.setText(person.getType().value);
+        name.setText(patient.getName().fullName);
+        phone.setText("Phone Number: " + patient.getPhone().value);
+        nric.setText(patient.getNric().value);
+        type.setText(patient.getType().value);
+        age.setText("Age: " + patient.getAge().value);
     }
 
     @Override
@@ -54,13 +57,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PatientCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PatientCard card = (PatientCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && patient.equals(card.patient);
     }
 }
