@@ -2,17 +2,19 @@ package seedu.address.model.day;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.model.activity.Activity;
+
 /**
  * Represents the time slots in a {@code Timetable}.
  */
 public class HalfHour {
-    private ActivityStub activityAtThisTime;
+    private Activity activityAtThisTime;
 
     public HalfHour() {
         activityAtThisTime = null;
     }
 
-    public HalfHour(ActivityStub activity) {
+    public HalfHour(Activity activity) {
         this.activityAtThisTime = activity;
     }
 
@@ -20,7 +22,7 @@ public class HalfHour {
         return activityAtThisTime != null;
     }
 
-    public ActivityStub getActivity() {
+    public Activity getActivity() {
         requireNonNull(activityAtThisTime);
         return activityAtThisTime;
     }

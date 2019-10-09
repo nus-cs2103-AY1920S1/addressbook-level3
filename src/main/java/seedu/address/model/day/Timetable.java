@@ -3,6 +3,7 @@ package seedu.address.model.day;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.day.exceptions.TimeSlotOccupiedException;
 import seedu.address.model.day.time.TimeInHalfHour;
 
@@ -24,7 +25,7 @@ public class Timetable {
     public Timetable(List<ActivityInTimeRange> activities) throws TimeSlotOccupiedException {
         timeSlots = new HalfHour[48];
         for (ActivityInTimeRange a : activities) {
-            ActivityStub activity = a.getActivity();
+            Activity activity = a.getActivity();
             Index startIndex = convertTimeToIndex(a.getTime());
             Index endIndex = Index.fromZeroBased(
                     startIndex.getZeroBased() + a.getDuration().getNumberOfHalfHour() - 1
@@ -40,7 +41,7 @@ public class Timetable {
         }
     }
 
-    public ActivityStub getActivityAtIndex(Index index) {
+    public Activity getActivityAtIndex(Index index) {
         return timeSlots[index.getZeroBased()].getActivity();
     }
 
@@ -54,7 +55,7 @@ public class Timetable {
      * @param start first index to add activity
      * @param end last index to add the activity
      */
-    private void addActivityToIndexRange(ActivityStub activity, Index start, Index end)
+    private void addActivityToIndexRange(Activity activity, Index start, Index end)
             throws TimeSlotOccupiedException {
         for (int i = start.getZeroBased(); i <= end.getZeroBased(); i++) {
             if (timeSlots[i] != null) {
