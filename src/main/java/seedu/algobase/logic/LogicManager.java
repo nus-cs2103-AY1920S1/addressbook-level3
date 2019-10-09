@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
@@ -13,6 +12,7 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.AlgoBaseParser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
@@ -63,8 +63,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableIntegerValue getDisplayTabPaneIndex() {
-        return model.getDisplayTabPaneIndex();
+    public GuiState getGuiState() {
+        return model.getGuiState();
     }
 
     @Override

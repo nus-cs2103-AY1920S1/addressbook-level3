@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.plan.Plan;
@@ -49,6 +48,13 @@ public interface Model {
      */
     void setAlgoBaseFilePath(Path algoBaseFilePath);
 
+    //=========== GUI state =============================================================
+
+    /**
+     * Returns the state of the GUI.
+     */
+    GuiState getGuiState();
+
     //=========== AlgoBase =============================================================
 
     /**
@@ -58,9 +64,6 @@ public interface Model {
 
     /** Returns the AlgoBase */
     ReadOnlyAlgoBase getAlgoBase();
-
-    //=========== GUI state =============================================================
-    ObservableIntegerValue getDisplayTabPaneIndex();
 
     //=========== Problem List =============================================================
 

@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -86,6 +85,12 @@ public class ModelManager implements Model {
         userPrefs.setAlgoBaseFilePath(algoBaseFilePath);
     }
 
+    //=========== GUI state =============================================================
+    @Override
+    public GuiState getGuiState() {
+        return guiState;
+    }
+
     //=========== AlgoBase ================================================================================
 
     @Override
@@ -119,12 +124,6 @@ public class ModelManager implements Model {
     public void setProblem(Problem target, Problem editedProblem) {
         requireAllNonNull(target, editedProblem);
         algoBase.setProblem(target, editedProblem);
-    }
-
-    //=========== GUI state =============================================================
-    @Override
-    public ObservableIntegerValue getDisplayTabPaneIndex() {
-        return guiState.getDisplayTabPaneIndex();
     }
 
     //=========== Problem List =============================================================

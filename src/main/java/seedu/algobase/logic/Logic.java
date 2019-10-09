@@ -2,12 +2,12 @@ package seedu.algobase.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
 
@@ -32,14 +32,14 @@ public interface Logic {
     ReadOnlyAlgoBase getAlgoBase();
 
     /**
+     * Returns the current state of the GUI.
+     */
+    GuiState getGuiState();
+
+    /**
      * Returns an unmodifiable view of the processed list of problems.
      */
     ObservableList<Problem> getProcessedProblemList();
-
-    /**
-     * Returns the current index of the tab pane.
-     */
-    ObservableIntegerValue getDisplayTabPaneIndex();
 
     /**
      * Returns the user prefs' algobase file path.
