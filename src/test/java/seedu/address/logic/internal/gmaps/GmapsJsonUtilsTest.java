@@ -47,3 +47,4 @@ class GmapsJsonUtilsTest {
         assertEquals(GmapsJsonUtils.getStatus(apiResponse), "OK");
     }
 }
+
