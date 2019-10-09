@@ -83,6 +83,8 @@ public interface Model {
 
     void addBudget(Budget budget);
 
+    void setPrimary(Budget budget);
+
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 

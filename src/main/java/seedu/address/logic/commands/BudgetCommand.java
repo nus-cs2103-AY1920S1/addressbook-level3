@@ -45,8 +45,8 @@ public class BudgetCommand extends Command {
         if (model.hasBudget(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
-
         model.addBudget(toAdd);
+        model.setPrimary(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

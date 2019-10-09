@@ -124,6 +124,11 @@ public class ModelManager implements Model {
         addressBook.addBudget(budget);
     }
 
+    @Override
+    public void setPrimary(Budget budget) {
+        addressBook.setPrimary(budget);
+    }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**

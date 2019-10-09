@@ -62,6 +62,29 @@ public class UniqueBudgetList implements Iterable<Budget> {
         internalList.setAll(budgets);
     }
 
+    public void setPrimary(Budget budget) {
+        requireAllNonNull(budget);
+        for (int i = 0; i < internalList.size(); i++) {
+            Budget b = internalList.get(i);
+            if (b.isPrimary() == true) {
+                b.setNotPrimary();
+            }
+        }
+        budget.setPrimary();
+    }
+
+    public Budget getPrimaryBudget() {
+        Budget primaryBudget = null;
+        for (int i = 0; i < internalList.size(); i++) {
+            Budget b = internalList.get(i);
+            if (b.isPrimary() == true) {
+                primaryBudget = b;
+                break;
+            }
+        }
+        return primaryBudget;
+    }
+
     public ObservableList<Budget> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }

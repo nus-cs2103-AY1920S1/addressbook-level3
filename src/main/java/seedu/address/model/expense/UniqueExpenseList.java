@@ -98,6 +98,10 @@ public class UniqueExpenseList implements Iterable<Expense> {
         internalList.setAll(expenses);
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

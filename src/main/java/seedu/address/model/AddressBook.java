@@ -56,6 +56,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.budgets.setBudgets(budgets);
     }
 
+    public void setPrimary(Budget budget) {
+        requireNonNull(budget);
+        budgets.setPrimary(budget);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -83,6 +88,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addExpense(Expense p) {
         expenses.add(p);
+        Budget primaryBudget = budgets.getPrimaryBudget();
+        if (primaryBudget == null) {
+            return;
+        }
+        boolean expenseDateWithinBudget = p.getDate().isBefore(primaryBudget.getEndDate())
+                && (p.getDate().isAfter(primaryBudget.getStartDate())
+                    || p.getDate().isEqual(primaryBudget.getStartDate()));
+        if (expenseDateWithinBudget) {
+            primaryBudget.addExpense(p);
+        }
     }
 
     /**

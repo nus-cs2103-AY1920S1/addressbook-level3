@@ -150,6 +150,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setPrimary(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Expense> getFilteredExpenseList() {
             throw new AssertionError("This method should not be called.");
         }
