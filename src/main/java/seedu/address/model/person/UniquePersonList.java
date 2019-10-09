@@ -155,7 +155,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns a person with the same identity as {@code ReferenceId} who exists in the address book, otherwise null.
      */
-    public Person find(ReferenceId id) {
+    public Person getPerson(ReferenceId id) {
         if (id == null) {
             return null;
         }

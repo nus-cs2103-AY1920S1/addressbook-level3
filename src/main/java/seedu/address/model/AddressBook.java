@@ -114,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Returns a person with the same identity as {@code ReferenceId} who exists in the address book, otherwise null.
      */
     public Person resolve(ReferenceId id) {
-        return persons.find(id);
+        return persons.getPerson(id);
     }
 
     //// util methods

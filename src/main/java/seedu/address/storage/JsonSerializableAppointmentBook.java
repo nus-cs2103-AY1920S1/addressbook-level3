@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.AppointmentBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.events.Event;
-import seedu.address.storage.JsonAdaptedEvent;
 
 /**
  * An Immutable AppointmentBook that is serializable to JSON format.
