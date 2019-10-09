@@ -78,6 +78,12 @@ public class MainApp extends Application {
         seedu.address.reimbursement.model.ModelManager reimbursementManager =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
 
+        //For Inventory Storage and Manager
+        seedu.address.inventory.storage.StorageManager inventoryStorage =
+                new seedu.address.inventory.storage.StorageManager("data/inventoryInformation.txt");
+        seedu.address.inventory.model.ModelManager inventoryManager =
+                new seedu.address.inventory.model.ModelManager(inventoryStorage);
+
         //All logic
         seedu.address.transaction.logic.LogicManager transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionManager, transactionStorage, model, storage,
@@ -85,6 +91,7 @@ public class MainApp extends Application {
         seedu.address.reimbursement.logic.LogicManager reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementManager, reimbursementStorage,
                 transactionManager, transactionStorage, model);
+        seedu.address.inventory.logic.LogicManager
 
         logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
 

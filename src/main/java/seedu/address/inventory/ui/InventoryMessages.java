@@ -19,6 +19,9 @@ public class InventoryMessages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "Here are the results of items that match" +
             " any of the keywords.";
 
+    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n" +
+            "d/description c/category q/quantity c/cost p/price";
+
     private static final Logger logger = LogsCenter.getLogger(InventoryMessages.class);
 
     public static final String SORTED_BY_NAME = "The items are now sorted by name!";

@@ -3,8 +3,7 @@ package seedu.address.inventory.logic;
 import seedu.address.inventory.commands.AddCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.model.Item;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.inventory.ui.InventoryUi;
+import seedu.address.inventory.ui.InventoryMessages;
 
 import java.util.stream.Stream;
 
@@ -12,13 +11,13 @@ import static seedu.address.inventory.logic.CliSyntax.*;
 
 public class AddCommandParser {
 
-    public static AddCommand parse(String args, int transactionListSize) throws ParseException {
+    public static AddCommand parse(String args, int inventoryListSize) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY, PREFIX_COST, PREFIX_PRICE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY, PREFIX_COST, PREFIX_PRICE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(InventoryUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(InventoryMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();
@@ -29,7 +28,7 @@ public class AddCommandParser {
         int quantity = Integer.parseInt(quantityString);
         double cost = Double.parseDouble(costString);
         double price = Double.parseDouble(priceString);
-        Item item = new Item(description, category, quantity, cost, price);
+        Item item = new Item(description, category, quantity, cost, price, inventoryListSize + 1);
         AddCommand addCommand = new AddCommand(item);
         return addCommand;
     }

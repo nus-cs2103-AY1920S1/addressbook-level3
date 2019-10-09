@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
+    private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
 
     // Independent Ui parts residing in this Ui container
@@ -86,6 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                      seedu.address.inventory.logic.Logic inventoryLogic,
                       seedu.address.person.logic.Logic personLogic) {
         super(FXML, primaryStage);
 
@@ -94,6 +96,7 @@ public class MainWindow extends UiPart<Stage> {
 
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
+        this.inventoryLogic = inventoryLogic;
         this.personLogic = personLogic;
         //add all our logicManager
 
@@ -150,7 +153,7 @@ public class MainWindow extends UiPart<Stage> {
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
-        inventory = new Inventory();
+        inventory = new Inventory(inventoryLogic);
         inventoryPlaceholder.getChildren().add(inventory.getRoot());
 
         reimbursements = new Reimbursements();
@@ -244,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
             inventoryPlaceholder.getChildren().removeAll();
-            inventoryPlaceholder.getChildren().add(new Inventory().getRoot());
+            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
 
             reimbursementsPlaceholder.getChildren().removeAll();
             reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
