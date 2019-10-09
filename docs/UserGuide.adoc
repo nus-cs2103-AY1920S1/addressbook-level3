@@ -1,3 +1,11 @@
+// Update the User Guide:
+// 1. Include the new feature.
+// 2. If it is a new command, include the feature in the command summary at the end.
+//    Match the order of command summary with the order of the respective features.
+// 3. If it is not a new command, ensure that the format of the feature in the command summary remain correct.
+// 4. Things have to be included in the feature: Function + Format.
+// 5. Things may be included in the feature: remark, example, tip.
+
 = Xpire - User Guide
 :site-section: UserGuide
 :toc:
@@ -251,23 +259,23 @@ There is no need to save manually.
 
 == Command Summary
 
+* *Help* : `help`
 * *Add* `add|<item name>|<expiry date>|[<tag>]...` +
 e.g. `add|durian|30/9/2019`
-* *Clear* : `clear`
-* *Delete* : `delete|<index>` +
-e.g. `delete|3`
-* *List* : `list`
+* *View* : `view`
+* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
+e.g. `set reminder|1|7`
+* *Check* : `check[|<days>]` +
+e.g. `check|20`
 * *Sort* : `sort|<key>`+
 e.g. `sort|date`
 //* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 //e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
+* *Delete* : `delete|<index>` +
+e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
-* *View* : `view`
-* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
-e.g. `set reminder|1|7`
-* *Check* : `check[|<days>]` +
-e.g. `check|20`
-* *Help* : `help`
+* *Clear* : `clear`
+* *Exit* : `exit`
 
