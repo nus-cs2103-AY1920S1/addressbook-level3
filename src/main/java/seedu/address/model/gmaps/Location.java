@@ -12,7 +12,6 @@ public class Location implements Serializable {
 
     private final String locationName;
     private String googleRecognisedLocation = null;
-    private int index;
 
     public Location(String locationName) {
         requireNonNull(locationName);
@@ -41,6 +40,6 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return index + ". " + "Location: " + locationName + ", Google recognised location: " + googleRecognisedLocation;
+        return "Location: " + locationName + ", Google recognised location: " + googleRecognisedLocation;
     }
 }
