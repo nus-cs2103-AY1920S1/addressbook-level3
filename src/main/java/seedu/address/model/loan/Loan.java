@@ -9,7 +9,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.BorrowerId;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Loan.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Loan {

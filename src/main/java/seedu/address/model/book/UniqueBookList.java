@@ -76,8 +76,8 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent book from the list.
+     * The book must exist in the list.
      */
     public void remove(Book toRemove) {
         requireNonNull(toRemove);
@@ -129,7 +129,7 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code books} contains only unique books.
      */
     private boolean booksAreUnique(List<Book> books) {
         for (int i = 0; i < books.size() - 1; i++) {

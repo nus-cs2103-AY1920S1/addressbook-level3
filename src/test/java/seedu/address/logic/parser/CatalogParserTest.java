@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
@@ -15,7 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteByIndexCommand;
+import seedu.address.logic.commands.DeleteBySerialNumberCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -25,6 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Catalog;
 import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
@@ -49,10 +53,18 @@ public class CatalogParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_BOOK), command);
+    public void parseCommand_deleteByIndex() throws Exception {
+        DeleteByIndexCommand command = (DeleteByIndexCommand) parser.parseCommand(
+                DeleteByIndexCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased());
+        assertEquals(new DeleteByIndexCommand(INDEX_FIRST_BOOK), command);
+    }
+
+    @Test
+    public void parseCommand_deleteBySerialNumber() throws Exception {
+        DeleteBySerialNumberCommand command = (DeleteBySerialNumberCommand) parser.parseCommand(
+                DeleteBySerialNumberCommand.COMMAND_WORD
+                        + " " + PREFIX_SERIAL_NUMBER + VALID_SERIAL_NUMBER_BOOK_1);
+        assertEquals(new DeleteBySerialNumberCommand(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1)), command);
     }
 
     @Test
