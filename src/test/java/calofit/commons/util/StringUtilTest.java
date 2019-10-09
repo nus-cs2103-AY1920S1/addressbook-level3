@@ -2,11 +2,9 @@ package calofit.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static calofit.testutil.Assert.assertThrows;
-
-import java.io.FileNotFoundException;
 
 import calofit.testutil.Assert;
+import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {

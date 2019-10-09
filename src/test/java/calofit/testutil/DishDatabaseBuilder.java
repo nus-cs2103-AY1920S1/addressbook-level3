@@ -1,7 +1,7 @@
 package calofit.testutil;
 
-import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
 
 /**
  * A utility class to help with building {@link DishDatabase} objects.

@@ -1,8 +1,8 @@
 package calofit.model.dish;
 
-import calofit.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
+
+import calofit.commons.util.AppUtil;
 
 /**
  * Represents a Dish's name in the dish database.

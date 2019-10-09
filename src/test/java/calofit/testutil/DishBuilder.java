@@ -4,7 +4,6 @@ import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 import calofit.model.util.SampleDataUtil;
-
 import java.util.HashSet;
 import java.util.Set;
 

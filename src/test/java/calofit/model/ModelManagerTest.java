@@ -1,19 +1,18 @@
 package calofit.model;
 
+import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
+import static org.junit.jupiter.api.Assertions.*;
+
 import calofit.commons.core.GuiSettings;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.NameContainsKeywordsPredicate;
-import calofit.testutil.DishDatabaseBuilder;
 import calofit.testutil.Assert;
+import calofit.testutil.DishDatabaseBuilder;
 import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-
-import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class ModelManagerTest {
 

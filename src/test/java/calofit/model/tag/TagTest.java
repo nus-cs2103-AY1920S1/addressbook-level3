@@ -1,7 +1,5 @@
 package calofit.model.tag;
 
-import static calofit.testutil.Assert.assertThrows;
-
 import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
 

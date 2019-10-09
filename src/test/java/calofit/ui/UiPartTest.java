@@ -1,16 +1,15 @@
 package calofit.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import calofit.MainApp;
 import calofit.testutil.Assert;
+import java.net.URL;
+import java.nio.file.Path;
 import javafx.fxml.FXML;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import java.net.URL;
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UiPartTest {
 

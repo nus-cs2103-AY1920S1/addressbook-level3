@@ -2,20 +2,17 @@ package calofit.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static calofit.testutil.Assert.assertThrows;
 
+import calofit.commons.core.Config;
+import calofit.commons.exceptions.DataConversionException;
+import calofit.testutil.Assert;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
-
-import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import calofit.commons.core.Config;
-import calofit.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 

@@ -1,11 +1,10 @@
 package calofit.model.util;
 
-import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.tag.Tag;
-
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;

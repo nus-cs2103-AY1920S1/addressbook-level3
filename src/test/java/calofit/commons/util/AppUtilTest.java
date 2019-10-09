@@ -1,7 +1,6 @@
 package calofit.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static calofit.testutil.Assert.assertThrows;
 
 import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;

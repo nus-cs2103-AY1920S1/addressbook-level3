@@ -1,17 +1,16 @@
 package calofit.storage;
 
+import static calofit.storage.JsonAdaptedDish.MISSING_FIELD_MESSAGE_FORMAT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import calofit.commons.exceptions.IllegalValueException;
 import calofit.model.dish.Name;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static calofit.storage.JsonAdaptedDish.MISSING_FIELD_MESSAGE_FORMAT;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedDishTest {
     private static final String INVALID_NAME = "R@chel";

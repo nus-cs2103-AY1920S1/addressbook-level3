@@ -2,7 +2,6 @@ package calofit.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static calofit.testutil.Assert.assertThrows;
 
 import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;

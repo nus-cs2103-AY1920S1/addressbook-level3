@@ -1,21 +1,20 @@
 package calofit.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.CliSyntax;
-import calofit.model.dish.DishDatabase;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
 import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.Assert;
 import calofit.testutil.EditDishDescriptorBuilder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Contains helper methods for testing commands.

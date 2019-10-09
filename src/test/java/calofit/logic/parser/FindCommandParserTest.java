@@ -4,12 +4,10 @@ import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static calofit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static calofit.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
 import calofit.logic.commands.FindCommand;
-import org.junit.jupiter.api.Test;
-
 import calofit.model.dish.NameContainsKeywordsPredicate;
+import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
 public class FindCommandParserTest {
 

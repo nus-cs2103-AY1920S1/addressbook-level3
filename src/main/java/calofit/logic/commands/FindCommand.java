@@ -1,10 +1,10 @@
 package calofit.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import calofit.commons.core.Messages;
 import calofit.model.Model;
 import calofit.model.dish.NameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all persons in dish database whose name contains any of the argument keywords.

@@ -1,6 +1,5 @@
 package calofit.model.dish;
 
-import calofit.model.dish.Dish;
 import javafx.collections.ObservableList;
 
 /**

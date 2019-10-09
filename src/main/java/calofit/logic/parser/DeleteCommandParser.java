@@ -2,9 +2,9 @@ package calofit.logic.parser;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import calofit.commons.core.index.Index;
 import calofit.logic.commands.DeleteCommand;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.commons.core.index.Index;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

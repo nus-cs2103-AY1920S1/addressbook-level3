@@ -1,13 +1,12 @@
 package calofit.testutil;
 
-import calofit.model.dish.DishDatabase;
-import calofit.model.dish.Dish;
+import static calofit.logic.commands.CommandTestUtil.*;
 
+import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static calofit.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Dish} objects to be used in tests.

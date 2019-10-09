@@ -1,12 +1,11 @@
 package calofit.model;
 
-import calofit.commons.core.GuiSettings;
+import static java.util.Objects.requireNonNull;
 
+import calofit.commons.core.GuiSettings;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents User's preferences.

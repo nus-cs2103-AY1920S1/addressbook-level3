@@ -1,9 +1,9 @@
 package calofit.commons.core.index;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class IndexTest {
 

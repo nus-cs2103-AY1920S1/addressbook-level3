@@ -1,15 +1,15 @@
 package calofit.logic.parser;
 
+import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import calofit.commons.core.index.Index;
 import calofit.logic.commands.CommandTestUtil;
 import calofit.logic.commands.EditCommand;
+import calofit.model.dish.Name;
+import calofit.model.tag.Tag;
 import calofit.testutil.EditDishDescriptorBuilder;
 import calofit.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
-import calofit.commons.core.index.Index;
-import calofit.model.dish.Name;
-import calofit.model.tag.Tag;
-
-import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class EditCommandParserTest {
 

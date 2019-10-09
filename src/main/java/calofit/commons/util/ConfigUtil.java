@@ -1,11 +1,10 @@
 package calofit.commons.util;
 
+import calofit.commons.core.Config;
+import calofit.commons.exceptions.DataConversionException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-
-import calofit.commons.exceptions.DataConversionException;
-import calofit.commons.core.Config;
 
 /**
  * A class for accessing the Config File.

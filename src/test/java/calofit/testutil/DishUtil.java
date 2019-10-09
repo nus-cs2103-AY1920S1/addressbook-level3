@@ -5,7 +5,6 @@ import calofit.logic.commands.EditCommand;
 import calofit.logic.parser.CliSyntax;
 import calofit.model.dish.Dish;
 import calofit.model.tag.Tag;
-
 import java.util.Set;
 
 /**

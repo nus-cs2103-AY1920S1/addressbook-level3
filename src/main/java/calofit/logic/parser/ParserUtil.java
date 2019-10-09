@@ -1,16 +1,15 @@
 package calofit.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import calofit.commons.core.index.Index;
 import calofit.commons.util.StringUtil;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

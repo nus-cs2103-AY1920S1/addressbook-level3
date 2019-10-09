@@ -1,7 +1,6 @@
 package calofit.model.dish;
 
 import calofit.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
 

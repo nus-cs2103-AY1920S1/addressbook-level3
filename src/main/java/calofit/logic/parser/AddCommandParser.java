@@ -1,17 +1,16 @@
 package calofit.logic.parser;
 
+import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
+import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+
 import calofit.logic.commands.AddCommand;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
-
 import java.util.Set;
 import java.util.stream.Stream;
-
-import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
-import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parses input arguments and creates a new AddCommand object

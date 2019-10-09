@@ -1,12 +1,13 @@
 package calofit.logic.commands;
 
+import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
+import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
+
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 
-import static java.util.Objects.requireNonNull;
-import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
-import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Adds a dish to the dish database.

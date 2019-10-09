@@ -19,13 +19,12 @@ import calofit.model.util.SampleDataUtil;
 import calofit.storage.*;
 import calofit.ui.Ui;
 import calofit.ui.UiManager;
-import javafx.application.Application;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

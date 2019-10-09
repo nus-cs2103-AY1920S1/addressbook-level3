@@ -1,20 +1,19 @@
 package calofit.logic.parser;
 
+import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import calofit.logic.commands.*;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.Dish;
 import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.*;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 public class CommandParserTest {
 

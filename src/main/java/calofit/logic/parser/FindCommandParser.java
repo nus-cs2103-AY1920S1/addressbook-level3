@@ -2,11 +2,10 @@ package calofit.logic.parser;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import calofit.logic.commands.FindCommand;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.NameContainsKeywordsPredicate;
+import java.util.Arrays;
 
 /**
  * Parses input arguments and creates a new FindCommand object

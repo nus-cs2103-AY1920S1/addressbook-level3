@@ -8,9 +8,8 @@ import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
-import javafx.collections.ObservableList;
-
 import java.nio.file.Path;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

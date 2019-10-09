@@ -1,9 +1,9 @@
 package calofit.logic.commands;
 
-import calofit.model.Model;
-
 import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 import static java.util.Objects.requireNonNull;
+
+import calofit.model.Model;
 
 /**
  * Lists all persons in the dish database to the user.

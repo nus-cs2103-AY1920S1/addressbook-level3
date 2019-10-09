@@ -1,10 +1,9 @@
 package calofit.model.meal;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MealLog {
     private List<Meal> mealLog = new ArrayList<>();

@@ -1,18 +1,17 @@
 package calofit.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import calofit.commons.core.GuiSettings;
+import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
-import calofit.model.UserPrefs;
 import calofit.testutil.TypicalDishes;
+import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StorageManagerTest {
 

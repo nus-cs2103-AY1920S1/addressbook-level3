@@ -1,20 +1,19 @@
 package calofit.logic.commands;
 
-import calofit.logic.commands.exceptions.CommandException;
+import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
+import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
+import static java.util.Objects.requireNonNull;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.commons.util.CollectionUtil;
+import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
-
 import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
-import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
-import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
 
 /**
  * Edits the details of an existing dish in the dish database.

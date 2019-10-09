@@ -2,7 +2,6 @@ package calofit.model.meal;
 
 import calofit.model.dish.Dish;
 import calofit.model.util.Timestamp;
-
 import java.util.Objects;
 
 public class Meal implements Comparable<Meal> {

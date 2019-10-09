@@ -2,8 +2,8 @@ package calofit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import calofit.model.dish.DishDatabase;
 import calofit.model.Model;
+import calofit.model.dish.DishDatabase;
 
 /**
  * Clears the dish database.

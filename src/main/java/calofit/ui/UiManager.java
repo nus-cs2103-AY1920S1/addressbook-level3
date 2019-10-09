@@ -1,16 +1,15 @@
 package calofit.ui;
 
-import java.util.logging.Logger;
-
+import calofit.MainApp;
+import calofit.commons.core.LogsCenter;
+import calofit.commons.util.StringUtil;
 import calofit.logic.Logic;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import calofit.MainApp;
-import calofit.commons.core.LogsCenter;
-import calofit.commons.util.StringUtil;
 
 /**
  * The manager of the UI component.

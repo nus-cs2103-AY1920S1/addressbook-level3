@@ -1,18 +1,17 @@
 package calofit.logic.commands;
 
+import static calofit.commons.core.Messages.MESSAGE_DISHES_LISTED_OVERVIEW;
+import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.*;
+
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
 import calofit.model.dish.NameContainsKeywordsPredicate;
 import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
-
-import static calofit.commons.core.Messages.MESSAGE_DISHES_LISTED_OVERVIEW;
-import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

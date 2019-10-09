@@ -1,16 +1,16 @@
 package calofit.logic.commands;
 
+import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
+import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
+
+import calofit.model.Model;
+import calofit.model.ModelManager;
+import calofit.model.UserPrefs;
 import calofit.model.dish.Dish;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import calofit.model.Model;
-import calofit.model.ModelManager;
-import calofit.model.UserPrefs;
-
-import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
-import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

@@ -1,14 +1,13 @@
 package calofit;
 
+import calofit.commons.core.LogsCenter;
+import calofit.commons.util.FileUtil;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
-
 import javafx.application.Application;
-import calofit.commons.core.LogsCenter;
-import calofit.commons.util.FileUtil;
 
 /**
  * Represents the parsed command-line parameters given to the application.

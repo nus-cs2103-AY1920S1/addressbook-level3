@@ -1,20 +1,20 @@
 package calofit.logic.commands;
 
-import calofit.model.dish.DishDatabase;
-import calofit.model.dish.Dish;
-import calofit.testutil.EditDishDescriptorBuilder;
-import calofit.testutil.DishBuilder;
-import calofit.testutil.TypicalIndexes;
-import calofit.testutil.TypicalDishes;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import calofit.model.dish.Dish;
+import calofit.model.dish.DishDatabase;
+import calofit.testutil.DishBuilder;
+import calofit.testutil.EditDishDescriptorBuilder;
+import calofit.testutil.TypicalDishes;
+import calofit.testutil.TypicalIndexes;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

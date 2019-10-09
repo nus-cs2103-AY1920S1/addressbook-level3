@@ -1,16 +1,14 @@
 package calofit.commons.util;
 
+import static calofit.commons.util.CollectionUtil.requireAllNonNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static calofit.commons.util.CollectionUtil.requireAllNonNull;
-import static calofit.testutil.Assert.assertThrows;
 
+import calofit.testutil.Assert;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import calofit.testutil.Assert;
 import org.junit.jupiter.api.Test;
 
 public class CollectionUtilTest {

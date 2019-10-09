@@ -1,18 +1,18 @@
 package calofit.logic.parser;
 
+import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
+import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
+
+import calofit.commons.core.index.Index;
 import calofit.logic.commands.EditCommand;
 import calofit.logic.parser.exceptions.ParseException;
-import calofit.commons.core.index.Index;
 import calofit.model.tag.Tag;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static calofit.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new EditCommand object

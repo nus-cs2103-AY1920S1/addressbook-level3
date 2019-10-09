@@ -1,19 +1,18 @@
 package calofit.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

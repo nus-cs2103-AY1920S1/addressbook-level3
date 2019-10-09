@@ -1,9 +1,8 @@
 package calofit.model.tag;
 
-import calofit.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
-import static calofit.commons.util.AppUtil.checkArgument;
+
+import calofit.commons.util.AppUtil;
 
 /**
  * Represents a Tag in the dish database.

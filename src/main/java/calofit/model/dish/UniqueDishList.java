@@ -1,15 +1,14 @@
 package calofit.model.dish;
 
-import calofit.commons.util.CollectionUtil;
-import calofit.model.dish.exceptions.DuplicateDishException;
-import calofit.model.dish.exceptions.DishNotFoundException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
+import calofit.commons.util.CollectionUtil;
+import calofit.model.dish.exceptions.DishNotFoundException;
+import calofit.model.dish.exceptions.DuplicateDishException;
 import java.util.Iterator;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

@@ -1,7 +1,6 @@
 package calofit.model;
 
 import calofit.commons.core.GuiSettings;
-
 import java.nio.file.Path;
 
 /**

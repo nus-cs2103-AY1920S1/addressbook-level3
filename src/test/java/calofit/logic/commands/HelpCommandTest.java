@@ -2,10 +2,9 @@ package calofit.logic.commands;
 
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import org.junit.jupiter.api.Test;
-
 import calofit.model.Model;
 import calofit.model.ModelManager;
+import org.junit.jupiter.api.Test;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();

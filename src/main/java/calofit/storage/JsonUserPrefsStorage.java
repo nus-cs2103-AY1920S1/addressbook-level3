@@ -1,13 +1,12 @@
 package calofit.storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-
 import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.util.JsonUtil;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.UserPrefs;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

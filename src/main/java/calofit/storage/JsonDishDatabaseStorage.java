@@ -1,18 +1,17 @@
 package calofit.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import calofit.commons.core.LogsCenter;
 import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.exceptions.IllegalValueException;
 import calofit.commons.util.FileUtil;
 import calofit.commons.util.JsonUtil;
 import calofit.model.dish.ReadOnlyDishDatabase;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class to access DishDatabase data stored as a json file on the hard disk.

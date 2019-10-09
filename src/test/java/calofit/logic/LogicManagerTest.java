@@ -1,5 +1,9 @@
 package calofit.logic;
 
+import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX;
+import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import calofit.logic.commands.AddCommand;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.CommandTestUtil;
@@ -8,25 +12,20 @@ import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.Model;
 import calofit.model.ModelManager;
-import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.UserPrefs;
 import calofit.model.dish.Dish;
+import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.storage.JsonDishDatabaseStorage;
 import calofit.storage.JsonUserPrefsStorage;
 import calofit.storage.StorageManager;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
+import java.io.IOException;
+import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
-import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX;
-import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

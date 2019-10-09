@@ -1,13 +1,12 @@
 package calofit.logic.parser;
 
-import calofit.logic.commands.*;
-import calofit.logic.parser.exceptions.ParseException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import calofit.logic.commands.*;
+import calofit.logic.parser.exceptions.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parses user input.
