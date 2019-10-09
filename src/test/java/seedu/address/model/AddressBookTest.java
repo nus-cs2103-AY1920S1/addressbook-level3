@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 import seedu.address.testutil.FlashCardBuilder;
@@ -102,6 +103,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<FlashCard> getFlashcardList() {
             return flashCards;
+        }
+
+        @Override
+        public ObservableList<Deadline> getDeadlineList() {
+            return null;
         }
     }
 
