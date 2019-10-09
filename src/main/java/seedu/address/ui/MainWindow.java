@@ -109,20 +109,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleSwitchView(String targetView) {
         switch(targetView) {
-            case "T":
-                viewsPlaceholder.getSelectionModel().select(0);
-                break;
-            case "E":
-                viewsPlaceholder.getSelectionModel().select(1);
-                break;
-            case "R":
-                viewsPlaceholder.getSelectionModel().select(2);
-                break;
-            case "C":
-                viewsPlaceholder.getSelectionModel().select(3);
-                break;
-            default:
-                break;
+        case "T":
+            viewsPlaceholder.getSelectionModel().select(0);
+            break;
+        case "E":
+            viewsPlaceholder.getSelectionModel().select(1);
+            break;
+        case "R":
+            viewsPlaceholder.getSelectionModel().select(2);
+            break;
+        case "C":
+            viewsPlaceholder.getSelectionModel().select(3);
+            break;
+        default:
+            break;
         }
     }
 
