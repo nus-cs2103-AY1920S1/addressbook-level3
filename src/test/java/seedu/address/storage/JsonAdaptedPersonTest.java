@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.deliverymans.model.Name;
 import seedu.address.model.person.Phone;
 
 public class JsonAdaptedPersonTest {

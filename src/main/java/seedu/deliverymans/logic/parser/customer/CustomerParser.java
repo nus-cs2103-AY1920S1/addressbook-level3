@@ -44,7 +44,7 @@ public class CustomerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommand(arguments);
+            return new AddCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(arguments);
