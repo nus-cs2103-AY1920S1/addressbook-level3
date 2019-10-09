@@ -1,9 +1,10 @@
 package seedu.address.cashier.commands;
 
+import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierUi;
-import seedu.address.inventory.Item;
-import seedu.address.transaction.commands.CommandResult;
-import seedu.address.cashier.model.Model;
+import seedu.address.inventory.model.Item;
+import seedu.address.person.model.Model;
 
 public class DeleteCommand extends Command {
     private int index;
@@ -14,10 +15,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
+    public CommandResult execute(ModelManager modelManager, Model personModel) throws NoSuchIndexException {
         CashierUi cashierUi = new CashierUi();
-        Item item = model.findItemByIndex(index);
-        model.deleteItem(index);
+        Item item = modelManager.findItemByIndex(index);
+        modelManager.deleteItem(index);
         return new CommandResult(cashierUi.deletedItem(item));
     }
 }

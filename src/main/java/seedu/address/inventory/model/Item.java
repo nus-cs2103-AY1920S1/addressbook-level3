@@ -133,5 +133,8 @@ public class Item {
         return builder.toString();
     }
 
+    public void setId(int i) {
+
+    }
 }
 
