@@ -15,6 +15,7 @@ import seedu.address.model.deadline.Task;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
+import seedu.address.model.util.FilePath;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -138,8 +139,19 @@ public class ParserUtil {
         return new DueDate(trimmedDateStr);
     }
 
-
-
-
+    /**
+     * Parses a {@code String filePath} into a {@code FilePath}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filePath} is invalid.
+     */
+    public static FilePath parseFilePath (String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+        if (!FilePath.isValidFilePath((trimmedFilePath))) {
+            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        }
+        return new FilePath(trimmedFilePath);
+    }
 
 }
