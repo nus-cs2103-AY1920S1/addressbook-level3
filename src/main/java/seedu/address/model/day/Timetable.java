@@ -1,12 +1,16 @@
 package seedu.address.model.day;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.time.TimeInHalfHour;
 import seedu.address.model.day.exceptions.TimeSlotOccupiedException;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents the timetable of a {@code Day}.
+ * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
+ */
 public class Timetable {
     private static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
     private HalfHour[] timeSlots;
@@ -30,13 +34,19 @@ public class Timetable {
         }
 
         // fill up remaining time slots with empty half hours
-        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i ++) {
+        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
             if (timeSlots[i] == null) {
                 timeSlots[i] = new HalfHour();
             }
         }
     }
 
+    /**
+     * Searches for an activity in the timetable.
+     *
+     * @param activity the activity to be searched
+     * @return a list of time-slot index where activity was found
+     */
     public List<Index> searchForActivity(ActivityStub activity) {
         boolean isDiffActivity = true;
         List<Index> indexList = new ArrayList<>();
@@ -54,6 +64,13 @@ public class Timetable {
         return indexList;
     }
 
+    /**
+     * Checks if there is an occupied time slot in the time range given.
+     *
+     * @param startIndex first index to start checking if time slot is occupied
+     * @param endIndex last index to stop checking if time slot is occupied
+     * @return true if there is an activity in the time range
+     */
     public boolean checkIfTimeRangeIsOccupied(Index startIndex, Index endIndex) {
         for (int i = startIndex.getZeroBased(); i <= endIndex.getZeroBased(); i++) {
             if (timeSlots[i].getIsOccupied()) {
@@ -63,6 +80,12 @@ public class Timetable {
         return false;
     }
 
+    /**
+     * Adds an activity to timetable.
+     *
+     * @param start first index to add activity
+     * @param end last index to add the activity
+     */
     private void addActivityToIndexRange(ActivityStub activity, Index start, Index end)
             throws TimeSlotOccupiedException {
         for (int i = start.getZeroBased(); i <= end.getZeroBased(); i++) {
@@ -75,7 +98,7 @@ public class Timetable {
 
     private Index convertTimeToIndex(TimeInHalfHour time) {
         return Index.fromZeroBased(
-                time.getHour() * 2 + time.getMins() / 30
+                time.getHour() * 2 + time.getMinutes() / 30
         );
     }
 }

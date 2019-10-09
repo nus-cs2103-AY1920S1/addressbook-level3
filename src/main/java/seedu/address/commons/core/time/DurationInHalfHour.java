@@ -1,5 +1,8 @@
 package seedu.address.commons.core.time;
 
+/**
+ * Represents the duration in units of thirty minutes.
+ */
 public class DurationInHalfHour {
     private final int numberOfHalfHour;
 

@@ -3,6 +3,9 @@ package seedu.address.model.day;
 import seedu.address.commons.core.time.DurationInHalfHour;
 import seedu.address.commons.core.time.TimeInHalfHour;
 
+/**
+ * Wraps the Activity in a time range.
+ */
 public class ActivityInTimeRange {
     private final ActivityStub activity;
     private final TimeInHalfHour time;

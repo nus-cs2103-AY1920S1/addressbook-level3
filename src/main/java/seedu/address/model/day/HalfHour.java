@@ -1,5 +1,8 @@
 package seedu.address.model.day;
 
+/**
+ * Represents the time slots in a {@code Timetable}.
+ */
 public class HalfHour {
     private ActivityStub activityAtThisTime;
     private boolean isOccupied;

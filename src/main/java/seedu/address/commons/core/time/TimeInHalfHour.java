@@ -4,28 +4,32 @@ import seedu.address.commons.core.time.exceptions.NotInIntervalsOf30MinException
 import seedu.address.commons.core.time.exceptions.TimeOutOfBoundException;
 import seedu.address.commons.core.time.exceptions.TimeOutOfBoundsException;
 
+/**
+ * Represents the time in 24-hour clock.
+ * Guarantees: Time is in 30 minutes intervals.
+ */
 public class TimeInHalfHour {
     private final int hour;
-    private final int mins;
+    private final int minutes;
 
-    public TimeInHalfHour(int hour, int mins) throws NotInIntervalsOf30MinException, TimeOutOfBoundsException {
-        if (hour < 0 || hour > 24 || mins < 0 || mins > 60) {
+    public TimeInHalfHour(int hour, int minutes) throws NotInIntervalsOf30MinException, TimeOutOfBoundsException {
+        if (hour < 0 || hour > 24 || minutes < 0 || minutes > 60) {
             throw new TimeOutOfBoundException();
         }
-        if (mins != 30 || mins != 0) {
+        if (minutes != 30 || minutes != 0) {
             throw new NotInIntervalsOf30MinException();
         }
 
         this.hour = hour;
-        this.mins = mins;
+        this.minutes = minutes;
     }
 
     public int getHour() {
         return hour;
     }
 
-    public int getMins() {
-        return mins;
+    public int getMinutes() {
+        return minutes;
     }
 
     @Override
@@ -35,10 +39,10 @@ public class TimeInHalfHour {
             builder.append('0');
         }
         builder.append(this.hour);
-        if (this.mins < 10) {
+        if (this.minutes < 10) {
             builder.append('0');
         }
-        builder.append(this.mins);
+        builder.append(this.minutes);
         return builder.toString();
     }
 
@@ -54,6 +58,6 @@ public class TimeInHalfHour {
 
         TimeInHalfHour otherTime = (TimeInHalfHour) other;
         return (otherTime.getHour() == this.hour)
-                && (otherTime.getMins() == this.mins);
+                && (otherTime.getMinutes() == this.minutes);
     }
 }
