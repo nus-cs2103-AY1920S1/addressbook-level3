@@ -10,14 +10,13 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.queue.QueueManager;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -126,12 +125,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, queueManager, appointmentBook)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, queueManager,
+                appointmentBook)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         //modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, queueManager, appointmentBook)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, queueManager,
+                appointmentBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -139,6 +140,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, queueManager, appointmentBook)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, queueManager,
+                appointmentBook)));
     }
 }

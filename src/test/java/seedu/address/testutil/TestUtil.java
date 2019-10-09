@@ -63,7 +63,8 @@ public class TestUtil {
      * Returns a {@code ModelManager} with all the typical persons and appointments.
      */
     public static ModelManager getTypicalModelManager() {
-        return new ModelManager(getTypicalAddressBook(),new UserPrefs(), getTypicalQueueManager(), getTypicalAppointmentBook());
+        return new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalQueueManager(),
+                getTypicalAppointmentBook());
     }
 
 }

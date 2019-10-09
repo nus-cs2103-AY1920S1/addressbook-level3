@@ -25,8 +25,10 @@ class UndoCommandTest {
     public void execute_performUndo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
 
         UndoCommand undoCommand = new UndoCommand(history);
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_NO_UNDO_HISTORY_ERROR);

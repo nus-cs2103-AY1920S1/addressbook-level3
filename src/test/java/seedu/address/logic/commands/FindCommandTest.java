@@ -29,8 +29,10 @@ import seedu.address.testutil.TestUtil;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+            new AppointmentBook());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+            new AppointmentBook());
 
     @BeforeEach
     public void setUp() {

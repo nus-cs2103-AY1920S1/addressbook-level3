@@ -28,9 +28,12 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddCommand command = new AddCommand(validPerson);
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel1 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel2 = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
         expectedModel1.addPerson(validPerson);
 
         assertCommandSuccess(command, model,

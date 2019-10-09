@@ -16,7 +16,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.UserPrefs;
-import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for RedoCommand.
@@ -27,8 +26,10 @@ class RedoCommandTest {
     public void execute_performRedo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new
+                AppointmentBook());
 
         RedoCommand redoCommand = new RedoCommand(history);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);

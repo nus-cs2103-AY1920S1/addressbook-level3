@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -28,7 +27,8 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class DequeueCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalQueueManager(), getTypicalAppointmentBook());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalQueueManager(),
+            getTypicalAppointmentBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -38,7 +38,8 @@ public class DequeueCommandTest {
         String expectedMessage1 = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
         String expectedMessage2 = String.format(DequeueCommand.MESSAGE_UNDO_DEQUEUE_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(), model.getAppointmentBook());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(),
+                model.getAppointmentBook());
         expectedModel.removePatient(personToDelete);
 
         //ensures that undo can not be executed before the actual command
@@ -71,7 +72,8 @@ public class DequeueCommandTest {
 
         String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(), model.getAppointmentBook());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(),
+                model.getAppointmentBook());
         expectedModel.removePatient(personToDelete);
         showNoPatient(expectedModel);
 

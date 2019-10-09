@@ -93,7 +93,7 @@ public class TypicalPersons {
 
     public static QueueManager getTypicalQueueManager() {
         QueueManager qm = new QueueManager();
-        for(Person person : getTypicalPersons()) {
+        for (Person person : getTypicalPersons()) {
             qm.addPatient(person.getReferenceId());
         }
         qm.addRoom(IDA.getReferenceId());

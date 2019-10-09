@@ -28,7 +28,8 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                            new AppointmentBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -38,7 +39,8 @@ public class DeleteCommandTest {
         String expectedMessage1 = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
         String expectedMessage2 = String.format(DeleteCommand.MESSAGE_UNDO_DELETE_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
         expectedModel.deletePerson(personToDelete);
 
         //ensures that undo can not be executed before the actual command
@@ -74,7 +76,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(), model.getAppointmentBook());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(),
+                model.getAppointmentBook());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 

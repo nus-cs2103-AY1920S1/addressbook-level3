@@ -1,8 +1,22 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,17 +32,6 @@ import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.testutil.PersonBuilder;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-
 public class EnqueueCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -37,7 +40,8 @@ public class EnqueueCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        EnqueueCommandTest.ModelStubAcceptingPatientAdded modelStub = new EnqueueCommandTest.ModelStubAcceptingPatientAdded();
+        EnqueueCommandTest.ModelStubAcceptingPatientAdded modelStub = new EnqueueCommandTest
+                                                                    .ModelStubAcceptingPatientAdded();
         ReferenceId validPerson = new PersonBuilder().build().getReferenceId();
 
         CommandResult commandResult = new EnqueueCommand(validPerson).execute(modelStub);
@@ -52,7 +56,8 @@ public class EnqueueCommandTest {
         EnqueueCommand enqueueCommand = new EnqueueCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPatient(validPerson);
 
-        assertThrows(CommandException.class, EnqueueCommand.MESSAGE_DUPLICATE_PERSON, () -> enqueueCommand.execute(modelStub));
+        assertThrows(CommandException.class, EnqueueCommand.MESSAGE_DUPLICATE_PERSON, () ->
+                enqueueCommand.execute(modelStub));
     }
 
     @Test
@@ -135,11 +140,6 @@ public class EnqueueCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -280,6 +280,11 @@ public class EnqueueCommandTest {
 
         @Override
         public boolean hasPerson(ReferenceId id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
     }
