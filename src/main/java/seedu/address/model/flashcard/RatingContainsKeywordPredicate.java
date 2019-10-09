@@ -3,6 +3,9 @@ package seedu.address.model.flashcard;
 import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
+/**
+ * Tests that a {@code Flashcard}'s {@code Rating} matches the rating given.
+ */
 public class RatingContainsKeywordPredicate implements Predicate<FlashCard> {
 
     private final String keyword;

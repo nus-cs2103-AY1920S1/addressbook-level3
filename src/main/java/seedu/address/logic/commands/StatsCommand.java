@@ -1,9 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
 
+/**
+ * Lists Statistics
+ */
 public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
@@ -17,7 +21,9 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        int numGood = 0, numHard = 0, numEasy = 0;
+        int numGood = 0 ;
+        int numHard = 0 ;
+        int numEasy = 0 ;
 
         model.updateFilteredFlashCardList(predicateGood);
         numGood = model.getFilteredFlashCardList().size();
