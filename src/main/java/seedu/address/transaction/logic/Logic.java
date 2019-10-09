@@ -13,4 +13,6 @@ public interface Logic {
     void setTransaction(Transaction transaction, Transaction newTransaction) throws Exception;
 
     TransactionList getTransactionList();
+
+    TransactionList getFilteredList();
 }

@@ -47,6 +47,10 @@ public class TransactionMessages {
         return "Edited Transaction:\n" + editedTransaction;
     }
 
+    public static String findCommandMessage(int size) {
+        return "I've found " + size + " matching transactions!";
+    }
+
     public String addedTransaction(Transaction transaction) {
         return "Added Transaction:\n" + transaction;
     }

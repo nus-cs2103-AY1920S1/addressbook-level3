@@ -20,11 +20,7 @@ public class StorageManager implements Storage {
         this.personModel = personModel;
     }
 
-    public TransactionList getTransactionList() {
-        return getTransactionList(filepath);
-    }
-
-    private TransactionList getTransactionList(String filepath) {
+    public TransactionList readTransactionList() {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             File f = new File(filepath);

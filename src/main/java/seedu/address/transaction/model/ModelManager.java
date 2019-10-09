@@ -1,6 +1,10 @@
 package seedu.address.transaction.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.util.TransactionList;
@@ -9,16 +13,18 @@ public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final TransactionList transactionList;
-    //private final StorageManager storage;
+    private TransactionList filteredList;
+    private Predicate<Transaction> predicate;
 
     public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
+        ArrayList<Transaction> actualList = new ArrayList<>();
+        for (int i = 0; i < transactionList.size(); i++) {
+            actualList.add(transactionList.get(i));
+        }
+        this.filteredList = new TransactionList(actualList);
+        this.predicate = transaction -> true;
     }
-
-    /*public ModelManager(StorageManager storage) {
-        this.storage = storage;
-        this.transactionList = storage.getTransactionList();
-    }*/
 
     @Override
     public TransactionList getTransactionList() {
@@ -52,19 +58,22 @@ public class ModelManager implements Model {
 
     @Override
     public Transaction findTransactionByIndex(int index) throws NoSuchIndexException {
-        Transaction transaction = transactionList.get(index - 1);
+        logger.info("size of filtered list: " + filteredList.size());
+        Transaction transaction = filteredList.get(index - 1);
+        //Transaction transaction = transactionList.get(index - 1);
+        logger.info("transaction found: " + transaction.toString());
         return transaction;
     }
 
     @Override
     public void deleteTransaction(int index) {
-        transactionList.delete(index - 1);
+        Transaction transaction = filteredList.get(index - 1);
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).equals(transaction)) {
+                transactionList.delete(i);
+            }
+        }
     }
-
-    /*@Override
-    public void writeInTransactionFile() throws Exception{
-        storage.writeFile(transactionList);
-    }*/
 
     @Override
     public void updateIndexes() throws Exception {
@@ -91,6 +100,24 @@ public class ModelManager implements Model {
     @Override
     public void sortReset() {
         transactionList.unSort();
+    }
+
+    @Override
+    public void resetPredicate() {
+        this.predicate = transaction -> true;
+    }
+
+    @Override
+    public TransactionList getFilteredList() {
+        List<Transaction> list = this.transactionList.stream().filter(predicate).collect(Collectors.toList());
+        ArrayList<Transaction> arrayList = new ArrayList<Transaction>(list);
+        this.filteredList = new TransactionList(arrayList);
+        return filteredList;
+    }
+
+    @Override
+    public void updateFilteredPersonList(TransactionContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
     }
 
 }

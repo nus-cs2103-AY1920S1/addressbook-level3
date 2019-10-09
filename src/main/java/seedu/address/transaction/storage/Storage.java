@@ -4,5 +4,5 @@ import seedu.address.transaction.util.TransactionList;
 
 public interface Storage {
 
-    public TransactionList getTransactionList();
+    public TransactionList readTransactionList();
 }

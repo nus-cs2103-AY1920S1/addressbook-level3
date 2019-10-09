@@ -7,6 +7,7 @@ import seedu.address.person.model.Model;
 import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.DeleteCommand;
 import seedu.address.transaction.commands.EditCommand;
+import seedu.address.transaction.commands.FindCommand;
 import seedu.address.transaction.commands.SortCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.ui.TransactionMessages;
@@ -39,6 +40,9 @@ public class TransactionTabParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
         /*case PersonCommand.COMMAND_WORD:
             return new PersonCommandParser().parse(arguments);*/

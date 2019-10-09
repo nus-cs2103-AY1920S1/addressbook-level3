@@ -33,6 +33,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
+        model.resetPredicate();
         Command command = parser.parseCommand(commandText,
                 model.getTransactionList().size(), personModel);
         CommandResult commandResult = command.execute(model, personModel);
@@ -54,5 +55,9 @@ public class LogicManager implements Logic {
 
     public TransactionList getTransactionList() {
         return model.getTransactionList();
+    }
+
+    public TransactionList getFilteredList() {
+        return model.getFilteredList();
     }
 }

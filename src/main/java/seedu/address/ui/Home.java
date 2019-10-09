@@ -2,16 +2,19 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.model.Transaction;
 
 public class Home extends UiPart<Region> {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     @FXML
     private TableView<Transaction> tableView;
@@ -32,10 +35,9 @@ public class Home extends UiPart<Region> {
         // parse and construct User datamodel list by looping your ResultSet rs
         // and return the list
         List<Transaction> list = new ArrayList<>();
-        for (int i = 0; i < logic.getTransactionList().size(); i++) {
-            logic.getTransactionList().get(i).setId(i + 1);
-            list.add(logic.getTransactionList().get(i));
-
+        for (int i = 0; i < logic.getFilteredList().size(); i++) {
+            logic.getFilteredList().get(i).setId(i + 1);
+            list.add(logic.getFilteredList().get(i));
         }
         return list;
     }
@@ -63,7 +65,7 @@ public class Home extends UiPart<Region> {
 
     }
 
-    class TransactionViewCell<T> extends TableCell<Transaction, T> {
+    /*class TransactionViewCell<T> extends TableCell<Transaction, T> {
         private String attribute;
 
         public TransactionViewCell(String attribute) {
@@ -81,6 +83,5 @@ public class Home extends UiPart<Region> {
                 setText(new PropertyValueFactory<Transaction, T>(attribute).getProperty());
             }
         }
-     }
-
+     }*/
 }

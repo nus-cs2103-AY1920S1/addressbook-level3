@@ -3,9 +3,8 @@ package seedu.address.transaction.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Stream;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.exception.NoSuchIndexException;
-import seedu.address.transaction.ui.TransactionMessages;
 
 public class TransactionList {
     private ArrayList<Transaction> tList;
@@ -22,9 +21,9 @@ public class TransactionList {
     }
 
 
-    public Transaction get(int index) throws NoSuchIndexException {
+    public Transaction get(int index) throws IndexOutOfBoundsException {
         if (index >= tList.size()) {
-            throw new NoSuchIndexException(TransactionMessages.NO_SUCH_INDEX_TRANSACTION);
+            throw new IndexOutOfBoundsException();
         } else {
             return tList.get(index);
         }
@@ -63,6 +62,10 @@ public class TransactionList {
 
     public void sortByAmount() {
         Collections.sort(tList, new SortByAmount());
+    }
+
+    public Stream<Transaction> stream() {
+        return this.tList.stream();
     }
 }
 

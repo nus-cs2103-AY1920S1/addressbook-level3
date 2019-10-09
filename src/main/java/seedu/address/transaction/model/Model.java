@@ -28,4 +28,10 @@ public interface Model {
     void sortByAmount();
 
     void sortReset();
+
+    TransactionList getFilteredList();
+
+    void updateFilteredPersonList(TransactionContainsKeywordsPredicate predicate);
+
+    void resetPredicate();
 }
