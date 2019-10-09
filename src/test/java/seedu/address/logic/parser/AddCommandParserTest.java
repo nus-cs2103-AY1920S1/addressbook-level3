@@ -40,7 +40,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        FlashCard expectedFlashCard = new FlashCardBuilder(NUS).withTags(VALID_CATEGORY_LOCATION).build();
+        FlashCard expectedFlashCard = new FlashCardBuilder(NUS).withCatgeories(VALID_CATEGORY_LOCATION).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_2 + ANSWER_DESC_2
@@ -61,7 +61,7 @@ public class AddCommandParserTest {
         // multiple categories - all accepted
         FlashCard expectedFlashCardMultipleCategories =
                 new FlashCardBuilder(NUS)
-                        .withTags(VALID_CATEGORY_LOCATION, VALID_CATEGORY_HISTORY)
+                        .withCatgeories(VALID_CATEGORY_LOCATION, VALID_CATEGORY_HISTORY)
                         .build();
         assertParseSuccess(parser, QUESTION_DESC_2 + ANSWER_DESC_2 + RATING_DESC_2
                 + CATEGORY_DESC_LOCATION + CATEGORY_DESC_HISTORY, new AddCommand(expectedFlashCardMultipleCategories));
@@ -70,7 +70,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero categories
-        FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withTags().build();
+        FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withCatgeories().build();
         assertParseSuccess(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + RATING_DESC_1,
                 new AddCommand(expectedFlashCard));
     }

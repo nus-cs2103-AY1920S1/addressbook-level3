@@ -50,7 +50,7 @@ public class AddressBookTest {
         FlashCard editedCard =
                 new FlashCardBuilder(STORE_AND_FORWARD)
                         .withRating(VALID_RATING_2)
-                        .withTags(VALID_CATEGORY_HISTORY)
+                        .withCatgeories(VALID_CATEGORY_HISTORY)
                         .build();
         List<FlashCard> newFlashCards = Arrays.asList(STORE_AND_FORWARD, editedCard);
         AddressBookStub newData = new AddressBookStub(newFlashCards);
@@ -80,7 +80,7 @@ public class AddressBookTest {
         FlashCard editedAlice =
                 new FlashCardBuilder(STORE_AND_FORWARD)
                         .withRating(VALID_RATING_2)
-                        .withTags(VALID_CATEGORY_HISTORY)
+                        .withCatgeories(VALID_CATEGORY_HISTORY)
                 .build();
         assertTrue(addressBook.hasFlashcard(editedAlice));
     }
