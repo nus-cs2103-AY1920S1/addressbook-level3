@@ -213,12 +213,6 @@ public class ModelManager implements Model {
         appointmentBook.setEvent(target, editedEvent);
     }
 
-//    @Override
-//    public void ackEvent(Event appointment) {
-//        requireAllNonNull(appointment);
-//        appointment.setStausAsAck();
-//        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-//    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -259,6 +253,6 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
-
 }
+
+

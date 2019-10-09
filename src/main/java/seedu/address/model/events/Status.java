@@ -7,18 +7,22 @@ import static java.util.Objects.requireNonNull;
  */
 public class Status {
     public static final String APPROVED_MESS = "patient appointment was made";
-    public static String ACK_MESS = "patient is arrived";
-    public static String MISSED_MESS = "patient missed appointment, need to settle";
-    public static String SETTLE_MESS = "this missed appointment have been settled";
-    public static String CANCEL_MESS = "this appointment have been cancelled";
+    public static final String ACK_MESS = "patient is arrived";
+    public static final String MISSED_MESS = "patient missed appointment, need to settle";
+    public static final String SETTLE_MESS = "this missed appointment have been settled";
+    public static final String CANCEL_MESS = "this appointment have been cancelled";
 
+    /**
+     * enum AppointmentStatuses to have the different status for appointments.
+     */
     public enum AppointmentStatuses {
         APPROVED,
         CANCELLED,
         ACKNOWLEDGED,
         MISSED,
         SETTLED
-    };
+    }
+
     private final AppointmentStatuses status;
 
     public Status(String status) {
@@ -35,9 +39,15 @@ public class Status {
         this.status = AppointmentStatuses.APPROVED;
     }
 
+    /**
+     * checks if the string status is the valid one.
+     *
+     * @param test which the string status.
+     * @return true if string status is the valid one.
+     */
     public static boolean isValidStatus(String test) {
         String toMatch = test.trim().toUpperCase();
-        for (AppointmentStatuses state: AppointmentStatuses.values()) {
+        for (AppointmentStatuses state : AppointmentStatuses.values()) {
             if (state.toString().equals(toMatch)) {
                 return true;
             }
@@ -70,25 +80,12 @@ public class Status {
     public boolean equals(Object o) {
         return o instanceof Status;
     }
-
-
-//    public void setAckStatus() {
-//        this.status = AppointmentStatuses.ACKNOWLEDGED;
-//    }
-//
-//    public void setSettleStatus() {
-//        this.status = AppointmentStatuses.SETTLED;
-//    }
-//
-//    public void setMissStatus() {
-//        this.status = AppointmentStatuses.MISSED;
-//    }
-//
-//    public void setCancelStatus() {
-//        this.status = AppointmentStatuses.CANCELLED;
-//    }
-
-    public boolean isAcked(){
+    /**
+     * checks if the current status is ACKNOWLEDGED.
+     *
+     * @return true if status is ACKNOWLEDGED.
+     */
+    public boolean isAcked() {
         return status.equals(AppointmentStatuses.ACKNOWLEDGED);
     }
 

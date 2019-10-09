@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Date;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.Command;
@@ -11,7 +13,6 @@ import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Timing;
 
-import java.util.Date;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -41,11 +42,18 @@ public class AppointmentsCommand extends Command {
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }
 
+    /**
+     * checks all the appointments that before the current time and then make them as missed.
+     *
+     * @param filteredEventList which is the eventList contains the referenceId
+     */
     private void autoMissEvent(ObservableList<Event> filteredEventList) {
         for (Event ev : filteredEventList) {
             Timing evTiming = ev.getEventTiming();
             Date current = new Date();
-            if (evTiming.getEndTime().getTime().before(current)) ;
+            if (evTiming.getEndTime().getTime().before(current)) {
+                //todo mark event as missed.
+            }
         }
     }
 

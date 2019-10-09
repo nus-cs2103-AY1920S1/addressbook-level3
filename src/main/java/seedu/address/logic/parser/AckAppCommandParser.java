@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
 import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AckAppCommand.EditEventStatus;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.Status;
 
 /**
  * Parses input arguments and creates a new AddCommand object

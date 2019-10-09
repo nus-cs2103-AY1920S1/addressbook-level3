@@ -2,7 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
@@ -10,6 +13,7 @@ import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
+
 
 /**
  * Represents a Person who can be either a patient or staff doctor.
@@ -26,7 +30,6 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-//    private Optional<Event> event = Optional.empty();
 
     /**
      * Every field must be present and not null.
@@ -119,15 +122,15 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getReferenceId())
-            .append(" Name: ")
-            .append(getName())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
-            .append(" Tags: ");
+                .append(" Name: ")
+                .append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

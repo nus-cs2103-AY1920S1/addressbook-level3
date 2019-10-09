@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
@@ -28,7 +30,6 @@ public class AddAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
-    public static final String MESSAGE_wrong_PERSON = "This appointment already exists in the address book";
     public static final String MESSAGE_INVAILD_REFERENCEID = "this referenceId does not belong to any person";
     public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
@@ -46,7 +47,6 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-//        model.getFilteredEventList()
         if (!model.hasPerson(appointment.getPersonId())) {
             throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
         }

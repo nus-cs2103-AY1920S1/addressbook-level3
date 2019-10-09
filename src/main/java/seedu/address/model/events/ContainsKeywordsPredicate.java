@@ -1,10 +1,10 @@
 package seedu.address.model.events;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Person;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+
 
 /**
  * Tests that a {@code Person}'s {@code ReferenceId}, {@code Name} or {@code Phone} matches any of the keywords given.
@@ -20,10 +20,11 @@ public class ContainsKeywordsPredicate implements Predicate<Event> {
     public boolean test(Event event) {
         return keywords.stream()
                 .anyMatch(keyword ->
-                    StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword)
-                    || (keyword.length() >= 3
-                            && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword))
-                    || (keyword.length() >= 4 && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword)));
+                        StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword)
+                                || (keyword.length() >= 3
+                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword))
+                                || (keyword.length() >= 4
+                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword)));
     }
 
     @Override

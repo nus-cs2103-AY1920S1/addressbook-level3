@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -163,6 +162,14 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * checks the starting and ending time of the appointment is a valid time.
+     *
+     * @param start which the string startTime of the appointment.
+     * @param end   which the string endTime of the appointment.
+     * @return the valid Appointment object.
+     * @throws ParseException If an error occurs during command parsering.
+     */
     public static Timing parseTiming(String start, String end) throws ParseException {
         requireNonNull(start, end);
         DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);

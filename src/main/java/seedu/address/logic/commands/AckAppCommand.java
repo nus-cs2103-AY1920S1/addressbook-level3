@@ -3,28 +3,28 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.*;
-
 import java.util.Arrays;
+
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.ContainsKeywordsPredicate;
+import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
+import seedu.address.model.events.Timing;
+
 
 /**
  * Acknowledge a person to the address book.
  */
 public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
-    private Event appointment;
-    private final ReferenceId referenceId;
-    private final EditEventStatus editEventStatus;
-    private Event eventToAck;
-    private Event ackedEvent;
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
@@ -39,6 +39,12 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
 
+    private Event appointment;
+    private final ReferenceId referenceId;
+    private final EditEventStatus editEventStatus;
+    private Event eventToAck;
+    private Event ackedEvent;
+
     /**
      * Creates an AckAppCommand to add the specified {@code Person}
      */
@@ -52,8 +58,9 @@ public class AckAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        AppointmentsCommand appList = new AppointmentsCommand(new ContainsKeywordsPredicate(Arrays.asList(referenceId.toString().split("\\s+"))));
+        String[] nameKeywords = referenceId.toString().split("\\s+");
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+        AppointmentsCommand appList = new AppointmentsCommand(predicate);
         appList.execute(model);
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
@@ -71,7 +78,6 @@ public class AckAppCommand extends ReversibleCommand {
             ackedEvent = createEditedEvent(eventToAck, editEventStatus);
         }
 
-//        model.ackEvent(eventToAck);
         model.setEvent(eventToAck, ackedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, ackedEvent));
@@ -81,12 +87,12 @@ public class AckAppCommand extends ReversibleCommand {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Event createEditedEvent(Event EventToEdit, EditEventStatus editEventStatus) {
-        assert EventToEdit != null;
+    private static Event createEditedEvent(Event eventToEdit, EditEventStatus editEventStatus) {
+        assert eventToEdit != null;
 
-        ReferenceId updatedRefId = editEventStatus.getReferenceId().orElse(EventToEdit.getPersonId());
-        Timing updatedTiming = editEventStatus.getTiming().orElse(EventToEdit.getEventTiming());
-        Status updatedStatus = editEventStatus.getStatus().orElse(EventToEdit.getStatus());
+        ReferenceId updatedRefId = editEventStatus.getReferenceId().orElse(eventToEdit.getPersonId());
+        Timing updatedTiming = editEventStatus.getTiming().orElse(eventToEdit.getEventTiming());
+        Status updatedStatus = editEventStatus.getStatus().orElse(eventToEdit.getStatus());
 
         return new Event(updatedRefId, updatedTiming, updatedStatus);
     }
