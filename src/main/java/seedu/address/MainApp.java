@@ -127,7 +127,7 @@ public class MainApp extends Application {
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
 
-        ui = new UiManager(transactionLogic, reimbursementLogic, logic);
+        ui = new UiManager(transactionLogic, reimbursementLogic, logic, cashierLogic);
 
     }
 
