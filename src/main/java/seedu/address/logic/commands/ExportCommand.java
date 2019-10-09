@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-import seedu.address.model.category.Category;
-import seedu.address.model.util.FilePath;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
+
+import seedu.address.model.Model;
+import seedu.address.model.category.Category;
+import seedu.address.model.util.FilePath;
 
 /**
  * Finds and lists all persons in address book whose question contains any of the argument keywords.
