@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -76,13 +77,22 @@ public class Person {
      * Returns true if both persons of the same reference id and name.
      * This defines a weaker notion of equality between two persons.
      */
+    public boolean isSamePerson(ReferenceId id) {
+        requireNonNull(id);
+        return id.equals(getReferenceId());
+    }
+
+    /**
+     * Returns true if both persons of the same reference id and name.
+     * This defines a weaker notion of equality between two persons.
+     */
     public boolean isSamePerson(Person otherPerson) {
+        requireNonNull(otherPerson);
         if (otherPerson == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getReferenceId().equals(getReferenceId());
+        return isSamePerson(otherPerson.getReferenceId());
     }
 
     /**

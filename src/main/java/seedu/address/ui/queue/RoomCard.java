@@ -14,8 +14,8 @@ import seedu.address.ui.UiPart;
 public class RoomCard extends UiPart<Region> {
 
     private static final String FXML = "queue/RoomListCard.fxml";
-
-    public final Room room;
+    private final Person doctor;
+    private final Person patient;
 
     @FXML
     private HBox cardPane;
@@ -26,11 +26,17 @@ public class RoomCard extends UiPart<Region> {
     @FXML
     private Label refId;
 
-    public RoomCard(Room room, int displayedIndex) {
+    public RoomCard(Person doctor, Person patient, int displayedIndex) {
         super(FXML);
-        this.room = room;
-        doctorName.setText(room.getDoctor().getName().fullName);
-        name.setText(room.getCurrentPatient().getName().fullName);
+        this.doctor = doctor;
+        this.patient = patient;
+        doctorName.setText(doctor.getName().fullName);
+
+        if (patient == null) {
+            name.setText("");
+        } else {
+            name.setText(patient.getName().fullName);
+        }
     }
 
     @Override
@@ -47,6 +53,6 @@ public class RoomCard extends UiPart<Region> {
 
         // state check
         RoomCard card = (RoomCard) other;
-        return room.equals(card.room);
+        return doctor.equals(card.doctor) && patient.equals(card.patient);
     }
 }
