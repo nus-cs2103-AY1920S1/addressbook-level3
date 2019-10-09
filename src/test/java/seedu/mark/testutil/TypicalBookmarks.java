@@ -15,6 +15,8 @@ import java.util.List;
 
 import seedu.mark.model.Mark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * A utility class containing a list of {@code Bookmark} objects to be used in tests.
@@ -30,11 +32,11 @@ public class TypicalBookmarks {
             .withFolder("contacts")
             .withTags("owesMoney", "friends").build();
     public static final Bookmark CARL = new BookmarkBuilder().withName("Carl Kurz")
-            .withUrl("https://heinz@example.com").withRemark("wall street").build();
+            .withUrl("https://heinz@example.com").withRemark("wall street").withFolder("family").build();
     public static final Bookmark DANIEL = new BookmarkBuilder().withName("Daniel Meier")
             .withUrl("https://cornelia@example.com").withRemark("10th street").withTags("friends").build();
     public static final Bookmark ELLE = new BookmarkBuilder().withName("Elle Meyer")
-            .withUrl("https://werner@example.com").withRemark("michegan ave").build();
+            .withUrl("https://werner@example.com").withRemark("michegan ave").withFolder("family").build();
     public static final Bookmark FIONA = new BookmarkBuilder().withName("Fiona Kunz")
             .withUrl("https://lydia@example.com").withRemark("little tokyo").build();
     public static final Bookmark GEORGE = new BookmarkBuilder().withName("George Best")
@@ -66,6 +68,13 @@ public class TypicalBookmarks {
             mark.addBookmark(bookmark);
         }
         return mark;
+    }
+
+    public static FolderStructure getTypicalFolderStructure() {
+        FolderStructure family = new FolderStructure(CARL.getFolder().folderName, new ArrayList<>());
+        FolderStructure contacts = new FolderStructure(BENSON.getFolder().folderName, List.of(family));
+        FolderStructure friends = new FolderStructure(ALICE.getFolder().folderName, new ArrayList<>());
+        return new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts, friends));
     }
 
     public static List<Bookmark> getTypicalBookmarks() {

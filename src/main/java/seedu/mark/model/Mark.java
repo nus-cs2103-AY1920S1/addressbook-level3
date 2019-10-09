@@ -110,8 +110,8 @@ public class Mark implements ReadOnlyMark {
      * {@code folderName} must not exist.
      * {@code parentFolderName} must exist.
      */
-    public void createFolder(String folderName, String parentFolderName) {
-        this.folderStructure.createFolder(folderName, parentFolderName);
+    public void addFolder(String folderName, String parentFolderName) {
+        this.folderStructure.addFolder(folderName, parentFolderName);
     }
 
     //// util methods

@@ -18,6 +18,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.mark.commons.exceptions.DataConversionException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.bookmark.Folder;
 
 public class JsonMarkStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMarkStorageTest");
@@ -74,6 +75,7 @@ public class JsonMarkStorageTest {
         // Modify data, overwrite exiting file, and read back
         original.addBookmark(HOON);
         original.removeBookmark(ALICE);
+        original.addFolder("new_folder", Folder.DEFAULT_FOLDER_NAME);
         jsonMarkStorage.saveMark(original, filePath);
         readBack = jsonMarkStorage.readMark(filePath).get();
         assertEquals(original, new Mark(readBack));

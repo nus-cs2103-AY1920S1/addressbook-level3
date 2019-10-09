@@ -86,7 +86,7 @@ public class FolderStructure {
      * @param folderName the folder name
      * @param parentName the parent name
      */
-    public void createFolder(String folderName, String parentName) {
+    public void addFolder(String folderName, String parentName) {
         find(parentName).getSubfolders().add(new FolderStructure(folderName, new ArrayList<>()));
     }
 

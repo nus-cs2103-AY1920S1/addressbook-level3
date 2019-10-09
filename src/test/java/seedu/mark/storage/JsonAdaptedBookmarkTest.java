@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
@@ -21,6 +22,7 @@ public class JsonAdaptedBookmarkTest {
     private static final String INVALID_URL = "exam?ple.com?";
     private static final String INVALID_REMARK = "t/ means tag";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FOLDER = "^hobbies";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_URL = BENSON.getUrl().toString();
@@ -80,6 +82,21 @@ public class JsonAdaptedBookmarkTest {
     public void toModelType_nullRemark_throwsIllegalValueException() {
         JsonAdaptedBookmark bookmark = new JsonAdaptedBookmark(VALID_NAME, VALID_URL, null, VALID_FOLDER, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, bookmark::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidFolder_throwsIllegalValueException() {
+        JsonAdaptedBookmark bookmark =
+                new JsonAdaptedBookmark(VALID_NAME, VALID_URL, VALID_REMARK, INVALID_FOLDER, VALID_TAGS);
+        String expectedMessage = Folder.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, bookmark::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullFolder_throwsIllegalValueException() {
+        JsonAdaptedBookmark bookmark = new JsonAdaptedBookmark(VALID_NAME, VALID_URL, VALID_REMARK, null, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Folder.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, bookmark::toModelType);
     }
 
