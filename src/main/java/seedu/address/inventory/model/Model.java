@@ -1,17 +1,8 @@
 package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
-<<<<<<< HEAD
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
-<<<<<<< HEAD
-=======
-import seedu.address.inventory.util.InventoryList;
-import seedu.address.transaction.util.TransactionList;
->>>>>>> Implemented some Inventory classes
-=======
-import seedu.address.transaction.util.TransactionList;
->>>>>>> fc0be654de9206fb671410f8894ac898fe42746c
 
 public interface Model {
 

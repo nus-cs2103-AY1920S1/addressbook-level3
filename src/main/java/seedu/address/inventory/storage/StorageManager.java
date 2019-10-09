@@ -31,7 +31,7 @@ public class StorageManager implements Storage {
     public static Item readInFileLine(String line) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
-        Item t = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]), Double.parseDouble(stringArr[3]), price);
+        Item t = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]), Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]));
         return t;
     }
 
@@ -40,10 +40,10 @@ public class StorageManager implements Storage {
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
             if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + ". " + inventoryList.get(i).toWriteIntoFile();
+                textFileMsg = textFileMsg + (i + 1) + ". " + inventoryList.getItemByIndex(i).toWriteIntoFile();
             } else {
                 textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". " +
-                        inventoryList.get(i).toWriteIntoFile();
+                        inventoryList.getItemByIndex(i).toWriteIntoFile();
             }
         }
         fw.write(textFileMsg);
