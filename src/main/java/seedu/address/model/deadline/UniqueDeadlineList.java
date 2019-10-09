@@ -3,14 +3,14 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.util.Iterator;
 import java.util.List;
 
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of flash cards that enforces uniqueness between its elements and does not allow nulls.

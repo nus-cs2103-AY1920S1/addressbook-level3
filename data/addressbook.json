@@ -34,9 +34,5 @@
     "answer" : "Bye",
     "rating" : "hard",
     "categories" : [ "CS2100" ]
-  } ],
-  "deadlines" : [ {
-    "task" : "complete",
-    "date" : "10/10/2018"
   } ]
 }

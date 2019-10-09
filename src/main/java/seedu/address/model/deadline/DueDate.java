@@ -18,7 +18,7 @@ public class DueDate {
             + "E.g.: 12/01/2019.";
 
     //private static LocalDate today = LocalDate.now();
-    public static String dateStr;
+    private static String dateStr;
     private static LocalDate localDate;
 
     /**
@@ -52,7 +52,7 @@ public class DueDate {
 
     @Override
     public String toString() {
-        return dateStr;
+        return this.dateStr;
     }
 
     @Override

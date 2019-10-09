@@ -2,10 +2,11 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
-import seedu.address.model.deadline.Deadline;
 
 
 /**
@@ -33,7 +34,7 @@ class JsonAdaptedDeadline {
      */
     public JsonAdaptedDeadline(Deadline source) {
         task = source.getTask().fullTask;
-        date = source.getDueDate().dateStr;
+        date = source.getDueDate().toString();
     }
 
     /**
@@ -51,7 +52,7 @@ class JsonAdaptedDeadline {
         if (!Task.isValidTask(task)) {
             throw new IllegalValueException(Task.MESSAGE_CONSTRAINTS);
         }
-        final Task modelTask= new Task(task);
+        final Task modelTask = new Task(task);
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
