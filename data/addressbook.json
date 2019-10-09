@@ -1,59 +1,11 @@
 {
   "foods" : [ {
-    "name" : "Carbonara",
-    "price" : "5.00",
-    "description" : "Italian noodle with cheese and meat",
-    "category" : "Italian",
-    "tagged" : [ "Noodle" ],
-    "openingHours" : "0800 1700",
-    "restrictions" : "Contains dairy and pork"
-  }, {
-    "name" : "Tonkotsu Ramen",
-    "price" : "11.00",
-    "description" : "Japanese noodle with pork",
-    "category" : "Japanese",
-    "tagged" : [ "Noodle", "Asian" ],
-    "openingHours" : "0800 1800",
-    "restrictions" : "Contains pork"
-  }, {
-    "name" : "Bak Kut Teh",
-    "price" : "10.00",
-    "description" : "Chinese pork soup with spices",
-    "category" : "Chinese",
-    "tagged" : [ "Asian" ],
-    "openingHours" : "0800 1800",
-    "restrictions" : "Contains pork"
-  }, {
-    "name" : "Indomie",
-    "price" : "1.25",
-    "description" : "Really good indonesian noodles",
-    "category" : "Indonesian",
-    "tagged" : [ "Noodle", "Instant" ],
-    "openingHours" : "0000 2359",
-    "restrictions" : "May cause cancer"
-  }, {
     "name" : "Mala Xiang Guo",
-    "price" : "15.00",
-    "description" : "Spicy chinese salad",
+    "price" : "9.20",
+    "description" : "Spicy goodness from China",
     "category" : "Chinese",
     "tagged" : [ "Vegetables", "Spicy" ],
-    "openingHours" : "0800 1930",
-    "restrictions" : "Not halal"
-  }, {
-    "name" : "Wagyu Donburi",
-    "price" : "17.99",
-    "description" : "Japanese rice with wagyu beef",
-    "category" : "Japanese",
-    "tagged" : [ "Luxury", "Beef", "Expensive" ],
-    "openingHours" : "1000 1700",
-    "restrictions" : "Expensive"
-  }, {
-    "name" : "Chicken Rice",
-    "price" : "4.80",
-    "description" : "Fatty rice with chicken",
-    "category" : "Chinese",
-    "tagged" : [ "Roasted", "Chicken", "Steamed" ],
-    "openingHours" : "0900 1700",
+    "openingHours" : "0800 1900",
     "restrictions" : "Not halal"
   } ]
 }
