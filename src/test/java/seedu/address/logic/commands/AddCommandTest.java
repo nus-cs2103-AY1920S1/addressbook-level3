@@ -172,17 +172,17 @@ public class AddCommandTest {
 
         @Override
         public void addDeadline(Deadline deadline) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasDeadline(Deadline deadline) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteDeadline(Deadline deadline) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
