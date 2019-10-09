@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#c4c4c4, 20%);
+    -fx-background-color: #c4c4c4;
     background-color: #c4c4c4; /* Used in the default.html file */
 }
 
@@ -133,9 +133,9 @@
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#c4c4c4, 20%);
-     -fx-border-color: derive(#c4c4c4, 10%);
-     -fx-border-top-width: 1px;
+     /*-fx-background-color: derive(#c4c4c4, 20%);*/
+     /*-fx-border-color: derive(#c4c4c4, 10%);*/
+     /*-fx-border-top-width: 1px;*/
 }
 
 .status-bar {
@@ -146,7 +146,7 @@
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .result-display .label {
@@ -322,13 +322,25 @@
     -fx-text-fill: black;
 }
 
+#resultDisplay {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+}
+
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+#resultDisplay .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane .content{
+    -fx-background-color: transparent;
 }
 
 #tags {
