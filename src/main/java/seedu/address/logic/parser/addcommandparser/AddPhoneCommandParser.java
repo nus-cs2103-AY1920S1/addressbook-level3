@@ -42,7 +42,8 @@ public class AddPhoneCommandParser implements Parser<AddPhoneCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONENAME,
                         PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PHONENAME, PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PHONENAME,
+                PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhoneCommand.MESSAGE_USAGE));
         }

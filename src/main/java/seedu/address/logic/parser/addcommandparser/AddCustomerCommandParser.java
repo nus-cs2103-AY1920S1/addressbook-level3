@@ -10,7 +10,11 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
-import seedu.address.logic.parser.*;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;

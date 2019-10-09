@@ -9,7 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PHONES;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
