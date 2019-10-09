@@ -44,7 +44,7 @@
     "price" : "4.00",
     "description" : "Companion for boring ICube Lectures",
     "category" : "Vending Machine Food",
-    "tagged" : [ "colleagues" ],
+    "tagged" : [ "Sandwich" ],
     "openingHours" : "0000 2359",
     "restrictions" : "No Restrictions"
   }, {
@@ -52,8 +52,8 @@
     "price" : "2.50",
     "description" : "Rice with Chicken",
     "category" : "Chinese",
-    "tagged" : [ ],
+    "tagged" : [ "Chicken", "Rice" ],
     "openingHours" : "0800 2000",
-    "restrictions" : "NIL"
+    "restrictions" : "Halal"
   } ]
 }

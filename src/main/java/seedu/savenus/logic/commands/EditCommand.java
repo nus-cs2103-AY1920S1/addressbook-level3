@@ -50,7 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_RESTRICTIONS + "RESTRICTIONS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3.99 "
-            + PREFIX_DESCRIPTION + "description";
+            + PREFIX_DESCRIPTION + "Japanese Noodle with Curry";
 
     public static final String MESSAGE_EDIT_FOOD_SUCCESS = "Edited Food: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field of the food to be edited must be provided.";
