@@ -5,11 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LAST_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,20 +24,16 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a worker to the address book. "
             + "Parameters: "
             + PREFIX_FLAG + "w "
-            + PREFIX_FIRST_NAME + " FIRST NAME "
-            + PREFIX_MIDDLE_NAME + " MIDDLE NAME "
-            + PREFIX_LAST_NAME + " LAST NAME "
-            + PREFIX_PHONE + " PHONE "
+            + PREFIX_NAME + " NAME "
+            + PREFIX_PHONE_NUMBER + " PHONE "
             + PREFIX_SEX + " SEX "
             + PREFIX_DATE_OF_BIRTH + " DATE OF BIRTH "
             + PREFIX_DATE_JOINED + " DATE JOINED "
             + PREFIX_DESIGNATION + " DESIGNATION "
             + PREFIX_EMPLOYMENT_STATUS + " EMPLOYMENT STATUS"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FIRST_NAME + " John "
-            + PREFIX_MIDDLE_NAME + " Charlie "
-            + PREFIX_LAST_NAME + " Doe "
-            + PREFIX_PHONE + " 91234567 "
+            + PREFIX_NAME + "John Doe"
+            + PREFIX_PHONE_NUMBER + " 91234567 "
             + PREFIX_SEX + " Male "
             + PREFIX_DATE_OF_BIRTH + " 12/12/1997 "
             + PREFIX_DATE_JOINED + " 1/1/2019 "
@@ -76,5 +70,10 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
+    }
+
+    @Override
+    public String toString() {
+        return toAdd.toString();
     }
 }

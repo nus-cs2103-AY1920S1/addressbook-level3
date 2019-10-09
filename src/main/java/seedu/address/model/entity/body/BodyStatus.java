@@ -1,6 +1,9 @@
 package seedu.address.model.entity.body;
 
 //@@author ambervoong
+
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Enumerates all the possible states a body undergoes in the mortuary.
  */
@@ -10,7 +13,7 @@ public enum BodyStatus {
     /**
      * Parses {@code String status} to return the corresponding {@code Status}.
      */
-    public static BodyStatus parseBodyStatus(String status) {
+    public static BodyStatus parseBodyStatus(String status) throws ParseException {
         assert(status != null);
         String statusLowerCaps = status.toLowerCase();
         switch(statusLowerCaps) {
@@ -29,7 +32,7 @@ public enum BodyStatus {
         case "donated":
             return DONATED;
         default:
-            return ARRIVED;
+            throw new ParseException("Invalid Body Status.");
         }
     }
 }

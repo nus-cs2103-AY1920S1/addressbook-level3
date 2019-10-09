@@ -7,11 +7,8 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_IDENTIFICATION_NUMBER = new Prefix("/id");
-    public static final Prefix PREFIX_FIRST_NAME = new Prefix("/firstName");
-    public static final Prefix PREFIX_MIDDLE_NAME = new Prefix("/middleName");
-    public static final Prefix PREFIX_LAST_NAME = new Prefix("/lastName");
-    //disabled for now so that standard command format for Person still valid
-    //public static final Prefix PREFIX_PHONE = new Prefix("/phoneNo");
+    public static final Prefix PREFIX_NAME = new Prefix("/name");
+    public static final Prefix PREFIX_PHONE_NUMBER = new Prefix("/phoneNo");
     public static final Prefix PREFIX_SEX = new Prefix("/sex");
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("/dob");
     public static final Prefix PREFIX_DATE_JOINED = new Prefix("/dateJoined");
@@ -32,8 +29,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_FLAG = new Prefix("-");
 
     // to be deleted
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
+    //public static final Prefix PREFIX_NAME = new Prefix("n/");
+    //public static final Prefix PREFIX_PHONE_NUMBER = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");

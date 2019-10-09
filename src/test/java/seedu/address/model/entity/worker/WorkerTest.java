@@ -93,31 +93,37 @@ class WorkerTest {
         assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getWorkerIdNum());
         Worker testWorker = new WorkerBuilder().build();
 
+        // Name
         assertEquals(new Name(DEFAULT_NAME), testWorker.getName());
 
+        // Date
         Date newDate = ParserUtil.parseDate("2/2/2000");
         testWorker.setDateJoined(newDate);
         assertEquals(newDate, testWorker.getDateJoined());
         testWorker.setDateOfBirth(newDate);
-        assertEquals(newDate, testWorker.getDateOfBirth());
+        assertEquals(newDate, testWorker.getDateOfBirth().get());
 
+        // Designation
         testWorker.setDesignation("manager");
-        assertEquals("manager", testWorker.getDesignation());
+        assertEquals("manager", testWorker.getDesignation().get());
 
+        // Phone number
         PhoneNumber newPhone = new PhoneNumber("90000001");
         testWorker.setPhone(newPhone);
-        assertEquals(newPhone, testWorker.getPhone());
+        assertEquals(newPhone, testWorker.getPhone().get());
 
+        // Sex
         testWorker.setSex(FEMALE);
         assertEquals(FEMALE, testWorker.getSex());
 
+        // Employment status
         testWorker.setEmploymentStatus("Test status");
-        assertEquals("Test status", testWorker.getEmploymentStatus());
+        assertEquals("Test status", testWorker.getEmploymentStatus().get());
     }
 
     @Test
     void toString_correct() throws ParseException {
-        assertEquals(DEFAULT_NAME + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
+        assertEquals(DEFAULT_NAME + " Worker ID: W00001" + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
                 + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
                 + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)
                 + " Designation: " + DEFAULT_DESIGNATION + " Employment Status: " + DEFAULT_EMPLOYMENT_STATUS,

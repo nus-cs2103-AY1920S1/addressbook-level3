@@ -43,7 +43,7 @@ public class PhoneNumber {
             return false;
         }
         PhoneNumber that = (PhoneNumber) o;
-        return Objects.equals(phoneNumber, that.phoneNumber);
+        return phoneNumber.equals(that.phoneNumber);
     }
 
     @Override

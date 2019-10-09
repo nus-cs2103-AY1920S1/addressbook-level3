@@ -6,9 +6,11 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,7 @@ public class ParserUtilTest {
     private static final String VALID_SEX = "male";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_ID = "F01";
+    private static final String VALID_ORGANS_FOR_DONATION = "kidney, cornea";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -233,5 +236,14 @@ public class ParserUtilTest {
     @Test
     public void parseIdentificationNumber_invalidId_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIdentificationNumber(INVALID_ID));
+    }
+
+    @Test
+    public void parseOrgansForDonation_validString_returnListOfOrgans() throws Exception {
+        List<String> expectedListOfOrgans = new ArrayList<String>();
+        expectedListOfOrgans.add("kidney");
+        expectedListOfOrgans.add("cornea");
+        assertEquals(expectedListOfOrgans, ParserUtil.parseOrgansForDonation(VALID_ORGANS_FOR_DONATION));
+
     }
 }

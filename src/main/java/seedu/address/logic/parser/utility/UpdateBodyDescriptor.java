@@ -69,17 +69,17 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     public UpdateBodyDescriptor(Body body) {
         this.name = body.getName();
         this.sex = body.getSex();
-        this.nric = body.getNric();
-        this.religion = body.getReligion();
-        this.causeOfDeath = body.getCauseOfDeath();
-        this.organsForDonation = body.getOrgansForDonation();
-        this.bodyStatus = body.getBodyStatus();
-        this.fridgeId = body.getFridgeId();
-        this.dateOfBirth = body.getDateOfBirth();
+        this.nric = body.getNric().orElse(null);
+        this.religion = body.getReligion().orElse(null);
+        this.causeOfDeath = body.getCauseOfDeath().orElse(null);
+        this.organsForDonation = body.getOrgansForDonation().orElse(null);
+        this.bodyStatus = body.getBodyStatus().orElse(null);
+        this.fridgeId = body.getFridgeId().orElse(null);
+        this.dateOfBirth = body.getDateOfBirth().orElse(null);
         this.dateOfDeath = body.getDateOfDeath();
-        this.nextOfKin = body.getNextOfKin();
-        this.relationship = body.getRelationship();
-        this.kinPhoneNumber = body.getKinPhoneNumber();
+        this.nextOfKin = body.getNextOfKin().orElse(null);
+        this.relationship = body.getRelationship().orElse(null);
+        this.kinPhoneNumber = body.getKinPhoneNumber().orElse(null);
     }
 
     /**
@@ -101,18 +101,18 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         Body body = (Body) entity;
         body.setName(this.getName().orElse(body.getName()));
         body.setSex(this.getSex().orElse(body.getSex()));
-        body.setNric(this.getNric().orElse(body.getNric()));
-        body.setReligion(this.getReligion().orElse(body.getReligion()));
-        body.setCauseOfDeath(this.getCauseOfDeath().orElse(body.getCauseOfDeath()));
-        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation()));
-        body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus()));
-        body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId()));
-        body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth()));
+        body.setNric(this.getNric().orElse(body.getNric().orElse(null)));
+        body.setReligion(this.getReligion().orElse(body.getReligion().orElse(null)));
+        body.setCauseOfDeath(this.getCauseOfDeath().orElse(body.getCauseOfDeath().orElse(null)));
+        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation().orElse(null)));
+        body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus().orElse(null)));
+        body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
+        body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));
         body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath()));
 
-        body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin()));
-        body.setRelationship(this.getRelationship().orElse(body.getRelationship()));
-        body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber()));
+        body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
+        body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
+        body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
 
         return entity;
     }

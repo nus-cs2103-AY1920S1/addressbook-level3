@@ -46,11 +46,11 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
      */
     public UpdateWorkerDescriptor(Worker worker) {
         this.sex = worker.getSex();
-        this.phone = worker.getPhone();
-        this.dateOfBirth = worker.getDateOfBirth();
+        this.phone = worker.getPhone().orElse(null);
+        this.dateOfBirth = worker.getDateOfBirth().orElse(null);
         this.dateJoined = worker.getDateJoined();
-        this.designation = worker.getDesignation();
-        this.employmentStatus = worker.getEmploymentStatus();
+        this.designation = worker.getDesignation().orElse(null);
+        this.employmentStatus = worker.getEmploymentStatus().orElse(null);
     }
 
     @Override
@@ -62,12 +62,12 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
     public Entity apply(Entity entity) {
         assert entity != null;
         Worker worker = (Worker) entity;
-        worker.setPhone(this.getPhone().orElse(worker.getPhone()));
+        worker.setPhone(this.getPhone().orElse(worker.getPhone().orElse(null)));
         worker.setSex(this.getSex().orElse(worker.getSex()));
-        worker.setDateOfBirth(this.getDateOfBirth().orElse(worker.getDateOfBirth()));
+        worker.setDateOfBirth(this.getDateOfBirth().orElse(worker.getDateOfBirth().orElse(null)));
         worker.setDateJoined(this.getDateJoined().orElse(worker.getDateJoined()));
-        worker.setDesignation(this.getDesignation().orElse(worker.getDesignation()));
-        worker.setEmploymentStatus(this.getEmploymentStatus().orElse(worker.getEmploymentStatus()));
+        worker.setDesignation(this.getDesignation().orElse(worker.getDesignation().orElse(null)));
+        worker.setEmploymentStatus(this.getEmploymentStatus().orElse(worker.getEmploymentStatus().orElse(null)));
         return entity;
     }
 

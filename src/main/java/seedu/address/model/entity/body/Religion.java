@@ -1,6 +1,9 @@
 package seedu.address.model.entity.body;
 
 //@@author ambervoong
+
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Enumerates all of the major religions.
  */
@@ -11,7 +14,7 @@ public enum Religion {
     /**
      * Parses {@code String religion} to return the corresponding {@code Religion}.
      */
-    public static Religion parseReligion(String religion) {
+    public static Religion parseReligion(String religion) throws ParseException {
         assert(religion != null);
         String religionLowerCaps = religion.toLowerCase();
         switch(religionLowerCaps) {
@@ -35,8 +38,10 @@ public enum Religion {
             return JUDAISM;
         case "jainism":
             return JAINISM;
-        default:
+        case "nonreligious":
             return NONRELIGIOUS;
+        default:
+            throw new ParseException("Invalid religion");
         }
     }
 }

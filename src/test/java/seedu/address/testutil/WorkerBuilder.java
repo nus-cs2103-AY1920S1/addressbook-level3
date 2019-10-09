@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.entity.Sex.MALE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEST_PARAMETERS;
 
 import java.util.Date;
 
@@ -16,10 +16,9 @@ import seedu.address.model.person.Name;
  */
 public class WorkerBuilder {
 
-    public static final String MESSAGE_INVALID_TEST_DATE = "Test parameters for dates are invalid";
     public static final String DEFAULT_NAME = "John Doe";
     public static final String DEFAULT_PHONE = "91234567";
-    public static final Sex DEFAULT_SEX = MALE;
+    public static final String DEFAULT_SEX = "MALE";
     public static final String DEFAULT_DATE_OF_BIRTH = "01/01/1997";
     public static final String DEFAULT_DATE_JOINED = "01/01/2019";
     public static final String DEFAULT_DESIGNATION = "technician";
@@ -36,12 +35,12 @@ public class WorkerBuilder {
     public WorkerBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new PhoneNumber(DEFAULT_PHONE);
-        sex = DEFAULT_SEX;
         try {
+            sex = ParserUtil.parseSex(DEFAULT_SEX);
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
             dateJoined = ParserUtil.parseDate(DEFAULT_DATE_JOINED);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_DATE);
+            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
         }
         designation = DEFAULT_DESIGNATION;
         employmentStatus = DEFAULT_EMPLOYMENT_STATUS;
@@ -52,12 +51,12 @@ public class WorkerBuilder {
      */
     public WorkerBuilder(Worker workerToCopy) {
         name = workerToCopy.getName();
-        phone = workerToCopy.getPhone();
+        phone = workerToCopy.getPhone().orElse(null);
         sex = workerToCopy.getSex();
-        dateOfBirth = workerToCopy.getDateOfBirth();
+        dateOfBirth = workerToCopy.getDateOfBirth().orElse(null);
         dateJoined = workerToCopy.getDateJoined();
-        designation = workerToCopy.getDesignation();
-        employmentStatus = workerToCopy.getEmploymentStatus();
+        designation = workerToCopy.getDesignation().orElse(null);
+        employmentStatus = workerToCopy.getEmploymentStatus().orElse(null);
     }
 
     /**
@@ -71,8 +70,8 @@ public class WorkerBuilder {
     /**
      * Sets the {@code sex} of the {@code Worker} that we are building.
      */
-    public WorkerBuilder withSex(Sex sex) {
-        this.sex = sex;
+    public WorkerBuilder withSex(String sex) {
+        this.sex = Sex.valueOf(sex);
         return this;
     }
 
@@ -80,7 +79,7 @@ public class WorkerBuilder {
      * Sets the {@code employmentStatus} of the {@code Worker} that we are building.
      */
     public WorkerBuilder withEmploymentStatus(String employmentStatus) {
-        this.employmentStatus = employmentStatus;
+        this.employmentStatus = ParserUtil.parseStringFields(employmentStatus);
         return this;
     }
 
@@ -88,7 +87,11 @@ public class WorkerBuilder {
      * Sets the {@code Phone} of the {@code Worker} that we are building.
      */
     public WorkerBuilder withPhone(String phone) {
-        this.phone = new PhoneNumber(phone);
+        try {
+            this.phone = ParserUtil.parsePhoneNumber(phone);
+        } catch (ParseException e) {
+            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -99,7 +102,7 @@ public class WorkerBuilder {
         try {
             this.dateOfBirth = ParserUtil.parseDate(dateOfBirth);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_DATE);
+            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -111,7 +114,7 @@ public class WorkerBuilder {
         try {
             this.dateJoined = ParserUtil.parseDate(dateJoined);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_DATE);
+            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -120,7 +123,7 @@ public class WorkerBuilder {
      * Sets the {@code designation} of the {@code Worker} that we are building.
      */
     public WorkerBuilder withDesignation(String designation) {
-        this.designation = designation;
+        this.designation = ParserUtil.parseStringFields(designation);
         return this;
     }
     public Worker build() {

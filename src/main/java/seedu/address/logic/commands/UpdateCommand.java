@@ -7,17 +7,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRIDGE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LAST_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -57,9 +55,7 @@ public class UpdateCommand extends Command {
             + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NUMBER \n"
             + "Optional fields are listed below. \n"
             + "Update fields for a Body object: \n"
-            + PREFIX_FIRST_NAME + "FIRST_NAME "
-            + PREFIX_MIDDLE_NAME + "MIDDLE_NAME "
-            + PREFIX_LAST_NAME + "LAST_NAME "
+            + PREFIX_NAME + "NAME "
             + PREFIX_SEX + "SEX "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_RELIGION + "RELIGION "
@@ -73,7 +69,7 @@ public class UpdateCommand extends Command {
             + PREFIX_RELATIONSHIP + "RELATIONSHIP "
             + PREFIX_PHONE_NOK + "PHONE_NOK "
             + "\nUpdate fields for a Worker object: \n"
-            + PREFIX_PHONE + "PHONE "
+            + PREFIX_PHONE_NUMBER + "PHONE "
             + PREFIX_SEX + "SEX "
             + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
             + PREFIX_DATE_JOINED + "DATE JOINED "
@@ -83,8 +79,7 @@ public class UpdateCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FLAG + "b "
             + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-            + PREFIX_FIRST_NAME + " Jane"
-            + PREFIX_LAST_NAME + " Cthulhu";
+            + PREFIX_NAME + " Jane Cthulhu";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid edits to entity: %1$s";

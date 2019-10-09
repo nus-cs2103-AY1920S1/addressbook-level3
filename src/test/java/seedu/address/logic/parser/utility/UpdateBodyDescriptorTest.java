@@ -75,21 +75,21 @@ class UpdateBodyDescriptorTest {
     void getSetNric() {
         Body body = new BodyBuilder(ALICE).build();
         body.setNric(new Nric("F9123456B"));
-        assertEquals(new Nric("F9123456B"), body.getNric());
+        assertEquals(new Nric("F9123456B"), body.getNric().get());
     }
 
     @Test
     void getSetReligion() {
         Body body = new BodyBuilder(ALICE).build();
         body.setReligion(Religion.ISLAM);
-        assertEquals(Religion.ISLAM, body.getReligion());
+        assertEquals(Religion.ISLAM, body.getReligion().get());
     }
 
     @Test
     void getSetCauseOfDeath() {
         Body body = new BodyBuilder(ALICE).build();
         body.setCauseOfDeath("Sepsis");
-        assertEquals("Sepsis", body.getCauseOfDeath());
+        assertEquals("Sepsis", body.getCauseOfDeath().get());
     }
 
     @Test
@@ -99,21 +99,21 @@ class UpdateBodyDescriptorTest {
         list.add("kidney");
         list.add("cornea");
         body.setOrgansForDonation(list);
-        assertEquals(list, body.getOrgansForDonation());
+        assertEquals(list, body.getOrgansForDonation().get());
     }
 
     @Test
     void getSetStatus() {
         Body body = new BodyBuilder(ALICE).build();
         body.setBodyStatus(BodyStatus.PENDING_IDENTIFICATION);
-        assertEquals(BodyStatus.PENDING_IDENTIFICATION, body.getBodyStatus());
+        assertEquals(BodyStatus.PENDING_IDENTIFICATION, body.getBodyStatus().get());
     }
 
     @Test
     void getSetFridgeId() {
         Body body = new BodyBuilder(ALICE).build();
         body.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
-        assertEquals(IdentificationNumber.customGenerateId("F", 5), body.getFridgeId());
+        assertEquals(IdentificationNumber.customGenerateId("F", 5), body.getFridgeId().get());
     }
 
     @Test
@@ -121,7 +121,7 @@ class UpdateBodyDescriptorTest {
         Body body = new BodyBuilder(ALICE).build();
         Date birthday = ParserUtil.parseDate("01/02/2018");
         body.setDateOfBirth(birthday);
-        assertEquals(birthday, body.getDateOfBirth());
+        assertEquals(birthday, body.getDateOfBirth().get());
     }
 
     @Test
@@ -136,14 +136,14 @@ class UpdateBodyDescriptorTest {
     void getSetNextOfKin() {
         Body body = new BodyBuilder(ALICE).build();
         body.setNextOfKin(new Name("Sepe Lok Aew"));
-        assertEquals(new Name("Sepe Lok Aew"), body.getNextOfKin());
+        assertEquals(new Name("Sepe Lok Aew"), body.getNextOfKin().get());
     }
 
     @Test
     void getSetRelationship() {
         Body body = new BodyBuilder(ALICE).build();
         body.setRelationship("Mother");
-        assertEquals("Mother", body.getRelationship());
+        assertEquals("Mother", body.getRelationship().get());
     }
 
 
@@ -151,7 +151,7 @@ class UpdateBodyDescriptorTest {
     void getSetKinPhoneNumber() {
         Body body = new BodyBuilder(ALICE).build();
         body.setKinPhoneNumber(new PhoneNumber("98981234"));
-        assertEquals(new PhoneNumber("98981234"), body.getKinPhoneNumber());
+        assertEquals(new PhoneNumber("98981234"), body.getKinPhoneNumber().get());
     }
 
     @Test

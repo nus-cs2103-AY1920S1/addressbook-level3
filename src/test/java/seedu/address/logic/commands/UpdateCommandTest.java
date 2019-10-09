@@ -95,7 +95,7 @@ public class UpdateCommandTest {
     public void saveOriginalFields_body_success() throws CommandException {
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = (UpdateBodyDescriptor) UpdateCommand.saveOriginalFields(body);
-        assertEquals(descriptor.getCauseOfDeath().get(), body.getCauseOfDeath());
+        assertEquals(descriptor.getCauseOfDeath().get(), body.getCauseOfDeath().get());
     }
 
 

@@ -1,11 +1,15 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_ADMISSION_JANE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_ADMISSION_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_DEATH_JANE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_DEATH_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JANE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEX_JANE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEX_JOHN;
 
-import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.body.BodyStatus;
-import seedu.address.model.entity.body.Religion;
 
 //@@author ambervoong
 /**
@@ -16,13 +20,13 @@ public class TypicalBodies {
     public static final Body ALICE = new BodyBuilder()
             .withDateOfAdmission("01/01/1991")
             .withName("Alice Pauline")
-            .withSex(Sex.FEMALE)
+            .withSex("FEMALE")
             .withNric("S1234567A")
-            .withReligion(Religion.ISLAM)
+            .withReligion("ISLAM")
             .withCauseOfDeath("Stroke")
-            .withOrgansForDonation(new ArrayList<>())
-            .withStatus(BodyStatus.PENDING_CLAIM)
-            .withFridgeId(1)
+            .withOrgansForDonation("")
+            .withStatus("PENDING_CLAIM")
+            .withFridgeId("F01")
             .withDateOfBirth("03/09/1982")
             .withDateOfDeath("01/01/1991")
             .withNextOfKin("Ben Joseph")
@@ -33,19 +37,25 @@ public class TypicalBodies {
     public static final Body BOB = new BodyBuilder()
             .withDateOfAdmission("01/01/1991")
             .withName("Bob Chachki")
-            .withSex(Sex.MALE)
+            .withSex("MALE")
             .withNric("S1224567A")
-            .withReligion(Religion.CHRISTIANITY)
+            .withReligion("CHRISTIANITY")
             .withCauseOfDeath("NECROSIS")
-            .withOrgansForDonation(new ArrayList<>())
-            .withStatus(BodyStatus.ARRIVED)
-            .withFridgeId(1)
+            .withOrgansForDonation("")
+            .withStatus("ARRIVED")
+            .withFridgeId("F01")
             .withDateOfBirth("02/09/1982")
             .withDateOfDeath("01/06/1971")
             .withNextOfKin("Ben Chachki")
             .withRelationship("Father")
             .withKinPhoneNumber("87120919")
             .build();
+
+    // Manually added - Workers's details found in {@code CommandTestUtil}
+    public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
+        .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
+    public static final Body JANE = new BodyBuilder().withName(VALID_NAME_JANE).withSex(VALID_SEX_JANE)
+        .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JANE).withDateOfDeath(VALID_DATE_OF_DEATH_JANE).build();
 
     private TypicalBodies() {
     } // prevents instantiation

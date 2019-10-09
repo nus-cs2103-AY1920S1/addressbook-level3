@@ -5,5 +5,9 @@ package seedu.address.model.entity;
  */
 public interface Entity {
 
+    String OPTIONAL_FIELD_EMPTY = "No input given.";
+
     boolean isSameEntity(Object o);
+
+    boolean equals(Object o);
 }

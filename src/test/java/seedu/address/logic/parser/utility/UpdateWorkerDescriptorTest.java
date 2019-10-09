@@ -54,7 +54,7 @@ class UpdateWorkerDescriptorTest {
     void getSetPhone() {
         Worker worker = new WorkerBuilder().build();
         worker.setPhone(new PhoneNumber("98731567"));
-        assertEquals(new PhoneNumber("98731567"), worker.getPhone());
+        assertEquals(new PhoneNumber("98731567"), worker.getPhone().get());
     }
 
     @Test
@@ -69,7 +69,7 @@ class UpdateWorkerDescriptorTest {
         Worker worker = new WorkerBuilder().build();
         worker.setDateOfBirth(ParserUtil.parseDate("06/11/1987"));
         assertEquals(ParserUtil.parseDate("06/11/1987"),
-                worker.getDateOfBirth());
+                worker.getDateOfBirth().get());
     }
 
     @Test
@@ -83,14 +83,14 @@ class UpdateWorkerDescriptorTest {
     void getSetDesignation() {
         Worker worker = new WorkerBuilder().build();
         worker.setDesignation("manager");
-        assertEquals("manager", worker.getDesignation());
+        assertEquals("manager", worker.getDesignation().get());
     }
 
     @Test
     void getSetEmploymentStatus() {
         Worker worker = new WorkerBuilder().build();
         worker.setEmploymentStatus("Probation");
-        assertEquals("Probation", worker.getEmploymentStatus());
+        assertEquals("Probation", worker.getEmploymentStatus().get());
     }
 
     @Test
