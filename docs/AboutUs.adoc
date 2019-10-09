@@ -40,7 +40,7 @@ Components:
 
 '''
 
-=== Zhiheng Xiu
+=== Ziheng Xiu
 image::cary-xx.png[width="150", align="left"]
 {empty}[http://github.com/Cary-Xx[github]] [<<cary-xx#, portfolio>>]
 
