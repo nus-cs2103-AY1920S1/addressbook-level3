@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AllCommands;
 import seedu.address.logic.commands.CommandResult;
 //import seedu.address.logic.commands.EventRelatedCommand;
 //import seedu.address.logic.commands.ListEventCommand;
+import seedu.address.logic.commands.EventRelatedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,10 +46,10 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         AllCommands command = addressBookParser.parseCommand(commandText);
-        if (command.isEventRelated()) {
+        if (command instanceof EventRelatedCommand) {
             logger.info("----------------[TEST]");
             commandResult = command.execute(eventModel);
-        } else {
+        } else { //Non-Event Command
             commandResult = command.execute(model);
         }
 

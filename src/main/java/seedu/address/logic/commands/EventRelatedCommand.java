@@ -15,9 +15,4 @@ public abstract class EventRelatedCommand extends AllCommands {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
-
-    @Override
-    public boolean isEventRelated() {
-        return true;
-    }
 }

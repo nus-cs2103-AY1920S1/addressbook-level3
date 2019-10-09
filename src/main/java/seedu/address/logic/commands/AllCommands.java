@@ -15,6 +15,4 @@ public abstract class AllCommands {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
-
-    public abstract boolean isEventRelated();
 }
