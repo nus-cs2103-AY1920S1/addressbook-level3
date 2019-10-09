@@ -2,9 +2,13 @@ package seedu.address.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_IDENTIFIER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.TRANSPORT;
@@ -29,28 +33,32 @@ public class ExpenseTest {
         // null -> returns false
         assertFalse(ANNIVERSARY.isSameExpense(null));
 
-        // different price -> returns false
-        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withPrice(VALID_PRICE_TRANSPORT).build();
-        assertFalse(ANNIVERSARY.isSameExpense(editedAlice));
-
-        // different description -> returns false
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withDescription(VALID_DESCRIPTION_TRANSPORT).build();
-        assertFalse(ANNIVERSARY.isSameExpense(editedAlice));
-        /*
-        // same description, same price, different attributes -> returns true
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_CLAIMABLE).build();
+        // different price -> returns true
+        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY)
+                .withPrice(VALID_PRICE_TRANSPORT).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
-        // same description, same email, different attributes -> returns true
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withPrice(VALID_PRICE_TRANSPORT).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_CLAIMABLE).build();
-        assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
-
-        // same description, same price, same email, different attributes -> returns true
+        // different description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_CLAIMABLE).build();
-        assertTrue(ANNIVERSARY.isSameExpense(editedAlice))*/;
+                .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
+        assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
+
+        // different tag -> return true
+        editedAlice = new ExpenseBuilder(ANNIVERSARY)
+                .withTags(VALID_TAG_CLAIMABLE).build();
+        assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
+
+        //different price, tag, and description -> returns true
+        editedAlice = new ExpenseBuilder(ANNIVERSARY)
+                .withPrice(VALID_PRICE_CHICKEN)
+                .withDescription(VALID_DESCRIPTION_CHICKEN)
+                .withTags(VALID_TAG_DISCOUNTED).build();
+        assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
+
+        // same everything except different unique identifier -> returns false
+        editedAlice = new ExpenseBuilder(ANNIVERSARY)
+                .withUniqueIdentifier(VALID_UNIQUE_IDENTIFIER).build();
+        assertFalse(ANNIVERSARY.isSameExpense(editedAlice));
     }
 
     @Test

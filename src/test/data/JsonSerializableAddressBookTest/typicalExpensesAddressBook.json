@@ -3,31 +3,38 @@
   "expenses" : [ {
     "description" : "Alices Birthday",
     "price" : "20",
-    "tagged" : [ "AnniversaryAndHoliday" ]
+    "tagged" : [ "AnniversaryAndHoliday" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   }, {
     "description" : "Busan Trip",
     "price" : "1300",
-    "tagged" : [ "Travel", "Korea", "Food", "Transport" ]
+    "tagged" : [ "Travel", "Korea", "Food", "Transport" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000002"
   }, {
     "description" : "Chicken Rice extra Chicken",
     "price" : "3.50",
-    "tagged" : [ "nusDeck", "Favourite" ]
+    "tagged" : [ "nusDeck", "Favourite" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000003"
   }, {
     "description" : "Whiskey and Coke",
     "price" : "50",
-    "tagged" : [ "Party", "AnniversaryAndHoliday" ]
+    "tagged" : [ "Party", "AnniversaryAndHoliday" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000004"
   }, {
     "description" : "Marvel Movie Marathon",
     "price" : "75",
-    "tagged" : [ "Entertainment"]
+    "tagged" : [ "Entertainment"],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000005"
   }, {
     "description" : "Clothes for the New Year",
     "price" : "88.88",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000006"
   }, {
     "description" : "Groceries for September meal preps",
     "price" : "125.35",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007"
   } ],
   "events" : []
 }

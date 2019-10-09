@@ -3,10 +3,7 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.CHICKEN;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,11 +21,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.expense.Expense;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.ExpenseBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
