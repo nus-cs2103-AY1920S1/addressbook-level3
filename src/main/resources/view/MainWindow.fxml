@@ -38,7 +38,6 @@
 
                 <AnchorPane fx:id="anchorPane" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                     <children>
-
                         <SplitPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="100.0"
                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" VBox.vgrow="SOMETIMES">
                             <VBox fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS"
@@ -76,16 +75,15 @@
                     </children>
                 </AnchorPane>
 
-                <StackPane fx:id="commandBoxPlaceholder"
-                           maxWidth="Infinity" prefHeight="10.0" styleClass="pane-with-border"
-                           VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="statusbarPlaceholder"
-                           maxWidth="Infinity" prefHeight="10.0" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0"
+                           VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
     </scene>
