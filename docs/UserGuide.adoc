@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= AddMin+ - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,32 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*, a tech startup company with only 6 full-time employees. ABC Company is still a relatively small company and it could only afford to hire 1 full-time employee to deal with all administrative matters. *AddMin+* is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company. Addmin+ uses a Command Line Interface(CLI) and displays the results through a Graphical User Interface(GUI) to assist the employee in their specific needs.
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for AddMin+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
+.  Click on the specific function you want, Finance, Manpower or Event
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`n/John Doe no/98765432 p/Event Coordinator e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
+* **`delete`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,6 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands, for new users do refer to Section 3.1 till Section 3.4 for the specific command and how to use them. For more advanced users, you could refer to Section 4.1 for the full list of Command Summary.
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -52,110 +56,353 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Viewing help : `help`
+
+Opens a help guide, a list of all commands for the user as a reference to.
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Search : `search`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Search for specific functions/properties
+
+Format: `search`
+
+==== Viewing help : `exit`
+
+Exits and shuts down the program
+
+Format: `exit`
+
+=== Entity Management
+AddMin+ contains two main entities - Employees and Events with similar commands, especially in Create, Read, Update and Delete (CRUD) operations.
+
+==== List : `list_em | list_ev`
+
+Employee: Shows the list of all employees on the company’s roster. Full details are truncated.
+
+Event: Shows the list of all events on the company’s calendar. Full details are truncated.
+
+Employee Format: `list_em`
+
+Event Format: `list_ev`
+
+==== Adding: `add | addev`
+
+Employee: Adds an employee to the employee list
+
+Event: Adds an event that the company is organizing or hosting to the company’s calendar.
+
+Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+
+Event Format: `addev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
-Examples:
+Add Employee Examples:
+* `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Add Event Examples:
+* `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
+* `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 
-=== Listing all persons : `list`
+==== Editing details : `edit_em | edit_ev`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Employee: Edit an existing employee in the employee list.
 
-=== Editing a person : `edit`
+Event: Edits an existing event in the event list.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Employee Format: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+
+Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative.
+* You can remove all the entity's tags by typing `t/` without specifying any tags after it.
+****
+
+Employee Edit Examples:
+
+* `edit_em 1 no/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit_em 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+Event Edit Examples:
+
+* `edit_ev 1 on/16092019` +
+Edits the start date of the 1st event to be on the 16th September, 2019.
+* `edit_ev 2 n/Concert t/` +
+Edits the name of the 2nd event to be `Concert` and clears all existing tags.
+
+==== Fetch Full Details of Entity: `fetch_em | fetch_ev`
+
+Fetch the full details of a specific event/employee. Returns one employee/event only.
+
+Employee Format: `fetch_em INDEX`
+
+Event Format: `fetch_ev INDEX`
+
+****
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Employee/Event Not Found' will be displayed.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `fetch_em 2` +
+Returns employee at index 2
+* `fetch_ev 3` +
+Returns event at index 3
 
-=== Locating persons by name: `find`
+==== Find: `find_em | find_ev`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Find entities whose names contain any of the given keywords.
+
+Employee Format: `find_em KEYWORD [MORE_KEYWORDS]`
+
+Event Format: `find_ev KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only the name of the entity is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
+* `find_em John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find_em Betsy Tim John` +
+Returns any entity having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting an entity : `delete_em | delete_ev`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the entity from the employee roster/event calendar.
+
+Employee Format: `delete_em INDEX`
+
+Event Format: `delete_ev INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the entity at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list_em` +
+`delete_em 2` +
+Deletes the 2nd employee in the displayed employee list.
+* `find Music` +
+`delete_ev 1` +
+Deletes the 1st event in the results of the `find` command.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Employee-Specific Management
 
-Clears all entries from the address book. +
+==== Log Working Hours: `log`
+
+Logs the working hours of the current employee for today. Useful for employees who are paid by the hour.
+
+Format: `log INDEX DDMMYYYY HOURSWORKED`
+
+****
+* Logs working hours of a person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* `HOURSWORKED` must be a positive integer.
+* If the hours worked for that day is already recorded, a new entry will override the previous log.
+****
+
+Examples:
+
+* `list_ev` +
+`log 2 30092019 8` +
+2nd Employee in the employee list is logged with 8 hours on the 30th September
+* `log 2 30092019 7` +
+2nd Employee in the employee list has 8 hours previously logged, is now overwritten with 7 hours.
+
+=== Event-Specific Management
+
+==== Mark Event as Done: `done`
+
+Record the completion/conclusion of an Event.
+
+Format: `done INDEX`
+
+****
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Event Not Found' will be displayed.
+****
+
+Examples:
+
+* `list_ev` +
+`done 2` +
+Marks the second event on the list as done.
+
+==== Allocate Employees to Events: `allocate`
+
+Automatically chooses and allocates employees to events that meet the requirements.
+
+Format: `allocate EVENT_ID [f/TAGS]...`
+
+[TIP]
+An event can have any number of requirements (including 0)
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+* Tags function as filters to determine if an employee is assigned to work for that particular event.
+*
+****
+
+Examples:
+
+* `list_ev` +
+`allocate 002 t/female` +
+Allocates to Event 002 all available employees who are tagged as 'female'
+* `allocate 004 t/music t/night-shift` +
+Allocates to Event 002 all available employees who have expertise in 'music' and are able to work night shifts.
+
+==== Manually allocate Employees ot Events: `allocateM`
+
+Manually chooses and allocates employees to events that meet the requirements.
+
+Format: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+* There should be at least one employee number stated.
+****
+
+Examples:
+
+* `list_ev` +
+`allocateM 002 n/2 n/5 n/3` +
+Allocates to Event 002 employees numbered 2, 3, 5 on the list.
+
+=== Finance Management
+
+==== Generate Employee Payslip: `pay [coming in v2.0]`
+
+Generates the payslip for an employee for a stated time period
+
+Format: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY`
+
+****
+* EMPLOYEE_NUMBER is the number of the employee on the displayed list. It must be a valid number.
+* f/ and t/ represents "from" and "to", both DateTime periods.
+* If the employee did not work during the time period stated, the payslip would not be generated.
+****
+
+Examples:
+
+* `list_em` +
+`pay 2 f/20082019 t/20102019` +
+Generates the payslip of employee 2 from the 20th August - 20th October.
+
+==== Generate Event Contract: `contract [coming in v2.0]`
+
+Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date
+
+Format: `contract n/EVENT_ID`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+****
+
+Examples:
+
+* `contract n/005` +
+Generates the contract for Event_ID 005.
+
+
+=== Archive Management
+
+==== Record Past Event: `archive_ev`
+
+Archives a past event and its details, for future reference.
+
+Format: `archive_ev EVENT_ID`
+
+****
+* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
+****
+
+Examples:
+
+* `list_ev` +
+`archive_ev 002` +
+
+Archives a past Event with ID 002.
+
+==== Record Past Event: `list_archive_ev`
+
+Display List of all archived events. With an index and the Archive event Name and ID
+
+Format: `list_archive_ev`
+
+
+==== Search for Archive Event: `display_archive_ev`
+
+Displays an achieved event and its details.
+
+Format: `display_archive_ev INDEX`
+
+****
+* `INDEX` must be a positive integer and exist within the displayed list.
+* If not found, an 'Event Not Found' will be displayed.
+****
+
+Examples:
+
+* `list_archive_ev` +
+`display_archive_ev 2` +
+Displays the second event on the list and its details.
+
+
+=== Miscellaneous
+
+==== View Schedule
+Displays the dates with events for the specific month
+
+Format: `view_schedule for/MM`
+
+Examples:
+* `view_schedule for/02`
+
+****
+* for/ represents the month in MM that the user wants to display
+****
+
+==== Generate Statistics: `generate_stats`
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `generate_stats`
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the address book.
+
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Saving the data
 
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -164,14 +411,51 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Search* : `search`
+* *List Employees* : `list_em`
+* *List Events* : `list_ev`
+* *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+* *Add Event*: `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
+e.g. `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* *Edit Employee*: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
+* *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
+e.g. `edit_ev 2 n/Concert t/`
+* *Fetch Event*: `fetch_em INDEX` +
+e.g. `fetch_em 2`
+* *Fetch Event*: `fetch_ev INDEX` +
+e.g. `fetch_ev 3`
+* *Find Employee*: `find_em KEYWORD [MORE_KEYWORDS]` +
+e.g. `find_em John`
+* *Find Event*: `find_ev KEYWORD [MORE_KEYWORDS]` +
+e.g. `find_ev Music`
+* *Delete Employee*: `delete_em INDEX` +
+e.g. `delete_em 2`
+* *Delete Event*: `delete_ev INDEX` +
+e.g. `delete_ev 1`
+* *Log Working Hours*: `log INDEX DDMMYYYY HOURSWORKED` +
+e.g. `log 2 30092019 8`
+* *Done Event*: `done INDEX` +
+e.g. `done 2`
+* *Allocate Employees (Auto)*: `allocate EVENT_ID [f/TAGS]...` +
+e.g. `allocate 002 t/female`
+* *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
+e.g. `allocateM 002 n/2 n/5 n/3`
+* *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
+e.g. `pay 2 f/20082019 t/20102019`
+* *Generate Event Contract*: `contract n/EVENT_ID` +
+e.g. `contract n/005`
+* *Archive Past Event*: `archive_ev EVENT_ID` +
+e.g. `archive_ev 005`
+* *List Archive Event*: `list_archive_ev` +
+e.g. `list_archive_ev`
+* *Display Archive Event*: `display_archive_ev INDEX` +
+e.g. `display_archive_ev 2`
+* *View Schedule*: `view_schedule for/MM` +
+e.g. `view_schedule for/02`
+* *Generate Statistics*: `generate_stats` +
+e.g. `generate_stats`
+* *Clear* : `clear`
+* *Exit* : `exit`
