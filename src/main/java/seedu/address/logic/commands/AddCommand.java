@@ -7,8 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.day.Day;
 import seedu.address.model.person.Person;
 
 /**
@@ -36,32 +40,69 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final Person personToAdd;
+    private final Activity activityToAdd;
+    private final List<Day> daysToAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
         requireNonNull(person);
-        toAdd = person;
+        personToAdd = person;
+        activityToAdd = null;
+        daysToAdd = null;
     }
 
+    /**
+     * Creates an AddCommand to add the specified {@code Activity}
+     */
+    public AddCommand(Activity activity) {
+        requireNonNull(activity);
+        personToAdd = null;
+        activityToAdd = activity;
+        daysToAdd = null;
+    }
+
+    /**
+     * Creates an AddCommand to add the specified {@code Day}
+     */
+    public AddCommand(List<Day> days) {
+        requireNonNull(days);
+        personToAdd = null;
+        activityToAdd = null;
+        daysToAdd = days;
+    }
+
+    //model has yet to be updated, execution of add day and activity would be implemented in another commit
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasPerson(personToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addPerson(personToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+        if (personToAdd != null && activityToAdd == null && daysToAdd == null) {
+            return other == this // short circuit if same object
+                    || (other instanceof AddCommand // instanceof handles nulls
+                    && (personToAdd.equals(((AddCommand) other).personToAdd)));
+        } else if (personToAdd == null && activityToAdd != null && daysToAdd == null) {
+            return other == this // short circuit if same object
+                    || (other instanceof AddCommand // instanceof handles nulls
+                    && (activityToAdd.equals(((AddCommand) other).activityToAdd)));
+        } else if (personToAdd == null && activityToAdd == null && daysToAdd != null) {
+            return other == this // short circuit if same object
+                    || (other instanceof AddCommand // instanceof handles nulls
+                    && (daysToAdd.equals(((AddCommand) other).daysToAdd)));
+        } else {
+            return false;
+        }
     }
 }
