@@ -21,6 +21,8 @@ import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -45,6 +47,9 @@ public class DeleteCommandTest {
         assertUndoCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_UNDO_DELETE_ERROR);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage1, expectedModel);
+
+        //ensures that the same command instance cannot be executed again before an undo operation.
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         //ensures undo capability
         expectedModel.addPerson(personToDelete);

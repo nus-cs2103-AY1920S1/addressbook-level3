@@ -17,6 +17,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.queue.QueueManager;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
+import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -75,18 +79,25 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson((Person) null));
+    }
+
+    @Test
+    public void hasPerson_nullReferenceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson((ReferenceId) null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(ALICE.getReferenceId()));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+        assertTrue(modelManager.hasPerson(ALICE.getReferenceId()));
     }
 
     @Test
@@ -99,9 +110,12 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        AppointmentBook appointmentBook = new AppointmentBook();
         QueueManager queueManager = new QueueManager();
 
         // same values -> returns true
+        modelManager = new ModelManager(userPrefs, addressBook, appointmentBook);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, addressBook, appointmentBook);
         modelManager = new ModelManager(addressBook, userPrefs, queueManager);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, queueManager);
         assertTrue(modelManager.equals(modelManagerCopy));

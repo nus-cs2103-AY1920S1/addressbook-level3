@@ -13,6 +13,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

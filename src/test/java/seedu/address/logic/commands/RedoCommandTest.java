@@ -7,15 +7,17 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.core.CommandHistory;
-import seedu.address.logic.commands.core.CommandResult;
-import seedu.address.logic.commands.core.UndoableCommandStub;
+import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.utils.ReversibleCommandStub;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.QueueList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for RedoCommand.
@@ -33,7 +35,7 @@ class RedoCommandTest {
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
-        history.addToCommandHistory(new UndoableCommandStub(commandResultMessage));
+        history.addToCommandHistory(new ReversibleCommandStub(commandResultMessage));
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         try {
