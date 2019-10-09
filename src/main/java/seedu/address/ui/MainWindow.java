@@ -4,12 +4,18 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -22,18 +28,22 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
+    public static final int WIDTH_PADDING = 20;
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private UiParser uiParser;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private ListPanel listPanel;
+    private CalendarPanel calendarPanel;
+    private LogPanel logPanel;
     private HelpWindow helpWindow;
+
+    private boolean calendarMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +52,25 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane viewPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane logPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private GridPane gridManager;
+
+    @FXML
+    private VBox vBoxPane;
+
+    @FXML
+    private Label chatLog;
+
+    @FXML
+    private Label list;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -56,8 +78,9 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.uiParser = new UiParser();
+        this.calendarMode = false;
 
-        // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
@@ -107,17 +130,38 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        calendarPanel = new CalendarPanel(logic.getFilteredEventList(), uiParser);
+        listPanel = new ListPanel(logic.getFilteredEventList(), uiParser);
+        viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+        calendarPanel.getRoot().setVisible(false);
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        logPanel = new LogPanel();
+        logPanelPlaceholder.getChildren().add(logPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        editInnerParts();
+    }
+
+    /**
+     * Edits the size of the nodes based on the user's screen size.
+     */
+    private void editInnerParts() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenHeight = primaryScreenBounds.getHeight();
+        double screenWidth = primaryScreenBounds.getWidth();
+
+        logPanelPlaceholder.setPrefWidth(screenWidth);
+        viewPanelPlaceholder.setPrefWidth(screenWidth);
+
+        // Set the stage width and height
+        primaryStage.setMaxWidth(screenWidth);
+        primaryStage.setMaxHeight(screenHeight);
     }
 
     /**
@@ -160,20 +204,29 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        // Temporary Stub for UI testing.
+        if (commandText.equals("view")) {
+            if (calendarMode) {
+                calendarMode = false;
+                calendarPanel.getRoot().setVisible(false);
+                listPanel.getRoot().setVisible(true);
+            } else {
+                calendarMode = true;
+                listPanel.getRoot().setVisible(false);
+                calendarPanel.getRoot().setVisible(true);
+            }
+            return null;
+        }
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            logPanel.createLogBox(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,8 +239,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            logPanel.createLogBox(e.getMessage());
             throw e;
         }
     }
+
+
 }
