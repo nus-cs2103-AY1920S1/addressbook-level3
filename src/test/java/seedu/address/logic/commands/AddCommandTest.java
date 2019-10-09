@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
@@ -182,6 +183,31 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<EventSource> getFilteredEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitToHistory(EventList eventList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoFromHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoFromHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearFutureHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }
