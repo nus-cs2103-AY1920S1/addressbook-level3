@@ -145,9 +145,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchViews()) {
-                switchViews(commandResult.getView());
-            }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

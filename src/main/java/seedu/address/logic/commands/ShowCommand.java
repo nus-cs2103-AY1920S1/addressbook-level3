@@ -44,8 +44,6 @@ public class ShowCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateViewingList(targetList);
-        // Switch tabs
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
     }
 }
