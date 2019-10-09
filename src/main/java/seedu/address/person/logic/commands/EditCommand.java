@@ -68,7 +68,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic)
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                 seedu.address.cashier.logic.Logic cashierLogic)
                                 throws CommandException, IOException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
