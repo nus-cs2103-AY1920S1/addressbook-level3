@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -12,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 import javafx.stage.Window;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.SuggestingCommandUtil;
 
 /**
@@ -147,16 +149,15 @@ public class SuggestingCommandBox extends CommandBox {
         });
 
         commandTextField.textProperty().addListener((unused1, unused2, userCommand) -> {
-            final char spaceCharacter = ' ';
-            int spaceCharIdx = userCommand.indexOf(spaceCharacter);
-            if (spaceCharIdx == -1) {
-                spaceCharIdx = userCommand.length();
-            }
+            final String userCommandWord = StringUtil.substringBefore(userCommand, " ");
 
-            final String userCommandWord = userCommand.substring(0, spaceCharIdx);
-            filteredCommandSuggestions.setPredicate(commandWord -> {
-                return commandWord.startsWith(userCommandWord) && !userCommandWord.equals(commandWord);
-            });
+            if (commandSuggestions.contains(userCommandWord)) {
+                // the userCommandWord exactly matches a command, so we stop showing suggestions
+                filteredCommandSuggestions.setPredicate((commandWord) -> false);
+            } else {
+                final Predicate<String> fuzzyMatcher = SuggestingCommandUtil.createFuzzyMatcher(userCommandWord);
+                filteredCommandSuggestions.setPredicate(fuzzyMatcher);
+            }
         });
     }
 }

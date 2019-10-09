@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -15,6 +16,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
+import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -43,13 +46,6 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        // legacy code
-        /*try {
-            storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }*/
-
         try {
             storage.saveTimeBook(model.getTimeBook());
             logger.info("Attempting to save timebook");
@@ -57,18 +53,45 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             logger.severe("Unable to save timebook");
         }
-
-
         return commandResult;
     }
 
-    // Used for UI to get model data.
     @Override
     public TimeBook getTimeBook() {
         return model.getTimeBook();
     }
 
+    //=========== UI Model =============================================================
 
+    @Override
+    public MainWindowDisplay getMainWindowDisplay() {
+        return model.getMainWindowDisplay();
+    }
+
+    @Override
+    public SidePanelDisplay getSidePanelDisplay() {
+        return model.getSidePanelDisplay();
+    }
+
+
+    //=========== Suggesters =============================================================
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix) {
+        return model.personSuggester(prefix);
+    }
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix, String groupName) {
+        return model.personSuggester(prefix, groupName);
+    }
+
+    @Override
+    public ArrayList<String> groupSuggester(String prefix) {
+        return model.groupSuggester(prefix);
+    }
+
+    //=========== Legacy =============================================================
 
 
     @Override

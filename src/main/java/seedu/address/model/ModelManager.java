@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,6 +13,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.mainwindow.WeekSchedule;
+import seedu.address.model.display.sidepanel.Display;
+import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplay;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
@@ -42,6 +51,10 @@ public class ModelManager implements Model {
     private PersonList personList;
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
+
+    // UI display
+    private MainWindowDisplay mainWindowDisplay;
+    private SidePanelDisplay sidePanelDisplay;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -101,6 +114,10 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
+    }
+
+    public ModelManager(TimeBook timeBook) {
+        this(new AddressBook(), timeBook, new UserPrefs());
     }
 
     public ModelManager() {
@@ -333,6 +350,129 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
+    //=========== UI Model =============================================================
+
+    @Override
+    public MainWindowDisplay getMainWindowDisplay() {
+        return mainWindowDisplay;
+    }
+
+    @Override
+    public SidePanelDisplay getSidePanelDisplay() {
+        return sidePanelDisplay;
+    }
+
+    @Override
+    public void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay) {
+        this.mainWindowDisplay = mainWindowDisplay;
+    }
+
+    @Override
+    public void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type) {
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.add(findPerson(name));
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, persons);
+        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
+        updateMainWindowDisplay(mainWindowDisplay);
+    }
+
+    @Override
+    public void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type) {
+        Group group = groupList.findGroup(groupName);
+        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+        ArrayList<Person> persons = new ArrayList<>();
+        for (int i = 0; i < personIds.size(); i++) {
+            persons.add(findPerson(personIds.get(i)));
+        }
+
+        WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, persons);
+        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
+        updateMainWindowDisplay(mainWindowDisplay);
+    }
+
+    @Override
+    public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
+        this.sidePanelDisplay = sidePanelDisplay;
+    }
+
+    @Override
+    public void updateSidePanelDisplay(SidePanelDisplayType type) {
+        SidePanelDisplay sidePanelDisplay;
+
+        switch (type) {
+        case PERSONS:
+            ArrayList<Display> displayPersons = new ArrayList<>();
+            ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+            for (int i = 0; i < persons.size(); i++) {
+                displayPersons.add(new PersonDisplay(persons.get(i)));
+            }
+            sidePanelDisplay = new SidePanelDisplay(displayPersons, type);
+            updateSidePanelDisplay(sidePanelDisplay);
+            break;
+
+        case GROUPS:
+            ArrayList<Display> displayGroups = new ArrayList<>();
+            ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+            for (int i = 0; i < groups.size(); i++) {
+                displayGroups.add(new GroupDisplay(groups.get(i)));
+            }
+            sidePanelDisplay = new SidePanelDisplay(displayGroups, type);
+            updateSidePanelDisplay(sidePanelDisplay);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    //=========== Suggesters =============================================================
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+
+        for (int i = 0; i < persons.size(); i++) {
+            String name = persons.get(i).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> personSuggester(String prefix, String groupName) {
+        ArrayList<String> suggestions = new ArrayList<>();
+
+        Group group = findGroup(new GroupName(groupName));
+        if (group == null) {
+            return suggestions;
+        }
+
+        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+        for (int i = 0; i < personIds.size(); i++) {
+            String name = findPerson(personIds.get(i)).getName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
+
+    @Override
+    public ArrayList<String> groupSuggester(String prefix) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+
+        for (int i = 0; i < groups.size(); i++) {
+            String name = groups.get(i).getGroupName().toString();
+            if (name.startsWith(prefix)) {
+                suggestions.add(name);
+            }
+        }
+        return suggestions;
+    }
 
     //=========== Others =============================================================
 
@@ -357,4 +497,5 @@ public class ModelManager implements Model {
     public TimeBook getTimeBook() {
         return this.timeBook;
     }
+
 }
