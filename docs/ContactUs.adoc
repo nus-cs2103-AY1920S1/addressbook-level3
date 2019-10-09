@@ -2,16 +2,16 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103-T16-2/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here].
 * *Creative ideas* : We also welcome creative ideas to improve our product. Please email your creative ideas to us.
 * *Email us* : You can also reach us at `tuandingwei@u.nus.edu`.
 
-Team Developers:
-Tuan Ding Wei: 'tuandingwei@u.nus.edu'.
-Joanna: 'e0313546@u.nus.edu'.
-Victor: 'e0313575@u.nus.edu'.
-Jasmine: 'e0104958@u.nus.edu'.
+=== Team Developers: +
+Tuan Ding Wei: tuandingwei@u.nus.edu +
+Joanna: e0313546@u.nus.edu +
+Victor: e0313575@u.nus.edu +
+Jasmine: e0104958@u.nus.edu
 
 Advisor:
-Kyler Wong: 'kylerwong@u.nus.edu'.
+Kyler Wong: kylerwong@u.nus.edu.
