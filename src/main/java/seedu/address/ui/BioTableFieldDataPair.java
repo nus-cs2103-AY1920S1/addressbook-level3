@@ -1,15 +1,6 @@
 package seedu.address.ui;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 
 /**
  * A class that fields to display in the bioTable displayed to the user.

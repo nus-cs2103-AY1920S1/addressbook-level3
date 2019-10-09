@@ -3,12 +3,10 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
@@ -24,7 +22,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,9 +30,9 @@ import seedu.address.model.person.Person;
 public class BioWindow extends UiPart<Stage> {
 
     private static final String FXML = "BioWindow.fxml";
+    private static String displayImage = "/images/user.png";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private static String displayImage = "/images/user.png";
 
     private Stage primaryStage;
     private Logic logic;
@@ -84,6 +81,10 @@ public class BioWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    public ResultDisplay getResultDisplay() {
+        return resultDisplay;
+    }
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -128,36 +129,30 @@ public class BioWindow extends UiPart<Stage> {
 
         Image img = new Image(MainApp.class.getResourceAsStream(displayImage));
 
-        String manyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed mollis quam, vitae iaculis risus. Suspendisse potenti. Cras sit amet magna tempus, pellentesque enim vulputate, commodo diam. Cras a tristique lacus. Maecenas non cursus ipsum. Nunc sit amet interdum diam, at ultrices nunc. Sed non dignissim risus, sit amet egestas ipsum. Aenean quis nisl non massa lobortis tristique in sit amet tellus. Aenean non lectus sed lectus aliquet interdum eget a mi. Morbi eget porta leo. Pellentesque a pretium lorem, sit amet semper ante. Phasellus pellentesque ante sit amet eros maximus aliquet in ut purus. In maximus lectus quis tellus pulvinar, a malesuada orci suscipit. Aenean sodales euismod mauris, sit amet vehicula eros placerat nec. Nullam in tincidunt lectus.\n" +
-                "\n" +
-                "Vestibulum ipsum lacus, fermentum at elit quis, accumsan ullamcorper metus. Aliquam fermentum sem vel arcu maximus, at gravida lacus maximus. Donec mollis nibh efficitur condimentum vulputate. Mauris ut urna nec odio congue dignissim. Praesent vitae risus vitae sem suscipit faucibus. Sed elementum lobortis orci, a hendrerit dolor vulputate ut. Etiam ornare erat nisi, at porta sapien scelerisque a. Cras eu velit pretium, egestas nisl sit amet, posuere tortor. Duis pretium nec ligula ac lacinia. Nunc non convallis orci, sit amet egestas nibh.\n" +
-                "\n" +
-                "Praesent nec purus mauris. Donec porta congue eleifend. Cras feugiat facilisis euismod. Nullam vehicula quam id pellentesque luctus. Fusce ut vehicula elit. Nullam nec nisi et purus interdum faucibus. Fusce viverra nisl at metus finibus, eget mollis elit fermentum. Pellentesque auctor viverra erat, nec pretium quam fringilla sit amet. Curabitur a gravida felis, scelerisque cursus mauris.\n" +
-                "\n" +
-                "Proin et purus nisl. Donec vulputate bibendum augue. Suspendisse volutpat lobortis tellus in tincidunt. Phasellus felis nulla, scelerisque eget odio non, vestibulum cursus lacus. Curabitur erat tellus, faucibus vel sem vel, dapibus consectetur urna. Nulla facilisi. Duis commodo fringilla ante, egestas ultrices dui scelerisque eu. Suspendisse faucibus pharetra aliquet.\n" +
-                "\n" +
-                "Etiam vitae pulvinar mauris, id convallis ex. Pellentesque sit amet pellentesque velit. Donec condimentum dolor massa, vitae accumsan nibh sollicitudin sed. Sed commodo gravida arcu, at venenatis ex tempus nec. Proin ac interdum tellus. Aliquam nec tincidunt nulla. Morbi elementum tincidunt massa placerat pellentesque. Fusce vitae sapien quis ante tincidunt eleifend id id tortor. Donec nec tristique eros, quis ullamcorper velit. Donec justo orci, efficitur ut arcu vitae, faucibus elementum enim. Vivamus sed facilisis tellus, non imperdiet tortor. Vestibulum ac enim quis quam venenatis auctor. Duis in justo elit. Donec auctor egestas dolor, sit amet euismod ante condimentum quis.";
-
-        String abit = "Example Age \nExample Gender \nExample Address";
-        String little = "Example Profile";
-
+        // SAMPLE DATA
         BioTableFieldDataPair name = new BioTableFieldDataPair("Name:", "Amy");
         BioTableFieldDataPair nric = new BioTableFieldDataPair("NRIC:", "S1234567Z");
         BioTableFieldDataPair gender = new BioTableFieldDataPair("Gender:", "Female");
         BioTableFieldDataPair dob = new BioTableFieldDataPair("DOB:", "21/03/1940");
         BioTableFieldDataPair hp = new BioTableFieldDataPair("HP:", "98765432");
         BioTableFieldDataPair emergencyHp = new BioTableFieldDataPair("Emergency HP:", "91234567");
-        BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:", "Type II Diabetes, High Blood Pressure");
-        BioTableFieldDataPair address = new BioTableFieldDataPair("Address:", "Blk 123 Example Road\n#12-34\nS(612345)");
-        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:", "/Users/Amy/dp.png");
+        BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:",
+                "Type II Diabetes, High Blood Pressure");
+        BioTableFieldDataPair address = new BioTableFieldDataPair("Address:",
+                "Blk 123 Example Road\n#12-34\nS(612345)");
+        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:",
+                "/Users/Amy/dp.png");
         BioTableFieldDataPair bgColour = new BioTableFieldDataPair("Background Colour:", "navy-blue");
         BioTableFieldDataPair fontColour = new BioTableFieldDataPair("Font Colour:", "yellow");
-        BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:", "lose 4kg from 29/09/2019 to 30/09/2019");
+        BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:",
+                "lose 4kg from 29/09/2019 to 30/09/2019");
 
         ObservableList<BioTableFieldDataPair> list = FXCollections.observableArrayList();
-        list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour, fontColour, myGoals);
+        list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour,
+                fontColour, myGoals);
 
-        profile = new Profile(img, "Amy", "\"If at first you don't succeed, call it version 1.0.\"\n-Anonymous");
+        profile = new Profile(img, "Amy", "\"If at first you don't succeed, call it version 1.0."
+                + "\"\n-Anonymous");
         profilePlaceholder.getChildren().add(profile.getRoot());
 
         bioTable = new BioTable();
@@ -195,8 +190,24 @@ public class BioWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches this window to the MainWindow.
+     */
+    @FXML
+    public void switchToMainWindow(String feedbackToUser) {
+        hide();
+        MainWindow mainWindow = new MainWindow(primaryStage, logic);
+        mainWindow.show();
+        mainWindow.fillInnerParts();
+        mainWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    public void hide() {
+        getRoot().hide();
     }
 
     /**
@@ -223,6 +234,10 @@ public class BioWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            if (!commandResult.isShowBio()) {
+                System.out.println("Not Bio");
+                switchToMainWindow(commandResult.getFeedbackToUser());
+            }
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
