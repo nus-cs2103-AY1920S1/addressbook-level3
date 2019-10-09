@@ -33,14 +33,14 @@
         </MenuBar>
         <HBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
-            <StackPane fx:id="tabPlaceHolder" VBox.vgrow="ALWAYS" />
+            <StackPane id="main_window" fx:id="tabPanelPlaceHolder" VBox.vgrow="ALWAYS" />
           </VBox>
           <VBox HBox.hgrow="ALWAYS">
-            <VBox id="main_screen" fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <VBox fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              <StackPane id="main_window" fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
 
             <StackPane id="output_screen" fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="44.0" prefHeight="44.0" prefWidth="340.0" styleClass="result-display" VBox.vgrow="NEVER">

@@ -9,7 +9,10 @@ import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
+import com.typee.model.Tab;
 import com.typee.model.UserPrefs;
+
+import javafx.collections.ObservableList;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -19,12 +22,21 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
+    //Adding TypeeStorage unit
+    private TypeeStorage typeeStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          TypeeStorage typeeStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.typeeStorage = typeeStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +86,10 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ TYPEE methods ==============================
+    @Override
+    public ObservableList<Tab> getTabList() throws DataConversionException {
+        logger.fine("Fetching tab list data from text file.");
+        return typeeStorage.getTabList();
+    }
 }

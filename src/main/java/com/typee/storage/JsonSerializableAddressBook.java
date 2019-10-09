@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.model.AddressBook;
 import com.typee.model.ReadOnlyAddressBook;

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.exceptions.DataConversionException;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
@@ -13,6 +14,7 @@ import com.typee.logic.parser.AddressBookParser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.Tab;
 import com.typee.model.person.Person;
 import com.typee.storage.Storage;
 
@@ -60,6 +62,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Tab> getTabList() throws DataConversionException {
+        return storage.getTabList();
     }
 
     @Override
