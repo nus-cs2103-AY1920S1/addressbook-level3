@@ -1,19 +1,10 @@
 package seedu.jarvis.logic.commands.exceptions;
 
 /**
- * Signals that the operation is involves a Command that has no inverse.
+ * Signals that the operation is involves a {@code Command} that has no inverse.
  */
-public class CommandNotInvertibleException extends Exception {
-
+public class CommandNotInvertibleException extends RuntimeException {
     public CommandNotInvertibleException() {
-        super("Command Not Invertible");
-    }
-
-    public CommandNotInvertibleException(String message) {
-        super(message);
-    }
-
-    public CommandNotInvertibleException(String message, Throwable cause) {
-        super(message, cause);
+        super("Operation involves a command that is not invertible");
     }
 }

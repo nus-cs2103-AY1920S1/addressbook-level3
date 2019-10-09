@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
@@ -35,14 +36,14 @@ public class DeleteAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     /**
-     * Verifies that checking DeleteAddressCommand for the availability of inverse execution returns true.
+     * Verifies that checking {@code DeleteAddressCommand} for the availability of inverse execution returns true.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         DeleteAddressCommand deleteAddressCommand = new DeleteAddressCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteAddressCommand.hasInverseExecution());
     }
@@ -54,7 +55,8 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(),
+                new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -77,7 +79,7 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -98,11 +100,11 @@ public class DeleteAddressCommandTest {
     }
 
     /**
-     * Ensures that CommandException is thrown if re-adding the person that was deleted will be in conflict with
+     * Ensures that {@code CommandException} is thrown if re-adding the person that was deleted will be in conflict with
      * existing person in the address book.
      */
     @Test
-    public void executeInverse_personToAddAlreadyExist_exceptionThrown() {
+    public void executeInverse_personToAddAlreadyExist_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -110,7 +112,7 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -124,8 +126,8 @@ public class DeleteAddressCommandTest {
     }
 
     /**
-     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
-     * that the deleted person was added back to the address book.
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the deleted person was added back to the address book.
      */
     @Test
     public void executeInverse_success() {
@@ -136,7 +138,7 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -152,14 +154,14 @@ public class DeleteAddressCommandTest {
      * Tests that repeatedly executing and inversely executing command works as intended.
      */
     @Test
-    public void test_repeatedExecutionAndInverseExecution() {
+    public void repeatedExecutionAndInverseExecution() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         DeleteAddressCommand deleteAddressCommand = new DeleteAddressCommand(INDEX_FIRST_PERSON);
 
         model = new ModelManager();
         model.addPerson(new PersonBuilder().build());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)
