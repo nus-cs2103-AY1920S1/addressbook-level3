@@ -1,4 +1,4 @@
-package com.dukeacademy.compiler.exceptions;
+package com.dukeacademy.checker.exceptions;
 
 public class FileDirectoryDeletionException extends Exception {
     public FileDirectoryDeletionException(String message) {

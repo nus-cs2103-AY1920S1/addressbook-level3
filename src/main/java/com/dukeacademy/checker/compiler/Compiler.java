@@ -1,12 +1,11 @@
-package com.dukeacademy.compiler;
+package com.dukeacademy.checker.compiler;
 
+import com.dukeacademy.checker.exceptions.UserProgramException;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.compiler.environment.CompilerEnvironment;
-import com.dukeacademy.compiler.exceptions.CompilerContentException;
-import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.compiler.exceptions.CompilerCompileException;
-import com.dukeacademy.compiler.exceptions.FileCreationException;
-import com.dukeacademy.model.TestCase;
+import com.dukeacademy.checker.environment.CompilerEnvironment;
+import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.exceptions.CompilerException;
+import com.dukeacademy.checker.exceptions.FileCreationException;
 import com.dukeacademy.model.UserProgram;
 
 import javax.tools.Diagnostic;
@@ -17,10 +16,11 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class Compiler {
-    private static final String MESSAGE_COMPILER_COMPILE_FAILED = "Compiler failed to compile the source code";
+    private static final String MESSAGE_COMPILER_FAILED = "Compiler failed.";
     private static final String MESSAGE_FAILED_TO_CLEAR_ENVIRONMENT = "Failed to clear the compiler environment. "
             + "Generated files and classes may persist.";
 
@@ -42,7 +42,7 @@ public class Compiler {
         }
     }
 
-    public void compileProgram(UserProgram program) throws CompilerCompileException {
+    public void compileProgram(UserProgram program) throws CompilerException, UserProgramException {
         try {
             environment.clearEnvironment();
 
@@ -58,10 +58,34 @@ public class Compiler {
             JavaCompiler.CompilationTask compilationTask = javaCompiler.getTask(null, fileManager, diagnostics, null, null, sources);
             compilationTask.call();
 
-            List<Diagnostic<? extends JavaFileObject>> results = diagnostics.getDiagnostics();
-            // TODO: compile program with proper error handling
+            List<Diagnostic<? extends JavaFileObject>> errors = diagnostics.getDiagnostics();
+
+            Optional<Diagnostic<? extends JavaFileObject>> error = errors.stream().findFirst();
+            if (error.isPresent()) {
+                String errorMessage = error.map(diagnostic -> diagnostic.getMessage(null)).get();
+                this.clearEnvironmentAfterUserProgramInvalid(errorMessage);
+                throw new UserProgramException(errorMessage);
+            }
+
         } catch (FileCreationException | CompilerEnvironmentException e) {
-            throw new CompilerCompileException(MESSAGE_COMPILER_COMPILE_FAILED, e);
+            this.clearEnvironmentAfterCompilerFail();
+            throw new CompilerException(MESSAGE_COMPILER_FAILED, e);
+        }
+    }
+
+    private void clearEnvironmentAfterUserProgramInvalid(String errorMessage) throws UserProgramException {
+        try {
+            this.environment.clearEnvironment();
+        } catch (CompilerEnvironmentException e) {
+            throw new UserProgramException(errorMessage + " " + MESSAGE_FAILED_TO_CLEAR_ENVIRONMENT);
+        }
+    }
+
+    private void clearEnvironmentAfterCompilerFail() throws CompilerException {
+        try {
+            this.environment.clearEnvironment();
+        } catch (CompilerEnvironmentException e) {
+            throw new CompilerException(MESSAGE_COMPILER_FAILED + " " + MESSAGE_FAILED_TO_CLEAR_ENVIRONMENT);
         }
     }
 }

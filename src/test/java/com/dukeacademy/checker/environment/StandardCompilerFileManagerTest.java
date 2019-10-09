@@ -1,9 +1,9 @@
-package com.dukeacademy.compiler.environment;
+package com.dukeacademy.checker.environment;
 
-import com.dukeacademy.compiler.exceptions.FileCreationException;
-import com.dukeacademy.compiler.exceptions.FileDeletionException;
-import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
-import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
+import com.dukeacademy.checker.exceptions.FileCreationException;
+import com.dukeacademy.checker.exceptions.FileDeletionException;
+import com.dukeacademy.checker.exceptions.FileDirectoryCreationException;
+import com.dukeacademy.checker.exceptions.FileDirectoryDeletionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

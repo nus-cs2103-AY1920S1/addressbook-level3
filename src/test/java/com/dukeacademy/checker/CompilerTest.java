@@ -1,14 +1,15 @@
-package com.dukeacademy.compiler;
+package com.dukeacademy.checker;
 
-import com.dukeacademy.compiler.environment.StandardCompilerEnvironment;
-import com.dukeacademy.compiler.exceptions.CompilerCompileException;
-import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.compiler.Compiler;
+import com.dukeacademy.checker.environment.StandardCompilerEnvironment;
+import com.dukeacademy.checker.exceptions.CompilerException;
+import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.exceptions.UserProgramException;
 import com.dukeacademy.model.UserProgram;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.File;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,7 +47,7 @@ class CompilerTest {
     }
 
     @Test
-    void close() throws CompilerCompileException {
+    void close() throws CompilerException, UserProgramException {
         compiler.compileProgram(validProgram);
         compiler.close();
 
@@ -54,7 +55,7 @@ class CompilerTest {
     }
 
     @Test
-    void compileProgram() throws CompilerCompileException {
+    void compileProgram() throws CompilerException, UserProgramException {
         compiler.compileProgram(validProgram);
 
         Path validJavaFilePath = environmentPath.resolve(validProgram.getClassName() + ".java");
@@ -63,12 +64,12 @@ class CompilerTest {
         assertTrue(validJavaFilePath.toFile().exists());
         assertTrue(validClassFilePath.toFile().exists());
 
-        compiler.compileProgram(invalidProgram);
+        assertThrows(UserProgramException.class, () -> compiler.compileProgram(invalidProgram));
 
         Path invalidJavaFilePath = environmentPath.resolve(invalidProgram.getClassName() + ".java");
         Path invalidClassFilePath = environmentPath.resolve(invalidProgram.getClassName() + ".class");
 
-        assertFalse(invalidClassFilePath.toFile().exists());
+        assertFalse(invalidJavaFilePath.toFile().exists());
         assertFalse(invalidClassFilePath.toFile().exists());
 
         compiler.close();

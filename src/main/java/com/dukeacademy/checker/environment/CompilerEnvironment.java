@@ -1,8 +1,7 @@
-package com.dukeacademy.compiler.environment;
+package com.dukeacademy.checker.environment;
 
-import com.dukeacademy.compiler.exceptions.CompilerContentException;
-import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.compiler.exceptions.FileCreationException;
+import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.exceptions.FileCreationException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +15,6 @@ public interface CompilerEnvironment {
      * @param name the name of the file to be created, without extension.
      * @param content the contents of the Java file.
      * @return the file created.
-     * @throws CompilerContentException if the contents provided is invalid.
      */
     public File createJavaFile(String name, String content) throws FileCreationException, CompilerEnvironmentException;
 

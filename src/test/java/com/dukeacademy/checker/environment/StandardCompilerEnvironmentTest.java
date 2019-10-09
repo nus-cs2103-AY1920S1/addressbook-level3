@@ -1,7 +1,7 @@
-package com.dukeacademy.compiler.environment;
+package com.dukeacademy.checker.environment;
 
-import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.compiler.exceptions.FileCreationException;
+import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.exceptions.FileCreationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

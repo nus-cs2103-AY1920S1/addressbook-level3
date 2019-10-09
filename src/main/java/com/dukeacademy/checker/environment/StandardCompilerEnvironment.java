@@ -1,11 +1,11 @@
-package com.dukeacademy.compiler.environment;
+package com.dukeacademy.checker.environment;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.compiler.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.compiler.exceptions.FileCreationException;
-import com.dukeacademy.compiler.exceptions.FileDeletionException;
-import com.dukeacademy.compiler.exceptions.FileDirectoryCreationException;
-import com.dukeacademy.compiler.exceptions.FileDirectoryDeletionException;
+import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.checker.exceptions.FileCreationException;
+import com.dukeacademy.checker.exceptions.FileDeletionException;
+import com.dukeacademy.checker.exceptions.FileDirectoryCreationException;
+import com.dukeacademy.checker.exceptions.FileDirectoryDeletionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

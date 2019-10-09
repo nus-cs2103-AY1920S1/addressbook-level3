@@ -1,4 +1,4 @@
-package com.dukeacademy.compiler.exceptions;
+package com.dukeacademy.checker.exceptions;
 
 public class FileDirectoryCreationException extends Exception {
     public FileDirectoryCreationException(String message) {
