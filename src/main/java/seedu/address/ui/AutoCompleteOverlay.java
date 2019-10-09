@@ -36,11 +36,13 @@ public class AutoCompleteOverlay extends UiPart<Region> {
      * Updates the display of suggestions.
      */
     public void showSuggestions(String prefix, List<String> listOfSuggestions) {
+        autoCompleteOverlay.setVisible(false);
+
         if (prefix.isBlank() || listOfSuggestions.isEmpty()) {
-            autoCompleteOverlay.setVisible(false);
             autoCompleteOverlay.getItems().setAll(new ArrayList<>());
             return;
         }
+
         ObservableList<TextFlow> ols = autoCompleteOverlay.getItems();
         ArrayList<TextFlow> arrls = new ArrayList<>();
         listOfSuggestions.sort(String::compareTo);
@@ -57,7 +59,9 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         ols.setAll(arrls);
         autoCompleteOverlay.getSelectionModel().select(0);
         autoCompleteOverlay.setPrefHeight(listOfSuggestions.size() * CELL_HEIGHT);
-        autoCompleteOverlay.setVisible(true);
+        if (!arrls.isEmpty()) {
+            autoCompleteOverlay.setVisible(true);
+        }
     }
 
     /**
