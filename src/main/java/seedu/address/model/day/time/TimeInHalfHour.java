@@ -1,20 +1,19 @@
 package seedu.address.model.day.time;
 
 import seedu.address.model.day.time.exceptions.NotInIntervalsOf30MinException;
-import seedu.address.model.day.time.exceptions.TimeOutOfBoundException;
 import seedu.address.model.day.time.exceptions.TimeOutOfBoundsException;
 
 /**
- * Represents the time in 24-hour clock.
- * Guarantees: Time is in 30 minutes intervals.
+ * Represents the time for a 24-hour clock.
+ * Guarantees: time is in 30 minutes intervals.
  */
 public class TimeInHalfHour {
     private final int hour;
     private final int minutes;
 
     public TimeInHalfHour(int hour, int minutes) throws NotInIntervalsOf30MinException, TimeOutOfBoundsException {
-        if (hour < 0 || hour > 24 || minutes < 0 || minutes > 60) {
-            throw new TimeOutOfBoundException();
+        if (hour < 0 || hour >= 24 || minutes < 0 || minutes >= 60) {
+            throw new TimeOutOfBoundsException();
         }
         if (minutes != 30 || minutes != 0) {
             throw new NotInIntervalsOf30MinException();
