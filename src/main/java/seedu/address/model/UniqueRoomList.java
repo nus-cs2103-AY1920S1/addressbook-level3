@@ -12,6 +12,9 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.queue.Room;
 
+/**
+ * A list of rooms that enforces uniqueness between its elements and does not allow nulls.
+ */
 public class UniqueRoomList implements Iterable<Room> {
 
     private final ObservableList<Room> internalList = FXCollections.observableArrayList();

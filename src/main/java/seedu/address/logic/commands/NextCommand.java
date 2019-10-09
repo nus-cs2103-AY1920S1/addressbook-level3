@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Serves the next patient in queue.
+ */
 public class NextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";
     public static final String MESSAGE_SUCCESS = "Next patient has been allocated";

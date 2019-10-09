@@ -1,16 +1,16 @@
 package seedu.address.model.queue;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.QueueList;
 import seedu.address.model.RoomList;
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.person.Person;
-import seedu.address.model.queue.exceptions.QueueException;
 
-import java.lang.ref.Reference;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Manages the queue and rooms.
+ */
 public class QueueManager {
     private QueueList queueList;
     private RoomList roomList;
@@ -25,12 +25,14 @@ public class QueueManager {
         resetData(toBeCopied);
     }
 
+    /**
+     * Resets the existing data of this {@code QueueManager} with {@code newData}.
+     */
     public void resetData(QueueManager newData) {
         requireNonNull(newData);
         queueList.setIds(newData.getReferenceIdList());
         roomList.setRooms(newData.getRoomList());
     }
-
 
 
     /**
@@ -61,9 +63,6 @@ public class QueueManager {
     }
 
     public void addRoom(ReferenceId id) {
-        if(id.equals(null)) {
-            throw new QueueException("Invalid person");
-        }
         roomList.addRoom(new Room(id));
     }
 

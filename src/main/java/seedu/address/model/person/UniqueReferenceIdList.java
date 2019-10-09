@@ -12,6 +12,9 @@ import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+/**
+ * A list of reference ids that enforces uniqueness between its elements and does not allow nulls.
+ */
 public class UniqueReferenceIdList implements Iterable<ReferenceId> {
 
     private final ObservableList<ReferenceId> internalList = FXCollections.observableArrayList();
@@ -47,19 +50,19 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(ReferenceId target, ReferenceId editedID) {
-        requireAllNonNull(target, editedID);
+    public void setPerson(ReferenceId target, ReferenceId editedId) {
+        requireAllNonNull(target, editedId);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedID) && contains(editedID)) {
+        if (!target.equals(editedId) && contains(editedId)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedID);
+        internalList.set(index, editedId);
     }
 
     /**

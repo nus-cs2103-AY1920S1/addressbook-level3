@@ -6,11 +6,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPatientAtIndex;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
 
@@ -20,8 +19,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -29,17 +28,17 @@ import seedu.address.model.person.Person;
  */
 public class DequeueCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalQueueManager());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalQueueManager(), getTypicalAppointmentBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage1 = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
         String expectedMessage2 = String.format(DequeueCommand.MESSAGE_UNDO_DEQUEUE_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(), model.getAppointmentBook());
         expectedModel.removePatient(personToDelete);
 
         //ensures that undo can not be executed before the actual command
@@ -65,14 +64,14 @@ public class DequeueCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPatientAtIndex(model, INDEX_FIRST_PERSON);
+        //showIdAtIndex(model, INDEX_FIRST_PERSON);
 
-        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(), model.getAppointmentBook());
         expectedModel.removePatient(personToDelete);
         showNoPatient(expectedModel);
 
@@ -81,11 +80,11 @@ public class DequeueCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPatientAtIndex(model, INDEX_FIRST_PERSON);
+        //showIdAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getQueueManager().getPatientList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getQueueManager().getReferenceIdList().size());
 
         DequeueCommand dequeueCommand = new DequeueCommand(outOfBoundIndex);
 
@@ -127,8 +126,8 @@ public class DequeueCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPatient(Model model) {
-        model.updateFilteredPatientList(p -> false);
+        model.updateFilteredReferenceIdList(p -> false);
 
-        assertTrue(model.getFilteredPatientList().isEmpty());
+        assertTrue(model.getFilteredReferenceIdList().isEmpty());
     }
 }

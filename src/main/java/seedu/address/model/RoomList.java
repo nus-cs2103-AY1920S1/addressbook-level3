@@ -2,12 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.person.Person;
-import seedu.address.model.queue.Room;
-
 import java.util.List;
+
+import javafx.collections.ObservableList;
+
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 /**
  * Wraps all data at the address-book level
@@ -35,28 +35,45 @@ public class RoomList {
         resetData(toBeCopied);
     }
 
+    /**
+     * Resets the existing data of this {@code RoomList} with {@code newData}.
+     */
     public void resetData(RoomList newData) {
         requireNonNull(newData);
-
         setRooms(newData.getRoomList());
     }
 
+    /**
+     * Adds a room.
+     */
     public void addRoom(Room room) {
         listOfRooms.add(room);
     }
 
+    /**
+     * Removes a room.
+     */
     public void removeRoom(int index) {
         listOfRooms.remove(index);
     }
 
+    /**
+     * Returns the reference id of the current patient
+     */
     public ReferenceId getCurrentlyServed(int index) {
         return listOfRooms.get(index).getCurrentPatient().get();
     }
 
+    /**
+     * Serves the next patient
+     */
     public void serve(int index, ReferenceId id) {
         listOfRooms.get(index).serve(id);
     }
 
+    /**
+     * Replaces the data of {@code listOfRooms}
+     */
     public void setRooms(List<Room> rooms) {
         this.listOfRooms.setPersons(listOfRooms);
     }

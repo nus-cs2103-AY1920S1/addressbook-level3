@@ -2,13 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniqueReferenceIdList;
 
-import java.util.List;
 
 /**
  * Wraps all data at the address-book level
@@ -37,6 +37,9 @@ public class QueueList {
         resetData(toBeCopied);
     }
 
+    /**
+     * Resets the existing data of this {@code QueueList} with {@code newData}.
+     */
     public void resetData(QueueList newData) {
         requireNonNull(newData);
         setIds(newData.getReferenceIdList());
@@ -72,12 +75,12 @@ public class QueueList {
         ids.remove(id);
     }
 
-    public ReferenceId getFirst() {
-        return ids.getFirst();
-    }
-
     public void removePatient(int index) {
         ids.remove(index);
+    }
+
+    public ReferenceId getFirst() {
+        return ids.getFirst();
     }
 
     public void poll() {

@@ -22,7 +22,8 @@ public class EnqueueCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "New person added to the queue: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This person is not registered";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed from the queue.";
+    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has "
+                                                        + " been removed from the queue.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     public static final String COMMAND_WORD = "enqueue";

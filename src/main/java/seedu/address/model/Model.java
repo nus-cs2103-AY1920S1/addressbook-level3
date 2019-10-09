@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
@@ -13,8 +15,7 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 
 /**
  * The API of the Model component.
@@ -130,6 +131,8 @@ public interface Model extends ReferenceIdResolver {
 
     public void removePatient(ReferenceId target);
 
+    public void removePatient(int index);
+
     public void addPatient(ReferenceId id);
 
     public boolean hasId(ReferenceId id);
@@ -137,8 +140,6 @@ public interface Model extends ReferenceIdResolver {
     public ObservableList<Room> getFilteredRoomList();
 
     public void updateFilteredRoomList(Predicate<Room> predicate);
-
-    public void removePatient(int index);
 
     public void next(int index);
 

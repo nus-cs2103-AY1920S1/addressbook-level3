@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -62,7 +63,7 @@ public class TestUtil {
      * Returns a {@code ModelManager} with all the typical persons and appointments.
      */
     public static ModelManager getTypicalModelManager() {
-        return new ModelManager(new UserPrefs(), getTypicalAddressBook(), getTypicalAppointmentBook());
+        return new ModelManager(getTypicalAddressBook(),new UserPrefs(), getTypicalQueueManager(), getTypicalAppointmentBook());
     }
 
 }

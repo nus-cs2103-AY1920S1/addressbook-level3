@@ -4,15 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.core.CommandResult;
+import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
+import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.testutil.PersonBuilder;
 
 import java.nio.file.Path;
@@ -35,17 +38,17 @@ public class EnqueueCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         EnqueueCommandTest.ModelStubAcceptingPatientAdded modelStub = new EnqueueCommandTest.ModelStubAcceptingPatientAdded();
-        Person validPerson = new PersonBuilder().build();
+        ReferenceId validPerson = new PersonBuilder().build().getReferenceId();
 
         CommandResult commandResult = new EnqueueCommand(validPerson).execute(modelStub);
 
         assertEquals(String.format(EnqueueCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.patientsAdded);
+        assertEquals(Arrays.asList(validPerson), modelStub.ids);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
+        ReferenceId validPerson = new PersonBuilder().build().getReferenceId();
         EnqueueCommand enqueueCommand = new EnqueueCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPatient(validPerson);
 
@@ -54,8 +57,8 @@ public class EnqueueCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        ReferenceId alice = new PersonBuilder().withName("Alice").build().getReferenceId();
+        ReferenceId bob = new PersonBuilder().withName("Bob").build().getReferenceId();
         EnqueueCommand addAliceCommand = new EnqueueCommand(alice);
         EnqueueCommand addBobCommand = new EnqueueCommand(bob);
 
@@ -111,6 +114,16 @@ public class EnqueueCommandTest {
         }
 
         @Override
+        public Path getAppointmentBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -127,6 +140,11 @@ public class EnqueueCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasExactPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,7 +174,7 @@ public class EnqueueCommandTest {
         }
 
         @Override
-        public void removePatient(Person target) {
+        public void removePatient(ReferenceId target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -166,17 +184,22 @@ public class EnqueueCommandTest {
         }
 
         @Override
-        public void next(int index) {
-
-        }
-
-        @Override
-        public void addPatient(Person person) {
+        public void addPatient(ReferenceId id) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addRoom(Person patient) {
+        public boolean hasId(ReferenceId id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void next(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRoom(ReferenceId id) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,17 +209,57 @@ public class EnqueueCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredPatientList() {
+        public void setSchedule(ReadOnlyAppointmentBook schedule) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPatientList(Predicate<Person> predicate) {
+        public ReadOnlyAppointmentBook getAppointmentBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPatient(Person person) {
+        public boolean hasEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasExactEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEvent(Event target, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Event> getFilteredEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -209,23 +272,33 @@ public class EnqueueCommandTest {
         public void updateFilteredRoomList(Predicate<Room> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Person resolve(ReferenceId id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(ReferenceId id) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A Model stub that contains a single patient.
      */
     private class ModelStubWithPatient extends ModelStub {
-        private final Person patient;
+        private final ReferenceId id;
 
-        ModelStubWithPatient(Person patient) {
+        ModelStubWithPatient(ReferenceId patient) {
             requireNonNull(patient);
-            this.patient = patient;
+            this.id = patient;
         }
 
         @Override
-        public boolean hasPatient(Person patient) {
+        public boolean hasId(ReferenceId patient) {
             requireNonNull(patient);
-            return this.patient.isSamePerson(patient);
+            return this.id.equals(patient);
         }
     }
 
@@ -233,18 +306,18 @@ public class EnqueueCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPatientAdded extends ModelStub {
-        final ArrayList<Person> patientsAdded = new ArrayList<>();
+        final ArrayList<ReferenceId> ids = new ArrayList<>();
 
         @Override
-        public boolean hasPatient(Person person) {
-            requireNonNull(person);
-            return patientsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasId(ReferenceId id) {
+            requireNonNull(id);
+            return ids.stream().anyMatch(id::equals);
         }
 
         @Override
-        public void addPatient(Person person) {
-            requireNonNull(person);
-            patientsAdded.add(person);
+        public void addPatient(ReferenceId id) {
+            requireNonNull(id);
+            ids.add(id);
         }
 
         @Override

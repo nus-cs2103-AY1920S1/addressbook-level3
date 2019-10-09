@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.QueueList;
 import seedu.address.model.AppointmentBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -95,10 +94,10 @@ public class TypicalPersons {
     public static QueueManager getTypicalQueueManager() {
         QueueManager qm = new QueueManager();
         for(Person person : getTypicalPersons()) {
-            qm.addPatient(person);
+            qm.addPatient(person.getReferenceId());
         }
-        qm.addRoom(IDA);
-        qm.addRoom(HOON);
+        qm.addRoom(IDA.getReferenceId());
+        qm.addRoom(HOON.getReferenceId());
         return qm;
     }
 

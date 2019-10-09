@@ -15,10 +15,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
-import seedu.address.model.userprefs.ReadOnlyUserPrefs;
-import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
+import seedu.address.model.userprefs.ReadOnlyUserPrefs;
+import seedu.address.model.userprefs.UserPrefs;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -70,14 +71,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPatient(ReferenceId id) {
-        queueManager.addPatient(id);
-        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
+    public void removePatient(int index) {
+        queueManager.removePatient(index);
     }
 
     @Override
-    public void removePatient(int index) {
-        queueManager.removePatient(index);
+    public void addPatient(ReferenceId id) {
+        queueManager.addPatient(id);
+        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
     }
 
     @Override

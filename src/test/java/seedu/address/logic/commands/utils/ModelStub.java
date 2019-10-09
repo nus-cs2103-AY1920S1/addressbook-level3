@@ -11,6 +11,8 @@ import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -108,6 +110,56 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public QueueManager getQueueManager() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removePatient(ReferenceId target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removePatient(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addPatient(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasId(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Room> getFilteredRoomList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredRoomList(Predicate<Room> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void next(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addRoom(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removeRoom(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setSchedule(ReadOnlyAppointmentBook schedule) {
         throw new AssertionError("This method should not be called.");
     }
@@ -150,6 +202,16 @@ public class ModelStub implements Model {
     @Override
     public void updateFilteredEventList(Predicate<Event> predicate) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
+
     }
 
     @Override

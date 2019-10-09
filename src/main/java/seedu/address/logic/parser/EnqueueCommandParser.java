@@ -1,26 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.AddCommand;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.Tag;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.Address;
-import seedu.address.model.person.parameters.Email;
-import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.Phone;
 
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
