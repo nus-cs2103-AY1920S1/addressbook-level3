@@ -1,6 +1,7 @@
 package seedu.address.person.logic.commands;
 
 import java.io.IOException;
+
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 

@@ -1,9 +1,9 @@
 package seedu.address.person.logic.commands;
 
-import seedu.address.person.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.person.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import seedu.address.person.model.Model;
 
 /**
  * Lists all persons in the address book to the user.

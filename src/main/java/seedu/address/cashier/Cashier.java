@@ -1,5 +1,8 @@
 package seedu.address.cashier;
 
+/**
+ * Cashier mode.
+ */
 public class Cashier {
 
 /*    private static ArrayList<Item> itemsToBeSold;

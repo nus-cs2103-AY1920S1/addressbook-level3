@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.person.commons.core.Messages;
 import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.commons.util.CollectionUtil;
@@ -67,7 +68,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException, IOException {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic)
+                                throws CommandException, IOException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 

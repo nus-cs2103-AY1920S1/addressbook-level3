@@ -1,9 +1,10 @@
 package seedu.address.person.logic.commands;
 
-import java.util.Objects;
-import seedu.address.util.OverallCommandResult;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
+
+import seedu.address.util.OverallCommandResult;
 
 /**
  * Represents the result of a command execution.

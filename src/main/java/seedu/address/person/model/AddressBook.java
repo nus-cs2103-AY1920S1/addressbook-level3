@@ -1,14 +1,15 @@
 package seedu.address.person.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.UniquePersonList;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
