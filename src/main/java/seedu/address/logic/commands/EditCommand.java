@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
@@ -37,7 +33,9 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_PARENTPHONE + "PARENTPHONE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_MEDICALCONDITION + "MEDICALCONDITION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -93,10 +91,14 @@ public class EditCommand extends Command {
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
+        ParentPhone updatedParentPhone = editStudentDescriptor.getParentPhone().orElse(studentToEdit.getParentPhone());
         Address updatedAddress = editStudentDescriptor.getAddress().orElse(studentToEdit.getAddress());
+        MedicalCondition updatedMedicalCondition = editStudentDescriptor.getMedicalCondition()
+                .orElse(studentToEdit.getMedicalCondition());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Student(updatedName, updatedPhone, updatedEmail, updatedParentPhone, updatedAddress,
+                updatedMedicalCondition, updatedTags);
     }
 
     @Override
@@ -125,7 +127,9 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private ParentPhone parentPhone;
         private Address address;
+        private MedicalCondition medicalCondition;
         private Set<Tag> tags;
 
         public EditStudentDescriptor() {}
@@ -138,7 +142,9 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setParentPhone(toCopy.parentPhone);
             setAddress(toCopy.address);
+            setMedicalCondition(toCopy.medicalCondition);
             setTags(toCopy.tags);
         }
 
@@ -173,6 +179,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
+        public void setParentPhone(ParentPhone parentPhone) {
+            this.parentPhone = parentPhone;
+        }
+
+        public Optional<ParentPhone> getParentPhone() {
+            return Optional.ofNullable(parentPhone);
+        }
+
         public void setAddress(Address address) {
             this.address = address;
         }
@@ -180,6 +194,10 @@ public class EditCommand extends Command {
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
+
+        public void setMedicalCondition(MedicalCondition medicalCondition) { this.medicalCondition = medicalCondition; }
+
+        public Optional<MedicalCondition> getMedicalCondition() { return Optional.ofNullable(medicalCondition); }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -216,7 +234,9 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getParentPhone().equals(e.getParentPhone())
                     && getAddress().equals(e.getAddress())
+                    && getMedicalCondition().equals(e.getMedicalCondition())
                     && getTags().equals(e.getTags());
         }
     }

@@ -21,18 +21,23 @@ public class Student {
     private final Email email;
 
     // Data fields
+    private final ParentPhone parentPhone;
     private final Address address;
+    private final MedicalCondition medicalCondition;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Student(Name name, Phone phone, Email email, ParentPhone parentPhone, Address address,
+                   MedicalCondition medicalCondition, Set<Tag> tags) {
+        requireAllNonNull(name, parentPhone, phone, email, address, medicalCondition, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.parentPhone = parentPhone;
         this.address = address;
+        this.medicalCondition = medicalCondition;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +53,14 @@ public class Student {
         return email;
     }
 
+    public ParentPhone getParentPhone() { return parentPhone; }
+
     public Address getAddress() {
         return address;
+    }
+
+    public MedicalCondition getMedicalCondition() {
+        return medicalCondition;
     }
 
     /**
@@ -92,14 +103,16 @@ public class Student {
         return otherStudent.getName().equals(getName())
                 && otherStudent.getPhone().equals(getPhone())
                 && otherStudent.getEmail().equals(getEmail())
+                && otherStudent.getParentPhone().equals(getParentPhone())
                 && otherStudent.getAddress().equals(getAddress())
+                && otherStudent.getMedicalCondition().equals(getMedicalCondition())
                 && otherStudent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, parentPhone, address, tags);
     }
 
     @Override
@@ -110,8 +123,12 @@ public class Student {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Parent's Phone: ")
+                .append(getParentPhone())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Medical Conditions(s): ")
+                .append(getMedicalCondition())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
