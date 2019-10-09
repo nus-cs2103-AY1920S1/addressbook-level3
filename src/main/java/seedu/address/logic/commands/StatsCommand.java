@@ -17,23 +17,22 @@ public class StatsCommand extends Command {
     private final RatingContainsKeywordPredicate predicate_hard = new RatingContainsKeywordPredicate("hard");
     private final RatingContainsKeywordPredicate predicate_easy = new RatingContainsKeywordPredicate("easy");
 
-    ////////// Should return a CommandResult with the full statistics ////////////////
+    ////////// Should return a CommandResult with the statistics ////////////////
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         int no_good=0, no_hard=0, no_easy=0;
 
-        model.updateFilteredFlashCardList(predicate_good); //predicate: GOOD
+        model.updateFilteredFlashCardList(predicate_good);
         no_good = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(predicate_hard); //predicate: HARD
+        model.updateFilteredFlashCardList(predicate_hard);
         no_hard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(predicate_easy); //predicate: EASY
+        model.updateFilteredFlashCardList(predicate_easy);
         no_easy = model.getFilteredFlashCardList().size();
 
-        StringBuilder sb = new StringBuilder("Statistics: " + System.getProperty("line.separator"));
-        sb.append("Number of flashcards labeled as good: " + no_good + System.getProperty("line.separator"));
-        sb.append("Number of flashcards labeled as hard: " + no_hard + System.getProperty("line.separator"));
-        sb.append("Number of flashcards labeled as easy: " + no_easy + System.getProperty("line.separator"));
+        StringBuilder sb = new StringBuilder("STATISTICS" + System.getProperty("line.separator"));
+        sb.append("Good:Hard:Easy = " + no_good + ":" + no_hard + ":" + no_easy);
+
         return new CommandResult(sb.toString());
     }
 
