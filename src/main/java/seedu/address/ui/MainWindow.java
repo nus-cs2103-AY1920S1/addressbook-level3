@@ -102,6 +102,30 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Switches the view.
+     *
+     * @param targetView
+     */
+    private void handleSwitchView(String targetView) {
+        switch(targetView) {
+            case "T":
+                viewsPlaceholder.getSelectionModel().select(0);
+                break;
+            case "E":
+                viewsPlaceholder.getSelectionModel().select(1);
+                break;
+            case "R":
+                viewsPlaceholder.getSelectionModel().select(2);
+                break;
+            case "C":
+                viewsPlaceholder.getSelectionModel().select(3);
+                break;
+            default:
+                break;
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -123,22 +147,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isSwitchViews()) {
-                switch(commandResult.getTargetView().trim()) {
-                case "T":
-                    viewsPlaceholder.getSelectionModel().select(0);
-                    break;
-                case "E":
-                    viewsPlaceholder.getSelectionModel().select(1);
-                    break;
-                case "R":
-                    viewsPlaceholder.getSelectionModel().select(2);
-                    break;
-                case "C":
-                    viewsPlaceholder.getSelectionModel().select(3);
-                    break;
-                default:
-                    break;
-                }
+                handleSwitchView(commandResult.getTargetView().trim());
             }
 
             return commandResult;
