@@ -17,24 +17,14 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Requested page should be shown to the user. */
-    private final boolean showPage;
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.showPage = showPage;
-    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false);
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
     }
 
     /**
@@ -42,7 +32,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -55,10 +45,6 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
-    }
-
-    public boolean isShowPage() {
-        return showPage;
     }
 
     @Override
