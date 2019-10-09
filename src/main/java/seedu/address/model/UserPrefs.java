@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 
 /**
  * Represents User's preferences.
@@ -14,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private UserSettings userSettings = new UserSettings();
     private Path loanRecordsFilePath = Paths.get("data", "loanrecords.json");
     private Path catalogFilePath = Paths.get("data", "catalog.json");
     private Path borrowerRecordsFilePath = Paths.get("data", "borrowerrecords.json");
@@ -37,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setUserSettings(newUserPrefs.getUserSettings());
         setLoanRecordsFilePath(newUserPrefs.getLoanRecordsFilePath());
         setCatalogFilePath(newUserPrefs.getCatalogFilePath());
         setBorrowerRecordsFilePath(newUserPrefs.getBorrowerRecordsFilePath());
@@ -49,6 +52,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public UserSettings getUserSettings() {
+        return userSettings;
+    }
+
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        this.userSettings = userSettings;
     }
 
     public Path getLoanRecordsFilePath() {
@@ -90,6 +102,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
+                && userSettings.equals(o.userSettings)
                 && loanRecordsFilePath.equals(o.loanRecordsFilePath)
                 && catalogFilePath.equals(o.catalogFilePath)
                 && borrowerRecordsFilePath.equals(o.borrowerRecordsFilePath);
@@ -97,13 +110,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, catalogFilePath, loanRecordsFilePath, borrowerRecordsFilePath);
+        return Objects.hash(guiSettings, userSettings, catalogFilePath, loanRecordsFilePath, borrowerRecordsFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nUser Settings : " + userSettings);
         sb.append("\nLocal LoanRecords data file location : " + loanRecordsFilePath);
         sb.append("\nLocal Catalog data file location : " + catalogFilePath);
         sb.append("\nLocal BorrowerRecords data file location : " + borrowerRecordsFilePath);
