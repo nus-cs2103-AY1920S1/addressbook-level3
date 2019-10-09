@@ -95,6 +95,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public StudyPlan getActiveStudyPlan() {
+        return modulePlanner.getActiveStudyPlan();
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }

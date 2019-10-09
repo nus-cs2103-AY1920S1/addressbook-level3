@@ -62,6 +62,11 @@ public interface Model {
     boolean hasStudyPlan(StudyPlan studyPlan);
 
     /**
+     * Returns the current active {@code StudyPlan}.
+     */
+    StudyPlan getActiveStudyPlan();
+
+    /**
      * Deletes the given StudyPlan.
      * The StudyPlan must exist in the module planner.
      */

@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -64,9 +63,12 @@ class JsonAdaptedStudyPlan {
         title = source.getTitle().toString();
         index = source.getIndex();
         isActive = source.isActive();
-        semesters.addAll(source.getSemesterList().getSemesters().stream()
-                .map(JsonAdaptedSemester::new)
-                .collect(Collectors.toList()));
+
+        Iterator<Semester> semesterIterator = source.getSemesters().iterator();
+        while (semesterIterator.hasNext()) {
+            Semester semesterToAdd = semesterIterator.next();
+            semesters.add(new JsonAdaptedSemester(semesterToAdd));
+        }
 
         Iterator<Module> moduleIterator = source.getModules().iterator();
         while (moduleIterator.hasNext()) {
