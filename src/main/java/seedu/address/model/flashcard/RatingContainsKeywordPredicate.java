@@ -1,6 +1,7 @@
 package seedu.address.model.flashcard;
 
 import java.util.function.Predicate;
+
 import seedu.address.commons.util.StringUtil;
 
 /**

@@ -21,9 +21,9 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        int numGood = 0 ;
-        int numHard = 0 ;
-        int numEasy = 0 ;
+        int numGood = 0;
+        int numHard = 0;
+        int numEasy = 0;
 
         model.updateFilteredFlashCardList(predicateGood);
         numGood = model.getFilteredFlashCardList().size();
