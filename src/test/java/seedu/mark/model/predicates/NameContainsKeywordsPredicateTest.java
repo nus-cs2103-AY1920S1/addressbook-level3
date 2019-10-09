@@ -1,4 +1,4 @@
-package seedu.mark.model.bookmark;
+package seedu.mark.model.predicates;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,6 +54,10 @@ public class NameContainsKeywordsPredicateTest {
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        assertTrue(predicate.test(new BookmarkBuilder().withName("Alice Bob").build()));
+
+        // Partially matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("al"));
         assertTrue(predicate.test(new BookmarkBuilder().withName("Alice Bob").build()));
     }
 
