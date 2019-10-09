@@ -21,7 +21,7 @@ public class GotoCommand extends Command {
     public static final String COMMAND_WORD = "goto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Opens the bookmark identified by the index number used in the displayed bookmark list.\n"
+            + ": Opens the bookmark identified by the index used in the displayed bookmark list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

@@ -13,8 +13,8 @@ public class GotoCommandResult extends CommandResult {
     /**
      * Constructs an {@code GotoCommandResult} with the feedback and url.
      *
-     * @param feedbackToUser feedback
-     * @param url            url to be opened
+     * @param feedbackToUser The feedback to be displayed to user
+     * @param url The url to be opened
      */
     public GotoCommandResult(String feedbackToUser, Url url) {
         super(feedbackToUser);
