@@ -12,10 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.commons.util.CollectionUtil;
 
 /**
- * Represents the in-memory model of the menu data.
+ * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -29,9 +28,9 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(menu, userPrefs);
+        requireAllNonNull(menu, userPrefs);
 
-        logger.fine("Initializing with $aveNUS menu: " + menu + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + menu + " and user prefs " + userPrefs);
 
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -108,7 +107,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setFood(Food target, Food editedFood) {
-        CollectionUtil.requireAllNonNull(target, editedFood);
+        requireAllNonNull(target, editedFood);
 
         menu.setFood(target, editedFood);
     }
@@ -145,8 +144,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return menu.equals(other.menu)
-                && userPrefs.equals(other.userPrefs)
-                && filteredFoods.equals(other.filteredFoods);
+            && userPrefs.equals(other.userPrefs)
+            && filteredFoods.equals(other.filteredFoods);
     }
 
 }

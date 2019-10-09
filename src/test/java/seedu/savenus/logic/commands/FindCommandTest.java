@@ -8,7 +8,7 @@ import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.testutil.TypicalFood.CARL;
 import static seedu.savenus.testutil.TypicalFood.ELLE;
 import static seedu.savenus.testutil.TypicalFood.FIONA;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.savenus.model.food.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs());
 
     @Test
     public void equals() {

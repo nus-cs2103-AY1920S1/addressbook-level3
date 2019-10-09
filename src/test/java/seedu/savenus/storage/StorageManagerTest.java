@@ -2,7 +2,7 @@ package seedu.savenus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.nio.file.Path;
 
@@ -51,18 +51,18 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonMenuStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonMenuStorageTest} class.
          */
-        Menu original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyMenu retrieved = storageManager.readAddressBook().get();
+        Menu original = getTypicalMenu();
+        storageManager.saveMenu(original);
+        ReadOnlyMenu retrieved = storageManager.readMenu().get();
         assertEquals(original, new Menu(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getMenuFilePath() {
+        assertNotNull(storageManager.getMenuFilePath());
     }
 
 }

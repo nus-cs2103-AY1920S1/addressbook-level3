@@ -1,5 +1,8 @@
 package seedu.savenus.logic.parser;
 
+import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +16,6 @@ import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.commons.core.Messages;
 
 /**
  * Parses user input.
@@ -30,12 +32,12 @@ public class MenuParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format of specified commands
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -67,7 +69,7 @@ public class MenuParser {
             return new HelpCommand();
 
         default:
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

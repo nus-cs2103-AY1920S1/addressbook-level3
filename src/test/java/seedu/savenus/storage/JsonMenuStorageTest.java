@@ -6,7 +6,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalFood.ALICE;
 import static seedu.savenus.testutil.TypicalFood.HOON;
 import static seedu.savenus.testutil.TypicalFood.IDA;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,18 +20,18 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 
 public class JsonMenuStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMenuStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readMenu_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readMenu(null));
     }
 
-    private java.util.Optional<ReadOnlyMenu> readAddressBook(String filePath) throws Exception {
-        return new JsonMenuStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyMenu> readMenu(String filePath) throws Exception {
+        return new JsonMenuStorage(Paths.get(filePath)).readMenu(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +42,69 @@ public class JsonMenuStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readMenu("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readMenu("notJsonFormatMenu.json"));
     }
 
     @Test
-    public void readAddressBook_invalidfoodAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidFoodAddressBook.json"));
+    public void readMenu_invalidfoodMenu_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMenu("invalidFoodMenu.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidfoodAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidFoodAddressBook.json"));
+    public void readMenu_invalidAndValidfoodMenu_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMenu("invalidAndValidFoodMenu.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        Menu original = getTypicalAddressBook();
-        JsonMenuStorage jsonAddressBookStorage = new JsonMenuStorage(filePath);
+    public void readAndSaveMenu_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempMenu.json");
+        Menu original = getTypicalMenu();
+        JsonMenuStorage jsonMenuStorage = new JsonMenuStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyMenu readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonMenuStorage.saveMenu(original, filePath);
+        ReadOnlyMenu readBack = jsonMenuStorage.readMenu(filePath).get();
         assertEquals(original, new Menu(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addFood(HOON);
         original.removeFood(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonMenuStorage.saveMenu(original, filePath);
+        readBack = jsonMenuStorage.readMenu(filePath).get();
         assertEquals(original, new Menu(readBack));
 
         // Save and read without specifying file path
         original.addFood(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonMenuStorage.saveMenu(original); // file path not specified
+        readBack = jsonMenuStorage.readMenu().get(); // file path not specified
         assertEquals(original, new Menu(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveMenu_nullMenu_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMenu(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyMenu addressBook, String filePath) {
+    private void saveMenu(ReadOnlyMenu addressBook, String filePath) {
         try {
             new JsonMenuStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveMenu(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new Menu(), null));
+    public void saveMenu_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMenu(new Menu(), null));
     }
 }

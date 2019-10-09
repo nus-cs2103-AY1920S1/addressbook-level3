@@ -1,9 +1,10 @@
 package seedu.savenus.logic.parser;
 
+import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -21,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 

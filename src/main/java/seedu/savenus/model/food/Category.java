@@ -1,7 +1,7 @@
-package seedu.address.model.food;
+package seedu.savenus.model.food;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Food's category in the address book.

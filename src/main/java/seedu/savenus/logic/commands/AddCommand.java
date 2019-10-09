@@ -2,17 +2,17 @@ package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.food.Food;
+import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.Model;
+import seedu.savenus.model.food.Food;
 
 /**
  * Adds a food to the $aveNUS menu.

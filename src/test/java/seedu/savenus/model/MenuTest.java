@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalFood.ALICE;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
 import seedu.savenus.testutil.FoodBuilder;
 
-public class AddressBookTest {
+public class MenuTest {
 
     private final Menu menu = new Menu();
 
@@ -36,8 +36,8 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Menu newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyMenu_replacesData() {
+        Menu newData = getTypicalMenu();
         menu.resetData(newData);
         assertEquals(newData, menu);
     }
@@ -59,18 +59,18 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasFood_foodNotInAddressBook_returnsFalse() {
+    public void hasFood_foodNotInMenu_returnsFalse() {
         assertFalse(menu.hasFood(ALICE));
     }
 
     @Test
-    public void hasFood_foodInAddressBook_returnsTrue() {
+    public void hasFood_foodInMenu_returnsTrue() {
         menu.addFood(ALICE);
         assertTrue(menu.hasFood(ALICE));
     }
 
     @Test
-    public void hasFood_foodWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasFood_foodWithSameIdentityFieldsInMenu_returnsTrue() {
         menu.addFood(ALICE);
         Food editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -83,7 +83,7 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose foods list can violate interface constraints.
+     * A stub ReadOnlyMenu whose foods list can violate interface constraints.
      */
     private static class MenuStub implements ReadOnlyMenu {
         private final ObservableList<Food> foods = FXCollections.observableArrayList();

@@ -2,7 +2,14 @@ package seedu.savenus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.*;
+import static seedu.savenus.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.savenus.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.savenus.logic.commands.CommandTestUtil.showFoodAtIndex;
 import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
@@ -47,11 +54,11 @@ public class EditCommandTest {
         Food lastFood = model.getFilteredFoodList().get(indexLastFood.getZeroBased());
 
         FoodBuilder foodInList = new FoodBuilder(lastFood);
-        Food editedFood = foodInList.withName(VALID_NAME_NASI_LEMAK).withPrice(VALID_PRICE_NASI_LEMAK)
+        Food editedFood = foodInList.withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK)
-                .withPrice(VALID_PRICE_NASI_LEMAK).withTags(VALID_TAG_HUSBAND).build();
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPrice(VALID_PRICE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastFood, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
@@ -79,9 +86,9 @@ public class EditCommandTest {
         showFoodAtIndex(model, INDEX_FIRST_FOOD);
 
         Food foodInFilteredList = model.getFilteredFoodList().get(INDEX_FIRST_FOOD.getZeroBased());
-        Food editedFood = new FoodBuilder(foodInFilteredList).withName(VALID_NAME_NASI_LEMAK).build();
+        Food editedFood = new FoodBuilder(foodInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FOOD,
-                new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK).build());
+                new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
 
@@ -115,7 +122,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidfoodIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodList().size() + 1);
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK).build();
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
@@ -133,17 +140,17 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMenu().getFoodList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK).build());
+                new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_FOOD, DESC_CHICKEN_RICE);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_FOOD, DESC_AMY);
 
         // same values -> returns true
-        EditFoodDescriptor copyDescriptor = new EditFoodDescriptor(DESC_CHICKEN_RICE);
+        EditFoodDescriptor copyDescriptor = new EditFoodDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_FOOD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -157,10 +164,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_FOOD, DESC_CHICKEN_RICE)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_FOOD, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_FOOD, DESC_NASI_LEMAK)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_FOOD, DESC_BOB)));
     }
 
 }

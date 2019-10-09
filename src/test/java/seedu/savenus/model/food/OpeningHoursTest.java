@@ -1,8 +1,8 @@
-package seedu.address.model.food;
+package seedu.savenus.model.food;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.savenus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 

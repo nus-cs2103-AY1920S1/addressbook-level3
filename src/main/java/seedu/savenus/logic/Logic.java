@@ -8,7 +8,6 @@ import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.ReadOnlyMenu;
-import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 
 /**
@@ -25,9 +24,9 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the Menu.
+     * Returns the AddressBook.
      *
-     * @see Model#getMenu()
+     * @see seedu.savenus.model.Model#getMenu()
      */
     ReadOnlyMenu getMenu();
 
@@ -35,7 +34,7 @@ public interface Logic {
     ObservableList<Food> getFilteredFoodList();
 
     /**
-     * Returns the user prefs' menu file path.
+     * Returns the user prefs' address book file path.
      */
     Path getMenuFilePath();
 

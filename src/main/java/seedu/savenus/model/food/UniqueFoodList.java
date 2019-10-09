@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
 import seedu.savenus.model.food.exceptions.FoodNotFoundException;
-import seedu.savenus.commons.util.CollectionUtil;
 
 /**
  * A list of foods that enforces uniqueness between its elements and does not allow nulls.
@@ -27,7 +26,7 @@ public class UniqueFoodList implements Iterable<Food> {
 
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent food as the given argument.
@@ -55,7 +54,7 @@ public class UniqueFoodList implements Iterable<Food> {
      * The food identity of {@code editedFood} must not be the same as another existing food in the list.
      */
     public void setFood(Food target, Food editedFood) {
-        CollectionUtil.requireAllNonNull(target, editedFood);
+        requireAllNonNull(target, editedFood);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -90,7 +89,7 @@ public class UniqueFoodList implements Iterable<Food> {
      * {@code foods} must not contain duplicate foods.
      */
     public void setFoods(List<Food> foods) {
-        CollectionUtil.requireAllNonNull(foods);
+        requireAllNonNull(foods);
         if (!foodsAreUnique(foods)) {
             throw new DuplicateFoodException();
         }
@@ -113,8 +112,8 @@ public class UniqueFoodList implements Iterable<Food> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueFoodList // instanceof handles nulls
-                        && internalList.equals(((UniqueFoodList) other).internalList));
+            || (other instanceof UniqueFoodList // instanceof handles nulls
+            && internalList.equals(((UniqueFoodList) other).internalList));
     }
 
     @Override

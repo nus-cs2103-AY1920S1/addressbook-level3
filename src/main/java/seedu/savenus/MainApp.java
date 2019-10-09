@@ -22,9 +22,9 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.util.SampleDataUtil;
-import seedu.savenus.storage.MenuStorage;
 import seedu.savenus.storage.JsonMenuStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
+import seedu.savenus.storage.MenuStorage;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.storage.UserPrefsStorage;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing $aveNUS ]===========================");
+        logger.info("=============================[ Initializing Menu ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -69,7 +69,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s menu and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s $aveNUS menu and {@code userPrefs}. <br>
      * The data from the sample menu will be used instead if {@code storage}'s menu is not found,
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
@@ -79,7 +79,7 @@ public class MainApp extends Application {
         try {
             menuOptional = storage.readMenu();
             if (!menuOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample $aveNUS menu.");
+                logger.info("Data file not found. Will be starting with a sample Menu");
             }
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleMenu);
         } catch (DataConversionException e) {
@@ -120,7 +120,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -148,7 +148,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting $aveNUS " + MainApp.VERSION);
+        logger.info("Starting Menu " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping $aveNUS ] =============================");
+        logger.info("============================ [ Stopping Menu ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

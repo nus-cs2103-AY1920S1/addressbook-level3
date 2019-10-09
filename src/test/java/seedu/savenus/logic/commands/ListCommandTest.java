@@ -2,7 +2,7 @@ package seedu.savenus.logic.commands;
 
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.logic.commands.CommandTestUtil.showFoodAtIndex;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs());
         expectedModel = new ModelManager(model.getMenu(), new UserPrefs());
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.savenus.testutil;
 
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
@@ -21,8 +21,6 @@ import java.util.List;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.food.Food;
-
-import static seedu.savenus.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
@@ -86,11 +84,11 @@ public class TypicalFood {
      * Returns an {@code Menu} with all the typical foods.
      */
     public static Menu getTypicalMenu() {
-        Menu ab = new Menu();
+        Menu menu = new Menu();
         for (Food food : getTypicalFood()) {
-            ab.addFood(food);
+            menu.addFood(food);
         }
-        return ab;
+        return menu;
     }
 
     public static List<Food> getTypicalFood() {
