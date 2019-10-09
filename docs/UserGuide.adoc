@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= NUSpend - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NUSpend is for those who *prefer to use a desktop app for tracking expenses*. More importantly, NUSpend is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, NUSpend can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `NUSpend.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your NUSpend.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all expenses
+* **`add`**`d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food` : adds an expense named `Chicken Rice` to the expense tracker.
+* **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,100 +46,270 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in UPPER_CASE are the parameters to be supplied by the user
+  e.g. in `add p/PRICE`, `PRICE` is a parameter which can be used as `add p/2.50`
+* Items in square brackets are optional
+  e.g `p/PRICE [c/CATEGORY]` can be used as`d/Chicken Rice /p2.50 c/Food` or as `d/Chicken Rice /p2.50`
+* Items with `...` after them can be used multiple times including zero times
+  e.g. `[c/CATEGORY]...` can be used as `[blank]` (i.e. 0 times), `c/Food`, `c/Food c/Tasty`
+* Parameters can be in any order e.g. `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Basic Expense-Related Commands
+==== Adding an expense: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add an expense to the expense tracker
+Format: `add d/DESCRIPTION p/PRICE [t/time] [c/CATEGORY]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+* An expense can have any number of categories (including 0).
+* If a time is not specified, the time property of the expense will be that of the system’s current time.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
+* `add d/Buffet p/250 c/Food c/Anniversary Expense`
 
-=== Listing all persons : `list`
+===== Using relative time/date input: `yesterday`
 
-Shows a list of all persons in the address book. +
+The user can specify an expense’s time using relative dates and times.
+
+Example:
+If the current date is 12 Sep 2013
+Input: `add d/Chicken Rice p/2.50 t/Yesterday Noon`
+Result: adds an expense of 2.50 at 11 Sep 2013, 12pm
+
+==== Listing all expenses : `list`
+
+Shows a list of all expenses in the expense tracker.
 Format: `list`
 
-=== Editing a person : `edit`
+==== Updating an expense : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing expense in the expense tracker.
+Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/time] [c/CATEGORY]...`
+
+Example:
+`edit 2 p/3.50`
+Updates the price of the 2nd expense in the current list to 3.50.
+
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
+* The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing categories, the existing categories of the expense will be removed, i.e adding of categories is not cumulative.
+* You can remove an expense from all the categories by typing `c/` without specifying any categories after it. i.e. `edit 1 c/`
+* You can set the time of the expense to the system’s current time by typing `t/` without specifying a time.
 ****
 
-Examples:
+==== Locating expenses by name: `find`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
+Finds expenses whose description contain any of the given keywords.
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g `chicken` will match `Chicken`
+* The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
+* Only the description is searched.
+* Only full words will be matched e.g. `chick` will not match `chicken`
+* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description `Chicken rice`, and expense with description `Duck Rice` will both match `rice`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find rice`
+Returns `chicken rice` and `duck rice`
+* `find chicken taxi schoolfee`
+  Returns any expense having description containing `chicken`, `taxi`, or `schoolfee`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Deleting an expense : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified expense from the current list shown in the expense tracker.
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the expense at the specified INDEX.
+* The index refers to the index number shown in the currently displayed list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+```
+list
+delete 2
+```
+Deletes the 2nd expense in the list of expenses, shown by `list`.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+```
+list
+find chicken
+delete 1
+```
+Deletes the 1st expense in the results of the `find` command.
 
-Clears all entries from the address book. +
+==== Clearing all entries : `clear`
+
+Clears all entries from the expense tracker.
 Format: `clear`
+
+==== Undo the previous command : `undo`
+
+User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear`, can be undone.
+
+Format: `undo`
+
+Example:
+```
+delete 5
+undo
+```
+Result:
+Expense no. 5 will not be deleted.
+
+==== Redo the command that was undone : `redo`
+User can redo the command they have undone.
+
+Format: `redo`
+
+Example:
+```
+delete 5
+undo
+redo
+```
+Result:
+Expense no. 5 will now be deleted.
+
+==== Converting any currency to preferred currency : `convert`
+
+=== Budgeting-Related Commands
+==== Creating new budgets : `budget`
+Creates a new expense budget.
+
+Format: `budget n/BUDGET_NAME a/BUDGET_AMOUNT t/BUDGET_PERIOD d/BUDGET_START_DATE [p/IS_PRIMARY]`
+
+E.g.
+`budget n/General expense a/100 t/1 month d/18-09-2019`
+This will create a new budget “General expense” that is set to $100 per month, starting from 18th September 2019.
+
+==== Switch current budget : `switchbudget`
+Switches currently active budget to another.
+
+Format: `switchbudget n/BUDGET_NAME`
+
+E.g.
+`switchbudget General Expense`
+
+=== Prediction : `predict`
+User can get a rough estimation of next month's total expense based on extrapolation from this month's expenditure. The prediction will take into account important dates that require extra spending in next month.
+
+Format: `predict`
+
+Result:
+`We predict your next month's total expenditure to be ...`
+
+=== Creating an alias for your favourite commands : `alias`
+Assign a full paramaterized input to an alias.
+
+Format: `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS`
+
+E.g.
+`alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
+Result creates an alias “chicken rice” for the command which adds an expense of 2.50 under the Food category with a description of “Chicken Rice” at the current system time.
+
+- Note: all white spaces characters will be removed from alias names
+- Note: aliases with names of official commands cannot be made
+- Note: using the same name for an alias will overwrite the existing alias if it exists
+
+=== Reminders
+==== Recording important dates : `remind`
+Records an important date, which the expense tracker will remind you of as the date approaches.
+
+Format: `remind EVENT DATE [n DAYS]`
+Records the EVENT with the timestamp DATE.
+
+By default, the expense tracker will remind you of this event when its scheduled time approaches 7 days and below. If the optional parameter `[n DAYS]` is inputted, the tracker will begin reminding you `n` days before the scheduled time.
+
+Example: `remind Brian’s birthday 04/06/2020 14 DAYS`
+14 days before 04/06/2020, the expense tracker will begin reminding you of Brian’s birthday.
+
+==== Listing all reminders : `reminders`
+Lists all reminders for important dates that you have inputted.
+
+Format: `reminders`
+
+Example:
+```
+reminders
+```
+Result:
+```
+You have these important dates coming up!
+Brian’s birthday: 04/06/2020
+Mum’s birthday: 06/06/2020
+```
+
+=== Saving the data
+Expense tracker data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
+
+=== Viewing Statistics
+==== Summary : `stats`
+Produces statistics regarding the user’s expenses.
+
+The statistics include all categories of items, with the number of entries, the total amount spent and the percentage composition of the total expenditure.
+
+Format: `stats [start/START_DATE] [end/END_DATE]`
+[where dates are in DD-MM-YYYY format]
+
+- `START_DATE` will be checked to be earlier than `END_DATE`
+
+- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`(or part thereoff)
+
+- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`(or part thereoff)
+
+Example:
+`stats`
+`stats end/12-12-2018`
+`stats start/11-11-2018 end/12-12-2018`
+
+==== Compare : `statscompare`
+Produces and displays statistics regarding the user’s finance for 2 time periods. The statistics include all categories of items, the number of entries and the total amount spent and the percentage composition of the total, stated as a difference using second period – first period
+
+Format: `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2`
+
+- Support similar constraints like basic stats command for 1 period
+
+- If only 1 valid period is given, then the functionality is similar to `stats START_DATE END_DATE`
+
+Examples:
+`statscompare start1/01-01-2019 end1/01-02-2019 start2/01-01-2019 end2/01-02-2019`
+
+==== Visualize: `visual`
+Generates pie chart for spending in different categories. The pie chart also shows the percentage composition of the total expenditure in text.
+
+Format: `visual [start/START_DATE] [end/END_DATE]`
+[where dates are in dd-MM-yyyy format]
+
+- `START_DATE` will be checked to be earlier than `END_DATE`
+
+- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`(or part thereoff)
+
+- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`(or part thereoff)
+
+- If both `START_DATE` and `END_DATE` are empty, statistics is calculated from the start of this month till today.
+
+Example:
+`visual`
+`visual end/12-12-2018`
+`visual start/11-11-2018 end/12-12-2018`
 
 === Exiting the program : `exit`
 
@@ -148,30 +318,55 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+NUSpend data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Email notification `[coming in v2.0]`
+
+=== Input expenses by scanning a receipt `[coming in v2.0]`
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NUSpend folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Add an expense* `add d/DESCRIPTION p/PRICE [t/time] [c/CATEGORY]...` +
+e.g. `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
+* *Clear all expenses* : `clear`
+* *Compare statistics* : `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2` +
+e.g. `statscompare start1/01-01-2019 end1/01-02-2019 start2/01-01-2019 end2/01-02-2019`
+* *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
+e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
+* *Create new budget* : `budget n/BUDGET_NAME a/BUDGET_AMOUNT t/BUDGET_PERIOD d/BUDGET_START_DATE [p/IS_PRIMARY]` +
+e.g. `budget n/General expense a/100 t/1 month d/18-09-2019`
+* *Currency conversion* : `convert`
+* *Delete an expense* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit an expense* : `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/time] [c/CATEGORY]...` +
+e.g. `edit 2 p/3.50`
+* *Exit the app* : `exit`
+* *Find an expense* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find rice`
+* *List all expenses* : `list`
+* *List all reminders* : `reminders`
 * *Help* : `help`
+* *Prediction* : `predict`
+* *Record important date* : `remind EVENT DATE [n DAYS]` +
+e.g. `remind Brian’s birthday 04/06/2020 14 DAYS`
+* *Redo* : `redo`
+* *Switch budget* : `switchbudget n/BUDGET_NAME` +
+e.g. `switchbudget General Expense`
+* *Undo* : `undo`
+* *View statistics* : `stats [start/START_DATE] [end/END_DATE]` +
+e.g. `stats start/11-11-2018 end/12-12-2018`
+* *Visualize* : `visual [start/START_DATE] [end/END_DATE]` +
+e.g. `visual start/11-11-2018 end/12-12-2018`
+
+
+
+

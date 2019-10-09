@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.UniqueIdentifier;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +25,7 @@ class JsonAdaptedExpense {
 
     private final String description;
     private final String price;
+    private final String uniqueIdentifier;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -32,9 +34,12 @@ class JsonAdaptedExpense {
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,6 +54,7 @@ class JsonAdaptedExpense {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        uniqueIdentifier = source.getUniqueIdentifier().value;
     }
 
     /**
@@ -80,8 +86,18 @@ class JsonAdaptedExpense {
         }
         final Price modelPrice = new Price(price);
 
+
+        if (uniqueIdentifier == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueIdentifier.class.getSimpleName()));
+        }
+        if (!UniqueIdentifier.isValidUniqueIdentifier(uniqueIdentifier)) {
+            throw new IllegalValueException(UniqueIdentifier.MESSAGE_CONSTRAINTS);
+        }
+        final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
+
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, modelTags);
+        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier);
     }
 
 }

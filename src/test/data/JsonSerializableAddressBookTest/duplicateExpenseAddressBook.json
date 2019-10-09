@@ -1,15 +1,14 @@
 {
   "expenses": [ {
-    "description": "Alice Pauline",
-    "price": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "description" : "Jeans",
+    "price" : "50",
+    "tagged" : [ "Uniqlo" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   }, {
-    "description": "Alice Pauline",
-    "price": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
-  } ],
+    "description" : "TShirt",
+    "price" : "10",
+    "tagged" : [ "HnM" ],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
+  } ]
   "events" : []
 }
