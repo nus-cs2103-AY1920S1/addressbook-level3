@@ -27,9 +27,9 @@ public class TabPanel extends UiPart<Region> {
         tabListView.setItems(tabList);
         tabListView.setCellFactory(param -> new ListCell<Tab>() {
             @Override
-            protected void updateItem(Tab tab, boolean empty) {
-                super.updateItem(tab, empty);
-                if (empty || tab == null || tab.getName() == null) {
+            protected void updateItem(Tab tab, boolean isEmpty) {
+                super.updateItem(tab, isEmpty);
+                if (isEmpty || tab == null || tab.getName() == null) {
                     setText(null);
                 } else {
                     setText(tab.getName());
