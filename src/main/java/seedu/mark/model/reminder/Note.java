@@ -11,13 +11,13 @@ public class Note {
     public static final String MESSAGE_CONSTRAINTS =
             "Notess should only contain alphanumeric characters and spaces, and it should not be blank";
 
-    private String noteContent;
-
     /*
      * The first character of the note must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    
+    private String noteContent;
 
     public Note(String noteContent) {
         requireNonNull(noteContent);

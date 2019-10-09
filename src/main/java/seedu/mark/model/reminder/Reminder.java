@@ -4,7 +4,6 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 
 import seedu.mark.model.bookmark.Bookmark;
