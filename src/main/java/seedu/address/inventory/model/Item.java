@@ -60,13 +60,10 @@ public class Item {
         this.price = price;
     }
 
-<<<<<<< HEAD:src/main/java/seedu/address/inventory/model/Item.java
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-=======
->>>>>>> Implemented some Inventory classes:src/main/java/seedu/address/inventory/Item.java
     /**
      * Stores the attributes of the Item into a String, for storage in a File.
      * @return a String containing the attributes of the Item.
@@ -109,11 +106,7 @@ public class Item {
         Item otherItem = (Item) other;
         return otherItem.getDescription().equals(getDescription())
                 && otherItem.getCategory().equals(getCategory())
-<<<<<<< HEAD:src/main/java/seedu/address/inventory/model/Item.java
                 //&& otherItem.getQuantity() == getQuantity()
-=======
-                && otherItem.getQuantity() == getQuantity()
->>>>>>> Implemented some Inventory classes:src/main/java/seedu/address/inventory/Item.java
                 && otherItem.getCost() == getCost()
                 && otherItem.getPrice() == getPrice();
     }
