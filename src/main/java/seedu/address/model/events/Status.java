@@ -80,6 +80,7 @@ public class Status {
     public boolean equals(Object o) {
         return o instanceof Status;
     }
+
     /**
      * checks if the current status is ACKNOWLEDGED.
      *

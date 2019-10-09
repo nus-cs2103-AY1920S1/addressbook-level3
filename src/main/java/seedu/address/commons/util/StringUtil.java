@@ -36,11 +36,12 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-            .anyMatch(preppedWord::equalsIgnoreCase);
+                .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
     /**
      * Returns true if {@code substring} is blank or the {@code sentence} contains the {@code substring}, ignores case.
+     *
      * @param sentence  cannot be null
      * @param substring cannot be null
      */
