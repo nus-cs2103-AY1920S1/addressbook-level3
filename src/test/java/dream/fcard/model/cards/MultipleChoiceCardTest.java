@@ -1,15 +1,15 @@
 package dream.fcard.model.cards;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MultipleChoiceCardTest {
 
     @Test
-    void evaluate_correctChoice_trueReturned(){
+    void evaluate_correctChoice_trueReturned() {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("hello");
         choices.add("bye");
@@ -19,7 +19,7 @@ class MultipleChoiceCardTest {
     }
 
     @Test
-    void evaluate_wrongChoice_falseReturned(){
+    void evaluate_wrongChoice_falseReturned() {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("hello");
         choices.add("bye");
