@@ -66,6 +66,11 @@ public class Reminder {
         return builder.toString();
     }
 
+    /**
+     * Turn reminding time to the formatted string.
+     *
+     * @return formatted time string.
+     */
     public String timeFormatter() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         String formatTime = remindTime.format(formatter);
