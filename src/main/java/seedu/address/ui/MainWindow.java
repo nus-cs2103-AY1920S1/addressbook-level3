@@ -155,6 +155,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void switchToBioWindow(String feedbackToUser) {
         hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
         BioWindow bioWindow = new BioWindow(primaryStage, logic);
         bioWindow.show();
         bioWindow.fillInnerParts();
@@ -195,7 +198,6 @@ public class MainWindow extends UiPart<Stage> {
 
             CommandResult commandResult = logic.execute(commandText);
             if (commandResult.isShowBio()) {
-                System.out.println("Not Bio");
                 switchToBioWindow(commandResult.getFeedbackToUser());
             }
 
