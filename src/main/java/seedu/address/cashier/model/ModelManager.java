@@ -1,5 +1,6 @@
 package seedu.address.cashier.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
@@ -7,6 +8,8 @@ import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchItemException;
+import seedu.address.person.model.person.Person;
+import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
@@ -27,6 +30,11 @@ public class ModelManager implements Model {
         } catch (Exception e) {
             this.inventoryList = new InventoryList();
         }
+        try {
+            this.transactionList = storage.getTransactionList();
+        } catch (Exception e) {
+            this.transactionList = new TransactionList();
+        }
     }
 
     @Override
@@ -34,13 +42,17 @@ public class ModelManager implements Model {
         return this.inventoryList;
     }
 
+    public TransactionList getTransactionList() {
+        return this.transactionList;
+    }
+
     @Override
-    public boolean hasSufficientQuantity(Item i, int quantity) throws NoSuchItemException {
-        if (inventoryList.getOriginalItem(i).getQuantity() > quantity) {
+    public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
+        if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
             return false;
         }
         else {
-                return true;
+            return true;
         }
     }
 
@@ -74,12 +86,17 @@ public class ModelManager implements Model {
         salesList.remove(index - 1);
     }
 
+
+    @Override
+    public void setItem(int i, Item editedItem) throws Exception {
+        inventoryList.set(i, editedItem);
+    }
+
     @Override
     public void writeInInventoryFile() throws Exception{
         storage.writeFileToInventory(inventoryList);
     }
 
-    @Override
     public void updateInventoryList() throws Exception {
         for (int i = 0; i < salesList.size(); i++) {
             Item item = salesList.get(i);
@@ -87,9 +104,13 @@ public class ModelManager implements Model {
         }
     }
 
-/*    @Override
-    public void Transaction checkoutAsTransaction() {
-        Transaction transaction = new Transaction(LocalDateTime.now(), )
-    } */
+    public Transaction checkoutAsTransaction(double amount, Person person) {
+        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.myFormatter),
+                "salesItems", "sales", amount, person, transactionList.size(), false);
+        return transaction;
+    }
+
 }
+
+
 

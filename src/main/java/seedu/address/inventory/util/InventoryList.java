@@ -2,6 +2,7 @@ package seedu.address.inventory.util;
 
 import java.util.ArrayList;
 
+import seedu.address.cashier.ui.CashierUi;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
@@ -38,6 +39,24 @@ public class InventoryList {
             }
         }
         throw new NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
+    }
+
+    public static Item getOriginalItem(String description) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
+    }
+
+    public static Item getOriginalItem(Item item) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(item)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
     }
 
     public void add(Item item) {

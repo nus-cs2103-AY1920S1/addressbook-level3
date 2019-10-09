@@ -28,9 +28,18 @@ public class InventoryList {
         throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
     }
 
-    public static Item getOriginalItem(Item itemToFind) throws seedu.address.inventory.model.exception.NoSuchItemException {
+    public static Item getOriginalItem(String description) throws seedu.address.inventory.model.exception.NoSuchItemException {
         for (int i = 0; i < iList.size(); i++) {
-            if (iList.get(i).isSameItem(itemToFind)) {
+            if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
+    }
+
+    public static Item getOriginalItem(Item item) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(item)) {
                 return iList.get(i);
             }
         }
@@ -47,6 +56,10 @@ public class InventoryList {
 
     public static int size() {
         return iList.size();
+    }
+
+    public void set(int i, Item item) {
+        iList.set(i, item);
     }
 
 }

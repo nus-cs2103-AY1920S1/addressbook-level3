@@ -1,6 +1,7 @@
 package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
 
@@ -28,12 +29,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setItem(Item itemToEdit, Item editedItem) throws Exception {
-        for (int i = 0; i < inventoryList.size(); i++) {
-            if (inventoryList.get(i).equals(itemToEdit)) {
+    public void setItem(int i, Item editedItem) throws Exception {
                 inventoryList.set(i, editedItem);
-            }
-        }
     }
 
     @Override
@@ -57,7 +54,7 @@ public class ModelManager implements Model {
 
     @Override
     public Item findItemByIndex(int index) throws NoSuchIndexException {
-        Item item = inventoryList.get(index - 1);
+        Item item = inventoryList.getItemByIndex(index - 1);
         return item;
     }
 
@@ -72,16 +69,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasSufficientQuantity(Item item, int quantity) {
-        boolean hasSufficientQuantity = true;
-        if (item.getQuantity() < quantity || !hasItem(item)) {
-            hasSufficientQuantity = false;
+    public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
+        if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
+            return false;
         }
-        return hasSufficientQuantity;
+        else {
+            return true;
+        }
     }
 
-    @Override
-    public void updateInventoryList() throws Exception {
-
-    }
 }

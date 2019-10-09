@@ -13,17 +13,15 @@ public interface Model {
 
     void deleteItem(int index);
 
-    InventoryList getInventoryList();
-
-    boolean hasSufficientQuantity(Item i, int quantity) throws NoSuchItemException;
-
     void writeInInventoryFile() throws Exception;
 
-    //void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) throws Exception;
+    InventoryList getInventoryList();
+
+    void setItem(int i, Item editedItem) throws Exception;
 
     boolean hasItemInInventory(Item item);
 
-    void updateInventoryList() throws Exception;
+    boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException;
 
 }
 
