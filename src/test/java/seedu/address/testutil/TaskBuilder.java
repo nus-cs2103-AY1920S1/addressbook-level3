@@ -7,7 +7,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleTaskDataUtil;
 
 /**
  * A utility class to help with building Task objects.
@@ -53,7 +53,7 @@ public class TaskBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
     public TaskBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SampleTaskDataUtil.getTagSet(tags);
         return this;
     }
 

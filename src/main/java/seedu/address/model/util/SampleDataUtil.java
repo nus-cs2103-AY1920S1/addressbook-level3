@@ -14,15 +14,15 @@ import seedu.address.model.task.TaskStatus;
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
-public class SampleDataUtil {
+public class SampleTaskDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task(new Name("Alex Yeoh"), TaskStatus.UNBEGUN, getTagSet("friends")),
-            new Task(new Name("Bernice Yu"), TaskStatus.DOING, getTagSet("colleagues", "friends")),
-            new Task(new Name("Charlotte Oliveiro"), TaskStatus.DOING, getTagSet("neighbours")),
-            new Task(new Name("David Li"), TaskStatus.DONE, getTagSet("family")),
-            new Task(new Name("Irfan Ibrahim"), TaskStatus.DOING, getTagSet("classmates")),
-            new Task(new Name("Roy Balakrishnan"), TaskStatus.UNBEGUN, getTagSet("colleagues"))
+            new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance")),
+            new Task(new Name("Increase Funding"), TaskStatus.DOING, getTagSet("Finance", "Urgent")),
+            new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
+            new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding")),
+            new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
+            new Task(new Name("Design Poster"), TaskStatus.UNBEGUN, getTagSet("Branding"))
         };
     }
 
