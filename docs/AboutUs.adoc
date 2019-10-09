@@ -4,53 +4,52 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+MyMorise was developed by the https://github.com/orgs/AY1920S1-CS2103-T14-4/ team. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Muhammad Aljunied
+image::muhammadaljunied.png[width="150", align="left"]
+{empty}[http://github.com/m133225[github]] [<<muhammadaljunied#, portfolio>>]
+
+Role: Team Lead, Developer +
+Responsibilities: Documentation Quality, Scheduling and tracking, IntelliJ Expert
+Components:
+
+'''
+
+=== Ng Choon Wah
 image::choonx99.png[width="150", align="left"]
-{empty}[https://github.com/choonx99[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/choonx99[github]] [<<choonx99#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Deliverables/Deadlines.
+Components:
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Lim Xuan Hui
+image::limxuanhui.png[width="150", align="left"]
+{empty}[http://github.com/limxuanhui[github]] [<<limxuanhui#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Testing
+Components:
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Zhiheng Xiu
+image::cary-xx.png[width="150", align="left"]
+{empty}[http://github.com/Cary-Xx[github]] [<<cary-xx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Code Quality, Integration, Git Expert
+Components:
 
 '''
+
+
+
+
