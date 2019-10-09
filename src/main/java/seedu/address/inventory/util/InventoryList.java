@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
-import seedu.address.inventory.ui.InventoryUi;
-import seedu.address.ui.Inventory;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +39,24 @@ public class InventoryList {
         throw new NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
     }
 
+    public static Item getOriginalItem(String description) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
+    }
+
+    public static Item getOriginalItem(Item item) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(item)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(InventoryUi.NO_SUCH_ITEM_INVENTORY);
+    }
+
     public void add(Item item) {
         iList.add(item);
     }
@@ -56,11 +71,6 @@ public class InventoryList {
 
     public void set(int i, Item item) {
         iList.set(i, item);
-    }
-
-
-    public void set(int i, Item item) {
-        inventory.set(i, item);
     }
 
 }

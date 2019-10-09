@@ -64,7 +64,6 @@ public class Item {
         this.quantity = quantity;
     }
 
-
     /**
      * Stores the attributes of the Item into a String, for storage in a File.
      * @return a String containing the attributes of the Item.

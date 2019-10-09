@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import seedu.address.person.model.person.Person;
 
 public class Transaction {
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    public static final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private LocalDate date;
     private String description;
     private String category;

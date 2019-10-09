@@ -1,8 +1,17 @@
 package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+<<<<<<< HEAD
+import seedu.address.inventory.model.exception.NoSuchItemException;
+import seedu.address.inventory.util.InventoryList;
+<<<<<<< HEAD
+=======
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.transaction.util.TransactionList;
+>>>>>>> Implemented some Inventory classes
+=======
+import seedu.address.transaction.util.TransactionList;
+>>>>>>> fc0be654de9206fb671410f8894ac898fe42746c
 
 public interface Model {
 
@@ -16,11 +25,10 @@ public interface Model {
 
     InventoryList getInventoryList();
 
-    void setItem(Item itemToEdit, Item editedItem) throws Exception;
+    void setItem(int i, Item editedItem) throws Exception;
 
     boolean hasItemInInventory(Item item);
 
-    boolean hasSufficientQuantity(Item item, int quantity);
+    boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException;
 
-    void updateInventoryList() throws Exception;
 }
