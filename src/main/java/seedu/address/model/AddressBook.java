@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.UniqueNoteList;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.UniqueNoteList;
 
 /**
  * Wraps all data at the address-book level

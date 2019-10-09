@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.TitleContainsKeywordsPredicate;
+import seedu.address.model.note.TitleContainsKeywordsPredicate;
 
 /**
  * Finds and lists all lecture notes whose title contains any of the argument keywords.

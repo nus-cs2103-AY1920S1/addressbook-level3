@@ -8,8 +8,8 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Title;
 
 public class JsonAdaptedNoteTest {
     private static final String INVALID_TITLE = "a\nb";

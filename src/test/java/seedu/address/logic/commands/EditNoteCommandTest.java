@@ -21,7 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Note;
+import seedu.address.model.note.Note;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 

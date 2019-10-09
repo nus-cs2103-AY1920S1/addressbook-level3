@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Note;
+import seedu.address.model.note.Note;
 
 /**
  * Adds a lecture note to NUStudy.
@@ -23,7 +23,7 @@ public class AddNoteCommand extends Command {
             + PREFIX_CONTENT + "Write once debug everywhere ";
 
     public static final String MESSAGE_SUCCESS = "Lecture note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TITLE = "This title is already used";
+    public static final String MESSAGE_DUPLICATE_TITLE = "This title already exists";
 
     private final Note toAdd;
 

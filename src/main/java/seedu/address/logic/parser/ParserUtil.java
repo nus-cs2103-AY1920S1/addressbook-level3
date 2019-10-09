@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Title;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,8 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.exceptions.DuplicateNoteException;
-import seedu.address.model.person.exceptions.NoteNotFoundException;
+import seedu.address.model.note.exceptions.DuplicateTitleException;
+import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueNoteListTest {
@@ -53,7 +53,7 @@ public class UniqueNoteListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueNoteList.add(ALICE);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.add(ALICE));
+        assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.add(ALICE));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class UniqueNoteListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.add(BOB);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNote(ALICE, BOB));
+        assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.setNote(ALICE, BOB));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class UniqueNoteListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Note> listWithDuplicateNotes = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNotes(listWithDuplicateNotes));
+        assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.setNotes(listWithDuplicateNotes));
     }
 
     @Test

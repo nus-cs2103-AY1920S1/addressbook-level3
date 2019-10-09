@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.TitleContainsKeywordsPredicate;
+import seedu.address.model.note.TitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindNoteCommand object

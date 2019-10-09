@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Title;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 public class EditNoteCommandParserTest {

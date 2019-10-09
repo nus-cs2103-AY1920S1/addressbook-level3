@@ -14,8 +14,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.TitleContainsKeywordsPredicate;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.TitleContainsKeywordsPredicate;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 /**

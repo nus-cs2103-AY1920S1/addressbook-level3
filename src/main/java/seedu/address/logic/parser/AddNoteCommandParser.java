@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
 
 /**
  * Parses input arguments and creates a new AddNoteCommand object.

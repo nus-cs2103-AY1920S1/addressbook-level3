@@ -18,9 +18,9 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddNoteCommand;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddNoteCommandParserTest {

@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
 
 /**
  * A utility class to help with building Note objects.

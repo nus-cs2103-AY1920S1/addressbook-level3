@@ -13,9 +13,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Content;
-import seedu.address.model.person.Note;
-import seedu.address.model.person.Title;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
 
 /**
  * Edits the details of an existing lecture note.
@@ -34,8 +34,8 @@ public class EditNoteCommand extends Command {
             + PREFIX_CONTENT + "A linked list may be singly or doubly linked.";
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited lecture note: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This title already exists.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This title already exists";
 
     private final Index index;
     private final EditNoteDescriptor editNoteDescriptor;

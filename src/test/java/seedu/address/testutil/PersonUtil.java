@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.logic.commands.EditNoteCommand;
-import seedu.address.model.person.Note;
+import seedu.address.model.note.Note;
 
 /**
  * A utility class for Note.

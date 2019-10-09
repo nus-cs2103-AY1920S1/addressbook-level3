@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicateNoteException;
-import seedu.address.model.person.exceptions.NoteNotFoundException;
+import seedu.address.model.note.exceptions.DuplicateTitleException;
+import seedu.address.model.note.exceptions.NoteNotFoundException;
 
 /**
  * A list of lecture notes that enforces uniqueness between their titles, using {@code Note#isSameNote(Note)}
@@ -36,7 +36,7 @@ public class UniqueNoteList implements Iterable<Note> {
     public void add(Note toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateNoteException();
+            throw new DuplicateTitleException();
         }
         internalList.add(toAdd);
     }
@@ -54,7 +54,7 @@ public class UniqueNoteList implements Iterable<Note> {
         }
 
         if (!target.isSameNote(edited) && contains(edited)) {
-            throw new DuplicateNoteException();
+            throw new DuplicateTitleException();
         }
 
         internalList.set(index, edited);
@@ -81,7 +81,7 @@ public class UniqueNoteList implements Iterable<Note> {
     public void setNotes(List<Note> notes) {
         requireAllNonNull(notes);
         if (!notesAreUnique(notes)) {
-            throw new DuplicateNoteException();
+            throw new DuplicateTitleException();
         }
 
         internalList.setAll(notes);

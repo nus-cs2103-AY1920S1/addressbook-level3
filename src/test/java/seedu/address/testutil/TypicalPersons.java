@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Note;
+import seedu.address.model.note.Note;
 
 /**
  * A utility class containing a list of {@code Note} objects to be used in tests.
