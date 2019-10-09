@@ -106,7 +106,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
-
+    
     boolean hasEvent(Event event);
 
     void addEvent(Event event);

@@ -65,6 +65,9 @@ public class Budget {
         expenses.add(e);
     }
 
+    /**
+     * Checks whether the budget is exceeded.
+     */
     public boolean isExceeded() {
         double sum = 0;
         for (int i = 0; i < expenses.size(); i++) {

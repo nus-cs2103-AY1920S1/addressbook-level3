@@ -132,6 +132,7 @@ public class ModelManager implements Model {
         addressBook.setPrimary(budget);
     }
 
+    @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return addressBook.hasEvent(event);
