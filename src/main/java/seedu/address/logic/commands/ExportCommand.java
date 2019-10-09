@@ -41,7 +41,9 @@ public class ExportCommand extends Command {
         // exportflashcards(model.getthoseflashcards(category), filepath)
 
 
-        return new CommandResult("marmalade ni sugar song peanuts and bitter step");
+        return new CommandResult("Export was (UN)successful! You can find your file at "
+                + "the following path:\n"
+                + this.filePath);
     }
 
     @Override
