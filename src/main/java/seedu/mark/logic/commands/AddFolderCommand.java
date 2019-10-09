@@ -29,6 +29,7 @@ public class AddFolderCommand extends Command {
     private final String parentFolderName;
 
     /**
+     * Creates an AddFolderCommand to add the specified {@code Folder}.
      * @param folder
      * @param parentFolder
      */
@@ -39,6 +40,7 @@ public class AddFolderCommand extends Command {
         this.parentFolderName =
                 parentFolder == null ? Folder.DEFAULT_FOLDER_NAME : parentFolder.folderName;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (model.hasFolder(folderName)) {
