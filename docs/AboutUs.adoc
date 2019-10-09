@@ -4,6 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
+
 ModuleBook was developed by the https://ay1920s1-cs2103t-w13-1.github.io/main/[CS2103T-W13] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
