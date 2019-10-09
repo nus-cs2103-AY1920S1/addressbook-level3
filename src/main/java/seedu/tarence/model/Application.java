@@ -5,6 +5,7 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 
 import javafx.collections.ObservableList;
 
@@ -31,7 +32,7 @@ public class Application implements ReadOnlyApplication {
     private final UniqueModuleList modules;
     private final UniqueTutorialList tutorials;
 
-    private Command pendingCommand;
+    private Stack<Command> pendingCommands;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -45,6 +46,7 @@ public class Application implements ReadOnlyApplication {
         students = new UniquePersonList();
         modules = new UniqueModuleList();
         tutorials = new UniqueTutorialList();
+        pendingCommands = new Stack<>();
     }
 
     public Application() {}
@@ -355,23 +357,36 @@ public class Application implements ReadOnlyApplication {
      * Stores a command for later execution, pending user confirmation.
      */
     public void storePendingCommand(Command command) {
-        pendingCommand = command;
+        pendingCommands.push(command);
     }
 
     /**
      * Removes pending command from application and returns it for execution.
      */
     public Command retrievePendingCommand() {
-        Command command = pendingCommand;
-        pendingCommand = null;
-        return command;
+        if(hasPendingCommand()) {
+            return pendingCommands.pop();
+        } else {
+            return null;
+        }
     }
 
     /**
      * Checks whether a pending command exists in the application.
      */
     public boolean hasPendingCommand() {
-        return pendingCommand != null;
+        return pendingCommands.size() > 0;
+    }
+
+    /**
+     * Returns the pending command at the top of the execution stack if it exists, else null.
+     */
+    public Command peekPendingCommand() {
+        if (hasPendingCommand()) {
+            return pendingCommands.peek();
+        } else {
+            return null;
+        }
     }
 
     @Override

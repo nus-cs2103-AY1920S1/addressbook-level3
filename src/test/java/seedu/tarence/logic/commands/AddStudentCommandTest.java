@@ -331,6 +331,11 @@ public class AddStudentCommandTest {
             return null;
         }
 
+        @Override 
+        public Command peekPendingCommand() {
+            return null;
+        }
+
         @Override
         public boolean hasPendingCommand() {
             return false;

@@ -17,4 +17,14 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
+    /**
+     * Returns true if command requires prior user input, else false.
+     */
+    public abstract boolean needsInput();
+
+    /**
+     * Returns true if prior command is required for execution, else false.
+     * Only needed for commands that require prior user input.
+     */
+    public abstract boolean needsCommand(Command command);
 }

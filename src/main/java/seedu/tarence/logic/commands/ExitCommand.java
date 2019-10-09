@@ -18,6 +18,16 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
+    @Override
+    public boolean needsInput() {
+        return false;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return false;
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *

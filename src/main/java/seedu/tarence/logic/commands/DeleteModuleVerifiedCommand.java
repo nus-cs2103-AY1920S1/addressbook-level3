@@ -23,4 +23,14 @@ public class DeleteModuleVerifiedCommand extends Command {
         return new CommandResult(String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
                 moduleToDelete));
     }
+
+    @Override
+    public boolean needsInput() {
+        return true;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return command instanceof ConfirmYesCommand || command instanceof ConfirmNoCommand;
+    }
 }
