@@ -27,11 +27,11 @@ public class EventCard extends UiPart<Region> {
      * @param eventSource The instance of the event itself.
      * @param displayedIndex The number representing the event.
      */
-    public EventCard(EventSource eventSource, int displayedIndex) {
+    public EventCard(EventSource eventSource, int displayedIndex, UiParser uiParser) {
         super(FXML);
         this.eventSource = eventSource;
         name.setText(displayedIndex + ". " + eventSource.getDescription().toString());
-        dateTime.setText(eventSource.getStartDateTime().toString());
+        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().getDateTime()));
     }
 
     @Override

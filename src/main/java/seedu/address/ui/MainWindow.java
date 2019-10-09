@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private UiParser uiParser;
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
@@ -77,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.uiParser = new UiParser();
         this.calendarMode = false;
 
         setWindowDefaultSize(logic.getGuiSettings());
@@ -128,10 +130,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        calendarPanel = new CalendarPanel(logic.getFilteredEventList());
-        listPanel = new ListPanel(logic.getFilteredEventList());
+        calendarPanel = new CalendarPanel(logic.getFilteredEventList(), uiParser);
+        listPanel = new ListPanel(logic.getFilteredEventList(), uiParser);
         viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
-
+        viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+        calendarPanel.getRoot().setVisible(false);
 
         logPanel = new LogPanel();
         logPanelPlaceholder.getChildren().add(logPanel.getRoot());
@@ -155,7 +158,6 @@ public class MainWindow extends UiPart<Stage> {
 
         logPanelPlaceholder.setPrefWidth(screenWidth);
         viewPanelPlaceholder.setPrefWidth(screenWidth);
-        // listPanelPlaceholder.setPrefHeight(screenHeight);
 
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
@@ -209,19 +211,22 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         // Temporary Stub for UI testing.
-        /*
         if(commandText.equals("view")) {
-            viewPanelPlaceholder.getChildren().clear();
+            // viewPanelPlaceholder.getChildren().clear();
+
             if(calendarMode) {
                 calendarMode = false;
-                viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+                //viewPanelPlaceholder.getChildren().add(listPanel.getRoot());
+                calendarPanel.getRoot().setVisible(false);
+                listPanel.getRoot().setVisible(true);
             } else {
                 calendarMode = true;
-                viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+                // viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+                listPanel.getRoot().setVisible(false);
+                calendarPanel.getRoot().setVisible(true);
             }
             return null;
         }
-        */
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
