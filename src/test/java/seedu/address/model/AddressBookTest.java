@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
@@ -89,6 +90,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Expense> expenses) {
@@ -102,6 +104,10 @@ public class AddressBookTest {
         }
 
         @Override
+        public ObservableList<Budget> getBudgetList() {
+            return budgets;
+        }
+
         public ObservableList<Event> getEventList() {
             return events;
         }

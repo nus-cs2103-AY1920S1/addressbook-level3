@@ -90,7 +90,7 @@ class JsonAdaptedEvent {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
         if (!Timestamp.isValidTimestamp(rawTimestamp)) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
         final Timestamp modelTimestamp = new Timestamp(rawTimestamp);
 

@@ -2,6 +2,7 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Expense {
     // data fields
     private final Description description;
     private final Price price;
+    private final LocalDate date;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -32,6 +34,7 @@ public class Expense {
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
+        this.date = LocalDate.now();
     }
 
     public Description getDescription() {
@@ -40,6 +43,10 @@ public class Expense {
 
     public Price getPrice() {
         return price;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public UniqueIdentifier getUniqueIdentifier() {

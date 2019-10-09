@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
@@ -81,6 +82,12 @@ public interface Model {
      * existing expense in the address book.
      */
     void setExpense(Expense target, Expense editedExpense);
+
+    boolean hasBudget(Budget budget);
+
+    void addBudget(Budget budget);
+
+    void setPrimary(Budget budget);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();

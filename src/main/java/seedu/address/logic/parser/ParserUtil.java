@@ -2,8 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -74,7 +81,7 @@ public class ParserUtil {
         requireNonNull(timestamp);
         String trimmedTimestamp = timestamp.trim();
         if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
         return new Timestamp(trimmedTimestamp);
     }
@@ -104,5 +111,47 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid (not in MM-d format).
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        try {
+            String trimmedDate = date.trim();
+            int currentYear = LocalDate.now().getYear();
+            DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder()
+                    .appendPattern("MM-d")
+                    .parseDefaulting(ChronoField.YEAR, currentYear)
+                    .toFormatter(Locale.ENGLISH);
+            LocalDate parsedDate = LocalDate.parse(trimmedDate, inputFormatter);
+            return parsedDate;
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        }
+    }
+
+    /**
+     * Parses {@code String period} into a {@code Period}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code period} is invalid.
+     */
+    public static Period parsePeriod(String period) throws ParseException {
+        String trimmedPeriod = period.trim();
+        switch (trimmedPeriod) {
+        case "week":
+            return Period.ofWeeks(1);
+        case "month":
+            return Period.ofMonths(1);
+        case "year":
+            return Period.ofYears(1);
+        default:
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
+
+        }
     }
 }
