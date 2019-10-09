@@ -1,13 +1,14 @@
 package seedu.address.logic.parser.cli;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.cli.NameUEFromSemesterCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,7 +46,7 @@ public class NameUEFromSemesterParser implements Parser<NameUEFromSemesterComman
         }
         SemesterName semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         String ueName = tokens[1].trim();
-        return new NameUEFromSemesterCommand(semester, ueName);
+        return new NameUEFromSemesterCommand(ueName, semester);
     }
 
 }

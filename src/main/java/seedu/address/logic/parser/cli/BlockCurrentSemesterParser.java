@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;

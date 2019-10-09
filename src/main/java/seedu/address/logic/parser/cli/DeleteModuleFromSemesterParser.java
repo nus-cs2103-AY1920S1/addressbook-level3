@@ -6,8 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.cli.DeleteModuleCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -44,7 +46,7 @@ public class DeleteModuleFromSemesterParser implements Parser<DeleteModuleComman
         SemesterName semesterName = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         String moduleCode = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULE_CODE).get());
 
-        return new DeleteModuleCommand(semesterName);
+        return new DeleteModuleCommand(moduleCode, semesterName);
     }
 
 }

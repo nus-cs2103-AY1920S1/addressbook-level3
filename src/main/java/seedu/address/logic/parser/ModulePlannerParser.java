@@ -13,7 +13,6 @@ import seedu.address.logic.commands.datamanagement.FindCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
 import seedu.address.logic.parser.cli.BlockCurrentSemesterParser;
-import seedu.address.logic.parser.cli.DeleteCommandParser;
 import seedu.address.logic.parser.cli.DeleteModuleFromSemesterParser;
 import seedu.address.logic.parser.cli.NameUEFromSemesterParser;
 import seedu.address.logic.parser.cli.SetCurrentSemesterParser;

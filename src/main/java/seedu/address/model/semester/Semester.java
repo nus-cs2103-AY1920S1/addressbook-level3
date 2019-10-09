@@ -83,4 +83,8 @@ public class Semester {
     public void removeModule(Module module) {
         modules.remove(module);
     }
+
+    public boolean hasModule(Module module) {
+        return this.modules.contains(module);
+    }
 }
