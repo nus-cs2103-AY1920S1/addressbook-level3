@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands;
+package seedu.mark.logic.commands.commandresult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.mark.logic.commands.commandresult.CommandResult;
-import seedu.mark.logic.commands.commandresult.ExitCommandResult;
-import seedu.mark.logic.commands.commandresult.HelpCommandResult;
 
 public class CommandResultTest {
     @Test
