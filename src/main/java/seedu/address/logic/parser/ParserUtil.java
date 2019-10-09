@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.food.Category;
 import seedu.address.model.food.Description;
 import seedu.address.model.food.Name;
@@ -12,6 +12,8 @@ import seedu.address.model.food.OpeningHours;
 import seedu.address.model.food.Price;
 import seedu.address.model.food.Restrictions;
 import seedu.address.model.tag.Tag;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Collection;
 import java.util.HashSet;
