@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditNoteDescriptor;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
@@ -24,7 +24,7 @@ public class EditNoteDescriptorBuilder {
     /**
      * Returns an {@code EditNoteDescriptor} with fields containing {@code note}'s details
      */
-    public EditNoteDescriptorBuilder(Person note) {
+    public EditNoteDescriptorBuilder(Note note) {
         descriptor = new EditNoteDescriptor();
         descriptor.setTitle(note.getTitle());
         descriptor.setContent(note.getContent());

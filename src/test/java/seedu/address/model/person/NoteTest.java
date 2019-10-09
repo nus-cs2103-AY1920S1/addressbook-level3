@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonTest {
+public class NoteTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
@@ -21,7 +21,7 @@ public class PersonTest {
         assertFalse(ALICE.isSameNote(null));
 
         // different title -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
+        Note editedAlice = new PersonBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
         assertFalse(ALICE.isSameNote(editedAlice));
 
         // only different content -> returns true
@@ -32,7 +32,7 @@ public class PersonTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
+        Note aliceCopy = new PersonBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -45,7 +45,7 @@ public class PersonTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
+        Note editedAlice = new PersonBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false

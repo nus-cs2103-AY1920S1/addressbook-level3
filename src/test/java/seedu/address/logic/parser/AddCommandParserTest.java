@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 import seedu.address.testutil.PersonBuilder;
 
@@ -28,19 +28,19 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).build();
+        Note expectedNote = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC_BOB + CONTENT_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedNote));
 
         // multiple titles, last accepted
         assertParseSuccess(parser, TITLE_DESC_AMY + TITLE_DESC_BOB + CONTENT_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedNote));
 
         // multiple contents, last accepted
         assertParseSuccess(parser, TITLE_DESC_BOB + CONTENT_DESC_AMY + CONTENT_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedNote));
     }
 
     @Test

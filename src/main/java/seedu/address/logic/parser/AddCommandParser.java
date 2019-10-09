@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
@@ -31,7 +31,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
-        Person note = new Person(title, content);
+        Note note = new Note(title, content);
         return new AddCommand(note);
     }
 

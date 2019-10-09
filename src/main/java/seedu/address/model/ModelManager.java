@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredNotes;
+    private final FilteredList<Note> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -89,24 +89,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasNote(Person note) {
+    public boolean hasNote(Note note) {
         requireNonNull(note);
         return addressBook.hasNote(note);
     }
 
     @Override
-    public void deleteNote(Person target) {
+    public void deleteNote(Note target) {
         addressBook.removeNote(target);
     }
 
     @Override
-    public void addNote(Person note) {
+    public void addNote(Note note) {
         addressBook.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
-    public void setNote(Person target, Person editedNote) {
+    public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
 
         addressBook.setNote(target, editedNote);
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredNoteList() {
+    public ObservableList<Note> getFilteredNoteList() {
         return filteredNotes;
     }
 
     @Override
-    public void updateFilteredNoteList(Predicate<Person> predicate) {
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
     }

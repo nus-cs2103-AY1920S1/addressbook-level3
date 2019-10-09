@@ -21,7 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -33,14 +33,14 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(editedPerson).build();
+        Note editedNote = new PersonBuilder().build();
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(editedNote).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedNote);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setNote(model.getFilteredNoteList().get(0), editedPerson);
+        expectedModel.setNote(model.getFilteredNoteList().get(0), editedNote);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -48,18 +48,18 @@ public class EditCommandTest {
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredNoteList().size());
-        Person lastPerson = model.getFilteredNoteList().get(indexLastPerson.getZeroBased());
+        Note lastNote = model.getFilteredNoteList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withTitle(VALID_TITLE_BOB).build();
+        PersonBuilder personInList = new PersonBuilder(lastNote);
+        Note editedNote = personInList.withTitle(VALID_TITLE_BOB).build();
 
         EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedNote);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setNote(lastPerson, editedPerson);
+        expectedModel.setNote(lastNote, editedNote);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCommand.EditNoteDescriptor());
-        Person editedPerson = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Note editedNote = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedNote);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -80,23 +80,23 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Person personInFilteredList = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withTitle(VALID_TITLE_BOB).build();
+        Note noteInFilteredList = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Note editedNote = new PersonBuilder(noteInFilteredList).withTitle(VALID_TITLE_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedNote);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setNote(model.getFilteredNoteList().get(0), editedPerson);
+        expectedModel.setNote(model.getFilteredNoteList().get(0), editedNote);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(firstPerson).build();
+        Note firstNote = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(firstNote).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_NOTE);
@@ -107,9 +107,9 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getNoteList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Note noteInList = model.getAddressBook().getNoteList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditNoteDescriptorBuilder(personInList).build());
+                new EditNoteDescriptorBuilder(noteInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_NOTE);
     }

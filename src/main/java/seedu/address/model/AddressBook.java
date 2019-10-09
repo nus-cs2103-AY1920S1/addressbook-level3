@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.UniqueNoteList;
 
 /**
@@ -43,7 +43,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the note list with {@code notes}.
      * {@code notes} must not contain duplicate titles.
      */
-    public void setNotes(List<Person> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes.setNotes(notes);
     }
 
@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a lecture note with the same title as {@code note} exists.
      */
-    public boolean hasNote(Person note) {
+    public boolean hasNote(Note note) {
         requireNonNull(note);
         return notes.contains(note);
     }
@@ -69,7 +69,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a lecture note; its title must not already exist.
      */
-    public void addNote(Person p) {
+    public void addNote(Note p) {
         notes.add(p);
     }
 
@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the given lecture note {@code target} in the list with {@code editedNote}.
      * {@code target} must exist beforehand and titles must remain unique.
      */
-    public void setNote(Person target, Person editedNote) {
+    public void setNote(Note target, Note editedNote) {
         requireNonNull(editedNote);
 
         notes.setNote(target, editedNote);
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Removes {@code title} from the lecture note list. This title must exist.
      */
-    public void removeNote(Person title) {
+    public void removeNote(Note title) {
         notes.remove(title);
     }
 
@@ -99,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getNoteList() {
+    public ObservableList<Note> getNoteList() {
         return notes.asUnmodifiableObservableList();
     }
 

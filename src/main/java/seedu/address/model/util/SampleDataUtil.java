@@ -3,28 +3,26 @@ package seedu.address.model.util;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Title("Alex Yeoh"), new Content("Blk 30 Geylang Street 29, #06-40")),
-            new Person(new Title("Bernice Yu"), new Content("Blk 30 Lorong 3 Serangoon Gardens, #07-18")),
-            new Person(new Title("Charlotte Oliveiro"), new Content("Blk 11 Ang Mo Kio Street 74, #11-04")),
-            new Person(new Title("David Li"), new Content("Blk 436 Serangoon Gardens Street 26, #16-43")),
-            new Person(new Title("Irfan Ibrahim"), new Content("Blk 47 Tampines Street 20, #17-35")),
-            new Person(new Title("Roy Balakrishnan"), new Content("Blk 45 Aljunied Street 85, #11-31"))
+    public static Note[] getSampleNotes() {
+        return new Note[] {
+            new Note(new Title("Magnus Carlsen"), new Content("World Chess Champion as of 2012")),
+            new Note(new Title("Russell's paradox"), new Content("arises in naive set theory")),
+            new Note(new Title("An AVL tree"), new Content("Self-balancing binary search tree. Needs rotations"
+                    + "when adding or deleting. Suitable for the lazy variant of Dijkstra's algorithm"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addNote(samplePerson);
+        for (Note sampleNote: getSampleNotes()) {
+            sampleAb.addNote(sampleNote);
         }
         return sampleAb;
     }

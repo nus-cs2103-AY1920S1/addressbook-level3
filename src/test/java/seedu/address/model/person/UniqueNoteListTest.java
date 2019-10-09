@@ -41,7 +41,7 @@ public class UniqueNoteListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueNoteList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
+        Note editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         assertTrue(uniqueNoteList.contains(editedAlice));
     }
 
@@ -83,7 +83,7 @@ public class UniqueNoteListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueNoteList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
+        Note editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         uniqueNoteList.setNote(ALICE, editedAlice);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(editedAlice);
@@ -140,14 +140,14 @@ public class UniqueNoteListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((List<Person>) null));
+        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((List<Note>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueNoteList.add(ALICE);
-        List<Person> personList = Collections.singletonList(BOB);
-        uniqueNoteList.setNotes(personList);
+        List<Note> noteList = Collections.singletonList(BOB);
+        uniqueNoteList.setNotes(noteList);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(BOB);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
@@ -155,8 +155,8 @@ public class UniqueNoteListTest {
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNotes(listWithDuplicatePersons));
+        List<Note> listWithDuplicateNotes = Arrays.asList(ALICE, ALICE);
+        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNotes(listWithDuplicateNotes));
     }
 
     @Test

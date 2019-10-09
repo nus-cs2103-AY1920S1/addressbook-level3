@@ -5,27 +5,27 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 
 /**
- * A utility class for Person.
+ * A utility class for Note.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code note}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Note note) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(note);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code note}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Note note) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TITLE + person.getTitle().title + " ");
-        sb.append(PREFIX_CONTENT + person.getContent().content + " ");
+        sb.append(PREFIX_TITLE + note.getTitle().title + " ");
+        sb.append(PREFIX_CONTENT + note.getContent().content + " ");
         return sb.toString();
     }
 

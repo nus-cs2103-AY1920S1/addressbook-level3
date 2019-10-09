@@ -12,20 +12,20 @@ import seedu.address.model.person.exceptions.DuplicateNoteException;
 import seedu.address.model.person.exceptions.NoteNotFoundException;
 
 /**
- * A list of lecture notes that enforces uniqueness between their titles, using {@code Person#isSameNote(Person)}
- * for adding/updating and {@code Person#equals(Object)} for deleting. Supports a minimal set of list operations.
+ * A list of lecture notes that enforces uniqueness between their titles, using {@code Note#isSameNote(Note)}
+ * for adding/updating and {@code Note#equals(Object)} for deleting. Supports a minimal set of list operations.
  *
- * @see Person#isSameNote(Person)
+ * @see Note#isSameNote(Note)
  */
-public class UniqueNoteList implements Iterable<Person> {
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+public class UniqueNoteList implements Iterable<Note> {
+    private final ObservableList<Note> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Note> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains a lecture note sharing title with the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Note toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameNote);
     }
@@ -33,7 +33,7 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Adds a lecture note to the list. The title must be different from all existing ones.
      */
-    public void add(Person toAdd) {
+    public void add(Note toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateNoteException();
@@ -45,7 +45,7 @@ public class UniqueNoteList implements Iterable<Person> {
      * Replaces the existing lecture note {@code target} in the list with {@code edited}.
      * The new title must be different from all existing ones.
      */
-    public void setNote(Person target, Person edited) {
+    public void setNote(Note target, Note edited) {
         requireAllNonNull(target, edited);
 
         int index = internalList.indexOf(target);
@@ -63,7 +63,7 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Removes the equivalent, existing lecture note from the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Note toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new NoteNotFoundException();
@@ -78,7 +78,7 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Replaces the contents of this list with {@code notes} containing no duplicates.
      */
-    public void setNotes(List<Person> notes) {
+    public void setNotes(List<Note> notes) {
         requireAllNonNull(notes);
         if (!notesAreUnique(notes)) {
             throw new DuplicateNoteException();
@@ -90,12 +90,12 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Note> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Note> iterator() {
         return internalList.iterator();
     }
 
@@ -114,7 +114,7 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Returns true if {@code note} contains only unique notes.
      */
-    private boolean notesAreUnique(List<Person> notes) {
+    private boolean notesAreUnique(List<Note> notes) {
         for (int i = 0; i < notes.size() - 1; i++) {
             for (int j = i + 1; j < notes.size(); j++) {
                 if (notes.get(i).isSameNote(notes.get(j))) {

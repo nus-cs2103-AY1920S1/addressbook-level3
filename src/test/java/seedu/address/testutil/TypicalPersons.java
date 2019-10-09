@@ -10,38 +10,38 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Note} objects to be used in tests.
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withTitle("Alice Pauline")
+    public static final Note ALICE = new PersonBuilder().withTitle("Alice Pauline")
             .withContent("123, Jurong West Ave 6, #08-111").build();
-    public static final Person BENSON = new PersonBuilder().withTitle("Benson Meier")
+    public static final Note BENSON = new PersonBuilder().withTitle("Benson Meier")
             .withContent("311, Clementi Ave 2, #02-25").build();
-    public static final Person CARL = new PersonBuilder().withTitle("Carl Kurz")
+    public static final Note CARL = new PersonBuilder().withTitle("Carl Kurz")
             .withContent("wall street").build();
-    public static final Person DANIEL = new PersonBuilder().withTitle("Daniel Meier")
+    public static final Note DANIEL = new PersonBuilder().withTitle("Daniel Meier")
             .withContent("10th street").build();
-    public static final Person ELLE = new PersonBuilder().withTitle("Elle Meyer")
+    public static final Note ELLE = new PersonBuilder().withTitle("Elle Meyer")
             .withContent("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withTitle("Fiona Kunz")
+    public static final Note FIONA = new PersonBuilder().withTitle("Fiona Kunz")
             .withContent("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withTitle("George Best")
+    public static final Note GEORGE = new PersonBuilder().withTitle("George Best")
             .withContent("4th street").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withTitle("Hoon Meier")
+    public static final Note HOON = new PersonBuilder().withTitle("Hoon Meier")
             .withContent("little india").build();
-    public static final Person IDA = new PersonBuilder().withTitle("Ida Mueller")
+    public static final Note IDA = new PersonBuilder().withTitle("Ida Mueller")
             .withContent("chicago ave").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withTitle(VALID_TITLE_AMY)
+    // Manually added - Note's details found in {@code CommandTestUtil}
+    public static final Note AMY = new PersonBuilder().withTitle(VALID_TITLE_AMY)
             .withContent(VALID_CONTENT_AMY).build();
-    public static final Person BOB = new PersonBuilder().withTitle(VALID_TITLE_BOB)
+    public static final Note BOB = new PersonBuilder().withTitle(VALID_TITLE_BOB)
             .withContent(VALID_CONTENT_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
@@ -53,13 +53,13 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addNote(person);
+        for (Note note : getTypicalPersons()) {
+            ab.addNote(note);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    public static List<Note> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

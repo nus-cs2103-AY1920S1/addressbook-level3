@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Represents an NUStudy lecture note. Its title and content are guaranteed non-null.
  */
-public class Person {
+public class Note {
     private final Title title;
     private final Content content;
 
@@ -17,7 +17,7 @@ public class Person {
      * @param title The lecture note's title, which must be unique among all lecture notes.
      * @param content The lecture note's content (newlines are supported), which do not have to be unique.
      */
-    public Person(Title title, Content content) {
+    public Note(Title title, Content content) {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
@@ -35,7 +35,7 @@ public class Person {
      * Returns true if both lecture notes have the same title.
      * This defines a weaker notion of equality.
      */
-    public boolean isSameNote(Person other) {
+    public boolean isSameNote(Note other) {
         if (other == this) {
             return true;
         }
@@ -53,12 +53,12 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Note)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getTitle().equals(getTitle()) && otherPerson.getContent().equals(getContent());
+        Note otherNote = (Note) other;
+        return otherNote.getTitle().equals(getTitle()) && otherNote.getContent().equals(getContent());
     }
 
     @Override

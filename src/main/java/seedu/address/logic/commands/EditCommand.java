@@ -14,7 +14,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
@@ -55,14 +55,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredNoteList();
+        List<Note> lastShownList = model.getFilteredNoteList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
 
-        Person noteToEdit = lastShownList.get(index.getZeroBased());
-        Person editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
+        Note noteToEdit = lastShownList.get(index.getZeroBased());
+        Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
         if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
@@ -77,12 +77,12 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Note} with the details of {@code noteToEdit}
      * edited with {@code editNoteDescriptor}.
      */
-    private static Person createEditedNote(Person noteToEdit, EditNoteDescriptor editNoteDescriptor) {
+    private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
         assert noteToEdit != null;
 
         Title updatedTitle = editNoteDescriptor.getTitle().orElse(noteToEdit.getTitle());
         Content updatedContent = editNoteDescriptor.getContent().orElse(noteToEdit.getContent());
-        return new Person(updatedTitle, updatedContent);
+        return new Note(updatedTitle, updatedContent);
     }
 
     @Override

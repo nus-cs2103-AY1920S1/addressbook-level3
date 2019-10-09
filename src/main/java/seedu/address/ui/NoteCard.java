@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 
 /**
  * An UI component that displays information of a {@code Note}.
@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
 public class NoteCard extends UiPart<Region> {
     private static final String FXML = "NoteListCard.fxml";
 
-    public final Person note;
+    public final Note note;
 
     @FXML
     private HBox cardPane;
@@ -23,7 +23,7 @@ public class NoteCard extends UiPart<Region> {
     @FXML
     private Label content;
 
-    public NoteCard(Person note, int displayedIndex) {
+    public NoteCard(Note note, int displayedIndex) {
         super(FXML);
         this.note = note;
         id.setText(displayedIndex + ". ");

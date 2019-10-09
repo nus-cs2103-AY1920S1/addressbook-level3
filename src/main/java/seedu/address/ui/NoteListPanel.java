@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 
 /**
  * Panel containing the list of lecture notes.
@@ -18,20 +18,20 @@ public class NoteListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 
     @FXML
-    private ListView<Person> noteListView;
+    private ListView<Note> noteListView;
 
-    public NoteListPanel(ObservableList<Person> noteList) {
+    public NoteListPanel(ObservableList<Note> noteList) {
         super(FXML);
         noteListView.setItems(noteList);
-        noteListView.setCellFactory(listView -> new PersonListViewCell());
+        noteListView.setCellFactory(listView -> new NoteListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Note} using a {@code NoteCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class NoteListViewCell extends ListCell<Note> {
         @Override
-        protected void updateItem(Person note, boolean empty) {
+        protected void updateItem(Note note, boolean empty) {
             super.updateItem(note, empty);
 
             if (empty || note == null) {

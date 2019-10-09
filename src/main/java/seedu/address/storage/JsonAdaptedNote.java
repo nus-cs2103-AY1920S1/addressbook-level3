@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Content;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Note}.
  */
 class JsonAdaptedNote {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Lecture note's %s field is missing!";
@@ -29,7 +29,7 @@ class JsonAdaptedNote {
     /**
      * Converts a given {@code Note} into this class for Jackson use.
      */
-    public JsonAdaptedNote(Person source) {
+    public JsonAdaptedNote(Note source) {
         title = source.getTitle().title;
         content = source.getContent().content;
     }
@@ -39,7 +39,7 @@ class JsonAdaptedNote {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted note.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Note toModelType() throws IllegalValueException {
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
@@ -56,6 +56,6 @@ class JsonAdaptedNote {
         }
         final Content modelContent = new Content(content);
 
-        return new Person(modelTitle, modelContent);
+        return new Note(modelTitle, modelContent);
     }
 }
