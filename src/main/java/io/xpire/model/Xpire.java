@@ -43,8 +43,6 @@ public class Xpire implements ReadOnlyXpire {
         this.setItems(newData.getItemList());
     }
 
-    //// person-level operations
-
     /**
      * Returns true if an item with the same identity as {@code item} exists in xpire.
      */

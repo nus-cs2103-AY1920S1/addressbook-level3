@@ -1,6 +1,6 @@
 {
   "items": [ {
-    "name": "Valid Person",
+    "name": "Valid Item",
     "expiryDate": "18/12/2019"
   }, {
     "name": "Item With Invalid expiryDate Field",
