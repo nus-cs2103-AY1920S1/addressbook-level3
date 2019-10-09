@@ -3,7 +3,7 @@ package seedu.address.model.events;
 /**
  * Describes the status of an appointment
  */
-public class Status{
+public class Status {
     public static String APPROVED_MESS = "patient appointment was made";
     public static String ACK_MESS = "patient is arrived";
     public static String MISSED_MESS = "patient missed appointment, need to settle";
@@ -11,11 +11,11 @@ public class Status{
     public static String CANCELL_MESS = "this appointment have been cancelled";
     private String status;
 
-    public Status(String statusMess){
+    public Status(String statusMess) {
         this.status = statusMess;
     }
 
-    public Status(){
+    public Status() {
         this.status = "APPROVED";
     }
 
@@ -23,16 +23,20 @@ public class Status{
         switch (status) {
 
         case "APPROVED":
-        return APPROVED_MESS;
+            return APPROVED_MESS;
         case "ACKED":
-        return ACK_MESS;
+            return ACK_MESS;
         case "MISSED":
-        return MISSED_MESS;
+            return MISSED_MESS;
         case "SETTLE":
-        return SETTLE_MESS;
+            return SETTLE_MESS;
         default:
-        return "status is wrong";
+            return "status is wrong";
         }
+    }
+
+    public String getSta() {
+        return this.status;
     }
 
     @Override
@@ -41,20 +45,19 @@ public class Status{
     }
 
 
-
-    public void setAckStatus(){
+    public void setAckStatus() {
         this.status = "ACKED";
     }
 
-    public void setSettleStatus(){
+    public void setSettleStatus() {
         this.status = "SETTLED";
     }
 
-    public void setMissStatus(){
+    public void setMissStatus() {
         this.status = "MISSED";
     }
 
-    public void setCancelStatus(){
+    public void setCancelStatus() {
         this.status = "CANCELLED";
     }
 

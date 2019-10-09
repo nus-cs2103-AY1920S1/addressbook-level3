@@ -18,7 +18,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Event>  PREDICATE_SHOW_ALL_EVENTS  = unused -> true;
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
 
     //=========== UserPrefs ==================================================================================
@@ -62,7 +62,6 @@ public interface Model extends ReferenceIdResolver {
      * Sets the user prefs' appointment book file path.
      */
     void setAppointmentBookFilePath(Path appointmentBookFilePath);
-
 
 
     //=========== AddressBook ================================================================================
@@ -109,7 +108,9 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -165,15 +166,19 @@ public interface Model extends ReferenceIdResolver {
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
     void setEvent(Event target, Event editedEvent);
-    Event ackEvent(ObservableList<Event> filteredEventList);
+
+    void ackEvent(Event appointment);
 
     //=========== Filtered Event List Accessors ==============================================================
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /**
+     * Returns an unmodifiable view of the filtered event list
+     */
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);

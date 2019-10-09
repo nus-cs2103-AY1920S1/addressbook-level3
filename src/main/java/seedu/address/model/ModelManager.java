@@ -33,7 +33,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyAddressBook addressBook,
-            ReadOnlyAppointmentBook patientSchedule) {
+                        ReadOnlyAppointmentBook patientSchedule) {
         super();
         requireAllNonNull(userPrefs, addressBook, patientSchedule);
 
@@ -183,7 +183,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event){
+    public boolean hasEvent(Event event) {
         requireNonNull(event);
         return appointmentBook.hasEvent(event);
     }
@@ -206,7 +206,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void clearFilterEventList(){
+    public void clearFilterEventList() {
         filteredEvents.clear();
     }
 
@@ -218,12 +218,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Event ackEvent(ObservableList<Event> filteredEventList){
-        requireAllNonNull(filteredEventList);
-        Event appointment = filteredEvents.get(0);
+    public void ackEvent(Event appointment) {
+        requireAllNonNull(appointment);
         appointment.setStausAsAck();
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        return appointment;
     }
 
     //=========== Filtered Person List Accessors =============================================================

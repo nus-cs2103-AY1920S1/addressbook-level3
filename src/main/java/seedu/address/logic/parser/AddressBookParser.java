@@ -72,13 +72,13 @@ public class AddressBookParser {
             return new RedoCommand(commandHistory);
 
         case AddAppCommand.COMMAND_WORD:
-                return new AddAppCommandParser().parse(arguments);
+            return new AddAppCommandParser().parse(arguments);
 
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommandParser().parse(arguments);
 
         case AckAppCommand.COMMAND_WORD:
-                return new AckAppCommandParser().parse(arguments);
+            return new AckAppCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

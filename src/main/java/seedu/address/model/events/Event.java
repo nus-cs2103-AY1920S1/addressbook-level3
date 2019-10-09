@@ -25,7 +25,7 @@ public class Event implements Comparable<Event> {
         requireAllNonNull(personId, timing, status);
         this.personId = personId;
         this.timing = timing;
-       this.status = status;
+        this.status = status;
     }
 
     public ReferenceId getPersonId() {
@@ -40,21 +40,21 @@ public class Event implements Comparable<Event> {
         return status;
     }
 
-   public void setStausAsAck() {
-       status.setAckStatus();
-   }
+    public void setStausAsAck() {
+        status.setAckStatus();
+    }
 
-   public void setStausAsMISS() {
-       status.setMissStatus();
-   }
+    public void setStausAsMISS() {
+        status.setMissStatus();
+    }
 
-   public void setStausAsSettle() {
-       status.setSettleStatus();
-   }
+    public void setStausAsSettle() {
+        status.setSettleStatus();
+    }
 
-   public void setStausAsCancell() {
-       status.setCancelStatus();
-   }
+    public void setStausAsCancell() {
+        status.setCancelStatus();
+    }
 
 
     public boolean conflictsWith(Event otherEvent) {

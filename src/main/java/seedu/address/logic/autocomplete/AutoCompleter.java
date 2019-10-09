@@ -8,7 +8,8 @@ import java.util.List;
  */
 public class AutoCompleter {
     private static final String[] SUPPORTED_COMMANDS = {
-        "ack",
+        "ackappt",
+        "addappt",
         "add",
         "appointments",
         "cancel",
