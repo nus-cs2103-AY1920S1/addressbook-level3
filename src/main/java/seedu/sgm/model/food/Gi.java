@@ -1,4 +1,17 @@
 package seedu.sgm.model.food;
 
-public class GI {
+/**
+ * Specifies the nutrition value of glycemic index(GI).
+ */
+public class Gi extends NutritionValue {
+
+    /**
+     * Constructs a {@code GI}.
+     *
+     * @param giValue a valid glycemic index value
+     */
+    public Gi(Double giValue) {
+        super(giValue);
+    }
 }
+

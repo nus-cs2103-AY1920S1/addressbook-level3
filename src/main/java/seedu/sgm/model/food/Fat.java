@@ -1,4 +1,17 @@
 package seedu.sgm.model.food;
 
-public class Fat {
+/**
+ * Specifies the nutrition value of Fat.
+ */
+public class Fat extends NutritionValue {
+
+    /**
+     * Constructs a {@code Fat}.
+     *
+     * @param fatValue a valid fat value
+     */
+    public Fat(Double fatValue) {
+        super(fatValue);
+    }
 }
+

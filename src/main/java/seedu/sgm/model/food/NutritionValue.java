@@ -4,29 +4,30 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a kind of nutrition value of <code>Food</code> in the recommended food list.
- * Guarantees: immutable; is valid as declared in {@link #isValidValue(String)}
+ * Represents a kind of nutrition value of <code>Food</code> in the recommended food list. Guarantees: immutable; is
+ * valid as declared in {@link #isValidValue(String)}
  */
-public class NutrientionValue {
+public class NutritionValue {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Calorie value should only contain numbers. It should be positive and contain no leading zeros.";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d*";
+            "Nutrition value should only contain number and should be non-negative.";
+    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*";
 
-    public final Double NutrientionValue;
+    public final Double nutritionValue;
+
     /**
-     * Constructs a {@code Sugar}.
+     * Constructs a {@code NutritionValue}.
      *
-     * @param NutrientionValue a valid sugar value
+     * @param nutritionValue a valid nutrition value
      */
-    public NutrientionValue(Double NutrientionValue) {
-        requireNonNull(NutrientionValue);
-        checkArgument(isValidValue(NutrientionValue.toString()), MESSAGE_CONSTRAINTS);
-        this.NutrientionValue = NutrientionValue;
+    public NutritionValue(Double nutritionValue) {
+        requireNonNull(nutritionValue);
+        checkArgument(isValidValue(nutritionValue.toString()), MESSAGE_CONSTRAINTS);
+        this.nutritionValue = nutritionValue;
     }
 
     /**
-     * Returns true if a given string is a valid sugar value.
+     * Returns true if a given string is a valid nutrition value.
      */
     public static boolean isValidValue(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -35,7 +36,7 @@ public class NutrientionValue {
 
     @Override
     public String toString() {
-        return NutrientionValue.toString();
+        return nutritionValue.toString();
     }
 
     @Override
@@ -43,15 +44,15 @@ public class NutrientionValue {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Sugar)) {
+        if (!(other instanceof NutritionValue)) {
             return false;
         }
-        return NutrientionValue.equals(((Sugar) other).sugarValue);
+        return nutritionValue.equals(((NutritionValue) other).nutritionValue);
     }
 
     @Override
     public int hashCode() {
-        return NutrientionValue.hashCode();
+        return nutritionValue.hashCode();
     }
 
 }
