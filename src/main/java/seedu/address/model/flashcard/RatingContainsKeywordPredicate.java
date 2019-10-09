@@ -1,7 +1,7 @@
 package seedu.address.model.flashcard;
 
-import seedu.address.commons.util.StringUtil;
 import java.util.function.Predicate;
+import seedu.address.commons.util.StringUtil;
 
 public class RatingContainsKeywordPredicate implements Predicate<FlashCard> {
 
