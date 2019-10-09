@@ -10,7 +10,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;
-import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,13 +27,11 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private boolean gameStarted;
     private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.gameStarted = false;
         /*
         Step 9.
         this.game = game //get from constructor
@@ -54,12 +51,7 @@ public class LogicManager implements Logic {
         2 user modes: Game mode and Normal mode
         */
         Command command = addressBookParser.parseCommand(commandText);
-        if (command instanceof GameCommand && !gameStarted) {
-            throw new CommandException("Game has not started");
-        }
-        if (command instanceof  AppCommand && gameStarted) {
-            throw new CommandException("Exit game first!");
-        }
+
         /*
         Step 11.
         Extends to Step 13 in Command.java
@@ -67,9 +59,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         commandResult = command.execute(model);
-        if (commandResult.getSwitchMode()) {
-            gameStarted = !gameStarted;
-        }
         if (command instanceof GameCommand) {
             //Game logic
             commandResult = new GameLogic(model, (GameCommand) command).process();

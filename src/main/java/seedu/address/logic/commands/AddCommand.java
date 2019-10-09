@@ -12,7 +12,7 @@ import seedu.address.model.card.Card;
 /**
  * Adds a card to the word bank.
  */
-public class AddCommand extends AppCommand {
+public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 

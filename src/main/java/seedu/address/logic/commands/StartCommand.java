@@ -18,7 +18,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Start the game.
  */
-public class StartCommand extends AppCommand {
+public class StartCommand extends GameCommand {
 
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";
@@ -39,12 +39,10 @@ public class StartCommand extends AppCommand {
         Game newGame = new Game(wordBank);
         model.setGame(newGame);
         String currQuestion = model.getGame().showCurrQuestion();
-        CommandResult result = new CommandResult(
+        return new CommandResult(
                 MESSAGE_GAME_START_SUCCESS + FIRST_QUESTION_MESSAGE
                         + "\n"
-                        + currQuestion
-                , true);
-        result.setSwitchMode();
-        return result;
+                        + currQuestion,
+                true);
     }
 }
