@@ -1,5 +1,7 @@
 package seedu.address.model.queue;
 
+import java.util.Optional;
+
 import seedu.address.model.common.ReferenceId;
 
 /**
@@ -8,22 +10,22 @@ import seedu.address.model.common.ReferenceId;
  */
 public class Room {
     private final ReferenceId doctor;
-    private final ReferenceId patientCurrentlyBeingServed;
+    private final Optional<ReferenceId> patientCurrentlyBeingServed;
 
-    public Room(ReferenceId doctor, ReferenceId patient) {
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed == null;
+        return patientCurrentlyBeingServed.isEmpty();
     }
 
     public ReferenceId getDoctor() {
         return doctor;
     }
 
-    public ReferenceId getCurrentPatient() {
+    public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
     }
 

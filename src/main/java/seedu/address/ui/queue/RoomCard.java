@@ -1,5 +1,7 @@
 package seedu.address.ui.queue;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -14,28 +16,23 @@ public class RoomCard extends UiPart<Region> {
 
     private static final String FXML = "queue/RoomListCard.fxml";
     private final Person doctor;
-    private final Person patient;
+    private final Optional<Person> patient;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label doctorName;
     @FXML
-    private Label name;
+    private Label patientName;
     @FXML
     private Label refId;
 
-    public RoomCard(Person doctor, Person patient, int displayedIndex) {
+    public RoomCard(Person doctor, Optional<Person> patient, int displayedIndex) {
         super(FXML);
         this.doctor = doctor;
         this.patient = patient;
         doctorName.setText(doctor.getName().fullName);
-
-        if (patient == null) {
-            name.setText("");
-        } else {
-            name.setText(patient.getName().fullName);
-        }
+        patientName.setText(patient.map(p -> p.getName().toString()).orElse("[INVALID]"));
     }
 
     @Override

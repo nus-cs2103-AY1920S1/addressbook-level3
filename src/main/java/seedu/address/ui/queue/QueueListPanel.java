@@ -1,5 +1,6 @@
 package seedu.address.ui.queue;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -83,7 +84,7 @@ public class QueueListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 Person doctor = resolver.resolve(room.getDoctor());
-                Person patient = resolver.resolve(room.getCurrentPatient());
+                Optional<Person> patient = room.getCurrentPatient().map(id -> resolver.resolve(id));
                 setGraphic(new RoomCard(doctor, patient, getIndex() + 1).getRoot());
             }
         }
