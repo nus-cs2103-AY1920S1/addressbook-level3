@@ -1,8 +1,11 @@
 package io.xpire.ui;
 
 import java.util.Comparator;
+import java.util.Optional;
 
+import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.ReminderDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -35,6 +38,8 @@ public class ItemCard extends UiPart<Region> {
     private Label expiryDate;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label reminder;
 
     public ItemCard(Item item, int displayedIndex) {
         super(FXML);
@@ -42,7 +47,14 @@ public class ItemCard extends UiPart<Region> {
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
         this.expiryDate.setText(item.getExpiryDate().toString());
-        item.getTags().stream()
+        Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
+                item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
+        if (reminderDate.isPresent()) {
+            this.reminder.setText(reminderDate.get().toString());
+        } else {
+            this.reminder.setVisible(false);
+        }
+        this.item.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
     }

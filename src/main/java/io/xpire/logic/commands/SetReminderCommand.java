@@ -29,13 +29,13 @@ public class SetReminderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Set reminder for item %d in %s day(s)";
 
     private final Index index;
-    private final String threshold;
+    private final ReminderThreshold threshold;
 
     /**
      * @param index Index of the item in the list.
      * @param threshold New threshold.
      */
-    public SetReminderCommand(Index index, String threshold) {
+    public SetReminderCommand(Index index, ReminderThreshold threshold) {
         requireAllNonNull(index, threshold);
 
         this.index = index;
@@ -53,7 +53,7 @@ public class SetReminderCommand extends Command {
 
         Item itemToSetReminder = lastShownList.get(this.index.getZeroBased());
         Item editedItem = itemToSetReminder;
-        editedItem.setReminderThreshold(new ReminderThreshold(this.threshold));
+        editedItem.setReminderThreshold(this.threshold);
 
         model.setItem(itemToSetReminder, editedItem);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
@@ -68,7 +68,7 @@ public class SetReminderCommand extends Command {
             return false;
         } else {
             SetReminderCommand other = (SetReminderCommand) obj;
-            return this.index.equals(other.index) && this.threshold == other.threshold;
+            return this.index.equals(other.index) && this.threshold.equals(other.threshold);
         }
     }
 }
