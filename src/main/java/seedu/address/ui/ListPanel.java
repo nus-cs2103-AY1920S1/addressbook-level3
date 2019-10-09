@@ -19,9 +19,9 @@ public class ListPanel extends UiPart<Region> {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public ListPanel(ObservableList<EventSource> eventList) {
+    public ListPanel(ObservableList<EventSource> eventList, UiParser uiParser) {
         super(FXML);
-        EventListPanel eventListPanel = new EventListPanel(eventList);
+        EventListPanel eventListPanel = new EventListPanel(eventList, uiParser);
         list.getChildren().add(eventListPanel.getRoot());
     }
 }

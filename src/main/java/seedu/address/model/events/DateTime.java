@@ -15,7 +15,7 @@ public class DateTime {
     }
 
     public Instant getDateTime() {
-        return this.getDateTime();
+        return this.dateTime;
     }
 
     @Override

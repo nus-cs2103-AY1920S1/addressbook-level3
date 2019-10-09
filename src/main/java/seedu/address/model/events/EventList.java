@@ -96,7 +96,7 @@ public class EventList implements ReadOnlyEventList {
 
     @Override
     public ObservableList<EventSource> getReadOnlyList() {
-        return FXCollections.unmodifiableObservableList(this.list);
+        return this.list;
     }
 
     @Override
