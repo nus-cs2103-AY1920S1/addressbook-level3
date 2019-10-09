@@ -45,7 +45,7 @@ public class UniqueNoteList implements Iterable<Person> {
      * Replaces the existing lecture note {@code target} in the list with {@code edited}.
      * The new title must be different from all existing ones.
      */
-    public void setPerson(Person target, Person edited) {
+    public void setNote(Person target, Person edited) {
         requireAllNonNull(target, edited);
 
         int index = internalList.indexOf(target);

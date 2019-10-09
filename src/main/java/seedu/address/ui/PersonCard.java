@@ -7,12 +7,12 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Note}.
  */
 public class PersonCard extends UiPart<Region> {
     private static final String FXML = "PersonListCard.fxml";
 
-    public final Person person;
+    public final Person note;
 
     @FXML
     private HBox cardPane;
@@ -23,12 +23,12 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label content;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person note, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.note = note;
         id.setText(displayedIndex + ". ");
-        title.setText(person.getTitle().title);
-        content.setText(person.getContent().content);
+        title.setText(note.getTitle().title);
+        content.setText(note.getContent().content);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && note.equals(card.note);
     }
 }

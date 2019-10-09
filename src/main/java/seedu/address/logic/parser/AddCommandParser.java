@@ -31,8 +31,8 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
-        Person person = new Person(title, content);
-        return new AddCommand(person);
+        Person note = new Person(title, content);
+        return new AddCommand(note);
     }
 
     /**

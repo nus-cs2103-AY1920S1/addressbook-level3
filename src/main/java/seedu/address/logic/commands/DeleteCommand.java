@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 5";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted lecture note: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted lecture note: %1$s";
 
     private final Index targetIndex;
 
@@ -38,9 +38,9 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteNote(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        Person noteToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteNote(noteToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
     }
 
     @Override

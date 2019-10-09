@@ -58,23 +58,23 @@ public class UniqueNoteListTest {
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueNoteList.setPerson(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNote(null, ALICE));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueNoteList.setPerson(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNote(ALICE, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(NoteNotFoundException.class, () -> uniqueNoteList.setPerson(ALICE, ALICE));
+        assertThrows(NoteNotFoundException.class, () -> uniqueNoteList.setNote(ALICE, ALICE));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniqueNoteList.add(ALICE);
-        uniqueNoteList.setPerson(ALICE, ALICE);
+        uniqueNoteList.setNote(ALICE, ALICE);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(ALICE);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
@@ -84,7 +84,7 @@ public class UniqueNoteListTest {
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueNoteList.add(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
-        uniqueNoteList.setPerson(ALICE, editedAlice);
+        uniqueNoteList.setNote(ALICE, editedAlice);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(editedAlice);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
@@ -93,7 +93,7 @@ public class UniqueNoteListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniqueNoteList.add(ALICE);
-        uniqueNoteList.setPerson(ALICE, BOB);
+        uniqueNoteList.setNote(ALICE, BOB);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(BOB);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
@@ -103,7 +103,7 @@ public class UniqueNoteListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.add(BOB);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNote(ALICE, BOB));
     }
 
     @Test

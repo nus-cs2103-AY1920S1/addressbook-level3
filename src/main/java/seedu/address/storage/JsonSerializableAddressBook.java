@@ -18,17 +18,16 @@ import seedu.address.model.person.Person;
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
+    public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given lecture notes.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes) {
+        this.notes.addAll(notes);
     }
 
     /**
@@ -37,7 +36,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getNoteList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,14 +46,13 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedNote jsonAdaptedNote : notes) {
+            Person note = jsonAdaptedNote.toModelType();
+            if (addressBook.hasPerson(note)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TITLE);
             }
-            addressBook.addNote(person);
+            addressBook.addNote(note);
         }
         return addressBook;
     }
-
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
+  "notes" : [ {
     "title" : "Alice Pauline",
     "content" : "123, Jurong West Ave 6, #08-111"
   }, {

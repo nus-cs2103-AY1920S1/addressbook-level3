@@ -23,16 +23,16 @@ public class AddCommand extends Command {
             + PREFIX_CONTENT + "Write once debug everywhere ";
 
     public static final String MESSAGE_SUCCESS = "Lecture note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This title is already used";
+    public static final String MESSAGE_DUPLICATE_TITLE = "This title is already used";
 
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Note}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Person note) {
+        requireNonNull(note);
+        toAdd = note;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasNote(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_TITLE);
         }
 
         model.addNote(toAdd);

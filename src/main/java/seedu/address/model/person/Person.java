@@ -44,7 +44,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same title and content.
+     * Returns true if both lecture notes have the same title and content.
      * This defines a stronger notion of equality.
      */
     @Override

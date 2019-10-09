@@ -11,33 +11,33 @@ import seedu.address.model.person.Title;
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedNote {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Lecture note's %s field is missing!";
 
     private final String title;
     private final String content;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedNote} with the given lecture note details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("title") String title, @JsonProperty("content") String content) {
+    public JsonAdaptedNote(@JsonProperty("title") String title, @JsonProperty("content") String content) {
         this.title = title;
         this.content = content;
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Note} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
+    public JsonAdaptedNote(Person source) {
         title = source.getTitle().title;
         content = source.getContent().content;
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted lecture note object into the model's {@code Note} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted note.
      */
     public Person toModelType() throws IllegalValueException {
         if (title == null) {
