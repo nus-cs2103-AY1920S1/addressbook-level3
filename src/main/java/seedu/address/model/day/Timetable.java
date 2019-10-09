@@ -1,11 +1,10 @@
 package seedu.address.model.day;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.day.exceptions.TimeSlotOccupiedException;
+import seedu.address.model.day.time.TimeInHalfHour;
 
 /**
  * Represents the timetable of a {@code Day}.
