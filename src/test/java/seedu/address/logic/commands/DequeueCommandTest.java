@@ -34,8 +34,8 @@ public class DequeueCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        model.addPatient(ALICE.getReferenceId());
-        model.addPatient(BENSON.getReferenceId());
+        model.enqueuePatient(ALICE.getReferenceId());
+        model.enqueuePatient(BENSON.getReferenceId());
         ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
 
@@ -44,7 +44,7 @@ public class DequeueCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getQueueManager(),
                 model.getAppointmentBook());
-        expectedModel.removePatient(personToDelete);
+        expectedModel.removeFromQueue(personToDelete);
 
         //ensures that undo can not be executed before the actual command
         assertUndoCommandFailure(dequeueCommand, model, DequeueCommand.MESSAGE_UNDO_DEQUEUE_ERROR);
@@ -52,7 +52,7 @@ public class DequeueCommandTest {
         assertCommandSuccess(dequeueCommand, model, expectedMessage1, expectedModel);
 
         //ensures undo capability
-        expectedModel.addPatient(personToDelete);
+        expectedModel.enqueuePatient(personToDelete);
         assertUndoCommandSuccess(dequeueCommand, model, expectedMessage2, expectedModel);
 
         //ensures that undo can not be executed again

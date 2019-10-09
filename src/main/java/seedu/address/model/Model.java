@@ -129,19 +129,19 @@ public interface Model extends ReferenceIdResolver {
 
     public QueueManager getQueueManager();
 
-    public void removePatient(ReferenceId target);
+    public void removeFromQueue(ReferenceId target);
 
-    public void removePatient(int index);
+    public void removeFromQueue(int index);
 
-    public void addPatient(ReferenceId id);
+    public void enqueuePatient(ReferenceId id);
 
-    public boolean hasId(ReferenceId id);
+    public boolean isPatientInQueue(ReferenceId id);
 
     public ObservableList<Room> getFilteredRoomList();
 
     public void updateFilteredRoomList(Predicate<Room> predicate);
 
-    public void next(int index);
+    public void serveNextPatient(int index);
 
     public void addRoom(ReferenceId id);
 

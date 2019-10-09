@@ -43,11 +43,11 @@ public class EnqueueCommand extends ReversibleCommand {
 
         if (!model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
-        } else if (model.hasId(toAdd)) {
+        } else if (model.isPatientInQueue(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPatient(toAdd);
+        model.enqueuePatient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -59,7 +59,7 @@ public class EnqueueCommand extends ReversibleCommand {
             throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, toAdd));
         }
 
-        model.removePatient(toAdd);
+        model.removeFromQueue(toAdd);
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, toAdd));
     }
 

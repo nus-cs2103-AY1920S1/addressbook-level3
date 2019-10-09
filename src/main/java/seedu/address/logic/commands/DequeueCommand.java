@@ -52,7 +52,7 @@ public class DequeueCommand extends ReversibleCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.removePatient(referenceId);
+        model.removeFromQueue(referenceId);
         return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, referenceId));
     }
 
@@ -60,11 +60,11 @@ public class DequeueCommand extends ReversibleCommand {
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (referenceId == null || !model.hasPerson(referenceId) || model.hasId(referenceId)) {
+        if (referenceId == null || !model.hasPerson(referenceId) || model.isPatientInQueue(referenceId)) {
             throw new CommandException(MESSAGE_UNDO_DEQUEUE_ERROR);
         }
 
-        model.addPatient(referenceId);
+        model.enqueuePatient(referenceId);
         model.updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
         return new CommandResult(String.format(MESSAGE_UNDO_DEQUEUE_SUCCESS, referenceId));
     }

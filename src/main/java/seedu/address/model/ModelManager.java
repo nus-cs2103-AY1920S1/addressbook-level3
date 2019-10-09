@@ -65,41 +65,40 @@ public class ModelManager implements Model {
         return queueManager;
     }
 
-    @Override
-    public void removePatient(ReferenceId target) {
+    public void removeFromQueue(ReferenceId target) {
         queueManager.removePatient(target);
     }
 
     @Override
-    public void removePatient(int index) {
+    public void removeFromQueue(int index) {
         queueManager.removePatient(index);
     }
 
     @Override
-    public void addPatient(ReferenceId id) {
+    public void enqueuePatient(ReferenceId id) {
         queueManager.addPatient(id);
         updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
     }
 
     @Override
-    public void next(int index) {
+    public void serveNextPatient(int index) {
         queueManager.serveNext(index);
     }
 
     @Override
-    public boolean hasId(ReferenceId id) {
+    public boolean isPatientInQueue(ReferenceId id) {
         requireNonNull(id);
         return queueManager.hasId(id);
     }
 
     @Override
     public void addRoom(ReferenceId id) {
-        queueManager.addRoom(id);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void removeRoom(int index) {
-        queueManager.removeRoom(index);
+        throw new UnsupportedOperationException();
     }
 
     //=========== UserPrefs ==================================================================================
