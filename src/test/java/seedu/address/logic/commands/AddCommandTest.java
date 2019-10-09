@@ -20,8 +20,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.events.EventSource;
-import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -147,41 +145,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyEventList getEventList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setEventList(ReadOnlyEventList eventList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasEvent(EventSource event) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteEvent(EventSource target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addEvent(EventSource event) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setEvent(EventSource target, EventSource editedEvent) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<EventSource> getFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
     }
