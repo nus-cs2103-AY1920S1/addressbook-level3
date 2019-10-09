@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -35,9 +36,15 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private BrowserPanel browserPanel;
+    private DashboardPanel dashboardPanel;
+    private OfflinePanel offlinePanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private SplitPane splitPane;
+
+    @FXML
+    private StackPane mainViewAreaPlaceholder;
+    //private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -112,7 +119,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        dashboardPanel = new DashboardPanel();
+        offlinePanel = new OfflinePanel();
+        mainViewAreaPlaceholder.getChildren().addAll(
+                offlinePanel.getRoot(),
+                browserPanel.getRoot(),
+                dashboardPanel.getRoot());
+        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
@@ -167,8 +180,31 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleSwitchToDashboard() {
+        //TODO:
+    }
+
+    @FXML
+    private void handleSwitchToOnline() {
+        //TODO:
+    }
+
+    @FXML
+    private void handleSwitchToOffline() {
+        //TODO:
+    }
+
     public BookmarkListPanel getBookmarkListPanel() {
         return bookmarkListPanel;
+    }
+
+    public DashboardPanel getDashboardPanel() {
+        return dashboardPanel;
+    }
+
+    public OfflinePanel getOfflinePanel() {
+        return offlinePanel;
     }
 
     /**
@@ -188,6 +224,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwitchViewDashboard()) {
+                handleSwitchToDashboard();
+            } else if (commandResult.isSwitchViewOnline()) {
+                handleSwitchToOnline();
+            } else if (commandResult.isSwitchViewOffline()) {
+                handleSwitchToOffline();
             }
 
             return commandResult;

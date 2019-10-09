@@ -54,7 +54,7 @@
             <StackPane fx:id="bookmarkListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder">
+          <StackPane fx:id="mainViewAreaPlaceholder">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

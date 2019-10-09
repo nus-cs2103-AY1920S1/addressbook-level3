@@ -17,13 +17,25 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean switchViewDashboard;
+    private final boolean switchViewOnline;
+    private final boolean switchViewOffline;
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean dashboard, boolean online, boolean offline) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.switchViewDashboard = dashboard;
+        this.switchViewOnline = online;
+        this.switchViewOffline = offline;
+    }
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this(feedbackToUser, showHelp, exit, false, false, false);
     }
 
     /**
@@ -44,6 +56,18 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isSwitchViewDashboard() {
+        return switchViewDashboard;
+    }
+
+    public boolean isSwitchViewOnline() {
+        return switchViewOnline;
+    }
+
+    public boolean isSwitchViewOffline() {
+        return switchViewOffline;
     }
 
     @Override

@@ -15,6 +15,7 @@ import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
+import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -67,6 +68,9 @@ public class MarkParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case TabCommand.COMMAND_WORD:
+            return new TabCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
