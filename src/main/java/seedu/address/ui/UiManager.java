@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
@@ -19,7 +17,7 @@ import java.util.logging.Logger;
  * The manager of the UI component.\
  *
  */
-public class UiManager implements Ui, EventHandler<KeyEvent> {
+public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -86,10 +84,5 @@ public class UiManager implements Ui, EventHandler<KeyEvent> {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
-    }
-
-    @Override
-    public void handle(KeyEvent event) {
-        text.setText(("hi"));
     }
 }
