@@ -34,7 +34,6 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </Menu>
               </MenuBar>
-      
                     <StackPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="0.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
