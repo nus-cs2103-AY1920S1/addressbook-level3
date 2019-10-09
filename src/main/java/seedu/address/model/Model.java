@@ -45,12 +45,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code itinerary}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setItinerary(ReadOnlyItinerary itinerary);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Itinerary */
+    ReadOnlyItinerary getItinerary();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

@@ -494,9 +494,9 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all activities are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all activities using the `list` command. Multiple activities in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -49,6 +50,19 @@ public class Activity {
     }
 
 
+    /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameActivity(Activity otherActivity) {
+        if (otherActivity == this) {
+            return true;
+        }
+
+        return otherActivity != null
+                && otherActivity.getName().equals(getName())
+                && (otherActivity.getLocation().equals(getLocation()));
+    }
     /**
      * Returns true if both activities have the same identity and data fields.
      * This defines a stronger notion of equality between two activities.
