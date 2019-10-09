@@ -2,6 +2,8 @@ package seedu.address.model.item;
 
 import java.util.ArrayList;
 
+import seedu.address.commons.core.item.Item;
+
 /**
  * An object to hold items. Parent class for TaskList, EventList and ReminderList.
  */
@@ -55,7 +57,8 @@ public class ItemList {
             il.add(item);
         }
 
-        il.list.sort((item1, item2) -> item1.getDescription().compareTo(item2.getDescription()));
+        il.list.sort((item1, item2) -> item1.getItemDescription().getDescription()
+                .compareTo(item2.getItemDescription().getDescription()));
         return il;
     }
 
@@ -77,7 +80,7 @@ public class ItemList {
      */
     protected ItemList find(String searchString, ItemList il) {
         for (Item i : list) {
-            if (i.getDescription().toLowerCase().contains(searchString.toLowerCase())) {
+            if (i.getItemDescription().getDescription().toLowerCase().contains(searchString.toLowerCase())) {
                 il.add(i);
             }
         }

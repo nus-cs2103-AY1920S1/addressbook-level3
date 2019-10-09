@@ -1,5 +1,7 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.core.item.Item;
+
 /**
  * Object class to store all the items that are events within the program
  */
@@ -18,7 +20,8 @@ public class EventList extends ItemList {
             el.add(item);
         }
 
-        el.list.sort((item1, item2) -> item1.getEvent().getDate().compareTo(item2.getEvent().getDate()));
+        el.list.sort((item1, item2) -> item1.getEvent().get().getStartDateTime()
+                .compareTo(item2.getEvent().get().getStartDateTime()));
         return el;
     }
 

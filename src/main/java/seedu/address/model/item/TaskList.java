@@ -1,5 +1,8 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Task;
+
 /**
  * Object class to store all the items that are task within the program
  */
@@ -20,11 +23,11 @@ public class TaskList extends ItemList {
         }
 
         tl.list.sort((item1, item2) -> {
-            Task task1 = item1.getTask();
-            Task task2 = item2.getTask();
-            if (task1.isDone() && !task2.isDone()) {
+            Task task1 = item1.getTask().get();
+            Task task2 = item2.getTask().get();
+            if (task1.isComplete() && !task2.isComplete()) {
                 return 1;
-            } else if (!task1.isDone() && task2.isDone()) {
+            } else if (!task1.isComplete() && task2.isComplete()) {
                 return -1;
             } else {
                 return task1.getPriority().compareTo(task2.getPriority());

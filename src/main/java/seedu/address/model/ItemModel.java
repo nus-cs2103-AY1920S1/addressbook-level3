@@ -3,7 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.item.Item;
+import seedu.address.commons.core.item.Item;
 import seedu.address.model.item.ItemList;
 
 /**

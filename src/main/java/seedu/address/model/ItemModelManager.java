@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.item.Item;
 import seedu.address.model.item.EventList;
-import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -86,15 +86,15 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         itemList.add(item);
-        if (item.isTask()) {
+        if (item.hasTask()) {
             taskList.add(item);
         }
 
-        if (item.isEvent()) {
+        if (item.hasEvent()) {
             eventList.add(item);
         }
 
-        if (item.isReminder()) {
+        if (item.hasReminder()) {
             reminderList.add(item);
         }
     }
