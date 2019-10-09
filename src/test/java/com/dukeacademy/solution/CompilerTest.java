@@ -1,11 +1,10 @@
-package com.dukeacademy.checker;
+package com.dukeacademy.solution;
 
-import com.dukeacademy.checker.compiler.Compiler;
-import com.dukeacademy.checker.environment.StandardCompilerEnvironment;
-import com.dukeacademy.checker.exceptions.CompilerException;
-import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.checker.exceptions.UserProgramException;
-import com.dukeacademy.model.UserProgram;
+import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
+import com.dukeacademy.solution.exceptions.CompilerException;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.UserProgramException;
+import com.dukeacademy.model.solution.UserProgram;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,9 +25,8 @@ class CompilerTest {
 
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
-        StandardCompilerEnvironment environment = new StandardCompilerEnvironment();
         environmentPath = tempFolder.resolve("compiler");
-        environment.initialize(environmentPath.toUri().getPath());
+        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath.toUri().getPath());
 
         compiler = new Compiler(environment);
 

@@ -1,4 +1,4 @@
-package com.dukeacademy.checker.exceptions;
+package com.dukeacademy.solution.exceptions;
 
 public class CompilerEnvironmentException extends Exception {
     public CompilerEnvironmentException(String message) {

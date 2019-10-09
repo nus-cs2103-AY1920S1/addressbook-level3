@@ -1,4 +1,4 @@
-package com.dukeacademy.model.compiler;
+package com.dukeacademy.model.solution;
 
 /**
  * Represents the results of running the user's solution against an individual test case.

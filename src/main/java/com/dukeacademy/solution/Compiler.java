@@ -1,12 +1,12 @@
-package com.dukeacademy.checker.compiler;
+package com.dukeacademy.solution;
 
-import com.dukeacademy.checker.exceptions.UserProgramException;
+import com.dukeacademy.solution.exceptions.UserProgramException;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.checker.environment.CompilerEnvironment;
-import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.checker.exceptions.CompilerException;
-import com.dukeacademy.checker.exceptions.FileCreationException;
-import com.dukeacademy.model.UserProgram;
+import com.dukeacademy.solution.environment.CompilerEnvironment;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.CompilerException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.model.solution.UserProgram;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -31,7 +31,6 @@ public class Compiler {
     public Compiler(CompilerEnvironment environment) {
         this.javaCompiler = ToolProvider.getSystemJavaCompiler();
         this.environment = environment;
-
     }
 
     public void close() {
@@ -67,7 +66,7 @@ public class Compiler {
                 throw new UserProgramException(errorMessage);
             }
 
-        } catch (FileCreationException | CompilerEnvironmentException e) {
+        } catch (CompilerFileCreationException | CompilerEnvironmentException e) {
             this.clearEnvironmentAfterCompilerFail();
             throw new CompilerException(MESSAGE_COMPILER_FAILED, e);
         }

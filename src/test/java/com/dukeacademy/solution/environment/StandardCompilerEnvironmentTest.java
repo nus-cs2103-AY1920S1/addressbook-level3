@@ -1,7 +1,9 @@
-package com.dukeacademy.checker.environment;
+package com.dukeacademy.solution.environment;
 
-import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.checker.exceptions.FileCreationException;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -19,24 +21,21 @@ class StandardCompilerEnvironmentTest {
     Path environmentPath;
 
     @TempDir
-    Path temporaryFolder;
+    static Path temporaryFolder;
 
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
-        compilerEnvironment = new StandardCompilerEnvironment();
         environmentPath = temporaryFolder.resolve("compiler");
-        compilerEnvironment.initialize(environmentPath.toUri().getPath());
+        compilerEnvironment = new StandardCompilerEnvironment(environmentPath.toUri().getPath());
+    }
+
+    @AfterEach
+    void closeTest() {
+        compilerEnvironment.close();
     }
 
     @Test
-    void initiate() {
-        assertTrue(compilerEnvironment.isInitialized());
-        assertTrue(environmentPath.toFile().exists());
-        assertEquals(environmentPath + File.separator, compilerEnvironment.getEnvironmentPath());
-    }
-
-    @Test
-    void createJavaFile() throws CompilerEnvironmentException, FileCreationException, IOException {
+    void createJavaFile() throws CompilerFileCreationException, IOException {
         String fileName = "Test";
         String content = "public class Test {\n}";
 
@@ -54,7 +53,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void getJavaFile() throws CompilerEnvironmentException, FileCreationException, IOException {
+    void getJavaFile() throws CompilerFileCreationException, IOException {
         String fileName = "Test1";
         String content = "public class Test1 {\n}";
 
@@ -72,7 +71,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void close() throws CompilerEnvironmentException, FileCreationException {
+    void close() throws CompilerFileCreationException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         compilerEnvironment.createJavaFile(fileName, content);
@@ -83,7 +82,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void clearEnvironment() throws CompilerEnvironmentException, FileCreationException, IOException {
+    void clearEnvironment() throws CompilerEnvironmentException, CompilerFileCreationException, IOException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         compilerEnvironment.createJavaFile(fileName, content);

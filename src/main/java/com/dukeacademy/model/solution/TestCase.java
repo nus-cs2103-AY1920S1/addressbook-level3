@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.solution;
 
 /**
  * Represents a test case for a question.

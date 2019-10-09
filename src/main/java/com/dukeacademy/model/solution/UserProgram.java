@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.solution;
 
 /**
  * Represents a user's submission for a question.

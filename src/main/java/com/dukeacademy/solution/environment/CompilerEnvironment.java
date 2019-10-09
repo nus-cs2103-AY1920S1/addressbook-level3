@@ -1,7 +1,7 @@
-package com.dukeacademy.checker.environment;
+package com.dukeacademy.solution.environment;
 
-import com.dukeacademy.checker.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.checker.exceptions.FileCreationException;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ public interface CompilerEnvironment {
      * @param content the contents of the Java file.
      * @return the file created.
      */
-    public File createJavaFile(String name, String content) throws FileCreationException, CompilerEnvironmentException;
+    public File createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException;
 
     /**
      * Returns the file corresponding to the name provided.
