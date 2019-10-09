@@ -1,7 +1,5 @@
 package seedu.address.model.day;
 
-import static java.util.Objects.requireNonNull;
-
 public class HalfHour {
     private ActivityStub activityAtThisTime;
     private boolean isOccupied;
