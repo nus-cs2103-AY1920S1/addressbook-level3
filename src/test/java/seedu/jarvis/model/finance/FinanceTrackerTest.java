@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Instalment;
-import seedu.jarvis.model.financetracker.InstalmentList;
+import seedu.jarvis.model.financetracker.Installment;
+import seedu.jarvis.model.financetracker.InstallmentList;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.PurchaseList;
 
@@ -29,11 +29,11 @@ public class FinanceTrackerTest {
         allPurchases.add(new PurchaseStub());
         allPurchases.add(new PurchaseStub());
         financeTracker.setPurchaseList(new PurchaseList(allPurchases));
-        ArrayList<Instalment> allInstalments = new ArrayList<>();
-        allInstalments.add(new InstalmentStub());
-        allInstalments.add(new InstalmentStub());
-        allInstalments.add(new InstalmentStub());
-        financeTracker.setInstalmentList(new InstalmentList(allInstalments));
+        ArrayList<Installment> allInstalments = new ArrayList<>();
+        allInstalments.add(new InstallmentStub());
+        allInstalments.add(new InstallmentStub());
+        allInstalments.add(new InstallmentStub());
+        financeTracker.setInstallmentList(new InstallmentList(allInstalments));
     }
 
     @Test
@@ -60,49 +60,50 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    public void addInstalment_normalInput_addedCorrectly() {
-        financeTracker.addInstalment(new InstalmentStub());
-        Instalment addedInstalment = financeTracker.getInstalment(4);
-        assertEquals(new InstalmentStub().getDescription(), addedInstalment.getDescription());
-        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(), addedInstalment.getMoneySpentOnInstallment());
-        assertEquals(4, financeTracker.getTotalInstalments());
+    public void addInstallment_normalInput_addedCorrectly() {
+        financeTracker.addInstallment(new InstallmentStub());
+        Installment addedInstalment = financeTracker.getInstallment(4);
+        assertEquals(new InstallmentStub().getDescription(), addedInstalment.getDescription());
+        assertEquals(new InstallmentStub().getMoneySpentOnInstallment(), addedInstalment.getMoneySpentOnInstallment());
+        assertEquals(4, financeTracker.getTotalInstallments());
     }
 
     @Test
-    public void deleteInstalment_normalInput_deletedCorrectly() {
-        Instalment deletedInstalment = financeTracker.deleteInstalment(2);
-        assertEquals(new InstalmentStub().getDescription(), deletedInstalment.getDescription());
-        assertEquals(new InstalmentStub().getMoneySpentOnInstallment(),
-                deletedInstalment.getMoneySpentOnInstallment());
-        assertEquals(2, financeTracker.getTotalInstalments());
+    public void deleteInstallment_normalInput_deletedCorrectly() {
+        Installment deletedInstallment = financeTracker.deleteInstallment(2);
+        assertEquals(new InstallmentStub().getDescription(), deletedInstallment.getDescription());
+        assertEquals(new InstallmentStub().getMoneySpentOnInstallment(),
+                deletedInstallment.getMoneySpentOnInstallment());
+        assertEquals(2, financeTracker.getTotalInstallments());
     }
 
     @Test
-    public void deleteInstalment_indexNonexistent_throwsError() {
-        assertThrows(IndexOutOfBoundsException.class, () -> financeTracker.deleteInstalment(4));
-        assertEquals(3, financeTracker.getTotalInstalments());
+    public void deleteInstallment_indexNonexistent_throwsError() {
+        assertThrows(IndexOutOfBoundsException.class, () -> financeTracker.deleteInstallment(4));
+        assertEquals(3, financeTracker.getTotalInstallments());
     }
 
     @Test
-    public void editInstalment_normalInputs_editedCorrectly() {
-        financeTracker.editInstalment(1, "Student price Spotify subscription", 7.50);
+    public void editInstallment_normalInputs_editedCorrectly() {
+        financeTracker.editInstallment(1,
+                "Student price Spotify subscription", 7.50);
         assertEquals("Student price Spotify subscription",
-                financeTracker.getInstalment(1).getDescription());
-        assertEquals(7.50, financeTracker.getInstalment(1).getMoneySpentOnInstallment());
+                financeTracker.getInstallment(1).getDescription());
+        assertEquals(7.50, financeTracker.getInstallment(1).getMoneySpentOnInstallment());
     }
 
     @Test
-    public void editInstalment_indexNonexistent_throwsError() {
+    public void editInstallment_indexNonexistent_throwsError() {
         assertThrows(IndexOutOfBoundsException.class, (
 
-        ) -> financeTracker.editInstalment(5, "Spotify", 9.50));
+        ) -> financeTracker.editInstallment(5, "Spotify", 9.50));
     }
 
     @Test
-    public void editInstalment_emptyDescription_throwsError() {
+    public void editInstallment_emptyDescription_throwsError() {
         assertThrows(NullPointerException.class, (
 
-            ) -> financeTracker.editInstalment(3, null, 9.50));
+            ) -> financeTracker.editInstallment(3, null, 9.50));
     }
 
     @Test

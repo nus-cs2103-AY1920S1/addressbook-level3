@@ -6,31 +6,31 @@ import java.util.Objects;
 /**
  * Manages a list of instalments saved by the user.
  */
-public class InstalmentList {
-    private ArrayList<Instalment> allInstallments;
-    private double totalMoneySpentOnInstalments = 0;
+public class InstallmentList {
+    private ArrayList<Installment> allInstallments;
+    private double totalMoneySpentOnInstallments = 0;
 
     /**
      * Empty constructor to be used when there are no instalments previously stored by the user.
      */
-    public InstalmentList() {
+    public InstallmentList() {
         allInstallments = new ArrayList<>();
     }
 
     /**
      * Default constructor to be used when JARVIS starts up.
      */
-    public InstalmentList(ArrayList<Instalment> allInstallments) {
+    public InstallmentList(ArrayList<Installment> allInstallments) {
         this.allInstallments = allInstallments;
-        this.totalMoneySpentOnInstalments = calculateTotalInstalmentSpending();
+        this.totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
     }
 
     /**
      * Add installment to the list of installments
      */
-    public void addInstalment(Instalment newInstalment) {
-        allInstallments.add(newInstalment);
-        totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
+    public void addInstallment(Installment newInstallment) {
+        allInstallments.add(newInstallment);
+        totalMoneySpentOnInstallments = this.calculateTotalInstallmentSpending();
     }
 
     /**
@@ -38,45 +38,45 @@ public class InstalmentList {
      * but not both at the same time.
      * todo parse this command before this class (assign null if no change)
      */
-    public void editInstalment(int instalmentNumber, String description, double value) {
+    public void editInstallment(int installmentNumber, String description, double value) {
         //todo add exception for if the instalment does not exist and edit tests accordingly
         Objects.requireNonNull(description);
-        allInstallments.get(instalmentNumber - 1).editDescription(description);
-        allInstallments.get(instalmentNumber - 1).editAmount(value);
-        totalMoneySpentOnInstalments = this.calculateTotalInstalmentSpending();
+        allInstallments.get(installmentNumber - 1).editDescription(description);
+        allInstallments.get(installmentNumber - 1).editAmount(value);
+        totalMoneySpentOnInstallments = this.calculateTotalInstallmentSpending();
     }
 
     /**
      * Deletes instalment from the list of instalments based on the instalment number.
-     * @param instalmentNumber of the instalment in the list
+     * @param installmentNumber of the instalment in the list
      * @return Instalment object that has been removed from the list
      */
-    public Instalment deleteInstalment(int instalmentNumber) {
+    public Installment deleteInstallment(int installmentNumber) {
         //todo check if the number is within the size of the list and edit tests accordingly
-        return allInstallments.remove(instalmentNumber - 1);
+        return allInstallments.remove(installmentNumber - 1);
     }
 
     /**
      * Calculates the total monthly spending from all instalments currently subscribed to by the user.
      * @return double containing the total money spent to be included in monthly expenditure
      */
-    private double calculateTotalInstalmentSpending() {
+    private double calculateTotalInstallmentSpending() {
         double amount = 0;
-        for (Instalment instalment : allInstallments) {
+        for (Installment instalment : allInstallments) {
             amount += instalment.getMoneySpentOnInstallment();
         }
         return amount;
     }
 
-    public double getTotalMoneySpentOnInstalments() {
-        return this.totalMoneySpentOnInstalments;
+    public double getTotalMoneySpentOnInstallments() {
+        return this.totalMoneySpentOnInstallments;
     }
 
-    public Instalment getInstalment(int instalNum) {
+    public Installment getInstallment(int instalNum) {
         return allInstallments.get(instalNum - 1);
     }
 
-    public int getNumInstalments() {
+    public int getNumInstallments() {
         return this.allInstallments.size();
     }
 
@@ -84,8 +84,8 @@ public class InstalmentList {
     public String toString() {
         String lstInstallments = "Here are your current subscriptions: + \n";
         int index = 1;
-        for (Instalment instalment : allInstallments) {
-            lstInstallments += index + ". " + instalment.toString();
+        for (Installment installment : allInstallments) {
+            lstInstallments += index + ". " + installment.toString();
         }
         return lstInstallments;
     }

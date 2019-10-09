@@ -1,6 +1,6 @@
 package seedu.jarvis.model;
 
-import seedu.jarvis.model.financetracker.Instalment;
+import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
 
 /**
@@ -25,25 +25,25 @@ public interface FinanceTrackerModel {
     /**
      * Adds instalment.
      *
-     * @param instalment
+     * @param installment
      */
-    void addInstalment(Instalment instalment);
+    void addInstallment(Installment installment);
 
     /**
      * Deletes instalment.
      *
      * @param instalNumber
      */
-    void deleteInstalment(int instalNumber);
+    void deleteInstallment(int instalNumber);
 
     /**
      * Edits an existing instalment by its value.
      *
-     * @param instalmentNumber
+     * @param installmentNumber
      * @param description
      * @param value
      */
-    void editInstalmentByValue(int instalmentNumber, String description, double value);
+    void editInstallmentByValue(int installmentNumber, String description, double value);
 
     /**
      * Sets the monthly limit for spending.
@@ -66,32 +66,4 @@ public interface FinanceTrackerModel {
      *
      */
     void listSpending();
-
-    /**
-     * Adds tab to all people involved in the transaction which will be recorded as owed payments to the user.
-     *
-     * @param allPayments
-     */
-    //void addTab(PendingPayment ...allPayments);
-
-    /**
-     * Marks a tab owed to the user as paid.
-     *
-     * @param pendingPayment
-     */
-    //void paidTab(PendingPayment pendingPayment);
-
-    /**
-     * Adds a payment owed by the user to others.
-     *
-     * @param pendingPayment
-     */
-    //void addOwedPayment(PendingPayment pendingPayment);
-
-    /**
-     * Marks a payment owed by the user as done.
-     *
-     * @param pendingPayment
-     */
-    //void paidOwedPayment(PendingPayment pendingPayment);
 }

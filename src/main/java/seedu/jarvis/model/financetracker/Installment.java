@@ -5,11 +5,11 @@ import java.util.Objects;
 /**
  * Object stores a single recurring payment with its details such as description and the amount spent.
  */
-public class Instalment {
+public class Installment {
     private String description;
     private double moneySpentOnInstallment;
 
-    public Instalment(String description, double moneySpentOnInstallment) {
+    public Installment(String description, double moneySpentOnInstallment) {
         Objects.requireNonNull(description);
         this.description = description;
         this.moneySpentOnInstallment = moneySpentOnInstallment;

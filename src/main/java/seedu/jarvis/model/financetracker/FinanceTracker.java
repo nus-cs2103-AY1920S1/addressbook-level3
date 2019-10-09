@@ -8,30 +8,30 @@ import java.util.ArrayList;
  */
 public class FinanceTracker {
     private PurchaseList purchaseList;
-    private InstalmentList instalmentList;
+    private InstallmentList installmentList;
     private double monthlyLimit = 0;
     private double totalSpending;
 
     public FinanceTracker() {
         //todo assign all fields from existing model
         purchaseList = new PurchaseList(new ArrayList<>());
-        instalmentList = new InstalmentList(new ArrayList<>());
+        installmentList = new InstallmentList(new ArrayList<>());
     }
 
     public void setPurchaseList(PurchaseList purchaseList) {
         this.purchaseList = purchaseList;
     }
 
-    public void setInstalmentList(InstalmentList instalmentList) {
-        this.instalmentList = instalmentList;
+    public void setInstallmentList(InstallmentList installmentList) {
+        this.installmentList = installmentList;
     }
 
     public Purchase getPayment(int paymentIndex) {
         return this.purchaseList.getPurchase(paymentIndex);
     }
 
-    public Instalment getInstalment(int instalIndex) {
-        return this.instalmentList.getInstalment(instalIndex);
+    public Installment getInstallment(int instalIndex) {
+        return this.installmentList.getInstallment(instalIndex);
     }
 
     /**
@@ -58,28 +58,28 @@ public class FinanceTracker {
     /**
      * Adds instalment.
      *
-     * @param instalment
+     * @param installment
      */
-    public void addInstalment(Instalment instalment) {
-        instalmentList.addInstalment(instalment);
+    public void addInstallment(Installment installment) {
+        installmentList.addInstallment(installment);
     }
 
-    public Instalment deleteInstalment(int instalNumber) {
-        return instalmentList.deleteInstalment(instalNumber);
+    public Installment deleteInstallment(int instalNumber) {
+        return installmentList.deleteInstallment(instalNumber);
     }
     /**
      * Deletes instalment.
      *
-     * @param instalmentNumber of instalment to be deleted
+     * @param installmentNumber of instalment to be deleted
      * @param description to be edited
      * @param value to be edited
      */
-    public void editInstalment(int instalmentNumber, String description, double value) {
-        instalmentList.editInstalment(instalmentNumber, description, value);
+    public void editInstallment(int installmentNumber, String description, double value) {
+        installmentList.editInstallment(installmentNumber, description, value);
     }
 
-    public int getTotalInstalments() {
-        return instalmentList.getNumInstalments();
+    public int getTotalInstallments() {
+        return installmentList.getNumInstallments();
     }
 
     /**
@@ -100,8 +100,8 @@ public class FinanceTracker {
      * Lists all purchases and payments from this month.
      */
     public void listSpending() {
-        totalSpending = purchaseList.totalSpending() + instalmentList.getTotalMoneySpentOnInstalments();
-        instalmentList.toString(); //todo print this out nicely on UI
+        totalSpending = purchaseList.totalSpending() + installmentList.getTotalMoneySpentOnInstallments();
+        installmentList.toString(); //todo print this out nicely on UI
         purchaseList.toString(); //todo print this out nicely on UI
     }
 }
