@@ -134,6 +134,25 @@ Examples:
 
 * `find 1400`
 
+==== Finding tasks: `find`
+
+Find specific task. +
+Format: `find VARAIBLE`
+
+****
+* VARIABLE can be either INDEX, KEYWORD or TIME.
+* The VARIABLE is case insensitive. e.g `hans` will match `Hans`
+* Only full words will be matched. e.g. `Han` will not match `Hans`
+* You can find using more than one keyword at a time.
+* Only can search by one of the 3 types of variables at any one time.
+****
+
+Examples:
+
+* `find 3` [INDEX]
+* `find CS2103T, Lecture` [KEYWORD]
+* `find 1400` [TIME]
+
 === Marking Tasks: `mark`
 
 Finds persons whose names contain any of the given keywords. +
