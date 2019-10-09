@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALCONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_PARENTPHONE_AMY = "33333333";
     public static final String VALID_PARENTPHONE_BOB = "44444444";
+    public static final String VALID_MEDICALCONDITION_AMY = "Asthma";
+    public static final String VALID_MEDICALCONDITION_BOB = "Sinus";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -46,6 +50,8 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String MEDICALCONDITION_DESC_AMY = " " + PREFIX_MEDICALCONDITION + VALID_MEDICALCONDITION_AMY;
+    public static final String MEDICALCONDITION_DESC_BOB = " " + PREFIX_MEDICALCONDITION + VALID_MEDICALCONDITION_BOB;
     public static final String PARENTPHONE_DESC_AMY = " " + PREFIX_PARENTPHONE + VALID_PARENTPHONE_AMY;
     public static final String PARENTPHONE_DESC_BOB = " " + PREFIX_PARENTPHONE + VALID_PARENTPHONE_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
@@ -68,10 +74,12 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withParentPhone(VALID_PARENTPHONE_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+                .withAddress(VALID_ADDRESS_AMY).withMedicalCondition(VALID_MEDICALCONDITION_AMY)
+                .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withParentPhone(VALID_PARENTPHONE_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withAddress(VALID_ADDRESS_BOB).withMedicalCondition((VALID_MEDICALCONDITION_BOB))
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**

@@ -53,7 +53,9 @@ public class Student {
         return email;
     }
 
-    public ParentPhone getParentPhone() { return parentPhone; }
+    public ParentPhone getParentPhone() {
+        return parentPhone;
+    }
 
     public Address getAddress() {
         return address;

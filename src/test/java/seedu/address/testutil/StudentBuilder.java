@@ -3,7 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.student.*;
+import seedu.address.model.student.Address;
+import seedu.address.model.student.Email;
+import seedu.address.model.student.MedicalCondition;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.ParentPhone;
+import seedu.address.model.student.Phone;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -17,11 +22,15 @@ public class StudentBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_PARENTPHONE = "888776655";
+    public static final String DEFAULT_MEDICALCONDITION = "Sinus";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private ParentPhone parentPhone;
+    private MedicalCondition medicalCondition;
     private Set<Tag> tags;
 
     public StudentBuilder() {
@@ -29,6 +38,8 @@ public class StudentBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        parentPhone = new ParentPhone(DEFAULT_PARENTPHONE);
+        medicalCondition = new MedicalCondition(DEFAULT_MEDICALCONDITION);
         tags = new HashSet<>();
     }
 
@@ -40,6 +51,8 @@ public class StudentBuilder {
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
         address = studentToCopy.getAddress();
+        parentPhone = studentToCopy.getParentPhone();
+        medicalCondition = studentToCopy.getMedicalCondition();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -83,8 +96,24 @@ public class StudentBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ParentPhone} of the {@code Student} that we are building.
+     */
+    public StudentBuilder withParentPhone(String parentPhone) {
+        this.parentPhone = new ParentPhone(parentPhone);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Student} that we are building.
+     */
+    public StudentBuilder withMedicalCondition(String medicalCondition) {
+        this.medicalCondition = new MedicalCondition(medicalCondition);
+        return this;
+    }
+
     public Student build() {
-        return new Student(name, phone, email, address, tags);
+        return new Student(name, phone, email, parentPhone, address, medicalCondition, tags);
     }
 
 }

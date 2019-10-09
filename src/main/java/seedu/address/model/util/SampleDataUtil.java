@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.student.*;
+import seedu.address.model.student.Address;
+import seedu.address.model.student.Email;
+import seedu.address.model.student.MedicalCondition;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.ParentPhone;
+import seedu.address.model.student.Phone;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
@@ -23,16 +28,16 @@ public class SampleDataUtil {
                     new ParentPhone("92222222"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     new MedicalCondition("Asthma"), getTagSet("colleagues", "friends")),
             new Student(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                    new ParentPhone("93333333"),new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    new ParentPhone("93333333"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     new MedicalCondition("Heart Attack"), getTagSet("neighbours")),
             new Student(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                    new ParentPhone("94444444"),new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                    new ParentPhone("94444444"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     new MedicalCondition("Pimples"), getTagSet("family")),
             new Student(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                    new ParentPhone("95555555"),new Address("Blk 47 Tampines Street 20, #17-35"),
+                    new ParentPhone("95555555"), new Address("Blk 47 Tampines Street 20, #17-35"),
                     new MedicalCondition("HIV"), getTagSet("classmates")),
             new Student(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                    new ParentPhone("96666666"),new Address("Blk 45 Aljunied Street 85, #11-31"),
+                    new ParentPhone("96666666"), new Address("Blk 45 Aljunied Street 85, #11-31"),
                     new MedicalCondition("Herpes"), getTagSet("colleagues"))
         };
     }
