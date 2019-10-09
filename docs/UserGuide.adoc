@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<threshold>`, `<index>` and `<threshold>` are parameters which can be used as `set reminder|1|7`.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
 * Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
 ====
@@ -265,6 +265,8 @@ e.g. `sort|date`
 e.g. `search|milk|tea|pearls`
 * *Tag* : `tag|<index>|[<tag>]...`
 * *View* : `view`
+* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
+e.g. `set reminder|1|7`
 * *Check* : `check[|<days>]` +
 e.g. `check|20`
 * *Help* : `help`
