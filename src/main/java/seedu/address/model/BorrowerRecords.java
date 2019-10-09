@@ -31,12 +31,12 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         resetData(toBeCopied);
     }
 
-    public boolean hasBorrower(Borrower book) {
-        return false;
+    public boolean hasBorrower(Borrower borrower) {
+        return listOfBorrowers.stream().anyMatch(item -> item.isSameBorrower(borrower));
     }
 
-    public void addBorrower(Borrower book) {
-        listOfBorrowers.add(book);
+    public void addBorrower(Borrower borrower) {
+        listOfBorrowers.add(borrower);
     }
 
     private void resetData(ReadOnlyBorrowerRecords newData) {
