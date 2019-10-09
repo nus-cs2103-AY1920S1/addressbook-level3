@@ -48,18 +48,6 @@ public class Activity {
         return Collections.unmodifiableSet(tags);
     }
 
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameActivity(Activity otherActivity) {
-        if (otherActivity == this) {
-            return true;
-        }
-        return otherActivity != null
-                && otherActivity.getName().equals(getName())
-                && otherActivity.getLocation().equals(getLocation());
-    }
 
     /**
      * Returns true if both activities have the same identity and data fields.
