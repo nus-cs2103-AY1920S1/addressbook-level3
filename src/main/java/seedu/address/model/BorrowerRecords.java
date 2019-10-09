@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
@@ -57,6 +59,28 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     boolean checkIfBorrowerIdExists(BorrowerId id) {
         requireNonNull(id);
         return listOfBorrowers.stream().map(Borrower::getBorrowerId).anyMatch(value -> value.equals(id));
+    }
+
+    /**
+     * Returns a borrower based on its BorrowerId.
+     *
+     * @param id the <code>BorrowerId</code> of the <code>Borrower</code>
+     * @return <code>Borrower</code> which corresponds to the given <code>BorrowerId</code>
+     * @throws NullPointerException if borrower is not present in the borrower records.
+     */
+    public Borrower getBorrowerFromId(BorrowerId id) throws NullPointerException {
+        if (!checkIfBorrowerIdExists(id)) {
+            throw new NullPointerException();
+        }
+        long numberOfBorrowers = listOfBorrowers
+                .stream()
+                .filter(borrower -> borrower.getBorrowerId().equals(id))
+                .count();
+        assert (numberOfBorrowers == 1) : "Duplicate borrowers";
+        return listOfBorrowers.stream()
+                .filter(borrower -> borrower.getBorrowerId().equals(id))
+                .collect(Collectors.toList())
+                .get(0);
     }
 
     @Override

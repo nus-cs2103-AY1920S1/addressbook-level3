@@ -6,13 +6,14 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Book> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -70,6 +71,10 @@ public interface Model {
     void updateFilteredBookList(Predicate<Book> predicate);
 
     Model excludeBookBeingReplaced(Book toBeReplaced);
+
+    ObservableList<Book> getOverdueBooks();
+
+    ObservableList<Borrower> getOverdueBooksBorrowers();
 
     // ================================================================ LoanRecords
 

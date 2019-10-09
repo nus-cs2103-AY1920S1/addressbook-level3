@@ -17,21 +17,31 @@ public class DateUtil {
     }
 
     /**
-     * Get the date that is days number of days after starting date.
+     * Get the date that is number of days after starting date.
      *
      * @param startDate Starting date.
      * @param days Number of days from starting date.
-     * @return Date that is days number of days after starting date.
+     * @return Date that is number of days after starting date.
      */
     public static LocalDate extendDate(LocalDate startDate, int days) {
         return startDate.plusDays(days);
     }
 
     /**
-     * Get the date that is days number of days after today.
+     * Get the date that is number of days before starting date. For tests and simulation purposes.
+     *
+     * @param days Number of days from starting date.
+     * @return Date that is number of days before starting date.
+     */
+    public static LocalDate getTodayMinusDays(int days) {
+        return getTodayDate().minusDays(days);
+    }
+
+    /**
+     * Get the date that is number of days after today.
      *
      * @param days Number of days from today.
-     * @return Date that is days number of days after today.
+     * @return Date that is number of days after today.
      */
     public static LocalDate getTodayPlusDays(int days) {
         return extendDate(getTodayDate(), days);
