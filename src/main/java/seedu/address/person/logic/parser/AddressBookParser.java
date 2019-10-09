@@ -1,7 +1,11 @@
 package seedu.address.person.logic.parser;
 
+import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.person.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.logic.commands.ClearCommand;
 import seedu.address.person.logic.commands.Command;
@@ -12,9 +16,6 @@ import seedu.address.person.logic.commands.FindCommand;
 import seedu.address.person.logic.commands.HelpCommand;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.parser.exceptions.ParseException;
-
-import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.person.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.

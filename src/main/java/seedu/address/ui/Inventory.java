@@ -11,6 +11,9 @@ import seedu.address.inventory.model.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Defines the display for the Inventory tab in the user interface.
+ */
 public class Inventory extends UiPart<Region> {
 
     @FXML

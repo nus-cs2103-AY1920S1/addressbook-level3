@@ -29,23 +29,26 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final seedu.address.transaction.logic.Logic transactionLogic;
     private final seedu.address.reimbursement.logic.Logic reimbursementLogic;
+    private final seedu.address.cashier.logic.Logic cashierLogic;
 
     public LogicManager(Model model, Storage storage, seedu.address.transaction.logic.Logic transactionLogic,
-                        seedu.address.reimbursement.logic.Logic reimbursementLogic) {
+                        seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                        seedu.address.cashier.logic.Logic cashierLogic) {
         this.model = model;
         this.storage = storage;
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
+        this.cashierLogic = cashierLogic;
         addressBookParser = new AddressBookParser();
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model, transactionLogic, reimbursementLogic);
+        commandResult = command.execute(model, transactionLogic, reimbursementLogic, cashierLogic);
 
         try {
             storage.saveAddressBook(model.getAddressBook());

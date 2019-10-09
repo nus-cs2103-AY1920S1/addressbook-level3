@@ -1,5 +1,7 @@
 package seedu.address.transaction.logic;
 
+import java.io.IOException;
+
 import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.model.Model;
@@ -7,6 +9,9 @@ import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Manages the logic behind the transaction tab.
+ */
 public class LogicManager implements Logic {
 
     private final Model model;
@@ -32,7 +37,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws Exception {
+    public CommandResult execute(String commandText)
+            throws Exception {
+        model.resetPredicate();
         Command command = parser.parseCommand(commandText,
                 model.getTransactionList().size(), personModel);
         CommandResult commandResult = command.execute(model, personModel);
@@ -44,15 +51,23 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    public void writeIntoTransactionFile() throws Exception {
+    @Override
+    public void writeIntoTransactionFile() throws IOException {
         storage.writeFile(model.getTransactionList());
     }
 
-    public void setTransaction(Transaction transaction, Transaction newTransaction) throws Exception {
+    @Override
+    public void setTransaction(Transaction transaction, Transaction newTransaction) {
         model.setTransaction(transaction, newTransaction);
     }
 
+    @Override
     public TransactionList getTransactionList() {
         return model.getTransactionList();
+    }
+
+    @Override
+    public TransactionList getFilteredList() {
+        return model.getFilteredList();
     }
 }

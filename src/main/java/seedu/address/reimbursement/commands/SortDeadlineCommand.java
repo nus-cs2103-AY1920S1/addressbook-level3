@@ -6,7 +6,10 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
-public class SortDeadlineCommand extends Command{
+/**
+ * Represents a command to sort by deadline.
+ */
+public class SortDeadlineCommand extends Command {
     public static final String COMMAND_WORD = "sort deadline";
     private final Logger logger = LogsCenter.getLogger(getClass());
 

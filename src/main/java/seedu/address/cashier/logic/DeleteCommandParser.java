@@ -10,7 +10,6 @@ public class DeleteCommandParser {
         int index;
         try {
             index = Integer.parseInt(userInput.substring(1));
-
         } catch (Exception e) {
             throw new NotANumberException(CashierUi.NOT_A_NUMBER);
         }

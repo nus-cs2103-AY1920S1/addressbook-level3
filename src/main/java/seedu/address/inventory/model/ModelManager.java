@@ -37,7 +37,7 @@ public class ModelManager implements Model {
     public boolean hasItemInInventory(Item item) {
         for (int i = 0 ; i < inventoryList.size(); i++) {
             try {
-                if (inventoryList.getItemByIndex(i).equals(item)) {
+                if (inventoryList.getItemByIndex(i).isSameItem(item)) {
                     return true;
                 }
             } catch (Exception e) {

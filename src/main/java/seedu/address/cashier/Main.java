@@ -1,7 +1,6 @@
 package seedu.address.cashier;
 
-import java.util.HashMap;
-
+/*
 import seedu.address.inventory.Item;
 
 public class Main {
@@ -51,7 +50,7 @@ public class Main {
 }
 
 
-
+*/
 
 
 

@@ -5,6 +5,9 @@ import seedu.address.reimbursement.commands.CommandResult;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
 
+/**
+ * Implements the logic for Reimbursements.
+ */
 public class LogicManager implements Logic {
 
     private final seedu.address.reimbursement.model.Model reimbursementModel;
@@ -15,7 +18,8 @@ public class LogicManager implements Logic {
     private ReimbursementTabParser parser;
 
 
-    public LogicManager(Model reimbursementModel, seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
+    public LogicManager(Model reimbursementModel,
+                        seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
                         seedu.address.transaction.model.Model transactionModel,
                         seedu.address.transaction.storage.StorageManager transactionStorage,
                         seedu.address.person.model.Model personModel) throws Exception {

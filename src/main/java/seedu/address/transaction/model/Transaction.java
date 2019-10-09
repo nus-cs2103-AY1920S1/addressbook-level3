@@ -2,8 +2,12 @@ package seedu.address.transaction.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import seedu.address.person.model.person.Person;
 
+/**
+ * Represents a transaction with its specified attributes.
+ */
 public class Transaction {
     public static final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private LocalDate date;
@@ -15,15 +19,25 @@ public class Transaction {
     private String id;
     private boolean isReimbursed;
 
+    /**
+     * Initializes a Transaction with the given information.
+     * @param date date of the transaction done.
+     * @param description short description of the transaction.
+     * @param category category of the transaction.
+     * @param amount amount of money spent or gained for that transaction.
+     * @param person person from the data base that is accountable for that transaction.
+     * @param id id of the person to be used in populating the UI table.
+     * @param isReimbursed boolean of whether the transaction amount paid by the person has been reimbursed.
+     */
     public Transaction(String date, String description, String category,
-                       double amount, Person person, int i, boolean isReimbursed) {
+                       double amount, Person person, int id, boolean isReimbursed) {
         this.date = LocalDate.parse(date, myFormatter);
         this.description = description;
         this.category = category;
         this.amount = amount;
         this.person = person;
         this.name = person.getName().toString();
-        this.id = "" + i;
+        this.id = "" + id;
         this.isReimbursed = isReimbursed;
     }
 
@@ -67,26 +81,6 @@ public class Transaction {
         return this.isReimbursed;
     }
 
-    public void updateStatus() {
-        isReimbursed = true;
-    }
-
-    private String isOne(boolean isReimbursed) {
-        return isReimbursed? "1": "0";
-    }
-
-    public String toWriteIntoFile() {
-        String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category +
-                " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
-        return msg;
-    }
-
-    public String toString() {
-        String msg = "Date: " + this.date.format(myFormatter) + "\nDescription: " + this.description + "\nCategory: " + this.category +
-                "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
-        return msg;
-    }
-
     public String getName() {
         return this.person.getName().toString();
     }
@@ -95,14 +89,44 @@ public class Transaction {
         return this.isReimbursed;
     }
 
-    public boolean equals(Transaction editedTransaction) {
-        return this.person.equals(editedTransaction.getPerson()) &&
-                this.description.equals(editedTransaction.getDescription()) &&
-                this.category.equals(editedTransaction.getCategory()) &&
-                this.amount == editedTransaction.getAmount() &&
-                this.getDate().equals(editedTransaction.getDate());
-
+    public void updateStatus() {
+        isReimbursed = true;
     }
 
+    private String isOne(boolean isReimbursed) {
+        return isReimbursed ? "1" : "0";
+    }
 
+    /**
+     *Formats the Transaction object to be written into a text file.
+     * @return Formatted String.
+     */
+    public String toWriteIntoFile() {
+        String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category
+                + " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
+        return msg;
+    }
+
+    /**
+     * Formats the Transaction object to be shown as a response.
+     * @return Formatted String.
+     */
+    public String toString() {
+        String msg = "Date: " + this.date.format(myFormatter) + "\nDescription: " + this.description + "\nCategory: "
+                + this.category + "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
+        return msg;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Transaction)) {
+            return false;
+        }
+        Transaction editedTransaction = (Transaction) other;
+        return this.person.equals(editedTransaction.getPerson())
+                && this.description.equals(editedTransaction.getDescription())
+                && this.category.equals(editedTransaction.getCategory())
+                && this.amount == editedTransaction.getAmount()
+                && this.getDate().equals(editedTransaction.getDate());
+    }
 }

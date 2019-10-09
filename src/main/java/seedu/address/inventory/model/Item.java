@@ -142,6 +142,5 @@ public class Item {
                 .append(getPrice());
         return builder.toString();
     }
-
 }
 

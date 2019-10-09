@@ -9,6 +9,9 @@ import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Represents a command to mark as done
+ */
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -19,7 +22,8 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws NoSuchPersonReimbursementException {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+            throws NoSuchPersonReimbursementException {
         ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
         Reimbursement rmb = model.doneReimbursement(person);
         logger.info(rmb.toString());

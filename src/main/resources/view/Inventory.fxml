@@ -20,20 +20,19 @@
           <RowConstraints maxHeight="493.0" minHeight="10.0" prefHeight="467.0" valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <TableView GridPane.rowIndex="1">
-              <columns>
-                <TableColumn prefWidth="50.0" text="ID" />
-                <TableColumn text="Category" />
-                  <TableColumn prefWidth="230.0" text="Description" />
-                  <TableColumn text="Quantity" />
-                  <TableColumn text="UoM" />
-                  <TableColumn minWidth="0.0" text="Cost" />
-                  <TableColumn text="Price" />
-              </columns>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TableView>
+             <TableView fx:id="tableView" GridPane.rowIndex="1">
+                 <columns>
+                     <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
+                     <TableColumn fx:id="descriptionCol" prefWidth="232.80003356933594" text="Description" />
+                     <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
+                     <TableColumn fx:id="quantityCol" prefWidth="97.60000228881836" text="Quantity" />
+                     <TableColumn fx:id="costCol" prefWidth="92.00003051757812" text="Cost" />
+                     <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="108.00006103515625" text="Price" />
+                 </columns>
+                 <GridPane.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </GridPane.margin>
+             </TableView>
             <ChoiceBox prefHeight="27.0" prefWidth="200.0">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
