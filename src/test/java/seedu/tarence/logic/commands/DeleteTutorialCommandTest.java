@@ -1,12 +1,9 @@
 package seedu.tarence.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandDelayed;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
-import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_IN_LIST;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.Test;
@@ -16,12 +13,7 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
-import seedu.tarence.model.module.Module;
-import seedu.tarence.model.student.Student;
-import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.StudentBuilder;
 import seedu.tarence.testutil.TutorialBuilder;
 
 /**
@@ -58,6 +50,7 @@ public class DeleteTutorialCommandTest {
         assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
     }
 
+    /* TODO: implement later?
     @Test
     public void execute_moduleWithTutorials_delayed() {
         ModuleBuilder.DEFAULT_TUTORIALS.clear();

@@ -18,6 +18,7 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.UniqueTutorialList;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * Wraps all data at the application level
@@ -305,6 +306,13 @@ public class Application implements ReadOnlyApplication {
         requireNonNull(tutorial);
         tutorials.remove(tutorial);
     }
+
+    public void setAttendance(Tutorial tutorial, Week week, Student student) {
+        requireAllNonNull(tutorial, week, student);
+        tutorial.setAttendance(week, student);
+    }
+
+    //// util methods
 
     /**
      * Deletes all students from the given tutorial.

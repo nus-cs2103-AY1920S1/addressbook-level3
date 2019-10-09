@@ -14,6 +14,7 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * A default model stub that has all of the methods failing.
@@ -121,24 +122,24 @@ class ModelStub implements Model {
 
     @Override
     public boolean hasStudent(Student student) {
-        // todo: Implement test for hasStudent
+        // TODO: Implement test for hasStudent
         return false;
     }
 
     @Override
     public void addStudent(Student student) {
-        // todo: Implement test for addStudent
+        // TODO: Implement test for addStudent
     }
 
     @Override
     public boolean hasModule(Module module) {
-        // todo: Implement test for hasModule
+        // TODO: Implement test for hasModule
         return false;
     }
 
     @Override
     public void addModule(Module module) {
-        // todo: Implement test for addModule
+        // TODO: Implement test for addModule
     }
 
     @Override
@@ -149,18 +150,18 @@ class ModelStub implements Model {
 
     @Override
     public boolean hasTutorial(Tutorial tutorial) {
-        // todo: Implement test for hasTutorial
+        // TODO: Implement test for hasTutorial
         return false;
     }
 
     @Override
     public void addTutorial(Tutorial tutorial) {
-        // todo: Implement test for addTutorial
+        // TODO: Implement test for addTutorial
     }
 
     @Override
     public void deleteTutorial(Tutorial tutorial) {
-        // todo: Implement test for deleteTutorial
+        // TODO: Implement test for deleteTutorial
     }
 
     @Override
@@ -168,29 +169,34 @@ class ModelStub implements Model {
 
     @Override
     public boolean hasModuleOfCode(ModCode modCode) {
-        // to implement
+        // TODO: implement
         return false;
     }
 
     @Override
     public void addTutorialToModule(Tutorial tutorial) {
-        // to implement
+        // TODO: implement
     }
 
     @Override
     public void addStudentToTutorial(Student student) {
-        // to implement
+        // TODO: implement
     }
 
     @Override
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
-        // to implement
+        // TODO: implement
         return false;
     }
 
     @Override
     public int getNumberOfTutorialsOfName(TutName tutName) {
         return 0;
+    }
+
+    @Override
+    public void setAttendance(Tutorial tutorial, Week week, Student student) {
+        // TODO: implement
     }
 
     @Override
@@ -202,5 +208,7 @@ class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPendingCommand() { return false; }
+    public boolean hasPendingCommand() {
+        return false;
+    }
 }

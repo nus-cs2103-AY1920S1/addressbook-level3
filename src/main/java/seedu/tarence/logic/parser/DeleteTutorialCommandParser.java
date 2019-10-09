@@ -15,7 +15,7 @@ import seedu.tarence.model.tutorial.TutName;
  */
 public class DeleteTutorialCommandParser extends CommandParser<DeleteTutorialCommand> {
 
-    // todo: implement optionalArgs
+    // TODO: implement optionalArgs
     private static final OptionalArgument[] optionalArgs = {};
 
     /**

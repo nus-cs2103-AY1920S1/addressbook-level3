@@ -70,7 +70,9 @@ public class CommandTestUtil {
     public static final ArrayList<Integer> VALID_WEEKS_ODD_LIST = new ArrayList<>(Arrays.asList(3, 5, 7, 9, 11, 13));
     public static final String VALID_WEEKS_RANGE = "5-10";
     public static final ArrayList<Integer> VALID_WEEKS_RANGE_LIST = new ArrayList<>(Arrays.asList(5, 6, 7, 8, 9, 10));
+    public static final int VALID_WEEK = 1;
 
+    public static final String INVALID_MODCODE = "ABCD1100S";
     public static final String INVALID_WEEKS_RANGE = "1-14";
 
     public static final String VALID_MODCODE_DESC = " " + PREFIX_MODULE + VALID_MODCODE;
@@ -81,8 +83,11 @@ public class CommandTestUtil {
     public static final String VALID_WEEKS_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS;
     public static final String VALID_WEEKS_ODD_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_ODD;
     public static final String VALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_RANGE;
+    public static final String VALID_WEEK_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEK;
 
     public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
+
+    public static final String INVALID_MODCODE_DESC = " " + PREFIX_MODULE + INVALID_MODCODE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol

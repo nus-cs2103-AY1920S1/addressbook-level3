@@ -21,6 +21,7 @@ public class Student extends Person {
     protected Optional<MatricNum> matricNum;
     protected Optional<NusnetId> nusnetId;
 
+    // TODO: Assumes student can only belong to one module and tutorial?
     protected ModCode modCode;
     protected TutName tutName;
 

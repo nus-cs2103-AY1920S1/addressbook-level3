@@ -20,6 +20,7 @@ import seedu.tarence.logic.commands.ExitCommand;
 import seedu.tarence.logic.commands.FindCommand;
 import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
+import seedu.tarence.logic.commands.MarkAttendanceCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 
 /**
@@ -70,6 +71,8 @@ public class ApplicationParser {
             return new AddModuleCommandParser().parse(arguments);
         } else if (AddTutorialCommand.isMatchingCommandWord(commandWord)) {
             return new AddTutorialCommandParser().parse(arguments);
+        } else if (MarkAttendanceCommand.isMatchingCommandWord(commandWord)) {
+            return new MarkAttendanceCommandParser().parse(arguments);
         } else if (ConfirmNoCommand.isMatchingCommandWord(commandWord)) {
             return new ConfirmNoCommand();
         } else if (ConfirmYesCommand.isMatchingCommandWord(commandWord)) {
