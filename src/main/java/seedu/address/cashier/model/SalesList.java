@@ -1,7 +1,7 @@
 package seedu.address.cashier.model;
 
 public class SalesList {
-
+/*
     //private static HashMap<Item, Integer> itemList;
 /*    private static InventoryList itemList;
 

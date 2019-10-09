@@ -58,6 +58,7 @@ public class InventoryList {
         return iList.size();
     }
 
+
     public void set(int i, Item item) {
         iList.set(i, item);
     }

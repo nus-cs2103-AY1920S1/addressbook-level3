@@ -2,12 +2,10 @@ package seedu.address.inventory.util;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.ui.CashierUi;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
-import seedu.address.inventory.ui.InventoryUi;
-import seedu.address.ui.Inventory;
+
 
 /**
  *

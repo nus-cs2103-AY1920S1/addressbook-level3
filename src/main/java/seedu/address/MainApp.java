@@ -52,6 +52,10 @@ public class MainApp extends Application {
     protected seedu.address.transaction.logic.LogicManager transactionLogic;
     protected seedu.address.reimbursement.logic.LogicManager reimbursementLogic;
 
+    protected seedu.address.cashier.logic.LogicManager cashierLogic;
+    protected seedu.address.cashier.model.ModelManager cashierModel;
+    protected seedu.address.cashier.storage.StorageManager cashierStorage;
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -84,6 +88,13 @@ public class MainApp extends Application {
         reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
 
+        //For Cashier Storage and Manager
+        cashierStorage =
+                new seedu.address.cashier.storage.StorageManager("data"
+                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
+        cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierStorage);
+
         //All logic
         transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, storage,
@@ -91,8 +102,11 @@ public class MainApp extends Application {
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
                 transactionModel, transactionStorage, model);
+        cashierLogic = new
+                seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
+                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);
 
-        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
+        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic, cashierLogic);
 
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
@@ -113,7 +127,7 @@ public class MainApp extends Application {
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
 
-        ui = new UiManager(transactionLogic, reimbursementLogic, logic);
+        ui = new UiManager(transactionLogic, reimbursementLogic, logic, cashierLogic);
 
     }
 
