@@ -51,6 +51,14 @@ public class ModuleInfo {
         return this.code;
     }
 
+    public List<String> getFocusPrimaries() {
+        return this.focusPrimaries;
+    }
+
+    public List<String> getFocusElectives() {
+        return this.focusElectives;
+    }
+
     /**
      * Returns a String displaying all information about the module, in a human-readable format.
      */
