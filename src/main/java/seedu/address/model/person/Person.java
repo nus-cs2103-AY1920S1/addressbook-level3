@@ -22,17 +22,19 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final VisitList visitList;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, VisitList visitList, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.visitList = visitList;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +52,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public VisitList getVisitList() {
+        return visitList;
     }
 
     /**
@@ -112,6 +118,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" VisitList: ")
+                .append(getVisitList())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
