@@ -10,19 +10,21 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent> {
 
-    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
+
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
+    private ArrayDeque<String> nextCommands = new ArrayDeque<>();
 
     @FXML
     private TextField commandTextField;
@@ -41,6 +43,9 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private void handleCommandEntered() {
         try {
             String command = commandTextField.getText();
+            while (!nextCommands.isEmpty()) {
+                pastCommands.push(nextCommands.pop());
+            }
             pastCommands.push(command);
             commandExecutor.execute(command);
             commandTextField.setText("");
@@ -48,14 +53,43 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
             setStyleToIndicateCommandFailure();
         }
     }
+
+    /**
+     * handles all key presses
+     * keycode of key pressed sent to keyPressed
+     */
     @FXML
     private void handleKeyPress() {
-        commandTextField.setOnKeyPressed(event -> upKeyPressed(event.getCode()));
-
+        commandTextField.setOnKeyPressed(event -> keyPressed(event.getCode()));
     }
-    private void upKeyPressed(KeyCode keyCode){
-        if (keyCode == KeyCode.UP ){
-            commandTextField.setText((pastCommands.pop()));
+
+    /**
+     * sets textfield according to key press
+     * for up and down arrow, handles previous and next commands
+     * with 2 stacks, enabling user to scroll through past commands
+     * if no more past or future commands, the textfield will be blank
+     *
+     * @param keyCode
+     */
+    private void keyPressed(KeyCode keyCode) {
+
+        if (keyCode == KeyCode.UP) {
+            try {
+                String previousCommand = pastCommands.pop();
+                nextCommands.push(previousCommand);
+                commandTextField.setText((previousCommand));
+            } catch (NoSuchElementException ex) {
+                commandTextField.setText((""));
+            }
+        }
+        if (keyCode == KeyCode.DOWN) {
+            try {
+                String nextCommand = nextCommands.pop();
+                pastCommands.push(nextCommand);
+                commandTextField.setText((nextCommand));
+            } catch (NoSuchElementException ex) {
+                commandTextField.setText((""));
+            }
         }
     }
 

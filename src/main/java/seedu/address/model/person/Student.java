@@ -19,11 +19,6 @@ public class Student {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private String parent_phone;
-    private String medical_conditions;
-    private String tag;
-    private String assignment_name;
-    private String assignment_grade;
 
     // Data fields
     private final Address address;
@@ -39,10 +34,6 @@ public class Student {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.assignment_grade = "A";
-        this.assignment_name = "None";
-        this.medical_conditions = "None";
-        this.parent_phone = "999";
     }
 
     public Name getName() {

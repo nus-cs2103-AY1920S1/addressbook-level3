@@ -13,6 +13,8 @@ import seedu.address.logic.Logic;
 
 import java.util.logging.Logger;
 
+
+
 /**
  * The manager of the UI component.\
  *
