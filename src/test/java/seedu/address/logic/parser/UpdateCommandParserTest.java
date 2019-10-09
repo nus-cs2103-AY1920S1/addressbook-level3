@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -57,6 +58,41 @@ public class UpdateCommandParserTest {
 
     }
 
+    /* To be added after the name prefix has been removed from person.
+    @Test
+    public void parse_allfieldsPresent_success() {
+        Body expectedBody = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(BOB);
+
+        .withDateOfAdmission("01/01/1991")
+                .withName("Bob Chachki")
+                .withSex(Sex.MALE)
+                .withNric("S1224567A")
+                .withReligion(Religion.CHRISTIANITY)
+                .withCauseOfDeath("NECROSIS")
+                .withOrgansForDonation(new ArrayList<>())
+                .withStatus(BodyStatus.ARRIVED)
+                .withFridgeId(1)
+                .withDateOfBirth("02/09/1982")
+                .withDateOfDeath("01/06/1971")
+                .withNextOfKin("Ben Chachki")
+                .withRelationship("Father")
+                .withKinPhoneNumber("87120919")
+
+        // Update command only requires one field to be specified at minimum
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " male",
+                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+
+        descriptor.setCauseOfDeath("asphyxiation");
+        // Two fields specified
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " male " + PREFIX_CAUSE_OF_DEATH + " asphyxiation",
+                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+    }
+
+     */
+
     @Test
     public void parse_fieldsPresent_success() {
         Body expectedBody = new BodyBuilder(ALICE).build();
@@ -77,7 +113,7 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_noFieldsPresent_failure() {
-        // Update command  requires one field to be specified at minimum
+        // Update command requires one field to be specified at minimum
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1",
                 MESSAGE_INVALID_FORMAT);
 
@@ -104,40 +140,49 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidFields_failure() {
-        // Update command  requires one field to be specified at minimum
-        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1",
-                MESSAGE_INVALID_FORMAT);
+        // Todo: Invalid name. After first name/last name prefix is removed.
+        /*
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_NAME + "1111",
+                Name.MESSAGE_CONSTRAINTS);
 
+         */
+        // Invalid gender
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                    + PREFIX_SEX + "Gerbil",
+                Sex.MESSAGE_CONSTRAINTS);
+
+        // Invalid date
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_DATE_OF_BIRTH + "12//1212",
+                "Wrong date format");
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_DATE_OF_BIRTH + "1aaa1212",
+                "Wrong date format");
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_DATE_OF_BIRTH + "00/00/a000",
+                "Wrong date format");
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_DATE_OF_BIRTH + "",
+                UpdateCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_DATE_OF_BIRTH + " ",
+                UpdateCommand.MESSAGE_NOT_EDITED);
+
+        // Valid field plus invalid field.
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " male "
+                        + PREFIX_DATE_OF_BIRTH + " aaa",
+                "Wrong date format");
+
+        // Multiple invalid fields. Error output is for the first invalid field.
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_SEX + " Gerbil "
+                        + PREFIX_DATE_OF_BIRTH + " aaa",
+                Sex.MESSAGE_CONSTRAINTS);
     }
 
     /*
-
-
-    @Test
-    public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
-
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
-
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
-    }
 
 
     @Test
