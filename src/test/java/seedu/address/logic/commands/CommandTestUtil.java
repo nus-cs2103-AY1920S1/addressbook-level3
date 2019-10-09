@@ -38,8 +38,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditNoteDescriptor DESC_AMY;
-    public static final EditCommand.EditNoteDescriptor DESC_BOB;
+    public static final EditNoteCommand.EditNoteDescriptor DESC_AMY;
+    public static final EditNoteCommand.EditNoteDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).withContent(VALID_CONTENT_AMY).build();

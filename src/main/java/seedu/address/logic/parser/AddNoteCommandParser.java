@@ -6,33 +6,33 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Content;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 
 /**
- * Parses input arguments and creates a new AddCommand object.
+ * Parses input arguments and creates a new AddNoteCommand object.
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddNoteCommandParser implements Parser<AddNoteCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddNoteCommand
+     * and returns an AddNoteCommand object for execution.
      *
      * @throws ParseException if the user input does not conform to the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
         Note note = new Note(title, content);
-        return new AddCommand(note);
+        return new AddNoteCommand(note);
     }
 
     /**

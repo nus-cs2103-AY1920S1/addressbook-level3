@@ -20,7 +20,7 @@ import seedu.address.model.person.Title;
 /**
  * Edits the details of an existing lecture note.
  */
-public class EditCommand extends Command {
+public class EditNoteCommand extends Command {
     public static final String COMMAND_WORD = "editnote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the lecture note identified "
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
      * @param index of the lecture note in the filtered note list to edit
      * @param editNoteDescriptor details to edit the note with
      */
-    public EditCommand(Index index, EditNoteDescriptor editNoteDescriptor) {
+    public EditNoteCommand(Index index, EditNoteDescriptor editNoteDescriptor) {
         requireNonNull(index);
         requireNonNull(editNoteDescriptor);
 
@@ -93,12 +93,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditNoteCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditNoteCommand e = (EditNoteCommand) other;
         return index.equals(e.index)
                 && editNoteDescriptor.equals(e.editNoteDescriptor);
     }

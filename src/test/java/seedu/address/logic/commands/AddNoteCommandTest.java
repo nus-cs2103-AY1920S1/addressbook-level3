@@ -23,11 +23,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Note;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class AddNoteCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
     }
 
     @Test
@@ -35,33 +35,34 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Note validNote = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validNote).execute(modelStub);
+        CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Note validNote = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validNote);
+        AddNoteCommand addNoteCommand = new AddNoteCommand(validNote);
         ModelStub modelStub = new ModelStubWithPerson(validNote);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_TITLE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddNoteCommand.MESSAGE_DUPLICATE_TITLE, () -> addNoteCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Note alice = new PersonBuilder().withTitle("Alice").build();
         Note bob = new PersonBuilder().withTitle("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddNoteCommand addAliceCommand = new AddNoteCommand(alice);
+        AddNoteCommand addBobCommand = new AddNoteCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddNoteCommand addAliceCommandCopy = new AddNoteCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

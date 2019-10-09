@@ -17,14 +17,14 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.model.person.Content;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class AddNoteCommandParserTest {
+    private AddNoteCommandParser parser = new AddNoteCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -32,20 +32,20 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC_BOB + CONTENT_DESC_BOB,
-                new AddCommand(expectedNote));
+                new AddNoteCommand(expectedNote));
 
         // multiple titles, last accepted
         assertParseSuccess(parser, TITLE_DESC_AMY + TITLE_DESC_BOB + CONTENT_DESC_BOB,
-                new AddCommand(expectedNote));
+                new AddNoteCommand(expectedNote));
 
         // multiple contents, last accepted
         assertParseSuccess(parser, TITLE_DESC_BOB + CONTENT_DESC_AMY + CONTENT_DESC_BOB,
-                new AddCommand(expectedNote));
+                new AddNoteCommand(expectedNote));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE);
 
         // missing title prefix
         assertParseFailure(parser, VALID_TITLE_BOB + CONTENT_DESC_BOB, expectedMessage);
@@ -70,6 +70,6 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TITLE_DESC_BOB + CONTENT_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditNoteDescriptor;
+import seedu.address.logic.commands.EditNoteCommand;
+import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.model.person.Content;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Title;
@@ -17,8 +17,8 @@ public class EditNoteDescriptorBuilder {
         descriptor = new EditNoteDescriptor();
     }
 
-    public EditNoteDescriptorBuilder(EditCommand.EditNoteDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditNoteDescriptor(descriptor);
+    public EditNoteDescriptorBuilder(EditNoteCommand.EditNoteDescriptor descriptor) {
+        this.descriptor = new EditNoteCommand.EditNoteDescriptor(descriptor);
     }
 
     /**

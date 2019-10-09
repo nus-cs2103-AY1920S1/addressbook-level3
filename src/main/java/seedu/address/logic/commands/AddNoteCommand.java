@@ -11,7 +11,7 @@ import seedu.address.model.person.Note;
 /**
  * Adds a lecture note to NUStudy.
  */
-public class AddCommand extends Command {
+public class AddNoteCommand extends Command {
     public static final String COMMAND_WORD = "addnote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lecture note to NUStudy. "
@@ -28,9 +28,9 @@ public class AddCommand extends Command {
     private final Note toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Note}
+     * Creates an AddNoteCommand to add the specified {@code Note}
      */
-    public AddCommand(Note note) {
+    public AddNoteCommand(Note note) {
         requireNonNull(note);
         toAdd = note;
     }
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddNoteCommand // instanceof handles nulls
+                && toAdd.equals(((AddNoteCommand) other).toAdd));
     }
 }

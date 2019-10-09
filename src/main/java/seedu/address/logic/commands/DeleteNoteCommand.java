@@ -13,7 +13,7 @@ import seedu.address.model.person.Note;
 /**
  * Deletes a lecture note by index number.
  */
-public class DeleteCommand extends Command {
+public class DeleteNoteCommand extends Command {
     public static final String COMMAND_WORD = "deletenote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteNoteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteNoteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteNoteCommand) other).targetIndex)); // state check
     }
 }

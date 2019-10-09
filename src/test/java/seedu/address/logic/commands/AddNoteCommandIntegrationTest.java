@@ -14,9 +14,9 @@ import seedu.address.model.person.Note;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddNoteCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddNoteCommandIntegrationTest {
 
     private Model model;
 
@@ -32,14 +32,14 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addNote(validNote);
 
-        assertCommandSuccess(new AddCommand(validNote), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validNote), expectedModel);
+        assertCommandSuccess(new AddNoteCommand(validNote), model,
+                String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Note noteInList = model.getAddressBook().getNoteList().get(0);
-        assertCommandFailure(new AddCommand(noteInList), model, AddCommand.MESSAGE_DUPLICATE_TITLE);
+        assertCommandFailure(new AddNoteCommand(noteInList), model, AddNoteCommand.MESSAGE_DUPLICATE_TITLE);
     }
 
 }

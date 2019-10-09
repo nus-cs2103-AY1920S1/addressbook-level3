@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditNoteDescriptor;
+import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 public class EditNoteDescriptorTest {
@@ -33,7 +33,7 @@ public class EditNoteDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different title -> returns false
-        EditCommand.EditNoteDescriptor editedAmy = new EditNoteDescriptorBuilder(DESC_AMY)
+        EditNoteCommand.EditNoteDescriptor editedAmy = new EditNoteDescriptorBuilder(DESC_AMY)
                 .withTitle(VALID_TITLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
