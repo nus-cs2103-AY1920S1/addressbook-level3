@@ -13,7 +13,7 @@ import seedu.savenus.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyMenu_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,7 +21,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyMenu_success() {
         Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs());
         expectedModel.setMenu(new Menu());

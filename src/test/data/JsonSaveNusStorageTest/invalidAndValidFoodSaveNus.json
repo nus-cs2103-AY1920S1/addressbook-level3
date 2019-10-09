@@ -1,0 +1,11 @@
+{
+  "foods": [ {
+    "name": "Valid food",
+    "price": "6.99",
+    "description": "This valid food is very delicious"
+  }, {
+    "name": "Food With Invalid Price Field",
+    "price": "948asdf2424",
+    "description": "This invalid food is not delicious"
+  } ]
+}

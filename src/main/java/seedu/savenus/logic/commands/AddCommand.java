@@ -23,12 +23,11 @@ public class AddCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Chicken Teriyaki"
-            + PREFIX_PRICE + "10.00 "
-            + PREFIX_DESCRIPTION + "description "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + "Example: " + PREFIX_NAME + "Mala Xiang Guo "
+            + PREFIX_PRICE + "6.80 "
+            + PREFIX_DESCRIPTION + "Spicy goodness "
+            + PREFIX_TAG + "Spicy "
+            + PREFIX_TAG + "Healthy ";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in our menu!";

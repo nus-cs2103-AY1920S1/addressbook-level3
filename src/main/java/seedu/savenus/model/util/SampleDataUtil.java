@@ -18,18 +18,18 @@ import seedu.savenus.model.tag.Tag;
 public class SampleDataUtil {
     public static Food[] getSampleFood() {
         return new Food[] {
-            new Food(new Name("Chicken Rice"), new Price("5.80"), new Description("Chicken with fragrant rice"),
-                getTagSet("friends")),
-            new Food(new Name("Nasi Lemak"), new Price("4.50"), new Description("Coconut rice with fried chicken and cucumber"),
-                getTagSet("colleagues", "friends")),
-            new Food(new Name("Prawn Mee"), new Price("3.80"), new Description("Big prawns with yellow noodles"),
-                getTagSet("neighbours")),
-            new Food(new Name("Nasi Bryani"), new Price("5.20"), new Description("Fried chicken with rice"),
-                getTagSet("family")),
-            new Food(new Name("Lu Rou Fan"), new Price("4.50"), new Description("Braised pork with rice originating from Taiwan"),
-                getTagSet("classmates")),
-            new Food(new Name("Dry Mee Pok"), new Price("4.00"), new Description("Yellow flat noodles with lean pork and pork liver"),
-                getTagSet("colleagues"))
+            new Food(new Name("Mala Xiang Guo"), new Price("10"), new Description("Spicy goodness from China"),
+                getTagSet("Spicy")),
+            new Food(new Name("Chicken Rice"), new Price("3.99"), new Description("Staple food for students"),
+                getTagSet("Chicken", "Rice")),
+            new Food(new Name("Wagyu Steak"), new Price("50"), new Description("Most expensive food in NUS"),
+                getTagSet("Japanese", "Expensive")),
+            new Food(new Name("Chicken noodle soup"), new Price("5.99"), new Description("Chicken and noodle and soup"),
+                getTagSet("Healthy", "Earthy")),
+            new Food(new Name("Cheesy spaghetti"), new Price("5.80"), new Description("Italian noodle with epic cheese"),
+                getTagSet("Cheese", "Pasta", "Healthy")),
+            new Food(new Name("Vending Machine Sandwich"), new Price("4"), new Description("Companion for boring ICube Lectures"),
+                getTagSet("Sandwich"))
         };
     }
 

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.logic.commands.CommandTestUtil.showFoodAtIndex;
-import static seedu.savenus.testutil.TypicalFood.getTypicalAddressBook;
+import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 
@@ -24,7 +24,7 @@ import seedu.savenus.model.food.Food;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

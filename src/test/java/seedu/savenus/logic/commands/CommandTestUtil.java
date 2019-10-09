@@ -25,25 +25,25 @@ import seedu.savenus.testutil.EditFoodDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PRICE_AMY = "11111111";
-    public static final String VALID_PRICE_BOB = "22222222";
-    public static final String VALID_DESCRIPTION_AMY = "Amy's Description.";
-    public static final String VALID_DESCRIPTION_BOB = "Bob's Description.";
+    public static final String VALID_NAME_CHICKEN_RICE = "Chicken Rice";
+    public static final String VALID_NAME_NASI_LEMAK = "Nasi Lemak";
+    public static final String VALID_PRICE_CHICKEN_RICE = "5.80";
+    public static final String VALID_PRICE_NASI_LEMAK = "4.50";
+    public static final String VALID_DESCRIPTION_CHICKEN_RICE = "Chicken with rice.";
+    public static final String VALID_DESCRIPTION_NASI_LEMAK = "Coconut rice with ikan kuning and fried chicken.";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
-    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
+    public static final String NAME_DESC_CHICKEN_RICE = " " + PREFIX_NAME + VALID_NAME_CHICKEN_RICE;
+    public static final String NAME_DESC_NASI_LEMAK = " " + PREFIX_NAME + VALID_NAME_NASI_LEMAK;
+    public static final String PRICE_DESC_CHICKEN_RICE = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN_RICE;
+    public static final String PRICE_DESC_NASI_LEMAK = " " + PREFIX_PRICE + VALID_PRICE_NASI_LEMAK;
+    public static final String DESCRIPTION_DESC_CHICKEN_RICE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHICKEN_RICE;
+    public static final String DESCRIPTION_DESC_NASI_LEMAK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_NASI_LEMAK;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Chicken&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "   "; // spaces only not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -51,15 +51,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditFoodDescriptor DESC_AMY;
-    public static final EditCommand.EditFoodDescriptor DESC_BOB;
+    public static final EditCommand.EditFoodDescriptor DESC_CHICKEN_RICE;
+    public static final EditCommand.EditFoodDescriptor DESC_NASI_LEMAK;
 
     static {
-        DESC_AMY = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPrice(VALID_PRICE_AMY).withDescription(VALID_DESCRIPTION_AMY)
+        DESC_CHICKEN_RICE = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE)
+                .withPrice(VALID_PRICE_CHICKEN_RICE).withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPrice(VALID_PRICE_BOB).withDescription(VALID_DESCRIPTION_BOB)
+        DESC_NASI_LEMAK = new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK)
+                .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

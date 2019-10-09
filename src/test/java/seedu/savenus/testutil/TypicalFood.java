@@ -1,20 +1,13 @@
 package seedu.savenus.testutil;
 
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.food.Food;
+
+import static seedu.savenus.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
@@ -46,10 +39,10 @@ public class TypicalFood {
             .withDescription("new description 2").build();
 
     // Manually added - Food's details found in {@code CommandTestUtil}
-    public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Food AMY = new FoodBuilder().withName(VALID_NAME_CHICKEN_RICE).withPrice(VALID_PRICE_CHICKEN_RICE)
+            .withDescription(VALID_DESCRIPTION_CHICKEN_RICE).withTags(VALID_TAG_FRIEND).build();
+    public static final Food BOB = new FoodBuilder().withName(VALID_NAME_NASI_LEMAK).withPrice(VALID_PRICE_NASI_LEMAK)
+            .withDescription(VALID_DESCRIPTION_NASI_LEMAK).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
