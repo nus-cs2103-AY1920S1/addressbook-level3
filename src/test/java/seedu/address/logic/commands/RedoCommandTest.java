@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,11 @@ import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.utils.ReversibleCommandStub;
+import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TestUtil;
+import seedu.address.model.ModelManager;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for RedoCommand.
@@ -22,8 +26,10 @@ class RedoCommandTest {
     public void execute_performRedo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = TestUtil.getTypicalModelManager();
-        Model expectedModel = TestUtil.getTypicalModelManager();
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(), new
+                AppointmentBook());
 
         RedoCommand redoCommand = new RedoCommand(history);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);

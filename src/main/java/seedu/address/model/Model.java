@@ -1,14 +1,21 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
+
+
 
 /**
  * The API of the Model component.
@@ -18,6 +25,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
 
@@ -119,6 +127,25 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    public QueueManager getQueueManager();
+
+    public void removeFromQueue(ReferenceId target);
+
+    public void removeFromQueue(int index);
+
+    public void enqueuePatient(ReferenceId id);
+
+    public boolean isPatientInQueue(ReferenceId id);
+
+    public ObservableList<Room> getFilteredRoomList();
+
+    public void updateFilteredRoomList(Predicate<Room> predicate);
+
+    public void serveNextPatient(int index);
+
+    public void addRoom(ReferenceId id);
+
+    public void removeRoom(int index);
 
     //=========== Scheduler ==================================================================================
 
@@ -172,4 +199,8 @@ public interface Model extends ReferenceIdResolver {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    public ObservableList<ReferenceId> getFilteredReferenceIdList();
+
+    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
 }
