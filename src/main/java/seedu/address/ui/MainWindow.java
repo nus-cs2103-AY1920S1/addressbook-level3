@@ -149,6 +149,28 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the calendar page.
+     */
+    @FXML
+    public void handleCalendar() {
+        // todo remove current scene and show new scene
+        if (!calendarPage.isOpened()) {
+            primaryScene = primaryStage.getScene();
+            primaryStage.setScene(calendarPage.getCalendar());
+            primaryStage.setScene(primaryScene);
+        }
+        /*
+        primaryScene = primaryStage.getScene();
+        StackPane root = new StackPane();
+        Label label = new Label("Hey");
+        root.getChildren().addAll(label);
+        Scene newScene = new Scene(root);
+        primaryStage.setScene(newScene);
+        // primaryStage.setScene(primaryScene); */
+    }
+
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -181,6 +203,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowPage()) {
+                handleCalendar();
             }
 
             return commandResult;
