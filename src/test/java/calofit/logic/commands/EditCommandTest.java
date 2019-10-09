@@ -44,12 +44,12 @@ public class EditCommandTest {
         Dish lastDish = model.getFilteredDishList().get(indexLastDish.getZeroBased());
 
         DishBuilder dishInList = new DishBuilder(lastDish);
-        Dish editedDish = dishInList.withName(CommandTestUtil.VALID_NAME_BOB)
-                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+        Dish editedDish = dishInList.withName(CommandTestUtil.VALID_NAME_MACARONI)
+                .withTags(CommandTestUtil.VALID_TAG_SALTY).build();
 
         EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
-                .withName(CommandTestUtil.VALID_NAME_BOB)
-                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+                .withName(CommandTestUtil.VALID_NAME_MACARONI)
+                .withTags(CommandTestUtil.VALID_TAG_SALTY).build();
         EditCommand editCommand = new EditCommand(indexLastDish, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
@@ -78,9 +78,9 @@ public class EditCommandTest {
         CommandTestUtil.showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
 
         Dish dishInFilteredList = model.getFilteredDishList().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
-        Dish editedDish = new DishBuilder(dishInFilteredList).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        Dish editedDish = new DishBuilder(dishInFilteredList).withName(CommandTestUtil.VALID_NAME_MACARONI).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL,
-                new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+                new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_MACARONI).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedDish);
 
@@ -115,7 +115,7 @@ public class EditCommandTest {
     public void execute_invalidDishIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDishList().size() + 1);
         EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
-                .withName(CommandTestUtil.VALID_NAME_BOB).build();
+                .withName(CommandTestUtil.VALID_NAME_MACARONI).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
@@ -133,17 +133,19 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDishDatabase().getDishList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+                new EditDishDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_MACARONI).build());
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, CommandTestUtil.DESC_AMY);
+        final EditCommand standardCommand =
+                new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, CommandTestUtil.DESC_DUCK_RICE);
 
         // same values -> returns true
-        EditCommand.EditDishDescriptor copyDescriptor = new EditCommand.EditDishDescriptor(CommandTestUtil.DESC_AMY);
+        EditCommand.EditDishDescriptor copyDescriptor =
+                new EditCommand.EditDishDescriptor(CommandTestUtil.DESC_DUCK_RICE);
         EditCommand commandWithSameValues = new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -158,10 +160,11 @@ public class EditCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_MEAL,
-                CommandTestUtil.DESC_AMY)));
+                CommandTestUtil.DESC_DUCK_RICE)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, CommandTestUtil.DESC_BOB)));
+        assertFalse(standardCommand.equals(
+                new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, CommandTestUtil.DESC_MACARONI)));
     }
 
 }

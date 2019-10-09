@@ -18,15 +18,15 @@ public class JsonAdaptedDishTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = TypicalDishes.BENSON.getName().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = TypicalDishes.BENSON.getTags().stream()
+    private static final String VALID_NAME = TypicalDishes.MUSHROOM_SOUP.getName().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = TypicalDishes.MUSHROOM_SOUP.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validDishDetails_returnsDish() throws Exception {
-        JsonAdaptedDish person = new JsonAdaptedDish(TypicalDishes.BENSON);
-        assertEquals(TypicalDishes.BENSON, person.toModelType());
+        JsonAdaptedDish person = new JsonAdaptedDish(TypicalDishes.MUSHROOM_SOUP);
+        assertEquals(TypicalDishes.MUSHROOM_SOUP, person.toModelType());
     }
 
     @Test

@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasDish_dishNotInDishDatabase_returnsFalse() {
-        assertFalse(modelManager.hasDish(TypicalDishes.ALICE));
+        assertFalse(modelManager.hasDish(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void hasDish_dishInDishDatabase_returnsTrue() {
-        modelManager.addDish(TypicalDishes.ALICE);
-        assertTrue(modelManager.hasDish(TypicalDishes.ALICE));
+        modelManager.addDish(TypicalDishes.SPAGHETTI);
+        assertTrue(modelManager.hasDish(TypicalDishes.SPAGHETTI));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        DishDatabase dishDatabase = new DishDatabaseBuilder().withDish(TypicalDishes.ALICE)
-                .withDish(TypicalDishes.BENSON).build();
+        DishDatabase dishDatabase = new DishDatabaseBuilder().withDish(TypicalDishes.SPAGHETTI)
+                .withDish(TypicalDishes.MUSHROOM_SOUP).build();
         DishDatabase differentDishDatabase = new DishDatabase();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -118,7 +118,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentDishDatabase, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalDishes.ALICE.getName().fullName.split("\\s+");
+        String[] keywords = TypicalDishes.SPAGHETTI.getName().fullName.split("\\s+");
         modelManager.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(dishDatabase, userPrefs)));
 

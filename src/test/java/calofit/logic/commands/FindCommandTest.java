@@ -68,7 +68,8 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDishList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalDishes.CARL, TypicalDishes.ELLE, TypicalDishes.FIONA),
+        assertEquals(Arrays.asList(
+                TypicalDishes.CHICKEN_RICE, TypicalDishes.CHEESE_BAKED_RICE, TypicalDishes.APPLE_PIE),
                 model.getFilteredDishList());
     }
 
