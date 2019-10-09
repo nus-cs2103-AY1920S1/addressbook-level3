@@ -17,7 +17,6 @@ public class AddFolderCommand extends Command {
     public static final Prefix PREFIX_PARENT_FOLDER = new Prefix("p/");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new folder with the specified name "
-            + "Existing remark will be overwritten by the input.\n"
             + "Parameters: NAME (must not be an existing folder name) "
             + PREFIX_PARENT_FOLDER + "[PARENT_FOLDER]\n"
             + "Example: " + COMMAND_WORD + " school ";
@@ -33,7 +32,7 @@ public class AddFolderCommand extends Command {
      */
     public AddFolderCommand(Folder folder,
             Folder parentFolder) {
-        requireAllNonNull(folder);
+        requireNonNull(folder);
         this.folderName = folder.folderName;
         this.parentFolderName =
                 parentFolder == null ? Folder.DEFAULT_FOLDER_NAME : parentFolder.folderName;
