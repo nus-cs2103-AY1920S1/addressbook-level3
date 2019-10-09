@@ -12,15 +12,35 @@ import javafx.scene.Node;
  * Collection of cards.
  */
 public class Deck implements JsonInterface {
-
+    private String deckName;
     private ArrayList<FlashCard> cards;
 
+    // Testing sample deck with no name
+    // can remove subsequently
     public Deck () {
         cards = new ArrayList<>();
+        deckName = "untitled";
     }
 
-    public Deck(ArrayList<FlashCard> initialCards) {
+    public Deck (String name) {
+        cards = new ArrayList<>();
+        deckName = name;
+    }
+
+    public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
+        deckName = name;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
+    /**
+     * Adds new card to the ArrayList of card objects.
+     */
+    public void addNewCard(FlashCard newCard) {
+        cards.add(newCard);
     }
 
     @Override
