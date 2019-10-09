@@ -14,14 +14,14 @@ import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
 /***
- * Parses a .ics file to allow importing into Horo.
+ * Parses an ICS file to allow importing into Horo.
  */
 public class IcsParser {
 
     private static final String FILE_DOES_NOT_EXIST = "Sorry, the file path you've specified is invalid!";
     private static final String FILE_CANNOT_BE_READ = "Sorry, the file specified cannot be read!";
     private static final String FILE_CANNOT_BE_FOUND = "Sorry, the file specified cannot be found!";
-    private static final String INVALID_FILE_EXTENSION = "The file specified is not a .ics file!";
+    private static final String INVALID_FILE_EXTENSION = "The file specified is not an ICS file!";
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
 
     /**
@@ -87,7 +87,7 @@ public class IcsParser {
     }
 
     /**
-     * Converts the timestamp from the format given in the .ics file to a DateTime object.
+     * Converts the timestamp from the format given in the ICS file to a DateTime object.
      * @param timestamp A timestamp in the default ICS file specification format.
      * @return A DateTime object representing the timestamp.
      * @throws IcsException Thrown when the timestamp provided is invalid.
