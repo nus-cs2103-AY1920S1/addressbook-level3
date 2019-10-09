@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
+import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
@@ -165,6 +166,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTutorialsFromModule(Module module) {
+        requireNonNull(module);
+        application.removeTutorialsFromModule(module);
+    }
+
+    @Override
     public boolean hasModuleOfCode(ModCode modCode) {
         requireNonNull(modCode);
         return application.hasModuleOfCode(modCode);
@@ -209,6 +216,11 @@ public class ModelManager implements Model {
         application.removeTutorial(tutorial);
     }
 
+    @Override
+    public void deleteStudentsFromTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        application.removeStudentsFromTutorial(tutorial);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -269,6 +281,22 @@ public class ModelManager implements Model {
     public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
         requireNonNull(predicate);
         filteredTutorials.setPredicate(predicate);
+    }
+
+    @Override
+    public void storePendingCommand(Command command) {
+        requireNonNull(command);
+        application.storePendingCommand(command);
+    }
+
+    @Override
+    public Command getPendingCommand() {
+        return application.retrievePendingCommand();
+    }
+
+    @Override
+    public boolean hasPendingCommand() {
+        return application.hasPendingCommand();
     }
 
     @Override

@@ -269,6 +269,10 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void deleteTutorialsFromModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public boolean hasTutorial(Tutorial tutorial) {
             return false;
         }
@@ -282,6 +286,12 @@ public class AddStudentCommandTest {
         public void deleteTutorial(Tutorial tutorial) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void deleteStudentsFromTutorial(Tutorial tutorial) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public boolean hasModuleOfCode(ModCode modCode) {
             return false;
@@ -306,6 +316,17 @@ public class AddStudentCommandTest {
         public int getNumberOfTutorialsOfName(TutName tutName) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void storePendingCommand(Command command) {};
+
+        @Override
+        public Command getPendingCommand() {
+            return null;
+        }
+
+        @Override
+        public boolean hasPendingCommand() { return false; }
     }
 
     /**

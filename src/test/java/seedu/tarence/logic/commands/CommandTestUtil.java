@@ -15,7 +15,6 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
@@ -139,12 +138,28 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Application expectedApplication = new Application(actualModel.getApplication());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedApplication, actualModel.getApplication());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
+    /**
+     * Executes a given {@code command} where the expected result is deferring its execution pending user confirmation.
+     * Checks that the command is correctly stored by the model for later execution and that the appropriate
+     * confirmation dialogue is sent to the user.
+     */
+    public static void assertCommandDelayed(Command command, Model actualModel, String expectedMessage,
+            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        try {
+            CommandResult actualCommandResult = command.execute(actualModel);
+            assertEquals(actualCommandResult, expectedCommandResult);
+            assertEquals(actualModel, expectedModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
     /**
      * Updates {@code model}'s application to show only the person at the given {@code targetIndex} in the
      * {@code model}'s application.

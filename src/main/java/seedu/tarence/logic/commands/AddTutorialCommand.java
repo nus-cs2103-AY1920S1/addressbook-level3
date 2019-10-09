@@ -20,20 +20,22 @@ public class AddTutorialCommand extends Command {
 
     public static final String COMMAND_WORD = "addTutorial";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tutorial to the Application. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tutorial to the Application.\n"
             + "Parameters: "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-            + PREFIX_TUTORIAL_DAY + "TUTORIAL_DAY "
-            + PREFIX_TUTORIAL_START_TIME + "TUTORIAL_START_TIME "
-            + PREFIX_TUTORIAL_WEEKS + "TUTORIAL_WEEK "
-            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "TUTORIAL_DURATION_IN_MINUTES "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TUTORIAL_NAME + "LAB SESSION "
+            + PREFIX_TUTORIAL_NAME + "NAME "
+            + PREFIX_TUTORIAL_DAY + "DAY "
+            + PREFIX_TUTORIAL_START_TIME + "START_TIME "
+            + PREFIX_TUTORIAL_WEEKS + "WEEKS "
+            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "DURATION_IN_MINUTES\n"
+            + "Examples: " + COMMAND_WORD + " "
+            + PREFIX_TUTORIAL_NAME + "Lab 01 "
             + PREFIX_MODULE + "PC1431 "
             + PREFIX_TUTORIAL_DAY + "MONDAY "
             + PREFIX_TUTORIAL_START_TIME + "1200 "
             + PREFIX_TUTORIAL_WEEKS + "7,10,12 "
-            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "120";
+            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "120\n"
+            + "Omit w/WEEKS field for default range (weeks 3-13), or specify in the form of a list (e.g. 1,2,3), a "
+            + "range (4-6), or 'odd' or 'even' for those weeks only.";
 
     public static final String MESSAGE_DUPLICATE_TUTORIAL = "Wow, this tutorial already exists!";
     public static final String MESSAGE_INVALID_MODULE = "Error: No such module exists.";

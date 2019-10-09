@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
@@ -158,11 +159,15 @@ public interface Model {
      */
     void deleteModule(Module module);
 
+    void deleteTutorialsFromModule(Module module);
+
     boolean hasTutorial(Tutorial tutorial);
 
     void addTutorial(Tutorial tutorial);
 
     void deleteTutorial(Tutorial tutorial);
+
+    void deleteStudentsFromTutorial(Tutorial tutorial);
 
     void addTutorialToModule(Tutorial tutorial);
 
@@ -177,4 +182,19 @@ public interface Model {
      * Checks if there are multiple tutorials of the same name in the application.
      */
     int getNumberOfTutorialsOfName(TutName tutName);
+
+    /**
+     * Stores a command to be executed pending user confirmation.
+     */
+    void storePendingCommand(Command command);
+
+    /**
+     * Removes pending command and returns it for execution.
+     */
+    Command getPendingCommand();
+
+    /**
+     * Checks if a pending command exists in the application.
+     */
+    boolean hasPendingCommand();
 }

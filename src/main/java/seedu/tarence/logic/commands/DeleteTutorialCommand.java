@@ -22,6 +22,9 @@ public class DeleteTutorialCommand extends Command {
     public static final String COMMAND_WORD = "deleteTutorial";
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Tutorial: %1$s";
+    public static final String MESSAGE_CONFIRM_DELETE_NONEMPTY_TUTORIAL = "WARNING: Tutorial %1$s "
+            + "contains %2$d student(s). Are you sure you want to delete it?\n"
+            + "(y/n)";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the tutorial identified by the index number used in the displayed tutorial list.\n"
@@ -60,26 +63,22 @@ public class DeleteTutorialCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Tutorial> lastShownList = model.getFilteredTutorialList();
+        Tutorial tutorialToDelete = null;
 
         if (targetIndex.isPresent()) {
             if (targetIndex.get().getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
             }
-
-            Tutorial tutorialToDelete = lastShownList.get(targetIndex.get().getZeroBased());
-            model.deleteTutorial(tutorialToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
-        }
-
-        if (targetModCode.isPresent()) {
+            tutorialToDelete = lastShownList.get(targetIndex.get().getZeroBased());
+        } else if (targetModCode.isPresent()) {
             if (!model.hasTutorialInModule(targetModCode.get(), targetTutName.get())) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
             }
             for (Tutorial tutorial : lastShownList) {
                 if (tutorial.getTutName().equals(targetTutName.get())
                     && tutorial.getModCode().equals(targetModCode.get())) {
-                    model.deleteTutorial(tutorial);
-                    return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorial));
+                    tutorialToDelete = tutorial;
+                    break;
                 }
             }
         } else {
@@ -91,13 +90,23 @@ public class DeleteTutorialCommand extends Command {
             }
             for (Tutorial tutorial : lastShownList) {
                 if (tutorial.getTutName().equals(targetTutName.get())) {
-                    model.deleteTutorial(tutorial);
-                    return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorial));
+                    tutorialToDelete = tutorial;
+                    break;
                 }
             }
         }
 
-        return null;
+        requireNonNull(tutorialToDelete);
+        if (!tutorialToDelete.getStudents().isEmpty()) {
+            model.storePendingCommand(new DeleteTutorialVerifiedCommand(tutorialToDelete));
+            return new CommandResult(String.format(MESSAGE_CONFIRM_DELETE_NONEMPTY_TUTORIAL,
+                    tutorialToDelete,
+                    tutorialToDelete.getStudents().size()));
+        }
+
+        model.deleteStudentsFromTutorial(tutorialToDelete);
+        model.deleteTutorial(tutorialToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
     }
 
     /**

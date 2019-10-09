@@ -116,7 +116,7 @@ public class ParserUtil {
         if (!ModCode.isValidModCode(trimmedModCode)) {
             throw new ParseException(ModCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModCode(trimmedModCode);
+        return new ModCode(trimmedModCode.toUpperCase());
     }
 
     /**
