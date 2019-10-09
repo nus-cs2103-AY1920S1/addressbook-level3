@@ -22,7 +22,7 @@ public class Category {
     public Category(String categoryName) {
         requireNonNull(categoryName);
         checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
-        this.categoryName = categoryName;
+        this.categoryName = categoryName.toUpperCase();
     }
 
     /**
