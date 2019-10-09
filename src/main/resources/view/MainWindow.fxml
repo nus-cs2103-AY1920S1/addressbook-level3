@@ -29,25 +29,24 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
-                <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                <AnchorPane fx:id="anchorPane" maxHeight="Infinity" maxWidth="Infinity"
                             prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <children>
 
-                        <VBox fx:id="personList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                              minWidth="340" prefWidth="340" styleClass="pane-with-border"
-                              AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="personList" maxHeight="Infinity" maxWidth="Infinity" minWidth="340" prefWidth="340"
+                              styleClass="pane-with-border" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10"/>
                             </padding>
-                            <StackPane fx:id="personListPanelPlaceholder" maxHeight="1.7976931348623157E308"
-                                       maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS"/>
+                            <StackPane fx:id="personListPanelPlaceholder" maxHeight="Infinity" maxWidth="Infinity"
+                                       VBox.vgrow="ALWAYS"/>
                         </VBox>
 
-                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0" maxHeight="100"
-                                   maxWidth="1.7976931348623157E308" minHeight="100" prefHeight="100" prefWidth="340.0"
-                                   styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
-                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="100.0" maxHeight="100" maxWidth="Infinity"
+                                   minHeight="100" prefHeight="100" prefWidth="340.0" styleClass="pane-with-border"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0">
                             <padding>
                                 <Insets bottom="5" left="10" right="10" top="5"/>
                             </padding>
@@ -55,16 +54,15 @@
                     </children>
                 </AnchorPane>
 
-                <StackPane fx:id="commandBoxPlaceholder" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" prefHeight="10.0" styleClass="pane-with-border"
-                           VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="statusbarPlaceholder" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" prefHeight="10.0" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" maxHeight="Infinity" maxWidth="Infinity" prefHeight="10.0"
+                           VBox.vgrow="NEVER"/>
             </VBox>
             <stylesheets>
                 <URL value="@Extensions.css"/>

@@ -305,7 +305,6 @@
 
 #autoCompleteOverlay {
     -fx-font: 13pt 'monospaced';
-    -fx-max-height: 40;
 }
 
 #cardPane {

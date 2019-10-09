@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
+    private CommandBox commandBox;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -122,12 +123,12 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        aco = new AutoCompleteOverlay();
+        commandBox = new CommandBox(this::executeCommand, this::updateAutoCompleter, this::traverseAutoCompleter);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
+
+        aco = new AutoCompleteOverlay(this::selectionNotifier);
         anchorPane.getChildren().add(aco.getRoot());
         anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
-
-        CommandBox commandBox = new CommandBox(this::executeCommand, this::updateAutoCompleter);
-        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
 
     /**
@@ -164,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -203,5 +204,30 @@ public class MainWindow extends UiPart<Stage> {
 
     private void updateAutoCompleter(String commandText) {
         aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
+    }
+
+    /**
+     * Traverses AutoCompleter if valid, otherwise check if AutoCompleter is suggesting anything.
+     * Otherwise, CommandBox handles as command input.
+     *
+     * @param traverseUp true if UP, false if DOWN, null if ENTER.
+     */
+    private void traverseAutoCompleter(Boolean traverseUp) {
+        if (!aco.isSuggesting()) {
+            commandBox.handleCommandEntered();
+            return;
+        }
+        if (traverseUp == null) {
+            aco.simulateMouseClick();
+            return;
+        }
+        aco.traverseSelection(traverseUp);
+    }
+
+    /**
+     * Notifies CommandBox that Selection has been made.
+     */
+    private void selectionNotifier(String selectedText) {
+        commandBox.setCommandTextField(selectedText);
     }
 }

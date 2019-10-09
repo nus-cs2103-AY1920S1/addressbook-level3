@@ -48,7 +48,7 @@ public class Index {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Index // instanceof handles nulls
-            && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+                || (other instanceof Index // instanceof handles nulls
+                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
     }
 }

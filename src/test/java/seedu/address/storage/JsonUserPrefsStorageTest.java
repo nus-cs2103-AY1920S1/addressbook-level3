@@ -45,8 +45,8 @@ public class JsonUserPrefsStorageTest {
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
         return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
-                : null;
+                       ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
+                       : null;
     }
 
     @Test

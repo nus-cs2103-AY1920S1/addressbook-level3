@@ -48,7 +48,7 @@ class CommandHistoryTest {
         }
 
         assertThrows(CommandException.class,
-            CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
+                CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
 
         assertTrue(model.equals(expectedModel));
     }
@@ -88,7 +88,7 @@ class CommandHistoryTest {
         }
 
         assertThrows(CommandException.class,
-            CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
+                CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
 
         assertTrue(model.equals(expectedModel));
     }
