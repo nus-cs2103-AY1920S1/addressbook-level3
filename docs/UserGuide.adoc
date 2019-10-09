@@ -75,6 +75,77 @@ Format: `exit`
 
 === Calendar
 
+Calendar consists of `planner` and `timetable`. In `planner`, the user can view and manage tasks while the
+`timetable` is used to view and manage the user's current modules. +
+To enter the Calendar section please enter the command: `switch cal`.
+
+==== Switch type: `switch`
+Change the type into either `planner` or `timetable` view.
+
+Format: `switch VIEW_TYPE` +
+e.g. `switch timetable`
+
+==== Add a new task: `add`
+Adds a new task. The `TASK_TITLE` should be specified first. Both `TASK_TITLE` and `TIME` are compulsory while the
+other fields are optional. The fields consist of: +
+- `TASK_TITLE` The name of the task. No prefix needed. +
+- `TIME` The time when the user plan to do the task. Prefix: `t\`. +
+- `DEADLINE` When the task is due. Prefix: `d\`. +
+- `PLACE` Where the task took place Prefix: `p\`. +
+- `TAG` Tag that can be used to sort the tasks. Prefix: `#`. More than one `TAG` can be added to each task, e.g. `#High-Priority #Math`
+
+Format: `add TASK_TITLE t\TIME d\DEADLINE p\PLACE #TAG` +
+e.g. `add CS2100 Assignment 1 t\21 August 2019 #High-Priority`
+
+==== Edit existing task: `edit`
+Edit one or multiple fields of an existing task.
+
+Format: `edit TASK_TITLE T\NEW_TASK_TITLE t\NEW_TIME p\NEW_PLACE #NEW_TAG` +
+e.g. `edit CS2100 Assignment T\CS2102 Assignment t\22 August 2019`
+
+==== Delete existing task: `delete`
+Delete an exisiting task.
+
+Format: `delete TASK_TITLE` +
+e.g.   `delete CS2102 Assignment`
+
+==== Sort tasks: `sort`
+Change the order of the tasks; either sorted by `time` or `priority`. The default sorting method is by `time`.
+
+Format: `sort  SORT_TYPE` +
+e.g. `sort time`
+
+==== Change week: `next` and `previous`
+Go to either the `next` or `previous` week. This can only be done when the `VIEW_TYPE` is `planner`.
+
+Format: `next` or `previous`
+
+
+==== Add module: `add`
+Add module with the specified `MODULE_CODE` to the timetable. After entering the command, user will be prompted to input
+additional information about its lecture, tutorial, recitation, and lab slots.
+
+Format: `add MODULE_CODE` +
+e.g. `add CS2103`
+
+==== Edit module: `edit`
+Update an existing module. After entering the command, user will be prompted to input additional information depending
+on the `TYPE`. +
+
+Format: `edit  MODULE_CODE TYPE`
+e.g. `edit CS2103 lecture`
+
+==== Delete module from timetable: `delete`
+Delete an existing module.
+
+Format: `delete MODULE_CODE` +
+e.g. `delete CS2103`
+
+==== Reset planner/timetable: `reset`
+Remove all existing tasks/modules. If the current view is `planner`, this action would not affect the `timetable` and
+vice versa.
+
+Format: `reset`
 
 === Modules
 
