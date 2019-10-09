@@ -81,7 +81,7 @@ public class ParserUtil {
         requireNonNull(timestamp);
         String trimmedTimestamp = timestamp.trim();
         if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
         return new Timestamp(trimmedTimestamp);
     }
@@ -130,7 +130,7 @@ public class ParserUtil {
             LocalDate parsedDate = LocalDate.parse(trimmedDate, inputFormatter);
             return parsedDate;
         } catch (DateTimeParseException e) {
-            throw new ParseException("Input date is not in MM-d format :-(");
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
     }
 
@@ -150,7 +150,8 @@ public class ParserUtil {
         case "year":
             return Period.ofYears(1);
         default:
-            throw new ParseException("Input period is not week/month/year");
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
+
         }
     }
 }

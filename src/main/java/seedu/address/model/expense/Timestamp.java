@@ -13,21 +13,24 @@ import java.time.format.DateTimeParseException;
  */
 public class Timestamp {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Timestamps must be in the format dd/mm/yyyy";
+    public static final String MESSAGE_CONSTRAINTS_DATE =
+            "Timestamps must be in the format dd-MM";
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final String MESSAGE_CONSTRAINTS_PERIOD =
+            "Input period is not week/month/year";
+
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM");
 
     public final LocalDate timestamp;
 
     /**
      * Constructs a {@code Description}.
      *
-     * @param description A valid description.
+     * @param rawTimestamp A valid description.
      */
     public Timestamp(String rawTimestamp) {
         requireNonNull(rawTimestamp);
-        checkArgument(isValidTimestamp(rawTimestamp), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTimestamp(rawTimestamp), MESSAGE_CONSTRAINTS_DATE);
         timestamp = LocalDate.parse(rawTimestamp, DATE_TIME_FORMATTER);
     }
 
