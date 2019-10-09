@@ -10,7 +10,7 @@ import seedu.address.model.person.UniqueNoteList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameNote comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code notes} must not contain duplicate titles.
      */
     public void setNotes(List<Person> notes) {
-        this.notes.setPersons(notes);
+        this.notes.setNotes(notes);
     }
 
     /**
@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a lecture note with the same title as {@code note} exists.
      */
-    public boolean hasPerson(Person note) {
+    public boolean hasNote(Person note) {
         requireNonNull(note);
         return notes.contains(note);
     }
@@ -94,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return notes.asUnmodifiableObservableList().size() + " persons";
+        return notes.asUnmodifiableObservableList().size() + " lecture notes";
         // TODO: refine later
     }
 

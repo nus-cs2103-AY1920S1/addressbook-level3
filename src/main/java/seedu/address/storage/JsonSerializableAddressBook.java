@@ -48,7 +48,7 @@ class JsonSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedNote jsonAdaptedNote : notes) {
             Person note = jsonAdaptedNote.toModelType();
-            if (addressBook.hasPerson(note)) {
+            if (addressBook.hasNote(note)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TITLE);
             }
             addressBook.addNote(note);

@@ -13,17 +13,17 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of lecture notes.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class NoteListPanel extends UiPart<Region> {
+    private static final String FXML = "NoteListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Person> noteListView;
 
-    public PersonListPanel(ObservableList<Person> noteList) {
+    public NoteListPanel(ObservableList<Person> noteList) {
         super(FXML);
-        personListView.setItems(noteList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        noteListView.setItems(noteList);
+        noteListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(note, getIndex() + 1).getRoot());
+                setGraphic(new NoteCard(note, getIndex() + 1).getRoot());
             }
         }
     }

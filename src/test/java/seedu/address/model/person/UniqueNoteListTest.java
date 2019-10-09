@@ -126,7 +126,7 @@ public class UniqueNoteListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueNoteList.setPersons((UniqueNoteList) null));
+        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((UniqueNoteList) null));
     }
 
     @Test
@@ -134,20 +134,20 @@ public class UniqueNoteListTest {
         uniqueNoteList.add(ALICE);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(BOB);
-        uniqueNoteList.setPersons(expectedUniqueNoteList);
+        uniqueNoteList.setNotes(expectedUniqueNoteList);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueNoteList.setPersons((List<Person>) null));
+        assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((List<Person>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueNoteList.add(ALICE);
         List<Person> personList = Collections.singletonList(BOB);
-        uniqueNoteList.setPersons(personList);
+        uniqueNoteList.setNotes(personList);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(BOB);
         assertEquals(expectedUniqueNoteList, uniqueNoteList);
@@ -156,7 +156,7 @@ public class UniqueNoteListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setPersons(listWithDuplicatePersons));
+        assertThrows(DuplicateNoteException.class, () -> uniqueNoteList.setNotes(listWithDuplicatePersons));
     }
 
     @Test

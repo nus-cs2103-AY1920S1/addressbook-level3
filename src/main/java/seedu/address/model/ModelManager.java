@@ -91,7 +91,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasNote(Person note) {
         requireNonNull(note);
-        return addressBook.hasPerson(note);
+        return addressBook.hasNote(note);
     }
 
     @Override

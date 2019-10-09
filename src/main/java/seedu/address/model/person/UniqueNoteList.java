@@ -70,7 +70,7 @@ public class UniqueNoteList implements Iterable<Person> {
         }
     }
 
-    public void setPersons(UniqueNoteList replacement) {
+    public void setNotes(UniqueNoteList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -78,7 +78,7 @@ public class UniqueNoteList implements Iterable<Person> {
     /**
      * Replaces the contents of this list with {@code notes} containing no duplicates.
      */
-    public void setPersons(List<Person> notes) {
+    public void setNotes(List<Person> notes) {
         requireAllNonNull(notes);
         if (!notesAreUnique(notes)) {
             throw new DuplicateNoteException();
