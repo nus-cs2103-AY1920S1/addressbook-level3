@@ -1,12 +1,11 @@
 package seedu.address.model.calendar;
 
-import java.time.Duration;
 import java.util.Optional;
 
 /**
  * Represents an Event in the calendar.
  */
-public class Event extends CalendarEntry{
+public class Event extends CalendarEntry {
     private Optional<DateTime> endingDateTime;
     private Optional<Venue> venue;
     private Optional<Person> person;
@@ -61,7 +60,7 @@ public class Event extends CalendarEntry{
             return false;
         }
 
-        Event otherEvent = (Event)other;
+        Event otherEvent = (Event) other;
         return otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getDateTime().equals(getDateTime())
                 && otherEvent.getEndingDateTime().equals(getEndingDateTime())
@@ -100,7 +99,7 @@ public class Event extends CalendarEntry{
     }
 
     private String getPersonString() {
-        if(person.isPresent()) {
+        if (person.isPresent()) {
             return " with: " + person.get();
         } else {
             return "";

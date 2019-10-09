@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a date and a time.
+ */
 public class DateTime {
     private LocalDate date;
     private LocalTime time;
@@ -33,7 +36,7 @@ public class DateTime {
 
     public String getDayOfWeekString() {
         String dayString = getDayOfWeek().toString();
-        return dayString.substring(0,1).concat(dayString.substring(1).toLowerCase());
+        return dayString.substring(0, 1).concat(dayString.substring(1).toLowerCase());
     }
 
     /**

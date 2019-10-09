@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a Reminder in the calendar.
  */
-public class Reminder extends CalendarEntry{
+public class Reminder extends CalendarEntry {
 
     private Repetition repetition;
 
@@ -48,16 +48,16 @@ public class Reminder extends CalendarEntry{
         builder.append("Reminder")
                 .append(" Description: ")
                 .append(getDescription());
-        if(repetition.equals(Repetition.Once)) {
+        if (repetition.equals(Repetition.Once)) {
             builder.append(" on: ")
                     .append(getDateTime());
-        } else if(repetition.equals(Repetition.EveryDay)){
+        } else if (repetition.equals(Repetition.EveryDay)) {
             builder.append(" at: ")
                     .append(getTime())
                     .append(" everyday")
                     .append(" from: ")
                     .append(getDate());
-        } else if(repetition.equals(Repetition.EveryWeek)){
+        } else if (repetition.equals(Repetition.EveryWeek)) {
             builder.append(" at: ")
                     .append(getTime())
                     .append(" every ")
