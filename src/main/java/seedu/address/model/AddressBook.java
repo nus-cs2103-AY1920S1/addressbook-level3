@@ -78,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The identity of {@code editedPerson} must not be the same as another existing {@code person}
-     * in the ORGANice Transplany Manager.
+     * in the ORGANice Transplant Manager.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
