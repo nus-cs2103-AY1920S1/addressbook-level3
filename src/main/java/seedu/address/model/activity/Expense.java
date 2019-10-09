@@ -10,18 +10,18 @@ import seedu.address.model.person.Person;
  * except only isDeleted is mutable.
  */
 public class Expense {
-    private final double amount;
+    private final Amount amount;
     private final Person person;
     private boolean isDeleted;
 
-    public Expense(Person person, double amount) {
+    public Expense(Person person, Amount amount) {
         requireAllNonNull(person);
         this.person = person;
         this.amount = amount;
         this.isDeleted = false;
     }
 
-    public double getAmount() {
+    public Amount getAmount() {
         return amount;
     }
 
