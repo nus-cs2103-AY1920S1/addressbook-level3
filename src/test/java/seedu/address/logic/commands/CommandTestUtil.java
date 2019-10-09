@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTRICTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -30,7 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PRICE_AMY = "11111111";
     public static final String VALID_PRICE_BOB = "22222222";
-    public static final String VALID_DESCRIPTION_AMY = "Amy's Description.";
+        public static final String VALID_DESCRIPTION_AMY = "Amy's Description.";
     public static final String VALID_DESCRIPTION_BOB = "Bob's Description.";
     public static final String VALID_CATEGORY_AMY = "CatA";
     public static final String VALID_CATEGORY_BOB = "CatB";
@@ -51,10 +53,10 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String OPENING_HOURS_DESC_AMY = " " + PREFIX_TAG + VALID_OPENING_HOURS_AMY;
-    public static final String OPENING_HOURS_DESC_BOB = " " + PREFIX_TAG + VALID_OPENING_HOURS_BOB;
-    public static final String RESTRICTIONS_DESC_AMY = " " + PREFIX_TAG + VALID_RESTRICTIONS_AMY;
-    public static final String RESTRICTIONS_DESC_BOB = " " + PREFIX_TAG + VALID_RESTRICTIONS_BOB;
+    public static final String OPENING_HOURS_DESC_AMY = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_AMY;
+    public static final String OPENING_HOURS_DESC_BOB = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_BOB;
+    public static final String RESTRICTIONS_DESC_AMY = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_AMY;
+    public static final String RESTRICTIONS_DESC_BOB = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices

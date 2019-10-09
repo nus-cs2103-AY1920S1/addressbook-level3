@@ -60,7 +60,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Food food = new FoodBuilder().build();
+        Food food = new FoodBuilder().withTags("Food").build();
         EditCommand.EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder(food).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_FOOD.getOneBased() + " " + FoodUtil.getEditFoodDescriptorDetails(descriptor));

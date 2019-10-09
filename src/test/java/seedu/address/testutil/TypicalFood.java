@@ -33,7 +33,7 @@ public class TypicalFood {
             .withTags("Noodle").withOpeningHours("0800 1700")
             .withRestrictions("Contains dairy and pork").build();
     public static final Food BENSON = new FoodBuilder().withName("Tonkotsu Ramen")
-            .withDescription("Japanese noodle with pork").withPrice("11.00")
+            .withPrice("11.00").withDescription("Japanese noodle with pork")
             .withCategory("Japanese")
             .withTags("Noodle", "Asian").withOpeningHours("0800 1800")
             .withRestrictions("Contains pork").build();
@@ -43,17 +43,17 @@ public class TypicalFood {
             .withOpeningHours("0800 1800").withRestrictions("Contains pork").build();
     public static final Food DANIEL = new FoodBuilder().withName("Indomie").withPrice("1.25")
             .withCategory("Indonesian")
-            .withDescription("Really good indonesian noodles").withTags("Noodles", "Instant")
+            .withDescription("Really good indonesian noodles").withTags("Noodle", "Instant")
             .withOpeningHours("0000 2359").withRestrictions("May cause cancer").build();
-    public static final Food ELLE = new FoodBuilder().withName("Mala Xiang Guo").withPrice("15.00")
+    public static final Food ELLE = new FoodBuilder().withName("Bak Mala Xiang Guo").withPrice("15.00")
             .withCategory("Chinese")
-            .withDescription("Spicy chinese salad")
+            .withDescription("Spicy chinese salad").withTags("Spicy", "Vegetables")
             .withOpeningHours("0800 1930").withRestrictions("Not halal").build();
-    public static final Food FIONA = new FoodBuilder().withName("Wagyu Donburi").withPrice("17.99")
+    public static final Food FIONA = new FoodBuilder().withName("Bak Wagyu Donburi").withPrice("17.99")
             .withCategory("Japanese")
             .withDescription("Japanese rice with wagyu beef").withTags("Expensive", "Beef", "Luxury")
             .withOpeningHours("1000 1700").withRestrictions("Expensive").build();
-    public static final Food GEORGE = new FoodBuilder().withName("Chicken rice").withPrice("4.80")
+    public static final Food GEORGE = new FoodBuilder().withName("Chicken Rice").withPrice("4.80")
             .withCategory("Chinese")
             .withDescription("Fatty rice with chicken")
             .withTags("Chicken", "Roasted", "Steamed")

@@ -11,10 +11,14 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
@@ -47,34 +51,35 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedFood));
+                + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFood));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedFood));
+                + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFood));
 
         // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedFood));
+                + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFood));
 
         // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DESCRIPTION_DESC_AMY + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedFood));
+                + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFood));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedFood));
+                + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFood));
 
         // multiple tags - all accepted
         Food expectedFoodMultipleTags = new FoodBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB
                 + CATEGORY_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedFoodMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + OPENING_HOURS_DESC_BOB
+                + RESTRICTIONS_DESC_BOB, new AddCommand(expectedFoodMultipleTags));
     }
 
     @Test
@@ -82,7 +87,7 @@ public class AddCommandParserTest {
         // zero tags
         Food expectedFood = new FoodBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PRICE_DESC_AMY + DESCRIPTION_DESC_AMY
-                        + CATEGORY_DESC_AMY,
+                        + CATEGORY_DESC_AMY + OPENING_HOURS_DESC_AMY + RESTRICTIONS_DESC_AMY,
                 new AddCommand(expectedFood));
     }
 

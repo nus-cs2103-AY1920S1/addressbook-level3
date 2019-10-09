@@ -33,7 +33,7 @@
     "openingHours": "0000 2359",
     "restrictions": "May cause cancer"
   }, {
-    "name" : "Mala Xiang Guo",
+    "name" : "Bak Mala Xiang Guo",
     "price" : "15.00",
     "description" : "Spicy chinese salad",
     "category": "Chinese",
@@ -41,7 +41,7 @@
     "openingHours": "0800 1930",
     "restrictions": "Not halal"
   }, {
-    "name" : "Wagyu Donburi",
+    "name" : "Bak Wagyu Donburi",
     "price" : "17.99",
     "description" : "Japanese rice with wagyu beef",
     "category": "Japanese",
