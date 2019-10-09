@@ -1,32 +1,25 @@
 package seedu.address.model.queue;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.common.ReferenceId;
 
 public class Room {
-    private final Person doctor;
-    private Person patientCurrentlyBeingServed;
+    private final ReferenceId doctor;
+    private final ReferenceId patientCurrentlyBeingServed;
 
-    public Room(Person person) {
-        this.doctor = person;
+    public Room(ReferenceId doctor, ReferenceId patient) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = patient;
     }
 
     public boolean isReadyToServe() {
         return patientCurrentlyBeingServed == null;
     }
 
-    public void serve(Person person) {
-        patientCurrentlyBeingServed = person;
-    }
-
-    public void done() {
-        patientCurrentlyBeingServed = null;
-    }
-
-    public Person getDoctor() {
+    public ReferenceId getDoctor() {
         return doctor;
     }
 
-    public Person getCurrentPatient() {
+    public ReferenceId getCurrentPatient() {
         return patientCurrentlyBeingServed;
     }
 
