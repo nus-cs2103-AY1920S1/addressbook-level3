@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.model.person.*;
+import seedu.billboard.model.expense.*;
 import seedu.billboard.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Expense}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
@@ -26,11 +26,11 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given expense details.
+     * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
         this.amount = amount;
@@ -42,7 +42,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Expense} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Expense source) {
+    public JsonAdaptedExpense(Expense source) {
         name = source.getName().name;
         description = source.getDescription().description;
         amount = source.getAmount().toString();
@@ -84,33 +84,8 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
-//        if (phone == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-//        }
-//        if (!Phone.isValidPhone(phone)) {
-//            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-//        }
-//        final Phone modelPhone = new Phone(phone);
-//
-//        if (email == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-//        }
-//        if (!Email.isValidEmail(email)) {
-//            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-//        }
-//        final Email modelEmail = new Email(email);
-//
-//        if (address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-//        }
-//        if (!Address.isValidAddress(address)) {
-//            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-//        }
-//        final Address modelAddress = new Address(address);
-
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-//        return new Expense(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         return new Expense(modelName, modelDescription, modelAmount, modelTags);
     }
 

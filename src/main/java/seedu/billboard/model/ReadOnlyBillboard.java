@@ -1,7 +1,7 @@
 package seedu.billboard.model;
 
 import javafx.collections.ObservableList;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Unmodifiable view of an address book

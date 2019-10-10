@@ -1,7 +1,7 @@
 package seedu.billboard.testutil;
 
 import seedu.billboard.model.Billboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * A utility class to help with building Addressbook objects.

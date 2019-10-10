@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.billboard.model.person.Expense;
-import seedu.billboard.model.person.ExpenseList;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.ExpenseList;
 
 /**
  * Wraps all data at the address-book level
@@ -44,7 +44,7 @@ public class Billboard implements ReadOnlyBillboard {
      * {@code expense} must not contain duplicate expense.
      */
     public void setExpenses(List<Expense> expense) {
-        this.expenses.setPersons(expense);
+        this.expenses.setExpenses(expense);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Billboard implements ReadOnlyBillboard {
     public void setExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);
 
-        expenses.setPerson(target, editedExpense);
+        expenses.setExpense(target, editedExpense);
     }
 
     /**

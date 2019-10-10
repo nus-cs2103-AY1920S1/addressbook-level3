@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.person.*;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -68,7 +68,7 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new ExpenseBuilder().withName("Alice Bob").build()));
 
         // Keywords match description and amount but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("9.60", "food", "bought food"));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("9.60", "food", "bought"));
         assertFalse(predicate.test(new ExpenseBuilder().withName("bills")
                 .withDescription("bought food").withAmount("9.60").build()));
     }

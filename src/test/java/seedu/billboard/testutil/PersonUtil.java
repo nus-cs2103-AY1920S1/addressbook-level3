@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
 /**

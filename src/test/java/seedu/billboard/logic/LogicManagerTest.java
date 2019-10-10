@@ -25,7 +25,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.UserPrefs;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.storage.JsonAddressBookStorage;
 import seedu.billboard.storage.JsonUserPrefsStorage;
 import seedu.billboard.storage.StorageManager;

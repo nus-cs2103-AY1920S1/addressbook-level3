@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

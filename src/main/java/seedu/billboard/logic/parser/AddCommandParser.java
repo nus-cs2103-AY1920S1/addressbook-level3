@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.person.*;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
 /**

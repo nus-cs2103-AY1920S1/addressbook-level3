@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * An Immutable Billboard that is serializable to JSON format.
@@ -21,13 +21,13 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate expense(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedExpense> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedExpense> persons) {
         this.persons.addAll(persons);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyBillboard source) {
-        persons.addAll(source.getExpenses().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getExpenses().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,8 +47,8 @@ class JsonSerializableAddressBook {
      */
     public Billboard toModelType() throws IllegalValueException {
         Billboard addressBook = new Billboard();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Expense expense = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedExpense jsonAdaptedExpense : persons) {
+            Expense expense = jsonAdaptedExpense.toModelType();
             if (addressBook.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

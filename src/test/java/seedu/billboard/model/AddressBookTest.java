@@ -18,69 +18,67 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.billboard.model.person.Expense;
-import seedu.billboard.model.person.exceptions.DuplicatePersonException;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.exceptions.DuplicatePersonException;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class AddressBookTest {
 
-    private final Billboard addressBook = new Billboard();
+    private final Billboard billboard = new Billboard();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getExpenses());
+        assertEquals(Collections.emptyList(), billboard.getExpenses());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> billboard.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         Billboard newData = getTypicalBillboard();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        billboard.resetData(newData);
+        assertEquals(newData, billboard);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        List<Expense> newExpenses = Arrays.asList(BILLS, editedAlice);
+        Expense duplicateExpense = new ExpenseBuilder(BILLS).build();
+        List<Expense> newExpenses = Arrays.asList(BILLS, duplicateExpense);
         BillboardStub newData = new BillboardStub(newExpenses);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> billboard.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasExpense(null));
+        assertThrows(NullPointerException.class, () -> billboard.hasExpense(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasExpense(BILLS));
+        assertFalse(billboard.hasExpense(BILLS));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addExpense(BILLS);
-        assertTrue(addressBook.hasExpense(BILLS));
+        billboard.addExpense(BILLS);
+        assertTrue(billboard.hasExpense(BILLS));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addExpense(BILLS);
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        assertTrue(addressBook.hasExpense(editedAlice));
+        billboard.addExpense(BILLS);
+        Expense expenseWithSameIdentity = new ExpenseBuilder(BILLS).build();
+        assertTrue(billboard.hasExpense(expenseWithSameIdentity));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getExpenses().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> billboard.getExpenses().remove(0));
     }
 
     /**
