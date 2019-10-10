@@ -40,8 +40,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TAXES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TAXES;
     public static final String AMOUNT_DESC_DINNER = " " + PREFIX_AMOUNT + VALID_AMOUNT_DINNER;
     public static final String AMOUNT_DESC_TAXES = " " + PREFIX_AMOUNT + VALID_AMOUNT_TAXES;
-    public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_TAXES;
-    public static final String TAG_DESC_TAXES = " " + PREFIX_TAG + VALID_TAG_DINNER;
+    public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_DINNER;
+    public static final String TAG_DESC_TAXES = " " + PREFIX_TAG + VALID_TAG_TAXES;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "25.20abc"; // alphabet not allowed in amount

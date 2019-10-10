@@ -25,8 +25,10 @@ import static seedu.billboard.testutil.TypicalExpenses.DINNER;
 import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.billboard.logic.commands.AddCommand;
+import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.*;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
@@ -36,7 +38,7 @@ public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allFieldsPresent_success() throws ParseException {
         Expense expectedExpense = new ExpenseBuilder(TAXES).withTags(VALID_TAG_TAXES).build();
 
         // whitespace only preamble
