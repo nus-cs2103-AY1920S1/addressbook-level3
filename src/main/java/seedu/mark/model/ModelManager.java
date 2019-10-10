@@ -113,16 +113,15 @@ public class ModelManager implements Model {
         versionedMark.setBookmark(target, editedBookmark);
     }
 
-
     @Override
     public void addFolder(Folder folder, Folder parentFolder) {
         requireAllNonNull(folder, parentFolder);
-        mark.addFolder(folder, parentFolder);
+        versionedMark.addFolder(folder, parentFolder);
     }
 
     @Override
     public boolean hasFolder(Folder folder) {
-        return mark.hasFolder(folder);
+        return versionedMark.hasFolder(folder);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================
