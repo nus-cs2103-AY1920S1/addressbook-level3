@@ -198,8 +198,8 @@ Format: `serve id/BORROWER_ID`
 
 Example:
 
-* `serve id/peterparker` +
-Enters save mode serving borrower with id `peterparker`
+* `serve id/K0001` +
+Enters save mode serving borrower with id `K0001`
 
 ==== Exiting Serve Mode: `done`
 
@@ -311,7 +311,7 @@ e.g. `register u/matt p/83938249 e/matt@damon.com`
 '''
 
 * *Serve mode* : `serve id/BORROWER_ID` +
-e.g. `serve id/peterparker`
+e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
 * *Edit a borrower's particulars* : `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
