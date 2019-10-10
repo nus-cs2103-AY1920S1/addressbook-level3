@@ -112,6 +112,11 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void sortAddressBookByName() {
+        this.addressBook.sortByName();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
