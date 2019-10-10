@@ -357,7 +357,6 @@ _{More to be added}_
 *MSS*
 1. User requests to add a project
 2. MyProject adds the project with respect to the arguments passed in by user
-+
 Use case ends.
 
 *Extensions*
@@ -368,10 +367,13 @@ Use case ends.
 [none]
 ** 2a1. MyProject shows an error message.
 Use case resumes at step 1.
+[none]
 
-=== Use case: [.underline]#UC2# Checkout to a project to work on
+[discrete]
+=== Use case: UC2 - Checkout to a project to work on
 
 *MSS*
+
 1. User requests to list projects
 2. MyProject shows a list of projects
 3. User request to switch to a project in the list to work on
@@ -380,6 +382,7 @@ Use case resumes at step 1.
 Use case ends.
 
 *Extensions*
+
 * 2a. The list is empty.
 Use case ends.
 
@@ -387,9 +390,11 @@ Use case ends.
 ** 3a1. MyProject shows an error message.
 Use case resumes at step 2.
 
-=== Use case: [.underline]#UC3# Edit Project
+[discrete]
+=== Use case: UC3 - Edit Project
 
 *MSS*
+
 1. User [.underline]#checkout to a project(UC02)#
 1. User requests to edit current project.
 2. MyProject requests for details of change.
@@ -397,15 +402,20 @@ Use case resumes at step 2.
 4. MyProject edits the details of the project and displays the information of the edited project.
 Use case ends.
 
+[none]
 *Extensions*
+
 * 3a. The given details do not match the given format.
 ** 3a1. MyProject requests for the data and displays the format to be input.
 ** 3a2. User enters new data.
 Steps 3a1-3a2 are repeated until the data entered are correct.
 Use case resumes from step 4.
 
-==Use case: [.underline]#UC03# Edit a member
+[discrete]
+=== Use case: UC03 - Edit a member
+
 *MSS*
+
 1. User [.underline]#checkout to a project(UC02)#
 2. User requests a list of members
 3. MyProject shows a list members in this project
@@ -413,22 +423,22 @@ Use case resumes from step 4.
 5. MyProject makes the changes and displays the member with the updated attributes.
 Use case ends
 
+[none]
 *Extensions*
 * 3a. The given index is invalid.
-+
-[none]
 ** 3a1. MyProject shows an error message.
 Use case ends.
 
 * 3b. The prefix used does not match any of the predefined prefixes.
 ** 3b1. MyProject shows an error message.
-+
-[none]
 Use case ends.
 
-==Use case: [.underline]#UC04# Send reminder
+[discrete]
+=== Use case: [.underline]#UC04# Send reminder
 Preconditions: User has the e-mail addresses of all the team members, user has an email account and team members has the e-mail address of the user.
+
 *MSS*
+
 1. User [.underline]#checkout to a project(UC02)#
 2. User selects the uncompleted tasks in the project.
 3. User sends reminder to the members in charge of the tasks to complete by the specified deadline.
@@ -437,6 +447,7 @@ Preconditions: User has the e-mail addresses of all the team members, user has a
 Use case ends.
 
 *Extension*
+
 * 3a. All the tasks in the project has been completed.
 ** 3a1.  User requests for for availability for the next meeting time.
 Use case ends.
@@ -446,33 +457,39 @@ Use case ends.
 ** 5a2. User resend the reminders to team members who do not reply
 Use case resumes from step 6.
 
-==Use case: [.underline]#UC05# Store team members’ availability
-Actor: Team leader, team members
+[discrete]
+=== Use case: UC05 - Store team members’ availability
+
 *MSS*
+
 1. Team members send to user their respective timetable as a text file
 2. User [.underline]#checkout to a project(UC02)#
 3. Team leader store timetable for the respective team member
 Steps 1 - 2 are repeated for each team member, until all team members’ timetables are stored.
 Use case ends
 
+[none]
 *Extensions*
+
 * 2a. Text file invalid
 ** 2a1. MyProject prompts team leader that given file is invalid
 **	2a2. Team leader requests for resubmission of timetable from team member
 Use case resumes from step 2
 
-==Use case: [.underline]#UC06# Generate time slot where all team members are available for meeting
+[discrete]
+=== Use case: UC06 - Generate time slot where all team members are available for meeting
+
 *MSS*
+
 1. User [.underline]#stores all team members’ availability (UC4)#
 2. Team leader request for a meeting within a specific range of time
 3. MyProject displays a time frame where all team members are available
 Use case ends
 
 *Extensions*
-* 2a. No time slot exists such that all team members are available.
-Use case ens.
 
-==Use case: [.underline]#UC07#
+* 2a. No time slot exists such that all team members are available.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
