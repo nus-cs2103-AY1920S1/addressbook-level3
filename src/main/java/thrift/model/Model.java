@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
+import thrift.commons.core.index.Index;
 import thrift.logic.commands.Undoable;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
@@ -72,9 +73,19 @@ public interface Model {
     void addExpense(Expense expense);
 
     /**
+     * Adds the given expense to a specified index.
+     */
+    void addExpense(Expense expense, Index index);
+
+    /**
      * Adds the given income.
      */
     void addIncome(Income income);
+
+    /**
+     * Adds the given income to a specified index.
+     */
+    void addIncome(Income income, Index index);
 
     /**
      * Replaces the given transaction {@code target} with {@code updatedTransaction}.

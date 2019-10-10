@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import thrift.commons.core.index.Index;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionList;
 
@@ -61,6 +62,13 @@ public class Thrift implements ReadOnlyThrift {
      */
     public void addTransaction(Transaction t) {
         transactions.add(t);
+    }
+
+    /**
+     * Adds a transaction to a specified index in THRIFT.
+     */
+    public void addTransaction(Transaction t, Index index) {
+        transactions.add(t, index);
     }
 
     /**

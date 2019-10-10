@@ -35,6 +35,6 @@ public class TypicalTransactions {
     }
 
     public static List<Transaction> getTypicalTransaction() {
-        return new ArrayList<>(Arrays.asList(LAKSA, PENANG_LAKSA));
+        return new ArrayList<>(Arrays.asList(LAKSA, BURSARY, PENANG_LAKSA));
     }
 }

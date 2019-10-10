@@ -8,12 +8,14 @@ import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
+import thrift.model.transaction.Expense;
+import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
 
 /**
  * Deletes a transaction identified using it's displayed index from THRIFT.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -25,9 +27,11 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Transaction: %1$s";
 
     private final Index targetIndex;
+    private Transaction transactionToDelete;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.transactionToDelete = null;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
     }
@@ -49,5 +53,14 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public void undo(Model model) {
+        if (transactionToDelete instanceof Expense) {
+            model.addExpense((Expense) transactionToDelete, targetIndex);
+        } else if (transactionToDelete instanceof Income) {
+            model.addIncome((Income) transactionToDelete, targetIndex);
+        }
     }
 }

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import thrift.commons.core.GuiSettings;
 import thrift.commons.core.LogsCenter;
+import thrift.commons.core.index.Index;
 import thrift.commons.util.CollectionUtil;
 import thrift.logic.commands.Undoable;
 import thrift.model.transaction.Expense;
@@ -112,15 +113,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addExpense(Expense expense, Index index) {
+        thrift.addTransaction(expense, index);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
     public void addIncome(Income income) {
         thrift.addTransaction(income);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
+    public void addIncome(Income income, Index index) {
+        thrift.addTransaction(income, index);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
     public void setTransaction(Transaction target, Transaction updatedTransaction) {
         CollectionUtil.requireAllNonNull(target, updatedTransaction);
-
         thrift.setTransaction(target, updatedTransaction);
     }
 

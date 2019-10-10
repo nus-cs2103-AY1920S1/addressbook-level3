@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import thrift.commons.core.index.Index;
 import thrift.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
@@ -37,6 +38,14 @@ public class TransactionList implements Iterable<Transaction> {
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a transaction to a specified index in the list.
+     */
+    public void add(Transaction toAdd, Index index) {
+        requireNonNull(toAdd);
+        internalList.add(index.getZeroBased(), toAdd);
     }
 
     /**

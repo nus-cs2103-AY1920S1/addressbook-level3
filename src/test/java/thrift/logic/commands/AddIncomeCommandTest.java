@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
+import thrift.commons.core.index.Index;
 import thrift.model.Model;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.ReadOnlyUserPrefs;
@@ -106,8 +107,18 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public void addExpense(Expense expense, Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addIncome(Income income) {
             throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addIncome(Income income, Index index) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
