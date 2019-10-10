@@ -1,6 +1,5 @@
 package mams.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,9 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import mams.commons.exceptions.IllegalValueException;
 import mams.commons.util.JsonUtil;
-import mams.model.Mams;
 import mams.testutil.Assert;
-import mams.testutil.TypicalStudents;
 
 public class JsonSerializableMamsTest {
 
