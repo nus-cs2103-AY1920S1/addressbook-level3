@@ -3,8 +3,8 @@ package seedu.address.model.rule;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Rule's predicate in the form of an expression.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Rule's predicate.
+ * Guarantees: immutable.
  */
 public class RulePredicate {
     private final String value;

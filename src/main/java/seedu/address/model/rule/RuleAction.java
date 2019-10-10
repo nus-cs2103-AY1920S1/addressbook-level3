@@ -2,6 +2,10 @@ package seedu.address.model.rule;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Rule's action.
+ * Guarantees: immutable.
+ */
 public class RuleAction {
     private final String value;
 
