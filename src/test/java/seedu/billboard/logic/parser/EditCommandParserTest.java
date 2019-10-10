@@ -98,14 +98,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
-                 + AMOUNT_DESC_DINNER + NAME_DESC_DINNER + TAG_DESC_DINNER;
+//        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
+//                 + AMOUNT_DESC_DINNER + NAME_DESC_DINNER + TAG_DESC_DINNER;
+
+        String userInput = targetIndex.getOneBased() + NAME_DESC_DINNER + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
+                + AMOUNT_DESC_DINNER + TAG_DESC_DINNER;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER)
                 .withDescription(VALID_DESCRIPTION_TAXES).withAmount(VALID_AMOUNT_DINNER)
                 .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -168,9 +170,10 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_AMOUNT_DESC + DESCRIPTION_DESC_TAXES;
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES).build();
+        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_TAXES + DESCRIPTION_DESC_TAXES;
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES).withAmount(VALID_AMOUNT_TAXES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -179,6 +182,7 @@ public class EditCommandParserTest {
         descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
                 .withAmount(VALID_AMOUNT_TAXES)
                 .build();
+        System.out.println(userInput);
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

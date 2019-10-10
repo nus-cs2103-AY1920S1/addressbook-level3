@@ -32,19 +32,6 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-//    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
-//            + "by the index number used in the displayed expense list. "
-//            + "Existing values will be overwritten by the input values.\n"
-//            + "Parameters: INDEX (must be a positive integer) "
-//            + "[" + PREFIX_NAME + "NAME] "
-//            + "[" + PREFIX_PHONE + "PHONE] "
-//            + "[" + PREFIX_EMAIL + "EMAIL] "
-//            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-//            + "[" + PREFIX_TAG + "TAG]...\n"
-//            + "Example: " + COMMAND_WORD + " 1 "
-//            + PREFIX_PHONE + "91234567 "
-//            + PREFIX_EMAIL + "johndoe@example.com";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
             + "by the index number used in the displayed expense list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -154,7 +141,6 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
-
             setName(toCopy.name);
             setTags(toCopy.tags);
             setDescription(toCopy.description);
@@ -165,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, description, amount);
+            return CollectionUtil.isAnyNonNull(name, description, amount, tags);
         }
 
 
