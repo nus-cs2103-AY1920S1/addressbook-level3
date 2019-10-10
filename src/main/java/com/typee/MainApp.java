@@ -13,18 +13,20 @@ import com.typee.commons.util.ConfigUtil;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.Logic;
 import com.typee.logic.LogicManager;
-import com.typee.model.AppointmentList;
+import com.typee.model.AddressBook;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
-import com.typee.model.ReadOnlyAppointmentList;
+import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 import com.typee.model.util.SampleDataUtil;
 import com.typee.storage.AddressBookStorage;
 import com.typee.storage.JsonAddressBookStorage;
+import com.typee.storage.JsonTypeeStorage;
 import com.typee.storage.JsonUserPrefsStorage;
 import com.typee.storage.Storage;
 import com.typee.storage.StorageManager;
+import com.typee.storage.TypeeStorage;
 import com.typee.storage.UserPrefsStorage;
 import com.typee.ui.Ui;
 import com.typee.ui.UiManager;
@@ -58,7 +60,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TypeeStorage typeeStorage = new JsonTypeeStorage(config.getTabMenuFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
 
         initLogging(config);
 
@@ -75,8 +78,8 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAppointmentList> addressBookOptional;
-        ReadOnlyAppointmentList initialData;
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -85,10 +88,10 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AppointmentList();
+            initialData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AppointmentList();
+            initialData = new AddressBook();
         }
 
         return new ModelManager(initialData, userPrefs);

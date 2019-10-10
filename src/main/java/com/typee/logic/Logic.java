@@ -3,11 +3,13 @@ package com.typee.logic;
 import java.nio.file.Path;
 
 import com.typee.commons.core.GuiSettings;
+import com.typee.commons.exceptions.DataConversionException;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAppointmentList;
+import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.Tab;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -30,10 +32,13 @@ public interface Logic {
      *
      * @see Model#getAddressBook()
      */
-    ReadOnlyAppointmentList getAddressBook();
+    ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of tabs in Typee */
+    ObservableList<Tab> getTabList() throws DataConversionException;
 
     /**
      * Returns the user prefs' address book file path.

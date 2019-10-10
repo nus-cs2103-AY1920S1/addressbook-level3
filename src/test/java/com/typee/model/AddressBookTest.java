@@ -23,7 +23,7 @@ import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 
-    private final AppointmentList addressBook = new AppointmentList();
+    private final AddressBook addressBook = new AddressBook();
 
     @Test
     public void constructor() {
@@ -37,7 +37,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AppointmentList newData = getTypicalAddressBook();
+        AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -47,7 +47,7 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AppointmentListStub newData = new AppointmentListStub(newPersons);
+        AddressBookStub newData = new AddressBookStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -83,10 +83,10 @@ public class AddressBookTest {
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AppointmentListStub implements ReadOnlyAppointmentList {
+    private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        AppointmentListStub(Collection<Person> persons) {
+        AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

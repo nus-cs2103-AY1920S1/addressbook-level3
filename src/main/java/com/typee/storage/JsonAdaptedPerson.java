@@ -2,7 +2,6 @@ package com.typee.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;

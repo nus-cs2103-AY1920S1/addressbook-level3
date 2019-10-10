@@ -5,14 +5,17 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.ReadOnlyAppointmentList;
+import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
+import com.typee.model.Tab;
 import com.typee.model.UserPrefs;
+
+import javafx.collections.ObservableList;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, TypeeStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -24,9 +27,11 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAppointmentList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAppointmentList addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
+    @Override
+    ObservableList<Tab> getTabList() throws DataConversionException;
 }

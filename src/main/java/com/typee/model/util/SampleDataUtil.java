@@ -1,7 +1,7 @@
 package com.typee.model.util;
 
-import com.typee.model.AppointmentList;
-import com.typee.model.ReadOnlyAppointmentList;
+import com.typee.model.AddressBook;
+import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
@@ -20,8 +20,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAppointmentList getSampleAddressBook() {
-        AppointmentList sampleAb = new AppointmentList();
+    public static ReadOnlyAddressBook getSampleAddressBook() {
+        AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

@@ -17,9 +17,9 @@ import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
-import com.typee.model.AppointmentList;
+import com.typee.model.AddressBook;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAppointmentList;
+import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.person.Person;
 import com.typee.testutil.PersonBuilder;
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAppointmentList newData) {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAppointmentList getAddressBook() {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -209,8 +209,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAppointmentList getAddressBook() {
-            return new AppointmentList();
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
         }
     }
 

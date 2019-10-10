@@ -1,6 +1,6 @@
 package com.typee.testutil;
 
-import com.typee.model.AppointmentList;
+import com.typee.model.AddressBook;
 import com.typee.model.person.Person;
 
 /**
@@ -10,13 +10,13 @@ import com.typee.model.person.Person;
  */
 public class AddressBookBuilder {
 
-    private AppointmentList addressBook;
+    private AddressBook addressBook;
 
     public AddressBookBuilder() {
-        addressBook = new AppointmentList();
+        addressBook = new AddressBook();
     }
 
-    public AddressBookBuilder(AppointmentList addressBook) {
+    public AddressBookBuilder(AddressBook addressBook) {
         this.addressBook = addressBook;
     }
 
@@ -28,7 +28,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public AppointmentList build() {
+    public AddressBook build() {
         return addressBook;
     }
 }

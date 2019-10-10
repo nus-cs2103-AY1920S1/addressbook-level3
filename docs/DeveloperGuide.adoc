@@ -414,13 +414,13 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: (UC05) Exit application ('bye')
+=== Use case: (UC05) Exit application
 
 *MSS*
 
 1. User requests to exit the application
-2. The application displays the exit message
-3. The application closes
+2. System displays exit message
+3. System exits
 +
 Use case ends
 
@@ -505,7 +505,7 @@ Use case ends.
 *MSS*
 
 1. User requests to switch to the calendar view
-2. Typee shows the calendar view with scheduled appointments
+2. System shows the calendar view with scheduled appointments, if any
 +
 Use case ends.
 
