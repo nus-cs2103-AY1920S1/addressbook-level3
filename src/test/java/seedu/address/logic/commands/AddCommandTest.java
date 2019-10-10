@@ -20,8 +20,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Donor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.DonorBuilder;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -55,6 +57,17 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_donorAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Donor validDonor = new DonorBuilder().withAge("23").build();
+
+        CommandResult commandResultDonor = new AddCommand(validDonor).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDonor), commandResultDonor.getFeedbackToUser());
+        assertEquals(Arrays.asList(validDonor), modelStub.personsAdded);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
@@ -73,11 +86,22 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateDonor_throwsCommandException() {
+        Donor validDonor = new DonorBuilder().build();
+        AddCommand addCommand = new AddCommand(validDonor);
+        ModelStub modelStub = new ModelStubWithPerson(validDonor);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
+        Patient alicePatient = new PatientBuilder().withName("Alice").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addAlicePatientCommand = new AddCommand(alicePatient);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
@@ -94,6 +118,9 @@ public class AddCommandTest {
 
         // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
+
+        // different person type -> return false
+        assertFalse(addAliceCommand.equals(addAlicePatientCommand));
     }
 
     /**

@@ -42,7 +42,7 @@ public class PatientTest {
         editedIrene = new PatientBuilder(IRENE).withNric(VALID_NRIC_BOB).build();
         assertFalse(IRENE.isSamePerson(editedIrene));
 
-        // same nric, different attributes -> returns false
+        // same nric, different attributes -> returns true
         editedIrene = new PatientBuilder(IRENE).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
         assertTrue(IRENE.isSamePerson(editedIrene));
     }

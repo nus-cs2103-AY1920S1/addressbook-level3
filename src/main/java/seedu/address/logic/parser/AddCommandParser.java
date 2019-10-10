@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Donor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Patient;
@@ -70,15 +71,15 @@ public class AddCommandParser implements Parser<AddCommand> {
             Person person = new Person(type, nric, name, phone);
             return new AddCommand(person);
         } else if (type.isDonor()) {
-            //TODO: change implementation of creating a Donor
             arePrefixesPresentDonor(argMultimap);
+
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
 
-            Person person = new Person(type, nric, name, phone);
-            return new AddCommand(person);
+            Donor donor = new Donor(type, nric, name, phone, age);
+            return new AddCommand(donor);
         } else {
             //TODO: refine error message later
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

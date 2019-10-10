@@ -26,16 +26,19 @@
     "type": "donor",
     "nric": "S9374923S",
     "name" : "Elle Meyer",
-    "phone" : "9482224"
+    "phone" : "9482224",
+    "age" : "13"
   }, {
     "type": "donor",
     "nric": "F9183156L",
     "name" : "Fiona Kunz",
-    "phone" : "9482427"
+    "phone" : "9482427",
+    "age" : "25"
   }, {
     "type": "donor",
     "nric": "S1234567A",
     "name" : "George Best",
-    "phone" : "9482442"
+    "phone" : "9482442",
+    "age" : "44"
   } ]
 }
