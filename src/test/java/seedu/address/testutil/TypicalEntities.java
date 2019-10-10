@@ -1,17 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.vehicle.Availability;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.VehicleNumber;
-import seedu.address.model.vehicle.VehicleType;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -24,6 +12,18 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_BOB;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.vehicle.Availability;
+import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
