@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,13 +12,13 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
-    private final UiChange uiChange;
+    private final List<UiChange> uiChange;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser) {
-        this.uiChange = UiChange.DEFAULT;
+        this.uiChange = Arrays.asList(UiChange.DEFAULT);
         this.feedbackToUser = requireNonNull(feedbackToUser);
 
     }
@@ -25,12 +27,12 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
      * and set other fields to their default value.
      */
-    public CommandResult(String feedbackToUser, UiChange type) {
+    public CommandResult(String feedbackToUser, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.uiChange = type;
+        this.uiChange = Arrays.asList(type);
     }
 
-    public UiChange getUiChange() {
+    public List<UiChange> getUiChange() {
         return uiChange;
     }
 

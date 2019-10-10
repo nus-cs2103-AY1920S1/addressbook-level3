@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -195,7 +196,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //retrieve the type that the command works on here;
-            UiChange panelToSwitchTo = commandResult.getUiChange();
+            List<UiChange> panelToSwitchTo = commandResult.getUiChange();
             switchPanel(panelToSwitchTo);
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -209,31 +210,32 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void switchPanel(UiChange input) {
-        switch (input) {
-        case CUSTOMER:
-            this.showCustomerPanel();
-            break;
-        case PHONE:
-            this.showPhonePanel();
-            break;
-        case ORDER:
-            this.showOrderPanel();
-            break;
-        case SCHEDULE:
-            this.showSchedulePanel();
-            break;
-        case HELP:
-            this.handleHelp();
-            break;
-        case EXIT:
-            this.handleExit();
-            break;
-        default:
-            //do nothing
-            break;
+    private void switchPanel(List<UiChange> input) {
+        for (UiChange type : input) {
+            switch (type) {
+            case CUSTOMER:
+                this.showCustomerPanel();
+                break;
+            case PHONE:
+                this.showPhonePanel();
+                break;
+            case ORDER:
+                this.showOrderPanel();
+                break;
+            case SCHEDULE:
+                this.showSchedulePanel();
+                break;
+            case HELP:
+                this.handleHelp();
+                break;
+            case EXIT:
+                this.handleExit();
+                break;
+            default:
+                //do nothing
+                break;
+            }
         }
-
     }
 
     /**
