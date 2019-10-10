@@ -214,21 +214,30 @@ public class MainWindow extends UiPart<Stage> {
      * @param input type of panel the result works on
      */
     private void switchPanel(PanelType input) {
-        if (input.equals(PanelType.CUSTOMER)) {
+        switch (input) {
+        case CUSTOMER:
             this.showCustomerPanel();
-        } else if (input.equals(PanelType.PHONE)) {
+            break;
+        case PHONE:
             this.showPhonePanel();
-        } else if (input.equals(PanelType.ORDER)) {
+            break;
+        case ORDER:
             this.showOrderPanel();
-        } else if (input.equals(PanelType.SCHEDULE)) {
+            break;
+        case SCHEDULE:
             this.showSchedulePanel();
-        } else if (input.equals(PanelType.DEFAULT)) {
+            break;
+        case HELP:
+            this.handleHelp();
+            break;
+        case EXIT:
+            this.handleExit();
+            break;
+        default:
             //do nothing
-        } else if (input.equals(PanelType.HELP)) {
-            handleHelp();
-        } else if (input.equals(PanelType.EXIT)) {
-            handleExit();
+            break;
         }
+
     }
 
     /**
