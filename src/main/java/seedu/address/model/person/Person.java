@@ -98,6 +98,14 @@ public class Person {
     }
 
     /**
+     * Returns true if the person has the policy in the policies list.
+     * Used as a check during the Assign Policy Command.
+     */
+    public boolean hasPolicy(Policy policy) {
+        return this.policies.contains((Policy) policy);
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
