@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+    <GridPane prefHeight="150.0" prefWidth="590.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.60001220703126" minWidth="10.0" prefWidth="42.4000244140625" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.6000198364258" minWidth="10.0" prefWidth="101.59997558593749" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.8000244140625" minWidth="10.0" prefWidth="308.8000244140625" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.60001220703126" minWidth="10.0" prefWidth="52.799991607666016" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.6000198364258" minWidth="10.0" prefWidth="101.99996337890623" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.99997863769534" minWidth="10.0" prefWidth="322.4" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.8000244140625" minWidth="10.0" prefWidth="112.80000000000001" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="2">
+        <VBox alignment="CENTER_LEFT" minHeight="100.0" prefHeight="150.0" prefWidth="278.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
             <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
+                <Insets left="15.0" />
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label fx:id="name" styleClass="cell_big_label" text="\$showName" />
+                <Label fx:id="showName" styleClass="cell_big_label" text="\$showName">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin></Label>
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$dateOfRelease" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+            <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$dateOfRelease" />
+            <Label fx:id="runningTime" styleClass="cell_small_label" text="\$runningTime" />
+            <Label fx:id="actors" styleClass="cell_small_label" text="\$actors" />
+         <Label fx:id="description" text="\$description" />
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
         </VBox>
-      <Label fx:id="showIndex" text="\\$showIndex" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-      <ImageView fitHeight="150.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+      <Label fx:id="showIndex" text="\$showIndex" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </GridPane.margin></Label>
+      <ImageView fitHeight="150.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../images/poster-placeholder.png" />
+         </image></ImageView>
+      <CheckBox fx:id="isWatched" mnemonicParsing="false" prefHeight="52.0" prefWidth="70.0" text="Watched" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="8.0" right="15.0" top="8.0" />
+         </GridPane.margin>
+      </CheckBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>

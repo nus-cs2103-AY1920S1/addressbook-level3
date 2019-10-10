@@ -6,6 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.show.Show;
 
+import javax.swing.*;
+
 /**
  * An UI component that displays information of a {@code Show}.
  */
@@ -16,16 +18,26 @@ public class ShowCard extends UiPart<Region> {
     public final Show show;
 
     @FXML
-    private Label id;
+    private Label showIndex;
+    @FXML
+    private Label showName;
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label dateOfRelease;
+    @FXML
+    private Label runningTime;
+    @FXML
+    private Label actors;
+    @FXML
+    private Label description;
+    @FXML
+    private JCheckBox isWatched;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
         this.show = show;
-        id.setText(displayedIndex + ". ");
-        name.setText(show.getName().toString());
+        showIndex.setText("" + displayedIndex);
+        showName.setText(show.getName().toString());
     }
 }
