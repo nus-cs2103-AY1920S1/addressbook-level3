@@ -24,10 +24,10 @@ import seedu.jarvis.model.ReadOnlyUserPrefs;
 import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.util.SampleDataUtil;
 import seedu.jarvis.storage.AddressBookStorage;
-import seedu.jarvis.storage.AddressStorageManager;
 import seedu.jarvis.storage.JsonAddressBookStorage;
 import seedu.jarvis.storage.JsonUserPrefsStorage;
 import seedu.jarvis.storage.Storage;
+import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.UserPrefsStorage;
 import seedu.jarvis.ui.Ui;
 import seedu.jarvis.ui.UiManager;
@@ -58,7 +58,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new AddressStorageManager(addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
