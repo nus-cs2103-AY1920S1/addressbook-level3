@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyAppointmentList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 
@@ -24,9 +24,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppointmentList> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyAppointmentList addressBook) throws IOException;
 
 }

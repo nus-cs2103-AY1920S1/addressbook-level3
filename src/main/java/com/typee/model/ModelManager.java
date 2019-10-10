@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -20,26 +22,28 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final AppointmentList addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final StatedAppointmentList statedAppointmentList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAppointmentList addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new AppointmentList(addressBook);
+        this.statedAppointmentList = new StatedAppointmentList(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AppointmentList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,12 +84,12 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyAppointmentList addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAppointmentList getAddressBook() {
         return addressBook;
     }
 
@@ -103,7 +107,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     @Override
@@ -125,9 +129,33 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Undo ================================================================================
+
+    @Override
+    public boolean hasNoUndoableCommand() {
+        return !statedAppointmentList.isUndoable();
+    }
+
+    @Override
+    public void undoAppointmentList() throws NullUndoableActionException {
+        statedAppointmentList.undo();
+    }
+
+    //=========== Redo ================================================================================
+
+    @Override
+    public boolean hasNoRedoableCommand() {
+        return !statedAppointmentList.isRedoable();
+    }
+
+    @Override
+    public void redoAppointmentList() throws NullRedoableActionException {
+        statedAppointmentList.redo();
     }
 
     @Override

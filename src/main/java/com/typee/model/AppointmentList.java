@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class AppointmentList implements ReadOnlyAppointmentList {
 
     private final UniquePersonList persons;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public AppointmentList() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public AppointmentList(ReadOnlyAppointmentList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -51,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyAppointmentList newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof AppointmentList // instanceof handles nulls
+                && persons.equals(((AppointmentList) other).persons));
     }
 
     @Override

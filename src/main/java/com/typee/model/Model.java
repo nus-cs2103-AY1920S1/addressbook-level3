@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -13,7 +15,7 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -48,10 +50,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyAppointmentList addressBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAppointmentList getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -84,5 +86,14 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredAppointmentList(Predicate<Person> predicate);
+
+    //Undo/redo comments to be added
+    boolean hasNoUndoableCommand();
+
+    void undoAppointmentList() throws NullUndoableActionException;
+
+    boolean hasNoRedoableCommand();
+
+    void redoAppointmentList() throws NullRedoableActionException;
 }

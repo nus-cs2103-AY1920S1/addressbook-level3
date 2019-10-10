@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.commons.util.JsonUtil;
-import com.typee.model.AddressBook;
+import com.typee.model.AppointmentList;
 import com.typee.testutil.Assert;
 import com.typee.testutil.TypicalPersons;
 
@@ -24,8 +24,8 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        AppointmentList addressBookFromFile = dataFromFile.toModelType();
+        AppointmentList typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

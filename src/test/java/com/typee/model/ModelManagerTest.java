@@ -1,6 +1,6 @@
 package com.typee.model;
 
-import static com.typee.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static com.typee.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static com.typee.testutil.Assert.assertThrows;
 import static com.typee.testutil.TypicalPersons.ALICE;
 import static com.typee.testutil.TypicalPersons.BENSON;
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new AppointmentList(), new AppointmentList(modelManager.getAddressBook()));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        AppointmentList addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AppointmentList differentAddressBook = new AppointmentList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredAppointmentList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

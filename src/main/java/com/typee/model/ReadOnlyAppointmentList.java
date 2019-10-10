@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyAppointmentList {
 
     /**
      * Returns an unmodifiable view of the persons list.

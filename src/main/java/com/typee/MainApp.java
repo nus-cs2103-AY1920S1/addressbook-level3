@@ -13,10 +13,10 @@ import com.typee.commons.util.ConfigUtil;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.Logic;
 import com.typee.logic.LogicManager;
-import com.typee.model.AddressBook;
+import com.typee.model.AppointmentList;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyAppointmentList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 import com.typee.model.util.SampleDataUtil;
@@ -75,8 +75,8 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyAppointmentList> addressBookOptional;
+        ReadOnlyAppointmentList initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -85,10 +85,10 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new AppointmentList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new AppointmentList();
         }
 
         return new ModelManager(initialData, userPrefs);

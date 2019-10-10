@@ -12,7 +12,7 @@ import com.typee.commons.exceptions.DataConversionException;
 import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.commons.util.FileUtil;
 import com.typee.commons.util.JsonUtil;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyAppointmentList;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+    public Optional<ReadOnlyAppointmentList> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
     }
 
@@ -42,7 +42,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAppointmentList> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyAppointmentList addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyAppointmentList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAppointmentList addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

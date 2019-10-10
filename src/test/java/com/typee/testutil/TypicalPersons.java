@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.typee.logic.commands.CommandTestUtil;
-import com.typee.model.AddressBook;
+import com.typee.model.AppointmentList;
 import com.typee.model.person.Person;
 
 /**
@@ -37,8 +37,8 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static AppointmentList getTypicalAddressBook() {
+        AppointmentList ab = new AppointmentList();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.model.AddressBook;
+import com.typee.model.AppointmentList;
 import com.typee.model.Model;
 import com.typee.model.person.NameContainsKeywordsPredicate;
 import com.typee.model.person.Person;
@@ -86,7 +86,7 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        AppointmentList expectedAddressBook = new AppointmentList(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
@@ -103,7 +103,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredAppointmentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

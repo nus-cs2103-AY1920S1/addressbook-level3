@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.model.AddressBook;
+import com.typee.model.AppointmentList;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyAppointmentList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.person.Person;
 import com.typee.testutil.PersonBuilder;
@@ -115,12 +115,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyAppointmentList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAppointmentList getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,7 +145,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -187,8 +187,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAppointmentList getAddressBook() {
+            return new AppointmentList();
         }
     }
 

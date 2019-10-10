@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.typee.commons.core.GuiSettings;
-import com.typee.model.AddressBook;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.AppointmentList;
+import com.typee.model.ReadOnlyAppointmentList;
 import com.typee.model.UserPrefs;
 import com.typee.testutil.TypicalPersons;
 
@@ -54,10 +54,10 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = TypicalPersons.getTypicalAddressBook();
+        AppointmentList original = TypicalPersons.getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyAppointmentList retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new AppointmentList(retrieved));
     }
 
     @Test

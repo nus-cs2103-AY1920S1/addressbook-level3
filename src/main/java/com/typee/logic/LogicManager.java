@@ -12,7 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.AddressBookParser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyAppointmentList;
 import com.typee.model.person.Person;
 import com.typee.storage.Storage;
 
@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAppointmentList getAddressBook() {
         return model.getAddressBook();
     }
 
