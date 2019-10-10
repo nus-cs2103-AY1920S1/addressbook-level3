@@ -1,6 +1,6 @@
 package seedu.address.api;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import seedu.address.model.show.Movie;
 import seedu.address.model.show.TvShow;
@@ -10,7 +10,6 @@ import seedu.address.model.show.TvShow;
  * Methods used here will return the information for movie
  */
 public interface ApiInterface {
-    //returns movie list with that name
     public List<Movie> getMovieByName(String name);
 
     public List<TvShow> getTvShowByName(String name);

@@ -30,7 +30,7 @@ import seedu.address.model.show.TvShow;
 /**
  * Main class for the API to connect to the server
  */
-public class ApiMain implements ApiInterface {
+public class ApiMain {
     //API key is to connect with the tmdb server.
     private final static String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private final TmdbApi ApiCall;
