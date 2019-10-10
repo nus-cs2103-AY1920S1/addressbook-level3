@@ -50,11 +50,11 @@ public class ExpenseTest {
         editedAlice = new ExpenseBuilder(BILLS).withDescription(VALID_DESCRIPTION_TAXES).build();
         assertNotEquals(BILLS, editedAlice);
 
-        // different email -> returns false
-        editedAlice = new ExpenseBuilder(BILLS).build();
-        assertNotEquals(BILLS, editedAlice);
+        // different email -> returns false       I think this test case is redundant.
+        // editedAlice = new ExpenseBuilder(BILLS).build();
+        // assertNotEquals(BILLS, editedAlice);
 
-        // different address -> returns false
+        // different amount -> returns false
         editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).build();
         assertNotEquals(BILLS, editedAlice);
 

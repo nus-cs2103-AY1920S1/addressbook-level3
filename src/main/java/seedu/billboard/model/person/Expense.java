@@ -1,5 +1,6 @@
 package seedu.billboard.model.person;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -44,8 +45,12 @@ public class Expense {
         return amount;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Set<Tag> getTags() {
-        return tags;
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -63,8 +68,10 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getDescription().equals(getDescription())
-                && otherExpense.getAmount().equals(getAmount());
+        return otherExpense.getName().equals(getName())
+                && otherExpense.getDescription().equals(getDescription())
+                && otherExpense.getAmount().equals(getAmount())
+                && otherExpense.getTags().equals(getTags());
     }
 
     @Override
