@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,9 +14,9 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Difficulty;
-import seedu.address.model.person.Question;
+import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -47,10 +47,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_ANSWERABLE, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_ANSWERABLE, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

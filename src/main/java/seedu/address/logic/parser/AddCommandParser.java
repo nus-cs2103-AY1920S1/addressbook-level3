@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Difficulty;
-import seedu.address.model.person.Question;
-import seedu.address.model.person.Person;
+import seedu.address.model.answerable.Answerable;
+import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,9 +41,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(question, difficulty, category, tagList);
+        Answerable answerable = new Answerable(question, difficulty, category, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(answerable);
     }
 
     /**

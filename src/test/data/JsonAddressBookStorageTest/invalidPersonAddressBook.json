@@ -1,7 +1,0 @@
-{
-  "persons": [ {
-    "question": "Person with invalid question field: Ha!ns Mu@ster",
-    "difficulty": "9482424",
-    "category": "4th street"
-  } ]
-}

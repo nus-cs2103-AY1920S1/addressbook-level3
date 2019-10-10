@@ -9,9 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Difficulty;
-import seedu.address.model.person.Question;
+import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
 /**
