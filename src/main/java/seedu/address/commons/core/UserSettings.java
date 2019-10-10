@@ -11,11 +11,11 @@ public class UserSettings implements Serializable {
 
     private static final int DEFAULT_LOAN_PERIOD = 14;
     private static final int DEFAULT_RENEW_PERIOD = 14;
-    private static final double DEFAULT_FINE_PERCENTAGE_INCREMENT = 10;
+    private static final double DEFAULT_FINE_INCREMENT = 10; // Fine increment in cents.
 
     private final int loanPeriod;
     private final int renewPeriod;
-    private final double finePercentageIncrement;
+    private final double fineIncrement; //Fine increment in cents.
 
     /**
      * Instantiates a UserSettings that contains the default loanPeriod, renewPeriod and finePercentageIncrement.
@@ -23,19 +23,19 @@ public class UserSettings implements Serializable {
     public UserSettings() {
         loanPeriod = DEFAULT_LOAN_PERIOD;
         renewPeriod = DEFAULT_RENEW_PERIOD;
-        finePercentageIncrement = DEFAULT_FINE_PERCENTAGE_INCREMENT;
+        fineIncrement = DEFAULT_FINE_INCREMENT;
     }
 
     /**
      * Instantiates a UserSettings that contains the specified loanPeriod, renewPeriod and finePercentageIncrement.
      * @param loanPeriod Number of days that a book can be loaned.
      * @param renewPeriod Number of additional days given when loan is renewed.
-     * @param finePercentageIncrement Percentage of the cost of the book that is added for each day of overdue.
+     * @param fineIncrement Percentage of the cost of the book that is added for each day of overdue.
      */
-    public UserSettings(int loanPeriod, int renewPeriod, double finePercentageIncrement) {
+    public UserSettings(int loanPeriod, int renewPeriod, double fineIncrement) {
         this.loanPeriod = loanPeriod;
         this.renewPeriod = renewPeriod;
-        this.finePercentageIncrement = finePercentageIncrement;
+        this.fineIncrement = fineIncrement;
     }
 
     public int getLoanPeriod() {
@@ -46,8 +46,8 @@ public class UserSettings implements Serializable {
         return renewPeriod;
     }
 
-    public double getFinePercentageIncrement() {
-        return finePercentageIncrement;
+    public double getFineIncrement() {
+        return fineIncrement;
     }
 
     @Override
@@ -63,12 +63,12 @@ public class UserSettings implements Serializable {
 
         return loanPeriod == o.loanPeriod
                 && renewPeriod == o.renewPeriod
-                && finePercentageIncrement == o.finePercentageIncrement;
+                && fineIncrement == o.fineIncrement;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanPeriod, renewPeriod, finePercentageIncrement);
+        return Objects.hash(loanPeriod, renewPeriod, fineIncrement);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserSettings implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Loan period : " + loanPeriod + "\n");
         sb.append("Renew period : " + renewPeriod + "\n");
-        sb.append("Fine percentage increment : " + finePercentageIncrement);
+        sb.append("Fine percentage increment : " + fineIncrement);
         return sb.toString();
     }
 
