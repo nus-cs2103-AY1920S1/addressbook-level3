@@ -2,10 +2,11 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.DESC_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.DESC_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_MILK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
@@ -37,14 +38,14 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Item editedPerson = new ItemBuilder().build();
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedPerson).build();
+        Item editedItem = new ItemBuilder().build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
-        expectedModel.setItem(model.getFilteredItemList().get(0), editedPerson);
+        expectedModel.setItem(model.getFilteredItemList().get(0), editedItem);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -55,11 +56,11 @@ public class EditCommandTest {
         Item lastItem = model.getFilteredItemList().get(indexLastItem.getZeroBased());
 
         ItemBuilder itemInList = new ItemBuilder(lastItem);
-        Item editedItem = itemInList.withName(VALID_NAME_APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE).build();
+        Item editedItem = itemInList.withName(VALID_NAME_MILK).withExpiryDate(VALID_EXPIRY_DATE_MILK).build();
 
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_APPLE)
-                                                                       .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
-                                                                       .withTags(VALID_TAG_FRUIT).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_MILK)
+                                                                       .withExpiryDate(VALID_EXPIRY_DATE_MILK)
+                                                                       .withTags(VALID_TAG_DRINK).build();
         EditCommand editCommand = new EditCommand(indexLastItem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
@@ -73,9 +74,9 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, new EditItemDescriptor());
-        Item editedPerson = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
+        Item editedItem = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
 
@@ -86,42 +87,42 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
-        Item personInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        Item editedPerson = new ItemBuilder(personInFilteredList).withName(VALID_NAME_KIWI).build();
+        Item itemInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
+        Item editedItem = new ItemBuilder(itemInFilteredList).withName(VALID_NAME_KIWI).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
                 new EditItemDescriptorBuilder().withName(VALID_NAME_KIWI).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Xpire(model.getXpire()), new UserPrefs());
-        expectedModel.setItem(model.getFilteredItemList().get(0), editedPerson);
+        expectedModel.setItem(model.getFilteredItemList().get(0), editedItem);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Item firstPerson = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(firstPerson).build();
+    public void execute_duplicateItemUnfilteredList_failure() {
+        Item firstItem = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(firstItem).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_ITEM, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicateItemFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
-        // edit person in filtered list into a duplicate in address book
-        Item personInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
+        // edit item in filtered list into a duplicate in address book
+        Item itemInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
-                new EditItemDescriptorBuilder(personInList).build());
+                new EditItemDescriptorBuilder(itemInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidItemIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_APPLE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);

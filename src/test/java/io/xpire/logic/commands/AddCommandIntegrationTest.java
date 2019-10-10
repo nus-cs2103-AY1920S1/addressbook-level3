@@ -38,8 +38,8 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateItem_throwsCommandException() {
-        Item personInList = model.getXpire().getItemList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        Item itemInList = model.getXpire().getItemList().get(0);
+        assertCommandFailure(new AddCommand(itemInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
 }

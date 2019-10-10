@@ -12,7 +12,7 @@ import io.xpire.model.item.Item;
 import io.xpire.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Item.
  */
 public class ItemUtil {
 
@@ -24,7 +24,7 @@ public class ItemUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code item}'s details.
      */
     public static String getItemDetails(Item item) {
         StringBuilder sb = new StringBuilder("");
