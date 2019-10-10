@@ -198,14 +198,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
             //retrieve the type that the command works on here;
             PanelType panelToSwitchTo = commandResult.getPanelType();
             switchPanel(panelToSwitchTo);
@@ -232,6 +224,10 @@ public class MainWindow extends UiPart<Stage> {
             this.showSchedulePanel();
         } else if (input.equals(PanelType.DEFAULT)) {
             //do nothing
+        } else if (input.equals(PanelType.HELP)) {
+            handleHelp();
+        } else if (input.equals(PanelType.EXIT)) {
+            handleExit();
         }
     }
 

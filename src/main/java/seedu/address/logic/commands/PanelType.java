@@ -10,5 +10,7 @@ public enum PanelType {
     PHONE,
     ORDER,
     SCHEDULE,
-    STATS;
+    STATS,
+    HELP,
+    EXIT;
 }
