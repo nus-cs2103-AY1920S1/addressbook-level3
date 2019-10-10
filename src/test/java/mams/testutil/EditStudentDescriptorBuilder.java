@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import mams.logic.commands.EditCommand;
+import mams.model.student.Credits;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -33,7 +33,7 @@ public class EditStudentDescriptorBuilder {
     public EditStudentDescriptorBuilder(Student student) {
         descriptor = new EditCommand.EditStudentDescriptor();
         descriptor.setName(student.getName());
-        descriptor.setPhone(student.getPhone());
+        descriptor.setCredits(student.getCredits());
         descriptor.setEmail(student.getEmail());
         descriptor.setMatricId(student.getMatricId());
         descriptor.setTags(student.getTags());
@@ -48,10 +48,10 @@ public class EditStudentDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditStudentDescriptor} that we are building.
+     * Sets the {@code Credits} of the {@code EditStudentDescriptor} that we are building.
      */
-    public EditStudentDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditStudentDescriptorBuilder withCredits(String credits) {
+        descriptor.setCredits(new Credits(credits));
         return this;
     }
 

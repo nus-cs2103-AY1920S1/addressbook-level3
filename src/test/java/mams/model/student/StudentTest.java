@@ -24,16 +24,16 @@ public class StudentTest {
         // null -> returns false
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(null));
 
-        // different phone and email -> returns false
+        // different credits and email -> returns false
         Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
+                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // different name -> returns false
         editedAlice = new StudentBuilder(TypicalStudents.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same credits, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
@@ -41,11 +41,11 @@ public class StudentTest {
 
         // same name, same email, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
+                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same credits, same email, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withMatricId(CommandTestUtil.VALID_MATRICID_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
@@ -74,9 +74,9 @@ public class StudentTest {
                 .withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different credits -> returns false
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different email -> returns false

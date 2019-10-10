@@ -2,10 +2,10 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
-import static mams.logic.parser.CliSyntax.PREFIX_PHONE;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
@@ -20,10 +20,10 @@ import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 
+import mams.model.student.Credits;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -39,12 +39,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_CREDITS + "CREDITS] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_MATRICID + "MATRICID] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_CREDITS + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
@@ -95,12 +95,12 @@ public class EditCommand extends Command {
         assert studentToEdit != null;
 
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
-        Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
+        Credits updatedCredits = editStudentDescriptor.getCredits().orElse(studentToEdit.getCredits());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
         MatricId updatedMatricId = editStudentDescriptor.getMatricId().orElse(studentToEdit.getMatricId());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedMatricId, updatedTags);
+        return new Student(updatedName, updatedCredits, updatedEmail, updatedMatricId, updatedTags);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
      */
     public static class EditStudentDescriptor {
         private Name name;
-        private Phone phone;
+        private Credits credits;
         private Email email;
         private MatricId matricId;
         private Set<Tag> tags;
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
          */
         public EditStudentDescriptor(EditStudentDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setCredits(toCopy.credits);
             setEmail(toCopy.email);
             setMatricId(toCopy.matricId);
             setTags(toCopy.tags);
@@ -150,7 +150,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, matricId, tags);
+            return CollectionUtil.isAnyNonNull(name, credits, email, matricId, tags);
         }
 
         public void setName(Name name) {
@@ -161,12 +161,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
         }
 
         public void setEmail(Email email) {
@@ -218,7 +218,7 @@ public class EditCommand extends Command {
             EditStudentDescriptor e = (EditStudentDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getCredits().equals(e.getCredits())
                     && getEmail().equals(e.getEmail())
                     && getMatricId().equals(e.getMatricId())
                     && getTags().equals(e.getTags());

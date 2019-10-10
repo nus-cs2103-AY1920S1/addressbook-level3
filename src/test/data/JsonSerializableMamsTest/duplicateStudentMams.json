@@ -1,13 +1,13 @@
 {
   "students": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "credits": "32",
     "email": "alice@example.com",
     "matricId": "A1238213R",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "credits": "24",
     "email": "pauline@example.com",
     "matricId": "A12837192R"
   } ]

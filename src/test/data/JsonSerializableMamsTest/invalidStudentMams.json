@@ -1,7 +1,7 @@
 {
   "students": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
+    "credits": "16",
     "email": "invalid@email!3e",
     "matricId": "A01527367W"
   } ]

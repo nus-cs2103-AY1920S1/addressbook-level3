@@ -14,21 +14,21 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.parser.exceptions.ParseException;
+import mams.model.student.Credits;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
 import mams.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_CREDITS = "20";
     private static final String INVALID_MATRICID = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_CREDITS = "20";
     private static final String VALID_MATRICID = "A0169982H";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -80,26 +80,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseCredits_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCredits((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseCredits_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCredits(INVALID_CREDITS));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseCredits_validValueWithoutWhitespace_returnsCredits() throws Exception {
+        Credits expectedCredits = new Credits(VALID_CREDITS);
+        assertEquals(expectedCredits, ParserUtil.parseCredits(VALID_CREDITS));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseCredits_validValueWithWhitespace_returnsTrimmedCredits() throws Exception {
+        String creditsWithWhitespace = WHITESPACE + VALID_CREDITS + WHITESPACE;
+        Credits expectedCredits = new Credits(VALID_CREDITS);
+        assertEquals(expectedCredits, ParserUtil.parseCredits(creditsWithWhitespace));
     }
 
     @Test

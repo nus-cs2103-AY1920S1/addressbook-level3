@@ -18,7 +18,7 @@ public class StudentUtil {
     public static String getStudentDetails(Student student) {
         StringBuilder sb = new StringBuilder();
         sb.append(CliSyntax.PREFIX_NAME + student.getName().fullName + " ");
-        sb.append(CliSyntax.PREFIX_PHONE + student.getPhone().value + " ");
+        sb.append(CliSyntax.PREFIX_CREDITS + student.getCredits().value + " ");
         sb.append(CliSyntax.PREFIX_EMAIL + student.getEmail().value + " ");
         sb.append(CliSyntax.PREFIX_MATRICID + student.getMatricId().value + " ");
         student.getTags().stream().forEach(
@@ -33,7 +33,7 @@ public class StudentUtil {
     public static String getEditStudentDescriptorDetails(EditCommand.EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(CliSyntax.PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getCredits().ifPresent(credits -> sb.append(CliSyntax.PREFIX_CREDITS).append(credits.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(CliSyntax.PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getMatricId().ifPresent(address -> sb.append(CliSyntax.PREFIX_MATRICID)
                 .append(address.value).append(" "));

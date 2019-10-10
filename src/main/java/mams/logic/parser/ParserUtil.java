@@ -12,7 +12,7 @@ import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
+import mams.model.student.Credits;
 import mams.model.tag.Tag;
 
 /**
@@ -51,18 +51,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String credits} into a {@code Credits}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code credits} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Credits parseCredits(String credits) throws ParseException {
+        requireNonNull(credits);
+        String trimmedCredits = credits.trim();
+        if (!Credits.isValidCredits(trimmedCredits)) {
+            throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Credits(trimmedCredits);
     }
 
     /**
