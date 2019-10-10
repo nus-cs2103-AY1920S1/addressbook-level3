@@ -9,6 +9,7 @@ import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_DINNER;
@@ -16,6 +17,7 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -146,7 +148,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_DINNER;
-        descriptor = new EditExpenseDescriptorBuilder().withTags(VALID_TAG_TAXES).build();
+        descriptor = new EditExpenseDescriptorBuilder().withTags(VALID_TAG_DINNER).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -178,9 +180,10 @@ public class EditCommandParserTest {
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + AMOUNT_DESC_TAXES + INVALID_NAME_DESC + AMOUNT_DESC_TAXES
-                + DESCRIPTION_DESC_TAXES;
-        descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
+                + NAME_DESC_TAXES;
+        descriptor = new EditExpenseDescriptorBuilder()
                 .withAmount(VALID_AMOUNT_TAXES)
+                .withName(VALID_NAME_TAXES)
                 .build();
         System.out.println(userInput);
         expectedCommand = new EditCommand(targetIndex, descriptor);
