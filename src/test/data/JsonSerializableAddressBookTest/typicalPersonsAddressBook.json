@@ -91,5 +91,24 @@
     "date of birth" : "5.5.2015",
     "policies" : [ ],
     "tagged" : [ ]
+  } ],
+  "policies" : [ {
+    "name" : "Health Insurance",
+    "description" : "Insurance for elderly",
+    "coverage" : "10 months",
+    "price" : "$50000",
+    "criteria" : [ ],
+    "tagged" : [ "senior insurance" ],
+    "startAge" : "50",
+    "endAge" : "75"
+  }, {
+    "name" : "Life Insurance",
+    "description" : "Insurance for elderly",
+    "coverage" : "10 months",
+    "price" : "$50000",
+    "criteria" : [ ],
+    "tagged" : [ "senior insurance" ],
+    "startAge" : "50",
+    "endAge" : "75"
   } ]
 }

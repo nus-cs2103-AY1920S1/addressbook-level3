@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    // TODO: getPolicies method
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -148,6 +149,7 @@ public class ModelManager implements Model {
         return addressBook.getPolicy(policy);
     }
 
+    // TODO: Show list of policies instead.
     @Override
     public void addPolicy(Policy policy) {
         addressBook.addPolicy(policy);
