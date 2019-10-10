@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,10 +34,20 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         resetData(toBeCopied);
     }
 
+    /**
+     * Checks if a borrower is in the borrower records.
+     *
+     * @param borrower Borrower to be checked.
+     */
     public boolean hasBorrower(Borrower borrower) {
         return borrowersMap.containsKey(borrower.getBorrowerId());
     }
 
+    /**
+     * Adds a borrower to the borrower records.
+     *
+     * @param borrower Borrower to be added.
+     */
     public void addBorrower(Borrower borrower) {
         listOfBorrowers.add(borrower);
         borrowersMap.put(borrower.getBorrowerId(), borrower);
