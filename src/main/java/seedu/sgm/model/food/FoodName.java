@@ -19,7 +19,7 @@ public class FoodName {
      */
     private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String foodName;
+    public final String foodName;
 
     /**
      * Constructs a {@code FoodName}.
@@ -39,6 +39,9 @@ public class FoodName {
         return test.matches(VALIDATION_REGEX) && test.length() <= 30;
     }
 
+    public String getFoodName() {
+        return foodName;
+    }
 
     @Override
     public String toString() {

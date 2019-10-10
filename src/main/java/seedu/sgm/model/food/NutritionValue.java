@@ -13,7 +13,8 @@ public class NutritionValue {
             "Nutrition value should only contain number and should be non-negative.";
     public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*";
 
-    public final Double nutritionValue;
+    private final Double nutritionValue;
+    public final String value;
 
     /**
      * Constructs a {@code NutritionValue}.
@@ -24,6 +25,7 @@ public class NutritionValue {
         requireNonNull(nutritionValue);
         checkArgument(isValidValue(nutritionValue.toString()), MESSAGE_CONSTRAINTS);
         this.nutritionValue = nutritionValue;
+        value = nutritionValue.toString();
     }
 
     /**
