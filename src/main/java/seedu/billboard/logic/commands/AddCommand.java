@@ -39,10 +39,10 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "Buy a book "
             + PREFIX_AMOUNT + "9.00"
             + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";;
+            + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This expense already exists in the billboard";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the billboard";
 
     private final Expense toAdd;
 
@@ -59,7 +59,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasExpense(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
         model.addExpense(toAdd);
