@@ -2,9 +2,8 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
-import dream.fcard.util.json.jsontypes.JsonValue;
-
 import dream.fcard.model.exceptions.ChoiceNotFoundException;
+import dream.fcard.util.json.jsontypes.JsonValue;
 
 import javafx.scene.Node;
 
@@ -52,7 +51,6 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     public String getChoice(int index) throws ChoiceNotFoundException {
         if (index < 0 || index > choices.size()) {
-            //throw new ArrayIndexOutOfBoundsException();
             throw new ChoiceNotFoundException(new Exception());
         }
         return choices.get(index);
