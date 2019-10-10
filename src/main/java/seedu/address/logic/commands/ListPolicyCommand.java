@@ -4,7 +4,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Changes the remark of an existing person in the address book.
+ * Lists the available policies in the address book.
  */
 public class ListPolicyCommand extends Command {
 
@@ -12,7 +12,7 @@ public class ListPolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of all current policies.";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Remark command not implemented yet";
+    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "listpolicy command not implemented yet";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

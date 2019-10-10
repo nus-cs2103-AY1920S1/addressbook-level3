@@ -29,7 +29,7 @@ public class UniquePolicyList implements Iterable<Policy> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent policy as the given argument.
      */
     public boolean contains(Policy toCheck) {
         requireNonNull(toCheck);
@@ -43,7 +43,7 @@ public class UniquePolicyList implements Iterable<Policy> {
 
     /**
      * Adds a policy to the list.
-     * The person must not already exist in the list.
+     * The policy must not already exist in the list.
      */
     public void add(Policy toAdd) {
         requireNonNull(toAdd);

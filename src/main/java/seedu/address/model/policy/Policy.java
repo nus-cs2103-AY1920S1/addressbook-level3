@@ -85,8 +85,8 @@ public class Policy {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both policies of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two policies.
      */
     public boolean isSamePolicy(Policy otherPolicy) {
         if (otherPolicy == this) {
@@ -98,8 +98,8 @@ public class Policy {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both policies have the same identity and data fields.
+     * This defines a stronger notion of equality between two policies.
      */
     @Override
     public boolean equals(Object other) {

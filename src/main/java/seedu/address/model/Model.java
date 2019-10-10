@@ -112,15 +112,15 @@ public interface Model {
     boolean hasPolicy(Policy policy);
 
     /**
-     * Returns the matching person in the address book.
+     * Returns the matching policy in the address book.
      */
     Policy getPolicy(Policy policy);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered policy list */
     ObservableList<Policy> getFilteredPolicyList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered policy list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPolicyList(Predicate<Policy> predicate);

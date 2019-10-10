@@ -20,7 +20,7 @@ import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link seedu.address.model.person.Person}.
+ * Jackson-friendly version of {@link seedu.address.model.policy.Policy}.
  */
 class JsonAdaptedPolicy {
 
@@ -80,7 +80,7 @@ class JsonAdaptedPolicy {
      * Converts this Jackson-friendly adapted policy object into the model's {@code Policy} object.
      *
      * @throws seedu.address.commons.exceptions.IllegalValueException if there were
-     * any data constraints violated in the adapted person.
+     * any data constraints violated in the adapted policy.
      */
     Policy toModelType() throws IllegalValueException {
         final List<Tag> policyTags = new ArrayList<>();
