@@ -87,7 +87,7 @@ Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only patients that match *all* specified arguments will be displayed.
 * If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
 ****
 
@@ -127,22 +127,21 @@ View the item with the index number 2.
 
 You can add a patient to the list of all patients by using `patient add`.
 
-Format: `patient add pn/PATIENT_NAME pi/PATIENT_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+Format: `patient add n/NAME ic/IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
 
 ****
  * A patient can have any number of tags.
  * A patient can have next-of-kin contact details.
- * Every patient is uniquely identified by their IC.
  * Priority can take values from 0 to 10.
 ****
 
 Examples:
 
- * `patient add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+ * `patient add n/John Doe ic/S7012255C p/98765432 a/John street, block 123, #01-01`
 
- * `patient add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+ * `patient add n/Choong Siew Hwang ic/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
 
- * `patient add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+ * `patient add n/Betsy Crowe ic/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
 
 === Editing a Patient: `patient edit`
 
@@ -182,6 +181,8 @@ Format: `patient delete INDEX`
 * Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
 * The index *must be a positive integer* 1, 2, 3, ...
+* All patients with an index number higher than the deleted patient will have their indexes decremented by 1. E.g. after
+deleting index 3, index 4 will become 3, 5 will become 4 and so on.
 ****
 
 Examples:
@@ -199,14 +200,14 @@ Deletes the patient which had been assigned the index 1.
 ====
 *Advanced Patient Features*
 
-On top of managing your patient data, you may need to assign patients to other items in the application e.g. medical conditions or medication. This section pertains to that.
+On top of managing your patient data, you may need to assign other items to patients e.g. medical conditions or medication prescriptions. This section pertains to that.
 ====
 
 === Adding a Medical Condition to a Patient `patient add medcon`
 
 You can add a medical condition to a patient using `patient add medcon`.
 
-Format `patient add medcon p/PATIENT_INDEX m/MEDCON_INDEX`
+Format `patient add medcon i/PATIENT_INDEX m/MEDCON_INDEX`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -217,14 +218,14 @@ Format `patient add medcon p/PATIENT_INDEX m/MEDCON_INDEX`
 
 Examples:
 
-* `patient add medcon p/1 m/2` +
+* `patient add medcon i/1 m/2` +
 Adds the medical condition at index no. 2 (in the list of medical conditions) to the patient that was assigned index no. 1 in the list of patients
 
 === Removing a Medical Condition from a Patient `patient rm medcon`
 
 You can remove a medical condition from a patient using `patient rm medcon`.
 
-Format: `patient rm medcon p/PATIENT_INDEX m/MEDCON_INDEX`
+Format: `patient rm medcon i/PATIENT_INDEX m/MEDCON_INDEX`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -235,16 +236,16 @@ Format: `patient rm medcon p/PATIENT_INDEX m/MEDCON_INDEX`
 
 Examples:
 
-* `patient rm medcon p/1 m/2` +
-Removes the medical condition at index no. 2 (in the list of medical conditions) from the patient that was assigned index no. 1 in the list of patients
+* `patient rm medcon i/1 m/2` +
+Removes the medical condition at of index no. 2 (in the list of medical conditions) from the patient that was assigned index no. 1 in the list of patients
 
 === Adding a Prescription to a Patient `patient add presc`
 
 You can add a prescription to a patient using `patient add presc`.
 
-You can view the list of prescriptions you add to a patient using `patient view`.
+You can view the list of prescriptions you have added to a patient using `patient view`.
 
-Format `patient add presc p/PATIENT_INDEX m/MED_INDEX d/DOSAGE`
+Format `patient add presc i/PATIENT_INDEX m/MED_INDEX d/DOSAGE`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -255,8 +256,29 @@ Format `patient add presc p/PATIENT_INDEX m/MED_INDEX d/DOSAGE`
 
 Examples:
 
-* `patient add presc p/1 m/2 d/20mg 3 times a day` +
+* `patient add presc i/1 m/2 d/20mg 3 times a day` +
 Adds prescription of the medicine of index 2 (in the list of medicines) with a dosage of 20mg 3 times a day to the patient at index 1 in list of patients.
+
+=== Editing a Patient's Prescription `patient edit presc`
+
+You can edit a patient's prescription using `patient add presc`.
+
+You can view a patient's list of prescriptions using `patient view`.
+
+Format `patient edit presc i/PATIENT_INDEX pr/PRESCRIPTION_INDEX [m/MED_INDEX] [d/DOSAGE]`
+
+****
+* PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
+* MED_INDEX refers to the index of a medicine (obtained using `med list` or `med find`).
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to input values.
+****
+
+Examples:
+
+* `patient edit presc i/1 pr/3 d/10mg 2 times a day` +
+Edits the prescription with index 3 of the patient at index 1 in list of patients, changing the dosage to "10mg 2 times a day"
 
 === Removing an Prescription from a Patient `patient rm presc`
 
@@ -264,7 +286,7 @@ You can remove a prescription to a patient using `patient rm presc`.
 
 You can view the list of prescriptions of a patient using `patient view`.
 
-Format `patient rm presc p/PATIENT_INDEX pr/PRESCRIPTION_INDEX`
+Format `patient rm presc i/PATIENT_INDEX pr/PRESCRIPTION_INDEX`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -275,7 +297,7 @@ Format `patient rm presc p/PATIENT_INDEX pr/PRESCRIPTION_INDEX`
 
 Examples:
 
-* `patient rm presc p/1 pr/2` +
+* `patient rm presc i/1 pr/2` +
 Removes the 2nd prescription of the patient of index 1.
 
 === Adding an Appointment to a Patient `patient add appt` [INCOMPLETE UG]
@@ -294,7 +316,7 @@ You can add an extra todo item to the patient's visit todo list using `patient a
 
 For more information on the differences between a patient's todo list template and extra todos, Refer to <<Visits>> for more elaboration.
 
-Format: `patient add todo p/PATIENT_INDEX t/TODO`
+Format: `patient add todo i/PATIENT_INDEX t/TODO`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -310,7 +332,7 @@ Adds a todo item "Check fridge for spoiled items" to the extra todo items list.
 
 You can remove an extra todo item from the patient's visit todo list using `patient rm todo`.
 
-Format: `patient rm todo p/PATIENT_INDEX t/TODO_INDEX`
+Format: `patient rm todo i/PATIENT_INDEX t/TODO_INDEX`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -321,7 +343,7 @@ Format: `patient rm todo p/PATIENT_INDEX t/TODO_INDEX`
 
 Examples:
 
-* `patient rm todo p/1 t/2` +
+* `patient rm todo i/1 t/2` +
 Removes the 2nd todo item of the patient of index 1.
 
 === Adding a note to a Patient `patient add note`
@@ -330,7 +352,7 @@ You can add a note to the patient's list of notes using `patient add note`.
 
 These notes are for you to take general notes on a patient. If you want to take notes on a specific visit / while you are visiting the patient, you will want to make an appointment with `patient add appt`, begin the appointment using `appt begin` and add details to the visit.
 
-Format: `patient add note p/PATIENT_INDEX t/NOTE`
+Format: `patient add note i/PATIENT_INDEX t/NOTE`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -346,7 +368,7 @@ Adds a todo item "Check fridge for spoiled items" to the notes list.
 
 You can remove a note from the patient's list of notes using `patient rm note`.
 
-Format: `patient rm note p/PATIENT_INDEX t/NOTE_INDEX`
+Format: `patient rm note i/PATIENT_INDEX t/NOTE_INDEX`
 
 ****
 * PATIENT_INDEX refers to the index of a patient (obtained using `patient list` or `patient find`).
@@ -357,10 +379,10 @@ Format: `patient rm note p/PATIENT_INDEX t/NOTE_INDEX`
 
 Examples:
 
-* `patient rm note p/1 t/2` +
+* `patient rm note i/1 t/2` +
 Removes the 2nd note of the patient of index 1.
 
-== Medical Conditions [Parameters not updated]
+== Medical Conditions
 ====
 *Medical Conditions*
 
@@ -381,13 +403,13 @@ You can find medical conditions that fit the parameters given using `medcon find
 In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon list` or if different parameters are used.
 
 
-Format: `medcon find [KEYWORD] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `medcon find [KEYWORD] [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive. e.g `asthma` will match `Asthma`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/Diabetes` will return `Diabetes, Type 1` and `Diabetes, Type 2`.
+* If KEYWORD is specified, will attempt search all fields for a match for KEYWORD.
 ****
 
 Examples:
@@ -395,8 +417,8 @@ Examples:
 * `medcon find asthma` +
 Returns all medical conditions with the keyword `asthma` in it
 
-* `medcon find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
-Returns all medical conditions of this particular patient
+* `medcon find` +
+Returns all medical conditions in the application database
 
 === Viewing a Medical Condition: `medcon view`
 
@@ -423,49 +445,37 @@ View the item with the index number 2.
 
 You can add a medical condition to the list of all conditions by using `medcon add`.
 
-Format: `medcon add pn/PRESCRIPTION_NAME pi/PRESCRIPTION_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+Format: `medcon add n/NAME s/SYMPTOMS d/DIAGNOSIS t/TREATMENT`
 
 ****
- * A medical condition can have any number of tags.
- * A medical condition can have next-of-kin contact details.
- * Every medical condition is uniquely identified by their IC.
- * Priority can take values from 0 to 10.
+ * All fields must be specified.
 ****
 
 Examples:
 
- * `medcon add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
-
- * `medcon add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
-
- * `medcon add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+ * `medcon add n/Diabetes, Type 1 s/Increased thirst, frequent urination, extreme hunger, unexplained weight loss
+    d/A1C test, blood sugar test, oral glucose test t/Insulin injections, insulin pump, blood sugar monitoring,
+    carbohydrate counting`
 
 === Editing a Medical Condition: `medcon edit`
 
 You can edit an existing medical condition in the app using `medcon edit`.
 
-Format: `medcon edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `medcon edit INDEX [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
 
 ****
-* Edits the person at the specified `INDEX`.
+* Edits the medical condition at the specified `INDEX`.
 * The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `medcon list` +
- `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person in the entire medical condition's list to be `91234567` and `johndoe@example.com` respectively.
-
-
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
-
+ `medcon edit 3 s/increased hunger, increased thirst, weight loss, frequent urination, blurry vision, extreme fatigue, sores that don’t heal` +
+Edits the symptoms of the medical condition with index 3.
 
 // tag::delete[]
 === Deleting a Medical Condition: `medcon delete`
