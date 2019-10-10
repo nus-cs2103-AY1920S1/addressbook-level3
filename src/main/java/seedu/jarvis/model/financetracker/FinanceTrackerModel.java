@@ -1,7 +1,4 @@
-package seedu.jarvis.model;
-
-import seedu.jarvis.model.financetracker.Installment;
-import seedu.jarvis.model.financetracker.Purchase;
+package seedu.jarvis.model.financetracker;
 
 /**
  * The API of Finance Tracker component.

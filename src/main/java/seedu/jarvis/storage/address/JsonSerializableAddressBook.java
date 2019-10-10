@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 
 /**

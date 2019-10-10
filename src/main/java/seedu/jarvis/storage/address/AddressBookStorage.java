@@ -1,14 +1,15 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.jarvis.commons.exceptions.DataConversionException;
-import seedu.jarvis.model.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.jarvis.model.AddressBook}.
+ * Represents a storage for {@link AddressBook}.
  */
 public interface AddressBookStorage {
 

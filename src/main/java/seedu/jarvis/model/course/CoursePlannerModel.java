@@ -1,6 +1,5 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.course;
 
-import seedu.jarvis.model.course.Course;
 
 /**
  * The API of Course Planner component.

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;

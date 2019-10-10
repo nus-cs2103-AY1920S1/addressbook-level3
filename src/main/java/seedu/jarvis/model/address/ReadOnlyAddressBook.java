@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.address;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.model.address.person.Person;

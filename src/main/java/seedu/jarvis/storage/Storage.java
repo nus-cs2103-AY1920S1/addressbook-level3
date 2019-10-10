@@ -1,5 +1,8 @@
 package seedu.jarvis.storage;
 
+import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.userprefs.UserPrefsStorage;
+
 /**
  * API of the Storage component.
  * This extends al the different models for all the features.

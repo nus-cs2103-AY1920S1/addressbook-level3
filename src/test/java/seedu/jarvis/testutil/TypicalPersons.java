@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
 
 /**

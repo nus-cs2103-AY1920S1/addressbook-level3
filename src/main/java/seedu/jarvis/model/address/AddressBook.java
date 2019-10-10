@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.address;
 
 import static java.util.Objects.requireNonNull;
 

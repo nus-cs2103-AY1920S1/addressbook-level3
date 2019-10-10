@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.commons.exceptions.DataConversionException;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");

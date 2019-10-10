@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.address;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;

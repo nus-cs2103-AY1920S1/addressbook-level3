@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import java.util.ArrayList;
 import java.util.HashSet;

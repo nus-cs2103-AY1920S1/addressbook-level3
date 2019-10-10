@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.history.HistoryManager;
 
 /**
  * Tests the behaviour of {@code RedoCommand}.

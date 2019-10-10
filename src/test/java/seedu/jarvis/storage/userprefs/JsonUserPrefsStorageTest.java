@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.userprefs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.exceptions.DataConversionException;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 

@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.userprefs;
 
 import java.nio.file.Path;
 

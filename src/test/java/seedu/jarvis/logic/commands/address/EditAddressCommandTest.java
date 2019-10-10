@@ -25,12 +25,12 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
 import seedu.jarvis.testutil.PersonBuilder;
 

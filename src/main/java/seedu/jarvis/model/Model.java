@@ -1,5 +1,9 @@
 package seedu.jarvis.model;
 
+import seedu.jarvis.model.address.AddressModel;
+import seedu.jarvis.model.history.HistoryModel;
+import seedu.jarvis.model.userprefs.UserPrefsModel;
+
 /**
  * The API of the {@code Model} component.
  * This extends all the different models for all the features.

@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,7 +12,7 @@ import seedu.jarvis.commons.exceptions.DataConversionException;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.commons.util.FileUtil;
 import seedu.jarvis.commons.util.JsonUtil;
-import seedu.jarvis.model.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

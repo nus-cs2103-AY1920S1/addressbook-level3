@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.history;
 
 import seedu.jarvis.logic.commands.Command;
 

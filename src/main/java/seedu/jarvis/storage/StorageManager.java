@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.exceptions.DataConversionException;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.

@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.commons.core.GuiSettings;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
 

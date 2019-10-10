@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.history;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,6 +6,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
+import seedu.jarvis.model.Model;
 
 /**
  * Wraps all data at the HistoryManager level.

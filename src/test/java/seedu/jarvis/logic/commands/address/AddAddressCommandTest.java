@@ -21,12 +21,12 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class AddAddressCommandTest {

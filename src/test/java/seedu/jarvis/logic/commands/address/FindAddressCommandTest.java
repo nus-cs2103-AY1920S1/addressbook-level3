@@ -19,11 +19,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindAddressCommand}.

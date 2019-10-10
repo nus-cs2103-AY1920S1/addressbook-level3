@@ -1,6 +1,6 @@
 package seedu.jarvis.testutil;
 
-import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
 
 /**

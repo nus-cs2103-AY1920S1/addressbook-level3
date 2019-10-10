@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.commons.util.JsonUtil;
-import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {

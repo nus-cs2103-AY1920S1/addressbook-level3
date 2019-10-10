@@ -1,7 +1,7 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.jarvis.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.jarvis.storage.address.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalPersons.BENSON;
 

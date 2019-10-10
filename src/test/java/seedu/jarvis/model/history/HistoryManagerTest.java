@@ -1,4 +1,4 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.history;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +24,10 @@ import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 
 /**
  * Tests the behaviour of {@code HistoryManagerTest}.

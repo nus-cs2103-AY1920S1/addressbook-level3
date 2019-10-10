@@ -1,4 +1,4 @@
-package seedu.jarvis.storage;
+package seedu.jarvis.storage.userprefs;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.jarvis.commons.exceptions.DataConversionException;
 import seedu.jarvis.commons.util.JsonUtil;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

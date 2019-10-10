@@ -24,12 +24,12 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.storage.JsonAddressBookStorage;
-import seedu.jarvis.storage.JsonUserPrefsStorage;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.StorageManager;
+import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class LogicManagerTest {
