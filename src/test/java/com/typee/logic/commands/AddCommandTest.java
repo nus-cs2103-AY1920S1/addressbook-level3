@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.AppointmentList;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAppointmentList;
@@ -146,6 +148,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAppointmentList() throws NullUndoableActionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoRedoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAppointmentList() throws NullRedoableActionException {
             throw new AssertionError("This method should not be called.");
         }
     }
