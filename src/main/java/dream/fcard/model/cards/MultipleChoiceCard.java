@@ -2,8 +2,9 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
-import dream.fcard.model.exceptions.ChoiceNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonValue;
+
+import dream.fcard.model.exceptions.ChoiceNotFoundException;
 
 import javafx.scene.Node;
 

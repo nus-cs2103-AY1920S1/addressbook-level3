@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 
 import dream.fcard.model.exceptions.ChoiceNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class MultipleChoiceCardTest {
@@ -49,9 +48,8 @@ class MultipleChoiceCardTest {
     }
 
     @Test
-    void editChoice_indexInvalid_exceptionThrown(){
+    void editChoice_indexInvalid_exceptionThrown() {
         ArrayList<String> choices = new ArrayList<>();
-
         choices.add("bye");
         choices.add("yoyo");
         choices.add("yolo");
