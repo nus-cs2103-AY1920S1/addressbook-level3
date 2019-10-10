@@ -15,8 +15,7 @@ import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
 
 /**
- * Finds and lists all problems in algobase whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all problems in algobase fulfilling all the given constraints.
  */
 public class FindCommand extends Command {
 

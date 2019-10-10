@@ -93,13 +93,17 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 ==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE]`
 
-* The search is case insensitive. e.g `henz` will match `Henz`
-* The order of the keywords does not matter. e.g. `Henz Martin` will match `Martin Henz`
-* Only the name is searched.
-* Only full words will be matched e.g. `Hen` will not match `Henz`
-* Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Henz Ben` will return `Henz Martin`, `Ben Leong`
+* Name
+** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
+** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
+** is considered a match as long as one word matches. e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`
+* Author requires an exact match
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
 
 Examples:
 
