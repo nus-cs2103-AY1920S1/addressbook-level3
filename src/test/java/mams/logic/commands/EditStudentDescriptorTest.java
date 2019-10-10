@@ -2,7 +2,7 @@ package mams.logic.commands;
 
 import static mams.logic.commands.CommandTestUtil.DESC_AMY;
 import static mams.logic.commands.CommandTestUtil.DESC_BOB;
-import static mams.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static mams.logic.commands.CommandTestUtil.VALID_MATRICID_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -48,7 +48,7 @@ public class EditStudentDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withMatricId(VALID_MATRICID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

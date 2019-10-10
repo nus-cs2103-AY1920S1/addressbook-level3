@@ -1,11 +1,7 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static mams.logic.parser.CliSyntax.PREFIX_NAME;
-import static mams.logic.parser.CliSyntax.PREFIX_PHONE;
-import static mams.logic.parser.CliSyntax.PREFIX_TAG;
+import static mams.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,7 +27,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MATRICID, PREFIX_TAG);
 
         Index index;
 
@@ -52,8 +48,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editStudentDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editStudentDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_MATRICID).isPresent()) {
+            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_MATRICID).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
 

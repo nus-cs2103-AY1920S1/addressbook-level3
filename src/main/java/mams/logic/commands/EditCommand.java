@@ -1,7 +1,7 @@
 package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -18,11 +18,7 @@ import mams.commons.core.index.Index;
 import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
-import mams.model.student.Address;
-import mams.model.student.Email;
-import mams.model.student.Name;
-import mams.model.student.Phone;
-import mams.model.student.Student;
+import mams.model.student.*;
 import mams.model.tag.Tag;
 
 /**
@@ -39,7 +35,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_MATRICID + "MATRICID] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -95,10 +91,10 @@ public class EditCommand extends Command {
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
-        Address updatedAddress = editStudentDescriptor.getAddress().orElse(studentToEdit.getAddress());
+        MatricId updatedMatricId = editStudentDescriptor.getMatricId().orElse(studentToEdit.getMatricId());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Student(updatedName, updatedPhone, updatedEmail, updatedMatricId, updatedTags);
     }
 
     @Override
@@ -127,7 +123,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private MatricId matricId;
         private Set<Tag> tags;
 
         public EditStudentDescriptor() {}
@@ -140,7 +136,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setMatricId(toCopy.matricId);
             setTags(toCopy.tags);
         }
 
@@ -148,7 +144,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, matricId, tags);
         }
 
         public void setName(Name name) {
@@ -175,12 +171,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setMatricId(MatricId matricId) {
+            this.matricId = matricId;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<MatricId> getMatricId() {
+            return Optional.ofNullable(matricId);
         }
 
         /**
@@ -218,7 +214,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getMatricId().equals(e.getMatricId())
                     && getTags().equals(e.getTags());
         }
     }

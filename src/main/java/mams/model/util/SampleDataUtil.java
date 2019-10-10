@@ -6,11 +6,7 @@ import java.util.stream.Collectors;
 
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
-import mams.model.student.Address;
-import mams.model.student.Email;
-import mams.model.student.Name;
-import mams.model.student.Phone;
-import mams.model.student.Student;
+import mams.model.student.*;
 import mams.model.tag.Tag;
 
 /**
@@ -20,22 +16,22 @@ public class SampleDataUtil {
     public static Student[] getSampleStudents() {
         return new Student[] {
             new Student(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
+                new MatricId("A0180000R"),
                 getTagSet("friends")),
             new Student(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                new MatricId("A01455353y"),
                 getTagSet("colleagues", "friends")),
             new Student(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                new MatricId("A0199239U"),
                 getTagSet("neighbours")),
             new Student(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                new MatricId("A01423223T"),
                 getTagSet("family")),
             new Student(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
+                new MatricId("A12039123S"),
                 getTagSet("classmates")),
             new Student(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
+                new MatricId("A015923848U"),
                 getTagSet("colleagues"))
         };
     }

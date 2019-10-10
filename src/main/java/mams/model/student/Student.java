@@ -20,18 +20,18 @@ public class Student {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final MatricId matricId;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, phone, email, address, tags);
+    public Student(Name name, Phone phone, Email email, MatricId matricId, Set<Tag> tags) {
+        CollectionUtil.requireAllNonNull(name, phone, email, matricId, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.matricId = matricId;
         this.tags.addAll(tags);
     }
 
@@ -47,8 +47,8 @@ public class Student {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public MatricId getMatricId() {
+        return matricId;
     }
 
     /**
@@ -91,14 +91,14 @@ public class Student {
         return otherStudent.getName().equals(getName())
                 && otherStudent.getPhone().equals(getPhone())
                 && otherStudent.getEmail().equals(getEmail())
-                && otherStudent.getAddress().equals(getAddress())
+                && otherStudent.getMatricId().equals(getMatricId())
                 && otherStudent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, matricId, tags);
     }
 
     @Override
@@ -109,8 +109,8 @@ public class Student {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Matric Id: ")
+                .append(getMatricId())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

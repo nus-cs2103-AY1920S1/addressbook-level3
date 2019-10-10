@@ -35,19 +35,19 @@ public class StudentTest {
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+                .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+                .withMatricId(CommandTestUtil.VALID_MATRICID_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
     }
 
@@ -83,8 +83,8 @@ public class StudentTest {
         editedAlice = new StudentBuilder(TypicalStudents.ALICE).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).build();
+        // different matricId -> returns false
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withMatricId(CommandTestUtil.VALID_MATRICID_AMY).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different tags -> returns false
