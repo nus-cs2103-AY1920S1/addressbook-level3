@@ -34,6 +34,9 @@ public class MultipleChoiceCard extends FrontBackCard {
         back = newText;
     }
 
+    /**
+     * Edits one of string in choices, given new text and index.
+     */
     public void editChoice(String newChoice, int index) throws ChoiceNotFoundException {
         // Handle the exception if index does not exist
         // Can handle this in command class overall, but here just in case not handled

@@ -1,6 +1,9 @@
 package dream.fcard.model.exceptions;
 
-public class ChoiceNotFoundException extends Throwable{
+/**
+ * Represents an error when index of choice supplied by user is invalid.
+ */
+public class ChoiceNotFoundException extends Throwable {
     public ChoiceNotFoundException(Exception cause) {
         super(cause);
     }
