@@ -258,7 +258,7 @@ public class EditDayFieldCommand extends Command {
             return destination;
         }
 
-        private void setDescription(Description description) {
+        public void setDescription(Description description) {
             this.description = Optional.of(description);
         }
 

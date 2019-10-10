@@ -22,17 +22,17 @@ public class CancelEditEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Event currentlyEditingDay = model.getPageStatus().getEvent();
+        Event currentlyEditingEvent = model.getPageStatus().getEvent();
         model.setPageStatus(model.getPageStatus()
                 .withResetEditEventDescriptor()
                 .withNewPageType(PageType.EVENT_PAGE)
-                .withResetDay());
+                .withResetEvent());
 
-        if (currentlyEditingDay == null) {
+        if (currentlyEditingEvent == null) {
             return new CommandResult(MESSAGE_CANCEL_CREATE_SUCCESS, true);
         } else {
             return new CommandResult(
-                    String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentlyEditingDay), true);
+                    String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentlyEditingEvent), true);
         }
     }
 

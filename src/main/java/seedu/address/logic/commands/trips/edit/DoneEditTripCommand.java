@@ -51,9 +51,9 @@ public class DoneEditTripCommand extends Command {
             }
 
             model.setPageStatus(model.getPageStatus()
-                    .withNewEditTripDescriptor(null)
+                    .withResetEditTripDescriptor()
                     .withNewPageType(PageType.TRIP_MANAGER)
-                    .withNewTrip(null));
+                    .withResetTrip());
 
             return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd), true);
         } catch (NullPointerException | TripNotFoundException ex) {

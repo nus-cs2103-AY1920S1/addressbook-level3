@@ -4,8 +4,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.day.Day;
+import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
+import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
 
 import static java.util.Objects.requireNonNull;
 
@@ -24,39 +27,38 @@ public class DoneEditDayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-//        requireNonNull(model);
-//        EditDayFieldCommand.EditDayDescriptor editDayDescriptor = model.getPageStatus().getEditDayDescriptor();
-//        Day dayToEdit = model.getPageStatus().getDay();
-//        Day dayToAdd;
-//
-//        if (editDayDescriptor == null) {
-//            return new CommandResult(MESSAGE_NOT_EDITED);
-//        }
-//
-//        try {
-//            if (dayToEdit == null) {
-//                //buildTrip() requires all fields to be non null, failing which
-//                //NullPointerException is caught below
-//                tripToAdd = editDayDescriptor.buildTrip();
-//                model.addTrip(tripToAdd);
-//            } else {
-//                //edit the current "selected" trip
-//                tripToAdd = editDayDescriptor.buildTrip(dayToEdit);
-//                model.setTrip(dayToEdit, tripToAdd);
-//            }
-//
-//            model.setPageStatus(model.getPageStatus()
-//                    .withNewEditTripDescriptor(null)
-//                    .withNewPageType(PageType.TRIP_MANAGER)
-//                    .withNewTrip(null));
-//
-//            return new CommandResult(String.format(MESSAGE_EDIT_TRIP_SUCCESS, tripToAdd), true);
-//        } catch (NullPointerException | TripNotFoundException ex) {
-//            throw new CommandException(MESSAGE_NOT_EDITED);
-//        } catch (ClashingTripException ex) {
-//            throw new CommandException(MESSAGE_CLASHING_TRIP);
-//        }
-        return null;
+        requireNonNull(model);
+        EditDayFieldCommand.EditDayDescriptor editDayDescriptor = model.getPageStatus().getEditDayDescriptor();
+        Day dayToEdit = model.getPageStatus().getDay();
+        Day dayToAdd;
+
+        if (editDayDescriptor == null) {
+            return new CommandResult(MESSAGE_NOT_EDITED);
+        }
+
+        try {
+            if (dayToEdit == null) {
+                //buildDay() requires compulsory fields to be non null, failing which
+                //NullPointerException is caught below
+                dayToAdd = editDayDescriptor.buildDay();
+                model.getPageStatus().getTrip().getDayList().add(dayToAdd);
+            } else {
+                //edit the current "selected" day
+                dayToAdd = editDayDescriptor.buildDay(dayToEdit);
+                model.getPageStatus().getTrip().getDayList().set(dayToEdit, dayToAdd);
+            }
+
+            model.setPageStatus(model.getPageStatus()
+                    .withResetEditDayDescriptor()
+                    .withNewPageType(PageType.ITINERARY)
+                    .withResetDay());
+
+            return new CommandResult(String.format(MESSAGE_EDIT_DAY_SUCCESS, dayToAdd), true);
+        } catch (NullPointerException | DayNotFoundException ex) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        } catch (ClashingDayException ex) {
+            throw new CommandException(MESSAGE_CLASHING_DAY);
+        }
     }
 
     @Override
