@@ -60,8 +60,9 @@ public class AddCommand extends Command {
         if (model.hasFood(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
-
         model.addFood(toAdd);
+        model.setCurrentBalance("5");
+        System.out.println(model.getMenu().getWallet().getFormattedCurrentBalance());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

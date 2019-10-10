@@ -2,6 +2,7 @@ package seedu.savenus.model;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Unmodifiable view of an address book
@@ -14,4 +15,8 @@ public interface ReadOnlyMenu {
      */
     ObservableList<Food> getFoodList();
 
+    /**
+     * Returns the user's wallet.
+     */
+    Wallet getWallet();
 }

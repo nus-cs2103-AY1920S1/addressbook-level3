@@ -2,7 +2,9 @@ package seedu.savenus.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.savenus.commons.exceptions.IllegalValueException;
+
 import seedu.savenus.model.wallet.CurrentBalance;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.Wallet;
@@ -33,7 +35,7 @@ class JsonAdaptedWallet {
      */
     public JsonAdaptedWallet(Wallet source) {
         currentBalance = String.format("%.02f", source.getCurrentBalance());
-        daysToExpire = String.format("%.02f", source.getDaysToExpire());
+        daysToExpire = String.format("%d", source.getDaysToExpire());
     }
 
     /**

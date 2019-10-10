@@ -1,9 +1,10 @@
 package seedu.savenus.model.wallet;
-
+/*
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+*/
 
 /**
  * Represents a user's Wallet in the application.
@@ -28,20 +29,28 @@ public class Wallet {
         this.daysToExpire = daysToExpire;
     }
 
-    public final float getCurrentBalance() {
+    public float getCurrentBalance() {
         return currentBalance.getCurrentBalance();
     }
 
-    public final int getDaysToExpire() {
+    public String getFormattedCurrentBalance() {
+        return "$" + currentBalance.toString();
+    }
+
+    public String getFormattedDaysToExpire() {
+        return daysToExpire.toString() + " days";
+    }
+
+    public int getDaysToExpire() {
         return daysToExpire.getDaysToExpire();
     }
 
-    /*
 
     public final void setCurrentBalance(String currentBalanceStr) {
         this.currentBalance = new CurrentBalance(currentBalanceStr);
     }
 
+    /*
     public final void setDaysToExpire(String daysToExpireStr) {
         this.daysToExpire = new DaysToExpire(daysToExpireStr);
     }
@@ -62,7 +71,7 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Current Balance: " + this.getCurrentBalance() + "\n" +
-                "Days to Expire: " + this.getDaysToExpire();
+        return "Current Balance: " + this.getCurrentBalance() + "\n"
+                + "Days to Expire: " + this.getDaysToExpire();
     }
 }

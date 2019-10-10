@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.GuiSettings;
@@ -45,6 +46,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private Text currentBalancePlaceholder;
+
+    @FXML
+    private Text daysToExpirePlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -78,6 +85,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        currentBalancePlaceholder.setText(logic.getMenu().getWallet().getFormattedCurrentBalance());
+
+        daysToExpirePlaceholder.setText(logic.getMenu().getWallet().getFormattedDaysToExpire());
     }
 
     /**

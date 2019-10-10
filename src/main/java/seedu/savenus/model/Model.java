@@ -76,6 +76,8 @@ public interface Model {
      */
     void setFood(Food target, Food editedFood);
 
+    void setCurrentBalance(String currentBalanceStr);
+
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 

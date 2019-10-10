@@ -3,6 +3,9 @@ package seedu.savenus.model.wallet;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents the number of days to the budget expiration.
+ */
 public class DaysToExpire {
     /**
      * Represents a Wallet's daysToExpire number in the address book.

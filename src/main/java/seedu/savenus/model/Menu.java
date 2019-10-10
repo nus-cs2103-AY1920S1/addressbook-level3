@@ -16,7 +16,7 @@ import seedu.savenus.model.wallet.Wallet;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
-    private Wallet wallet;
+    private Wallet wallet = new Wallet();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -56,6 +56,7 @@ public class Menu implements ReadOnlyMenu {
         requireNonNull(newData);
 
         setFoods(newData.getFoodList());
+        addWallet(newData.getWallet());
     }
 
     //// food-level operations
@@ -96,17 +97,32 @@ public class Menu implements ReadOnlyMenu {
     }
 
     /**
-     * Adds a wallet to the address book.
+     * Adds a wallet to the application.
      */
     public void addWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    /**
+     * Get users wallet.
+     */
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    /**
+     * Set current balance.
+     */
+    public void setCurrentBalance(String currentBalanceStr) {
+        wallet.setCurrentBalance(currentBalanceStr);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return foods.asUnmodifiableObservableList().size() + " Food Items: \n" + "...\n" + "Wallet: \n" + wallet.toString();
+        return foods.asUnmodifiableObservableList().size()
+                + " Food Items: \n" + "...\n" + "Wallet: \n" + wallet.toString();
         // TODO: refine later
     }
 

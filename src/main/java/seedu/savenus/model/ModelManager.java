@@ -111,6 +111,12 @@ public class ModelManager implements Model {
         menu.setFood(target, editedFood);
     }
 
+    @Override
+    public void setCurrentBalance(String currentBalanceStr) {
+        requireAllNonNull(currentBalanceStr);
+        menu.setCurrentBalance(currentBalanceStr);
+    }
+
     //=========== Filtered Food List Accessors =============================================================
 
     /**

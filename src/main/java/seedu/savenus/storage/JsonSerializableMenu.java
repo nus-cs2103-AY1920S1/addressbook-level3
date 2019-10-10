@@ -12,6 +12,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * An Immutable Menu that is serializable to JSON format.
@@ -22,13 +23,14 @@ class JsonSerializableMenu {
     public static final String MESSAGE_DUPLICATE_FOOD = "foods list contains duplicate food(s).";
 
     private final List<JsonAdaptedFood> foods = new ArrayList<>();
-    private JsonAdaptedWallet wallet;
+    private JsonAdaptedWallet wallet = new JsonAdaptedWallet(new Wallet());
 
     /**
      * Constructs a {@code JsonSerializableMenu} with the given foods.
      */
     @JsonCreator
-    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods, @JsonProperty("wallet") JsonAdaptedWallet wallet) {
+    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods,
+                                @JsonProperty("wallet") JsonAdaptedWallet wallet) {
         this.foods.addAll(foods);
         this.wallet = wallet;
     }
@@ -40,6 +42,7 @@ class JsonSerializableMenu {
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
         foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        wallet = new JsonAdaptedWallet(source.getWallet());
     }
 
     /**
@@ -48,16 +51,16 @@ class JsonSerializableMenu {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Menu toModelType() throws IllegalValueException {
-        Menu Menu = new Menu();
+        Menu menu = new Menu();
         for (JsonAdaptedFood jsonAdaptedFood : foods) {
             Food food = jsonAdaptedFood.toModelType();
-            if (Menu.hasFood(food)) {
+            if (menu.hasFood(food)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FOOD);
             }
-            Menu.addFood(food);
+            menu.addFood(food);
         }
-        Menu.addWallet(wallet.toModelType());
-        return Menu;
+        menu.addWallet(wallet.toModelType());
+        return menu;
     }
 
 }
