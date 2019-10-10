@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -21,8 +22,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,6 +42,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_USERNAME + "USERNAME] "
+            + "[" + PREFIX_PASSWORD + "PASSWORD] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -94,9 +99,11 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Username updatedUsername = editPersonDescriptor.getUsername().orElse(personToEdit.getUsername());
+        Password updatedPassword = editPersonDescriptor.getPassword().orElse(personToEdit.getPassword());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedTags, updatedUsername, updatedPassword);
     }
 
     @Override
@@ -125,6 +132,8 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Username username;
+        private Password password;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -137,6 +146,8 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setUsername(toCopy.username);
+            setPassword(toCopy.password);
             setTags(toCopy.tags);
         }
 
@@ -169,6 +180,22 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setUsername(Username username) {
+            this.username = username;
+        }
+
+        public Optional<Username> getUsername() {
+            return Optional.ofNullable(username);
+        }
+
+        public void setPassword(Password password) {
+            this.password = password;
+        }
+
+        public Optional<Password> getPassword() {
+            return Optional.ofNullable(password);
         }
 
         /**
@@ -205,6 +232,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getUsername().equals(e.getUsername())
+                    && getPassword().equals(e.getPassword())
                     && getEmail().equals(e.getEmail())
                     && getTags().equals(e.getTags());
         }

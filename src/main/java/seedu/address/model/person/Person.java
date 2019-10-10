@@ -19,6 +19,8 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Username username;
+    private final Password password;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -26,8 +28,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Person(Name name, Phone phone, Email email, Set<Tag> tags, Username username, Password password) {
+        requireAllNonNull(name, phone, email, tags, username, password);
+        this.password = password;
+        this.username = username;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -83,10 +87,11 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
+        return otherPerson.getUsername().equals(getUsername()) || (
+                otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags()));
     }
 
     @Override
@@ -103,9 +108,20 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Username: ")
+                .append(getUsername())
+                .append(" Password (hashed): ")
+                .append(getPassword())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
+    public Username getUsername() {
+        return username;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
 }
