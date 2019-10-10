@@ -13,19 +13,19 @@ import seedu.address.model.actor.Actor;
  * Represents a Show in the watchlist.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public abstract class Show {
+public class Show {
 
     //identity fields
     private final Name name;
     private final Date dateOfRelease;
-    private final boolean isWatched;
+    private final IsWatched isWatched;
 
     //data fields
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
 
-    public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
+    public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
@@ -44,7 +44,7 @@ public abstract class Show {
         return dateOfRelease;
     }
 
-    public boolean isWatched() {
+    public IsWatched isWatched() {
         return isWatched;
     }
 
