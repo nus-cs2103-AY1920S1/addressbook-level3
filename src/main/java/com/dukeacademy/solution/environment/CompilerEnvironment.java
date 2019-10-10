@@ -2,6 +2,7 @@ package com.dukeacademy.solution.environment;
 
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +17,7 @@ public interface CompilerEnvironment {
      * @param content the contents of the Java file.
      * @return the file created.
      */
-    public File createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException;
+    public JavaFile createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException;
 
     /**
      * Returns the file corresponding to the name provided.
@@ -24,7 +25,7 @@ public interface CompilerEnvironment {
      * @return the file corresponding to the name provided.
      * @throws FileNotFoundException if the file does not exists.
      */
-    public File getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException;
+    public JavaFile getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException;
 
     /**
      * Clears the environment of any existing files and artifacts.

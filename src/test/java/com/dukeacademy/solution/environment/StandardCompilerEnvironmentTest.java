@@ -2,6 +2,7 @@ package com.dukeacademy.solution.environment;
 
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +40,9 @@ class StandardCompilerEnvironmentTest {
         String fileName = "Test";
         String content = "public class Test {\n}";
 
-        compilerEnvironment.createJavaFile(fileName, content);
+        JavaFile createdJavaFile = compilerEnvironment.createJavaFile(fileName, content);
+        assertEquals("Test", createdJavaFile.getCanonicalName());
+        assertEquals(environmentPath.toUri().getPath(), createdJavaFile.getClassPath());
 
         Path javaFilePath = environmentPath.resolve(fileName +  ".java");
 
@@ -50,6 +53,24 @@ class StandardCompilerEnvironmentTest {
         Optional<String> fileContent = Files.lines(javaFilePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
+
+        String fileName1 = "Test";
+        String content1 = "package foo.bar;\n"
+                + "public class Test {\n}";
+
+        JavaFile createdJavaFile1 = compilerEnvironment.createJavaFile(fileName1, content1);
+        assertEquals("foo.bar.Test", createdJavaFile1.getCanonicalName());
+        assertEquals(environmentPath.toUri().getPath(), createdJavaFile1.getClassPath());
+
+        Path javaFilePath1 = environmentPath.resolve("foo").resolve("bar").resolve("Test.java");
+
+        File javaFile1 = javaFilePath1.toFile();
+        assertTrue(javaFile1.exists());
+
+
+        Optional<String> fileContent1 = Files.lines(javaFilePath1).reduce((x, y) -> x + "\n" + y);
+        assertTrue(fileContent1.isPresent());
+        assertEquals(content1, fileContent1.get());
     }
 
     @Test
@@ -59,9 +80,9 @@ class StandardCompilerEnvironmentTest {
 
         compilerEnvironment.createJavaFile(fileName, content);
 
-        File javaFile = compilerEnvironment.getJavaFile(fileName);
-        assertTrue(javaFile.exists());
-        assertEquals(fileName + ".java", javaFile.getName());
+        JavaFile javaFile = compilerEnvironment.getJavaFile(fileName);
+        assertTrue(javaFile.getFile().exists());
+        assertEquals(fileName + ".java", javaFile.getFile().getName());
 
         Path filePath = environmentPath.resolve(fileName + ".java");
 

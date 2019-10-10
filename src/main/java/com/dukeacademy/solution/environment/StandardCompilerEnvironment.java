@@ -3,6 +3,7 @@ package com.dukeacademy.solution.environment;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,8 +13,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 /**
  * The standard environment class used by the compiler to perform file management.
@@ -29,8 +34,11 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     private Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
     private Path locationPath;
 
+    private List<JavaFile> createdFiles;
+
     public StandardCompilerEnvironment(String locationPath) throws CompilerEnvironmentException {
         this.locationPath = Path.of(locationPath);
+        this.createdFiles = new ArrayList<>();
 
         boolean isCreateDirectorySuccessful;
 
@@ -51,15 +59,16 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public File createJavaFile(String name, String content) throws CompilerFileCreationException {
+    public JavaFile createJavaFile(String name, String content) throws CompilerFileCreationException {
         try {
             this.clearEnvironment();
         } catch (CompilerEnvironmentException e) {
             throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
         }
 
-        String fileUri = this.locationPath.resolve(name + ".java").toUri().getPath();
-        File file = new File(fileUri);
+        String canonicalName = this.getCanonicalName(name, content);
+
+        File file = this.createFile(canonicalName);
 
         boolean isFileCreationSuccessful;
 
@@ -80,12 +89,43 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             fileWriter.write(content);
 
             fileWriter.close();
+            JavaFile javaFile = new JavaFile(canonicalName, locationPath.toUri().getPath());
+            this.createdFiles.add(javaFile);
+
+            return javaFile;
         } catch (IOException e) {
             this.clearDirectoryAfterFileWriteFailed();
             throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
         }
+    }
 
-        return file;
+    private String getCanonicalName(String name, String content) {
+        String packageStatement = content.split(";")[0];
+        if (!packageStatement.startsWith("package")) {
+            return name;
+        }
+
+        return packageStatement.replace("package", "").trim() + "." + name;
+    }
+
+    private File createFile(String canonicalName) throws CompilerFileCreationException {
+        String[] nestedFiles = canonicalName.split("\\.");
+        int numNestedFiles = nestedFiles.length;
+        Path filePath = this.locationPath;
+
+        if (numNestedFiles <= 1) {
+            return filePath.resolve(canonicalName + ".java").toFile();
+        }
+
+        for (int i = 0; i < numNestedFiles - 1; i++) {
+            filePath = filePath.resolve(nestedFiles[i]);
+
+            if (!filePath.toFile().mkdir()) {
+                throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+            }
+        }
+
+        return filePath.resolve(nestedFiles[numNestedFiles - 1] + ".java").toFile();
     }
 
     private void clearDirectoryAfterFileWriteFailed() throws CompilerFileCreationException {
@@ -97,15 +137,12 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public File getJavaFile(String name) throws FileNotFoundException {
-        String filePath = this.locationPath.resolve(name + ".java").toUri().getPath();
-        File file = new File(filePath);
+    public JavaFile getJavaFile(String canonicalName) throws FileNotFoundException {
+        Optional<JavaFile> file = this.createdFiles.stream()
+                .filter(javaFile -> javaFile.getCanonicalName().equals(canonicalName))
+                .findFirst();
 
-        if (!file.exists()) {
-            throw new FileNotFoundException(MESSAGE_JAVA_FILE_NOT_FOUND);
-        }
-
-        return file;
+        return file.orElseThrow(FileNotFoundException::new);
     }
 
     @Override
@@ -116,6 +153,8 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                     .map(Path::toFile)
                     .sorted(Comparator.reverseOrder())
                     .forEach(File::delete);
+
+            this.createdFiles = new ArrayList<>();
         } catch (IOException e) {
             throw new CompilerEnvironmentException(MESSAGE_CLEAR_ENVIRONMENT_FAILED);
         }
@@ -128,6 +167,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                     .map(Path::toFile)
                     .sorted(Comparator.reverseOrder())
                     .forEach(File::delete);
+            this.createdFiles = new ArrayList<>();
         } catch (IOException e) {
             logger.fine(MESSAGE_CLEAR_ENVIRONMENT_FAILED);
         }

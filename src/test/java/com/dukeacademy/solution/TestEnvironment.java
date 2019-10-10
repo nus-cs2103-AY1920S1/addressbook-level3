@@ -3,6 +3,7 @@ package com.dukeacademy.solution;
 import com.dukeacademy.solution.environment.CompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ public class TestEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public File createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException {
+    public JavaFile createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException {
         try {
             this.clearEnvironment();
             File file = tempPath.resolve(name + ".java").toFile();
@@ -34,7 +35,7 @@ public class TestEnvironment implements CompilerEnvironment {
                 fileWriter.write(content);
                 fileWriter.close();
 
-                return file;
+                return new JavaFile("", "");
             }
 
             throw new CompilerFileCreationException("Failed to create file.");
@@ -44,11 +45,11 @@ public class TestEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public File getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException {
+    public JavaFile getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException {
         File file = tempPath.resolve(name + ".java").toFile();
 
         if (file.exists()) {
-            return file;
+            return new JavaFile("", "");
         }
 
         throw new FileNotFoundException();

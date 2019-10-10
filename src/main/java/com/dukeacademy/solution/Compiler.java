@@ -7,6 +7,8 @@ import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 import com.dukeacademy.model.solution.UserProgram;
+import com.dukeacademy.solution.models.ClassFile;
+import com.dukeacademy.solution.models.JavaFile;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -15,6 +17,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -41,18 +44,18 @@ public class Compiler {
         }
     }
 
-    public void compileProgram(UserProgram program) throws CompilerException, CompilerFileContentException {
+    public ClassFile compileProgram(UserProgram program) throws CompilerException, CompilerFileContentException {
         try {
             environment.clearEnvironment();
 
             String className = program.getClassName();
             String code = program.getSourceCodeAsString();
 
-            File javaFile = environment.createJavaFile(className, code);
+            JavaFile javaFile = environment.createJavaFile(className, code);
 
             DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
             StandardJavaFileManager fileManager = javaCompiler.getStandardFileManager(diagnostics, null, null);
-            Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(javaFile);
+            Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(javaFile.getFile());
 
             JavaCompiler.CompilationTask compilationTask = javaCompiler.getTask(null, fileManager, diagnostics, null, null, sources);
             compilationTask.call();
@@ -66,7 +69,8 @@ public class Compiler {
                 throw new CompilerFileContentException(errorMessage);
             }
 
-        } catch (CompilerFileCreationException | CompilerEnvironmentException e) {
+            return new ClassFile(javaFile.getCanonicalName(), javaFile.getClassPath());
+        } catch (CompilerFileCreationException | CompilerEnvironmentException |FileNotFoundException e) {
             this.clearEnvironmentAfterCompilerFail();
             throw new CompilerException(MESSAGE_COMPILER_FAILED, e);
         }
