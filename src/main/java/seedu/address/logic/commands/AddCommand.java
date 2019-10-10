@@ -67,8 +67,7 @@ public class AddCommand extends Command {
             + PREFIX_ORGANS_FOR_DONATION + " ORGANS FOR DONATION"
             + PREFIX_STATUS + " BODY STATUS "
             + PREFIX_FRIDGE_ID + " FRIDGE ID\n"
-            + "Adding a fridge:\n"
-            + "add -f";
+            + "Adding a fridge: add -f";
 
     public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTITY = "This entity already exists in Mortago";

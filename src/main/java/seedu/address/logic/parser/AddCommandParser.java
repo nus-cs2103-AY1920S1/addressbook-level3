@@ -70,6 +70,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "b":
             arePrefixesPresent = arePrefixesPresentBody(argMultimap);
             break;
+        case "f":
+            arePrefixesPresent = true;
+            break;
         default:
             arePrefixesPresent = arePrefixesPresentPerson(argMultimap);
         }
