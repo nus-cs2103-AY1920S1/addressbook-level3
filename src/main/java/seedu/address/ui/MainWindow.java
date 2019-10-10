@@ -196,8 +196,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //retrieve the type that the command works on here;
-            List<UiChange> panelToSwitchTo = commandResult.getUiChange();
-            performUiChanges(panelToSwitchTo);
+            List<UiChange> uiChanges = commandResult.getUiChange();
+            performUiChanges(uiChanges);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
