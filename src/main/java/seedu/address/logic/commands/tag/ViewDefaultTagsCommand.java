@@ -15,6 +15,9 @@ import seedu.address.model.tag.DefaultTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+/**
+ * Shows all default tags.
+ */
 public class ViewDefaultTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewdefaulttags";

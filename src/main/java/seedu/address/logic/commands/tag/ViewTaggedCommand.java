@@ -16,6 +16,9 @@ import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Shows all modules attached to specific tags.
+ */
 public class ViewTaggedCommand extends Command {
 
     public static final String COMMAND_WORD = "viewtagged";

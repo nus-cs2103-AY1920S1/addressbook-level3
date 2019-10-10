@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UniqueTagList;
 
+/**
+ * Shows all tags in the active study plan.
+ */
 public class ViewAllTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewalltags";

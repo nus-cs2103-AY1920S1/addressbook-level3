@@ -15,6 +15,9 @@ import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Shows all tags attached to a specific module.
+ */
 public class ViewTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewtags";
