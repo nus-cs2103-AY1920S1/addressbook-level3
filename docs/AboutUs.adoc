@@ -25,7 +25,7 @@ Responsibilities:
 '''
 
 === CarbonGrid
-image::CarbonGrid.png[width="150", align="left"]
+image::carbongrid.png[width="150", align="left"]
 {empty}[http://github.com/CarbonGrid[github]] [<<carbongrid#, portfolio>>]
 
 Role: Developer
