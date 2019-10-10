@@ -1,6 +1,6 @@
 {
   "persons": [ {
-    "name": "invalid name! Hans@ Muster",
+    "question": "invalid question! Hans@ Muster",
     "phone": "9482424",
     "address": "4th street"
   } ]

@@ -16,8 +16,8 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
+    private final Question question;
+    private final Difficulty difficulty;
 
     // Data fields
     private final Address address;
@@ -26,20 +26,20 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
-        this.name = name;
-        this.phone = phone;
+    public Person(Question question, Difficulty difficulty, Address address, Set<Tag> tags) {
+        requireAllNonNull(question, difficulty, address, tags);
+        this.question = question;
+        this.difficulty = difficulty;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Question getQuestion() {
+        return question;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
     public Address getAddress() {
@@ -55,7 +55,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same question have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -64,7 +64,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName()) && (otherPerson.getPhone().equals(getPhone()));
+                && otherPerson.getQuestion().equals(getQuestion()) && (otherPerson.getDifficulty().equals(getDifficulty()));
     }
 
     /**
@@ -82,8 +82,8 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
+        return otherPerson.getQuestion().equals(getQuestion())
+                && otherPerson.getDifficulty().equals(getDifficulty())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -91,15 +91,15 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(question, difficulty, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+        builder.append(getQuestion())
+                .append(" Difficulty: ")
+                .append(getDifficulty())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

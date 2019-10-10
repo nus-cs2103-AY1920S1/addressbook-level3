@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidQuestion(String)}
  */
-public class Name {
+public class Question {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,42 +18,42 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    public final String fullQuestion;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Question}.
      *
-     * @param name A valid name.
+     * @param question A valid question.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+    public Question(String question) {
+        requireNonNull(question);
+        checkArgument(isValidQuestion(question), MESSAGE_CONSTRAINTS);
+        fullQuestion = question;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid question.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidQuestion(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return fullName;
+        return fullQuestion;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                || (other instanceof Question // instanceof handles nulls
+                && fullQuestion.equals(((Question) other).fullQuestion)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullQuestion.hashCode();
     }
 
 }

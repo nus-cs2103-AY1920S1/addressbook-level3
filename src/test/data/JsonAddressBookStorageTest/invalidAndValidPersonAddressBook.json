@@ -1,10 +1,10 @@
 {
   "persons": [ {
-    "name": "Valid Person",
+    "question": "Valid Person",
     "phone": "9482424",
     "address": "4th street"
   }, {
-    "name": "Person With Invalid Phone Field",
+    "question": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "address": "4th street"
   } ]
