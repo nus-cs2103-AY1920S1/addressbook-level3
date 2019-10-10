@@ -23,7 +23,7 @@ public class Amount {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if the given amount is a valid amount.
      */
     public static boolean isValidAmount(double test) {
         return test > 0;
@@ -36,8 +36,12 @@ public class Amount {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Amount // instanceof handles nulls
-                && value == ((Amount) other).value); // state check
+        if (other == this) {
+            return true;
+        } else if (other instanceof Amount) {
+            return value == ((Amount) other).value;
+        } else {
+            return false;
+        }
     }
 }
