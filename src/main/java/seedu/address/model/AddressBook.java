@@ -102,6 +102,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// policy-level operations
+
     /**
      * Returns true if a policy with the same identity as {@code policy} exists in the address book.
      */
@@ -123,12 +125,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         policies.add(p);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removePolicy(Policy key) {
+        policies.remove(key);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        // TODO: Need to refactor for policies list!!
     }
 
     @Override
@@ -137,12 +147,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Policy> getPolicyList() {
+        return policies.asUnmodifiableObservableList();
+    }
+
+    // Todo: refactor for policies
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons));
     }
 
+    // Todo: refactor for policies
     @Override
     public int hashCode() {
         return persons.hashCode();
