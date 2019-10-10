@@ -36,10 +36,10 @@ public class EncryptionUtil {
     private static byte[] cipherBytes(byte[] input, String password, EncryptionMode mode) {
         try {
             PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndTripleDES");
             SecretKey key = keyFactory.generateSecret(keySpec);
             PBEParameterSpec pbeParameterSpec = new PBEParameterSpec(salt, iteration);
-            Cipher cipher = Cipher.getInstance("PBEWithMD5AndDES");
+            Cipher cipher = Cipher.getInstance("PBEWithMD5AndTripleDES");
             switch (mode) {
             case ENCRYPT:
                 cipher.init(Cipher.ENCRYPT_MODE, key, pbeParameterSpec);
