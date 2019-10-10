@@ -24,21 +24,21 @@ public class CardTest {
     }
 
     @Test
-    public void isSameName() {
+    public void isSameMMeaning() {
         // same object -> returns true
-        assertTrue(ABRA.isSameName(ABRA));
+        assertTrue(ABRA.isSameMeaning(ABRA));
 
         // null -> returns false
-        assertFalse(ABRA.isSameName(null));
+        assertFalse(ABRA.isSameMeaning(null));
 
-        // different name -> returns false
-        Card editedAbra = new CardBuilder(ABRA).withName(VALID_WORD_BUTTERFREE).build();
-        assertFalse(ABRA.isSameName(editedAbra));
+        // different word -> returns true
+        Card editedAbra = new CardBuilder(ABRA).withWord(VALID_WORD_BUTTERFREE).build();
+        assertTrue(ABRA.isSameMeaning(editedAbra));
 
-        // same name, different attributes -> returns true
+        // same word, different meanings -> returns false
         editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE)
                 .withTags(VALID_TAG_BUG).build();
-        assertTrue(ABRA.isSameName(editedAbra));
+        assertFalse(ABRA.isSameMeaning(editedAbra));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class CardTest {
         assertFalse(ABRA.equals(BUTTERFREE));
 
         // different name -> returns false
-        Card editedAbra = new CardBuilder(ABRA).withName(VALID_WORD_BUTTERFREE).build();
+        Card editedAbra = new CardBuilder(ABRA).withWord(VALID_WORD_BUTTERFREE).build();
         assertFalse(ABRA.equals(editedAbra));
 
         // different description -> returns false

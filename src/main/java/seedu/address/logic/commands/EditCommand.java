@@ -41,7 +41,7 @@ public class EditCommand extends AppCommand {
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the word bank.";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
@@ -70,7 +70,7 @@ public class EditCommand extends AppCommand {
         Card cardToEdit = lastShownList.get(index.getZeroBased());
         Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
-        if (!cardToEdit.isSameName(editedCard) && model.hasCard(editedCard)) {
+        if (!cardToEdit.isSameMeaning(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 

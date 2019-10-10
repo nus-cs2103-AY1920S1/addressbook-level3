@@ -14,8 +14,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CardBuilder {
 
-    public static final String DEFAULT_NAME = "Pikachu";
-    public static final String DEFAULT_DESCRIPTION = "This forest-dwelling Pokémon stores electricity in its cheeks, "
+    public static final String DEFAULT_WORD = "Pikachu";
+    public static final String DEFAULT_MEANING = "This forest-dwelling Pokémon stores electricity in its cheeks, "
             + "so you'll feel a tingly shock if you touch it.";
 
     private Word word;
@@ -23,8 +23,8 @@ public class CardBuilder {
     private Set<Tag> tags;
 
     public CardBuilder() {
-        word = new Word(DEFAULT_NAME);
-        meaning = new Meaning(DEFAULT_DESCRIPTION);
+        word = new Word(DEFAULT_WORD);
+        meaning = new Meaning(DEFAULT_MEANING);
         tags = new HashSet<>();
     }
 
@@ -38,10 +38,10 @@ public class CardBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Card} that we are building.
+     * Sets the {@code Word} of the {@code Card} that we are building.
      */
-    public CardBuilder withName(String name) {
-        this.word = new Word(name);
+    public CardBuilder withWord(String word) {
+        this.word = new Word(word);
         return this;
     }
 

@@ -22,7 +22,7 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
  *
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.card.Card#isSameName(seedu.address.model.card.Card)
+ * @see seedu.address.model.card.Card#isSameMeaning(seedu.address.model.card.Card)
  */
 public class UniqueCardList implements Iterable<Card> {
 
@@ -35,7 +35,7 @@ public class UniqueCardList implements Iterable<Card> {
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameName);
+        return internalList.stream().anyMatch(toCheck::isSameMeaning);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UniqueCardList implements Iterable<Card> {
             throw new CardNotFoundException();
         }
 
-        if (!target.isSameName(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameMeaning(editedPerson) && contains(editedPerson)) {
             throw new DuplicateCardException();
         }
 
@@ -138,7 +138,7 @@ public class UniqueCardList implements Iterable<Card> {
     private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).isSameName(cards.get(j))) {
+                if (cards.get(i).isSameMeaning(cards.get(j))) {
                     return false;
                 }
             }
