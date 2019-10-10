@@ -53,44 +53,50 @@ class UpdateWorkerDescriptorTest {
     @Test
     void getSetPhone() {
         Worker worker = new WorkerBuilder().build();
-        worker.setPhone(new PhoneNumber("98731567"));
-        assertEquals(new PhoneNumber("98731567"), worker.getPhone());
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setPhone(new PhoneNumber("98731567"));
+        assertEquals(new PhoneNumber("98731567"), descriptor.getPhone().get());
     }
 
     @Test
     void getSetSex() {
         Worker worker = new WorkerBuilder().build();
-        worker.setSex(Sex.FEMALE);
-        assertEquals(Sex.FEMALE, worker.getSex());
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setSex(Sex.FEMALE);
+        assertEquals(Sex.FEMALE, descriptor.getSex().get());
     }
 
     @Test
     void getSetDateOfBirth() throws ParseException {
         Worker worker = new WorkerBuilder().build();
-        worker.setDateOfBirth(ParserUtil.parseDate("06/11/1987"));
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setDateOfBirth(ParserUtil.parseDate("06/11/1987"));
         assertEquals(ParserUtil.parseDate("06/11/1987"),
-                worker.getDateOfBirth());
+                descriptor.getDateOfBirth().get());
     }
 
     @Test
     void getSetDateJoined() throws ParseException {
         Worker worker = new WorkerBuilder().build();
-        worker.setDateJoined(ParserUtil.parseDate("06/11/1987"));
-        assertEquals(ParserUtil.parseDate("06/11/1987"), worker.getDateJoined());
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setDateJoined(ParserUtil.parseDate("06/11/1987"));
+        assertEquals(ParserUtil.parseDate("06/11/1987"), descriptor.getDateJoined().get());
     }
 
     @Test
     void getSetDesignation() {
         Worker worker = new WorkerBuilder().build();
-        worker.setDesignation("manager");
-        assertEquals("manager", worker.getDesignation());
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setDesignation("manager");
+        assertEquals("manager", descriptor.getDesignation().get());
     }
 
     @Test
     void getSetEmploymentStatus() {
         Worker worker = new WorkerBuilder().build();
-        worker.setEmploymentStatus("Probation");
-        assertEquals("Probation", worker.getEmploymentStatus());
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        descriptor.setEmploymentStatus("Probation");
+        assertEquals("Probation", descriptor.getEmploymentStatus().get());
     }
 
     @Test

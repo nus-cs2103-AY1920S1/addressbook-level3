@@ -18,9 +18,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
 import seedu.address.testutil.WorkerBuilder;
 
 //@@author ambervoong
@@ -171,6 +173,11 @@ class BodyTest {
     void getSetFridgeId() {
         ALICE.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
         assertEquals(IdentificationNumber.customGenerateId("F", 5), ALICE.getFridgeId());
+
+        ALICE.setFridgeId(IdentificationNumber.customGenerateId("F", 1));
+        // Check that it works with an actual fridge.
+        Fridge fridge = new FridgeBuilder().build();
+        assertEquals(fridge.getFridgeIdNum(), ALICE.getFridgeId());
     }
 
     // Stub Classes
