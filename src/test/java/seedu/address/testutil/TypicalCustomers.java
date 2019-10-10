@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import seedu.address.model.CustomerBook;
 import seedu.address.model.customer.Customer;
 
 /**
@@ -30,4 +34,42 @@ public class TypicalCustomers {
     public static final Customer CUSTOMERTHREE = new CustomerBuilder().withName(DEFAULT_NAME_3)
             .withContactNumber(DEFAULT_CONTACTNUMBER_3).withEmail(DEFAULT_EMAIL_3).withTags(DEFAULT_TAG_3).build();
 
+    public static final Customer ALICE = new CustomerBuilder().withName("Alice Pauline")
+            .withContactNumber("94351253")
+            .withEmail("alice@example.com")
+            .withTags("regular").build();
+    public static final Customer BENSON = new CustomerBuilder().withName("Benson Meier")
+            .withContactNumber("98765432")
+            .withEmail("johnd@example.com")
+            .withTags("new", "friends").build();
+    public static final Customer CARL = new CustomerBuilder().withName("Carl Kurz")
+            .withContactNumber("95352563")
+            .withEmail("heinz@example.com").build();
+    public static final Customer DANIEL = new CustomerBuilder().withName("Daniel Meier")
+            .withContactNumber("87652533")
+            .withEmail("cornelia@example.com")
+            .withTags("friends").build();
+    public static final Customer ELLE = new CustomerBuilder().withName("Elle Meyer")
+            .withContactNumber("94822243")
+            .withEmail("werner@example.com").build();
+    public static final Customer FIONA = new CustomerBuilder().withName("Fiona Kunz")
+            .withContactNumber("94824272")
+            .withEmail("lydia@example.com").build();
+    public static final Customer GEORGE = new CustomerBuilder().withName("George Best")
+            .withContactNumber("94824423")
+            .withEmail("anna@example.com").build();
+    /**
+     * Returns an {@code CustomerBook} with all the typical persons.
+     */
+    public static CustomerBook getTypicalCustomerBook() {
+        CustomerBook cb = new CustomerBook();
+        for (Customer c: getTypicalCustomers()) {
+            cb.addCustomer(c);
+        }
+        return cb;
+    }
+
+    public static List<Customer> getTypicalCustomers() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 }
