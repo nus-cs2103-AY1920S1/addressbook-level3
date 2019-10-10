@@ -120,17 +120,23 @@ public class ParserUtil {
      * @throws ParseException if the given {@code date} is invalid (not in MM-d format).
      */
     public static LocalDate parseDate(String date) throws ParseException {
+        String trimmedDate = date.trim();
         try {
-            String trimmedDate = date.trim();
             int currentYear = LocalDate.now().getYear();
-            DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder()
-                    .appendPattern("MM-d")
+            DateTimeFormatter formatterWithoutYear = new DateTimeFormatterBuilder()
+                    .appendPattern("dd-MM")
                     .parseDefaulting(ChronoField.YEAR, currentYear)
                     .toFormatter(Locale.ENGLISH);
-            LocalDate parsedDate = LocalDate.parse(trimmedDate, inputFormatter);
+            LocalDate parsedDate = LocalDate.parse(trimmedDate, formatterWithoutYear);
             return parsedDate;
         } catch (DateTimeParseException e) {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            try {
+                DateTimeFormatter formatterWithYear = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+                LocalDate parsedDate = LocalDate.parse(trimmedDate, formatterWithYear);
+                return parsedDate;
+            } catch (DateTimeParseException e1) {
+                throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            }
         }
     }
 
