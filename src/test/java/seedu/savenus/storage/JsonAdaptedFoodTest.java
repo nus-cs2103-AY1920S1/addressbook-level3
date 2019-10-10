@@ -15,7 +15,9 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Restrictions;
 
 public class JsonAdaptedFoodTest {
     private static final String INVALID_NAME = "R@chel";
@@ -107,6 +109,44 @@ public class JsonAdaptedFoodTest {
     }
 
     @Test
+    public void toModelType_invalidOpeningHours_throwsIllegalValueException() {
+        JsonAdaptedFood food =
+                new JsonAdaptedFood(VALID_NAME, VALID_PRICE, VALID_DESCRIPTION,
+                        VALID_CATEGORY,
+                        VALID_TAGS, INVALID_OPENING_HOURS, VALID_RESTRICTIONS);
+        String expectedMessage = OpeningHours.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, food::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullOpeningHours_throwsIllegalValueException() {
+        JsonAdaptedFood food = new JsonAdaptedFood(VALID_NAME, VALID_PRICE, VALID_DESCRIPTION,
+                VALID_CATEGORY,
+                VALID_TAGS, null, VALID_RESTRICTIONS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, OpeningHours.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, food::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidRestrictions_throwsIllegalValueException() {
+        JsonAdaptedFood food =
+                new JsonAdaptedFood(VALID_NAME, VALID_PRICE, VALID_DESCRIPTION,
+                        VALID_CATEGORY,
+                        VALID_TAGS, VALID_OPENING_HOURS, INVALID_RESTRICTIONS);
+        String expectedMessage = Restrictions.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, food::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullRestrictions_throwsIllegalValueException() {
+        JsonAdaptedFood food = new JsonAdaptedFood(VALID_NAME, VALID_PRICE, VALID_DESCRIPTION,
+                VALID_CATEGORY,
+                VALID_TAGS, VALID_OPENING_HOURS, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Restrictions.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, food::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
@@ -116,5 +156,4 @@ public class JsonAdaptedFoodTest {
                         invalidTags, VALID_OPENING_HOURS, VALID_RESTRICTIONS);
         assertThrows(IllegalValueException.class, food::toModelType);
     }
-
 }
