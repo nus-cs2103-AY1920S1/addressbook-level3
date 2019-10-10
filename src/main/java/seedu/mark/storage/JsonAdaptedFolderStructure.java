@@ -47,7 +47,6 @@ public class JsonAdaptedFolderStructure {
     /**
      * Converts this Jackson-friendly adapted bookmark object
      * into the model's {@code FolderStrucutre} object.
-     *
      */
     public FolderStructure toModelType() {
         return new FolderStructure(new Folder(name), subfolders.stream().map(

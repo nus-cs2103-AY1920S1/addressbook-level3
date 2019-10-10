@@ -15,7 +15,8 @@ import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Folder;
 
 /**
- * Represents a folder structure in Mark. Guarantees: details are present and not null, field values
+ * Represents a folder structure in Mark. 
+ * Guarantees: details are present and not null, field values
  * are validated, immutable.
  */
 public class FolderStructure {
@@ -25,7 +26,7 @@ public class FolderStructure {
 
     /**
      * Instantiates a new Folder structure.
-     * @param folder       the name
+     * @param folder     the folder
      * @param subfolders the subfolders
      */
     public FolderStructure(Folder folder, List<FolderStructure> subfolders) {
@@ -35,7 +36,7 @@ public class FolderStructure {
     }
 
     /**
-     * Gets the folder
+     * Gets the folder.
      *
      * @return the folder
      */
@@ -75,7 +76,7 @@ public class FolderStructure {
      * Checks if this folder structure contains the specified folder.
      *
      * @param folder the folder
-     * @return the boolean
+     * @return true if this folder structure contains the specified folder, otherwise false
      */
     public boolean hasFolder(Folder folder) {
         return find(folder) != null;
@@ -128,7 +129,7 @@ public class FolderStructure {
      * Checks if folder structure has no duplicates.
      *
      * @param test the structure to test
-     * @return valid?
+     * @return true if the folder structure has no duplicates, otherwise false
      */
     public static boolean isValidFolderStructure(FolderStructure test) {
         return FolderStructure.isValidFolderStructure(test, new HashSet<>());

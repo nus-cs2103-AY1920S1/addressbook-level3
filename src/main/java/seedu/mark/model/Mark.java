@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -98,8 +97,7 @@ public class Mark implements ReadOnlyMark {
     //// folder operations
 
     /**
-     * Replaces the folder structure with {@code bookmarks}.
-     * {@code bookmarks} must not contain duplicate bookmarks.
+     * Replaces the folder structure with the specified {@code folderStructure}.
      */
     public void setFolderStructure(FolderStructure folderStructure) {
         this.folderStructure.getSubfolders().clear();
