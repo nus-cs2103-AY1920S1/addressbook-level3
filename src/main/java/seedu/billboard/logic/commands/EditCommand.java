@@ -225,8 +225,10 @@ public class EditCommand extends Command {
             // state check
             EditExpenseDescriptor e = (EditExpenseDescriptor) other;
 
-            return getDescription().equals(e.getDescription())
-                    && getAmount().equals(e.getAmount());
+            return getName().equals(e.getName())
+                    && getDescription().equals(e.getDescription())
+                    && getAmount().equals(e.getAmount())
+                    && getTags().equals(e.getTags());
         }
     }
 }

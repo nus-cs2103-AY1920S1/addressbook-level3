@@ -10,6 +10,7 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +51,7 @@ public class EditExpenseDescriptorTest {
         assertNotEquals(DESC_DINNER, editedDinner);
 
         // different tags -> returns false
-        editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withTags(VALID_TAG_TAXES).build();
+        editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withTags(VALID_TAG_DINNER).build();
         assertNotEquals(DESC_DINNER, editedDinner);
     }
 }
