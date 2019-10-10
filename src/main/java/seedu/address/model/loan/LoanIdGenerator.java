@@ -4,6 +4,9 @@ import java.util.stream.IntStream;
 
 import seedu.address.model.LoanRecords;
 
+/**
+ * TODO!!
+ */
 public class LoanIdGenerator {
     public static final int LOAN_ID_LENGTH = 6; // excluding prefix 'L'
     public static final String PREFIX = "L";
@@ -17,6 +20,11 @@ public class LoanIdGenerator {
         currentLoanIdIndex = 0;
     }
 
+    /**
+     * TODO!!!
+     *
+     * @return
+     */
     public static LoanId generateLoanId() {
         currentLoanIdIndex++;
         // TODO

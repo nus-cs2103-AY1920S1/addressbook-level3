@@ -36,7 +36,7 @@ public class JsonSerializableLoanRecords {
      * @param source future changes to this will not affect the created {@code JsonSerializableLoanRecords}.
      */
     public JsonSerializableLoanRecords(ReadOnlyLoanRecords source) {
-        loans.addAll(source.getLoanList().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
+        loans.addAll(source.getLoanCollection().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
