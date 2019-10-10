@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 import tagline.logic.commands.Command;
 import tagline.logic.commands.HelpCommand;
-import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ClearContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.FindContactCommand;
@@ -43,7 +43,7 @@ public class ContactCommandParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddContactCommand.COMMAND_WORD:
+        case CreateContactCommand.COMMAND_WORD:
             return new AddContactParser().parse(arguments);
 
         case EditContactCommand.COMMAND_WORD:

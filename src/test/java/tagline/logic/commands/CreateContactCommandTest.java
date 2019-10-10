@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 
 import tagline.commons.core.GuiSettings;
-import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.AddressBook;
 import tagline.model.Model;
@@ -25,11 +25,11 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.person.Person;
 import tagline.testutil.PersonBuilder;
 
-public class AddContactCommandTest {
+public class CreateContactCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand(null));
+        assertThrows(NullPointerException.class, () -> new CreateContactCommand(null));
     }
 
     @Test
@@ -37,34 +37,35 @@ public class AddContactCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new CreateContactCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(CreateContactCommand.MESSAGE_SUCCESS, validPerson),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        AddContactCommand addContactCommand = new AddContactCommand(validPerson);
+        CreateContactCommand createContactCommand = new CreateContactCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class,
-                AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
+                CreateContactCommand.MESSAGE_DUPLICATE_PERSON, () -> createContactCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
+        CreateContactCommand addAliceCommand = new CreateContactCommand(alice);
+        CreateContactCommand addBobCommand = new CreateContactCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
+        CreateContactCommand addAliceCommandCopy = new CreateContactCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

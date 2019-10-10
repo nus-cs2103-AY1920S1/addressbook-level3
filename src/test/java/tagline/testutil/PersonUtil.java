@@ -6,7 +6,7 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
-import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.model.person.Person;
 
@@ -19,7 +19,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddContactCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return CreateContactCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**

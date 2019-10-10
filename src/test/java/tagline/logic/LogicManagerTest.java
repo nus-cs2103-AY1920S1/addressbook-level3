@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import tagline.logic.commands.CommandResult;
-import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
@@ -80,7 +80,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = ContactCommand.COMMAND_KEY + " " + AddContactCommand.COMMAND_WORD + NAME_DESC_AMY
+        String addCommand = ContactCommand.COMMAND_KEY + " " + CreateContactCommand.COMMAND_WORD + NAME_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();

@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ClearContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
@@ -34,8 +34,8 @@ public class ContactCommandParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddContactCommand command = (AddContactCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddContactCommand(person), command);
+        CreateContactCommand command = (CreateContactCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new CreateContactCommand(person), command);
     }
 
     @Test

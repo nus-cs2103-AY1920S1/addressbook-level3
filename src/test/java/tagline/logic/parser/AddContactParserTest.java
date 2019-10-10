@@ -15,7 +15,7 @@ import static tagline.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.parser.contact.AddContactParser;
 import tagline.model.person.Person;
 import tagline.testutil.PersonBuilder;
@@ -29,28 +29,28 @@ public class AddContactParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddContactCommand(expectedPerson));
+                + ADDRESS_DESC_BOB, new CreateContactCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddContactCommand(expectedPerson));
+                + ADDRESS_DESC_BOB, new CreateContactCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddContactCommand(expectedPerson));
+                + ADDRESS_DESC_BOB, new CreateContactCommand(expectedPerson));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddContactCommand(expectedPerson));
+                + ADDRESS_DESC_BOB, new CreateContactCommand(expectedPerson));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB, new AddContactCommand(expectedPerson));
+                + ADDRESS_DESC_BOB, new CreateContactCommand(expectedPerson));
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                new AddContactCommand(expectedPersonMultipleTags));
+                new CreateContactCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -58,6 +58,6 @@ public class AddContactParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddContactCommand(expectedPerson));
+                new CreateContactCommand(expectedPerson));
     }
 }

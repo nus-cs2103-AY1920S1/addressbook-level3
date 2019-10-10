@@ -81,15 +81,15 @@ Creates a contact.
 
 Format:
 
-`contact create NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+`contact create --n NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
 
 Examples:
 
-* `contact create Dwayne Johnson`
-* `contact create Dwayne --d Friend from CS2100`
-* `contact create John --e johnson@gmail.com --d Friend from CS2100`
-* `contact create John --p 81234567 --a 21 Kent Ridge Rd`
-* `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
+* `contact create --n Dwayne Johnson`
+* `contact create --n Dwayne --d Friend from CS2100`
+* `contact create --n John --e johnson@gmail.com --d Friend from CS2100`
+* `contact create --n John --p 81234567 --a 21 Kent Ridge Rd`
+* `contact create --n Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
 ==== List all contacts: `list`
 
