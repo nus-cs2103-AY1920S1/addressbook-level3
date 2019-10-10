@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
@@ -22,6 +23,7 @@ public class FoodBuilder {
     public static final String DEFAULT_PRICE = "85355255";
     public static final String DEFAULT_DESCRIPTION = "Test Description.";
     public static final String DEFAULT_CATEGORY = "Test Category";
+    public static final String DEFAULT_LOCATION = "Test Location";
     public static final String DEFAULT_OPENING_HOURS = "0800 1800";
     public static final String DEFAULT_RESTRICTIONS = "Test Restrictions";
 
@@ -30,6 +32,7 @@ public class FoodBuilder {
     private Description description;
     private Category category;
     private Set<Tag> tags;
+    private Location location;
     private OpeningHours openingHours;
     private Restrictions restrictions;
 
@@ -39,6 +42,7 @@ public class FoodBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         category = new Category(DEFAULT_CATEGORY);
         tags = new HashSet<>();
+        location = new Location(DEFAULT_LOCATION);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
         restrictions = new Restrictions(DEFAULT_RESTRICTIONS);
     }
@@ -52,6 +56,7 @@ public class FoodBuilder {
         description = foodToCopy.getDescription();
         category = foodToCopy.getCategory();
         tags = new HashSet<>(foodToCopy.getTags());
+        location = foodToCopy.getLocation();
         openingHours = foodToCopy.getOpeningHours();
         restrictions = foodToCopy.getRestrictions();
     }
@@ -97,6 +102,14 @@ public class FoodBuilder {
     }
 
     /**
+     * Sets the {@code Location} of the {@code Food} that we are building.
+     */
+    public FoodBuilder withLocation(String location) {
+        this.location = new Location(location);
+        return this;
+    }
+
+    /**
      * Sets the {@code OpeningHours} of the {@code Food} that we are building.
      */
     public FoodBuilder withOpeningHours(String openingHours) {
@@ -113,7 +126,7 @@ public class FoodBuilder {
     }
 
     public Food build() {
-        return new Food(name, price, description, category, tags, openingHours, restrictions);
+        return new Food(name, price, description, category, tags, location, openingHours, restrictions);
     }
 
 }

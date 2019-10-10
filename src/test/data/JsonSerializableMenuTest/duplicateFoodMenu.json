@@ -5,6 +5,7 @@
     "description": "Italian noodle",
     "category": "Italian",
     "tagged": [ "Noodle" ],
+    "location": "The Deck",
     "openingHours": "0800 2100",
     "restrictions": "Epic"
   }, {
@@ -13,6 +14,7 @@
     "description": "Italian noodle",
     "category": "Italian",
     "tagged": [ "Noodle" ],
+    "location": "The Deck",
     "openingHours": "0800 2100",
     "restrictions": "Epic"
   } ]

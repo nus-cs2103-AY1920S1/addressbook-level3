@@ -8,17 +8,23 @@ import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_D
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_LOCATION_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_OPENING_HOURS_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_RESTRICTIONS_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_RICE;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
@@ -112,12 +118,16 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_FOOD;
         String userInput = targetIndex.getOneBased() + PRICE_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
                 + DESCRIPTION_DESC_CHICKEN_RICE + NAME_DESC_CHICKEN_RICE + CATEGORY_DESC_CHICKEN_RICE
-                + TAG_DESC_RICE;
+                + TAG_DESC_RICE + LOCATION_DESC_CHICKEN_RICE + OPENING_HOURS_DESC_CHICKEN_RICE
+                + RESTRICTIONS_DESC_CHICKEN_RICE;
 
         EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE)
                 .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
                 .withCategory(VALID_CATEGORY_CHICKEN_RICE)
-                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE).build();
+                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE)
+                .withLocation(VALID_LOCATION_CHICKEN_RICE)
+                .withOpeningHours(VALID_OPENING_HOURS_CHICKEN_RICE)
+                .withRestrictions(VALID_RESTRICTIONS_CHICKEN_RICE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -160,6 +170,12 @@ public class EditCommandParserTest {
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_RICE;
         descriptor = new EditFoodDescriptorBuilder().withTags(VALID_TAG_RICE).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // location
+        userInput = targetIndex.getOneBased() + LOCATION_DESC_CHICKEN_RICE;
+        descriptor = new EditFoodDescriptorBuilder().withLocation(VALID_LOCATION_CHICKEN_RICE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

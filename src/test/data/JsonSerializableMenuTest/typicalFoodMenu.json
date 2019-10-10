@@ -6,38 +6,43 @@
     "description" : "Italian noodle with cheese and meat",
     "category": "Italian",
     "tagged" : [ "Noodle" ],
-    "openingHours": "0800 1700",
-    "restrictions": "Contains dairy and pork"
+    "location" : "The Deck",
+    "openingHours" : "0800 1700",
+    "restrictions" : "Contains dairy and pork"
   }, {
     "name" : "Tonkotsu Ramen",
     "price" : "11.00",
     "description" : "Japanese noodle with pork",
     "category": "Japanese",
     "tagged" : [ "Noodle", "Asian" ],
-    "openingHours": "0800 1800",
-    "restrictions": "Contains pork"
+    "location" : "Frontier Canteen",
+    "openingHours" : "0800 1800",
+    "restrictions" : "Contains pork"
   }, {
     "name" : "Bak Kut Teh",
     "price" : "10.00",
     "description" : "Chinese pork soup with spices",
     "category": "Chinese",
     "tagged" : [ "Asian" ],
-    "openingHours": "0800 1800",
-    "restrictions": "Contains pork"
+    "location" : "University Town",
+    "openingHours" : "0800 1800",
+    "restrictions" : "Contains pork"
   }, {
     "name" : "Teh Ping",
     "price" : "1.50",
     "description" : "Really good tea",
     "category": "Chinese",
     "tagged" : [ "Tea" , "Leaves" ],
-    "openingHours": "0000 2359",
-    "restrictions": "May cause cancer"
+    "location": "Cool Spot",
+    "openingHours" : "0000 2359",
+    "restrictions" : "May cause cancer"
   }, {
     "name" : "Mala Xiang Guo",
     "price" : "15.00",
     "description" : "Spicy chinese food",
     "category": "Chinese",
     "tagged" : [ "Spicy" , "Vegetables" ],
+    "location" : "Liang Ban Kung Fu at The Deck",
     "openingHours": "0800 1930",
     "restrictions": "Not halal"
   }, {
@@ -46,15 +51,17 @@
     "description" : "Japanese rice with wagyu beef, with tea",
     "category": "Japanese",
     "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
-    "openingHours": "1000 1700",
-    "restrictions": "Expensive"
+    "location" : "Atas Place in NUS",
+    "openingHours" : "1000 1700",
+    "restrictions" : "Expensive"
   }, {
     "name" : "Nasi Ayam",
     "price" : "4.80",
     "description" : "Rice with fried chicken",
     "category": "Malay",
     "tagged" : [ "Chicken" , "Roasted" ],
-    "openingHours": "0900 1700",
-    "restrictions": "Halal"
+    "location" : "Techno Edge",
+    "openingHours" : "0900 1700",
+    "restrictions" : "Halal"
   } ]
 }

@@ -13,6 +13,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
@@ -31,6 +32,7 @@ class JsonAdaptedFood {
     private final String description;
     private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String location;
     private final String openingHours;
     private final String restrictions;
 
@@ -42,6 +44,7 @@ class JsonAdaptedFood {
                            @JsonProperty("description") String description,
                            @JsonProperty("category") String category,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("location") String location,
                            @JsonProperty("openingHours") String openingHours,
                            @JsonProperty("restrictions") String restrictions) {
         this.name = name;
@@ -51,6 +54,7 @@ class JsonAdaptedFood {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.location = location;
         this.openingHours = openingHours;
         this.restrictions = restrictions;
     }
@@ -66,6 +70,7 @@ class JsonAdaptedFood {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        location = source.getLocation().location;
         openingHours = source.getOpeningHours().openingHours;
         restrictions = source.getRestrictions().restrictions;
     }
@@ -106,6 +111,15 @@ class JsonAdaptedFood {
         }
         final Description modelDesciption = new Description(description);
 
+        if (location == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
+        }
+        if (!Location.isValidLocation(location)) {
+            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
+        }
+        final Location modelLocation = new Location(location);
+
         if (category == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
@@ -136,6 +150,6 @@ class JsonAdaptedFood {
         final Set<Tag> modelTags = new HashSet<>(foodTags);
 
         return new Food(modelName, modelPrice, modelDesciption, modelCategory, modelTags,
-                        modelOpeningHours, modelRestrictions);
+                        modelLocation, modelOpeningHours, modelRestrictions);
     }
 }

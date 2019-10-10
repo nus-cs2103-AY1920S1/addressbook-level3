@@ -6,9 +6,12 @@ import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_NASI_LE
 import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
+import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_LOCATION_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_CHICKEN_RICE;
@@ -36,6 +39,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.tag.Tag;
@@ -51,44 +55,44 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_NASI_LEMAK
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_CHICKEN_RICE + NAME_DESC_NASI_LEMAK
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
         // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_CHICKEN_RICE
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
         // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
                 + DESCRIPTION_DESC_CHICKEN_RICE + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
-        // multiple addresses - last address accepted
+        // multiple locations - last location accepted
         assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
-                + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + DESCRIPTION_DESC_NASI_LEMAK + CATEGORY_DESC_NASI_LEMAK
+                + TAG_DESC_CHICKEN
+                + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
         // multiple tags - all accepted
         Food expectedFoodMultipleTags = new FoodBuilder(NASI_LEMAK).withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE)
                 .build();
         assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_RICE + TAG_DESC_CHICKEN + OPENING_HOURS_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_RICE + TAG_DESC_CHICKEN
+                + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFoodMultipleTags));
     }
 
@@ -97,7 +101,8 @@ public class AddCommandParserTest {
         // zero tags
         Food expectedFood = new FoodBuilder(CHICKEN_RICE).withTags().build();
         assertParseSuccess(parser, NAME_DESC_CHICKEN_RICE + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE
-                        + CATEGORY_DESC_CHICKEN_RICE + OPENING_HOURS_DESC_CHICKEN_RICE + RESTRICTIONS_DESC_CHICKEN_RICE,
+                        + CATEGORY_DESC_CHICKEN_RICE + LOCATION_DESC_CHICKEN_RICE
+                        + OPENING_HOURS_DESC_CHICKEN_RICE + RESTRICTIONS_DESC_CHICKEN_RICE,
                 new AddCommand(expectedFood));
     }
 
@@ -154,26 +159,33 @@ public class AddCommandParserTest {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_RICE + TAG_DESC_CHICKEN, Name.MESSAGE_CONSTRAINTS);
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_RICE
+                + LOCATION_DESC_CHICKEN_RICE + TAG_DESC_CHICKEN, Name.MESSAGE_CONSTRAINTS);
 
         // invalid price
         assertParseFailure(parser, NAME_DESC_NASI_LEMAK + INVALID_PRICE_DESC
-                + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_RICE + TAG_DESC_CHICKEN, Price.MESSAGE_CONSTRAINTS);
+                + DESCRIPTION_DESC_NASI_LEMAK + CATEGORY_DESC_NASI_LEMAK
+                + TAG_DESC_RICE + LOCATION_DESC_CHICKEN_RICE
+                + TAG_DESC_CHICKEN, Price.MESSAGE_CONSTRAINTS);
 
         // invalid description
         assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
-                + INVALID_DESCRIPTION_DESC
-                + CATEGORY_DESC_NASI_LEMAK
-                + TAG_DESC_RICE + TAG_DESC_CHICKEN, Description.MESSAGE_CONSTRAINTS);
+                + INVALID_DESCRIPTION_DESC + CATEGORY_DESC_NASI_LEMAK
+                + TAG_DESC_RICE + LOCATION_DESC_CHICKEN_RICE
+                + TAG_DESC_CHICKEN, Description.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_NASI_LEMAK
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
-                + CATEGORY_DESC_NASI_LEMAK
-                + INVALID_TAG_DESC + VALID_TAG_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+                + CATEGORY_DESC_NASI_LEMAK + INVALID_TAG_DESC
+                + LOCATION_DESC_CHICKEN_RICE + VALID_TAG_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+
+        // invalid location
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK
+                + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
+                + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + TAG_DESC_RICE + INVALID_LOCATION_DESC
+                + OPENING_HOURS_DESC_NASI_LEMAK + RESTRICTIONS_DESC_NASI_LEMAK, Location.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PRICE_DESC_NASI_LEMAK
