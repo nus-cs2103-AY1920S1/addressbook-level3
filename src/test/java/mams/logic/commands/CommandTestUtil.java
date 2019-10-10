@@ -1,6 +1,5 @@
 package mams.logic.commands;
 
-
 import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
