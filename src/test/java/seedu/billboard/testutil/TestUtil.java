@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the expense in the {@code model}'s expense list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredExpenses().size() / 2);
     }
 
     /**
      * Returns the last index of the expense in the {@code model}'s expense list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredExpenses().size());
     }
 
     /**
      * Returns the expense in the {@code model}'s expense list at {@code index}.
      */
     public static Expense getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+        return model.getFilteredExpenses().get(index.getZeroBased());
     }
 }

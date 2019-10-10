@@ -12,20 +12,20 @@ import seedu.billboard.model.person.exceptions.DuplicatePersonException;
 import seedu.billboard.model.person.exceptions.PersonNotFoundException;
 
 /**
- * A list of records. The records are unique as specified by the {@code equals} method of the {@code Record} class
+ * A list of expenses. The expenses are unique as specified by the {@code equals} method of the {@code Expense} class
  * Supports a minimal set of list operations.
  *
  */
-public class RecordList implements Iterable<Record> {
+public class ExpenseList implements Iterable<Expense> {
 
-    private final ObservableList<Record> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Record> internalUnmodifiableList =
+    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent expense as the given argument.
      */
-    public boolean contains(Record toCheck) {
+    public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
@@ -34,7 +34,7 @@ public class RecordList implements Iterable<Record> {
      * Adds a expense to the list.
      * The expense must not already exist in the list.
      */
-    public void add(Record toAdd) {
+    public void add(Expense toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -43,71 +43,71 @@ public class RecordList implements Iterable<Record> {
     }
 
     /**
-     * Replaces the record {@code target} in the list with {@code editedRecord}.
+     * Replaces the record {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the list.
-     * The record {@code editedRecord} must not be the same as another existing record in the list.
+     * The record {@code editedExpense} must not be the same as another existing record in the list.
      */
-    public void setPerson(Record target, Record editedRecord) {
-        requireAllNonNull(target, editedRecord);
+    public void setPerson(Expense target, Expense editedExpense) {
+        requireAllNonNull(target, editedExpense);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSameRecord(editedRecord) && contains(editedRecord)) {
+        if (!target.equals(editedExpense) && contains(editedExpense)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedRecord);
+        internalList.set(index, editedExpense);
     }
 
     /**
      * Removes the equivalent record from the list.
      * The record must exist in the list.
      */
-    public void remove(Record toRemove) {
+    public void remove(Expense toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
 
-    public void setPersons(RecordList replacement) {
+    public void setPersons(ExpenseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code records}.
-     * {@code records} must not contain duplicate records.
+     * Replaces the contents of this list with {@code expense}.
+     * {@code expense} must not contain duplicate expense.
      */
-    public void setPersons(List<Record> records) {
-        requireAllNonNull(records);
-        if (!recordsAreUnique(records)) {
+    public void setPersons(List<Expense> expense) {
+        requireAllNonNull(expense);
+        if (!expensesAreUnique(expense)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(records);
+        internalList.setAll(expense);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Record> asUnmodifiableObservableList() {
+    public ObservableList<Expense> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Record> iterator() {
+    public Iterator<Expense> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RecordList // instanceof handles nulls
-                        && internalList.equals(((RecordList) other).internalList));
+                || (other instanceof ExpenseList // instanceof handles nulls
+                        && internalList.equals(((ExpenseList) other).internalList));
     }
 
     @Override
@@ -116,12 +116,12 @@ public class RecordList implements Iterable<Record> {
     }
 
     /**
-     * Returns true if {@code expenses} contains only unique expenses.
+     * Returns true if {@code Expense} contains only unique Expense.
      */
-    private boolean recordsAreUnique(List<? extends Record> expenses) {
-        for (int i = 0; i < expenses.size() - 1; i++) {
-            for (int j = i + 1; j < expenses.size(); j++) {
-                if (expenses.get(i).isSameRecord(expenses.get(j))) {
+    private boolean expensesAreUnique(List<? extends Expense> Expense) {
+        for (int i = 0; i < Expense.size() - 1; i++) {
+            for (int j = i + 1; j < Expense.size(); j++) {
+                if (Expense.get(i).equals(Expense.get(j))) {
                     return false;
                 }
             }

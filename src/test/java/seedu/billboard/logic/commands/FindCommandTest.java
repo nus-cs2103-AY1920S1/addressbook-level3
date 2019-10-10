@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalPersons.GROCERIES;
-import static seedu.billboard.testutil.TypicalPersons.ELLE;
-import static seedu.billboard.testutil.TypicalPersons.FIONA;
 import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -59,19 +57,19 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredExpenses());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleExpensesFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(GROCERIES, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(GROCERIES, ELLE, FIONA), model.getFilteredExpenses());
     }
 
     /**

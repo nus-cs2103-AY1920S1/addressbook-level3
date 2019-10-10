@@ -1,7 +1,7 @@
 package seedu.billboard.model;
 
 import javafx.collections.ObservableList;
-import seedu.billboard.model.person.Record;
+import seedu.billboard.model.person.Expense;
 
 /**
  * Unmodifiable view of an address book
@@ -9,9 +9,9 @@ import seedu.billboard.model.person.Record;
 public interface ReadOnlyBillboard {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the expense list.
+     * This list will not contain any duplicate expenses.
      */
-    ObservableList<Record> getPersonList();
+    ObservableList<Expense> getExpenses();
 
 }

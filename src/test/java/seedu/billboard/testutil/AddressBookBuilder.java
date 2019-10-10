@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Expense} to the {@code Billboard} that we are building.
      */
     public AddressBookBuilder withPerson(Expense expense) {
-        addressBook.addPerson(expense);
+        addressBook.addExpense(expense);
         return this;
     }
 

@@ -108,7 +108,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Expense expense) {
+        public void addExpense(Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -128,22 +128,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(Expense target) {
+        public void deleteExpense(Expense target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Expense target, Expense editedExpense) {
+        public void setExpense(Expense target, Expense editedExpense) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Expense> getFilteredPersonList() {
+        public ObservableList<Expense> getFilteredExpenses() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Expense> predicate) {
+        public void updateFilteredExpenses(Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -162,7 +162,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Expense expense) {
             requireNonNull(expense);
-            return this.expense.isSameRecord(expense);
+            return this.expense.equals(expense);
         }
     }
 
@@ -179,7 +179,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Expense expense) {
+        public void addExpense(Expense expense) {
             requireNonNull(expense);
             personsAdded.add(expense);
         }

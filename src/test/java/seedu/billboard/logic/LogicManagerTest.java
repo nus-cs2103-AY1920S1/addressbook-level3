@@ -3,12 +3,12 @@ package seedu.billboard.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.billboard.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.billboard.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.AMY;
+import static seedu.billboard.testutil.TypicalPersons.DINNER;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -79,11 +79,11 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Expense expectedExpense = new ExpenseBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_DINNER + DESCRIPTION_DESC_DINNER + EMAIL_DESC_AMY
+                + AMOUNT_DESC_DINNER;
+        Expense expectedExpense = new ExpenseBuilder(DINNER).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedExpense);
+        expectedModel.addExpense(expectedExpense);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

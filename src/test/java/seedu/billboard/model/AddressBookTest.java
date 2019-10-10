@@ -3,8 +3,8 @@ package seedu.billboard.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalPersons.BILLS;
 import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.person.Expense;
-import seedu.billboard.model.person.Record;
 import seedu.billboard.model.person.exceptions.DuplicatePersonException;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -29,7 +28,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getExpenses());
     }
 
     @Test
@@ -47,7 +46,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
                 .build();
         List<Expense> newExpenses = Arrays.asList(BILLS, editedAlice);
         BillboardStub newData = new BillboardStub(newExpenses);
@@ -57,31 +56,31 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> addressBook.hasExpense(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(BILLS));
+        assertFalse(addressBook.hasExpense(BILLS));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(BILLS);
-        assertTrue(addressBook.hasPerson(BILLS));
+        addressBook.addExpense(BILLS);
+        assertTrue(addressBook.hasExpense(BILLS));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(BILLS);
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addExpense(BILLS);
+        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasExpense(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getExpenses().remove(0));
     }
 
     /**
@@ -95,7 +94,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Record> getPersonList() {
+        public ObservableList<Expense> getExpenses() {
             return expenses;
         }
     }

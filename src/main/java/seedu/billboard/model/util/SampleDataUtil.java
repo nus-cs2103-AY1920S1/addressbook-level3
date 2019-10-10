@@ -34,7 +34,7 @@ public class SampleDataUtil {
     public static ReadOnlyBillboard getSampleAddressBook() {
         Billboard sampleAb = new Billboard();
         for (Expense sampleExpense : getSamplePersons()) {
-            sampleAb.addPerson(sampleExpense);
+            sampleAb.addExpense(sampleExpense);
         }
         return sampleAb;
     }

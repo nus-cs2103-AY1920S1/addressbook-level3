@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
-import seedu.billboard.model.person.Record;
+import seedu.billboard.model.person.Expense;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Record> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expense> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,35 @@ public interface Model {
     ReadOnlyBillboard getBillboard();
 
     /**
-     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    boolean hasRecord(Record record);
+    boolean hasExpense(Expense expense);
 
     /**
-     * Deletes the given record.
-     * The record must exist in the address book.
+     * Deletes the given expense.
+     * The expense must exist in the address book.
      */
-    void deletePerson(Record target);
+    void deleteExpense(Expense target);
 
     /**
-     * Adds the given record.
-     * {@code record} must not already exist in the address book.
+     * Adds the given expense.
+     * {@code expense} must not already exist in the address book.
      */
-    void addPerson(Record expense);
+    void addExpense(Expense expense);
 
     /**
-     * Replaces the given record {@code target} with {@code editedRecord}.
+     * Replaces the given expense {@code target} with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The record {@code editedRecord} must not be the same as another existing record in the address book.
+     * The expense {@code editedExpense} must not be the same as another existing expense in the address book.
      */
-    void setPerson(Record target, Record editedRecord);
+    void setExpense(Expense target, Expense editedExpense);
 
-    /** Returns an unmodifiable view of the filtered record list */
-    ObservableList<Record> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Expense> getFilteredExpenses();
 
     /**
-     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Record> predicate);
+    void updateFilteredExpenses(Predicate<Expense> predicate);
 }

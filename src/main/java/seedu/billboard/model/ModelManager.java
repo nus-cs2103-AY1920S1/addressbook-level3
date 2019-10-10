@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
-import seedu.billboard.model.person.Record;
+import seedu.billboard.model.person.Expense;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final Billboard billboard;
     private final UserPrefs userPrefs;
-    private final FilteredList<Record> filteredExpenses;
+    private final FilteredList<Expense> filteredExpense;
 
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.billboard = new Billboard(billboard);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpenses = new FilteredList<>(this.billboard.getPersonList());
+        filteredExpense = new FilteredList<>(this.billboard.getExpenses());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasRecord(Record record) {
-        requireNonNull(record);
-        return billboard.hasPerson(record);
+    public boolean hasExpense(Expense expense) {
+        requireNonNull(expense);
+        return billboard.hasExpense(expense);
     }
 
     @Override
-    public void deletePerson(Record target) {
-        billboard.removePerson(target);
+    public void deleteExpense(Expense target) {
+        billboard.removeExpense(target);
     }
 
     @Override
-    public void addPerson(Record expense) {
-        billboard.addPerson(expense);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addExpense(Expense expense) {
+        billboard.addExpense(expense);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Record target, Record editedRecord) {
-        requireAllNonNull(target, editedRecord);
+    public void setExpense(Expense target, Expense editedExpense) {
+        requireAllNonNull(target, editedExpense);
 
-        billboard.setPerson(target, editedRecord);
+        billboard.setExpense(target, editedExpense);
     }
 
     //=========== Filtered Expense List Accessors =============================================================
@@ -119,14 +119,14 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Record> getFilteredPersonList() {
-        return filteredExpenses;
+    public ObservableList<Expense> getFilteredExpenses() {
+        return filteredExpense;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Record> predicate) {
+    public void updateFilteredExpenses(Predicate<Expense> predicate) {
         requireNonNull(predicate);
-        filteredExpenses.setPredicate(predicate);
+        filteredExpense.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return billboard.equals(other.billboard)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExpenses.equals(other.filteredExpenses);
+                && filteredExpense.equals(other.filteredExpense);
     }
 
 }

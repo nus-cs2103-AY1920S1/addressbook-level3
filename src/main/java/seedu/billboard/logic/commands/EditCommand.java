@@ -1,19 +1,29 @@
 package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.billboard.logic.parser.CliSyntax.*;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.*;
 
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.CollectionUtil;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.*;
+import seedu.billboard.model.person.Amount;
+import seedu.billboard.model.person.Description;
 import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.person.Name;
 import seedu.billboard.model.tag.Tag;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Edits the details of an existing expense in the address book.
@@ -69,7 +79,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredPersonList();
+        List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -78,12 +88,12 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.isSameRecord(editedExpense) && model.hasRecord(editedExpense)) {
+        if (!expenseToEdit.equals(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(expenseToEdit, editedExpense);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setExpense(expenseToEdit, editedExpense);
+        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedExpense));
     }
 

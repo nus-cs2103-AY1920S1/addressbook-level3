@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Expense validExpense = new ExpenseBuilder().build();
 
         Model expectedModel = new ModelManager(model.getBillboard(), new UserPrefs());
-        expectedModel.addPerson(validExpense);
+        expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddCommand(validExpense), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Expense expenseInList = model.getBillboard().getPersonList().get(0);
+        Expense expenseInList = model.getBillboard().getExpenses().get(0);
         assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
