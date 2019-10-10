@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'dukecooks.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +133,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'DukeCooks',
+        'site-githuburl': 'https://ay1920s1-cs2103t-t10-2.github.io/main/',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
