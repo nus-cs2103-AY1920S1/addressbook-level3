@@ -9,14 +9,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Password {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Passwords should only contain alphanumeric characters, and it should not be blank";
+    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
+    public static final String MESSAGE_CONSTRAINTS = "Passwords must adhere to the following requirements:\n"
+            + "1. The password should only contain alphanumeric characters and/or these special characters, excluding "
+            + "the parentheses, (" + SPECIAL_CHARACTERS + ").\n"
+            + "2. The password cannot be blank or contain a whitespace.";
 
     /*
      * The first character of the username must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
 
     public final String value;
 

@@ -10,13 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Username {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters up to 16 characters, and it should not be blank or contain a whitespace";
+            "Usernames should only consist of alphanumeric characters, "
+                    + "with a period or a hyphen for the characters in between if any, "
+                    + "and it should not be blank or contain a whitespace";
 
     /*
      * The first character of the username must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]{1,16}";
+    public static final String VALIDATION_REGEX = "[a-zA-Z0-9.-]+";
 
     public final String value;
 

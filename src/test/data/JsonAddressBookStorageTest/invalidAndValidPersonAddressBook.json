@@ -2,10 +2,14 @@
   "persons": [ {
     "name": "Valid Person",
     "phone": "9482424",
-    "email": "hans@example.com"
+    "email": "hans@example.com",
+    "username": "tester1",
+    "password": "password"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
-    "email": "hans@example.com"
+    "email": "hans@example.com",
+    "username": "tester2",
+    "password": "password"
   } ]
 }

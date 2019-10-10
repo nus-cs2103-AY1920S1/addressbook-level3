@@ -72,7 +72,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setUsername(new Username(username));
         return this;
     }
-    
+
     /**
      * Sets the {@code Password} of the {@code EditPersonDescriptor} that we are building.
      */

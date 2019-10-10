@@ -100,18 +100,20 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (username == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Username.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Username.class.getSimpleName()));
         }
         if (!Username.isValidUsername(username)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Username.MESSAGE_CONSTRAINTS);
         }
         final Username modelUsername = new Username(username);
 
         if (password == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Password.class.getSimpleName()));
         }
         if (!Password.isValidPassword(password)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Password.MESSAGE_CONSTRAINTS);
         }
         final Password modelPassword = new Password(password);
 
