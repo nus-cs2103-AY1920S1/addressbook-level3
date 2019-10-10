@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 
 
 /**
@@ -104,6 +105,26 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
         }
 
         internalList.setAll(studyPlans);
+    }
+
+    /**
+     * Returns a {@code StudyPlan} with the given index.
+     */
+    public StudyPlan getStudyPlanByIndex(int index) throws StudyPlanNotFoundException{
+        Iterator<StudyPlan> iterator = this.iterator();
+        StudyPlan result = null;
+        while (iterator.hasNext()) {
+            StudyPlan studyPlan = iterator.next();
+            if (studyPlan.getIndex() == index) {
+                result = studyPlan;
+            }
+        }
+
+        if (result == null) {
+            throw new StudyPlanNotFoundException();
+        } else {
+            return result;
+        }
     }
 
     /**
