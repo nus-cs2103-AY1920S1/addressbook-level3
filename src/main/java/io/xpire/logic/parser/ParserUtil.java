@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.StringUtil;
@@ -14,6 +15,7 @@ import io.xpire.model.item.Name;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -84,7 +86,7 @@ public class ParserUtil {
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<Tag> tagSet = new TreeSet<>(new TagComparator());
         for (String tagName : tags) {
             String trimmedTag = tagName.trim();
             if (!trimmedTag.isEmpty()) {

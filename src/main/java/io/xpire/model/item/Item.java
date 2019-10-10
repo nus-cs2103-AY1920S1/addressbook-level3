@@ -2,15 +2,17 @@ package io.xpire.model.item;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Objects;
 import java.util.Set;
 
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
- * Represents a Item in xpire.
+ * Represents a Item in Xpire.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
@@ -19,7 +21,7 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags = new TreeSet<>(new TagComparator());
     private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
 
     /**

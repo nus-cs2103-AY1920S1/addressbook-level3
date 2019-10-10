@@ -54,8 +54,7 @@ public class ItemCard extends UiPart<Region> {
         } else {
             this.reminder.setVisible(false);
         }
-        this.item.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+        this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
     }
 

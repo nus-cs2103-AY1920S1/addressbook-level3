@@ -2,10 +2,7 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -13,6 +10,7 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 
 /**
@@ -84,7 +82,7 @@ public class TagCommand extends Command {
         if (tagItemDescriptor.isClear) {
             return null;
         }
-        Set<Tag> set = new HashSet<>();
+        Set<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToTag.getTags());
         set.addAll(tagItemDescriptor.getTags());
         return set;

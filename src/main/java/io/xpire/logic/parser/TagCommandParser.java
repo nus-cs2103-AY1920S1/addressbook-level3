@@ -5,12 +5,14 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
  * Parses input arguments and creates a new TagCommand object.
@@ -40,7 +42,7 @@ public class TagCommandParser implements Parser<TagCommand> {
             String[] tags = trimmedTags.split("#");
             set = ParserUtil.parseTags(Arrays.asList(tags));
         } else {
-            set = new HashSet<>();
+            set = new TreeSet<>(new TagComparator());
         }
         tagItemDescriptor.setTags(set);
         return new TagCommand(index, tagItemDescriptor);
