@@ -8,12 +8,23 @@ Extends to Step 15 in Game.java
  */
 package seedu.address.logic.commands;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 /**
  * Start the game.
@@ -35,7 +46,18 @@ public class StartCommand extends AppCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        Path filePath = Paths.get("data/addressbook.json");
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+
+        try {
+            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
+            wordBank = (WordBank) thisBank.get();
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Game newGame = new Game(wordBank);
         model.setGame(newGame);
         String currQuestion = model.getGame().showCurrQuestion();
