@@ -301,7 +301,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |secretary |request ro edit a specific appointment |fix any misinformation that I typed wrongly
 
-|`* * *` |secretary under a busy manager |find specific appointments |schedule meetings/appointments efficiently
+|`* * *` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
 
 |`* * *` |secretary |have the option to clear the appointment list |restart from scratch
 
@@ -333,7 +333,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |bored secretary |keep myself entertained|
 
-|`***` |secretary under a busy manager |find specific appointments fast |schedule appointments efficiently
 |=======================================================================
 
 [appendix]
