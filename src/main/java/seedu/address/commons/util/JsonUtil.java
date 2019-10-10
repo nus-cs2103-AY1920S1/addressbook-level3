@@ -39,13 +39,13 @@ public class JsonUtil {
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
-    static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
-        FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
+    static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize, String password) throws IOException {
+        FileUtil.writeToEncryptedFile(jsonFile, toJsonString(objectToSerialize), password);
     }
 
-    static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize)
+    static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize, String password)
             throws IOException {
-        return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+        return fromJsonString(FileUtil.readFromEncryptedFile(jsonFile, password), classOfObjectToDeserialize);
     }
 
     /**

@@ -24,12 +24,12 @@ public class JsonUtilTest {
 
         JsonUtil.serializeObjectToJsonFile(SERIALIZATION_FILE, serializableTestClass);
 
-        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromEncryptedFile(SERIALIZATION_FILE,"password1"), SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
 
     @Test
     public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
-        FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
+        FileUtil.writeToEncryptedFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION, "password1");
 
         SerializableTestClass serializableTestClass = JsonUtil
                 .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);

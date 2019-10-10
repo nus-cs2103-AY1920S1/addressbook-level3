@@ -72,12 +72,24 @@ public class FileUtil {
         return new String(Files.readAllBytes(file), CHARSET);
     }
 
+    public static String readFromEncryptedFile (Path file, String password) throws IOException {
+        byte[] input = EncryptionUtil.decryptBytes(Files.readAllBytes(file), password);
+        if (input == null) {
+            throw new IOException("Byte array is null");
+        }
+        return new String(EncryptionUtil.decryptBytes(Files.readAllBytes(file), password), CHARSET);
+    }
+
     /**
      * Writes given string to a file.
      * Will create the file if it does not exist yet.
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
+    }
+
+    public static void writeToEncryptedFile (Path file, String content, String password) throws IOException {
+       Files.write(file, EncryptionUtil.encryptBytes(content.getBytes(CHARSET), password));
     }
 
 }
