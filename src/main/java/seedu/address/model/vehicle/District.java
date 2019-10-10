@@ -15,7 +15,7 @@ public class District {
     public static final int FIRST_DISTRICT = 1;
     public static final int LAST_DISTRICT = 28;
 
-    public final int district;
+    public final int districtNum;
 
     /**
      * Constructs a {@code District}.
@@ -25,7 +25,7 @@ public class District {
     public District(int d) {
         requireNonNull(d);
         checkArgument(isValidDistrict(d), MESSAGE_CONSTRAINTS);
-        district = d;
+        districtNum = d;
     }
 
     /**
@@ -38,14 +38,14 @@ public class District {
 
     @Override
     public String toString() {
-        return String.valueOf(district);
+        return String.valueOf(districtNum);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof District // instanceof handles nulls
-                && district == ((District) other).district); // state check
+                && districtNum == ((District) other).districtNum); // state check
     }
 
 }
