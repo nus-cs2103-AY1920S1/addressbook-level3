@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,14 +21,44 @@ public interface Model {
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * Fills model data to the given model.
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    void fillModelData(Model model);
+
+    /**
+     * Returns the model history.
+     */
+    ReadOnlyModelHistory getModelHistory();
+
+    /**
+     * Replaces model history with the data in {@code history}.
+     */
+    void setModelHistory(ReadOnlyModelHistory history);
+
+    /**
+     * Returns the rolled-back version of the model to the immediate previous state.
+     */
+    Optional<Model> rollbackModel();
+
+    /**
+     * Returns the migrated version of the model to the immediate next state.
+     */
+    Optional<Model> migrateModel();
+
+    /**
+     * Adds the current model to the history.
+     */
+    void addToHistory();
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -49,13 +80,13 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
+    /** Returns the AddressBook */
+    ReadOnlyAddressBook getAddressBook();
+
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns true if a expense with the same identity as {@code expense}
@@ -92,20 +123,26 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
+    /** Returns the predicate of the filltred expense list. **/
+    Predicate<? super Expense> getFilteredExpensePredicate();
+
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredExpenseList(Predicate<Expense> predicate);
+    void updateFilteredExpenseList(Predicate<? super Expense> predicate);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Event> getFilteredEventList();
 
+    /** Returns the predicate of the filtered expense list */
+    Predicate<? super Event> getFilteredEventPredicate();
+
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredEventList(Predicate<? super Event> predicate);
 
     boolean hasEvent(Event event);
 

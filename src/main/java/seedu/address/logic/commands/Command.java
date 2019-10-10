@@ -8,6 +8,20 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
 
+    private boolean isUndoable;
+
+    public Command() {
+        this(false);
+    }
+
+    public Command(boolean isUndoable) {
+        this.isUndoable = isUndoable;
+    }
+
+    public boolean isUndoable() {
+        return isUndoable;
+    }
+
     /**
      * Executes the command and returns the result message.
      *

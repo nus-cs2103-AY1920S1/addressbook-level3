@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
@@ -82,6 +84,36 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void fillModelData(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyModelHistory getModelHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModelHistory(ReadOnlyModelHistory history) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Model> rollbackModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Model> migrateModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -160,9 +192,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public Predicate<? super Expense> getFilteredExpensePredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
-        public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+        public void updateFilteredExpenseList(Predicate<? super Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -182,7 +219,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredEventList(Predicate<Event> predicate) {
+        public Predicate<? super Event> getFilteredEventPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<? super Event> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

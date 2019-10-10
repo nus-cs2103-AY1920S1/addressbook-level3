@@ -45,6 +45,9 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+        if (command.isUndoable()) {
+            model.addToHistory();
+        }
         commandResult = command.execute(model);
 
         try {

@@ -10,7 +10,7 @@ import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
  * Finds and lists all expenses in address book whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "find";
 

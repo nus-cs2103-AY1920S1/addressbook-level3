@@ -12,7 +12,7 @@ import seedu.address.model.expense.Event;
 /**
  * Adds an event to the address book.
  */
-public class EventCommand extends Command {
+public class EventCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "event";
 

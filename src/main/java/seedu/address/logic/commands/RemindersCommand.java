@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Lists all reminders to the user.
  */
-public class RemindersCommand extends Command {
+public class RemindersCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "reminders";
 
