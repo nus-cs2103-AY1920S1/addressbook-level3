@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.security.GeneralSecurityException;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +15,13 @@ public class EncryptionUtilTest {
     public void encryptDecryptBytes_success() {
         String testString = "hello world";
         String password = "password";
-        assertEquals(testString,
-                EncryptionUtil.decryptBytesToString(EncryptionUtil.encryptBytesFromString(testString, password),
-                        password));
+        try {
+            assertEquals(testString,
+                    EncryptionUtil.decryptBytesToString(EncryptionUtil.encryptBytesFromString(testString, password),
+                            password));
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -30,6 +35,8 @@ public class EncryptionUtilTest {
                     Files.readAllBytes(TestUtil.getFilePathInSandboxFolder("test.txt"));
             assertEquals(encryptedByteArray.length, encryptedByteArrayFromFile.length);
             assertEquals(testString, EncryptionUtil.decryptBytesToString(encryptedByteArrayFromFile, password));
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

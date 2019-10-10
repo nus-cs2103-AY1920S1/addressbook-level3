@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
 
 /**
  * Writes and reads files
@@ -72,8 +73,20 @@ public class FileUtil {
         return new String(Files.readAllBytes(file), CHARSET);
     }
 
+    /**
+     * Read data as string from an encrypted file.
+     * @param file the file to be decrypted.
+     * @param password used to decrypt the file.
+     * @return the decrypted string.
+     * @throws IOException if the file cannot be decrypted using the password.
+     */
     public static String readFromEncryptedFile (Path file, String password) throws IOException {
-        return new String(EncryptionUtil.decryptBytes(Files.readAllBytes(file), password), CHARSET);
+        try {
+            return new String(EncryptionUtil.decryptBytes(Files.readAllBytes(file), password), CHARSET);
+        } catch (GeneralSecurityException e) {
+            throw new IOException("Read encrypted file failed.");
+        }
+
     }
 
     /**
@@ -84,8 +97,18 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Write data as string to an encrypted file.
+     * @param file the file to be written.
+     * @param password used to encrypt the string.
+     * @throws IOException if the file cannot be encrypted using the password.
+     */
     public static void writeToEncryptedFile (Path file, String content, String password) throws IOException {
-        Files.write(file, EncryptionUtil.encryptBytes(content.getBytes(CHARSET), password));
+        try {
+            Files.write(file, EncryptionUtil.encryptBytes(content.getBytes(CHARSET), password));
+        } catch (GeneralSecurityException e) {
+            throw new IOException("Write encrypted file failed.");
+        }
     }
 
 }

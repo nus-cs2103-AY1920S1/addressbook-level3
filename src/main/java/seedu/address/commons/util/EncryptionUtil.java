@@ -33,28 +33,24 @@ public class EncryptionUtil {
      * @param mode whether to encrypt or decrypt the byte array.
      * @return the encrypted or decrypted byte array.
      */
-    private static byte[] cipherBytes(byte[] input, String password, EncryptionMode mode) {
-        try {
-            PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndTripleDES");
-            SecretKey key = keyFactory.generateSecret(keySpec);
-            PBEParameterSpec pbeParameterSpec = new PBEParameterSpec(salt, iteration);
-            Cipher cipher = Cipher.getInstance("PBEWithMD5AndTripleDES");
-            switch (mode) {
-            case ENCRYPT:
-                cipher.init(Cipher.ENCRYPT_MODE, key, pbeParameterSpec);
-                break;
-            case DECRYPT:
-                cipher.init(Cipher.DECRYPT_MODE, key, pbeParameterSpec);
-                break;
-            default:
-                break;
-            }
-            return cipher.doFinal(input);
-        } catch (GeneralSecurityException e) {
-            // since all parameters are fixed, exception should not happen
-            return null;
+    private static byte[] cipherBytes(byte[] input, String password, EncryptionMode mode)
+            throws GeneralSecurityException {
+        PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndTripleDES");
+        SecretKey key = keyFactory.generateSecret(keySpec);
+        PBEParameterSpec pbeParameterSpec = new PBEParameterSpec(salt, iteration);
+        Cipher cipher = Cipher.getInstance("PBEWithMD5AndTripleDES");
+        switch (mode) {
+        case ENCRYPT:
+            cipher.init(Cipher.ENCRYPT_MODE, key, pbeParameterSpec);
+            break;
+        case DECRYPT:
+            cipher.init(Cipher.DECRYPT_MODE, key, pbeParameterSpec);
+            break;
+        default:
+            break;
         }
+        return cipher.doFinal(input);
     }
 
     /**
@@ -63,7 +59,7 @@ public class EncryptionUtil {
      * @param password the password used for encryption.
      * @return the encrypted byte array.
      */
-    public static byte[] encryptBytes(byte[] input, String password) {
+    public static byte[] encryptBytes(byte[] input, String password) throws GeneralSecurityException {
         return cipherBytes(input, password, EncryptionMode.ENCRYPT);
     }
 
@@ -73,7 +69,7 @@ public class EncryptionUtil {
      * @param password the password used for encryption.
      * @return the decrypted byte array.
      */
-    public static byte[] decryptBytes(byte[] input, String password) {
+    public static byte[] decryptBytes(byte[] input, String password) throws GeneralSecurityException {
         return cipherBytes(input, password, EncryptionMode.DECRYPT);
     }
 
@@ -83,7 +79,7 @@ public class EncryptionUtil {
      * @param password the password used for encryption.
      * @return the encrypted byte array.
      */
-    public static byte[] encryptBytesFromString(String input, String password) {
+    public static byte[] encryptBytesFromString(String input, String password) throws GeneralSecurityException {
         return encryptBytes(input.getBytes(), password);
     }
 
@@ -93,7 +89,7 @@ public class EncryptionUtil {
      * @param password the password used for decryption.
      * @return the decrypted string.
      */
-    public static String decryptBytesToString(byte[] input, String password) {
+    public static String decryptBytesToString(byte[] input, String password) throws GeneralSecurityException {
         return new String(decryptBytes(input, password));
     }
 }
