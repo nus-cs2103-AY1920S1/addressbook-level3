@@ -237,7 +237,7 @@ A0180001A's timetable`
 === Approve or reject an appeal `approve` & `reject`
 
 ==== Approve an appeal
-This command allows the user to approve an appeal and MAMS will mark the appeal as resolved.  
+This command allows the user to approve an appeal and MAMS will mark the appeal as resolved.
 
 Format: `approve APPEAL_INDEX`
 
@@ -247,7 +247,7 @@ Examples:
 Sample output:
 `Appeal of UC01233 has been approved`
 
-==== Reject an appeal 
+==== Reject an appeal
 This command allows the user to reject an appeal and MAMS will mark the appeak as resolved.
 
 Format: `reject APPEAL_INDEX`
