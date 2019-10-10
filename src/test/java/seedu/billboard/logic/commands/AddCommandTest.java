@@ -71,6 +71,7 @@ public class AddCommandTest {
         assertNotEquals(null, addAliceCommand);
 
         // different expense -> returns false
+
         assertNotEquals(addAliceCommand, addBobCommand);
     }
 
