@@ -38,7 +38,7 @@ public class GameTest {
     }
 
     @Test
-    public void nullWordBankPassedIntoConstructor_throwsNullPointerExceptionTest() {
+    public void nullWordBankPassedIntoConstructor_throwsNullPointerException() {
         WordBank wb = null;
         assertThrows(NullPointerException.class, () -> new Game(wb));
     }
