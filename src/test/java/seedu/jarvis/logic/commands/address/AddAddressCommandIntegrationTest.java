@@ -15,6 +15,7 @@ import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -27,14 +28,15 @@ public class AddAddressCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddAddressCommand(validPerson), model,
@@ -56,7 +58,8 @@ public class AddAddressCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -77,7 +80,8 @@ public class AddAddressCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -96,7 +100,8 @@ public class AddAddressCommandIntegrationTest {
     public void repeatedExecutionAndInverseExecution() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
+                model.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)

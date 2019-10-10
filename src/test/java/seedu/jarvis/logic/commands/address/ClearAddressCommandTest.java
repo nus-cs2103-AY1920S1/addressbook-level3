@@ -16,6 +16,7 @@ import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -46,8 +47,9 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAddressCommand(), model,
@@ -61,10 +63,11 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(clearAddressCommand, model,
@@ -82,8 +85,9 @@ public class ClearAddressCommandTest {
     @Test
     public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs());
         Person validPerson = new PersonBuilder().build();
 
         int cycles = 1000;

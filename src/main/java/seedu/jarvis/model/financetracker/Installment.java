@@ -15,6 +15,23 @@ public class Installment {
         this.moneySpentOnInstallment = moneySpentOnInstallment;
     }
 
+    //=========== Reset Methods ==================================================================================
+
+    public Installment(Installment installment) {
+        resetData(installment);
+    }
+
+    /**
+     * Resets all data from {@code description} and {@code moneySpentOnInstallment} from the given {@code installment}.
+     *
+     * @param installment
+     */
+    public void resetData(Installment installment) {
+        requireNonNull(installment);
+        this.description = installment.getDescription();
+        this.moneySpentOnInstallment = installment.getMoneySpentOnInstallment();
+    }
+
     //=========== Getter Methods ==================================================================================
 
     public String getDescription() {
@@ -40,6 +57,8 @@ public class Installment {
     public void editAmount(double newMoney) {
         moneySpentOnInstallment = newMoney;
     }
+
+    //=========== Common Methods ==================================================================================
 
     @Override
     public String toString() {

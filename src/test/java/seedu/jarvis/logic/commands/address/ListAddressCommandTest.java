@@ -16,6 +16,7 @@ import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListAddressCommand.
@@ -27,8 +28,9 @@ public class ListAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(), model.getAddressBook(),
+                new UserPrefs());
     }
 
     /**

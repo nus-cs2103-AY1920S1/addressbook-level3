@@ -22,6 +22,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.ReadOnlyUserPrefs;
 import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.util.SampleDataUtil;
 import seedu.jarvis.storage.AddressBookStorage;
 import seedu.jarvis.storage.AddressStorageManager;
@@ -92,7 +93,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(new HistoryManager(), initialData, userPrefs);
+        return new ModelManager(new HistoryManager(), new FinanceTracker(), initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

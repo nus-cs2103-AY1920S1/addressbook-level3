@@ -1,5 +1,7 @@
 package seedu.jarvis.model.financetracker;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -11,9 +13,57 @@ import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 public class PurchaseList {
     private ArrayList<Purchase> allPurchases;
 
+    /**
+     * Default constructor to be used when JARVIS starts up.
+     */
     public PurchaseList(ArrayList<Purchase> allPurchases) {
         this.allPurchases = allPurchases;
     }
+
+    //=========== Reset Methods ==================================================================================
+
+    /**
+     * Empty constructor to be used when there are no purchases previously stored by the user.
+     */
+    public PurchaseList() {
+        this.allPurchases = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an PurchaseList with reference from another PurchaseList,
+     * updating all existing fields from another PurchaseList.
+     */
+    public PurchaseList(PurchaseList purchaseList) {
+        this();
+        resetData(purchaseList);
+    }
+
+    /**
+     * Resets all data from {@code allPurchases} from the given {@code purchaseList}.
+     *
+     * @param purchaseList
+     */
+    public void resetData(PurchaseList purchaseList) {
+        requireNonNull(purchaseList);
+        this.allPurchases = purchaseList.getAllPurchases();
+    }
+
+    //=========== Getter Methods ==================================================================================
+
+    public Purchase getPurchase(int purchaseIndex) {
+        Index index = Index.fromOneBased(purchaseIndex);
+        return allPurchases.get(index.getZeroBased());
+    }
+
+    public int getNumPurchases() {
+        return allPurchases.size();
+    }
+
+    public ArrayList<Purchase> getAllPurchases() {
+        return allPurchases;
+    }
+
+    //=========== Command Methods ==================================================================================
 
     /**
      * Adds a single-use purchases to the list of purchases
@@ -52,14 +102,7 @@ public class PurchaseList {
         return total;
     }
 
-    public Purchase getPurchase(int purchaseIndex) {
-        Index index = Index.fromOneBased(purchaseIndex);
-        return allPurchases.get(index.getZeroBased());
-    }
-
-    public int getNumPurchases() {
-        return allPurchases.size();
-    }
+    //=========== Common Methods ==================================================================================
 
     @Override
     public boolean equals(Object other) {

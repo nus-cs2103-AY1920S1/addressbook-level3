@@ -1,5 +1,7 @@
 package seedu.jarvis.model.financetracker;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
@@ -14,11 +16,40 @@ public class FinanceTracker {
     private double monthlyLimit;
     private double totalSpending;
 
+    /**
+     * Constructs an empty FinanceTracker to store data from the user.
+     */
     public FinanceTracker() {
         purchaseList = new PurchaseList(new ArrayList<>());
         installmentList = new InstallmentList(new ArrayList<>());
         monthlyLimit = 0;
     }
+
+    //=========== Reset Methods ==================================================================================
+
+    /**
+     * Constructs a FinanceTracker with reference from another FinanceTracker,
+     * updating all existing fields from another FinanceTracker.
+     *
+     * @param financeTracker {@code HistoryManager} whose data this {@code HistoryManager} is taking reference from.
+     */
+    public FinanceTracker(FinanceTracker financeTracker) {
+        this();
+        resetData(financeTracker);
+    }
+
+    /**
+     * Resets all data from {@code purchaseList} and {@code installmentList} from the given {@code financeTracker}.
+     *
+     * @param financeTracker
+     */
+    public void resetData(FinanceTracker financeTracker) {
+        requireNonNull(financeTracker);
+        this.purchaseList = new PurchaseList(financeTracker.getPurchaseList());
+        this.installmentList = new InstallmentList(financeTracker.getInstallmentList());
+    }
+
+    //=========== Setter Methods ==================================================================================
 
     public void setPurchaseList(PurchaseList purchaseList) {
         this.purchaseList = purchaseList;
@@ -28,6 +59,8 @@ public class FinanceTracker {
         this.installmentList = installmentList;
     }
 
+    //=========== Getter Methods ==================================================================================
+
     public Purchase getPayment(int paymentIndex) {
         return purchaseList.getPurchase(paymentIndex);
     }
@@ -35,6 +68,20 @@ public class FinanceTracker {
     public Installment getInstallment(int instalIndex) {
         return installmentList.getInstallment(instalIndex);
     }
+
+    public double getMonthlyLimit() {
+        return monthlyLimit;
+    }
+
+    public PurchaseList getPurchaseList() {
+        return purchaseList;
+    }
+
+    public InstallmentList getInstallmentList() {
+        return installmentList;
+    }
+
+    //=========== Purchase List Command Methods =======================================================================
 
     /**
      * Adds single use payment.
@@ -54,9 +101,16 @@ public class FinanceTracker {
         return purchaseList.deletePurchase(itemNumber);
     }
 
+    /**
+     * Returns the total number of purchases made.
+     *
+     * @return number of total purchases
+     */
     public int getTotalPurchases() {
         return purchaseList.getNumPurchases();
     }
+
+    //=========== Installment List Command Methods ====================================================================
 
     /**
      * Adds instalment.
@@ -82,6 +136,11 @@ public class FinanceTracker {
         installmentList.editInstallment(installmentNumber, description, value);
     }
 
+    /**
+     * Returns the total number of installments made.
+     *
+     * @return number of total installments
+     */
     public int getTotalInstallments() {
         return installmentList.getNumInstallments();
     }
@@ -99,10 +158,6 @@ public class FinanceTracker {
         }
     }
 
-    public double getMonthlyLimit() {
-        return monthlyLimit;
-    }
-
     /**
      * Lists all purchases and payments from this month.
      */
@@ -111,6 +166,8 @@ public class FinanceTracker {
         installmentList.toString();
         purchaseList.toString();
     }
+
+    //=========== Common Methods ==================================================================================
 
     @Override
     public boolean equals(Object other) {

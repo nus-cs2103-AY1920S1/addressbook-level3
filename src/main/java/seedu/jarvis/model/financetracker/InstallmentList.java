@@ -16,6 +16,16 @@ public class InstallmentList {
     private double totalMoneySpentOnInstallments;
 
     /**
+     * Default constructor to be used when JARVIS starts up.
+     */
+    public InstallmentList(ArrayList<Installment> allInstallments) {
+        this.allInstallments = allInstallments;
+        this.totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    }
+
+    //=========== Reset Methods ==================================================================================
+
+    /**
      * Empty constructor to be used when there are no instalments previously stored by the user.
      */
     public InstallmentList() {
@@ -24,12 +34,46 @@ public class InstallmentList {
     }
 
     /**
-     * Default constructor to be used when JARVIS starts up.
+     * Constructs an InstallmentList with reference from another InstallmentList,
+     * updating all existing fields from another InstallmentList.
      */
-    public InstallmentList(ArrayList<Installment> allInstallments) {
-        this.allInstallments = allInstallments;
-        this.totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    public InstallmentList(InstallmentList installmentList) {
+        this();
+        resetData(installmentList);
     }
+
+    /**
+     * Resets all data from {@code allInstallments} and {@code totalMoneySpentOnInstallments}
+     * from the given {@code installmentList}.
+     *
+     * @param installmentList
+     */
+    public void resetData(InstallmentList installmentList) {
+        requireNonNull(installmentList);
+        this.allInstallments = installmentList.getAllInstallments();
+        this.totalMoneySpentOnInstallments = installmentList.getTotalMoneySpentOnInstallments();
+    }
+
+    //=========== Getter Methods ==================================================================================
+
+    public double getTotalMoneySpentOnInstallments() {
+        return totalMoneySpentOnInstallments;
+    }
+
+    public Installment getInstallment(int installmentNumber) {
+        Index index = Index.fromOneBased(installmentNumber);
+        return allInstallments.get(index.getZeroBased());
+    }
+
+    public int getNumInstallments() {
+        return allInstallments.size();
+    }
+
+    public ArrayList<Installment> getAllInstallments() {
+        return allInstallments;
+    }
+
+    //=========== Command Methods ==================================================================================
 
     /**
      * Add installment to the list of installments
@@ -41,8 +85,7 @@ public class InstallmentList {
     }
 
     /**
-     * User requests to edit a particular instalment based on its index. Either description or value can be changed,
-     * but not both at the same time.
+     * User requests to edit a particular instalment based on its index. Both description and money spent can be edited.
      *
      * @param installmentNumber of the installment to be edited
      * @param description of the installment to be edited
@@ -71,6 +114,7 @@ public class InstallmentList {
             throw new InstallmentNotFoundException();
         } else {
             Index index = Index.fromOneBased(installmentNumber);
+            totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
             return allInstallments.remove(index.getZeroBased());
         }
     }
@@ -88,18 +132,7 @@ public class InstallmentList {
         return amount;
     }
 
-    public double getTotalMoneySpentOnInstallments() {
-        return totalMoneySpentOnInstallments;
-    }
-
-    public Installment getInstallment(int installmentNumber) {
-        Index index = Index.fromOneBased(installmentNumber);
-        return allInstallments.get(index.getZeroBased());
-    }
-
-    public int getNumInstallments() {
-        return allInstallments.size();
-    }
+    //=========== Common Methods ==================================================================================
 
     @Override
     public String toString() {
