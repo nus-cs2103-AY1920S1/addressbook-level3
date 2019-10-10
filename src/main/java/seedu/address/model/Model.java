@@ -15,6 +15,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -98,6 +101,12 @@ public interface Model {
     void addPolicy(Policy policy);
 
     /**
+     * Deletes the given policy.
+     * The policy must exist in the address book.
+     */
+    void deletePolicy(Policy target);
+
+    /**
      * Returns true if a policy with the same identity as {@code policy} exists in the address book.
      */
     boolean hasPolicy(Policy policy);
@@ -106,5 +115,14 @@ public interface Model {
      * Returns the matching person in the address book.
      */
     Policy getPolicy(Policy policy);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Policy> getFilteredPolicyList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPolicyList(Predicate<Policy> predicate);
 
 }

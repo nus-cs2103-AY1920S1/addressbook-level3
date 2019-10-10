@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Policy> filteredPolicies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPolicies = new FilteredList<>(this.addressBook.getPolicyList());
     }
 
     public ModelManager() {
@@ -119,6 +121,29 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return addressBook.hasPolicy(policy);
+    }
+
+    @Override
+    public Policy getPolicy(Policy policy) {
+        requireNonNull(policy);
+        return addressBook.getPolicy(policy);
+    }
+
+    @Override
+    public void deletePolicy(Policy target) {
+        addressBook.removePolicy(target);
+    }
+
+    @Override
+    public void addPolicy(Policy policy) {
+        addressBook.addPolicy(policy);
+        updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -136,22 +161,19 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
-    public boolean hasPolicy(Policy policy) {
-        requireNonNull(policy);
-        return addressBook.hasPolicy(policy);
+    public ObservableList<Policy> getFilteredPolicyList() {
+        return filteredPolicies;
     }
 
     @Override
-    public Policy getPolicy(Policy policy) {
-        requireNonNull(policy);
-        return addressBook.getPolicy(policy);
-    }
-
-    @Override
-    public void addPolicy(Policy policy) {
-        addressBook.addPolicy(policy);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void updateFilteredPolicyList(Predicate<Policy> predicate) {
+        requireNonNull(predicate);
+        filteredPolicies.setPredicate(predicate);
     }
 
     @Override
@@ -167,6 +189,7 @@ public class ModelManager implements Model {
         }
 
         // state check
+        // Todo: Refactor for filteredPolicies
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
