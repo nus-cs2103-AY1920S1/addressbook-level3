@@ -28,7 +28,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Difficulty;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
@@ -106,7 +106,7 @@ public class AddCommandParserTest {
 
         // invalid address
         assertParseFailure(parser, QUESTION_DESC_BOB + DIFFICULTY_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Category.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, QUESTION_DESC_BOB + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB

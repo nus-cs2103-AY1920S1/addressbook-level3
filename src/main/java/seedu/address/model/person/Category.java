@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Address {
+public class Category {
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
@@ -20,20 +20,20 @@ public class Address {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Category}.
      *
      * @param address A valid address.
      */
-    public Address(String address) {
+    public Category(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCategory(address), MESSAGE_CONSTRAINTS);
         value = address;
     }
 
     /**
-     * Returns true if a given string is a valid Address.
+     * Returns true if a given string is a valid Category.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidCategory(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,8 +45,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+                || (other instanceof Category // instanceof handles nulls
+                && value.equals(((Category) other).value)); // state check
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Difficulty;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
@@ -33,10 +33,10 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("question") String question, @JsonProperty("difficulty") String difficulty,
-                             @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("category") String category, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.difficulty = difficulty;
-        this.address = address;
+        this.address = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -48,7 +48,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         question = source.getQuestion().fullQuestion;
         difficulty = source.getDifficulty().value;
-        address = source.getAddress().value;
+        address = source.getCategory().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -81,15 +81,15 @@ class JsonAdaptedPerson {
         }
         final Difficulty modelDifficulty = new Difficulty(difficulty);
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Category.isValidCategory(address)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Category modelCategory = new Category(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelQuestion, modelDifficulty, modelAddress, modelTags);
+        return new Person(modelQuestion, modelDifficulty, modelCategory, modelTags);
     }
 
 }

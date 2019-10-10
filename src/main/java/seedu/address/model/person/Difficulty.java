@@ -10,15 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Difficulty {
 
 
+    //TODO: Change this constraint and implement the new constraint
     public static final String MESSAGE_CONSTRAINTS =
-            "Difficulty numbers should only contain numbers, and it should be at least 3 digits long";
+            "Difficulty should only contain numbers, and it should be at least 3 digits long";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
      * Constructs a {@code Difficulty}.
      *
-     * @param difficulty A valid difficulty number.
+     * @param difficulty A valid difficulty.
      */
     public Difficulty(String difficulty) {
         requireNonNull(difficulty);

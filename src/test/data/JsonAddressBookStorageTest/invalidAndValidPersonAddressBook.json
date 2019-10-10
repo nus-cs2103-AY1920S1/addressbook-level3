@@ -2,10 +2,10 @@
   "persons": [ {
     "question": "Valid Person",
     "difficulty": "9482424",
-    "address": "4th street"
+    "category": "4th street"
   }, {
     "question": "Person With Invalid difficulty Field",
     "difficulty": "948asdf2424",
-    "address": "4th street"
+    "category": "4th street"
   } ]
 }

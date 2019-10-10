@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the category book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
@@ -20,17 +20,17 @@ public class Person {
     private final Difficulty difficulty;
 
     // Data fields
-    private final Address address;
+    private final Category category;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Question question, Difficulty difficulty, Address address, Set<Tag> tags) {
-        requireAllNonNull(question, difficulty, address, tags);
+    public Person(Question question, Difficulty difficulty, Category category, Set<Tag> tags) {
+        requireAllNonNull(question, difficulty, category, tags);
         this.question = question;
         this.difficulty = difficulty;
-        this.address = address;
+        this.category = category;
         this.tags.addAll(tags);
     }
 
@@ -42,8 +42,8 @@ public class Person {
         return difficulty;
     }
 
-    public Address getAddress() {
-        return address;
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -84,14 +84,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getQuestion().equals(getQuestion())
                 && otherPerson.getDifficulty().equals(getDifficulty())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getCategory().equals(getCategory())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, difficulty, address, tags);
+        return Objects.hash(question, difficulty, category, tags);
     }
 
     @Override
@@ -100,8 +100,8 @@ public class Person {
         builder.append(getQuestion())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Category: ")
+                .append(getCategory())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

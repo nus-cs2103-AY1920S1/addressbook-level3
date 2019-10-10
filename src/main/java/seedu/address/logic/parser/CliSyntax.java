@@ -6,9 +6,9 @@ package seedu.address.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_QUESTION = new Prefix("n/");
-    public static final Prefix PREFIX_DIFFICULTY = new Prefix("p/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_QUESTION = new Prefix("mcq/");
+    public static final Prefix PREFIX_DIFFICULTY = new Prefix("diff/");
+    public static final Prefix PREFIX_CATEGORY = new Prefix("cat/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,20 +17,20 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the test bank. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_CATEGORY + "CATEGORY "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION + "John Doe "
-            + PREFIX_DIFFICULTY + "98765432 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_QUESTION + "Which of the following is a valid sequence diagram? "
+            + PREFIX_DIFFICULTY + "3 "
+            + PREFIX_CATEGORY + "UML "
+            + PREFIX_TAG + "UML "
+            + PREFIX_TAG + "graphical";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New question added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;

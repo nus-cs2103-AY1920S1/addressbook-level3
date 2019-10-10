@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,14 +18,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Difficulty;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the test bank.
  */
 public class EditCommand extends Command {
 
@@ -37,14 +37,14 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DIFFICULTY + "91234567 ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This question already exists in the test bank.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -91,10 +91,10 @@ public class EditCommand extends Command {
 
         Question updatedQuestion = editPersonDescriptor.getQuestion().orElse(personToEdit.getQuestion());
         Difficulty updatedDifficulty = editPersonDescriptor.getDifficulty().orElse(personToEdit.getDifficulty());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Category updatedCategory = editPersonDescriptor.getCategory().orElse(personToEdit.getCategory());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedQuestion, updatedDifficulty, updatedAddress, updatedTags);
+        return new Person(updatedQuestion, updatedDifficulty, updatedCategory, updatedTags);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Question question;
         private Difficulty difficulty;
-        private Address address;
+        private Category category;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -134,7 +134,7 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setQuestion(toCopy.question);
             setDifficulty(toCopy.difficulty);
-            setAddress(toCopy.address);
+            setCategory(toCopy.category);
             setTags(toCopy.tags);
         }
 
@@ -142,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, difficulty, address, tags);
+            return CollectionUtil.isAnyNonNull(question, difficulty, category, tags);
         }
 
         public void setQuestion(Question question) {
@@ -161,12 +161,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(difficulty);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setCategory(Category category) {
+            this.category = category;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         /**
@@ -203,7 +203,7 @@ public class EditCommand extends Command {
 
             return getQuestion().equals(e.getQuestion())
                     && getDifficulty().equals(e.getDifficulty())
-                    && getAddress().equals(e.getAddress())
+                    && getCategory().equals(e.getCategory())
                     && getTags().equals(e.getTags());
         }
     }

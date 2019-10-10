@@ -2,6 +2,6 @@
   "persons": [ {
     "question": "invalid question! Hans@ Muster",
     "difficulty": "9482424",
-    "address": "4th street"
+    "category": "4th street"
   } ]
 }

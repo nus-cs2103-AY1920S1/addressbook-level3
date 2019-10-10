@@ -35,7 +35,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label difficulty;
     @FXML
-    private Label address;
+    private Label category;
     @FXML
     private FlowPane tags;
 
@@ -45,7 +45,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         question.setText(person.getQuestion().fullQuestion);
         difficulty.setText(person.getDifficulty().value);
-        address.setText(person.getAddress().value);
+        category.setText(person.getCategory().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

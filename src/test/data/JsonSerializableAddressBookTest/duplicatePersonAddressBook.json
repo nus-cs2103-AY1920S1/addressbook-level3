@@ -2,11 +2,11 @@
   "persons": [ {
     "question": "Alice Pauline",
     "difficulty": "94351253",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "category": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
     "question": "Alice Pauline",
     "difficulty": "94351253",
-    "address": "4th street"
+    "category": "4th street"
   } ]
 }

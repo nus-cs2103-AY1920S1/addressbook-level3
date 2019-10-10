@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Difficulty;
 import seedu.address.model.person.Question;
 import seedu.address.model.person.Person;
@@ -21,13 +21,13 @@ public class PersonBuilder {
 
     private Question question;
     private Difficulty difficulty;
-    private Address address;
+    private Category category;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         question = new Question(DEFAULT_QUESTION);
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
-        address = new Address(DEFAULT_ADDRESS);
+        category = new Category(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -37,7 +37,7 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         question = personToCopy.getQuestion();
         difficulty = personToCopy.getDifficulty();
-        address = personToCopy.getAddress();
+        category = personToCopy.getCategory();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -58,10 +58,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Category} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.category = new Category(address);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(question, difficulty, address, tags);
+        return new Person(question, difficulty, category, tags);
     }
 
 }
