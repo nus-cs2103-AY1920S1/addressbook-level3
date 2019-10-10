@@ -12,12 +12,12 @@ public class Rule {
 
     // rule details
     private final RulePredicate predicate;
-    private final Actionable action;
+    private final RuleAction action;
 
     /**
      * Every field must be present and not null.
      */
-    public Rule(RulePredicate predicate, Actionable action) {
+    public Rule(RulePredicate predicate, RuleAction action) {
         requireAllNonNull(predicate, action);
         this.predicate = predicate;
         this.action = action;
@@ -27,12 +27,12 @@ public class Rule {
         return predicate;
     }
 
-    public Actionable getAction() {
+    public RuleAction getAction() {
         return action;
     }
 
     /**
-     * Returns true if both rules have the same identity or detail fields.
+     * Returns true if both rules have the same identity and detail fields.
      */
     @Override
     public boolean equals(Object other) {
