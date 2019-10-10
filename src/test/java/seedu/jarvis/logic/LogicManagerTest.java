@@ -24,12 +24,12 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.storage.AddressStorageManager;
-import seedu.jarvis.storage.JsonAddressBookStorage;
-import seedu.jarvis.storage.JsonUserPrefsStorage;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.storage.StorageManager;
+import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class LogicManagerTest {
@@ -46,7 +46,7 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        AddressStorageManager storage = new AddressStorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         model = new ModelManager();
         logic = new LogicManager(model, storage);
     }
@@ -95,7 +95,7 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        AddressStorageManager storage = new AddressStorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

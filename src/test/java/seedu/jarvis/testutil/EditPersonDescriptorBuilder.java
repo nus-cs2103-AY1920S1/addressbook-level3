@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.model.person.Address;
-import seedu.jarvis.model.person.Email;
-import seedu.jarvis.model.person.Name;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.model.person.Phone;
-import seedu.jarvis.model.tag.Tag;
+import seedu.jarvis.model.address.person.Address;
+import seedu.jarvis.model.address.person.Email;
+import seedu.jarvis.model.address.person.Name;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

@@ -10,8 +10,8 @@ import java.util.Set;
 
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.model.tag.Tag;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * A utility class for Person.

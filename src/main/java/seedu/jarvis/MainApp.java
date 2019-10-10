@@ -15,20 +15,20 @@ import seedu.jarvis.commons.util.ConfigUtil;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.LogicManager;
-import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.util.SampleDataUtil;
-import seedu.jarvis.storage.AddressBookStorage;
-import seedu.jarvis.storage.AddressStorageManager;
-import seedu.jarvis.storage.JsonAddressBookStorage;
-import seedu.jarvis.storage.JsonUserPrefsStorage;
 import seedu.jarvis.storage.Storage;
-import seedu.jarvis.storage.UserPrefsStorage;
+import seedu.jarvis.storage.StorageManager;
+import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
+import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 import seedu.jarvis.ui.Ui;
 import seedu.jarvis.ui.UiManager;
 
@@ -58,7 +58,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new AddressStorageManager(addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 

@@ -11,7 +11,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * Adds a person to the address book.

@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * A utility class for test cases.
