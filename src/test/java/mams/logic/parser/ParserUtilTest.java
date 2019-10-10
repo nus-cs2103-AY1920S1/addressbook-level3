@@ -11,12 +11,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import mams.model.student.MatricId;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.parser.exceptions.ParseException;
-import mams.model.student.MatricId;
 import mams.model.student.Email;
+import mams.model.student.MatricId;
 import mams.model.student.Name;
 import mams.model.student.Phone;
 import mams.model.tag.Tag;
@@ -121,9 +120,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseMatricId_validValueWithWhitespace_returnsTrimmedMatricId() throws Exception {
-        String MatricIdWithWhitespace = WHITESPACE + VALID_MATRICID + WHITESPACE;
+        String matricIdWithWhitespace = WHITESPACE + VALID_MATRICID + WHITESPACE;
         MatricId expectedMatricId = new MatricId(VALID_MATRICID);
-        assertEquals(expectedMatricId, ParserUtil.parseMatricId(MatricIdWithWhitespace));
+        assertEquals(expectedMatricId, ParserUtil.parseMatricId(matricIdWithWhitespace));
     }
 
     @Test

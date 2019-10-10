@@ -84,7 +84,8 @@ public class StudentTest {
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different matricId -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withMatricId(CommandTestUtil.VALID_MATRICID_AMY).build();
+        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withMatricId(CommandTestUtil
+                .VALID_MATRICID_AMY).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different tags -> returns false

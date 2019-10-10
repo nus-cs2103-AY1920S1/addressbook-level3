@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import mams.commons.exceptions.IllegalValueException;
-import mams.model.student.MatricId;
 import mams.model.student.Email;
+import mams.model.student.MatricId;
 import mams.model.student.Name;
 import mams.model.student.Phone;
 import mams.testutil.Assert;
