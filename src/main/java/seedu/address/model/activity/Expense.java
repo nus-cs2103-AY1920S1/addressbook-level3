@@ -39,4 +39,20 @@ public class Expense {
     public void delete() {
         this.isDeleted = true;
     }
+
+    /**
+     * Returns true if both expenses contain the same person and amount.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof Expense) {
+            Expense otherExpense = (Expense) other;
+            return otherExpense.getPerson().equals(getPerson())
+                    && otherExpense.getAmount().equals(getAmount());
+        } else {
+            return false;
+        }
+    }
 }
