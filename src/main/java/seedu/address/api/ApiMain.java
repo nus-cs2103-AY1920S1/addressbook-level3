@@ -10,16 +10,16 @@ import info.movito.themoviedbapi.model.config.TmdbConfiguration;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.model.keywords.Keyword;
 import info.movito.themoviedbapi.model.people.PersonCast;
-
-import javax.imageio.ImageIO;
-
 import info.movito.themoviedbapi.model.tv.TvSeries;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+
 import seedu.address.model.show.Date;
 import seedu.address.model.show.Description;
 import seedu.address.model.show.Movie;

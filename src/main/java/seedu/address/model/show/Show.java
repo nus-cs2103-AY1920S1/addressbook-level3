@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.scene.image.Image;
 import seedu.address.model.actor.Actor;
 
 /**
@@ -15,6 +14,8 @@ import seedu.address.model.actor.Actor;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Show {
+
+    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
 
     //identity fields
     private final Name name;
@@ -26,7 +27,7 @@ public abstract class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
-    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
+
 
     public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {

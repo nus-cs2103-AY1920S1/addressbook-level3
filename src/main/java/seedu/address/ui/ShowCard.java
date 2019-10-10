@@ -6,7 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.show.Show;
 
-import javax.swing.*;
+import javax.swing.JCheckBox;
+
 
 /**
  * An UI component that displays information of a {@code Show}.

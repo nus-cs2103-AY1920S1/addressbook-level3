@@ -15,7 +15,7 @@ import seedu.address.model.show.Show;
  */
 public class ShowListPanel extends UiPart<Region> {
     private static final String FXML = "ShowListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);//leave it first
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class); //leave it first
 
     @FXML
     private ListView<Show> showListView;

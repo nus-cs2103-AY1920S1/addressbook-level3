@@ -2,7 +2,6 @@ package seedu.address.model.show;
 
 import java.util.Set;
 
-import javafx.scene.image.Image;
 import seedu.address.model.actor.Actor;
 
 /**
