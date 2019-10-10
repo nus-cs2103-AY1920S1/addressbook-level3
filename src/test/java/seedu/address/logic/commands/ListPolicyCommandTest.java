@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertListPeopleCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.logic.commands.CommandTestUtil.assertListPolicyCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +11,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListPolicyCommand.
  */
-public class ListPeopleCommandTest {
+public class ListPolicyCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -28,16 +26,16 @@ public class ListPeopleCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertListPeopleCommandSuccess(new ListPeopleCommand(),
+        assertListPolicyCommandSuccess(new ListPolicyCommand(),
                 model,
-                ListPeopleCommand.MESSAGE_SUCCESS, expectedModel);
+                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertListPeopleCommandSuccess(new ListPeopleCommand(),
+        //  showPolicyAtIndex(model, INDEX_FIRST_PERSON);
+        assertListPolicyCommandSuccess(new ListPolicyCommand(),
                 model,
-                ListPeopleCommand.MESSAGE_SUCCESS, expectedModel);
+                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

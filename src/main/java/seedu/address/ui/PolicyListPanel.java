@@ -23,13 +23,13 @@ public class PolicyListPanel extends UiPart<Region> {
     public PolicyListPanel(ObservableList<Policy> policyList) {
         super(FXML);
         policyListView.setItems(policyList);
-        policyListView.setCellFactory(listView -> new policyListViewCell());
+        policyListView.setCellFactory(listView -> new PolicyListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Policy} using a {@code PolicyCard}.
      */
-    class policyListViewCell extends ListCell<Policy> {
+    class PolicyListViewCell extends ListCell<Policy> {
         @Override
         protected void updateItem(Policy policy, boolean empty) {
             super.updateItem(policy, empty);

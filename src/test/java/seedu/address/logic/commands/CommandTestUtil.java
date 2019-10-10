@@ -113,6 +113,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertListPeopleCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, true);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertListPolicyCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                      Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
@@ -141,5 +161,20 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
+
+    // TODO: Larry's test
+    /**
+     * Updates {@code model}'s filtered list to show only the policy at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    //    public static void showPolicyAtIndex(Model model, Index targetIndex) {
+    //        assertTrue(targetIndex.getZeroBased() < model.getFilteredPolicyList().size());
+    //
+    //        Policy policy = model.getFilteredPolicyList().get(targetIndex.getZeroBased());
+    //        final String[] splitName = policy.getName().toString().split("\\s+");
+    //        model.updateFilteredPolicyList(new PolicyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+    //
+    //        assertEquals(1, model.getFilteredPolicyList().size());
+    //    }
 
 }
