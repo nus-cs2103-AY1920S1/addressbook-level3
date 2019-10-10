@@ -1,11 +1,10 @@
 package dream.fcard.model.cards;
 
-import java.util.ArrayList;
-
 import dream.fcard.model.exceptions.ChoiceNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonValue;
-
 import javafx.scene.Node;
+
+import java.util.ArrayList;
 
 /**
  * FrontBackCard with additional data of multiple choices.
