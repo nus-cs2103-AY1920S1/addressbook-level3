@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.panels.CustomerListPanel;
@@ -183,10 +183,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /*public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }*/
-
     /**
      * Executes the command and returns the result.
      *
@@ -199,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //retrieve the type that the command works on here;
-            PanelType panelToSwitchTo = commandResult.getPanelType();
+            UiChange panelToSwitchTo = commandResult.getUiChange();
             switchPanel(panelToSwitchTo);
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -213,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void switchPanel(PanelType input) {
+    private void switchPanel(UiChange input) {
         switch (input) {
         case CUSTOMER:
             this.showCustomerPanel();

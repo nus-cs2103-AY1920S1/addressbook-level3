@@ -10,13 +10,13 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
-    private final PanelType panelType;
+    private final UiChange uiChange;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser) {
-        this.panelType = PanelType.DEFAULT;
+        this.uiChange = UiChange.DEFAULT;
         this.feedbackToUser = requireNonNull(feedbackToUser);
 
     }
@@ -25,13 +25,13 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
      * and set other fields to their default value.
      */
-    public CommandResult(String feedbackToUser, PanelType type) {
+    public CommandResult(String feedbackToUser, UiChange type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.panelType = type;
+        this.uiChange = type;
     }
 
-    public PanelType getPanelType() {
-        return panelType;
+    public UiChange getUiChange() {
+        return uiChange;
     }
 
     public String getFeedbackToUser() {
