@@ -6,4 +6,3 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <ListView fx:id="showListView" VBox.vgrow="ALWAYS" />
 </VBox>
-
