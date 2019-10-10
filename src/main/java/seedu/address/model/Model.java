@@ -106,11 +106,11 @@ public interface Model {
      * Updates the filter of the filtered worker list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredWorkerList(Predicate<Entity> predicate);
+    void updateFilteredWorkerList(Predicate<Worker> predicate);
 
     /**
      * Updates the filter of the filtered body list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredBodyList(Predicate<Entity> predicate);
+    void updateFilteredBodyList(Predicate<Body> predicate);
 }

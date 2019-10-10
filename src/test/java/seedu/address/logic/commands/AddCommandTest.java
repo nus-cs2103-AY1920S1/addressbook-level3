@@ -157,7 +157,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredWorkerList(Predicate<Entity> predicate) {
+        public void updateFilteredWorkerList(Predicate<Worker> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -167,7 +167,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredBodyList(Predicate<Entity> predicate) {
+        public void updateFilteredBodyList(Predicate<Body> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

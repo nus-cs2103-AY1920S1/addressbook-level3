@@ -2,10 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.entity.NameContainsKeywordsPredicate;
+import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
+import seedu.address.model.entity.worker.WorkerNameContainsKeywordsPredicate;
+
 
 /**
  * Finds and lists all entries in address book whose name contains any of the argument keywords.
@@ -20,12 +24,14 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final BodyNameContainsKeywordsPredicate bodyPredicate;
+    private final WorkerNameContainsKeywordsPredicate workerPredicate;
 
     private final String flag;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate, String flag) {
-        this.predicate = predicate;
+    public FindCommand(List<String> keywords, String flag) {
+        this.bodyPredicate = new BodyNameContainsKeywordsPredicate(keywords);
+        this.workerPredicate = new WorkerNameContainsKeywordsPredicate(keywords);
         this.flag = flag;
     }
 
@@ -34,11 +40,11 @@ public class FindCommand extends Command {
         requireNonNull(model);
         try {
             if (flag.equals("b")) {
-                model.updateFilteredBodyList(predicate);
+                model.updateFilteredBodyList(bodyPredicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_BODIES_LISTED_OVERVIEW, model.getFilteredBodyList().size()));
             } else if (flag.equals("w")) {
-                model.updateFilteredWorkerList(predicate);
+                model.updateFilteredWorkerList(workerPredicate);
                 return new CommandResult(
                         String.format(Messages.MESSAGE_WORKERS_LISTED_OVERVIEW, model.getFilteredWorkerList().size()));
             } else {
@@ -53,6 +59,7 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && bodyPredicate.equals(((FindCommand) other).bodyPredicate)
+                && workerPredicate.equals(((FindCommand) other).workerPredicate)); // state check
     }
 }

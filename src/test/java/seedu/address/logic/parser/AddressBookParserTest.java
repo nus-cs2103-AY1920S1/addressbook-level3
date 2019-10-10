@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -28,7 +27,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entity.NameContainsKeywordsPredicate;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
@@ -107,12 +105,12 @@ public class AddressBookParserTest {
         FindCommand command1 = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_FLAG + BODY_FLAG + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords), BODY_FLAG), command1);
+        assertEquals(new FindCommand(keywords, BODY_FLAG), command1);
 
         FindCommand command2 = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_FLAG + WORKER_FLAG + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords), WORKER_FLAG), command2);
+        assertEquals(new FindCommand(keywords, WORKER_FLAG), command2);
     }
 
     @Test
