@@ -24,7 +24,7 @@ public class ProfileCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     // public static final String MESSAGE_VIEW_PROFILE_SUCCESS = "Generated profile view of : %1$s";
-    public static final String MESSAGE_VIEW_PROFILE_SUCCESS = "DEBUG: Profile Command Recognized! Target: %1$s";
+    public static final String MESSAGE_VIEW_PROFILE_SUCCESS = "Profile Command Recognized! Target: %1$s";
 
     private final Index index;
 
