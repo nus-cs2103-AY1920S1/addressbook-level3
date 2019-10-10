@@ -13,20 +13,23 @@ import seedu.address.model.events.EventSource;
  */
 public class AddEventCommand extends Command {
 
+    private final Model model;
     private final EventSource event;
 
     AddEventCommand(AddEventCommandBuilder builder) {
         String description = Objects.requireNonNull(builder.getDescription());
         DateTime start = Objects.requireNonNull(builder.getStart());
+
+        this.model = builder.getModel();
         this.event = new EventSource(description, start);
     }
 
-    public static CommandBuilder newBuilder() {
-        return new AddEventCommandBuilder().init();
+    public static CommandBuilder newBuilder(Model model) {
+        return new AddEventCommandBuilder(model).init();
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute() {
         model.addEvent(this.event);
         return new CommandResult(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
     }

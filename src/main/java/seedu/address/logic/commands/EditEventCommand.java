@@ -20,6 +20,7 @@ import seedu.address.model.events.EventSource;
  */
 public class EditEventCommand extends Command {
 
+    private final Model model;
     private final List<Integer> indexes;
     private final String description;
     private final DateTime start;
@@ -28,6 +29,7 @@ public class EditEventCommand extends Command {
     private final List<String> tags;
 
     EditEventCommand(EditEventCommandBuilder builder) {
+        this.model = builder.getModel();
         this.indexes = Objects.requireNonNull(builder.getIndexes());
         this.description = builder.getDescription();
         this.start = builder.getStart();
@@ -36,12 +38,12 @@ public class EditEventCommand extends Command {
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder() {
-        return new EditEventCommandBuilder().init();
+    public static CommandBuilder newBuilder(Model model) {
+        return new EditEventCommandBuilder(model).init();
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute() throws CommandException {
         ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
 
         List<EventSource> events = new ArrayList<>();

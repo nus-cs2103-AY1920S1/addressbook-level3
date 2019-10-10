@@ -15,6 +15,10 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.CommandManager;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -39,16 +43,19 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
-
+    private static final Version VERSION = new Version(0, 6, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
-    protected Logic logic;
-    protected Storage storage;
-    protected Model model;
-    protected Config config;
-    protected Notification notification;
+    private static final String COMMAND_ADD_EVENT = "add_event";
+    private static final String COMMAND_DELETE_EVENT = "delete_event";
+    private static final String COMMAND_EDIT_EVENT = "edit_event";
+
+    private Ui ui;
+    private Logic logic;
+    private Storage storage;
+    private Model model;
+    private Config config;
+    private Notification notification;
 
     @Override
     public void init() throws Exception {
@@ -67,9 +74,13 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        notification = new NotificationManager();
+        CommandManager commandManager = CommandManager.newBuilder()
+            .addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(model))
+            .addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(model))
+            .addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(model))
+            .build();
 
-        logic = new LogicManager(model, storage, notification);
+        notification = new NotificationManager();
 
         ui = new UiManager(logic);
     }

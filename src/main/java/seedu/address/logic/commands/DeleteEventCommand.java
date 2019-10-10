@@ -18,20 +18,22 @@ import seedu.address.model.events.EventSource;
  */
 public class DeleteEventCommand extends Command {
 
+    private final Model model;
     private final List<Integer> indexes;
     private final List<String> tags;
 
     DeleteEventCommand(DeleteEventCommandBuilder builder) {
+        this.model = builder.getModel();
         this.indexes = builder.getIndexes();
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder() {
-        return new DeleteEventCommandBuilder().init();
+    public static CommandBuilder newBuilder(Model model) {
+        return new DeleteEventCommandBuilder(model).init();
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute() throws CommandException {
         ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
 
         List<EventSource> events = new ArrayList<>();
