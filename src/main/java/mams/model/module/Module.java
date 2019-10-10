@@ -3,6 +3,7 @@ package mams.model.module;
 import java.util.Objects;
 
 import mams.commons.util.CollectionUtil;
+import mams.model.student.Student;
 
 
 /**
@@ -11,7 +12,7 @@ import mams.commons.util.CollectionUtil;
 public class Module {
     // Identity fields
     private final String moduleCode;
-    private final String sessionId;
+    private final int sessionId;
 
     // Data fields
     /**
@@ -21,29 +22,98 @@ public class Module {
      *   TimeSlots(value) are arranged in ascending order
      */
     private final int[] timeSlot;
-    //private final Student[] students; // to be added
+    private final Student[] students = null; // to be added
+
+    public static final String MESSAGE_CONSTRAINTS_MODULE_CODE =
+            "Modules should start with 'CS' followed by a 4 digit number";
+
+    public static final String MESSAGE_CONSTRAINTS_SESSION_ID =
+            "Session ID can only be 1 or 2";
+
+    public static final String MESSAGE_CONSTRAINTS_TIME_SLOT =
+            "Time slots can only range from 1 to 69, and must be in " +
+                    "ascending order";
+    /*
+     * Only CS modules are allowed for adding. The first 2 characters should be
+     * "CS" followed by strictly 4 digits.
+     */
+    public static final String VALIDATION_REGEX_MODULE_CODE = "CS\\d{4}$";
+
 
     /**
      * Every field must be present and not null.
      */
-    public Module(String moduleCode, String sessionId, int[] timeSlot) {
+    public Module(String moduleCode, int sessionId, int[] timeSlot) {
         CollectionUtil.requireAllNonNull(moduleCode, sessionId, timeSlot);
         this.moduleCode = moduleCode;
         this.sessionId = sessionId;
         this.timeSlot = timeSlot;
     }
 
+    /**
+     * Returns true if a given string is a valid module code.
+     */
+    public static boolean isValidModuleCode(String test) {
+        return test.matches(VALIDATION_REGEX_MODULE_CODE);
+    }
+
+    /*
+     * Returns true if a given int is a valid session id.
+     */
+    public static boolean isValidSessionId(int test) {
+        if (test == 1 || test == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isValidTimeSlot(int[] test) {
+        final int lastTimeSlot = 69;
+        int currentTimeSlot = 0;
+
+        if (test == null) {
+            return false;
+        }
+
+        /*
+         * Test for one time slot
+         */
+        if (test.length == 1 && test[0] <= lastTimeSlot) {
+            return true;
+        }
+
+        /*
+         * Test for more than 1 time slots.
+         */
+        currentTimeSlot = test[0];
+        for (int i = 1; i < test.length; i++) {
+            if ((test[i] <= currentTimeSlot) || test[i] > lastTimeSlot) {
+                return false;
+            }
+            currentTimeSlot = test[i];
+        }
+
+        return true;
+    }
+
     public String getModuleCode() {
         return moduleCode;
     }
 
-    public String getSessionId() {
+    public int getSessionId() {
         return sessionId;
+    }
+
+    public String getSessionIdString() {
+        return String.valueOf(sessionId);
     }
 
     public int[] getTimeSlot() {
         return timeSlot;
     }
+
+
 
     /**
      * Returns true if both module of the same name have at least one other identity field that is the same.
@@ -56,7 +126,7 @@ public class Module {
 
         return otherModule != null
                 && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionId().equals(getSessionId());
+                && otherModule.getSessionIdString().equals(getSessionIdString());
     }
 
     /**
@@ -75,7 +145,7 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionId().equals(getSessionId());
+                && otherModule.getSessionIdString().equals(getSessionIdString());
 
     }
 
