@@ -46,18 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_TASK_STATUS).isPresent()) {
             editTaskDescriptor.setTaskStatus(ParserUtil.parseStatus((argMultimap.getValue(PREFIX_TASK_STATUS).get())));
         }
-<<<<<<< HEAD
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editTaskDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
-<<<<<<< HEAD
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-=======
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editTaskDescriptor::setTags);
->>>>>>> team/master
-=======
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASK_TAG)).ifPresent(editTaskDescriptor::setTags);
->>>>>>> team/master
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

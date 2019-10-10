@@ -10,13 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedPerson.java
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-=======
->>>>>>> team/master:src/main/java/seedu/address/storage/JsonAdaptedTask.java
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
@@ -37,18 +30,8 @@ class JsonAdaptedTask {
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-<<<<<<< HEAD
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedPerson.java
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-=======
-    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                           @JsonProperty("email") String email,
-=======
     public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
->>>>>>> team/master
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
->>>>>>> team/master:src/main/java/seedu/address/storage/JsonAdaptedTask.java
         this.name = name;
         this.taskStatus = taskStatus;
         if (tagged != null) {
@@ -91,15 +74,7 @@ class JsonAdaptedTask {
         final Name modelName = new Name(name);
         final TaskStatus modelTaskStatus = TaskStatus.valueOf(taskStatus.name());
         final Set<Tag> modelTags = new HashSet<>(personTags);
-<<<<<<< HEAD
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedPerson.java
-        return new Person(modelName, modelPhone, modelEmail, modelTags);
-=======
-        return new Task(modelName, modelPhone, modelEmail, modelTags);
->>>>>>> team/master:src/main/java/seedu/address/storage/JsonAdaptedTask.java
-=======
         return new Task(modelName, modelTaskStatus, modelTags);
->>>>>>> team/master
     }
 
 }

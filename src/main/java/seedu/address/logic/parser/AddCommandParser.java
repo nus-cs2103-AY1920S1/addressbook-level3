@@ -10,13 +10,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-=======
->>>>>>> team/master
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
@@ -43,13 +36,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_TASK_NAME).get());
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Person person = new Person(name, phone, email, tagList);
-=======
-        Task task = new Task(name, phone, email, tagList);
->>>>>>> team/master
-=======
         TaskStatus taskStatus = TaskStatus.UNBEGUN;
         if (argMultimap.getValue(PREFIX_TASK_STATUS).isPresent()) {
             taskStatus = ParserUtil.parseStatus((argMultimap.getValue(PREFIX_TASK_STATUS).get()));
@@ -57,7 +43,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASK_TAG));
 
         Task task = new Task(name, taskStatus, tagList);
->>>>>>> team/master
 
         return new AddCommand(task);
     }

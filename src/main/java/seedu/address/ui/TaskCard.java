@@ -33,13 +33,7 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-<<<<<<< HEAD
-    private Label phone;
-    @FXML
-    private Label email;
-=======
     private Label taskStatus;
->>>>>>> team/master
     @FXML
     private FlowPane tags;
 
@@ -47,16 +41,9 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-<<<<<<< HEAD:src/main/java/seedu/address/ui/PersonCard.java
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
-=======
         name.setText(task.getName().fullName);
         taskStatus.setText(task.getTaskStatus().getDisplayName());
         task.getTags().stream()
->>>>>>> team/master:src/main/java/seedu/address/ui/TaskCard.java
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

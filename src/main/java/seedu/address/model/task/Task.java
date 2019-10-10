@@ -19,26 +19,16 @@ public class Task {
     private final Name name;
     private final TaskStatus taskStatus;
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
-    // Data fields
-=======
->>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-<<<<<<< HEAD
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
-    public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
-=======
-    public Task(Name name, Phone phone, Email email, Set<Tag> tags) {
->>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
-        requireAllNonNull(name, phone, email, tags);
-=======
+
+
     public Task(Name name, TaskStatus taskStatus, Set<Tag> tags) {
         requireAllNonNull(name, tags);
->>>>>>> team/master
         this.name = name;
         this.taskStatus = taskStatus;
         this.tags.addAll(tags);
@@ -54,10 +44,6 @@ public class Task {
         return name;
     }
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
-
-=======
->>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -95,18 +81,10 @@ public class Task {
             return false;
         }
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getTags().equals(getTags());
-=======
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
                 && (otherTask.getTaskStatus() == getTaskStatus())
                 && otherTask.getTags().equals(getTags());
->>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
     }
 
     @Override
