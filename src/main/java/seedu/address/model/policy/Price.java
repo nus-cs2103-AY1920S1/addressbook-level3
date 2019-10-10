@@ -20,7 +20,6 @@ public class Price {
 
     public final String price;
 
-    // TODO: Change price to integer
     /**
      * Constructs a {@code Price}.
      *

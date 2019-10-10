@@ -28,7 +28,6 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    // TODO: Add back policies (removed for now to ease debugging process)
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withNric("S000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253").withDateOfBirth("12.12.1992").withPolicies("Health Insurance")
