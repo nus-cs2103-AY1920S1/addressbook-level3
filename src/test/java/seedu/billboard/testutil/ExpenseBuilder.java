@@ -3,8 +3,10 @@ package seedu.billboard.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.model.util.SampleDataUtil;
 

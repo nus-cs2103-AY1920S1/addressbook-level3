@@ -1,15 +1,12 @@
 package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 
 import org.junit.jupiter.api.Test;
@@ -38,7 +35,8 @@ public class EditExpenseDescriptorTest {
         assertNotEquals(DESC_DINNER, DESC_TAXES);
 
         // different name -> returns false
-        EditExpenseDescriptor editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withName(VALID_NAME_TAXES).build();
+        EditExpenseDescriptor editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER)
+                .withName(VALID_NAME_TAXES).build();
         assertNotEquals(DESC_DINNER, editedDinner);
 
         // different description -> returns false
