@@ -12,9 +12,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionList;
+import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,7 +29,9 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final QuestionList questions;
+    private final NoteList notes;
     private final UserPrefs userPrefs;
+    private final UniqueStudentList students;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -40,7 +46,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.questions = new QuestionList();
+        this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.students = new UniqueStudentList();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
@@ -95,6 +103,33 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    //=========== Students ================================================================================
+
+    @Override
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    @Override
+    public Student deleteStudent(Index index) {
+        return students.remove(index);
+    }
+
+    @Override
+    public Student getStudent(Index index) {
+        return students.getStudent(index);
+    }
+
+    @Override
+    public void setStudent(Index index, Student student) {
+        students.setStudent(index, student);
+    }
+
+    @Override
+    public String getStudentList() {
+        return students.getStudentList();
+    }
+
     //=========== Questions ================================================================================
 
     @Override
@@ -120,6 +155,33 @@ public class ModelManager implements Model {
     @Override
     public String getQuestionsSummary() {
         return questions.getQuestionsSummary();
+    }
+
+    //=========== Notes ================================================================================
+
+    @Override
+    public void addNote(Note note) {
+        notes.addNote(note);
+    }
+
+    @Override
+    public Note deleteNote(Index index) {
+        return notes.deleteNote(index);
+    }
+
+    @Override
+    public Note getNote(Index index) {
+        return notes.getNote(index);
+    }
+
+    @Override
+    public void setNote(Index index, Note question) {
+        notes.setNote(index, question);
+    }
+
+    @Override
+    public String getNoteList() {
+        return notes.getNoteList();
     }
 
     //=========== Person ================================================================================

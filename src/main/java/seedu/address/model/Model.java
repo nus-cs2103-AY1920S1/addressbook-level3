@@ -6,8 +6,10 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
+import seedu.address.model.student.Student;
 
 /**
  * The API of the Model component.
@@ -56,6 +58,37 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Students ================================================================================
+    /**
+     * Adds the given student.
+     * {@code student} must not exist in the student list.
+     */
+    void addStudent(Student student);
+
+    /**
+     * Returns the student that has been deleted based on the index.
+     * @return
+     */
+    Student deleteStudent(Index index);
+
+    /**
+     * Returns the student based on its Index.
+     */
+    Student getStudent(Index index);
+
+    /**
+     * Replaces the student at the specified index.
+     */
+    void setStudent(Index index, Student student);
+
+    /**
+     * Returns the list of students.
+     *
+     * @return list of students
+     */
+    String getStudentList();
+
+
     //=========== Questions ================================================================================
     /**
      * Adds the given question.
@@ -84,6 +117,36 @@ public interface Model {
      * @return Summary of questions list.
      */
     String getQuestionsSummary();
+
+    //=========== Questions ================================================================================
+
+    /**
+     * Adds the given note.
+     * {@code note} must not exist in the note list.
+     */
+    void addNote(Note note);
+
+    /**
+     * Returns the note that has been deleted based on the index.
+     */
+    Note deleteNote(Index index);
+
+    /**
+     * Returns the note based on its Index.
+     */
+    Note getNote(Index index);
+
+    /**
+     * Replaces the note at the specified index.
+     */
+    void setNote(Index index, Note question);
+
+    /**
+     * Returns the notes summary.
+     *
+     * @return Summary of notes list.
+     */
+    String getNoteList();
 
     //=========== Person ================================================================================
 
