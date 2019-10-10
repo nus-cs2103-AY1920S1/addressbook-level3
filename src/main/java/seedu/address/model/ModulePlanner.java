@@ -2,11 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
@@ -56,11 +61,11 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     /**
      * Creates an ModulePlanner from JSON. This is used in {@code JsonSerializableModulePlanner}.
      */
-    public ModulePlanner(UniqueStudyPlanList uniqueStudyPlanList, StudyPlan activeStudyPlan,
+    public ModulePlanner(UniqueStudyPlanList uniqueStudyPlanList, /*StudyPlan activeStudyPlan,*/
                          ModulesInfo modulesInfo,
                          VersionTrackingManager versionTrackingManager) {
         this.studyPlans = uniqueStudyPlanList;
-        this.activeStudyPlan = activeStudyPlan;
+        // this.activeStudyPlan = activeStudyPlan;
         this.modulesInfo = modulesInfo;
         this.versionTrackingManager = versionTrackingManager;
     }
@@ -118,6 +123,36 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      * Returns the current active {@code StudyPlan}.
      */
     public StudyPlan getActiveStudyPlan() {
+        return activeStudyPlan;
+    }
+
+    /**
+     * Activates the study plan with the given index, and returns the active study plan populated with relevant
+     * details.
+     */
+    public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
+        Iterator<StudyPlan> iterator = studyPlans.iterator();
+        while (iterator.hasNext()) {
+            StudyPlan studyPlan = iterator.next();
+            if (studyPlan.getIndex() == index) {
+                activeStudyPlan = studyPlan;
+            }
+        }
+
+        if (activeStudyPlan == null) {
+            throw new StudyPlanNotFoundException();
+        }
+
+        // construct the mega list of modules
+        HashMap<String, Module> megaModuleHash = activeStudyPlan.getModules();
+        for (Module module : megaModuleHash.values()) {
+            ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
+            module.setName(new Name(moduleInfo.getName()));
+            module.setMcCount(moduleInfo.getMc());
+        }
+
+        // TODO: get default tags from moduleInfo, and make the tags refer to the megalist of tags
+
         return activeStudyPlan;
     }
 

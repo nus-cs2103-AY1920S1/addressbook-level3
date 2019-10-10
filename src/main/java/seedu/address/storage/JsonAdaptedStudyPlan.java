@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
@@ -70,9 +70,7 @@ class JsonAdaptedStudyPlan {
             semesters.add(new JsonAdaptedSemester(semesterToAdd));
         }
 
-        Iterator<Module> moduleIterator = source.getModules().iterator();
-        while (moduleIterator.hasNext()) {
-            Module module = moduleIterator.next();
+        for  (Module module : source.getModules().values()) {
             modules.add(new JsonAdaptedModule(module));
         }
 
@@ -118,14 +116,14 @@ class JsonAdaptedStudyPlan {
             modelSemesters.add(semester.toModelType());
         }
 
-        final UniqueModuleList modelModules = new UniqueModuleList();
+        final HashMap<String, Module> modelModules = new HashMap<>();
         for (JsonAdaptedModule module : modules) {
-            modelModules.add(module.toModelType());
+            modelModules.put(module.getModuleCode(), module.toModelType());
         }
 
         final UniqueTagList modelTags = new UniqueTagList();
         for (JsonAdaptedTag tag : tags) {
-            modelTags.addUserTag(tag.toModelType());
+            modelTags.addTag(tag.toModelType());
         }
 
         return new StudyPlan(modelTitle, modelIndex, modelIsActive, modelSemesters, modelModules, modelTags);

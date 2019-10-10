@@ -81,12 +81,12 @@ class JsonSerializableModulePlanner {
         UniqueStudyPlanList modelUniqueStudyPlanList = new UniqueStudyPlanList();
         modelUniqueStudyPlanList.setStudyPlans(modelStudyPlans);
 
-        StudyPlan modelActiveStudyPlan = modelUniqueStudyPlanList.getStudyPlanByIndex(activeStudyPlanIndex);
-
         VersionTrackingManager modelManager = manager.toModelType();
 
-        ModulePlanner modulePlanner = new ModulePlanner(modelUniqueStudyPlanList, modelActiveStudyPlan,
+        ModulePlanner modulePlanner = new ModulePlanner(modelUniqueStudyPlanList,
                 modulesInfo, modelManager);
+
+        modulePlanner.activateStudyPlan(activeStudyPlanIndex);
 
         return modulePlanner;
     }

@@ -1,7 +1,9 @@
 package seedu.address.model.studyplan;
 
+import java.util.HashMap;
 import java.util.List;
 
+import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.UniqueSemesterList;
@@ -21,8 +23,7 @@ public class StudyPlan implements Cloneable {
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
-    // TODO: change to hash map
-    private final UniqueModuleList modules;
+    private final HashMap<String, Module> modules;
 
     // the unique list of tags of this study plan.
     // All tags in an *active* study plan refer to a tag here.
@@ -38,7 +39,7 @@ public class StudyPlan implements Cloneable {
 
         // TODO: initialise modules and (default) tags. this should be done when module info is ready.
         //  get the list from Module?
-        modules = new UniqueModuleList();
+        modules = new HashMap<>(); //TODO need to change this.
         tags = new UniqueTagList();
 
         totalNumberOfStudyPlans++;
@@ -54,16 +55,19 @@ public class StudyPlan implements Cloneable {
 
         // TODO: initialise modules and (default) tags. this should be done when module info is ready.
         //  get the list from Module?
-        modules = new UniqueModuleList();
+        modules = new HashMap<>(); //TODO need to change this.
         tags = new UniqueTagList();
 
         totalNumberOfStudyPlans++;
         this.index = totalNumberOfStudyPlans;
     }
 
-    // TODO: furnish this constructor. This is created for JsonAdaptedStudyPlan
+
+    /**
+     * This constructor is used for {@code JsonAdaptedStudyPlan}.
+     */
     public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, List<Semester> modelSemesters,
-                     UniqueModuleList modelModules, UniqueTagList modelTags) {
+                     HashMap<String, Module> modelModules, UniqueTagList modelTags) {
         title = modelTitle;
         index = modelIndex;
         isActive = modelIsActive;
@@ -104,7 +108,7 @@ public class StudyPlan implements Cloneable {
     }
 
     // "Mega-list" of modules
-    public UniqueModuleList getModules() {
+    public HashMap<String, Module> getModules() {
         return modules;
     }
 

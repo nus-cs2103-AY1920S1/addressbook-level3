@@ -67,6 +67,11 @@ public interface Model {
     StudyPlan getActiveStudyPlan();
 
     /**
+     * Returns an activated study plan with the given index populated with relevant details.
+     */
+    StudyPlan activateStudyPlan(int index);
+
+    /**
      * Deletes the given StudyPlan.
      * The StudyPlan must exist in the module planner.
      */

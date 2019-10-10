@@ -75,6 +75,14 @@ public class Module {
         return mcCount;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setMcCount(int mcCount) {
+        this.mcCount = mcCount;
+    }
+
     /**
      * Adds the specified tag to the module if it is not already there.
      * @param tag Tag to be attached to the module.

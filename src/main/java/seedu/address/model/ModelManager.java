@@ -100,6 +100,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public StudyPlan activateStudyPlan(int index) {
+        return modulePlanner.activateStudyPlan(index);
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }
