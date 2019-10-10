@@ -1,14 +1,19 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -114,8 +119,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
-        policyListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+//        policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+//        policyListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -176,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -188,6 +193,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isListPolicy()) {
+                policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+                personListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+            }
+
+            if (commandResult.isListPeople()) {
+                personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
 
             return commandResult;

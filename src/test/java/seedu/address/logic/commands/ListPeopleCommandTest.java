@@ -15,7 +15,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
-public class ListCommandTest {
+public class ListPeopleCommandTest {
 
     private Model model;
     private Model expectedModel;
