@@ -59,4 +59,18 @@ public abstract class Question {
     public String toString() {
         return question;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        }
+
+        if(!(o instanceof Question)) {
+            return false;
+        }
+
+        Question otherQuestion = (Question) o;
+        return this.question.equals(otherQuestion.question);
+    }
 }
