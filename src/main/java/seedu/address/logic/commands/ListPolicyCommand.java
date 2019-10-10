@@ -6,9 +6,9 @@ import seedu.address.model.Model;
 /**
  * Changes the remark of an existing person in the address book.
  */
-public class ListPoliciesCommand extends Command {
+public class ListPolicyCommand extends Command {
 
-    public static final String COMMAND_WORD = "listpolicies";
+    public static final String COMMAND_WORD = "listpolicy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of all current policies.";
 
