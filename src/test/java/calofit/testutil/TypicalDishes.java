@@ -18,11 +18,11 @@ import calofit.model.dish.DishDatabase;
 public class TypicalDishes {
 
     public static final Dish SPAGHETTI = new DishBuilder().withName("Spaghetti")
-            .withTags("salty").build();
+            .withTags("creamys").build();
     public static final Dish MUSHROOM_SOUP = new DishBuilder().withName("Mushroom Soup")
             .withTags("expensive", "shitake").build();
     public static final Dish CHICKEN_RICE = new DishBuilder().withName("Chicken Rice").build();
-    public static final Dish NASI_LEMAK = new DishBuilder().withName("Nasi Lemak").withTags("value for money").build();
+    public static final Dish NASI_LEMAK = new DishBuilder().withName("Nasi Lemak").withTags("value").build();
     public static final Dish CHEESE_BAKED_RICE = new DishBuilder().withName("Cheese Baked Rice").build();
     public static final Dish APPLE_PIE = new DishBuilder().withName("Apple Pie").build();
     public static final Dish CHENDOL = new DishBuilder().withName("Chendol").build();
