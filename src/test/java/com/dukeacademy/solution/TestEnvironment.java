@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TestEnvironment implements CompilerEnvironment {
-    Path tempPath;
+    private Path tempPath;
 
     private String MESSAGE_CREATE_JAVA_FILE_FAILED = "Failed to create java file";
 
@@ -28,7 +28,6 @@ public class TestEnvironment implements CompilerEnvironment {
     public TestEnvironment(Path tempPath) {
         this.tempPath = tempPath;
         this.tempPath.toFile().mkdir();
-
         this.createdFiles = new ArrayList<>();
     }
 

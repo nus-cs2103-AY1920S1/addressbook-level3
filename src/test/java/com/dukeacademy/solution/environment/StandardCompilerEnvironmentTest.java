@@ -23,7 +23,7 @@ class StandardCompilerEnvironmentTest {
     private Path environmentPath;
 
     @TempDir
-    static Path temporaryFolder;
+    Path temporaryFolder;
 
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {

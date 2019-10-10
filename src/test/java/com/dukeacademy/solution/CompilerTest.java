@@ -17,33 +17,29 @@ class CompilerTest {
     @TempDir
     Path tempFolder;
 
-    Path environmentPath;
-    Compiler compiler;
+    private Path environmentPath;
+    private Compiler compiler;
 
-    UserProgram validProgram;
-    UserProgram validProgram1;
-    UserProgram invalidProgram;
+    private UserProgram validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
+            + "\tpublic static void main(String args[]) {"
+            + "\t\tSystem.out.println(\"Hello world\");"
+            + "\t}"
+            + "\n}");
+    ;
+    private UserProgram validProgram1 = new UserProgram("ValidTest1", "package foo.bar;\n"
+            + "public class ValidTest1 {\n"
+            + "\tpublic static void main(String args[]) {"
+            + "\t\tSystem.out.println(\"Hello world\");"
+            + "\t}"
+            + "\n}");
+
+    private UserProgram invalidProgram = new UserProgram("InvalidTest", "FooBar");
 
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
         environmentPath = tempFolder.resolve("compiler");
         TestEnvironment environment = new TestEnvironment(environmentPath);
         compiler = new Compiler(environment);
-
-        validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
-                + "\tpublic static void main(String args[]) {"
-                + "\t\tSystem.out.println(\"Hello world\");"
-                + "\t}"
-                + "\n}");
-
-        validProgram1 = new UserProgram("ValidTest1", "package foo.bar;\n"
-                + "public class ValidTest1 {\n"
-                + "\tpublic static void main(String args[]) {"
-                + "\t\tSystem.out.println(\"Hello world\");"
-                + "\t}"
-                + "\n}");
-
-        invalidProgram = new UserProgram("InvalidTest", "FooBar");
     }
 
     @Test
