@@ -1,5 +1,6 @@
 package seedu.address.model.semester;
 
+import java.util.Iterator;
 import java.util.List;
 
 import seedu.address.model.module.Module;
@@ -86,5 +87,19 @@ public class Semester {
 
     public boolean hasModule(Module module) {
         return this.modules.contains(module);
+
+    // NOTE: this is for the GUI to use for Milestone 2
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(semesterName + ":" + "\n");
+        Iterator<Module> moduleIterator = modules.iterator();
+        while (moduleIterator.hasNext()) {
+            Module module = moduleIterator.next();
+            result.append(module.toString() + "\n");
+        }
+
+        return result.toString();
+
     }
 }

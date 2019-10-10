@@ -15,6 +15,23 @@ public class StudyPlanCommitManager {
     }
 
     /**
+     * This constructor is used by {@code JsonAdaptedStudyPlanCommitManager} to construct a StudyPlanCommitManager
+     * using the given details.
+     */
+    public StudyPlanCommitManager(int studyPlanIndex, CommitList commitList) {
+        this.studyPlanIndex = studyPlanIndex;
+        this.commitList = commitList;
+    }
+
+    public int getStudyPlanIndex() {
+        return studyPlanIndex;
+    }
+
+    public CommitList getCommitList() {
+        return commitList;
+    }
+
+    /**
      * Commits a study plan.
      * @param studyPlan study plan to commit.
      */

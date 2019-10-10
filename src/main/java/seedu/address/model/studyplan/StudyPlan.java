@@ -1,10 +1,11 @@
 package seedu.address.model.studyplan;
 
+import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.SemesterList;
+import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -14,30 +15,30 @@ public class StudyPlan implements Cloneable {
 
     private static int totalNumberOfStudyPlans = 0; // TODO: will this reset to zero every time application restarts?
 
-    private SemesterList semesterList;
+    private UniqueSemesterList semesters;
     private Title title;
     private boolean isActive;
     private int index; // unique identifier of this study plan
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
-    private final UniqueModuleList modules;
+    private HashMap<String, Module> modules;
 
     // the unique list of tags of this study plan.
     // All tags in an *active* study plan refer to a tag here.
     // note: this unique list of tags is only constructed when a study plan gets activated.
-    private final UniqueTagList tags;
+    private UniqueTagList tags;
 
 
     // to create a study plan without a Title
     public StudyPlan() {
-        this.semesterList = new SemesterList();
+        this.semesters = new UniqueSemesterList();
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
         // TODO: initialise modules and (default) tags. this should be done when module info is ready.
         //  get the list from Module?
-        modules = new UniqueModuleList();
+        modules = new HashMap<>(); //TODO need to change this.
         tags = new UniqueTagList();
 
         totalNumberOfStudyPlans++;
@@ -47,26 +48,30 @@ public class StudyPlan implements Cloneable {
     // to create a study plan with a Title
     public StudyPlan(Title title) {
         this.title = title;
-        this.semesterList = new SemesterList();
+        this.semesters = new UniqueSemesterList();
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
         // TODO: initialise modules and (default) tags. this should be done when module info is ready.
         //  get the list from Module?
-        modules = new UniqueModuleList();
+        modules = new HashMap<>(); //TODO need to change this.
         tags = new UniqueTagList();
 
         totalNumberOfStudyPlans++;
         this.index = totalNumberOfStudyPlans;
     }
 
-    // TODO: furnish this constructor. This is created for JsonAdaptedStudyPlan
+
+    /**
+     * This constructor is used for {@code JsonAdaptedStudyPlan}.
+     */
     public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, List<Semester> modelSemesters,
-                     UniqueModuleList modelModules, UniqueTagList modelTags) {
+                     HashMap<String, Module> modelModules, UniqueTagList modelTags) {
         title = modelTitle;
         index = modelIndex;
         isActive = modelIsActive;
-        semesterList = new SemesterList(modelSemesters);
+        semesters = new UniqueSemesterList();
+        semesters.setSemesters(modelSemesters);
 
         modules = modelModules;
         tags = modelTags;
@@ -93,18 +98,20 @@ public class StudyPlan implements Cloneable {
         return title;
     }
 
-    public SemesterList getSemesterList() {
-        return semesterList;
+    public UniqueSemesterList getSemesters() {
+        return semesters;
     }
 
     public int getIndex() {
         return index;
     }
 
-    public UniqueModuleList getModules() {
+    // "Mega-list" of modules
+    public HashMap<String, Module> getModules() {
         return modules;
     }
 
+    // "Mega-list" of tags
     public UniqueTagList getTags() {
         return tags;
     }
@@ -125,10 +132,19 @@ public class StudyPlan implements Cloneable {
      */
     public StudyPlan clone() throws CloneNotSupportedException {
         StudyPlan clone = (StudyPlan) super.clone();
-        clone.semesterList = semesterList.clone();
+        clone.semesters = semesters.clone();
         clone.title = title.clone();
+        clone.isActive = isActive;
+        clone.index = index;
 
-        // TODO: clone the two lists too.
+        // because of this, the mega-lists fields don't have final keyword
+        clone.modules = new HashMap<>();
+        for (Module module : modules.values()) {
+            clone.modules.put(module.getModuleCode().toString(), module.clone());
+        }
+
+        clone.tags = (UniqueTagList) tags.clone();
+
         return clone;
     }
 
@@ -136,7 +152,7 @@ public class StudyPlan implements Cloneable {
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
             return this.index == ((StudyPlan) other).index &&
-                    this.semesterList.equals(((StudyPlan) other).getSemesterList());
+                    this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }

@@ -7,11 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.semester.Semester;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class SemesterCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -23,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Semester semester;
 
     @FXML
     private HBox cardPane;
@@ -40,17 +41,17 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public SemesterCard(Semester semester, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.semester = semester;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.getTagName()))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+//        name.setText(semester.getName().fullName);
+//        phone.setText(semester.getPhone().value);
+//        address.setText(semester.getAddress().value);
+//        email.setText(semester.getEmail().value);
+//        semester.getTags().stream()
+//                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+//                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
     }
 
     @Override
@@ -61,13 +62,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof SemesterCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        SemesterCard card = (SemesterCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && semester.equals(card.semester);
     }
 }
