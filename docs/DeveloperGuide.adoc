@@ -295,17 +295,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |Team Manager |give my projects names |uniquely identify all my different projects.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Team Manager |store ongoing tasks for each project |conveniently delegate and manage the tasks that need to be done for each project
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Team Manager |prioritise the tasks within a project |easily manage the progress of my project.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Team Manager |allocate tasks to my members and store this information |conveniently delegate tasks and ensure there are no overlaps
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Team Manager |easily get an overview of what my members are currently doing |so that I know which member is responsible for which tasks within the project
+
+|`* * *` |Team Manager |be able to remind my members of upcoming meetings |ensure smoother team meetings as they are updated on the time and location, and there would be no unnecessary delays
+
+|`* *` |Team Manager |find an optimal meeting location based on each team members' location |optimise the convenience of the team meeting locations for each team member
+
+|`* *` |Team Manager |remind members of their deadlines for their allocated tasks |make sure the tasks are completed promptly
+
+|`* *` |Team Manager |find a date that everyone is free for team meetings |
+
+|`*` |Team Manager |set an agenda for meetings |I can avoid meetings that are unproductive due to lack of things to do
+
+|`*` |Team Manager |send standardised emails to every team member containing the most updated project details |keep all my members up to date with the latest information when needed
+
+|`*` |Team Manager |send the minutes from a meeting to each member |keep each member updated on what was discussed during the meeting.
 |=======================================================================
 
 _{More to be added}_
