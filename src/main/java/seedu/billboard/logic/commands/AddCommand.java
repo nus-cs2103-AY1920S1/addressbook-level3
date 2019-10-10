@@ -1,8 +1,9 @@
 package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.billboard.logic.parser.CliSyntax.*;
-
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
@@ -22,7 +23,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Buy a book "
-            + PREFIX_AMOUNT + "9.00"
+            + PREFIX_AMOUNT + "9.00" + " "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

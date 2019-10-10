@@ -2,6 +2,10 @@ package seedu.billboard.model.expense;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents an Expense's description in Billboard.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}}
+ */
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
