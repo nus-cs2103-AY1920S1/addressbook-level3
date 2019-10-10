@@ -27,10 +27,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-//        ArgumentMultimap argMultimap =
-//                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_TAG);
 
         Index index;
 
@@ -41,18 +39,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditExpenseDescriptor editExpenseDescriptor = new EditExpenseDescriptor();
-//        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-//            editExpenseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-//        }
-//        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-//            editExpenseDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-//        }
-//        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-//            editExpenseDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-//        }
-//        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-//            editExpenseDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-//        }
+
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editExpenseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editExpenseDescriptor.setDescription(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }

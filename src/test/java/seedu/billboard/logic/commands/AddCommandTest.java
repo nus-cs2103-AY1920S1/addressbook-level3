@@ -2,9 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -17,9 +15,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.exceptions.CommandException;
-import seedu.billboard.model.*;
 import seedu.billboard.model.Billboard;
+import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyBillboard;
+import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -47,7 +46,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validExpense);
         ModelStub modelStub = new ModelStubWithPerson(validExpense);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
     }
 
     @Test

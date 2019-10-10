@@ -3,21 +3,23 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -91,21 +93,21 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_DINNER + TAG_DESC_TAXES, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC + VALID_AMOUNT_DINNER + VALID_DESCRIPTION_DINNER,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC + VALID_AMOUNT_DINNER
+                        + VALID_DESCRIPTION_DINNER, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
-                 + AMOUNT_DESC_DINNER + NAME_DESC_DINNER + TAG_DESC_DINNER;
+
+        String userInput = targetIndex.getOneBased() + NAME_DESC_DINNER + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
+                + AMOUNT_DESC_DINNER + TAG_DESC_DINNER;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER)
                 .withDescription(VALID_DESCRIPTION_TAXES).withAmount(VALID_AMOUNT_DINNER)
                 .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -144,7 +146,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_DINNER;
-        descriptor = new EditExpenseDescriptorBuilder().withTags(VALID_TAG_TAXES).build();
+        descriptor = new EditExpenseDescriptorBuilder().withTags(VALID_TAG_DINNER).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -168,17 +170,21 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_AMOUNT_DESC + DESCRIPTION_DESC_TAXES;
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES).build();
+        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_TAXES + DESCRIPTION_DESC_TAXES;
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
+                .withAmount(VALID_AMOUNT_TAXES).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + AMOUNT_DESC_TAXES + INVALID_NAME_DESC + AMOUNT_DESC_TAXES
-                + DESCRIPTION_DESC_TAXES;
-        descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
+                + NAME_DESC_TAXES;
+        descriptor = new EditExpenseDescriptorBuilder()
                 .withAmount(VALID_AMOUNT_TAXES)
+                .withName(VALID_NAME_TAXES)
                 .build();
+        System.out.println(userInput);
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

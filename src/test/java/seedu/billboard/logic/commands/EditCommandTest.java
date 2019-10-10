@@ -1,20 +1,19 @@
 package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESC_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import org.junit.jupiter.api.Test;
 
@@ -114,6 +113,7 @@ public class EditCommandTest {
 
         // edit expense in filtered list into a duplicate in address book
         Expense expenseInList = model.getBillboard().getExpenses().get(INDEX_SECOND_PERSON.getZeroBased());
+        EditCommand.EditExpenseDescriptor thing = new EditExpenseDescriptorBuilder(expenseInList).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
 
@@ -123,7 +123,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenses().size() + 1);
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES).build();
+        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+                .withName(VALID_NAME_TAXES).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

@@ -2,9 +2,9 @@ package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
@@ -16,8 +16,8 @@ import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -40,8 +40,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TAXES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TAXES;
     public static final String AMOUNT_DESC_DINNER = " " + PREFIX_AMOUNT + VALID_AMOUNT_DINNER;
     public static final String AMOUNT_DESC_TAXES = " " + PREFIX_AMOUNT + VALID_AMOUNT_TAXES;
-    public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_TAXES;
-    public static final String TAG_DESC_TAXES = " " + PREFIX_TAG + VALID_TAG_DINNER;
+    public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_DINNER;
+    public static final String TAG_DESC_TAXES = " " + PREFIX_TAG + VALID_TAG_TAXES;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "25.20abc"; // alphabet not allowed in amount

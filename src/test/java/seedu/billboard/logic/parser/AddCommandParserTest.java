@@ -3,22 +3,22 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.billboard.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.TAG_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.DINNER;
@@ -27,8 +27,10 @@ import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.logic.commands.AddCommand;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -36,7 +38,7 @@ public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allFieldsPresent_success() throws ParseException {
         Expense expectedExpense = new ExpenseBuilder(TAXES).withTags(VALID_TAG_TAXES).build();
 
         // whitespace only preamble
@@ -44,7 +46,7 @@ public class AddCommandParserTest {
                 + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES 
+        assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
                 + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple descriptions - last description accepted
