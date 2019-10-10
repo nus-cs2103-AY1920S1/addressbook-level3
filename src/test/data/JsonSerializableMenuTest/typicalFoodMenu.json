@@ -1,5 +1,5 @@
 {
-  "_comment": "$aveNUS save file which contains the same food values as in Typicalfoods#getTypicalAddressBook()",
+  "_comment": "$aveNUS save file which contains the same food values as in Typicalfoods#getTypicalMenu()",
   "foods" : [ {
     "name" : "Carbonara",
     "price" : "5.00",
@@ -25,36 +25,36 @@
     "openingHours": "0800 1800",
     "restrictions": "Contains pork"
   }, {
-    "name" : "Indomie",
-    "price" : "1.25",
-    "description" : "Really good indonesian noodles",
-    "category": "Indonesian",
-    "tagged" : [ "Noodle" , "Instant" ],
+    "name" : "Teh Ping",
+    "price" : "1.50",
+    "description" : "Really good tea",
+    "category": "Chinese",
+    "tagged" : [ "Tea" , "Leaves" ],
     "openingHours": "0000 2359",
     "restrictions": "May cause cancer"
   }, {
-    "name" : "Bak Mala Xiang Guo",
+    "name" : "Mala Xiang Guo",
     "price" : "15.00",
-    "description" : "Spicy chinese salad",
+    "description" : "Spicy chinese food",
     "category": "Chinese",
     "tagged" : [ "Spicy" , "Vegetables" ],
     "openingHours": "0800 1930",
     "restrictions": "Not halal"
   }, {
-    "name" : "Bak Wagyu Donburi",
+    "name" : "Wagyu Donburi with Teh",
     "price" : "17.99",
-    "description" : "Japanese rice with wagyu beef",
+    "description" : "Japanese rice with wagyu beef, with tea",
     "category": "Japanese",
     "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
     "openingHours": "1000 1700",
     "restrictions": "Expensive"
   }, {
-    "name" : "Chicken Rice",
+    "name" : "Nasi Ayam",
     "price" : "4.80",
-    "description" : "Fatty rice with chicken",
-    "category": "Chinese",
-    "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
+    "description" : "Rice with fried chicken",
+    "category": "Malay",
+    "tagged" : [ "Chicken" , "Roasted" ],
     "openingHours": "0900 1700",
-    "restrictions": "Not halal"
+    "restrictions": "Halal"
   } ]
 }

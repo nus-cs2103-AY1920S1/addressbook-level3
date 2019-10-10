@@ -3,9 +3,9 @@ package seedu.savenus.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.ALICE;
+import static seedu.savenus.testutil.TypicalFood.CARBONARA;
 import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.util.Arrays;
@@ -45,9 +45,9 @@ public class MenuTest {
     @Test
     public void resetData_withDuplicatefoods_throwsDuplicatefoodException() {
         // Two foods with the same identity fields
-        Food editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Food editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN)
                 .build();
-        List<Food> newFoods = Arrays.asList(ALICE, editedAlice);
+        List<Food> newFoods = Arrays.asList(CARBONARA, editedAlice);
         MenuStub newData = new MenuStub(newFoods);
 
         assertThrows(DuplicateFoodException.class, () -> menu.resetData(newData));
@@ -60,19 +60,19 @@ public class MenuTest {
 
     @Test
     public void hasFood_foodNotInMenu_returnsFalse() {
-        assertFalse(menu.hasFood(ALICE));
+        assertFalse(menu.hasFood(CARBONARA));
     }
 
     @Test
     public void hasFood_foodInMenu_returnsTrue() {
-        menu.addFood(ALICE);
-        assertTrue(menu.hasFood(ALICE));
+        menu.addFood(CARBONARA);
+        assertTrue(menu.hasFood(CARBONARA));
     }
 
     @Test
     public void hasFood_foodWithSameIdentityFieldsInMenu_returnsTrue() {
-        menu.addFood(ALICE);
-        Food editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        menu.addFood(CARBONARA);
+        Food editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN)
                 .build();
         assertTrue(menu.hasFood(editedAlice));
     }
