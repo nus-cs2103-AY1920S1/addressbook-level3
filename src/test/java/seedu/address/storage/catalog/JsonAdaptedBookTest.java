@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.catalog.JsonAdaptedBook.MISSING_FIELD_MESSAGE_FORMAT;
