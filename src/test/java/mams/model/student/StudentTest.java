@@ -25,7 +25,8 @@ public class StudentTest {
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(null));
 
         // different name -> returns false
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
+                .withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same credits, different attributes -> returns true
