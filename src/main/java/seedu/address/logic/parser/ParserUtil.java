@@ -59,11 +59,21 @@ public class ParserUtil {
         return new Content(trimmedAddress);
     }
 
+    /**
+     * Parses a {@code String number} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
     public static int parseNumber(String number) throws ParseException {
         requireNonNull(number);
         return Integer.parseInt(number);
     }
 
+    /**
+     * Parses a {@code String subject} into an {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code subject} is invalid.
+     */
     public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
@@ -73,6 +83,12 @@ public class ParserUtil {
         return new Subject(trimmedSubject);
     }
 
+    /**
+     * Parses a {@code String difficulty} into an {@code Difficulty}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code difficulty} is invalid.
+     */
     public static Difficulty parseDifficulty(String difficulty) throws ParseException {
         requireNonNull(difficulty);
         String trimmedDifficulty = difficulty.trim();
