@@ -1,6 +1,5 @@
 package mams.storage;
 
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
