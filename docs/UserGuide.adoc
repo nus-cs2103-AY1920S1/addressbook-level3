@@ -24,19 +24,19 @@ Modulo is a desktop application helping National University of Singapore (NUS) s
 
 .  Make sure that `Java 11` or above is installed in your computer. Otherwise, you can download Java 11 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
 * Enter the follow command in Command Prompt for Windows or Terminal on Mac to check your current version of Java: `java --version`
-.  Download the latest modulo.jar here.
+.  Download the latest `modulo.jar` here.
 .  Copy the `.jar` file to a folder you wish to set as your working directory for the application.
 .  Double-click the file to start Modulo. If the GUI does not appear in a few seconds, please try running `java -jar modulo.jar` in your command prompt or terminal.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will show a list of commands which _Modulo_ supports.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* `add CS2100 Assignment 1 t\21 August 2019 #High-Priority` : adds a task with description `CS2100 Assignment 1` to the _Modulo_.
+* `add CS2103 1920S1`: adds module `CS2103` to academic year and semester `1920S1`
+* `add [qns] _What can one catch that is not thrown?_ [type] _normal_ [ans] _A cold_ [cat] CS2131`: adds a new quiz question to category `CS2131`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -61,12 +61,14 @@ Format: help
 
 ==== Return to the homepage
 
+Homepage, in this case, is the _Calendar_ section.
+
 Format: home
 
 ==== Switch to another feature’s tab
 
-Format: `checkout FEATURE_NAME`
-Example: `checkout module`
+Format: `switch FEATURE_NAME`
+Example: `switch module`
 
 ==== Exiting the program
 
@@ -333,19 +335,96 @@ Format: `undo` +
 
 === Finances
 
+To enter the Finances section, please enter the command: `switch finances`
 
+All amounts are taken to be in SGD and recorded as if with dollar signs and numerals. For example, 110 cents should be written as `1.10` or `1.1`.
 
+If dates are to be specified, only dates of format `DDMMYYYY` will be recognised.
 
+==== Add an expenditure: `add spend`
+Record down an entry of spending. By default, the date of spending will be set to the day the entry was added. Otherwise, this can be specified through an optional parameter. Other details regarding the expenditure can also be included.
+
+Format: `*add spend* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(s)] [place\PLACE] [met\PAYMENT_METHOD]` +
+e.g. `add spend 2.80 item\Yong Tau Foo cat\Food School place\Frontier met\cash`
+
+==== Add an income: `add income`
+
+Record down an entry of incoming money. Source of income can also be specified.
+
+Format: `*add income* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(S)] [from\ORIGIN] [met\PAYMENT_METHOD]` +
+e.g. `add income 800 item\student assistant from\NUS met\bank transfer`
+
+==== Add category: `add cat`
+Add a new category to list of exisiting categories. Note that category name is not case-sensitive.
+
+Format: `*add cat* NEW_CATEGORY` +
+e.g. `add cat Hobby`
+
+==== Add an entry of borrowed money: `borrow`
+Record down an entry of money borrowed from someone but not yet repaid. By default, the date the money was borrowed is set to the day the entry was recorded.
+
+Format: `*borrow* AMOUNT from\PERSON_BORROWED_FROM [day\DATE_BORROWED]` +
+e.g. `borrow 1.20 from\mom`
+
+==== Add an entry of lent money: `lent`
+Record down an entry of money lent to someone.
+
+Format: `*lent* AMOUNT to\PERSON_LENT_TO` [day\DATE_LENT]` +
+e.g. `lent 5 to\sister`
+
+==== List out finances: `list`
+List out all entries in recorded down. By default, all entries will be ordered chronologically, according to the day the entry is linked to (e.g. the day of spending etc). Entries are indexed chronologically as well.
+
+To sort or filter, and do more advance searches through the list, additional parameters can be specified.
+
+Attributes that can be *sorted by* are: `day`, `amt` +
+Attributes that can *filtered by* are: `spend`, `income`, `borrow`, `lent`
+
+Format: `*list* [sort\SORT_TYPE(s)] [filter\FILTER_TYPE(s)]`[find\KEYWORD(S)] [cat\ CATEGORY(s)] +
+e.g. `list filter\spend cat\food`
+
+==== List out categories
+List out available categories.
+
+Format: `*list cat*`
+
+==== Edit an entry: `edit`
+Edit an entry previously entered by index of entry in listed listed out by `list`. Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 cat\pet` will delete the previous two categories and replace them with a single category `pet.`
+
+Format: `*edit* INDEX [amt\NEW_AMOUNT] [item\NEW_DESCRIPTION] [cat\NEW_CATEGORY] [place\NEW_PLACE] [met\NEW_METHOD]` +
+e.g. `edit 2 amt\5.1`
+
+==== Delete entry/entries: `delete`
+Delete an entry or multiple entries by their index in the list. Note: the indices do not have to be ordered.
+
+Format: `*delete* INDEX [MORE_INDEXES]` +
+e.g. `delete 5 4 1`
+
+==== Show summary of finances: `stats`
+Shows an overview of the state of expenses and incomes.
+
+Format: `*stats*`
+
+==== Set a budget: `add budget`
+Set a budget, which by default is for the current month. This can be further specified for a specified time period (i.e. duration) or category of spending. A reminder is shown when this budget is about to be exceeded or has exceeded.
+
+Format: `*add budget* AMOUNT [dur\NUM_DAYS] [cat\CATEGORY]` +
+e.g. `add budget 30 dur\7 cat\food`
+
+==== Export summary of finances: `export`
+Exports a file and saves it to hard disk.
+
+Format: `*export*`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+_Modulo_ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _Modulo_ folder.
 
 == Command Summary
 
