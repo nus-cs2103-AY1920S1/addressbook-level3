@@ -12,7 +12,6 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
 By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
