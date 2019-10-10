@@ -65,7 +65,7 @@ $ find John Tim Betsy
 $ profile 1
 ----
 
-For other commands, check out our User Guide at <<UserGuide#, here>>!
+For other commands, check out our User Guide at <<docs/UserGuide#, here>>!
 
 == Download
 
@@ -73,10 +73,10 @@ You can https://github.com/AY1920S1-CS2103T-F12-2/main/releases[download] the la
 
 == Site Map
 
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
+* <<docs/AboutUs#, About Us>>
+* <<docs/ContactUs#, Contact Us>>
+* <<docs/UserGuide#, User Guide>>
+* <<docs/DeveloperGuide#, Developer Guide>>
 
 == Acknowledgements
 
