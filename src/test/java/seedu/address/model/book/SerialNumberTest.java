@@ -47,7 +47,7 @@ public class SerialNumberTest {
         // null phone number
         assertThrows(NullPointerException.class, () -> SerialNumber.isValidSerialNumber(null));
 
-        // invalid phone numbers
+        // invalid serial numbers
         assertFalse(SerialNumber.isValidSerialNumber("")); // empty string
         assertFalse(SerialNumber.isValidSerialNumber(" ")); // spaces only
         assertFalse(SerialNumber.isValidSerialNumber("B91")); // less than 5 numbers
@@ -56,7 +56,7 @@ public class SerialNumberTest {
         assertFalse(SerialNumber.isValidSerialNumber("9011p041")); // alphabets within digits
         assertFalse(SerialNumber.isValidSerialNumber("9312 1534")); // spaces within digits
 
-        // valid phone numbers
+        // valid serial numbers
         assertTrue(SerialNumber.isValidSerialNumber("B00911")); // exactly 5 numbers
         assertTrue(SerialNumber.isValidSerialNumber("B00001")); // smallest serial number
         assertTrue(SerialNumber.isValidSerialNumber("B99099")); // largest serial number
