@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chee You
 image::cheeyou.png[width="150", align="left"]
-{empty}[https://github.com/cheeyou[github]]
+{empty}[https://github.com/cheeyou[github]][<<cheeyou#, portfolio>>]
 
 Role: Developer
 
@@ -21,7 +21,7 @@ Role: Developer
 
 === Kris Kunthamas
 image::argvampir.png[width="150", align="left"]
-{empty}[https://github.com/ArgVampir[github]]
+{empty}[https://github.com/ArgVampir[github]][<<argvampir#, portfolio>>]
 
 Role: Developer
 
@@ -29,7 +29,7 @@ Role: Developer
 
 === Sam Yong Jek
 image::samyj2606.png[width="150", align="left"]
-{empty}[http://github.com/SamYJ2606[github]]
+{empty}[http://github.com/SamYJ2606[github]][<<samyj2606#, portfolio>>]
 
 Role: Developer
 
@@ -37,7 +37,7 @@ Role: Developer
 
 === Song Tianyi
 image::tysng.png[width="150", align="left"]
-{empty}[http://github.com/tysng[github]]
+{empty}[http://github.com/tysng[github]][<<tysng#, portfolio>>]
 
 Role: Developer
 
@@ -45,7 +45,7 @@ Role: Developer
 
 === Tan Jun Bang
 image::junnbang.png[width="150", align="left"]
-{empty}[http://github.com/junnbang[github]]
+{empty}[http://github.com/junnbang[github]][<<junnbang#, portfolio>>]
 
 Role: Developer
 
