@@ -27,7 +27,7 @@ public class InventoryMessages {
             " any of the keywords.";
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n" +
-            "d/description c/category q/quantity c/cost p/price";
+            "d/description c/category q/quantity co/cost p/price";
 
     public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a number.";
 
