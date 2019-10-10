@@ -116,6 +116,13 @@ public interface Model {
      */
     Policy getPolicy(Policy policy);
 
+    /**
+     * Replaces the given policy {@code target} with {@code editedPolicy}.
+     * {@code target} must exist in the address book.
+     * The policy identity of {@code editedPolicy} must not be the same as another existing policy in the address book.
+     */
+    void setPolicy(Policy target, Policy editedPolicy);
+
     /** Returns an unmodifiable view of the filtered policy list */
     ObservableList<Policy> getFilteredPolicyList();
 

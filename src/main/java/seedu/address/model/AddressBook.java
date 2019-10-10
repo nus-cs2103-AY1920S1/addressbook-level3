@@ -52,6 +52,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the policies list with {@code policies}.
+     * {@code policies} must not contain duplicate policies.
+     */
+    public void setPolicies(List<Policy> policies) {
+        this.policies.setPolicies(policies);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -127,11 +135,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the policies list with {@code policies}.
-     * {@code policies} must not contain duplicate policies.
+     * Replaces the given policy {@code target} in the list with {@code editedPolicy}.
+     * {@code target} must exist in the address book.
+     * The policy identity of {@code editedPolicy} must not be the same as another existing policy in the address book.
      */
-    public void setPolicies(List<Policy> policies) {
-        this.policies.setPolicies(policies);
+    public void setPolicy(Policy target, Policy editedPolicy) {
+        requireNonNull(editedPolicy);
+
+        policies.setPolicy(target, editedPolicy);
     }
 
     /* Removes {@code key} from this {@code AddressBook}.

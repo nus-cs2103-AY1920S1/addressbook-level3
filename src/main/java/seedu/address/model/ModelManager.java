@@ -146,6 +146,13 @@ public class ModelManager implements Model {
         updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
     }
 
+    @Override
+    public void setPolicy(Policy target, Policy editedPolicy) {
+        requireAllNonNull(target, editedPolicy);
+
+        addressBook.setPolicy(target, editedPolicy);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
