@@ -11,7 +11,7 @@ import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 
 /**
- * Deletes an item identified with its displayed index.
+ * Deletes an item identified with its displayed index or tag(s) associated with the item.
  */
 public class DeleteCommand extends Command {
 
