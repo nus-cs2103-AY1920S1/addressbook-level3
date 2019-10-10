@@ -75,7 +75,7 @@ public class JsonMarkStorageTest {
         // Modify data, overwrite exiting file, and read back
         original.addBookmark(HOON);
         original.removeBookmark(ALICE);
-        original.addFolder("new_folder", Folder.DEFAULT_FOLDER_NAME);
+        original.addFolder(new Folder("newfolder"), Folder.ROOT_FOLDER);
         jsonMarkStorage.saveMark(original, filePath);
         readBack = jsonMarkStorage.readMark(filePath).get();
         assertEquals(original, new Mark(readBack));

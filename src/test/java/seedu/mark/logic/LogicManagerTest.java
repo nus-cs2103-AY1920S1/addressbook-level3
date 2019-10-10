@@ -99,7 +99,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFolderStructure() {
-        assertEquals(logic.getFolderStructure(), new FolderStructure(Folder.DEFAULT_FOLDER_NAME, new ArrayList<>()));
+        assertEquals(logic.getFolderStructure(), new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>()));
     }
 
     /**

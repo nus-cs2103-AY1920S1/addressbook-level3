@@ -102,7 +102,7 @@ public class MarkTest {
 
         @Override
         public FolderStructure getFolderStructure() {
-            return new FolderStructure(Folder.DEFAULT_FOLDER_NAME, FXCollections.observableArrayList());
+            return new FolderStructure(Folder.ROOT_FOLDER, FXCollections.observableArrayList());
         }
     }
 

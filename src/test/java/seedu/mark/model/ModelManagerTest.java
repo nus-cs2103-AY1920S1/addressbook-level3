@@ -92,13 +92,14 @@ public class ModelManagerTest {
 
     @Test
     public void hasFolder_folderNotInMark_returnsFalse() {
-        assertFalse(modelManager.hasFolder(VALID_FOLDER_CS2103T));
+        assertFalse(modelManager.hasFolder(new Folder(VALID_FOLDER_CS2103T)));
     }
 
     @Test
     public void hasFolder_folderInMark_returnsTrue() {
-        modelManager.addFolder(VALID_FOLDER_CS2103T, Folder.DEFAULT_FOLDER_NAME);
-        assertTrue(modelManager.hasFolder(VALID_FOLDER_CS2103T));
+        Folder validFolder = new Folder(VALID_FOLDER_CS2103T);
+        modelManager.addFolder(validFolder, Folder.ROOT_FOLDER);
+        assertTrue(modelManager.hasFolder(validFolder));
     }
 
     @Test

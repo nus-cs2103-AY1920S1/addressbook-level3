@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -83,12 +84,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addFolder(String folderName, String parentFolderName) {
+    public void addFolder(Folder folder, Folder parentFolder) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasFolder(String folderName) {
+    public boolean hasFolder(Folder folder) {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 
 /**
  * The API of the Model component.
@@ -85,7 +86,7 @@ public interface Model {
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
 
-    void addFolder(String folderName, String parentFolderName);
+    void addFolder(Folder folder, Folder parentFolder);
 
-    boolean hasFolder(String folderName);
+    boolean hasFolder(Folder folder);
 }

@@ -26,7 +26,7 @@ public class Mark implements ReadOnlyMark {
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
-        folderStructure = new FolderStructure(Folder.DEFAULT_FOLDER_NAME, new ArrayList<>());
+        folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
     }
 
     /**
@@ -108,12 +108,12 @@ public class Mark implements ReadOnlyMark {
 
 
     /**
-     * Creates a new folder with name {@code folderName} under {@code parentFolderName}.
-     * {@code folderName} must not exist.
-     * {@code parentFolderName} must exist.
+     * Creates a new folder with name {@code folder} under {@code parentFolder}.
+     * {@code folder} must not exist.
+     * {@code parentFolder} must exist.
      */
-    public void addFolder(String folderName, String parentFolderName) {
-        this.folderStructure.addFolder(folderName, parentFolderName);
+    public void addFolder(Folder folder, Folder parentFolder) {
+        this.folderStructure.addFolder(folder, parentFolder);
     }
 
     //// util methods

@@ -65,7 +65,7 @@ class JsonSerializableMark {
             mark.addBookmark(bookmark);
         }
         FolderStructure modelFolderStructure = folderStructure.toModelType();
-        if (!modelFolderStructure.getName().equals(Folder.DEFAULT_FOLDER_NAME)) {
+        if (!modelFolderStructure.getFolder().equals(Folder.ROOT_FOLDER)) {
             throw new IllegalValueException(MESSAGE_NO_ROOT_FOLDER);
         }
         if (!FolderStructure.isValidFolderStructure(modelFolderStructure)) {

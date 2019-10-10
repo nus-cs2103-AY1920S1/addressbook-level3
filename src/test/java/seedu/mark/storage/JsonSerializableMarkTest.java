@@ -32,10 +32,10 @@ public class JsonSerializableMarkTest {
 
     @Test
     public void toModelType_typicalBookmarksFile_success() throws Exception {
-        FolderStructure family = new FolderStructure("family", new ArrayList<>());
-        FolderStructure contacts = new FolderStructure("contacts", List.of(family));
-        FolderStructure friends = new FolderStructure("friends", new ArrayList<>());
-        FolderStructure f = new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts, friends));
+        FolderStructure family = new FolderStructure(new Folder("family"), new ArrayList<>());
+        FolderStructure contacts = new FolderStructure(new Folder("contacts"), List.of(family));
+        FolderStructure friends = new FolderStructure(new Folder("friends"), new ArrayList<>());
+        FolderStructure f = new FolderStructure(Folder.ROOT_FOLDER, List.of(contacts, friends));
         assertEquals(f, f.clone());
         JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(TYPICAL_BOOKMARKS_FILE,
                 JsonSerializableMark.class).get();

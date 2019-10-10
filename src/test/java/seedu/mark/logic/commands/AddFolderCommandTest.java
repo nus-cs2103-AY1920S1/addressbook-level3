@@ -20,7 +20,8 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 public class AddFolderCommandTest {
-    private static Folder nonNull = new Folder("nonNull");
+    private static final String NON_NULL_STRING = "nonNull";
+    private static final Folder NON_NULL_FOLDER = new Folder(NON_NULL_STRING);
 
     @Test
     public void constructor_nullFolderNullParent_throwsNullPointerException() {
@@ -29,37 +30,37 @@ public class AddFolderCommandTest {
 
     @Test
     public void constructor_nullFolderNonNullParent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddFolderCommand(null, nonNull));
+        assertThrows(NullPointerException.class, () -> new AddFolderCommand(null, NON_NULL_FOLDER));
     }
 
     @Test
     public void constructor_nonNullFolderNullParent_createsCommand() {
-        assertDoesNotThrow(() -> new AddFolderCommand(nonNull, null));
+        assertDoesNotThrow(() -> new AddFolderCommand(NON_NULL_FOLDER, null));
     }
 
     @Test
     public void constructor_nonNullFolderNonNullParent_createsCommand() {
-        assertDoesNotThrow(() -> new AddFolderCommand(nonNull, nonNull));
+        assertDoesNotThrow(() -> new AddFolderCommand(NON_NULL_FOLDER, NON_NULL_FOLDER));
     }
 
     @Test
     public void execute_folderAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingFolderAdded modelStub = new ModelStubAcceptingFolderAdded();
 
-        CommandResult commandResult = new AddFolderCommand(nonNull, null).execute(modelStub);
+        CommandResult commandResult = new AddFolderCommand(NON_NULL_FOLDER, null).execute(modelStub);
 
-        assertEquals(String.format(AddFolderCommand.MESSAGE_SUCCESS, nonNull.folderName),
+        assertEquals(String.format(AddFolderCommand.MESSAGE_SUCCESS, NON_NULL_FOLDER.folderName),
                 commandResult.getFeedbackToUser());
 
         FolderStructure expected = new FolderStructure(
-                Folder.DEFAULT_FOLDER_NAME, List.of(new FolderStructure(nonNull.folderName, new ArrayList<>())));
+                Folder.ROOT_FOLDER, List.of(new FolderStructure(NON_NULL_FOLDER, new ArrayList<>())));
         assertEquals(expected, modelStub.folderStructure);
     }
 
     @Test
-    public void execute_duplicateBookmark_throwsCommandException() {
-        AddFolderCommand addFolderCommand = new AddFolderCommand(nonNull, null);
-        ModelStub modelStub = new ModelStubWithFolder(nonNull);
+    public void execute_duplicateFolder_throwsCommandException() {
+        AddFolderCommand addFolderCommand = new AddFolderCommand(NON_NULL_FOLDER, null);
+        ModelStub modelStub = new ModelStubWithFolder(NON_NULL_FOLDER);
 
         assertThrows(CommandException.class, AddFolderCommand.MESSAGE_DUPLICATE_FOLDER, () ->
                 addFolderCommand.execute(modelStub));
@@ -107,9 +108,9 @@ public class AddFolderCommandTest {
         }
 
         @Override
-        public boolean hasFolder(String folderName) {
-            requireNonNull(folderName);
-            return folder.folderName.equals(folderName);
+        public boolean hasFolder(Folder folder) {
+            requireNonNull(folder);
+            return this.folder.equals(folder);
         }
     }
 
@@ -118,19 +119,19 @@ public class AddFolderCommandTest {
      */
     private class ModelStubAcceptingFolderAdded extends ModelStub {
         public final FolderStructure folderStructure =
-                new FolderStructure(Folder.DEFAULT_FOLDER_NAME, new ArrayList<>());
+                new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
 
         @Override
-        public boolean hasFolder(String folderName) {
-            requireNonNull(folderName);
-            return folderStructure.hasFolder(folderName);
+        public boolean hasFolder(Folder folder) {
+            requireNonNull(folder);
+            return folderStructure.hasFolder(folder);
         }
 
         @Override
-        public void addFolder(String folderName, String parentFolderName) {
-            requireNonNull(folderName);
-            folderStructure.find(parentFolderName == null ? Folder.DEFAULT_FOLDER_NAME : parentFolderName)
-                    .getSubfolders().add(new FolderStructure(folderName, new ArrayList<>()));
+        public void addFolder(Folder folder, Folder parentFolder) {
+            requireNonNull(folder);
+            folderStructure.find(parentFolder == null ? Folder.ROOT_FOLDER : parentFolder)
+                    .getSubfolders().add(new FolderStructure(folder, new ArrayList<>()));
         }
     }
 }

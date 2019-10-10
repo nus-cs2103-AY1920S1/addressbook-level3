@@ -72,9 +72,9 @@ public class TypicalBookmarks {
     }
 
     public static FolderStructure getTypicalFolderStructure() {
-        FolderStructure family = new FolderStructure(CARL.getFolder().folderName, new ArrayList<>());
-        FolderStructure contacts = new FolderStructure(BENSON.getFolder().folderName, List.of(family));
-        return new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts));
+        FolderStructure family = new FolderStructure(CARL.getFolder(), new ArrayList<>());
+        FolderStructure contacts = new FolderStructure(BENSON.getFolder(), List.of(family));
+        return new FolderStructure(Folder.ROOT_FOLDER, List.of(contacts));
     }
 
     public static List<Bookmark> getTypicalBookmarks() {

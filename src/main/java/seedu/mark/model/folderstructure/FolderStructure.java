@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.mark.model.bookmark.Folder;
 
 /**
  * Represents a folder structure in Mark. Guarantees: details are present and not null, field values
@@ -19,28 +20,27 @@ import javafx.collections.ObservableList;
  */
 public class FolderStructure {
 
-    private final String name;
+    private final Folder folder;
     private final ObservableList<FolderStructure> subfolders = FXCollections.observableArrayList();
 
     /**
      * Instantiates a new Folder structure.
-     *
-     * @param name       the name
+     *  @param folder       the name
      * @param subfolders the subfolders
      */
-    public FolderStructure(String name, List<FolderStructure> subfolders) {
-        requireAllNonNull(name, subfolders);
-        this.name = name;
+    public FolderStructure(Folder folder, List<FolderStructure> subfolders) {
+        requireAllNonNull(folder, subfolders);
+        this.folder = folder;
         this.subfolders.addAll(subfolders);
     }
 
     /**
-     * Gets name of folder
+     * Gets the folder
      *
-     * @return the name
+     * @return the folder
      */
-    public String getName() {
-        return name;
+    public Folder getFolder() {
+        return folder;
     }
 
     /**
@@ -55,15 +55,15 @@ public class FolderStructure {
     /**
      * Find folder.
      *
-     * @param folderName the folder name
+     * @param folder the folder
      * @return the folder structure
      */
-    public FolderStructure find(String folderName) {
-        if (name.equals(folderName)) {
+    public FolderStructure find(Folder folder) {
+        if (this.folder.equals(folder)) {
             return this;
         }
         for (FolderStructure subfolder: subfolders) {
-            FolderStructure found = subfolder.find(folderName);
+            FolderStructure found = subfolder.find(folder);
             if (found != null) {
                 return found;
             }
@@ -72,23 +72,23 @@ public class FolderStructure {
     }
 
     /**
-     * Contains folder boolean.
+     * Checks if this folder structure contains the specified folder.
      *
-     * @param folderName the folder name
+     * @param folder the folder
      * @return the boolean
      */
-    public boolean hasFolder(String folderName) {
-        return find(folderName) != null;
+    public boolean hasFolder(Folder folder) {
+        return find(folder) != null;
     }
 
     /**
      * Create folder.
      *
-     * @param folderName the folder name
-     * @param parentName the parent name
+     * @param folder the folder name
+     * @param parentFolder the parent name
      */
-    public void addFolder(String folderName, String parentName) {
-        find(parentName).getSubfolders().add(new FolderStructure(folderName, new ArrayList<>()));
+    public void addFolder(Folder folder, Folder parentFolder) {
+        find(parentFolder).getSubfolders().add(new FolderStructure(folder, new ArrayList<>()));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class FolderStructure {
 
         FolderStructure otherFolderStructure = (FolderStructure) other;
 
-        return otherFolderStructure.getName().equals(getName())
+        return otherFolderStructure.getFolder().equals(getFolder())
                 && new HashSet<>(otherFolderStructure.getSubfolders()).equals(
                         new HashSet<>(getSubfolders()));
     }
@@ -111,11 +111,11 @@ public class FolderStructure {
     /**
      * Helper function for isValidFolderStructure
      */
-    private static boolean isValidFolderStructure(FolderStructure test, Set<String> seenSoFar) {
-        if (seenSoFar.contains(test.getName())) {
+    private static boolean isValidFolderStructure(FolderStructure test, Set<Folder> seenSoFar) {
+        if (seenSoFar.contains(test.getFolder())) {
             return false;
         }
-        seenSoFar.add(test.getName());
+        seenSoFar.add(test.getFolder());
         for (FolderStructure folderStructure: test.getSubfolders()) {
             if (!FolderStructure.isValidFolderStructure(folderStructure, seenSoFar)) {
                 return false;
@@ -139,11 +139,11 @@ public class FolderStructure {
      */
     public FolderStructure clone() {
         return new FolderStructure(
-                name, subfolders.stream().map(FolderStructure::clone).collect(Collectors.toList()));
+                folder, subfolders.stream().map(FolderStructure::clone).collect(Collectors.toList()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, subfolders);
+        return Objects.hash(folder, subfolders);
     }
 }

@@ -48,9 +48,9 @@ public class SampleDataUtil {
     }
 
     public static FolderStructure getSampleFolderStructure() {
-        FolderStructure family = new FolderStructure(FAMILY, new ArrayList<>());
-        FolderStructure contacts = new FolderStructure(CONTACTS, List.of(family));
-        FolderStructure root = new FolderStructure(Folder.DEFAULT_FOLDER_NAME, List.of(contacts));
+        FolderStructure family = new FolderStructure(new Folder(FAMILY), new ArrayList<>());
+        FolderStructure contacts = new FolderStructure(new Folder(CONTACTS), List.of(family));
+        FolderStructure root = new FolderStructure(Folder.ROOT_FOLDER, List.of(contacts));
         return root;
     }
 

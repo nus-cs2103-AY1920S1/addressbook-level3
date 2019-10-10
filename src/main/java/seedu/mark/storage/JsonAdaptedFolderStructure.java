@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -38,7 +39,7 @@ public class JsonAdaptedFolderStructure {
      * @param source the source
      */
     public JsonAdaptedFolderStructure(FolderStructure source) {
-        this.name = source.getName();
+        this.name = source.getFolder().folderName;
         this.subfolders = source.getSubfolders().stream()
                 .map(JsonAdaptedFolderStructure::new).collect(Collectors.toList());
     }
@@ -49,7 +50,7 @@ public class JsonAdaptedFolderStructure {
      *
      */
     public FolderStructure toModelType() {
-        return new FolderStructure(name, subfolders.stream().map(
+        return new FolderStructure(new Folder(name), subfolders.stream().map(
                 JsonAdaptedFolderStructure::toModelType).collect(
                 Collectors.toList()));
     }

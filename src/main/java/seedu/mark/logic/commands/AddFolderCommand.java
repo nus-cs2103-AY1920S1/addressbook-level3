@@ -23,36 +23,35 @@ public class AddFolderCommand extends Command {
     public static final String MESSAGE_PARENT_FOLDER_NOT_FOUND = "The parent folder %s doesn't exist in Mark";
     public static final String MESSAGE_SUCCESS = "Folder %s added successfuly";
 
-    private final String folderName;
-    private final String parentFolderName;
+    private final Folder folder;
+    private final Folder parentFolder;
 
     /**
      * Creates an AddFolderCommand to add the specified {@code Folder}.
-     * @param folder
-     * @param parentFolder
+     * @param folder the folder to add
+     * @param parentFolder the parent folder to add it under
      */
     public AddFolderCommand(Folder folder,
             Folder parentFolder) {
         requireNonNull(folder);
-        this.folderName = folder.folderName;
-        this.parentFolderName =
-                parentFolder == null ? Folder.DEFAULT_FOLDER_NAME : parentFolder.folderName;
+        this.folder = folder;
+        this.parentFolder = parentFolder == null ? Folder.ROOT_FOLDER : parentFolder;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.hasFolder(folderName)) {
+        if (model.hasFolder(folder)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }
 
-        if (!model.hasFolder(parentFolderName)) {
+        if (!model.hasFolder(parentFolder)) {
             throw new CommandException(
-                    String.format(MESSAGE_PARENT_FOLDER_NOT_FOUND, parentFolderName));
+                    String.format(MESSAGE_PARENT_FOLDER_NOT_FOUND, parentFolder));
         }
 
-        model.addFolder(folderName, parentFolderName);
+        model.addFolder(folder, parentFolder);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, folderName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, folder));
     }
 
 
@@ -70,7 +69,7 @@ public class AddFolderCommand extends Command {
 
         // state check
         AddFolderCommand otherAddFolderCommand = (AddFolderCommand) other;
-        return folderName.equals(otherAddFolderCommand.folderName)
-                && parentFolderName.equals(otherAddFolderCommand.parentFolderName);
+        return folder.equals(otherAddFolderCommand.folder)
+                && parentFolder.equals(otherAddFolderCommand.parentFolder);
     }
 }
