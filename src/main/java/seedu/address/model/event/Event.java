@@ -20,20 +20,20 @@ public class Event {
     private final EventVenue venue;
     private final EventManpowerNeeded manpowerNeeded;
     private final EventHoursNeeded hoursNeeded;
-    private final EventStartDate startDate;
-    private final EventEndDate endDate;
+    //private final EventStartDate startDate;
+    //private final EventEndDate endDate;
     private final EventManpowerAllocatedList manpowerAllocatedList;
     private final Set<Tag> tags = new HashSet<>();
 
+    //public Event(EventId id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
+    //EventManpowerNeeded manpowerNeeded, EventStartDate startDate, EventEndDate endDate, Set<Tag> tags) {
     public Event(EventId id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
-                 EventManpowerNeeded manpowerNeeded, EventStartDate startDate, EventEndDate endDate, Set<Tag> tags) {
+                 EventManpowerNeeded manpowerNeeded, Set<Tag> tags) {
         this.eventId = id;
         this.name = name;
         this.venue = venue;
         this.hoursNeeded = hoursNeeded;
         this.manpowerNeeded = manpowerNeeded;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.tags.addAll(tags);
     }
@@ -47,8 +47,6 @@ public class Event {
         this.venue = null;
         this.hoursNeeded = null;
         this.manpowerNeeded = null;
-        this.startDate = null;
-        this.endDate = null;
         this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.tags.addAll(tags);
     }
@@ -73,13 +71,13 @@ public class Event {
         return hoursNeeded;
     }
 
-    public EventStartDate getStartDate() {
-        return startDate;
-    }
+    //public EventStartDate getStartDate() {
+    //return startDate;
+    //}
 
-    public EventEndDate getEndDate() {
-        return endDate;
-    }
+    //public EventEndDate getEndDate() {
+    //return endDate;
+    //}
 
     public EventManpowerAllocatedList getManpowerAllocatedList() {
         return manpowerAllocatedList;
@@ -126,8 +124,8 @@ public class Event {
                 && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getManpowerNeeded().equals(getManpowerNeeded())
                 && otherEvent.getHoursNeeded().equals(getHoursNeeded())
-                && otherEvent.getStartDate().equals(getStartDate())
-                && otherEvent.getEndDate().equals(getEndDate())
+                //&& otherEvent.getStartDate().equals(getStartDate())
+                //&& otherEvent.getEndDate().equals(getEndDate())
                 && otherEvent.getManpowerAllocatedList().equals(getManpowerAllocatedList())
                 && otherEvent.getTags().equals(getTags());
     }
@@ -135,8 +133,10 @@ public class Event {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
+        //return Objects.hash(eventId, name, venue, manpowerNeeded, hoursNeeded,
+        //startDate, endDate, manpowerAllocatedList, tags);
         return Objects.hash(eventId, name, venue, manpowerNeeded, hoursNeeded,
-                startDate, endDate, manpowerAllocatedList, tags);
+                manpowerAllocatedList, tags);
     }
 
     @Override
@@ -147,11 +147,10 @@ public class Event {
         builder.append(" Event Venue: ").append(getVenue());
         builder.append(" Event Manpower Needed: ").append(getManpowerNeeded());
         builder.append(" Event Hours Needed: ").append(getHoursNeeded());
-        builder.append(" Event Start Date: ").append(getStartDate());
-        builder.append(" Event End Date: ").append(getEndDate());
+        //builder.append(" Event Start Date: ").append(getStartDate());
+        //builder.append(" Event End Date: ").append(getEndDate());
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

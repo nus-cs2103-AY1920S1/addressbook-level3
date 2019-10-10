@@ -15,7 +15,7 @@ public class EventVenue {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    public final String venue;
 
     /**
      * Constructs an {@code Venue}.
@@ -25,7 +25,7 @@ public class EventVenue {
     public EventVenue(String venue) {
         requireNonNull(venue);
         checkArgument(isValidVenue(venue), MESSAGE_CONSTRAINTS);
-        value = venue;
+        this.venue = venue;
     }
 
     /**
@@ -37,18 +37,18 @@ public class EventVenue {
 
     @Override
     public String toString() {
-        return value;
+        return venue;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EventVenue // instanceof handles nulls
-                && value.equals(((EventVenue) other).value)); // state check
+                && venue.equals(((EventVenue) other).venue)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return venue.hashCode();
     }
 }

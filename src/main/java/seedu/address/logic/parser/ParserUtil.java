@@ -9,7 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import seedu.address.model.event.EventHoursNeeded;
+import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -51,6 +57,7 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
+
 
     /**
      * Parses a {@code String phone} into a {@code Phone}.
@@ -125,10 +132,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String Eventname} into a {@code EventName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code Eventname} is invalid.
      */
     public static EventName parseEventName(String name) throws ParseException {
         requireNonNull(name);
@@ -137,5 +144,58 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new EventName(trimmedName);
+    }
+
+    /**
+     * returns an EventId
+     *
+     */
+    public static EventId parseEventId() {
+        return new EventId();
+    }
+
+    /**
+     * Parses a {@code String venueName} into a {@code EventVenue}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EventVenue} is invalid.
+     */
+    public static EventVenue parseVenue(String venueName) throws ParseException {
+        requireNonNull(venueName);
+        String trimmedName = venueName.trim();
+        if (!EventVenue.isValidVenue(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new EventVenue(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String hoursNeeded} into a {@code EventHoursNeeded}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EventHoursNeeded} is invalid.
+     */
+    public static EventHoursNeeded parseHoursNeeded(String hoursNeeded) throws ParseException {
+        requireNonNull(hoursNeeded);
+        String trimmed = hoursNeeded.trim();
+        if (!EventHoursNeeded.isValidEventHours(trimmed)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new EventHoursNeeded(trimmed);
+    }
+
+    /**
+     * Parses a {@code String manpowerNeeded} into a {@code EventManpowerNeeded}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EventManpowerNeeded} is invalid.
+     */
+    public static EventManpowerNeeded parseManpowerNeeded(String manpowerNeeded) throws ParseException {
+        requireNonNull(manpowerNeeded);
+        String trimmed = manpowerNeeded.trim();
+        if (!EventManpowerNeeded.isValidEventManpowerNeeded(manpowerNeeded)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new EventManpowerNeeded(trimmed);
     }
 }
