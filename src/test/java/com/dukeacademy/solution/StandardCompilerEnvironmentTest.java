@@ -1,10 +1,11 @@
-package com.dukeacademy.solution.environment;
+package com.dukeacademy.solution;
 
+import com.dukeacademy.model.solution.UserProgram;
+import com.dukeacademy.solution.StandardCompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -40,8 +41,9 @@ class StandardCompilerEnvironmentTest {
     void createJavaFile() throws CompilerFileCreationException, IOException {
         String fileName = "Test";
         String content = "public class Test {\n}";
+        UserProgram program = new UserProgram(fileName, content);
 
-        JavaFile createdJavaFile = compilerEnvironment.createJavaFile(fileName, content);
+        JavaFile createdJavaFile = compilerEnvironment.createJavaFile(program);
         assertEquals("Test", createdJavaFile.getCanonicalName());
         assertEquals(environmentPath.toUri().getPath(), createdJavaFile.getClassPath());
 
@@ -59,7 +61,9 @@ class StandardCompilerEnvironmentTest {
         String content1 = "package foo.bar;\n"
                 + "public class Test {\n}";
 
-        JavaFile createdJavaFile1 = compilerEnvironment.createJavaFile(fileName1, content1);
+        UserProgram program1 = new UserProgram(fileName1, content1);
+
+        JavaFile createdJavaFile1 = compilerEnvironment.createJavaFile(program1);
         assertEquals("foo.bar.Test", createdJavaFile1.getCanonicalName());
         assertEquals(environmentPath.toUri().getPath(), createdJavaFile1.getClassPath());
 
@@ -79,7 +83,9 @@ class StandardCompilerEnvironmentTest {
         String fileName = "Test1";
         String content = "public class Test1 {\n}";
 
-        compilerEnvironment.createJavaFile(fileName, content);
+        UserProgram program = new UserProgram(fileName, content);
+
+        compilerEnvironment.createJavaFile(program);
 
         JavaFile javaFile = compilerEnvironment.getJavaFile(fileName);
         assertTrue(javaFile.getFile().exists());
@@ -99,7 +105,9 @@ class StandardCompilerEnvironmentTest {
     void close() throws CompilerFileCreationException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
-        compilerEnvironment.createJavaFile(fileName, content);
+        UserProgram program = new UserProgram(fileName, content);
+
+        compilerEnvironment.createJavaFile(program);
 
         compilerEnvironment.close();
 
@@ -110,7 +118,9 @@ class StandardCompilerEnvironmentTest {
     void clearEnvironment() throws CompilerEnvironmentException, CompilerFileCreationException, IOException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
-        compilerEnvironment.createJavaFile(fileName, content);
+        UserProgram program = new UserProgram(fileName, content);
+
+        compilerEnvironment.createJavaFile(program);
 
         compilerEnvironment.clearEnvironment();
 

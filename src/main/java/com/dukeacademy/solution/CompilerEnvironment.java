@@ -1,5 +1,6 @@
-package com.dukeacademy.solution.environment;
+package com.dukeacademy.solution;
 
+import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;
@@ -13,11 +14,10 @@ import java.io.FileNotFoundException;
 public interface CompilerEnvironment {
     /**
      * Creates a Java file within the compiler environment.
-     * @param name the name of the file to be created, without extension.
-     * @param content the contents of the Java file.
+     * @param program the program to be converted to a Java file.
      * @return the file created.
      */
-    public JavaFile createJavaFile(String name, String content) throws CompilerFileCreationException, CompilerEnvironmentException;
+    public JavaFile createJavaFile(UserProgram program) throws CompilerFileCreationException, CompilerEnvironmentException;
 
     /**
      * Returns the file corresponding to the name provided.
