@@ -17,12 +17,12 @@ public class Deck implements JsonInterface {
 
     // Testing sample deck with no name
     // can remove subsequently
-    public Deck () {
+    public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
     }
 
-    public Deck (String name) {
+    public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
     }
@@ -50,7 +50,8 @@ public class Deck implements JsonInterface {
 
     /**
      * Render all the cards of the deck in a list.
-     * @return  node of list
+     *
+     * @return node of list
      */
     public Node renderListView() {
         return null;
@@ -58,7 +59,8 @@ public class Deck implements JsonInterface {
 
     /**
      * Render tile icon of this deck to display alongside other decks.
-     * @return  node of tile
+     *
+     * @return node of tile
      */
     public Node renderTileView() {
         return null;

@@ -37,11 +37,11 @@ public class FrontBackCard implements FlashCard, JsonInterface {
         return in.equals(back);
     }
 
-    public void editFront(String newText){
+    public void editFront(String newText) {
         front = newText;
     }
 
-    public void editBack(String newText){
+    public void editBack(String newText) {
         back = newText;
     }
 }

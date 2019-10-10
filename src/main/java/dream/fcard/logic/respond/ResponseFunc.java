@@ -9,6 +9,7 @@ public interface ResponseFunc {
 
     /**
      * Lambda's signature interface.
+     *
      * @param i input string
      * @param s state object
      */
