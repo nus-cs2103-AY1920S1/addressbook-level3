@@ -16,22 +16,22 @@ public class Student {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Credits credits;
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final MatricId matricId;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, phone, email, address, tags);
+    public Student(Name name, Credits credits, Email email, MatricId matricId, Set<Tag> tags) {
+        CollectionUtil.requireAllNonNull(name, credits, email, matricId, tags);
         this.name = name;
-        this.phone = phone;
+        this.credits = credits;
         this.email = email;
-        this.address = address;
+        this.matricId = matricId;
         this.tags.addAll(tags);
     }
 
@@ -39,16 +39,16 @@ public class Student {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Credits getCredits() {
+        return credits;
     }
 
     public Email getEmail() {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public MatricId getMatricId() {
+        return matricId;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Student {
         }
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
-                && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()));
+                && (otherStudent.getCredits().equals(getCredits()) || otherStudent.getEmail().equals(getEmail()));
     }
 
     /**
@@ -88,28 +88,28 @@ public class Student {
 
         Student otherStudent = (Student) other;
         return otherStudent.getName().equals(getName())
-                && otherStudent.getPhone().equals(getPhone())
+                && otherStudent.getCredits().equals(getCredits())
                 && otherStudent.getEmail().equals(getEmail())
-                && otherStudent.getAddress().equals(getAddress())
+                && otherStudent.getMatricId().equals(getMatricId())
                 && otherStudent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, credits, email, matricId, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Credits: ")
+                .append(getCredits())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Matric Id: ")
+                .append(getMatricId())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
