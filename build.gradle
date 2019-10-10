@@ -7,7 +7,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     id 'java'
     id 'jacoco'
-    id 'checkstyle'
+//    id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -25,9 +25,10 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
-checkstyle {
-    toolVersion = '8.1'
-}
+//checkstyle {
+//    toolVersion = '8.1'
+//}
+
 
 jacocoTestReport {
     reports {
@@ -152,3 +153,4 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+

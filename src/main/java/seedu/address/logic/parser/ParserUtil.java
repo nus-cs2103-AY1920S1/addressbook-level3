@@ -9,10 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +20,19 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static QuestionType parseType(String questionType) throws ParseException {
+        String trimmedType = questionType.trim();
+        if (!Question.isValidQuestion(trimmedType)) {
+            throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
+        }
+        return new QuestionType(trimmedType);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -36,63 +48,48 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String question} into a {@code Question}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code question} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Question parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
+            throw new ParseException(Question.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Question(trimmedQuestion);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String difficulty} into a {@code Difficulty}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code difficulty} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Difficulty parseDifficulty(String difficulty) throws ParseException {
+        requireNonNull(difficulty);
+        String trimmedDifficulty = difficulty.trim();
+        if (!Difficulty.isValidDifficulty(trimmedDifficulty)) {
+            throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Difficulty(trimmedDifficulty);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String category} into an {@code Category}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedAddress = category.trim();
+        if (!Category.isValidCategory(trimmedAddress)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
+        return new Category(trimmedAddress);
     }
 
     /**
