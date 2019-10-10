@@ -18,6 +18,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -89,8 +90,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Body> getFilteredBodyList();
 
-    //** Returns an unmodifiable view of the filtered list of bodies */
-    //ObservableList<Fridge> getFilteredFridgeList();
+    /** Returns an unmodifiable view of the filtered list of fridges */
+    // ObservableList<Fridge> getFilteredFridgeList();
+
+    /** Returns an unmodifiable view of the filtered list of entities */
+    ObservableList<? extends Entity> getFilteredEntityList(String entityType);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -102,11 +106,11 @@ public interface Model {
      * Updates the filter of the filtered worker list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredWorkerList(Predicate<Worker> predicate);
+    void updateFilteredWorkerList(Predicate<Entity> predicate);
 
     /**
      * Updates the filter of the filtered body list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredBodyList(Predicate<Body> predicate);
+    void updateFilteredBodyList(Predicate<Entity> predicate);
 }

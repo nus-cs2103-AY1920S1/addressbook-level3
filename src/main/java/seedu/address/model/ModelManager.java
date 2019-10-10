@@ -150,15 +150,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWorkerList(Predicate<Worker> predicate) {
+    public void updateFilteredWorkerList(Predicate<Entity> predicate) {
         requireNonNull(predicate);
         filteredWorkers.setPredicate(predicate);
     }
 
-    //=========== Filtered Fridge List Accessors =============================================================
-
     //=========== Filtered Person List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -173,6 +170,24 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Filtered Entities List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Entities} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
+        if (entityType.equals("W") || entityType.equals("w")) {
+            return filteredWorkers;
+        } else if (entityType.equals("B") || entityType.equals("b")) {
+            return filteredBodies;
+        }
+        // to add fridge!
+        return null;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

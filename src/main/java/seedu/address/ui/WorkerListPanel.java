@@ -38,8 +38,6 @@ public class WorkerListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                System.out.println("TESTTSETETSTS" + worker);
-                System.out.println(getIndex());
                 setGraphic(new WorkerCard(worker, getIndex() + 1).getRoot());
             }
         }
