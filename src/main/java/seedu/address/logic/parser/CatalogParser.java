@@ -70,7 +70,7 @@ public class CatalogParser {
             return new HelpCommand();
 
         case LoanCommand.COMMAND_WORD:
-            return null; // TODO
+            return new LoanCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
