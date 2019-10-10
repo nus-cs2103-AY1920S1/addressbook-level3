@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -27,6 +28,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TestStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -49,7 +51,6 @@ public class MainApp extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        initWithPassword("password1");
     }
 
     /**
@@ -175,17 +176,59 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        if (!TestStorage.isUserExist()) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("SecureIT");
+            dialog.setHeaderText("Create your master password");
+            dialog.setContentText("Password: ");
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                try {
+                    TestStorage.initPassword(result.get());
+                    initWithPassword(result.get());
+                    startAddressBook(primaryStage);
+                } catch (IOException e) {
+                    //TODO: if init password fails
+                }
+            }
+        } else {
+            while (true) {
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("SecureIT");
+                dialog.setHeaderText("Enter your master password");
+                dialog.setContentText("Password: ");
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    try {
+                        if (TestStorage.testPassword(result.get())) {
+                            initWithPassword(result.get());
+                            startAddressBook(primaryStage);
+                            break;
+                        }
+                    } catch (IOException e) {
+                        //TODO: if test password fails
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    private void startAddressBook(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        if (storage != null) {
+            try {
+                logger.info("============================ [ Stopping Address Book ] =============================");
+                storage.saveUserPrefs(model.getUserPrefs());
+            } catch (IOException e) {
+                logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            }
         }
     }
 }
