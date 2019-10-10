@@ -12,7 +12,7 @@ import io.xpire.commons.util.DateUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)} (String)}
  */
 public class ExpiryDate {
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final String DATE_FORMAT = "d/M/yyyy";
     private static final String EXPIRED = "Expired!";
     private static final String DAYS_LEFT = "%d day%s left";
     public static final String MESSAGE_CONSTRAINTS =
