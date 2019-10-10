@@ -57,7 +57,7 @@ class MultipleChoiceCardTest {
         choices.add("moin");
 
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "hello", choices);
-        assertThrows(ChoiceNotFoundException.class,  () -> {
+        assertThrows(ChoiceNotFoundException.class, () -> {
             card.editChoice("hello", -1);
         });
     }
