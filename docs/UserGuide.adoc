@@ -156,7 +156,7 @@ p/**PHONE** pr/**PRIORITY** ic/**NRIC** d/**DOCTOR** a/**AGE**` +
 Format for adding donors: `add t/donor n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
 p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**` +
 
-Format for adding doctors: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE** ic/**NRIC**`
+Format for adding doctors: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE**`
 
 After adding a person, ORGANice will display a form which contains the attributes of the person. Press
 the Enter key to confirm the details.
@@ -205,6 +205,7 @@ Edits the information of the person with the specified NRIC to the attributes sp
 It is up to the user to specify which attributes should be updated. +
 
 Format: `edit ic/**NRIC**`
+
 Optional parameters: any parameter from the <<List of Attributes>>
 
 After editing, ORGANice will display a form to show what information will be stored about
@@ -224,7 +225,8 @@ Finds persons whose attributes contain any of the given keywords.
 A list of patient/donor/doctor's information whose attributes partially match the keywords
 will be displayed. +
 
-Format: `find` +
+Format: `find`
+
 Optional parameters: any parameter from <<List of Attributes>>
 
 
@@ -442,7 +444,7 @@ contains the summary of the commands.
 ** Add patient: `add t/patient n/NAME o/ORGAN b/BLOOD TYPE tt/TISSUE TYPE p/PHONE pr/PRIORITY ic/NRIC d/DOCTOR a/AGE`
 ** Add donor: `add t/donor n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
 p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
-** Add doctor: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE** ic/**NRIC**`
+** Add doctor: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE*`
 
 * *Add (System Prompt Mode)*: `add t/**TYPE**`
 
