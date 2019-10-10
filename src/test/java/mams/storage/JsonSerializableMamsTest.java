@@ -22,15 +22,6 @@ public class JsonSerializableMamsTest {
     private static final Path DUPLICATE_STUDENT_FILE = TEST_DATA_FOLDER.resolve("duplicateStudentMams.json");
 
     @Test
-    public void toModelType_typicalStudentsFile_success() throws Exception {
-        JsonSerializableMams dataFromFile = JsonUtil.readJsonFile(TYPICAL_STUDENTS_FILE,
-                JsonSerializableMams.class).get();
-        Mams mamsFromFile = dataFromFile.toModelType();
-        Mams typicalStudentsMams = TypicalStudents.getTypicalMams();
-        assertEquals(mamsFromFile, typicalStudentsMams);
-    }
-
-    @Test
     public void toModelType_invalidStudentFile_throwsIllegalValueException() throws Exception {
         JsonSerializableMams dataFromFile = JsonUtil.readJsonFile(INVALID_STUDENT_FILE,
                 JsonSerializableMams.class).get();
