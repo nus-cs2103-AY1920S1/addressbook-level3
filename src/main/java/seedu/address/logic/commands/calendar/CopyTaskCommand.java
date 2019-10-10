@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.calendar;
 
 /**
- * command to add tasks.
+ * command to copy tasks.
  */
-public class AddTaskCommand {
+public class CopyTaskCommand {
 }
