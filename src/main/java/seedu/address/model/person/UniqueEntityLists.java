@@ -12,9 +12,9 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.exceptions.DuplicateEntityException;
 import seedu.address.model.entity.exceptions.EntityNotFoundException;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Lists of entities that enforces uniqueness between its elements and does not allow nulls.
@@ -40,6 +40,10 @@ public class UniqueEntityLists {
     private final ObservableList<Body> internalUnmodifiableListBody =
         FXCollections.unmodifiableObservableList(internalListBody);
 
+    private final ObservableList<Fridge> internalListFridge = FXCollections.observableArrayList();
+    private final ObservableList<Fridge> internalUnmodifiableListFridge =
+        FXCollections.unmodifiableObservableList(internalListFridge);
+
     /**
      * Returns true if the respective list contains an equivalent entity as the given argument.
      */
@@ -50,6 +54,8 @@ public class UniqueEntityLists {
             list = internalListWorker;
         } else if (toCheck instanceof Body) {
             list = internalListBody;
+        } else if (toCheck instanceof Fridge) {
+            list = internalListFridge;
         } else {
             list = internalListPerson;
         }
@@ -69,6 +75,8 @@ public class UniqueEntityLists {
             internalListWorker.add((Worker) toAdd);
         } else if (toAdd instanceof Body) {
             internalListBody.add((Body) toAdd);
+        } else if (toAdd instanceof Fridge) {
+            internalListFridge.add((Fridge) toAdd);
         } else {
             internalListPerson.add((Person) toAdd);
         }
@@ -83,7 +91,7 @@ public class UniqueEntityLists {
         requireAllNonNull(target, editedEntity);
 
         if (!target.isSameEntity(editedEntity) && contains(editedEntity)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntityException();
         }
 
         int index;
@@ -91,6 +99,8 @@ public class UniqueEntityLists {
             index = internalListWorker.indexOf((Worker) target);
         } else if (target instanceof Body) {
             index = internalListBody.indexOf((Body) target);
+        } else if (target instanceof Fridge) {
+            index = internalListFridge.indexOf((Fridge) target);
         } else {
             index = internalListPerson.indexOf((Person) target);
         }
@@ -102,6 +112,8 @@ public class UniqueEntityLists {
             internalListWorker.set(index, (Worker) editedEntity);
         } else if (editedEntity instanceof Body) {
             internalListBody.set(index, (Body) editedEntity);
+        } else if (editedEntity instanceof Fridge) {
+            internalListFridge.set(index, (Fridge) editedEntity);
         } else {
             internalListPerson.set(index, (Person) editedEntity);
         }
@@ -118,11 +130,13 @@ public class UniqueEntityLists {
             isRemoved = internalListWorker.remove((Worker) toRemove);
         } else if (toRemove instanceof Body) {
             isRemoved = internalListBody.remove((Body) toRemove);
+        } else if (toRemove instanceof Fridge) {
+            isRemoved = internalListFridge.remove((Fridge) toRemove);
         } else {
             isRemoved = internalListPerson.remove((Person) toRemove);
         }
         if (!isRemoved) {
-            throw new PersonNotFoundException();
+            throw new EntityNotFoundException();
         }
     }
 
@@ -130,6 +144,7 @@ public class UniqueEntityLists {
         requireNonNull(replacement);
         internalListBody.setAll(replacement.internalListBody);
         internalListWorker.setAll(replacement.internalListWorker);
+        internalListFridge.setAll(replacement.internalListFridge);
         internalListPerson.setAll(replacement.internalListPerson);
     }
 
@@ -173,6 +188,19 @@ public class UniqueEntityLists {
     }
 
     /**
+     * Replaces the contents of this list with {@code fridges}.
+     * {@code fridges} must not contain duplicate fridges.
+     */
+    public void setFridges(List<Fridge> fridges) {
+        requireAllNonNull(fridges);
+        if (!entitiesAreUnique(fridges)) {
+            throw new DuplicateEntityException();
+        }
+
+        internalListFridge.setAll(fridges);
+    }
+
+    /**
      * Returns the backing Person list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asUnmodifiableObservableListPerson() {
@@ -191,6 +219,13 @@ public class UniqueEntityLists {
      */
     public ObservableList<Body> asUnmodifiableObservableListBody() {
         return internalUnmodifiableListBody;
+    }
+
+    /**
+     * Returns the backing Fridge list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Fridge> asUnmodifiableObservableListFridge() {
+        return internalUnmodifiableListFridge;
     }
 
     @Override

@@ -29,29 +29,29 @@ class WorkerTest {
 
     @SuppressWarnings("checkstyle:Regexp")
     @Test
-    public void isSamePerson() {
+    public void isSameWorker() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameWorker(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameWorker(null));
 
         // different person entirely -> returns false
-        assertFalse(ALICE.isSamePerson(BENSON));
+        assertFalse(ALICE.isSameWorker(BENSON));
 
-        // different phone and email -> returns false
+        // different phone -> returns true
         Worker editedAlice = new WorkerBuilder(ALICE).withPhone(WorkerBuilder.DEFAULT_PHONE).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
 
         // different name -> returns false
         editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameWorker(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new WorkerBuilder(ALICE).withDateJoined(WorkerBuilder.DEFAULT_DATE_JOINED)
             .withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
     }
 
     @Test

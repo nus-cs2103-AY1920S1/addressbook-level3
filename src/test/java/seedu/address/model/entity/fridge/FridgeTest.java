@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.FridgeBuilder.DEFAULT_BODY;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
+import static seedu.address.testutil.TypicalBodies.JOHN;
 import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.BOB_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
@@ -19,18 +20,18 @@ import seedu.address.testutil.FridgeBuilder;
 public class FridgeTest {
 
     @Test
-    public void isSameFridge() {
+    public void isSameEntity() {
         // same object -> returns true
-        assertTrue(ALICE_FRIDGE.isSameFridge(ALICE_FRIDGE));
-        assertTrue(EMPTY_FRIDGE.isSameFridge(EMPTY_FRIDGE));
+        assertTrue(ALICE_FRIDGE.isSameEntity(ALICE_FRIDGE));
+        assertTrue(EMPTY_FRIDGE.isSameEntity(EMPTY_FRIDGE));
 
         // null -> returns false
-        assertFalse(ALICE_FRIDGE.isSameFridge(null));
-        assertFalse(EMPTY_FRIDGE.isSameFridge(null));
+        assertFalse(ALICE_FRIDGE.isSameEntity(null));
+        assertFalse(EMPTY_FRIDGE.isSameEntity(null));
 
         // different fridges entirely -> returns false
-        assertFalse(ALICE_FRIDGE.isSameFridge(BOB_FRIDGE));
-        assertFalse(EMPTY_FRIDGE.isSameFridge(BOB_FRIDGE));
+        assertFalse(ALICE_FRIDGE.isSameEntity(BOB_FRIDGE));
+        assertFalse(EMPTY_FRIDGE.isSameEntity(BOB_FRIDGE));
     }
 
     @Test
@@ -99,4 +100,15 @@ public class FridgeTest {
 
     }
 
+    @Test
+    void toString_occupiedFridge() {
+        Fridge occupiedFridge = new Fridge(true);
+        occupiedFridge.setBody(JOHN);
+        assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: " + JOHN, occupiedFridge.toString());
+    }
+
+    @Test
+    void toString_emptyFridge() {
+        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED", EMPTY_FRIDGE.toString());
+    }
 }

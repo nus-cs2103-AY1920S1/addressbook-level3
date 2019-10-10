@@ -149,30 +149,6 @@ public class IdentificationNumber {
         return typeOfEntity + paddedId;
     }
 
-    public static void decrementCountOfBodies() {
-        countOfBodies--;
-    }
-
-    public static void decrementCountOfWorkers() {
-        countOfWorkers--;
-    }
-
-    public static void decrementCountOfFridges() {
-        countOfFridges--;
-    }
-
-    public static void resetCountOfBodies() {
-        countOfBodies = 0;
-    }
-
-    public static void resetCountOfWorkers() {
-        countOfWorkers = 0;
-    }
-
-    public static void resetCountOfFridges() {
-        countOfFridges = 0;
-    }
-
     /**
      * Removes the mapping of the Id Number to its entity in the respective UniqueEntityList.
      */

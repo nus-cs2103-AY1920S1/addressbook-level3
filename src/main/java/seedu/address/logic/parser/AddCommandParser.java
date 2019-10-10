@@ -40,6 +40,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -89,6 +90,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddCommand(person);
         }
 
+        if (flag.equals("f")) {
+            Fridge fridge = new Fridge();
+            return new AddCommand(fridge);
+        }
         // obtain common fields between Workers and Body
         // fields are assigned null or empty when no argument is provided
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

@@ -23,8 +23,8 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "B00000000", new DeleteCommand(FIRST_BODY_ID_NUM));
-        assertParseSuccess(parser, "W00000", new DeleteCommand(FIRST_WORKER_ID_NUM));
+        assertParseSuccess(parser, "B00000001", new DeleteCommand(FIRST_BODY_ID_NUM));
+        assertParseSuccess(parser, "W00001", new DeleteCommand(FIRST_WORKER_ID_NUM));
 
         // todo add test for fridge!!
     }

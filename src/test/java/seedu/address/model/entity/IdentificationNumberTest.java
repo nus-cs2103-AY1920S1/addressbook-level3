@@ -44,9 +44,6 @@ class IdentificationNumberTest {
 
     @Test
     void testEquals_differentAndNull_notEqual() {
-        IdentificationNumber.resetCountOfBodies();
-        IdentificationNumber.resetCountOfWorkers();
-        IdentificationNumber.resetCountOfFridges();
         IdentificationNumber testId = IdentificationNumber.generateNewBodyId(JOHN);
         assertNotEquals(testId, IdentificationNumber.generateNewBodyId(JANE));
         assertNotEquals(testId, IdentificationNumber.generateNewFridgeId(EMPTY_FRIDGE));

@@ -118,15 +118,14 @@ public class Worker implements Entity {
      * Returns true if both workers have the same identity fields.
      * This defines a weaker notion of equality between two workers.
      */
-    public boolean isSamePerson(Object o) {
+    public boolean isSameWorker(Object o) {
         if (o == this) {
             return true;
         } else if (o instanceof Worker) {
             Worker otherWorker = (Worker) o;
             return otherWorker != null
                 && otherWorker.getName().equals(getName())
-                && otherWorker.getSex().equals(getSex())
-                && (otherWorker.getPhone().equals(getPhone()));
+                && otherWorker.getSex().equals(getSex());
         } else {
             return false;
         }
@@ -134,7 +133,7 @@ public class Worker implements Entity {
 
     @Override
     public boolean isSameEntity(Object o) {
-        return isSamePerson(o);
+        return isSameWorker(o);
     }
 
     /**

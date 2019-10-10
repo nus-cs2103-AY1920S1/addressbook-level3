@@ -22,59 +22,60 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.WorkerBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullEntity_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_entityAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEntityAdded modelStub = new ModelStubAcceptingEntityAdded();
+        Worker validWorker = new WorkerBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validWorker).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validWorker), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validWorker), modelStub.entitiesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateEntity_throwsCommandException() {
+        Worker validWorker = new WorkerBuilder().build();
+        AddCommand addCommand = new AddCommand(validWorker);
+        ModelStub modelStub = new ModelStubWithEntity(validWorker);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ENTITY, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Worker zach = new WorkerBuilder().withName("Zach").build();
+        Worker xenia = new WorkerBuilder().withName("Xenia").build();
+        AddCommand addZachCommand = new AddCommand(zach);
+        AddCommand addXeniaCommand = new AddCommand(xenia);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addZachCommand.equals(addZachCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(zach);
+        assertTrue(addZachCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addZachCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addZachCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different entity -> returns false
+        assertFalse(addZachCommand.equals(addXeniaCommand));
     }
 
     /**
@@ -175,42 +176,52 @@ public class AddCommandTest {
         public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        @Override
+        public ObservableList<Fridge> getFilteredFridgeList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasEntity(Entity entity) {
-            requireNonNull(person);
-            return this.person.isSameEntity(person);
+        public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that contains a single entity.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubWithEntity extends ModelStub {
+        private final Entity entity;
+
+        ModelStubWithEntity(Entity entity) {
+            requireNonNull(entity);
+            this.entity = entity;
+        }
 
         @Override
         public boolean hasEntity(Entity entity) {
             requireNonNull(entity);
-            return personsAdded.stream().anyMatch(entity::isSameEntity);
+            return this.entity.isSameEntity(entity);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the entity being added.
+     */
+    private class ModelStubAcceptingEntityAdded extends ModelStub {
+        final ArrayList<Entity> entitiesAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasEntity(Entity entity) {
+            requireNonNull(entity);
+            return entitiesAdded.stream().anyMatch(entity::isSameEntity);
         }
 
         @Override
         public void addEntity(Entity entity) {
             requireNonNull(entity);
-            personsAdded.add((Person) entity);
+            entitiesAdded.add(entity);
         }
 
         @Override
