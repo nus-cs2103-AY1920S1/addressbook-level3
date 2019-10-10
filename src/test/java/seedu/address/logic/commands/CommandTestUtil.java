@@ -42,9 +42,12 @@ public class CommandTestUtil {
     public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
 
-    public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME + "Project Review&"; // '&' not allowed in names
-    public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS + "reviewing"; // statuses are determined in {@code TaskStatus}
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TASK_TAG + "paused*"; // '*' not allowed in tags
+    public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
+            + "Project Review&"; // '&' not allowed in names
+    public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS
+            + "reviewing"; // invalid status - statuses are determined in {@code TaskStatus}
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TASK_TAG
+            + "paused*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

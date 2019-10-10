@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTasks.GET_SPONSORS;
 import static seedu.address.testutil.TypicalTasks.BRIEFING_PREPARATION;
+import static seedu.address.testutil.TypicalTasks.GET_SPONSORS;
 import static seedu.address.testutil.TypicalTasks.ORGANISE_STORE;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 

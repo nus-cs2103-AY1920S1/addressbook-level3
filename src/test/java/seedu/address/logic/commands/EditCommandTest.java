@@ -6,8 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;

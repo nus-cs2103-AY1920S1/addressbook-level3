@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
+import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
 
 import org.junit.jupiter.api.Test;
 

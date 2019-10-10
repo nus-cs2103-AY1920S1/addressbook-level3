@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
+import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
 
 import java.util.Arrays;
 import java.util.Collections;

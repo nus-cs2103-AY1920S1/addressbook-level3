@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 
 import java.util.ArrayList;
@@ -29,7 +29,8 @@ public class TypicalTasks {
     public static final Task RECRUIT_MEMBERS = new TaskBuilder().withName("Recruit members for student fair")
             .withStatus(TaskStatus.DONE)
             .withTags("manpower").build();
-    public static final Task ORDER_CATERING = new TaskBuilder().withName("Find caterers for snacks in student fair booth")
+    public static final Task ORDER_CATERING = new TaskBuilder()
+            .withName("Find caterers for snacks in student fair booth")
             .withStatus(TaskStatus.DOING)
             .withTags("inventory")
             .build();

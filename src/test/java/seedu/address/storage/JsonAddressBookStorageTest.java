@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.FIND_VP;
 import static seedu.address.testutil.TypicalTasks.FAREWELL_PARTY;
+import static seedu.address.testutil.TypicalTasks.FIND_VP;
+import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import java.io.IOException;

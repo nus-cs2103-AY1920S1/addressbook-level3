@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_STATUS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_URGENCY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
@@ -18,8 +18,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
 import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
+import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
 
 import org.junit.jupiter.api.Test;
 
@@ -79,7 +79,8 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_TASK_NAME_DESC + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_TASK_NAME_DESC + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid task status
         assertParseFailure(parser, TASK_NAME_DESC_PUBLICITY
@@ -87,7 +88,8 @@ public class AddCommandParserTest {
                 + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY, TaskStatus.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, TASK_NAME_DESC_PUBLICITY + INVALID_TAG_DESC + VALID_TAG_PUBLICITY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TASK_NAME_DESC_PUBLICITY + INVALID_TAG_DESC + VALID_TAG_PUBLICITY,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS);

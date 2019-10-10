@@ -42,7 +42,8 @@ public class TaskUtil {
     public static String getEditTaskDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_TASK_NAME).append(name.fullName).append(" "));
-        descriptor.getTaskStatus().ifPresent(taskStatus -> sb.append(PREFIX_TASK_STATUS).append(taskStatus.toString().toLowerCase()).append(" "));
+        descriptor.getTaskStatus().ifPresent(taskStatus -> sb.append(PREFIX_TASK_STATUS).append(taskStatus.toString()
+                .toLowerCase()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

@@ -1,20 +1,19 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_URGENCY;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_URGENCY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_STATUS_PUBLICITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
@@ -78,9 +77,12 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_EMPTY + TAG_DESC_FINANCE, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_EMPTY + TAG_DESC_FINANCE,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_TASK_NAME_DESC,
@@ -118,7 +120,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE).build();
+        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
+                .withName(VALID_TASK_NAME_FINANCE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -151,23 +154,25 @@ public class EditCommandParserTest {
     // TODO redo this test
     // previously ignored as @ambhinav realised that the only other value left is email
     // which is soon to be removed when  task is morphed
-//    @Test
-//    public void parse_invalidValueFollowedByValidValue_success() {
-//        // no other valid values specified
-//        Index targetIndex = INDEX_FIRST_TASK;
-//        String userInput = targetIndex.getOneBased() + INVALID_EMAIL_DESC + EMAIL_DESC_AMY;
-//        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-//        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-//        assertParseSuccess(parser, userInput, expectedCommand);
-//
-//        // other valid values specified
-//        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_NAME_DESC
-//                + NAME_DESC_BOB;
-//        descriptor = new EditTaskDescriptorBuilder().withEmail(VALID_EMAIL_BOB)
-//                .build();
-//        expectedCommand = new EditCommand(targetIndex, descriptor);
-//        assertParseSuccess(parser, userInput, expectedCommand);
-//    }
+    /*
+    @Test
+    public void parse_invalidValueFollowedByValidValue_success() {
+        // no other valid values specified
+        Index targetIndex = INDEX_FIRST_TASK;
+        String userInput = targetIndex.getOneBased() + INVALID_EMAIL_DESC + EMAIL_DESC_AMY;
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // other valid values specified
+        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_NAME_DESC
+                + NAME_DESC_BOB;
+        descriptor = new EditTaskDescriptorBuilder().withEmail(VALID_EMAIL_BOB)
+                .build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+    */
 
     @Test
     public void parse_resetTags_success() {
