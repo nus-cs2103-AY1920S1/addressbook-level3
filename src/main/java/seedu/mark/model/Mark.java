@@ -132,6 +132,11 @@ public class Mark implements ReadOnlyMark {
         return folderStructure;
     }
 
+
+    public boolean hasFolder(Folder folder) {
+        return getFolderStructure().hasFolder(folder);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

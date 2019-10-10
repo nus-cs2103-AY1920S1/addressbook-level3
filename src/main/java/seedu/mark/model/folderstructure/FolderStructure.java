@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Folder;
 
 /**
- * Represents a folder structure in Mark. 
+ * Represents a folder structure in Mark.
  * Guarantees: details are present and not null, field values
  * are validated, immutable.
  */

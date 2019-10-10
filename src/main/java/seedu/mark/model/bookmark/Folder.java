@@ -10,8 +10,10 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
 public class Folder {
     public static final String MESSAGE_CONSTRAINTS = "Folder names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-    public static final String DEFAULT_FOLDER_NAME = "ROOT";
-    public static final Folder ROOT_FOLDER = new Folder(DEFAULT_FOLDER_NAME);
+
+    private static final String ROOT_FOLDER_NAME = "ROOT";
+    public static final String DEFAULT_FOLDER_NAME = ROOT_FOLDER_NAME;
+    public static final Folder ROOT_FOLDER = new Folder(ROOT_FOLDER_NAME);
 
     public final String folderName;
 

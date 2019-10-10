@@ -122,7 +122,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasFolder(Folder folder) {
-        return mark.getFolderStructure().hasFolder(folder);
+        return mark.hasFolder(folder);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================
