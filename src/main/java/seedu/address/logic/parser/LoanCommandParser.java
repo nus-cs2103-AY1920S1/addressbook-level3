@@ -1,10 +1,11 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.logic.commands.LoanCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new LoanCommand object
+ */
 public class LoanCommandParser implements Parser<LoanCommand> {
 
     /**
