@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
  * Unmodifiable view of an module planner
@@ -14,4 +15,13 @@ public interface ReadOnlyModulePlanner {
      */
     ObservableList<StudyPlan> getStudyPlanList();
 
+    /**
+     * Returns the active study plan of this module planner.
+     */
+    StudyPlan getActiveStudyPlan();
+
+    /**
+     * Returns the version tracking manager of this module planner.
+     */
+    VersionTrackingManager getVersionTrackingManager();
 }

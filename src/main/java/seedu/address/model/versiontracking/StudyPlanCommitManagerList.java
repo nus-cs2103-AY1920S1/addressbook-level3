@@ -3,6 +3,9 @@ package seedu.address.model.versiontracking;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of {@code StudyPlanCommitManager}.
+ */
 public class StudyPlanCommitManagerList {
     private List<StudyPlanCommitManager> studyPlanCommitManagers;
 

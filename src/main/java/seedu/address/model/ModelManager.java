@@ -26,20 +26,20 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given ModulePlanner and userPrefs.
      */
-    public ModelManager(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs, ModulesInfo modulesInfo) {
         super();
         requireAllNonNull(modulePlanner, userPrefs);
 
         logger.fine("Initializing with module planner: " + modulePlanner + " and user prefs " + userPrefs);
 
-        this.modulePlanner = new ModulePlanner(modulePlanner);
+        this.modulePlanner = new ModulePlanner(modulePlanner, modulesInfo);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudyPlans = new FilteredList<>(this.modulePlanner.getStudyPlanList());
     }
 
-    public ModelManager() {
-        this(new ModulePlanner(), new UserPrefs());
-    }
+    //    public ModelManager() {
+    //        this(new ModulePlanner(), new UserPrefs());
+    //    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -100,6 +100,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public StudyPlan activateStudyPlan(int index) {
+        return modulePlanner.activateStudyPlan(index);
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }
@@ -152,5 +157,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudyPlans.equals(other.filteredStudyPlans);
     }
-
 }

@@ -2,11 +2,17 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
  * Wraps all data at the module planner level
@@ -14,28 +20,54 @@ import seedu.address.model.studyplan.UniqueStudyPlanList;
  */
 public class ModulePlanner implements ReadOnlyModulePlanner {
 
-    private StudyPlan activeStudyPlan;
     private final UniqueStudyPlanList studyPlans;
+    private StudyPlan activeStudyPlan;
+    private final ModulesInfo modulesInfo;
+    private final VersionTrackingManager versionTrackingManager;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
+    //    /*
+    //     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+    //     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    //     *
+    //     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+    //     *   among constructors.
+    //     */
+    //    {
+    //        studyPlans = new UniqueStudyPlanList();
+    //    }
+
+    public ModulePlanner() {
         studyPlans = new UniqueStudyPlanList();
+        modulesInfo = new ModulesInfo();
+        versionTrackingManager = new VersionTrackingManager();
     }
 
-    public ModulePlanner() {}
+    public ModulePlanner(ModulesInfo modulesInfo) {
+        studyPlans = new UniqueStudyPlanList();
+        this.modulesInfo = modulesInfo;
+        versionTrackingManager = new VersionTrackingManager();
+    }
 
     /**
      * Creates an ModulePlanner using the studyPlans in the {@code toBeCopied}
      */
-    public ModulePlanner(ReadOnlyModulePlanner toBeCopied) {
-        this();
+    public ModulePlanner(ReadOnlyModulePlanner toBeCopied, ModulesInfo modulesInfo) {
+        studyPlans = new UniqueStudyPlanList();
         resetData(toBeCopied);
+        this.modulesInfo = modulesInfo;
+        versionTrackingManager = toBeCopied.getVersionTrackingManager();
+    }
+
+    /**
+     * Creates an ModulePlanner from JSON. This is used in {@code JsonSerializableModulePlanner}.
+     */
+    public ModulePlanner(UniqueStudyPlanList uniqueStudyPlanList, /*StudyPlan activeStudyPlan,*/
+                         ModulesInfo modulesInfo,
+                         VersionTrackingManager versionTrackingManager) {
+        this.studyPlans = uniqueStudyPlanList;
+        // this.activeStudyPlan = activeStudyPlan;
+        this.modulesInfo = modulesInfo;
+        this.versionTrackingManager = versionTrackingManager;
     }
 
     //// list overwrite operations
@@ -95,11 +127,48 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
+     * Activates the study plan with the given index, and returns the active study plan populated with relevant
+     * details.
+     */
+    public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
+        Iterator<StudyPlan> iterator = studyPlans.iterator();
+        while (iterator.hasNext()) {
+            StudyPlan studyPlan = iterator.next();
+            if (studyPlan.getIndex() == index) {
+                activeStudyPlan = studyPlan;
+            }
+        }
+
+        if (activeStudyPlan == null) {
+            throw new StudyPlanNotFoundException();
+        }
+
+        // construct the mega list of modules
+        HashMap<String, Module> megaModuleHash = activeStudyPlan.getModules();
+        for (Module module : megaModuleHash.values()) {
+            ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
+            module.setName(new Name(moduleInfo.getName()));
+            module.setMcCount(moduleInfo.getMc());
+        }
+
+        // TODO: get default tags from moduleInfo, and make the tags refer to the megalist of tags
+
+        return activeStudyPlan;
+    }
+
+    /**
      * Removes {@code key} from this {@code ModulePlanner}.
      * {@code key} must exist in the module planner.
      */
     public void removeStudyPlan(StudyPlan key) {
         studyPlans.remove(key);
+    }
+
+    /**
+     * Returns the version tracking manager of the current module planner.
+     */
+    public VersionTrackingManager getVersionTrackingManager() {
+        return versionTrackingManager;
     }
 
     //// util methods
