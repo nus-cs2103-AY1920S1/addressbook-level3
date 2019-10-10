@@ -108,10 +108,14 @@ Notes:
 ==== Viewing details of interviewees
 You can to view the list of interviewees and the following information:
 1. Name
-2. Time slot for interview
-3. Phone number
-4. Email
-5. Tags
+2. NUS Email
+3. Personal Email
+4. Mobile Number
+5. Faculty/School
+6. Academic Year
+7. Choice of Department 1
+8. Choice of Department 2
+9. Preferred Time Slots
 
 The interviewee list can be viewed by typing the following command +
 Format: `display interviewees`
@@ -119,20 +123,6 @@ Format: `display interviewees`
 image::Ui/Interviewee.png[width="500", align="left"]
 
 In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
-this User Guide.
-
-==== Viewing details of interviewers
-You are able to view the list of interviewers and the following information:
-1. Name
-2. Time slot for interview
-3. Phone number
-4. Email
-5. Tags
-
-The interviewee list can be viewed by typing the following command +
-Format: `display interviewers`
-
-In this screen, you can edit, add or delete interviewers accordingly by using the other features explained in
 this User Guide.
 
 ==== Display weekly schedule
@@ -144,14 +134,8 @@ Doing so will allow the scheduler to show the timetable for that week.
 
 image::Ui/Timetable.png[width="500", align="left"]
 
-==== Display available timeslots
-This is used to display the available timeslot that you have indicated in your excel sheet as you have imported
-into this scheduler. Using the following command +
-Format: `disply available date DATE (eg. 24/06/2019)`
-
-This will also show a weekly timetable, however this timetable will show the timeslots that are available and the
-rest of the slots will be indicated by grey color to show that you are unavailable at that time. This also factors
-in the interviews that you have already scheduled.
+The timetable will also show the availability of the interviewer and block out the time slots when the interviewer
+is unavailable.
 
 ==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
 As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
@@ -265,14 +249,10 @@ Format: `record rank`
  `add interviewee name:"NAME" slot:SLOT...`
 
 |Display list of interviewers/interviewees
-|`display interviewers` +
- `display interviewees`
+|`display interviewees`
 
 |Display weekly schedule
 |`display date DATE`
-
-Display available slots
-`display available date Date`
 
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +
