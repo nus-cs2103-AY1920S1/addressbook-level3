@@ -78,8 +78,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public String toString() {
-        return ("Gui Settings : " + guiSettings) +
-                "\nLocal data file location : " + billboardFilePath;
+        return ("Gui Settings : " + guiSettings)
+                + "\nLocal data file location : " + billboardFilePath;
     }
 
 }
