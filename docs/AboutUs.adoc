@@ -17,15 +17,10 @@ Role: Team Lead
 
 Responsibilities:
 
-. Undo/Redo functionality
+. CRUD for patients, doctors and appointment models
 . Eager Evaluation
-. CRUD for patients, doctors, appointment models
+. Undo/Redo functionality
 . Integration of project items
-
-Component(s) In Charge:
-
-. Logic
-. Storage
 
 '''
 
@@ -39,9 +34,6 @@ Responsibilities:
 
 . AutoCompleter
 . History
-
-Component(s) In Charge:
-
 . UI
 
 '''
