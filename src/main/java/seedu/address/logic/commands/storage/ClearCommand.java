@@ -1,9 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.ModulePlanner;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.ModulePlanner;
 
 /**
  * Clears the module planner.
