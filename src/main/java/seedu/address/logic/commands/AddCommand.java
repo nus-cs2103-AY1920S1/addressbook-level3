@@ -16,7 +16,7 @@ public class AddCommand extends AppCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the word bank. "
             + "Parameters: "
             + PREFIX_WORD + "WORD "
             + PREFIX_MEANING + "MEANING "
