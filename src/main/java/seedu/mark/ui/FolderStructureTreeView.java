@@ -15,7 +15,7 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the tree of folders.
  */
 public class FolderStructureTreeView extends UiPart<Region> {
 
