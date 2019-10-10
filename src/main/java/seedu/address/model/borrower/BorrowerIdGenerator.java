@@ -19,6 +19,7 @@ public class BorrowerIdGenerator {
         BorrowerIdGenerator.borrowers = borrowers;
         currentBorrowerIdIndex = 0;
     }
+
     /**
      * Generates a new borrower ID based on the current borrower ID index.
      */

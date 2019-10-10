@@ -26,6 +26,7 @@ class JsonAdaptedLoan {
     private final String startDate;
     private final String dueDate;
 
+    // TODO ADD LOAN ID!!
 
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given Loan details.
