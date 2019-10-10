@@ -21,8 +21,8 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.billboard.testutil.TypicalPersons.DINNER;
-import static seedu.billboard.testutil.TypicalPersons.TAXES;
+import static seedu.billboard.testutil.TypicalExpenses.DINNER;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import org.junit.jupiter.api.Test;
 
@@ -97,28 +97,20 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_DESC + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
                 + TAG_DESC_TAXES + TAG_DESC_DINNER, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
-        assertParseFailure(parser, NAME_DESC_TAXES + INVALID_PHONE_DESC + AMOUNT_DESC_TAXES
-                + TAG_DESC_TAXES + TAG_DESC_DINNER, Phone.MESSAGE_CONSTRAINTS);
-
         // invalid amount
         assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + INVALID_AMOUNT_DESC
                 + TAG_DESC_TAXES + TAG_DESC_DINNER, Amount.MESSAGE_CONSTRAINTS);
-
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + INVALID_ADDRESS_DESC
-                + TAG_DESC_TAXES + TAG_DESC_DINNER, Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
                 + INVALID_TAG_DESC + VALID_TAG_TAXES, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + DESCRIPTION_DESC_TAXES + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + DESCRIPTION_DESC_TAXES + INVALID_AMOUNT_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + EMAIL_DESC_BOB
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
                 + AMOUNT_DESC_TAXES + TAG_DESC_TAXES + TAG_DESC_DINNER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

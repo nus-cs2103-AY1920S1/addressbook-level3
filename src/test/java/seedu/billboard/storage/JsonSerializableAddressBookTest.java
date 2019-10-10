@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.commons.util.JsonUtil;
 import seedu.billboard.model.Billboard;
-import seedu.billboard.testutil.TypicalPersons;
+import seedu.billboard.testutil.TypicalExpenses;
 
 public class JsonSerializableAddressBookTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableAddressBookTest {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
         Billboard addressBookFromFile = dataFromFile.toModelType();
-        Billboard typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        Billboard typicalPersonsAddressBook = TypicalExpenses.getTypicalBillboard();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

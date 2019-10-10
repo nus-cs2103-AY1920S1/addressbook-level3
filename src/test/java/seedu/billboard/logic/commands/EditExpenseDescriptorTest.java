@@ -1,14 +1,15 @@
 package seedu.billboard.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,39 +21,36 @@ public class EditExpenseDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditExpenseDescriptor descriptorWithSameValues = new EditExpenseDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditExpenseDescriptor descriptorWithSameValues = new EditExpenseDescriptor(DESC_DINNER);
+        assertEquals(DESC_DINNER, descriptorWithSameValues);
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertEquals(DESC_DINNER, DESC_DINNER);
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertNotEquals(null, DESC_DINNER);
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertNotEquals(5, DESC_DINNER);
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertNotEquals(DESC_DINNER, DESC_TAXES);
 
         // different name -> returns false
-        EditExpenseDescriptor editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withName(VALID_NAME_TAXES).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditExpenseDescriptor editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withName(VALID_NAME_TAXES).build();
+        assertNotEquals(DESC_DINNER, editedDinner);
 
-        // different phone -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_TAXES).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different description -> returns false
+        editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withDescription(VALID_DESCRIPTION_TAXES).build();
+        assertNotEquals(DESC_DINNER, editedDinner);
 
-        // different email -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withAmount(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withAddress(VALID_AMOUNT_TAXES).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different amount -> returns false
+        editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withAmount(VALID_AMOUNT_TAXES).build();
+        assertNotEquals(DESC_DINNER, editedDinner);
 
         // different tags -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_DINNER).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedDinner = new EditExpenseDescriptorBuilder(DESC_DINNER).withTags(VALID_TAG_TAXES).build();
+        assertNotEquals(DESC_DINNER, editedDinner);
     }
 }

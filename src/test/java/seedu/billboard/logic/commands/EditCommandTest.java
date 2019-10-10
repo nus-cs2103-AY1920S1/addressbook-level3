@@ -1,9 +1,11 @@
 package seedu.billboard.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.billboard.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
@@ -12,7 +14,7 @@ import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.billboard.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +33,7 @@ import seedu.billboard.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -49,16 +51,16 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredExpenses().size());
-        Expense lastExpense = model.getFilteredExpenses().get(indexLastPerson.getZeroBased());
+        Index indexLastExpense = Index.fromOneBased(model.getFilteredExpenses().size());
+        Expense lastExpense = model.getFilteredExpenses().get(indexLastExpense.getZeroBased());
 
-        ExpenseBuilder personInList = new ExpenseBuilder(lastExpense);
-        Expense editedExpense = personInList.withName(VALID_NAME_TAXES).withPhone(VALID_DESCRIPTION_TAXES)
+        ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
+        Expense editedExpense = expenseInList.withName(VALID_NAME_TAXES).withDescription(VALID_DESCRIPTION_TAXES)
                 .withTags(VALID_TAG_DINNER).build();
 
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES)
                 .withDescription(VALID_DESCRIPTION_TAXES).withTags(VALID_TAG_DINNER).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpense);
 
@@ -146,27 +148,27 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_DINNER);
 
         // same values -> returns true
-        EditCommand.EditExpenseDescriptor copyDescriptor = new EditCommand.EditExpenseDescriptor(DESC_AMY);
+        EditCommand.EditExpenseDescriptor copyDescriptor = new EditCommand.EditExpenseDescriptor(DESC_DINNER);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertNotEquals(standardCommand, new EditCommand(INDEX_SECOND_PERSON, DESC_DINNER));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertNotEquals(standardCommand, new EditCommand(INDEX_FIRST_PERSON, DESC_TAXES));
     }
 
 }

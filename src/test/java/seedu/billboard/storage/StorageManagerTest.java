@@ -2,7 +2,7 @@ package seedu.billboard.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import java.nio.file.Path;
 
@@ -54,7 +54,7 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        Billboard original = getTypicalAddressBook();
+        Billboard original = getTypicalBillboard();
         storageManager.saveBillboard(original);
         ReadOnlyBillboard retrieved = storageManager.readBillboard().get();
         assertEquals(original, new Billboard(retrieved));

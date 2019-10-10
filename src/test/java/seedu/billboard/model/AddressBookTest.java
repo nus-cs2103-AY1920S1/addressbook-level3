@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.BILLS;
-import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,7 +38,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Billboard newData = getTypicalAddressBook();
+        Billboard newData = getTypicalBillboard();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }

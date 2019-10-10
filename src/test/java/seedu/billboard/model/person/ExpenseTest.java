@@ -1,14 +1,16 @@
 package seedu.billboard.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.BILLS;
-import static seedu.billboard.testutil.TypicalPersons.TAXES;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,38 +28,38 @@ public class ExpenseTest {
     public void equals() {
         // same values -> returns true
         Expense aliceCopy = new ExpenseBuilder(BILLS).build();
-        assertTrue(BILLS.equals(aliceCopy));
+        assertEquals(BILLS, aliceCopy);
 
         // same object -> returns true
-        assertTrue(BILLS.equals(BILLS));
+        assertEquals(BILLS, BILLS);
 
         // null -> returns false
-        assertFalse(BILLS.equals(null));
+        assertNotEquals(null, BILLS);
 
         // different type -> returns false
-        assertFalse(BILLS.equals(5));
+        assertNotEquals(5, BILLS);
 
         // different expense -> returns false
-        assertFalse(BILLS.equals(TAXES));
+        assertNotEquals(BILLS, TAXES);
 
         // different name -> returns false
         Expense editedAlice = new ExpenseBuilder(BILLS).withName(VALID_NAME_TAXES).build();
-        assertFalse(BILLS.equals(editedAlice));
+        assertNotEquals(BILLS, editedAlice);
 
         // different phone -> returns false
         editedAlice = new ExpenseBuilder(BILLS).withDescription(VALID_DESCRIPTION_TAXES).build();
-        assertFalse(BILLS.equals(editedAlice));
+        assertNotEquals(BILLS, editedAlice);
 
         // different email -> returns false
         editedAlice = new ExpenseBuilder(BILLS).build();
-        assertFalse(BILLS.equals(editedAlice));
+        assertNotEquals(BILLS, editedAlice);
 
         // different address -> returns false
         editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).build();
-        assertFalse(BILLS.equals(editedAlice));
+        assertNotEquals(BILLS, editedAlice);
 
         // different tags -> returns false
         editedAlice = new ExpenseBuilder(BILLS).withTags(VALID_TAG_DINNER).build();
-        assertFalse(BILLS.equals(editedAlice));
+        assertNotEquals(BILLS, editedAlice);
     }
 }

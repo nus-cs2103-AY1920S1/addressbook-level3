@@ -3,7 +3,7 @@ package seedu.billboard.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.FOOD;
+import static seedu.billboard.testutil.TypicalExpenses.FOOD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.model.person.Address;
 import seedu.billboard.model.person.Email;
 import seedu.billboard.model.person.Name;
 import seedu.billboard.model.person.Phone;

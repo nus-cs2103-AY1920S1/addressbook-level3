@@ -3,10 +3,10 @@ package seedu.billboard.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.BILLS;
-import static seedu.billboard.testutil.TypicalPersons.CLOTHES;
-import static seedu.billboard.testutil.TypicalPersons.NEW_LAPTOP;
-import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.CLOTHES;
+import static seedu.billboard.testutil.TypicalExpenses.NEW_LAPTOP;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        Billboard original = getTypicalAddressBook();
+        Billboard original = getTypicalBillboard();
         JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
 
         // Save in new file and read back

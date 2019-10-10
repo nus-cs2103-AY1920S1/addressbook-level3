@@ -50,14 +50,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_AMY;
-    public static final EditCommand.EditExpenseDescriptor DESC_BOB;
+    public static final EditCommand.EditExpenseDescriptor DESC_DINNER;
+    public static final EditCommand.EditExpenseDescriptor DESC_TAXES;
 
     static {
-        DESC_AMY = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER)
+        DESC_DINNER = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER)
                 .withDescription(VALID_DESCRIPTION_DINNER).withAmount(VALID_AMOUNT_DINNER)
                 .withTags(VALID_TAG_TAXES).build();
-        DESC_BOB = new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES)
+        DESC_TAXES = new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES)
                 .withDescription(VALID_DESCRIPTION_TAXES).withAmount(VALID_AMOUNT_TAXES)
                 .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES).build();
     }

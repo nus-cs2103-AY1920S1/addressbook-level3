@@ -19,16 +19,16 @@ import seedu.billboard.model.person.Expense;
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalExpenses {
 
     public static final Expense BILLS = new ExpenseBuilder().withName("monthly bills")
             .withDescription("pay phone company")
             .withAmount("350.25")
             .withTags("bills").build();
-    public static final Expense FOOD = new ExpenseBuilder().withName("monday breakfast")
+    public static final Expense FOOD = new ExpenseBuilder().withName("monday breakfast food")
             .withDescription("toast with frens")
             .withAmount("4.20")
-            .withTags("owes money", "friends").build();
+            .withTags("monday", "friends").build();
     public static final Expense GROCERIES = new ExpenseBuilder().withName("groceries")
             .withDescription("bought from fairprice")
             .withAmount("23.50")
@@ -60,22 +60,21 @@ public class TypicalPersons {
             .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalExpenses() {} // prevents instantiation
 
     /**
      * Returns an {@code Billboard} with all the typical persons.
      */
-    public static Billboard getTypicalAddressBook() {
-        Billboard ab = new Billboard();
-        for (Expense expense : getTypicalPersons()) {
-            ab.addExpense(expense);
+    public static Billboard getTypicalBillboard() {
+        Billboard bb = new Billboard();
+        for (Expense expense : getTypicalExpenses()) {
+            bb.addExpense(expense);
         }
-        return ab;
+        return bb;
     }
 
-    public static List<Expense> getTypicalPersons() {
+    public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(BILLS, FOOD, GROCERIES, MOVIE));
     }
 }

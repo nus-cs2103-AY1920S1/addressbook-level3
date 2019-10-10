@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.BILLS;
-import static seedu.billboard.testutil.TypicalPersons.TAXES;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import java.util.Arrays;
 import java.util.Collections;
