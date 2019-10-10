@@ -1,9 +1,9 @@
 package mams.logic.commands;
 
+import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
-import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 import static mams.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;

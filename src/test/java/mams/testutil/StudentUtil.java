@@ -33,7 +33,8 @@ public class StudentUtil {
     public static String getEditStudentDescriptorDetails(EditCommand.EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getCredits().ifPresent(credits -> sb.append(CliSyntax.PREFIX_CREDITS).append(credits.value).append(" "));
+        descriptor.getCredits().ifPresent(credits -> sb.append(CliSyntax.PREFIX_CREDITS)
+                .append(credits.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(CliSyntax.PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getMatricId().ifPresent(address -> sb.append(CliSyntax.PREFIX_MATRICID)
                 .append(address.value).append(" "));
