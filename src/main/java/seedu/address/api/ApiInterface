@@ -1,0 +1,15 @@
+package seedu.address.api;
+
+import java.util.ArrayList;
+import java.util.List;
+import seedu.address.model.show.Movie;
+
+/**
+ * Plan to use this interface to retrieve all information.
+ * Methods used here will return the information for movie
+ */
+public interface ApiInterface {
+    //returns movie list with that name
+    public List<Movie> GetMovieByName(String name);
+
+}
