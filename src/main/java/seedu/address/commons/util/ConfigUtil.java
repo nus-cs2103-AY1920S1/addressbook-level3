@@ -16,8 +16,13 @@ public class ConfigUtil {
         return JsonUtil.readJsonFile(configFilePath, Config.class);
     }
 
-    public static void saveConfig(Config config, Path configFilePath) throws IOException {
-        JsonUtil.saveJsonFile(config, configFilePath);
+    public static Optional<Config> readEncryptedConfig(Path configFilePath, String password)
+            throws DataConversionException {
+        return JsonUtil.readEncryptedJsonFile(configFilePath, Config.class, password);
+    }
+
+    public static void saveConfig(Config config, Path configFilePath, String password) throws IOException {
+        JsonUtil.saveEncryptedJsonFile(config, configFilePath, password);
     }
 
 }

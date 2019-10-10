@@ -15,9 +15,15 @@ import seedu.address.model.UserPrefs;
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private Path filePath;
+    private String password;
 
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;
+    }
+
+    public JsonUserPrefsStorage(Path filePath, String password) {
+        this.filePath = filePath;
+        this.password = password;
     }
 
     @Override
@@ -36,12 +42,20 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+        if (password == null) {
+            return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+        } else {
+            return JsonUtil.readEncryptedJsonFile(prefsFilePath, UserPrefs.class, password);
+        }
     }
 
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
-        JsonUtil.saveJsonFile(userPrefs, filePath);
+        if (password == null) {
+            JsonUtil.saveJsonFile(userPrefs, filePath);
+        } else {
+            JsonUtil.saveEncryptedJsonFile(userPrefs, filePath, password);
+        }
     }
 
 }

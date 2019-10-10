@@ -19,6 +19,7 @@ import seedu.address.model.UserPrefs;
 public class JsonUserPrefsStorageTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
+    private static final String PASSWORD = "password1";
 
     @TempDir
     public Path testFolder;
@@ -92,7 +93,7 @@ public class JsonUserPrefsStorageTest {
      */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
-            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
+            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder), PASSWORD)
                     .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);
@@ -106,7 +107,7 @@ public class JsonUserPrefsStorageTest {
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath, PASSWORD);
 
         //Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);

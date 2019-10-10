@@ -39,13 +39,55 @@ public class JsonUtil {
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
-    static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize, String password) throws IOException {
+    static <T> void serializeObjectToEncryptedJsonFile(Path jsonFile, T objectToSerialize, String password)
+            throws IOException {
         FileUtil.writeToEncryptedFile(jsonFile, toJsonString(objectToSerialize), password);
     }
 
-    static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize, String password)
+    static <T> T deserializeObjectFromEncryptedJsonFile(Path jsonFile,
+                                                        Class<T> classOfObjectToDeserialize,
+                                                        String password)
             throws IOException {
         return fromJsonString(FileUtil.readFromEncryptedFile(jsonFile, password), classOfObjectToDeserialize);
+    }
+
+    static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
+        FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
+    }
+
+    static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize)
+            throws IOException {
+        return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+
+    /**
+     * Returns the Json object from the given encrypted file or {@code Optional.empty()} object if the file is not
+     * found. If any values are missing from the file, default values will be used, as long as the file is a valid
+     * json file.
+     * @param filePath cannot be null.
+     * @param classOfObjectToDeserialize Json file has to correspond to the structure in the class given here.
+     * @param password used to decrypt the Json file.
+     * @throws DataConversionException if the file format is not as expected.
+     */
+    public static <T> Optional<T> readEncryptedJsonFile(
+            Path filePath, Class<T> classOfObjectToDeserialize, String password) throws DataConversionException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Json file " + filePath + " not found");
+            return Optional.empty();
+        }
+
+        T jsonFile;
+
+        try {
+            jsonFile = deserializeObjectFromEncryptedJsonFile(filePath, classOfObjectToDeserialize, password);
+        } catch (IOException e) {
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(jsonFile);
     }
 
     /**
@@ -74,6 +116,22 @@ public class JsonUtil {
         }
 
         return Optional.of(jsonFile);
+    }
+
+    /**
+     * Encrypts and saves the Json object to the specified file.
+     * Overwrites existing file if it exists, creates a new file if it doesn't.
+     * @param jsonFile cannot be null
+     * @param filePath cannot be null
+     * @param password used to encrypt the file
+     * @throws IOException if there was an error during writing to the file
+     */
+    public static <T> void saveEncryptedJsonFile(T jsonFile, Path filePath, String password) throws IOException {
+        requireNonNull(filePath);
+        requireNonNull(jsonFile);
+        requireNonNull(password);
+
+        serializeObjectToEncryptedJsonFile(filePath, jsonFile, password);
     }
 
     /**

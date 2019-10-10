@@ -48,16 +48,24 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
+        initWithPassword("password1");
+    }
 
+    /**
+     * Initialises SecureIT app with the given password.
+     * @param password the master password used to encrypt data.
+     */
+    private void initWithPassword(String password) {
+        logger.info("=============================[ Initializing AddressBook ]===========================");
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        config = initConfig(appParameters.getConfigPath(), password);
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath(), password);
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        AddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(), password);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, password);
 
         initLogging(config);
 
@@ -102,7 +110,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig(Path configFilePath, String password) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -116,7 +124,7 @@ public class MainApp extends Application {
         logger.info("Using config file : " + configFilePathUsed);
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            Optional<Config> configOptional = ConfigUtil.readEncryptedConfig(configFilePathUsed, password);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
@@ -126,7 +134,7 @@ public class MainApp extends Application {
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed, password);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }

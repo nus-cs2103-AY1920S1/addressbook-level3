@@ -21,6 +21,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final String PASSWORD = "password1";
 
     @TempDir
     public Path testFolder;
@@ -64,7 +65,7 @@ public class JsonAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         AddressBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath, PASSWORD);
 
         // Save in new file and read back
         jsonAddressBookStorage.saveAddressBook(original, filePath);
@@ -96,7 +97,7 @@ public class JsonAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
+            new JsonAddressBookStorage(Paths.get(filePath), PASSWORD)
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

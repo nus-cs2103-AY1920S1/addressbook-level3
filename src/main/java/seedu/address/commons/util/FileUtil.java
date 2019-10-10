@@ -73,10 +73,6 @@ public class FileUtil {
     }
 
     public static String readFromEncryptedFile (Path file, String password) throws IOException {
-        byte[] input = EncryptionUtil.decryptBytes(Files.readAllBytes(file), password);
-        if (input == null) {
-            throw new IOException("Byte array is null");
-        }
         return new String(EncryptionUtil.decryptBytes(Files.readAllBytes(file), password), CHARSET);
     }
 
@@ -89,7 +85,7 @@ public class FileUtil {
     }
 
     public static void writeToEncryptedFile (Path file, String content, String password) throws IOException {
-       Files.write(file, EncryptionUtil.encryptBytes(content.getBytes(CHARSET), password));
+        Files.write(file, EncryptionUtil.encryptBytes(content.getBytes(CHARSET), password));
     }
 
 }
