@@ -57,6 +57,14 @@ public interface Model {
      */
     boolean hasStudent(Student student);
 
+
+    /**
+     *
+     * Returns true if a module with the same identity as {@code module} exists in MAMS.
+     */
+    boolean hasModule(Module module);
+
+
     /**
      * Deletes the given student.
      * The student must exist in the address book.
@@ -68,6 +76,7 @@ public interface Model {
      * {@code student} must not already exist in the address book.
      */
     void addStudent(Student student);
+
 
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.
