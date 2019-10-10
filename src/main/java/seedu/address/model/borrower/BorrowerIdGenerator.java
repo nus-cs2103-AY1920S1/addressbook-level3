@@ -1,8 +1,8 @@
-package seedu.address.model;
+package seedu.address.model.borrower;
 
 import java.util.stream.IntStream;
 
-import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.BorrowerRecords;
 
 /**
  * Borrower ID generator that generates a borrower ID when a new borrower is registered.

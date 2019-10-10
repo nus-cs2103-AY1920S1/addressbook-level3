@@ -1,8 +1,8 @@
-package seedu.address.model;
+package seedu.address.model.book;
 
 import java.util.stream.IntStream;
 
-import seedu.address.model.book.SerialNumber;
+import seedu.address.model.Catalog;
 
 /**
  * Serial Number generator when user does not input a preferred serial number.

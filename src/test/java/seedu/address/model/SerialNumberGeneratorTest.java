@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.testutil.BookBuilder;
 
 class SerialNumberGeneratorTest {

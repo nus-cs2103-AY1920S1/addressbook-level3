@@ -22,7 +22,6 @@ import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.BookBuilder;
 

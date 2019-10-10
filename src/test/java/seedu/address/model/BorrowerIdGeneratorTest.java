@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BorrowerBuilder;
 
 public class BorrowerIdGeneratorTest {

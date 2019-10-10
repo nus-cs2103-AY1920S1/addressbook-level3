@@ -69,7 +69,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      * @param id is the borrower id.
      * @return a boolean true or false of whether the id exists.
      */
-    boolean checkIfBorrowerIdExists(BorrowerId id) {
+    public boolean checkIfBorrowerIdExists(BorrowerId id) {
         requireNonNull(id);
         return borrowersMap.containsKey(id);
     }

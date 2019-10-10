@@ -89,7 +89,7 @@ public class Catalog implements ReadOnlyCatalog {
         books.setBook(target, editedBook);
     }
 
-    boolean checkIfSerialNumberExists(SerialNumber sn) {
+    public boolean checkIfSerialNumberExists(SerialNumber sn) {
         return books.containsSerialNumber(sn);
     }
 
