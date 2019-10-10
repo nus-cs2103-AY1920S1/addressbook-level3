@@ -1,5 +1,4 @@
 package io.xpire.logic.commands;
-
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;

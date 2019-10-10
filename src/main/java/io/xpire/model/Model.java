@@ -77,9 +77,6 @@ public interface Model {
      */
     void setItem(Item target, Item editedItem);
 
-    /** Returns an unmodifiable view of the sorted item list */
-    ObservableList<Item> getSortedItemList();
-
     /**
      * Sorts the filtered item list.
      * @param method The method of sorting.

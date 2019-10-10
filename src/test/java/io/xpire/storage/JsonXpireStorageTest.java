@@ -71,18 +71,18 @@ public class JsonXpireStorageTest {
         // Save in new file and read back
         jsonExpiryDateTrackerStorage.saveXpire(original, filePath);
         ReadOnlyXpire readBack = jsonExpiryDateTrackerStorage.readXpire(filePath).get();
-        assertEquals(original, new Xpire(readBack));
+        assertEquals(original.getItemList(), new Xpire(readBack).getItemList());
 
         // Modify data, overwrite exiting file, and read back
         original.addItem(KIWI);
         jsonExpiryDateTrackerStorage.saveXpire(original, filePath);
         readBack = jsonExpiryDateTrackerStorage.readXpire(filePath).get();
-        assertEquals(original, new Xpire(readBack));
+        assertEquals(original.getItemList(), new Xpire(readBack).getItemList());
 
         // Save and read without specifying file path
         jsonExpiryDateTrackerStorage.saveXpire(original); // file path not specified
         readBack = jsonExpiryDateTrackerStorage.readXpire().get(); // file path not specified
-        assertEquals(original, new Xpire(readBack));
+        assertEquals(original.getItemList(), new Xpire(readBack).getItemList());
 
     }
 

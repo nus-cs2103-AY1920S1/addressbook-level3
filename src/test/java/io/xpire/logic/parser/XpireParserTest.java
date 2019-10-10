@@ -55,8 +55,8 @@ public class XpireParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Item person = new ItemBuilder().build();
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(person).build();
+        Item item = new ItemBuilder().build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(item).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + "|"
                 + INDEX_FIRST_ITEM.getOneBased() + " " + ItemUtil.getEditItemDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ITEM, descriptor), command);

@@ -49,7 +49,7 @@ public class SearchCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
@@ -70,7 +70,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(MILK, BANANA), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, MILK), model.getFilteredItemList());
     }
 
     /**
