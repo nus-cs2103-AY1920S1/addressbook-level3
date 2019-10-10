@@ -15,24 +15,24 @@ import seedu.mark.model.tag.Tag;
 public class SampleDataUtilTest {
 
     @Test
-    void getSampleBookmarks_mustHaveAtLeastOneBookmark_returnsTrue() {
+    public void getSampleBookmarks_mustHaveAtLeastOneBookmark_returnsTrue() {
         assertTrue(SampleDataUtil.getSampleBookmarks().length > 0);
     }
 
     @Test
-    void getSampleFolderStructure_mustHaveAtLeastOneSubFolder_returnsTrue() {
+    public void getSampleFolderStructure_mustHaveAtLeastOneSubFolder_returnsTrue() {
         assertTrue(SampleDataUtil.getSampleFolderStructure().getSubfolders().size() > 0);
     }
 
     @Test
-    void getSampleMark_mustHaveData_returnsTrue() {
+    public void getSampleMark_mustHaveData_returnsTrue() {
         ReadOnlyMark mark = SampleDataUtil.getSampleMark();
         assertTrue(mark.getBookmarkList().size() > 0);
         assertTrue(mark.getFolderStructure().getSubfolders().size() > 0);
     }
 
     @Test
-    void getTagSet() {
+    public void getTagSet() {
         assertEquals(SampleDataUtil.getTagSet(VALID_TAG_HUSBAND, VALID_TAG_FRIEND),
                 Set.of(new Tag(VALID_TAG_FRIEND), new Tag(VALID_TAG_HUSBAND)));
     }
