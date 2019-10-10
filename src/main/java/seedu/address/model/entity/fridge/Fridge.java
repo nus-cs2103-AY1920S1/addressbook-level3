@@ -2,6 +2,7 @@ package seedu.address.model.entity.fridge;
 
 import java.util.Objects;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 
@@ -10,7 +11,7 @@ import seedu.address.model.entity.body.Body;
  * Represents a fridge entry in Mortago.
  * Guarantees: fridgeIdNum and status are guaranteed to be present and not null
  */
-public class Fridge {
+public class Fridge implements Entity {
 
     // Identity field
     private final IdentificationNumber fridgeIdNum;
@@ -115,6 +116,15 @@ public class Fridge {
         return otherFridge.getFridgeIdNum().toString().equals(getFridgeIdNum().toString())
                 && otherFridge.getFridgeStatus() == getFridgeStatus()
                 && otherFridge.getBody() == getBody();
+    }
+
+    @Override
+    public boolean isSameEntity(Object o) {
+        if (!(o instanceof Fridge)) {
+            return false;
+        } else {
+            return isSameFridge((Fridge) o);
+        }
     }
 
     @Override

@@ -238,6 +238,11 @@ public class Body implements Entity {
         return Objects.equals(getNric(), body.getNric());
     }
 
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSameBody(o);
+    }
+
     /**
      * Returns whether an object is equal to this body. The definition of equality is relaxed here to only include
      * bodyIdNum.
@@ -253,11 +258,6 @@ public class Body implements Entity {
         }
         Body body = (Body) o;
         return getBodyIdNum().equals(body.getBodyIdNum());
-    }
-
-    @Override
-    public boolean isSameEntity(Object o) {
-        return isSameBody(o);
     }
 }
 
