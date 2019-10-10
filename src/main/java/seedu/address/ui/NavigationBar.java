@@ -17,4 +17,24 @@ public class NavigationBar extends UiPart<Region> {
     public NavigationBar() {
         super(FXML);
     }
+
+    @FXML
+    private void goToWatchlist() {
+
+    }
+
+    @FXML
+    private void goToWatched() {
+
+    }
+
+    @FXML
+    private void goToSearch() {
+
+    }
+
+    @FXML
+    private void goToStatistics() {
+
+    }
 }
