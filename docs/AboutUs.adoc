@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-MyMorise was developed by the https://github.com/orgs/AY1920S1-CS2103-T14-4/ team. +
+MYMorise was developed by the https://github.com/orgs/AY1920S1-CS2103-T14-4/ team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 

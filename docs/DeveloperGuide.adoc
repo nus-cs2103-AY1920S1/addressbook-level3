@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MYMorise - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -235,11 +236,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
 // end::dataencryption[]
 
 === Logging
@@ -364,7 +360,10 @@ _{More may be added}_
 [appendix]
 == Use Cases
 
-Note: For all use cases below, the *System* is `MyMorise(MM)`, the *Actor* is the `user` and the *Precondition* is `MyMorise is running`, unless specified otherwise).
+
+Note: For all use cases below, the *System* is `MYMorise(MYM)`, the *Actor* is the `user` and the *Precondition* is
+`MyMorise is running`, unless specified otherwise).
+
 Inputs specified in a square bracket i.e [input] are optional inputs from the user.
 
 [none]
@@ -379,7 +378,7 @@ Guarantees:
 *MSS*
 
 . User requests for help.
-. MM responds with the list of all commands.
+. MYM responds with the list of all commands.
 +
 Use case ends.
 
@@ -408,13 +407,13 @@ Use case ends.
 === UC02 - Create an expense +
 Guarantees:
 
-* A new expense will be added into MM if valid data were specified.
+* A new expense will be added into MYM if valid data were specified.
 
 [none]
 *MSS*
 
 . User requests to add an expense specifying data.
-. MM creates and stores the expense with the specified data.
+. MYM creates and stores the expense with the specified data.
 +
 Use case ends.
 
@@ -422,9 +421,9 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. MM detects an error in entered data.
+* 1a. MYM detects an error in entered data.
 [none]
-** 1a1. MM informs the user what data was invalid.
+** 1a1. MYM informs the user what data was invalid.
 +
 Use case ends.
 
@@ -433,13 +432,13 @@ Use case ends.
 === UC03 - Create a recurring expense +
 Guarantees:
 
-* A new recurring expense with will be added into MM if valid data were specified.
-* A single expense with will be added into MM if valid data were specified.
+* A new recurring expense with will be added into MYM if valid data were specified.
+* A single expense with will be added into MYM if valid data were specified.
 
 *MSS*
 
 . User requests to add a recurring expense specifying data.
-. MM creates and stores the expense with the specified data .
+. MYM creates and stores the expense with the specified data .
 +
 Use case ends.
 
@@ -447,16 +446,16 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. MM detects an error in entered data.
+* 1a. MYM detects an error in entered data.
 [none]
-** 1a1. MM informs the user what data was invalid.
+** 1a1. MYM informs the user what data was invalid.
 +
 Use case ends.
 
 [none]
 [#_UC04]
 === UC04 - Retrieve all expenses +
-Preconditions: MyMorise is running, there is at least 1 expense stored.
+Preconditions: MYMorise is running, there is at least 1 expense stored.
 Guarantees:
 
 * A list of all expenses is shown.
@@ -465,7 +464,7 @@ Guarantees:
 *MSS*
 
 . User requests to see all expenses.
-. MM shows all expenses.
+. MYM shows all expenses.
 +
 Use case ends.
 
@@ -475,35 +474,35 @@ Use case ends.
 [none]
 * 1a. User requests to see all expenses made today.
 [none]
-** 1a1. MM shows a list of all expenses made today.
+** 1a1. MYM shows a list of all expenses made today.
 +
 Use case ends.
 
 [none]
 * 1b. User requests to see all expenses made for the current week.
 [none]
-** 1b1. MM shows a list of all expenses made for the current week.
+** 1b1. MYM shows a list of all expenses made for the current week.
 +
 Use case ends.
 
 [none]
 * 1c. User requests to see all expenses made for the current month.
 [none]
-** 1c1. MM shows a list of all expenses made for the current month.
+** 1c1. MYM shows a list of all expenses made for the current month.
 +
 Use case ends.
 
 [none]
 * 1d. User requests to see all expenses made for the specified date range.
 [none]
-** 1d1. MM shows a list of all expenses made for the the specified date range.
+** 1d1. MYM shows a list of all expenses made for the the specified date range.
 +
 Use case ends.
 
 [none]
 [#_UC05]
 === UC05 - Retrieve all recurring expenses +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * A list of all recurring expenses is shown.
@@ -512,14 +511,14 @@ Guarantees:
 *MSS*
 
 . User requests to see for all recurring expenses.
-. MM shows a list of all expenses made for the day.
+. MYM shows a list of all expenses made for the day.
 +
 Use case ends.
 
 [none]
 [#_UC06]
 === UC06 - Find an expense +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * A list of all expenses containing the specified keyword if any were found
@@ -528,7 +527,7 @@ Guarantees:
 *MSS*
 
 . User requests for all expenses containing a keyword.
-. MM shows a list of all expenses containing the keyword.
+. MYM shows a list of all expenses containing the keyword.
 +
 Use case ends.
 
@@ -538,14 +537,14 @@ Use case ends.
 [none]
 * 1a. No expenses contain the keyword specified.
 [none]
-** 1a1. MM informs user that no matching expenses were found.
+** 1a1. MYM informs user that no matching expenses were found.
 +
 Use case ends.
 
 [none]
 [#_UC07]
 === UC07 - Update an expense +
-Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
 Guarantees:
 
 * The expense selected for editing will be updated with the new data.
@@ -556,7 +555,7 @@ Guarantees:
 . User  <<_UC04, requests to see all expenses (UC04).>>
 . User reviews the list of expenses.
 . User requests to update an expense from the list and provides the new data.
-. MM updates the selected expense with the new data.
+. MYM updates the selected expense with the new data.
 +
 Use case ends.
 
@@ -573,16 +572,16 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-* 3a. MM detects an error in entered data.
+* 3a. MYM detects an error in entered data.
 [none]
-** 3a1. MM informs the user what data was invalid.
+** 3a1. MYM informs the user what data was invalid.
 +
 Use case resumes at step 2.
 
 [none]
 [#_UC08]
 === UC08 - Delete an expense +
-Preconditions: MyMorise is running, there is at least 1 expense stored. +
+Preconditions: MYMorise is running, there is at least 1 expense stored. +
 Guarantees:
 
 * The expense specified for deletion will be deleted.
@@ -593,7 +592,7 @@ Guarantees:
 . User <<_UC04, requests to see all expenses (UC04).>>
 . User reviews the list of expenses.
 . User requests to delete the expense with a specific index from the list.
-. MM deletes the expense with the specified index.
+. MYM deletes the expense with the specified index.
 +
 Use case ends.
 
@@ -610,16 +609,16 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-* 3a. MM detects an error in entered data.
+* 3a. MYM detects an error in entered data.
 [none]
-** 3a1. MM informs the user what data was invalid.
+** 3a1. MYM informs the user what data was invalid.
 +
 Use case resumes at step 2.
 
 [none]
 [#_UC09]
 === UC09 - Delete a recurring expense +
-Preconditions: MyMorise is running, there is at least 1 recurring expense stored. +
+Preconditions: MYMorise is running, there is at least 1 recurring expense stored. +
 Guarantees:
 
 * The recurring expense specified for deletion will be deleted.
@@ -630,7 +629,7 @@ Guarantees:
 . User <<_UC05, requests to see all recurring expenses (UC05)>>
 . User reviews the list of recurring expenses.
 . User requests to delete the recurring expense with a specific index from the list.
-. MM deletes the expense with the specified index.
+. MYM deletes the expense with the specified index.
 +
 Use case ends.
 
@@ -642,9 +641,9 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. MM detects an error in entered data.
+* 3a. MYM detects an error in entered data.
 [none]
-** 3a1. MM informs the user what data was invalid.
+** 3a1. MYM informs the user what data was invalid.
 +
 Use case resumes at step 2.
 
@@ -659,7 +658,7 @@ Guarantees:
 *MSS*
 
 . User requests to set the budget, specifying the amount for the month.
-. MM sets the budget of the month.
+. MYM sets the budget of the month.
 +
 Use case ends.
 
@@ -669,14 +668,14 @@ Use case ends.
 [none]
 * 1a. An existing budget has already been set.
 [none]
-** 1a1. MM sets the budget for the month to the newly specified amount.
+** 1a1. MYM sets the budget for the month to the newly specified amount.
 +
 Use case ends.
 
 [none]
 [#_UC11]
 === UC11 - Visualize funds left for current month +
-Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
 Guarantees:
 
 * Visualization of funds left for current month will be updated.
@@ -685,7 +684,7 @@ Guarantees:
 *MSS*
 
 . User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
-. MM updates the visualization of funds left for the month.
+. MYM updates the visualization of funds left for the month.
 +
 Use case ends.
 
@@ -693,7 +692,7 @@ Use case ends.
 [none]
 [#_UC12]
 === UC12 - Notify when funds are < 50% +
-Preconditions: MyMorise is running, <<_UC11,A budget should have been set (UC11)>> +
+Preconditions: MYMorise is running, <<_UC11,A budget should have been set (UC10)>> +
 
 Guarantees:
 
@@ -712,7 +711,7 @@ Use case ends.
 [none]
 * 1a. Resulting budget balance is < 50%
 [none]
-** 1a1. MM informs the user the new budget balance and that funds are running low.
+** 1a1. MYM informs the user the new budget balance and that funds are running low.
 +
 Use case ends.
 
@@ -728,7 +727,7 @@ Guarantees:
 *MSS*
 
 . User <<_UC04, requests for all expenses>>
-. MM updates visualization based on expenses requested in Step 1.
+. MYM updates visualization based on expenses requested in Step 1.
 +
 Use case ends.
 
@@ -738,7 +737,7 @@ Use case ends.
 [none]
 * 2a. There are no expenditures.
 [none]
-** 2a1. MM informs User that there is not enough data to visualise expenditure breakdown by tag.
+** 2a1. MYM informs User that there is not enough data to visualise expenditure breakdown by tag.
 +
 Use case ends.
 
@@ -755,7 +754,7 @@ Guarantees:
 *MSS*
 
 . User <<_UC02, creates an expense (UC02)>> *OR* User <<_UC07, updates an expense (UC07)>> *OR* User <<_UC08, deletes an expense (UC08)>>
-. MM updates the breakdown of expenditure by tag visualisation.
+. MYM updates the breakdown of expenditure by tag visualisation.
 +
 Use case ends.
 
@@ -765,7 +764,7 @@ Use case ends.
 [none]
 * 2a. There are no expenditures.
 [none]
-** 2a1. MM informs User that there is not enough data to visualise expenditure breakdown by tag.
+** 2a1. MYM informs User that there is not enough data to visualise expenditure breakdown by tag.
 +
 Use case ends.
 
@@ -801,13 +800,13 @@ Use case ends.
 
 Guarantees:
 
-* MyMorise will convert display amounts in the specified currency, if the specified currency is valid..
+* MYMorise will convert display amounts in the specified currency, if the specified currency is valid..
 
 [none]
 *MSS*
 
 . User requests to set the default currency
-. MM converts all expenses into the defualt currency and updates the display.
+. MYM converts all expenses into the defualt currency and updates the display.
 +
 Use case ends.
 
@@ -817,7 +816,7 @@ Use case ends.
 [none]
 * 1a. The specified currency is not valid.
 [none]
-** 1a1. MM informs the user that the currency specified is not valid.
+** 1a1. MYM informs the user that the currency specified is not valid.
 +
 Use case ends.
 
@@ -826,13 +825,13 @@ Use case ends.
 === UC17 - Create expense with specific currency +
 Guarantees:
 
-* A new expense with the specified currency will be added into MM if the specified data is valid.
+* A new expense with the specified currency will be added into MYM if the specified data is valid.
 
 [none]
 *MSS*
 
 . User requests to create an expense specifying required data.
-. MM creates and stores the expense with the specified data.
+. MYM creates and stores the expense with the specified data.
 +
 Use case ends.
 
@@ -840,16 +839,16 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. MM detects an error in entered data.
+* 1a. MYM detects an error in entered data.
 [none]
-** 1a1. MM informs the user what data was invalid.
+** 1a1. MYM informs the user what data was invalid.
 +
 Use case ends.
 
 [none]
 [#_UC18]
 === UC18 - Automatically convert expenses in foreign currencies to default currency +
-Preconditions: Preconditions: MyMorise is running, at least 1 expense stored in foreign currency +
+Preconditions: Preconditions: MYMorise is running, at least 1 expense stored in foreign currency +
 
 Guarantees:
 
@@ -861,7 +860,9 @@ but all computations will default converted amount.
 
 . User <<_UC17,  creates an expense with specific currency>>
 . User <<_UC05, requests for all expenses>>
-. MM shows list of expenses. Expenses with foreign currencies are shown together with their default currency converted amounts.
+
+. MYM shows list of expenses. Expenses with foreign currencies are shown together with their default currency converted
+amounts.
 +
 Use case ends.
 
