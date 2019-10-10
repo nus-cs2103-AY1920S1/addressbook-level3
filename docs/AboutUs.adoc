@@ -9,17 +9,9 @@ The project is a fork from AddressBook - Level 3 which was developed by the http
 
 == Project Team
 
-=== kylase-learning
-image::kylase-learning.png[width="150", align="left"]
-{empty}[https://github.com/kylase-learning[github]]
-
-Role: Project Advisor
-
-'''
-
 === SakuraBlossom
-image::SakuraBlossom.png[width="150", align="left"]
-{empty}[http://github.com/SakuraBlossom[github]]
+image::sakurablossom.png[width="150", align="left"]
+{empty}[http://github.com/SakuraBlossom[github]] [<<sakurablossom#, portfolio>>]
 
 Role: Team Lead
 
@@ -28,7 +20,7 @@ Responsibilities:
 . Undo/Redo functionality
 . Eager Evaluation
 . CRUD for patients, doctors, appointment models
-
+. Integration of project items
 
 Component(s) In Charge:
 
@@ -39,7 +31,7 @@ Component(s) In Charge:
 
 === CarbonGrid
 image::CarbonGrid.png[width="150", align="left"]
-{empty}[http://github.com/CarbonGrid[github]]
+{empty}[http://github.com/CarbonGrid[github]] [<<carbongrid#, portfolio>>]
 
 Role: Developer
 
@@ -56,24 +48,27 @@ Component(s) In Charge:
 
 === woon17
 image::woon17.png[width="150", align="left"]
-{empty}[http://github.com/woon17[github]]
+{empty}[http://github.com/woon17[github]] [<<woon17#, portfolio>>]
 
 Role: Developer
 
 Responsibilities:
 
-. Logic for Appointment models & Scheduling
+. Logic for Appointment models
+. Scheduling
+. Code quality, deliverable and deadlines
 
 '''
 
 === wongsm7
 image::wongsm7.png[width="150", align="left"]
-{empty}[http://github.com/wongsm7[github]]
+{empty}[http://github.com/wongsm7[github]] [<<wongsm7#, portfolio>>]
 
 Role: Developer
 
 Responsibilities:
 
 . Logic for Queue Management System
+. Quality of various project documents
 
 '''
