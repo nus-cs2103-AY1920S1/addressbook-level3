@@ -33,7 +33,7 @@ public class CommandResult {
     }
 
     public boolean isGoto() {
-        return false;
+        return getUrl() != null;
     }
 
     public Url getUrl() {

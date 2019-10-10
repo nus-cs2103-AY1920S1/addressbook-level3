@@ -160,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens an url.
+     * Opens a url.
      */
     @FXML
     public void handleOpen(Url url) {

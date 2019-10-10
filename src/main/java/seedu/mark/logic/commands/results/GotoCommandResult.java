@@ -11,7 +11,7 @@ public class GotoCommandResult extends CommandResult {
     private Url url;
 
     /**
-     * Constructs an {@code GotoCommandResult} with the feedback and url.
+     * Constructs a {@code GotoCommandResult} with the feedback and url.
      *
      * @param feedbackToUser The feedback to be displayed to user
      * @param url The url to be opened
@@ -19,11 +19,6 @@ public class GotoCommandResult extends CommandResult {
     public GotoCommandResult(String feedbackToUser, Url url) {
         super(feedbackToUser);
         this.url = requireNonNull(url);
-    }
-
-    @Override
-    public boolean isGoto() {
-        return true;
     }
 
     @Override
