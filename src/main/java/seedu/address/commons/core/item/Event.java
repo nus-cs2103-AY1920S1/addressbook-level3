@@ -2,9 +2,15 @@ package seedu.address.commons.core.item;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
 
 /**
  * Represents an Item's Event in ELISA.
@@ -42,7 +48,7 @@ public class Event {
         }
 
         this.startDateTime = startDateTime;
-        this.endDateTime = startDateTime.plus(duration);
+        this.endDateTime = startDateTime.plus(this.duration);
     }
 
     public LocalDateTime getStartDateTime() {
@@ -93,7 +99,7 @@ public class Event {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Event)) {
             return false;
         }
 
@@ -107,6 +113,21 @@ public class Event {
     @Override
     public int hashCode() {
         return Objects.hash(startDateTime, endDateTime, duration, priority);
+    }
+
+    public static Event fromJson(String jsonString) throws IOException, IllegalValueException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+
+        String startDateTimeString = node.get("startDateTime").asText();
+        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString);
+
+        String durationString = node.get("duration").asText();
+        Duration duration = Duration.parse(durationString);
+
+        String priorityString = node.get("priority").asText();
+        Priority priority = Priority.parse(priorityString);
+
+        return new Event(startDateTime, duration, priority);
     }
 
 }

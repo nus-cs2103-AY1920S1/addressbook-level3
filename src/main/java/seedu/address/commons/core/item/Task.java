@@ -1,6 +1,13 @@
 package seedu.address.commons.core.item;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
 
 /**
  * Represents an Item's Task in ELISA.
@@ -68,7 +75,7 @@ public class Task {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
@@ -84,4 +91,15 @@ public class Task {
         return Objects.hash(priority, complete);
     }
 
+    public static Task fromJson(String jsonString) throws IOException, IllegalValueException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+        final Priority p;
+        final boolean complete;
+
+        String priorityString = node.get("priority").asText();
+        p = Priority.parse(priorityString);
+
+        complete = node.get("complete").asBoolean();
+        return new Task(p, complete);
+    }
 }

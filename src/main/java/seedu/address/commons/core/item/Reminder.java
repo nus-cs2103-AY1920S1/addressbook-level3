@@ -2,8 +2,13 @@ package seedu.address.commons.core.item;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.util.JsonUtil;
 
 
 /**
@@ -53,7 +58,7 @@ public class Reminder {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Reminder)) {
             return false;
         }
 
@@ -67,4 +72,11 @@ public class Reminder {
         return Objects.hash(dateTime);
     }
 
+    public static Reminder fromJson(String jsonString) throws IOException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+        String dateTimeString = node.get("dateTime").asText();
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
+
+        return new Reminder(dateTime);
+    }
 }
