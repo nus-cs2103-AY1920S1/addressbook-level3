@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +20,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.SimpleType;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
+import com.typee.model.Tab;
 
 /**
  * Converts a Java object instance to JSON and vice versa
@@ -67,6 +71,34 @@ public class JsonUtil {
 
         try {
             jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
+        } catch (IOException e) {
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(jsonFile);
+    }
+
+    /**
+     * Returns the deserialized the Json object or {@code Optional.empty()} to a list of specified object.
+     * @param filePath cannot be null.
+     * @param listClassReference Json file has to correspond to the structure in the class given here.
+     * @throws DataConversionException if the file is not as expected.
+     */
+    public static <T> Optional<List<T>> readJsonFileIntoList(Path filePath, Class<T> listClassReference)
+            throws DataConversionException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Json file " + filePath + " not found");
+            return Optional.empty();
+        }
+
+        List<T> jsonFile;
+
+        try {
+            jsonFile = objectMapper.readValue(FileUtil.readFromFile(filePath),
+                    CollectionType.construct(List.class, SimpleType.construct(Tab.class)));
         } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);

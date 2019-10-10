@@ -24,6 +24,7 @@ import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.UserPrefs;
 import com.typee.model.person.Person;
 import com.typee.storage.JsonAddressBookStorage;
+import com.typee.storage.JsonTypeeStorage;
 import com.typee.storage.JsonUserPrefsStorage;
 import com.typee.storage.StorageManager;
 import com.typee.testutil.PersonBuilder;
@@ -42,7 +43,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonTypeeStorage typeeStorage = new JsonTypeeStorage(temporaryFolder.resolve("tabMenus.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -71,7 +73,8 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonTypeeStorage typeeStorage = new JsonTypeeStorage(temporaryFolder.resolve("tabMenus.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

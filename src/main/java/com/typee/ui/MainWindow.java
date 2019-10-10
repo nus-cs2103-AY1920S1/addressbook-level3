@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.exceptions.DataConversionException;
 import com.typee.logic.Logic;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private TabPanel tabPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,6 +46,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    //Added tab panel by Ko Gi Hun 8/10/19
+    @FXML
+    private StackPane tabPanelPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -107,9 +113,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts() throws DataConversionException {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        //adding tab panel holder
+        tabPanel = new TabPanel(logic.getTabList());
+        tabPanelPlaceHolder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
