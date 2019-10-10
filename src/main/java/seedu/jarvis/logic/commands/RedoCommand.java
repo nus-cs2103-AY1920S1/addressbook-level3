@@ -2,14 +2,13 @@ package seedu.jarvis.logic.commands;
 
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
 
+import java.util.stream.IntStream;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
-import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
-import seedu.jarvis.logic.version.VersionControl;
 import seedu.jarvis.model.Model;
 
 /**
- * Redo the latest user action that was undone to the application.
+ * Redo the user actions that was undone to the application.
  */
 public class RedoCommand extends Command {
 
@@ -22,10 +21,11 @@ public class RedoCommand extends Command {
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all"
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
 
-    public static final String MESSAGE_SUCCESS = "redone %1$d commands";
-
-    public static final String MESSAGE_NO_COMMAND_TO_REDO = "There is no commands available to be redone";
-    public static final String MESSAGE_DUPLICATE_COMMAND_ERROR = "There has been an error in redoing this command";
+    public static final String MESSAGE_SUCCESS = "Redone %1$d commands";
+    public static final String MESSAGE_NOTHING_TO_REDO = "Nothing available to redo.";
+    public static final String MESSAGE_TOO_MANY_REDO = "There are only %1$d commands available to be redone";
+    public static final String MESSAGE_UNABLE_TO_REDO =
+            "Unable to redo %d command(s), there was a problem with redoing command %d";
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be redone";
 
     public static final boolean HAS_INVERSE = false;
@@ -36,20 +36,19 @@ public class RedoCommand extends Command {
     private int numberOfTimes;
 
     /**
-     * Assigns {@code numberOfTimes} to one. This redo command will redo a single command.
-     */
-    public RedoCommand() {
-        this.numberOfTimes = 1;
-    }
-
-    /**
      * Assigns the number of commands to be executed by this redo command.
-     * If the number is less than one, it is set to one.
      *
      * @param numberOfTimes Number of commands to be executed.
      */
     public RedoCommand(int numberOfTimes) {
-        this.numberOfTimes = Math.max(numberOfTimes, 1);
+        this.numberOfTimes = numberOfTimes;
+    }
+
+    /**
+     * Assigns {@code numberOfTimes} to one. This redo command will redo a single command.
+     */
+    public RedoCommand() {
+        this(1);
     }
 
     /**
@@ -65,45 +64,66 @@ public class RedoCommand extends Command {
     }
 
     /**
-     * Redo {@code numberOfTimes} number of commands.
-     * These commands are executed onto the {@code Model} given.
-     * If {@code numberOfTimes} is larger than the number of commands available to be redone, no exception is thrown,
-     * the execution will just redo all the available commands unless there are no commands that can be redone at all.
+     * Redo {@code numberOfTimes} number of commands onto the {@code Model}.
+     * If any of the commands that are being redone fails, all prior changes made to {@code Model} will be rolled back.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} of all the messages of the commands that were redone successfully, and how many
-     * commands that were redone.
-     * @throws CommandException If there were no commands that could be redone or if the operation resulted in a
-     * {@code DuplicateCommandException}, which means that the operation resulted in an instance of a command
-     * existing more than once in {@code VersionControl}.
+     * @return {@code CommandResult} of the number of commands executed from the redo.
+     * @throws CommandException If there are no commands available to redo, or if the {@code numberOfTimes} is more than
+     * the available number of commands available to be executed, or if there was an unsuccessful redone commands during
+     * this command's execution, or if there was an unsuccessful rollback from an unsuccessful redone command.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        StringBuilder stringBuilder = new StringBuilder();
-        int counter = 0;
-
-        while (counter < numberOfTimes) {
-            try {
-                CommandResult commandResult = VersionControl.INSTANCE.redo(model);
-                stringBuilder.append(commandResult.getFeedbackToUser()).append("\n");
-            } catch (CommandNotFoundException cnfe) {
-                break;
-            } catch (DuplicateCommandException dce) {
-                throw new CommandException(MESSAGE_DUPLICATE_COMMAND_ERROR);
-            }
-            ++counter;
+        if (!model.canCommit()) {
+            throw new CommandException(MESSAGE_NOTHING_TO_REDO);
         }
 
-        if (counter == 0) {
-            throw new CommandException(MESSAGE_NO_COMMAND_TO_REDO);
+        if (numberOfTimes > model.getAvailableNumberOfInverselyExecutedCommands()) {
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_REDO,
+                    model.getAvailableNumberOfInverselyExecutedCommands()));
         }
 
-        stringBuilder.append(String.format(MESSAGE_SUCCESS, counter));
-        return new CommandResult(stringBuilder.toString());
+        int numberOfCommits = commitCommands(model);
+
+        if (numberOfCommits < numberOfTimes) {
+            abortCommits(numberOfCommits, model);
+            throw new CommandException(String.format(MESSAGE_UNABLE_TO_REDO, numberOfTimes, numberOfCommits + 1));
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfCommits));
     }
 
     /**
+     * Tries to commit {@code numberOfTimes} number of commands on the given {@code Model}, by executing the commands.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return The number of successful commits made.
+     */
+    private int commitCommands(Model model) {
+        int numberOfCommits = 0;
+        while (numberOfCommits < numberOfTimes && model.commit()) {
+            ++numberOfCommits;
+        }
+        return numberOfCommits;
+    }
+
+    /**
+     * Reapplies {@code numberOfCommits} commands that were redone to the given {@code Model}. This is to abort the
+     * changes made if {@code commitCommands(Model)} did not successfully commit all the commands it was supposed
+     * to.
+     *
+     * @param numberOfCommits Number of commands to undo on the given {@code Model}.
+     * @param model {@code Model} which the command should operate on.
+     */
+    private void abortCommits(int numberOfCommits, Model model) {
+        IntStream.range(0, numberOfCommits).forEach(index -> model.rollback());
+    }
+
+
+    /**
      * There is no available inverse execution available, always throws a {@code CommandException}.
+     * This is so that the {@code HistoryManager} does not remember a redo command.
      * The inverse of the command is represented by the undo command.
      *
      * @param model {@code Model} which the command should inversely operate on.

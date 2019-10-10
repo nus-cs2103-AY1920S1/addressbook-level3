@@ -97,13 +97,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_undo() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all")
-                instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
-                instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "0")
-                instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "-5")
                 instanceof UndoCommand);
     }
 
@@ -113,13 +107,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all")
-                instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
-                instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "0")
-                instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "-5")
                 instanceof RedoCommand);
     }
 

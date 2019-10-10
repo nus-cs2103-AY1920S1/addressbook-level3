@@ -16,6 +16,7 @@ import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.LogicManager;
 import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.ReadOnlyAddressBook;
@@ -91,7 +92,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(new HistoryManager(), initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

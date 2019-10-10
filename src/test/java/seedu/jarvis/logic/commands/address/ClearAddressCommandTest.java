@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
@@ -27,10 +28,10 @@ public class ClearAddressCommandTest {
     }
 
     /**
-     * Verifies that checking ClearAddressCommand for the availability of inverse execution returns true.
+     * Verifies that checking {@code ClearAddressCommand} for the availability of inverse execution returns true.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
         assertTrue(clearAddressCommand.hasInverseExecution());
     }
@@ -45,8 +46,8 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAddressCommand(), model,
@@ -54,16 +55,16 @@ public class ClearAddressCommandTest {
     }
 
     /**
-     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
-     * that the address book is restored to all its previous data.
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the address book is restored to all its previous data.
      */
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(clearAddressCommand, model,
@@ -79,10 +80,10 @@ public class ClearAddressCommandTest {
      * Tests that repeatedly executing and inversely executing command works as intended.
      */
     @Test
-    public void test_repeatedExecutionAndInverseExecution() {
+    public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
         Person validPerson = new PersonBuilder().build();
 
         int cycles = 1000;

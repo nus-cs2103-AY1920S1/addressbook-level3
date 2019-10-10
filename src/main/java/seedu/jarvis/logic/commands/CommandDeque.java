@@ -3,116 +3,104 @@ package seedu.jarvis.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
-import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
 
 /**
- * A deque of commands that does not allow nulls and ensures that each command object instance can only be inside
- * the deque at most once.
+ * A deque of commands that does not allow nulls.
  *
  * The front of the deque stores the latest commands, while the back of the deque stores the oldest commands.
  * The deque is kept within the size given by the value of limit, if the deque exceeds the
  * size, it will remove commands till it is within the size limit, removing the oldest commands first.
- *
- * Command object instances cannot be added more than once to the deque, commands that do the achieve the same purpose
- * but are distinct objects are allowed, only repeated storing of the same command object instance is not allowed.
  */
 public class CommandDeque {
-    /** Starting default limit to be assigned to each instance. */
-    public static final int DEFAULT_INITIAL_SIZE_LIMIT = 10;
+    /** Size limit of the maximum possible number of commands to store. */
+    private static final int SIZE_LIMIT = 20;
     /**
      * Deque to store commands. Deque is used to facilitate adding new commands to the start of the deque, and deleting
      * old commands from the back of the deque.
      */
     private Deque<Command> commands;
-    /**
-     * Used to track each command instance stored in the deque to help check for attempted adding of instances that
-     * are already inside the deque.
-     */
-    private Set<Command> commandTracker;
-    /** Represents the maximum number of commands to store in the deque, that can be updated in value and enforced. */
-    private int sizeLimit;
 
     /**
-     * Creates a new {@code CommandDeque} with the default size limit of DEFAULT_INITIAL_SIZE_LIMIT.
-     * This size limit can be set to another number.
+     * Creates a new {@code CommandDeque} with the size limit of DEFAULT_INITIAL_SIZE_LIMIT.
      */
     public CommandDeque() {
         commands = new ArrayDeque<>();
-        commandTracker = new HashSet<>();
-        sizeLimit = DEFAULT_INITIAL_SIZE_LIMIT;
     }
 
     /**
-     * Creates a new {@code CommandDeque} with a custom size limit.
-     * @param sizeLimit Custom size limit.
+     * Creates a new {@code CommandDeque} with the same {@code Command} objects from the {@code CommandDeque} object
+     * given as argument.
+     *
+     * @param commandDeque {@code CommandDeque}
      */
-    public CommandDeque(int sizeLimit) {
+    public CommandDeque(CommandDeque commandDeque) {
         this();
-        this.sizeLimit = sizeLimit;
+        resetData(commandDeque);
     }
 
     /**
-     * Number of commands stored in {@code CommandDeque}.
+     * Gets a {@code List} of all commands being stored in the {@code CommandDeque}.
+     * The commands in the list are ordered chronologically to when they were inserted into the {@code CommandDeque},
+     * with the latest command being at the start of the list and the oldest command being at the end of the list.
+     *
+     * @return {@code List} of all the commands being stored in the {@code CommandDeque}.
+     */
+    public List<Command> getCommands() {
+        return new ArrayList<>(commands);
+    }
+
+    /**
+     * Gets the size limit of {@code CommandDeque}.
+     *
+     * @return The size limit of {@code CommandDeque}.
+     */
+    public static int getSizeLimit() {
+        return SIZE_LIMIT;
+    }
+
+    /**
+     * Gets the number of commands stored in {@code CommandDeque}.
+     *
      * @return The number of commands stored in {@code CommandDeque}.
      */
     public int getSize() {
-        assert commands.size() == commandTracker.size() : "command disparity between deque and set.";
         return commands.size();
     }
 
     /**
-     * Gets the current command size limit of the {@code CommandDeque}.
-     * @return current command size limit of {@code CommandDeque}.
-     */
-    public int getSizeLimit() {
-        return sizeLimit;
-    }
-
-    /**
-     * Updates the deque size limit
-     * Trims the deque to the new size if the new size limit is lower that the original.
-     * Returns null if the limit is invalid, which is lesser than zero.
-     *
-     * @param sizeLimit The new size limit.
-     */
-    public void setSizeLimit(int sizeLimit) {
-        if (sizeLimit < 0) {
-            return;
-        }
-        this.sizeLimit = sizeLimit;
-        trimSize();
-    }
-
-    /**
      * Returns whether there are any commands stored in {@code CommandDeque}.
+     *
      * @return Whether the {@code CommandDeque} is storing any commands.
      */
     public boolean isEmpty() {
-        return commands.isEmpty() && commandTracker.isEmpty();
+        return commands.isEmpty();
     }
 
     /**
-     * Checks if this command object instance is already stored inside the {@code CommandDeque}.
+     * Adds the commands from {@code CommandDeque} argument to this {@code CommandDeque}.
+     * Null is not a valid argument.
      *
-     * @param command Command object instance to be checked.
-     * @return Whether the command is stored inside the {@code CommandDeque}.
+     * @param commandDeque {@code CommandDeque} object's commands to be added to this {@code CommandDeque}.
      */
-    public boolean hasCommand(Command command) {
-        return !commands.isEmpty() && commandTracker.contains(command);
+    public void resetData(CommandDeque commandDeque) {
+        requireNonNull(commandDeque);
+        commandDeque.getCommands().forEach(commands::addLast);
     }
 
     /**
      * Gets the most recent {@code Command} added to {@code CommandDeque} which is at the front of the deque.
+     * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
+     * is empty before getting the latest {@code Command}.
      *
      * @return The most recent {@code Command} added to {@code CommandDeque}.
-     * @throws CommandNotFoundException If {@code CommandDeque} is empty.
      */
-    public Command getLatestCommand() throws CommandNotFoundException {
+    public Command getLatestCommand() {
         if (isEmpty()) {
             throw new CommandNotFoundException();
         }
@@ -120,53 +108,45 @@ public class CommandDeque {
     }
 
     /**
-     * Adds a {@code Command} to {@code CommandDeque}, given that the {@code Command} instance is not inside
-     * {@code CommandDeque} already.
+     * Adds a {@code Command} to {@code CommandDeque}, which cannot be null.
+     * After adding {@code Command}, {@code CommandDeque} will trim its size to adhere to its size limit
+     * by calling {@code CommandDeque#trimSize()}.
      *
      * @param command {@code Command} to be added.
-     * @throws DuplicateCommandException If the {@code Command} to be added is already inside the
-     * {@code CommandDeque}, where {@code CommandDeque#hasCommand(Command)} returns true.
      */
-    public void addLatestCommand(Command command) throws DuplicateCommandException {
+    public void addLatestCommand(Command command) {
         requireNonNull(command);
-
-        if (hasCommand(command)) {
-            throw new DuplicateCommandException();
-        }
-
         commands.addFirst(command);
-        commandTracker.add(command);
         trimSize();
     }
 
     /**
      * Deletes the latest {@code Command} in {@code CommandDeque}.
+     * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
+     * is empty before deleting the latest {@code Command}.
      *
-     * @return Latest {@code Command} in {@code CommandDeque}
-     * @throws CommandNotFoundException if {@code CommandDeque} is empty.
+     * @return Latest {@code Command} in {@code CommandDeque}.
+     *
      */
-    public Command deleteLatestCommand() throws CommandNotFoundException {
+    public Command deleteLatestCommand() {
         if (isEmpty()) {
-            throw new CommandNotFoundException();
+            throw new CommandNotFoundException(); // RuntimeException
         }
-        Command command = commands.removeFirst();
-        commandTracker.remove(command);
-        return command;
+        return commands.removeFirst();
     }
 
     /**
      * Deletes the oldest {@code Command} in {@code CommandDeque}.
+     * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
+     * is empty before deleting the oldest {@code Command}.
      *
      * @return Oldest {@code Command} in {@code CommandDeque}.
-     * @throws CommandNotFoundException If {@code CommandDeque} is empty.
      */
-    public Command deleteOldestCommand() throws CommandNotFoundException {
+    public Command deleteOldestCommand() {
         if (isEmpty()) {
             throw new CommandNotFoundException();
         }
-        Command command = commands.removeLast();
-        commandTracker.remove(command);
-        return command;
+        return commands.removeLast();
     }
 
     /**
@@ -174,7 +154,6 @@ public class CommandDeque {
      */
     public void clear() {
         commands.clear();
-        commandTracker.clear();
     }
 
     /**
@@ -182,9 +161,30 @@ public class CommandDeque {
      * Commands are deleted starting from the oldest commands.
      */
     private void trimSize() {
-        while (commands.size() > sizeLimit) {
-            Command command = commands.removeLast();
-            commandTracker.remove(command);
+        while (commands.size() > SIZE_LIMIT) {
+            deleteOldestCommand();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if it is the same object.
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls.
+        if (!(obj instanceof CommandDeque)) {
+            return false;
+        }
+
+        // checks that each command in the deque are equal to each other taking into account relative positioning.
+        CommandDeque other = (CommandDeque) obj;
+        if (getSize() != other.getSize()) {
+            return false;
+        }
+        ArrayList<Command> list1 = new ArrayList<>(commands);
+        ArrayList<Command> list2 = new ArrayList<>(other.commands);
+        return IntStream.range(0, getSize()).allMatch(index -> list1.get(index).equals(list2.get(index)));
     }
 }

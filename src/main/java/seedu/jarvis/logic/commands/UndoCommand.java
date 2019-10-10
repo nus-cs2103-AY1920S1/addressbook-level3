@@ -2,14 +2,13 @@ package seedu.jarvis.logic.commands;
 
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
 
+import java.util.stream.IntStream;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
-import seedu.jarvis.logic.commands.exceptions.DuplicateCommandException;
-import seedu.jarvis.logic.version.VersionControl;
 import seedu.jarvis.model.Model;
 
 /**
- * Undo the latest user action done to the application.
+ * Undo user actions done to the application.
  */
 public class UndoCommand extends Command {
 
@@ -23,10 +22,11 @@ public class UndoCommand extends Command {
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
 
 
-    public static final String MESSAGE_SUCCESS = "undone %1$d commands";
-
-    public static final String MESSAGE_NO_COMMAND_TO_UNDO = "There is no commands available to be undone";
-    public static final String MESSAGE_DUPLICATE_COMMAND_ERROR = "There has been an error in undoing this command";
+    public static final String MESSAGE_SUCCESS = "Undone %1$d commands";
+    public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing available to undo.";
+    public static final String MESSAGE_TOO_MANY_UNDO = "There are only %1$d commands available to be undone";
+    public static final String MESSAGE_UNABLE_TO_UNDO =
+            "Unable to undo %d command(s), there was a problem with undoing command %d";
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone";
 
     public static final boolean HAS_INVERSE = false;
@@ -35,20 +35,19 @@ public class UndoCommand extends Command {
     private int numberOfTimes;
 
     /**
-     * Assigns {@code numberOfTimes} to one. This undo command will undo a single command.
-     */
-    public UndoCommand() {
-        numberOfTimes = 1;
-    }
-
-    /**
      * Assigns the number of commands to be inversely executed by this undo command.
-     * If the number is less than one, it is set to one.
      *
      * @param numberOfTimes Number of commands to be inversely executed.
      */
     public UndoCommand(int numberOfTimes) {
-        this.numberOfTimes = Math.max(numberOfTimes, 1);
+        this.numberOfTimes = numberOfTimes;
+    }
+
+    /**
+     * Assigns {@code numberOfTimes} to one. This undo command will undo a single command.
+     */
+    public UndoCommand() {
+        this(1);
     }
 
     /**
@@ -64,46 +63,68 @@ public class UndoCommand extends Command {
     }
 
     /**
-     * Undo {@code numberOfTimes} number of commands.
-     * These commands are inversely executed onto the {@code Model} given.
-     * If {@code numberOfTimes} is larger than the number of commands available to be undone, no exception is thrown,
-     * the execution will just undo all the available commands unless there are no commands that can be undone at all.
+     * Undo {@code numberOfTimes} number of commands onto the {@code Model}.
+     * If any of the commands that are being undone fails, all prior changes made to {@code Model} will be committed
+     * back to the model.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} of all the messages of the commands that were undone successfully, and how many
-     * commands that were undone.
-     * @throws CommandException If there were no commands that could be undone or if the operation resulted in a
-     * {@code DuplicateCommandException}, which means that the operation resulted in an instance of a command
-     * existing more than once in {@code VersionControl}.
+     * @return {@code CommandResult} of the number of commands inversely executed from the undo.
+     * @throws CommandException If there are no commands available to undo, or if the {@code numberOfTimes} is more than
+     * the available number of commands available to be inversely executed, or if there was an unsuccessful undone
+     * commands during this command's execution, or if there was an unsuccessful commit from an unsuccessful undone
+     * command.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        StringBuilder stringBuilder = new StringBuilder();
-        int counter = 0;
-
-        while (counter < numberOfTimes) {
-            try {
-                CommandResult commandResult = VersionControl.INSTANCE.undo(model);
-                stringBuilder.append(commandResult.getFeedbackToUser()).append("\n");
-            } catch (CommandNotFoundException cnfe) {
-                break;
-            } catch (DuplicateCommandException dce) {
-                throw new CommandException(MESSAGE_DUPLICATE_COMMAND_ERROR);
-            }
-            ++counter;
+        if (!model.canRollback()) {
+            throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
         }
 
-        if (counter == 0) {
-            throw new CommandException(MESSAGE_NO_COMMAND_TO_UNDO);
+        if (numberOfTimes > model.getAvailableNumberOfExecutedCommands()) {
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_UNDO,
+                    model.getAvailableNumberOfExecutedCommands()));
         }
 
+        int numberOfRollbacks = rollbackCommands(model);
 
-        stringBuilder.append(String.format(MESSAGE_SUCCESS, counter));
-        return new CommandResult(stringBuilder.toString());
+        if (numberOfRollbacks < numberOfTimes) {
+            abortRollbacks(numberOfRollbacks, model);
+            throw new CommandException(String.format(MESSAGE_UNABLE_TO_UNDO, numberOfTimes, numberOfRollbacks + 1));
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRollbacks));
+    }
+
+    /**
+     * Tries to roll back {@code numberOfTimes} number of commands on the given {@code Model}, by inversely executing
+     * the commands.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return The number of successful rollbacks made.
+     */
+    private int rollbackCommands(Model model) {
+        int numberOfRollbacks = 0;
+        while (numberOfRollbacks < numberOfTimes && model.rollback()) {
+            ++numberOfRollbacks;
+        }
+        return numberOfRollbacks;
+    }
+
+    /**
+     * Reapplies {@code numberOfRollbacks} commands that were undone to the given {@code Model}. This is to abort the
+     * changes made if {@code rollbackCommands(Model)} did not successfully rollback all the commands it was supposed
+     * to.
+     *
+     * @param numberOfRollbacks Number of commands to redo on the given {@code Model}.
+     * @param model {@code Model} which the command should operate on.
+     */
+    private void abortRollbacks(int numberOfRollbacks, Model model) {
+        IntStream.range(0, numberOfRollbacks).forEach(index -> model.commit());
     }
 
     /**
      * There is no available inverse execution available, always throws a {@code CommandException}.
+     * This is so that the {@code HistoryManager} does not remember an undo command.
      * The inverse of the command is represented by the redo command.
      *
      * @param model {@code Model} which the command should inversely operate on.
@@ -116,6 +137,7 @@ public class UndoCommand extends Command {
 
     /**
      * Checks for equality of {@code numberOfTimes} if {@code other} is a {@code UndoCommand}.
+     *
      * @param other {@code Object} to compare with.
      * @return Whether {@code other} is a {@code UndoCommand} with the same {@code numberOfTimes}.
      */

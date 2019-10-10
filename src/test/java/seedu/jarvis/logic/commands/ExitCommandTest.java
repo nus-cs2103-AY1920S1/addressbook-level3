@@ -24,10 +24,10 @@ public class ExitCommandTest {
     }
 
     /**
-     * Verifies that checking ExitCommand for the availability of inverse execution returns false.
+     * Verifies that checking {@code ExitCommand} for the availability of inverse execution returns false.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         ExitCommand exitCommand = new ExitCommand();
         assertFalse(exitCommand.hasInverseExecution());
     }
@@ -39,11 +39,11 @@ public class ExitCommandTest {
     }
 
     /**
-     * Verifies that calling inverse execution of ExitCommand will always throw command exception with the correct
-     * message.
+     * Verifies that calling inverse execution of {@code ExitCommand} will always throw a {@code CommandException} with
+     * the correct message.
      */
     @Test
-    public void test_executeInverse_exceptionThrown() {
+    public void executeInverse_throwsCommandException() {
         ExitCommand exitCommand = new ExitCommand();
         assertThrows(CommandException.class,
                 ExitCommand.MESSAGE_NO_INVERSE, () -> exitCommand.executeInverse(model));

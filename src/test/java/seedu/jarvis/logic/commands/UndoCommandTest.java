@@ -1,148 +1,139 @@
 package seedu.jarvis.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.version.VersionControl;
+import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.testutil.PersonBuilder;
 
 /**
- * Tests the behaviour of undo command.
+ * Tests the behaviour of {@code UndoCommand}.
  */
 public class UndoCommandTest {
+    private UndoCommand undoCommand;
     private Model model;
-    private Model expectedModel;
 
     /**
-     * Resets version control and model and expected model before each test.
+     * Initializes {@code undoCommand} field as a new {@code UndoCommand}.
+     * Initializes {@code model} as a new {@code ModelManager}.
      */
     @BeforeEach
-    public void setUpBefore() {
-        VersionControl.INSTANCE.hardReset();
+    public void setUp() {
+        undoCommand = new UndoCommand();
         model = new ModelManager();
-        expectedModel = new ModelManager();
     }
 
     /**
-     * Resets version control and model and expected model after each test.
-     */
-    @AfterEach
-    public void setUpAfter() {
-        VersionControl.INSTANCE.hardReset();
-        model = new ModelManager();
-        expectedModel = new ModelManager();
-    }
-
-    /**
-     * Verifies that undo command has no inverse.
+     * Verifies that checking {@code UndoCommand} for the availability of inverse execution returns false.
      */
     @Test
-    public void test_hasInverseExecution() {
-        UndoCommand undoCommand = new UndoCommand();
+    public void hasInverseExecution() {
         assertFalse(undoCommand::hasInverseExecution);
     }
 
     /**
-     * Verifies that if there are no commands available to undo, the correct exception is thrown.
+     * Verifies that if there are no available commands to be undone, a {@code CommandException} is thrown.
      */
     @Test
-    public void execute_noCommand_exceptionThrown() {
-        UndoCommand undoCommand = new UndoCommand();
-        assertThrows(CommandException.class, UndoCommand.MESSAGE_NO_COMMAND_TO_UNDO, () -> undoCommand.execute(model));
+    public void execute_noAvailableCommands_throwsCommandException() {
+        assertThrows(CommandException.class, UndoCommand.MESSAGE_NOTHING_TO_UNDO, () -> undoCommand.execute(model));
     }
 
     /**
-     * Verifies that the operation of executing a undo command for one undo is correct.
+     * Verifies that if the {@code UndoCommand} is supposed to undo more commands than available in the {@code Model},
+     * a {@code CommandException} is thrown.
      */
     @Test
-    public void execute_oneUndo_success() {
-        Person person = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(person);
-        int numberOfCommandsToUndo = 1;
-
-        expectedModel.addPerson(person);
-
-        assertCommandSuccess(addAddressCommand, model, String.format(AddAddressCommand.MESSAGE_SUCCESS, person),
-                expectedModel);
-        // updates version control for undo functionality.
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(addAddressCommand));
-
-        expectedModel.deletePerson(person);
-
-        String expectedMessage = String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, person) + "\n"
-                + String.format(UndoCommand.MESSAGE_SUCCESS, numberOfCommandsToUndo);
-        assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
+    public void execute_tooFewAvailableCommands_throwsCommandException() {
+        undoCommand = new UndoCommand(Integer.MAX_VALUE);
+        model.rememberExecutedCommand(new CommandStub());
+        assertThrows(CommandException.class, String.format(UndoCommand.MESSAGE_TOO_MANY_UNDO,
+                model.getAvailableNumberOfExecutedCommands()), () -> undoCommand.execute(model));
     }
 
     /**
-     * Verifies that undo command for multiple commands works.
+     * Verifies that if there was an unsuccessful inverse execution during the execution of an undo command to undo a
+     * single command, a {@code CommandException} is thrown.
      */
     @Test
-    public void execute_multipleUndo_success() {
-        Person amy = new PersonBuilder().withName(VALID_NAME_AMY).build();
-        Person bob = new PersonBuilder().withName(VALID_NAME_BOB).build();
-        AddAddressCommand addAddressCommand1 = new AddAddressCommand(amy);
-        AddAddressCommand addAddressCommand2 = new AddAddressCommand(bob);
-        int numberOfCommandsToUndo = 2;
-
-        expectedModel.addPerson(amy);
-        assertCommandSuccess(addAddressCommand1, model, String.format(AddAddressCommand.MESSAGE_SUCCESS, amy),
-                expectedModel);
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(addAddressCommand1));
-
-        expectedModel.addPerson(bob);
-        assertCommandSuccess(addAddressCommand2, model, String.format(AddAddressCommand.MESSAGE_SUCCESS, bob),
-                expectedModel);
-        // updates version control for undo functionality.
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(addAddressCommand2));
-
-        expectedModel.deletePerson(bob);
-        expectedModel.deletePerson(amy);
-
-        String expectedMessage = String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, bob) + "\n"
-                + String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, amy) + "\n"
-                + String.format(UndoCommand.MESSAGE_SUCCESS, numberOfCommandsToUndo);
-
-        assertCommandSuccess(new UndoCommand(numberOfCommandsToUndo), model, expectedMessage, expectedModel);
+    public void execute_unsuccessfulExecutionDuringSingleUndo_throwsCommandException() {
+        model.rememberExecutedCommand(new CommandStubInverseExecutionThrowsCommandException());
+        assertThrows(CommandException.class, String.format(UndoCommand.MESSAGE_UNABLE_TO_UNDO, 1, 1), () ->
+                undoCommand.execute(model));
+        assertEquals(1, model.getAvailableNumberOfExecutedCommands());
     }
 
     /**
-     * Verifies that if undo command is given more commands to undo than possible, it will just undo all the commands
-     * and return the correct command result.
+     * Verifies that if there was an unsuccessful inverse execution during the execution of an undo command to undo
+     * multiple commands, a {@code CommandException} is thrown.
      */
     @Test
-    public void execute_exceedNumber_success() {
-        Person person = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(person);
-        int numberOfCommandsToUndo = 1;
-
-        expectedModel.addPerson(person);
-        assertCommandSuccess(addAddressCommand, model, String.format(AddAddressCommand.MESSAGE_SUCCESS, person),
-                expectedModel);
-        // updates version control for undo functionality.
-        assertDoesNotThrow(() -> VersionControl.INSTANCE.addExecutedCommand(addAddressCommand));
-
-        // undo command given more commands to undo than available.
-        UndoCommand undoCommand = new UndoCommand(numberOfCommandsToUndo * 100);
-
-        String expectedMessage = String.format(AddAddressCommand.MESSAGE_INVERSE_SUCCESS_DELETE, person) + "\n"
-                + String.format(UndoCommand.MESSAGE_SUCCESS, numberOfCommandsToUndo);
-
-        expectedModel.deletePerson(person);
-        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
+    public void execute_intermediateUnsuccessfulExecutionDuringMultipleUndo_throwsCommandException() {
+        int numberOfCommandsToUndo = HistoryManager.getHistoryRange();
+        int badCommandIndex = HistoryManager.getHistoryRange() / 2;
+        undoCommand = new UndoCommand(numberOfCommandsToUndo);
+        IntStream.range(0, numberOfCommandsToUndo).forEach(index -> {
+            CommandStub commandStub = index > badCommandIndex
+                    ? new CommandStub()
+                    : new CommandStubInverseExecutionThrowsCommandException();
+            model.rememberExecutedCommand(commandStub);
+        });
+        assertThrows(CommandException.class, String.format(UndoCommand.MESSAGE_UNABLE_TO_UNDO, numberOfCommandsToUndo,
+                badCommandIndex), () -> undoCommand.execute(model));
+        assertEquals(numberOfCommandsToUndo, model.getAvailableNumberOfExecutedCommands());
     }
+
+    /**
+     * Verifies that calling inverse execution of {@code UndoCommand} will always throw a {@code CommandException} with
+     * the correct message.
+     */
+    @Test
+    public void executeInverse_throwsCommandException() {
+        assertThrows(CommandException.class, UndoCommand.MESSAGE_NO_INVERSE, () -> undoCommand.executeInverse(model));
+    }
+
+    /**
+     * {@code CommandStub} to be added to {@code Model}.
+     * {@code CommandStub} returns true when checked for having an inverse execution.
+     * {@code CommandStub} returns null and does nothing to {@code Model} when {@code CommandStub#execute(Model)} or
+     * {@code CommandStub#executeInverse(Model)} is called.
+     */
+    private static class CommandStub extends Command {
+        @Override
+        public boolean hasInverseExecution() {
+            return true;
+        }
+
+        @Override
+        public CommandResult execute(Model model) throws CommandException {
+            return null;
+        }
+
+        @Override
+        public CommandResult executeInverse(Model model) throws CommandException {
+            return null;
+        }
+    }
+
+    /**
+     * {@code CommandStubInverseExecutionThrowsCommandException} is a stub class for {@code Command} that will always
+     * throw a {@code CommandException} when inversely executed.
+     * {@code CommandStubInverseExecutionThrowsCommandException} returns true when checked for having an inverse
+     * execution.
+     */
+    private static class CommandStubInverseExecutionThrowsCommandException extends CommandStub {
+        @Override
+        public CommandResult executeInverse(Model model) throws CommandException {
+            throw new CommandException("CommandException always thrown.");
+        }
+    }
+
 }
