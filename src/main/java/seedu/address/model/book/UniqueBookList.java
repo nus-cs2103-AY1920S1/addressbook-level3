@@ -62,16 +62,13 @@ public class UniqueBookList implements Iterable<Book> {
      */
     public void setBook(Book target, Book editedBook) {
         requireAllNonNull(target, editedBook);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new BookNotFoundException();
         }
-
         if (!target.equals(editedBook) && contains(editedBook)) {
             throw new DuplicateBookException();
         }
-
         internalList.set(index, editedBook);
     }
 

@@ -36,9 +36,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyCatalog getSampleCatalog() {
         Catalog sampleAb = new Catalog();
-        for (Book sampleBook : getSampleBooks()) {
-            sampleAb.addBook(sampleBook);
-        }
+        Arrays.stream(getSampleBooks()).forEach(book -> sampleAb.addBook(book));
         return sampleAb;
     }
 
