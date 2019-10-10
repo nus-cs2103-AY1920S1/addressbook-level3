@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -99,4 +100,19 @@ public interface Model {
 
     /** Returns the BorrowerRecords*/
     ReadOnlyBorrowerRecords getBorrowerRecords();
+
+    /**
+     * If in serve mode, returns borrower that is being served.
+     * Else, returns empty optional.
+     *
+     * @return Borrower that is being Served.
+     */
+    Optional<Borrower> getServingBorrower();
+
+    /**
+     * Returns true if Liberry is currently in Serve mode, false otherwise.
+     *
+     * @return True if Liberry is currently in Serve mode.
+     */
+    boolean isServeMode();
 }

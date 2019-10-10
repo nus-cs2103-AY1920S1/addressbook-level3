@@ -4,7 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.Optional;
+>>>>>>> f59d6b22597b337c538be7972d019e9f26062ed0
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -16,10 +20,16 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
+<<<<<<< HEAD
 import seedu.address.model.loan.Loan;
+=======
+import seedu.address.model.borrower.Email;
+import seedu.address.model.borrower.Name;
+import seedu.address.model.borrower.Phone;
+>>>>>>> f59d6b22597b337c538be7972d019e9f26062ed0
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the Library data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -29,6 +39,8 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
+
+    private final Optional<Borrower> servingBorrower; // TODO
 
     /**
      * Initializes a ModelManager with the given catalog and userPrefs.
@@ -53,6 +65,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
+        this.servingBorrower = Optional.empty(); // TODO
     }
 
     public ModelManager() {
@@ -83,7 +96,46 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+<<<<<<< HEAD
 
+=======
+    @Override
+    public void setCatalog(ReadOnlyCatalog catalog) {
+        this.catalog.resetData(catalog);
+    }
+
+    @Override
+    public ReadOnlyCatalog getCatalog() {
+        return catalog;
+    }
+
+    @Override
+    public boolean hasBook(Book book) {
+        requireNonNull(book);
+        return catalog.hasBook(book);
+    }
+
+    @Override
+    public void deleteBook(Book target) {
+        catalog.removeBook(target);
+        SerialNumberGenerator.setCatalog(catalog);
+    }
+
+    @Override
+    public void addBook(Book book) {
+        catalog.addBook(book);
+        SerialNumberGenerator.setCatalog(catalog);
+        updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setBook(Book target, Book editedBook) {
+        requireAllNonNull(target, editedBook);
+
+        catalog.setBook(target, editedBook);
+        SerialNumberGenerator.setCatalog(catalog);
+    }
+>>>>>>> f59d6b22597b337c538be7972d019e9f26062ed0
 
     public Path getLoanRecordsFilePath() {
         return userPrefs.getLoanRecordsFilePath();
@@ -222,10 +274,25 @@ public class ModelManager implements Model {
 
     //=========== BorrowerRecords ===============================================================================
 
+    @Override
     public ReadOnlyBorrowerRecords getBorrowerRecords() {
         return borrowerRecords;
     }
 
+
+    @Override
+    public Optional<Borrower> getServingBorrower() {
+        // TODO
+        // return servingBorrower;
+        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"))); // STUB
+    }
+
+    @Override
+    public boolean isServeMode() {
+        // TODO
+        // return servingBorrower.isPresent();
+        return true; // STUB
+    }
 
     @Override
     public boolean equals(Object obj) {
