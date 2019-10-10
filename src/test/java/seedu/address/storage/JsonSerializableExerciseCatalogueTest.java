@@ -36,12 +36,4 @@ public class JsonSerializableExerciseCatalogueTest {
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
-    @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
-                JsonSerializableExerciseCatalogue.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableExerciseCatalogue.MESSAGE_DUPLICATE_PERSON,
-                dataFromFile::toModelType);
-    }
-
 }
