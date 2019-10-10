@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 
     // Placeholder for UniqueBorrowerList
     private ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
+    private HashMap<BorrowerId, Borrower> borrowersMap = new HashMap<>();
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -34,21 +36,23 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     }
 
     public boolean hasBorrower(Borrower borrower) {
-        return listOfBorrowers.stream().anyMatch(item -> item.isSameBorrower(borrower));
+        return borrowersMap.containsKey(borrower.getBorrowerId());
     }
 
     public void addBorrower(Borrower borrower) {
         listOfBorrowers.add(borrower);
+        borrowersMap.put(borrower.getBorrowerId(), borrower);
     }
 
     private void resetData(ReadOnlyBorrowerRecords newData) {
         requireNonNull(newData);
-
         setBorrowers(newData.getBorrowerList());
     }
 
     private void setBorrowers(ObservableList<Borrower> borrowerList) {
         this.listOfBorrowers = borrowerList;
+        this.borrowersMap = new HashMap<>();
+        borrowerList.stream().forEach(borrower -> borrowersMap.put(borrower.getBorrowerId(), borrower));
     }
 
     /**
@@ -58,7 +62,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      */
     boolean checkIfBorrowerIdExists(BorrowerId id) {
         requireNonNull(id);
-        return listOfBorrowers.stream().map(Borrower::getBorrowerId).anyMatch(value -> value.equals(id));
+        return borrowersMap.containsKey(id);
     }
 
     /**
@@ -69,18 +73,10 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      * @throws NullPointerException if borrower is not present in the borrower records.
      */
     public Borrower getBorrowerFromId(BorrowerId id) throws NullPointerException {
-        if (!checkIfBorrowerIdExists(id)) {
-            throw new NullPointerException();
+        if (!borrowersMap.containsKey(id)) {
+            throw new NullPointerException("Borrower does not exists");
         }
-        long numberOfBorrowers = listOfBorrowers
-                .stream()
-                .filter(borrower -> borrower.getBorrowerId().equals(id))
-                .count();
-        assert (numberOfBorrowers == 1) : "Duplicate borrowers";
-        return listOfBorrowers.stream()
-                .filter(borrower -> borrower.getBorrowerId().equals(id))
-                .collect(Collectors.toList())
-                .get(0);
+        return borrowersMap.get(id);
     }
 
     @Override
@@ -92,6 +88,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BorrowerRecords // instanceof handles nulls
-                && listOfBorrowers.equals(((BorrowerRecords) other).listOfBorrowers));
+                && listOfBorrowers.equals(((BorrowerRecords) other).listOfBorrowers)
+                && borrowersMap.equals(((BorrowerRecords) other).borrowersMap));
     }
 }
