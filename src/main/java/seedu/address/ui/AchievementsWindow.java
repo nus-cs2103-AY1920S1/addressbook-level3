@@ -1,18 +1,21 @@
 package seedu.address.ui;
 
+import java.util.Collection;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
@@ -27,10 +30,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class BioWindow extends UiPart<Stage> {
+public class AchievementsWindow extends UiPart<Stage> {
 
-    private static final String FXML = "BioWindow.fxml";
-    private static String displayImage = "/images/user.png";
+    private static final String FXML = "AchievementsWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -40,8 +42,8 @@ public class BioWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private Profile profile;
-    private BioTable bioTable;
+    private AchievementsTitle achievementsTitle;
+    private Achievements achievements;
     private HelpWindow helpWindow;
 
     @FXML
@@ -54,15 +56,15 @@ public class BioWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private HBox profilePlaceholder;
+    private HBox achievementsTitlePlaceholder;
 
     @FXML
-    private VBox bioTablePlaceholder;
+    private HBox achievementsPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public BioWindow(Stage primaryStage, Logic logic) {
+    public AchievementsWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -127,37 +129,20 @@ public class BioWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        Image img = new Image(MainApp.class.getResourceAsStream(displayImage));
+        achievementsTitle = new AchievementsTitle("My Achievements",
+                "Hi Amy, here are the list of achievements you have collected so far.");
+        achievementsTitlePlaceholder.getChildren().add(achievementsTitle.getRoot());
 
-        // SAMPLE DATA
-        BioTableFieldDataPair name = new BioTableFieldDataPair("Name:", "Amy");
-        BioTableFieldDataPair nric = new BioTableFieldDataPair("NRIC:", "S1234567Z");
-        BioTableFieldDataPair gender = new BioTableFieldDataPair("Gender:", "Female");
-        BioTableFieldDataPair dob = new BioTableFieldDataPair("DOB:", "21/03/1940");
-        BioTableFieldDataPair hp = new BioTableFieldDataPair("HP:", "98765432");
-        BioTableFieldDataPair emergencyHp = new BioTableFieldDataPair("Emergency HP:", "91234567");
-        BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:",
-                "Type II Diabetes, High Blood Pressure");
-        BioTableFieldDataPair address = new BioTableFieldDataPair("Address:",
-                "Blk 123 Example Road\n#12-34\nS(612345)");
-        BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:",
-                "/Users/Amy/dp.png");
-        BioTableFieldDataPair bgColour = new BioTableFieldDataPair("Background Colour:", "navy-blue");
-        BioTableFieldDataPair fontColour = new BioTableFieldDataPair("Font Colour:", "yellow");
-        BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:",
-                "lose 4kg from 29/09/2019 to 30/09/2019");
+        achievements = new Achievements();
 
-        ObservableList<BioTableFieldDataPair> list = FXCollections.observableArrayList();
-        list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour,
-                fontColour, myGoals);
-
-        profile = new Profile(img, "Amy", "\"If at first you don't succeed, call it version 1.0."
-                + "\"\n-Anonymous");
-        profilePlaceholder.getChildren().add(profile.getRoot());
-
-        bioTable = new BioTable();
-        bioTable.getTableView().setItems(list);
-        bioTablePlaceholder.getChildren().add(bioTable.getRoot());
+        for (int i = 0; i <= 24; i++) {
+            int n = i % 8 + 1;
+            Image img = new Image(MainApp.class.getResourceAsStream("/images/sample_achievement_" + n + ".png"));
+            ImageView imageView = new AchievementsImageView().getImageView();
+            imageView.setImage(img);
+            achievements.getTilePane().getChildren().add(imageView);
+        }
+        achievementsPlaceholder.getChildren().add(achievements.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -207,18 +192,18 @@ public class BioWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switches this window to the AchievementsWindow.
+     * Switches this window to the MainWindow.
      */
     @FXML
-    public void switchToAchievementsWindow(String feedbackToUser) {
+    public void switchToBioWindow(String feedbackToUser) {
         hide();
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
-        achievementsWindow.show();
-        achievementsWindow.fillInnerParts();
-        achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+        BioWindow bioWindow = new BioWindow(primaryStage, logic);
+        bioWindow.show();
+        bioWindow.fillInnerParts();
+        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
     }
 
     void show() {

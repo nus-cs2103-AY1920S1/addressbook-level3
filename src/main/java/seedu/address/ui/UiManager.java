@@ -24,7 +24,6 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
-    private BioWindow bioWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -42,6 +41,9 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
+            achievementsWindow.show();
+            achievementsWindow.fillInnerParts();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

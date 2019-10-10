@@ -162,8 +162,8 @@ public class MainWindow extends UiPart<Stage> {
         bioWindow.show();
         bioWindow.fillInnerParts();
         bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
-
     }
+
     void show() {
         primaryStage.show();
     }

@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A ui for the table that is used to display the user's biography.
  */
 public class BioTable extends UiPart<Region> {
 
