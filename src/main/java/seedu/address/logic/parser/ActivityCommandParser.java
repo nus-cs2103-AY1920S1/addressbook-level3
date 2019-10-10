@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_MISSING_TITLE;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ActivityCommand;
@@ -25,7 +26,7 @@ public class ActivityCommandParser implements Parser<ActivityCommand> {
         String title = argMultimap.getValue(PREFIX_TITLE).orElse("");
 
         if (title.equals("")) {
-            throw new ParseException("Missing title argument for activity command. Title of an activity cannot be blank.");
+            throw new ParseException(MESSAGE_ACTIVITY_MISSING_TITLE);
         }
 
         return new ActivityCommand(title);
