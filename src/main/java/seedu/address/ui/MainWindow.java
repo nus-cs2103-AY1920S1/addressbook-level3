@@ -47,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+//    @FXML
+//    private StackPane personListPanelPlaceholder;
+
     @FXML
     private StackPane titleScreenPanelPlaceholder;
 

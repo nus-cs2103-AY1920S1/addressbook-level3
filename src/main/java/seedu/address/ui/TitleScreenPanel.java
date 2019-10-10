@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 public class TitleScreenPanel extends UiPart<Region> {
     private static final String FXML = "TitleScreenPanel.fxml";
     private static final String MESSAGE_INTRODUCTION = "Welcome to the Dukedex!";
-    private static final String MESSAGE_INFORMATION = "Have you ever wanted to sit down and memorise things"
-            + "but was always too lazy to do so? Well then this is your lucky day because this is the solution"
-            + "for you! The Dukedex allows you to put in any terms you want to memorise along with its definitions"
+    private static final String MESSAGE_INFORMATION = "Have you ever wanted to sit down and memorise things\n"
+            + "but was always too lazy to do so? Well then this is your lucky day because this is the solution\n"
+            + "for you! The Dukedex allows you to put in any terms you want to memorise along with its definitions\n"
             + "and tags. You can then start the game right away with \"start [INDEX]\".";
 
     @FXML
