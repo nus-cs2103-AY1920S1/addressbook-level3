@@ -1,12 +1,15 @@
 package seedu.jarvis.model.planner;
 
-import java.util.Date;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import seedu.jarvis.model.tag.Tag;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import seedu.jarvis.model.tag.Tag;
+
+
 
 class DeadlineTest {
 
