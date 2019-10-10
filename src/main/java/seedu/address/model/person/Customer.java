@@ -1,8 +1,10 @@
 package seedu.address.model.person;
 
+import java.util.Set;
+
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
+
 
 /**
  * Represents a Customer in the address book.
@@ -11,8 +13,9 @@ import java.util.Set;
 
 public class Customer extends Person {
 
+    private static int idCount = 0;
     private int id;
-    static int IDCount = 0;
+
 
     /**
      * Every field must be present and not null.
@@ -23,14 +26,19 @@ public class Customer extends Person {
      * @param address
      * @param tags
      */
+
     public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        id = IDCount;
-        IDCount++;
+        id = idCount;
+        idCount++;
     }
 
-    public int getIDCount(){ return IDCount; }
+    public int getIdCount() {
+        return idCount;
+    }
 
-    public int getID(){ return id; }
+    public int getId() {
+        return id;
+    }
 
 }

@@ -12,25 +12,25 @@ package seedu.address.model.person;
  * @see Person#isSamePerson(Person)
  */
 
-public class CustomerList extends UniquePersonList{
+public class CustomerList extends UniquePersonList {
 
-    public void setCustomer(Customer target, Customer editedCustomer){
+    public void setCustomer(Customer target, Customer editedCustomer) {
         setPerson(target, editedCustomer);
     }
 
-    public void setCustomers(CustomerList replacement){
+    public void setCustomers(CustomerList replacement) {
         setPersons(replacement);
     }
 
-    public void addCustomer(Customer toAdd){
+    public void addCustomer(Customer toAdd) {
         add(toAdd);
     }
 
-    public boolean containCustomer(Customer toCheck){
+    public boolean containCustomer(Customer toCheck) {
         return contains(toCheck);
     }
 
-    public void removeCustomer(Customer toRemove){
+    public void removeCustomer(Customer toRemove) {
         remove(toRemove);
     }
 
