@@ -18,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exception.EnumNotPresentException;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
@@ -189,7 +190,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException,
+            ParseException, EnumNotPresentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -199,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
             List<UiChange> uiChanges = commandResult.getUiChange();
             performUiChanges(uiChanges);
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | EnumNotPresentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -210,7 +212,7 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void performUiChanges(List<UiChange> input) {
+    private void performUiChanges(List<UiChange> input) throws EnumNotPresentException {
         for (UiChange type : input) {
             switch (type) {
             case CUSTOMER:
@@ -233,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             default:
                 //do nothing
-                break;
+                throw new EnumNotPresentException("Enum not present in command");
             }
         }
     }
