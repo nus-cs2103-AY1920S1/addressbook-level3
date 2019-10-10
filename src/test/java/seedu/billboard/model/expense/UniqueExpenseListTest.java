@@ -40,14 +40,6 @@ public class UniqueExpenseListTest {
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        expenseList.add(BILLS);
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        assertTrue(expenseList.contains(editedAlice));
-    }
-
-    @Test
     public void add_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> expenseList.add(null));
     }
