@@ -34,7 +34,7 @@ class JsonAdaptedExpense {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Expense} object.
+     * Converts this Jackson-friendly adapted expense object into the model's {@code Expense} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
