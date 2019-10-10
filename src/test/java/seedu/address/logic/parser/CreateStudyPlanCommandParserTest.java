@@ -31,7 +31,7 @@ import static seedu.address.testutil.TypicalStudyPlans.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.logic.commands.CreateStudyPlanCommand;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 import seedu.address.testutil.StudyPlanBuilder;
