@@ -1,14 +1,14 @@
 {
   "students": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "credits": "32",
     "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "matricId": "A1238213R",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "credits": "24",
     "email": "pauline@example.com",
-    "address": "4th street"
+    "matricId": "A12837192R"
   } ]
 }
