@@ -18,6 +18,8 @@ public class Phone implements Cloneable {
 
     // Identity fields
     private final UUID id;
+
+    // Data fields
     private final PhoneName phoneName;
     private final Brand brand;
     private final Capacity capacity;
@@ -84,6 +86,7 @@ public class Phone implements Cloneable {
 
     /**
      * Returns true if both phones have the same identity fields.
+     * This defines a weaker notion of equality between two phones.
      */
     public boolean isSamePhone(Phone otherPhone) {
         if (otherPhone == this) {
@@ -95,7 +98,8 @@ public class Phone implements Cloneable {
     }
 
     /**
-     * Returns true if both phones have the same data fields.
+     * Returns true if both phones have the same identity and data fields.
+     * This defines a stronger notion of equality between two phones.
      */
     @Override
     public boolean equals(Object other) {
@@ -108,7 +112,8 @@ public class Phone implements Cloneable {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getPhoneName().equals(getPhoneName())
+        return otherPhone.getId().equals(getId())
+                && otherPhone.getPhoneName().equals(getPhoneName())
                 && otherPhone.getBrand().equals((getBrand()))
                 && otherPhone.getCapacity().equals((getCapacity()))
                 && otherPhone.getColour().equals((getColour()))
@@ -117,10 +122,9 @@ public class Phone implements Cloneable {
     }
 
     @Override
-    public Object clone() {
-        Phone clone = new Phone(this.id, (PhoneName) this.phoneName.clone(), (Brand) this.brand.clone(), this.capacity,
-                (Colour) this.colour.clone(), (Cost) this.cost.clone(), this.getTags());
-        return clone;
+    public Phone clone() {
+        return new Phone(this.id, this.phoneName.clone(), this.brand.clone(), this.capacity,
+                this.colour.clone(), this.cost.clone(), this.getTags());
     }
 
     @Override

@@ -52,7 +52,7 @@ public class Cost implements Cloneable {
     }
 
     @Override
-    protected Object clone() {
+    protected Cost clone() {
         return new Cost(new String(value));
     }
 
