@@ -75,7 +75,9 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.equals(editedExpense) && model.hasExpense(editedExpense)) {
+        boolean b = !expenseToEdit.equals(editedExpense);
+        boolean b1 = model.hasExpense(editedExpense);
+        if (b && b1) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

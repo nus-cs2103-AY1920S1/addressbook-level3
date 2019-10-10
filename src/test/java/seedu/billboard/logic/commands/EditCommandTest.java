@@ -114,6 +114,7 @@ public class EditCommandTest {
 
         // edit expense in filtered list into a duplicate in address book
         Expense expenseInList = model.getBillboard().getExpenses().get(INDEX_SECOND_PERSON.getZeroBased());
+        EditCommand.EditExpenseDescriptor thing = new EditExpenseDescriptorBuilder(expenseInList).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
 
