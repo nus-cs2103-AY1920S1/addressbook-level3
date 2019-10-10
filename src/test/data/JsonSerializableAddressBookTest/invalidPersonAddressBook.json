@@ -5,5 +5,11 @@
     "email": "invalid@email!3e",
     "username": "tester11",
     "password": "password"
-  } ]
+  } ],
+  "vehicles": [{
+    "vehicleType": "Patrol Car",
+    "vehicleNumber": "SBH3100F",
+    "district": 16,
+    "availability": "BUSY"
+  }]
 }

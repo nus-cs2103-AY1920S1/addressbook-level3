@@ -50,10 +50,10 @@
     "password": "password",
     "tagged" : [ ]
   } ],
-  "vehicles": [{
+  "vehicles": [ {
     "vehicleType": "Patrol Car",
     "vehicleNumber": "SBH3100F",
     "district": 16,
     "availability": "BUSY"
-  }]
+  } ]
 }

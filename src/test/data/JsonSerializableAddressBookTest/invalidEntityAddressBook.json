@@ -2,8 +2,9 @@
   "persons": [ {
     "name": "Hans Muster",
     "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "email": "valid@nus.edu",
+    "username": "tester11",
+    "password": "password"
   } ],
   "vehicles": [{
     "vehicleType": "Bus",
