@@ -16,5 +16,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_ATTENDANCE = new Prefix("att/");
     public static final Prefix PREFIX_PARTICIPATION = new Prefix("part/");
     public static final Prefix PREFIX_CLASSID = new Prefix("c/");
+    public static final Prefix PREFIX_AMOUNT = new Prefix("i/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_MODULE = new Prefix("m/");
+    public static final Prefix PREFIX_WEEK = new Prefix("w/");
+    public static final Prefix PREFIX_MONTH = new Prefix("month/");
 
 }

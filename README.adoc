@@ -1,5 +1,6 @@
 = TutorAid
 ifdef::env-github,env-browser[:relfileprefix: docs/]
+
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
@@ -34,23 +35,6 @@ TutorAid simply makes your life 200% easier as a TA. No more messy unorganized n
 * Track your earnings from teaching and view reports of your daily, weekly or monthly earnings.
 * Keep track of the progress of your students. View and input their attendance, results and participation!
 * Takes notes for individual lessons to remind yourself of what to go through during the class!
-
-## What Is TutorAid?
-
-TutorAid is a desktop task manager and tracker application. It has a Graphical User Interface (GUI) but most of the user interactions happens using a CLI (Command Line Interface). To put it in layman terms, you type in information about your classes and TutorAid takes note of them for you!
-
-## Why Should I Use TutorAid?
-
-TutorAid simply makes your life 200% easier as a TA. No more messy unorganized notes on when your tutorial classes are, where they are or even what you want to cover in class later on. All the information you need can now be easily retrieved with TutorAid.
-
-## Features
-
-* Add, delete or edit classes and locations to your schedule and view them in calender form!
-* Reminder feature that keeps track of when your next class is!
-* Track your earnings from teaching and view reports of your daily, weekly or monthly earnings.
-* Keep track of the progress of your students. View and input their attendance, results and participation!
-* Takes notes for individual lessons to remind yourself of what to go through during the class!
-== Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
