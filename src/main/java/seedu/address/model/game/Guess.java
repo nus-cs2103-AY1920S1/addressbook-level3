@@ -3,10 +3,11 @@ package seedu.address.model.game;
 import seedu.address.model.card.Word;
 
 /**
- * Represents a user's guess.
+ * Represents a user's guess during a Game session.
  */
 public class Guess {
 
+    // User's input guessString cannot be changed once assigned.
     private final String guessString;
 
     public Guess(String guessString) {
