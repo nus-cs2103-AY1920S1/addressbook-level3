@@ -69,12 +69,7 @@ public class StudentTest {
         Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
-
-        // different credits -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).build();
-        Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
-
+        
         // different matricId -> returns false
         editedAlice = new StudentBuilder(TypicalStudents.ALICE).withMatricId(CommandTestUtil
                 .VALID_MATRICID_AMY).build();
