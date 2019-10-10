@@ -6,6 +6,7 @@ import java.nio.file.Path;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ItemList;
 import seedu.address.model.item.ReminderList;
@@ -147,10 +148,26 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
-     * Set the new item list to be the visualization list.
-     * @param il the item list to be visualized
+     * Set a new item list to be the visualization list.
+     * @param listString the string representation of the list to be visualized
      */
-    public void setVisualList(ItemList il) {
+    public void setVisualList(String listString) throws IllegalValueException {
+        switch(listString) {
+        case "T":
+            setVisualList(taskList);
+            break;
+        case "E":
+            setVisualList(eventList);
+            break;
+        case "R":
+            setVisualList(reminderList);
+            break;
+        default:
+            throw new IllegalValueException(String.format("%s is no a valid list", listString));
+        }
+    }
+
+    private void setVisualList(ItemList il) {
         this.visualList = il;
     }
 
