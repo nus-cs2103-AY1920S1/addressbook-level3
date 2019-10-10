@@ -2,7 +2,7 @@
   "persons": [ {
     "name" : "movie tickets",
     "description" : null,
-    "amount" : "10.00",
+    "amount" : "blah",
     "tagged" : [ "leisure" ]
   } ]
 }
