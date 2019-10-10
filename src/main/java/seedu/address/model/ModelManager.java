@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,9 +13,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.Email;
+import seedu.address.model.borrower.Name;
+import seedu.address.model.borrower.Phone;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the Library data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -24,6 +29,8 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
+
+    private final Optional<Borrower> servingBorrower; // TODO
 
     /**
      * Initializes a ModelManager with the given catalog and userPrefs.
@@ -48,6 +55,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
+        this.servingBorrower = Optional.empty(); // TODO
     }
 
     public ModelManager() {
@@ -77,7 +85,6 @@ public class ModelManager implements Model {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
-
 
     @Override
     public void setCatalog(ReadOnlyCatalog catalog) {
@@ -181,10 +188,25 @@ public class ModelManager implements Model {
 
     //=========== BorrowerRecords ===============================================================================
 
+    @Override
     public ReadOnlyBorrowerRecords getBorrowerRecords() {
         return borrowerRecords;
     }
 
+
+    @Override
+    public Optional<Borrower> getServingBorrower() {
+        // TODO
+        // return servingBorrower;
+        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"))); // STUB
+    }
+
+    @Override
+    public boolean isServeMode() {
+        // TODO
+        // return servingBorrower.isPresent();
+        return true; // STUB
+    }
 
     @Override
     public boolean equals(Object obj) {
