@@ -9,6 +9,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of bookmarks */
     ObservableList<Bookmark> getFilteredBookmarkList();
+
+    /** Returns an unmodifiable view of the folder structure */
+    FolderStructure getFolderStructure();
 
     /**
      * Returns the user prefs' mark file path.

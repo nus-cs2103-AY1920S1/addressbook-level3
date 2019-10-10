@@ -3,5 +3,9 @@
     "name": "Hans Muster",
     "url": "invalid@url!3e",
     "remark": "4th street"
-  } ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  }
 }

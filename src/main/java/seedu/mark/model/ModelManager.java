@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -110,6 +111,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedBookmark);
 
         mark.setBookmark(target, editedBookmark);
+    }
+
+
+    @Override
+    public void addFolder(Folder folder, Folder parentFolder) {
+        requireAllNonNull(folder, parentFolder);
+        mark.addFolder(folder, parentFolder);
+    }
+
+    @Override
+    public boolean hasFolder(Folder folder) {
+        return mark.hasFolder(folder);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================

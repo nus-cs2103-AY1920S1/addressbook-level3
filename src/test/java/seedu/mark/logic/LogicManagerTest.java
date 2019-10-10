@@ -12,6 +12,8 @@ import static seedu.mark.testutil.TypicalBookmarks.AMY;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,6 +28,8 @@ import seedu.mark.model.ModelManager;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.JsonUserPrefsStorage;
 import seedu.mark.storage.StorageManager;
@@ -91,6 +95,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredBookmarkList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBookmarkList().remove(0));
+    }
+
+    @Test
+    public void getFolderStructure() {
+        assertEquals(logic.getFolderStructure(), new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>()));
     }
 
     /**
