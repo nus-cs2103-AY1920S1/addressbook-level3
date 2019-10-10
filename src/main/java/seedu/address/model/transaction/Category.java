@@ -53,7 +53,7 @@ public class Category {
 
     @Override
     public int hashCode() {
-        return description.hashCode();
+        return category.hashCode();
     }
 }
 
