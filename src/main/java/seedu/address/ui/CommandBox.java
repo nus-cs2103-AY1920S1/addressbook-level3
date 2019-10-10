@@ -67,7 +67,7 @@ public class CommandBox extends UiPart<Region> {
         } else if (i < 0 && historyIterator.hasPrevious()) {
             text = historyIterator.previous();
         } else {
-            text = "";
+            text = commandTextField.getText();
         }
         commandTextField.setText(text);
     }
