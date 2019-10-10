@@ -11,7 +11,7 @@ import seedu.billboard.model.ReadOnlyBillboard;
 /**
  * Represents a storage for {@link Billboard}.
  */
-public interface AddressBookStorage {
+public interface BillboardStorage {
 
     /**
      * Returns the file path of the data file.

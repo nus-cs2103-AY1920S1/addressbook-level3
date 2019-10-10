@@ -52,18 +52,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBillboard getAddressBook() {
+    public ReadOnlyBillboard getBillboard() {
         return model.getBillboard();
     }
 
     @Override
-    public ObservableList<Expense> getFilteredPersonList() {
+    public ObservableList<Expense> getFilteredExpenseList() {
         return model.getFilteredExpenses();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getBillboardFilePath() {
+        return model.getBillboardFilePath();
     }
 
     @Override

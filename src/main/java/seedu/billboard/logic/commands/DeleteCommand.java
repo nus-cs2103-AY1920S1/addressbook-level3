@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Expense: %1$s";
+    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense: %1$s";
 
     private final Index targetIndex;
 
@@ -36,12 +36,12 @@ public class DeleteCommand extends Command {
         List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpense(expenseToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, expenseToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
     }
 
     @Override

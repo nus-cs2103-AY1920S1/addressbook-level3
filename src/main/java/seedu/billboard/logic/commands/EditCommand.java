@@ -5,7 +5,7 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,9 +43,9 @@ public class EditCommand extends Command {
             + PREFIX_DESCRIPTION + "buy tea "
             + PREFIX_AMOUNT + "1.23";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Expense: %1$s";
+    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
@@ -77,12 +77,12 @@ public class EditCommand extends Command {
         boolean b = !expenseToEdit.equals(editedExpense);
         boolean b1 = model.hasExpense(editedExpense);
         if (b && b1) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
         model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedExpense));
+        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
+        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 
     /**

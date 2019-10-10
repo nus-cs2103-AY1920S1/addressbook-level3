@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
-import seedu.billboard.testutil.AddressBookBuilder;
+import seedu.billboard.testutil.BillboardBuilder;
 
 public class ModelManagerTest {
 
@@ -38,14 +38,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setBillboardFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setBillboardFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -62,47 +62,47 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setBillboardFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setBillboardFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setBillboardFilePath_validPath_setsBillboardFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setBillboardFilePath(path);
+        assertEquals(path, modelManager.getBillboardFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExpense_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasExpense(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasExpense_expenseNotInBillboard_returnsFalse() {
         assertFalse(modelManager.hasExpense(BILLS));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasExpense_expenseInBillboard_returnsTrue() {
         modelManager.addExpense(BILLS);
         assertTrue(modelManager.hasExpense(BILLS));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredExpenseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExpenses().remove(0));
     }
 
     @Test
     public void equals() {
-        Billboard addressBook = new AddressBookBuilder().withPerson(BILLS).withPerson(FOOD).build();
-        Billboard differentAddressBook = new Billboard();
+        Billboard billboard = new BillboardBuilder().withExpense(BILLS).withExpense(FOOD).build();
+        Billboard differentBillboard = new Billboard();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(billboard, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(billboard, userPrefs);
         assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
@@ -114,20 +114,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertNotEquals(5, modelManager);
 
-        // different addressBook -> returns false
-        assertNotEquals(modelManager, new ModelManager(differentAddressBook, userPrefs));
+        // different billboard -> returns false
+        assertNotEquals(modelManager, new ModelManager(differentBillboard, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = BILLS.getName().name.split("\\s+");
         modelManager.updateFilteredExpenses(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertNotEquals(modelManager, new ModelManager(addressBook, userPrefs));
+        assertNotEquals(modelManager, new ModelManager(billboard, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredExpenses(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertNotEquals(modelManager, new ModelManager(addressBook, differentUserPrefs));
+        differentUserPrefs.setBillboardFilePath(Paths.get("differentFilePath"));
+        assertNotEquals(modelManager, new ModelManager(billboard, differentUserPrefs));
     }
 }

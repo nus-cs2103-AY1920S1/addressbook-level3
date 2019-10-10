@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "billboard.json"
+  "billboardFilePath" : "billboard.json"
 }

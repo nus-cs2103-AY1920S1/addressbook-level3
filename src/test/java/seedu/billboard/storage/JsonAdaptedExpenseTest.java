@@ -30,25 +30,25 @@ public class JsonAdaptedExpenseTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedExpense person = new JsonAdaptedExpense(FOOD);
-        assertEquals(FOOD, person.toModelType());
+    public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
+        JsonAdaptedExpense expense = new JsonAdaptedExpense(FOOD);
+        assertEquals(FOOD, expense.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedExpense person =
+        JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(INVALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedExpense person = new JsonAdaptedExpense(null, VALID_DESCRIPTION, VALID_AMOUNT, VALID_TAGS);
+        JsonAdaptedExpense expense = new JsonAdaptedExpense(null, VALID_DESCRIPTION, VALID_AMOUNT, VALID_TAGS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 
     @Test
@@ -79,9 +79,9 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedExpense person =
+        JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, expense::toModelType);
     }
 
 }

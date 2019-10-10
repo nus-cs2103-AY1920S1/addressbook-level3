@@ -12,7 +12,7 @@ import seedu.billboard.model.expense.Expense;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Expense> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,12 +37,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getBillboardFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBillboardFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code billboard}.

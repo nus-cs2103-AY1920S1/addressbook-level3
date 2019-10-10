@@ -17,26 +17,26 @@ import seedu.billboard.model.expense.Expense;
  * An Immutable Billboard that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableBillboard {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Expenses list contains duplicate expense(s).";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
 
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given expenses.
+     * Constructs a {@code JsonSerializableBillboard} with the given expenses.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses) {
+    public JsonSerializableBillboard(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses) {
         this.expenses.addAll(expenses);
     }
 
     /**
      * Converts a given {@code ReadOnlyBillboard} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableBillboard}.
      */
-    public JsonSerializableAddressBook(ReadOnlyBillboard source) {
+    public JsonSerializableBillboard(ReadOnlyBillboard source) {
         expenses.addAll(source.getExpenses().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
     }
 
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
             if (addressBook.hasExpense(expense)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
             addressBook.addExpense(expense);
         }

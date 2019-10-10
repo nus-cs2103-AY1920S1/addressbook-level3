@@ -2,7 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.billboard.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.billboard.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
 import static seedu.billboard.testutil.TypicalExpenses.GROCERIES;
@@ -54,8 +54,8 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noExpenseFound() {
+        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenses(predicate);
@@ -65,7 +65,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleExpensesFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("food movie groceries");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenses(predicate);

@@ -66,14 +66,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getBillboardFilePath() {
+        return userPrefs.getBillboardFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setBillboardFilePath(Path billboardFilePath) {
+        requireNonNull(billboardFilePath);
+        userPrefs.setBillboardFilePath(billboardFilePath);
     }
 
     //=========== Billboard ================================================================================
@@ -102,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addExpense(Expense expense) {
         billboard.addExpense(expense);
-        updateFilteredExpenses(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versioned Billboard}
      */
     @Override
     public ObservableList<Expense> getFilteredExpenses() {

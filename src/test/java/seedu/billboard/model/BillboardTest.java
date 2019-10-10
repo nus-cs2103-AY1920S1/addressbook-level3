@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.exceptions.DuplicatePersonException;
+import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class BillboardTest {
@@ -35,47 +35,40 @@ public class BillboardTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyBillboard_replacesData() {
         Billboard newData = getTypicalBillboard();
         billboard.resetData(newData);
         assertEquals(newData, billboard);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
         Expense duplicateExpense = new ExpenseBuilder(BILLS).build();
         List<Expense> newExpenses = Arrays.asList(BILLS, duplicateExpense);
         BillboardStub newData = new BillboardStub(newExpenses);
 
-        assertThrows(DuplicatePersonException.class, () -> billboard.resetData(newData));
+        assertThrows(DuplicateExpenseException.class, () -> billboard.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExpense_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> billboard.hasExpense(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasExpense_expenseNotInBillboard_returnsFalse() {
         assertFalse(billboard.hasExpense(BILLS));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasExpense_expenseInBillboard_returnsTrue() {
         billboard.addExpense(BILLS);
         assertTrue(billboard.hasExpense(BILLS));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        billboard.addExpense(BILLS);
-        Expense expenseWithSameIdentity = new ExpenseBuilder(BILLS).build();
-        assertTrue(billboard.hasExpense(expenseWithSameIdentity));
-    }
-
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> billboard.getExpenses().remove(0));
     }
 

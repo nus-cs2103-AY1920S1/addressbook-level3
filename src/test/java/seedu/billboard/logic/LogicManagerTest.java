@@ -1,7 +1,7 @@
 package seedu.billboard.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
@@ -26,7 +26,7 @@ import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.storage.JsonAddressBookStorage;
+import seedu.billboard.storage.JsonBillboardStorage;
 import seedu.billboard.storage.JsonUserPrefsStorage;
 import seedu.billboard.storage.StorageManager;
 import seedu.billboard.testutil.ExpenseBuilder;
@@ -42,10 +42,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("billboard.json"));
+        JsonBillboardStorage billboardStorage =
+                new JsonBillboardStorage(temporaryFolder.resolve("billboard.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(billboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -58,7 +58,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -69,12 +69,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonBillboardIoExceptionThrowingStub
+        JsonBillboardStorage billboardStorage =
+                new JsonBillboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(billboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -88,8 +88,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredExpenseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExpenseList().remove(0));
     }
 
     /**
@@ -148,8 +148,8 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonBillboardIoExceptionThrowingStub extends JsonBillboardStorage {
+        private JsonBillboardIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

@@ -15,19 +15,19 @@ import seedu.billboard.model.tag.Tag;
 /**
  * A utility class for Expense.
  */
-public class PersonUtil {
+public class ExpenseUtil {
 
     /**
      * Returns an add command string for adding the {@code expense}.
      */
     public static String getAddCommand(Expense expense) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(expense);
+        return AddCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
     }
 
     /**
      * Returns the part of command string for the given {@code expense}'s details.
      */
-    public static String getPersonDetails(Expense expense) {
+    public static String getExpenseDetails(Expense expense) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME).append(expense.getName().name).append(" ")
             .append(PREFIX_DESCRIPTION).append(expense.getDescription().description).append(" ")
@@ -42,7 +42,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditExpenseDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditExpenseDescriptor descriptor) {
+    public static String getEditExpenseDescriptorDetails(EditExpenseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
         descriptor.getDescription().ifPresent(desc -> sb.append(PREFIX_DESCRIPTION)

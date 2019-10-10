@@ -13,7 +13,7 @@ import seedu.billboard.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyBillboard_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,7 +21,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyBillboard_success() {
         Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());
         expectedModel.setBillboard(new Billboard());

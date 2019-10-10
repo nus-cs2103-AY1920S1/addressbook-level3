@@ -21,26 +21,26 @@ public class JsonSerializableBillboardTest {
     private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpensesBillboard.json");
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-                JsonSerializableAddressBook.class).get();
-        Billboard addressBookFromFile = dataFromFile.toModelType();
-        Billboard typicalPersonsAddressBook = TypicalExpenses.getTypicalBillboard();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+    public void toModelType_typicalExpensesFile_success() throws Exception {
+        JsonSerializableBillboard dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
+                JsonSerializableBillboard.class).get();
+        Billboard billboardFromFile = dataFromFile.toModelType();
+        Billboard typicalExpensesBillboard = TypicalExpenses.getTypicalBillboard();
+        assertEquals(billboardFromFile, typicalExpensesBillboard);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
-                JsonSerializableAddressBook.class).get();
+    public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableBillboard dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
+                JsonSerializableBillboard.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXPENSE_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
+    public void toModelType_duplicateExpenses_throwsIllegalValueException() throws Exception {
+        JsonSerializableBillboard dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXPENSE_FILE,
+                JsonSerializableBillboard.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableBillboard.MESSAGE_DUPLICATE_EXPENSE,
                 dataFromFile::toModelType);
     }
 

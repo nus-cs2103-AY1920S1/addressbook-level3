@@ -8,6 +8,7 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,26 +26,26 @@ import seedu.billboard.testutil.ExpenseBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
         CommandResult commandResult = new AddCommand(validExpense).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExpense), modelStub.personsAdded);
+        assertEquals(Collections.singletonList(validExpense), modelStub.expensesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateExpense_throwsCommandException() {
         Expense validExpense = new ExpenseBuilder().build();
         AddCommand addCommand = new AddCommand(validExpense);
-        ModelStub modelStub = new ModelStubWithPerson(validExpense);
+        ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
     }
@@ -98,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getBillboardFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setBillboardFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -151,10 +152,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single expense.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithExpense extends ModelStub {
         private final Expense expense;
 
-        ModelStubWithPerson(Expense expense) {
+        ModelStubWithExpense(Expense expense) {
             requireNonNull(expense);
             this.expense = expense;
         }
@@ -169,19 +170,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the expense being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Expense> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingExpenseAdded extends ModelStub {
+        final ArrayList<Expense> expensesAdded = new ArrayList<>();
 
         @Override
         public boolean hasExpense(Expense expense) {
             requireNonNull(expense);
-            return personsAdded.stream().anyMatch(expense::equals);
+            return expensesAdded.stream().anyMatch(expense::equals);
         }
 
         @Override
         public void addExpense(Expense expense) {
             requireNonNull(expense);
-            personsAdded.add(expense);
+            expensesAdded.add(expense);
         }
 
         @Override

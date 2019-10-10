@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "billboard.json"
+  "billboardFilePath" : "billboard.json"
 }

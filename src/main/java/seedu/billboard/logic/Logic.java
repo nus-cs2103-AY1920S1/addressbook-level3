@@ -28,15 +28,15 @@ public interface Logic {
      *
      * @see seedu.billboard.model.Model#getBillboard()
      */
-    ReadOnlyBillboard getAddressBook();
+    ReadOnlyBillboard getBillboard();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Expense> getFilteredPersonList();
+    ObservableList<Expense> getFilteredExpenseList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' billboard file path.
      */
-    Path getAddressBookFilePath();
+    Path getBillboardFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

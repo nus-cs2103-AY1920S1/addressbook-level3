@@ -17,13 +17,13 @@ import seedu.billboard.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private BillboardStorage billboardStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BillboardStorage billboardStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.billboardStorage = billboardStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getBillboardFilePath() {
-        return addressBookStorage.getBillboardFilePath();
+        return billboardStorage.getBillboardFilePath();
     }
 
     @Override
     public Optional<ReadOnlyBillboard> readBillboard() throws DataConversionException, IOException {
-        return readBillboard(addressBookStorage.getBillboardFilePath());
+        return readBillboard(billboardStorage.getBillboardFilePath());
     }
 
     @Override
     public Optional<ReadOnlyBillboard> readBillboard(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readBillboard(filePath);
+        return billboardStorage.readBillboard(filePath);
     }
 
     @Override
     public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, addressBookStorage.getBillboardFilePath());
+        saveBillboard(addressBook, billboardStorage.getBillboardFilePath());
     }
 
     @Override
     public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveBillboard(addressBook, filePath);
+        billboardStorage.saveBillboard(addressBook, filePath);
     }
 
 }

@@ -22,8 +22,8 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.util.SampleDataUtil;
-import seedu.billboard.storage.AddressBookStorage;
-import seedu.billboard.storage.JsonAddressBookStorage;
+import seedu.billboard.storage.BillboardStorage;
+import seedu.billboard.storage.JsonBillboardStorage;
 import seedu.billboard.storage.JsonUserPrefsStorage;
 import seedu.billboard.storage.Storage;
 import seedu.billboard.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BillboardStorage billboardStorage = new JsonBillboardStorage(userPrefs.getBillboardFilePath());
+        storage = new StorageManager(billboardStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -78,10 +78,10 @@ public class MainApp extends Application {
         ReadOnlyBillboard initialData;
         try {
             addressBookOptional = storage.readBillboard();
-            if (!addressBookOptional.isPresent()) {
+            if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample Billboard");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleBillboard);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Billboard");
             initialData = new Billboard();

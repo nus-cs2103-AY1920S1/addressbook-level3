@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.billboard.model.expense.exceptions.DuplicatePersonException;
-import seedu.billboard.model.expense.exceptions.PersonNotFoundException;
+import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
+import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
 
 /**
  * A list of expenses. The expenses are unique as specified by the {@code equals} method of the {@code Expense} class
@@ -37,7 +37,7 @@ public class ExpenseList implements Iterable<Expense> {
     public void add(Expense toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenseException();
         }
         internalList.add(toAdd);
     }
@@ -52,11 +52,11 @@ public class ExpenseList implements Iterable<Expense> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new ExpenseNotFoundException();
         }
 
         if (!target.equals(editedExpense) && contains(editedExpense)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenseException();
         }
 
         internalList.set(index, editedExpense);
@@ -69,7 +69,7 @@ public class ExpenseList implements Iterable<Expense> {
     public void remove(Expense toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new ExpenseNotFoundException();
         }
     }
 
@@ -85,7 +85,7 @@ public class ExpenseList implements Iterable<Expense> {
     public void setExpenses(List<Expense> expense) {
         requireAllNonNull(expense);
         if (!expensesAreUnique(expense)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenseException();
         }
 
         internalList.setAll(expense);

@@ -23,9 +23,9 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
 
 import org.junit.jupiter.api.Test;
 
@@ -99,7 +99,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_EXPENSE;
 
         String userInput = targetIndex.getOneBased() + NAME_DESC_DINNER + DESCRIPTION_DESC_TAXES + TAG_DESC_TAXES
                 + AMOUNT_DESC_DINNER + TAG_DESC_DINNER;
@@ -113,7 +113,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
@@ -126,7 +126,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_EXPENSE;
         String userInput = targetIndex.getOneBased() + NAME_DESC_DINNER;
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -153,7 +153,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_DINNER + AMOUNT_DESC_DINNER
                 + TAG_DESC_DINNER + DESCRIPTION_DESC_DINNER + AMOUNT_DESC_DINNER + TAG_DESC_DINNER
                 + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES + TAG_DESC_TAXES;
@@ -169,7 +169,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + AMOUNT_DESC_TAXES + DESCRIPTION_DESC_TAXES;
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
                 .withAmount(VALID_AMOUNT_TAXES).build();
@@ -191,7 +191,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_EXPENSE;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withTags().build();

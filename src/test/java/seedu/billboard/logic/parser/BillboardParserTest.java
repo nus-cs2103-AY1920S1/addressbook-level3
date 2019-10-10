@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,7 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.ExpenseBuilder;
-import seedu.billboard.testutil.PersonUtil;
+import seedu.billboard.testutil.ExpenseUtil;
 
 public class BillboardParserTest {
 
@@ -36,7 +36,7 @@ public class BillboardParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Expense expense = new ExpenseBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(expense));
+        AddCommand command = (AddCommand) parser.parseCommand(ExpenseUtil.getAddCommand(expense));
         assertEquals(new AddCommand(expense), command);
     }
 
@@ -49,8 +49,8 @@ public class BillboardParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_EXPENSE), command);
     }
 
     @Test
@@ -58,8 +58,8 @@ public class BillboardParserTest {
         Expense expense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_EXPENSE.getOneBased() + " " + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_EXPENSE, descriptor), command);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class BillboardParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindCommand.COMMAND_WORD + " " + String.join(" ", keywords));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 

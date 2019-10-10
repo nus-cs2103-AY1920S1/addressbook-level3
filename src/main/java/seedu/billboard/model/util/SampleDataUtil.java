@@ -16,7 +16,7 @@ import seedu.billboard.model.tag.Tag;
  * Contains utility methods for populating {@code Billboard} with sample data.
  */
 public class SampleDataUtil {
-    public static Expense[] getSamplePersons() {
+    public static Expense[] getSampleExpenses() {
         return new Expense[] {
             new Expense(new Name("buy tea"), new Description("tea from foodclique"),
                     new Amount("1.23"), getTagSet("com1")),
@@ -33,12 +33,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyBillboard getSampleAddressBook() {
-        Billboard sampleAb = new Billboard();
-        for (Expense sampleExpense : getSamplePersons()) {
-            sampleAb.addExpense(sampleExpense);
+    public static ReadOnlyBillboard getSampleBillboard() {
+        Billboard sampleBb = new Billboard();
+        for (Expense sampleExpense : getSampleExpenses()) {
+            sampleBb.addExpense(sampleExpense);
         }
-        return sampleAb;
+        return sampleBb;
     }
 
     /**

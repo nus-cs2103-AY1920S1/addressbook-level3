@@ -17,13 +17,13 @@ import seedu.billboard.model.ReadOnlyBillboard;
 /**
  * A class to access Billboard data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonBillboardStorage implements BillboardStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonBillboardStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonBillboardStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -45,9 +45,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public Optional<ReadOnlyBillboard> readBillboard(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableBillboard> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableBillboard.class);
+        if (jsonAddressBook.isEmpty()) {
             return Optional.empty();
         }
 
@@ -74,7 +74,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBillboard(addressBook), filePath);
     }
 
 }
