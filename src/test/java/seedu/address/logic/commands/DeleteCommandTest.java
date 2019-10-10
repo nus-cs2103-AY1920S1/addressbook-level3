@@ -67,14 +67,14 @@ public class DeleteCommandTest {
 
         // Delete Body
         IdentificationNumber outOfBoundBodyIndex = IdentificationNumber.customGenerateId("B",
-                model.getFilteredEntityList("B").size() + 1);
+                model.getFilteredEntityList("B").size() + 2);
         DeleteCommand deleteBodyCommand = new DeleteCommand(outOfBoundBodyIndex);
 
         assertDeleteCommandFailure(deleteBodyCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, "B");
 
         // Delete Worker
         IdentificationNumber outOfBoundWorkerIndex = IdentificationNumber.customGenerateId("W",
-                model.getFilteredEntityList("W").size() + 1);
+                model.getFilteredEntityList("W").size() + 2);
         DeleteCommand deleteWorkerCommand = new DeleteCommand(outOfBoundWorkerIndex);
 
         assertDeleteCommandFailure(deleteWorkerCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, "W");

@@ -66,13 +66,13 @@ public class UpdateCommandParserTest {
         // Update command only requires one field to be specified at minimum
         assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_SEX + " male",
-                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+                new UpdateCommand(expectedBody.getIdNum(), descriptor));
 
         descriptor.setCauseOfDeath("asphyxiation");
         // Two fields specified
         assertParseSuccess(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_SEX + " male " + PREFIX_CAUSE_OF_DEATH + " asphyxiation",
-                new UpdateCommand(expectedBody.getBodyIdNum(), descriptor));
+                new UpdateCommand(expectedBody.getIdNum(), descriptor));
     }
 
     @Test

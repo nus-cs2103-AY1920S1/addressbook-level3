@@ -59,7 +59,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete B00000001";
+        String deleteCommand = "delete B00000002";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
     }
 
@@ -92,6 +92,16 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredWorkerList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWorkerList().remove(0));
+    }
+
+    @Test
+    public void getFilteredBodyList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBodyList().remove(0));
     }
 
     /**

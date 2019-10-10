@@ -7,6 +7,8 @@ public interface Entity {
 
     String OPTIONAL_FIELD_EMPTY = "No input given.";
 
+    IdentificationNumber getIdNum();
+
     boolean isSameEntity(Object o);
 
     boolean equals(Object o);

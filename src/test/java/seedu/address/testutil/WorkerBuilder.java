@@ -40,7 +40,7 @@ public class WorkerBuilder {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
             dateJoined = ParserUtil.parseDate(DEFAULT_DATE_JOINED);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         designation = DEFAULT_DESIGNATION;
         employmentStatus = DEFAULT_EMPLOYMENT_STATUS;
@@ -90,7 +90,7 @@ public class WorkerBuilder {
         try {
             this.phone = ParserUtil.parsePhoneNumber(phone);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -102,7 +102,7 @@ public class WorkerBuilder {
         try {
             this.dateOfBirth = ParserUtil.parseDate(dateOfBirth);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -114,7 +114,7 @@ public class WorkerBuilder {
         try {
             this.dateJoined = ParserUtil.parseDate(dateJoined);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }

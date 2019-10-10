@@ -43,8 +43,6 @@ class BodyTest {
 
         assertTrue(ALICE.equals(ALICE));
         assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
-        System.out.println(ALICE);
-        System.out.println(aliceCopy);
         assertTrue(ALICE.equals(aliceCopy));
 
         assertFalse(ALICE.equals(null));
@@ -61,7 +59,7 @@ class BodyTest {
     @Test
     void getBodyIdNum() {
         // Final field; does not have a setter method.
-        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdNum());
+        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getIdNum());
     }
 
     @Test

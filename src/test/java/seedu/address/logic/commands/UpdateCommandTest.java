@@ -36,7 +36,7 @@ public class UpdateCommandTest {
         model.addEntity(body);
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
 
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
@@ -58,7 +58,7 @@ public class UpdateCommandTest {
         descriptor.setSex(null);
         descriptor.setCauseOfDeath(null);
 
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
@@ -74,7 +74,7 @@ public class UpdateCommandTest {
         // Fails because the Body was not added to the model.
         Body body = new BodyBuilder().build();
 
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), new UpdateBodyDescriptor());
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor());
 
         String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
@@ -103,11 +103,11 @@ public class UpdateCommandTest {
     public void equals() {
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
 
         // same values -> returns true
         UpdateBodyDescriptor copyDescriptor = new UpdateBodyDescriptor(body);
-        UpdateCommand commandWithSameValues = new UpdateCommand(new BodyBuilder().build().getBodyIdNum(),
+        UpdateCommand commandWithSameValues = new UpdateCommand(new BodyBuilder().build().getIdNum(),
                 copyDescriptor);
         assertTrue(updateCommand.equals(commandWithSameValues));
 
@@ -126,9 +126,9 @@ public class UpdateCommandTest {
 
         // different descriptor -> returns false
         copyDescriptor.setSex(Sex.FEMALE);
-        assertFalse(updateCommand.equals(new UpdateCommand(body.getBodyIdNum(), copyDescriptor)));
+        assertFalse(updateCommand.equals(new UpdateCommand(body.getIdNum(), copyDescriptor)));
 
-        commandWithSameValues = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        commandWithSameValues = new UpdateCommand(body.getIdNum(), descriptor);
         assertEquals(updateCommand.hashCode(), commandWithSameValues.hashCode());
     }
 }

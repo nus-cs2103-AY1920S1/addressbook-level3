@@ -32,7 +32,7 @@ public enum BodyStatus {
         case "donated":
             return DONATED;
         default:
-            throw new ParseException("Invalid Body Status.");
+            throw new ParseException("Invalid Body Status: " + statusLowerCaps);
         }
     }
 }

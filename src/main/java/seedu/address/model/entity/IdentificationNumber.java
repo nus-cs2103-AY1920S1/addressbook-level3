@@ -2,7 +2,13 @@ package seedu.address.model.entity;
 
 //@@author shaoyi1997
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
+
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
 
 /**
  * Represents the ID number of each entity.
@@ -21,49 +27,48 @@ public class IdentificationNumber {
     private static int countOfWorkers = 0;
     private static int countOfFridges = 0;
 
+    private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
+
     private int idNum;
     private String typeOfEntity;
+    private boolean isTestId = false;
 
-    // todo: check for duplicates
-    protected IdentificationNumber(String typeOfEntity) {
-        this.typeOfEntity = typeOfEntity;
-        switch (typeOfEntity) {
-        case ID_PREFIX_BODY:
-            countOfBodies++;
-            idNum = countOfBodies;
-            break;
-        case ID_PREFIX_WORKER:
-            countOfWorkers++;
-            idNum = countOfWorkers;
-            break;
-        case ID_PREFIX_FRIDGE:
-            countOfFridges++;
-            idNum = countOfFridges;
-            break;
-        default:
-            throw new IllegalArgumentException("Invalid entity type");
+    protected IdentificationNumber(Entity entity) {
+        requireNonNull(entity);
+        idNum = uniqueIds.addEntity(entity);
+        if (entity instanceof Worker) {
+            typeOfEntity = "W";
+        } else if (entity instanceof Body) {
+            typeOfEntity = "B";
+        } else {
+            typeOfEntity = "F";
         }
     }
 
-    private IdentificationNumber(String typeOfEntity, int idNum) {
+    private IdentificationNumber(String typeOfEntity, int idNum, boolean isTestId) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
+        this.isTestId = isTestId;
     }
 
-    public static IdentificationNumber generateNewBodyId() {
-        return new IdentificationNumber(ID_PREFIX_BODY);
+    public static IdentificationNumber generateNewBodyId(Body body) {
+        return new IdentificationNumber(body);
     }
 
-    public static IdentificationNumber generateNewWorkerId() {
-        return new IdentificationNumber(ID_PREFIX_WORKER);
+    public static IdentificationNumber generateNewWorkerId(Worker worker) {
+        return new IdentificationNumber(worker);
     }
 
-    public static IdentificationNumber generateNewFridgeId() {
-        return new IdentificationNumber(ID_PREFIX_FRIDGE);
+    public static IdentificationNumber generateNewFridgeId(Fridge fridge) {
+        return new IdentificationNumber(fridge);
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
-        return new IdentificationNumber(typeOfEntity, idNum);
+        return new IdentificationNumber(typeOfEntity, idNum, false);
+    }
+
+    public static IdentificationNumber customGenerateTestId(String typeOfEntity, int idNum) {
+        return new IdentificationNumber(typeOfEntity, idNum, true);
     }
 
     private static boolean isValidIdPrefix (String prefix) {
@@ -75,9 +80,13 @@ public class IdentificationNumber {
      * Checks if given {@code String id} is a valid identification number.
      */
     public static boolean isValidIdentificationNumber(String id) {
+        int idLength = id.length();
+        if (idLength < 3) {
+            return false;
+        }
         String idPrefix = id.charAt(0) + "";
         if (isValidIdPrefix(idPrefix)) {
-            int numberLength = id.substring(1).length();
+            int numberLength = idLength - 1;
             switch (idPrefix) {
             case ID_PREFIX_BODY:
                 return numberLength == 8;
@@ -97,16 +106,19 @@ public class IdentificationNumber {
      * @param id
      * @return
      */
-    public static boolean isExistingidentificationNumber(IdentificationNumber id) {
+    public static boolean isExistingIdentificationNumber(IdentificationNumber id) {
+        if (id.isTestId) {
+            return true;
+        }
         if (isValidIdentificationNumber(id.toString())) {
-            String idPrefix = id.toString().charAt(0) + "";
+            String idPrefix = id.typeOfEntity;
             switch (idPrefix) {
             case ID_PREFIX_BODY:
-                return id.getIdNum() <= countOfBodies;
+                return uniqueIds.containsBodyId(id.getIdNum());
             case ID_PREFIX_WORKER:
-                return id.getIdNum() <= countOfWorkers;
+                return uniqueIds.containsWorkerId(id.getIdNum());
             case ID_PREFIX_FRIDGE:
-                return id.getIdNum() <= countOfFridges;
+                return uniqueIds.containsFridgeId(id.getIdNum());
             default:
                 return false;
             }
@@ -159,6 +171,25 @@ public class IdentificationNumber {
 
     public static void resetCountOfFridges() {
         countOfFridges = 0;
+    }
+
+    /**
+     * Removes the mapping of the Id Number to its entity in the respective UniqueEntityList.
+     */
+    public void removeMapping() {
+        switch (typeOfEntity) {
+        case ID_PREFIX_BODY:
+            uniqueIds.removeBodyId(idNum);
+            break;
+        case ID_PREFIX_WORKER:
+            uniqueIds.removeWorkerId(idNum);
+            break;
+        case ID_PREFIX_FRIDGE:
+            uniqueIds.removeFridgeId(idNum);
+            break;
+        default:
+            System.out.println("Invalid ID Prefix.");
+        }
     }
 
 

@@ -145,14 +145,14 @@ public class UpdateCommand extends Command {
         if (descriptor instanceof UpdateBodyDescriptor) {
             List<Body> lastShownList = model.getFilteredBodyList();
             for (Body body : lastShownList) {
-                if (body.getBodyIdNum().equals(id)) {
+                if (body.getIdNum().equals(id)) {
                     return body;
                 }
             }
         } else if (descriptor instanceof UpdateWorkerDescriptor) {
             List<Worker> lastShownList = model.getFilteredWorkerList();
             for (Worker worker : lastShownList) {
-                if (worker.getWorkerIdNum().equals(id)) {
+                if (worker.getIdNum().equals(id)) {
                     return worker;
                 }
             }

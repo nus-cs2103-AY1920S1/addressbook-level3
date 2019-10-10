@@ -1,7 +1,5 @@
 package seedu.address.model.entity.worker;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,7 +31,7 @@ public class Worker implements Entity {
 
     public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
                   String designation) {
-        this.workerIdNum = IdentificationNumber.generateNewWorkerId();
+        this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
         this.sex = sex;
@@ -46,9 +44,9 @@ public class Worker implements Entity {
     public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
                   String designation, boolean isTestWorker) {
         if (isTestWorker) {
-            this.workerIdNum = IdentificationNumber.customGenerateId("W", 1);
+            this.workerIdNum = IdentificationNumber.customGenerateTestId("W", 1);
         } else {
-            this.workerIdNum = IdentificationNumber.generateNewWorkerId();
+            this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         }
         this.name = name;
         this.phone = Optional.ofNullable(phone);
@@ -60,7 +58,7 @@ public class Worker implements Entity {
     }
 
 
-    public IdentificationNumber getWorkerIdNum() {
+    public IdentificationNumber getIdNum() {
         return workerIdNum;
     }
 
@@ -93,7 +91,6 @@ public class Worker implements Entity {
     }
 
     public void setPhone(PhoneNumber phone) {
-        requireNonNull(phone);
         this.phone = Optional.ofNullable(phone);
     }
 
@@ -174,7 +171,7 @@ public class Worker implements Entity {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
             .append(" Worker ID: ")
-            .append(getWorkerIdNum())
+            .append(getIdNum())
             .append(" Sex: ")
             .append(getSex())
             .append(" Phone: ")

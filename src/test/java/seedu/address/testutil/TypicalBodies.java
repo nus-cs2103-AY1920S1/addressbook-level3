@@ -25,7 +25,7 @@ public class TypicalBodies {
             .withReligion("ISLAM")
             .withCauseOfDeath("Stroke")
             .withOrgansForDonation("")
-            .withStatus("PENDING_CLAIM")
+            .withStatus("PENDING CLAIM")
             .withFridgeId("F01")
             .withDateOfBirth("03/09/1982")
             .withDateOfDeath("01/01/1991")

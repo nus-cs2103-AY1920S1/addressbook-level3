@@ -131,8 +131,6 @@ public class AddCommandParserTest {
         Body expectedBody = new BodyBuilder(JOHN).withCauseOfDeath("").withFridgeId("").withKinPhoneNumber("")
             .withNric("").withNextOfKin("").withOrgansForDonation("").withRelationship("").withReligion("")
             .withStatus("").withDateOfBirth("").build();
-        System.out.println(VALID_BODY_FLAG + NAME_DESC_JOHN + SEX_DESC_JOHN
-            + DATE_OF_ADMISSION_DESC_JOHN + DATE_OF_DEATH_DESC_JOHN);
         assertParseSuccess(parser, VALID_BODY_FLAG + NAME_DESC_JOHN + SEX_DESC_JOHN
                 + DATE_OF_ADMISSION_DESC_JOHN + DATE_OF_DEATH_DESC_JOHN, new AddCommand(expectedBody));
     }

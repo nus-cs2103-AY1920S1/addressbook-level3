@@ -112,7 +112,7 @@ public class BodyBuilder {
         try {
             this.name = ParserUtil.parseName(name);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -132,7 +132,7 @@ public class BodyBuilder {
         try {
             this.nric = ParserUtil.parseNric(nric);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -160,7 +160,7 @@ public class BodyBuilder {
         try {
             this.bodyStatus = ParserUtil.parseBodyStatus(bodyStatus);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
 
         return this;
@@ -173,7 +173,7 @@ public class BodyBuilder {
         try {
             this.fridgeId = ParserUtil.parseIdentificationNumber(fridgeId);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -185,7 +185,7 @@ public class BodyBuilder {
         try {
             this.nextOfKin = ParserUtil.parseName(nextOfKin);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -205,7 +205,7 @@ public class BodyBuilder {
         try {
             this.religion = ParserUtil.parseReligion(religion);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }
@@ -217,7 +217,7 @@ public class BodyBuilder {
         try {
             this.kinPhoneNumber = ParserUtil.parsePhoneNumber(kinPhoneNumber);
         } catch (ParseException e) {
-            System.out.println(MESSAGE_INVALID_TEST_PARAMETERS);
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
         return this;
     }

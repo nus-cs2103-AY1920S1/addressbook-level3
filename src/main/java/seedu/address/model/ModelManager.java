@@ -106,6 +106,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteEntity(Entity target) {
         addressBook.removeEntity(target);
+        target.getIdNum().removeMapping();
     }
 
     @Override

@@ -40,7 +40,7 @@ public class Body implements Entity {
     private Optional<PhoneNumber> kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
-        this.bodyIdNum = IdentificationNumber.generateNewBodyId();
+        this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
     }
 
@@ -49,10 +49,10 @@ public class Body implements Entity {
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, PhoneNumber kinPhoneNumber) {
         if (isTestUnit) {
-            this.bodyIdNum = IdentificationNumber.customGenerateId("B",
+            this.bodyIdNum = IdentificationNumber.customGenerateTestId("B",
                     identificationNumber);
         } else {
-            this.bodyIdNum = IdentificationNumber.generateNewBodyId();
+            this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         }
         this.dateOfAdmission = dateOfAdmission;
         this.name = name;
@@ -71,7 +71,7 @@ public class Body implements Entity {
     }
 
     // Getters and Setters
-    public IdentificationNumber getBodyIdNum() {
+    public IdentificationNumber getIdNum() {
         return bodyIdNum;
     }
 
@@ -216,7 +216,7 @@ public class Body implements Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBodyIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
+        return Objects.hash(getIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
                 getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
                 getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }
@@ -235,7 +235,8 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return Objects.equals(getNric(), body.getNric());
+        return Objects.equals(getNric(), body.getNric())
+            && Objects.equals(getName(), body.getName());
     }
 
     /**
@@ -252,7 +253,7 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return body.getBodyIdNum().equals(((Body) o).getBodyIdNum());
+        return body.getIdNum().equals(((Body) o).getIdNum());
     }
 
     @Override

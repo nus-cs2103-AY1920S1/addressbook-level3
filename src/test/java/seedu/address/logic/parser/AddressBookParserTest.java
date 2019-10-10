@@ -87,7 +87,7 @@ public class AddressBookParserTest {
                 + PREFIX_FLAG + "b "
                 + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                 + PREFIX_SEX + " male");
-        assertEquals(new UpdateCommand(body.getBodyIdNum(), descriptor), command);
+        assertEquals(new UpdateCommand(body.getIdNum(), descriptor), command);
     }
     //@@author
 
