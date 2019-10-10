@@ -19,6 +19,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.mark.MainApp;
 import seedu.mark.commons.core.LogsCenter;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * The Browser Panel of Mark.
@@ -166,10 +167,10 @@ public class BrowserPanel extends UiPart<Region> {
      * @return true if url is valid; else false.
      */
     private boolean isValidUrl(String url) {
-        //TODO: parse and check if the url is a valid url
+        //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return !url.isBlank(); //dummy code
+        return Url.isValidUrl(url); //dummy code
     }
 
     /**

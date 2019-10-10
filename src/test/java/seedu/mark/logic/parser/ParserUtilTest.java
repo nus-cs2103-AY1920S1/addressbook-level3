@@ -154,7 +154,9 @@ public class ParserUtilTest {
             ParserUtil.parseTab("invalid arg");
             fail();
         } catch (ParseException pe) {
-            assertEquals(new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE)).getMessage(), pe.getMessage());
+            assertEquals(new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE)).getMessage(),
+                    pe.getMessage());
         }
     }
 

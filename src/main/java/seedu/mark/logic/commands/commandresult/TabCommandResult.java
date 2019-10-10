@@ -1,5 +1,8 @@
 package seedu.mark.logic.commands.commandresult;
 
+/**
+ * Represents the result of a tab command execution.
+ */
 public class TabCommandResult extends CommandResult {
 
     private final boolean switchViewDashboard;

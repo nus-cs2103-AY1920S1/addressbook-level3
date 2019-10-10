@@ -86,6 +86,14 @@ public class ParserUtil {
         return new Url(trimmedUrl);
     }
 
+    /**
+     * Parses a {@code String arg} into a {@code Tab}.
+     * Parsing will be successful only if {@code arg} is either "1", "2" or "3".
+     *
+     * @param arg The argument of a tab command
+     * @return The corresponding tab
+     * @throws ParseException if the given {@code arg} is invalid.
+     */
     public static TabCommand.Tab parseTab(String arg) throws ParseException {
         Index index = null;
         try {

@@ -5,6 +5,7 @@ import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.logic.commands.TabCommand;
 
 class TabCommandParserTest {

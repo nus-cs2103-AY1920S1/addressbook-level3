@@ -121,11 +121,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         dashboardPanel = new DashboardPanel();
         offlinePanel = new OfflinePanel();
-        mainViewAreaPlaceholder.getChildren().add(//All(
-             //   offlinePanel.getRoot(),
-             //   browserPanel.getRoot(),
-                dashboardPanel.getRoot());
-        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());

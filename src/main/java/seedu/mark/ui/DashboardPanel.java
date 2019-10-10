@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.mark.commons.core.LogsCenter;
 
+/**
+ * The Dashboard panel of Mark.
+ */
 public class DashboardPanel extends UiPart<Region> {
 
     private static final String FXML = "DashboardPanel.fxml";
