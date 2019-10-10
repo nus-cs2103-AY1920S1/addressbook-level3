@@ -34,6 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private VisitRecordWindow visitWindow;
+    private VisitListPanel visitListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,6 +65,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        visitWindow = new VisitRecordWindow();
+        visitListPanel = new VisitListPanel();
     }
 
     public Stage getPrimaryStage() {
@@ -157,7 +161,33 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        visitWindow.hide();
+        visitListPanel.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Opens the visit form or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleAddVisit() {
+        if (!visitWindow.isShowing()) {
+            visitWindow.show();
+        } else {
+            visitWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the visit form or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleDeleteVisit() {
+        if (!visitListPanel.isShowing()) {
+            visitListPanel.show();
+        } else {
+            visitListPanel.focus();
+        }
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -177,6 +207,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isAddVisit()) {
+                visitWindow.setReportInfo(commandResult.getIdx(), commandResult.getDate(), logic);
+                handleAddVisit();
+            }
+
+            if (commandResult.isDeleteVisit()) {
+                visitListPanel.setup(commandResult.getObservableVisitList());
+                handleDeleteVisit();
             }
 
             if (commandResult.isExit()) {
