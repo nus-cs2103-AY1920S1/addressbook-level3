@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.model.person.exceptions.DuplicatePersonException;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.address.person.exceptions.DuplicatePersonException;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class AddressBookTest {

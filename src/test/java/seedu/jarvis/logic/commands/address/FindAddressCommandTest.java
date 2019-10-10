@@ -23,7 +23,7 @@ import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindAddressCommand}.

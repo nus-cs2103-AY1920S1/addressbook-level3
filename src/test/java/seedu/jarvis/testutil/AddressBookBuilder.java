@@ -1,7 +1,7 @@
 package seedu.jarvis.testutil;
 
 import seedu.jarvis.model.AddressBook;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * A utility class to help with building Addressbook objects.

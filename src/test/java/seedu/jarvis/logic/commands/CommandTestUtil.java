@@ -18,8 +18,8 @@ import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
 
 /**

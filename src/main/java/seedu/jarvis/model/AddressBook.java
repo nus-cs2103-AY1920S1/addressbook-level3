@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.jarvis.model.person.Person;
-import seedu.jarvis.model.person.UniquePersonList;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.address.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level

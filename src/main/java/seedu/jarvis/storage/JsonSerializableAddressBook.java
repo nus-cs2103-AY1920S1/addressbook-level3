@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

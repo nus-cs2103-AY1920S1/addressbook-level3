@@ -26,7 +26,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.storage.JsonAddressBookStorage;
 import seedu.jarvis.storage.JsonUserPrefsStorage;
 import seedu.jarvis.storage.StorageManager;

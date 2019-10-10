@@ -24,7 +24,7 @@ import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * Tests the behaviour of {@code HistoryManagerTest}.
