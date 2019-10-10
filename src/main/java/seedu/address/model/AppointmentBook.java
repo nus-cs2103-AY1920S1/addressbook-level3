@@ -118,8 +118,8 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AppointmentBook // instanceof handles nulls
-            && events.equals(((AppointmentBook) other).events));
+                || (other instanceof AppointmentBook // instanceof handles nulls
+                && events.equals(((AppointmentBook) other).events));
     }
 
     @Override

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteAppCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
@@ -23,7 +23,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 

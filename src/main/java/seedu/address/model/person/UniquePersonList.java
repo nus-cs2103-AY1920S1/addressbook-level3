@@ -28,7 +28,7 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an  person whose reference id is equivalent to the given argument.
@@ -66,6 +66,14 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.add(toAdd);
     }
 
+    public Person getFirst() {
+        return internalList.get(0);
+    }
+
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
@@ -95,6 +103,10 @@ public class UniquePersonList implements Iterable<Person> {
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
+    }
+
+    public void remove(int index) {
+        internalList.remove(index);
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -130,8 +142,8 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UniquePersonList // instanceof handles nulls
-            && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniquePersonList // instanceof handles nulls
+                && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

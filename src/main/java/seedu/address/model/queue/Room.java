@@ -13,11 +13,16 @@ import seedu.address.model.common.ReferenceId;
  */
 public class Room {
     private final ReferenceId doctor;
-    private final Optional<ReferenceId> patientCurrentlyBeingServed;
+    private Optional<ReferenceId> patientCurrentlyBeingServed;
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+    }
+
+    public Room(ReferenceId doctor) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = null;
     }
 
     public boolean isReadyToServe() {
@@ -42,6 +47,9 @@ public class Room {
             || doctor.equals(((Room) other).doctor);
     }
 
+    public void serve(ReferenceId id) {
+        patientCurrentlyBeingServed.of(id);
+    }
 
     /**
      * Returns true if both rooms occupied by the same staff and patient.

@@ -56,7 +56,7 @@ public class JsonAdaptedEvent {
 
         if (patientId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                PatientReferenceId.class.getSimpleName()));
+                    PatientReferenceId.class.getSimpleName()));
         }
         if (!PersonReferenceId.isValidId(patientId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
@@ -86,10 +86,14 @@ public class JsonAdaptedEvent {
         }
         final Timing eventTiming = new Timing(startDateTime, endDateTime);
 
-        //TODO: Implement Status
-        final Status eventStatus = new Status();
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Status"));
+        }
+        if (!Status.isValidStatus(status)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
 
+        final Status eventStatus = new Status(status);
         return new Event(patientReferenceId, eventTiming, eventStatus);
     }
-
 }
