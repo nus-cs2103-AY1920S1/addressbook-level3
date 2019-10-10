@@ -14,14 +14,14 @@ import seedu.address.model.person.Phone;
 =======
 >>>>>>> team/master
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
+<<<<<<< HEAD:src/main/java/seedu/address/model/util/SampleDataUtil.java
 public class SampleDataUtil {
 <<<<<<< HEAD
     public static Person[] getSamplePersons() {
@@ -53,6 +53,17 @@ public class SampleDataUtil {
             new Task(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
 >>>>>>> team/master
                 getTagSet("colleagues"))
+=======
+public class SampleTaskDataUtil {
+    public static Task[] getSampleTasks() {
+        return new Task[] {
+            new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance")),
+            new Task(new Name("Increase Funding"), TaskStatus.DOING, getTagSet("Finance", "Urgent")),
+            new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
+            new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding")),
+            new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
+            new Task(new Name("Design Poster"), TaskStatus.UNBEGUN, getTagSet("Branding"))
+>>>>>>> team/master:src/main/java/seedu/address/model/util/SampleTaskDataUtil.java
         };
     }
 

@@ -33,9 +33,13 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+<<<<<<< HEAD
     private Label phone;
     @FXML
     private Label email;
+=======
+    private Label taskStatus;
+>>>>>>> team/master
     @FXML
     private FlowPane tags;
 
@@ -50,8 +54,7 @@ public class TaskCard extends UiPart<Region> {
         person.getTags().stream()
 =======
         name.setText(task.getName().fullName);
-        phone.setText(task.getPhone().value);
-        email.setText(task.getEmail().value);
+        taskStatus.setText(task.getTaskStatus().getDisplayName());
         task.getTags().stream()
 >>>>>>> team/master:src/main/java/seedu/address/ui/TaskCard.java
                 .sorted(Comparator.comparing(tag -> tag.tagName))

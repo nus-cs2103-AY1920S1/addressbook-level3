@@ -17,8 +17,7 @@ public class Task {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final TaskStatus taskStatus;
 
 <<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
     // Data fields
@@ -29,28 +28,30 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
+<<<<<<< HEAD
 <<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
     public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
 =======
     public Task(Name name, Phone phone, Email email, Set<Tag> tags) {
 >>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
         requireAllNonNull(name, phone, email, tags);
+=======
+    public Task(Name name, TaskStatus taskStatus, Set<Tag> tags) {
+        requireAllNonNull(name, tags);
+>>>>>>> team/master
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.taskStatus = taskStatus;
         this.tags.addAll(tags);
+    }
+
+    // TODO add multiple constructors so that users can add aditional info later
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
 <<<<<<< HEAD:src/main/java/seedu/address/model/person/Person.java
@@ -66,7 +67,7 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameTask(Task otherTask) {
@@ -74,9 +75,10 @@ public class Task {
             return true;
         }
 
+        // TODO change the logic to check for the identity fields of status and member
+        // basically the name cannot be the same, that's it
         return otherTask != null
-                && otherTask.getName().equals(getName())
-                && (otherTask.getPhone().equals(getPhone()) || otherTask.getEmail().equals(getEmail()));
+            && otherTask.getName().equals(getName());
     }
 
     /**
@@ -102,8 +104,7 @@ public class Task {
 =======
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
-                && otherTask.getPhone().equals(getPhone())
-                && otherTask.getEmail().equals(getEmail())
+                && (otherTask.getTaskStatus() == getTaskStatus())
                 && otherTask.getTags().equals(getTags());
 >>>>>>> team/master:src/main/java/seedu/address/model/task/Task.java
     }
@@ -111,17 +112,14 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append("Task status: " + getTaskStatus().getDisplayName())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

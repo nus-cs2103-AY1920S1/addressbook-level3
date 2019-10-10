@@ -1,10 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -19,10 +18,9 @@ import seedu.address.model.person.Phone;
 =======
 >>>>>>> team/master
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -36,22 +34,29 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK_NAME, PREFIX_TASK_STATUS, PREFIX_TASK_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_TASK_NAME).get());
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         Person person = new Person(name, phone, email, tagList);
 =======
         Task task = new Task(name, phone, email, tagList);
+>>>>>>> team/master
+=======
+        TaskStatus taskStatus = TaskStatus.UNBEGUN;
+        if (argMultimap.getValue(PREFIX_TASK_STATUS).isPresent()) {
+            taskStatus = ParserUtil.parseStatus((argMultimap.getValue(PREFIX_TASK_STATUS).get()));
+        }
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASK_TAG));
+
+        Task task = new Task(name, taskStatus, tagList);
 >>>>>>> team/master
 
         return new AddCommand(task);
