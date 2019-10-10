@@ -44,9 +44,9 @@ public class PhoneBookTest {
     @Test
     public void resetData_withDuplicatePhones_throwsDuplicatePhoneException() {
         // Two phones with the same id
-        Phone editediPhoneXR = new PhoneBuilder(IPHONEXR,true)
+        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR, true)
                 .build();
-        List<Phone> newPhones = Arrays.asList(IPHONEXR, editediPhoneXR);
+        List<Phone> newPhones = Arrays.asList(IPHONEXR, editediPhoneXr);
         PhoneBookStub newData = new PhoneBookStub(newPhones);
 
         assertThrows(DuplicatePhoneException.class, () -> phoneBook.resetData(newData));
@@ -65,9 +65,9 @@ public class PhoneBookTest {
     @Test
     public void hasPhone_phoneWithSameIdentityFieldsInPhoneBook_returnsTrue() {
         phoneBook.addPhone(IPHONEXR);
-        Phone editediPhoneXR = new PhoneBuilder(IPHONEXR, true).withColour("Purple")
+        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR, true).withColour("Purple")
                 .build();
-        assertTrue(phoneBook.hasPhone(editediPhoneXR));
+        assertTrue(phoneBook.hasPhone(editediPhoneXr));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class PhoneBookTest {
     }
 
     /**
-     * A stub ReadOnlyDataBook<Phone> whose phones list can violate interface constraints.
+     * A stub ReadOnlyDataBook(Phone) whose phones list can violate interface constraints.
      */
     private static class PhoneBookStub implements ReadOnlyDataBook<Phone> {
         private final ObservableList<Phone> phones = FXCollections.observableArrayList();

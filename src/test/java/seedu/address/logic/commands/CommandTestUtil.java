@@ -40,7 +40,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_PHONENAME_IPHONE = "iPhone Pro 11";
-    public static final String VALID_PHONENAME_SAMSUNG =  "Galaxy S10";
+    public static final String VALID_PHONENAME_SAMSUNG = "Galaxy S10";
     public static final String VALID_COLOUR_IPHONE = "Purple";
     public static final String VALID_COLOUR_SAMSUNG = "Black";
     public static final String VALID_BRAND_IPHONE = "Apple";

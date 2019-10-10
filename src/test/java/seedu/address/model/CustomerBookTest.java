@@ -83,7 +83,7 @@ public class CustomerBookTest {
     }
 
     /**
-     * A stub ReadOnlyDataBook<Customer> whose customers list can violate interface constraints.
+     * A stub ReadOnlyDataBook(Customer) whose customers list can violate interface constraints.
      */
     private static class CustomerBookStub implements ReadOnlyDataBook<Customer> {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();

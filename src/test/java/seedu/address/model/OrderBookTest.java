@@ -17,9 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.order.exceptions.DuplicateOrderException;
-import seedu.address.testutil.OrderBuilder;
 
 public class OrderBookTest {
 
@@ -45,8 +43,8 @@ public class OrderBookTest {
     @Test
     public void resetData_withDuplicateOrders_throwsDuplicateOrderException() {
         // Two orders with the same identity fields
-        Order editedVIPOrder = (Order) VIPORDER.clone();
-        List<Order> newOrders = Arrays.asList(VIPORDER, editedVIPOrder);
+        Order editedVipOrder = (Order) VIPORDER.clone();
+        List<Order> newOrders = Arrays.asList(VIPORDER, editedVipOrder);
         OrderBookStub newData = new OrderBookStub(newOrders);
 
         assertThrows(DuplicateOrderException.class, () -> orderBook.resetData(newData));
@@ -69,7 +67,7 @@ public class OrderBookTest {
     }
 
     @Test
-    public void hasOrder_OrderWithSameIdentityFieldsInOrderBook_returnsTrue() {
+    public void hasOrder_orderWithSameIdentityFieldsInOrderBook_returnsTrue() {
         orderBook.addOrder(VIPORDER);
         Order clonedVipOrder = (Order) VIPORDER.clone();
         assertTrue(orderBook.hasOrder(clonedVipOrder));
@@ -81,7 +79,7 @@ public class OrderBookTest {
     }
 
     /**
-     * A stub ReadOnlyDataBook<Order> whose orders list can violate interface constraints.
+     * A stub ReadOnlyDataBook(Order) whose orders list can violate interface constraints.
      */
     private static class OrderBookStub implements ReadOnlyDataBook<Order> {
         private final ObservableList<Order> orders = FXCollections.observableArrayList();

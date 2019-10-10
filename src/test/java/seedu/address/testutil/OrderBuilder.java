@@ -5,8 +5,8 @@ import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import java.util.UUID;
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Price;
