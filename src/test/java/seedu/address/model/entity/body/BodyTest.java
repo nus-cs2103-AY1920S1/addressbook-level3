@@ -7,18 +7,21 @@ import static seedu.address.testutil.BodyBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.BodyBuilder.DEFAULT_SEX;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
+import static seedu.address.testutil.TypicalWorkers.CLARA;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.WorkerBuilder;
 
 //@@author ambervoong
 class BodyTest {
@@ -36,6 +39,27 @@ class BodyTest {
         // Not equal because the NRIC is different.
         editedAlice = new BodyBuilder(ALICE).withNric("F9531049B").build();
         assertFalse(ALICE.isSameBody(editedAlice));
+    }
+
+    @Test
+    public void isSameBodyIdNum() {
+        Body alice = new BodyBuilder(ALICE).build();
+        Body bob = new BodyBuilder(BOB).build(1);
+        assertTrue(alice.isSameBodyIdNum(bob));
+
+        Body differentId = new BodyBuilder(BOB).build(2);
+        assertFalse(alice.isSameBodyIdNum(differentId));
+    }
+
+    @Test
+    public void isSameEntity() {
+        Body alice = new BodyBuilder(ALICE).build();
+        Body bob = new BodyBuilder(BOB).build(1);
+        Worker worker = new WorkerBuilder(CLARA).build();
+        assertFalse(alice.isSameEntity(bob));
+        // Test equality with non-Body entity.
+        assertFalse(alice.isSameEntity(worker));
+        assertTrue(alice.isSameEntity(alice));
     }
 
     @Test
@@ -58,9 +82,9 @@ class BodyTest {
 
 
     @Test
-    void getBodyIdentificationNumber() {
+    void getBodyIdNum() {
         // Final field; does not have a setter method.
-        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdentificationNumber());
+        assertEquals(IdentificationNumber.customGenerateId("B", 1), ALICE.getBodyIdNum());
     }
 
     @Test
@@ -119,8 +143,8 @@ class BodyTest {
 
     @Test
     void getSetKinPhoneNumber() {
-        ALICE.setKinPhoneNumber(new Phone("87871234"));
-        assertEquals(new Phone("87871234"), ALICE.getKinPhoneNumber());
+        ALICE.setKinPhoneNumber(new PhoneNumber("87871234"));
+        assertEquals(new PhoneNumber("87871234"), ALICE.getKinPhoneNumber());
     }
 
     @Test
@@ -139,8 +163,8 @@ class BodyTest {
 
     @Test
     void getSetStatus() {
-        ALICE.setStatus(Status.ARRIVED);
-        assertEquals(Status.ARRIVED, ALICE.getStatus());
+        ALICE.setBodyStatus(BodyStatus.ARRIVED);
+        assertEquals(BodyStatus.ARRIVED, ALICE.getBodyStatus());
     }
 
     @Test
