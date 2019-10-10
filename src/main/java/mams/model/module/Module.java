@@ -10,6 +10,23 @@ import mams.model.student.Student;
  * Represents a Module in MAMS.
  */
 public class Module {
+
+    public static final String MESSAGE_CONSTRAINTS_MODULE_CODE =
+            "Modules should start with 'CS' followed by a 4 digit number";
+
+    public static final String MESSAGE_CONSTRAINTS_SESSION_ID =
+            "Session ID can only be 1 or 2";
+
+    public static final String MESSAGE_CONSTRAINTS_TIME_SLOT =
+            "Time slots can only range from 1 to 69, and must be in "
+                    + "ascending order";
+
+    /*
+     * Only CS modules are allowed for adding. The first 2 characters should be
+     * "CS" followed by strictly 4 digits.
+     */
+    public static final String VALIDATION_REGEX_MODULE_CODE = "CS\\d{4}$";
+
     // Identity fields
     private final String moduleCode;
     private final int sessionId;
@@ -24,20 +41,8 @@ public class Module {
     private final int[] timeSlot;
     private final Student[] students = null; // to be added
 
-    public static final String MESSAGE_CONSTRAINTS_MODULE_CODE =
-            "Modules should start with 'CS' followed by a 4 digit number";
 
-    public static final String MESSAGE_CONSTRAINTS_SESSION_ID =
-            "Session ID can only be 1 or 2";
 
-    public static final String MESSAGE_CONSTRAINTS_TIME_SLOT =
-            "Time slots can only range from 1 to 69, and must be in " +
-                    "ascending order";
-    /*
-     * Only CS modules are allowed for adding. The first 2 characters should be
-     * "CS" followed by strictly 4 digits.
-     */
-    public static final String VALIDATION_REGEX_MODULE_CODE = "CS\\d{4}$";
 
 
     /**
@@ -57,8 +62,10 @@ public class Module {
         return test.matches(VALIDATION_REGEX_MODULE_CODE);
     }
 
-    /*
-     * Returns true if a given int is a valid session id.
+    /**
+     * Returns true if a given session ID is valid
+     * @param test int sessionId to be tested
+     * @return result of test
      */
     public static boolean isValidSessionId(int test) {
         if (test == 1 || test == 2) {
@@ -68,6 +75,11 @@ public class Module {
         }
     }
 
+    /**
+     * Returns true if a given time slot is valid
+     * @param test time slots to be tested
+     * @return result of test
+     */
     public static boolean isValidTimeSlot(int[] test) {
         final int lastTimeSlot = 69;
         int currentTimeSlot = 0;

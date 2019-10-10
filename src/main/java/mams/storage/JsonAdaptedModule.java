@@ -11,12 +11,12 @@ import mams.model.module.Module;
  */
 class JsonAdaptedModule {
 
-    public static final String MISSING_MODULE_CODE_FIELD_MESSAGE_FORMAT
-            = "Module's module code field is missing!";
-    public static final String MISSING_SESSION_ID_FIELD_MESSAGE_FORMAT
-            = "Module's session id field is missing!";
-    public static final String MISSING_TIME_SLOT_FIELD_MESSAGE_FORMAT
-            = "Module's time slot field is missing!";
+    public static final String MISSING_MODULE_CODE_FIELD_MESSAGE_FORMAT =
+            "Module's module code field is missing!";
+    public static final String MISSING_SESSION_ID_FIELD_MESSAGE_FORMAT =
+            "Module's session id field is missing!";
+    public static final String MISSING_TIME_SLOT_FIELD_MESSAGE_FORMAT =
+            "Module's time slot field is missing!";
 
     private final String moduleCode;
     private final int sessionId;
