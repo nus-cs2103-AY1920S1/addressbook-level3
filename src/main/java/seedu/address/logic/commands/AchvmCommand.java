@@ -12,7 +12,7 @@ public class AchvmCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays information on user's achievements.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_ACHV_MESSAGE = "Displayed achievements on window.";
+    public static final String SHOWING_ACHV_MESSAGE = "Here're your achievements so far. Keep up the good work!";
 
     @Override
     public CommandResult execute(Model model) {
