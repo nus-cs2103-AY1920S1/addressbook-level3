@@ -1,13 +1,13 @@
 package seedu.billboard.model.expense;
 
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.billboard.model.tag.Tag;
-
-import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Expense in the address book.
@@ -18,7 +18,7 @@ public class Expense {
     // Identity fields
     private Name name;
     private Description description;
-    protected Amount amount;
+    private Amount amount;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -78,14 +78,13 @@ public class Expense {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(description, amount);
-//        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
-        return "Description: " +
-                getDescription() +
-                " Amount: " +
-                getAmount();
+        return "Description: "
+                + getDescription()
+                + " Amount: "
+                + getAmount();
     }
 }

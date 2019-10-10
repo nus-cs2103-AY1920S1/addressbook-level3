@@ -7,6 +7,11 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
@@ -18,12 +23,6 @@ import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Edits the details of an existing expense in the address book.
@@ -92,17 +91,10 @@ public class EditCommand extends Command {
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
-
-//        Phone updatedPhone = editExpenseDescriptor.getPhone().orElse(expenseToEdit.getPhone());
-//        Email updatedEmail = editExpenseDescriptor.getEmail().orElse(expenseToEdit.getEmail());
-//        Address updatedAddress = editExpenseDescriptor.getAddress().orElse(expenseToEdit.getAddress());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
-
         Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
-
-//        return new Expense(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
         return new Expense(updatedName, updatedDescription, updatedAmount, updatedTags);
     }
 

@@ -118,10 +118,10 @@ public class ExpenseList implements Iterable<Expense> {
     /**
      * Returns true if {@code Expense} contains only unique Expense.
      */
-    private boolean expensesAreUnique(List<? extends Expense> Expense) {
-        for (int i = 0; i < Expense.size() - 1; i++) {
-            for (int j = i + 1; j < Expense.size(); j++) {
-                if (Expense.get(i).equals(Expense.get(j))) {
+    private boolean expensesAreUnique(List<? extends Expense> expenses) {
+        for (int i = 0; i < expenses.size() - 1; i++) {
+            for (int j = i + 1; j < expenses.size(); j++) {
+                if (expenses.get(i).equals(expenses.get(j))) {
                     return false;
                 }
             }
