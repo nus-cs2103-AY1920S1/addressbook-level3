@@ -13,5 +13,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_PICTURE = new Prefix("pic/");
     public static final Prefix PREFIX_RESULT = new Prefix("r/");
+    public static final Prefix PREFIX_AMOUNT = new Prefix("i/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_MODULE = new Prefix("m/");
+    public static final Prefix PREFIX_WEEK = new Prefix("w/");
+    public static final Prefix PREFIX_MONTH = new Prefix("month/");
 
 }
