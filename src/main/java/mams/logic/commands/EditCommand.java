@@ -1,8 +1,9 @@
 package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
+
 import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PHONE;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,7 +19,12 @@ import mams.commons.core.index.Index;
 import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
-import mams.model.student.*;
+
+import mams.model.student.Email;
+import mams.model.student.MatricId;
+import mams.model.student.Name;
+import mams.model.student.Phone;
+import mams.model.student.Student;
 import mams.model.tag.Tag;
 
 /**

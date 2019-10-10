@@ -1,7 +1,12 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.*;
+import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
+import static mams.logic.parser.CliSyntax.PREFIX_NAME;
+import static mams.logic.parser.CliSyntax.PREFIX_PHONE;
+import static mams.logic.parser.CliSyntax.PREFIX_TAG;
+
 
 import java.util.Collection;
 import java.util.Collections;

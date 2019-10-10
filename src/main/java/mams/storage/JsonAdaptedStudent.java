@@ -10,7 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import mams.commons.exceptions.IllegalValueException;
-import mams.model.student.*;
+import mams.model.student.Email;
+import mams.model.student.MatricId;
+import mams.model.student.Name;
+import mams.model.student.Phone;
+import mams.model.student.Student;
 import mams.model.tag.Tag;
 
 /**
@@ -92,7 +96,8 @@ class JsonAdaptedStudent {
         final Email modelEmail = new Email(email);
 
         if (matricId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MatricId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MatricId.class.getSimpleName()));
         }
         if (!MatricId.isValidMatricId(matricId)) {
             throw new IllegalValueException(MatricId.MESSAGE_CONSTRAINTS);
