@@ -40,7 +40,7 @@ public class AddPolicyCommand extends Command {
             + PREFIX_TAG + "senior insurance ";
 
     public static final String MESSAGE_SUCCESS = "New policy added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This policy already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_POLICY = "This policy already exists in the address book";
     public static final String DUPLICATE_PERSON_MERGE_PROMPT = "Do you wish to edit this policy's information?";
 
     private final Policy toAdd;
@@ -58,7 +58,7 @@ public class AddPolicyCommand extends Command {
         requireNonNull(model);
         if (model.hasPolicy(toAdd)) {
             StringBuilder exceptionMessage = new StringBuilder();
-            exceptionMessage.append(MESSAGE_DUPLICATE_PERSON + "\n");
+            exceptionMessage.append(MESSAGE_DUPLICATE_POLICY + "\n");
             exceptionMessage.append(model.getPolicy(toAdd).toString() + "\n");
             exceptionMessage.append(DUPLICATE_PERSON_MERGE_PROMPT);
             throw new DuplicatePolicyException(exceptionMessage.toString());

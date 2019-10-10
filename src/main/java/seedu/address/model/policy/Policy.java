@@ -18,7 +18,8 @@ public class Policy {
 
     public static final String MESSAGE_CONSTRAINTS =
             "This policy is not available.";
-    private static final ArrayList<Policy> policies = new ArrayList<>();
+    // TODO: Change to hashset?
+    private static final ArrayList<Policy> POLICIES = new ArrayList<>();
 
     private final PolicyName name;
     private final Description description;
@@ -44,7 +45,7 @@ public class Policy {
         this.endAge = endAge;
         this.criteria.addAll(criteria);
         this.tags.addAll(tags);
-        policies.add(this);
+        POLICIES.add(this);
     }
 
     public PolicyName getName() {
@@ -106,8 +107,8 @@ public class Policy {
      * @return Whether the policy exists.
      */
     public static boolean isAvailable(String policyName) {
-        for (int i = 0; i < policies.size(); i++) {
-            if (policies.get(i).getName().equals(policyName)) {
+        for (int i = 0; i < POLICIES.size(); i++) {
+            if (POLICIES.get(i).getName().equals(policyName)) {
                 return true;
             }
         }
@@ -115,8 +116,8 @@ public class Policy {
     }
 
     public static Policy getPolicy(String policyName) {
-        for (int i = 0; i < policies.size(); i++) {
-            Policy policy = policies.get(i);
+        for (int i = 0; i < POLICIES.size(); i++) {
+            Policy policy = POLICIES.get(i);
             if (policy.getName().equals(policyName)) {
                 return policy;
             }
