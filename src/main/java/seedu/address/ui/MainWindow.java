@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private PolicyListPanel policyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+    // Don't rename this; breaks the application.
     @FXML
     private StackPane personListPanelPlaceholder;
 
@@ -181,6 +183,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isListPolicy()) {
+                policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+                personListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+            }
+
+            if (commandResult.isListPeople()) {
+                personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
 
             return commandResult;

@@ -52,10 +52,10 @@ public class PolicyCard extends UiPart<Region> {
         super(FXML);
         this.policy = policy;
         id.setText(displayedIndex + ". ");
-        name.setText(policy.getName().policyName);
-        description.setText(policy.getDescription().description);
+        name.setText(policy.getName().toString());
+        description.setText(policy.getDescription().toString());
         coverage.setText(policy.getCoverage().toString());
-        price.setText(policy.getPrice().price);
+        price.setText(policy.getPrice().toString());
         if (!policy.getStartAge().getAge().equals("0")) {
             startAge.setText(policy.getStartAge().getAge());
         }
