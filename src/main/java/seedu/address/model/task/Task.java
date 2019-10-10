@@ -1,6 +1,6 @@
 package seedu.address.model.task;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,7 +21,7 @@ public abstract class Task {
     protected static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
 
     public Task(String date, String time) {
-        requireAllNonNull(date);
+        requireNonNull(date);
         this.isDone = false;
         this.date = LocalDate.parse(date, FORMAT_USER_INPUT_DATE);
         this.time = LocalTime.parse(time, FORMAT_USER_INPUT_TIME);
