@@ -28,14 +28,14 @@ import seedu.savenus.testutil.EditFoodDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_CHICKEN_RICE = "Amy Bee";
-    public static final String VALID_NAME_NASI_LEMAK = "Bob Choo";
-    public static final String VALID_PRICE_CHICKEN_RICE = "11111111";
-    public static final String VALID_PRICE_NASI_LEMAK = "22222222";
-    public static final String VALID_DESCRIPTION_CHICKEN_RICE = "Amy's Description.";
-    public static final String VALID_DESCRIPTION_NASI_LEMAK = "Bob's Description.";
-    public static final String VALID_CATEGORY_CHICKEN_RICE = "CatA";
-    public static final String VALID_CATEGORY_NASI_LEMAK = "CatB";
+    public static final String VALID_NAME_CHICKEN_RICE = "Chicken Rice";
+    public static final String VALID_NAME_NASI_LEMAK = "Nasi Lemak";
+    public static final String VALID_PRICE_CHICKEN_RICE = "5.80";
+    public static final String VALID_PRICE_NASI_LEMAK = "4.50";
+    public static final String VALID_DESCRIPTION_CHICKEN_RICE = "chicken and rice";
+    public static final String VALID_DESCRIPTION_NASI_LEMAK = "rice with fried chicken";
+    public static final String VALID_CATEGORY_CHICKEN_RICE = "Chinese";
+    public static final String VALID_CATEGORY_NASI_LEMAK = "Malay";
     public static final String VALID_TAG_CHICKEN = "chicken";
     public static final String VALID_TAG_RICE = "rice";
     public static final String VALID_OPENING_HOURS_CHICKEN_RICE = "0800 2100";
@@ -66,7 +66,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "   "; // spaces only not allowed
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "beef*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

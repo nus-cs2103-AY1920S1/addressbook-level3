@@ -85,25 +85,25 @@ public class EditCommandParserTest {
 
         // invalid price followed by valid description
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC
-                                                + DESCRIPTION_DESC_CHICKEN_RICE, Price.MESSAGE_CONSTRAINTS);
+            + DESCRIPTION_DESC_CHICKEN_RICE, Price.MESSAGE_CONSTRAINTS);
 
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PRICE_DESC_NASI_LEMAK
-                                                + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
+            + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Food} being edited,
         // parsing it together with a valid tag results in error
         assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_DESC_CHICKEN
-                                                + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+            + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_EMPTY
-                                                + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+            + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_RICE
-                                                + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+            + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC
-                                                + INVALID_DESCRIPTION_DESC + VALID_PRICE_CHICKEN_RICE,
+            + INVALID_DESCRIPTION_DESC + VALID_PRICE_CHICKEN_RICE,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -187,7 +187,6 @@ public class EditCommandParserTest {
         EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_NASI_LEMAK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-
         // other valid values specified
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_NASI_LEMAK + INVALID_PRICE_DESC
                 + PRICE_DESC_NASI_LEMAK;
