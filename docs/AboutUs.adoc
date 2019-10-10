@@ -19,7 +19,7 @@ Role: Member
 '''
 
 === Philip Alexander Boediman
-image::portrait_placeholder.png[width="150", align="left"]
+image::philipalexanderb.png[width="150", align="left"]
 {empty}[https://github.com/philipalexanderb[github]]
 
 Role: Member
@@ -32,13 +32,13 @@ Role: Member
 
 
 === Wang Runding
-image::profile_pic.jpg[width="150", align="left"]
+image::r-d-d-d.png[width="150", align="left"]
 {empty}[https://github.com/r-d-d-d[github]]
 
 Role: Member
 
 === Sng Jia Ming Fadi Faris
-image::fadisng.JPG[width="150", align="left"]
+image::fadisng.png[width="150", align="left"]
 {empty}[https://github.com/fadisng[github]]
 
 Role: Member
