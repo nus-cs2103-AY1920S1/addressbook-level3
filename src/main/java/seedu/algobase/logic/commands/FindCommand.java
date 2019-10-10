@@ -1,10 +1,18 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.model.Model;
+import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
+import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Finds and lists all problems in algobase whose name contains any of the argument keywords.
@@ -14,15 +22,34 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all problems whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a problem by name, author, and/or "
+            + "description and displays them as a list with index numbers.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_AUTHOR + "AUTHOR] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "Example: " + COMMAND_WORD
+            + PREFIX_AUTHOR + "Tung Kam Chuen";
+    public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Problem> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(NameContainsKeywordsPredicate namePredicate,
+                       AuthorMatchesKeywordPredicate authorPredicate,
+                       DescriptionContainsKeywordsPredicate descriptionPredicate) {
+        predicate = problem -> {
+            boolean result = true;
+            if (namePredicate != null) {
+                result = result && namePredicate.test(problem);
+            }
+            if (authorPredicate != null) {
+                result = result && authorPredicate.test(problem);
+            }
+            if (descriptionPredicate != null) {
+                result = result && descriptionPredicate.test(problem);
+            }
+            return result;
+        };
     }
 
     @Override
