@@ -144,6 +144,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Book> getOverdueBooks() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Borrower> getOverdueBooksBorrowers() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ObservableList<Book> getFilteredBookList() {
             throw new AssertionError("This method should not be called.");
         }

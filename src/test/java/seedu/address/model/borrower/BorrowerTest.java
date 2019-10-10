@@ -90,11 +90,11 @@ public class BorrowerTest {
                 + " Borrower Id: " + alice.getBorrowerId();
 
         String temp = alice.toString();
-        assertTrue(alice.toString().equals(stringRep));
+        assertTrue(temp.equals(stringRep));
     }
 
     @Test
-    public void hashCode_sameBookSameHashCode_assertTrue() {
+    public void hashCode_sameBorrowerSameHashCode_assertTrue() {
         Borrower borrower1 = new BorrowerBuilder(ALICE).build();
         Borrower borrower2 = new BorrowerBuilder(ALICE).build();
         assertEquals(borrower1.hashCode(), borrower2.hashCode());

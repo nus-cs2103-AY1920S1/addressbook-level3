@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -17,6 +20,7 @@ import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
+import seedu.address.model.loan.Loan;
 
 /**
  * Represents the in-memory model of the Library data.
@@ -86,43 +90,6 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public void setCatalog(ReadOnlyCatalog catalog) {
-        this.catalog.resetData(catalog);
-    }
-
-    @Override
-    public ReadOnlyCatalog getCatalog() {
-        return catalog;
-    }
-
-    @Override
-    public boolean hasBook(Book book) {
-        requireNonNull(book);
-        return catalog.hasBook(book);
-    }
-
-    @Override
-    public void deleteBook(Book target) {
-        catalog.removeBook(target);
-        SerialNumberGenerator.setCatalog(catalog);
-    }
-
-    @Override
-    public void addBook(Book book) {
-        catalog.addBook(book);
-        SerialNumberGenerator.setCatalog(catalog);
-        updateFilteredBookList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setBook(Book target, Book editedBook) {
-        requireAllNonNull(target, editedBook);
-
-        catalog.setBook(target, editedBook);
-        SerialNumberGenerator.setCatalog(catalog);
-    }
-
     public Path getLoanRecordsFilePath() {
         return userPrefs.getLoanRecordsFilePath();
     }
@@ -161,8 +128,80 @@ public class ModelManager implements Model {
         return loanRecords;
     }
 
+    /**
+     * Adds a <code>Loan</code> object to the loan records.
+     *
+     * @param loan <code>Loan</code> object to be added.
+     */
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        loanRecords.addLoan(loan);
+    }
+
     //=========== Catalog ===============================================================================
 
+
+    @Override
+    public void setCatalog(ReadOnlyCatalog catalog) {
+        this.catalog.resetData(catalog);
+    }
+
+    @Override
+    public ReadOnlyCatalog getCatalog() {
+        return catalog;
+    }
+
+    @Override
+    public boolean hasBook(Book book) {
+        requireNonNull(book);
+        return catalog.hasBook(book);
+    }
+
+    @Override
+    public void deleteBook(Book target) {
+        requireNonNull(target);
+        catalog.removeBook(target);
+        SerialNumberGenerator.setCatalog(catalog);
+    }
+
+    @Override
+    public void addBook(Book book) {
+        requireNonNull(book);
+        catalog.addBook(book);
+        SerialNumberGenerator.setCatalog(catalog);
+        updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
+    }
+
+    @Override
+    public void setBook(Book target, Book editedBook) {
+        requireAllNonNull(target, editedBook);
+        catalog.setBook(target, editedBook);
+        SerialNumberGenerator.setCatalog(catalog);
+    }
+
+    /**
+     * Returns a list of overdue books in the catalog.
+     *
+     * @return an <code>ObservableList</code> of overdue books.
+     */
+    @Override
+    public ObservableList<Book> getOverdueBooks() {
+        return catalog.getOverdueBooks();
+    }
+
+    /**
+     * Returns a list of overdue books in the catalog.
+     *
+     * @return an <code>ObservableList</code> of overdue books.
+     */
+    @Override
+    public ObservableList<Borrower> getOverdueBooksBorrowers() {
+        List<Borrower> borrowers = catalog.getOverdueBooksBorrowersId()
+                .stream()
+                .map(borrowerId -> borrowerRecords.getBorrowerFromId(borrowerId))
+                .collect(Collectors.toList());
+        return FXCollections.observableArrayList(borrowers);
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
