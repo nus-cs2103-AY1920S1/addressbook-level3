@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
-import javafx.scene.layout.HBox;
-
+/**
+ * A cache for storing Achievements so once loaded future loading of AchievementsWindow will be much faster.
+ */
 public class AchievementsCache {
 
     private Achievements achievements;

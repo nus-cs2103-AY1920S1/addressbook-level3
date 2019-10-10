@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.awt.*;
-
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
@@ -14,7 +12,7 @@ public class AchievementsImageView extends UiPart<Region> {
     private static final String FXML = "AchievementsImageView.fxml";
 
     @FXML
-    ImageView achievementsImageView;
+    private ImageView achievementsImageView;
 
     public AchievementsImageView() {
         super(FXML);

@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
         achievementsWindow.fillInnerParts();
         achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
     }
-    
+
     void show() {
         primaryStage.show();
     }

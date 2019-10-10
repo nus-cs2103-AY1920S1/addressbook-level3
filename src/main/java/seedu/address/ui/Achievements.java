@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 
@@ -13,7 +12,7 @@ public class Achievements extends UiPart<Region> {
     private static final String FXML = "Achievements.fxml";
 
     @FXML
-    TilePane achievementsTilePane;
+    private TilePane achievementsTilePane;
 
     public Achievements() {
         super(FXML);
