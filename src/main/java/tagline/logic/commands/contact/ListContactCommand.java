@@ -1,14 +1,15 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import tagline.logic.commands.CommandResult;
 import tagline.model.Model;
 
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListCommand extends Command {
+public class ListContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "list";
 

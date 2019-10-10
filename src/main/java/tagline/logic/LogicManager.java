@@ -5,12 +5,13 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.logic.commands.Command;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
-import tagline.logic.parser.AddressBookParser;
+import tagline.logic.parser.TaglineParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyAddressBook;
@@ -26,12 +27,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final TaglineParser taglineParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        taglineParser = new TaglineParser();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = taglineParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

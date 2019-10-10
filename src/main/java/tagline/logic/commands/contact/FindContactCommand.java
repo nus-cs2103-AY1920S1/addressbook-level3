@@ -1,8 +1,9 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 
 import tagline.commons.core.Messages;
+import tagline.logic.commands.CommandResult;
 import tagline.model.Model;
 import tagline.model.person.NameContainsKeywordsPredicate;
 
@@ -10,7 +11,7 @@ import tagline.model.person.NameContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "find";
 
@@ -21,7 +22,7 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindContactCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -36,7 +37,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindContactCommand // instanceof handles nulls
+                && predicate.equals(((FindContactCommand) other).predicate)); // state check
     }
 }

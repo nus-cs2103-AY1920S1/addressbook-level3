@@ -1,12 +1,12 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static tagline.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tagline.logic.parser.CliSyntax.PREFIX_NAME;
-import static tagline.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tagline.logic.parser.CliSyntax.PREFIX_TAG;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
+import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.person.Person;
@@ -14,7 +14,7 @@ import tagline.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -24,14 +24,11 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
@@ -39,9 +36,9 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddContactCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddContactCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -61,7 +58,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddContactCommand // instanceof handles nulls
+                && toAdd.equals(((AddContactCommand) other).toAdd));
     }
 }

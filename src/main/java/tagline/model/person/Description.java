@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a Person's description in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Address {
+public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values";
+    public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values";
 
     /*
      * The address value can be anything, including empty string.
@@ -21,19 +21,19 @@ public class Address {
     /**
      * Constructs an {@code Address}.
      *
-     * @param address A valid address.
+     * @param description A valid description.
      */
-    public Address(String address) {
-        requireNonNull(address);
-        address = address.trim();
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+    public Description(String description) {
+        requireNonNull(description);
+        description = description.trim();
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        value = description;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,13 +45,12 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && value.equals(((Description) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
     }
-
 }
