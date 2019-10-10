@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
-import thrift.logic.commands.EditCommand.EditTransactionDescriptor;
+import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
@@ -16,32 +16,32 @@ import thrift.model.Thrift;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Transaction;
-import thrift.testutil.EditTransactionDescriptorBuilder;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.TypicalTransactions;
+import thrift.testutil.UpdateTransactionDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for UpdateCommand
  */
-public class EditCommandTest {
+public class UpdateCommandTest {
 
     private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
             new PastUndoableCommands());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Expense editedExpense = new ExpenseBuilder().build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedExpense).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, descriptor);
+        Expense updatedExpense = new ExpenseBuilder().build();
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(updatedExpense).build();
+        UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedExpense);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedExpense);
 
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedExpense);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), updatedExpense);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -49,33 +49,33 @@ public class EditCommandTest {
         Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
         Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
-        Expense editedTransaction = new ExpenseBuilder().build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction)
+        Expense updatedTransaction = new ExpenseBuilder().build();
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(updatedTransaction)
                .build();
-        EditCommand editCommand = new EditCommand(indexLastTransaction, descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(indexLastTransaction, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(lastTransaction, editedTransaction);
+        expectedModel.setTransaction(lastTransaction, updatedTransaction);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
-                new EditTransactionDescriptor());
-        Transaction editedTransaction = model.getFilteredTransactionList()
+        UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
+                new UpdateTransactionDescriptor());
+        Transaction updatedTransaction = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
                 new PastUndoableCommands());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -84,33 +84,34 @@ public class EditCommandTest {
 
         Transaction transactionInFilteredList = model.getFilteredTransactionList().get(
                 TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
-        Transaction editedPerson = new ExpenseBuilder(transactionInFilteredList)
+        Transaction updatedPerson = new ExpenseBuilder(transactionInFilteredList)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
-                new EditTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
+        UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
+                new UpdateTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
                         .build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedPerson);
 
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedPerson);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), updatedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor);
 
-        CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(updateCommand, model,
+                Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     /**
-     * Edit filtered list where index is larger than size of filtered list,
+     * Update filtered list where index is larger than size of filtered list,
      * but smaller than size of transactions list
      */
     @Test
@@ -120,21 +121,22 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of thrift list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThrift().getTransactionList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex,
+                new UpdateTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
                         .build());
 
-        CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(updateCommand, model,
+                Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
+        final UpdateCommand standardCommand = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
                 CommandTestUtil.DESC_MEAL);
 
         // same values -> returns true
-        EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(CommandTestUtil.DESC_MEAL);
-        EditCommand commandWithSameValues = new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, copyDescriptor);
+        UpdateTransactionDescriptor copyDescriptor = new UpdateTransactionDescriptor(CommandTestUtil.DESC_MEAL);
+        UpdateCommand commandWithSameValues = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -147,11 +149,11 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
+        assertFalse(standardCommand.equals(new UpdateCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
                 CommandTestUtil.DESC_MEAL)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
+        assertFalse(standardCommand.equals(new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
                 CommandTestUtil.DESC_PURCHASE)));
     }
 

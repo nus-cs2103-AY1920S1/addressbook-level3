@@ -507,7 +507,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |NUS student with stingy and over-controlling parents
 |send my expense report for the month to my parents to view easily
 |avoid them asking me what I have been spending on all the time
+
+|`*`
+|NUS student whose transaction details may be inaccurate in retrospect due to cashbacks or receipt discrepancies
+|modify transactions in my list
+|transactions have the most updated and accurate information
+
+|`*`
+|NUS student with completely or almost identical repeated transactions
+|make copies of such transactions
+|more convenient to add them instead of having to type them out fully each time
 |=======================================================================
+
 
 [appendix]
 == Use Cases
@@ -789,10 +800,12 @@ These instructions only provide a starting point for testers to work on; testers
 . Updating a transaction's details and reflecting changes in the list.
 
 .. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `update i/1 | n/Fried Rice` +
-   Expected: Details of the updated transaction and original value of updated content shown in status message. Corresponding listed transaction reflects changes. Timestamp in the status bar is updated.
-.. Test case: `update i/1 | c/20` +
-   Expected: Details of the updated transaction and original value of updated content shown in status message. Corresponding listed transaction reflects changes. Timestamp in the status bar is updated.
+.. Test case: `update i/1 n/Fried Rice` +
+   Expected: Details of the updated transaction and original value of updated content shown in status message. Corresponding listed transaction reflects changes.
+.. Test case: `update i/1 c/20` +
+   Expected: Details of the updated transaction and original value of updated content shown in status message. Corresponding listed transaction reflects changes.
+.. Test case: `update i/1 n/Fried Rice c/20 t/Lunch t/Food` +
+   Expected: Details of the updated transaction and original value of updated content shown in status message. Corresponding listed transaction reflects changes.
 .. Test case: `update i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
    Expected: No changes. Error details shown in status message.
 .. Test case: `update i/1 z/Calamari` +
@@ -917,7 +930,7 @@ Expected: First transaction removed from the list is restored back to its origin
 .. Test case: (Assuming that the first transaction is `1. [-] Chicken rice ($3.00)`)
 +
 --
-... `update i/1 | n/Fried Rice`
+... `update i/1 n/Fried Rice`
 ... `undo`
 --
 +
@@ -990,7 +1003,7 @@ Expected: First transaction removed from the list.
 .. Test case: (Assume that the first transaction is `1. [-] Chicken rice ($3.00)`)
 +
 --
-... `update i/1 | n/Fried Rice`
+... `update i/1 n/Fried Rice`
 ... `undo`
 ... `redo`
 --

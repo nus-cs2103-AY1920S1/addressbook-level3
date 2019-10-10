@@ -5,16 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import thrift.logic.commands.EditCommand.EditTransactionDescriptor;
-import thrift.testutil.EditTransactionDescriptorBuilder;
+import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
+import thrift.testutil.UpdateTransactionDescriptorBuilder;
 
-public class EditTransactionDescriptorTest {
+public class UpdateTransactionDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditTransactionDescriptor descriptorWithSameValues =
-                new EditTransactionDescriptor(CommandTestUtil.DESC_MEAL);
+        UpdateCommand.UpdateTransactionDescriptor descriptorWithSameValues =
+                new UpdateTransactionDescriptor(CommandTestUtil.DESC_MEAL);
         assertTrue(CommandTestUtil.DESC_MEAL.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -30,23 +30,24 @@ public class EditTransactionDescriptorTest {
         assertFalse(CommandTestUtil.DESC_MEAL.equals(CommandTestUtil.DESC_PURCHASE));
 
         // different description -> returns false
-        EditTransactionDescriptor editedTransaction = new EditTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
+        UpdateTransactionDescriptor updatedTransaction =
+                new UpdateTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS).build();
-        assertFalse(CommandTestUtil.DESC_MEAL.equals(editedTransaction));
+        assertFalse(CommandTestUtil.DESC_MEAL.equals(updatedTransaction));
 
         // different value -> returns false
-        editedTransaction = new EditTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
+        updatedTransaction = new UpdateTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS).build();
-        assertFalse(CommandTestUtil.DESC_MEAL.equals(editedTransaction));
+        assertFalse(CommandTestUtil.DESC_MEAL.equals(updatedTransaction));
 
         // different date -> returns false
-        editedTransaction = new EditTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
+        updatedTransaction = new UpdateTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
                 .withDate(CommandTestUtil.VALID_DATE_AIRPODS).build();
-        assertFalse(CommandTestUtil.DESC_MEAL.equals(editedTransaction));
+        assertFalse(CommandTestUtil.DESC_MEAL.equals(updatedTransaction));
 
         // different tags -> returns false
-        editedTransaction = new EditTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
+        updatedTransaction = new UpdateTransactionDescriptorBuilder(CommandTestUtil.DESC_MEAL)
                 .withTags(CommandTestUtil.VALID_TAG_BRUNCH).build();
-        assertFalse(CommandTestUtil.DESC_MEAL.equals(editedTransaction));
+        assertFalse(CommandTestUtil.DESC_MEAL.equals(updatedTransaction));
     }
 }

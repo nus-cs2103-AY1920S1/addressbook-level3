@@ -101,28 +101,27 @@ Expected output:
 [[UpdateTag]]
 === Updating a transaction’s details: `update`
 
-Format: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS`
+Format: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...`
 
 ****
 * Updates the transaction's details at the specified `INDEX`.
 ** `INDEX` refers to the index number currently shown in the UI, and must be a *positive integer*.
 * `PREFIX_LETTER` specifies type of detail to be updated, e.g. `n/` for name.
 * `UPDATED_DETAILS` are the new details of type corresponding to `PREFIX_LETTER` that the transaction is to be updated with.
+* Multiple detail types can be updated at once.
 ****
 
 Examples:
 
-*   `update i/1 | n/Curry Laksa`
-*   `update i/1 | c/11`
+*   `update i/1 n/Curry Laksa`
+*   `update i/1 n/Asam Laksa c/11 t/Dinner t/Food`
 
 Expected output: +
 
 NOTE: Assume 2nd command occurs after 1st
 
-*   `Entry name updated: 1. [-] Curry Laksa ($10.50) [Lunch][Food] +
-Original name was: Laksa`
-*   `Entry cost updated: 1. [-] Curry Laksa ($11) [Lunch][Food] +
-Original cost was: $10.50`
+*   `Updated Transaction: [-] Curry Laksa ($10.50) Date: 09/10/2019 Tags: [Food][Lunch]` +
+*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 09/10/2019 Tags: [Dinner][Food]`
 // end::update[]
 
 //tag::tag[]
@@ -330,8 +329,8 @@ Example: `add_expense n/Laksa c/10.50 t/Lunch t/Food`
 Example: `add_income n/Allowance c/1000 t/Monthly`
 * <<DeleteTag, *Delete*>>: `delete i/INDEX` +
 Example: `delete i/1`
-* <<UpdateTag, *Update*>>: `update i/INDEX | PREFIX_LETTER/UPDATED_DETAILS` +
-Example: `update i/1 | n/Curry Laksa`
+* <<UpdateTag, *Update*>>: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...` +
+Example: `update i/1 n/Curry Laksa c/5 t/Lunch t/Dinner`
 * <<CloneTag, *Clone*>>: `clone i/INDEX` +
 Example: `clone i/1`
 * <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +

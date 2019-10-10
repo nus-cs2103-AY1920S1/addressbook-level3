@@ -27,20 +27,20 @@ public class ExpenseTest {
         assertFalse(TypicalTransactions.LAKSA.isSameTransaction(null));
 
         // different description and value -> returns false
-        Expense editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        Expense updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS).build();
-        assertFalse(TypicalTransactions.LAKSA.isSameTransaction(editedExpense));
+        assertFalse(TypicalTransactions.LAKSA.isSameTransaction(updatedExpense));
 
         // different description -> returns false
-        editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS).build();
-        assertFalse(TypicalTransactions.LAKSA.isSameTransaction(editedExpense));
+        assertFalse(TypicalTransactions.LAKSA.isSameTransaction(updatedExpense));
 
         // same name, same value, different attributes -> returns true
-        editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withTags(CommandTestUtil.VALID_TAG_BRUNCH).build();
-        assertTrue(TypicalTransactions.LAKSA.isSameTransaction(editedExpense));
+        assertTrue(TypicalTransactions.LAKSA.isSameTransaction(updatedExpense));
     }
 
     @Test
@@ -62,18 +62,18 @@ public class ExpenseTest {
         assertFalse(TypicalTransactions.LAKSA.equals(TypicalTransactions.PENANG_LAKSA));
 
         // different name -> returns false
-        Expense editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        Expense updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS).build();
-        assertFalse(TypicalTransactions.LAKSA.equals(editedExpense));
+        assertFalse(TypicalTransactions.LAKSA.equals(updatedExpense));
 
         // different value -> returns false
-        editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS).build();
-        assertFalse(TypicalTransactions.LAKSA.equals(editedExpense));
+        assertFalse(TypicalTransactions.LAKSA.equals(updatedExpense));
 
         // different tags -> returns false
-        editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withTags(CommandTestUtil.VALID_TAG_ACCESSORY).build();
-        assertFalse(TypicalTransactions.LAKSA.equals(editedExpense));
+        assertFalse(TypicalTransactions.LAKSA.equals(updatedExpense));
     }
 }

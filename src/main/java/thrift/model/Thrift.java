@@ -64,15 +64,15 @@ public class Thrift implements ReadOnlyThrift {
     }
 
     /**
-     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * Replaces the given transaction {@code target} in the list with {@code updatedTransaction}.
      * {@code target} must exist in THRIFT.
-     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in
+     * The transaction identity of {@code updatedTransaction} must not be the same as another existing transaction in
      * THRIFT.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
-        requireNonNull(editedTransaction);
+    public void setTransaction(Transaction target, Transaction updatedTransaction) {
+        requireNonNull(updatedTransaction);
 
-        transactions.setTransaction(target, editedTransaction);
+        transactions.setTransaction(target, updatedTransaction);
     }
 
     /**

@@ -11,12 +11,12 @@ import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.ClearCommand;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.DeleteCommand;
-import thrift.logic.commands.EditCommand;
 import thrift.logic.commands.ExitCommand;
 import thrift.logic.commands.FindCommand;
 import thrift.logic.commands.HelpCommand;
 import thrift.logic.commands.ListCommand;
 import thrift.logic.commands.UndoCommand;
+import thrift.logic.commands.UpdateCommand;
 import thrift.logic.parser.exceptions.ParseException;
 
 /**
@@ -52,8 +52,8 @@ public class ThriftParser {
         case AddIncomeCommand.COMMAND_WORD:
             return new AddIncomeCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

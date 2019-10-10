@@ -3,7 +3,7 @@ package thrift.testutil;
 import java.util.Set;
 
 import thrift.logic.commands.AddExpenseCommand;
-import thrift.logic.commands.EditCommand;
+import thrift.logic.commands.UpdateCommand;
 import thrift.logic.parser.CliSyntax;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Expense;
@@ -34,9 +34,9 @@ public class TransactionUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditTransactionDescriptor}'s details.
+     * Returns the part of command string for the given {@code UpdateTransactionDescriptor}'s details.
      */
-    public static String getEditTransactionDescriptorDetails(EditCommand.EditTransactionDescriptor descriptor) {
+    public static String getUpdateTransactionDescriptorDetails(UpdateCommand.UpdateTransactionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getDescription().ifPresent(description -> sb.append(CliSyntax.PREFIX_NAME)
                 .append(description.toString()).append(" "));

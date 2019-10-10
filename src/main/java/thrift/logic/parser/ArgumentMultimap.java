@@ -57,4 +57,12 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Returns the preamble (text before the first valid prefix) with index "i/" prefix attached. Trims any
+     * leading/trailing spaces.
+     */
+    public String getPreambleTillIndex() {
+        return getValue(CliSyntax.PREFIX_INDEX).orElse("");
+    }
 }

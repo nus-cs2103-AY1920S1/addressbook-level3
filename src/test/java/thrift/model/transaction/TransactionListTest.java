@@ -47,7 +47,7 @@ public class TransactionListTest {
     }
 
     @Test
-    public void setTransaction_nullEditedTransaction_throwsNullPointerException() {
+    public void setTransaction_nullUpdatedTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
             -> transactionList.setTransaction(TypicalTransactions.LAKSA, null));
     }
@@ -59,7 +59,7 @@ public class TransactionListTest {
     }
 
     @Test
-    public void setTransaction_editedTransactionIsSameTransaction_success() {
+    public void setTransaction_updatedTransactionIsSameTransaction_success() {
         transactionList.add(TypicalTransactions.LAKSA);
         transactionList.setTransaction(TypicalTransactions.LAKSA, TypicalTransactions.LAKSA);
         TransactionList expectedTransactionList = new TransactionList();
@@ -68,20 +68,20 @@ public class TransactionListTest {
     }
 
     @Test
-    public void setTransaction_editedTransactionHasSameIdentity_success() {
+    public void setTransaction_updatedTransactionHasSameIdentity_success() {
         transactionList.add(TypicalTransactions.LAKSA);
-        Expense editedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
+        Expense updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS)
                 .withTags(CommandTestUtil.VALID_TAG_ACCESSORY)
                 .build();
-        transactionList.setTransaction(TypicalTransactions.LAKSA, editedExpense);
+        transactionList.setTransaction(TypicalTransactions.LAKSA, updatedExpense);
         TransactionList expectedTransactionList = new TransactionList();
-        expectedTransactionList.add(editedExpense);
+        expectedTransactionList.add(updatedExpense);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
-    public void setTransaction_editedTransactionHasDifferentIdentity_success() {
+    public void setTransaction_updatedTransactionHasDifferentIdentity_success() {
         transactionList.add(TypicalTransactions.LAKSA);
         transactionList.setTransaction(TypicalTransactions.LAKSA, TypicalTransactions.PENANG_LAKSA);
         TransactionList expectedTransactionList = new TransactionList();

@@ -131,7 +131,7 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public void setTransaction(Transaction target, Transaction editedTransaction) {
+        public void setTransaction(Transaction target, Transaction updatedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 

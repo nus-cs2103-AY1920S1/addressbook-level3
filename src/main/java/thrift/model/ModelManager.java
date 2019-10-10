@@ -118,10 +118,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
-        CollectionUtil.requireAllNonNull(target, editedTransaction);
+    public void setTransaction(Transaction target, Transaction updatedTransaction) {
+        CollectionUtil.requireAllNonNull(target, updatedTransaction);
 
-        thrift.setTransaction(target, editedTransaction);
+        thrift.setTransaction(target, updatedTransaction);
     }
 
     //=========== Filtered Transaction List Accessors =============================================================

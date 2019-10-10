@@ -77,10 +77,10 @@ public interface Model {
     void addIncome(Income income);
 
     /**
-     * Replaces the given transaction {@code target} with {@code editedTransaction}.
+     * Replaces the given transaction {@code target} with {@code updatedTransaction}.
      * {@code target} must exist in the transactions list.
      */
-    void setTransaction(Transaction target, Transaction editedTransaction);
+    void setTransaction(Transaction target, Transaction updatedTransaction);
 
     /** Returns an unmodifiable view of the filtered transaction list */
     ObservableList<Transaction> getFilteredTransactionList();

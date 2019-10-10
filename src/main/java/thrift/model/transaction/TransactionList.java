@@ -40,18 +40,18 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the transaction {@code target} in the list with {@code editedTransaction}.
+     * Replaces the transaction {@code target} in the list with {@code updatedTransaction}.
      * {@code target} must exist in the list.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
-        requireAllNonNull(target, editedTransaction);
+    public void setTransaction(Transaction target, Transaction updatedTransaction) {
+        requireAllNonNull(target, updatedTransaction);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new TransactionNotFoundException();
         }
 
-        internalList.set(index, editedTransaction);
+        internalList.set(index, updatedTransaction);
     }
 
     /**

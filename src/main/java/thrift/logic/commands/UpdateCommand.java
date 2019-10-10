@@ -23,39 +23,39 @@ import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
 
 /**
- * Edits the details of an existing transaction in THRIFT.
+ * Updates the details of an existing transaction in THRIFT.
  */
-public class EditCommand extends Command {
+public class UpdateCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the transaction identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the transaction identified "
             + "by the index number used in the displayed transaction list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION] "
             + "[" + CliSyntax.PREFIX_COST + "COST] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_NAME + "Mee Siam "
             + CliSyntax.PREFIX_COST + "3.00";
 
-    public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
+    public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
 
     private final Index index;
-    private final EditTransactionDescriptor editTransactionDescriptor;
+    private final UpdateTransactionDescriptor updateTransactionDescriptor;
 
     /**
-     * @param index of the transaction in the filtered transaction list to edit
-     * @param editTransactionDescriptor details to edit the transaction with
+     * @param index of the transaction in the filtered transaction list to update
+     * @param updateTransactionDescriptor details to update the transaction with
      */
-    public EditCommand(Index index, EditTransactionDescriptor editTransactionDescriptor) {
+    public UpdateCommand(Index index, UpdateTransactionDescriptor updateTransactionDescriptor) {
         requireNonNull(index);
-        requireNonNull(editTransactionDescriptor);
+        requireNonNull(updateTransactionDescriptor);
 
         this.index = index;
-        this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
+        this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
     }
 
     @Override
@@ -67,29 +67,29 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
-        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+        Transaction transactionToUpdate = lastShownList.get(index.getZeroBased());
+        Transaction updatedTransaction = createUpdatedTransaction(transactionToUpdate, updateTransactionDescriptor);
 
-        model.setTransaction(transactionToEdit, editedTransaction);
+        model.setTransaction(transactionToUpdate, updatedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
     }
 
     /**
-     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
-     * edited with {@code editTransactionDescriptor}.
+     * Creates and returns a {@code Transaction} with the details of {@code transactionToUpdate}
+     * updated with {@code updateTransactionDescriptor}.
      */
-    private static Transaction createEditedTransaction(Transaction transactionToEdit,
-                                                       EditTransactionDescriptor editTransactionDescriptor) {
-        assert transactionToEdit != null;
+    private static Transaction createUpdatedTransaction(Transaction transactionToUpdate,
+                                                        UpdateTransactionDescriptor updateTransactionDescriptor) {
+        assert transactionToUpdate != null;
 
-        Description updatedDescription = editTransactionDescriptor.getDescription()
-                .orElse(transactionToEdit.getDescription());
-        Value updatedValue = editTransactionDescriptor.getValue().orElse(transactionToEdit.getValue());
-        TransactionDate updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
-        Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getTags());
+        Description updatedDescription = updateTransactionDescriptor.getDescription()
+                .orElse(transactionToUpdate.getDescription());
+        Value updatedValue = updateTransactionDescriptor.getValue().orElse(transactionToUpdate.getValue());
+        TransactionDate updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToUpdate.getDate());
+        Set<Tag> updatedTags = updateTransactionDescriptor.getTags().orElse(transactionToUpdate.getTags());
 
-        if (transactionToEdit instanceof Expense) {
+        if (transactionToUpdate instanceof Expense) {
             return new Expense(updatedDescription, updatedValue, updatedDate, updatedTags);
         } else {
             return new Income(updatedDescription, updatedValue, updatedDate, updatedTags);
@@ -104,33 +104,33 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof UpdateCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        UpdateCommand e = (UpdateCommand) other;
         return index.equals(e.index)
-                && editTransactionDescriptor.equals(e.editTransactionDescriptor);
+                && updateTransactionDescriptor.equals(e.updateTransactionDescriptor);
     }
 
     /**
-     * Stores the details to edit the transaction with. Each non-empty field value will replace the
+     * Stores the details to update the transaction with. Each non-empty field value will replace the
      * corresponding field value of the transaction.
      */
-    public static class EditTransactionDescriptor {
+    public static class UpdateTransactionDescriptor {
         private Description description;
         private Value value;
         private TransactionDate date;
         private Set<Tag> tags;
 
-        public EditTransactionDescriptor() {}
+        public UpdateTransactionDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
+        public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
             setDescription(toCopy.description);
             setValue(toCopy.value);
             setDate(toCopy.date);
@@ -138,9 +138,9 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns true if at least one field is edited.
+         * Returns true if at least one field is updated.
          */
-        public boolean isAnyFieldEdited() {
+        public boolean isAnyFieldUpdated() {
             return CollectionUtil.isAnyNonNull(description, value, date, tags);
         }
 
@@ -193,12 +193,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditTransactionDescriptor)) {
+            if (!(other instanceof UpdateTransactionDescriptor)) {
                 return false;
             }
 
             // state check
-            EditTransactionDescriptor e = (EditTransactionDescriptor) other;
+            UpdateTransactionDescriptor e = (UpdateTransactionDescriptor) other;
 
             return getDescription().equals(e.getDescription())
                     && getValue().equals(e.getValue())

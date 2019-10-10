@@ -3,6 +3,7 @@ package thrift.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.parser.CliSyntax.PREFIX_COST;
+import static thrift.logic.parser.CliSyntax.PREFIX_INDEX;
 import static thrift.logic.parser.CliSyntax.PREFIX_NAME;
 import static thrift.logic.parser.CliSyntax.PREFIX_TAG;
 import static thrift.testutil.Assert.assertThrows;
@@ -17,7 +18,7 @@ import thrift.model.Model;
 import thrift.model.Thrift;
 import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
 import thrift.model.transaction.Transaction;
-import thrift.testutil.EditTransactionDescriptorBuilder;
+import thrift.testutil.UpdateTransactionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -49,6 +50,7 @@ public class CommandTestUtil {
     public static final String TAG_LAKSA = " " + PREFIX_TAG + VALID_TAG_LUNCH;
     public static final String TAG_BRUNCH = " " + PREFIX_TAG + VALID_TAG_BRUNCH;
     public static final String TAG_AIRPODS = " " + PREFIX_TAG + VALID_TAG_ACCESSORY;
+    public static final String INDEX_TOKEN = " " + PREFIX_INDEX;
 
     public static final String INVALID_VALUE = " " + PREFIX_COST + ".00"; // missing whole number
     public static final String INVALID_TAG = " " + PREFIX_TAG + "A+"; //illegal character
@@ -56,14 +58,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditTransactionDescriptor DESC_MEAL;
-    public static final EditCommand.EditTransactionDescriptor DESC_PURCHASE;
+    public static final UpdateCommand.UpdateTransactionDescriptor DESC_MEAL;
+    public static final UpdateCommand.UpdateTransactionDescriptor DESC_PURCHASE;
 
     static {
-        DESC_MEAL = new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_LAKSA)
+        DESC_MEAL = new UpdateTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_LAKSA)
                 .withValue(VALID_VALUE_LAKSA).withDate(VALID_DATE_LAKSA).withTags(VALID_TAG_LUNCH).build();
 
-        DESC_PURCHASE = new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_AIRPODS)
+        DESC_PURCHASE = new UpdateTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_AIRPODS)
                 .withValue(VALID_VALUE_AIRPODS).withDate(VALID_DATE_AIRPODS).withTags(VALID_TAG_ACCESSORY).build();
     }
 
