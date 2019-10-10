@@ -487,27 +487,41 @@ Feature by
 ==== undo
 Undo action(s) on the application. This will allow users to roll back certain
 actions that the user may have accidentally or erroneously done on the
-application.
+application. Keep in mind that only commands that change the data on the application
+are undoable. Commands that just render and display information are not actions
+that can be undone.
 
-Format: `undo [r/NUMBER-OF-COMMANDS]`
+There is a limit of to the number of undoable actions you can make in the application,
+which is set to 20 actions.
+
+Format: `undo [r/NUMBER]`
 
 Examples: +
 `undo` (undoes the latest action) +
 `undo r/3` (undoes the last three actions) +
-`undo r/all` (undoes all actions that Jarvis remembers (20 max))
 
 
 
 ==== redo
 Redo action(s) on the application. This will allow users to redo certain
-actions, or any accidental or erroneous undos.
+actions, or any accidental or erroneous undo actions. Keep in mind that
+only commands that can be undone can be redone. Therefore, only commands
+that change the data on the application can be redone as they can be undone.
+Commands that just render and display information are not actions that can be
+undone and hence will not be able to be redone.
 
-Format: `redo [r/NUMBER-OF-COMMANDS]`
+The maximum number of available redo actions you can make is 20 due to the limit
+of undo actions on the application which is 20.
+
+Take note that if you have undone a certain amount of actions and from that point,
+you type in a new command that is not `redo`, the actions available to be redone
+will be cleared as of that point, similar to a browser navigation on a single tab.
+
+Format: `redo [r/NUMBER]`
 
 Examples: +
 `redo` (redoes the latest undo) +
 `redo r/3` (redoes the last three undos) +
-`redo r/all` (redoes all actions that has been undone (20 max))
 
 = FAQ
 
