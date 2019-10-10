@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.address.model.actor.Actor;
 
 /**
@@ -24,9 +25,12 @@ public abstract class Show {
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
+    private final String imageOfShow;
+    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
 
     public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
+        this.imageOfShow = placeholderImageLocation;
         requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;

@@ -518,41 +518,17 @@ _{More to be added}_
 
 [appendix]
 == Glossary
-[[movies]] Movie::
-A cinema film
-
-[[tv-series]] TV Series::
-A television program which consists of several episodes that are broadcast in regular intervals
-
-[[shows]] Shows::
-Movies or TV series
-
-[[watchlist]] Watchlist::
-The list of shows that the user wishes to watch in the future.
-
-[[main-page]] Main Page / Watchlist page::
-The default main page with the WatchList tab that contains a list of shows that the user wishes to watch
-
-[[watched-page]] Watched page::
-The page where the user can access to view the list of shows indicated as watched
-
-[[search-page]] Search page::
-The page where the user searches for shows to be added or to view their information
-
 [[details-page]] Details page::
 The page that shows the details of shows, which the user may then add it to the watchlist if interested.
 
 [[edit-page]] Edit page::
 The page where the user can edit the shows that they have added.
 
-[[statistics-page]] Statistics page::
-The page that shows the statistics of user, such as total number of movies / TV series watched
+[[main-page]] Main Page / Watchlist page::
+The default main page with the WatchList tab that contains a list of shows that the user wishes to watch
 
-[[tag]] Tag::
-A short remark about the show or user’s feelings towards the show
-
-[[show-index]] Show index::
-The number reference for the show in the pages
+[[movies]] Movie::
+A cinema film
 
 [[progress-bar]] Progress Bar::
 A visible bar for users to see how many episodes of TV Series have been watched
@@ -560,8 +536,32 @@ A visible bar for users to see how many episodes of TV Series have been watched
 [[search-command]] Search command `search [keyword]`::
 This command brings the user to a search page with keyword input
 
+[[search-page]] Search page::
+The page where the user searches for shows to be added or to view their information
+
+[[show-index]] Show index::
+The number reference for the show in the pages
+
+[[shows]] Shows::
+Movies or TV series
+
+[[statistics-page]] Statistics page::
+The page that shows the statistics of user, such as total number of movies / TV series watched
+
+[[tag]] Tag::
+A short remark about the show or user’s feelings towards the show
+
+[[tv-series]] TV Series::
+A television program which consists of several episodes that are broadcast in regular intervals
+
 [[view-command]] View command `view [index]`::
 This command brings the user to the details page of the show with the specified show index
+
+[[watched-page]] Watched page::
+The page where the user can access to view the list of shows indicated as watched
+
+[[watchlist]] Watchlist::
+The list of shows that the user wishes to watch in the future.
 
 [appendix]
 == Product Survey

@@ -2,6 +2,7 @@ package seedu.address.model.show;
 
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.address.model.actor.Actor;
 
 /**
@@ -9,6 +10,7 @@ import seedu.address.model.actor.Actor;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Movie extends Show {
+
 
     public Movie(Name name, Description description, boolean isWatched,
                  Date dateOfRelease, RunningTime runningTime, Set<Actor> actors) {

@@ -3,6 +3,7 @@ package seedu.address.model.show;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.address.model.actor.Actor;
 
 /**
@@ -11,6 +12,7 @@ import seedu.address.model.actor.Actor;
  */
 public class TvShow extends Show {
 
+    private static final Image imageOfShow = null;
     private int numOfEpisodesWatched;
     private ArrayList<TvSeason> tvSeasons;
     private final int totalNumOfEpisodes;

@@ -14,14 +14,14 @@ endif::[]
 
 == Site Map
 
-* <</docs/UserGuide#, User Guide>>
-* <</docs/DeveloperGuide#, Developer Guide>>
-* <</docs/LearningOutcomes#, Learning Outcomes>>
-* <</docs/AboutUs#, About Us>>
-* <</docs/ContactUs#, Contact Us>>
+* <<docs/UserGuide#, User Guide>>
+* <<docs/DeveloperGuide#, Developer Guide>>
+* <<docs/LearningOutcomes#, Learning Outcomes>>
+* <<docs/AboutUs#, About Us>>
+* <<docs/ContactUs#, Contact Us>>
 
 == Acknowledgements
-* Original source of code i.e. AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative]
+* AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
