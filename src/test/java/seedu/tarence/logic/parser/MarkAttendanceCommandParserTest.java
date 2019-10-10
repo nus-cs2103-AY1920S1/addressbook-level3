@@ -45,16 +45,16 @@ public class MarkAttendanceCommandParserTest {
                 + NAME_DESC_AMY + VALID_WEEK_DESC + NAME_DESC_BOB + NAME_DESC_AMY,
                 new MarkAttendanceCommand(expectedModCode,
                 expectedTutName, expectedWeek, expectedStudName));
+
+        // missing name
+        assertParseSuccess(parser, VALID_MODCODE_DESC + VALID_TUTORIAL_NAME_DESC
+                + VALID_WEEK_DESC,
+                new MarkAttendanceCommand(expectedModCode, expectedTutName, expectedWeek, null));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkAttendanceCommand.MESSAGE_USAGE);
-
-        // missing name prefix
-        assertParseFailure(parser, VALID_MODCODE_DESC + VALID_TUTORIAL_NAME_DESC
-                + VALID_NAME_AMY + VALID_WEEK_DESC,
-                expectedMessage);
 
         // missing mod code prefix
         assertParseFailure(parser, VALID_MODCODE + VALID_TUTORIAL_NAME_DESC

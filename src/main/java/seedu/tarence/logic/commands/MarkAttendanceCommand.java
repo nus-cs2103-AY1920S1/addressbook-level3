@@ -8,6 +8,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
@@ -27,6 +28,9 @@ import seedu.tarence.model.tutorial.exceptions.WeekNotFoundException;
 public class MarkAttendanceCommand extends Command {
 
     public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Attendance of %1$s marked as %2$s";
+    public static final String MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT = "Do you want to mark "
+            + "%1$s's attendance?\n"
+            + "(y/n)";
 
     public static final String COMMAND_WORD = "mark";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
@@ -46,13 +50,13 @@ public class MarkAttendanceCommand extends Command {
     private final ModCode targetModCode;
     private final TutName targetTutName;
     private final Week week;
-    private final Name targetStudName;
+    private final Optional<Name> targetStudName;
 
     public MarkAttendanceCommand(ModCode modCode, TutName tutName, Week week, Name studName) {
-        requireAllNonNull(modCode, tutName, week, studName);
+        requireAllNonNull(modCode, tutName, week);
         this.targetModCode = modCode;
         this.targetTutName = tutName;
-        this.targetStudName = studName;
+        this.targetStudName = Optional.ofNullable(studName);
         this.week = week;
     }
 
@@ -70,8 +74,17 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
         }
 
-        Student targetStudent = targetTutorial.getStudents().stream()
-            .filter(student -> student.getName().equals(targetStudName))
+        Student targetStudent;
+        // starts the chain of commands to mark attendance of a class if targetStudName is not specified
+        if (targetStudName.isEmpty()) {
+            targetStudent = targetTutorial.getStudents().get(0);
+            model.storePendingCommand(new MarkAttendanceVerifiedCommand(targetTutorial, week, targetStudent));
+            return new CommandResult(
+                    String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, targetStudent.getName()));
+        }
+
+        targetStudent = targetTutorial.getStudents().stream()
+            .filter(student -> student.getName().equals(targetStudName.get()))
             .findFirst()
             .orElse(null);
 
@@ -87,7 +100,17 @@ public class MarkAttendanceCommand extends Command {
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudName, isPresent));
+                targetStudent.getName(), isPresent));
+    }
+
+    @Override
+    public boolean needsInput() {
+        return false;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return false;
     }
 
     /**

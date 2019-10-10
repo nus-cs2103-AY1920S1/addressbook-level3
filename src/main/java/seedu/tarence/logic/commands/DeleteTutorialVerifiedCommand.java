@@ -23,4 +23,14 @@ public class DeleteTutorialVerifiedCommand extends Command {
         return new CommandResult(String.format(DeleteTutorialCommand.MESSAGE_DELETE_TUTORIAL_SUCCESS,
                 tutorialToDelete));
     }
+
+    @Override
+    public boolean needsInput() {
+        return true;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return command instanceof ConfirmYesCommand || command instanceof ConfirmNoCommand;
+    }
 }

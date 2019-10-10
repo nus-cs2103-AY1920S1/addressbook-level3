@@ -74,6 +74,16 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
+    @Override
+    public boolean needsInput() {
+        return false;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return false;
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.

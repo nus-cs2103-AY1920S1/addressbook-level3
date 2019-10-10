@@ -196,7 +196,7 @@ public interface Model {
     void storePendingCommand(Command command);
 
     /**
-     * Removes pending command and returns it for execution.
+     * Removes pending command and returns it for execution if it exists, else null.
      */
     Command getPendingCommand();
 
@@ -204,4 +204,9 @@ public interface Model {
      * Checks if a pending command exists in the application.
      */
     boolean hasPendingCommand();
+
+    /**
+     * Returns the pending command at the top of the execution stack if it exists, else null.
+     */
+    Command peekPendingCommand();
 }

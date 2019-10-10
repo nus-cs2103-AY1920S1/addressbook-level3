@@ -68,6 +68,16 @@ public class AddTutorialCommand extends Command {
                 tutorial.getTimeTable().getDuration().toMinutes()));
     }
 
+    @Override
+    public boolean needsInput() {
+        return false;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return false;
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *

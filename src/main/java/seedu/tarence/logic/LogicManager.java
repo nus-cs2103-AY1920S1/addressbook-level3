@@ -9,8 +9,6 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.CommandResult;
-import seedu.tarence.logic.commands.ConfirmNoCommand;
-import seedu.tarence.logic.commands.ConfirmYesCommand;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -44,17 +42,48 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = applicationParser.parseCommand(commandText);
-        if (!(command instanceof ConfirmYesCommand) && !(command instanceof ConfirmNoCommand)) {
-            model.getPendingCommand(); // clear any pending commands if user has entered a different command
-        }
-        commandResult = command.execute(model);
+        Command command;
 
-        try {
-            storage.saveApplication(model.getApplication());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        // processes multiple commands in user input if they exit
+        String[] commandStrings = commandText.split("&");
+        // TODO: add model.appendPendingCommand()
+        for (int i = commandStrings.length - 1; i >= 0; i--) {
+            Command tempCommand = applicationParser.parseCommand(commandStrings[i]);
+            model.storePendingCommand(tempCommand);
         }
+
+        StringBuffer combinedFeedback = new StringBuffer();
+        // clears log of pending commands until it meets a command that requires further user input
+        while (model.hasPendingCommand() && !model.peekPendingCommand().needsInput()) {
+            command = model.getPendingCommand(); // first user-inputted command
+
+            // if next command requires user input, checks if current command is relevant
+            if (model.hasPendingCommand()
+                    && model.peekPendingCommand().needsInput()
+                    && !model.peekPendingCommand().needsCommand(command)) {
+                model.getPendingCommand(); // clear any pending commands if user has entered a different command
+            }
+
+            CommandResult currCommandResult = command.execute(model);
+
+            // concatenate all results into a single result
+            combinedFeedback.append(currCommandResult.getFeedbackToUser() + "\n");
+
+            // check for exit/help condition
+            if (currCommandResult.isExit() || currCommandResult.isShowHelp()) {
+                // this means that previous commands won't be shown if help is inside pending commands
+                return currCommandResult;
+            }
+
+            try {
+                storage.saveApplication(model.getApplication());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        // creates a new command concatenating all command result messages into a single result
+        commandResult = new CommandResult(combinedFeedback.toString());
 
         return commandResult;
     }

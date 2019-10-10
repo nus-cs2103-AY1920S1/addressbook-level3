@@ -83,6 +83,16 @@ public class DeleteModuleCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
+    @Override
+    public boolean needsInput() {
+        return false;
+    }
+
+    @Override
+    public boolean needsCommand(Command command) {
+        return false;
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
