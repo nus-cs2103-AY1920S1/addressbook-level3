@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.util.UUID;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Price;
@@ -23,6 +24,8 @@ public class OrderBuilder {
     private static final String DEFAULT_PRICE = "$1212";
     private static final Status DEFAULT_STATUS = Status.UNSCHEDULED;
 
+    private UUID id;
+
     private Customer customer;
     private Phone phone;
     private Price price;
@@ -31,6 +34,7 @@ public class OrderBuilder {
     private Set<Tag> tags;
 
     public OrderBuilder() {
+        id = UUID.randomUUID();
         customer = new CustomerBuilder(CUSTOMERONE).build();
         phone = new PhoneBuilder(IPHONEONE).build();
         price = new Price(DEFAULT_PRICE);
@@ -42,7 +46,22 @@ public class OrderBuilder {
     /**
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
+    public OrderBuilder(Order orderToCopy, boolean copyId) {
+        if (copyId) {
+            id = orderToCopy.getId();
+        } else {
+            id = UUID.randomUUID();
+        }
+        customer = orderToCopy.getCustomer();
+        phone = orderToCopy.getPhone();
+        price = orderToCopy.getPrice();
+        status = orderToCopy.getStatus();
+        schedule = orderToCopy.getSchedule();
+        tags = new HashSet<>(orderToCopy.getTags());
+    }
+
     public OrderBuilder(Order orderToCopy) {
+        id = UUID.randomUUID();
         customer = orderToCopy.getCustomer();
         phone = orderToCopy.getPhone();
         price = orderToCopy.getPrice();
