@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.Alias;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
@@ -78,6 +80,22 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public AliasMappings getAliasMappings() {
+        return userPrefs.getAliasMappings();
+    }
+
+    @Override
+    public void setAliasMappings(AliasMappings aliasMappings) {
+        requireNonNull(aliasMappings);
+        userPrefs.setAliasMappings(aliasMappings);
+    }
+
+    @Override
+    public void addUserAlias(Alias alias) {
+        userPrefs.addUserAlias(alias);
     }
 
     //=========== AddressBook ================================================================================

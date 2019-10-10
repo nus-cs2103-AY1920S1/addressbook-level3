@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Alias;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
@@ -29,6 +31,7 @@ public interface Model {
      */
     ReadOnlyUserPrefs getUserPrefs();
 
+    // ======== GUI SETTINGS ===============
     /**
      * Returns the user prefs' GUI settings.
      */
@@ -39,6 +42,24 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    // ======== ALIAS SETTINGS ===========
+    /**
+     * Return's the user prefs' alias mappings.
+     */
+    AliasMappings getAliasMappings();
+
+    /**
+     * Sets the user prefs' alias mappings.
+     */
+    void setAliasMappings(AliasMappings aliasMappings);
+
+    /**
+     * Add a user defined alias to the user prefs' alias mappings.
+     */
+    void addUserAlias(Alias alias);
+
+
+    // ======== ADDRESS BOOK SETTINGS ===============
     /**
      * Returns the user prefs' address book file path.
      */
@@ -56,6 +77,8 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    // ======== ADDRESS BOOK ACTIONS ===============
 
     /**
      * Returns true if a expense with the same identity as {@code expense}
