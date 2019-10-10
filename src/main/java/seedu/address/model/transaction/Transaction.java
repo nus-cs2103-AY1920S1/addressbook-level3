@@ -2,15 +2,10 @@ package seedu.address.model.transaction;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.Description;
-import seedu.address.model.Amount;
-
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.Amount;
+import seedu.address.model.Description;
 
 /**
  * Represents a Transaction in IchiFund.

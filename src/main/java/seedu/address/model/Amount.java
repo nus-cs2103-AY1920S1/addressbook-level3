@@ -11,11 +11,11 @@ public class Amount {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should be in the format '<dollars>.<cents>' or '<dollars>'.\n" +
-                    "<dollars> consists of numbers with no leading zeroes, unless it is '0'.\n" +
-                    "<cents> consists of numbers, and is exactly 2 digits long.";
+            "Amount should be in the format '<dollars>.<cents>' or '<dollars>'.\n"
+                    + "<dollars> consists of numbers with no leading zeroes, unless it is '0'.\n"
+                    + "<cents> consists of numbers, and is exactly 2 digits long.";
     public static final String CENTS_REGEX = "(\\.\\d\\d)"; // '.' followed by exactly two numerical digits
-    public static final String DOLLARS_REGEX =  "([1-9]\\d*|0)"; // '0', or number without leading zeroes
+    public static final String DOLLARS_REGEX = "([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally
     public final String value;
 
