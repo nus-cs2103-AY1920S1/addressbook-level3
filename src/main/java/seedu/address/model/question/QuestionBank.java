@@ -7,14 +7,14 @@ import seedu.address.commons.core.index.Index;
 /**
  * Stores questions and provides functionality to manage them.
  */
-public class QuestionList {
+public class QuestionBank {
 
     private ArrayList<Question> questions;
 
     /**
      * Creates a new QuestionList object.
      */
-    public QuestionList() {
+    public QuestionBank() {
         questions = new ArrayList<>();
     }
 
@@ -24,7 +24,9 @@ public class QuestionList {
      * @param question to add to the list.
      */
     public void addQuestion(Question question) {
-        this.questions.add(question);
+        if(!isRepeated(question)) {
+            this.questions.add(question);
+        }
         // TODO: Implement check if duplicated question AND answer is entered
     }
 
@@ -59,6 +61,42 @@ public class QuestionList {
     }
 
     /**
+     * Returns all the questions in a question bank in an ArrayList representation.
+     * @return All the questions in the question bank in an ArrayList representation.
+     */
+    public ArrayList<Question> getAllQuestions() {
+        return questions;
+    }
+
+    /**
+     * Returns all the McqQuestions in a question bank in an ArrayList representation.
+     * @return All the McqQuestions in the question bank in an ArrayList representation.
+     */
+    public ArrayList<Question> getMCQQuestions() {
+        ArrayList<Question> mcqQuestions = new ArrayList<>();
+        for(Question q : questions) {
+            if(q instanceof McqQuestion) {
+                mcqQuestions.add(q);
+            }
+        }
+        return mcqQuestions;
+    }
+
+    /**
+     * Returns all the OpenEndedQuestions in a question bank in an ArrayList representation.
+     * @return All the OpenEndedQuestions in the question bank in an ArrayList representation.
+     */
+    public ArrayList<Question> getOpenEndedQuestions() {
+        ArrayList<Question> openEndedQuestions = new ArrayList<>();
+        for(Question q : questions) {
+            if(q instanceof OpenEndedQuestion) {
+                openEndedQuestions.add(q);
+            }
+        }
+        return openEndedQuestions;
+    }
+
+    /**
      * Printing out the list of questions and how many are there.
      *
      * @return Summary of questions.
@@ -76,5 +114,16 @@ public class QuestionList {
         }
 
         return summary;
+    }
+
+    private boolean isRepeated(Question question) {
+        String otherQuestion = question.question;
+        for(Question q : questions) {
+            String currentQuestion = q.question;
+            if(currentQuestion.equals(otherQuestion)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
