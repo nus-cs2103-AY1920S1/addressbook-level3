@@ -32,7 +32,7 @@ Role: Member
 
 
 === Wang Runding
-image::r-d-d-d.png[width="150", align="left"]
+image::R-D-D-D.png[width="150", align="left"]
 {empty}[https://github.com/r-d-d-d[github]]
 
 Role: Member
