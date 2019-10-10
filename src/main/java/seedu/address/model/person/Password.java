@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's password in the incident management system.
- * Guarantees: immutable; is valid as declared in {@link #isValidUsername(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password {
 
@@ -18,7 +18,7 @@ public class Password {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final int password;
+    public final String value;
 
     /**
      * Constructs a {@code Username}.
@@ -28,7 +28,7 @@ public class Password {
     public Password(String password) {
         requireNonNull(password);
         checkArgument(isValidPassword(password), MESSAGE_CONSTRAINTS);
-        this.password = password.hashCode();
+        this.value = password;
     }
 
     /**
@@ -41,19 +41,19 @@ public class Password {
 
     @Override
     public String toString() {
-        return String.valueOf(password);
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Password // instanceof handles nulls
-                && password == ((Password) other).password); // state check
+                && value.equals(((Password) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return password;
+        return value.hashCode();
     }
 
 }
