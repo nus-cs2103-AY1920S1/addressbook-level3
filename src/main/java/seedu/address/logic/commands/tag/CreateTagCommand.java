@@ -6,10 +6,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.DefaultTagType;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UserTag;
 
 /**
  * Creates a new tag.
@@ -25,8 +21,7 @@ public class CreateTagCommand extends Command {
         + "newtag exchange";
 
     public static final String MESSAGE_SUCCESS = "New tag created: %1$s";
-    public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists";
-    public static final String MESSAGE_INVALID_TAG_NAME = "This tag name is reserved for default tags";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This tag already exists";
 
     private final String tagName;
 
@@ -41,22 +36,18 @@ public class CreateTagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        // TODO: implement this
+        /*
         requireNonNull(model);
 
-        if (DefaultTagType.contains(tagName)) {
-            throw new CommandException(MESSAGE_INVALID_TAG_NAME);
+        if (model.hasPerson(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueTagList uniqueTagList = activeStudyPlan.getTags();
-
-        if (uniqueTagList.getMapTags().containsKey(tagName)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TAG);
-        }
-
-        UserTag toCreate = new UserTag(tagName);
-        uniqueTagList.addUserTag(toCreate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate));
+        model.addPerson(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+         */
+        return new CommandResult("this is just a temporary holder");
     }
 
 }
