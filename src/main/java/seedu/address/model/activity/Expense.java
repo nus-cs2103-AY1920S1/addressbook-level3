@@ -15,7 +15,7 @@ public class Expense {
     private boolean isDeleted;
 
     public Expense(Person person, Amount amount) {
-        requireAllNonNull(person);
+        requireAllNonNull(person, amount);
         this.person = person;
         this.amount = amount;
         this.isDeleted = false;
