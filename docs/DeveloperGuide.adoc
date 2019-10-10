@@ -308,6 +308,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Team Manager |be able to remind my members of upcoming meetings |ensure smoother team meetings as they are updated on the time and location, and there would be no unnecessary delays
 
+|`* * *` |Team Manager |backup my save file |
+
+|`* * *` |Team Manager |which members must be at a particular meeting |schedule a meeting even if there are no dates where every member is available
+
+|`* * *` |Team Manager |get a list of possible dates with attendance of each members |choose the optimal date with more relevant members
+
+|`* * *` |Team Manager |set a range of timings where meetings can be set |schedule meetings at timings customised to my own requirements
+
 |`* *` |Team Manager |find an optimal meeting location based on each team members' location |optimise the convenience of the team meeting locations for each team member
 
 |`* *` |Team Manager |remind members of their deadlines for their allocated tasks |make sure the tasks are completed promptly
@@ -319,6 +327,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Team Manager |send standardised emails to every team member containing the most updated project details |keep all my members up to date with the latest information when needed
 
 |`*` |Team Manager |send the minutes from a meeting to each member |keep each member updated on what was discussed during the meeting.
+
+|`*` |Team Manager |change the theme of the application |make it look the way I want it to
+
+|`*` |Team Manager |be recommended locations which are conducive for the meetings |
+
 |=======================================================================
 
 _{More to be added}_
