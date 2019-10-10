@@ -12,6 +12,9 @@ public class District {
     public static final String MESSAGE_CONSTRAINTS =
             "Districts should only contain alphanumeric characters and spaces, and it should not be blank";
 
+    public static final int FIRST_DISTRICT = 1;
+    public static final int LAST_DISTRICT = 28;
+
     public final int district;
 
     /**
@@ -29,7 +32,7 @@ public class District {
      * Returns true if a given string is a valid District.
      */
     public static boolean isValidDistrict(int test) {
-        return 1 <= test && test <= 28;
+        return FIRST_DISTRICT <= test && test <= LAST_DISTRICT;
     }
 
 
