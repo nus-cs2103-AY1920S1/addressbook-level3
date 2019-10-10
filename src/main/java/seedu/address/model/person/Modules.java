@@ -2,6 +2,9 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a NUS modules in the address book.
+ */
 public class Modules {
     private String moduleCode;
     private String title;
@@ -9,6 +12,15 @@ public class Modules {
     private String faculty;
     private boolean su;
 
+    /**
+     *  Constructs a {@code Module}.
+     *
+     * @param moduleCode Representative codes for the module.
+     * @param title The title for the module.
+     * @param credit Module credits that provides the weight
+     * @param faculty The faculty the module is held at.
+     * @param su Satisfactory and unsatisfactory option for grade
+     */
     public Modules(String moduleCode, String title, int credit, String faculty, boolean su) {
         requireNonNull(moduleCode);
         requireNonNull(title);
