@@ -39,6 +39,11 @@ public class StatisticManager implements Statistic {
     }
 
     @Override
+    public void getOrderBook(ReadOnlyDataBook<Order> orderBook) {
+
+    }
+
+    @Override
     public void calculateTotalCost() {
 
     }

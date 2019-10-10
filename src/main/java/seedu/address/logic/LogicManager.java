@@ -14,11 +14,13 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.statistic.Statistic;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,10 +33,12 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final Statistic statistic;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
         this.storage = storage;
+        this.statistic = statistic;
         addressBookParser = new AddressBookParser();
     }
 
@@ -59,6 +63,9 @@ public class LogicManager implements Logic {
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
+
+    @Override
+    public ReadOnlyDataBook<Order> getOrderBook() { return model.getOrderBook(); }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -96,5 +103,11 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void calculateStats() {
+        this.statistic.getOrderBook(this.getOrderBook());
+        this.statistic.calculateTotalProfit();
     }
 }
