@@ -27,20 +27,20 @@ class JsonAdaptedShow {
 
     private final String name;
     private final String dateOfRelease;
-    private final Boolean isWatched;
+    private final boolean isWatched;
     private final String description;
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedShow} with the given show details.
      */
     @JsonCreator
     public JsonAdaptedShow(@JsonProperty("name") String name,
-                           @JsonProperty("date of release") String dateOfRelease,
-                           @JsonProperty("watched") Boolean isWatched,
+                           @JsonProperty("dateOfRelease") String dateOfRelease,
+                           @JsonProperty("watched") boolean isWatched,
                            @JsonProperty("description") String description,
-                           @JsonProperty("running time") int runningTime,
+                           @JsonProperty("runningTime") int runningTime,
                            @JsonProperty("actors") List<JsonAdaptedActor> actors) {
         this.name = name;
         this.dateOfRelease = dateOfRelease;
@@ -93,9 +93,6 @@ class JsonAdaptedShow {
         }
         final Date modelDateOfRelease = new Date(dateOfRelease);
 
-        if (isWatched == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, IsWatched.class.getSimpleName()));
-        }
         if (!IsWatched.isValidIsWatched(isWatched)) {
             throw new IllegalValueException(IsWatched.MESSAGE_CONSTRAINTS);
         }

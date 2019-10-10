@@ -19,12 +19,12 @@ import seedu.address.model.show.Show;
 @JsonRootName(value = "watchlist")
 class JsonSerializableWatchList {
 
-    public static final String MESSAGE_DUPLICATE_SHOW = "show list contains duplicate show(s).";
+    public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
 
     private final List<JsonAdaptedShow> shows = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableWatchList} with the given shows.
      */
     @JsonCreator
     public JsonSerializableWatchList(@JsonProperty("shows") List<JsonAdaptedShow> shows) {

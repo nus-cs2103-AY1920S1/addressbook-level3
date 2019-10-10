@@ -47,9 +47,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         RunningTime runningTime = ParserUtil.parseRunningTime(argMultimap.getValue(PREFIX_RUNNING_TIME).get());
         Set<Actor> actorList = ParserUtil.parseActors(argMultimap.getAllValues(PREFIX_ACTOR));
 
-        Show person = new Show(name, description, isWatched, dateOfRelease, runningTime, actorList);
+        Show show = new Show(name, description, isWatched, dateOfRelease, runningTime, actorList);
 
-        return new AddCommand(person);
+        return new AddCommand(show);
     }
 
     /**
