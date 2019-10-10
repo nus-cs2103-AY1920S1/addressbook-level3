@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
@@ -75,7 +76,7 @@ public class Book {
      * @param dueDate Date when the book is due to return.
      */
     public void loanTo(BorrowerId borrowerId, LocalDate startDate, LocalDate dueDate) {
-        assert (!this.loan.isPresent()) : "Book not availble for loan";
+        assert (!this.loan.isPresent()) : "Book not available for loan";
         Loan currentLoan = new Loan(serialNumber, borrowerId, startDate, dueDate);
         this.loan = Optional.of(currentLoan);
     }
@@ -87,6 +88,20 @@ public class Book {
      */
     public boolean isCurrentlyLoanedOut() {
         return this.loan.isPresent();
+    }
+
+    /**
+     * Check if a book is currently overdue.
+     *
+     * @return true if book is on loan and overdue.
+     */
+    public boolean isOverdue() {
+        if (this.loan.isEmpty()) {
+            //a book without loan cannot be overdue
+            return false;
+        } else {
+            return this.loan.get().getDueDate().compareTo(DateUtil.getTodayDate()) < 0;
+        }
     }
 
     /**

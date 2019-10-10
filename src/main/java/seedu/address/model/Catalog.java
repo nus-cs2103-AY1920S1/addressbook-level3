@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.UniqueBookList;
+import seedu.address.model.borrower.BorrowerId;
 
 /**
  * Wraps all data at the catalog level
@@ -111,6 +112,29 @@ public class Catalog implements ReadOnlyCatalog {
                 .filter(book -> book.isCurrentlyLoanedOut())
                 .collect(Collectors.toList());
         return FXCollections.observableArrayList(loanedBooks);
+    }
+
+    /**
+     * Returns a list of overdue books from the current catalog.
+     *
+     * @return an ObservableList of books that are overdue.
+     */
+    public ObservableList<Book> getOverdueBooks() {
+        List<Book> loanedBooks = getBookList()
+                .stream()
+                .filter(book -> book.isOverdue())
+                .collect(Collectors.toList());
+        return FXCollections.observableArrayList(loanedBooks);
+    }
+
+    public ObservableList<BorrowerId> getOverdueBooksBorrowersId() {
+        List<BorrowerId> borrowersId = getOverdueBooks()
+                .stream()
+                .filter(book -> book.isCurrentlyLoanedOut()) // safety check to ensure loan is present
+                .map(book -> book.getLoan().get()) // get Loan object from each book
+                .map(loan -> loan.getBorrowerId()) // get BorrowerId from each Loan object
+                .collect(Collectors.toList()); // collect it to a list
+        return FXCollections.observableArrayList(borrowersId);
     }
 
     /**

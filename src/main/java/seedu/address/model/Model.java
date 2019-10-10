@@ -14,7 +14,7 @@ import seedu.address.model.borrower.Borrower;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Book> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -72,6 +72,10 @@ public interface Model {
     void updateFilteredBookList(Predicate<Book> predicate);
 
     Model excludeBookBeingReplaced(Book toBeReplaced);
+
+    ObservableList<Book> getOverdueBooks();
+
+    ObservableList<Borrower> getOverdueBooksBorrowers();
 
     // ================================================================ LoanRecords
 
