@@ -16,6 +16,6 @@ public class BioCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_BIO_MESSAGE, false, true, false);
+        return new CommandResult(SHOWING_BIO_MESSAGE, false, true, false, false);
     }
 }

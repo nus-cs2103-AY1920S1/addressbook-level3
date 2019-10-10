@@ -43,6 +43,7 @@ public class BioWindow extends UiPart<Stage> {
     private Profile profile;
     private BioTable bioTable;
     private HelpWindow helpWindow;
+    private AchievementsCache achievementsCache;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -83,6 +84,14 @@ public class BioWindow extends UiPart<Stage> {
 
     public ResultDisplay getResultDisplay() {
         return resultDisplay;
+    }
+
+    public AchievementsCache getAchievementsCache() {
+        return achievementsCache;
+    }
+
+    public void setAchievementsCache(AchievementsCache achievementsCache) {
+        this.achievementsCache = achievementsCache;
     }
 
     private void setAccelerators() {
@@ -201,24 +210,26 @@ public class BioWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
         mainWindow.show();
+        mainWindow.setAchievementsCache(achievementsCache);
         mainWindow.fillInnerParts();
         mainWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
-
     }
 
     /**
      * Switches this window to the AchievementsWindow.
      */
     @FXML
-    public void switchToAchievementsWindow(String feedbackToUser) {
+    public void switchToAchvmWindow(String feedbackToUser) {
         hide();
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
         achievementsWindow.show();
+        achievementsWindow.setAchievementsCache(achievementsCache);
         achievementsWindow.fillInnerParts();
         achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+
     }
 
     void show() {
@@ -253,7 +264,9 @@ public class BioWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            if (!commandResult.isShowBio()) {
+            if (commandResult.isShowAchvm()) {
+                switchToAchvmWindow(commandResult.getFeedbackToUser());
+            } else if (!commandResult.isShowBio() && !commandResult.isShowHelp()) {
                 switchToMainWindow(commandResult.getFeedbackToUser());
             }
             logger.info("Result: " + commandResult.getFeedbackToUser());

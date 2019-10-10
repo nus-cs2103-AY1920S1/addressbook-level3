@@ -44,6 +44,7 @@ public class AchievementsWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private AchievementsTitle achievementsTitle;
     private Achievements achievements;
+    private AchievementsCache achievementsCache;
     private HelpWindow helpWindow;
 
     @FXML
@@ -85,6 +86,14 @@ public class AchievementsWindow extends UiPart<Stage> {
 
     public ResultDisplay getResultDisplay() {
         return resultDisplay;
+    }
+
+    public AchievementsCache getAchievementsCache() {
+        return achievementsCache;
+    }
+
+    public void setAchievementsCache(AchievementsCache achievementsCache) {
+        this.achievementsCache = achievementsCache;
     }
 
     private void setAccelerators() {
@@ -133,16 +142,21 @@ public class AchievementsWindow extends UiPart<Stage> {
                 "Hi Amy, here are the list of achievements you have collected so far.");
         achievementsTitlePlaceholder.getChildren().add(achievementsTitle.getRoot());
 
-        achievements = new Achievements();
-
-        for (int i = 0; i <= 24; i++) {
-            int n = i % 8 + 1;
-            Image img = new Image(MainApp.class.getResourceAsStream("/images/sample_achievement_" + n + ".png"));
-            ImageView imageView = new AchievementsImageView().getImageView();
-            imageView.setImage(img);
-            achievements.getTilePane().getChildren().add(imageView);
+        if (achievementsCache == null || achievementsCache.isEmpty()) {
+            achievements = new Achievements();
+            for (int i = 0; i <= 24; i++) {
+                int n = i % 8 + 1;
+                Image img = new Image(MainApp.class.getResourceAsStream("/images/sample_achievement_" + n + ".png"));
+                ImageView imageView = new AchievementsImageView().getImageView();
+                imageView.setImage(img);
+                achievements.getTilePane().getChildren().add(imageView);
+            }
+            achievementsCache = new AchievementsCache(achievements);
+            achievementsPlaceholder.getChildren().add(achievements.getRoot());
+        } else {
+            achievements = achievementsCache.getAchievements();
+            achievementsPlaceholder.getChildren().add(achievements.getRoot());
         }
-        achievementsPlaceholder.getChildren().add(achievements.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -186,13 +200,13 @@ public class AchievementsWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
         mainWindow.show();
+        mainWindow.setAchievementsCache(achievementsCache);
         mainWindow.fillInnerParts();
         mainWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
-
     }
 
     /**
-     * Switches this window to the MainWindow.
+     * Switches this window to the BioWindow.
      */
     @FXML
     public void switchToBioWindow(String feedbackToUser) {
@@ -202,6 +216,7 @@ public class AchievementsWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         BioWindow bioWindow = new BioWindow(primaryStage, logic);
         bioWindow.show();
+        bioWindow.setAchievementsCache(achievementsCache);
         bioWindow.fillInnerParts();
         bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
     }
@@ -238,7 +253,9 @@ public class AchievementsWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            if (!commandResult.isShowBio()) {
+            if (commandResult.isShowBio()) {
+                switchToBioWindow(commandResult.getFeedbackToUser());
+            } else if (!commandResult.isShowAchvm() && !commandResult.isShowHelp()) {
                 switchToMainWindow(commandResult.getFeedbackToUser());
             }
             logger.info("Result: " + commandResult.getFeedbackToUser());

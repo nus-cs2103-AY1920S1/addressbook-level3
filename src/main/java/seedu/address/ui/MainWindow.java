@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private AchievementsCache achievementsCache;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -71,6 +72,14 @@ public class MainWindow extends UiPart<Stage> {
 
     public ResultDisplay getResultDisplay() {
         return resultDisplay;
+    }
+
+    public AchievementsCache getAchievementsCache() {
+        return achievementsCache;
+    }
+
+    public void setAchievementsCache(AchievementsCache achievementsCache) {
+        this.achievementsCache = achievementsCache;
     }
 
     private void setAccelerators() {
@@ -160,10 +169,27 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         BioWindow bioWindow = new BioWindow(primaryStage, logic);
         bioWindow.show();
+        bioWindow.setAchievementsCache(achievementsCache);
         bioWindow.fillInnerParts();
         bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
     }
 
+    /**
+     * Switches this window to the AchievementsWindow.
+     */
+    @FXML
+    public void switchToAchvmWindow(String feedbackToUser) {
+        hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
+        achievementsWindow.show();
+        achievementsWindow.setAchievementsCache(achievementsCache);
+        achievementsWindow.fillInnerParts();
+        achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    }
+    
     void show() {
         primaryStage.show();
     }
@@ -199,6 +225,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             if (commandResult.isShowBio()) {
                 switchToBioWindow(commandResult.getFeedbackToUser());
+            } else if (commandResult.isShowAchvm()) {
+                switchToAchvmWindow(commandResult.getFeedbackToUser());
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
