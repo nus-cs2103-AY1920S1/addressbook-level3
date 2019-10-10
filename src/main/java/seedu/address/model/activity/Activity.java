@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 
 import seedu.address.model.person.Person;
-import seedu.address.model.activity.Title;
 
 /**
  * Represents an Activity class containing participants and expenses.
@@ -99,6 +98,4 @@ public class Activity {
             } // if beyond range not implemented yet
         }
     }
-
-
 }

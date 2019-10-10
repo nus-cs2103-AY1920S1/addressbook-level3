@@ -2,8 +2,13 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
+
 
 /**
  * Command to create a new Activity.
@@ -19,13 +24,17 @@ public class ActivityCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Title: %s";
 
     private final String title;
+    private final ArrayList<Person> participants = new ArrayList<>();
 
     /**
      * @param title Title of the activity
+     * @param participants List of the names of participants
      */
-    public ActivityCommand(String title) {
-        requireAllNonNull(title);
-
+    public ActivityCommand(String title, List<String> participants) {
+        requireAllNonNull(title, participants);
+        for (String personName : participants) {
+            // TODO: Find the person from addressbook, and add in if valid
+        }
         this.title = title;
     }
 
