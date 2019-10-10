@@ -41,9 +41,18 @@ public class Appeal {
      * @param resolved
      * @param remark
      */
-    public Appeal(String appealId, String appealType, String studentId, String academicYear,
-                  int studentWorkload, String appealDescription, String previousModule,
-                  String newModule, String moduleToAdd, String moduleToDrop, boolean resolved, String remark) {
+    public Appeal(String appealId,
+                  String appealType,
+                  String studentId,
+                  String academicYear,
+                  int studentWorkload,
+                  String appealDescription,
+                  String previousModule,
+                  String newModule,
+                  String moduleToAdd,
+                  String moduleToDrop,
+                  boolean resolved,
+                  String remark) {
 
         CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
                 studentWorkload, appealDescription, previousModule,
@@ -61,7 +70,8 @@ public class Appeal {
         this.resolved = resolved;
         this.result = "Pending";
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.
+        this.isModified = false; // to check if this is an already resolved appeal,
+        // since we are working with immutability.
         //  Only appeals that are not modified will be shown/added to file
 
     }
@@ -82,9 +92,18 @@ public class Appeal {
      * @param result
      * @param remark
      */
-    public Appeal(String appealId, String appealType, String studentId, String academicYear,
-                  int studentWorkload, String appealDescription, String previousModule,
-                  String newModule, String moduleToAdd, String moduleToDrop, boolean resolved, String result, String remark) {
+    public Appeal(String appealId,
+                  String appealType,
+                  String studentId,
+                  String academicYear,
+                  int studentWorkload,
+                  String appealDescription,
+                  String previousModule,
+                  String newModule, String moduleToAdd,
+                  String moduleToDrop,
+                  boolean resolved,
+                  String result,
+                  String remark) {
 
         CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
                 studentWorkload, appealDescription, previousModule,
@@ -102,7 +121,8 @@ public class Appeal {
         this.resolved = resolved;
         this.result = result;
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.
+        this.isModified = false; // to check if this is an already resolved appeal,
+        // since we are working with immutability.
         //  Only appeals that are not modified will be shown/added to file
 
     }
@@ -159,6 +179,10 @@ public class Appeal {
         return remark;
     }
 
+    /**
+     * Returns true if both appeals of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two appeals.
+     */
     public boolean isSameAppeal(Appeal otherAppeal) {
         if (otherAppeal == this) {
             return true;
@@ -171,6 +195,10 @@ public class Appeal {
                 || otherAppeal.getAppealDescription().equals(getAppealDescription()));
     }
 
+    /**
+     * Returns true if both appeals of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two appeals.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {

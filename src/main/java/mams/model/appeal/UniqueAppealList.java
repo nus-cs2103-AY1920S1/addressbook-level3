@@ -33,7 +33,7 @@ public class UniqueAppealList implements Iterable<Appeal> {
      */
     public void add(Appeal toAdd) {
         requireNonNull(toAdd);
-        if(contains(toAdd)) {
+        if (contains(toAdd)) {
             throw new DuplicateAppealException();
         }
         internalList.add(toAdd);
@@ -50,15 +50,24 @@ public class UniqueAppealList implements Iterable<Appeal> {
         CollectionUtil.requireAllNonNull(target, editedAppeal);
 
         int index = internalList.indexOf(target);
-        if(index == -1){
+        if (index == -1) {
             throw new AppealNotFoundException();
         }
 
-        if(!target.isSameAppeal(editedAppeal) && contains(editedAppeal)){
+        if (!target.isSameAppeal(editedAppeal) && contains(editedAppeal)) {
             throw new DuplicateAppealException();
         }
 
         internalList.set(index, editedAppeal);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code appeals}.
+     * {@code appeals} must not contain duplicate appeals.
+     */
+    public void setAppeal(UniqueAppealList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -72,14 +81,7 @@ public class UniqueAppealList implements Iterable<Appeal> {
         }
     }
 
-    /**
-     * Replaces the contents of this list with {@code appeals}.
-     * {@code appeals} must not contain duplicate appeals.
-     */
-    public void setAppeal(UniqueAppealList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -89,7 +91,7 @@ public class UniqueAppealList implements Iterable<Appeal> {
     }
 
     @Override
-    public Iterator<Appeal> iterator(){
+    public Iterator<Appeal> iterator() {
         return internalList.iterator();
     }
 
@@ -100,7 +102,7 @@ public class UniqueAppealList implements Iterable<Appeal> {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return internalList.hashCode();
     }
 
