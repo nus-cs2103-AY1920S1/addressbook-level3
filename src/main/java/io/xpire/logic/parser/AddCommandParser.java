@@ -27,33 +27,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
-        Item item;
-        if (hasTags(arguments)) {
-            String trimmedTags = arguments[2].trim();
-            String[] tags = trimmedTags.split("#");
-            /* TODO:Need to change tests such that we prevent e from being tagged if user input = add|item|date|e#Tag1
-            if (tags.length != 0) {
-                tags = Arrays.copyOfRange(tags,1,tags.length);
-            }
-             */
-            Set<Tag> tagSet = ParserUtil.parseTags(Arrays.asList(tags));
-            item = new Item(name, expiryDate, tagSet);
-        } else {
-            item = new Item(name, expiryDate);
-        }
-
+        Item item = new Item(name, expiryDate);
         return new AddCommand(item);
     }
 
     private static boolean areArgumentsPresent(String...arguments) {
         return arguments.length >= 2;
-    }
-
-    private static boolean hasTags(String...arguments) {
-        return arguments.length >= 3;
     }
 
 }
