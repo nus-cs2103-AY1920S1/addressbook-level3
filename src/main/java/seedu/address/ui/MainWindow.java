@@ -41,7 +41,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
-    private StatisticsWindow statisticsWindow;
 
 
     //real panels
@@ -82,8 +81,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        statisticsWindow = new StatisticsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -146,7 +143,6 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-
     }
 
     /**
@@ -189,10 +185,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
-    /**
-     * Opens the stats window or focuses on it if it's already opened.
-     */
+    /*
     @FXML
     private void handleStatistics() {
         if (!statisticsWindow.isShowing()) {
@@ -200,10 +193,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             statisticsWindow.focus();
         }
-    }
-
-    /*public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }*/
 
     /**
@@ -226,7 +215,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStatistics()) {
-                handleStatistics();
+
             }
             //retrieve the type that the command works on here;
             PanelType panelToSwitchTo = commandResult.getPanelType();

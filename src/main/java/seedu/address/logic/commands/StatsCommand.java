@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.statistic.Statistic;
-
 /**
  * generate Statistics from current Books
  */
@@ -19,12 +17,6 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        return null;
-    }
-
-    @Override
-    public CommandResult execute(Statistic statistic) {
-        statistic.calculateTotalCost();
         return new CommandResult(SHOWING_STATS_MESSAGE, false, false, true);
     }
 }
