@@ -8,9 +8,22 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mams.commons.util.CollectionUtil;
-import mams.model.appeal.exceptions.DuplicateAppealException;
 import mams.model.appeal.exceptions.AppealNotFoundException;
+import mams.model.appeal.exceptions.DuplicateAppealException;
 
+/**
+ * A list of appeals that enforces uniqueness between its elements and does not allow nulls.
+ * A appeal is considered unique by comparing using {@code Appeal#isSameAppeal(Appeal)}.
+ * As such, adding and updating of appeals uses Appeal#isSameAppeal(Appeal)
+ * for equality so as to ensure that the appeal being added or updated is
+ * unique in terms of identity in the UniqueAppealList. However,
+ * the removal of a appeal uses Appeal#equals(Object) so
+ * as to ensure that the student with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Appeal#isSameAppeal(Appeal)
+ */
 public class UniqueAppealList implements Iterable<Appeal> {
 
     private final ObservableList<Appeal> internalList = FXCollections.observableArrayList();

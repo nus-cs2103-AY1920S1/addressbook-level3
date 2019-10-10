@@ -1,6 +1,5 @@
 package mams.model.appeal;
 
-
 import java.util.Objects;
 
 import mams.commons.util.CollectionUtil;
@@ -221,6 +220,7 @@ public class Appeal {
         return Objects.hash(appealId, appealType, studentId, studentWorkload, appealDescription);
     }
 
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getAppealId())
@@ -253,6 +253,12 @@ public class Appeal {
         isModified = true;
     }
 
+    /**
+     * Resolves an appeal
+     * @param action
+     * @param remark
+     * @returns a new appeal with same identities
+     */
     public Appeal resolve(String action, String remark) {
         Appeal appeal;
         if (action.equalsIgnoreCase("approve")) {
