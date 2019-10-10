@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
 
             //retrieve the type that the command works on here;
             List<UiChange> panelToSwitchTo = commandResult.getUiChange();
-            switchPanel(panelToSwitchTo);
+            performUiChanges(panelToSwitchTo);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -210,7 +210,7 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void switchPanel(List<UiChange> input) {
+    private void performUiChanges(List<UiChange> input) {
         for (UiChange type : input) {
             switch (type) {
             case CUSTOMER:
