@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.FlashcardParser;
 
 import seedu.address.logic.FlashcardCommands.AddCommand;
@@ -9,9 +10,11 @@ import java.util.regex.Pattern;
 
 public class FlashcardListParser {
 
-    /**
+    */
+/**
      * Used for initial separation of command word and args.
-     */
+     *//*
+
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     public Command parseCommand(String userInput){
@@ -54,3 +57,4 @@ public class FlashcardListParser {
     }
 
 }
+*/
