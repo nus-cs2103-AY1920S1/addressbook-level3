@@ -2,7 +2,10 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -109,7 +112,7 @@ public class TagCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null) ? new TreeSet<>(tags) : null;
         }
 
         public Set<Tag>getTags() {

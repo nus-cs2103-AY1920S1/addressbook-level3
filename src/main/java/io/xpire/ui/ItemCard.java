@@ -1,6 +1,5 @@
 package io.xpire.ui;
 
-import java.util.Comparator;
 import java.util.Optional;
 
 import io.xpire.commons.util.DateUtil;

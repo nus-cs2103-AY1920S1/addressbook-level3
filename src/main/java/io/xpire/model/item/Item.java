@@ -1,10 +1,9 @@
 package io.xpire.model.item;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.TreeSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.commons.util.DateUtil;
