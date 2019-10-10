@@ -26,7 +26,7 @@ public class CommandBox extends UiPart<Region> {
     private TextField commandTextField;
 
     private LinkedList<String> commandHistory = new LinkedList<String>();
-    private ListIterator<String> historyIterator;
+    private ListIterator<String> historyIterator = commandHistory.listIterator(0);
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
