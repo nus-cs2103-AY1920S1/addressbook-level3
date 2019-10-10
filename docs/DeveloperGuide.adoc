@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* community nurse
+* needs to manage a significant number of homebound patients
+* has a need to manage patients’ profile efficiently
+* has flexibility in scheduling appointments
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Makes managing patients’ data more orderly, efficient and tidy
 
 [appendix]
 == User Stories
@@ -295,20 +295,70 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |see the next-of-kin contact (address, name, phone) associated with each patient |inform them in case of any emergency situations
 
-|`* * *` |user |add a new person |
+|`* * *` |user |track the addresses of my patients |I will not forget them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |keep track of the dosages of medications of my patients |I know exactly what they need to take
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |see my schedule of appointments for a day |I know when to go where
+
+|`* * *` |user |see all my patients’ medications in a list |I can pack my bags in advance of each trip
+
+|`* * *` |user |see the medical conditions of each patient so that |I know how to care for them
+
+|`* * *` |user |record details (these details can be broken down) about the visit (e.g. environmental conditions, patient’s symptoms, warning signs) |I can better monitor the patient’s situation
+
+|`* * *` |user |save my data automatically after each change |data doesn’t get lost if I forgot or am not able to save after a session
+
+|`* *` |user |take personal notes for each patient |I can take note of their personal quirks and needs
+
+|`* *` |user |use a todo list / checklist to keep track of what I have to do when I visit a patient |I won’t forget or miss out on any important tasks when I visit them
+
+|`* *` |user |I want to keep track of todos I have done |I will have documentations to  fall back on if i need them
+
+|`* *` |user |have a manual for how to do certain tasks (e.g. clean wounds / first aid |I am better prepared in times of emergency
+
+|`* *` |user |have a manual on medical conditions |I am better prepared to advise patients about their medical condition
+
+|`* *` |user |keep a photo of each patient so I can |remember them better
+
+|`* *` |user |alert or send reminders to patients to take any prescribed medication so that |they take their medication on time and regularly
+
+|`* *` |user |set the level of importance to each todo |urgent matters regarding patients is taken priority of and can be taken care of first
+
+|`* *` |user |have a list of emergency contacts |I will be able to find them easily in times of emergency
+
+|`* *` |user |be able to organise patient’s paperwork (appointment letters for checkups) |my patients don’t miss their appointments
+
+|`* *` |user |have a notification system |I will be reminded of important matters to settle
+
+|`* *` |user |be able to import and export my app data patient-by-patient |I can share with other nurses or manager
+
+|`* *` |user |have an undo function |I don’t accidentally make irreversible changes due to my mistakes
+
+|`* *` |user |have a pin login system |my patients’ information will be kept private
+
+|`* *` |user |have my patients’ information encrypted |their information is kept private and secure
+
+|`* *` |user |be able to see all the patient’s information in a structured format |so that messy and complex details are presented to me in an organised manner
+
+|`* *` |user |have an autocomplete function |I can use the application more quickly without memorising all the commands of the application
+
+|`* *` |user |have a help function |I do not need to worry about memorising all the commands of the application
+
+|`* *` |user |assign each patient a priority number |I can keep track of who needs me the most
+
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |solve the Travelling CN problem |I can save time when visiting my patients
+
+|`*` |user |sort my patient list by priority |I can keep in mind who to visit
+
+|`*` |user |keep track of each patient’s available times |I know when I can visit them
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -316,14 +366,38 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add patient
+
+*MSS*
+
+1.  User requests to add a new patient to the list
+2.  Application adds the patient to the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 1a. The one or more given parameters are invalid.
++
+[none]
+** 1a1. Application shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View patient profile
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2.  Application shows a list of persons
+3.  User requests to view a specific patient in the list
+4.  Application shows the specified patient profile
 +
 Use case ends.
 
@@ -334,26 +408,107 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The one or more given parameters are invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Application shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Delete patient profile
+
+*MSS*
+
+1.  User requests to list persons
+2.  Application shows a list of persons
+3.  User requests to delete a specific patient in the list
+4.  Application delete the specified patient profile
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The one or more given parameters are invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Take notes for a patient
+
+*MSS*
+
+1.  User requests to open note GUI for a specific patient
+2.  User edit the patient’s notes
+3.  User request to exit note GUI
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid command
++
+[none]
+** 1a1. Application shows an error message.
++
+Use case ends.
+
+* 3a. Invalid command
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Adding an appointment
+
+*MSS*
+
+1.  User requests to list persons
+2.  Application shows a list of persons
+3.  User picks one patient from the list and add appointment date and time through command line
+4.  Application adds user appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The one or more given parameters are invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on any mainstream OS as long as it has Java 11 or above installed
+.  Should be able to hold up to 50 patient profile without any noticeable performance issue
+.  Users should be able to understand how to use the system easily
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse
+.  GUI should be straightforward and clear
 
-_{More to be added}_
 
 [appendix]
-== Glossary
+== Glossary (do along the way)
+
+Define terms that are worth recording. Eg:
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
