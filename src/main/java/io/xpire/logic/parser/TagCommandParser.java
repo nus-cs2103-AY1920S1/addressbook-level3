@@ -4,14 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Set;
-import java.util.TreeSet;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.tag.Tag;
-import io.xpire.model.tag.TagComparator;
 
 /**
  * Parses input arguments and creates a new TagCommand object.
@@ -37,18 +35,26 @@ public class TagCommandParser implements Parser<TagCommand> {
         Set<Tag> set;
         TagCommand.TagItemDescriptor tagItemDescriptor = new TagCommand.TagItemDescriptor();
         if (hasTags(splitArgs)) {
-            String trimmedTags = splitArgs[1].trim();
-            String[] tags = trimmedTags.split("#");
-            set = ParserUtil.parseTags(Arrays.asList(tags));
+            set = getTags(splitArgs[1]);
         } else {
-            set = new TreeSet<>(new TagComparator());
+            throw new ParseException(String
+                    .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         tagItemDescriptor.setTags(set);
         return new TagCommand(index, tagItemDescriptor);
     }
 
-    private static boolean hasTags(String...arguments) {
-        return arguments.length > 1;
+    private Set<Tag> getTags(String splitArg) throws ParseException {
+        Set<Tag> set;
+        String tagInput = splitArg.trim();
+        String[] tags = tagInput.split("#");
+        String[] copiedTags = Arrays.copyOfRange(tags, 1, tags.length);
+        set = ParserUtil.parseTags(Arrays.asList(copiedTags));
+        return set;
+    }
+
+    private static boolean hasTags(String[] arguments) {
+        return arguments.length > 1 && arguments[1].trim().split("#").length > 1;
     }
 
 
