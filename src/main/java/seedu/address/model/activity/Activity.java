@@ -5,22 +5,23 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.activity.Title;
 
 /**
  * Represents an Activity class containing participants and expenses.
  */
 public class Activity {
 
-    private final String title;
+    private final Title title;
     private final ArrayList<Person> participants = new ArrayList<>();
     private final ArrayList<Expense> expenses = new ArrayList<>();
 
     /**
      * Constructor for Activity.
-     * @param title A String representation of the activity name.
+     * @param title Title of the activity.
      * @param people The people participating in the activity.
      */
-    public Activity(String title, Person ... people) {
+    public Activity(Title title, Person ... people) {
         requireAllNonNull(title);
         this.title = title;
         for (Person person : people) {
@@ -48,7 +49,7 @@ public class Activity {
      * Gets the name of the activity.
      * @return A String representation of the name of the activity.
      */
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
