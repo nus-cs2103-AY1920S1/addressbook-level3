@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -25,24 +24,19 @@ import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerEnvironmentTest {
     @TempDir
-    Path temporaryFolder;
+    public Path temporaryFolder;
 
     private StandardCompilerEnvironment compilerEnvironment;
     private Path environmentPath;
 
     @BeforeEach
-    void initializeTest() throws CompilerEnvironmentException {
+    public void initializeTest() throws CompilerEnvironmentException {
         environmentPath = temporaryFolder.resolve("compiler");
         compilerEnvironment = new StandardCompilerEnvironment(environmentPath.toUri().getPath());
     }
 
-    @AfterEach
-    void closeTest() {
-        compilerEnvironment.close();
-    }
-
     @Test
-    void createJavaFile() throws CompilerFileCreationException, IOException {
+    public void createJavaFile() throws CompilerFileCreationException, IOException {
         String fileName = "Test";
         String content = "public class Test {\n}";
         UserProgram program = new UserProgram(fileName, content);
@@ -83,7 +77,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void getJavaFile() throws CompilerFileCreationException, IOException {
+    public void getJavaFile() throws CompilerFileCreationException, IOException {
         String fileName = "Test1";
         String content = "public class Test1 {\n}";
 
@@ -106,7 +100,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void close() throws CompilerFileCreationException {
+    public void close() throws CompilerFileCreationException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         UserProgram program = new UserProgram(fileName, content);
@@ -119,7 +113,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    void clearEnvironment() throws CompilerEnvironmentException, CompilerFileCreationException, IOException {
+    public void clearEnvironment() throws CompilerEnvironmentException, CompilerFileCreationException, IOException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         UserProgram program = new UserProgram(fileName, content);

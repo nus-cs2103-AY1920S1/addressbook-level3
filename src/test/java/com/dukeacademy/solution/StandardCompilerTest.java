@@ -24,7 +24,7 @@ import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerTest {
     @TempDir
-    Path tempFolder;
+    public Path tempFolder;
     private Path environmentPath;
 
     private StandardCompiler standardCompiler;
@@ -38,14 +38,14 @@ class StandardCompilerTest {
     private UserProgram invalidProgram = new UserProgram("InvalidTest", "FooBar");
 
     @BeforeEach
-    void initializeTest() {
+    public void initializeTest() {
         standardCompiler = new StandardCompiler();
         environmentPath = tempFolder.resolve("compiler");
         environmentPath.toFile().mkdir();
     }
 
     @Test
-    void compileProgram() throws CompilerException, CompilerFileContentException,
+    public void compileProgram() throws CompilerException, CompilerFileContentException,
             IOException, CompilerFileCreationException {
         JavaFile validJavaFile = this.createJavaFile(validProgram);
         standardCompiler.compileJavaFile(validJavaFile);
@@ -70,7 +70,7 @@ class StandardCompilerTest {
      * @return a JavaFile instance.
      * @throws CompilerFileCreationException if file creation fails.
      */
-    JavaFile createJavaFile(UserProgram program) throws IOException, CompilerFileCreationException {
+    private JavaFile createJavaFile(UserProgram program) throws IOException, CompilerFileCreationException {
         String path = environmentPath.resolve(program.getClassName() + ".java").toUri().getPath();
         File file = new File(path);
 

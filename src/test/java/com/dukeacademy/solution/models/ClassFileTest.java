@@ -13,10 +13,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 class ClassFileTest {
     @TempDir
-    Path tempFolder;
+    public Path tempFolder;
 
     @Test
-    void testFileExists() throws IOException {
+    public void testFileExists() throws IOException {
         String basePath = tempFolder.toUri().getPath();
 
         tempFolder.resolve("Foo.class").toFile().createNewFile();
@@ -36,7 +36,7 @@ class ClassFileTest {
     }
 
     @Test
-    void testFileDoesNotExist() {
+    public void testFileDoesNotExist() {
         String basePath = tempFolder.toUri().getPath();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foobar", basePath));

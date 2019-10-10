@@ -10,7 +10,7 @@ public class ExitCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_exit_success() {
+    public void executeExitSuccess() {
         CommandResult expectedCommandResult = new CommandResult(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
         CommandTestUtil.assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }

@@ -2,8 +2,6 @@ package com.dukeacademy.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Assertions;
-
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 
@@ -34,7 +32,7 @@ public class CommandParserTestUtil {
             parser.parse(userInput);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
-            Assertions.assertEquals(expectedMessage, pe.getMessage());
+            assertEquals(expectedMessage, pe.getMessage());
         }
     }
 }

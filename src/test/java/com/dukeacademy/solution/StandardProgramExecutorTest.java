@@ -21,15 +21,12 @@ class StandardProgramExecutorTest {
     private static StandardProgramExecutor executor;
 
     private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms");
-    private static String noInputTestName = "NoInputTest";
-    private static String withInputTestName = "WithInputTest";
-
     private static String noInputTestOutput;
     private static String withInputTestOutput;
     private static String input;
 
     @BeforeAll
-    static void initializeTest() throws IOException {
+    public static void initializeTest() throws IOException {
         noInputTestOutput = Files.readString(testProgramRootFolder.resolve("NoInputTestResult.txt"));
         withInputTestOutput = Files.readString(testProgramRootFolder.resolve("WithInputTestResult.txt"));
         input = Files.readString(testProgramRootFolder.resolve("Input.txt"));
@@ -37,7 +34,7 @@ class StandardProgramExecutorTest {
     }
 
     @Test
-    void executeProgramNoInput() throws FileNotFoundException, ProgramExecutorException {
+    public void executeProgramNoInput() throws FileNotFoundException, ProgramExecutorException {
         ClassFile programClassFile = new ClassFile("NoInputTest", testProgramRootFolder.toUri().getPath());
         ProgramOutput output = executor.executeProgram(programClassFile);
 
@@ -45,7 +42,7 @@ class StandardProgramExecutorTest {
     }
 
     @Test
-    void executeProgramWithInput() throws FileNotFoundException, ProgramExecutorException {
+    public void executeProgramWithInput() throws FileNotFoundException, ProgramExecutorException {
         ClassFile programClassFile = new ClassFile("WithInputTest", testProgramRootFolder.toUri().getPath());
 
         ProgramInput programInput = new ProgramInput(input);

@@ -61,14 +61,8 @@ public class StandardProgramExecutor implements ProgramExecutor {
         ProgramOutput programOutput = new ProgramOutput();
         List<String> outputs = reader.lines().collect(Collectors.toList());
 
-        if (outputs.size() == 0) {
-            return programOutput;
-        }
-
-        programOutput.append(outputs.get(0));
-
-        for (int i = 1; i < outputs.size(); i++) {
-            programOutput.appendNewLine(outputs.get(i));
+        for (String output: outputs) {
+            programOutput.appendNewLine(output);
         }
 
         return programOutput;
