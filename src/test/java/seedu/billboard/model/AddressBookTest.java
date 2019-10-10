@@ -46,9 +46,8 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        List<Expense> newExpenses = Arrays.asList(BILLS, editedAlice);
+        Expense duplicateExpense = new ExpenseBuilder(BILLS).build();
+        List<Expense> newExpenses = Arrays.asList(BILLS, duplicateExpense);
         BillboardStub newData = new BillboardStub(newExpenses);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
@@ -73,9 +72,8 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addExpense(BILLS);
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        assertTrue(addressBook.hasExpense(editedAlice));
+        Expense expenseWithSameIdentity = new ExpenseBuilder(BILLS).build();
+        assertTrue(addressBook.hasExpense(expenseWithSameIdentity));
     }
 
     @Test
