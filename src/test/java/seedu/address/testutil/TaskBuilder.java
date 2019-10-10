@@ -4,30 +4,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.task.TaskStatus;
+import seedu.address.model.util.SampleTaskDataUtil;
 
 /**
  * A utility class to help with building Task objects.
  */
 public class TaskBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "Sample Task Name";
 
     private Name name;
-    private Phone phone;
-    private Email email;
+    private TaskStatus taskStatus;
     private Set<Tag> tags;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        taskStatus = TaskStatus.UNBEGUN;
         tags = new HashSet<>();
     }
 
@@ -36,8 +31,7 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
-        phone = taskToCopy.getPhone();
-        email = taskToCopy.getEmail();
+        taskStatus = taskToCopy.getTaskStatus();
         tags = new HashSet<>(taskToCopy.getTags());
     }
 
@@ -50,31 +44,23 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code TaskStatus} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(TaskStatus taskStatus) {
+        this.taskStatus = TaskStatus.valueOf(taskStatus.toString());
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
     public TaskBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Task} that we are building.
-     */
-    public TaskBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Task} that we are building.
-     */
-    public TaskBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.tags = SampleTaskDataUtil.getTagSet(tags);
         return this;
     }
 
     public Task build() {
-        return new Task(name, phone, email, tags);
+        return new Task(name, taskStatus, tags);
     }
 
 }

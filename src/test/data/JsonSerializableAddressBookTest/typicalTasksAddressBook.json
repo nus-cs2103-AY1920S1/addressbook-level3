@@ -1,39 +1,32 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Task values as in TypicalPersons#getTypicalAddressBook()",
   "tasks" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "tagged" : [ "friends" ]
+    "name" : "Order shirts from supplier",
+    "tagged" : [ "inventory" ],
+    "taskStatus" : "UNBEGUN"
   }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "tagged" : [ "owesMoney", "friends" ]
+    "name" : "Print posters for student fair",
+    "tagged" : [ "urgent", "publicity" ],
+    "taskStatus" : "UNBEGUN"
   }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "tagged" : [ ]
+    "name" : "Get sponsors for student fair",
+    "tagged" : [ ],
+    "taskStatus" : "DOING"
   }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "tagged" : [ "friends" ]
+    "name" : "Recruit members for student fair",
+    "tagged" : [ "manpower" ],
+    "taskStatus" : "DONE"
   }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "tagged" : [ ]
+    "name" : "Find caterers for snacks in student fair booth",
+    "tagged" : [ "inventory" ],
+    "taskStatus" : "DOING"
   }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "tagged" : [ ]
+    "name" : "Prepare presentation briefing",
+    "tagged" : [ "personal" ],
+    "taskStatus" : "DONE"
   }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "tagged" : [ ]
+    "name" : "Organise inventory store before student fair",
+    "tagged" : [ "inventory", "urgent" ],
+    "taskStatus" : "UNBEGUN"
   } ]
 }
