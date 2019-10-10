@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.tag.Tag;
 
-class SampleDataUtilTest {
+public class SampleDataUtilTest {
 
     @Test
     void getSampleBookmarks_mustHaveAtLeastOneBookmark_returnsTrue() {
