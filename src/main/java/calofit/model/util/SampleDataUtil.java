@@ -16,18 +16,15 @@ import calofit.model.tag.Tag;
 public class SampleDataUtil {
     public static Dish[] getSampleDishes() {
         return new Dish[] {
-            new Dish(new Name("Alex Yeoh"),
-                getTagSet("friends")),
-            new Dish(new Name("Bernice Yu"),
-                getTagSet("colleagues", "friends")),
-            new Dish(new Name("Charlotte Oliveiro"),
-                getTagSet("neighbours")),
-            new Dish(new Name("David Li"),
-                getTagSet("family")),
-            new Dish(new Name("Irfan Ibrahim"),
-                getTagSet("classmates")),
-            new Dish(new Name("Roy Balakrishnan"),
-                getTagSet("colleagues"))
+            new Dish(new Name("Spaghetti"),
+                getTagSet("creamys")),
+            new Dish(new Name("Mushroom Soup"),
+                getTagSet("shitake", "expensive")),
+            new Dish(new Name("Chicken Rice")),
+            new Dish(new Name("Nasi Lemak"),
+                getTagSet("value")),
+            new Dish(new Name("Cheese Baked Rice")),
+            new Dish(new Name("Apple Pie"))
         };
     }
 
