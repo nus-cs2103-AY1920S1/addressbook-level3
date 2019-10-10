@@ -4,12 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mams.commons.core.Messages;
-import mams.logic.commands.Command;
-import mams.logic.commands.EditCommand;
-import mams.logic.commands.ExitCommand;
-import mams.logic.commands.FindCommand;
-import mams.logic.commands.HelpCommand;
-import mams.logic.commands.ListCommand;
+import mams.logic.commands.*;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
