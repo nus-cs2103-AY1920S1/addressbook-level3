@@ -8,6 +8,27 @@ public enum FoodType {
     STARCHY_VEGETABLE,
     FRUIT,
     PROTEIN,
-    FATS,
-    MEAL
+    SNACK,
+    MEAL;
+
+    public static FoodType getFrom(String shortHandType) {
+        switch (shortHandType.toLowerCase()) {
+        case "nsv":
+            return NON_STARCHY_VEGETABLE;
+        case "sv":
+            return STARCHY_VEGETABLE;
+        case "f":
+            return FRUIT;
+        case "p":
+            return PROTEIN;
+        case "s":
+            return SNACK;
+        case "m":
+            return MEAL;
+        default:
+            //TODO: throw exception!
+            return null;
+        }
+    }
+
 }

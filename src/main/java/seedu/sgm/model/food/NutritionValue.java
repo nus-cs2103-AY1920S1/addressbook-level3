@@ -13,19 +13,17 @@ public class NutritionValue {
             "Nutrition value should only contain number and should be non-negative.";
     public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*";
 
-    private final Double nutritionValue;
     public final String value;
 
     /**
      * Constructs a {@code NutritionValue}.
      *
-     * @param nutritionValue a valid nutrition value
+     * @param value a valid nutrition value
      */
-    public NutritionValue(Double nutritionValue) {
-        requireNonNull(nutritionValue);
-        checkArgument(isValidValue(nutritionValue.toString()), MESSAGE_CONSTRAINTS);
-        this.nutritionValue = nutritionValue;
-        value = nutritionValue.toString();
+    public NutritionValue(String value) {
+        requireNonNull(value);
+        checkArgument(isValidValue(value.toString()), MESSAGE_CONSTRAINTS);
+        this.value = value;
     }
 
     /**
@@ -35,10 +33,11 @@ public class NutritionValue {
         return test.matches(VALIDATION_REGEX);
     }
 
-
-    @Override
-    public String toString() {
-        return nutritionValue.toString();
+    /**
+     * Returns the double value indicated in the {@code value} string
+     */
+    public double getNumericalValue() {
+        return Double.parseDouble(value);
     }
 
     @Override
@@ -49,12 +48,12 @@ public class NutritionValue {
         if (!(other instanceof NutritionValue)) {
             return false;
         }
-        return nutritionValue.equals(((NutritionValue) other).nutritionValue);
+        return value.equals(((NutritionValue) other).value);
     }
 
     @Override
     public int hashCode() {
-        return nutritionValue.hashCode();
+        return value.hashCode();
     }
 
 }

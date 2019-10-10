@@ -10,7 +10,7 @@ public class Fat extends NutritionValue {
      *
      * @param fatValue a valid fat value
      */
-    public Fat(Double fatValue) {
+    public Fat(String fatValue) {
         super(fatValue);
     }
 }
