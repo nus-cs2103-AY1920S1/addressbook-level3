@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -27,6 +28,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TestStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -48,16 +50,23 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
+    }
 
+    /**
+     * Initialises SecureIT app with the given password.
+     * @param password the master password used to encrypt data.
+     */
+    private void initWithPassword(String password) {
+        logger.info("=============================[ Initializing AddressBook ]===========================");
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        config = initConfig(appParameters.getConfigPath(), password);
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath(), password);
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        AddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(), password);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, password);
 
         initLogging(config);
 
@@ -102,7 +111,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig(Path configFilePath, String password) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -116,7 +125,7 @@ public class MainApp extends Application {
         logger.info("Using config file : " + configFilePathUsed);
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            Optional<Config> configOptional = ConfigUtil.readEncryptedConfig(configFilePathUsed, password);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
@@ -126,7 +135,7 @@ public class MainApp extends Application {
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed, password);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -167,17 +176,59 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        if (!TestStorage.isUserExist()) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("SecureIT");
+            dialog.setHeaderText("Create your master password");
+            dialog.setContentText("Password: ");
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                try {
+                    TestStorage.initPassword(result.get());
+                    initWithPassword(result.get());
+                    startAddressBook(primaryStage);
+                } catch (IOException e) {
+                    //TODO: if init password fails
+                }
+            }
+        } else {
+            while (true) {
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("SecureIT");
+                dialog.setHeaderText("Enter your master password");
+                dialog.setContentText("Password: ");
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    try {
+                        if (TestStorage.testPassword(result.get())) {
+                            initWithPassword(result.get());
+                            startAddressBook(primaryStage);
+                            break;
+                        }
+                    } catch (IOException e) {
+                        //TODO: if test password fails
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    private void startAddressBook(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        if (storage != null) {
+            try {
+                logger.info("============================ [ Stopping Address Book ] =============================");
+                storage.saveUserPrefs(model.getUserPrefs());
+            } catch (IOException e) {
+                logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            }
         }
     }
 }

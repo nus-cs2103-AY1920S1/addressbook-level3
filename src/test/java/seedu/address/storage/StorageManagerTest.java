@@ -17,6 +17,8 @@ import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
 
+    private static final String PASSWORD = "password1";
+
     @TempDir
     public Path testFolder;
 
@@ -24,9 +26,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"), PASSWORD);
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"), PASSWORD);
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, PASSWORD);
     }
 
     private Path getTempFilePath(String fileName) {

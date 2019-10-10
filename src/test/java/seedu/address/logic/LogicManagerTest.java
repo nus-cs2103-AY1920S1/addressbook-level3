@@ -34,6 +34,7 @@ import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+    private static final String PASSWORD = "password1";
 
     @TempDir
     public Path temporaryFolder;
@@ -44,9 +45,10 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"), PASSWORD);
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"), PASSWORD);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, PASSWORD);
         logic = new LogicManager(model, storage);
     }
 
@@ -74,8 +76,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"), PASSWORD);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, PASSWORD);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -151,7 +153,7 @@ public class LogicManagerTest {
      */
     private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
         private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
+            super(filePath, PASSWORD);
         }
 
         @Override
