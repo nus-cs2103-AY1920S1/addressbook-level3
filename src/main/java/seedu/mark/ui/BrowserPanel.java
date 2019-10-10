@@ -30,6 +30,10 @@ public class BrowserPanel extends UiPart<Region> {
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class
                     .getResource(FXML_FILE_FOLDER + "defaultOfflinePage.html"));
+    /** Redirection html page to be loaded when invalid url is given. */
+    public static final URL REDIRECTION_PAGE =
+            requireNonNull(MainApp.class
+                    .getResource(FXML_FILE_FOLDER + "redirectionPage.html"));
 
     /** Name of corresponding fxml file. */
     private static final String FXML = "BrowserPanel.fxml";
@@ -106,7 +110,15 @@ public class BrowserPanel extends UiPart<Region> {
                                     logger.info("browser: unable to connect to internet");
                                     loadDefaultPage();
                                 }
-                                showAddressOnAddressBar(currentPageUrl);
+
+                                if (webEngine.getLocation().equals("file://" + DEFAULT_PAGE.getPath())) {
+                                    showAddressOnAddressBar(
+                                            "No internet connection detected. Please try again later.");
+                                } else if (webEngine.getLocation().equals("file://" + REDIRECTION_PAGE.getPath())) {
+                                    Platform.runLater(() -> redirectToGoogle());
+                                } else {
+                                    showAddressOnAddressBar(currentPageUrl);
+                                }
                             }
                         });
     }
@@ -147,6 +159,25 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads a redirection page HTML file with a background that matches the general theme.
+     */
+    private void loadRedirectionPage() {
+        loadPage(REDIRECTION_PAGE.toExternalForm());
+    }
+
+    /**
+     * Loads google after sleeping for
+     */
+    private void redirectToGoogle() {
+        try {
+            Thread.sleep(500);
+            gotoGoogle();
+        } catch (InterruptedException e) {
+            gotoHomepage();
+        }
+    }
+
+    /**
      * Changes webview to site based on input entered in the address bar.
      */
     @FXML
@@ -155,9 +186,14 @@ public class BrowserPanel extends UiPart<Region> {
         //if address legit then load
         //if not legit h
         String input = addressBar.getText();
-        logger.info("Reading address from address bar: " + input);
 
-        logger.info("Checking validity of input URL: " + isValidUrl(input));
+        //logger.info("Checking validity of input URL: " + isValidUrl(input));
+        String url = makeValidUrl(input);
+        if (url == null) {
+            logger.info(input + "\t is not a valid Url. Redirecting...");
+            loadRedirectionPage();
+        }
+        loadPage(url);
         //dunnid clear input
     }
 
@@ -170,7 +206,7 @@ public class BrowserPanel extends UiPart<Region> {
         //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return Url.isValidUrl(url); //dummy code
+        return Url.isValidUrl(url);
     }
 
     /**
@@ -183,8 +219,17 @@ public class BrowserPanel extends UiPart<Region> {
     private String makeValidUrl(String input) {
         //TODO: parse a non url into a valid url (either by adding protocol or doing google search)
         //if is url without protocol, add protocol http://
-        //else google search it... how?
-        return input; //dummy code
+        if (isValidUrl(input)) {
+            return input;
+        }
+        //whack with http://
+        String newurl = "http://" + input;
+        if (isValidUrl(newurl)) {
+            return newurl;
+        }
+
+        //else ask users to google search it; give alert and redirect to google
+        return null; //dummy code
     }
 
     /**
@@ -192,6 +237,10 @@ public class BrowserPanel extends UiPart<Region> {
      */
     @FXML
     private void gotoHomepage() {
+        loadPage("https://google.com.sg");
+    }
+
+    private void gotoGoogle() {
         loadPage("https://google.com.sg");
     }
 }
