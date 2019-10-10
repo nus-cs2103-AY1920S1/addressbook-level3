@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-
 import seedu.address.model.Model;
 
 /**
@@ -19,7 +18,6 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
