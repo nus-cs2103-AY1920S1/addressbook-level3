@@ -2,56 +2,56 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "dishes": [
     {
-      "name": "Alice Pauline",
+      "name": "Spaghetti",
       "phone": "94351253",
       "email": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
       "tagged": [
-        "friends"
+        "creamys"
       ]
     },
     {
-      "name": "Benson Meier",
+      "name": "Mushroom Soup",
       "phone": "98765432",
       "email": "johnd@example.com",
       "address": "311, Clementi Ave 2, #02-25",
       "tagged": [
-        "owesMoney",
-        "friends"
+        "shitake",
+        "expensive"
       ]
     },
     {
-      "name": "Carl Kurz",
+      "name": "Chicken Rice",
       "phone": "95352563",
       "email": "heinz@example.com",
       "address": "wall street",
       "tagged": []
     },
     {
-      "name": "Daniel Meier",
+      "name": "Nasi Lemak",
       "phone": "87652533",
       "email": "cornelia@example.com",
       "address": "10th street",
       "tagged": [
-        "friends"
+        "value"
       ]
     },
     {
-      "name": "Elle Meyer",
+      "name": "Cheese Baked Rice",
       "phone": "9482224",
       "email": "werner@example.com",
       "address": "michegan ave",
       "tagged": []
     },
     {
-      "name": "Fiona Kunz",
+      "name": "Apple Pie",
       "phone": "9482427",
       "email": "lydia@example.com",
       "address": "little tokyo",
       "tagged": []
     },
     {
-      "name": "George Best",
+      "name": "Chendol",
       "phone": "9482442",
       "email": "anna@example.com",
       "address": "4th street",

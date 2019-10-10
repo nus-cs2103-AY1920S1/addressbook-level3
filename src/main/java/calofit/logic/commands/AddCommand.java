@@ -21,9 +21,9 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Carbonara "
+            + PREFIX_TAG + "low calories "
+            + PREFIX_TAG + "salty";
 
     public static final String MESSAGE_SUCCESS = "New dish added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database";

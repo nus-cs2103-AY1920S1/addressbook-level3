@@ -19,44 +19,46 @@ public class DishTest {
     @Test
     public void isSameDish() {
         // same object -> returns true
-        Assertions.assertTrue(TypicalDishes.ALICE.isSameDish(TypicalDishes.ALICE));
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.isSameDish(TypicalDishes.SPAGHETTI));
 
         // null -> returns false
-        Assertions.assertFalse(TypicalDishes.ALICE.isSameDish(null));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.isSameDish(null));
 
         // different name -> returns false
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
-        Assertions.assertFalse(TypicalDishes.ALICE.isSameDish(editedAlice));
+        Dish editedAlice = new DishBuilder(
+                TypicalDishes.SPAGHETTI).withName(CommandTestUtil.VALID_NAME_MACARONI).build();
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.isSameDish(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        Assertions.assertTrue(TypicalDishes.ALICE.isSameDish(editedAlice));
+        editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.isSameDish(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Dish aliceCopy = new DishBuilder(TypicalDishes.ALICE).build();
-        Assertions.assertTrue(TypicalDishes.ALICE.equals(aliceCopy));
+        Dish aliceCopy = new DishBuilder(TypicalDishes.SPAGHETTI).build();
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.equals(aliceCopy));
 
         // same object -> returns true
-        Assertions.assertTrue(TypicalDishes.ALICE.equals(TypicalDishes.ALICE));
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.equals(TypicalDishes.SPAGHETTI));
 
         // null -> returns false
-        Assertions.assertFalse(TypicalDishes.ALICE.equals(null));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(null));
 
         // different type -> returns false
-        Assertions.assertFalse(TypicalDishes.ALICE.equals(5));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(5));
 
         // different dish -> returns false
-        Assertions.assertFalse(TypicalDishes.ALICE.equals(TypicalDishes.BOB));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(TypicalDishes.MACARONI));
 
         // different name -> returns false
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
-        Assertions.assertFalse(TypicalDishes.ALICE.equals(editedAlice));
+        Dish editedAlice = new DishBuilder(
+                TypicalDishes.SPAGHETTI).withName(CommandTestUtil.VALID_NAME_MACARONI).build();
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        Assertions.assertFalse(TypicalDishes.ALICE.equals(editedAlice));
+        editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedAlice));
     }
 }

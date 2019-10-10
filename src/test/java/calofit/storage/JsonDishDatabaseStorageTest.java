@@ -64,14 +64,14 @@ public class JsonDishDatabaseStorageTest {
         assertEquals(original, new DishDatabase(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addDish(TypicalDishes.HOON);
-        original.removeDish(TypicalDishes.ALICE);
+        original.addDish(TypicalDishes.CEREAL);
+        original.removeDish(TypicalDishes.SPAGHETTI);
         jsonDishDatabaseStorage.saveDishDatabase(original, filePath);
         readBack = jsonDishDatabaseStorage.readDishDatabase(filePath).get();
         assertEquals(original, new DishDatabase(readBack));
 
         // Save and read without specifying file path
-        original.addDish(TypicalDishes.IDA);
+        original.addDish(TypicalDishes.STEAK);
         jsonDishDatabaseStorage.saveDishDatabase(original); // file path not specified
         readBack = jsonDishDatabaseStorage.readDishDatabase().get(); // file path not specified
         assertEquals(original, new DishDatabase(readBack));

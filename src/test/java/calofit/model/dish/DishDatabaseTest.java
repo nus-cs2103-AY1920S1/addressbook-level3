@@ -1,6 +1,6 @@
 package calofit.model.dish;
 
-import static calofit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static calofit.logic.commands.CommandTestUtil.VALID_TAG_SALTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,9 +44,9 @@ public class DishDatabaseTest {
     @Test
     public void resetData_withDuplicateDishes_throwsDuplicateDishesException() {
         // Two dishes with the same identity fields
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(VALID_TAG_HUSBAND)
+        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
                 .build();
-        List<Dish> newDishes = Arrays.asList(TypicalDishes.ALICE, editedAlice);
+        List<Dish> newDishes = Arrays.asList(TypicalDishes.SPAGHETTI, editedAlice);
         DishDatabaseStub newData = new DishDatabaseStub(newDishes);
 
         Assert.assertThrows(DuplicateDishException.class, () -> dishDatabase.resetData(newData));
@@ -59,19 +59,19 @@ public class DishDatabaseTest {
 
     @Test
     public void hasDish_dishNotInDishDatabase_returnsFalse() {
-        assertFalse(dishDatabase.hasDish(TypicalDishes.ALICE));
+        assertFalse(dishDatabase.hasDish(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void hasDish_dishInDishDatabase_returnsTrue() {
-        dishDatabase.addDish(TypicalDishes.ALICE);
-        assertTrue(dishDatabase.hasDish(TypicalDishes.ALICE));
+        dishDatabase.addDish(TypicalDishes.SPAGHETTI);
+        assertTrue(dishDatabase.hasDish(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void hasDish_dishWithSameIdentityFieldsInDishDatabase_returnsTrue() {
-        dishDatabase.addDish(TypicalDishes.ALICE);
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(VALID_TAG_HUSBAND)
+        dishDatabase.addDish(TypicalDishes.SPAGHETTI);
+        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
                 .build();
         assertTrue(dishDatabase.hasDish(editedAlice));
     }
