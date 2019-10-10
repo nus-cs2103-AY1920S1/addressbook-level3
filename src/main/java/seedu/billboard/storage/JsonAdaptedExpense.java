@@ -86,7 +86,6 @@ class JsonAdaptedExpense {
         final Amount modelAmount = new Amount(amount);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-//        return new Expense(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         return new Expense(modelName, modelDescription, modelAmount, modelTags);
     }
 

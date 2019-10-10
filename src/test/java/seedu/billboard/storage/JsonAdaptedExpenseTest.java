@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.model.expense.*;
 
+
 public class JsonAdaptedExpenseTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_AMOUNT = "2af2";
@@ -53,6 +54,7 @@ public class JsonAdaptedExpenseTest {
         JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, null, VALID_AMOUNT, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+
     }
 
     @Test
@@ -68,6 +70,7 @@ public class JsonAdaptedExpenseTest {
         JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+
     }
 
     @Test
