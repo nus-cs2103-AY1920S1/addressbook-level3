@@ -1,6 +1,5 @@
 package io.xpire.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -35,7 +34,9 @@ public class ItemBuilder {
     public ItemBuilder(Item itemToCopy) {
         name = itemToCopy.getName();
         expiryDate = itemToCopy.getExpiryDate();
-        tags = new TreeSet<>(itemToCopy.getTags());
+        TreeSet<Tag> set = new TreeSet<>(new TagComparator());
+        set.addAll(itemToCopy.getTags());
+        tags = set;
     }
 
     /**

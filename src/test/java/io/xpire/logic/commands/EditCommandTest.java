@@ -1,3 +1,4 @@
+/*
 package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.DESC_APPLE;
@@ -31,6 +32,8 @@ import io.xpire.testutil.ItemBuilder;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
+
+/*
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
@@ -133,6 +136,7 @@ public class EditCommandTest {
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of address book
      */
+/*
     @Test
     public void execute_invalidItemIndexFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
@@ -172,3 +176,4 @@ public class EditCommandTest {
     }
 
 }
+*/

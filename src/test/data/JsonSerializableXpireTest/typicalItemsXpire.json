@@ -3,17 +3,14 @@
   "items" : [ {
     "name" : "Milk",
     "expiryDate" : "01/02/2019",
-    "reminderThreshold" : "0",
-    "tags" : [ "drinks" ]
+    "reminderThreshold" : "0"
   }, {
     "name" : "Banana",
     "expiryDate" : "01/02/2019",
-    "reminderThreshold" : "0",
-    "tags" : [ "fruit" ]
+    "reminderThreshold" : "0"
   }, {
     "name" : "Apple",
     "expiryDate" : "01/02/2019",
-    "reminderThreshold" : "0",
-    "tags" : [ "fruit" ]
+    "reminderThreshold" : "0"
   } ]
 }

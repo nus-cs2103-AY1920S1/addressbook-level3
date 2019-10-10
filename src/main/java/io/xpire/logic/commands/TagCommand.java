@@ -17,7 +17,7 @@ import io.xpire.model.tag.TagComparator;
 
 
 /**
- * Adds more tag(s) to or clear tag(s) of item identified using its displayed index from the expiry date tracker.
+ * Adds tag(s) to item identified using its displayed index from the expiry date tracker.
  */
 public class TagCommand extends Command {
 
@@ -25,12 +25,11 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the item identified by the index number used in the displayed item list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "|#TAG... (if missing, item will be cleared of its tags)\n"
-            + "Example: " + COMMAND_WORD + "|1|#Food";
+            + "Parameters: <index> (must be a positive integer)\n"
+            + "|#<tag>[#<other tags>]...\n"
+            + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
 
     public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
-    public static final String MESSAGE_TAG_CLEAR_ITEM_SUCCESS = "Cleared tags of item: %1$s";
 
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
@@ -54,9 +53,6 @@ public class TagCommand extends Command {
 
         model.setItem(itemToTag, taggedItem);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        if (this.tagItemDescriptor.isClear) {
-            return new CommandResult(String.format(MESSAGE_TAG_CLEAR_ITEM_SUCCESS, taggedItem));
-        }
         return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
 
     }
@@ -67,11 +63,7 @@ public class TagCommand extends Command {
     private static Item createTaggedItem(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
         assert itemToTag != null;
         Set<Tag> updatedTags = updateTags(itemToTag, tagItemDescriptor);
-        if (updatedTags == null) {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate());
-        } else {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
-        }
+        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
     }
 
     /**
@@ -82,9 +74,6 @@ public class TagCommand extends Command {
      * @return Set containing updated tags.
      */
     private static Set<Tag> updateTags(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
-        if (tagItemDescriptor.isClear) {
-            return null;
-        }
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToTag.getTags());
         set.addAll(tagItemDescriptor.getTags());
@@ -96,14 +85,10 @@ public class TagCommand extends Command {
      */
     public static class TagItemDescriptor {
         private Set<Tag> tags;
-        private boolean isClear = false;
 
         public TagItemDescriptor() {}
 
         public TagItemDescriptor(TagItemDescriptor toCopy) {
-            if (toCopy.tags.isEmpty()) {
-                this.isClear = true;
-            }
             setTags(toCopy.tags);
         }
 
@@ -112,7 +97,13 @@ public class TagCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new TreeSet<>(tags) : null;
+            if (tags != null) {
+                TreeSet<Tag> set = new TreeSet<>(new TagComparator());
+                set.addAll(tags);
+                this.tags = set;
+            } else {
+                this.tags = null;
+            }
         }
 
         public Set<Tag>getTags() {
