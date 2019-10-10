@@ -363,10 +363,10 @@ Format: `deletepolicy INDEX`
 Examples:
 
 * `listpolicies` +
-`delete 2 +
+`deletepolicy 2` +
 Deletes the 2nd policy in the list of policies.
 * `findpolicy senior` +
-`delete 1` +
+`deletepolicy 1` +
 Deletes the 1st policy in the results of the `findpolicy` command.
 
 === Deleting policies from a person : `unassignpolicy`

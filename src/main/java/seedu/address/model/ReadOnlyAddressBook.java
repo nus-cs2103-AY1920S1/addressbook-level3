@@ -14,6 +14,7 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+    ObservableList<Policy> getPolicyList();
 
     /**
      * Returns an unmodifiable view of the policies list.
