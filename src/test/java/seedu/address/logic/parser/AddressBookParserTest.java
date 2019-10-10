@@ -28,16 +28,20 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.NameContainsKeywordsPredicate;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
+
+    private static final String PREFIX_FLAG = "-";
+    private static final String BODY_FLAG = "b";
+    private static final String WORKER_FLAG = "w";
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -100,9 +104,15 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindCommand command1 = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + PREFIX_FLAG + BODY_FLAG + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords), BODY_FLAG), command1);
+
+        FindCommand command2 = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + PREFIX_FLAG + WORKER_FLAG + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords), WORKER_FLAG), command2);
     }
 
     @Test

@@ -134,10 +134,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
                     argMultimap.getValue(PREFIX_FRIDGE_ID).get());
             Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).get());
-            String relationsip = argMultimap.getValue(PREFIX_RELATIONSHIP).get();
+            String relationship = argMultimap.getValue(PREFIX_RELATIONSHIP).get();
 
             Body body = new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
-                    causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationsip,
+                    causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
                             phoneNok);
 
             return new AddCommand(body);
