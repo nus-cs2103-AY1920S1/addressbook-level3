@@ -2,6 +2,8 @@ package seedu.savenus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -9,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
@@ -34,7 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private double xOffset = 0;
     private double yOffset = 0;
-    private Timeline timeline;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -92,6 +94,9 @@ public class MainWindow extends UiPart<Stage> {
         // Bind budget to displayed value
         budgetPlaceholder.textProperty().bind(logic.getMenu().getWallet()
                 .getBudgetProperty().asString("$%.02f"));
+
+        // Update number of days left
+        logic.getMenu().getWallet().getDaysToExpire().updateDaysToExpire();
 
         // Bind number of days to budget expiration to displayed value
         daysToExpirePlaceholder.textProperty().bind(logic.getMenu().getWallet()

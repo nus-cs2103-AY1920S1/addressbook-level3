@@ -3,6 +3,9 @@ package seedu.savenus.model.wallet;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
@@ -17,6 +20,7 @@ public class DaysToExpire {
     public static final String VALIDATION_REGEX = "^\\d+$";
 
     private final IntegerProperty daysToExpireProperty;
+    private final LocalDateTime expirationDateTime;
 
     /**
      * Constructs a {@code daysToExpire}.
@@ -27,6 +31,14 @@ public class DaysToExpire {
         requireNonNull(newDaysToExpireString);
         checkArgument(isValidDaysToExpire(newDaysToExpireString), MESSAGE_CONSTRAINTS);
         daysToExpireProperty = new SimpleIntegerProperty(Integer.parseInt(newDaysToExpireString));
+        expirationDateTime = LocalDateTime.now().plusDays(Integer.parseInt(newDaysToExpireString));
+    }
+
+    /**
+     * Update number of days left with respect to current time.
+     */
+    public void updateDaysToExpire() {
+        daysToExpireProperty.set((int) LocalDateTime.now().until(expirationDateTime, ChronoUnit.DAYS) + 1);
     }
 
     /**

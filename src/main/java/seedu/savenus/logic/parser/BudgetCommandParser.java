@@ -2,7 +2,6 @@ package seedu.savenus.logic.parser;
 
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.wallet.Budget;
 import seedu.savenus.model.wallet.Wallet;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;

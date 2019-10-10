@@ -17,9 +17,10 @@ public class BudgetCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set User's budget\n"
-            + "Parameters: BUDGET_AMT "
+            + "Parameters: BUDGET_AMT, BUDGET_DURATION"
             + "(Budget amount should only contain numbers and have either 0 or 2 decimal places.)\n"
-            + "Example: " + COMMAND_WORD + " 100 or " + COMMAND_WORD + " 150.50";
+            + "(Budget duration should be a positive integer.)\n"
+            + "Example: " + COMMAND_WORD + " 100 30 or " + COMMAND_WORD + " 150.50 10";
 
     public static final String MESSAGE_SET_BUDGET_SUCCESS = "New Budget: %1$s";
     public static final String MESSAGE_SET_DAYSTOEXPIRE_SUCCESS = "Number of days left: %1$s";
