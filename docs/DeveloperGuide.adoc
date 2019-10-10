@@ -302,11 +302,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |edit an existing task |update task information when I need
 
-|`* * *` |tutor |check the time I spent on preparing tutorial materials |ask for salary
+|`* * *` |tutor user|check the time I spent on preparing tutorial materials |ask for salary
 
-|`* *` |forgetful tutor |be reminded before my tutorials |go for the tutorials on time
+|`* * *` | | |
 
-|`*` |caring tutor |check the upcoming events |remind my students
+|`* * *` | | |
+
+|`* * *` | | |
+
+|`* *` |forgetful tutor user|be reminded before my tutorials |go for the tutorials on time
+
+|`*` |caring tutor user |check the upcoming events |remind my students
 |=======================================================================
 
 _{More to be added}_
