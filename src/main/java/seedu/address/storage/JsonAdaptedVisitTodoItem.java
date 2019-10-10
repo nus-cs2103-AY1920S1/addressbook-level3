@@ -1,11 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -53,12 +47,14 @@ class JsonAdaptedVisitTodoItem {
      */
     public VisitTodoItem toModelType() throws IllegalValueException {
         if (visitTodo == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VisitTodo.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    VisitTodo.class.getSimpleName()));
         }
         final VisitTodo modelVisitTodo = visitTodo.toModelType();
 
         if (detail == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Detail.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Detail.class.getSimpleName()));
         }
         if (!Detail.isValidDetail(detail)) {
             throw new IllegalValueException(Detail.MESSAGE_CONSTRAINTS);

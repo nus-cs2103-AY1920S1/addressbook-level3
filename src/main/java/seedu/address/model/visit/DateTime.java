@@ -40,8 +40,7 @@ public class DateTime {
     public static Date parseDateTime(String value) {
         try {
             return DATE_PARSER_VALIDATOR.parse(value);
-        }
-        catch(ParseException e){
+        } catch (ParseException e) {
             // This should not happen as we have already validated the value above
             checkArgument(isValidDateTime(value), MESSAGE_CONSTRAINTS_BODY);
             return null;
@@ -55,8 +54,7 @@ public class DateTime {
         try {
             DATE_PARSER_VALIDATOR.parse(test);
             return true;
-        }
-        catch(ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }

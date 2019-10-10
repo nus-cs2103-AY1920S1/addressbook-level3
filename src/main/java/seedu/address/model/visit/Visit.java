@@ -20,7 +20,8 @@ public class Visit {
     /**
      * Every field must be present and not null.
      */
-    public Visit(Remark remark, StartDateTime startDateTime, EndDateTime endDateTime, VisitTodoItemList visitTodoItems) {
+    public Visit(Remark remark, StartDateTime startDateTime,
+                 EndDateTime endDateTime, VisitTodoItemList visitTodoItems) {
         requireAllNonNull(remark, startDateTime, endDateTime, visitTodoItems);
         this.remark = remark;
         this.startDateTime = startDateTime;
@@ -58,7 +59,8 @@ public class Visit {
 
         return otherVisit != null
                 && otherVisit.getRemark().equals(getRemark())
-                && (otherVisit.getStartDateTime().equals(getStartDateTime()) || otherVisit.getEndDateTime().equals(getEndDateTime()));
+                && (otherVisit.getStartDateTime().equals(getStartDateTime())
+                || otherVisit.getEndDateTime().equals(getEndDateTime()));
     }
 
     /**

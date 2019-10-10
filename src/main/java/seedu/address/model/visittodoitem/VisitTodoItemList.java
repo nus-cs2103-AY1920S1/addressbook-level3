@@ -13,9 +13,10 @@ import seedu.address.model.visittodoitem.exceptions.VisitTodoItemNotFoundExcepti
 
 /**
  * A list of visits that enforces uniqueness between its elements and does not allow nulls.
- * A visit is considered unique by comparing using {@code Visit#isSameVisitTodoItem(Visit)}. As such, adding and updating of
- * visits uses Visit#isSameVisitTodoItem(Visit) for equality so as to ensure that the visit being added or updated is
- * unique in terms of identity in the UniqueVisitList. However, the removal of a visit uses Visit#equals(Object) so
+ * A visit is considered unique by comparing using {@code Visit#isSameVisitTodoItem(Visit)}.
+ * As such, adding and updating of visits uses Visit#isSameVisitTodoItem(Visit) for
+ * equality so as to ensure that the visit being added or updated is unique in terms of identity
+ * in the UniqueVisitList. However, the removal of a visit uses Visit#equals(Object) so
  * as to ensure that the visit with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

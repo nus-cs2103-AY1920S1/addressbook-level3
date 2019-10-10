@@ -66,7 +66,8 @@ class JsonAdaptedVisit {
         }
 
         if (remark == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Remark.class.getSimpleName()));
         }
         if (!Remark.isValidRemark(remark)) {
             throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
@@ -74,7 +75,8 @@ class JsonAdaptedVisit {
         final Remark modelRemark = new Remark(remark);
 
         if (startDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartDateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StartDateTime.class.getSimpleName()));
         }
         if (!StartDateTime.isValidStartDateTime(startDateTime)) {
             throw new IllegalValueException(StartDateTime.MESSAGE_CONSTRAINTS);
@@ -82,7 +84,8 @@ class JsonAdaptedVisit {
         final StartDateTime modelStartDateTime = new StartDateTime(startDateTime);
 
         if (endDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EndDateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EndDateTime.class.getSimpleName()));
         }
         if (!EndDateTime.isValidEndDateTime(endDateTime)) {
             throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);

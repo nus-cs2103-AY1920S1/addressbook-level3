@@ -49,7 +49,8 @@ public class VisitTodoItem {
 
         return otherVisitTodoItem != null
                 && otherVisitTodoItem.getDetail().equals(getDetail())
-                && (otherVisitTodoItem.getVisitTodo().equals(getVisitTodo()) || otherVisitTodoItem.getDetail().equals(getDetail()));
+                && (otherVisitTodoItem.getVisitTodo().equals(getVisitTodo())
+                || otherVisitTodoItem.getDetail().equals(getDetail()));
     }
 
     /**
