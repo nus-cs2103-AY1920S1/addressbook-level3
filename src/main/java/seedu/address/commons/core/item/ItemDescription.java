@@ -59,6 +59,12 @@ public class ItemDescription {
         return description.hashCode();
     }
 
+    /**
+     * Creates an item description object from a JSON string.
+     * @param jsonString the JSON string that represents the item description
+     * @return the item description object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     */
     public static ItemDescription fromJson(String jsonString) throws IOException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
 

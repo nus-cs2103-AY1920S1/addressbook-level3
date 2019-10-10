@@ -72,6 +72,12 @@ public class Reminder {
         return Objects.hash(dateTime);
     }
 
+    /**
+     * Creates a reminder object from a JSON string.
+     * @param jsonString the JSON string that represents the reminder
+     * @return the reminder object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     */
     public static Reminder fromJson(String jsonString) throws IOException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
         String dateTimeString = node.get("dateTime").asText();

@@ -305,10 +305,22 @@ public class Item {
 
     }
 
+    /**
+     * Converts the item object into a json string.
+     * @return string representation of the item
+     * @throws JsonProcessingException when the item cannot be converted into a JSON string
+     */
     public String toJson() throws JsonProcessingException {
         return JsonUtil.toJsonString(this);
     }
 
+    /**
+     * Creates an item object from a JSON string.
+     * @param jsonString the JSON string that represents the item
+     * @return the item object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     * @throws IllegalValueException when the JSON string contains incorrect value
+     */
     public static Item fromJson(String jsonString) throws IOException, IllegalValueException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
         ItemBuilder temp = new ItemBuilder();
@@ -317,19 +329,19 @@ public class Item {
         ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
         temp.setItemDescription(id);
 
-        if(node.hasNonNull("task")) {
+        if (node.hasNonNull("task")) {
             String taskString = node.get("task").toString();
             Task t = Task.fromJson(taskString);
             temp = temp.setTask(t);
         }
 
-        if(node.hasNonNull("event")) {
+        if (node.hasNonNull("event")) {
             String eventString = node.get("event").toString();
             Event e = Event.fromJson(eventString);
             temp = temp.setEvent(e);
         }
 
-        if(node.hasNonNull("reminder")) {
+        if (node.hasNonNull("reminder")) {
             String reminderString = node.get("reminder").toString();
             Reminder r = Reminder.fromJson(reminderString);
             temp = temp.setReminder(r);
@@ -338,7 +350,7 @@ public class Item {
         Set<Tag> tagsSet = new HashSet<>();
         JsonNode tags = node.get("tags");
         Iterator<JsonNode> it = tags.elements();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             tagsSet.add(new Tag(it.next().get("tagName").asText()));
         }
 

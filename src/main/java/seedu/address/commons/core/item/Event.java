@@ -115,6 +115,13 @@ public class Event {
         return Objects.hash(startDateTime, endDateTime, duration, priority);
     }
 
+    /**
+     * Creates an event object from a JSON string.
+     * @param jsonString the JSON string that represents the event
+     * @return the event object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     * @throws IllegalValueException when the JSON string contains incorrect value
+     */
     public static Event fromJson(String jsonString) throws IOException, IllegalValueException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
 
