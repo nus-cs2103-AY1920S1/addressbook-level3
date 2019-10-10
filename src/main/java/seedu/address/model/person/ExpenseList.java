@@ -22,16 +22,16 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  *
  * @see Person#isSamePerson(Person)
  */
-public class UniqueEntryList implements Iterable<Entry> {
+public class ExpenseList implements Iterable<Expense> {
 
-    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Entry> internalUnmodifiableList =
+    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Entry toCheck) {
+    public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameEntry);
     }
@@ -40,7 +40,7 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Entry toAdd) {
+    public void add(Expense toAdd) {
         requireNonNull(toAdd);
 
         internalList.add(toAdd);
@@ -51,7 +51,7 @@ public class UniqueEntryList implements Iterable<Entry> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(Entry target, Entry editedEntry) {
+    public void setPerson(Expense target, Expense editedEntry) {
         requireAllNonNull(target, editedEntry);
 
         int index = internalList.indexOf(target);
@@ -70,14 +70,14 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Entry toRemove) {
+    public void remove(Expense toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
     }
 
-    public void setEntries(UniqueEntryList replacement) {
+    public void setEntries(ExpenseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,11 +86,8 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Entry> entries) {
+    public void setEntries(List<Expense> entries) {
         requireAllNonNull(entries);
-        if (!entriesAreUnique(entries)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.setAll(entries);
     }
@@ -98,38 +95,25 @@ public class UniqueEntryList implements Iterable<Entry> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Entry> asUnmodifiableObservableList() {
+    public ObservableList<Expense> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Entry> iterator() {
+    public Iterator<Expense> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueEntryList // instanceof handles nulls
-                        && internalList.equals(((UniqueEntryList) other).internalList));
+                || (other instanceof ExpenseList // instanceof handles nulls
+                && internalList.equals(((ExpenseList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean entriesAreUnique(List<Entry> entries) {
-        for (int i = 0; i < entries.size() - 1; i++) {
-            for (int j = i + 1; j < entries.size(); j++) {
-                if (entries.get(i).isSameEntry(entries.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+    
 }

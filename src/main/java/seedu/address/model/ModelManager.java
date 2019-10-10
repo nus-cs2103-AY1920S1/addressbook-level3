@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +22,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Entry> filteredEntries;
+    private final FilteredList<Expense> filteredEntries;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,7 +35,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
+        filteredEntries = new FilteredList<>(this.addressBook.getExpenseList());
     }
 
     public ModelManager() {
@@ -106,6 +107,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addExpense(Expense expense) {
+        addressBook.addExpense(expense);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
 
@@ -119,7 +126,7 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Entry> getFilteredEntryList() {
+    public ObservableList<Expense> getFilteredEntryList() {
         return filteredEntries;
     }
 

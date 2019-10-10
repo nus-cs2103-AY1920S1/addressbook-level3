@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseList;
 import seedu.address.model.person.UniqueEntryList;
 
 /**
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniqueEntryList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntryList entries;
+    private final ExpenseList expenses;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,6 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        expenses = new ExpenseList();
         entries = new UniqueEntryList();
     }
 
@@ -43,8 +47,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Entry> entries) {
-        this.entries.setEntries(entries);
+    public void setEntries(List<Expense> expenses) {
+        this.expenses.setEntries(expenses);
     }
 
     /**
@@ -52,8 +56,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
-        setEntries(newData.getEntryList());
+        setEntries(newData.getExpenseList());
     }
 
     //// person-level operations
@@ -72,6 +75,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEntry(Entry p) {
         entries.add(p);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addExpense(Expense p) {
+        expenses.add(p);
     }
 
     /**
@@ -104,6 +115,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Entry> getEntryList() {
         return entries.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Expense> getExpenseList() {
+        return expenses.asUnmodifiableObservableList();
     }
 
     @Override

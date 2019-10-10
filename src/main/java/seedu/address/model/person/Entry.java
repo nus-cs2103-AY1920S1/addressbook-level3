@@ -45,6 +45,10 @@ public class Entry {
         return amt;
     }
 
+    public String getType() {
+        return "Not like this";
+    }
+
 //    public Phone getPhone() {
 //        return phone;
 //    }

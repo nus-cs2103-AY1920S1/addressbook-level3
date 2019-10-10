@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -52,6 +53,11 @@ public class ParserUtil {
         requireNonNull(stringAmt);
         double amt = Double.parseDouble(stringAmt);
         return new Amount(amt);
+    }
+
+    public static Time parseTime(String time) {
+        requireNonNull(time);
+        return new Time(time);
     }
 
 //    /**

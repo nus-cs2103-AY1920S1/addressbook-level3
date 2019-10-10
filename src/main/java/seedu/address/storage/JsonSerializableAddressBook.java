@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -21,14 +22,14 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedEntry> persons = new ArrayList<>();
+    private final List<JsonAdaptedExpense> expenditure = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedEntry> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("expenditure") List<JsonAdaptedExpense> expenses) {
+        this.expenditure.addAll(expenses);
     }
 
     /**
@@ -37,7 +38,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getEntryList().stream().map(JsonAdaptedEntry::new).collect(Collectors.toList()));
+        expenditure.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +48,9 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedEntry jsonAdaptedEntry : persons) {
-            Entry entry = jsonAdaptedEntry.toModelType();
-            if (addressBook.hasEntry(entry)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            addressBook.addEntry(entry);
+        for (JsonAdaptedExpense JsonAdaptedExpense : expenditure) {
+            Expense entry = JsonAdaptedExpense.toModelType();
+            addressBook.addExpense(entry);
         }
         return addressBook;
     }

@@ -32,10 +32,10 @@ public class EntryCard extends UiPart<Region> {
     private Label desc;
     @FXML
     private Label id;
-//    @FXML
-//    private Label phone;
-//    @FXML
-//    private Label address;
+    @FXML
+    private Label time;
+    @FXML
+    private Label amt;
 //    @FXML
 //    private Label email;
     @FXML
@@ -46,7 +46,8 @@ public class EntryCard extends UiPart<Region> {
         this.entry = entry;
         id.setText(displayedIndex + ". ");
         desc.setText(entry.getDesc().fullDesc);
-//        phone.setText(person.getPhone().value);
+        time.setText("16-09-2019");
+        amt.setText(Double.toString(entry.getAmount().value));
 //        address.setText(person.getAddress().value);
 //        email.setText(person.getEmail().value);
         entry.getTags().stream()
