@@ -72,7 +72,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(GROCERIES, MOVIE, FOOD), model.getFilteredExpenses());
+        assertEquals(Arrays.asList(FOOD, GROCERIES, MOVIE), model.getFilteredExpenses());
     }
 
     /**
