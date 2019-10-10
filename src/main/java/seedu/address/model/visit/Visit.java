@@ -2,12 +2,9 @@ package seedu.address.model.visit;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodoitem.VisitTodoItemList;
 
 /**
  * Represents a Visit in the application.
@@ -18,17 +15,17 @@ public class Visit {
     private final Remark remark;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
-    private final Set<Tag> visitTodoItems = new HashSet<>();
+    private final VisitTodoItemList visitTodoItems;
 
     /**
      * Every field must be present and not null.
      */
-    public Visit(Remark remark, StartDateTime startDateTime, EndDateTime endDateTime, Set<Tag> visitTodoItems) {
+    public Visit(Remark remark, StartDateTime startDateTime, EndDateTime endDateTime, VisitTodoItemList visitTodoItems) {
         requireAllNonNull(remark, startDateTime, endDateTime, visitTodoItems);
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.visitTodoItems.addAll(visitTodoItems);
+        this.visitTodoItems = visitTodoItems;
     }
 
     public Remark getRemark() {
@@ -44,11 +41,10 @@ public class Visit {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns a VisitTodoItemList.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(visitTodoItems);
+    public VisitTodoItemList getVisitTodoItems() {
+        return visitTodoItems;
     }
 
     /**
@@ -83,7 +79,7 @@ public class Visit {
         return otherVisit.getRemark().equals(getRemark())
                 && otherVisit.getStartDateTime().equals(getStartDateTime())
                 && otherVisit.getEndDateTime().equals(getEndDateTime())
-                && otherVisit.getTags().equals(getTags());
+                && otherVisit.getVisitTodoItems().equals(getVisitTodoItems());
     }
 
     @Override
@@ -100,7 +96,7 @@ public class Visit {
                 .append(" End Time: ")
                 .append(getEndDateTime())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getVisitTodoItems().forEach(builder::append);
         builder.append("Remarks")
                 .append(getRemark());
         return builder.toString();

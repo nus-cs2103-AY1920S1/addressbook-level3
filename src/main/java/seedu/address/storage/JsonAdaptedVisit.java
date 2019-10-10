@@ -1,9 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,7 +12,7 @@ import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodoitem.VisitTodoItemList;
 
 /**
  * Jackson-friendly version of {@link Visit}.
@@ -26,7 +24,7 @@ class JsonAdaptedVisit {
     private final String remark;
     private final String startDateTime;
     private final String endDateTime;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedVisitTodoItem> visitTodoItems = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedVisit} with the given visit details.
@@ -35,12 +33,12 @@ class JsonAdaptedVisit {
     public JsonAdaptedVisit(@JsonProperty("remark") String remark,
                             @JsonProperty("startDateTime") String startDateTime,
                             @JsonProperty("endDateTime") String endDateTime,
-                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                            @JsonProperty("visitTodoItems") List<JsonAdaptedVisitTodoItem> visitTodoItems) {
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (visitTodoItems != null) {
+            this.visitTodoItems.addAll(visitTodoItems);
         }
     }
 
@@ -51,8 +49,8 @@ class JsonAdaptedVisit {
         remark = source.getRemark().remark;
         startDateTime = source.getStartDateTime().toJacksonJsonString();
         endDateTime = source.getEndDateTime().toJacksonJsonString();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        visitTodoItems.addAll(source.getVisitTodoItems().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedVisitTodoItem::new)
                 .collect(Collectors.toList()));
     }
 
@@ -62,9 +60,9 @@ class JsonAdaptedVisit {
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
     public Visit toModelType() throws IllegalValueException {
-        final List<Tag> visitTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            visitTags.add(tag.toModelType());
+        final VisitTodoItemList modelVisitTodoItems = new VisitTodoItemList();
+        for (JsonAdaptedVisitTodoItem visitTodoItem : visitTodoItems) {
+            modelVisitTodoItems.add(visitTodoItem.toModelType());
         }
 
         if (remark == null) {
@@ -91,8 +89,7 @@ class JsonAdaptedVisit {
         }
         final EndDateTime modelEndDateTime = new EndDateTime(endDateTime);
 
-        final Set<Tag> modelTags = new HashSet<>(visitTags);
-        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelTags);
+        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTodoItems);
     }
 
 }
