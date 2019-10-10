@@ -3,6 +3,7 @@ package seedu.savenus.model.food;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_LOCATION_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
@@ -86,6 +87,10 @@ public class FoodTest {
 
         // different tags -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
+        assertFalse(CARBONARA.equals(editedAlice));
+
+        // different location -> returns false
+        editedAlice = new FoodBuilder(CARBONARA).withLocation(VALID_LOCATION_NASI_LEMAK).build();
         assertFalse(CARBONARA.equals(editedAlice));
     }
 }

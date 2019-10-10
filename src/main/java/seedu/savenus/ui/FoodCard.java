@@ -44,6 +44,8 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private Label loc; // As explained above, location is a reserved keyword
+    @FXML
     private Label openingHours;
     @FXML
     private Label restrictions;
@@ -66,6 +68,8 @@ public class FoodCard extends UiPart<Region> {
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        loc.setText("Location: " + food.getLocation().location);
 
         if (food.getOpeningHours().openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
             openingHours.setText("No opening hours specified");

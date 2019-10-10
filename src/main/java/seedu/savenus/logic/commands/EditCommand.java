@@ -3,6 +3,7 @@ package seedu.savenus.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -24,6 +25,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
@@ -46,6 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_LOCATION + "LOCATION] "
             + "[" + PREFIX_OPENING_HOURS + "OPENING HOURS] "
             + "[" + PREFIX_RESTRICTIONS + "RESTRICTIONS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -104,11 +107,12 @@ public class EditCommand extends Command {
         Description updatedDescription = editFoodDescriptor.getDescription().orElse(foodToEdit.getDescription());
         Category updatedCategory = editFoodDescriptor.getCategory().orElse(foodToEdit.getCategory());
         Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
+        Location updatedLocation = editFoodDescriptor.getLocation().orElse(foodToEdit.getLocation());
         OpeningHours updatedOpeningHours = editFoodDescriptor.getOpeningHours().orElse(foodToEdit.getOpeningHours());
         Restrictions updatedRestrictions = editFoodDescriptor.getRestrictions().orElse(foodToEdit.getRestrictions());
 
         return new Food(updatedName, updatedPrice, updatedDescription,
-                updatedCategory, updatedTags, updatedOpeningHours, updatedRestrictions);
+                updatedCategory, updatedTags, updatedLocation, updatedOpeningHours, updatedRestrictions);
     }
 
     @Override
@@ -139,6 +143,7 @@ public class EditCommand extends Command {
         private Description description;
         private Category category;
         private Set<Tag> tags;
+        private Location location;
         private OpeningHours openingHours;
         private Restrictions restrictions;
 
@@ -154,6 +159,7 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setCategory(toCopy.category);
             setTags(toCopy.tags);
+            setLocation(toCopy.location);
             setOpeningHours(toCopy.openingHours);
             setRestrictions(toCopy.restrictions);
         }
@@ -162,7 +168,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, price, description, tags);
+            return CollectionUtil.isAnyNonNull(name, price, description, tags, location);
         }
 
         public void setName(Name name) {
@@ -195,6 +201,14 @@ public class EditCommand extends Command {
 
         public Optional<Category> getCategory() {
             return Optional.ofNullable(category);
+        }
+
+        public void setLocation(Location location) {
+            this.location = location;
+        }
+
+        public Optional<Location> getLocation() {
+            return Optional.ofNullable(location);
         }
 
         public void setOpeningHours(OpeningHours openingHours) {
@@ -250,6 +264,7 @@ public class EditCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getCategory().equals(e.getCategory())
                     && getTags().equals(e.getTags())
+                    && getLocation().equals(e.getLocation())
                     && getOpeningHours().equals(e.getOpeningHours())
                     && getRestrictions().equals(e.getRestrictions());
         }

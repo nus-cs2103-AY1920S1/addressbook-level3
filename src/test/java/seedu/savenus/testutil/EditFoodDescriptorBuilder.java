@@ -8,6 +8,7 @@ import seedu.savenus.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
@@ -39,6 +40,7 @@ public class EditFoodDescriptorBuilder {
         descriptor.setDescription(food.getDescription());
         descriptor.setCategory(food.getCategory());
         descriptor.setTags(food.getTags());
+        descriptor.setLocation(food.getLocation());
         descriptor.setOpeningHours(food.getOpeningHours());
         descriptor.setRestrictions(food.getRestrictions());
     }
@@ -82,6 +84,14 @@ public class EditFoodDescriptorBuilder {
     public EditFoodDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Location} of the {@code EditFoodDescriptor} that we are building.
+     */
+    public EditFoodDescriptorBuilder withLocation(String location) {
+        descriptor.setLocation(new Location(location));
         return this;
     }
 

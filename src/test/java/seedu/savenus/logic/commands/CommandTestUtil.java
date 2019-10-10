@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -38,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NASI_LEMAK = "Malay";
     public static final String VALID_TAG_CHICKEN = "chicken";
     public static final String VALID_TAG_RICE = "rice";
+    public static final String VALID_LOCATION_CHICKEN_RICE = "The Deck";
+    public static final String VALID_LOCATION_NASI_LEMAK = "Frontier Canteen";
     public static final String VALID_OPENING_HOURS_CHICKEN_RICE = "0800 2100";
     public static final String VALID_OPENING_HOURS_NASI_LEMAK = "0900 1000";
     public static final String VALID_RESTRICTIONS_CHICKEN_RICE = "Not halal";
@@ -54,6 +57,8 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_NASI_LEMAK = " " + PREFIX_CATEGORY + VALID_CATEGORY_NASI_LEMAK;
     public static final String TAG_DESC_RICE = " " + PREFIX_TAG + VALID_TAG_RICE;
     public static final String TAG_DESC_CHICKEN = " " + PREFIX_TAG + VALID_TAG_CHICKEN;
+    public static final String LOCATION_DESC_CHICKEN_RICE = " " + PREFIX_LOCATION + VALID_LOCATION_CHICKEN_RICE;
+    public static final String LOCATION_DESC_NASI_LEMAK = " " + PREFIX_LOCATION + VALID_LOCATION_NASI_LEMAK;
     public static final String OPENING_HOURS_DESC_CHICKEN_RICE = " " + PREFIX_OPENING_HOURS
                                                                         + VALID_OPENING_HOURS_CHICKEN_RICE;
     public static final String OPENING_HOURS_DESC_NASI_LEMAK = " " + PREFIX_OPENING_HOURS
@@ -67,6 +72,7 @@ public class CommandTestUtil {
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "   "; // spaces only not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "beef*"; // '*' not allowed in tags
+    public static final String INVALID_LOCATION_DESC = " " + PREFIX_LOCATION + "    "; // spaces only not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -77,10 +83,14 @@ public class CommandTestUtil {
     static {
         DESC_CHICKEN_RICE = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE)
                 .withPrice(VALID_PRICE_CHICKEN_RICE).withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
-                .withTags(VALID_TAG_RICE).build();
+                .withTags(VALID_TAG_RICE).withLocation(VALID_LOCATION_CHICKEN_RICE)
+                .withOpeningHours(VALID_OPENING_HOURS_CHICKEN_RICE).withRestrictions(VALID_RESTRICTIONS_CHICKEN_RICE)
+                .build();
         DESC_NASI_LEMAK = new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK)
                 .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
-                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE).build();
+                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE).withLocation(VALID_LOCATION_NASI_LEMAK)
+                .withOpeningHours(VALID_OPENING_HOURS_NASI_LEMAK).withRestrictions(VALID_RESTRICTIONS_NASI_LEMAK)
+                .build();
     }
 
     /**
