@@ -1,5 +1,7 @@
 package seedu.address.model.game;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.card.Word;
 
 /**
@@ -11,6 +13,7 @@ public class Guess {
     private final String guessString;
 
     public Guess(String guessString) {
+        requireAllNonNull(guessString);
         this.guessString = guessString;
     }
 
@@ -22,8 +25,6 @@ public class Guess {
      * Returns true if the {@code word} matches the {@code guessString}.
      */
     public boolean matches(Word word) {
-        //  System.out.println("Guess String is: " + guessString );
-        //  System.out.println("Answer String is: " + answer.getAnswerString());
         return guessString.toLowerCase().equals(word.value.toLowerCase());
     }
 }
