@@ -26,6 +26,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 /**
  * Start the game.
  */
@@ -38,18 +40,24 @@ public class StartCommand extends AppCommand {
             + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    private final Index targetIndex;
+    private Index targetIndex;
+    private String wordBankName;
 
     public StartCommand(Index index) {
         this.targetIndex = index;
     }
 
+    public StartCommand(String wordBankName) {
+        this.wordBankName = wordBankName;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Path filePath = Paths.get("data/addressbook.json");
+//        Path filePath = Paths.get("data/addressbook.json");
+        String pathString = "data/" + wordBankName + ".json";
+        Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
-
         try {
             Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
             wordBank = (WordBank) thisBank.get();
