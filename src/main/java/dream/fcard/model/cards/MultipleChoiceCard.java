@@ -23,6 +23,14 @@ public class MultipleChoiceCard extends FrontBackCard {
         return in.equals(back);
     }
 
+    public void editFront(String newText){
+        front = newText;
+    }
+
+    public void editBack(String newText){
+        back = newText;
+    }
+
     @Override
     public JsonValue toJson() {
         return super.toJson();
