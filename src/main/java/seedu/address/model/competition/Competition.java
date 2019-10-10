@@ -3,8 +3,9 @@ package seedu.address.model.competition;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.address.model.exercise.UniqueExerciseList;
-import seedu.address.model.participation.UniqueParticipationList;
+import seedu.address.model.UniqueElementList;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.participation.Participation;
 import seedu.address.model.person.Name;
 
 /**
@@ -14,15 +15,15 @@ public class Competition {
     private final Name name; // to be replaced
     private final Date startDate;
     private final Date endDate;
-    private final UniqueExerciseList exerciseList;
-    private final UniqueParticipationList participationList;
+    private final UniqueElementList<Exercise> exerciseList;
+    private final UniqueElementList<Participation> participationList;
 
     public Competition(Name name, Date startDate, Date endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.exerciseList = new UniqueExerciseList();
-        this.participationList = new UniqueParticipationList();
+        this.exerciseList = new UniqueElementList<>();
+        this.participationList = new UniqueElementList<>();
     }
 
     @Override

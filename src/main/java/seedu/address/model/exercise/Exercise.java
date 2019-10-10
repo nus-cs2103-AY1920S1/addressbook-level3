@@ -1,9 +1,11 @@
 package seedu.address.model.exercise;
 
+import seedu.address.model.UniqueElement;
+
 /**
  * Represents an Exercise category in a {@link seedu.address.model.competition.Competition}
  */
-public class Exercise {
+public class Exercise extends UniqueElement {
     private final Type type;
 
     public Exercise(Type type) {
@@ -12,6 +14,18 @@ public class Exercise {
 
     public Type getType() {
         return type;
+    }
+
+    /**
+     * Returns true if both exercises have the same identity and data fields.
+     */
+    public boolean isSameElement(UniqueElement otherElement) {
+
+        if (!(otherElement instanceof Exercise)) {
+            return false;
+        }
+
+        return this.equals((Exercise) otherElement);
     }
 
     /**

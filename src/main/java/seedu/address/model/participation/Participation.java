@@ -1,5 +1,6 @@
 package seedu.address.model.participation;
 
+import seedu.address.model.UniqueElement;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.person.Person;
 
@@ -7,7 +8,7 @@ import seedu.address.model.person.Person;
  * Represents a {@link Person}'s participation in a {@link Competition}.
  * Guarantees: immutable; person-competition pair is unique.
  */
-public class Participation {
+public class Participation extends UniqueElement {
     private final Person person;
     private final Competition competition;
 
@@ -22,6 +23,18 @@ public class Participation {
 
     public Competition getCompetition() {
         return competition;
+    }
+
+    /**
+     * Returns true if both exercises have the same identity and data fields.
+     */
+    public boolean isSameElement(UniqueElement otherElement) {
+
+        if (!(otherElement instanceof Participation)) {
+            return false;
+        }
+
+        return this.equals((Participation) otherElement);
     }
 
     /**
