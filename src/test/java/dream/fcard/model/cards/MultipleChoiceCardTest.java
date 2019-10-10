@@ -57,7 +57,12 @@ class MultipleChoiceCardTest {
         choices.add("moin");
 
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "hello", choices);
+        /*
         assertThrows(ChoiceNotFoundException.class, () -> {
+            card.editChoice("hello", -1);
+        });
+         */
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
             card.editChoice("hello", -1);
         });
     }
