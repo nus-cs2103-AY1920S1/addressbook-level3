@@ -17,7 +17,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 /**
  * Command to assign a new policy to a person.
  */
-public class AssignPolicyCommand {
+public class AssignPolicyCommand extends Command {
 
     public static final String COMMAND_WORD = "assignpolicy";
 
@@ -67,6 +67,7 @@ public class AssignPolicyCommand {
         }
 
         Person assignedPerson = createAssignedPerson(person, policy);
+
         model.setPerson(person, assignedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS, policy, assignedPerson));
@@ -106,6 +107,24 @@ public class AssignPolicyCommand {
         Set<Tag> tags = person.getTags();
 
         return new Person(name, nric, phone, email, address, dateOfBirth, updatedPolicies, tags);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AssignPolicyCommand)) {
+            return false;
+        }
+
+        // state check
+        AssignPolicyCommand e = (AssignPolicyCommand) other;
+        return personIndex.equals(e.personIndex)
+                && policyIndex.equals(e.policyIndex);
     }
 
 }
