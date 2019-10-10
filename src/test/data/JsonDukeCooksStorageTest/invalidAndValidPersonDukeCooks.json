@@ -2,6 +2,6 @@
   "persons": [ {
     "name": "Valid Person"
   }, {
-    "name": "Person With Invalid Phone Field"
+    "name": "Person With invalid n@me"
   } ]
 }
