@@ -1,18 +1,18 @@
 package seedu.address.inventory.commands;
 
+import java.util.logging.Logger;
+
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.Model;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.inventory.model.Model;
-
-import java.util.logging.Logger;
 
 /**
  * Adds a transaction to the transaction list.
  */
 public class AddCommand extends Command {
-    private Item item;
     public static final String COMMAND_WORD = "add";
+    private Item item;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**

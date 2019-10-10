@@ -1,27 +1,22 @@
 package seedu.address.inventory.commands;
 
+import java.util.Optional;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
-import seedu.address.inventory.model.exception.NoSuchIndexException;
-import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.ui.Inventory;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Optional;
 
 /**
  * Edits a transaction to the transaction list.
  */
 public class EditCommand extends Command {
+    public static final String COMMAND_WORD = "edit";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction is already recorded.";
     private static int id;
     private int index;
     private EditItemDescriptor editItemDescriptor;
-    public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction is already recorded.";
 
     /**
      * Creates an EditCommand to add the specified {@code Transaction}
@@ -49,6 +44,9 @@ public class EditCommand extends Command {
         return new CommandResult(InventoryMessages.editedItem(itemToEdit, editedItem));
     }
 
+    /**
+     * Edits an item using EditItemDescriptor.
+     */
     private static Item createdEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor) {
         String updatedDescription = editItemDescriptor.getDescription().orElse(itemToEdit.getDescription());
         String updatedCategory = editItemDescriptor.getCategory().orElse(itemToEdit.getCategory());

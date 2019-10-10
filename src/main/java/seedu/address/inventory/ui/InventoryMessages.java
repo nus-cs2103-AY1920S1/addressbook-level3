@@ -7,11 +7,18 @@ import seedu.address.ui.Inventory;
 import java.util.logging.Logger;
 
 public class InventoryMessages {
-    public static final String NO_SUCH_SORT_COMMAND = "The items can be sorted by category, quantity and name.\n" +
+    public static final String MESSAGE_NO_SUCH_SORT_COMMAND =
+            "The items can be sorted by category, quantity and description.\n" +
             "Please input sort by category/quantity/name";
 
     public static final String RESET_TO_ORIGINAL_ORDER = "The items are now reset to original order of input " +
             "when treasurerPro was just open.";
+
+    public static final String MESSAGE_SORTED_BY_DESCRIPTION = "The items are now sorted by description!";
+
+    public static final String MESSAGE_SORTED_BY_CATEGORY = "The items are now sorted by category!";
+
+    public static final String MESSAGE_SORTED_BY_QUANTITY = "The items are now sorted by quantity!";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! Please type find with your keywords\n " +
             "(Eg. find poster printing)";
@@ -21,6 +28,8 @@ public class InventoryMessages {
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n" +
             "d/description c/category q/quantity c/cost p/price";
+
+    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a number.";
 
     private static final Logger logger = LogsCenter.getLogger(InventoryMessages.class);
 

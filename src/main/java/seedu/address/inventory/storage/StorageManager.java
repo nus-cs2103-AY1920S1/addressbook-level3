@@ -35,7 +35,7 @@ public class StorageManager implements Storage {
         return t;
     }
 
-    public void writeFile(InventoryList inventoryList) throws IOException, NoSuchIndexException, seedu.address.inventory.model.exception.NoSuchIndexException {
+    public void writeFile(InventoryList inventoryList) throws IOException, seedu.address.inventory.model.exception.NoSuchIndexException {
         FileWriter fw = new FileWriter(this.filepath);
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {

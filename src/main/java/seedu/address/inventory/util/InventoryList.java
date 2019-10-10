@@ -1,6 +1,8 @@
 package seedu.address.inventory.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
@@ -74,4 +76,54 @@ public class InventoryList {
         iList.set(i, item);
     }
 
+    public void sortByDescription() {
+        Collections.sort(iList, new SortByDescription());
+    }
+
+    public void sortByCategory() {
+        Collections.sort(iList, new SortByCategory());
+    }
+
+    public void sortByQuantity() {
+        Collections.sort(iList, new SortByQuantity());
+    }
+
+    /**
+     * Comparator to compare by the name in transaction.
+     */
+    class SortByDescription implements Comparator<Item> {
+        // Used for sorting in ascending order
+        @Override
+        public int compare(Item a, Item b) {
+            return a.getDescription().compareTo(b.getDescription());
+        }
+    }
+
+    /**
+     * Comparator to compare by amount in transaction.
+     */
+    class SortByQuantity implements Comparator<Item> {
+        // Used for sorting in descending order
+        @Override
+        public int compare(Item a, Item b) {
+            if (a.getQuantity() < b.getQuantity()) {
+                return 1;
+            } else if (a.getQuantity() == b.getQuantity()) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    /**
+     * Comparator to compare by date in transaction.
+     */
+    class SortByCategory implements Comparator<Item> {
+        // Used for sorting in ascending order
+        @Override
+        public int compare(Item a, Item b) {
+            return a.getCategory().compareTo(b.getCategory());
+        }
+    }
 }

@@ -77,4 +77,26 @@ public class ModelManager implements Model {
             return true;
         }
     }
+
+    @Override
+    public void updateIndexes() throws NoSuchIndexException {
+        for (int i = 0; i < inventoryList.size(); i++) {
+            inventoryList.getItemByIndex(i).setId(i + 1);
+        }
+    }
+
+    @Override
+    public void sortByDescription() {
+        inventoryList.sortByDescription();
+    }
+
+    @Override
+    public void sortByCategory() {
+        inventoryList.sortByCategory();
+    }
+
+    @Override
+    public void sortByQuantity() {
+        inventoryList.sortByQuantity();
+    }
 }
