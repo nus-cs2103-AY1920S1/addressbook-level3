@@ -8,7 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Project;
 
 /**
  * API of the Logic component
@@ -23,6 +25,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //======== AddressBook =======================================================================
     /**
      * Returns the AddressBook.
      *
@@ -37,6 +40,24 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    //======== ProjectList =======================================================================
+    /**
+     * Returns the ProjectList.
+     *
+     * @see seedu.address.model.Model#getProjectList()
+     */
+    ReadOnlyProjectList getProjectList();
+
+    /** Returns an unmodifiable view of the filtered list of projects */
+    ObservableList<Project> getFilteredProjectList();
+
+    /**
+     * Returns the user prefs' project list file path.
+     */
+    Path getProjectListFilePath();
+
+    //======== GUI =======================================================================
 
     /**
      * Returns the user prefs' GUI settings.

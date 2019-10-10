@@ -5,52 +5,40 @@
 :stylesDir: stylesheets
 
 AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chong Chee Yuan
+image::ccyccyccy.png[width="150", align="left"]
+{empty}[http://chongcheeyuan.me/[homepage]] [https://github.com/ccyccyccy[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Member
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Philip Alexander Boediman
+image::philipalexanderb.png[width="150", align="left"]
+{empty}[https://github.com/philipalexanderb[github]]
 
-Role: Developer +
-Responsibilities: Data
+Role: Member
 
-'''
+=== Kwong Chung Yue Jerry
+image::jerryk1997.png[width="150", align="left"]
+{empty}[https://github.com/jerryk1997[github]]
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+Role: Member
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
 
-'''
+=== Wang Runding
+image::R-D-D-D.png[width="150", align="left"]
+{empty}[https://github.com/r-d-d-d[github]]
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+Role: Member
 
-Role: Developer +
-Responsibilities: UI
+=== Sng Jia Ming Fadi Faris
+image::fadisng.png[width="150", align="left"]
+{empty}[https://github.com/fadisng[github]]
 
-'''
+Role: Member

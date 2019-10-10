@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -19,12 +20,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private ProjectListStorage projectListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, ProjectListStorage projectListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.projectListStorage = projectListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -72,6 +75,35 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ ProjectList methods ==============================
+
+    @Override
+    public Path getProjectListFilePath() {
+        return projectListStorage.getProjectListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyProjectList> readProjectList() throws DataConversionException, IOException {
+        return readProjectList(projectListStorage.getProjectListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyProjectList> readProjectList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return projectListStorage.readProjectList(filePath);
+    }
+
+    @Override
+    public void saveProjectList(ReadOnlyProjectList projectList) throws IOException {
+        saveProjectList(projectList, projectListStorage.getProjectListFilePath());
+    }
+
+    @Override
+    public void saveProjectList(ReadOnlyProjectList projectList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        projectListStorage.saveProjectList(projectList, filePath);
     }
 
 }
