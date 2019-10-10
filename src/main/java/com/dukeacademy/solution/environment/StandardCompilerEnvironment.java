@@ -142,7 +142,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                 .filter(javaFile -> javaFile.getCanonicalName().equals(canonicalName))
                 .findFirst();
 
-        return file.orElseThrow(FileNotFoundException::new);
+        return file.orElseThrow(() -> new FileNotFoundException(MESSAGE_JAVA_FILE_NOT_FOUND));
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,8 +19,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StandardCompilerEnvironmentTest {
-    StandardCompilerEnvironment compilerEnvironment;
-    Path environmentPath;
+    private StandardCompilerEnvironment compilerEnvironment;
+    private Path environmentPath;
 
     @TempDir
     static Path temporaryFolder;
@@ -89,6 +90,9 @@ class StandardCompilerEnvironmentTest {
         Optional<String> fileContent = Files.lines(filePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
+
+        assertThrows(FileNotFoundException.class,
+                () -> compilerEnvironment.getJavaFile("this.should.throw.an.error"));
     }
 
     @Test

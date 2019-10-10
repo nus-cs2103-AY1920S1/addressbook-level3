@@ -21,6 +21,7 @@ class CompilerTest {
     Compiler compiler;
 
     UserProgram validProgram;
+    UserProgram validProgram1;
     UserProgram invalidProgram;
 
     @BeforeEach
@@ -30,6 +31,13 @@ class CompilerTest {
         compiler = new Compiler(environment);
 
         validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
+                + "\tpublic static void main(String args[]) {"
+                + "\t\tSystem.out.println(\"Hello world\");"
+                + "\t}"
+                + "\n}");
+
+        validProgram1 = new UserProgram("ValidTest1", "package foo.bar;\n"
+                + "public class ValidTest1 {\n"
                 + "\tpublic static void main(String args[]) {"
                 + "\t\tSystem.out.println(\"Hello world\");"
                 + "\t}"
@@ -60,6 +68,13 @@ class CompilerTest {
 
         assertTrue(validJavaFilePath.toFile().exists());
         assertTrue(validClassFilePath.toFile().exists());
+
+        compiler.compileProgram(validProgram1);
+        Path validJavaFilePath1 = environmentPath.resolve("foo").resolve("bar").resolve("ValidTest1" + ".java");
+        Path validClassFilePath1 = environmentPath.resolve("foo").resolve("bar").resolve("ValidTest1" + ".class");
+
+        assertTrue(validJavaFilePath1.toFile().exists());
+        assertTrue(validClassFilePath1.toFile().exists());
 
         assertThrows(CompilerFileContentException.class, () -> compiler.compileProgram(invalidProgram));
 
