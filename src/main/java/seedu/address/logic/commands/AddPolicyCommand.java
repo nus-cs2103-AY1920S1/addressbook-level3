@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.DuplicatePolicyException;
 import seedu.address.model.Model;
 import seedu.address.model.policy.Policy;
 
+// TODO: Save policy in database
 /**
  * Adds a policy to the address book.
  */
