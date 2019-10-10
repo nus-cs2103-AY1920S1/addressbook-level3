@@ -1,0 +1,51 @@
+{
+  "students" : [ {
+    "name" : "John Doe",
+    "phone" : "98765432",
+    "email" : "john_doe@gmail.com",
+    "parentPhone" : "92222222",
+    "address" : "Blk 123, National University of Singapore, S1234567",
+    "medicalCondition" : "NIL",
+    "tagged" : [ "englishrep" ]
+  }, {
+    "name" : "hello",
+    "phone" : "99999999",
+    "email" : "hello@gmail.com",
+    "parentPhone" : "93333333",
+    "address" : "hello Singapore",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test",
+    "phone" : "11111111",
+    "email" : "test@gmail.com",
+    "parentPhone" : "94444444",
+    "address" : "test Singapore",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "hellooo",
+    "phone" : "9999999",
+    "email" : "test@gmail.com",
+    "parentPhone" : "88888888",
+    "address" : "test",
+    "medicalCondition" : "sinus",
+    "tagged" : [ ]
+  }, {
+    "name" : "test1",
+    "phone" : "11111111",
+    "email" : "test1@gmail.com",
+    "parentPhone" : "22222222",
+    "address" : "test1",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test2",
+    "phone" : "33333333",
+    "email" : "test2@gmail.com",
+    "parentPhone" : "44444444",
+    "address" : "test2",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  } ]
+}
