@@ -18,7 +18,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Start the game.
  */
-public class StartCommand extends GameCommand {
+public class StartCommand extends AppCommand {
 
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";
