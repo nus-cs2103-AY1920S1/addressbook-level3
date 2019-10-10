@@ -14,10 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.expense.Address;
-import seedu.billboard.model.expense.Email;
 import seedu.billboard.model.expense.Name;
-import seedu.billboard.model.expense.Phone;
 import seedu.billboard.model.tag.Tag;
 
 public class ParserUtilTest {

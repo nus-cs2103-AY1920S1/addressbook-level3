@@ -13,9 +13,9 @@ import seedu.billboard.commons.util.JsonUtil;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.testutil.TypicalExpenses;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableBillboardTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableBillboardTest");
     private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesBillboard.json");
     private static final Path INVALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseBillboard.json");
     private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpensesBillboard.json");
