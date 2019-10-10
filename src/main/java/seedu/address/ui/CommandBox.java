@@ -51,7 +51,6 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleTextChanged() {
-        commandTextField.positionCaret(commandTextField.getLength());
         autoCompleterUpdater.update(commandTextField.getText());
     }
 
@@ -96,6 +95,7 @@ public class CommandBox extends UiPart<Region> {
 
     public void setCommandTextField(String suggestion) {
         commandTextField.setText(suggestion);
+        commandTextField.positionCaret(commandTextField.getLength());
         handleTextChanged();
     }
 
