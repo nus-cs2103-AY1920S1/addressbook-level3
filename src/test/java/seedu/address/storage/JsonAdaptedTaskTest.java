@@ -17,7 +17,6 @@ import seedu.address.model.task.TaskStatus;
 
 public class JsonAdaptedTaskTest {
     private static final String INVALID_TASK_NAME = "R@eview Code";
-    private static final String INVALID_TASK_STATUS = "pending";
     private static final String INVALID_TAG = "#urgent";
 
     private static final String VALID_TASK_NAME = PRINT_POSTERS.getName().toString();
