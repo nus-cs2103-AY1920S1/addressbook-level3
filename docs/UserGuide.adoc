@@ -42,7 +42,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-=== Features
+== Features
 
 =====
 *Command Format*
@@ -105,45 +105,14 @@ Examples:
 
 ==== Finding tasks: `find`
 
-Find specific task.
-
-===== By Index:
-
-Format: `find INDEX`
-
-Examples:
-
-* `find 3`
-
-===== By Keyword:
-
-Format: `find KEYWORD, KEYWORD 2, ...`
-
-[TIP]
-You can find using more than one keyword at a time.
-
-Examples:
-
-* `find CS2103T, Lecture`
-
-===== By Time:
-
-Format: `find TIME`
-
-Examples:
-
-* `find 1400`
-
-==== Finding tasks: `find`
-
 Find specific task. +
 Format: `find VARAIBLE`
 
 ****
-* VARIABLE can be either INDEX, KEYWORD or TIME.
+* VARIABLE can be either `INDEX`, `KEYWORD` or `TIME`.
 * The VARIABLE is case insensitive. e.g `hans` will match `Hans`
 * Only full words will be matched. e.g. `Han` will not match `Hans`
-* You can find using more than one keyword at a time.
+* Can find using more than one keyword at a time.
 * Only can search by one of the 3 types of variables at any one time.
 ****
 
@@ -153,46 +122,45 @@ Examples:
 * `find CS2103T, Lecture` [KEYWORD]
 * `find 1400` [TIME]
 
-=== Marking Tasks: `mark`
+==== Marking Tasks: `mark`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Mark tasks that needs to be reminded. +
+`Format: `mark VARIABLE`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* VARIABLE can be either `INDEX` or `KEYWORD`.
+* The VARIABLE is case insensitive. e.g `hans` will match `Hans`
+* Can find using more than one `KEYWORD` or `INDEX` at a time.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `mark 2 3 4` +
+Marks tasks 2, 3 and 4.
+* `mark CS2103T, Tutorial` +
+Marks tasks that contains the keyword CS2103T or Tutorial.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Setting Reminder Details  : `reminder`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+===== Reminder Status On/Off
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Switches reminder status between on and off. +
+Format: `reminder INDEX STATUS`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `reminder 5 on`
+
+===== Setting Reminder Time
+
+Sets how many minutes before the marked tasks will be reminded. +
+Format: `reminder INDEX INTEGER(in minutes)`
+
+Examples:
+
+* `reminder 3 45`
+
+... MORE TO BE ADDED...
 
 // end::delete[]
 === Clearing all entries : `clear`
