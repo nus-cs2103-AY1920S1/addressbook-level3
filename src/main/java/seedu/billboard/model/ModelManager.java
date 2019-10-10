@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Represents the in-memory model of the address book data.

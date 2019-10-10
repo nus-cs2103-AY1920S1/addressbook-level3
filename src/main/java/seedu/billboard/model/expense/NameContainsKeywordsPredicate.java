@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import java.util.List;
 import java.util.function.Predicate;

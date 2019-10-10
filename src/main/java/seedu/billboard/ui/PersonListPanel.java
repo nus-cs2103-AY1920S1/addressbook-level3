@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.billboard.commons.core.LogsCenter;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Panel containing the list of persons.

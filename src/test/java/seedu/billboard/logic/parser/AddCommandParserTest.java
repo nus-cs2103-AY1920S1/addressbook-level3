@@ -27,8 +27,8 @@ import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.logic.commands.AddCommand;
-import seedu.billboard.model.person.*;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 

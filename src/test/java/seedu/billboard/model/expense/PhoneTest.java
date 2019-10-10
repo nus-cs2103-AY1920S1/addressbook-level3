@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

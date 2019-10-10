@@ -16,7 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.GuiSettings;
-import seedu.billboard.model.person.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {

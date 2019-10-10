@@ -8,7 +8,7 @@ import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * API of the Logic component

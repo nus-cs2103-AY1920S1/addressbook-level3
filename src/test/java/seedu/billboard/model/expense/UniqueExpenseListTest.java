@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.billboard.model.person.exceptions.DuplicatePersonException;
-import seedu.billboard.model.person.exceptions.PersonNotFoundException;
+import seedu.billboard.model.expense.exceptions.DuplicatePersonException;
+import seedu.billboard.model.expense.exceptions.PersonNotFoundException;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class UniqueExpenseListTest {
@@ -60,23 +60,23 @@ public class UniqueExpenseListTest {
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setPerson(null, BILLS));
+        assertThrows(NullPointerException.class, () -> expenseList.setExpense(null, BILLS));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setPerson(BILLS, null));
+        assertThrows(NullPointerException.class, () -> expenseList.setExpense(BILLS, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> expenseList.setPerson(BILLS, BILLS));
+        assertThrows(PersonNotFoundException.class, () -> expenseList.setExpense(BILLS, BILLS));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         expenseList.add(BILLS);
-        expenseList.setPerson(BILLS, BILLS);
+        expenseList.setExpense(BILLS, BILLS);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(BILLS);
         assertEquals(expectedExpenseList, expenseList);
@@ -87,7 +87,7 @@ public class UniqueExpenseListTest {
         expenseList.add(BILLS);
         Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
                 .build();
-        expenseList.setPerson(BILLS, editedAlice);
+        expenseList.setExpense(BILLS, editedAlice);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(editedAlice);
         assertEquals(expectedExpenseList, expenseList);
@@ -96,7 +96,7 @@ public class UniqueExpenseListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         expenseList.add(BILLS);
-        expenseList.setPerson(BILLS, TAXES);
+        expenseList.setExpense(BILLS, TAXES);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(TAXES);
         assertEquals(expectedExpenseList, expenseList);
@@ -106,7 +106,7 @@ public class UniqueExpenseListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         expenseList.add(BILLS);
         expenseList.add(TAXES);
-        assertThrows(DuplicatePersonException.class, () -> expenseList.setPerson(BILLS, TAXES));
+        assertThrows(DuplicatePersonException.class, () -> expenseList.setExpense(BILLS, TAXES));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class UniqueExpenseListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setPersons((ExpenseList) null));
+        assertThrows(NullPointerException.class, () -> expenseList.setExpenses((ExpenseList) null));
     }
 
     @Test
@@ -137,20 +137,20 @@ public class UniqueExpenseListTest {
         expenseList.add(BILLS);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(TAXES);
-        expenseList.setPersons(expectedExpenseList);
+        expenseList.setExpenses(expectedExpenseList);
         assertEquals(expectedExpenseList, expenseList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setPersons((List<Expense>) null));
+        assertThrows(NullPointerException.class, () -> expenseList.setExpenses((List<Expense>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         expenseList.add(BILLS);
         List<Expense> expenseList = Collections.singletonList(TAXES);
-        this.expenseList.setPersons(expenseList);
+        this.expenseList.setExpenses(expenseList);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(TAXES);
         assertEquals(expectedExpenseList, this.expenseList);
@@ -159,7 +159,7 @@ public class UniqueExpenseListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Expense> listWithDuplicateExpenses = Arrays.asList(BILLS, BILLS);
-        assertThrows(DuplicatePersonException.class, () -> expenseList.setPersons(listWithDuplicateExpenses));
+        assertThrows(DuplicatePersonException.class, () -> expenseList.setExpenses(listWithDuplicateExpenses));
     }
 
     @Test

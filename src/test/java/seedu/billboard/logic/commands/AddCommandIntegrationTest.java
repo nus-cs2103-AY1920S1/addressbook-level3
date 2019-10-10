@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 /**

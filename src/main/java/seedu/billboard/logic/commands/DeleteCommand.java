@@ -8,7 +8,7 @@ import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Deletes a expense identified using it's displayed index from the address book.

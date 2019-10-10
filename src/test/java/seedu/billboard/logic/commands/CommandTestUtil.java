@@ -16,8 +16,8 @@ import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.NameContainsKeywordsPredicate;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 
 /**

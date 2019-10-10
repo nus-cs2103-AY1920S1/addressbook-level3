@@ -13,10 +13,10 @@ import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.CollectionUtil;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.Amount;
-import seedu.billboard.model.person.Description;
-import seedu.billboard.model.person.Expense;
-import seedu.billboard.model.person.Name;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 import java.util.Collections;

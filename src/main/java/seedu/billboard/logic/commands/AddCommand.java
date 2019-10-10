@@ -6,7 +6,7 @@ import static seedu.billboard.logic.parser.CliSyntax.*;
 
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Adds a expense to the address book.
