@@ -20,38 +20,18 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
-//    private final String name;
-//    private final String phone;
-//    private final String email;
-//    private final String address;
+    private final String name;
     private final String description;
     private final String amount;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-
-//    /**
-//     * Constructs a {@code JsonAdaptedPerson} with the given expense details.
-//     */
-//    @JsonCreator
-//    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-//            @JsonProperty("email") String email, @JsonProperty("address") String address,
-//            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-////        this.name = name;
-////        this.phone = phone;
-////        this.email = email;
-////        this.address = address;
-//        this.description = description;
-//        this.amount = amount;
-//        if (tagged != null) {
-//            this.tagged.addAll(tagged);
-//        }
-//    }
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("description") String description, @JsonProperty("amount") String amount,
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.name = name;
         this.description = description;
         this.amount = amount;
         if (tagged != null) {
@@ -63,10 +43,7 @@ class JsonAdaptedPerson {
      * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Expense source) {
-//        name = source.getName().fullName;
-//        phone = source.getPhone().value;
-//        email = source.getEmail().value;
-//        address = source.getAddress().value;
+        name = source.getName().name;
         description = source.getDescription().description;
         amount = source.getAmount().toString();
         tagged.addAll(source.getTags().stream()
@@ -85,6 +62,14 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        if (name == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelName = new Name(name);
+
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
@@ -99,14 +84,6 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
-//        if (name == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-//        }
-//        if (!Name.isValidName(name)) {
-//            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-//        }
-//        final Name modelName = new Name(name);
-//
 //        if (phone == null) {
 //            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
 //        }
@@ -131,9 +108,10 @@ class JsonAdaptedPerson {
 //        }
 //        final Address modelAddress = new Address(address);
 
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 //        return new Expense(modelName, modelPhone, modelEmail, modelAddress, modelTags);
-        return new Expense(modelDescription, modelAmount, modelTags);
+        return new Expense(modelName, modelDescription, modelAmount, modelTags);
     }
 
 }

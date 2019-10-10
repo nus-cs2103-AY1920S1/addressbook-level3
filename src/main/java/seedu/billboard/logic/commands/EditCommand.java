@@ -39,6 +39,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed expense list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -54,7 +55,7 @@ public class EditCommand extends Command {
     private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index of the expense in the filtered expense list to edit
+     * @param index                 of the expense in the filtered expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
     public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
@@ -77,7 +78,7 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasPerson(editedExpense)) {
+        if (!expenseToEdit.isSameRecord(editedExpense) && model.hasRecord(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -93,17 +94,17 @@ public class EditCommand extends Command {
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
 
-//        Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
 //        Phone updatedPhone = editExpenseDescriptor.getPhone().orElse(expenseToEdit.getPhone());
 //        Email updatedEmail = editExpenseDescriptor.getEmail().orElse(expenseToEdit.getEmail());
 //        Address updatedAddress = editExpenseDescriptor.getAddress().orElse(expenseToEdit.getAddress());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
+        Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
 
 //        return new Expense(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-        return new Expense(updatedDescription, updatedAmount, updatedTags);
+        return new Expense(updatedName, updatedDescription, updatedAmount, updatedTags);
     }
 
     @Override
@@ -129,25 +130,22 @@ public class EditCommand extends Command {
      * corresponding field value of the expense.
      */
     public static class EditExpenseDescriptor {
-//        private Name name;
-//        private Phone phone;
-//        private Email email;
-//        private Address address;
+
+        private Name name;
         private Set<Tag> tags;
         private Description description;
         private Amount amount;
 
-        public EditExpenseDescriptor() {}
+        public EditExpenseDescriptor() {
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
-//            setName(toCopy.name);
-//            setPhone(toCopy.phone);
-//            setEmail(toCopy.email);
-//            setAddress(toCopy.address);
+
+            setName(toCopy.name);
             setTags(toCopy.tags);
             setDescription(toCopy.description);
             setAmount(toCopy.amount);
@@ -157,41 +155,17 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-//            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
-            return CollectionUtil.isAnyNonNull(description, amount);
+            return CollectionUtil.isAnyNonNull(name, description, amount);
         }
-//
-//        public void setName(Name name) {
-//            this.name = name;
-//        }
-//
-//        public Optional<Name> getName() {
-//            return Optional.ofNullable(name);
-//        }
-//
-//        public void setPhone(Phone phone) {
-//            this.phone = phone;
-//        }
-//
-//        public Optional<Phone> getPhone() {
-//            return Optional.ofNullable(phone);
-//        }
-//
-//        public void setEmail(Email email) {
-//            this.email = email;
-//        }
-//
-//        public Optional<Email> getEmail() {
-//            return Optional.ofNullable(email);
-//        }
-//
-//        public void setAddress(Address address) {
-//            this.address = address;
-//        }
-//
-//        public Optional<Address> getAddress() {
-//            return Optional.ofNullable(address);
-//        }
+
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
 
         public void setDescription(Description description) {
             this.description = description;
@@ -241,11 +215,6 @@ public class EditCommand extends Command {
             // state check
             EditExpenseDescriptor e = (EditExpenseDescriptor) other;
 
-//            return getName().equals(e.getName())
-//                    && getPhone().equals(e.getPhone())
-//                    && getEmail().equals(e.getEmail())
-//                    && getAddress().equals(e.getAddress())
-//                    && getTags().equals(e.getTags());
             return getDescription().equals(e.getDescription())
                     && getAmount().equals(e.getAmount());
         }

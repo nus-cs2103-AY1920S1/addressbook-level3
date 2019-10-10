@@ -26,7 +26,7 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.person.Expense;
 import seedu.billboard.model.person.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
-import seedu.billboard.testutil.PersonBuilder;
+import seedu.billboard.testutil.ExpenseBuilder;
 import seedu.billboard.testutil.PersonUtil;
 
 public class BillboardParserTest {
@@ -35,7 +35,7 @@ public class BillboardParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Expense expense = new PersonBuilder().build();
+        Expense expense = new ExpenseBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(expense));
         assertEquals(new AddCommand(expense), command);
     }
@@ -55,7 +55,7 @@ public class BillboardParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Expense expense = new PersonBuilder().build();
+        Expense expense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));

@@ -30,10 +30,6 @@ public class EditExpenseDescriptorBuilder {
      */
     public EditExpenseDescriptorBuilder(Expense expense) {
         descriptor = new EditCommand.EditExpenseDescriptor();
-//        descriptor.setName(expense.getName());
-//        descriptor.setPhone(expense.getPhone());
-//        descriptor.setEmail(expense.getEmail());
-//        descriptor.setAddress(expense.getAddress());
         descriptor.setDescription(expense.getDescription());
         descriptor.setAmount(expense.getAmount());
         descriptor.setTags(expense.getTags());
@@ -55,37 +51,13 @@ public class EditExpenseDescriptorBuilder {
         return this;
     }
 
-//    /**
-//     * Sets the {@code Name} of the {@code EditExpenseDescriptor} that we are building.
-//     */
-//    public EditExpenseDescriptorBuilder withName(String name) {
-//        descriptor.setName(new Name(name));
-//        return this;
-//    }
-//
-//    /**
-//     * Sets the {@code Phone} of the {@code EditExpenseDescriptor} that we are building.
-//     */
-//    public EditExpenseDescriptorBuilder withPhone(String phone) {
-//        descriptor.setPhone(new Phone(phone));
-//        return this;
-//    }
-//
-//    /**
-//     * Sets the {@code Email} of the {@code EditExpenseDescriptor} that we are building.
-//     */
-//    public EditExpenseDescriptorBuilder withEmail(String email) {
-//        descriptor.setEmail(new Email(email));
-//        return this;
-//    }
-//
-//    /**
-//     * Sets the {@code Address} of the {@code EditExpenseDescriptor} that we are building.
-//     */
-//    public EditExpenseDescriptorBuilder withAddress(String address) {
-//        descriptor.setAddress(new Address(address));
-//        return this;
-//    }
+    /**
+     * Sets the {@code Name} of the {@code EditExpenseDescriptor} that we are building.
+     */
+    public EditExpenseDescriptorBuilder withName(String name) {
+        descriptor.setName(new Name(name));
+        return this;
+    }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenseDescriptor}

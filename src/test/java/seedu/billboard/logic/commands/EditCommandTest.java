@@ -24,7 +24,7 @@ import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.person.Expense;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
-import seedu.billboard.testutil.PersonBuilder;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -35,7 +35,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Expense editedExpense = new PersonBuilder().build();
+        Expense editedExpense = new ExpenseBuilder().build();
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -52,12 +52,12 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Expense lastExpense = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastExpense);
+        ExpenseBuilder personInList = new ExpenseBuilder(lastExpense);
         Expense editedExpense = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withDescription(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedExpense);
@@ -85,7 +85,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Expense expenseInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Expense editedExpense = new PersonBuilder(expenseInFilteredList).withName(VALID_NAME_BOB).build();
+        Expense editedExpense = new ExpenseBuilder(expenseInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

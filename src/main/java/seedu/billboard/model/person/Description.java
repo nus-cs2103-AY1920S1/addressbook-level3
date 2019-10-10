@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Description should not be blank";
+            "Description has no constraints";
 
     public final String description;
 
@@ -15,11 +15,7 @@ public class Description {
     }
 
     public static boolean isValidDescription(String trimmedDescription) {
-        return !trimmedDescription.isBlank();
-    }
-
-    public boolean isBlank() {
-        return description.isBlank();
+        return true;
     }
 
     @Override

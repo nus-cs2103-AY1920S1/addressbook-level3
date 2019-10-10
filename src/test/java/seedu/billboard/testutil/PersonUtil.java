@@ -1,9 +1,8 @@
 package seedu.billboard.testutil;
 
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -30,12 +29,12 @@ public class PersonUtil {
      */
     public static String getPersonDetails(Expense expense) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + expense.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + expense.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + expense.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + expense.getAddress().value + " ");
-        expense.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        sb.append(PREFIX_NAME).append(expense.getName().name).append(" ")
+            .append(PREFIX_DESCRIPTION).append(expense.getDescription().description).append(" ")
+            .append(PREFIX_AMOUNT).append(expense.getAmount().amount).append(" ");
+
+        expense.getTags().forEach(
+            s -> sb.append(PREFIX_TAG).append(s.tagName).append(" ")
         );
         return sb.toString();
     }
@@ -45,10 +44,11 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(EditExpenseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
+        descriptor.getDescription().ifPresent(desc -> sb.append(PREFIX_DESCRIPTION)
+                .append(desc.description).append(" "));
+        descriptor.getAmount().ifPresent(amt -> sb.append(PREFIX_AMOUNT).append(amt.amount).append(" "));
+
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

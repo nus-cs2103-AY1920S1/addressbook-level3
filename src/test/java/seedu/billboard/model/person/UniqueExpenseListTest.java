@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalPersons.ALICE;
+import static seedu.billboard.testutil.TypicalPersons.BILLS;
 import static seedu.billboard.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
@@ -17,154 +17,154 @@ import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.person.exceptions.DuplicatePersonException;
 import seedu.billboard.model.person.exceptions.PersonNotFoundException;
-import seedu.billboard.testutil.PersonBuilder;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 public class UniqueExpenseListTest {
 
-    private final UniquePersonList uniquePersonList = new UniquePersonList();
+    private final RecordList recordList = new RecordList();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.contains(null));
+        assertThrows(NullPointerException.class, () -> recordList.contains(null));
     }
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniquePersonList.contains(ALICE));
+        assertFalse(recordList.contains(BILLS));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        assertTrue(uniquePersonList.contains(ALICE));
+        recordList.add(BILLS);
+        assertTrue(recordList.contains(BILLS));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        Expense editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        recordList.add(BILLS);
+        Expense editedAlice = new ExpenseBuilder(BILLS).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(uniquePersonList.contains(editedAlice));
+        assertTrue(recordList.contains(editedAlice));
     }
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
+        assertThrows(NullPointerException.class, () -> recordList.add(null));
     }
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+        recordList.add(BILLS);
+        assertThrows(DuplicatePersonException.class, () -> recordList.add(BILLS));
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(null, ALICE));
+        assertThrows(NullPointerException.class, () -> recordList.setPerson(null, BILLS));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(ALICE, null));
+        assertThrows(NullPointerException.class, () -> recordList.setPerson(BILLS, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
+        assertThrows(PersonNotFoundException.class, () -> recordList.setPerson(BILLS, BILLS));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(ALICE);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.add(BILLS);
+        recordList.setPerson(BILLS, BILLS);
+        RecordList expectedRecordList = new RecordList();
+        expectedRecordList.add(BILLS);
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
-        uniquePersonList.add(ALICE);
-        Expense editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        recordList.add(BILLS);
+        Expense editedAlice = new ExpenseBuilder(BILLS).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniquePersonList.setPerson(ALICE, editedAlice);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(editedAlice);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.setPerson(BILLS, editedAlice);
+        RecordList expectedRecordList = new RecordList();
+        expectedRecordList.add(editedAlice);
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, BOB);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.add(BILLS);
+        recordList.setPerson(BILLS, BOB);
+        RecordList expectedRecordList = new RecordList();
+        expectedRecordList.add(BOB);
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        recordList.add(BILLS);
+        recordList.add(BOB);
+        assertThrows(DuplicatePersonException.class, () -> recordList.setPerson(BILLS, BOB));
     }
 
     @Test
     public void remove_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
+        assertThrows(NullPointerException.class, () -> recordList.remove(null));
     }
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
+        assertThrows(PersonNotFoundException.class, () -> recordList.remove(BILLS));
     }
 
     @Test
     public void remove_existingPerson_removesPerson() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.remove(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.add(BILLS);
+        recordList.remove(BILLS);
+        RecordList expectedRecordList = new RecordList();
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
+        assertThrows(NullPointerException.class, () -> recordList.setPersons((RecordList) null));
     }
 
     @Test
     public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        uniquePersonList.setPersons(expectedUniquePersonList);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.add(BILLS);
+        RecordList expectedRecordList = new RecordList();
+        expectedRecordList.add(BOB);
+        recordList.setPersons(expectedRecordList);
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Expense>) null));
+        assertThrows(NullPointerException.class, () -> recordList.setPersons((List<Expense>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniquePersonList.add(ALICE);
+        recordList.add(BILLS);
         List<Expense> expenseList = Collections.singletonList(BOB);
-        uniquePersonList.setPersons(expenseList);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        recordList.setPersons(expenseList);
+        RecordList expectedRecordList = new RecordList();
+        expectedRecordList.add(BOB);
+        assertEquals(expectedRecordList, recordList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Expense> listWithDuplicateExpenses = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateExpenses));
+        List<Expense> listWithDuplicateExpenses = Arrays.asList(BILLS, BILLS);
+        assertThrows(DuplicatePersonException.class, () -> recordList.setPersons(listWithDuplicateExpenses));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+            -> recordList.asUnmodifiableObservableList().remove(0));
     }
 }

@@ -12,35 +12,29 @@ import seedu.billboard.model.person.exceptions.DuplicatePersonException;
 import seedu.billboard.model.person.exceptions.PersonNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A expense is considered unique by comparing using {@code Expense#isSameExpense(Expense)}. As such, adding and updating of
- * persons uses Expense#isSameExpense(Expense) for equality so as to ensure that the expense being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a expense uses Expense#equals(Object) so
- * as to ensure that the expense with exactly the same fields will be removed.
- *
+ * A list of records. The records are unique as specified by the {@code equals} method of the {@code Record} class
  * Supports a minimal set of list operations.
  *
- * @see Expense#isSameExpense(Expense)
  */
-public class UniquePersonList implements Iterable<Expense> {
+public class RecordList implements Iterable<Record> {
 
-    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Expense> internalUnmodifiableList =
+    private final ObservableList<Record> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Record> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent expense as the given argument.
      */
-    public boolean contains(Expense toCheck) {
+    public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameExpense);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
      * Adds a expense to the list.
      * The expense must not already exist in the list.
      */
-    public void add(Expense toAdd) {
+    public void add(Record toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -49,71 +43,71 @@ public class UniquePersonList implements Iterable<Expense> {
     }
 
     /**
-     * Replaces the expense {@code target} in the list with {@code editedExpense}.
+     * Replaces the record {@code target} in the list with {@code editedRecord}.
      * {@code target} must exist in the list.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the list.
+     * The record {@code editedRecord} must not be the same as another existing record in the list.
      */
-    public void setPerson(Expense target, Expense editedExpense) {
-        requireAllNonNull(target, editedExpense);
+    public void setPerson(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
+        if (!target.isSameRecord(editedRecord) && contains(editedRecord)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedExpense);
+        internalList.set(index, editedRecord);
     }
 
     /**
-     * Removes the equivalent expense from the list.
-     * The expense must exist in the list.
+     * Removes the equivalent record from the list.
+     * The record must exist in the list.
      */
-    public void remove(Expense toRemove) {
+    public void remove(Record toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(RecordList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code expenses}.
-     * {@code expenses} must not contain duplicate expenses.
+     * Replaces the contents of this list with {@code records}.
+     * {@code records} must not contain duplicate records.
      */
-    public void setPersons(List<Expense> expenses) {
-        requireAllNonNull(expenses);
-        if (!personsAreUnique(expenses)) {
+    public void setPersons(List<Record> records) {
+        requireAllNonNull(records);
+        if (!recordsAreUnique(records)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(expenses);
+        internalList.setAll(records);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Expense> asUnmodifiableObservableList() {
+    public ObservableList<Record> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Expense> iterator() {
+    public Iterator<Record> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof RecordList // instanceof handles nulls
+                        && internalList.equals(((RecordList) other).internalList));
     }
 
     @Override
@@ -124,10 +118,10 @@ public class UniquePersonList implements Iterable<Expense> {
     /**
      * Returns true if {@code expenses} contains only unique expenses.
      */
-    private boolean personsAreUnique(List<Expense> expenses) {
+    private boolean recordsAreUnique(List<? extends Record> expenses) {
         for (int i = 0; i < expenses.size() - 1; i++) {
             for (int j = i + 1; j < expenses.size(); j++) {
-                if (expenses.get(i).isSameExpense(expenses.get(j))) {
+                if (expenses.get(i).isSameRecord(expenses.get(j))) {
                     return false;
                 }
             }

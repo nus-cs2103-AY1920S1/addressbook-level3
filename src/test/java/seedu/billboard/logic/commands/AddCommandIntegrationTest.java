@@ -11,7 +11,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.person.Expense;
-import seedu.billboard.testutil.PersonBuilder;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Expense validExpense = new PersonBuilder().build();
+        Expense validExpense = new ExpenseBuilder().build();
 
         Model expectedModel = new ModelManager(model.getBillboard(), new UserPrefs());
         expectedModel.addPerson(validExpense);

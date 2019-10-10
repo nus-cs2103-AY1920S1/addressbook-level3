@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.person.Record;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final Billboard billboard;
     private final UserPrefs userPrefs;
-    private final FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Record> filteredExpenses;
 
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Expense expense) {
-        requireNonNull(expense);
-        return billboard.hasPerson(expense);
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return billboard.hasPerson(record);
     }
 
     @Override
-    public void deletePerson(Expense target) {
+    public void deletePerson(Record target) {
         billboard.removePerson(target);
     }
 
     @Override
-    public void addPerson(Expense expense) {
+    public void addPerson(Record expense) {
         billboard.addPerson(expense);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Expense target, Expense editedExpense) {
-        requireAllNonNull(target, editedExpense);
+    public void setPerson(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
 
-        billboard.setPerson(target, editedExpense);
+        billboard.setPerson(target, editedRecord);
     }
 
     //=========== Filtered Expense List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Expense> getFilteredPersonList() {
+    public ObservableList<Record> getFilteredPersonList() {
         return filteredExpenses;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Expense> predicate) {
+    public void updateFilteredPersonList(Predicate<Record> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
     }

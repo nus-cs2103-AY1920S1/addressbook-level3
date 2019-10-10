@@ -20,7 +20,7 @@ import seedu.billboard.model.*;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.person.Expense;
-import seedu.billboard.testutil.PersonBuilder;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
 
@@ -32,7 +32,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Expense validExpense = new PersonBuilder().build();
+        Expense validExpense = new ExpenseBuilder().build();
 
         CommandResult commandResult = new AddCommand(validExpense).execute(modelStub);
 
@@ -42,7 +42,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Expense validExpense = new PersonBuilder().build();
+        Expense validExpense = new ExpenseBuilder().build();
         AddCommand addCommand = new AddCommand(validExpense);
         ModelStub modelStub = new ModelStubWithPerson(validExpense);
 
@@ -51,8 +51,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Expense alice = new PersonBuilder().withName("Alice").build();
-        Expense bob = new PersonBuilder().withName("Bob").build();
+        Expense alice = new ExpenseBuilder().withName("Alice").build();
+        Expense bob = new ExpenseBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -162,7 +162,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Expense expense) {
             requireNonNull(expense);
-            return this.expense.isSameExpense(expense);
+            return this.expense.isSameRecord(expense);
         }
     }
 
@@ -175,7 +175,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Expense expense) {
             requireNonNull(expense);
-            return personsAdded.stream().anyMatch(expense::isSameExpense);
+            return personsAdded.stream().anyMatch(expense::isSameRecord);
         }
 
         @Override
