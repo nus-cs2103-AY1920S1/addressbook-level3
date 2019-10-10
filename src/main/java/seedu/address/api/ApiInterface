@@ -3,6 +3,7 @@ package seedu.address.api;
 import java.util.ArrayList;
 import java.util.List;
 import seedu.address.model.show.Movie;
+import seedu.address.model.show.TvShow;
 
 /**
  * Plan to use this interface to retrieve all information.
@@ -10,6 +11,8 @@ import seedu.address.model.show.Movie;
  */
 public interface ApiInterface {
     //returns movie list with that name
-    public List<Movie> GetMovieByName(String name);
+    public List<Movie> getMovieByName(String name);
+
+    public List<TvShow> getTvShowByName(String name);
 
 }

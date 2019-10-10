@@ -2,6 +2,7 @@ package seedu.address.api;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TvResultsPage;
 import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -11,6 +12,8 @@ import info.movito.themoviedbapi.model.keywords.Keyword;
 import info.movito.themoviedbapi.model.people.PersonCast;
 
 import javax.imageio.ImageIO;
+
+import info.movito.themoviedbapi.model.tv.TvSeries;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,11 +25,12 @@ import seedu.address.model.show.Description;
 import seedu.address.model.show.Movie;
 import seedu.address.model.show.Name;
 import seedu.address.model.show.RunningTime;
+import seedu.address.model.show.TvShow;
 
 /**
  * Main class for the API to connect to the server
  */
-public class ApiMain {
+public class ApiMain implements ApiInterface {
     //API key is to connect with the tmdb server.
     private final static String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private final TmdbApi ApiCall;
@@ -36,13 +40,25 @@ public class ApiMain {
     }
 
     public List<Movie> getMovieByName(String name) {
-        MovieResultsPage page = ApiCall.getSearch().searchMovie("Ad Astra", null, null, true, null);
+        MovieResultsPage page = ApiCall.getSearch().searchMovie(name, null, null, true, null);
         ArrayList<Movie> movies = new ArrayList<>();
         for (MovieDb m : page.getResults()) {
             movies.add(new Movie(new Name(m.getTitle()), new Description(m.getTagline()), false, new Date(m.getReleaseDate()),
                     new RunningTime(m.getRuntime()), null));
         }
         return movies;
+    }
+
+    public List<TvShow> getTvShowByName(String name) {
+        TvResultsPage page = ApiCall.getSearch().searchTv(name, null, null);
+        ArrayList<TvShow> tvShows = new ArrayList<>();
+        for (TvSeries tv : page.getResults()) {
+            tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), false,
+                    new Date(tv.getFirstAirDate()),
+                    new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
+                    tv.getNumberOfEpisodes(), null));
+        }
+        return tvShows;
     }
 
     /**
