@@ -29,10 +29,11 @@ public class DescriptionTest {
         assertFalse(Description.isValidDescription(" ")); // spaces only
 
         // valid description
-        assertTrue(Description.isValidDescription("PeterJack_1190@example.com"));
-        assertTrue(Description.isValidDescription("a@bc")); // minimal
-        assertTrue(Description.isValidDescription("test@localhost")); // alphabets only
-        assertTrue(Description.isValidDescription("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
-        assertTrue(Description.isValidDescription("123@145")); // numeric local part and domain name
+        assertTrue(Description.isValidDescription("prawn noodles"));
+        assertTrue(Description.isValidDescription("good")); // minimal
+        assertTrue(Description.isValidDescription("chicken with plenty rice")); // alphabets only
+        //assertTrue(Description.isValidDescription("!#$%&'*+/=?`{|}~^.-@example.org"));
+        // special characters local part
+        //assertTrue(Description.isValidDescription("123@145")); // numeric local part and domain name
     }
 }

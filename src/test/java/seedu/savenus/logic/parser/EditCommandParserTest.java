@@ -1,26 +1,26 @@
 package seedu.savenus.logic.parser;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_CHICKEN;
+import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_RICE;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -51,7 +51,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_CHICKEN_RICE, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -63,10 +63,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_CHICKEN_RICE, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_CHICKEN_RICE, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -84,34 +84,40 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid price followed by valid description
-        assertParseFailure(parser, "1" + INVALID_PRICE_DESC + DESCRIPTION_DESC_AMY, Price.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PRICE_DESC
+                                                + DESCRIPTION_DESC_CHICKEN_RICE, Price.MESSAGE_CONSTRAINTS);
 
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PRICE_DESC_BOB + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PRICE_DESC_NASI_LEMAK
+                                                + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Food} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_DESC_CHICKEN
+                                                + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_EMPTY
+                                                + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_RICE
+                                                + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_DESCRIPTION_DESC + VALID_PRICE_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC
+                                                + INVALID_DESCRIPTION_DESC + VALID_PRICE_CHICKEN_RICE,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_FOOD;
-        String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + TAG_DESC_HUSBAND
-                + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + CATEGORY_DESC_AMY
-                + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
+                + DESCRIPTION_DESC_CHICKEN_RICE + NAME_DESC_CHICKEN_RICE + CATEGORY_DESC_CHICKEN_RICE
+                + TAG_DESC_RICE;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPrice(VALID_PRICE_BOB).withDescription(VALID_DESCRIPTION_AMY)
-                .withCategory(VALID_CATEGORY_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE)
+                .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
+                .withCategory(VALID_CATEGORY_CHICKEN_RICE)
+                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -120,10 +126,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_FOOD;
-        String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + DESCRIPTION_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_CHICKEN_RICE;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_BOB)
-                .withDescription(VALID_DESCRIPTION_AMY)
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_NASI_LEMAK)
+                .withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -134,26 +140,26 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_FOOD;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        String userInput = targetIndex.getOneBased() + NAME_DESC_CHICKEN_RICE;
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // price
-        userInput = targetIndex.getOneBased() + PRICE_DESC_AMY;
-        descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_AMY).build();
+        userInput = targetIndex.getOneBased() + PRICE_DESC_CHICKEN_RICE;
+        descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_CHICKEN_RICE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
-        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
-        descriptor = new EditFoodDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHICKEN_RICE;
+        descriptor = new EditFoodDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN_RICE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditFoodDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        userInput = targetIndex.getOneBased() + TAG_DESC_RICE;
+        descriptor = new EditFoodDescriptorBuilder().withTags(VALID_TAG_RICE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -161,12 +167,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_FOOD;
-        String userInput = targetIndex.getOneBased() + PRICE_DESC_AMY + DESCRIPTION_DESC_AMY
-                + TAG_DESC_FRIEND + PRICE_DESC_AMY + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND
-                + PRICE_DESC_BOB + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE
+                + TAG_DESC_RICE + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE + TAG_DESC_RICE
+                + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK + TAG_DESC_CHICKEN;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_BOB)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_NASI_LEMAK)
+                .withDescription(VALID_DESCRIPTION_NASI_LEMAK).withTags(VALID_TAG_RICE, VALID_TAG_CHICKEN)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -177,15 +183,16 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_FOOD;
-        String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_BOB;
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_BOB).build();
+        String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_NASI_LEMAK;
+        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_NASI_LEMAK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_BOB + INVALID_PRICE_DESC
-                + PRICE_DESC_BOB;
-        descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_BOB).withDescription(VALID_DESCRIPTION_BOB)
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_NASI_LEMAK + INVALID_PRICE_DESC
+                + PRICE_DESC_NASI_LEMAK;
+        descriptor = new EditFoodDescriptorBuilder()
+                .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
                 .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

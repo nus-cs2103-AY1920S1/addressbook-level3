@@ -3,7 +3,7 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.savenus.storage.JsonAdaptedFood.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.BENSON;
+import static seedu.savenus.testutil.TypicalFood.TONKATSU_RAMEN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,11 @@ public class JsonAdaptedFoodTest {
     private static final String INVALID_OPENING_HOURS = "hours";
     private static final String INVALID_RESTRICTIONS = "";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PRICE = BENSON.getPrice().toString();
-    private static final String VALID_DESCRIPTION = BENSON.getDescription().toString(); // last updated here
-    private static final String VALID_CATEGORY = BENSON.getCategory().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = TONKATSU_RAMEN.getName().toString();
+    private static final String VALID_PRICE = TONKATSU_RAMEN.getPrice().toString();
+    private static final String VALID_DESCRIPTION = TONKATSU_RAMEN.getDescription().toString(); // last updated here
+    private static final String VALID_CATEGORY = TONKATSU_RAMEN.getCategory().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = TONKATSU_RAMEN.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
     private static final String VALID_OPENING_HOURS = "0800 1800";
@@ -38,8 +38,8 @@ public class JsonAdaptedFoodTest {
 
     @Test
     public void toModelType_validfoodDetails_returnsfood() throws Exception {
-        JsonAdaptedFood food = new JsonAdaptedFood(BENSON);
-        assertEquals(BENSON, food.toModelType());
+        JsonAdaptedFood food = new JsonAdaptedFood(TONKATSU_RAMEN);
+        assertEquals(TONKATSU_RAMEN, food.toModelType());
     }
 
     @Test

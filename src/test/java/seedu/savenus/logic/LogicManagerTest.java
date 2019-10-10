@@ -3,14 +3,14 @@ package seedu.savenus.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX;
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
-import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_AMY;
+import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN_RICE;
+import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_CHICKEN_RICE;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.AMY;
+import static seedu.savenus.testutil.TypicalFood.CHICKEN_RICE;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -81,9 +81,10 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRICE_DESC_AMY + DESCRIPTION_DESC_AMY
-                + CATEGORY_DESC_AMY + OPENING_HOURS_DESC_AMY + RESTRICTIONS_DESC_AMY;
-        Food expectedFood = new FoodBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_CHICKEN_RICE
+                + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE
+                + CATEGORY_DESC_CHICKEN_RICE + OPENING_HOURS_DESC_CHICKEN_RICE + RESTRICTIONS_DESC_CHICKEN_RICE;
+        Food expectedFood = new FoodBuilder(CHICKEN_RICE).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFood(expectedFood);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

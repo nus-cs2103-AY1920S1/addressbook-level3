@@ -28,35 +28,40 @@ import seedu.savenus.testutil.EditFoodDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PRICE_AMY = "11111111";
-    public static final String VALID_PRICE_BOB = "22222222";
-    public static final String VALID_DESCRIPTION_AMY = "Amy's Description.";
-    public static final String VALID_DESCRIPTION_BOB = "Bob's Description.";
-    public static final String VALID_CATEGORY_AMY = "CatA";
-    public static final String VALID_CATEGORY_BOB = "CatB";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_OPENING_HOURS_AMY = "0800 2100";
-    public static final String VALID_OPENING_HOURS_BOB = "0900 1000";
-    public static final String VALID_RESTRICTIONS_AMY = "Not halal";
-    public static final String VALID_RESTRICTIONS_BOB = "Contains dairy";
+    public static final String VALID_NAME_CHICKEN_RICE = "Amy Bee";
+    public static final String VALID_NAME_NASI_LEMAK = "Bob Choo";
+    public static final String VALID_PRICE_CHICKEN_RICE = "11111111";
+    public static final String VALID_PRICE_NASI_LEMAK = "22222222";
+    public static final String VALID_DESCRIPTION_CHICKEN_RICE = "Amy's Description.";
+    public static final String VALID_DESCRIPTION_NASI_LEMAK = "Bob's Description.";
+    public static final String VALID_CATEGORY_CHICKEN_RICE = "CatA";
+    public static final String VALID_CATEGORY_NASI_LEMAK = "CatB";
+    public static final String VALID_TAG_CHICKEN = "chicken";
+    public static final String VALID_TAG_RICE = "rice";
+    public static final String VALID_OPENING_HOURS_CHICKEN_RICE = "0800 2100";
+    public static final String VALID_OPENING_HOURS_NASI_LEMAK = "0900 1000";
+    public static final String VALID_RESTRICTIONS_CHICKEN_RICE = "Not halal";
+    public static final String VALID_RESTRICTIONS_NASI_LEMAK = "Contains dairy";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
-    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
-    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String OPENING_HOURS_DESC_AMY = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_AMY;
-    public static final String OPENING_HOURS_DESC_BOB = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_BOB;
-    public static final String RESTRICTIONS_DESC_AMY = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_AMY;
-    public static final String RESTRICTIONS_DESC_BOB = " " + PREFIX_RESTRICTIONS + VALID_RESTRICTIONS_BOB;
+    public static final String NAME_DESC_CHICKEN_RICE = " " + PREFIX_NAME + VALID_NAME_CHICKEN_RICE;
+    public static final String NAME_DESC_NASI_LEMAK = " " + PREFIX_NAME + VALID_NAME_NASI_LEMAK;
+    public static final String PRICE_DESC_CHICKEN_RICE = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN_RICE;
+    public static final String PRICE_DESC_NASI_LEMAK = " " + PREFIX_PRICE + VALID_PRICE_NASI_LEMAK;
+    public static final String DESCRIPTION_DESC_CHICKEN_RICE = " " + PREFIX_DESCRIPTION
+                                                                    + VALID_DESCRIPTION_CHICKEN_RICE;
+    public static final String DESCRIPTION_DESC_NASI_LEMAK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_NASI_LEMAK;
+    public static final String CATEGORY_DESC_CHICKEN_RICE = " " + PREFIX_CATEGORY + VALID_CATEGORY_CHICKEN_RICE;
+    public static final String CATEGORY_DESC_NASI_LEMAK = " " + PREFIX_CATEGORY + VALID_CATEGORY_NASI_LEMAK;
+    public static final String TAG_DESC_RICE = " " + PREFIX_TAG + VALID_TAG_RICE;
+    public static final String TAG_DESC_CHICKEN = " " + PREFIX_TAG + VALID_TAG_CHICKEN;
+    public static final String OPENING_HOURS_DESC_CHICKEN_RICE = " " + PREFIX_OPENING_HOURS
+                                                                        + VALID_OPENING_HOURS_CHICKEN_RICE;
+    public static final String OPENING_HOURS_DESC_NASI_LEMAK = " " + PREFIX_OPENING_HOURS
+                                                                    + VALID_OPENING_HOURS_NASI_LEMAK;
+    public static final String RESTRICTIONS_DESC_CHICKEN_RICE = " " + PREFIX_RESTRICTIONS
+                                                                        + VALID_RESTRICTIONS_CHICKEN_RICE;
+    public static final String RESTRICTIONS_DESC_NASI_LEMAK = " " + PREFIX_RESTRICTIONS
+                                                                    + VALID_RESTRICTIONS_NASI_LEMAK;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in prices
@@ -66,16 +71,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditFoodDescriptor DESC_AMY;
-    public static final EditCommand.EditFoodDescriptor DESC_BOB;
+    public static final EditCommand.EditFoodDescriptor DESC_CHICKEN_RICE;
+    public static final EditCommand.EditFoodDescriptor DESC_NASI_LEMAK;
 
     static {
-        DESC_AMY = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPrice(VALID_PRICE_AMY).withDescription(VALID_DESCRIPTION_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPrice(VALID_PRICE_BOB).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_CHICKEN_RICE = new EditFoodDescriptorBuilder().withName(VALID_NAME_CHICKEN_RICE)
+                .withPrice(VALID_PRICE_CHICKEN_RICE).withDescription(VALID_DESCRIPTION_CHICKEN_RICE)
+                .withTags(VALID_TAG_RICE).build();
+        DESC_NASI_LEMAK = new EditFoodDescriptorBuilder().withName(VALID_NAME_NASI_LEMAK)
+                .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
+                .withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE).build();
     }
 
     /**
