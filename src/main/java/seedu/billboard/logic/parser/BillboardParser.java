@@ -20,7 +20,7 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class BillboardParser {
 
     /**
      * Used for initial separation of command word and args.

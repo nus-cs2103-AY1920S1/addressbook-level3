@@ -1,34 +1,34 @@
 package seedu.billboard.testutil;
 
-import seedu.billboard.model.AddressBook;
-import seedu.billboard.model.person.Person;
+import seedu.billboard.model.Billboard;
+import seedu.billboard.model.person.Expense;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code Billboard ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private Billboard addressBook;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        addressBook = new Billboard();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
+    public AddressBookBuilder(Billboard addressBook) {
         this.addressBook = addressBook;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Expense} to the {@code Billboard} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Expense expense) {
+        addressBook.addPerson(expense);
         return this;
     }
 
-    public AddressBook build() {
+    public Billboard build() {
         return addressBook;
     }
 }
