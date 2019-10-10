@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.address.commons.exceptions;
 
 /**
  * Represents an error thrown by the system.

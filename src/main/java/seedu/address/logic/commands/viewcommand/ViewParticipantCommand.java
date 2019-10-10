@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 
-import seedu.address.AlfredException;
+import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
