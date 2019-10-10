@@ -18,7 +18,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.EndAge;
-import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
@@ -262,32 +261,5 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new EndAge(trimmedAge);
-    }
-
-    /**
-     * Parses a {@code String policy} into a {@code Policy}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code policy} is invalid.
-     */
-    public static Policy parsePolicy(String policy) throws ParseException {
-        requireNonNull(policy);
-        String trimmedPolicy = policy.trim();
-        if (!Policy.isAvailable(trimmedPolicy)) {
-            throw new ParseException(Policy.MESSAGE_CONSTRAINTS);
-        }
-        return Policy.getPolicy(policy);
-    }
-
-    /**
-     * Parses {@code Collection<String> policiesNames} into a {@code Set<Policy>}.
-     */
-    public static Set<Policy> parsePolicies(Collection<String> policyNames) throws ParseException {
-        requireNonNull(policyNames);
-        final Set<Policy> policySet = new HashSet<>();
-        for (String name : policyNames) {
-            policySet.add(parsePolicy(name));
-        }
-        return policySet;
     }
 }

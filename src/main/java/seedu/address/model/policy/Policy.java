@@ -2,7 +2,6 @@ package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,8 +17,6 @@ public class Policy {
 
     public static final String MESSAGE_CONSTRAINTS =
             "This policy is not available.";
-    // TODO: Change to hashset?
-    private static final ArrayList<Policy> POLICIES = new ArrayList<>();
 
     private final PolicyName name;
     private final Description description;
@@ -45,7 +42,6 @@ public class Policy {
         this.endAge = endAge;
         this.criteria.addAll(criteria);
         this.tags.addAll(tags);
-        POLICIES.add(this);
     }
 
     public PolicyName getName() {
@@ -99,30 +95,6 @@ public class Policy {
 
         return otherPolicy != null
                 && otherPolicy.getName().equals(getName());
-    }
-
-    /**
-     * Checks if the input policy exists.
-     * @param policyName Name of the policy.
-     * @return Whether the policy exists.
-     */
-    public static boolean isAvailable(String policyName) {
-        for (int i = 0; i < POLICIES.size(); i++) {
-            if (POLICIES.get(i).getName().equals(policyName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static Policy getPolicy(String policyName) {
-        for (int i = 0; i < POLICIES.size(); i++) {
-            Policy policy = POLICIES.get(i);
-            if (policy.getName().equals(policyName)) {
-                return policy;
-            }
-        }
-        return null;
     }
 
     /**
