@@ -15,15 +15,6 @@ public class CommandResult {
     private final List<UiChange> uiChange;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser) {
-        this.uiChange = Arrays.asList(UiChange.DEFAULT);
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-
-    }
-
-    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
      * and set other fields to their default value.
      */
