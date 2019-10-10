@@ -31,7 +31,7 @@ public class ModelManager implements Model {
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
 
-    private final Optional<Borrower> servingBorrower; // TODO
+    private final Optional<Borrower> servingBorrower;
 
     /**
      * Initializes a ModelManager with the given catalog and userPrefs.
