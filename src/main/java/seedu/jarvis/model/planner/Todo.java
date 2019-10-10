@@ -5,12 +5,12 @@ package seedu.jarvis.model.planner;
  */
 public class Todo extends Task {
 
-    public Todo(String task_des) {
-        super(task_des);
+    public Todo(String taskDes) {
+        super(taskDes);
     }
 
     @Override
     public String toString() {
-        return "Todo: " + this.task_des;
+        return "Todo: " + this.taskDes;
     }
 }

@@ -1,9 +1,9 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.model.tag.Tag;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.jarvis.model.tag.Tag;
 
 /**
  * Represents a task object in JARVIS
@@ -11,28 +11,34 @@ import java.util.Set;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
-    enum priorityLevel {
+    /**
+     * Values that a priority of a task can take
+     */
+    enum PriorityLevel {
         HIGH,
         MED,
         LOW
     }
 
-    enum freqLevel {
+    /**
+     * Values that a frequency level can take
+     */
+    enum FreqLevel {
         DAILY,
         WEEKLY,
         MONTHLY,
         YEARLY
     }
 
-    protected String task_des;
+    protected String taskDes;
     protected Set<Tag> tags = new HashSet<>();
-    protected priorityLevel priority = null;
-    protected freqLevel frequency = null;
+    protected PriorityLevel priority = null;
+    protected FreqLevel frequency = null;
 
 
 
-    public Task(String task_des) {
-        this.task_des = task_des;
+    public Task(String taskDes) {
+        this.taskDes = taskDes;
     }
 
     public abstract String toString();
@@ -44,13 +50,13 @@ public abstract class Task {
     protected void addPriority(String priority) {
         switch (priority) {
         case "high":
-            this.priority = priorityLevel.HIGH;
+            this.priority = PriorityLevel.HIGH;
             break;
         case "med":
-            this.priority = priorityLevel.MED;
+            this.priority = PriorityLevel.MED;
             break;
         case "low":
-            this.priority = priorityLevel.LOW;
+            this.priority = PriorityLevel.LOW;
             break;
         default:
             break;
@@ -64,16 +70,16 @@ public abstract class Task {
     protected void addFrequency(String freq) {
         switch (freq) {
         case "daily":
-            this.frequency = freqLevel.DAILY;
+            this.frequency = FreqLevel.DAILY;
             break;
         case "weekly":
-            this.frequency = freqLevel.WEEKLY;
+            this.frequency = FreqLevel.WEEKLY;
             break;
         case "monthly":
-            this.frequency = freqLevel.MONTHLY;
+            this.frequency = FreqLevel.MONTHLY;
             break;
         case "yearly":
-            this.frequency = freqLevel.YEARLY;
+            this.frequency = FreqLevel.YEARLY;
             break;
         default:
             break;
@@ -82,7 +88,7 @@ public abstract class Task {
 
     /**
      * Adds a Tag to the set of Tags attached to each Task
-     * @param t: a Tag to be added
+     * @param t Tag to be added
      */
     protected void addTag(Tag t) {
         this.tags.add(t);

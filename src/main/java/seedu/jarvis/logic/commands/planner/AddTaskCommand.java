@@ -5,6 +5,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 
+/**
+ * Adds a task to JARVIS
+ */
 public class AddTaskCommand extends Command {
 
     @Override

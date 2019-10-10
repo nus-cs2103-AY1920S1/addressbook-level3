@@ -9,13 +9,13 @@ public class Deadline extends Task {
 
     private Date deadline;
 
-    public Deadline(String task_des, Date deadline) {
-        super(task_des);
+    public Deadline(String taskDes, Date deadline) {
+        super(taskDes);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "Deadline: " + this.task_des + " by " + this.deadline;
+        return "Deadline: " + this.taskDes + " by " + this.deadline;
     }
 }
