@@ -20,20 +20,20 @@ public class DescriptionTest {
     }
 
     @Test
+    public void isBlankDescription() {
+        assertFalse(Description.isValidDescription("")); // empty string
+        assertFalse(Description.isValidDescription(" ")); // spaces only
+        assertFalse(Description.isValidDescription("           ")); // tons of spaces
+    }
+
+    @Test
     public void isValidDescription() {
         // null description
         assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
-
-        // blank description
-        assertFalse(Description.isValidDescription("")); // empty string
-        assertFalse(Description.isValidDescription(" ")); // spaces only
 
         // valid description
         assertTrue(Description.isValidDescription("prawn noodles"));
         assertTrue(Description.isValidDescription("good")); // minimal
         assertTrue(Description.isValidDescription("chicken with plenty rice")); // alphabets only
-        //assertTrue(Description.isValidDescription("!#$%&'*+/=?`{|}~^.-@example.org"));
-        // special characters local part
-        //assertTrue(Description.isValidDescription("123@145")); // numeric local part and domain name
     }
 }
