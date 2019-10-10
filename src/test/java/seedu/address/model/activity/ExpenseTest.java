@@ -1,16 +1,17 @@
 package seedu.address.model.activity;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
+
 public class ExpenseTest {
-    Person person = new PersonBuilder().build();
-    Amount amount = new Amount(1);
+    private static Person person = new PersonBuilder().build();
+    private static Amount amount = new Amount(1);
 
     @Test
     public void constructor_nullArguments_throwsNullPointerException() {
