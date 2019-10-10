@@ -17,4 +17,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_MODULE = new Prefix("m/");
     public static final Prefix PREFIX_WEEK = new Prefix("w/");
     public static final Prefix PREFIX_MONTH = new Prefix("month/");
+  
 }
