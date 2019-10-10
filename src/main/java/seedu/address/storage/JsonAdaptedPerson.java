@@ -24,7 +24,7 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String question;
-    private final String phone;
+    private final String difficulty;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -32,10 +32,10 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("question") String question, @JsonProperty("phone") String phone,
+    public JsonAdaptedPerson(@JsonProperty("question") String question, @JsonProperty("difficulty") String difficulty,
                              @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
-        this.phone = phone;
+        this.difficulty = difficulty;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -47,7 +47,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         question = source.getQuestion().fullQuestion;
-        phone = source.getDifficulty().value;
+        difficulty = source.getDifficulty().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -73,13 +73,13 @@ class JsonAdaptedPerson {
         }
         final Question modelQuestion = new Question(question);
 
-        if (phone == null) {
+        if (difficulty == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Difficulty.class.getSimpleName()));
         }
-        if (!Difficulty.isValidPhone(phone)) {
+        if (!Difficulty.isValidDifficulty(difficulty)) {
             throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
         }
-        final Difficulty modelDifficulty = new Difficulty(phone);
+        final Difficulty modelDifficulty = new Difficulty(difficulty);
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }

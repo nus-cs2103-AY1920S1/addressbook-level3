@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Questions's Difficulty in the test bank.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDifficulty(String)}
  */
 public class Difficulty {
 
@@ -18,18 +18,18 @@ public class Difficulty {
     /**
      * Constructs a {@code Difficulty}.
      *
-     * @param phone A valid phone number.
+     * @param difficulty A valid difficulty number.
      */
-    public Difficulty(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+    public Difficulty(String difficulty) {
+        requireNonNull(difficulty);
+        checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINTS);
+        value = difficulty;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid difficulty.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidDifficulty(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

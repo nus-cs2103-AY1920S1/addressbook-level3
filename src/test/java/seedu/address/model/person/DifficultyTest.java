@@ -14,27 +14,27 @@ public class DifficultyTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new Difficulty(invalidPhone));
+    public void constructor_invalidDifficulty_throwsIllegalArgumentException() {
+        String invalidDifficulty = "";
+        assertThrows(IllegalArgumentException.class, () -> new Difficulty(invalidDifficulty));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
-        assertThrows(NullPointerException.class, () -> Difficulty.isValidPhone(null));
+    public void isValidDifficulty() {
+        // null difficulty
+        assertThrows(NullPointerException.class, () -> Difficulty.isValidDifficulty(null));
 
-        // invalid phone numbers
-        assertFalse(Difficulty.isValidPhone("")); // empty string
-        assertFalse(Difficulty.isValidPhone(" ")); // spaces only
-        assertFalse(Difficulty.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Difficulty.isValidPhone("phone")); // non-numeric
-        assertFalse(Difficulty.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Difficulty.isValidPhone("9312 1534")); // spaces within digits
+        // invalid difficulty
+        assertFalse(Difficulty.isValidDifficulty("")); // empty string
+        assertFalse(Difficulty.isValidDifficulty(" ")); // spaces only
+        assertFalse(Difficulty.isValidDifficulty("91")); // less than 3 numbers
+        assertFalse(Difficulty.isValidDifficulty("difficulty")); // non-numeric
+        assertFalse(Difficulty.isValidDifficulty("9011p041")); // alphabets within digits
+        assertFalse(Difficulty.isValidDifficulty("9312 1534")); // spaces within digits
 
-        // valid phone numbers
-        assertTrue(Difficulty.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Difficulty.isValidPhone("93121534"));
-        assertTrue(Difficulty.isValidPhone("124293842033123")); // long phone numbers
+        //TODO: Implement valid difficulty. These are not valid for test bank
+        assertTrue(Difficulty.isValidDifficulty("911")); // exactly 3 numbers
+        assertTrue(Difficulty.isValidDifficulty("93121534"));
+        assertTrue(Difficulty.isValidDifficulty("124293842033123")); // long difficulty numbers
     }
 }

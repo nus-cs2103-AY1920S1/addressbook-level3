@@ -50,18 +50,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Difficulty}.
+     * Parses a {@code String difficulty} into a {@code Difficulty}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code difficulty} is invalid.
      */
-    public static Difficulty parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Difficulty.isValidPhone(trimmedPhone)) {
+    public static Difficulty parseDifficulty(String difficulty) throws ParseException {
+        requireNonNull(difficulty);
+        String trimmedDifficulty = difficulty.trim();
+        if (!Difficulty.isValidDifficulty(trimmedDifficulty)) {
             throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
         }
-        return new Difficulty(trimmedPhone);
+        return new Difficulty(trimmedDifficulty);
     }
 
     /**

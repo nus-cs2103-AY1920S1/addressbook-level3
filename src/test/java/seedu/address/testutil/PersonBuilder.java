@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_QUESTION = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_DIFFICULTY = "85355255";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Question question;
@@ -26,7 +26,7 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         question = new Question(DEFAULT_QUESTION);
-        difficulty = new Difficulty(DEFAULT_PHONE);
+        difficulty = new Difficulty(DEFAULT_DIFFICULTY);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -68,8 +68,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Difficulty} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
-        this.difficulty = new Difficulty(phone);
+    public PersonBuilder withDifficulty(String difficulty) {
+        this.difficulty = new Difficulty(difficulty);
         return this;
     }
 

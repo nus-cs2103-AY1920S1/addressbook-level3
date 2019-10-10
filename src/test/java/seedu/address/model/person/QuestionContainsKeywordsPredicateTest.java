@@ -67,9 +67,9 @@ public class QuestionContainsKeywordsPredicateTest {
         predicate = new QuestionContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice Bob").build()));
 
-        // Keywords match phone and address, but does not match name
+        // Keywords match difficulty and address, but does not match name
         predicate = new QuestionContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withQuestion("Alice").withDifficulty("12345")
                 .withAddress("Main Street").build()));
     }
 }

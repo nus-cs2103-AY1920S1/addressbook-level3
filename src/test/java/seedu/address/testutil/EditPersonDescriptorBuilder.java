@@ -48,8 +48,8 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Difficulty} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setDifficulty(new Difficulty(phone));
+    public EditPersonDescriptorBuilder withDifficulty(String difficulty) {
+        descriptor.setDifficulty(new Difficulty(difficulty));
         return this;
     }
 
