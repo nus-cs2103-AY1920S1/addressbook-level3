@@ -64,7 +64,7 @@ public class EditBookmarkDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code EditBookmarkDescriptor} that we are building.
+     * Sets the {@code Folder} of the {@code EditBookmarkDescriptor} that we are building.
      */
     public EditBookmarkDescriptorBuilder withFolder(String folder) {
         descriptor.setFolder(new Folder(folder));
