@@ -1,3 +1,12 @@
+// Update the User Guide:
+// 1. Include the new feature.
+// 2. If it is a new command, include the feature in the command summary at the end.
+//    Match the order of command summary with the order of the respective features.
+// 3. If it is not a new command, ensure that the format of the feature in the command summary remain correct.
+// 4. Things have to be included in the feature: Function + Format.
+// 5. Things may be included in the feature: remark, example, tip.
+// 6. Update FAQs if applicable.
+
 = Xpire - User Guide
 :site-section: UserGuide
 :toc:
@@ -131,7 +140,7 @@ Format: `check|<days>`
 ****
 
 [TIP]
-`check|0` lists items that have already expired or expires on the day of checking.
+`check|0` lists items that have already expired or expire on the day of checking.
 
 Examples:
 
@@ -146,7 +155,7 @@ Format: `sort|<key>`
 
 ****
 * Sorting by both name and date is done in ascending order.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while 01/01/2000 will sort ahead of 01/01/2001.
 ****
 
 Examples:
@@ -251,23 +260,23 @@ There is no need to save manually.
 
 == Command Summary
 
+* *Help* : `help`
 * *Add* `add|<item name>|<expiry date>|[<tag>]...` +
 e.g. `add|durian|30/9/2019`
-* *Clear* : `clear`
-* *Delete* : `delete|<index>` +
-e.g. `delete|3`
-* *List* : `list`
-* *Sort* : `sort|<key>`+
-e.g. `sort|date`
-//* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-//e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Search* : `search|<keyword>[|<other keywords>]...` +
-e.g. `search|milk|tea|pearls`
-* *Tag* : `tag|<index>|[<tag>]...`
 * *View* : `view`
 * *Set reminder* : `set reminder|<index>|<reminder threshold>` +
 e.g. `set reminder|1|7`
 * *Check* : `check[|<days>]` +
 e.g. `check|20`
-* *Help* : `help`
+* *Sort* : `sort|<key>` +
+e.g. `sort|date`
+//* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+//e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Search* : `search|<keyword>[|<other keywords>]...` +
+e.g. `search|milk|tea|pearls`
+* *Delete* : `delete|<index>` +
+e.g. `delete|3`
+* *Tag* : `tag|<index>|[<tag>]...`
+* *Clear* : `clear`
+* *Exit* : `exit`
 
