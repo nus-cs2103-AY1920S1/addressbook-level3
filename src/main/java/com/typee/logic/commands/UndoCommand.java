@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 
+/**
+ * Undos the last command.
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
