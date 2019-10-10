@@ -25,7 +25,7 @@ public class FolderStructure {
 
     /**
      * Instantiates a new Folder structure.
-     *  @param folder       the name
+     * @param folder       the name
      * @param subfolders the subfolders
      */
     public FolderStructure(Folder folder, List<FolderStructure> subfolders) {
@@ -53,10 +53,10 @@ public class FolderStructure {
     }
 
     /**
-     * Find folder.
+     * Finds the FolderStructure that the specified folder belongs to, return null if not found.
      *
      * @param folder the folder
-     * @return the folder structure
+     * @return the folder structure that the folder belongs to, null if no folder structure contains the folder
      */
     public FolderStructure find(Folder folder) {
         if (this.folder.equals(folder)) {
@@ -82,10 +82,10 @@ public class FolderStructure {
     }
 
     /**
-     * Create folder.
+     * Adds the specified folder under the parent folder.
      *
-     * @param folder the folder name
-     * @param parentFolder the parent name
+     * @param folder the folder to be added
+     * @param parentFolder the parent folder
      */
     public void addFolder(Folder folder, Folder parentFolder) {
         find(parentFolder).getSubfolders().add(new FolderStructure(folder, new ArrayList<>()));

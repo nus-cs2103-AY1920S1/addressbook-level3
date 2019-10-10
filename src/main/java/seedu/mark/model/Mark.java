@@ -22,7 +22,7 @@ public class Mark implements ReadOnlyMark {
 
     private final UniqueBookmarkList bookmarks;
 
-    private FolderStructure folderStructure;
+    private final FolderStructure folderStructure;
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
