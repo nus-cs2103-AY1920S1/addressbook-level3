@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import dream.fcard.util.json.jsontypes.JsonValue;
 
-import javafx.scene.Node;
-
 import dream.fcard.model.exceptions.ChoiceNotFoundException;
+
+import javafx.scene.Node;
 
 /**
  * FrontBackCard with additional data of multiple choices.
