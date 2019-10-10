@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import seedu.address.model.tag.UserTag;
  * Represents a module for CS undergraduate students.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Module {
+public class Module implements Cloneable {
 
     // Identity fields
     private Name name;
@@ -166,5 +167,13 @@ public class Module {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public Module clone() throws CloneNotSupportedException {
+        Module clone = (Module) super.clone();
+        clone.tags = (UniqueTagList) tags.clone();
+
+        return clone;
     }
 }

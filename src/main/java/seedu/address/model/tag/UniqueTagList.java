@@ -26,7 +26,7 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  *
  * @see Tag#isSameTag(Tag)
  */
-public class UniqueTagList implements Iterable<Tag> {
+public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
     private final ObservableList<Tag> internalUnmodifiableList =
@@ -212,6 +212,11 @@ public class UniqueTagList implements Iterable<Tag> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public HashMap<String, Tag> getMapTags() {

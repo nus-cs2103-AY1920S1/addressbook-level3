@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.tag.UniqueTagList;
@@ -23,12 +22,12 @@ public class StudyPlan implements Cloneable {
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
-    private final HashMap<String, Module> modules;
+    private HashMap<String, Module> modules;
 
     // the unique list of tags of this study plan.
     // All tags in an *active* study plan refer to a tag here.
     // note: this unique list of tags is only constructed when a study plan gets activated.
-    private final UniqueTagList tags;
+    private UniqueTagList tags;
 
 
     // to create a study plan without a Title
@@ -135,8 +134,17 @@ public class StudyPlan implements Cloneable {
         StudyPlan clone = (StudyPlan) super.clone();
         clone.semesters = semesters.clone();
         clone.title = title.clone();
+        clone.isActive = isActive;
+        clone.index = index;
 
-        // TODO: clone the two lists too.
+        // because of this, the mega-lists fields don't have final keyword
+        clone.modules = new HashMap<>();
+        for (Module module : modules.values()) {
+            clone.modules.put(module.getModuleCode().toString(), module.clone());
+        }
+
+        clone.tags = (UniqueTagList) tags.clone();
+
         return clone;
     }
 
