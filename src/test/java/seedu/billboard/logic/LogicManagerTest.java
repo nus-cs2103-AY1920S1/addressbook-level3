@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
-import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.DINNER;
 

@@ -1,15 +1,14 @@
 package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import org.junit.jupiter.api.Test;
 

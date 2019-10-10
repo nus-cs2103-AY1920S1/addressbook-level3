@@ -6,8 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -30,9 +32,18 @@ public class EditExpenseDescriptorBuilder {
      */
     public EditExpenseDescriptorBuilder(Expense expense) {
         descriptor = new EditCommand.EditExpenseDescriptor();
+        descriptor.setName(expense.getName());
         descriptor.setDescription(expense.getDescription());
         descriptor.setAmount(expense.getAmount());
         descriptor.setTags(expense.getTags());
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code EditExpenseDescriptor} that we are building.
+     */
+    public EditExpenseDescriptorBuilder withName(String name) {
+        descriptor.setName(new Name(name));
+        return this;
     }
 
     /**
@@ -48,14 +59,6 @@ public class EditExpenseDescriptorBuilder {
      */
     public EditExpenseDescriptorBuilder withAmount(String amount) {
         descriptor.setAmount(new Amount(amount));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Name} of the {@code EditExpenseDescriptor} that we are building.
-     */
-    public EditExpenseDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
         return this;
     }
 

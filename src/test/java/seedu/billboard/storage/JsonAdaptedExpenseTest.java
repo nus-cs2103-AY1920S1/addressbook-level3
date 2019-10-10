@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
+import seedu.billboard.model.expense.Name;
 
 
 public class JsonAdaptedExpenseTest {

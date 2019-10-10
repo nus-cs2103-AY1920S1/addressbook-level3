@@ -2,9 +2,9 @@ package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
@@ -16,8 +16,8 @@ import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 
 /**

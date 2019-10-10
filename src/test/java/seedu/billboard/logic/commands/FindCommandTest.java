@@ -1,9 +1,7 @@
 package seedu.billboard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
