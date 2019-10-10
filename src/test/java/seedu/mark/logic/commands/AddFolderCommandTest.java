@@ -133,5 +133,10 @@ public class AddFolderCommandTest {
             folderStructure.find(parentFolder == null ? Folder.ROOT_FOLDER : parentFolder)
                     .getSubfolders().add(new FolderStructure(folder, new ArrayList<>()));
         }
+
+        @Override
+        public void saveMark() {
+            // called by {@code AddFolderCommand#execute()}
+        }
     }
 }
