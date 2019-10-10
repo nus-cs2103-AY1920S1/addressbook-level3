@@ -13,6 +13,8 @@ import seedu.address.model.studyplan.StudyPlan;
  */
 public class CreateStudyPlanCommand extends Command {
 
+    // TODO: must be modified accordingly (this was directly refactored from the original address book)
+
     public static final String COMMAND_WORD = "newplan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new studyPlan."
