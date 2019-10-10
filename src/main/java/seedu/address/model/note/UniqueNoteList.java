@@ -70,6 +70,10 @@ public class UniqueNoteList implements Iterable<Note> {
         }
     }
 
+    public Note get(int index) {
+        return internalList.get(index);
+    }
+
     public void setNotes(UniqueNoteList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
