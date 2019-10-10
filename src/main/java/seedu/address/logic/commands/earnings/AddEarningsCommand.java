@@ -1,12 +1,13 @@
 package seedu.address.logic.commands.earnings;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -28,7 +29,8 @@ public class AddEarningsCommand extends Command {
             + PREFIX_AMOUNT + "$55.30";
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Add earnings command not implemented yet";
-    public static final String MESSAGE_ARGUMENTS = "Date: %1$10s, Module: %2$s, Amount: $ %3$.2f"; // For date, maybe can use this instead --> %tm/%td/%ty
+    public static final String MESSAGE_ARGUMENTS = "Date: %1$10s, Module: %2$s, Amount: $ %3$.2f";
+    // For date, maybe can use this instead --> %tm/%td/%ty
 
 //    private final String date;
 //    private final String module;
@@ -39,8 +41,7 @@ public class AddEarningsCommand extends Command {
 //
 //        this.date = date;
 //        this.module = module;
-//        this.amount = amount;
-//    }
+//        this.amount = amount; }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -64,8 +65,7 @@ public class AddEarningsCommand extends Command {
 //        AddEarningsCommand e = (AddEarningsCommand) other;
 //        return date.equals(e.date)
 //                && module.equals(e.module)
-//                && amount == e.amount;
-//    }
+//                && amount == e.amount; }
 
     // AT PARSE UNIT INPUT!!!!!!!!!!!!!!!!!!!!!!
 }
