@@ -24,12 +24,4 @@ public class JsonSerializableMamsTest {
         Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
-    @Test
-    public void toModelType_duplicateStudents_throwsIllegalValueException() throws Exception {
-        JsonSerializableMams dataFromFile = JsonUtil.readJsonFile(DUPLICATE_STUDENT_FILE,
-                JsonSerializableMams.class).get();
-        Assert.assertThrows(IllegalValueException.class, JsonSerializableMams.MESSAGE_DUPLICATE_STUDENT,
-                dataFromFile::toModelType);
-    }
-
 }

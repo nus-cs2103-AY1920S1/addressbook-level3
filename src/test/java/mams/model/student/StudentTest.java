@@ -24,13 +24,8 @@ public class StudentTest {
         // null -> returns false
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(null));
 
-        // different credits and email -> returns false
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
-        Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
-
         // different name -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
         // same name, same credits, different attributes -> returns true
@@ -77,10 +72,6 @@ public class StudentTest {
         // different credits -> returns false
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withCredits(CommandTestUtil.VALID_CREDITS_BOB).build();
-        Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new StudentBuilder(TypicalStudents.ALICE).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
         Assertions.assertFalse(TypicalStudents.ALICE.equals(editedAlice));
 
         // different matricId -> returns false

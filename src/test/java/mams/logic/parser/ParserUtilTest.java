@@ -84,10 +84,6 @@ public class ParserUtilTest {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCredits((String) null));
     }
 
-    @Test
-    public void parseCredits_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCredits(INVALID_CREDITS));
-    }
 
     @Test
     public void parseCredits_validValueWithoutWhitespace_returnsCredits() throws Exception {
