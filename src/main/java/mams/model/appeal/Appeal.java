@@ -1,25 +1,26 @@
 package mams.model.appeal;
 
-import java.util.Collections;
-import java.util.HashSet;
+
 import java.util.Objects;
-import java.util.Set;
 
 import mams.commons.util.CollectionUtil;
 
-
+/**
+ * Represents an appeal in appeal list
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Appeal {
 
-    private final String appeal_ID;
-    private final String appeal_type;
-    private final String student_ID;
-    private final String academic_year;
-    private final int student_workload;
-    private final String appeal_description;
-    private final String previous_module;
-    private final String new_module;
-    private final String module_to_add;
-    private final String module_to_drop;
+    private final String appealId;
+    private final String appealType;
+    private final String studentId;
+    private final String academicYear;
+    private final int studentWorkload;
+    private final String appealDescription;
+    private final String previousModule;
+    private final String newModule;
+    private final String moduleToAdd;
+    private final String moduleToDrop;
     private final boolean resolved;
     private final String result;
     private final String remark;
@@ -27,117 +28,123 @@ public class Appeal {
 
     /**
      * Constructor for Appeal object when it is loaded from file
-     * @param appeal_ID
-     * @param appeal_type
-     * @param student_ID
-     * @param academic_year
-     * @param student_workload
-     * @param appeal_description
-     * @param previous_module
-     * @param new_module
-     * @param module_to_add
-     * @param module_to_drop
+     * @param appealId
+     * @param appealType
+     * @param studentId
+     * @param academicYear
+     * @param studentWorkload
+     * @param appealDescription
+     * @param previousModule
+     * @param newModule
+     * @param moduleToAdd
+     * @param moduleToDrop
      * @param resolved
      * @param remark
      */
-    public Appeal(String appeal_ID, String appeal_type, String student_ID, String academic_year,
-                  int student_workload, String appeal_description, String previous_module,
-                  String new_module, String module_to_add, String module_to_drop, boolean resolved, String remark) {
+    public Appeal(String appealId, String appealType, String studentId, String academicYear,
+                  int studentWorkload, String appealDescription, String previousModule,
+                  String newModule, String moduleToAdd, String moduleToDrop, boolean resolved, String remark) {
 
-        CollectionUtil.requireAllNonNull(appeal_ID, appeal_type, student_ID, academic_year, student_workload, appeal_description, previous_module, new_module, module_to_add, module_to_drop, resolved, remark);
-        this.appeal_ID = appeal_ID;
-        this.appeal_type = appeal_type;
-        this.student_ID = student_ID;
-        this.academic_year = academic_year;
-        this.student_workload = student_workload;
-        this.appeal_description = appeal_description;
-        this.previous_module = previous_module;
-        this.new_module = new_module;
-        this.module_to_add = module_to_add;
-        this.module_to_drop = module_to_drop;
+        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
+                studentWorkload, appealDescription, previousModule,
+                newModule, moduleToAdd, moduleToDrop, resolved, remark);
+        this.appealId = appealId;
+        this.appealType = appealType;
+        this.studentId = studentId;
+        this.academicYear = academicYear;
+        this.studentWorkload = studentWorkload;
+        this.appealDescription = appealDescription;
+        this.previousModule = previousModule;
+        this.newModule = newModule;
+        this.moduleToAdd = moduleToAdd;
+        this.moduleToDrop = moduleToDrop;
         this.resolved = resolved;
         this.result = "Pending";
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.  Only appeals that are not modified will be shown/added to file
+        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.
+        //  Only appeals that are not modified will be shown/added to file
 
     }
 
     /**
      *  Constructor when an existing appeal is resolved
-     * @param appeal_ID
-     * @param appeal_type
-     * @param student_ID
-     * @param academic_year
-     * @param student_workload
-     * @param appeal_description
-     * @param previous_module
-     * @param new_module
-     * @param module_to_add
-     * @param module_to_drop
+     * @param appealId
+     * @param appealType
+     * @param studentId
+     * @param academicYear
+     * @param studentWorkload
+     * @param appealDescription
+     * @param previousModule
+     * @param newModule
+     * @param moduleToAdd
+     * @param moduleToDrop
      * @param resolved
      * @param result
      * @param remark
      */
-    public Appeal(String appeal_ID, String appeal_type, String student_ID, String academic_year,
-                  int student_workload, String appeal_description, String previous_module,
-                  String new_module, String module_to_add, String module_to_drop, boolean resolved, String result, String remark) {
+    public Appeal(String appealId, String appealType, String studentId, String academicYear,
+                  int studentWorkload, String appealDescription, String previousModule,
+                  String newModule, String moduleToAdd, String moduleToDrop, boolean resolved, String result, String remark) {
 
-        CollectionUtil.requireAllNonNull(appeal_ID, appeal_type, student_ID, academic_year, student_workload, appeal_description, previous_module, new_module, module_to_add, module_to_drop, resolved, result, remark);
-        this.appeal_ID = appeal_ID;
-        this.appeal_type = appeal_type;
-        this.student_ID = student_ID;
-        this.academic_year = academic_year;
-        this.student_workload = student_workload;
-        this.appeal_description = appeal_description;
-        this.previous_module = previous_module;
-        this.new_module = new_module;
-        this.module_to_add = module_to_add;
-        this.module_to_drop = module_to_drop;
+        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
+                studentWorkload, appealDescription, previousModule,
+                newModule, moduleToAdd, moduleToDrop, resolved, result, remark);
+        this.appealId = appealId;
+        this.appealType = appealType;
+        this.studentId = studentId;
+        this.academicYear = academicYear;
+        this.studentWorkload = studentWorkload;
+        this.appealDescription = appealDescription;
+        this.previousModule = previousModule;
+        this.newModule = newModule;
+        this.moduleToAdd = moduleToAdd;
+        this.moduleToDrop = moduleToDrop;
         this.resolved = resolved;
         this.result = result;
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.  Only appeals that are not modified will be shown/added to file
+        this.isModified = false; // to check if this is an already resolved appeal, since we are working with immutability.
+        //  Only appeals that are not modified will be shown/added to file
 
     }
 
-    public String getAppealID() {
-        return appeal_ID;
+    public String getAppealId() {
+        return appealId;
     }
 
     public String getAppealType() {
-        return appeal_type;
+        return appealType;
     }
 
-    public String getStudentID() {
-        return student_ID;
+    public String getStudentId() {
+        return studentId;
     }
 
     public String getAcademicYear() {
-        return academic_year;
+        return academicYear;
     }
 
     public int getStudentWorkload() {
-        return student_workload;
+        return studentWorkload;
     }
 
     public String getAppealDescription() {
-        return appeal_description;
+        return appealDescription;
     }
 
     public String getPreviousModule() {
-        return previous_module;
+        return previousModule;
     }
 
     public String getNewModule() {
-        return new_module;
+        return newModule;
     }
 
     public String getModule_to_add() {
-        return module_to_add;
+        return moduleToAdd;
     }
 
     public String getModule_to_drop() {
-        return module_to_drop;
+        return moduleToDrop;
     }
 
     public boolean isResolved() {
@@ -152,46 +159,47 @@ public class Appeal {
         return remark;
     }
 
-    public boolean isSameAppeal(Appeal otherAppeal){
-        if(otherAppeal == this){
+    public boolean isSameAppeal(Appeal otherAppeal) {
+        if (otherAppeal == this) {
             return true;
         }
 
         return otherAppeal != null
-                && otherAppeal.getAppealID().equals(getAppealID())
+                && otherAppeal.getAppealId().equals(getAppealId())
                 && otherAppeal.getResult().equals(getResult())
-                && (otherAppeal.getAppealType().equals(getAppealType()) || otherAppeal.getAppealDescription().equals(getAppealDescription()));
+                && (otherAppeal.getAppealType().equals(getAppealType())
+                || otherAppeal.getAppealDescription().equals(getAppealDescription()));
     }
 
     @Override
     public boolean equals(Object other) {
-        if(other == this){
+        if (other == this) {
             return true;
         }
 
-        if(!(other instanceof Appeal)){
+        if (!(other instanceof Appeal)) {
             return false;
         }
 
         Appeal otherAppeal = (Appeal) other;
-        return otherAppeal.getAppealID().equals(getAppealID())
+        return otherAppeal.getAppealId().equals(getAppealId())
                 && otherAppeal.getAppealType().equals(getAppealType())
-                && otherAppeal.getStudentID().equals(getStudentID())
+                && otherAppeal.getStudentId().equals(getStudentId())
                 && otherAppeal.getAppealDescription().equals(getAppealDescription())
                 && (otherAppeal.getStudentWorkload() == getStudentWorkload());
     }
 
-    public int hashCode(){
-        return Objects.hash(appeal_ID, appeal_type, student_ID, student_workload, appeal_description);
+    public int hashCode() {
+        return Objects.hash(appealId, appealType, studentId, studentWorkload, appealDescription);
     }
 
-    public String toString(){
+    public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getAppealID())
+        builder.append(getAppealId())
                 .append(" Appeal type: ")
                 .append(getAppealType())
                 .append(" Student ID: ")
-                .append(getStudentID())
+                .append(getStudentId())
                 .append(" Academic year: ")
                 .append(getAcademicYear())
                 .append(" Student workload: ")
@@ -217,14 +225,18 @@ public class Appeal {
         isModified = true;
     }
 
-    public Appeal resolve(String action, String remark){
+    public Appeal resolve(String action, String remark) {
         Appeal appeal;
-        if(action.equalsIgnoreCase("approve")){
+        if (action.equalsIgnoreCase("approve")) {
             this.setModified();
-            appeal = new Appeal(this.appeal_ID, this.appeal_type, this.student_ID, this.academic_year, this.student_workload, this.appeal_description, this.previous_module, this.new_module, this.module_to_add, this.module_to_drop, true, "approved", remark);
+            appeal = new Appeal(this.appealId, this.appealType, this.studentId, this.academicYear,
+                    this.studentWorkload, this.appealDescription, this.previousModule, this.newModule,
+                    this.moduleToAdd, this.moduleToDrop, true, "approved", remark);
         } else {
             this.setModified();
-            appeal = new Appeal(this.appeal_ID, this.appeal_type, this.student_ID, this.academic_year, this.student_workload, this.appeal_description, this.previous_module, this.new_module, this.module_to_add, this.module_to_drop, false, "rejected", remark);
+            appeal = new Appeal(this.appealId, this.appealType, this.studentId, this.academicYear,
+                    this.studentWorkload, this.appealDescription, this.previousModule, this.newModule,
+                    this.moduleToAdd, this.moduleToDrop, false, "rejected", remark);
         }
         return appeal;
     }

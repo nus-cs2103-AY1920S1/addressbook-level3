@@ -11,7 +11,7 @@ import mams.commons.util.CollectionUtil;
 import mams.model.appeal.exceptions.DuplicateAppealException;
 import mams.model.appeal.exceptions.AppealNotFoundException;
 
-public class UniqueAppealList implements Iterable<Appeal>{
+public class UniqueAppealList implements Iterable<Appeal> {
 
     private final ObservableList<Appeal> internalList = FXCollections.observableArrayList();
     private final ObservableList<Appeal> internalUnmodifiedList =
@@ -31,7 +31,7 @@ public class UniqueAppealList implements Iterable<Appeal>{
      * Adds appeal to list, appeal must not already be in list
      * @param toAdd
      */
-    public void add(Appeal toAdd){
+    public void add(Appeal toAdd) {
         requireNonNull(toAdd);
         if(contains(toAdd)) {
             throw new DuplicateAppealException();
@@ -46,7 +46,7 @@ public class UniqueAppealList implements Iterable<Appeal>{
      * @param target
      * @param editedAppeal
      */
-    public void setAppeal(Appeal target, Appeal editedAppeal){
+    public void setAppeal(Appeal target, Appeal editedAppeal) {
         CollectionUtil.requireAllNonNull(target, editedAppeal);
 
         int index = internalList.indexOf(target);
@@ -94,7 +94,7 @@ public class UniqueAppealList implements Iterable<Appeal>{
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         return other == this
                 || (other instanceof UniqueAppealList && internalList.equals(((UniqueAppealList) other).internalList));
     }
@@ -107,7 +107,7 @@ public class UniqueAppealList implements Iterable<Appeal>{
     /**
      * Returns true if {@code appeals} contains only unique appeals.
      */
-    private boolean appealsAreUnique(List<Appeal> appeals){
+    private boolean appealsAreUnique(List<Appeal> appeals) {
         for (int i = 0; i < appeals.size() - 1; i++) {
             for (int j = i + 1; j < appeals.size(); j++) {
                 if (appeals.get(i).isSameAppeal(appeals.get(j))) {
