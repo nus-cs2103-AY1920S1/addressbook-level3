@@ -55,6 +55,18 @@ public class AliasTable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AliasTable)) {
+            return false;
+        }
+        AliasTable other = (AliasTable) o;
+        return other.aliasTable.equals(this.aliasTable);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(aliasTable);
     }
