@@ -1,13 +1,13 @@
 {
-  "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+  "expenses": [ {
+    "name" : "valid expense",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "tagged" : [ "leisure" ]
   }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "name": "Expense With Invalid Amount Field",
+    "description" : "toast with frens",
+    "amount" : "4.20 blaze it",
+    "tagged" : [ "monday", "friends" ]
   } ]
 }
