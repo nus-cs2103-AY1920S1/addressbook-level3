@@ -14,12 +14,12 @@
   "vehicles": [ {
     "vehicleType": "Ambulance",
     "vehicleNumber": "AAA1111A",
-    "district": "1 Singapore",
+    "district": 1,
     "availability": "AVAILABLE"
   }, {
     "vehicleType": "Ambulance",
     "vehicleNumber": "AAA1111A",
-    "district": "1 Singapore",
+    "district": 1,
     "availability": "AVAILABLE"
   }]
 }

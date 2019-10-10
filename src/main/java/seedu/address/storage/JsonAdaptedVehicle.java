@@ -19,7 +19,7 @@ class JsonAdaptedVehicle {
 
     private final String vehicleType;
     private final String vehicleNumber;
-    private final String district;
+    private final int districtNum;
     private final String availability;
 
     /**
@@ -28,11 +28,11 @@ class JsonAdaptedVehicle {
     @JsonCreator
     public JsonAdaptedVehicle(@JsonProperty("vehicleType") String vehicleType,
                               @JsonProperty("vehicleNumber") String vehicleNumber,
-                              @JsonProperty("district") String district,
+                              @JsonProperty("district") int districtNum,
                               @JsonProperty("availability") String availability) {
         this.vehicleType = vehicleType;
         this.vehicleNumber = vehicleNumber;
-        this.district = district;
+        this.districtNum = districtNum;
         this.availability = availability;
     }
 
@@ -42,7 +42,7 @@ class JsonAdaptedVehicle {
     public JsonAdaptedVehicle(Vehicle source) {
         vehicleType = source.getVehicleType().vehicleType;
         vehicleNumber = source.getVehicleNumber().vehicleNumber;
-        district = source.getDistrict().district;
+        districtNum = source.getDistrict().districtNum;
         availability = source.getAvailability().getAvailabilityTag();
     }
 
@@ -70,14 +70,14 @@ class JsonAdaptedVehicle {
         }
         final VehicleType modelVehicleType = new VehicleType(vehicleType);
 
-        if (district == null) {
+        if (districtNum == 0) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     District.class.getSimpleName()));
         }
-        if (!District.isValidDistrict(district)) {
+        if (!District.isValidDistrict(districtNum)) {
             throw new IllegalValueException(District.MESSAGE_CONSTRAINTS);
         }
-        final District modelDistrict = new District(district);
+        final District modelDistrict = new District(districtNum);
 
         if (availability == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
