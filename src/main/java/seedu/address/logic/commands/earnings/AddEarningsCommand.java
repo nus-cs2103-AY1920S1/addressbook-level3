@@ -44,7 +44,8 @@ public class AddEarningsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, date, module, amount));
+        return new CommandResult("earnings not completed yet");
+        //throw new CommandException(String.format(MESSAGE_ARGUMENTS, date, module, amount));
     }
 
     @Override
