@@ -59,7 +59,7 @@ public class TypicalCustomers {
             .withContactNumber("94824423")
             .withEmail("anna@example.com").build();
     /**
-     * Returns an {@code CustomerBook} with all the typical persons.
+     * Returns an {@code CustomerBook} with all the typical customers.
      */
     public static CustomerBook getTypicalCustomerBook() {
         CustomerBook cb = new CustomerBook();

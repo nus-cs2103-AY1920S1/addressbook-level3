@@ -39,6 +39,15 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_PHONENAME_IPHONE = "iPhone Pro 11";
+    public static final String VALID_PHONENAME_SAMSUNG =  "Galaxy S10";
+    public static final String VALID_COLOUR_IPHONE = "Purple";
+    public static final String VALID_COLOUR_SAMSUNG = "Black";
+    public static final String VALID_BRAND_IPHONE = "Apple";
+    public static final String VALID_BRAND_SAMSUNG = "Samsung";
+    public static final String VALID_COST_IPHONE = "$1649";
+    public static final String VALID_COST_SAMSUNG = "$1298";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
