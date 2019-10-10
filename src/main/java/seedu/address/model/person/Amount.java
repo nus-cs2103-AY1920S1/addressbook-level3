@@ -1,17 +1,17 @@
 package seedu.address.model.person;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Food's amount in the grocery list.
  */
 public class Amount {
-    public static final String MESSAGE_CONSTRAINTS = "Amounts should be of the format value unit " +
-            "and adhere to the following constraints:\n"
+    public static final String MESSAGE_CONSTRAINTS = "Amounts should be of the format value unit "
+            + "and adhere to the following constraints:\n"
             + "1. The value part should only contain digits and can have be decimal point or not.\n"
             + "2. This is followed by a unit that can have a space in between or not. \n"
             + "The unit must be one of the following: \n"
@@ -22,10 +22,10 @@ public class Amount {
     public static final String UNIT = "(lbs?|g|kgs|oz?|L|ml|units?)+";
     public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
 
-    public final String fullAmt;
+    private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kgs|oz?|L|ml|units?)+)");
+    private static Matcher m;
 
-    public static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kgs|oz?|L|ml|units?)+)");
-    public static Matcher m;
+    public final String fullAmt;
 
     /**
      * Constructs a {@code Name}.
