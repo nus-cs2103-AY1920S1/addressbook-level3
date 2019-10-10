@@ -44,7 +44,7 @@ public class AddCommandParserTest {
                 + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES 
+        assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
                 + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple descriptions - last description accepted
