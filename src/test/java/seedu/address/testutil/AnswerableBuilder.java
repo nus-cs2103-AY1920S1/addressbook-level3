@@ -3,9 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Mcq;
+import seedu.address.model.answerable.McqAnswer;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -16,16 +19,21 @@ import seedu.address.model.util.SampleDataUtil;
 public class AnswerableBuilder {
 
     public static final String DEFAULT_QUESTION = "Alice Pauline";
+    public static final String DEFAULT_ANSWER = "placeholder answer";
     public static final String DEFAULT_DIFFICULTY = "85355255";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Question question;
+    //TODO: Implement Answerable
+    private McqAnswer answer;
     private Difficulty difficulty;
     private Category category;
     private Set<Tag> tags;
 
     public AnswerableBuilder() {
         question = new Question(DEFAULT_QUESTION);
+        //TODO: Implement Answerable
+        answer = new McqAnswer(DEFAULT_ANSWER);
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
         category = new Category(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -36,6 +44,8 @@ public class AnswerableBuilder {
      */
     public AnswerableBuilder(Answerable answerableToCopy) {
         question = answerableToCopy.getQuestion();
+        //TODO: Implement Answerable
+        answer = (McqAnswer) answerableToCopy.getAnswer();
         difficulty = answerableToCopy.getDifficulty();
         category = answerableToCopy.getCategory();
         tags = new HashSet<>(answerableToCopy.getTags());
@@ -46,6 +56,15 @@ public class AnswerableBuilder {
      */
     public AnswerableBuilder withQuestion(String name) {
         this.question = new Question(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Question} of the {@code Answerable} that we are building.
+     */
+    //TODO: Implement Answerable
+    public AnswerableBuilder withAnswer(String name) {
+        this.answer = new McqAnswer(name);
         return this;
     }
 
@@ -74,7 +93,8 @@ public class AnswerableBuilder {
     }
 
     public Answerable build() {
-        return new Answerable(question, difficulty, category, tags);
+        //TODO: Implement Answerable
+        return new Mcq(question, answer, difficulty, category, tags);
     }
 
 }

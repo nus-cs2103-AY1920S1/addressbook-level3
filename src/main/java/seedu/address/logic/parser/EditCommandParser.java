@@ -3,9 +3,12 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,6 +18,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.answerable.McqAnswer;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_DIFFICULTY, PREFIX_CATEGORY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION_TYPE, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG,
+                        PREFIX_DIFFICULTY, PREFIX_CATEGORY, PREFIX_TAG);
 
         Index index;
 
@@ -43,6 +48,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditCommand.EditAnswerableDescriptor editAnswerableDescriptor = new EditCommand.EditAnswerableDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
             editAnswerableDescriptor.setQuestion(ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get()));
+        }
+        //TODO: Implement Answerable
+        if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
+//            editAnswerableDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_CORRECT).get()));
+            editAnswerableDescriptor.setAnswer(new McqAnswer("Correct Answer"));
+        }
+        if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
+//            editAnswerableDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_CORRECT).get()));
+            editAnswerableDescriptor.setAnswer(new McqAnswer("Wrong Answer"));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));

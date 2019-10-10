@@ -13,22 +13,24 @@ import seedu.address.model.tag.Tag;
  * Represents a Answerable in the category book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Answerable {
+public abstract class Answerable {
 
     // Identity fields
     private final Question question;
     private final Difficulty difficulty;
 
     // Data fields
+    private final Answer answer;
     private final Category category;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, Difficulty difficulty, Category category, Set<Tag> tags) {
+    public Answerable(Question question, Answer answer, Difficulty difficulty, Category category, Set<Tag> tags) {
         requireAllNonNull(question, difficulty, category, tags);
         this.question = question;
+        this.answer = answer;
         this.difficulty = difficulty;
         this.category = category;
         this.tags.addAll(tags);
@@ -36,6 +38,10 @@ public class Answerable {
 
     public Question getQuestion() {
         return question;
+    }
+
+    public Answer getAnswer() {
+        return answer;
     }
 
     public Difficulty getDifficulty() {

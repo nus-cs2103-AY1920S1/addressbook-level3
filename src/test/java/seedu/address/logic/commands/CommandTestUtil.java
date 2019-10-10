@@ -3,9 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ public class CommandTestUtil {
 
     public static final String VALID_QUESTION_AMY = "Amy Bee";
     public static final String VALID_QUESTION_BOB = "Bob Choo";
+    public static final String VALID_QUESTION_TYPE_AMY = "mcq";
+    public static final String VALID_QUESTION_TYPE_BOB = "mcq";
+    public static final String VALID_ANSWER_AMY = "Valid Answer";
+    public static final String VALID_ANSWER_BOB = "Valid Answer";
     public static final String VALID_DIFFICULTY_AMY = "11111111";
     public static final String VALID_DIFFICULTY_BOB = "22222222";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -36,6 +43,12 @@ public class CommandTestUtil {
 
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
     public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
+    public static final String CORRECT_ANSWER_DESC_AMY = " " + PREFIX_CORRECT + VALID_ANSWER_AMY;
+    public static final String CORRECT_ANSWER_DESC_BOB = " " + PREFIX_CORRECT + VALID_ANSWER_BOB;
+    public static final String WRONG_ANSWER_DESC_AMY = " " + PREFIX_WRONG + VALID_ANSWER_AMY;
+    public static final String WRONG_ANSWER_DESC_BOB = " " + PREFIX_WRONG + VALID_ANSWER_BOB;
+    public static final String QUESTION_TYPE_DESC_AMY = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE_AMY;
+    public static final String QUESTION_TYPE_DESC_BOB = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE_BOB;
     public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
     public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_CATEGORY + VALID_ADDRESS_AMY;
@@ -56,10 +69,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withDifficulty(VALID_DIFFICULTY_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withAnswer(VALID_ANSWER_AMY).withDifficulty(VALID_DIFFICULTY_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withAnswer(VALID_ANSWER_BOB).withDifficulty(VALID_DIFFICULTY_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

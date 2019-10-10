@@ -8,6 +8,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditAnswerableDescriptor;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.McqAnswer;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.tag.Tag;
@@ -33,6 +34,7 @@ public class EditAnswerableDescriptorBuilder {
     public EditAnswerableDescriptorBuilder(Answerable answerable) {
         descriptor = new EditCommand.EditAnswerableDescriptor();
         descriptor.setQuestion(answerable.getQuestion());
+        descriptor.setAnswer(answerable.getAnswer());
         descriptor.setDifficulty(answerable.getDifficulty());
         descriptor.setCategory(answerable.getCategory());
         descriptor.setTags(answerable.getTags());
@@ -41,11 +43,19 @@ public class EditAnswerableDescriptorBuilder {
     /**
      * Sets the {@code Question} of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withQuestion(String name) {
-        descriptor.setQuestion(new Question(name));
+    public EditAnswerableDescriptorBuilder withQuestion(String question) {
+        descriptor.setQuestion(new Question(question));
         return this;
     }
 
+    /**
+     * Sets the {@code Question} of the {@code EditAnswerableDescriptor} that we are building.
+     */
+    public EditAnswerableDescriptorBuilder withAnswer(String answer) {
+        //TODO: Implement Answerable
+        descriptor.setAnswer(new McqAnswer(answer));
+        return this;
+    }
     /**
      * Sets the {@code Difficulty} of the {@code EditAnswerableDescriptor} that we are building.
      */

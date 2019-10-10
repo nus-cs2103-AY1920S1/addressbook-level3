@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.answerable.Answerable;
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Mcq;
+import seedu.address.model.answerable.McqAnswer;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
@@ -24,19 +27,22 @@ class JsonAdaptedAnswerable {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Answerable's %s field is missing!";
 
     private final String question;
+    private final String answer;
     private final String difficulty;
-    private final String address;
+    private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedAnswerable} with the given answerable details.
      */
     @JsonCreator
-    public JsonAdaptedAnswerable(@JsonProperty("question") String question, @JsonProperty("difficulty") String difficulty,
-                                 @JsonProperty("category") String category, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedAnswerable(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
+                 @JsonProperty("difficulty") String difficulty, @JsonProperty("category") String category,
+                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
+        this.answer = answer;
         this.difficulty = difficulty;
-        this.address = category;
+        this.category = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -47,8 +53,9 @@ class JsonAdaptedAnswerable {
      */
     public JsonAdaptedAnswerable(Answerable source) {
         question = source.getQuestion().fullQuestion;
+        answer = source.getAnswer().value;
         difficulty = source.getDifficulty().value;
-        address = source.getCategory().value;
+        category = source.getCategory().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -80,16 +87,23 @@ class JsonAdaptedAnswerable {
             throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
         }
         final Difficulty modelDifficulty = new Difficulty(difficulty);
-        if (address == null) {
+        if (category == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
         }
-        if (!Category.isValidCategory(address)) {
+        if (!Category.isValidCategory(category)) {
             throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
         }
-        final Category modelCategory = new Category(address);
+        final Category modelCategory = new Category(category);
 
         final Set<Tag> modelTags = new HashSet<>(answerableTags);
-        return new Answerable(modelQuestion, modelDifficulty, modelCategory, modelTags);
+
+        //TODO: isValidAnswer always returns true
+        if (answer == null) {
+            throw new IllegalValueException(McqAnswer.MESSAGE_CONSTRAINTS);
+        }
+        final McqAnswer modelAnswer = new McqAnswer(answer);
+
+        return new Mcq(modelQuestion, modelAnswer, modelDifficulty, modelCategory, modelTags);
     }
 
 }

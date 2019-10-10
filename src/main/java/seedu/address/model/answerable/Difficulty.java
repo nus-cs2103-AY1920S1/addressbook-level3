@@ -12,8 +12,8 @@ public class Difficulty {
 
     //TODO: Change this constraint and implement the new constraint
     public static final String MESSAGE_CONSTRAINTS =
-            "Difficulty should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Difficulty should only contain numbers, and it should only be 1 digit long";
+    public static final String VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 
     /**

@@ -18,9 +18,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Mcq;
+import seedu.address.model.answerable.McqAnswer;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.tag.Tag;
 
@@ -90,11 +93,14 @@ public class EditCommand extends Command {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
+        Answer updatedAnswer = editAnswerableDescriptor.getAnswer().orElse(answerableToEdit.getAnswer());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit.getDifficulty());
         Category updatedCategory = editAnswerableDescriptor.getCategory().orElse(answerableToEdit.getCategory());
         Set<Tag> updatedTags = editAnswerableDescriptor.getTags().orElse(answerableToEdit.getTags());
 
-        return new Answerable(updatedQuestion, updatedDifficulty, updatedCategory, updatedTags);
+        McqAnswer mcqAnswer = (McqAnswer) updatedAnswer;
+
+        return new Mcq(updatedQuestion, mcqAnswer, updatedDifficulty, updatedCategory, updatedTags);
     }
 
     @Override
@@ -121,6 +127,7 @@ public class EditCommand extends Command {
      */
     public static class EditAnswerableDescriptor {
         private Question question;
+        private Answer answer;
         private Difficulty difficulty;
         private Category category;
         private Set<Tag> tags;
@@ -133,6 +140,7 @@ public class EditCommand extends Command {
          */
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
             setQuestion(toCopy.question);
+            setAnswer(toCopy.answer);
             setDifficulty(toCopy.difficulty);
             setCategory(toCopy.category);
             setTags(toCopy.tags);
@@ -151,6 +159,14 @@ public class EditCommand extends Command {
 
         public Optional<Question> getQuestion() {
             return Optional.ofNullable(question);
+        }
+
+        public void setAnswer(Answer answer) {
+            this.answer = answer;
+        }
+
+        public Optional<Answer> getAnswer() {
+            return Optional.ofNullable(answer);
         }
 
         public void setDifficulty(Difficulty difficulty) {
@@ -202,6 +218,7 @@ public class EditCommand extends Command {
             EditAnswerableDescriptor e = (EditAnswerableDescriptor) other;
 
             return getQuestion().equals(e.getQuestion())
+                    && getAnswer().equals(e.getAnswer())
                     && getDifficulty().equals(e.getDifficulty())
                     && getCategory().equals(e.getCategory())
                     && getTags().equals(e.getTags());
