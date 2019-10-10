@@ -108,7 +108,6 @@ public class ModelManager implements Model {
     @Override
     public void setFood(Food target, Food editedFood) {
         requireAllNonNull(target, editedFood);
-
         menu.setFood(target, editedFood);
     }
 

@@ -14,6 +14,7 @@ import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Contains utility methods for populating {@code Menu} with sample data.
@@ -44,11 +45,16 @@ public class SampleDataUtil {
         };
     }
 
+    public static Wallet getSampleWallet() {
+        return new Wallet();
+    }
+
     public static ReadOnlyMenu getSampleMenu() {
         Menu sampleMenu = new Menu();
         for (Food sampleFood : getSampleFood()) {
             sampleMenu.addFood(sampleFood);
         }
+        sampleMenu.addWallet(getSampleWallet());
         return sampleMenu;
     }
 

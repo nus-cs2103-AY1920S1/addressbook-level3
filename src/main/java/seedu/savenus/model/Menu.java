@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Wraps all data at the menu level
@@ -15,6 +16,7 @@ import seedu.savenus.model.food.UniqueFoodList;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
+    private Wallet wallet;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -93,11 +95,18 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
+    /**
+     * Adds a wallet to the address book.
+     */
+    public void addWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return foods.asUnmodifiableObservableList().size() + " foods";
+        return foods.asUnmodifiableObservableList().size() + " Food Items: \n" + "...\n" + "Wallet: \n" + wallet.toString();
         // TODO: refine later
     }
 
