@@ -1,13 +1,14 @@
 package io.xpire.model.item;
+
 import static java.util.Objects.requireNonNull;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.model.item.exceptions.DuplicateItemException;
 import io.xpire.model.item.exceptions.ItemNotFoundException;
+import io.xpire.model.item.sort.MethodOfSorting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -25,16 +26,11 @@ import javafx.collections.transformation.SortedList;
  * @see Item#isSameItem(Item)
  */
 public class SortedUniqueItemList implements Iterable<Item> {
-    private final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
-            String.CASE_INSENSITIVE_ORDER);
-    private final Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
-            Comparator.nullsFirst(Comparator.naturalOrder()));
-    private final Comparator<Item>nameThenDateSorter = nameSorter.thenComparing(dateSorter);
-
     private final ObservableList<Item> internalList = FXCollections.observableArrayList();
-    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList, nameThenDateSorter);
+    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList);
     private final ObservableList<Item> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(this.sortedInternalList);
+    private MethodOfSorting methodOfSorting = new MethodOfSorting("name");
 
     /**
      * Returns true if the list contains an equivalent item as the given argument.
@@ -54,6 +50,7 @@ public class SortedUniqueItemList implements Iterable<Item> {
             throw new DuplicateItemException();
         }
         this.internalList.add(toAdd);
+        methodOfSorting = new MethodOfSorting("name");
     }
 
     /**
@@ -105,9 +102,17 @@ public class SortedUniqueItemList implements Iterable<Item> {
     }
 
     /**
+     * Set method of sorting.
+     */
+    public void setMethodOfSorting(MethodOfSorting method) {
+        this.methodOfSorting = method;
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Item> asUnmodifiableObservableList() {
+        this.sortedInternalList.setComparator(methodOfSorting.getComparator());
         return this.internalUnmodifiableList;
     }
 

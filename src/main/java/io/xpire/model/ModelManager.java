@@ -2,7 +2,6 @@ package io.xpire.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,7 +12,6 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.sort.MethodOfSorting;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the xpire data.
@@ -24,7 +22,6 @@ public class ModelManager implements Model {
     private final Xpire xpire;
     private final UserPrefs userPrefs;
     private final FilteredList<Item> filteredItems;
-    private SortedList<Item> sortedItems;
 
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
@@ -38,7 +35,6 @@ public class ModelManager implements Model {
         this.xpire = new Xpire(xpire);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredItems = new FilteredList<>(this.xpire.getItemList());
-        this.sortedItems = new SortedList<>(this.xpire.getItemList());
     }
 
     public ModelManager() {
@@ -120,33 +116,8 @@ public class ModelManager implements Model {
     @Override
     public void sortItemList(MethodOfSorting method) {
         requireNonNull(method);
-        Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
-                String.CASE_INSENSITIVE_ORDER);
-        Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
-                Comparator.nullsFirst(Comparator.naturalOrder()));
-
-        switch (method.getValue()) {
-        case "name":
-            this.sortedItems = new SortedList<>(this.xpire.getItemList() , nameSorter);
-            break;
-        case "date":
-            this.sortedItems = new SortedList<>(this.xpire.getItemList() , dateSorter);
-            break;
-        default:
-            throw new IllegalStateException("Unexpected method: " + method);
-        }
-        this.xpire.setItems(this.sortedItems);
+        this.xpire.setMethodOfSorting(method);
     }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
-     * {@code versionedXpire}
-     */
-    @Override
-    public ObservableList<Item> getSortedItemList() {
-        return this.sortedItems;
-    }
-
 
     // =========== Filtered Item List Accessors =============================================================
 

@@ -1,10 +1,12 @@
 package io.xpire.model;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import io.xpire.model.item.Item;
 import io.xpire.model.item.SortedUniqueItemList;
+import io.xpire.model.item.sort.MethodOfSorting;
 import javafx.collections.ObservableList;
 
 /**
@@ -77,13 +79,20 @@ public class Xpire implements ReadOnlyXpire {
         this.items.remove(key);
     }
 
+    /**
+     * Set method of sorting.
+     */
+    public void setMethodOfSorting(MethodOfSorting method) {
+        this.items.setMethodOfSorting(method);
+    }
 
     //// util methods
 
     @Override
     public String toString() {
-        return this.items.asUnmodifiableObservableList().size() + " items";
-        // TODO: refine later
+        StringBuilder sb = new StringBuilder(this.items.asUnmodifiableObservableList().size() + " items");
+        this.items.asUnmodifiableObservableList().forEach(x-> sb.append(x));
+        return sb.toString();
     }
 
     @Override
