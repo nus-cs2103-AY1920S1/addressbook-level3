@@ -52,7 +52,7 @@ public class JsonAdaptedStudentTest {
                 Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, student::toModelType);
     }
-    
+
     @Test
     public void toModelType_nullCredits_throwsIllegalValueException() {
         JsonAdaptedStudent student = new JsonAdaptedStudent(VALID_NAME, null,
