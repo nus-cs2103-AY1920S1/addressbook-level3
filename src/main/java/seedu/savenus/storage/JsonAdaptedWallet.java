@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
 
-import seedu.savenus.model.wallet.CurrentBalance;
+import seedu.savenus.model.wallet.Budget;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.Wallet;
 
@@ -34,8 +34,8 @@ class JsonAdaptedWallet {
      * Converts a given {@code Food} into this class for Jackson use.
      */
     public JsonAdaptedWallet(Wallet source) {
-        currentBalance = String.format("%.02f", source.getCurrentBalance());
-        daysToExpire = String.format("%d", source.getDaysToExpire());
+        currentBalance = String.format("%.02f", source.getBudgetAmount());
+        daysToExpire = String.format("%d", source.getNumberOfDaysToExpire());
     }
 
     /**
@@ -46,13 +46,13 @@ class JsonAdaptedWallet {
     public Wallet toModelType() throws IllegalValueException {
         if (currentBalance == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CurrentBalance.class.getSimpleName()));
+                    Budget.class.getSimpleName()));
         }
-        if (!CurrentBalance.isValidCurrentBalance(currentBalance)) {
-            throw new IllegalValueException(CurrentBalance.MESSAGE_CONSTRAINTS);
+        if (!Budget.isValidBudget(currentBalance)) {
+            throw new IllegalValueException(Budget.MESSAGE_CONSTRAINTS);
         }
 
-        final CurrentBalance modelCurrentBalance = new CurrentBalance(currentBalance);
+        final Budget modelBudget = new Budget(currentBalance);
 
 
         if (daysToExpire == null) {
@@ -65,6 +65,6 @@ class JsonAdaptedWallet {
 
         final DaysToExpire modelDaysToExpire = new DaysToExpire(daysToExpire);
 
-        return new Wallet(modelCurrentBalance, modelDaysToExpire);
+        return new Wallet(modelBudget, modelDaysToExpire);
     }
 }

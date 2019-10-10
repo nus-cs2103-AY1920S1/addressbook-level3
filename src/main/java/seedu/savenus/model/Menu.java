@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
+import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -111,10 +113,17 @@ public class Menu implements ReadOnlyMenu {
     }
 
     /**
-     * Set current balance.
+     * Set current budget.
      */
-    public void setCurrentBalance(String currentBalanceStr) {
-        wallet.setCurrentBalance(currentBalanceStr);
+    public void setBudget(Budget newBudget) {
+        wallet.setBudget(newBudget);
+    }
+
+    /**
+     * Set days to expire.
+     */
+    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
+        wallet.setDaysToExpire(newDaysToExpire);
     }
 
     //// util methods

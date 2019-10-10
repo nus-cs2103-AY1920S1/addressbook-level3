@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.DaysToExpire;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -112,9 +114,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setCurrentBalance(String currentBalanceStr) {
-        requireAllNonNull(currentBalanceStr);
-        menu.setCurrentBalance(currentBalanceStr);
+    public float getBudget() {
+        return menu.getWallet().getBudgetAmount();
+    }
+
+    @Override
+    public void setBudget(Budget newBudget) {
+        requireAllNonNull(newBudget);
+        menu.setBudget(newBudget);
+    }
+
+    @Override
+    public int getDaysToExpire() {
+        return menu.getWallet().getNumberOfDaysToExpire();
+    }
+
+    @Override
+    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
+        requireAllNonNull(newDaysToExpire);
+        menu.setDaysToExpire(newDaysToExpire);
     }
 
     //=========== Filtered Food List Accessors =============================================================

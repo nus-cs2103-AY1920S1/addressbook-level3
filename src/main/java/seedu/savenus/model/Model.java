@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.DaysToExpire;
 
 /**
  * The API of the Model component.
@@ -76,7 +78,14 @@ public interface Model {
      */
     void setFood(Food target, Food editedFood);
 
-    void setCurrentBalance(String currentBalanceStr);
+    float getBudget();
+
+    void setBudget(Budget newBudget);
+
+    int getDaysToExpire();
+
+    void setDaysToExpire(DaysToExpire newDaysToExpire);
+
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();

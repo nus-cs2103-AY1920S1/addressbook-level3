@@ -1,10 +1,7 @@
 package seedu.savenus.model.wallet;
-/*
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-*/
 
 /**
  * Represents a user's Wallet in the application.
@@ -13,65 +10,81 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class Wallet {
     // Default Properties
-    private CurrentBalance currentBalance;
+    private Budget budget;
     private DaysToExpire daysToExpire;
 
-    // private final FloatProperty currentBalanceProperty = new SimpleFloatProperty(0);
-    // private final IntegerProperty daysToExpire = new SimpleIntegerProperty(0);
-
     public Wallet() {
-        this.currentBalance = new CurrentBalance("0");
+        this.budget = new Budget("0");
         this.daysToExpire = new DaysToExpire("0");
     }
 
-    public Wallet(CurrentBalance currentBalance, DaysToExpire daysToExpire) {
-        this.currentBalance = currentBalance;
+    public Wallet(Budget budget, DaysToExpire daysToExpire) {
+        this.budget = budget;
         this.daysToExpire = daysToExpire;
     }
 
-    public float getCurrentBalance() {
-        return currentBalance.getCurrentBalance();
-    }
-
-    public String getFormattedCurrentBalance() {
-        return "$" + currentBalance.toString();
-    }
-
-    public String getFormattedDaysToExpire() {
-        return daysToExpire.toString() + " days";
-    }
-
-    public int getDaysToExpire() {
-        return daysToExpire.getDaysToExpire();
+    /**
+     * Returns Budget property.
+     */
+    public FloatProperty getBudgetProperty() {
+        return budget.getBudgetProperty();
     }
 
 
-    public final void setCurrentBalance(String currentBalanceStr) {
-        this.currentBalance = new CurrentBalance(currentBalanceStr);
+    /**
+     * Return wallet's Budget
+     */
+    public Budget getBudget() {
+        return budget;
     }
 
-    /*
-    public final void setDaysToExpire(String daysToExpireStr) {
-        this.daysToExpire = new DaysToExpire(daysToExpireStr);
+    /**
+     * Returns budget amount.
+     */
+    public float getBudgetAmount() {
+        return budget.getBudget();
     }
 
-    public final FloatProperty getCurrentBalanceProperty() {
-        return currentBalance;
+    /**
+     * Set Budget with user's input.
+     * @param newBudget New Budget created from user's input
+     */
+    public final void setBudget(Budget newBudget) {
+        budget.setBudget(newBudget);
     }
 
-    public final IntegerProperty getDaysToExpireProperty() {
+    /**
+     * Returns DaysToExpire property.
+     */
+    public IntegerProperty getDaysToExpireProperty() {
+        return daysToExpire.getDaysToExpireProperty();
+    }
+
+    /**
+     * Return wallet's DaysToExpire
+     */
+    public DaysToExpire getDaysToExpire() {
         return daysToExpire;
     }
 
-    public void setup(CurrentBalance currentBalance, DaysToExpire daysToExpire) {
-        this.currentBalance = new SimpleFloatProperty(currentBalance.getCurrentBalance());
-        this.daysToExpire = new SimpleIntegerProperty(daysToExpire.getDaysToExpire());
+    /**
+     * Returns number of days to expire.
+     */
+    public int getNumberOfDaysToExpire() {
+        return daysToExpire.getDaysToExpire();
     }
-    */
+
+    /**
+     * Set DaysToExpire with user's input.
+     * @param newDaysToExpire New DaysToExpire created from user's input
+     */
+    public final void setDaysToExpire(DaysToExpire newDaysToExpire) {
+        daysToExpire.setDaysToExpire(newDaysToExpire);
+    }
 
     @Override
     public String toString() {
-        return "Current Balance: " + this.getCurrentBalance() + "\n"
-                + "Days to Expire: " + this.getDaysToExpire();
+        return "Current Budget: " + this.getBudgetAmount() + "\n"
+                + "Days to Expire: " + this.getNumberOfDaysToExpire();
     }
 }
