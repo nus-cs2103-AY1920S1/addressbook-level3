@@ -15,8 +15,8 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
- * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding and updating of
- * cards uses Card#isSameName(Card) for equality so as to ensure that the person being added or updated is
+ * A card is considered unique by comparing using {@code Card#isSameMeaning(Card)}. As such, adding and updating of
+ * cards uses Card#isSameMeaning(Card) for equality so as to ensure that the person being added or updated is
  * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  *
@@ -31,7 +31,7 @@ public class UniqueCardList implements Iterable<Card> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains a card with the same name.
+     * Returns true if the list contains a card with the same meaning.
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);

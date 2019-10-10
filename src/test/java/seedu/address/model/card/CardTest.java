@@ -24,7 +24,7 @@ public class CardTest {
     }
 
     @Test
-    public void isSameMMeaning() {
+    public void isSameMeaning() {
         // same object -> returns true
         assertTrue(ABRA.isSameMeaning(ABRA));
 
