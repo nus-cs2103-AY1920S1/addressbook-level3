@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import mams.commons.exceptions.IllegalValueException;
+import mams.model.student.Credits;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 

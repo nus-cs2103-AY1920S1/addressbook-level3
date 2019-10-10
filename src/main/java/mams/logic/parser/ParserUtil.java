@@ -9,10 +9,10 @@ import java.util.Set;
 import mams.commons.core.index.Index;
 import mams.commons.util.StringUtil;
 import mams.logic.parser.exceptions.ParseException;
+import mams.model.student.Credits;
 import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Credits;
 import mams.model.tag.Tag;
 
 /**
