@@ -2,6 +2,7 @@ package seedu.savenus.testutil;
 
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -39,6 +40,7 @@ public class FoodUtil {
         food.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        sb.append(PREFIX_LOCATION + food.getLocation().location + " ");
         sb.append(PREFIX_OPENING_HOURS + food.getOpeningHours().openingHours + " ");
         sb.append(PREFIX_RESTRICTIONS + food.getRestrictions().restrictions + " ");
         return sb.toString();
@@ -63,6 +65,8 @@ public class FoodUtil {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
         }
+        descriptor.getLocation().ifPresent(location -> sb.append(PREFIX_LOCATION)
+                .append(location.location).append(" "));
         descriptor.getOpeningHours().ifPresent(openingHours -> sb.append(PREFIX_OPENING_HOURS)
                 .append(openingHours.openingHours).append(" "));
         descriptor.getRestrictions().ifPresent(restrictions -> sb.append(PREFIX_RESTRICTIONS)
