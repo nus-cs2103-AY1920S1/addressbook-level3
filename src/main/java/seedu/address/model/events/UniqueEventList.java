@@ -19,7 +19,7 @@ import seedu.address.model.events.exceptions.EventNotFoundException;
  * events uses Event#isSameEvent(Event) for equality so as to ensure that the event being added or updated is
  * unique in terms of identity in the UniqueEventList. However, the removal of a event uses Event#equals(Object) so
  * as to ensure that the event with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Event#isSameEvent(Event)
@@ -123,7 +123,7 @@ public class UniqueEventList implements Iterable<Event> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueEventList // instanceof handles nulls
-                        && internalList.equals(((UniqueEventList) other).internalList));
+                && internalList.equals(((UniqueEventList) other).internalList));
     }
 
     @Override

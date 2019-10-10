@@ -4,17 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.utils.ReversibleCommandStub;
-import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.queue.QueueManager;
-import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 /*
  * Contains integration tests (interaction with the Model and CommandHistory) and unit tests for UndoCommand.
@@ -25,10 +21,8 @@ class UndoCommandTest {
     public void execute_performUndo_success() {
 
         CommandHistory history = new CommandHistory();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
-                new AppointmentBook());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
-                new AppointmentBook());
+        Model model = TestUtil.getTypicalModelManager();
+        Model expectedModel = TestUtil.getTypicalModelManager();
 
         UndoCommand undoCommand = new UndoCommand(history);
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_NO_UNDO_HISTORY_ERROR);

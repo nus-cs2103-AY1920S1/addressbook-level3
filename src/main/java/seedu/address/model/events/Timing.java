@@ -1,9 +1,11 @@
+//shawns version
 package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,7 +15,7 @@ import java.util.Objects;
 public class Timing implements Comparable<Timing> {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "The event start timing must be before the end timing.";
+            "The event start timing must be before the end timing and after current dateTime.";
 
     private final DateTime startTiming;
     private final DateTime endTiming;
@@ -37,7 +39,9 @@ public class Timing implements Comparable<Timing> {
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
         requireAllNonNull(testStart, testEnd);
-        return testStart.before(testEnd);
+        Date current = new Date();
+        return testStart.getTime().before(testEnd.getTime())
+                && testStart.getTime().after(current);
     }
 
     public DateTime getStartTime() {
@@ -86,7 +90,7 @@ public class Timing implements Comparable<Timing> {
 
         Timing otherTiming = (Timing) other;
         return otherTiming.getStartTime().equals(getStartTime())
-            && otherTiming.getEndTime().equals(getEndTime());
+                && otherTiming.getEndTime().equals(getEndTime());
     }
 
     @Override
