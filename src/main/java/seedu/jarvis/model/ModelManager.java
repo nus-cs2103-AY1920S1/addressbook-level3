@@ -20,6 +20,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -147,5 +148,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }

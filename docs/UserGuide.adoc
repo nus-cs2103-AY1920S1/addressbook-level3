@@ -475,6 +475,84 @@ Example: +
 `focus algo` +
 `focus computer graphics`
 
+////
+CCA tracker
+
+Feature by
+-> Tan Ye Kai
+////
+== CCA tracker
+
+=== Add a CCA: `add-cca`
+Add a CCA to a user's list. The user will need to to specify the name of the
+course and the type of CCA. The types of the CCA will be limited to the
+following: PerformingArts, Sports, ClubsSocieties, UniformedGroups
+
+Format: `add-cca n/NAME t/TYPE`
+
+Example: +
+`add-cca n/Canoeing t/Sports` +
+`add-cca n/Guitar Ensemble t/PerformingArts`
+
+
+=== Delete a CCA: `delete-cca`
+Deletes the specified CCA from the user's list. If no such CCA exists, a
+warning is thrown.
+
+Format: `delete-cca n/[NAME]`
+
+Example: +
+`delete-cca n/Canoeing`
+
+
+=== Edit a CCA: `edit-cca`
+Edit the CCA type. If no such CCA exists, a warning is thrown.
+
+Format: `edit-cca n/[NAME]`
+
+Example: +
+`edit-cca n/Canoeing`
+
+
+=== List a CCA: `list-cca`
+List the CCAs that the user is participating in. If user does not participate
+in any CCAs, an empty list will be shown.
+
+Format: `list-cca`
+
+Example: +
+`list-cca`
+
+
+=== Find a CCA: `find-cca`
+Find a CCA based on keyword. If no such CCA can be found, an empty list will
+be shown.
+
+Format: `find-cca k/[KEYWORD]`
+
+Example: +
+`find-cca k/Canoeing`
+
+
+=== Add progress levels for a CCA: `add-progress`
+Add the number of levels of possible progress for the CCA.
+
+Format: `add-progress n/[NAME] l/[LEVELS]`
+
+Example: +
+`add-progress n/Canoeing l/10` +
+`add-progress n/Guitar Ensemble l/8`
+
+
+=== Add equipment needed for a CCA: `add-equipment`
+Add the equipment needed for each CCA.
+
+Format: `add-equipment n/[NAME] e/[EQUIPMENT]`
+
+Example: +
+`add-equipment n/Canoeing e/paddle,boat,life-jacket,sunglasses` +
+`add-equipment n/Guitar Ensemble e/guitar,capo,musical-score`
+
 
 ////
 Undo/Redo
