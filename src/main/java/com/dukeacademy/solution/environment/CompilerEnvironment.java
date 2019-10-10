@@ -1,12 +1,11 @@
 package com.dukeacademy.solution.environment;
 
+import java.io.FileNotFoundException;
+
 import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Represents the environment needed for the compiler create and compile Java files from the user's input.
@@ -17,7 +16,8 @@ public interface CompilerEnvironment {
      * @param program the program to be converted to a Java file.
      * @return the file created.
      */
-    public JavaFile createJavaFile(UserProgram program) throws CompilerFileCreationException, CompilerEnvironmentException;
+    public JavaFile createJavaFile(UserProgram program) throws CompilerFileCreationException,
+            CompilerEnvironmentException;
 
     /**
      * Returns the file corresponding to the name provided.

@@ -3,6 +3,9 @@ package com.dukeacademy.solution.models;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents a java class file in the application.
+ */
 public class ClassFile {
     private String canonicalName;
     private String classPath;

@@ -1,10 +1,5 @@
 package com.dukeacademy.solution.program;
 
-import com.dukeacademy.solution.exceptions.ProgramExecutorException;
-import com.dukeacademy.solution.models.ClassFile;
-import com.dukeacademy.solution.models.ProgramInput;
-import com.dukeacademy.solution.models.ProgramOutput;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,6 +10,14 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dukeacademy.solution.exceptions.ProgramExecutorException;
+import com.dukeacademy.solution.models.ClassFile;
+import com.dukeacademy.solution.models.ProgramInput;
+import com.dukeacademy.solution.models.ProgramOutput;
+
+/**
+ * Standard executor for Java class files used by the application.
+ */
 public class StandardProgramExecutor implements ProgramExecutor {
     private static final String MESSAGE_PROGRAM_EXECUTION_FAILED = "The program failed to execute.";
 
@@ -64,20 +67,23 @@ public class StandardProgramExecutor implements ProgramExecutor {
 
         programOutput.append(outputs.get(0));
 
-        for (int i = 1; i < outputs.size(); i ++) {
+        for (int i = 1; i < outputs.size(); i++) {
             programOutput.appendNewLine(outputs.get(i));
         }
 
         return programOutput;
     }
 
+    /**
+     * Feeds input to an ongoing execution process.
+     */
     private void feedProgramInput(Process process, ProgramInput programInput) throws ProgramExecutorException {
         OutputStream stdin = process.getOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 
         try {
-           writer.write(programInput.getInput());
-           writer.flush();
+            writer.write(programInput.getInput());
+            writer.flush();
 
             writer.close();
         } catch (IOException e) {

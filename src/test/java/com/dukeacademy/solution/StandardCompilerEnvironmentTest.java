@@ -1,14 +1,9 @@
 package com.dukeacademy.solution;
 
-import com.dukeacademy.model.solution.UserProgram;
-import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
-import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
-import com.dukeacademy.solution.models.JavaFile;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,14 +12,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.dukeacademy.model.solution.UserProgram;
+import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerEnvironmentTest {
-    private StandardCompilerEnvironment compilerEnvironment;
-    private Path environmentPath;
-
     @TempDir
     Path temporaryFolder;
+
+    private StandardCompilerEnvironment compilerEnvironment;
+    private Path environmentPath;
 
     @BeforeEach
     void initializeTest() throws CompilerEnvironmentException {
@@ -47,7 +51,7 @@ class StandardCompilerEnvironmentTest {
         assertEquals("Test", createdJavaFile.getCanonicalName());
         assertEquals(environmentPath.toUri().getPath(), createdJavaFile.getClassPath());
 
-        Path javaFilePath = environmentPath.resolve(fileName +  ".java");
+        Path javaFilePath = environmentPath.resolve(fileName + ".java");
 
         File javaFile = javaFilePath.toFile();
         assertTrue(javaFile.exists());
@@ -97,8 +101,8 @@ class StandardCompilerEnvironmentTest {
         assertTrue(fileContent.isPresent());
         assertEquals(content, fileContent.get());
 
-        assertThrows(FileNotFoundException.class,
-                () -> compilerEnvironment.getJavaFile("this.should.throw.an.error"));
+        assertThrows(FileNotFoundException.class, () -> compilerEnvironment
+                .getJavaFile("this.should.throw.an.error"));
     }
 
     @Test

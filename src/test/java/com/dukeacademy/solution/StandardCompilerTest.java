@@ -1,14 +1,8 @@
 package com.dukeacademy.solution;
 
-import com.dukeacademy.solution.compiler.StandardCompiler;
-import com.dukeacademy.solution.exceptions.CompilerException;
-import com.dukeacademy.solution.exceptions.CompilerFileContentException;
-import com.dukeacademy.model.solution.UserProgram;
-import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
-import com.dukeacademy.solution.models.JavaFile;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +11,16 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.dukeacademy.model.solution.UserProgram;
+import com.dukeacademy.solution.compiler.StandardCompiler;
+import com.dukeacademy.solution.exceptions.CompilerException;
+import com.dukeacademy.solution.exceptions.CompilerFileContentException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerTest {
     @TempDir
@@ -42,7 +45,8 @@ class StandardCompilerTest {
     }
 
     @Test
-    void compileProgram() throws CompilerException, CompilerFileContentException, IOException, CompilerFileCreationException {
+    void compileProgram() throws CompilerException, CompilerFileContentException,
+            IOException, CompilerFileCreationException {
         JavaFile validJavaFile = this.createJavaFile(validProgram);
         standardCompiler.compileJavaFile(validJavaFile);
 
@@ -60,7 +64,13 @@ class StandardCompilerTest {
 
     }
 
-    private JavaFile createJavaFile(UserProgram program) throws IOException, CompilerFileCreationException {
+    /**
+     * Creates a Java file for the purposes of the test.
+     * @param program program to be written into the Java file.
+     * @return a JavaFile instance.
+     * @throws CompilerFileCreationException if file creation fails.
+     */
+    JavaFile createJavaFile(UserProgram program) throws IOException, CompilerFileCreationException {
         String path = environmentPath.resolve(program.getClassName() + ".java").toUri().getPath();
         File file = new File(path);
 
@@ -70,12 +80,16 @@ class StandardCompilerTest {
             throw new CompilerFileCreationException("Unable to create file");
         }
 
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        Writer fileWriter = new OutputStreamWriter(fileOutputStream);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            Writer fileWriter = new OutputStreamWriter(fileOutputStream);
 
-        fileWriter.write(program.getSourceCodeAsString());
+            fileWriter.write(program.getSourceCodeAsString());
 
-        fileWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new CompilerFileCreationException("Unable to create file.");
+        }
 
         return new JavaFile(program.getClassName(), environmentPath.toUri().getPath());
     }

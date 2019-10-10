@@ -1,11 +1,5 @@
 package com.dukeacademy.solution.environment;
 
-import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.solution.UserProgram;
-import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
-import com.dukeacademy.solution.models.JavaFile;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,16 +14,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.model.solution.UserProgram;
+import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.models.JavaFile;
+
 /**
  * The standard environment class used by the compiler to perform file management.
  */
 public class StandardCompilerEnvironment implements CompilerEnvironment {
-    private String MESSAGE_NO_PERMISSIONS = "Not permitted to create compiler environment in the following location.";
-    private String MESSAGE_JAVA_FILE_NOT_FOUND = "No such file found in the compiler environment.";
-    private String MESSAGE_CREATE_ENVIRONMENT_FAILED = "Failed to create compiler environment.";
-    private String MESSAGE_CREATE_JAVA_FILE_FAILED = "Failed to create java file";
-    private String MESSAGE_WRITE_JAVA_FILE_FAILED = "Failed to write to java file";
-    private String MESSAGE_CLEAR_ENVIRONMENT_FAILED = "Compiler environment not cleared, remnant files may persist";
+    private static String messageNoPermissions = "Not permitted to create compiler environment in "
+            + "the following location";
+    private static String messageJavaFileNotFound = "No such file found in the compiler environment";
+    private static String messageCreateEnvironmentFailed = "Failed to create compiler environment";
+    private static String messageCreateJavaFileFailed = "Failed to create java file";
+    private static String messageWriteJavaFileFailed = "Failed to write to java file";
+    private static String messageClearEnvironmentFailed = "Compiler environment not cleared, "
+            + "remnant files may persist";
 
     private Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
     private Path locationPath;
@@ -46,11 +48,11 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             String directoryPath = this.locationPath.toUri().getPath();
             isCreateDirectorySuccessful = new File(directoryPath).mkdir();
         } catch (SecurityException e) {
-            throw new CompilerEnvironmentException(MESSAGE_NO_PERMISSIONS, e);
+            throw new CompilerEnvironmentException(messageNoPermissions, e);
         }
 
         if (!isCreateDirectorySuccessful) {
-            throw new CompilerEnvironmentException(MESSAGE_CREATE_ENVIRONMENT_FAILED);
+            throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
         }
     }
 
@@ -63,7 +65,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         try {
             this.clearEnvironment();
         } catch (CompilerEnvironmentException e) {
-            throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+            throw new CompilerFileCreationException(messageCreateJavaFileFailed);
         }
 
         String name = program.getClassName();
@@ -78,11 +80,11 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         try {
             isFileCreationSuccessful = file.createNewFile();
         } catch (IOException e) {
-            throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+            throw new CompilerFileCreationException(messageCreateJavaFileFailed);
         }
 
         if (!isFileCreationSuccessful) {
-            throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+            throw new CompilerFileCreationException(messageCreateJavaFileFailed);
         }
 
         try {
@@ -98,7 +100,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             return javaFile;
         } catch (IOException e) {
             this.clearDirectoryAfterFileWriteFailed();
-            throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+            throw new CompilerFileCreationException(messageCreateJavaFileFailed);
         }
     }
 
@@ -111,6 +113,12 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         return packageStatement.replace("package", "").trim() + "." + name;
     }
 
+    /**
+     * Creates a java file in the environment from the file's canonical name.
+     * @param canonicalName the canonical name of the file to be created.
+     * @return the created file.
+     * @throws CompilerFileCreationException if the file fails to be created.
+     */
     private File createFile(String canonicalName) throws CompilerFileCreationException {
         String[] nestedFiles = canonicalName.split("\\.");
         int numNestedFiles = nestedFiles.length;
@@ -124,18 +132,23 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             filePath = filePath.resolve(nestedFiles[i]);
 
             if (!filePath.toFile().mkdir()) {
-                throw new CompilerFileCreationException(MESSAGE_CREATE_JAVA_FILE_FAILED);
+                throw new CompilerFileCreationException(messageCreateJavaFileFailed);
             }
         }
 
         return filePath.resolve(nestedFiles[numNestedFiles - 1] + ".java").toFile();
     }
 
+    /**
+     * Clears the directory of the empty java file if the contents fail to be written into it.
+     * @throws CompilerFileCreationException if the directory fails to be cleared.
+     */
     private void clearDirectoryAfterFileWriteFailed() throws CompilerFileCreationException {
         try {
             this.clearEnvironment();
         } catch (CompilerEnvironmentException e) {
-            throw new CompilerFileCreationException(MESSAGE_WRITE_JAVA_FILE_FAILED + " " + MESSAGE_CLEAR_ENVIRONMENT_FAILED);
+            throw new CompilerFileCreationException(messageWriteJavaFileFailed + " "
+                    + messageClearEnvironmentFailed);
         }
     }
 
@@ -145,7 +158,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                 .filter(javaFile -> javaFile.getCanonicalName().equals(canonicalName))
                 .findFirst();
 
-        return file.orElseThrow(() -> new FileNotFoundException(MESSAGE_JAVA_FILE_NOT_FOUND));
+        return file.orElseThrow(() -> new FileNotFoundException(messageJavaFileNotFound));
     }
 
     @Override
@@ -159,7 +172,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
             this.createdFiles = new ArrayList<>();
         } catch (IOException e) {
-            throw new CompilerEnvironmentException(MESSAGE_CLEAR_ENVIRONMENT_FAILED);
+            throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
         }
     }
 
@@ -172,7 +185,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                     .forEach(File::delete);
             this.createdFiles = new ArrayList<>();
         } catch (IOException e) {
-            logger.fine(MESSAGE_CLEAR_ENVIRONMENT_FAILED);
+            logger.fine(messageClearEnvironmentFailed);
         }
     }
 }
