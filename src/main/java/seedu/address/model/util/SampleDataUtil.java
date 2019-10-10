@@ -6,44 +6,46 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Student;
-import seedu.address.model.person.Phone;
+import seedu.address.model.student.Address;
+import seedu.address.model.student.Email;
+import seedu.address.model.student.MedicalCondition;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.ParentPhone;
+import seedu.address.model.student.Phone;
+import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Student[] getSamplePersons() {
+    public static Student[] getSampleStudents() {
         return new Student[] {
             new Student(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                    new ParentPhone("91111111"), new Address("Blk 30 Geylang Street 29, #06-40"),
+                    new MedicalCondition("Sinus"), getTagSet("friends")),
             new Student(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
+                    new ParentPhone("92222222"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                    new MedicalCondition("Asthma"), getTagSet("colleagues", "friends")),
             new Student(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
+                    new ParentPhone("93333333"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    new MedicalCondition("Heart Attack"), getTagSet("neighbours")),
             new Student(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
+                    new ParentPhone("94444444"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                    new MedicalCondition("Pimples"), getTagSet("family")),
             new Student(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
+                    new ParentPhone("95555555"), new Address("Blk 47 Tampines Street 20, #17-35"),
+                    new MedicalCondition("HIV"), getTagSet("classmates")),
             new Student(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                    new ParentPhone("96666666"), new Address("Blk 45 Aljunied Street 85, #11-31"),
+                    new MedicalCondition("Herpes"), getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Student samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Student sampleStudent : getSampleStudents()) {
+            sampleAb.addStudent(sampleStudent);
         }
         return sampleAb;
     }
