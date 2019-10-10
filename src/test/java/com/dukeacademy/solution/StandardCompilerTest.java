@@ -18,12 +18,12 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CompilerTest {
+class StandardCompilerTest {
     @TempDir
     Path tempFolder;
     private Path environmentPath;
 
-    private Compiler compiler;
+    private StandardCompiler standardCompiler;
 
     private UserProgram validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
             + "\tpublic static void main(String args[]) {"
@@ -35,7 +35,7 @@ class CompilerTest {
 
     @BeforeEach
     void initializeTest() {
-        compiler = new Compiler();
+        standardCompiler = new StandardCompiler();
         environmentPath = tempFolder.resolve("compiler");
         environmentPath.toFile().mkdir();
     }
@@ -43,7 +43,7 @@ class CompilerTest {
     @Test
     void compileProgram() throws CompilerException, CompilerFileContentException, IOException, CompilerFileCreationException {
         JavaFile validJavaFile = this.createJavaFile(validProgram);
-        compiler.compileProgram(validJavaFile);
+        standardCompiler.compileJavaFile(validJavaFile);
 
         Path validJavaFilePath = environmentPath.resolve(validProgram.getClassName() + ".java");
         Path validClassFilePath = environmentPath.resolve(validProgram.getClassName() + ".class");
@@ -52,7 +52,7 @@ class CompilerTest {
         assertTrue(validClassFilePath.toFile().exists());
 
         JavaFile invalidJavaFile = this.createJavaFile(invalidProgram);
-        assertThrows(CompilerFileContentException.class, () -> compiler.compileProgram(invalidJavaFile));
+        assertThrows(CompilerFileContentException.class, () -> standardCompiler.compileJavaFile(invalidJavaFile));
         Path invalidClassFilePath = environmentPath.resolve(invalidProgram.getClassName() + ".class");
 
         assertFalse(invalidClassFilePath.toFile().exists());

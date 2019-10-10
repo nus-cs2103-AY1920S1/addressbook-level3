@@ -1,14 +1,11 @@
 package com.dukeacademy.solution;
 
-import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;
 import com.dukeacademy.solution.models.ProgramInput;
 import com.dukeacademy.solution.models.ProgramOutput;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,8 +15,8 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProgramExecutorTest {
-    static ProgramExecutor executor;
+class StandardProgramExecutorTest {
+    static StandardProgramExecutor executor;
 
     static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms");
     static String noInputTestName = "NoInputTest";
@@ -34,7 +31,7 @@ class ProgramExecutorTest {
         noInputTestOutput = Files.readString(testProgramRootFolder.resolve("NoInputTestResult.txt"));
         withInputTestOutput = Files.readString(testProgramRootFolder.resolve("WithInputTestResult.txt"));
         input = Files.readString(testProgramRootFolder.resolve("Input.txt"));
-        executor = new ProgramExecutor();
+        executor = new StandardProgramExecutor();
     }
 
     @Test
