@@ -1,6 +1,5 @@
-package com.dukeacademy.solution;
+package com.dukeacademy.solution.program;
 
-import com.dukeacademy.solution.exceptions.FileNotClassException;
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;
 import com.dukeacademy.solution.models.ProgramInput;
@@ -8,7 +7,6 @@ import com.dukeacademy.solution.models.ProgramOutput;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

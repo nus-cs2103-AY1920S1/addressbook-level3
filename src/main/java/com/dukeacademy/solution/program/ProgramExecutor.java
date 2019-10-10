@@ -1,4 +1,4 @@
-package com.dukeacademy.solution;
+package com.dukeacademy.solution.program;
 
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;

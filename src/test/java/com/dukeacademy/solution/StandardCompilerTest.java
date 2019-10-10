@@ -1,5 +1,6 @@
 package com.dukeacademy.solution;
 
+import com.dukeacademy.solution.compiler.StandardCompiler;
 import com.dukeacademy.solution.exceptions.CompilerException;
 import com.dukeacademy.solution.exceptions.CompilerFileContentException;
 import com.dukeacademy.model.solution.UserProgram;

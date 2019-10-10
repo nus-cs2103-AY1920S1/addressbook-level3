@@ -1,4 +1,4 @@
-package com.dukeacademy.solution;
+package com.dukeacademy.solution.environment;
 
 import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;

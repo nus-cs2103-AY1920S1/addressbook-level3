@@ -1,7 +1,7 @@
 package com.dukeacademy.solution;
 
 import com.dukeacademy.model.solution.UserProgram;
-import com.dukeacademy.solution.StandardCompilerEnvironment;
+import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;

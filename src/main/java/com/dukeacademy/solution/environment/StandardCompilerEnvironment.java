@@ -1,4 +1,4 @@
-package com.dukeacademy.solution;
+package com.dukeacademy.solution.environment;
 
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.solution.UserProgram;

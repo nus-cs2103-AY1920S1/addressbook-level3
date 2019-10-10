@@ -1,4 +1,4 @@
-package com.dukeacademy.solution;
+package com.dukeacademy.solution.compiler;
 
 import com.dukeacademy.solution.exceptions.CompilerFileContentException;
 import com.dukeacademy.solution.exceptions.CompilerException;
