@@ -28,6 +28,8 @@ import seedu.address.model.show.Date;
 import seedu.address.model.show.IsWatched;
 import seedu.address.model.actor.Actor;
 
+import javax.print.attribute.standard.MediaSize;
+
 /**
  * Edits the details of an existing show in the watchlist.
  */
@@ -129,7 +131,7 @@ public class EditCommand extends Command {
      * Stores the details to edit the show with. Each non-empty field value will replace the
      * corresponding field value of the show.
      */
-    public static class EditPersonDescriptor {
+    public static class EditShowDescriptor {
         private Name name;
         private Date dateOfRelease;
         private IsWatched isWatched;
@@ -167,45 +169,53 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setDateOfRelease(Date dateOfRelease) {
+            this.dateOfRelease = dateOfRelease;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Date> getDateOfRelease() {
+            return Optional.ofNullable(dateOfRelease);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setIsWatched(IsWatched isWatched) {
+            this.isWatched = isWatched;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<IsWatched> getIsWatched() {
+            return Optional.ofNullable(isWatched);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        public void setRunningTime(RunningTime runningTime) {
+            this.runningTime = runningTime;
+        }
+
+        public Optional<RunningTime> getRunningTime() {
+            return Optional.ofNullable(runningTime);
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code actors} to this object's {@code actors}.
+         * A defensive copy of {@code actors} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setActors(Set<Actor> actors) {
+            this.actors = (actors != null) ? new HashSet<>(actors) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable actor set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code actor} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Actor>> getActors() {
+            return (actors != null) ? Optional.of(Collections.unmodifiableSet(actors)) : Optional.empty();
         }
 
         @Override
@@ -216,18 +226,20 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditShowDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditShowDescriptor e = (EditShowDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getDateOfRelease().equals(e.getDateOfRelease())
+                    && getIsWatched().equals(e.getIsWatched())
+                    && getDescription().equals(e.getDescription())
+                    && getRunningTime().equals(e.getRunningTime())
+                    && getActors().equals(e.getActors());
+
         }
     }
 }

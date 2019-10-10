@@ -1,60 +1,63 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTOR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.show.Show;
 
 /**
- * Adds a person to the address book.
+ * Adds a show to the watchlist.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a show to the watchlist. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE "
+            + PREFIX_IS_WATCHED + "WATCHED? "
+            + PREFIX_RUNNING_TIME + "RUNNING TIME "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + "[" + PREFIX_ACTOR + "ACTOR]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Joker "
+            + PREFIX_DATE_OF_RELEASE + "4 October 2019 "
+            + PREFIX_IS_WATCHED + "true "
+            + PREFIX_RUNNING_TIME + "122 "
+            + PREFIX_DESCRIPTION + "Joker is funny "
+            + PREFIX_ACTOR + "Joaquin Phoenix"
+            + PREFIX_ACTOR + "Robert De Niro";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New show added: %1$s";
+    public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist";
 
-    private final Person toAdd;
+    private final Show toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Show}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Show show) {
+        requireNonNull(show);
+        toAdd = show;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasShow(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
 
-        model.addPerson(toAdd);
+        model.addShow(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

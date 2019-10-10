@@ -9,12 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
+import seedu.address.model.show.Show;
+import seedu.address.model.show.Name;
+import seedu.address.model.show.Date;
+import seedu.address.model.show.IsWatched;
+import seedu.address.model.show.Description;
+import seedu.address.model.show.RunningTime;
+import seedu.address.model.actor.Actor;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -51,74 +52,89 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String date} into a {@code date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Date(trimmedDate);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String isWatched} into an {@code IsWatched}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code isWatched} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static IsWatched parseIsWatched(String isWatched) throws ParseException {
+        requireNonNull(isWatched);
+        String trimmedIsWatched = isWatched.trim();
+        if (!IsWatched.isValidIsWatched(Boolean.parseBoolean(trimmedIsWatched))) {
+            throw new ParseException(IsWatched.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new IsWatched(Boolean.parseBoolean(trimmedIsWatched));
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String description} into an {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Description(trimmedDescription);
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String runningTime} into an {@code RunningTIME}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code runningTime} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static RunningTime parseRunningTime(String runningTime) throws ParseException {
+        requireNonNull(runningTime);
+        String trimmedRunningTime = runningTime.trim();
+        if (!RunningTime.isValidRunningTime(Integer.parseInt(trimmedRunningTime))) {
+            throw new ParseException(RunningTime.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new RunningTime(Integer.parseInt(trimmedRunningTime));
+    }
+    
+    /**
+     * Parses a {@code String actor} into a {@code Actor}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code actor} is invalid.
+     */
+    public static Actor parseActor(String actor) throws ParseException {
+        requireNonNull(actor);
+        String trimmedActor = actor.trim();
+        if (!Actor.isValidActorName(trimmedActor)) {
+            throw new ParseException(Actor.MESSAGE_CONSTRAINTS);
+        }
+        return new Actor(trimmedActor);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> actors} into a {@code Set<Actor>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Actor> parseActors(Collection<String> actors) throws ParseException {
+        requireNonNull(actors);
+        final Set<Actor> actorSet = new HashSet<>();
+        for (String actorName : actors) {
+            actorSet.add(parseActor(actorName));
         }
-        return tagSet;
+        return actorSet;
     }
 }
