@@ -1,18 +1,20 @@
 package seedu.billboard.logic.parser;
 
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**

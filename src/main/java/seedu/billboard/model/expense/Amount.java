@@ -2,23 +2,29 @@ package seedu.billboard.model.expense;
 
 import java.text.DecimalFormat;
 
+/**
+ * Represents an Expense's amount in Billboard.
+ * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}}
+ */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain a float number and it should not be blank";
 
-//TODO: Add parsing money logic
-    public float amount;
+    //TODO: Add parsing money logic
+    public final float amount;
 
     public Amount(String amount) {
         this.amount = Float.parseFloat(amount);
     }
 
+    /**
+     * Returns true if a given string is a valid amount.
+     */
     public static boolean isValidAmount(String test) {
         try {
             Float.parseFloat(test);
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

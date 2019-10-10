@@ -10,7 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -29,7 +32,8 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
+    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("description") String description,
+                              @JsonProperty("amount") String amount,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
@@ -71,7 +75,8 @@ class JsonAdaptedExpense {
         final Name modelName = new Name(name);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
