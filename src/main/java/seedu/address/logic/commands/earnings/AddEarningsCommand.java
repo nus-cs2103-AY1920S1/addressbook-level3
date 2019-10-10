@@ -30,7 +30,13 @@ public class AddEarningsCommand extends Command {
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Add earnings command not implemented yet";
     public static final String MESSAGE_ARGUMENTS = "Date: %1$10s, Module: %2$s, Amount: $ %3$.2f";
+
+    public static final String MESSAGE_DETAILS = "Please follow the given format";
     // For date, maybe can use this instead --> %tm/%td/%ty
+
+    public int getNumber() {
+        return 5;
+    }
 
     /*private final String date;
     private final String module;
