@@ -6,12 +6,12 @@ import seedu.address.model.Model;
 import seedu.address.model.wordbank.WordBank;
 
 /**
- * Clears the address book.
+ * Clears the word bank.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends AppCommand {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
 
 
     @Override

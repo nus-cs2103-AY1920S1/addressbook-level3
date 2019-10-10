@@ -193,9 +193,11 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            //timerDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
             gameTimer = new GameTimer("Time left", 800, timerDisplay);
+            gameTimer.run();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -208,9 +210,12 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+
             resultDisplay.setFeedbackToUser(e.getMessage());
+
             gameTimer = new GameTimer(
                     "Clearing Result Display in", 800, timerDisplay);
+            gameTimer.run();
             throw e;
         }
     }

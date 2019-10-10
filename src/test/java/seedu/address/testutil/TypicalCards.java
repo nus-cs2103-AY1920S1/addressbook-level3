@@ -12,34 +12,34 @@ import seedu.address.model.wordbank.WordBank;
  */
 public class TypicalCards {
 
-    public static final Card ABRA = new CardBuilder().withName("Abra")
+    public static final Card ABRA = new CardBuilder().withWord("Abra")
             .withMeaning("It sleeps eighteen hours a day, but employs telekinesis even while sleeping.")
             .withTags("psychic").build();
-    public static final Card BUTTERFREE = new CardBuilder().withName("Butterfree")
+    public static final Card BUTTERFREE = new CardBuilder().withWord("Butterfree")
             .withMeaning("Its wings are covered with poisonous dust. If you see one flapping its wings, "
                     + "be careful not to inhale any of the dust.")
             .withTags("bug", "flying").build();
-    public static final Card CHARIZARD = new CardBuilder().withName("Charizard")
+    public static final Card CHARIZARD = new CardBuilder().withWord("Charizard")
             .withMeaning("It flies around the sky in search of powerful opponents. It breathes fire of such "
                     + "great heat that it melts anything. However, it never turns its fiery breath on any opponent "
                     + "weaker than itself.")
             .withTags("fire", "flying")
             .build();
-    public static final Card DITTO = new CardBuilder().withName("Ditto")
+    public static final Card DITTO = new CardBuilder().withWord("Ditto")
             .withMeaning("Its transformation ability is perfect. However, if it is made to laugh, it can't "
                     + "maintain its disguise.")
             .withTags("normal").build();
-    public static final Card EEVEE = new CardBuilder().withName("Eevee")
+    public static final Card EEVEE = new CardBuilder().withWord("Eevee")
             .withMeaning("Possessing an unbalanced and unstable genetic makeup, it conceals many possible "
                     + "evolutions")
             .withTags("normal")
             .build();
-    public static final Card FLAREON = new CardBuilder().withName("Flareon")
+    public static final Card FLAREON = new CardBuilder().withWord("Flareon")
             .withMeaning("It fluffs out its fur collar to cool down its body temperature, which can reach "
                     + "1,650 degrees.")
             .withTags("fire")
             .build();
-    public static final Card GEODUDE = new CardBuilder().withName("Geodude")
+    public static final Card GEODUDE = new CardBuilder().withWord("Geodude")
             .withMeaning("At rest, it looks just like a rock. Carelessly stepping on it will make it swing "
                     + "its fists angrily.")
             .withTags("ground", "rock")
