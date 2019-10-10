@@ -7,10 +7,16 @@ import seedu.jarvis.model.cca.Cca;
  */
 public class TypicalCcas {
 
-    public static final Cca CANOEING = new CcaBuilder().withName("Canoeing")
+    public static final Cca CANOEING = new CcaBuilder()
+            .withName("Canoeing")
+            .withType("sport")
+            .withEquipmentList()
             .build();
 
-    public static final Cca GUITAR_ENSEMBLE = new CcaBuilder().withName("Guitar Ensemble")
+    public static final Cca GUITAR_ENSEMBLE = new CcaBuilder()
+            .withName("Guitar Ensemble")
+            .withType("performingArt")
+            .withEquipmentList()
             .build();
 
     private TypicalCcas() {} // prevents instantiation

@@ -28,8 +28,8 @@ public class CcaTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Cca aliceCopy = new CcaBuilder(CANOEING).build();
-        assertTrue(CANOEING.equals(aliceCopy));
+        Cca canoeingCopy = new CcaBuilder(CANOEING).build();
+        assertTrue(CANOEING.equals(canoeingCopy));
 
         // same object -> returns true
         assertTrue(CANOEING.equals(CANOEING));
