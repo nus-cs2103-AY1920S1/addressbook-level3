@@ -2,12 +2,12 @@ package seedu.billboard.testutil;
 
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 
 import java.util.ArrayList;
 import java.util.Arrays;

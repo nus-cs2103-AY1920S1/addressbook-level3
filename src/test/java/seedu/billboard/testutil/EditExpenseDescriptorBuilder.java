@@ -6,8 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
