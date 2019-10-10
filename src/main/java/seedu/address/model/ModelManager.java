@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Policy> filteredPolicies;
 
+    // TODO: getPolicies method
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -34,6 +35,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        // TODO: add get filtered policies here
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -170,6 +172,7 @@ public class ModelManager implements Model {
         return filteredPolicies;
     }
 
+    // TODO: Show list of policies instead.
     @Override
     public void updateFilteredPolicyList(Predicate<Policy> predicate) {
         requireNonNull(predicate);

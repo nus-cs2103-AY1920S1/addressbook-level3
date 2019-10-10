@@ -1,8 +1,13 @@
 {
   "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
-  } ]
+    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "nric" : "S000001J",
+    "phone": "94824245",
+    "email": "hans@example.com",
+    "address": "4th street",
+    "date of birth" : "12.12.1992",
+    "policies": [ {} ],
+    "tagged": [ ]
+  } ],
+  "policies" : [ ]
 }

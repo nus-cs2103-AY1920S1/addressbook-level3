@@ -94,10 +94,10 @@ Examples:
 Shows a list of all persons currently stored. +
 Format: `listpeople`
 
-=== Listing all policies : `listpolicies`
+=== Listing all policies : `listpolicy`
 
 Shows a list of all current policies. +
-Format: `listpolicies`
+Format: `listpolicy`
 
 === Editing a person : `edit`
 
@@ -206,7 +206,7 @@ Format: `findpolicyholders INDEX`
 
 Examples:
 
-* `listpolicies` +
+* `listpolicy` +
 `findpolicyholders 1` +
 Finds all people who are in current possession of the 1st policy in the list of policies.
 
@@ -300,7 +300,7 @@ Format: `addpolicytag INDEX t/TAG [MORE_TAGS]`
 
 Examples:
 
-* `listpolicies` +
+* `listpolicy` +
 `addpolicytag 2 t/lifeinsurance` +
 Adds a `lifeinsurance` tag to the 2nd policy in the list of polciies.
 * `findpolicy Betsy` +
@@ -321,7 +321,7 @@ Format: `addpolicycriteria INDEX cri/CRITERIA [MORE_CRITERIA]`
 
 Examples:
 
-* `listpolicies` +
+* `listpolicy` +
 `addpolicycriteria 2 t/nonsmoker` +
 Adds a `nonsmoker` criteria to the 2nd policy in the list of policies.
 * `findpolicy Betsy` +
@@ -362,7 +362,7 @@ Format: `deletepolicy INDEX`
 
 Examples:
 
-* `listpolicies` +
+* `listpolicy` +
 `deletepolicy 2` +
 Deletes the 2nd policy in the list of policies.
 * `findpolicy senior` +
@@ -426,7 +426,7 @@ Format: `deletepolicytag INDEX t/TAG [MORE_TAGS]`
 
 Examples:
 
-* `listpolicies` +
+* `listpolicy` +
 `deletepolicytag 2 t/high_priority` +
 Deletes a `high_priority` tag from the 2nd policy in the list of policies.
 * `findpolicy Senior` +
@@ -812,7 +812,7 @@ e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, 
 * *Add Policy* `addpolicy  add pol n/NAME d/DESCRIPTION c/c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]  p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...` +
 e.g. `add pol n/SeniorCare d/care for seniors c/months/10 p/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
-* *List Policies* : `listpolicies`
+* *List Policy* : `listpolicy`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [p/PRICE]` +

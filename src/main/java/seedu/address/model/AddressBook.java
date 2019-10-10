@@ -34,7 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Persons and Policies in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -58,6 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setPolicies(newData.getPolicyList());
     }
 
     //// person-level operations
@@ -126,7 +127,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Replaces the contents of the policies list with {@code policies}.
+     * {@code policies} must not contain duplicate policies.
+     */
+    public void setPolicies(List<Policy> policies) {
+        this.policies.setPolicies(policies);
+    }
+
+    /* Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePolicy(Policy key) {

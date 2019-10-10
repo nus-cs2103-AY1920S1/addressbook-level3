@@ -32,7 +32,6 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private DateOfBirth dateOfBirth;
-    // TODO: Policies should be hashtable instead of set
     private Set<Policy> policies;
     private Set<Tag> tags;
 
