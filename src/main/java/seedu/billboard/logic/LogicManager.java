@@ -14,7 +14,7 @@ import seedu.billboard.logic.parser.BillboardParser;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.storage.Storage;
 
 /**

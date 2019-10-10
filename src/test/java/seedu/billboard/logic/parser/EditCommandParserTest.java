@@ -30,8 +30,8 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
-import seedu.billboard.model.person.Amount;
-import seedu.billboard.model.person.Name;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 

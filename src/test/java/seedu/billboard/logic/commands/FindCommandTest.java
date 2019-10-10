@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
-import seedu.billboard.model.person.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

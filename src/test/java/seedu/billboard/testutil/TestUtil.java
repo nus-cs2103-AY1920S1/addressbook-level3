@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.model.Model;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * A utility class for test cases.

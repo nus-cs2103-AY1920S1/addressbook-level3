@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.model.person.*;
+import seedu.billboard.model.expense.*;
 import seedu.billboard.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Expense}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
@@ -26,11 +26,11 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given expense details.
+     * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("amount") String amount,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
         this.amount = amount;
@@ -42,7 +42,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Expense} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Expense source) {
+    public JsonAdaptedExpense(Expense source) {
         name = source.getName().name;
         description = source.getDescription().description;
         amount = source.getAmount().toString();

@@ -20,7 +20,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.*;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class AddCommandTest {

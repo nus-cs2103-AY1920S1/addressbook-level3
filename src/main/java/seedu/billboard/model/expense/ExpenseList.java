@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.billboard.model.person.exceptions.DuplicatePersonException;
-import seedu.billboard.model.person.exceptions.PersonNotFoundException;
+import seedu.billboard.model.expense.exceptions.DuplicatePersonException;
+import seedu.billboard.model.expense.exceptions.PersonNotFoundException;
 
 /**
  * A list of expenses. The expenses are unique as specified by the {@code equals} method of the {@code Expense} class
@@ -47,7 +47,7 @@ public class ExpenseList implements Iterable<Expense> {
      * {@code target} must exist in the list.
      * The record {@code editedExpense} must not be the same as another existing record in the list.
      */
-    public void setPerson(Expense target, Expense editedExpense) {
+    public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
 
         int index = internalList.indexOf(target);
@@ -73,7 +73,7 @@ public class ExpenseList implements Iterable<Expense> {
         }
     }
 
-    public void setPersons(ExpenseList replacement) {
+    public void setExpenses(ExpenseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -82,7 +82,7 @@ public class ExpenseList implements Iterable<Expense> {
      * Replaces the contents of this list with {@code expense}.
      * {@code expense} must not contain duplicate expense.
      */
-    public void setPersons(List<Expense> expense) {
+    public void setExpenses(List<Expense> expense) {
         requireAllNonNull(expense);
         if (!expensesAreUnique(expense)) {
             throw new DuplicatePersonException();

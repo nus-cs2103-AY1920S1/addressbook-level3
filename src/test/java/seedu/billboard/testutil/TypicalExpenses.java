@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.billboard.model.Billboard;
-import seedu.billboard.model.person.Expense;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.

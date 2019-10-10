@@ -4,13 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.person.*;
+import seedu.billboard.model.expense.*;
 import seedu.billboard.model.tag.Tag;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.billboard.model.person;
+package seedu.billboard.model.expense;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.AppUtil.checkArgument;
