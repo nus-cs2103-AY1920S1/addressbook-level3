@@ -26,7 +26,7 @@ class EventTest {
         Date end = new Date(2019, 10, 11);
 
         Event e = new Event("homework", start, end);
-        e.addPriority("weekly");
+        e.addFrequency("weekly");
         assertNotNull(e.frequency);
     }
 

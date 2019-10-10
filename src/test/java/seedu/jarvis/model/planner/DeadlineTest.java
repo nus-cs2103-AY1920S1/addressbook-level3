@@ -25,7 +25,7 @@ class DeadlineTest {
     void addFrequency() {
         Date due = new Date(2019, 10, 10);
         Deadline d = new Deadline("homework", due);
-        d.addPriority("weekly");
+        d.addFrequency("weekly");
         assertNotNull(d.frequency);
     }
 
