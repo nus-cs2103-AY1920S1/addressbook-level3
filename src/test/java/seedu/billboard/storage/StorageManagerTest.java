@@ -2,7 +2,7 @@ package seedu.billboard.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.billboard.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.billboard.commons.core.GuiSettings;
-import seedu.billboard.model.AddressBook;
-import seedu.billboard.model.ReadOnlyAddressBook;
+import seedu.billboard.model.Billboard;
+import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonBillboardStorage addressBookStorage = new JsonBillboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void billboardReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonBillboardStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonBillboardStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        Billboard original = getTypicalBillboard();
+        storageManager.saveBillboard(original);
+        ReadOnlyBillboard retrieved = storageManager.readBillboard().get();
+        assertEquals(original, new Billboard(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getBillboardFilePath() {
+        assertNotNull(storageManager.getBillboardFilePath());
     }
 
 }

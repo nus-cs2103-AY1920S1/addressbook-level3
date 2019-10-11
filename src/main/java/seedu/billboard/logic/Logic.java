@@ -7,8 +7,8 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.ReadOnlyAddressBook;
-import seedu.billboard.model.person.Person;
+import seedu.billboard.model.ReadOnlyBillboard;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * API of the Logic component
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Billboard.
      *
-     * @see seedu.billboard.model.Model#getAddressBook()
+     * @see seedu.billboard.model.Model#getBillboard()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyBillboard getBillboard();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Expense> getFilteredExpenseList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' billboard file path.
      */
-    Path getAddressBookFilePath();
+    Path getBillboardFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

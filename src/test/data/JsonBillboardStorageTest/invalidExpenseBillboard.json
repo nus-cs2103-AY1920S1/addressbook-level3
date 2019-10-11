@@ -1,0 +1,7 @@
+{
+  "expenses": [ {
+    "name": "Expense with invalid name field: Ha!ns Mu@ster",
+    "description": "blaaaa",
+    "amount": "123,45"
+  } ]
+}

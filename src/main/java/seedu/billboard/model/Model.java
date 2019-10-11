@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
-import seedu.billboard.model.person.Person;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,51 +37,51 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getBillboardFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBillboardFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code billboard}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setBillboard(ReadOnlyBillboard billboard);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Billboard */
+    ReadOnlyBillboard getBillboard();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasExpense(Expense expense);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given expense.
+     * The expense must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteExpense(Expense target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given expense.
+     * {@code expense} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addExpense(Expense expense);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given expense {@code target} with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The expense {@code editedExpense} must not be the same as another existing expense in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setExpense(Expense target, Expense editedExpense);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Expense> getFilteredExpenses();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredExpenses(Predicate<Expense> predicate);
 }

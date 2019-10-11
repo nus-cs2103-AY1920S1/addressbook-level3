@@ -1,0 +1,24 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "expenses" : [ {
+    "name" : "monthly bills",
+    "description" : "pay phone company",
+    "amount" : "350.25",
+    "tagged" : [ "bills" ]
+  }, {
+    "name" : "monday breakfast food",
+    "description" : "toast with frens",
+    "amount" : "4.20",
+    "tagged" : [ "monday", "friends" ]
+  }, {
+    "name" : "groceries",
+    "description" : "bought from fairprice",
+    "amount" : "23.50",
+    "tagged" : [ ]
+  }, {
+    "name" : "movie tickets",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "tagged" : [ "leisure" ]
+  } ]
+}
