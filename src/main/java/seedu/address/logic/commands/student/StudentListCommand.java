@@ -11,12 +11,14 @@ import seedu.address.model.Model;
  * Represents a list student command.
  */
 public class StudentListCommand extends StudentCommand {
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + " list: List of students";
+    public static final String MESSAGE_SUCCESS = "Listed all students";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); //change later
-        return new CommandResult("{MESSAGE_SUCCESS}");
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

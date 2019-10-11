@@ -117,7 +117,6 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredPerson List Accessors
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -132,7 +131,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-
     //endregion
 
     //region Person
@@ -184,8 +182,20 @@ public class ModelManager implements Model {
     }
     //endregion
 
-    //region Students
+    //region FilteredStudent List Accessors
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return null;
+    }
 
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+    //endregion
+
+    //region Students
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
@@ -207,19 +217,6 @@ public class ModelManager implements Model {
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
         studentRecord.setStudent(target, editedStudent);
-    }
-    //endregion
-
-    //region FilteredStudent List Accessors
-    @Override
-    public ObservableList<Student> getFilteredStudentList() {
-        return null;
-    }
-
-    @Override
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
-        requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
     }
     //endregion
 

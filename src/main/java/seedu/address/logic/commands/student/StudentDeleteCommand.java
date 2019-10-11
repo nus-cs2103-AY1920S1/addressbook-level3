@@ -20,6 +20,8 @@ public class StudentDeleteCommand extends StudentCommand {
 
     private final Index targetIndex;
 
+    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
+
     /**
      * Creates a StudentDeleteCommand object.
      *
@@ -35,12 +37,12 @@ public class StudentDeleteCommand extends StudentCommand {
         List<Student> lastShownList = model.getFilteredStudentList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
         }
 
         Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteStudent(studentToDelete);
-        return new CommandResult("{MESSAGE_DELETE_PERSON_SUCCESS, personToDelete}");
+        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
     }
 
     /**

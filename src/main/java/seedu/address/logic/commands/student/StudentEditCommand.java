@@ -29,6 +29,10 @@ public class StudentEditCommand extends StudentCommand {
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
 
+    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student storage.";
+
     /**
      * Creates a StudentEditCommand object.
      *
@@ -45,19 +49,19 @@ public class StudentEditCommand extends StudentCommand {
         List<Student> lastShownList = model.getFilteredStudentList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); //change
+            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
         }
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         if (!editedStudent.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException("{DUPLICATE_STUDENT_MESSAGE}");
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult("success message"); //String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson)
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
     }
 
 

@@ -19,6 +19,9 @@ public class StudentAddCommand extends StudentCommand {
 
     private final Student toAdd;
 
+    public static final String MESSAGE_SUCCESS = "New student added: %1$s";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
+
     /**
      * Creates a StudentAddCommand object.
      *
@@ -33,10 +36,10 @@ public class StudentAddCommand extends StudentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasStudent(toAdd)) {
-            throw new CommandException("MESSAGE_DUPLICATE_STUDENT(change later)");
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
         model.addStudent(toAdd);
-        return new CommandResult(String.format("success(MESSAGE_SUCCESS, change later)", toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     /**
