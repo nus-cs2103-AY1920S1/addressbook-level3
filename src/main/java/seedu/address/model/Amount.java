@@ -81,7 +81,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
-     * Sums a {@code List} of {@code Amount} objects.
+     * Returns an {@code Amount} object obtained from the summation a {@code List} of {@code Amount} objects.
      *
      * @param amounts List of {@code Amount} to be added.
      * @return An {@code Amount} obtained from summation.
@@ -95,7 +95,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
-     * Adds two {@code Amount} objects.
+     * Returns an {@code Amount} object obtained from adding two {@code Amount} objects.
      *
      * @param operand1 First operand to be added.
      * @param operand2 Second operand to be added.
@@ -106,7 +106,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
-     * Subtract an {@Amount} object from another {@Amount} object.
+     * Returns an {@code Amount} object obtained from the subtraction of two {@code Amount} objects.
      *
      * @param operand1 First operand to be subtracted.
      * @param operand2 Second operand to be subtracted from first operand.
