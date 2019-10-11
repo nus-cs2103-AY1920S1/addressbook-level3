@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="personListView" prefHeight="520.4" prefWidth="690.0" VBox.vgrow="ALWAYS" />
+  <ListView fx:id="personListView" minHeight="532.0" prefWidth="690.0" VBox.vgrow="ALWAYS">
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
+      </VBox.margin></ListView>
 </VBox>

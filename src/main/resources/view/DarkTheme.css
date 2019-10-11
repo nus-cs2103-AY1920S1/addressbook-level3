@@ -62,7 +62,7 @@
     -fx-background-color: transparent;
     -fx-border-color:
         transparent
-        transparent
+        transparente
         derive(-fx-base, 80%)
         transparent;
     -fx-border-insets: 0 10 1 0;
