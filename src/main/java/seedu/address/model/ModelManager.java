@@ -180,4 +180,9 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public void deleteFlashcard(Flashcard target) {
+        return;
+    }
+
 }

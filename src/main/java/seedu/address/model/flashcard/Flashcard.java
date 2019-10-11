@@ -39,7 +39,9 @@ public class Flashcard {
         return answer;
     }
 
-    //To change
+    /**
+     * Returns whether the flashcard contains a question in the form of a image file.
+     */
     public boolean isImageFlashcard() {
         return false;
     }
@@ -88,5 +90,4 @@ public class Flashcard {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

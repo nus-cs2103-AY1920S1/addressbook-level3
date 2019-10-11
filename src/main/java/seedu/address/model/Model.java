@@ -89,6 +89,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+
     /**
      * Returns true if the same flashcard as {@code flashcard} exists in the application.
      */
@@ -104,7 +105,12 @@ public interface Model {
     ObservableList<Flashcard> getFilteredFlashcardList();
 
     /**
-     * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
+     * Deletes the given flashcard.
+     * The flashcard must exist in the flashcard bank.
+     */
+    void deleteFlashcard(Flashcard target);
+
+    /** Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashcardList(Predicate<Flashcard> predicate);

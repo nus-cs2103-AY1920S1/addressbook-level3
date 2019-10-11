@@ -55,5 +55,4 @@ public class Question {
     public int hashCode() {
         return fullQuestion.hashCode();
     }
-
 }
