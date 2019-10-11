@@ -10,7 +10,8 @@ public enum UiChange {
     PHONE,
     ORDER,
     SCHEDULE,
-    STATS,
+    STATS_TOTAL_PROFIT,
+    STATS_TOTAL_REVENUE,
     HELP,
     EXIT;
 }

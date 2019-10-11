@@ -68,6 +68,9 @@ public class LogicManager implements Logic {
     public ReadOnlyDataBook<Order> getOrderBook() { return model.getOrderBook(); }
 
     @Override
+    public ReadOnlyDataBook<Phone> getPhoneBook() { return model.getPhoneBook(); }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
@@ -106,9 +109,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String calculateStats() {
-        this.statistic.getOrderBook(this.getOrderBook());
-        return this.statistic.calculateTotalProfit();
+    public String calculateTotalProfit() {
+        return this.statistic.calculateTotalProfit(this.getOrderBook(), this.getPhoneBook());
+    }
 
+    @Override
+    public String calculateTotalRevenue() {
+        return this.statistic.calculateTotalRevenue(this.getOrderBook());
     }
 }

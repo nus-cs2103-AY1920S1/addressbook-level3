@@ -2,42 +2,24 @@ package seedu.address.statistic;
 
 import static java.util.Objects.requireNonNull;
 
-//import org.apache.commons.math3.stat.StatUtils;
+import org.apache.commons.math3.stat.StatUtils;
 
-import seedu.address.model.Model;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.ObservableList;
 import seedu.address.model.ReadOnlyDataBook;
-import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
-import seedu.address.model.schedule.Schedule;
 
 /**
  * Represents the in-memory statistics module of the current SML data.
  */
 public class StatisticManager implements Statistic {
 
-    /*
-    private final Model currentModel;
 
-    // private data fields from the model instance
-    private final ReadOnlyDataBook<Customer> customerBook;
-    private final ReadOnlyDataBook<Phone> phoneBook;
-    private final ReadOnlyDataBook<Order> orderBook;
-    private final ReadOnlyDataBook<Schedule> scheduleBook;
-*/
-    // data to store the statistics that has been calculated
-    private StatisticBook currentBook;
-
-
-    public StatisticManager() {
-
-        /*currentModel = model;
-        customerBook = currentModel.getCustomerBook();
-        phoneBook = currentModel.getPhoneBook();
-        orderBook = currentModel.getOrderBook();
-        scheduleBook = currentModel.getScheduleBook();*/
-        currentBook = new StatisticBook();
-    }
+    public StatisticManager() {}
 
     @Override
     public void getOrderBook(ReadOnlyDataBook<Order> orderBook) {
@@ -50,8 +32,29 @@ public class StatisticManager implements Statistic {
     }
 
     @Override
-    public String calculateTotalProfit() {
-        return "test stats";
+    public String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook) {
+        ObservableList<Order> orderList = orderBook.getList();
+        for (Order currentOrder : orderList) {
+            currentOrder.getPrice();
+        }
+
+        return "test profit";
+    }
+
+    @Override
+    public String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook) {
+        ObservableList<Order> orderList = orderBook.getList();
+        List<Double> completedOrderPriceList = new ArrayList();
+        for (Order currentOrder : orderList) {
+            if (currentOrder.getStatus() == Status.COMPLETED) {
+                Double currentPrice = Double.parseDouble(currentOrder.getPrice().value);
+                completedOrderPriceList.add(currentPrice);
+            }
+        }
+        double[] completedOrderPriceArray =
+                completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
+        double totalRevenue = StatUtils.sum(completedOrderPriceArray);
+        return String.valueOf(totalRevenue);
     }
 
     @Override

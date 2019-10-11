@@ -2,6 +2,7 @@ package seedu.address.statistic;
 
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 
 /**
  * API of statistics component
@@ -23,8 +24,12 @@ public interface Statistic {
     /**
      * calculate total Profit
      */
-    String calculateTotalProfit();
+    String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
 
+    /**
+     * calculate total Revenue
+     */
+    String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook);
     /**
      * calculate total Gross revenue
      */

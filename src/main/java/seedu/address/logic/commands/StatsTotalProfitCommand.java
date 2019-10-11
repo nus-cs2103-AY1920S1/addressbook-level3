@@ -5,9 +5,9 @@ import seedu.address.model.Model;
 /**
  * generate Statistics from current Books
  */
-public class StatsCommand extends Command {
+public class StatsTotalProfitCommand extends Command {
 
-    public static final String COMMAND_WORD = "generate";
+    public static final String COMMAND_WORD = "generate-totalProfit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generated Statistics!.\n"
             + "Example: " + COMMAND_WORD;
@@ -17,6 +17,6 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        return new CommandResult(SHOWING_STATS_MESSAGE, UiChange.STATS);
+        return new CommandResult(SHOWING_STATS_MESSAGE, UiChange.STATS_TOTAL_PROFIT);
     }
 }

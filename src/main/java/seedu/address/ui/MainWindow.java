@@ -190,10 +190,21 @@ public class MainWindow extends UiPart<Stage> {
      * handle StatisticsWindow and create a new one
      */
     @FXML
-    private void handleStats() {
-        String statsResult = this.logic.calculateStats();
-        this.statsWindow = new StatisticsWindow(statsResult);
-        this.statsWindow.show();
+    private void handleStats(UiChange typeOfStats) {
+        switch (typeOfStats) {
+        case STATS_TOTAL_PROFIT:
+            String totalProfitResult = this.logic.calculateTotalProfit();
+            this.statsWindow = new StatisticsWindow(totalProfitResult);
+            this.statsWindow.show();
+            break;
+        case STATS_TOTAL_REVENUE:
+            String totalRevenueResult = this.logic.calculateTotalRevenue();
+            this.statsWindow = new StatisticsWindow(totalRevenueResult);
+            this.statsWindow.show();
+            break;
+        default:
+            break;
+        }
     }
 
     /**
@@ -244,8 +255,9 @@ public class MainWindow extends UiPart<Stage> {
             case EXIT:
                 this.handleExit();
                 break;
-            case STATS:
-                this.handleStats();
+            case STATS_TOTAL_PROFIT:
+            case STATS_TOTAL_REVENUE:
+                this.handleStats(type);
                 break;
             default:
                 //do nothing

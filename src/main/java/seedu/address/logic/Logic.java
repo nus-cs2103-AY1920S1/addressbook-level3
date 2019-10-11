@@ -42,6 +42,14 @@ public interface Logic {
      */
     ReadOnlyDataBook<Order> getOrderBook();
 
+    /**
+     * Returns the PhoneBook.
+     *
+     * @see seedu.address.model.Model#getPhoneBook()
+     * @return
+     */
+    ReadOnlyDataBook<Phone> getPhoneBook();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
@@ -73,7 +81,12 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Gets logic to calculate statistics
+     * Gets logic to calculate total profit
      */
-    String calculateStats();
+    String calculateTotalProfit();
+
+    /**
+     * Gets logic to calculate Total Revenue
+     */
+    String calculateTotalRevenue();
 }
