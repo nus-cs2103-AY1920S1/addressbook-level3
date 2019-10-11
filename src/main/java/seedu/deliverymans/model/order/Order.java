@@ -1,4 +1,6 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.order;
+
+import seedu.deliverymans.model.food.Food;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.AppUtil.checkArgument;

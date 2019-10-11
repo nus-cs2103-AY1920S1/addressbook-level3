@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.deliverymans.model.Food;
+import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Order;
+import seedu.deliverymans.model.order.Order;
 
 /**
  * Represents a Restaurant
