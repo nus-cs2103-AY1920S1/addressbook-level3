@@ -3,6 +3,7 @@ package seedu.savenus.logic.parser;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -17,6 +18,7 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
@@ -36,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DESCRIPTION,
-                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_OPENING_HOURS, PREFIX_RESTRICTIONS);
+                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION, PREFIX_OPENING_HOURS, PREFIX_RESTRICTIONS);
 
         // If these arguments are not present, will throw an error as they are mandatory.
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_CATEGORY)
@@ -55,6 +57,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        // Location is an optional field
+        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION)
+                .orElse(Location.DEFAULT_VALUE));
+
         // Opening Hours is an optional field.
         OpeningHours openingHours = ParserUtil.parseOpeningHours(argMultimap.getValue(PREFIX_OPENING_HOURS)
                 .orElse(OpeningHours.DEFAULT_VALUE));
@@ -64,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 .orElse(Restrictions.DEFAULT_VALUE));
 
 
-        Food food = new Food(name, price, description, category, tagList, openingHours, restrictions);
+        Food food = new Food(name, price, description, category, tagList, location, openingHours, restrictions);
 
         return new AddCommand(food);
     }

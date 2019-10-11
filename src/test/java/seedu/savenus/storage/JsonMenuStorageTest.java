@@ -3,9 +3,9 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.ALICE;
-import static seedu.savenus.testutil.TypicalFood.HOON;
-import static seedu.savenus.testutil.TypicalFood.IDA;
+import static seedu.savenus.testutil.TypicalFood.BEE_HOON;
+import static seedu.savenus.testutil.TypicalFood.CARBONARA;
+import static seedu.savenus.testutil.TypicalFood.FISHBALL_NOODLES;
 import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.io.IOException;
@@ -72,14 +72,14 @@ public class JsonMenuStorageTest {
         assertEquals(original, new Menu(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addFood(HOON);
-        original.removeFood(ALICE);
+        original.addFood(BEE_HOON);
+        original.removeFood(CARBONARA);
         jsonMenuStorage.saveMenu(original, filePath);
         readBack = jsonMenuStorage.readMenu(filePath).get();
         assertEquals(original, new Menu(readBack));
 
         // Save and read without specifying file path
-        original.addFood(IDA);
+        original.addFood(FISHBALL_NOODLES);
         jsonMenuStorage.saveMenu(original); // file path not specified
         readBack = jsonMenuStorage.readMenu().get(); // file path not specified
         assertEquals(original, new Menu(readBack));

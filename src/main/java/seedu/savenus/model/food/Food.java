@@ -20,6 +20,7 @@ public class Food {
     private final Price price;
     private final Description description;
     private final Category category;
+    private final Location location;
     private final OpeningHours openingHours;
     private final Restrictions restrictions;
 
@@ -30,13 +31,14 @@ public class Food {
      * Every field must be present and not null.
      */
     public Food(Name name, Price price, Description description, Category category, Set<Tag> tags,
-                    OpeningHours openingHours, Restrictions restrictions) {
+                    Location location, OpeningHours openingHours, Restrictions restrictions) {
         requireAllNonNull(name, price, description, category, tags, openingHours, restrictions);
         this.name = name;
         this.price = price;
         this.description = description;
         this.category = category;
         this.tags.addAll(tags);
+        this.location = location;
         this.openingHours = openingHours;
         this.restrictions = restrictions;
     }
@@ -65,6 +67,10 @@ public class Food {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     public OpeningHours getOpeningHours() {
         return openingHours;
     }
@@ -87,6 +93,7 @@ public class Food {
                 && otherFood.getPrice().equals(getPrice())
                 && otherFood.getDescription().equals(getDescription())
                 && otherFood.getCategory().equals(getCategory())
+                && otherFood.getLocation().equals(getLocation())
                 && otherFood.getOpeningHours().equals(getOpeningHours())
                 && otherFood.getRestrictions().equals(getRestrictions());
     }
@@ -111,6 +118,7 @@ public class Food {
                 && otherFood.getDescription().equals(getDescription())
                 && otherFood.getTags().equals(getTags())
                 && otherFood.getCategory().equals(getCategory())
+                && otherFood.getLocation().equals(getLocation())
                 && otherFood.getOpeningHours().equals(getOpeningHours())
                 && otherFood.getRestrictions().equals(getRestrictions());
     }
@@ -133,7 +141,9 @@ public class Food {
                 .append(getCategory())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append(" Opening Hours: ")
+        builder.append(" Location: ")
+                .append(getLocation())
+                .append(" Opening Hours: ")
                 .append(getOpeningHours())
                 .append(" Restrictions: ")
                 .append(getRestrictions());

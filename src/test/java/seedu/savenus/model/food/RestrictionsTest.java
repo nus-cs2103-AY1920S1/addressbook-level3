@@ -24,15 +24,17 @@ public class RestrictionsTest {
         // null restrictions
         assertThrows(NullPointerException.class, () -> Restrictions.isValidRestrictions(null));
 
+        // valid restrictions
+        assertTrue(Restrictions.isValidRestrictions("PeterJack1examplecom"));
+        assertTrue(Restrictions.isValidRestrictions("food")); // minimal
+        assertTrue(Restrictions.isValidRestrictions("steak with cheese and chilli")); // alphabets only
+    }
+
+    @Test
+    public void isBlankRestrictions() {
         // blank restrictions
         assertFalse(Restrictions.isValidRestrictions("")); // empty string
         assertFalse(Restrictions.isValidRestrictions(" ")); // spaces only
-
-        // valid restrictions
-        assertTrue(Restrictions.isValidRestrictions("PeterJack1examplecom"));
-        assertTrue(Restrictions.isValidRestrictions("a@bc")); // minimal
-        assertTrue(Restrictions.isValidRestrictions("test@localhost")); // alphabets only
-        assertTrue(Restrictions.isValidRestrictions("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters
-        assertTrue(Restrictions.isValidRestrictions("123@145")); // numeric local part and domain name
+        assertFalse(Restrictions.isValidRestrictions("          ")); // tons of spaces
     }
 }

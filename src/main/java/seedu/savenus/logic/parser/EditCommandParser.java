@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -35,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DESCRIPTION,
-                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_OPENING_HOURS, PREFIX_RESTRICTIONS);
+                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION, PREFIX_OPENING_HOURS, PREFIX_RESTRICTIONS);
 
         Index index;
 
@@ -59,6 +60,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             editFoodDescriptor.setCategory(ParserUtil.parseCategory(argMultimap
                     .getValue(PREFIX_CATEGORY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            editFoodDescriptor.setLocation(ParserUtil.parseLocation(argMultimap
+                    .getValue(PREFIX_LOCATION).get()));
         }
         if (argMultimap.getValue(PREFIX_OPENING_HOURS).isPresent()) {
             editFoodDescriptor.setOpeningHours(ParserUtil.parseOpeningHours(argMultimap

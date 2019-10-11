@@ -48,6 +48,14 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_infiniteIndexUnfilteredList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(Integer.MAX_VALUE);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validIndexFilteredList_success() {
         showFoodAtIndex(model, INDEX_FIRST_FOOD);
 

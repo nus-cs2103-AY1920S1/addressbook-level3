@@ -22,10 +22,13 @@ class JsonAdaptedWallet {
      * Constructs a {@code JsonAdaptedWallet} with the given wallet details.
      */
     @JsonCreator
-    public JsonAdaptedWallet(@JsonProperty("currentBalance") String remainingBudget,
+    public JsonAdaptedWallet(@JsonProperty("remainingBudget") String remainingBudget,
                              @JsonProperty("daysToExpire") String daysToExpire) {
         this.remainingBudget = remainingBudget;
         this.daysToExpire = daysToExpire;
+        System.out.println("BUDGET: " + remainingBudget);
+        System.out.println("DAYS: " + daysToExpire);
+
     }
 
     /**
@@ -43,7 +46,7 @@ class JsonAdaptedWallet {
      */
     public Wallet toModelType() throws IllegalValueException {
 
-        // Sanitisation for currentBalance
+        // Sanitisation for remainingBudget
         if (remainingBudget == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     RemainingBudget.class.getSimpleName()));

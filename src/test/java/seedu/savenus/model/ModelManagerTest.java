@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.model.Model.PREDICATE_SHOW_ALL_FOOD;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.ALICE;
-import static seedu.savenus.testutil.TypicalFood.BENSON;
+import static seedu.savenus.testutil.TypicalFood.CARBONARA;
+import static seedu.savenus.testutil.TypicalFood.TONKATSU_RAMEN;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasFood_foodNotInMenu_returnsFalse() {
-        assertFalse(modelManager.hasFood(ALICE));
+        assertFalse(modelManager.hasFood(CARBONARA));
     }
 
     @Test
     public void hasFood_foodInMenu_returnsTrue() {
-        modelManager.addFood(ALICE);
-        assertTrue(modelManager.hasFood(ALICE));
+        modelManager.addFood(CARBONARA);
+        assertTrue(modelManager.hasFood(CARBONARA));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Menu menu = new MenuBuilder().withfood(ALICE).withfood(BENSON).build();
+        Menu menu = new MenuBuilder().withfood(CARBONARA).withfood(TONKATSU_RAMEN).build();
         Menu differentMenu = new Menu();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(menu, userPrefs)));
 

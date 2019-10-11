@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -28,6 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CATEGORY + "CATEGORY "
             + "[" + PREFIX_TAG + "TAG]... "
+            + PREFIX_LOCATION + "LOCATION "
             + PREFIX_OPENING_HOURS + "OPENING HOURS "
             + PREFIX_RESTRICTIONS + "RESTRICTIONS\n"
             + "Example: " + COMMAND_WORD + " "
@@ -37,6 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "Chinese "
             + PREFIX_TAG + "Spicy "
             + PREFIX_TAG + "Healthy "
+            + PREFIX_LOCATION + "University Town "
             + PREFIX_OPENING_HOURS + "0800 2000 "
             + PREFIX_RESTRICTIONS + "Vegetarian";
 

@@ -20,16 +20,16 @@ import seedu.savenus.model.food.Price;
 import seedu.savenus.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PRICE = "+651234";
+    private static final String INVALID_NAME = "@yam";
+    private static final String INVALID_PRICE = "+6500q9";
     private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_NAME = "Ayam Penyet";
     private static final String VALID_PRICE = "123456";
     private static final String VALID_DESCRIPTION = "A valid description.";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TAG_1 = "Chicken";
+    private static final String VALID_TAG_2 = "Rice";
 
     private static final String WHITESPACE = " \t\r\n";
 

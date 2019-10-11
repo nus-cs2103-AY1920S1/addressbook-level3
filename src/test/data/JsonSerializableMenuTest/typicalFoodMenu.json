@@ -1,64 +1,70 @@
 {
-  "_comment": "$aveNUS save file which contains the same food values as in Typicalfoods#getTypicalAddressBook()",
   "foods" : [ {
     "name" : "Carbonara",
     "price" : "5.00",
     "description" : "Italian noodle with cheese and meat",
     "category": "Italian",
     "tagged" : [ "Noodle" ],
-    "openingHours": "0800 1700",
-    "restrictions": "Contains dairy and pork"
+    "location" : "The Deck",
+    "openingHours" : "0800 1700",
+    "restrictions" : "Contains dairy and pork"
   }, {
     "name" : "Tonkotsu Ramen",
     "price" : "11.00",
     "description" : "Japanese noodle with pork",
     "category": "Japanese",
     "tagged" : [ "Noodle", "Asian" ],
-    "openingHours": "0800 1800",
-    "restrictions": "Contains pork"
+    "location" : "Frontier Canteen",
+    "openingHours" : "0800 1800",
+    "restrictions" : "Contains pork"
   }, {
     "name" : "Bak Kut Teh",
     "price" : "10.00",
     "description" : "Chinese pork soup with spices",
     "category": "Chinese",
     "tagged" : [ "Asian" ],
-    "openingHours": "0800 1800",
-    "restrictions": "Contains pork"
+    "location" : "University Town",
+    "openingHours" : "0800 1800",
+    "restrictions" : "Contains pork"
   }, {
-    "name" : "Indomie",
-    "price" : "1.25",
-    "description" : "Really good indonesian noodles",
-    "category": "Indonesian",
-    "tagged" : [ "Noodle" , "Instant" ],
-    "openingHours": "0000 2359",
-    "restrictions": "May cause cancer"
+    "name" : "Teh Ping",
+    "price" : "1.50",
+    "description" : "Really good tea",
+    "category": "Chinese",
+    "tagged" : [ "Tea" , "Leaves" ],
+    "location": "Cool Spot",
+    "openingHours" : "0000 2359",
+    "restrictions" : "May cause cancer"
   }, {
-    "name" : "Bak Mala Xiang Guo",
+    "name" : "Mala Xiang Guo",
     "price" : "15.00",
-    "description" : "Spicy chinese salad",
+    "description" : "Spicy chinese food",
     "category": "Chinese",
     "tagged" : [ "Spicy" , "Vegetables" ],
+    "location" : "Liang Ban Kung Fu at The Deck",
     "openingHours": "0800 1930",
     "restrictions": "Not halal"
   }, {
-    "name" : "Bak Wagyu Donburi",
+    "name" : "Wagyu Donburi with Teh",
     "price" : "17.99",
-    "description" : "Japanese rice with wagyu beef",
+    "description" : "Japanese rice with wagyu beef, with tea",
     "category": "Japanese",
     "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
-    "openingHours": "1000 1700",
-    "restrictions": "Expensive"
+    "location" : "Atas Place in NUS",
+    "openingHours" : "1000 1700",
+    "restrictions" : "Expensive"
   }, {
-    "name" : "Chicken Rice",
+    "name" : "Nasi Ayam",
     "price" : "4.80",
     "description" : "Fatty rice with chicken",
-    "category": "Chinese",
+    "category": "Malay",
     "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
+    "location" : "Techno Edge",
     "openingHours": "0900 1700",
-    "restrictions": "Not halal"
+    "restrictions": "Halal"
   } ],
   "wallet" : {
-    "remainingBudget" : 0,
-    "daysToExpire" : 0
+    "remainingBudget" : "0",
+    "daysToExpire" : "0"
   }
 }

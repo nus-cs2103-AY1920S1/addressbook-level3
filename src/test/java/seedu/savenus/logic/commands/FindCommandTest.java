@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.savenus.testutil.TypicalFood.CARL;
-import static seedu.savenus.testutil.TypicalFood.ELLE;
-import static seedu.savenus.testutil.TypicalFood.FIONA;
+import static seedu.savenus.testutil.TypicalFood.BAK_KUT_TEH;
+import static seedu.savenus.testutil.TypicalFood.TEH_PING;
+import static seedu.savenus.testutil.TypicalFood.WAGYU_DONBURI;
 import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 
 import java.util.Arrays;
@@ -67,11 +67,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplefoodsFound() {
         String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Bak");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Teh");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFoodList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredFoodList());
+        assertEquals(Arrays.asList(BAK_KUT_TEH, TEH_PING, WAGYU_DONBURI), model.getFilteredFoodList());
     }
 
     /**
