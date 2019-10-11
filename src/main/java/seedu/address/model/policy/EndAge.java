@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EndAge {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ages should only contain numbers.";
+            "Ages should only contain numbers, and cannot be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{N}]*";
+    public static final String VALIDATION_REGEX = "[\\p{N}]+";
     public static final String INFINITY = "300";
 
     private String age = INFINITY;

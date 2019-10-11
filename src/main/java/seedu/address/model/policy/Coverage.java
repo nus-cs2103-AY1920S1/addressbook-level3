@@ -25,7 +25,7 @@ public class Coverage {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{N}]*";
+    public static final String VALIDATION_REGEX = "[\\p{N}]+";
     private static final int dayIndex = 0;
     private static final int monthIndex = 1;
     private static final int yearIndex = 2;

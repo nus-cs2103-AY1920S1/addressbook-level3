@@ -9,13 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Description should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Description should only contain alphanumeric characters and "
+            + "spaces, and should not be blank!";
 
     /*
-     * The first character of the description must not be a whitespace, otherwise " " (a blank string) becomes a
-     * valid input. Punctuations are allowed as well.
+     * The first character of the description must not be a whitespace to prevent " " (a blank string) from becoming
+     * a valid input. Punctuations are allowed.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\p{Punct}][\\p{Alnum}\\p{Punct}\\s]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\p{Punct}\\s]*";
 
     public final String description;
 
