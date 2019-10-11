@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditAnswerableDescriptor;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Category;
-import seedu.address.model.answerable.McqAnswer;
+import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.tag.Tag;
@@ -34,7 +34,7 @@ public class EditAnswerableDescriptorBuilder {
     public EditAnswerableDescriptorBuilder(Answerable answerable) {
         descriptor = new EditCommand.EditAnswerableDescriptor();
         descriptor.setQuestion(answerable.getQuestion());
-        descriptor.setAnswer(answerable.getAnswer());
+        descriptor.setAnswerSet(answerable.getAnswerSet());
         descriptor.setDifficulty(answerable.getDifficulty());
         descriptor.setCategory(answerable.getCategory());
         descriptor.setTags(answerable.getTags());
@@ -53,7 +53,7 @@ public class EditAnswerableDescriptorBuilder {
      */
     public EditAnswerableDescriptorBuilder withAnswer(String answer) {
         //TODO: Implement Answerable
-        descriptor.setAnswer(new McqAnswer(answer));
+        descriptor.setAnswerSet(new AnswerSet(answer));
         return this;
     }
     /**

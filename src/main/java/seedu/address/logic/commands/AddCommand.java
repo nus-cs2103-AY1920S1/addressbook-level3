@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "graphical";
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This answerable already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank";
 
     private final Answerable toAdd;
 

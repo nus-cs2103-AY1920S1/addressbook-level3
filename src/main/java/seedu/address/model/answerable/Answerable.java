@@ -20,17 +20,17 @@ public abstract class Answerable {
     private final Difficulty difficulty;
 
     // Data fields
-    private final Answer answer;
+    private final AnswerSet answerSet;
     private final Category category;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, Answer answer, Difficulty difficulty, Category category, Set<Tag> tags) {
+    public Answerable(Question question, AnswerSet answerSet, Difficulty difficulty, Category category, Set<Tag> tags) {
         requireAllNonNull(question, difficulty, category, tags);
         this.question = question;
-        this.answer = answer;
+        this.answerSet = answerSet;
         this.difficulty = difficulty;
         this.category = category;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public abstract class Answerable {
         return question;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public AnswerSet getAnswerSet() {
+        return answerSet;
     }
 
     public Difficulty getDifficulty() {
@@ -61,8 +61,8 @@ public abstract class Answerable {
     }
 
     /**
-     * Returns true if both persons of the same question have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both answerables with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two answerables.
      */
     public boolean isSameAnswerable(Answerable otherAnswerable) {
         if (otherAnswerable == this) {
@@ -70,12 +70,13 @@ public abstract class Answerable {
         }
 
         return otherAnswerable != null
-                && otherAnswerable.getQuestion().equals(getQuestion()) && (otherAnswerable.getDifficulty().equals(getDifficulty()));
+                && otherAnswerable.getQuestion().equals(getQuestion())
+                && otherAnswerable.getAnswerSet().equals(getAnswerSet());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both Answerables have the same identity and data fields.
+     * This defines a stronger notion of equality between two Answerables.
      */
     @Override
     public boolean equals(Object other) {
@@ -89,6 +90,7 @@ public abstract class Answerable {
 
         Answerable otherAnswerable = (Answerable) other;
         return otherAnswerable.getQuestion().equals(getQuestion())
+                && otherAnswerable.getAnswerSet().equals(getAnswerSet())
                 && otherAnswerable.getDifficulty().equals(getDifficulty())
                 && otherAnswerable.getCategory().equals(getCategory())
                 && otherAnswerable.getTags().equals(getTags());
@@ -97,13 +99,16 @@ public abstract class Answerable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, difficulty, category, tags);
+        return Objects.hash(question, answerSet, difficulty, category, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getQuestion())
+        builder.append("Question: ")
+                .append(getQuestion())
+                .append(" Answers: ")
+                .append(getAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Category: ")
