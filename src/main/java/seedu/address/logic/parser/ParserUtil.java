@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
@@ -22,9 +23,36 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Parses a {@code String answer} into a {@code Answer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code answer} is invalid.
+     */
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+        }
+        return new Answer(trimmedAnswer);
+    }
+
+    /**
+     * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.
+     */
+    public static Set<Answer> parseAnswers(Collection<String> answers) throws ParseException {
+        requireNonNull(answers);
+        final Set<Answer> answerSet = new HashSet<>();
+        for (String answer : answers) {
+            answerSet.add(parseAnswer(answer));
+        }
+        return answerSet;
+    }
+
+    /**
+     * Parses {@code questionType} into an {@code QuestionType} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the given {@code questionType} is invalid.
      */
     public static QuestionType parseType(String questionType) throws ParseException {
         String trimmedType = questionType.trim();

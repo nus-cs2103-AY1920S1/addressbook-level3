@@ -32,8 +32,8 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_BOB = "Bob Choo";
     public static final String VALID_QUESTION_TYPE_AMY = "mcq";
     public static final String VALID_QUESTION_TYPE_BOB = "mcq";
-    public static final String VALID_ANSWER_AMY = "Valid Answer";
-    public static final String VALID_ANSWER_BOB = "Valid Answer";
+    public static final String VALID_ANSWER_AMY = "Valid AnswerSet";
+    public static final String VALID_ANSWER_BOB = "Valid AnswerSet";
     public static final String VALID_DIFFICULTY_AMY = "11111111";
     public static final String VALID_DIFFICULTY_BOB = "22222222";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";

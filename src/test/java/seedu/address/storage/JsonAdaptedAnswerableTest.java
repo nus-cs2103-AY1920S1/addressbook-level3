@@ -23,7 +23,7 @@ public class JsonAdaptedAnswerableTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_QUESTION = BENSON.getQuestion().toString();
-    private static final String VALID_ANSWER = BENSON.getAnswer().toString();
+    private static final String VALID_ANSWER = BENSON.getAnswerSet().toString();
     private static final String VALID_DIFFICULTY = BENSON.getDifficulty().toString();
     private static final String VALID_CATEGORY = BENSON.getCategory().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()

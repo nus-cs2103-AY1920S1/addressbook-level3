@@ -18,7 +18,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.answerable.McqAnswer;
+import seedu.address.model.answerable.Answer;
+import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -51,12 +52,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         //TODO: Implement Answerable
         if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
-//            editAnswerableDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_CORRECT).get()));
-            editAnswerableDescriptor.setAnswer(new McqAnswer("Correct Answer"));
+            editAnswerableDescriptor.setCorrectAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
         }
         if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
-//            editAnswerableDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_CORRECT).get()));
-            editAnswerableDescriptor.setAnswer(new McqAnswer("Wrong Answer"));
+            editAnswerableDescriptor.setWrongAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
