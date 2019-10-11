@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 
 /**
- * Loans a Book to a Borrower
+ * Loans a Book with the given Serial Number to a Borrower
  */
 public class LoanCommand extends Command {
     public static final String COMMAND_WORD = "loan";
@@ -21,16 +21,16 @@ public class LoanCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Book: %1$ loaned to Borrower: %12$";
 
-    private final Book toLoan;
+    private final SerialNumber toLoan;
 
     /**
      * Creates an LoanCommand to loan the specified {@code Book} to the Borrower currently served.
      *
-     * @param book Book to be loaned.
+     * @param bookSn Serial number of Book to be loaned.
      */
-    public LoanCommand(Book book) {
-        requireNonNull(book);
-        this.toLoan = book;
+    public LoanCommand(SerialNumber bookSn) {
+        requireNonNull(bookSn);
+        this.toLoan = bookSn;
     }
 
     /**
