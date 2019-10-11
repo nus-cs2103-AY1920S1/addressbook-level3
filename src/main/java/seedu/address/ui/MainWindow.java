@@ -18,9 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.Question;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -61,12 +59,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private Label qnLabel, ansLabel;
-
-    @FXML
-    private ImageView fcCircle, csCircle, notesCircle;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);

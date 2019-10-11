@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 
+/**
+ * Deletes a person identified using it's displayed index from the address book.
+ */
 public class DeleteFlashcardCommand extends Command {
     public static final String COMMAND_WORD = "del";
 
@@ -42,7 +45,6 @@ public class DeleteFlashcardCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
-
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(flashcardToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));    }

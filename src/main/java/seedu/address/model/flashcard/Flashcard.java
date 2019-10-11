@@ -39,8 +39,8 @@ public class Flashcard {
         return answer;
     }
 
-    //To change
     public boolean isImageFlashcard() {
+        //To change
         return false;
     }
 
