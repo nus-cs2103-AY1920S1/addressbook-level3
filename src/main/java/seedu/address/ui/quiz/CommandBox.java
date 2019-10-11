@@ -14,7 +14,7 @@ import seedu.address.logic.quiz.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String FXML = "CommandBox.fxml";
+    private static final String FXML = "BabyShark.fxml";
 
     private final CommandExecutor commandExecutor;
 

@@ -1,6 +1,6 @@
 package seedu.address.model.quiz.util;
 
-import seedu.address.model.quiz.AddressBook;
+import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.person.*;
 import seedu.address.model.quiz.tag.Tag;
@@ -37,7 +37,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        AddressQuizBook sampleAb = new AddressQuizBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

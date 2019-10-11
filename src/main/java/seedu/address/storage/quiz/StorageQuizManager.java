@@ -5,6 +5,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.ReadOnlyUserPrefs;
 import seedu.address.model.quiz.UserPrefs;
+import seedu.address.storage.quiz.AddressBookStorage;
+import seedu.address.storage.quiz.Storage;
+import seedu.address.storage.quiz.UserPrefsStorage;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,14 +17,14 @@ import java.util.logging.Logger;
 /**
  * Manages storage of AddressBook data in local storage.
  */
-public class StorageManager implements Storage {
+public class StorageQuizManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageQuizManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageQuizManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;

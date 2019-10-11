@@ -8,7 +8,7 @@ import seedu.address.model.quiz.tag.Tag;
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonAdaptedTag {
+class JsonQuizAdaptedTag {
 
     private final String tagName;
 
@@ -16,14 +16,14 @@ class JsonAdaptedTag {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonQuizAdaptedTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Tag source) {
+    public JsonQuizAdaptedTag(Tag source) {
         tagName = source.tagName;
     }
 

@@ -37,21 +37,22 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
-
+    public static Stage primary;
+    public static AppParameters appParameters;
+    public static Config config;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        AppParameters appParameters = AppParameters.parse(getParameters());
+        appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
@@ -167,6 +168,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primary = primaryStage;
+
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }

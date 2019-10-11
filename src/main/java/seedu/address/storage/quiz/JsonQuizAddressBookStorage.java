@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.storage.quiz.AddressBookStorage;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,13 +18,13 @@ import static java.util.Objects.requireNonNull;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonQuizAddressBookStorage implements AddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonQuizAddressBookStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonQuizAddressBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -45,8 +46,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonQuizSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonQuizSerializableAddressBook.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +75,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonQuizSerializableAddressBook(addressBook), filePath);
     }
 
 }

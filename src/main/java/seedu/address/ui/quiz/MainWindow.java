@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "WindowShark.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
