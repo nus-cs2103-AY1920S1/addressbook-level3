@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.visittodoitem.VisitTodoItemList;
+import seedu.address.model.visittask.VisitTaskList;
 
 /**
  * Represents a Visit in the application.
@@ -15,18 +15,18 @@ public class Visit {
     private final Remark remark;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
-    private final VisitTodoItemList visitTodoItems;
+    private final VisitTaskList visitTasks;
 
     /**
      * Every field must be present and not null.
      */
     public Visit(Remark remark, StartDateTime startDateTime,
-                 EndDateTime endDateTime, VisitTodoItemList visitTodoItems) {
-        requireAllNonNull(remark, startDateTime, endDateTime, visitTodoItems);
+                 EndDateTime endDateTime, VisitTaskList visitTasks) {
+        requireAllNonNull(remark, startDateTime, endDateTime, visitTasks);
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.visitTodoItems = visitTodoItems;
+        this.visitTasks = visitTasks;
     }
 
     public Remark getRemark() {
@@ -42,10 +42,10 @@ public class Visit {
     }
 
     /**
-     * Returns a VisitTodoItemList.
+     * Returns a VisitTaskList.
      */
-    public VisitTodoItemList getVisitTodoItems() {
-        return visitTodoItems;
+    public VisitTaskList getVisitTasks() {
+        return visitTasks;
     }
 
     /**
@@ -81,13 +81,13 @@ public class Visit {
         return otherVisit.getRemark().equals(getRemark())
                 && otherVisit.getStartDateTime().equals(getStartDateTime())
                 && otherVisit.getEndDateTime().equals(getEndDateTime())
-                && otherVisit.getVisitTodoItems().equals(getVisitTodoItems());
+                && otherVisit.getVisitTasks().equals(getVisitTasks());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(remark, startDateTime, endDateTime, visitTodoItems);
+        return Objects.hash(remark, startDateTime, endDateTime, visitTasks);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Visit {
                 .append(" End Time: ")
                 .append(getEndDateTime())
                 .append(" Tags: ");
-        getVisitTodoItems().forEach(builder::append);
+        getVisitTasks().forEach(builder::append);
         builder.append("Remarks")
                 .append(getRemark());
         return builder.toString();

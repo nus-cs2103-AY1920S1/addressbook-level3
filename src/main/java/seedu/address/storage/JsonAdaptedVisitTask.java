@@ -5,25 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.visittodo.VisitTodo;
-import seedu.address.model.visittodoitem.Detail;
-import seedu.address.model.visittodoitem.VisitTodoItem;
+import seedu.address.model.visittask.Detail;
+import seedu.address.model.visittask.VisitTask;
 
 /**
- * Jackson-friendly version of {@link VisitTodoItem}.
+ * Jackson-friendly version of {@link VisitTask}.
  */
-class JsonAdaptedVisitTodoItem {
+class JsonAdaptedVisitTask {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "VisitTodoItem's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "VisitTask's %s field is missing!";
 
     private final JsonAdaptedVisitTodo visitTodo;
     private final String detail;
     private final Boolean isDone;
 
     /**
-     * Constructs a {@code JsonAdaptedVisitTodoItem} with the given visit detail.
+     * Constructs a {@code JsonAdaptedVisitTask} with the given visit detail.
      */
     @JsonCreator
-    public JsonAdaptedVisitTodoItem(@JsonProperty("visitTodo") JsonAdaptedVisitTodo visitTodo,
+    public JsonAdaptedVisitTask(@JsonProperty("visitTodo") JsonAdaptedVisitTodo visitTodo,
                                     @JsonProperty("detail") String detail,
                                     @JsonProperty("isDone") Boolean isDone) {
         this.visitTodo = visitTodo;
@@ -32,20 +32,20 @@ class JsonAdaptedVisitTodoItem {
     }
 
     /**
-     * Converts a given {@code VisitTodoItem} into this class for Jackson use.
+     * Converts a given {@code VisitTask} into this class for Jackson use.
      */
-    public JsonAdaptedVisitTodoItem(VisitTodoItem source) {
+    public JsonAdaptedVisitTask(VisitTask source) {
         visitTodo = new JsonAdaptedVisitTodo(source.getVisitTodo());
         detail = source.getDetail().detail;
         isDone = source.isDone();
     }
 
     /**
-     * Converts this Jackson-friendly adapted visit object into the model's {@code VisitTodoItem} object.
+     * Converts this Jackson-friendly adapted visit object into the model's {@code VisitTask} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
-    public VisitTodoItem toModelType() throws IllegalValueException {
+    public VisitTask toModelType() throws IllegalValueException {
         if (visitTodo == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     VisitTodo.class.getSimpleName()));
@@ -65,7 +65,7 @@ class JsonAdaptedVisitTodoItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "IsDone"));
         }
 
-        return new VisitTodoItem(modelVisitTodo, modelDetail, isDone);
+        return new VisitTask(modelVisitTodo, modelDetail, isDone);
     }
 
 }

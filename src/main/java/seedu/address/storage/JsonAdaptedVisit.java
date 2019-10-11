@@ -12,7 +12,7 @@ import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
-import seedu.address.model.visittodoitem.VisitTodoItemList;
+import seedu.address.model.visittask.VisitTaskList;
 
 /**
  * Jackson-friendly version of {@link Visit}.
@@ -24,7 +24,7 @@ class JsonAdaptedVisit {
     private final String remark;
     private final String startDateTime;
     private final String endDateTime;
-    private final List<JsonAdaptedVisitTodoItem> visitTodoItems = new ArrayList<>();
+    private final List<JsonAdaptedVisitTask> visitTasks = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedVisit} with the given visit details.
@@ -33,12 +33,12 @@ class JsonAdaptedVisit {
     public JsonAdaptedVisit(@JsonProperty("remark") String remark,
                             @JsonProperty("startDateTime") String startDateTime,
                             @JsonProperty("endDateTime") String endDateTime,
-                            @JsonProperty("visitTodoItems") List<JsonAdaptedVisitTodoItem> visitTodoItems) {
+                            @JsonProperty("visitTasks") List<JsonAdaptedVisitTask> visitTasks) {
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        if (visitTodoItems != null) {
-            this.visitTodoItems.addAll(visitTodoItems);
+        if (visitTasks != null) {
+            this.visitTasks.addAll(visitTasks);
         }
     }
 
@@ -49,8 +49,8 @@ class JsonAdaptedVisit {
         remark = source.getRemark().remark;
         startDateTime = source.getStartDateTime().toJacksonJsonString();
         endDateTime = source.getEndDateTime().toJacksonJsonString();
-        visitTodoItems.addAll(source.getVisitTodoItems().asUnmodifiableObservableList().stream()
-                .map(JsonAdaptedVisitTodoItem::new)
+        visitTasks.addAll(source.getVisitTasks().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedVisitTask::new)
                 .collect(Collectors.toList()));
     }
 
@@ -60,9 +60,9 @@ class JsonAdaptedVisit {
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
     public Visit toModelType() throws IllegalValueException {
-        final VisitTodoItemList modelVisitTodoItems = new VisitTodoItemList();
-        for (JsonAdaptedVisitTodoItem visitTodoItem : visitTodoItems) {
-            modelVisitTodoItems.add(visitTodoItem.toModelType());
+        final VisitTaskList modelVisitTasks = new VisitTaskList();
+        for (JsonAdaptedVisitTask visitTask : visitTasks) {
+            modelVisitTasks.add(visitTask.toModelType());
         }
 
         if (remark == null) {
@@ -92,7 +92,7 @@ class JsonAdaptedVisit {
         }
         final EndDateTime modelEndDateTime = new EndDateTime(endDateTime);
 
-        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTodoItems);
+        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
     }
 
 }

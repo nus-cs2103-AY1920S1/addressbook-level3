@@ -1,4 +1,4 @@
-package seedu.address.model.visittodoitem;
+package seedu.address.model.visittask;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

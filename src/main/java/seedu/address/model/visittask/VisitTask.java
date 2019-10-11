@@ -1,4 +1,4 @@
-package seedu.address.model.visittodoitem;
+package seedu.address.model.visittask;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,7 +10,7 @@ import seedu.address.model.visittodo.VisitTodo;
  * Represents a Visit in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class VisitTodoItem {
+public class VisitTask {
     // Data fields
     private final VisitTodo visitTodo;
     private final Detail detail;
@@ -19,7 +19,7 @@ public class VisitTodoItem {
     /**
      * Every field must be present and not null.
      */
-    public VisitTodoItem(VisitTodo visitTodo, Detail detail, boolean isDone) {
+    public VisitTask(VisitTodo visitTodo, Detail detail, boolean isDone) {
         requireAllNonNull(visitTodo, detail);
         this.visitTodo = visitTodo;
         this.detail = detail;
@@ -42,15 +42,15 @@ public class VisitTodoItem {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameVisitTodoItem(VisitTodoItem otherVisitTodoItem) {
-        if (otherVisitTodoItem == this) {
+    public boolean isSameVisitTask(VisitTask otherVisitTask) {
+        if (otherVisitTask == this) {
             return true;
         }
 
-        return otherVisitTodoItem != null
-                && otherVisitTodoItem.getDetail().equals(getDetail())
-                && (otherVisitTodoItem.getVisitTodo().equals(getVisitTodo())
-                || otherVisitTodoItem.getDetail().equals(getDetail()));
+        return otherVisitTask != null
+                && otherVisitTask.getDetail().equals(getDetail())
+                && (otherVisitTask.getVisitTodo().equals(getVisitTodo())
+                || otherVisitTask.getDetail().equals(getDetail()));
     }
 
     /**
@@ -63,15 +63,15 @@ public class VisitTodoItem {
             return true;
         }
 
-        if (!(other instanceof VisitTodoItem)) {
+        if (!(other instanceof VisitTask)) {
             return false;
         }
 
-        VisitTodoItem otherVisitTodoItem = (VisitTodoItem) other;
-        return otherVisitTodoItem.getDetail().equals(getDetail())
-                && otherVisitTodoItem.getVisitTodo().equals(getVisitTodo())
-                && otherVisitTodoItem.getDetail().equals(getDetail())
-                && otherVisitTodoItem.isDone() == isDone();
+        VisitTask otherVisitTask = (VisitTask) other;
+        return otherVisitTask.getDetail().equals(getDetail())
+                && otherVisitTask.getVisitTodo().equals(getVisitTodo())
+                && otherVisitTask.getDetail().equals(getDetail())
+                && otherVisitTask.isDone() == isDone();
     }
 
     @Override
