@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -114,7 +115,9 @@ public interface Model {
      *
      * @return Summary of notes list.
      */
-    String getNoteList();
+    String getNoteSummary();
+
+    List<Note> getNotes();
 
     //=========== Person ================================================================================
 

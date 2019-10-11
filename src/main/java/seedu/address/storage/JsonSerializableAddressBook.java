@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,13 +23,16 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedNote> notes = new ArrayList<>();
+    //private final List<JsonAdapterThingy> thingy auto detect
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons, @JsonProperty("notes") List<JsonAdaptedNote> notes) {
         this.persons.addAll(persons);
+        this.notes.addAll(notes);
     }
 
     /**
@@ -36,6 +40,11 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
+    public JsonSerializableAddressBook(ReadOnlyAddressBook source, List<Note> notes) {
+        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        //notes.addAll(notes.stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
+    }
+
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }

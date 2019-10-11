@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,6 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.note.Note;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -60,8 +64,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes) throws IOException {
+        saveAddressBook(addressBook, notes, filePath);
     }
 
     /**
@@ -69,12 +73,14 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
-
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        List<JsonAdaptedNote> sampleList = new ArrayList<>();
+        sampleList.add(new JsonAdaptedNote("noteSample", "desc"));
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook, notes), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook, notes), Paths.get("data", "studentsList.json"));
     }
 
 }
