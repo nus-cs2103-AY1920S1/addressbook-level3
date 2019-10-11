@@ -26,10 +26,11 @@ public interface Storage extends ModulePlannerStorage, UserPrefsStorage, Modules
     Path getModulePlannerFilePath();
 
     @Override
-    Optional<ReadOnlyModulePlanner> readModulePlanner(ModulesInfo modulesInfo) throws DataConversionException, IOException;
+    Optional<ReadOnlyModulePlanner> readModulePlanner(ModulesInfo modulesInfo)
+            throws DataConversionException, IOException;
 
     @Override
-    void saveModulePlanner(ReadOnlyModulePlanner ModulePlanner) throws IOException;
+    void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException;
 
     @Override
     Optional<ModulesInfo> readModulesInfo() throws DataConversionException, IOException;

@@ -1,21 +1,7 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.studyplan.Title;
-import seedu.address.model.tag.UserTag;
 
 /**
  * Edits the title of an existing studyPlan in the module planner.
@@ -98,7 +84,8 @@ public class EditTitleCommand extends Command {
      * edited with {@code editStudyPlanDescriptor}.
      */
     /*
-    private static StudyPlan createEditedStudyPlan(StudyPlan studyPlanToEdit, EditStudyPlanDescriptor editStudyPlanDescriptor) {
+    private static StudyPlan createEditedStudyPlan(StudyPlan studyPlanToEdit,
+                                                   EditStudyPlanDescriptor editStudyPlanDescriptor) {
         assert studyPlanToEdit != null;
 
         Name updatedName = editStudyPlanDescriptor.getName().orElse(studyPlanToEdit.getName());

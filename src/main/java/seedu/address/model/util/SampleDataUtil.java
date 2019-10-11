@@ -18,7 +18,7 @@ public class SampleDataUtil {
     public static StudyPlan[] getSampleStudyPlans(ModulesInfo modulesInfo) {
         // Can populate this with more study plans
         return new StudyPlan[] {
-                new StudyPlan(new Title("study plan first draft"), modulesInfo)
+            new StudyPlan(new Title("study plan first draft"), modulesInfo)
         };
     }
 

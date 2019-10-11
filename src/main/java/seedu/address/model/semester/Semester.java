@@ -36,7 +36,7 @@ public class Semester {
         this.semesterName = semesterName;
         this.isBlocked = isBlocked;
         this.reasonForBlocked = reasonForBlocked;
-        for(Module module : modules) {
+        for (Module module : modules) {
             this.modules.add(module);
         }
     }

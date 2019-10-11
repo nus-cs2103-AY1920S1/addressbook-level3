@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -45,13 +43,15 @@ public class SemesterCard extends UiPart<Region> {
         super(FXML);
         this.semester = semester;
         id.setText(displayedIndex + ". ");
-//        name.setText(semester.getName().fullName);
-//        phone.setText(semester.getPhone().value);
-//        address.setText(semester.getAddress().value);
-//        email.setText(semester.getEmail().value);
-//        semester.getTags().stream()
-//                .sorted(Comparator.comparing(tag -> tag.getTagName()))
-//                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+        /*
+        name.setText(semester.getName().fullName);
+        phone.setText(semester.getPhone().value);
+        address.setText(semester.getAddress().value);
+        email.setText(semester.getEmail().value);
+        semester.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+         */
     }
 
     @Override
