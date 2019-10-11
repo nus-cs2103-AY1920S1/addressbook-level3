@@ -182,6 +182,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return versionTrackingManager;
     }
 
+    /**
+     * Returns module information of the given module code, as a string.
+     */
+    public String getModuleInformation(String moduleCode) {
+        ModuleInfo moduleInfo = modulesInfo.find(moduleCode);
+        return moduleInfo == null ? null : moduleInfo.getInformation();
+    }
+
     //// util methods
 
     @Override

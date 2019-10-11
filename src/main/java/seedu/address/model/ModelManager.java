@@ -122,6 +122,11 @@ public class ModelManager implements Model {
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
 
+    @Override
+    public String getModuleInformation(String moduleCode) {
+        return modulePlanner.getModuleInformation(moduleCode);
+    }
+
     //=========== Filtered StudyPlan List Accessors =============================================================
 
     /**

@@ -26,10 +26,11 @@ public class CheckCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // TODO: add module information to ModelManager, and add methods to ModelManager and Model
-        // throw new CommandException("This command has not been implemented yet.");
-
-        return new CommandResult("HAHAHAHHA");
+        String result = model.getModuleInformation(this.moduleCode);
+        if (result == null) {
+            throw new CommandException("Module not found!");
+        }
+        return new CommandResult(result);
     }
 
     @Override
