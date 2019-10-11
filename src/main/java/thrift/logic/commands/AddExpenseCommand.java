@@ -58,6 +58,7 @@ public class AddExpenseCommand extends Command implements Undoable {
     @Override
     public void undo(Model model) {
         List<Transaction> lastShownList = model.getThrift().getTransactionList();
+        assert lastShownList.size() > 0 : "No transactions in the list";
         Transaction transactionToDelete = lastShownList.get(lastShownList.size() - 1);
         model.deleteTransaction(transactionToDelete);
     }
