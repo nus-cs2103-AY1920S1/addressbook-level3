@@ -80,7 +80,6 @@ public class AddressBookParser {
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
 
-
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);
 
