@@ -69,4 +69,15 @@ public class SerializableTestClass {
     public HashMap<Integer, String> getMapOfIntegerToString() {
         return mapOfIntegerToString;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SerializableTestClass)) {
+            return false;
+        }
+        SerializableTestClass s = (SerializableTestClass) o;
+        return this.name.equals(s.name)
+                && this.listOfLocalDateTimes.equals(s.listOfLocalDateTimes)
+                && this.mapOfIntegerToString.equals(s.mapOfIntegerToString);
+    }
 }
