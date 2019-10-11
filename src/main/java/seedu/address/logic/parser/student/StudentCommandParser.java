@@ -4,6 +4,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.student.*;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Name;
+import seedu.address.model.student.Student;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -75,8 +77,9 @@ public class StudentCommandParser implements Parser<StudentCommand> {
             }
 
             String name = argMultimap.getValue(PREFIX_STUDENT).orElse("");
+            //Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_STUDENT).get());
 
-            return new StudentAddCommand(name);
+            return new StudentAddCommand(new Student(new seedu.address.model.student.Name(name)));
         }
 
     }

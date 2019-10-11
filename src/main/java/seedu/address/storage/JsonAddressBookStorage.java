@@ -16,6 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.note.Note;
 
 /**
@@ -64,8 +65,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes) throws IOException {
-        saveAddressBook(addressBook, notes, filePath);
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, filePath);
     }
 
     /**
@@ -73,14 +74,13 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);
         List<JsonAdaptedNote> sampleList = new ArrayList<>();
         sampleList.add(new JsonAdaptedNote("noteSample", "desc"));
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook, notes), filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook, notes), Paths.get("data", "studentsList.json"));
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
 }

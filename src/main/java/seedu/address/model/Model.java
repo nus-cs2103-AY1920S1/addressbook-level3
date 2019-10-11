@@ -59,35 +59,47 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    //=========== Students ================================================================================
-    /**
-     * Adds the given student.
-     * {@code student} must not exist in the student list.
-     */
+    //=========== StudentRecord ================================================================================
+//    /**
+//     * Adds the given student.
+//     * {@code student} must not exist in the student list.
+//     */
+//    void addStudent(Student student);
+//
+//    /**
+//     * Returns the student that has been deleted based on the index.
+//     * @return
+//     */
+//    Student deleteStudent(Index index);
+//
+//    /**
+//     * Returns the student based on its Index.
+//     */
+//    Student getStudent(Index index);
+//
+//    /**
+//     * Replaces the student at the specified index.
+//     */
+//    void setStudent(Index index, Student student);
+//
+//    /**
+//     * Returns the list of students.
+//     *
+//     * @return list of students
+//     */
+//    String getStudentList();
+
+    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
+
+    ReadOnlyStudentRecord getStudentRecord();
+
+    //region Students
+    boolean hasStudent(Student student);
+    void deleteStudent(Student target);
     void addStudent(Student student);
+    void setStudent(Student target, Student editedStudent);
 
-    /**
-     * Returns the student that has been deleted based on the index.
-     * @return
-     */
-    Student deleteStudent(Index index);
-
-    /**
-     * Returns the student based on its Index.
-     */
-    Student getStudent(Index index);
-
-    /**
-     * Replaces the student at the specified index.
-     */
-    void setStudent(Index index, Student student);
-
-    /**
-     * Returns the list of students.
-     *
-     * @return list of students
-     */
-    String getStudentList();
+    //endregion
 
 
     //=========== Questions ================================================================================

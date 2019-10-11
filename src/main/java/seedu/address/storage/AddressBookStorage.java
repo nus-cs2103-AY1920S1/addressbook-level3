@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyStudentsList;
 import seedu.address.model.note.Note;
 
@@ -40,12 +41,12 @@ public interface AddressBookStorage {
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes, Path filePath) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
     //endregion
 

@@ -23,7 +23,7 @@ public class StudentDeleteCommand extends StudentCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(generateSuccessMessage(model.deleteStudent(index)));
+        return null;//new CommandResult(generateSuccessMessage(model.deleteStudent(index)));
     }
 
     /**

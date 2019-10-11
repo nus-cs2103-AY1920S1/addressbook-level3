@@ -9,6 +9,6 @@ public class StudentListCommand extends StudentCommand{
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getStudentList());
+        return null;//new CommandResult(model.getStudentList());
     }
 }

@@ -32,13 +32,13 @@ public class ModelManager implements Model {
     private final QuestionList questions;
     private final NoteList notes;
     private final UserPrefs userPrefs;
-    private final UniqueStudentList students;
+    private final StudentRecord studentRecord;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyStudentRecord studentRecord,ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -49,12 +49,12 @@ public class ModelManager implements Model {
         this.questions = new QuestionList();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
-        this.students = new UniqueStudentList();
+        this.studentRecord = new StudentRecord(studentRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -104,31 +104,66 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    //=========== StudentRecord ===========================================================================
+
+//    @Override
+//    public void addStudent(ReadOnlyStudentRecord studentRecord) {
+//        this.studentRecord.resetData(student);
+//    }
+//
+//    @Override
+//    public Student deleteStudent(Index index) {
+//        return students.remove(index);
+//    }
+//
+//    @Override
+//    public Student getStudent(Index index) {
+//        return students.getStudent(index);
+//    }
+//
+//    @Override
+//    public void setStudent(Index index, Student student) {
+//        students.setStudent(index, student);
+//    }
+//
+//    @Override
+//    public String getStudentList() {
+//        return students.getStudentList();
+//    }
+
+    @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        this.studentRecord.resetData(studentRecord);
+    }
+
+    @Override
+    public ReadOnlyStudentRecord getStudentRecord() {
+        return studentRecord;
+    }
+
     //=========== Students ================================================================================
 
     @Override
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return studentRecord.hasStudent(student);
+    }
+
+    @Override
+    public void deleteStudent(Student target) {
+        studentRecord.removeStudent(target);
+    }
+
+    @Override
     public void addStudent(Student student) {
-        students.add(student);
+        studentRecord.addStudent(student);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public Student deleteStudent(Index index) {
-        return students.remove(index);
-    }
-
-    @Override
-    public Student getStudent(Index index) {
-        return students.getStudent(index);
-    }
-
-    @Override
-    public void setStudent(Index index, Student student) {
-        students.setStudent(index, student);
-    }
-
-    @Override
-    public String getStudentList() {
-        return students.getStudentList();
+    public void setStudent(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        studentRecord.setStudent(target, editedStudent);
     }
 
     //=========== Questions ================================================================================

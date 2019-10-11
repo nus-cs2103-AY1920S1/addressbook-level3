@@ -70,14 +70,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes) throws IOException {
-        saveAddressBook(addressBook, notes, addressBookStorage.getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, notes, filePath);
+        addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
     // ================ StudentRecord methods ==============================

@@ -32,7 +32,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     // ================ StudentRecord methods ==============================
 
