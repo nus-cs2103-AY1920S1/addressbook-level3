@@ -9,11 +9,11 @@ import java.util.Set;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.person.Address;
-import seedu.jarvis.model.person.Email;
-import seedu.jarvis.model.person.Name;
-import seedu.jarvis.model.person.Phone;
-import seedu.jarvis.model.tag.Tag;
+import seedu.jarvis.model.address.person.Address;
+import seedu.jarvis.model.address.person.Email;
+import seedu.jarvis.model.address.person.Name;
+import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

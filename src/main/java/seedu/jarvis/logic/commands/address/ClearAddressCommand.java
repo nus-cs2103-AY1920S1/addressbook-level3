@@ -6,9 +6,9 @@ import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * Clears the address book.

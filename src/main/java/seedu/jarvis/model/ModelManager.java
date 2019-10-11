@@ -12,10 +12,15 @@ import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.

@@ -17,8 +17,11 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
