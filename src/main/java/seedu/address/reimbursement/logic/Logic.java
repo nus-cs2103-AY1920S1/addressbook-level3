@@ -15,4 +15,5 @@ public interface Logic {
     void writeIntoReimbursementFile() throws Exception;
 
     ReimbursementList getReimbursementList();
+
 }

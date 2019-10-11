@@ -19,6 +19,11 @@ public class Reimbursement {
     private Description description;
     private Deadline deadline;
 
+    private String idCol;
+    private String personCol;
+    private String descriptionCol;
+    private String deadlineCol;
+
     /**
      * Constructs a reimbursement based on 1 piece of transaction.
      *
@@ -33,8 +38,83 @@ public class Reimbursement {
         deadline = new Deadline();
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public ArrayList<Transaction> getList() {
+        return list;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    public String getIdCol() {
+        return idCol;
+    }
+
+    public void setIdCol(int id) {
+        this.idCol = Integer.toString(id);
+    }
+
+    public String getPersonCol() {
+        return personCol;
+    }
+
+    public String getDescriptionCol() {
+        return descriptionCol;
+    }
+
+    public String getDeadlineCol() {
+        return deadlineCol;
+    }
+
+    public void setPersonCol() {
+        this.personCol = person.getName().toString();
+    }
+
+    public void setDescriptionCol() {
+        this.descriptionCol = description.toString();
+    }
+
+    public void setDeadlineCol() {
+        this.deadlineCol = deadline.toString();
+    }
+
+    /**
+     * Calculates the total amount to reimburse based off the transaction list.
+     */
+    private void calculateAmount() {
+        double total = 0;
+        for (Transaction trans : list) {
+            total += trans.getAmount();
+        }
+        amount = total;
+    }
+
+    /**
+     * Merges two reimbursements if they are from the same person.
+     *
+     * @param reimbursement the reimbursement to be merged.
+     */
+    public void merge(Reimbursement reimbursement) {
+        assert reimbursement.getPerson().isSamePerson(this.getPerson()) : "Merging reimbursements is invalid.";
+        for (Transaction trans : reimbursement.getList()) {
+            list.add(trans);
+        }
+        this.calculateAmount();
+        description = new Description(list);
+    }
+
+
     /**
      * Adds a new deadline for the reimbursement.
+     *
      * @param date the date by which the reimbursement is due.
      * @throws InvalidDeadlineException If the date is in an incorrect format.
      */
@@ -51,6 +131,7 @@ public class Reimbursement {
 
     /**
      * Used for loading off the file. If no date is specified, create an empty deadline (no deadline).
+     *
      * @param date The date of the deadline.
      */
     public void matchDeadline(String date) {
@@ -62,8 +143,10 @@ public class Reimbursement {
 
     }
 
+
     /**
      * Compares to see if the person for another reimbursement is the same as the current person.
+     *
      * @param reimbursement the reimbursement to be compared to.
      * @return true if the person is the same, false otherwise.
      */
@@ -82,58 +165,6 @@ public class Reimbursement {
         for (Transaction trans : list) {
             trans.updateStatus();
         }
-    }
-
-    /**
-     * @return the person to be reimbursed.
-     */
-    public Person getPerson() {
-        return person;
-    }
-
-    /**
-     * @return the list of transactions.
-     */
-    public ArrayList<Transaction> getList() {
-        return list;
-    }
-
-    /**
-     * @return the amount to be reimbursed.
-     */
-    public double getAmount() {
-        return amount;
-    }
-
-    /**
-     * @return the deadline for the reimbursement
-     */
-    public Deadline getDeadline() {
-        return deadline;
-    }
-
-    /**
-     * Merges two reimbursements if they are from the same person.
-     * @param reimbursement the reimbursement to be merged.
-     */
-    public void merge(Reimbursement reimbursement) {
-        assert reimbursement.getPerson().isSamePerson(this.getPerson()) : "Merging reimbursements is invalid.";
-        for (Transaction trans : reimbursement.getList()) {
-            list.add(trans);
-        }
-        this.calculateAmount();
-        description = new Description(list);
-    }
-
-    /**
-     * Calculates the total amount to reimburse based off the transaction list.
-     */
-    private void calculateAmount() {
-        double total = 0;
-        for (Transaction trans : list) {
-            total += trans.getAmount();
-        }
-        amount = total;
     }
 
     public String toString() {

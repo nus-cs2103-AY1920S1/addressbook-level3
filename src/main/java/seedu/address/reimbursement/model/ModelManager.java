@@ -1,6 +1,9 @@
 package seedu.address.reimbursement.model;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
@@ -15,6 +18,8 @@ public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final StorageManager storage;
     private ReimbursementList reimbursementList;
+    private ReimbursementList filteredList;
+    private Predicate<Reimbursement> predicate;
 
     public ModelManager(StorageManager storageManager) {
         this.storage = storageManager;
