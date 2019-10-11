@@ -71,15 +71,16 @@ public class SaveVisitCommandTest {
     @Test
     public void equals() {
 
-        SaveVisitCommand saveVisitCommand
-                = new SaveVisitCommand(1, "12/12/2012", "meds", "diagnosis", "remarks");
+        SaveVisitCommand saveVisitCommand =
+                new SaveVisitCommand(1, "12/12/2012", "meds", "diagnosis", "remarks");
 
         // same object -> returns true
         assertTrue(saveVisitCommand.equals(saveVisitCommand));
 
         // same values -> returns true
-        SaveVisitCommand saveVisitCommand2
-                = new SaveVisitCommand(1, "12/12/2012", "meds", "diagnosis", "remarks");
+        SaveVisitCommand saveVisitCommand2 =
+                new SaveVisitCommand(1, "12/12/2012", "meds", "diagnosis", "remarks");
+
         assertTrue(saveVisitCommand.equals(saveVisitCommand2));
 
         // different types -> returns false
@@ -89,24 +90,25 @@ public class SaveVisitCommandTest {
         assertFalse(saveVisitCommand2.equals(null));
 
         // different idx -> returns false
-        SaveVisitCommand saveVisitCommandIdx
-                = new SaveVisitCommand(2, "12/12/2012", "meds", "diagnosis", "remarks");
+        SaveVisitCommand saveVisitCommandIdx =
+                new SaveVisitCommand(2, "12/12/2012", "meds", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandIdx));
 
-        SaveVisitCommand saveVisitCommandDate
-                = new SaveVisitCommand(1, "13/12/2012", "meds", "diagnosis", "remarks");
+        SaveVisitCommand saveVisitCommandDate =
+                new SaveVisitCommand(1, "13/12/2012", "meds", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandDate));
 
-        SaveVisitCommand saveVisitCommandMeds
-                = new SaveVisitCommand(1, "12/12/2012", "medicine", "diagnosis", "remarks");
+        SaveVisitCommand saveVisitCommandMeds =
+                new SaveVisitCommand(1, "12/12/2012", "medicine", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandMeds));
 
-        SaveVisitCommand saveVisitCommandDiagnosis
-                = new SaveVisitCommand(1, "12/12/2012", "meds", "dg", "remarks");
+        SaveVisitCommand saveVisitCommandDiagnosis =
+                new SaveVisitCommand(1, "12/12/2012", "meds", "dg", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandDiagnosis));
 
-        SaveVisitCommand saveVisitCommandRemark
-                = new SaveVisitCommand(1, "12/12/2012", "meds", "dg", "rm");
+        SaveVisitCommand saveVisitCommandRemark =
+                new SaveVisitCommand(1, "12/12/2012", "meds", "dg", "rm");
+
         assertFalse(saveVisitCommand2.equals(saveVisitCommandRemark));
 
     }
