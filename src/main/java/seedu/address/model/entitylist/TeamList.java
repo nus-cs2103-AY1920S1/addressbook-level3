@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
@@ -35,11 +35,11 @@ public class TeamList extends EntityList {
      */
     public Team get(Id id) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == id) {
+            if (t.getId().equals(id)) {
                 return t;
             }
         }
-        throw new AlfredRuntimeException("Team to get does not exist!");
+        throw new AlfredModelException("Team to get does not exist!");
     }
 
     /**
@@ -51,7 +51,7 @@ public class TeamList extends EntityList {
      */
     public boolean update(Id id, Team updatedTeam) {
         for (int i = 0; i < this.teams.size(); i++) {
-            if (this.teams.get(i).getId() == id) {
+            if (this.teams.get(i).getId().equals(id)) {
                 this.teams.set(i, updatedTeam);
                 return true;
             }
@@ -67,8 +67,8 @@ public class TeamList extends EntityList {
      */
     public void add(Team team) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == team.getId()) {
-                throw new AlfredRuntimeException("Team to add already exists.");
+            if (t.getId().equals(team.getId())) {
+                throw new AlfredModelException("Team to add already exists.");
             }
         }
         this.teams.add(team);
@@ -82,12 +82,12 @@ public class TeamList extends EntityList {
      */
     public Team delete(Id id) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == id) {
+            if (t.getId().equals(id)) {
                 this.teams.remove(t);
                 return t;
             }
         }
-        throw new AlfredRuntimeException("Team to delete cannot be found.");
+        throw new AlfredModelException("Team to delete cannot be found.");
     }
 
     /**
@@ -117,7 +117,7 @@ public class TeamList extends EntityList {
     @Override
     public boolean contains(Id id) {
         for (Team p: this.teams) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 return true;
             }
         }

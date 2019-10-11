@@ -59,18 +59,12 @@ public class EditParticipantCommand extends EditCommand {
         Participant editedParticipant = this.createEditedParticipant(participantToEdit,
                                                                      this.editParticipantDescriptor);
 
-        // Model should check if there exists duplicates in list
-        /*
-         * i.e
-         * if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-         *     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-         * }
-         */
-        if (!model.updateParticipant(this.id, editedParticipant)) {
-            return new CommandResult(MESSAGE_DUPLICATE_PARTICIPANT);
+        try {
+            model.updateParticipant(this.id, editedParticipant);
+            return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
+        } catch (AlfredException e) {
+            throw new CommandException(e.getMessage());
         }
-        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
     }
 
     /**

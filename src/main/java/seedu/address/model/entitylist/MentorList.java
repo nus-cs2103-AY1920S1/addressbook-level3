@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -34,11 +34,11 @@ public class MentorList extends EntityList {
      */
     public Mentor get(Id id) throws AlfredException {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 return m;
             }
         }
-        throw new AlfredRuntimeException("Mentor to get does not exist");
+        throw new AlfredModelException("Mentor to get does not exist");
     }
 
     /**
@@ -50,7 +50,7 @@ public class MentorList extends EntityList {
      */
     public boolean update(Id id, Mentor updatedMentor) {
         for (int i = 0; i < this.mentors.size(); i++) {
-            if (this.mentors.get(i).getId() == id) {
+            if (this.mentors.get(i).getId().equals(id)) {
                 this.mentors.set(i, updatedMentor);
                 return true;
             }
@@ -67,7 +67,7 @@ public class MentorList extends EntityList {
     public void add(Mentor mentor) throws AlfredException {
         for (Mentor m: this.mentors) {
             if (m.getId() == mentor.getId()) {
-                throw new AlfredRuntimeException("Item to add already exists!");
+                throw new AlfredModelException("Item to add already exists!");
             }
         }
         this.mentors.add(mentor);
@@ -81,12 +81,12 @@ public class MentorList extends EntityList {
      */
     public Mentor delete(Id id) throws AlfredException {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 this.mentors.remove(m);
                 return m;
             }
         }
-        throw new AlfredRuntimeException("Mentor to delete does not exist.");
+        throw new AlfredModelException("Mentor to delete does not exist.");
     }
 
     /**
@@ -117,7 +117,7 @@ public class MentorList extends EntityList {
     @Override
     public boolean contains(Id id) {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 return true;
             }
         }

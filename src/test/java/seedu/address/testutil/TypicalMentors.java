@@ -25,6 +25,13 @@ public class TypicalMentors {
                                               new Name("Organization A"),
                                               SubjectName.SOCIAL);
 
+    public static final Mentor A_UPDATED = new Mentor(new Name("Mentor A"),
+            new Id(PrefixType.M, 3),
+            new Phone("91111111"),
+            new Email("mentorA@gmail.com"),
+            new Name("Organization Updated"),
+            SubjectName.SOCIAL);
+
     public static final Mentor B = new Mentor(new Name("Mentor B"),
                                               new Id(PrefixType.M, 31),
                                               new Phone("92222222"),

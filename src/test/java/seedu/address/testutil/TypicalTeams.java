@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
+import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
@@ -22,7 +23,7 @@ import seedu.address.model.entitylist.TeamList;
 public class TypicalTeams {
     public static final Team A = new Team(new Id(PrefixType.T, 1),
                                           new Name("Team A"),
-                                          TypicalParticipants.getTypicalParticipants(),
+                                          initializeListA(),
                                           Optional.of(TypicalMentors.A),
                                           SubjectName.ENVIRONMENTAL,
                                           new Score(1),
@@ -60,6 +61,23 @@ public class TypicalTeams {
             tList.add(t);
         }
         return tList;
+    }
+
+    /**
+     * Initialize the listA with the values needed.
+     * @return {@code List<Participant>}
+     */
+    public static List<Participant> initializeListA() {
+        List<Participant> listA = new ArrayList<>();
+        listA.add(TypicalParticipants.A);
+        return listA;
+    }
+
+    /**
+     * Clears the team as this is a static variable.
+     */
+    public static void clearTeamA() {
+        TypicalTeams.A.setParticipants(initializeListA());
     }
 
 }

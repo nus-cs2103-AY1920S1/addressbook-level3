@@ -14,7 +14,11 @@ import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entitylist.ParticipantList;
 
 /**
+<<<<<<< HEAD
  * A utility class containing a list of {@code Participant} objects to be used in tests.
+=======
+ * This provides dummy Participant objects for testing.
+>>>>>>> Fix checkstyle error
  */
 public class TypicalParticipants {
     public static final Participant A = new Participant(new Name("Participant A"),
@@ -22,7 +26,12 @@ public class TypicalParticipants {
                                                         new Email("participantA@gmail.com"),
                                                         new Phone("91111111"));
 
-    public static final Participant B = new Participant(new Name("Participant B"),
+    public static final Participant A_UPDATED = new Participant(new Name("Participant McParticipantyface"),
+                                                                new Id(PrefixType.P, 1),
+                                                                new Email("updated@gmail.com"),
+                                                                new Phone("92121212"));
+
+    public static final Participant B = new Participant(new Name("Part B"),
                                                         new Id(PrefixType.P, 2),
                                                         new Email("participantB@hotmail.com"),
                                                         new Phone("822222222"));

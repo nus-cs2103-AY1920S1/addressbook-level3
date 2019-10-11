@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
@@ -35,11 +35,11 @@ public class ParticipantList extends EntityList {
      */
     public Participant get(Id id) throws AlfredException {
         for (Participant p: this.participants) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 return p;
             }
         }
-        throw new AlfredRuntimeException("Participant to get does not exist");
+        throw new AlfredModelException("Participant to get does not exist");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ParticipantList extends EntityList {
          *         return false
          */
         for (int i = 0; i < this.participants.size(); i++) {
-            if (this.participants.get(i).getId() == id) {
+            if (this.participants.get(i).getId().equals(id)) {
                 this.participants.set(i, updatedParticipant);
                 return true;
             }
@@ -77,8 +77,8 @@ public class ParticipantList extends EntityList {
      */
     public void add(Participant participant) throws AlfredException {
         for (Participant p: this.participants) {
-            if (p.getId() == participant.getId()) {
-                throw new AlfredRuntimeException("Participant already exists in list");
+            if (p.getId().equals(participant.getId())) {
+                throw new AlfredModelException("Participant already exists in list");
             }
         }
         this.participants.add(participant);
@@ -92,12 +92,12 @@ public class ParticipantList extends EntityList {
      */
     public Participant delete(Id id) throws AlfredException {
         for (Participant p: this.participants) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 this.participants.remove(p);
                 return p;
             }
         }
-        throw new AlfredRuntimeException("Participant to delete does not exist");
+        throw new AlfredModelException("Participant to delete does not exist");
     }
 
     /**
@@ -128,7 +128,7 @@ public class ParticipantList extends EntityList {
     @Override
     public boolean contains(Id id) {
         for (Participant p: this.participants) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 return true;
             }
         }
