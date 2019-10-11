@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+    // TODO: add test case to ensure name doesn't change
     // Don't rename this; breaks the application.
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -110,6 +111,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

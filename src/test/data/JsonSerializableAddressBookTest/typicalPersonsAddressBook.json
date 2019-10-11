@@ -10,7 +10,7 @@
     "policies" : [ {
       "name": "Health Insurance",
       "description": "Health Insurance",
-      "coverage": " days/10 months/11 years/12",
+      "coverage": "days/10 months/11 years/12",
       "price": "$500",
       "start age": "50",
       "end age": "75",
@@ -28,7 +28,7 @@
     "policies" : [ {
       "name": "Health Insurance",
       "description": "Health Insurance",
-      "coverage": " days/10 months/11 years/12",
+      "coverage": "days/10 months/11 years/12",
       "price": "$500",
       "start age": "50",
       "end age": "75",
@@ -38,7 +38,7 @@
       {
         "name": "Life Insurance",
         "description": "Life Insurance",
-        "coverage": " days/10 months/11 years/12",
+        "coverage": "days/10 months/11 years/12",
         "price": "$500",
         "start age": "50",
         "end age": "75",

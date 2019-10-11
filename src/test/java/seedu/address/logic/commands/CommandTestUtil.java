@@ -22,6 +22,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.PolicyNameContainsKeywordsPredicate;
+import seedu.address.model.policy.Policy;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -76,6 +78,40 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
+    // Policies
+    public static final String VALID_NAME_HEALTH_INSURANCE = "Health Insurance";
+    public static final String VALID_NAME_LIFE_INSURANCE = "Life Insurance";
+    public static final String VALID_NAME_FIRE_INSURANCE = "Fire Insurance";
+
+    public static final String VALID_DESCRIPTION_HEALTH_INSURANCE = "Life Insurance";
+    public static final String VALID_DESCRIPTION_LIFE_INSURANCE = "Insurance for life";
+    public static final String VALID_DESCRIPTION_FIRE_INSURANCE = "Insurance for fire";
+
+    public static final String VALID_COVERAGE_HEALTH_INSURANCE = "days/10 months/11 years/12";
+    public static final String VALID_COVERAGE_LIFE_INSURANCE = "years/50";
+    public static final String VALID_COVERAGE_FIRE_INSURANCE = "days/30 months/12";
+
+    public static final String VALID_START_AGE_HEALTH_INSURANCE = "30 years";
+    public static final String VALID_START_AGE_LIFE_INSURANCE = "21 years";
+    public static final String VALID_START_AGE_FIRE_INSURANCE = "0 years";
+
+    public static final String VALID_END_AGE_HEALTH_INSURANCE = "75 years";
+    public static final String VALID_END_AGE_LIFE_INSURANCE = "80 years";
+    public static final String VALID_END_AGE_FIRE_INSURANCE = "5 years";
+
+    public static final String VALID_PRICE_HEALTH_INSURANCE = "$50000";
+    public static final String VALID_PRICE_LIFE_INSURANCE = "$1000000";
+    public static final String VALID_PRICE_FIRE_INSURANCE = "$7500";
+
+    // TODO: add valid criteria
+    public static final String VALID_CRITERIA_HEALTH_INSURANCE = "";
+    public static final String VALID_CRITERIA_LIFE_INSURANCE = "";
+    public static final String VALID_CRITERIA_FIRE_INSURANCE = "";
+
+    public static final String VALID_TAG_HEALTH_INSURANCE = "diabetic";
+    public static final String VALID_TAG_LIFE_INSURANCE = "non-smoker";
+    public static final String VALID_TAG_FIRE_INSURANCE = "";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withNric(VALID_NRIC_AMY)
@@ -177,4 +213,13 @@ public class CommandTestUtil {
     //        assertEquals(1, model.getFilteredPolicyList().size());
     //    }
 
+    public static void showPolicyAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPolicyList().size());
+
+        Policy policy = model.getFilteredPolicyList().get(targetIndex.getZeroBased());
+        final String[] splitName = policy.getName().toString().split("\\s+");
+        model.updateFilteredPolicyList(new PolicyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredPolicyList().size());
+    }
 }
