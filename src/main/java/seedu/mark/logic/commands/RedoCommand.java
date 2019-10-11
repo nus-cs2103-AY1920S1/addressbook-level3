@@ -8,7 +8,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 
 /**
- * Reverts the {@code model}'s mark to its previously undone state.
+ * Reverts the {@code model}'s Mark to its previously undone state.
  */
 public class RedoCommand extends Command {
 

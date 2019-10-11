@@ -34,7 +34,7 @@ public class VersionedMark extends Mark {
     }
 
     /**
-     * Restores the mark to its previous state.
+     * Restores the Mark to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -45,7 +45,7 @@ public class VersionedMark extends Mark {
     }
 
     /**
-     * Restores the mark to its previously undone state.
+     * Restores the Mark to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -56,14 +56,14 @@ public class VersionedMark extends Mark {
     }
 
     /**
-     * Returns true if {@code undo()} has mark states to undo.
+     * Returns true if {@code undo()} has Mark states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has mark states to redo.
+     * Returns true if {@code redo()} has Mark states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < markStateList.size() - 1;

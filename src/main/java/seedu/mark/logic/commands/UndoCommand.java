@@ -8,7 +8,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 
 /**
- * Reverts the {@code model}'s mark to its previous state.
+ * Reverts the {@code model}'s Mark to its previous state.
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";

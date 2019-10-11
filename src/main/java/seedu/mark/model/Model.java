@@ -91,27 +91,27 @@ public interface Model {
     boolean hasFolder(Folder folder);
 
     /**
-     * Returns true if the model has previous mark states to restore.
+     * Returns true if the model has previous Mark states to restore.
      */
     boolean canUndoMark();
 
     /**
-     * Returns true if the model has undone mark states to restore.
+     * Returns true if the model has undone Mark states to restore.
      */
     boolean canRedoMark();
 
     /**
-     * Restores the model's mark to its previous state.
+     * Restores the model's Mark to its previous state.
      */
     void undoMark();
 
     /**
-     * Restores the model's mark to its previously undone state.
+     * Restores the model's Mark to its previously undone state.
      */
     void redoMark();
 
     /**
-     * Saves the current mark state for undo/redo.
+     * Saves the current Mark state for undo/redo.
      */
     void saveMark();
 }
