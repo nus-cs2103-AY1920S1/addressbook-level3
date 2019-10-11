@@ -1,9 +1,11 @@
 package com.dukeacademy.solution;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.solution.exceptions.ProgramExecutorException;
-import com.dukeacademy.solution.exceptions.TestExecutorExceptionWrapper;
-import com.dukeacademy.solution.models.CompileError;
 import com.dukeacademy.model.solution.TestCase;
 import com.dukeacademy.model.solution.TestCaseResult;
 import com.dukeacademy.model.solution.TestExecutorResult;
@@ -14,18 +16,19 @@ import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.CompilerException;
 import com.dukeacademy.solution.exceptions.CompilerFileContentException;
 import com.dukeacademy.solution.exceptions.JavaFileCreationException;
+import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.exceptions.TestExecutorException;
+import com.dukeacademy.solution.exceptions.TestExecutorExceptionWrapper;
 import com.dukeacademy.solution.models.ClassFile;
+import com.dukeacademy.solution.models.CompileError;
 import com.dukeacademy.solution.models.JavaFile;
 import com.dukeacademy.solution.models.ProgramInput;
 import com.dukeacademy.solution.models.ProgramOutput;
 import com.dukeacademy.solution.program.ProgramExecutor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
+/**
+ * Executes tests on user's written programs.
+ */
 public class TestExecutor {
     private static final String messageTestExecutorFailed = "Test executor failed unexpectedly.";
 
@@ -41,6 +44,13 @@ public class TestExecutor {
         this.logger = LogsCenter.getLogger(TestExecutor.class);
     }
 
+    /**
+     * Runs the user's program against a list of test cases.
+     * @param testCases the test cases to be run.
+     * @param program the user's program.
+     * @return a result instance.
+     * @throws TestExecutorException if the test executor fails unexpectedly.
+     */
     public TestExecutorResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException {
         try {
             ClassFile classFile = this.compileProgram(program);
@@ -60,6 +70,13 @@ public class TestExecutor {
 
     }
 
+    /**
+     * Compiles the user program into a Java class file that can be executed.
+     * @param program the user's program
+     * @return a Java class file.
+     * @throws TestExecutorException if the test executor fails unexpectedly.
+     * @throws CompilerFileContentException if the contents of the program is not compilable.
+     */
     private ClassFile compileProgram(UserProgram program) throws TestExecutorException, CompilerFileContentException {
         try {
             this.environment.clearEnvironment();
@@ -70,7 +87,15 @@ public class TestExecutor {
         }
     }
 
-    private TestCaseResult runIndividualTestCase(ClassFile program, TestCase testCase) throws TestExecutorExceptionWrapper {
+    /**
+     * Runs the user's program against an individual test case.
+     * @param program the user's compiled program.
+     * @param testCase the test case to run the program against.
+     * @return the results of the test case.
+     * @throws TestExecutorExceptionWrapper
+     */
+    private TestCaseResult runIndividualTestCase(ClassFile program, TestCase testCase)
+            throws TestExecutorExceptionWrapper {
         try {
             ProgramInput input = new ProgramInput(testCase.getInput());
             ProgramOutput output = this.executor.executeProgram(program, input);

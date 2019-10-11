@@ -1,10 +1,13 @@
 package com.dukeacademy.model.solution;
 
-import com.dukeacademy.solution.models.CompileError;
-
 import java.util.List;
 import java.util.Optional;
 
+import com.dukeacademy.solution.models.CompileError;
+
+/**
+ * Represents the results of running a user's solution against the specified test cases
+ */
 public class TestExecutorResult {
     private final List<TestCaseResult> results;
     private final long numPassed;
