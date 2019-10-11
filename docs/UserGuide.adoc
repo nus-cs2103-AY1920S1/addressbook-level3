@@ -120,7 +120,7 @@ Examples:
 * `txfind m/5 y/2019 c/Education` +
 Finds all transactions in the current list from May 2019 from the category "Education".
 
-==== List all transactions: `txlist`
+==== List all transactions: `txlist`                    
 Lists all transactions. +
 Format `txlist`
 
@@ -167,6 +167,66 @@ Examples:
 Finds all transaction repeater with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
 
 === Loans
+
+==== Adding new loan: `newloan`
+
+Adds new loan to list. +
+Format: `newloan i/AMOUNT  n/NAME d/DESCRIPTION`
+
+Examples:
+
+* `newloan a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
+Takes input with initialization values and adds them to a lost of current unpaid loans.
+
+==== Marking Loan Paid: `loan paid`
+
+Marks loan as paid or reduces amount from payment. +
+Format: `loanpaid i/INDEX [i/AMOUNT]`
+
+Examples:
+
+* `loanpaid i/4 a/4000` +
+Takes input with initialization values and adds them to a lost of current unpaid loans.
+
+==== Loan Categorical Search: `loanshow`
+
+Shows all loans with certain name or description or date , or all loans+
+Format: `loanshow [s/KEYWORD]`
+
+Examples:
+
+* `loanshow s/charlie` +
+Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown. 
+
+==== Adding new loan: `loantotal`
+
+Finds and shows nett amount to pay/owed with keyword+
+Format: `loantotal s/KEYWORD`
+
+Examples:
+
+* `loantotal s/12/12/2000` +
+If no keyword is given, it returns total difference in amount owed to other parties and amount to be paid.
+
+==== Adding new loan: `loanset`
+
+Changes existing loan +
+Format: `loanset i/INDEX [a/AMOUNT] [d/DATE] [n/NAME] [d/DESCRIPTION]`
+
+Examples:
+
+* `loanset i/3 n/Lee d/For food in NY` +
+Takes input with initialization values for current loan identified by index, change any value.
+
+==== Adding new loan: `loansort`
+
+Finds and shows all loans sorted +
+Format: `loansort s/BY`
+
+Examples:
+
+* `loansort s/DATE` +
+Loans shown sorted by any given constrain, date or value owed.
 
 === Budgets
 
@@ -345,4 +405,10 @@ Displays expenditure ranking chart for July 2019.
 * *Categorical Ranking Chart* : `acatrank [m/MONTH] [y/YEAR]`
 * *Month-Based Ranking Chart* : `amthrank [y/YEAR]`
 * *Ranking Chart* : `aexprank [m/MONTH] [y/YEAR]`
+* *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`
+* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]` 
+* *Loan Categorical Search* : `loanshow [s/KEYWORD]`
+* *Loan Net Amount* : `loantotal [s/KEYWORD]`
+* *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`
+* *Loan Sort By Value* : `loansort s/BY`
 
