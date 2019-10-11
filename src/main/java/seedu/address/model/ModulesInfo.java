@@ -22,6 +22,10 @@ public class ModulesInfo {
         this.mapModulesInfo = modulesInfo;
     }
 
+    public HashMap<String, ModuleInfo> getModuleInfoHashMap() {
+        return this.mapModulesInfo;
+    }
+
     /**
      * Initialises by reading {@code modulesInfo} into #{@code mapModulesInfo}.
      * Parses the prerequisite tree for all modules with information.
