@@ -14,7 +14,7 @@ import seedu.mark.model.bookmark.Bookmark;
  */
 public class Reminder {
 
-    //temporarily
+    //TODO: temporarily; to change when confirmed
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
 
     //data field

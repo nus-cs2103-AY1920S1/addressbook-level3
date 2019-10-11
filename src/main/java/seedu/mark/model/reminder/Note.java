@@ -9,7 +9,7 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
 public class Note {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Notess should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Notes should only contain alphanumeric characters and spaces; it should not be blank";
 
     /*
      * The first character of the note must not be a whitespace,
