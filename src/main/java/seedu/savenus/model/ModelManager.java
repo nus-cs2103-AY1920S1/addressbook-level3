@@ -113,6 +113,8 @@ public class ModelManager implements Model {
         menu.setFood(target, editedFood);
     }
 
+    //=========== Budget Accessors =========================================================================
+
     @Override
     public float getRemainingBudget() {
         return menu.getWallet().getRemainingBudgetAmount();

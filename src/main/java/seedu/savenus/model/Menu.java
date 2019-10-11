@@ -98,29 +98,32 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
+
+    //// wallet operations
+
     /**
-     * Adds a wallet to the application.
+     * Adds a {@code Wallet} to the application.
      */
     public void addWallet(Wallet wallet) {
         this.wallet = wallet;
     }
 
     /**
-     * Get users wallet.
+     * Get user's {@code Wallet}.
      */
     public Wallet getWallet() {
         return wallet;
     }
 
     /**
-     * Set current budget.
+     * Set user's {@code RemainingBudget}.
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         wallet.setRemainingBudget(newRemainingBudget);
     }
 
     /**
-     * Set days to expire.
+     * Set user's {@code DaysToExpire}.
      */
     public void setDaysToExpire(DaysToExpire newDaysToExpire) {
         wallet.setDaysToExpire(newDaysToExpire);

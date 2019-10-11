@@ -9,7 +9,7 @@ import seedu.savenus.model.wallet.Wallet;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Command to add a {@code remainingBudget} for the user.
+ * Command to add a {@code Wallet} for the user.
  * TODO Make Days to Expire optional
  */
 public class BudgetCommand extends Command {

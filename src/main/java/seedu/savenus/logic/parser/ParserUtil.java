@@ -42,10 +42,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String walletString} into a {@code Wallet}.
+     * Parses a {@code String} into a {@code Wallet}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code walletSrting} is invalid.
+     * @throws ParseException if the given {@code String} is invalid.
      */
     public static Wallet parseWallet(String walletString) throws ParseException {
         String trimmedWalletString = walletString.trim();

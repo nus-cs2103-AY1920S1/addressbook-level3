@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the number of days to budget expiration in the address book.
+ * Represents the number of days to budget expiration in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidDaysToExpire(String)}
  */
 public class DaysToExpire {
@@ -48,14 +48,23 @@ public class DaysToExpire {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the {@code IntegerProperty} of this instance.
+     */
     public IntegerProperty getDaysToExpireProperty() {
         return daysToExpireProperty;
     }
 
+    /**
+     * Returns the {@code int} value of this instance
+     */
     public int getDaysToExpire() {
         return daysToExpireProperty.get();
     }
 
+    /**
+     * Replaces the old {@code DaysToExpire} with the new {@code DaysToExpire}.
+     */
     public void setDaysToExpire(DaysToExpire newDaysToExpire) {
         daysToExpireProperty.setValue(newDaysToExpire.getDaysToExpire());
     }
