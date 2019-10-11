@@ -19,7 +19,6 @@ import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.core.item.Task;
-//import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,7 +38,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         // Event must have a deadline.
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT)); // AddCommand.MESSAGE_USAGE));
         }
 
         ItemDescription description = ParserUtil.parseDescription(desc);
@@ -51,6 +50,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
 
 
         ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setItemDescription(description);
         itemBuilder.setTags(tagList);
 
         if (priority.isPresent()) {

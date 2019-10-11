@@ -6,10 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.*;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.Model;
-<<<<<<< HEAD
-=======
+
 import seedu.address.commons.core.item.Item;
->>>>>>> Resolve Merge Conflict with Commons
+
 
 public class AddCommand extends Command {
 

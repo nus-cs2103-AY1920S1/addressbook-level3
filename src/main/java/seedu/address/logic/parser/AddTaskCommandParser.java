@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -34,13 +35,14 @@ public class AddTaskCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
 
         ItemDescription description = ParserUtil.parseDescription(desc);
-        // Need to check if all below isPresent() first
         Optional<Event> dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).orElse(null));
         Optional<Reminder> itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).orElse(null));
         Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setItemDescription(description);
+        itemBuilder.setTags(tagList);
         Task task = new Task(priority.orElse(null), null);
         itemBuilder.setTask(task);
 

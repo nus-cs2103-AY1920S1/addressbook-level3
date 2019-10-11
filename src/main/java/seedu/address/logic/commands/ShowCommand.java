@@ -46,7 +46,11 @@ public class ShowCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        model.setVisualList(targetList); // should be T/E/R
+        try {
+            model.setVisualList(targetList); // should be T/E/R
+        } catch (Exception e) {
+            throw new CommandException("Dummy exception");
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
     }
 }

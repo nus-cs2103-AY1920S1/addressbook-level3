@@ -46,6 +46,7 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setItemDescription(description);
         itemBuilder.setReminder(itemReminder);
         itemBuilder.setTags(tagList);
 

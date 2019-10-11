@@ -67,6 +67,7 @@ public class ParserUtil {
         }
 
         Event newEvent = new Event(formattedDateTime, null, null);
+
         return Optional.of(newEvent);
     }
 
