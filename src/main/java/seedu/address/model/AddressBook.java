@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.customer.UniqueCustomerList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+
+    private final UniqueCustomerList customers;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        customers = new UniqueCustomerList();
     }
 
     public AddressBook() {}
@@ -45,6 +50,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the customer list with {@code customers}.
+     * {@code customers} must not contain duplicate customers.
+     */
+    public void setCustomers(List<Customer> customers) {
+        this.customers.setCustomers(customers);
     }
 
     /**
@@ -93,6 +106,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
+     */
+    public boolean hasCustomer(Customer customer) {
+        requireNonNull(customer);
+        return customers.contains(customer);
+    }
+
+    /**
+     * Adds a customer to the address book.
+     * The customer must not already exist in the address book.
+     */
+    public void addCustomer(Customer c) {
+        customers.add(c);
+    }
+
+    /**
+     * Replaces the given customer {@code target} in the list with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the address
+     * book.
+     */
+    public void setCustomer(Customer target, Customer editedCustomer) {
+        requireNonNull(editedCustomer);
+
+        customers.setCustomer(target, editedCustomer);
+    }
     //// util methods
 
     @Override
@@ -104,6 +144,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Customer> getCustomerList() {
+        return customers.asUnmodifiableObservableList();
     }
 
     @Override

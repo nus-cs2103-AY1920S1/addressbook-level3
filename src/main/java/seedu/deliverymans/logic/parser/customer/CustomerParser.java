@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.customer.AddCommand;
 import seedu.deliverymans.logic.commands.customer.DeleteCommand;
 import seedu.deliverymans.logic.commands.customer.EditCommand;
 import seedu.deliverymans.logic.commands.customer.HistoryCommand;
@@ -42,7 +43,9 @@ public class CustomerParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        // case add??
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(arguments);
 
