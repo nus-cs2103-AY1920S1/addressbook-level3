@@ -17,7 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditCardDescriptor;
+import seedu.address.logic.commands.app.ClearCommand;
+import seedu.address.logic.commands.app.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -36,7 +37,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Card editedCard = new CardBuilder().build();
-        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
@@ -55,7 +56,7 @@ public class EditCommandTest {
         CardBuilder cardInList = new CardBuilder(lastCard);
         Card editedCard = cardInList.withWord(VALID_WORD_BUTTERFREE).withTags(VALID_TAG_BUG).build();
 
-        EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withWord(VALID_WORD_BUTTERFREE).withTags(VALID_TAG_BUG).build();
         EditCommand editCommand = new EditCommand(indexLastCard, descriptor);
 
@@ -69,7 +70,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCardDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCommand.EditCardDescriptor());
         Card editedCard = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
@@ -99,7 +100,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateCardUnfilteredList_failure() {
         Card firstPerson = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstPerson).build();
+        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_CARD);
@@ -120,7 +121,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidCardIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
-        EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withWord(VALID_WORD_BUTTERFREE).build();
+        EditCommand.EditCardDescriptor descriptor =
+                new EditCardDescriptorBuilder().withWord(VALID_WORD_BUTTERFREE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -148,7 +150,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_ABRA);
 
         // same values -> returns true
-        EditCardDescriptor copyDescriptor = new EditCardDescriptor(DESC_ABRA);
+        EditCommand.EditCardDescriptor copyDescriptor = new EditCommand.EditCardDescriptor(DESC_ABRA);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

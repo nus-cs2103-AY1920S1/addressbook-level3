@@ -8,11 +8,14 @@ Extends to Step 15 in Game.java
  */
 package seedu.address.logic.commands.switches;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.ModeEnum;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
@@ -20,10 +23,6 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.JsonAddressBookStorage;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
 
 /**
  * Start the game.

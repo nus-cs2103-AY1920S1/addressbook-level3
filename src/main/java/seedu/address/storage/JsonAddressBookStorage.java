@@ -4,14 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -87,7 +85,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public Optional<List<WordBank>> getWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
         String pathString = "data/";
-        File dataDirectory =  new File(pathString);
+        File dataDirectory = new File(pathString);
         String[] pathArray = dataDirectory.list();
 
         for (int i = 0; i < pathArray.length; i++) {
