@@ -48,8 +48,7 @@ public class Date {
      * Returns if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        String converted = convertDate(test);
-        return !converted.equals("INVALID");
+        return !convertDate(test).equals(test);
     }
 
     /**
@@ -124,7 +123,7 @@ public class Date {
             newDateTime = LocalDateTime.parse(date, formatter);
             return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
         } else {
-            return "INVALID";
+            return date;
         }
     }
 
