@@ -24,6 +24,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.itinerary.*;
 import seedu.address.ui.template.Page;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
@@ -187,6 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Retrieves the {@code Page} type and attempts to switch the content in
      * {@code contentPlaceholder} with it.
+     * TODO
      */
     private void handleSwitch() {
         final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
@@ -202,6 +204,21 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case PREFERENCES:
             newPage = new PreferencesPage(this, logic, model);
+            break;
+        case ADD_EVENT:
+            newPage = new EditEventPage(this, logic, model);
+            break;
+        case OVERALL_VIEW:
+            newPage = new DaysPage(this, logic, model);
+            break;
+        case ADD_DAY:
+            newPage = new EditDayPage(this, logic, model);
+            break;
+        case EVENT_PAGE:
+            newPage = new EventsPage(this, logic, model);
+            break;
+        case ITINERARY:
+            newPage = new ItineraryPage(this, logic, model);
             break;
         default:
             resultDisplay.setFeedbackToUser(

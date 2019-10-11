@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@days.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../build/resources/main/images/dummytrip.jpeg" />
+         </image>
+      </ImageView>
+      <Label fx:id="nameLabel" layoutX="57.0" layoutY="36.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="NameLabel" stylesheets="@days.css" text="\$Name" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="destinationLabel" layoutX="23.0" layoutY="67.0" style="-fx-text-fill: white; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="indexLabel" style="-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 25;" styleClass="IndexLabel" stylesheets="@days.css" text="\$Index" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

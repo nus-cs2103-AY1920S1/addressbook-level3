@@ -3,7 +3,6 @@ package seedu.address.logic.commands.trips.edit;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
@@ -13,22 +12,16 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Constructs a command that attempts to modify the current values in the edit trip page.
@@ -57,7 +50,7 @@ public class EditTripFieldCommand extends Command {
     private final EditTripDescriptor editTripDescriptor;
 
     /**
-     * @param editTripDescriptor details to edit the person with
+     * @param editTripDescriptor details to edit the trip with
      */
     public EditTripFieldCommand(EditTripDescriptor editTripDescriptor) {
         requireNonNull(editTripDescriptor);
@@ -98,7 +91,7 @@ public class EditTripFieldCommand extends Command {
 
     /**
      * Stores the details to edit the trip with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the trip.
      */
     public static class EditTripDescriptor {
         private Optional<Name> name;
@@ -270,7 +263,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditPersonDescriptor)) {
+            if (!(other instanceof EditTripFieldCommand.EditTripDescriptor)) {
                 return false;
             }
 

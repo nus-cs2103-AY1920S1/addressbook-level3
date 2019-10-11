@@ -53,4 +53,5 @@ public abstract class TripParserUtil {
         }
         return new Expenditure(trimmedName);
     }
+
 }

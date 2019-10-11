@@ -2,6 +2,7 @@ package seedu.address.model.itinerary;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
 
@@ -11,8 +12,10 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a list of
- * @param <T>
+ * Represents a list of consecutive, non clashing occurrences (trips/events/days).
+ * Todo, make list consecutive.
+ *
+ * @param <T> Type of occurrence
  */
 public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
 
@@ -52,6 +55,11 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      * The person must exist in the list.
      */
     public abstract void remove(T toRemove) throws TripNotFoundException;
+
+    public void remove(Index index) {
+        requireNonNull(index);
+        internalList.remove(index.getZeroBased());
+    }
 
     public void set(ConsecutiveOccurrenceList<T> replacement){
         requireNonNull(replacement);

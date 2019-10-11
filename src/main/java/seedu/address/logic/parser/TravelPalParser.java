@@ -16,11 +16,11 @@ import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.ExpenseParser;
 import seedu.address.logic.parser.inventory.InventoryParser;
-import seedu.address.logic.parser.itinerary.addday.AddDayParser;
-import seedu.address.logic.parser.itinerary.addevent.AddEventParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
+import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
 import seedu.address.logic.parser.itinerary.eventview.EventViewParser;
-import seedu.address.logic.parser.itinerary.overallview.OverallViewParser;
+import seedu.address.logic.parser.itinerary.eventview.edit.EditEventParser;
+import seedu.address.logic.parser.itinerary.overallview.ItineraryViewParser;
 import seedu.address.logic.parser.preferences.PreferencesParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
 import seedu.address.logic.parser.trips.edit.EditTripParser;
@@ -80,13 +80,13 @@ public class TravelPalParser {
         case ADD_TRIP:
             return new EditTripParser().parse(commandWord, arguments);
         case ADD_DAY:
-            return new AddDayParser().parse(commandWord, arguments);
+            return new EditDayParser().parse(commandWord, arguments);
         case ADD_EVENT:
-            return new AddEventParser().parse(commandWord, arguments);
+            return new EditEventParser().parse(commandWord, arguments);
         case ITINERARY:
-            return new DayViewParser().parse(commandWord, arguments);
+            return new ItineraryViewParser().parse(commandWord, arguments);
         case OVERALL_VIEW:
-            return new OverallViewParser().parse(commandWord, arguments);
+            return new DayViewParser().parse(commandWord, arguments);
         case EVENT_PAGE:
             return new EventViewParser().parse(commandWord, arguments);
         case PRETRIP_INVENTORY:

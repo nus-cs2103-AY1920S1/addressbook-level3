@@ -30,7 +30,7 @@ public class Event {
     private final Booking booking;
 
     /**
-     * Constructs an {@code event}.
+     * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking, Expenditure totalBudget, Inventory inventory, Location destination) {
         requireAllNonNull(name, startDate, endDate, booking, totalBudget, inventory);
@@ -66,7 +66,7 @@ public class Event {
         this.destination = destination;
         if(totalBudget.isPresent()) {
             this.totalBudget = totalBudget.get();
-        } else{
+        } else {
             this.totalBudget = null;
         }
         this.inventory = null;

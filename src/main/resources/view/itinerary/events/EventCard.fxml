@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox fx:id="propertiesContainer" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <Label fx:id="idLabel" styleClass="cell_big_label" text="\$id">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="nameLabel" styleClass="cell_big_label" text="\$name" />
+            </HBox>
+            <Label fx:id="startDateLabel" styleClass="cell_small_label" text="\$startDate" />
+            <Label fx:id="endDateLabel" styleClass="cell_small_label" text="\$endDate" />
+         <Label fx:id="destinationLabel" styleClass="cell_small_label" text="\$destination" />
+        </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+</HBox>

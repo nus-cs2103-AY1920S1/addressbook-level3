@@ -26,7 +26,7 @@ public class CancelEditTripCommand extends Command {
         model.setPageStatus(model.getPageStatus()
                 .withNewEditTripDescriptor(null)
                 .withNewPageType(PageType.TRIP_MANAGER)
-                .withNewTrip(null));
+                .withResetTrip());
 
         if (currentlyEditingTrip == null) {
             return new CommandResult(MESSAGE_CANCEL_CREATE_SUCCESS, true);
