@@ -56,19 +56,8 @@ class JsonAdaptedModule {
         }
     }
 
-    @JsonValue
     public String getModuleCode() {
         return moduleCode;
-    }
-
-    @JsonValue
-    public String getColor() {
-        return color;
-    }
-
-    @JsonValue
-    public List<JsonAdaptedTag> getUserTags() {
-        return userTags;
     }
 
     /**

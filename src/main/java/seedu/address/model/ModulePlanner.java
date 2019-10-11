@@ -11,6 +11,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
@@ -27,17 +28,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     private StudyPlan activeStudyPlan;
     private final ModulesInfo modulesInfo;
     private final VersionTrackingManager versionTrackingManager;
-
-    //    /*
-    //     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-    //     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-    //     *
-    //     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-    //     *   among constructors.
-    //     */
-    //    {
-    //        studyPlans = new UniqueStudyPlanList();
-    //    }
+    private SemesterName currentSemester;
 
     public ModulePlanner() {
         studyPlans = new UniqueStudyPlanList();
@@ -57,6 +48,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     public ModulePlanner(ReadOnlyModulePlanner toBeCopied, ModulesInfo modulesInfo) {
         studyPlans = new UniqueStudyPlanList();
         resetData(toBeCopied);
+        activeStudyPlan = toBeCopied.getActiveStudyPlan();
         this.modulesInfo = modulesInfo;
         versionTrackingManager = toBeCopied.getVersionTrackingManager();
     }
