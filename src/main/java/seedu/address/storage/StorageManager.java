@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.note.Note;
@@ -20,13 +21,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private StudentRecordStorage studentRecordStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          StudentRecordStorage studentRecordStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.studentRecordStorage = studentRecordStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,6 +78,36 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, List<Note> notes, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, notes, filePath);
+    }
+
+    // ================ StudentRecord methods ==============================
+
+    @Override
+    public Path getStudentRecordFilePath() {
+        return studentRecordStorage.getStudentRecordFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException {
+        return readStudentRecord(studentRecordStorage.getStudentRecordFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStudentRecord> readStudentRecord(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read student data from file: " + filePath);
+        return studentRecordStorage.readStudentRecord(filePath);
+    }
+
+    @Override
+    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException {
+        saveStudentRecord(studentRecord, studentRecordStorage.getStudentRecordFilePath());
+    }
+
+    @Override
+    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
+        logger.fine("Attempting to write to student data file: " + filePath);
+        studentRecordStorage.saveStudentRecord(studentRecord, filePath);
     }
 
 }
