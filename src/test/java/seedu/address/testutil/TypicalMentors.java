@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -7,9 +12,10 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.SubjectName;
+import seedu.address.model.entitylist.MentorList;
 
 /**
- * TypicalMentors is a class with mock Mentor Objects.
+ * A utility class containing a list of {@code Mentor} objects to be used in tests.
  */
 public class TypicalMentors {
     public static final Mentor A = new Mentor(new Name("Mentor A"),
@@ -25,6 +31,7 @@ public class TypicalMentors {
                                               new Email("mentorB@gmail.com"),
                                               new Name("Organization B"),
                                               SubjectName.EDUCATION);
+
     public static final Mentor C = new Mentor(new Name("Mentor C"),
                                               new Id(PrefixType.M, 33),
                                               new Phone("93333333"),
@@ -32,7 +39,15 @@ public class TypicalMentors {
                                               new Name("Organization C"),
                                               SubjectName.ENVIRONMENTAL);
 
-    //public static MentorList getTypicalMentorList() {
-    //
-    //}
+    public static List<Mentor> getTypicalMentors() {
+        return new ArrayList<>(Arrays.asList(A, B, C));
+    }
+
+    public static MentorList getTypicalMentorList() throws AlfredException {
+        MentorList mList = new MentorList();
+        for (Mentor m: getTypicalMentors()) {
+            mList.add(m);
+        }
+        return mList;
+    }
 }

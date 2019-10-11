@@ -16,7 +16,7 @@ import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.TeamList;
 
 /**
- * Manages storage of Entity (Participant, Mentor, Issue, Team) and UserPref data in local storage.
+ * Manages storage of Entity (Participant, Mentor, Team) and UserPref data in local storage.
  */
 public class AlfredStorageManager implements AlfredStorage {
 
@@ -25,7 +25,6 @@ public class AlfredStorageManager implements AlfredStorage {
     private MentorListStorage mStore;
     private TeamListStorage tStore;
     private UserPrefsStorage userPrefsStorage;
-
 
     public AlfredStorageManager(ParticipantListStorage pStore,
                                 MentorListStorage mStore,

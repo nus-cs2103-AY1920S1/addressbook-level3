@@ -47,7 +47,7 @@ public enum SubjectName {
     }
 
     public String toStorageValue() {
-        return this.toString();
+        return this.name();
     }
 
 }

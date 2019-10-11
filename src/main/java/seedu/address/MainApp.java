@@ -21,12 +21,20 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+//import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+//import seedu.address.storage.AlfredStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+//import seedu.address.storage.JsonMentorListStorage;
+//import seedu.address.storage.JsonParticipantListStorage;
+//import seedu.address.storage.JsonTeamListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+//import seedu.address.storage.MentorListStorage;
+//import seedu.address.storage.ParticipantListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+//import seedu.address.storage.TeamListStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -43,6 +51,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
+    //protected AlfredStorage storage; //TODO: Uncomment this when ready for AlfredStorage integration
     protected Model model;
     protected Config config;
 
@@ -59,6 +68,12 @@ public class MainApp extends Application {
         //TODO: Update this with the 4 different EntityLists
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        //TODO: Uncomment this when ready for AlfredStorage integration
+        //ParticipantListStorage pStore = new JsonParticipantListStorage(userPrefs.getParticipantListFilePath());
+        //MentorListStorage mStore = new JsonMentorListStorage(userPrefs.getMentorListFilePath());
+        //TeamListStorage tStore = new JsonTeamListStorage(userPrefs.getTeamListFilePath());
+        //storage = new AlfredStorage(pStore, mStore, tStore, userPrefsStorage);
 
         initLogging(config);
 
