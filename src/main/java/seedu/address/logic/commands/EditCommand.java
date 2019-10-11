@@ -80,7 +80,6 @@ public class EditCommand extends Command {
 
         Item oldItem = lastShownList.get(index.getZeroBased());
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-//-->Stopped
 
         model.replaceItem(oldItem, editedItem);
         //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -113,7 +112,7 @@ public class EditCommand extends Command {
 
         if (lastShownList instanceof TaskList) {
             // Change the Priority of this Task. If no priority is given, change back to the default MEDIUM.
-            updatedTask.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
+            //updatedTask.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
         } else if (lastShownList instanceof EventList) {
             // Change the Priority of this Event. If no priority is given, change back to the default MEDIUM.
             updatedEvent.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
@@ -170,7 +169,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, event, reminder, priority, tags);
+            return CollectionUtil.isAnyNonNull(description, task, event, reminder, priority, tags);
         }
 
         public void setDescription(ItemDescription description) {

@@ -18,7 +18,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public FindCommand parse(String keywords, String empty) throws ParseException {
+        /*
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -28,6 +29,10 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+
+         */
+        String[] dummyList = {"dummy"};
+        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(dummyList)));
     }
 
 }

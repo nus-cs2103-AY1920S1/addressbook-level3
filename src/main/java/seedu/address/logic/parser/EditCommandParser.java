@@ -50,10 +50,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             editItemDescriptor.setDescription(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_REMINDER).isPresent()) {
-            editItemDescriptor.setReminder(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()));
+            editItemDescriptor.setReminder(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()).get());
         }
         if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
-            editItemDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()));
+            editItemDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()).get());
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
 

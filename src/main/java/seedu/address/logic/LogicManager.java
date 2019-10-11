@@ -12,9 +12,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import seedu.address.model.ItemModel;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.item.ItemList;
 import seedu.address.storage.Storage;
 
 /**
@@ -24,11 +24,11 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final ItemModel model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(ItemModel model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
@@ -59,9 +59,16 @@ public class LogicManager implements Logic {
         return model.getAddressBook();
     }
 
+    /*
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+     */
+    @Override
+    public ItemList getVisualList() {
+        return model.getVisualList();
     }
 
     @Override

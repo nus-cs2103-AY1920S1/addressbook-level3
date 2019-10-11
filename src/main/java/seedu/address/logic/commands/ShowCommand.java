@@ -10,6 +10,10 @@ import seedu.address.model.ItemModel;
 public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
+    public static final String TASK_VIEW_COMMAND = "T";
+    public static final String EVENT_VIEW_COMMAND = "E";
+    public static final String REMINDER_VIEW_COMMAND = "R";
+    public static final String CALENDAR_VIEW_COMMAND = "C";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the desired view.\n"
@@ -24,17 +28,15 @@ public class ShowCommand extends Command {
     public ShowCommand(String targetView) {
         this.targetView = targetView;
         switch(targetView) {
-            case "T":
-                this.targetList = "task";
+            case TASK_VIEW_COMMAND:
+                this.targetList = TASK_VIEW_COMMAND; //"TASK"
                 break;
-            case "E":
-                this.targetList = "event";
+            case EVENT_VIEW_COMMAND:
+            case CALENDAR_VIEW_COMMAND:
+                this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
                 break;
-            case "R":
-                this.targetList = "reminder";
-                break;
-            case "C":
-                this.targetList = "event";
+            case REMINDER_VIEW_COMMAND:
+                this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
                 break;
             default:
                 this.targetList = null;
@@ -44,7 +46,7 @@ public class ShowCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        model.setVisualList(targetList);
+        model.setVisualList(targetList); // should be T/E/R
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
     }
 }
