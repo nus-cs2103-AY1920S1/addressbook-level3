@@ -18,6 +18,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visit.Visit;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedVisitTodo> visitTodos = new ArrayList<>();
+    private final List<JsonAdaptedVisit> visits = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -43,7 +45,8 @@ class JsonAdaptedPerson {
                              @JsonProperty("email") String email,
                              @JsonProperty("address") String address,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("visitTodos") List<JsonAdaptedVisitTodo> visitTodos) {
+                             @JsonProperty("visitTodos") List<JsonAdaptedVisitTodo> visitTodos,
+                             @JsonProperty("visits") List<JsonAdaptedVisit> visits) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,6 +56,9 @@ class JsonAdaptedPerson {
         }
         if (visitTodos != null) {
             this.visitTodos.addAll(visitTodos);
+        }
+        if (visits != null) {
+            this.visits.addAll(visits);
         }
     }
 
@@ -70,6 +76,9 @@ class JsonAdaptedPerson {
         visitTodos.addAll(source.getVisitTodos().stream()
                 .map(JsonAdaptedVisitTodo::new)
                 .collect(Collectors.toList()));
+        visits.addAll(source.getVisits().stream()
+                .map(JsonAdaptedVisit::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -78,11 +87,6 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -115,6 +119,10 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        final List<Tag> personTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            personTags.add(tag.toModelType());
+        }
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final List<VisitTodo> visitTodoList = new ArrayList<>();
@@ -122,7 +130,13 @@ class JsonAdaptedPerson {
             visitTodoList.add(visitTodo.toModelType());
         }
         final Collection<VisitTodo> modelVisitTodos = new LinkedHashSet<VisitTodo>(visitTodoList);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelVisitTodos);
+
+        final List<Visit> modelVisits = new ArrayList<>();
+        for (JsonAdaptedVisit visit : visits) {
+            modelVisits.add(visit.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelVisitTodos, modelVisits);
     }
 
 }

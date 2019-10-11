@@ -2,15 +2,18 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visit.Visit;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -18,6 +21,8 @@ import seedu.address.model.visittodo.VisitTodo;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+
+    public static final List<Visit> PLACEHOLDER_NO_VISITS = Collections.unmodifiableList(new ArrayList<>());
 
     // Identity fields
     private final Name name;
@@ -28,12 +33,13 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Collection<VisitTodo> visitTodos = new LinkedHashSet<>();
+    private final List<Visit> visits = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Collection<VisitTodo> visitTodos) {
+                  Collection<VisitTodo> visitTodos, List<Visit> visits) {
         requireAllNonNull(name, phone, email, address, tags, visitTodos);
         this.name = name;
         this.phone = phone;
@@ -41,6 +47,7 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.visitTodos.addAll(visitTodos);
+        this.visits.addAll(visits);
     }
 
     public Name getName() {
@@ -75,6 +82,13 @@ public class Person {
         return Collections.unmodifiableCollection(visitTodos);
     }
 
+    /**
+     * Returns an immutable visit list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<Visit> getVisits() {
+        return Collections.unmodifiableList(visits);
+    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -118,13 +132,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getVisits().equals(getVisits());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, visitTodos, visits);
     }
 
     @Override
@@ -141,6 +156,8 @@ public class Person {
         getTags().forEach(builder::append);
         builder.append(" Visit Todos: ");
         getVisitTodos().forEach(builder::append);
+        builder.append(" Visits: ");
+        getVisits().forEach(builder::append);
         return builder.toString();
     }
 

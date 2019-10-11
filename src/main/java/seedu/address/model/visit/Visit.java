@@ -2,9 +2,12 @@ package seedu.address.model.visit;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-import seedu.address.model.visittask.UniqueVisitTaskList;
+import seedu.address.model.visittask.VisitTask;
 
 /**
  * Represents a Visit in the application.
@@ -15,14 +18,15 @@ public class Visit {
     private final Remark remark;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
-    private final UniqueVisitTaskList visitTasks;
+    private final List<VisitTask> visitTasks;
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null, with the exception of endDateTime
+     * to accommodate for visits that have not finished.
      */
     public Visit(Remark remark, StartDateTime startDateTime,
-                 EndDateTime endDateTime, UniqueVisitTaskList visitTasks) {
-        requireAllNonNull(remark, startDateTime, endDateTime, visitTasks);
+                 EndDateTime endDateTime, List<VisitTask> visitTasks) {
+        requireAllNonNull(remark, startDateTime, visitTasks);
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -37,15 +41,16 @@ public class Visit {
         return startDateTime;
     }
 
-    public EndDateTime getEndDateTime() {
-        return endDateTime;
+    public Optional<EndDateTime> getEndDateTime() {
+        return endDateTime == null ? Optional.empty() : Optional.of(endDateTime);
     }
 
     /**
-     * Returns a VisitTaskList.
+     * Returns an immutable visit task list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
-    public UniqueVisitTaskList getVisitTasks() {
-        return visitTasks;
+    public List<VisitTask> getVisitTasks() {
+        return Collections.unmodifiableList(visitTasks);
     }
 
     /**

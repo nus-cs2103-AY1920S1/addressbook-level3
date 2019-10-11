@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,7 +13,7 @@ import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
-import seedu.address.model.visittask.UniqueVisitTaskList;
+import seedu.address.model.visittask.VisitTask;
 
 /**
  * Jackson-friendly version of {@link Visit}.
@@ -48,8 +49,13 @@ class JsonAdaptedVisit {
     public JsonAdaptedVisit(Visit source) {
         remark = source.getRemark().remark;
         startDateTime = source.getStartDateTime().toJacksonJsonString();
-        endDateTime = source.getEndDateTime().toJacksonJsonString();
-        visitTasks.addAll(source.getVisitTasks().asUnmodifiableObservableList().stream()
+        Optional<EndDateTime> endDateTime = source.getEndDateTime();
+        if (endDateTime.isPresent()) {
+            this.endDateTime = endDateTime.get().toJacksonJsonString();
+        } else {
+            this.endDateTime = null;
+        }
+        visitTasks.addAll(source.getVisitTasks().stream()
                 .map(JsonAdaptedVisitTask::new)
                 .collect(Collectors.toList()));
     }
@@ -60,7 +66,7 @@ class JsonAdaptedVisit {
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
     public Visit toModelType() throws IllegalValueException {
-        final UniqueVisitTaskList modelVisitTasks = new UniqueVisitTaskList();
+        final List<VisitTask> modelVisitTasks = new ArrayList<>();
         for (JsonAdaptedVisitTask visitTask : visitTasks) {
             modelVisitTasks.add(visitTask.toModelType());
         }
@@ -83,14 +89,15 @@ class JsonAdaptedVisit {
         }
         final StartDateTime modelStartDateTime = new StartDateTime(startDateTime);
 
+        final EndDateTime modelEndDateTime;
         if (endDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EndDateTime.class.getSimpleName()));
+            modelEndDateTime = null;
+        } else {
+            if (!EndDateTime.isValidEndDateTime(endDateTime)) {
+                throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
+            }
+            modelEndDateTime = new EndDateTime(endDateTime);
         }
-        if (!EndDateTime.isValidEndDateTime(endDateTime)) {
-            throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
-        }
-        final EndDateTime modelEndDateTime = new EndDateTime(endDateTime);
 
         return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
     }

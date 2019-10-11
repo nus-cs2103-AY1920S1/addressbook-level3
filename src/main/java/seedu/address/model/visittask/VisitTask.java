@@ -5,12 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.visittodo.VisitTodo;
-
 /**
  * Represents a Visit in the application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class VisitTask {
+
     // Data fields
     private final VisitTodo visitTodo;
     private final Detail detail;

@@ -29,6 +29,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visit.Visit;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -106,8 +107,11 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Collection<VisitTodo> updatedVisitTodos = editPersonDescriptor.getVisitTodos()
                 .orElse(personToEdit.getVisitTodos());
+        //Editing visits with this command is not supported
+        List<Visit> updatedVisits = personToEdit.getVisits();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedVisitTodos);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedVisitTodos, updatedVisits);
     }
 
     @Override

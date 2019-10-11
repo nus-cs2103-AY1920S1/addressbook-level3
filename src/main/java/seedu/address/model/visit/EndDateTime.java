@@ -7,6 +7,7 @@ package seedu.address.model.visit;
 public class EndDateTime extends DateTime {
 
     public static final String MESSAGE_CONSTRAINTS = "End " + DateTime.MESSAGE_CONSTRAINTS_BODY;
+    public static final EndDateTime UNFINISHED_VISIT_END_DATE_TIME = null;
 
     /**
      * Constructs an {@code StartDateTime}.

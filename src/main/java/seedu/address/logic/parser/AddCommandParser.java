@@ -50,7 +50,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Collection<VisitTodo> visitTodos = ParserUtil
                 .parseVisitTodos(argMultimap.getAllValues(PREFIX_PATIENT_VISIT_TODO));
 
-        Person person = new Person(name, phone, email, address, tagList, visitTodos);
+        Person person = new Person(name, phone, email, address, tagList, visitTodos,
+                Person.PLACEHOLDER_NO_VISITS);
 
         return new AddCommand(person);
     }

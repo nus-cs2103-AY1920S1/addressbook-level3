@@ -8,21 +8,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Represents a Visit's start time in the application.
+ * Represents a Visit's datetime in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS_BODY = "Date Time should be of the format dd/MM/yyyy HHmm "
+    public static final String MESSAGE_CONSTRAINTS_BODY = "Date Time should be of the format dd-MM-yyyy HHmm "
             + "and adhere to the following constraints:\n"
             + "1. The values that substitute 'dd', 'MM', 'yyyy', 'HH' and 'mm' must all be numerical numbers.";
-    static final SimpleDateFormat DATE_DISPLAY_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    static final SimpleDateFormat DATE_PARSER_VALIDATOR = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    static final SimpleDateFormat DATE_DISPLAY_FORMATTER = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    static final SimpleDateFormat DATE_PARSER_VALIDATOR = new SimpleDateFormat("dd-MM-yyyy HHmm");
 
     public final Date dateTime;
 
     /**
-     * Constructs an {@code StartDateTime}.
+     * Constructs a {@code DateTime}.
      *
      * @param dateTime A valid dateTime address.
      */
