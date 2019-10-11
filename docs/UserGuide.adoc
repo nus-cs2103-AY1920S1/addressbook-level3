@@ -53,7 +53,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
 ====
 
-=== Queue
+
+=== Queue Management
 
 ==== Add a patient to the queue: `enqueue` ====
 
@@ -172,7 +173,12 @@ Format: `missed [d/<DATETIME>]`
 ==== Sets missed appointments as settled/notified: `settle` ====
 
 Settles the missed appointments for respective patients. +
-Format: `settle <ENTRY_ID>`
+Format: `settle <ENTRY_ID>
+`
+==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
+
+Changes the maximum number of concurrent patient appointments +
+Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 
 === Inventory commands (v2.0) ===
 
@@ -212,8 +218,13 @@ Format: `exit`
 
 ==== Undo action: `undo` ====
 
-Undo an action +
+Undo a destructive action +
 Format: `undo`
+
+==== Redo action: `redo` ====
+
+Redo a destructive action +
+Format: `redo`
 
 ==== Creates, updates or removes an alias command: `alias` ====
 
