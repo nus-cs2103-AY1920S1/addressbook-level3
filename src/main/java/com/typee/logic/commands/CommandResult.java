@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import com.typee.ui.Tab;
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,6 +19,11 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should switch tab menu. */
+    private final boolean tabCommand;
+
+    private final Tab tab;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +31,19 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.tabCommand = false;
+        this.tab = new Tab("main");
+    }
+
+    /**
+     * Constructs a {@code CommandResult} specified for tab command.
+     */
+    public CommandResult(String feedbackToUser, boolean tabCommand, Tab tab) {
+        this.feedbackToUser = feedbackToUser;
+        this.showHelp = false;
+        this.exit = false;
+        this.tabCommand = tabCommand;
+        this.tab = tab;
     }
 
     /**
@@ -44,6 +64,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isTabCommand() {
+        return tabCommand;
+    }
+
+    public Tab getTab() {
+        return tab;
     }
 
     @Override

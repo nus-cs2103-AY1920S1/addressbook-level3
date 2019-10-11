@@ -1,5 +1,6 @@
 package com.typee.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
@@ -10,13 +11,16 @@ import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -34,7 +38,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    //Tab related attributes.
     private TabPanel tabPanel;
+    private ObservableList<Tab> tabList;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -52,17 +58,24 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane tabPanelPlaceHolder;
 
     @FXML
+    private VBox mainWindow;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic)
+            throws DataConversionException {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        // Configure tab list generated from json
+        this.tabList = logic.getTabList();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -118,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         //adding tab panel holder
-        tabPanel = new TabPanel(logic.getTabList());
+        tabPanel = new TabPanel(tabList);
         tabPanelPlaceHolder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -171,6 +184,17 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Switch the window to the {@code Tab} specified.
+     */
+    private void handleTabSwitch(Tab tab) throws IOException {
+        logger.info("switching tab to game window");
+        VBox newPane = new FXMLLoader(getClass().getClassLoader()
+                .getResource("view/GameWindow.fxml")).load();
+        mainWindow.getChildren().clear();
+        mainWindow.getChildren().add(newPane);
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -180,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -194,8 +218,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isTabCommand()) {
+                handleTabSwitch(commandResult.getTab());
+            }
+
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
