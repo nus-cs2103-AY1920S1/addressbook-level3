@@ -45,7 +45,8 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String description = matcher.group("description");
-        final String flags = matcher.group("flags");
+        final String flags = " " + matcher.group("flags");
+
         switch (commandWord) {
 
         case "task":
