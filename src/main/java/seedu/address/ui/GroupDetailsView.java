@@ -9,39 +9,35 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
 
 /**
  * A class to handle the details view of a person or a group.
  */
-public class DetailsView extends UiPart<Region> {
+public class GroupDetailsView extends UiPart<Region> {
 
-    private static final String FXML = "DetailsView.fxml";
-
-    @FXML
-    private VBox detailsView;
+    private static final String FXML = "GroupDetailsView.fxml";
 
     @FXML
-    private StackPane card;
+    private StackPane groupDetailCard;
 
     @FXML
-    private StackPane schedule;
+    private StackPane groupSchedule;
 
     @FXML
-    private ScrollPane container;
+    private ScrollPane groupDetailContainer;
 
-    public DetailsView(DetailWindowDisplay detailWindowDisplay) {
+    public GroupDetailsView(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
-        this.detailsView = new VBox();
         ScheduleStub stub = new ScheduleStub();
         ArrayList<WeekSchedule> schedules = new ArrayList<>(List.of(stub.getSchedule(),
                 stub.getSchedule(), stub.getSchedule()));
         ScheduleView scheduleView = new ScheduleView(schedules);
-        schedule.getChildren().add(scheduleView.getScheduleView());
+        GroupCard groupCard = new GroupCard(detailWindowDisplay.getGroupDisplay(), 1);
+        groupDetailCard.getChildren().add(groupCard.getRoot());
+        groupSchedule.getChildren().add(scheduleView.getScheduleView());
     }
 
-    public VBox exportNode() {
-        return detailsView;
-    }
 }

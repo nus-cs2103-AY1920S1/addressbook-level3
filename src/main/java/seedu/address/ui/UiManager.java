@@ -51,7 +51,7 @@ public class UiManager implements Ui {
     /*
     @Override
     public void exportVisual(PersonDisplay p) {
-        DetailsView detailsView = new DetailsView(p);
+        PersonDetailsView detailsView = new PersonDetailsView(p);
         StackPane sp = new StackPane();
         sp.getChildren().add(detailsView.exportNode());
         Scene s = new Scene(sp);

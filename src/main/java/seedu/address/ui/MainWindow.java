@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -121,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
         TabPanel tabPanel = new TabPanel();
         //To do for logic -> getGroupList.
-        groupListPanel = new GroupListPanel(logic.getGroupList());
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupDisplayList());
         tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
         sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
 
@@ -157,17 +158,25 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
         TabPanel tabPanel = new TabPanel();
         //To do for logic -> getGroupList.
-        groupListPanel = new GroupListPanel(logic.getGroupList());
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupDisplayList());
         tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
         sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
     }
 
     /**
      * Handles tab switch view.
-     * @param num Tab number to be switched to. 1 for person, 2 for group.
+     * @param type Tab number to be switched to. 1 for person, 2 for group.
      */
-    public void handleTabSwitch(int num) {
-        //To do.
+    public void handleTabSwitch(DetailWindowDisplayType type) {
+        if (type.equals(DetailWindowDisplayType.PERSON)) {
+            TabPane tabPane = (TabPane) sideBarPlaceholder.getChildren().get(0);
+            tabPane.getSelectionModel().select(0);
+        } else if (type.equals(DetailWindowDisplayType.GROUP)) {
+            TabPane tabPane = (TabPane) sideBarPlaceholder.getChildren().get(0);
+            tabPane.getSelectionModel().select(1);
+        } else {
+            //Tabpane remain the same.
+        }
     }
 
     /**
@@ -226,10 +235,23 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             handleChangeOnSidePanelView();
             DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
-            if (detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.PERSON)
-                || detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.GROUP)) {
-                DetailsView detailsView = new DetailsView(detailWindowDisplay);
-                handleChangeOnDetailsView(detailsView.getRoot());
+            DetailWindowDisplayType displayType = detailWindowDisplay.getDetailWindowDisplayType();
+            handleTabSwitch(displayType);
+            switch(displayType) {
+            case PERSON:
+                PersonDetailsView personDetailsView = new PersonDetailsView(detailWindowDisplay);
+                handleChangeOnDetailsView(personDetailsView.getRoot());
+                break;
+            case GROUP:
+                GroupDetailsView groupDetailsView = new GroupDetailsView(detailWindowDisplay);
+                handleChangeOnDetailsView(groupDetailsView.getRoot());
+                break;
+            case EMPTY:
+                //Nothing to update
+                break;
+            default:
+                //Nothing to show
+                break;
             }
 
             if (commandResult.isShowHelp()) {

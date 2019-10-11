@@ -23,7 +23,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NusmodCommand;
 import seedu.address.logic.commands.ScheduleCommand;
-import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -95,7 +95,7 @@ public class AddressBookParser {
         case EditGroupCommand.COMMAND_WORD:
             return new EditGroupCommandParser().parse(arguments);
 
-        case ShowCommand.COMMAND_WORD:
+        case ShowPersonCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:

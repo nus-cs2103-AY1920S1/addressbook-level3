@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.personutil.PersonBuilder;
 
-public class ShowCommandTest {
+public class ShowPersonCommandTest {
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        ShowCommand showAliceCommand = new ShowCommand(alice.getName());
-        ShowCommand showBobCommand = new ShowCommand(bob.getName());
+        ShowPersonCommand showAliceCommand = new ShowPersonCommand(alice.getName());
+        ShowPersonCommand showBobCommand = new ShowPersonCommand(bob.getName());
 
         //same object -> true
         assertTrue(showAliceCommand.equals(showAliceCommand));
 
         //same values -> true
-        ShowCommand showAliceDuplicateCommand = new ShowCommand(alice.getName());
+        ShowPersonCommand showAliceDuplicateCommand = new ShowPersonCommand(alice.getName());
         assertTrue(showAliceCommand.equals(showAliceCommand));
 
         //different show commands -> false

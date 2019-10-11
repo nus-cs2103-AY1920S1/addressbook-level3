@@ -15,7 +15,7 @@ import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NusmodCommand;
-import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowPersonCommand;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.
@@ -32,7 +32,7 @@ public class SuggestingCommandUtil {
             EditPersonCommand.COMMAND_WORD,
             FindGroupCommand.COMMAND_WORD,
             NusmodCommand.COMMAND_WORD,
-            ShowCommand.COMMAND_WORD,
+            ShowPersonCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD

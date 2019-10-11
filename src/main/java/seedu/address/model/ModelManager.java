@@ -114,7 +114,6 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
-        //Edit addressbook with the details here?
         this.addressBook.setPersons(personList.getPersons());
     }
 
@@ -200,7 +199,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return timeBook.getUnmodifiablePersonList();
     }
 
     @Override
@@ -220,7 +219,6 @@ public class ModelManager implements Model {
     @Override
     public Person addPerson(PersonDescriptor personDescriptor) {
         Person isAdded = this.personList.addPerson(personDescriptor);
-        this.addressBook.addPerson(isAdded);
         return isAdded;
     }
 
@@ -280,15 +278,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Group> getObservableGroupList() {
-        return addressBook.getGroupList();
+        return timeBook.getUnmodifiableGroupList();
     }
 
     @Override
     public Group addGroup(GroupDescriptor groupDescriptor) {
         Group isAdded = this.groupList.addGroup(groupDescriptor);
-        if (isAdded != null) {
-            this.addressBook.addGroup(isAdded);
-        }
         return isAdded;
     }
 
@@ -389,13 +384,15 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
+        GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
             WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
+            weekSchedules.add(weekSchedule);
         }
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
         updateDetailWindowDisplay(detailWindowDisplay);
     }
 
