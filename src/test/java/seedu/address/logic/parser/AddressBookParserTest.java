@@ -13,8 +13,11 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AchvmCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BioCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -80,6 +83,18 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_bio() throws Exception {
+        assertTrue(parser.parseCommand(BioCommand.COMMAND_WORD) instanceof BioCommand);
+        assertTrue(parser.parseCommand(BioCommand.COMMAND_WORD + " 3") instanceof BioCommand);
+    }
+
+    @Test
+    public void parseCommand_achvm() throws Exception {
+        assertTrue(parser.parseCommand(AchvmCommand.COMMAND_WORD) instanceof AchvmCommand);
+        assertTrue(parser.parseCommand(AchvmCommand.COMMAND_WORD + " 3") instanceof AchvmCommand);
     }
 
     @Test
