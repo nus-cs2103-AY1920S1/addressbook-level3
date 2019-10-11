@@ -3,10 +3,13 @@ package mams.model.module;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mams.commons.util.CollectionUtil;
 import mams.model.module.exceptions.DuplicateModuleException;
+import mams.model.module.exceptions.ModuleNotFoundException;
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -46,8 +49,55 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.add(toAdd);
     }
 
-    //remove/setModule/setModules are not implemented. No intentions to
-    // remove or edit modules yet.
+    /**
+     * Replaces the module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the list.
+     * The student identity of {@code editedModule} must not be the same as another existing module in the list.
+     */
+    public void setModule(Module target, Module editedModule) {
+        CollectionUtil.requireAllNonNull(target, editedModule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!target.isSameModule(editedModule) && contains(editedModule)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.set(index, editedModule);
+    }
+
+    /**
+     * Removes the equivalent student from the list.
+     * The student must exist in the list.
+     */
+    public void remove(Module toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ModuleNotFoundException();
+        }
+    }
+
+    public void setModules(UniqueModuleList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code students}.
+     * {@code students} must not contain duplicate students.
+     */
+    public void setModules(List<Module> modules) {
+        CollectionUtil.requireAllNonNull(modules);
+        if (!modulesAreUnique(modules)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.setAll(modules);
+    }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -73,5 +123,17 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.hashCode();
     }
 
-    //modulesAreUnique not implemented. Used in setModules*
+    /**
+     * Returns true if {@code modules} contains only unique modules.
+     */
+    private boolean modulesAreUnique(List<Module> modules) {
+        for (int i = 0; i < modules.size() - 1; i++) {
+            for (int j = i + 1; j < modules.size(); j++) {
+                if (modules.get(i).isSameModule(modules.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
