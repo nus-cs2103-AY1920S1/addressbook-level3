@@ -2,10 +2,16 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -13,6 +19,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -77,4 +84,25 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
+    public Optional<List<WordBank>> getWordBankList() {
+        List<WordBank> wordBankList = new ArrayList<>();
+        String pathString = "data/";
+        File dataDirectory =  new File(pathString);
+        String[] pathArray = dataDirectory.list();
+
+        for (int i = 0; i < pathArray.length; i++) {
+            System.out.println(pathArray[i]);
+            String wordBankPathString = "data/" + pathArray[i];
+            Path wordBankPath = Paths.get(wordBankPathString);
+            try {
+                Optional<ReadOnlyWordBank> wordBank = readAddressBook(wordBankPath);
+                ReadOnlyWordBank wb = wordBank.get();
+                WordBank wbToAdd = (WordBank) wb;
+                wordBankList.add(wbToAdd);
+            } catch (DataConversionException e) {
+                e.printStackTrace();
+            }
+        }
+        return Optional.of(wordBankList);
+    }
 }

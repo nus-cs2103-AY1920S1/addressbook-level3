@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.switchmode;
+package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;

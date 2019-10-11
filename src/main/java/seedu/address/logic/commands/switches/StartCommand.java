@@ -6,23 +6,20 @@ It has to override execute() from command interface.
 Interacts with Game interface.
 Extends to Step 15 in Game.java
  */
-package seedu.address.logic.commands.switchmode;
+package seedu.address.logic.commands.switches;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -56,19 +53,18 @@ public class StartCommand extends SwitchCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         String pathString = "data/" + wordBankName + ".json";
         Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+        addressBookStorage.getWordBankList();
         try {
             Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
             if (thisBank.isPresent()) {
                 wordBank = (WordBank) thisBank.get();
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         Game newGame = new Game(wordBank);
