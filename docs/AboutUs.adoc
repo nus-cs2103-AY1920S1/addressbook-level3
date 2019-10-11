@@ -38,7 +38,7 @@ Responsibilities: TBC
 '''
 
 === Abdul Haliq
-image::ahaliq.jpg[width="150", align="left"]
+image::ahaliq.png[width="150", align="left"]
 {empty}[https://github.com/ahaliq[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
