@@ -104,11 +104,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered flashcard list */
     ObservableList<Flashcard> getFilteredFlashcardList();
 
-    //    /**
-    //     * Deletes the given flashcard.
-    //     * The flashcard must exist in the flashcard bank.
-    //     */
-    //    void deleteFlashcard(Flashcard target);
+    /**
+     * Deletes the given flashcard.
+     * The flashcard must exist in the flashcard bank.
+     */
+    void deleteFlashcard(Flashcard target);
 
     /** Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
