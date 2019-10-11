@@ -5,6 +5,7 @@ image:https://travis-ci.org/AY1920S1-CS2103T-T09-3/main.svg?branch=master["Build
 https://coveralls.io/github/AY1920S1-CS2103T-T09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-3/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/ceb8f1f4a3b2465c973e0ba579f75c78["Codacy code quality", link="https://www.codacy.com/manual/SakuraBlossom/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T09-3/main&utm_campaign=Badge_Grade"]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://app.netlify.com/sites/clerkpro/deploys[image:https://api.netlify.com/api/v1/badges/7802a5fb-00fd-4e32-869e-6934507679f2/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
