@@ -14,7 +14,7 @@ plugins {
     id 'application'
 }
 
-//Specifies the entry point of the application
+// Specifies the entry point of the application
 mainClassName = 'seedu.address.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11

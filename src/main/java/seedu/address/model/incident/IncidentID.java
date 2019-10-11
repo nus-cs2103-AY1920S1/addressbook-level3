@@ -6,12 +6,11 @@ package seedu.address.model.incident;
  * YYYY = Year of incident
  * XXXX = incident number of the month
  */
-
 public class IncidentId {
-    private static int previousM = 0;
-    private static int xxxx = 0;
-    private int mm;
-    private int yyyy;
+    private static int previousMonth = 0;
+    private static int monthId = 0;
+    private int month;
+    private int year;
     private String id;
 
     /**
@@ -20,16 +19,16 @@ public class IncidentId {
      * @param yyyy year of incident
      */
     public IncidentId(int mm, int yyyy) {
-        if (previousM != mm) {
-            previousM = mm;
-            xxxx = 0;
+        if (previousMonth != mm) {
+            previousMonth = mm;
+            monthId = 0;
         } else {
-            xxxx++;
+            monthId++;
         }
 
-        this.mm = mm;
-        this.yyyy = yyyy;
-        int temp = mm * 100000000 + yyyy * 1000 + xxxx;
+        this.month = mm;
+        this.year = yyyy;
+        int temp = mm * 100000000 + yyyy * 1000 + monthId;
         this.id = String.format("%10d", temp);
     }
 
