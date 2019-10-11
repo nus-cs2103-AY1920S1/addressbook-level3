@@ -75,7 +75,8 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
         final Title activityTitle = new Title(title);
-
-        return new Activity(activityTitle, people).addExpense(expenditures);
+        Activity tempActivity = new Activity(activityTitle, people);
+        tempActivity.addExpense(expenditures);
+        return tempActivity;
     }
 }
