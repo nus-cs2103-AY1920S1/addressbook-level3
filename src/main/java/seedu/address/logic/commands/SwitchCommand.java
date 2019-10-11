@@ -1,13 +1,15 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.switchmode;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.model.Model;
 
 /**
  * Terminates the program.
  */
-public class HomeCommand extends AppCommand {
+public class HomeCommand extends SwitchCommand {
 
-    public static final String COMMAND_WORD = "/home";
+    public static final String COMMAND_WORD = "home";
 
     public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Going home as requested";
 
