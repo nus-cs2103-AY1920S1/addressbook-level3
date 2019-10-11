@@ -119,9 +119,7 @@ public class Module {
     public int[] getTimeSlot() {
         return timeSlot;
     }
-
-
-
+    
     /**
      * Returns true if both module of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two students.
