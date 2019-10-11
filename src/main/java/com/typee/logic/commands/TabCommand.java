@@ -11,12 +11,11 @@ import com.typee.ui.Tab;
  * Changes the tab/menu of the application window.
  */
 public class TabCommand extends Command {
-    private final Logger logger = new LogsCenter().getLogger(getClass());
     public static final String COMMAND_WORD = "tab";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [tab name]";
-
     public static final String MESSAGE_SUCCESS = "Switched to window: ";
 
+    private final Logger logger = new LogsCenter().getLogger(getClass());
     private Tab tabToSwitch;
 
     public TabCommand(Tab tabToSwitch) {
