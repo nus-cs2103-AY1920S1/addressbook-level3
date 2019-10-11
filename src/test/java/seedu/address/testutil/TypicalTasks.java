@@ -70,7 +70,7 @@ public class TypicalTasks {
     /**
      * Returns an {@code ProjectDashboard} with all the typical persons.
      */
-    public static ProjectDashboard getTypicalAddressBook() {
+    public static ProjectDashboard getTypicalProjectDashboard() {
         ProjectDashboard ab = new ProjectDashboard();
         for (Task task : getTypicalTasks()) {
             ab.addTask(task);

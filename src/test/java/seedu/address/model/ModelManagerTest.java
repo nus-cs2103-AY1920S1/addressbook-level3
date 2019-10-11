@@ -61,12 +61,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setProjectDashboardFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setProjectDashboardFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setProjectDashboardFilePath_validPath_setsProjectDashboardFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setProjectDashboardFilePath(path);
         assertEquals(path, modelManager.getProjectDashboardFilePath());
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
+    public void hasTask_taskNotInProjectDashboard_returnsFalse() {
         assertFalse(modelManager.hasTask(ORDER_SHIRTS));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
+    public void hasTask_taskInProjectDashboard_returnsTrue() {
         modelManager.addTask(ORDER_SHIRTS);
         assertTrue(modelManager.hasTask(ORDER_SHIRTS));
     }

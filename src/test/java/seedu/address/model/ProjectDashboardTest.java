@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,8 +37,8 @@ public class ProjectDashboardTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        ProjectDashboard newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyProjectDashboard_replacesData() {
+        ProjectDashboard newData = getTypicalProjectDashboard();
         projectDashboard.resetData(newData);
         assertEquals(newData, projectDashboard);
     }
@@ -60,18 +60,18 @@ public class ProjectDashboardTest {
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
+    public void hasTask_taskNotInProjectDashboard_returnsFalse() {
         assertFalse(projectDashboard.hasTask(ORDER_SHIRTS));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
+    public void hasTask_taskInProjectDashboard_returnsTrue() {
         projectDashboard.addTask(ORDER_SHIRTS);
         assertTrue(projectDashboard.hasTask(ORDER_SHIRTS));
     }
 
     @Test
-    public void hasTask_taskWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasTask_taskWithSameIdentityFieldsInProjectDashboard_returnsTrue() {
         projectDashboard.addTask(ORDER_SHIRTS);
         Task editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withTags(VALID_TAG_URGENCY)
                 .build();

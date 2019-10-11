@@ -25,7 +25,7 @@ public class JsonSerializableProjectDashboardTest {
         JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableProjectDashboard.class).get();
         ProjectDashboard projectDashboardFromFile = dataFromFile.toModelType();
-        ProjectDashboard typicalTasksProjectDashboard = TypicalTasks.getTypicalAddressBook();
+        ProjectDashboard typicalTasksProjectDashboard = TypicalTasks.getTypicalProjectDashboard();
         assertEquals(projectDashboardFromFile, typicalTasksProjectDashboard);
     }
 

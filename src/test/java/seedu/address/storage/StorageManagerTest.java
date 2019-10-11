@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import java.nio.file.Path;
 
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonProjectDashboardStorage addressBookStorage = new JsonProjectDashboardStorage(getTempFilePath("ab"));
+        JsonProjectDashboardStorage projectDashboardStorage = new JsonProjectDashboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(projectDashboardStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,20 +48,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void projectDashboardReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonProjectDashboardStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonProjectDashboardStorageTest} class.
          */
-        ProjectDashboard original = getTypicalAddressBook();
+        ProjectDashboard original = getTypicalProjectDashboard();
         storageManager.saveProjectDashboard(original);
         ReadOnlyProjectDashboard retrieved = storageManager.readProjectDashBoard().get();
         assertEquals(original, new ProjectDashboard(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getProjectDashboardFilePath() {
         assertNotNull(storageManager.getProjectDashboardFilePath());
     }
 

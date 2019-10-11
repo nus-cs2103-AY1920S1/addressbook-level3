@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.FAREWELL_PARTY;
 import static seedu.address.testutil.TypicalTasks.FIND_VP;
 import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,11 +26,11 @@ public class JsonProjectDashboardStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readProjectDashboard_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readProjectDashboard(null));
     }
 
-    private java.util.Optional<ReadOnlyProjectDashboard> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyProjectDashboard> readProjectDashboard(String filePath) throws Exception {
         return new JsonProjectDashboardStorage(Paths.get(filePath)).readProjectDashBoard(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -42,69 +42,69 @@ public class JsonProjectDashboardStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readProjectDashboard("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatProjectDashboard.json"));
+        assertThrows(DataConversionException.class, () -> readProjectDashboard("notJsonFormatProjectDashboard.json"));
     }
 
     @Test
-    public void readAddressBook_invalidTaskAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidTaskProjectDashboard.json"));
+    public void readProjectDashboard_invalidTaskProjectDashboard_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readProjectDashboard("invalidTaskProjectDashboard.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidTaskAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidTaskProjectDashboard.json"));
+    public void readProjectDashboard_invalidAndValidTaskProjectDashboard_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveProjectDashboard_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        ProjectDashboard original = getTypicalAddressBook();
-        JsonProjectDashboardStorage jsonAddressBookStorage = new JsonProjectDashboardStorage(filePath);
+        ProjectDashboard original = getTypicalProjectDashboard();
+        JsonProjectDashboardStorage jsonProjectDashboardStorage = new JsonProjectDashboardStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveProjectDashboard(original, filePath);
-        ReadOnlyProjectDashboard readBack = jsonAddressBookStorage.readProjectDashBoard(filePath).get();
+        jsonProjectDashboardStorage.saveProjectDashboard(original, filePath);
+        ReadOnlyProjectDashboard readBack = jsonProjectDashboardStorage.readProjectDashBoard(filePath).get();
         assertEquals(original, new ProjectDashboard(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addTask(FIND_VP);
         original.removeTask(ORDER_SHIRTS);
-        jsonAddressBookStorage.saveProjectDashboard(original, filePath);
-        readBack = jsonAddressBookStorage.readProjectDashBoard(filePath).get();
+        jsonProjectDashboardStorage.saveProjectDashboard(original, filePath);
+        readBack = jsonProjectDashboardStorage.readProjectDashBoard(filePath).get();
         assertEquals(original, new ProjectDashboard(readBack));
 
         // Save and read without specifying file path
         original.addTask(FAREWELL_PARTY);
-        jsonAddressBookStorage.saveProjectDashboard(original); // file path not specified
-        readBack = jsonAddressBookStorage.readProjectDashBoard().get(); // file path not specified
+        jsonProjectDashboardStorage.saveProjectDashboard(original); // file path not specified
+        readBack = jsonProjectDashboardStorage.readProjectDashBoard().get(); // file path not specified
         assertEquals(original, new ProjectDashboard(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveProjectDashboard_nullProjectDashboard_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveProjectDashboard(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code projectDashboard} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyProjectDashboard addressBook, String filePath) {
+    private void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard, String filePath) {
         try {
             new JsonProjectDashboardStorage(Paths.get(filePath))
-                    .saveProjectDashboard(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveProjectDashboard(projectDashboard, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new ProjectDashboard(), null));
+    public void saveProjectDashboard_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveProjectDashboard(new ProjectDashboard(), null));
     }
 }
