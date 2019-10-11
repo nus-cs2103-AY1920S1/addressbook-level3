@@ -49,7 +49,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         name = source.getName().fullName;
         amount = source.getAmount().value;
-        date = source.getDate().value;
+        date = source.getDate().rawValue;
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));

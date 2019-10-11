@@ -33,6 +33,7 @@ public class Date {
     public static final String VALID_REGEX = "[^p{Alpha}]+";
 
     public final String value;
+    public final String rawValue;
 
     /**
      * Constructs an {@code Date}.
@@ -42,6 +43,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        rawValue = date;
         value = convertDate(date);
     }
 

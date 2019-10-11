@@ -69,12 +69,12 @@ public class JsonExpenseListStorage implements ExpenseListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveExpenseList(ReadOnlyExpenseList addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveExpenseList(ReadOnlyExpenseList expenseList, Path filePath) throws IOException {
+        requireNonNull(expenseList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableExpenseList(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableExpenseList(expenseList), filePath);
     }
 
 }
