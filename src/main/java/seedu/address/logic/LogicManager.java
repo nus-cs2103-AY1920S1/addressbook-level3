@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.switchmode.HomeCommand;
 import seedu.address.logic.commands.switchmode.StartCommand;
+import seedu.address.logic.commands.LoadCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -40,7 +42,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.gameStarted = false;
-        this.mode = ModeEnum.APP;
+        this.mode = ModeEnum.LOAD;
         /*
         Step 9.
         this.game = game //get from constructor
@@ -68,9 +70,22 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         //commandResult = command.execute(model);
+
+        /* Checks if command entered in wrong mode */
         if (command instanceof SwitchCommand) {
             this.mode = ((SwitchCommand) command).getNewMode();
         }
+        if (this.mode == ModeEnum.LOAD && !(command instanceof LoadCommand)) {
+            throw new CommandException("Load word bank first!");
+        }
+        if (this.mode == ModeEnum.APP && !(command instanceof AppCommand)) {
+            throw new CommandException("You are in App Mode");
+        }
+        if (this.mode == ModeEnum.GAME && !(command instanceof GameCommand)) {
+            throw new CommandException("You are in Game Mode!");
+        }
+
+
         if (command instanceof GameCommand || command instanceof StartCommand) {
             //Game logic
             if (command instanceof StartCommand) {
