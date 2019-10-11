@@ -7,7 +7,6 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
-
     private final String category;
     private final String description;
     private int quantity;
@@ -79,7 +78,7 @@ public class Item {
      * @return a String containing the attributes of the Item.
      */
     public String toWriteIntoFile() {
-        String msg = this.description + " | " + this.category +
+        String msg = " | " + this.description + " | " + this.category +
                 " | " + this.quantity + " | " + this.cost + " | " + this.price;
         return msg;
     }
@@ -116,7 +115,7 @@ public class Item {
         Item otherItem = (Item) other;
         return otherItem.getDescription().equals(getDescription())
                 && otherItem.getCategory().equals(getCategory())
-                //&& otherItem.getQuantity() == getQuantity()
+                && otherItem.getQuantity() == getQuantity()
                 && otherItem.getCost() == getCost()
                 && otherItem.getPrice() == getPrice();
     }

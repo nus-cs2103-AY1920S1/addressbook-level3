@@ -4,7 +4,9 @@ import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.person.commons.core.LogsCenter;
 
+import java.util.logging.Logger;
 
 public class ModelManager implements Model {
     private InventoryList inventoryList;
@@ -81,7 +83,10 @@ public class ModelManager implements Model {
     @Override
     public void updateIndexes() throws NoSuchIndexException {
         for (int i = 0; i < inventoryList.size(); i++) {
-            inventoryList.getItemByIndex(i).setId(i + 1);
+            Item item = inventoryList.get(i);
+            item.setId(i + 1);
+            Logger logger = LogsCenter.getLogger(getClass());
+            logger.info(item + " is set at id " + i + 1);
         }
     }
 

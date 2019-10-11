@@ -88,6 +88,10 @@ public class InventoryList {
         Collections.sort(iList, new SortByQuantity());
     }
 
+    public Item get(int i) {
+        return iList.get(i);
+    }
+
     /**
      * Comparator to compare by the name in transaction.
      */
