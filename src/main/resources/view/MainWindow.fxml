@@ -53,11 +53,7 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-            <VBox fx:id="personList" VBox.vgrow="ALWAYS">
-               <children>
-                  <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
+            <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
 <!--            <StackPane fx:id="titleScreenPanelPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />-->
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

@@ -17,6 +17,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.timer.GameTimer;
+import seedu.address.ui.modules.PersonListPanel;
+import seedu.address.ui.modules.TitleScreenPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,11 +34,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private TitleScreenPanel titleScreenPanel;
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private TimerDisplay timerDisplay;
+    private ResultDisplay resultDisplay;
+    private ModularDisplay modularDisplay;
+    private HelpWindow helpWindow;
 
     // Timer object
     private GameTimer gameTimer;
@@ -48,14 +49,11 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    //    @FXML
-    //    private StackPane titleScreenPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
+    //One size fits all stackpane
+    @FXML
+    private StackPane modularDisplayPlaceholder;
 
     //TimerDisplay placeholder
     @FXML
@@ -70,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.modularDisplay = new ModularDisplay(logic);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -121,11 +120,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        //        titleScreenPanel = new TitleScreenPanel();
-        //        titleScreenPanelPlaceholder.getChildren().add(titleScreenPanel.getRoot());
+        modularDisplay.displayTitle(modularDisplayPlaceholder);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -184,10 +179,6 @@ public class MainWindow extends UiPart<Stage> {
 
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -205,6 +196,12 @@ public class MainWindow extends UiPart<Stage> {
 
             gameTimer = new GameTimer("Time left", 800, timerDisplay);
             gameTimer.run();
+
+            if (commandText.equals("home")) {
+                modularDisplay.swapToList(modularDisplayPlaceholder);
+            } else {
+                modularDisplay.swapToHome(modularDisplayPlaceholder);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

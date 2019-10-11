@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.modules;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.ui.CardCard;
+import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of persons.
