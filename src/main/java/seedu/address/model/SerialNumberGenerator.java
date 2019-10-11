@@ -22,11 +22,10 @@ public class SerialNumberGenerator {
      * @param catalog catalog to retrieve books from.
      */
     public static void setCatalog(Catalog catalog) {
-        List<SerialNumber> serialNumbers = catalog.getBookList()
+        serialNumberTree = new TreeSet<>();
+        catalog.getBookList()
                 .stream()
-                .map(book -> book.getSerialNumber())
-                .collect(Collectors.toList());
-        serialNumberTree = new TreeSet<>(serialNumbers);
+                .forEach(book -> serialNumberTree.add(book.getSerialNumber()));
     }
 
     /**
