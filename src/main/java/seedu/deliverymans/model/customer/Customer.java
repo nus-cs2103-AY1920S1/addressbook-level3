@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Order;
+import seedu.deliverymans.model.order.Order;
 
 /**
  * Represents a Customer in the system.

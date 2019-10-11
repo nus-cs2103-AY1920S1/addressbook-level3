@@ -5,10 +5,10 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.model.Model;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.customer.Customer;
 
 /**
  * Adds a customer to the system.
