@@ -30,6 +30,7 @@ public class Date {
     public static final String DMMYYYYHHMM_REGEX = "[\\d]{1}[/][\\d]{2}[/][\\d]{4}\\s[\\d]{4}";
     public static final String DDMYYYYHHMM_REGEX = "[\\d]{2}[/][\\d]{1}[/][\\d]{4}\\s[\\d]{4}";
     public static final String DDMMYYYYHHMM_REGEX = "[\\d]{2}[/][\\d]{2}[/][\\d]{4}\\s[\\d]{4}";
+    public static final String VALID_REGEX = "[^p{Alpha}]+";
 
     public final String value;
 
@@ -48,7 +49,7 @@ public class Date {
      * Returns if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        return !convertDate(test).equals(test);
+        return test.matches(VALID_REGEX);
     }
 
     /**

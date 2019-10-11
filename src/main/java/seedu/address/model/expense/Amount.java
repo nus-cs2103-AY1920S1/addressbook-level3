@@ -11,7 +11,7 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS = "Amount should contain numbers, 1-12 digits and it may have a "
         + "prefix of currency sign" + "and it should not be blank";
-    public static final String VALIDATION_REGEX = "[\\p{Sc}]?[\\d]{1,12}[.]??[\\d]{1,2}";
+    public static final String VALIDATION_REGEX = "[\\p{Sc}]?[\\d]{1,12}[.]??[\\d]{0,2}";
 
     public final String value;
 
