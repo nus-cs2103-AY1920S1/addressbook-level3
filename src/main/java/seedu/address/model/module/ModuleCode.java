@@ -14,7 +14,7 @@ public class ModuleCode {
             + " the first of which indicates the level of the module (e.g., 1000 indicates a Level 1 module"
             + " and 2000, a Level 2 module).\n";
 
-    public static final String VALIDATION_REGEX = "^[a-zA-z]{2,3}(\\d{4})";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z]{2,3}(\\d{4})[A-Z]?";
 
     public final String value;
 
