@@ -81,8 +81,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        flashcard = new Flashcard(new Question("test"), new Answer("test"));
     }
 
     public Stage getPrimaryStage() {

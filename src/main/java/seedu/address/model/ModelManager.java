@@ -180,15 +180,6 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Flashcard> getFilteredFlashcardList() {
-        return null;
-    }
-
     @Override
     public void deleteFlashcard(Flashcard target) {
         return;
