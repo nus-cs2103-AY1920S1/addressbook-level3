@@ -16,6 +16,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 
+import seedu.address.logic.commands.SwitchCustomerPanelCommand;
+import seedu.address.logic.commands.SwitchOrderPanelCommand;
+import seedu.address.logic.commands.SwitchPhonePanelCommand;
+import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -74,7 +78,14 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        case SwitchCustomerPanelCommand.COMMAND_WORD:
+            return new SwitchCustomerPanelCommand();
+        case SwitchPhonePanelCommand.COMMAND_WORD:
+            return new SwitchPhonePanelCommand();
+        case SwitchOrderPanelCommand.COMMAND_WORD:
+            return new SwitchOrderPanelCommand();
+        case SwitchSchedulePanelCommand.COMMAND_WORD:
+            return new SwitchSchedulePanelCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
