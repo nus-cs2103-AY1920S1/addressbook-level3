@@ -77,8 +77,8 @@ class JsonAdaptedItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
         }
-        if (!ExpiryDate.isValidExpiryDate(this.expiryDate)) {
-            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        if (!ExpiryDate.isValidFormatExpiryDate(this.expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 

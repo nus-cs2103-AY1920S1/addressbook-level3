@@ -9,16 +9,17 @@ import io.xpire.commons.util.DateUtil;
 
 /**
  * Represents an Item's expiry date in xpire.
- * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)} (String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidFormatExpiryDate(String)} (String)}
  */
 public class ExpiryDate {
-    private static final String DATE_FORMAT = "d/M/yyyy";
+    public static final String DATE_FORMAT = "d/M/yyyy";
+    public static final String MESSAGE_CONSTRAINTS_RANGE = "Only Expiry dates that have not yet passed are accepted";
+    public static final String MESSAGE_CONSTRAINTS_FORMAT =
+            "Expiry dates should only contain numbers, in the format " + DATE_FORMAT;
     private static final String EXPIRED = "Expired!";
     private static final String DAYS_LEFT = "%d day%s left";
-    public static final String MESSAGE_CONSTRAINTS =
-            "Expiry dates should only contain numbers, in the format " + DATE_FORMAT;
-
     private final LocalDate date;
+
 
     /**
      * Constructs a {@code ExpiryDate}.
@@ -27,15 +28,24 @@ public class ExpiryDate {
      */
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
-        AppUtil.checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidFormatExpiryDate(expiryDate), MESSAGE_CONSTRAINTS_FORMAT);
+        AppUtil.checkArgument(isValidRangeExpiryDate(expiryDate), MESSAGE_CONSTRAINTS_RANGE);
         this.date = DateUtil.convertStringToDate(expiryDate, DATE_FORMAT);
     }
 
     /**
-     * Returns true if a given string is a valid expiry date.
+     * Returns true if a given string is a valid expiry date with format d/M/yyyy.
      */
-    public static boolean isValidExpiryDate(String test) {
-        return DateUtil.convertStringToDate(test, DATE_FORMAT) != null;
+    public static boolean isValidFormatExpiryDate(String date) {
+        return DateUtil.convertStringToDate(date, DATE_FORMAT) != null;
+    }
+
+    /**
+     * Returns true if a given string is a valid expiry date that has not yet passed.
+     */
+    public static boolean isValidRangeExpiryDate(String date) {
+        LocalDate d = DateUtil.convertStringToDate(date, DATE_FORMAT);
+        return d.isAfter(DateUtil.getCurrentDate());
     }
 
     public String getStatus(LocalDate current) {

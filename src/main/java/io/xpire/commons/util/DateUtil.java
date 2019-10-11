@@ -52,10 +52,7 @@ public class DateUtil {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            LocalDate d = LocalDate.parse(dateInString, formatter);
-            if (d.isAfter(LocalDate.now())) {
-                return d;
-            }
+            return LocalDate.parse(dateInString, formatter);
         } catch (IllegalArgumentException e) {
             logger.warning("Failed to recognise date format : " + StringUtil.getDetails(e));
         } catch (DateTimeException e) {

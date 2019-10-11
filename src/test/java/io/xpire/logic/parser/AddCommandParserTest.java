@@ -78,7 +78,7 @@ public class AddCommandParserTest {
 
         // invalid expiry date
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE
-                + "|" + VALID_TAG_FRUIT, ExpiryDate.MESSAGE_CONSTRAINTS);
+                + "|" + VALID_TAG_FRUIT, ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
 
         // invalid tag
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
