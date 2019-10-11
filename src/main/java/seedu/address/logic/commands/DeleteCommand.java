@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements MutatorCommand {
 
     public static final String COMMAND_WORD = "delete";
 
