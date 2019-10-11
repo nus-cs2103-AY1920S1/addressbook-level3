@@ -199,5 +199,4 @@ public class ParserUtilTest {
     public void parseEventName_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseEventName(INVALID_NAME));
     }
-    
 }
