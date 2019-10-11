@@ -31,4 +31,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
 
+    public static final Prefix PREFIX_QUIZ = new Prefix("quiz/");
+    public static final Prefix PREFIX_MODE_AUTO = new Prefix("auto/");
+    public static final Prefix PREFIX_MODE_MANUAL = new Prefix("manual/");
+    public static final Prefix PREFIX_QUIZ_ID = new Prefix("quizID/");
+    public static final Prefix PREFIX_NUM_QUESTIONS = new Prefix("numQuestions/");
+    public static final Prefix PREFIX_QUESTION_NUMBER = new Prefix("questionNumber/");
+    public static final Prefix PREFIX_QUIZ_QUESTION_NUMBER = new Prefix("quizQuestionNumber/");
+
 }

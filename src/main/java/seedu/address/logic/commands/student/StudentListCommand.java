@@ -4,7 +4,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class StudentListCommand extends StudentCommand{
+/**
+ * Represents a list student command.
+ */
+public class StudentListCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " list: List of students";
 
     @Override

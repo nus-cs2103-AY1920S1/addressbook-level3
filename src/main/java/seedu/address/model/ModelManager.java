@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,9 +18,12 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.QuestionList;
+import seedu.address.model.question.QuestionBank;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,7 +33,8 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final QuestionList questions;
+    private final QuestionBank questionBank;
+    private final QuizBank quizBank;
     private final NoteList notes;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
@@ -46,7 +51,8 @@ public class ModelManager implements Model {
             "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.questions = new QuestionList();
+        this.questionBank = new QuestionBank();
+        this.quizBank = new QuizBank();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
@@ -170,27 +176,125 @@ public class ModelManager implements Model {
 
     @Override
     public void addQuestion(Question question) {
-        questions.addQuestion(question);
+        questionBank.addQuestion(question);
     }
 
     @Override
     public Question deleteQuestion(Index index) {
-        return questions.deleteQuestion(index);
+        return questionBank.deleteQuestion(index);
     }
 
     @Override
     public Question getQuestion(Index index) {
-        return questions.getQuestion(index);
+        return questionBank.getQuestion(index);
     }
 
     @Override
     public void setQuestion(Index index, Question question) {
-        questions.setQuestion(index, question);
+        questionBank.setQuestion(index, question);
     }
 
     @Override
     public String getQuestionsSummary() {
-        return questions.getQuestionsSummary();
+        return questionBank.getQuestionsSummary();
+    }
+
+    //=========== Quizzes ================================================================================
+
+    @Override
+    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+        Quiz quiz = new Quiz(quizId);
+
+        ArrayList<Question> questions = new ArrayList<>();
+        for (Integer i : questionNumbers) {
+            questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
+        }
+
+        for (Question q : questions) {
+            quiz.addQuestion(q);
+        }
+
+        quizBank.addQuiz(quiz);
+    }
+
+    @Override
+    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
+        Quiz quiz = new Quiz(quizId);
+
+        ArrayList<Question> relevantQuestions = new ArrayList<>();
+        switch (type) {
+        case "mcq":
+            relevantQuestions = questionBank.getMcqQuestions();
+            break;
+        case "open":
+            relevantQuestions = questionBank.getOpenEndedQuestions();
+            break;
+        case "all":
+            relevantQuestions = questionBank.getAllQuestions();
+            break;
+        default:
+            break;
+        }
+
+        int listSize = relevantQuestions.size();
+
+        if (listSize > numQuestions) {
+            for (int i = 0; i < numQuestions; i++) {
+                int randomQuestionIndex = getRandomQuestionIndex(listSize);
+                Question randomQuestion = relevantQuestions.get(randomQuestionIndex);
+                boolean isSuccess = quiz.addQuestion(randomQuestion);
+                while (!isSuccess) {
+                    randomQuestionIndex = getRandomQuestionIndex(listSize);
+                    randomQuestion = relevantQuestions.get(randomQuestionIndex);
+                    isSuccess = quiz.addQuestion(randomQuestion);
+                }
+            }
+        } else {
+            for (Question q : relevantQuestions) {
+                quiz.addQuestion(q);
+            }
+        }
+
+        quizBank.addQuiz(quiz);
+    }
+
+    @Override
+    public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
+        int questionIndex = questionNumber - 1;
+        Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
+
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            return quiz.addQuestion(quizQuestionNumber, question);
+        }
+        return false;
+    }
+
+    @Override
+    public void removeQuizQuestion(String quizId, int questionNumber) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            quiz.removeQuestion(questionNumber);
+        }
+    }
+
+    @Override
+    public String getQuestionsAndAnswers(String quizId) {
+        String questions = "";
+        String answers = "";
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            questions = quiz.getFormattedQuestions();
+            answers = quiz.getFormattedAnswers();
+        }
+        return questions + answers;
+    }
+
+    private static int getRandomQuestionIndex(int listSize) {
+        return (int) Math.floor(Math.random() * listSize);
     }
 
     //=========== Notes ================================================================================

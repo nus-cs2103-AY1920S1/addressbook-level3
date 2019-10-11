@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -174,7 +174,36 @@ public interface Model {
      */
     String getQuestionsSummary();
 
-    //endregion
+    //=========== Quizzes ================================================================================
+    /**
+     * Creates a quiz manually.
+     */
+    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
+
+    /**
+     * Creates a quiz automatically.
+     */
+    void createQuizAutomatically(String quizId, int numQuestions, String type);
+
+    /**
+     * Adds a question to a quiz.
+     * {@code quizId} Must already exist in the quiz bank.
+     * {@code questionNumber} Must already exist in the question bank.
+     * {@code quizQuestionNumber} Must already exist in the quiz.
+     */
+    boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber);
+
+    /**
+     * Removes a question from a quiz.
+     */
+    void removeQuizQuestion(String quizId, int questionNumber);
+
+    /**
+     * Returns a quiz's questions and answers, for testing purposes.
+     */
+    String getQuestionsAndAnswers(String quizId);
+
+    //=========== Notes ================================================================================
 
     //region Notes
     /**
