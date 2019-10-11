@@ -14,19 +14,26 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.common.Tag;
+import seedu.address.model.person.parameters.Address;
+import seedu.address.model.person.parameters.Email;
+import seedu.address.model.person.parameters.Name;
+import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.model.person.parameters.PersonReferenceId;
+import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.StaffReferenceId;
 
 public class ParserUtilTest {
+    private static final String INVALID_ID1 = "@001A";
+    private static final String INVALID_ID2 = "STAFF";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String VALID_PATIENT_ID = "001A";
+    private static final String VALID_STAFF_ID = "STAFF001A";
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
@@ -43,8 +50,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(
+                Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -192,5 +199,65 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parsePatientReferenceId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(INVALID_ID1);
+        });
+        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(INVALID_ID2);
+        });
+    }
+
+    @Test
+    public void parsePatientReferenceId_validStaffId_throwsParseException() {
+        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parsePatientReferenceId(VALID_STAFF_ID);
+        });
+    }
+
+    @Test
+    public void parsePatientReferenceId_validPatientIdWithoutWhitespace_returnsReferenceId() throws Exception {
+        PatientReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
+        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(VALID_PATIENT_ID));
+    }
+
+    @Test
+    public void parsePatientReferenceId_validPatientIdWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String idWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
+        PatientReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
+        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(idWithWhitespace));
+    }
+
+    @Test
+    public void parseStaffReferenceId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(INVALID_ID1);
+        });
+        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(INVALID_ID2);
+        });
+    }
+
+    @Test
+    public void parseStaffReferenceId_validPatientId_throwsParseException() {
+        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(VALID_PATIENT_ID);
+        });
+    }
+
+    @Test
+    public void parseStaffReferenceId_validValueWithoutWhitespace_returnsReferenceId() throws Exception {
+        StaffReferenceId expectedId = new StaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(VALID_STAFF_ID));
+    }
+
+    @Test
+    public void parsePatientReferenceId_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String idWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
+        StaffReferenceId expectedId = new StaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(idWithWhitespace));
     }
 }

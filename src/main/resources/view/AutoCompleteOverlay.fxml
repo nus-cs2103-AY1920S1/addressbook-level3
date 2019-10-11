@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+
+
+<ListView fx:id="autoCompleteOverlay" fixedCellSize="20.0" focusTraversable="false" maxHeight="Infinity"
+          maxWidth="Infinity" onMouseClicked="#handleMouseClicked" prefHeight="0.0" prefWidth="200.0" translateX="25.0"
+          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"/>

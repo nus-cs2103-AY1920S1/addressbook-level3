@@ -8,14 +8,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.core.CommandResult;
+import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.queue.QueueListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,7 +34,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private AutoCompleteOverlay aco;
+    private CommandBox commandBox;
     private PersonListPanel personListPanel;
+    private QueueListPanel queueListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,10 +52,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane queueListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -110,14 +127,26 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        //TODO: EDIT HERE
+        queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
+                                             logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+        queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBox = new CommandBox(this::executeCommand, this::updateAutoCompleter, this::traverseAutoCompleter);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
+
+        aco = new AutoCompleteOverlay(this::selectionNotifier);
+        anchorPane.getChildren().add(aco.getRoot());
+        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
 
     /**
@@ -163,6 +192,9 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
+    }
 
     /**
      * Executes the command and returns the result.
@@ -189,5 +221,34 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void updateAutoCompleter(String commandText) {
+        aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
+    }
+
+    /**
+     * Traverses AutoCompleter if valid, otherwise check if AutoCompleter is suggesting anything.
+     * Otherwise, CommandBox handles as command input.
+     *
+     * @param traverseUp true if UP, false if DOWN, null if ENTER.
+     */
+    private void traverseAutoCompleter(Boolean traverseUp) {
+        if (!aco.isSuggesting()) {
+            commandBox.handleCommandEntered();
+            return;
+        }
+        if (traverseUp == null) {
+            aco.simulateMouseClick();
+            return;
+        }
+        aco.traverseSelection(traverseUp);
+    }
+
+    /**
+     * Notifies CommandBox that Selection has been made.
+     */
+    private void selectionNotifier(String selectedText) {
+        commandBox.setCommandTextField(selectedText);
     }
 }
