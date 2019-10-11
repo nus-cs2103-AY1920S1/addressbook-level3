@@ -34,11 +34,6 @@ class JsonAdaptedSkeletalModule {
         moduleCode = source.getModuleCode().toString();
     }
 
-    @JsonValue
-    public String getModuleCode() {
-        return moduleCode;
-    }
-
     /**
      * Converts this Jackson-friendly adapted skeletal module object into the model's {@code Module} object.
      *  Note that this only creates a skeletal {@code Module} object, which will only be activated when

@@ -72,21 +72,6 @@ class JsonAdaptedSemester {
         }
     }
 
-    @JsonValue
-    public String getSemesterName() {
-        return semesterName;
-    }
-
-    @JsonValue
-    public boolean isBlocked() {
-        return isBlocked;
-    }
-
-    @JsonValue
-    public String getReasonForBlocked() {
-        return reasonForBlocked;
-    }
-
     /**
      * Converts this Jackson-friendly adapted semester object into the model's {@code Semester} object.
      *

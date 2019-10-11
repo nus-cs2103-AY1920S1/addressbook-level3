@@ -35,11 +35,6 @@ class JsonAdaptedCommit {
         studyPlan = new JsonAdaptedStudyPlan(source.getStudyPlan());
     }
 
-    @JsonValue
-    public int getIndex() {
-        return index;
-    }
-
     /**
      * Converts this Jackson-friendly adapted commit object into the model's {@code Commit} object.
      *

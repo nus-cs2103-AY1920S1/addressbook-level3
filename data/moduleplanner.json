@@ -1,0 +1,1860 @@
+{
+  "studyPlans" : [ {
+    "title" : "first study plan",
+    "index" : 1,
+    "isActive" : true,
+    "semesters" : [ {
+      "semesterName" : "Y1S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ {
+        "moduleCode" : "CS1101S"
+      } ]
+    }, {
+      "semesterName" : "Y1S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ {
+        "moduleCode" : "CS2030"
+      } ]
+    }, {
+      "semesterName" : "Y2S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ {
+        "moduleCode" : "CS2040S"
+      } ]
+    }, {
+      "semesterName" : "Y2S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    } ],
+    "modules" : [ {
+      "moduleCode" : "CP3107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2106",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2105",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2108",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5339",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2104",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5214",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2100",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5332",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5331",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2103T",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ST2334",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1231S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5209",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5207",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5322",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5321",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4350",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4351",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4347",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4345",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1101S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4225",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4344",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2040S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS6242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5272",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3202",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3200",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3245",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4212",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2030",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3235",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5250",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4277",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4276",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS1103X",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1101R",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ES2660",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3217",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4268",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5237",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3210",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3880",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1521",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5229",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5228",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3203",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4257",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5346",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5343",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5340",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3281",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3282",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4010",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    } ],
+    "tags" : [ {
+      "tagName" : "Completed"
+    }, {
+      "tagName" : "Core"
+    }, {
+      "tagName" : "S/U-able"
+    }, {
+      "tagName" : "UE"
+    }, {
+      "tagName" : "ULR"
+    }, {
+      "tagName" : "ComSec:P"
+    }, {
+      "tagName" : "ComSec:E"
+    }, {
+      "tagName" : "SE:P"
+    }, {
+      "tagName" : "SE:E"
+    }, {
+      "tagName" : "CGG:P"
+    }, {
+      "tagName" : "CGG:E"
+    }, {
+      "tagName" : "Algo:P"
+    }, {
+      "tagName" : "Algo:E"
+    }, {
+      "tagName" : "Para:P"
+    }, {
+      "tagName" : "Para:E"
+    }, {
+      "tagName" : "MIR:P"
+    }, {
+      "tagName" : "MIR:E"
+    }, {
+      "tagName" : "AI:P"
+    }, {
+      "tagName" : "AI:E"
+    }, {
+      "tagName" : "NDS:P"
+    }, {
+      "tagName" : "NDS:E"
+    }, {
+      "tagName" : "PL:P"
+    }, {
+      "tagName" : "PL:E"
+    }, {
+      "tagName" : "DB:P"
+    }, {
+      "tagName" : "DB:E"
+    } ]
+  }, {
+    "title" : "second study plan",
+    "index" : 2,
+    "isActive" : true,
+    "semesters" : [ {
+      "semesterName" : "Y1S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y1S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y2S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ {
+        "moduleCode" : "CS3230"
+      }, {
+        "moduleCode" : "CS2100"
+      }, {
+        "moduleCode" : "CS2103T"
+      } ]
+    }, {
+      "semesterName" : "Y2S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    } ],
+    "modules" : [ {
+      "moduleCode" : "CP3107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2106",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2105",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2108",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5339",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2104",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5214",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2100",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5332",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5331",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2103T",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ST2334",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1231S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5209",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5207",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5322",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5321",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4350",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4351",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4347",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4345",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1101S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4225",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4344",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2040S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS6242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5272",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3202",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3200",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3245",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4212",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2030",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3235",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5250",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4277",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4276",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS1103X",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1101R",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ES2660",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3217",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4268",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5237",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3210",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3880",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1521",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5229",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5228",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3203",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4257",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5346",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5343",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5340",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3281",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3282",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4010",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    } ],
+    "tags" : [ {
+      "tagName" : "Completed"
+    }, {
+      "tagName" : "Core"
+    }, {
+      "tagName" : "S/U-able"
+    }, {
+      "tagName" : "UE"
+    }, {
+      "tagName" : "ULR"
+    }, {
+      "tagName" : "ComSec:P"
+    }, {
+      "tagName" : "ComSec:E"
+    }, {
+      "tagName" : "SE:P"
+    }, {
+      "tagName" : "SE:E"
+    }, {
+      "tagName" : "CGG:P"
+    }, {
+      "tagName" : "CGG:E"
+    }, {
+      "tagName" : "Algo:P"
+    }, {
+      "tagName" : "Algo:E"
+    }, {
+      "tagName" : "Para:P"
+    }, {
+      "tagName" : "Para:E"
+    }, {
+      "tagName" : "MIR:P"
+    }, {
+      "tagName" : "MIR:E"
+    }, {
+      "tagName" : "AI:P"
+    }, {
+      "tagName" : "AI:E"
+    }, {
+      "tagName" : "NDS:P"
+    }, {
+      "tagName" : "NDS:E"
+    }, {
+      "tagName" : "PL:P"
+    }, {
+      "tagName" : "PL:E"
+    }, {
+      "tagName" : "DB:P"
+    }, {
+      "tagName" : "DB:E"
+    } ]
+  }, {
+    "title" : "third study plan",
+    "index" : 3,
+    "isActive" : true,
+    "semesters" : [ {
+      "semesterName" : "Y1S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ {
+        "moduleCode" : "MA1521"
+      } ]
+    }, {
+      "semesterName" : "Y1S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y2S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y2S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y3S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S1",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    }, {
+      "semesterName" : "Y4S2",
+      "isBlocked" : false,
+      "reasonForBlocked" : null,
+      "modules" : [ ]
+    } ],
+    "modules" : [ {
+      "moduleCode" : "CP3107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2106",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2105",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2108",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5339",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2107",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2104",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5214",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2100",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5332",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5331",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2103T",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ST2334",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1231S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5209",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5207",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5322",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5321",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4350",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4351",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4347",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4345",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS1101S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4225",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4344",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4220",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2040S",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS6242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5272",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3202",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3200",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3249",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3247",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4215",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3245",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3243",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3244",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4212",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4330",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS2030",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3235",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5250",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5248",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4277",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3221",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5246",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4276",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5242",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5241",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5240",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS1103X",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3218",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1101R",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3219",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3216",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "ES2660",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3217",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5239",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5238",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4268",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5237",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5236",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3210",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5234",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4102",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3211",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IFS4103",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5233",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5232",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5231",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5230",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP3880",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "MA1521",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5229",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5228",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3203",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS4257",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5226",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5346",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5224",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5223",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5343",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5222",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS5340",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3281",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CS3282",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "IS4010",
+      "color" : "RED",
+      "userTags" : [ ]
+    }, {
+      "moduleCode" : "CP4101",
+      "color" : "RED",
+      "userTags" : [ ]
+    } ],
+    "tags" : [ {
+      "tagName" : "Completed"
+    }, {
+      "tagName" : "Core"
+    }, {
+      "tagName" : "S/U-able"
+    }, {
+      "tagName" : "UE"
+    }, {
+      "tagName" : "ULR"
+    }, {
+      "tagName" : "ComSec:P"
+    }, {
+      "tagName" : "ComSec:E"
+    }, {
+      "tagName" : "SE:P"
+    }, {
+      "tagName" : "SE:E"
+    }, {
+      "tagName" : "CGG:P"
+    }, {
+      "tagName" : "CGG:E"
+    }, {
+      "tagName" : "Algo:P"
+    }, {
+      "tagName" : "Algo:E"
+    }, {
+      "tagName" : "Para:P"
+    }, {
+      "tagName" : "Para:E"
+    }, {
+      "tagName" : "MIR:P"
+    }, {
+      "tagName" : "MIR:E"
+    }, {
+      "tagName" : "AI:P"
+    }, {
+      "tagName" : "AI:E"
+    }, {
+      "tagName" : "NDS:P"
+    }, {
+      "tagName" : "NDS:E"
+    }, {
+      "tagName" : "PL:P"
+    }, {
+      "tagName" : "PL:E"
+    }, {
+      "tagName" : "DB:P"
+    }, {
+      "tagName" : "DB:E"
+    } ]
+  } ],
+  "activeStudyPlanIndex" : 1,
+  "manager" : {
+    "managers" : [ ]
+  }
+}

@@ -28,16 +28,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     private final ModulesInfo modulesInfo;
     private final VersionTrackingManager versionTrackingManager;
 
-    //    /*
-    //     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-    //     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-    //     *
-    //     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-    //     *   among constructors.
-    //     */
-    //    {
-    //        studyPlans = new UniqueStudyPlanList();
-    //    }
 
     public ModulePlanner() {
         studyPlans = new UniqueStudyPlanList();
@@ -57,6 +47,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     public ModulePlanner(ReadOnlyModulePlanner toBeCopied, ModulesInfo modulesInfo) {
         studyPlans = new UniqueStudyPlanList();
         resetData(toBeCopied);
+        activeStudyPlan = toBeCopied.getActiveStudyPlan();
         this.modulesInfo = modulesInfo;
         versionTrackingManager = toBeCopied.getVersionTrackingManager();
     }
