@@ -46,7 +46,7 @@ public class CategoryContainsAnyKeywordsPredicateTest {
     }
 
     @Test
-    public void test_CategoryContainsAnyKeywords_returnsTrue() {
+    public void test_categoryContainsAnyKeywords_returnsTrue() {
         //One keyword match
         CategoryContainsAnyKeywordsPredicate predicate =
                 new CategoryContainsAnyKeywordsPredicate(Collections.singletonList("testing"));
@@ -66,7 +66,7 @@ public class CategoryContainsAnyKeywordsPredicateTest {
     }
 
     @Test
-    public void test_CategoryDoesNotContainKeywords_returnsFalse() {
+    public void test_categoryDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         CategoryContainsAnyKeywordsPredicate predicate =
                 new CategoryContainsAnyKeywordsPredicate(Collections.emptyList());
