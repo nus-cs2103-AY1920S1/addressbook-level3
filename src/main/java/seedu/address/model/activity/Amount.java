@@ -31,7 +31,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return String.format("%f", value);
+        return String.format("%.2f", value);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Amount {
         if (other == this) {
             return true;
         } else if (other instanceof Amount) {
-            return value == ((Amount) other).value;
+            return Math.abs(value - ((Amount) other).value) < 1e-10;
         } else {
             return false;
         }
