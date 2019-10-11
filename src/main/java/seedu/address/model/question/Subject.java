@@ -1,6 +1,7 @@
 package seedu.address.model.question;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a question's subject. Subjects are only guaranteed immutable and non-blank;
@@ -19,6 +20,7 @@ public class Subject {
      */
     public Subject(String subject) {
         requireNonNull(subject);
+        checkArgument(isValidSubject(subject), MESSAGE_CONSTRAINT);
         this.subject = subject;
     }
 

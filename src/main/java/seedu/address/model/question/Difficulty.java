@@ -1,6 +1,7 @@
 package seedu.address.model.question;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a question's difficulty. Difficulties are only guaranteed immutable and non-blank;
@@ -19,6 +20,7 @@ public class Difficulty {
      */
     public Difficulty(String difficulty) {
         requireNonNull(difficulty);
+        checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINT);
         this.difficulty = difficulty;
     }
 
