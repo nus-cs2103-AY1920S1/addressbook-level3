@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import seedu.address.model.student.Student;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
 
     //region PREFERENCES & SETTINGS
     /**
@@ -43,7 +45,6 @@ public interface Model {
     //endregion
 
     //region AddressBook
-
     /**
      * Returns the user prefs' address book file path.
      */
@@ -61,7 +62,6 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
-
     //endregion
 
     //region Person
@@ -101,34 +101,9 @@ public interface Model {
     //endregion
 
     //region StudentRecord
-//    /**
-//     * Adds the given student.
-//     * {@code student} must not exist in the student list.
-//     */
-//    void addStudent(Student student);
-//
-//    /**
-//     * Returns the student that has been deleted based on the index.
-//     * @return
-//     */
-//    Student deleteStudent(Index index);
-//
-//    /**
-//     * Returns the student based on its Index.
-//     */
-//    Student getStudent(Index index);
-//
-//    /**
-//     * Replaces the student at the specified index.
-//     */
-//    void setStudent(Index index, Student student);
-//
-//    /**
-//     * Returns the list of students.
-//     *
-//     * @return list of students
-//     */
-//    String getStudentList();
+    Path getStudentRecordFilePath();
+
+    void setStudentRecordFilePath(Path addressBookFilePath);
 
     void setStudentRecord(ReadOnlyStudentRecord studentRecord);
 
@@ -141,7 +116,8 @@ public interface Model {
     void deleteStudent(Student target);
     void addStudent(Student student);
     void setStudent(Student target, Student editedStudent);
-    ObservableList<Student> getStudentList();
+    ObservableList<Student> getFilteredStudentList();
+    void updateFilteredStudentList(Predicate<Student> predicate);
 
     //endregion
 
@@ -174,7 +150,9 @@ public interface Model {
      */
     String getQuestionsSummary();
 
-    //=========== Quizzes ================================================================================
+    //endregion
+
+    //region Quizzes
     /**
      * Creates a quiz manually.
      */
@@ -203,7 +181,7 @@ public interface Model {
      */
     String getQuestionsAndAnswers(String quizId);
 
-    //=========== Notes ================================================================================
+    //endregion
 
     //region Notes
     /**

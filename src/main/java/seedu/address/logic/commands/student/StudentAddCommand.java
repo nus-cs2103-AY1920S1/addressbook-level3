@@ -1,17 +1,17 @@
 package seedu.address.logic.commands.student;
 
-import seedu.address.logic.commands.AddCommand;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-public class StudentAddCommand extends StudentCommand{
+/**
+ * Adds a student to the student record.
+ */
+public class StudentAddCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new student\n"
             + "Parameters:\n"
             + "student/[STUDENT_NAME]\n"

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.student;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,6 +15,8 @@ public class StudentListCommand extends StudentCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;//new CommandResult(model.getStudentList());
+        requireNonNull(model);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); //change later
+        return new CommandResult("{MESSAGE_SUCCESS}");
     }
 }

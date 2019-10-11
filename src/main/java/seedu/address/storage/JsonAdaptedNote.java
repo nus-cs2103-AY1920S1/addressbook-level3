@@ -3,6 +3,11 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.model.note.Note;
+
+/**
+ * Jackson-friendly version of {@link Note}.
+ */
 public class JsonAdaptedNote {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
@@ -68,7 +73,8 @@ public class JsonAdaptedNote {
 //        final Email modelEmail = new Email(email);
 //
 //        if (address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+//            throw new IllegalValueException(
+//              String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
 //        }
 //        if (!Address.isValidAddress(address)) {
 //            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);

@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -22,7 +22,6 @@ import seedu.address.model.question.QuestionBank;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.student.Student;
-import seedu.address.model.student.UniqueStudentList;
 
 
 /**
@@ -39,11 +38,14 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Student> filteredStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyStudentRecord studentRecord,ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyStudentRecord studentRecord,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -57,13 +59,14 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new StudentRecord(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //region PREFERENCES & SETTINGS
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -87,6 +90,9 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //endregion
+
+    //region AddressBook
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -98,8 +104,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
@@ -110,32 +114,64 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    //=========== StudentRecord ===========================================================================
+    //endregion
 
-//    @Override
-//    public void addStudent(ReadOnlyStudentRecord studentRecord) {
-//        this.studentRecord.resetData(student);
-//    }
-//
-//    @Override
-//    public Student deleteStudent(Index index) {
-//        return students.remove(index);
-//    }
-//
-//    @Override
-//    public Student getStudent(Index index) {
-//        return students.getStudent(index);
-//    }
-//
-//    @Override
-//    public void setStudent(Index index, Student student) {
-//        students.setStudent(index, student);
-//    }
-//
-//    @Override
-//    public String getStudentList() {
-//        return students.getStudentList();
-//    }
+    //region FilteredPerson List Accessors
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+    //endregion
+
+    //region Person
+    @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public void deletePerson(Person target) {
+        addressBook.removePerson(target);
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        addressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        addressBook.setPerson(target, editedPerson);
+    }
+    //endregion
+
+    //region StudentRecord
+    @Override
+    public void setStudentRecordFilePath(Path studentRecordFilePath) {
+        requireNonNull(studentRecordFilePath);
+        userPrefs.setStudentRecordFilePath(studentRecordFilePath);
+    }
+
+    @Override
+    public Path getStudentRecordFilePath() {
+        return userPrefs.getStudentRecordFilePath();
+    }
 
     @Override
     public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
@@ -146,8 +182,9 @@ public class ModelManager implements Model {
     public ReadOnlyStudentRecord getStudentRecord() {
         return studentRecord;
     }
+    //endregion
 
-    //=========== Students ================================================================================
+    //region Students
 
     @Override
     public boolean hasStudent(Student student) {
@@ -171,8 +208,22 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedStudent);
         studentRecord.setStudent(target, editedStudent);
     }
+    //endregion
 
-    //=========== Questions ================================================================================
+    //region FilteredStudent List Accessors
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+    //endregion
+
+    //region Questions
 
     @Override
     public void addQuestion(Question question) {
@@ -199,7 +250,9 @@ public class ModelManager implements Model {
         return questionBank.getQuestionsSummary();
     }
 
-    //=========== Quizzes ================================================================================
+    //endregion
+
+    //region Quizzes
 
     @Override
     public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
@@ -297,7 +350,9 @@ public class ModelManager implements Model {
         return (int) Math.floor(Math.random() * listSize);
     }
 
-    //=========== Notes ================================================================================
+    //endregion
+
+    //region Notes
 
     @Override
     public void addNote(Note note) {
@@ -329,48 +384,7 @@ public class ModelManager implements Model {
         return notes.getNoteSummary();
     }
 
-    //=========== Person ================================================================================
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
+    //endregion
 
     @Override
     public boolean equals(Object obj) {
