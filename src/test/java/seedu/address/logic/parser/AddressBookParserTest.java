@@ -30,6 +30,7 @@ import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 import seedu.address.testutil.FlashCardBuilder;
 import seedu.address.testutil.FlashCardUtil;
@@ -81,7 +82,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -103,18 +104,17 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
     public void parseCommand_findAnswer() throws Exception {
         List<String> keywords = Arrays.asList("C", "cs2101");
         FindAnswerCommand command = (FindAnswerCommand) parser.parseCommand(
                 FindAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
+    }
 
+    @Test
+    public void parseCommand_help() throws Exception {
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test

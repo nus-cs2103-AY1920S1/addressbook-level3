@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,10 +29,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        QuestionContainsAnyKeywordsPredicate firstPredicate =
-                new QuestionContainsAnyKeywordsPredicate(Collections.singletonList("first"));
-        QuestionContainsAnyKeywordsPredicate secondPredicate =
-                new QuestionContainsAnyKeywordsPredicate(Collections.singletonList("second"));
+        QuestionOrAnswerContainsAnyKeywordsPredicate firstPredicate =
+                new QuestionOrAnswerContainsAnyKeywordsPredicate(Collections.singletonList("first"));
+        QuestionOrAnswerContainsAnyKeywordsPredicate secondPredicate =
+                new QuestionOrAnswerContainsAnyKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noFlashCardFound() {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 0);
-        QuestionContainsAnyKeywordsPredicate predicate = preparePredicate(" ");
+        QuestionOrAnswerContainsAnyKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleFlashCardFound() {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 3);
-        QuestionContainsAnyKeywordsPredicate predicate = preparePredicate("sources protocol throughput");
+        QuestionOrAnswerContainsAnyKeywordsPredicate predicate = preparePredicate("sources protocol throughput");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code QuestionContainsAnyKeywordsPredicate}.
      */
-    private QuestionContainsAnyKeywordsPredicate preparePredicate(String userInput) {
-        return new QuestionContainsAnyKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private QuestionOrAnswerContainsAnyKeywordsPredicate preparePredicate(String userInput) {
+        return new QuestionOrAnswerContainsAnyKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

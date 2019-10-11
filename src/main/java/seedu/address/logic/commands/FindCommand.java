@@ -4,24 +4,25 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose question contains any of the argument keywords.
+ * Finds and lists all flashcard in address book whose question or answer contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose questions contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards whose questions or answers"
+            + " contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final QuestionContainsAnyKeywordsPredicate predicate;
+    private final QuestionOrAnswerContainsAnyKeywordsPredicate predicate;
 
-    public FindCommand(QuestionContainsAnyKeywordsPredicate predicate) {
+    public FindCommand(QuestionOrAnswerContainsAnyKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
