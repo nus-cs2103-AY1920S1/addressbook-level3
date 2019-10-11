@@ -50,8 +50,8 @@ public class StatisticManager implements Statistic {
     }
 
     @Override
-    public void calculateTotalProfit() {
-
+    public String calculateTotalProfit() {
+        return "test stats";
     }
 
     @Override

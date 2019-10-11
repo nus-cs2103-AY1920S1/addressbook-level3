@@ -106,8 +106,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void calculateStats() {
+    public String calculateStats() {
         this.statistic.getOrderBook(this.getOrderBook());
-        this.statistic.calculateTotalProfit();
+        return this.statistic.calculateTotalProfit();
+
     }
 }

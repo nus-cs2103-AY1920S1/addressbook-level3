@@ -75,5 +75,5 @@ public interface Logic {
     /**
      * Gets logic to calculate statistics
      */
-    void calculateStats();
+    String calculateStats();
 }

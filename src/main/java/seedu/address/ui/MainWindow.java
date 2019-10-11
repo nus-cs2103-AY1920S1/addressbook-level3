@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
+    private StatisticsWindow statsWindow;
 
     //real panels
     private CustomerListPanel customerListPanel;
@@ -186,6 +187,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * handle StatisticsWindow and create a new one
+     */
+    @FXML
+    private void handleStats() {
+        String statsResult = this.logic.calculateStats();
+        this.statsWindow = new StatisticsWindow(statsResult);
+        this.statsWindow.show();
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -232,6 +243,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case EXIT:
                 this.handleExit();
+                break;
+            case STATS:
+                this.handleStats();
                 break;
             default:
                 //do nothing

@@ -23,7 +23,7 @@ public interface Statistic {
     /**
      * calculate total Profit
      */
-    void calculateTotalProfit();
+    String calculateTotalProfit();
 
     /**
      * calculate total Gross revenue

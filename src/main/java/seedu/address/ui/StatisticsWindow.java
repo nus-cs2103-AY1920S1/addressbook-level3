@@ -25,14 +25,15 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     public StatisticsWindow(Stage root) {
         super(FXML, root);
-        testLabel.setText("test");
     }
 
+
     /**
-     * new Statistics Window
+     * new Statistics Window that will be called by Mainwindow method to create a new Statistic window
      */
-    public StatisticsWindow() {
+    public StatisticsWindow(String input) {
         this(new Stage());
+        testLabel.setText(input);
     }
 
     /**
