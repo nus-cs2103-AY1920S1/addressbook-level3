@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -11,6 +12,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 
@@ -69,9 +71,10 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         StudyPlan sp = logic.getActiveStudyPlan();
         UniqueSemesterList u = sp.getSemesters();
+        ObservableList<Semester> ol = u.asUnmodifiableObservableList();
 //        logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
-//        semesterListPanel = new SemesterListPanel(logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList());
-//        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+        semesterListPanel = new SemesterListPanel(ol);
+        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
