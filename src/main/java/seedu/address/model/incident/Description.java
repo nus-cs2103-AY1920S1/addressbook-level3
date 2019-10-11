@@ -19,7 +19,6 @@ public class Description {
         this.desc = "";
     }
 
-
     @Override
     public String toString() {
         return desc;

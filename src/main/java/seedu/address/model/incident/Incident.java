@@ -1,5 +1,7 @@
 package seedu.address.model.incident;
 import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.Vehicle;
@@ -13,6 +15,7 @@ public class Incident {
     private Person operator;
     private LocalDateTime dateTime;
     private Vehicle car;
+    private IncidentID id;
 
     //needs to be entered by operator
     private Description incidentDesc;
@@ -26,13 +29,42 @@ public class Incident {
      */
 
     public Incident(String caller) {
+        //this.operator = autofilled on sign in
         this.dateTime = LocalDateTime.now();
+        this.id = new IncidentID(dateTime.getMonthValue(), dateTime.getYear());
+        this.incidentDesc = promptForDescription();
+        this.location = promptForLocation();
         this.callerNumber = caller;
-        //operator = autofilled when sign in
-        //location = prompt and return value from GUI
-        incidentDesc = new Description(); //prompt to fill in desc now. if n, empty desc, if yes, use string from GUI
-        //car = auto-assigned??
+        //this.car = VehicleAssigner.assignVehicle(location);
     }
+
+
+    /**
+     * static method to prompt operator for incident location
+     * @return district which will be stored to location
+     */
+    public static District promptForLocation() {
+        System.out.println("Enter location:"); //need to change to GUI prompt
+        Scanner sc = new Scanner(System.in);   //need to change to GUI input
+        String dist = sc.next();
+        while(!District.isValidDistrict(dist)) {
+            System.out.println("Please enter a valid district");
+            dist = sc.next();
+        }
+        return new District(dist);
+    }
+
+    public static Description promptForDescription() {
+        System.out.println("Enter incident description now? y/n"); //change to GUI
+        Scanner sc = new Scanner(System.in); //change to GUI
+        String desc = "";
+        if(sc.next().equals("y")) {
+            System.out.println("Please enter description:");
+            desc = sc.nextLine();
+        }
+        return new Description(desc);
+    }
+
 
     public LocalDateTime getTime() {
         return this.dateTime;
