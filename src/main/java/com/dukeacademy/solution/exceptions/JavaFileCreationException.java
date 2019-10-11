@@ -3,12 +3,12 @@ package com.dukeacademy.solution.exceptions;
 /**
  * Exception thrown by the compiler environment when an error occurs in creating a file.
  */
-public class CompilerFileCreationException extends Exception {
-    public CompilerFileCreationException(String message) {
+public class JavaFileCreationException extends Exception {
+    public JavaFileCreationException(String message) {
         super(message);
     }
 
-    public CompilerFileCreationException(String message, Throwable cause) {
+    public JavaFileCreationException(String message, Throwable cause) {
         super(message, cause);
     }
 }

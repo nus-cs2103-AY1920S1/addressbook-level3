@@ -41,10 +41,16 @@ public class StandardProgramExecutor implements ProgramExecutor {
         return this.getProgramOutput(process);
     }
 
+    /**
+     * Gets the execution process using Java's RunTime standard library.
+     * @param program the program to be executed as a ClassFile.
+     * @return the execution process.
+     * @throws ProgramExecutorException if the program fails to be executed.
+     */
     private Process getExecutionProcess(ClassFile program) throws ProgramExecutorException {
+        // Generate the correct command for the process
         String className = program.getCanonicalName();
         String classPath = program.getClassPath();
-
         String command = "java -cp " + classPath + " " + className;
 
         try {
@@ -54,31 +60,40 @@ public class StandardProgramExecutor implements ProgramExecutor {
         }
     }
 
+    /**
+     * Gets the application's model of a program output from an execution process.
+     * @param process the executing process.
+     * @return the program output of the process.
+     */
     private ProgramOutput getProgramOutput(Process process) {
+        // Retrieve the output stream of the process
         InputStream stdout = process.getInputStream();
+
+        // Read the output of the process
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
-
         ProgramOutput programOutput = new ProgramOutput();
-        List<String> outputs = reader.lines().collect(Collectors.toList());
 
-        for (String output: outputs) {
-            programOutput.appendNewLine(output);
-        }
+        // Append the output to our model
+        reader.lines().forEachOrdered(programOutput::appendNewLine);
 
         return programOutput;
     }
 
     /**
-     * Feeds input to an ongoing execution process.
+     * Feeds input into a currently executing execution process.
+     * @param process the process to be fed.
+     * @param programInput the inputs to be fed to the program.
+     * @throws ProgramExecutorException if the input fails to be fed.
      */
     private void feedProgramInput(Process process, ProgramInput programInput) throws ProgramExecutorException {
+        // Retrieve the input stream of the process
         OutputStream stdin = process.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 
+        // Try to write the input into the process
         try {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
             writer.write(programInput.getInput());
             writer.flush();
-
             writer.close();
         } catch (IOException e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED);

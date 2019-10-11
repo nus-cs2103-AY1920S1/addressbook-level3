@@ -36,4 +36,14 @@ public class JavaFile {
         String absolutePath = trimmedClassPath + File.separator + canonicalName.replace(".", File.separator) + ".java";
         return new File(absolutePath);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof JavaFile) {
+            return ((JavaFile) object).canonicalName.equals(this.canonicalName)
+                    && ((JavaFile) object).classPath.equals(this.classPath);
+        } else {
+            return false;
+        }
+    }
 }

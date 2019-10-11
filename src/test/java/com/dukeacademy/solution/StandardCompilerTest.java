@@ -19,7 +19,7 @@ import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.compiler.StandardCompiler;
 import com.dukeacademy.solution.exceptions.CompilerException;
 import com.dukeacademy.solution.exceptions.CompilerFileContentException;
-import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.exceptions.JavaFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerTest {
@@ -46,7 +46,7 @@ class StandardCompilerTest {
 
     @Test
     public void compileProgram() throws CompilerException, CompilerFileContentException,
-            IOException, CompilerFileCreationException {
+            IOException, JavaFileCreationException {
         JavaFile validJavaFile = this.createJavaFile(validProgram);
         standardCompiler.compileJavaFile(validJavaFile);
 
@@ -68,16 +68,16 @@ class StandardCompilerTest {
      * Creates a Java file for the purposes of the test.
      * @param program program to be written into the Java file.
      * @return a JavaFile instance.
-     * @throws CompilerFileCreationException if file creation fails.
+     * @throws JavaFileCreationException if file creation fails.
      */
-    private JavaFile createJavaFile(UserProgram program) throws IOException, CompilerFileCreationException {
+    private JavaFile createJavaFile(UserProgram program) throws IOException, JavaFileCreationException {
         String path = environmentPath.resolve(program.getClassName() + ".java").toUri().getPath();
         File file = new File(path);
 
         boolean isFileCreated = file.createNewFile();
 
         if (!isFileCreated) {
-            throw new CompilerFileCreationException("Unable to create file");
+            throw new JavaFileCreationException("Unable to create file");
         }
 
         try {
@@ -88,7 +88,7 @@ class StandardCompilerTest {
 
             fileWriter.close();
         } catch (IOException e) {
-            throw new CompilerFileCreationException("Unable to create file.");
+            throw new JavaFileCreationException("Unable to create file.");
         }
 
         return new JavaFile(program.getClassName(), environmentPath.toUri().getPath());
