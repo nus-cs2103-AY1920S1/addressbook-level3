@@ -13,13 +13,14 @@ public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.";
 
+    // ADDED IN THE FUTURE - for comparison of deadlines for each flashcard
     //public static LocalDate today = LocalDate.now();
     //public static String dateStr;
     //public static LocalDate localDate;
 
     // Identity fields
-    private final Task task;
-    private final DueDate dueDate;
+    private static Task task;
+    private static DueDate dueDate;
 
     public Deadline(Task task, DueDate dueDate) {
         requireAllNonNull(task, dueDate);
@@ -28,26 +29,51 @@ public class Deadline {
     }
 
     public Task getTask() {
-        return this.task;
+        return task;
     }
 
     public DueDate getDueDate() {
-        return this.dueDate;
+        return dueDate;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public void setTask(Task newTask) {
+        task = newTask;
+    }
+
+    public void setDueDate(DueDate newDate) {
+        dueDate = newDate;
+    }
+
+    /**
+     * Returns true if both deadlines of the same task have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two deadlines.
+     */
+    public boolean isSameDeadline(Deadline otherDeadline) {
+        if (otherDeadline == this) {
             return true;
         }
+        return otherDeadline != null
+                && otherDeadline.getTask().equals(getTask())
+                && (otherDeadline.getDueDate().equals(getDueDate()));
+    }
+
+    /**
+     * Returns true if both Deadlines have the same identity and data fields.
+     * This defines a stronger notion of equality between two Deadlines.
+     */
+    @Override
+    public boolean equals(Object other) {
+//        if (other == this) {
+//            return true;
+//        }
 
         if (!(other instanceof Deadline)) {
             return false;
         }
 
-        Deadline otherFlashCard = (Deadline) other;
-        return otherFlashCard.getTask().equals(getTask())
-                && otherFlashCard.getDueDate().equals(getDueDate());
+        Deadline otherDeadline = (Deadline) other;
+        return otherDeadline.getTask().equals(getTask())
+                && otherDeadline.getDueDate().equals(getDueDate());
     }
 
     @Override
