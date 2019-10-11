@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Abhiman Yadav
 image::abhiman2211.png[width="150", align="left"]
-{empty}[http://github.com/Abhiman2211[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Abhiman2211[github]] [<<abhimanyadav#, portfolio>>]
 
 Role: Product Design +
 Responsibilities: Parser
@@ -24,7 +24,7 @@ Responsibilities: Parser
 
 === Brian Yen
 image::brianyenna.png[width="150", align="left"]
-{empty}[http://github.com/brianyenna[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/brianyenna[github]] [<<brianyen#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: Storage
@@ -33,7 +33,7 @@ Responsibilities: Storage
 
 === Joanna Yap
 image::joanna-yja.png[width="150", align="left"]
-{empty}[http://github.com/Joanna-YJA[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Joanna-YJA[github]] [<<joannayap#, portfolio>>]
 
 Role: Quality Assurance +
 Responsibilities: UI
@@ -42,7 +42,7 @@ Responsibilities: UI
 
 === John Min
 image::john0227.png[width="150", align="left"]
-{empty}[http://github.com/john0227[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/john0227[github]] [<<johnmin#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: Command
@@ -51,7 +51,7 @@ Responsibilities: Command
 
 === Joshua Wong
 image::hcwong.png[width="150", align="left"]
-{empty}[http://github.com/hcwong[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/hcwong[github]] [<<joshuawong#, portfolio>>]
 
 Role: Project Management + Git Master +
 Responsibilities: Model + Entity

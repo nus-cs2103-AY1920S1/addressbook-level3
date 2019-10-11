@@ -169,6 +169,7 @@ public class ModelManager implements Model {
      * @return Participant
      */
     public Participant deleteParticipant(Id id) throws AlfredException {
+        // Check for connection with Team
         return this.participantList.delete(id);
     }
 
@@ -298,6 +299,7 @@ public class ModelManager implements Model {
      * @throws AlfredException
      */
     public Mentor deleteMentor(Id id) throws AlfredException {
+        // Should check for connection with Team
         return this.mentorList.delete(id);
     }
 

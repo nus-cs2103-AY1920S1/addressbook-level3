@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
@@ -17,7 +16,7 @@ public abstract class EditCommand extends Command {
 
     /* Possible Fields */
 
-    public static final String COMMAND_TYPE = "edit";
+    public static final String COMMAND_WORD = "edit";
 
     protected Id id;
 
@@ -32,8 +31,8 @@ public abstract class EditCommand extends Command {
      */
     public static class EditEntityDescriptor {
 
+        // Do not allow editing of ID
         protected Name name;
-        protected Id id;
 
         public EditEntityDescriptor() {}
 
@@ -42,14 +41,13 @@ public abstract class EditCommand extends Command {
          */
         public EditEntityDescriptor(EditEntityDescriptor toCopy) {
             this.setName(toCopy.name);
-            this.setId(toCopy.id);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.id);
+            return this.name != null;
         }
 
         /* ======== Getters ======== */
@@ -58,18 +56,10 @@ public abstract class EditCommand extends Command {
             return Optional.ofNullable(this.name);
         }
 
-        public Optional<Id> getId() {
-            return Optional.ofNullable(this.id);
-        }
-
         /* ======== Setters ======== */
 
         public void setName(Name name) {
             this.name = name;
-        }
-
-        public void setId(Id id) {
-            this.id = id;
         }
 
         @Override
@@ -86,8 +76,7 @@ public abstract class EditCommand extends Command {
 
             // state check
             EditEntityDescriptor e = (EditEntityDescriptor) other;
-            return this.getName().equals(e.getName())
-                    && this.getId().equals(e.getId());
+            return this.getName().equals(e.getName());
         }
 
     }

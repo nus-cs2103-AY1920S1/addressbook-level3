@@ -50,6 +50,15 @@ public class ParticipantList extends EntityList {
      * @return boolean
      */
     public boolean update(Id id, Participant updatedParticipant) {
+        // Also check if new Participant with updated details exists already
+        // i.e. update John to Joshua, but list already contains Joshua
+        // AB3 had a isSamePerson() method
+        // so maybe we can have a isSameParticipant() in the Participant class (and rest of the entities)
+        /*
+         * for each p in this.participants
+         *     if p.isSameParticipant(updatedParticipant)
+         *         return false
+         */
         for (int i = 0; i < this.participants.size(); i++) {
             if (this.participants.get(i).getId() == id) {
                 this.participants.set(i, updatedParticipant);

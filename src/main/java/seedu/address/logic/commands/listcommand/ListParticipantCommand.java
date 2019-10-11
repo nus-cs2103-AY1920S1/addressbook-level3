@@ -2,9 +2,6 @@ package seedu.address.logic.commands.listcommand;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Participant;
@@ -14,25 +11,16 @@ import seedu.address.model.entity.Participant;
  */
 public class ListParticipantCommand extends ListCommand {
 
-    /* Possible Fields? */
+    public static final String COMMAND_WORD = "list participant";
     public static final String MESSAGE_SUCCESS = "Listed all participants";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all of the participants.\n"
+            + "Example: " + COMMAND_WORD;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.getParticipantList().list().stream()
-                                  .forEach(p -> {
-                                      HashMap<String, String> fieldMap = p.viewMinimal();
-                                      StringBuilder toPrint = new StringBuilder();
-                                      for (String key : fieldMap.keySet()) {
-                                          toPrint.append(StringUtil.capitalize(key))
-                                                 .append(" : ")
-                                                 .append(fieldMap.get(key))
-                                                 .append(" ");
-                                      }
-                                      System.out.println(toPrint.toString().trim());
-                                  });
+        model.getParticipantList().list().forEach(this::listEntity);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
