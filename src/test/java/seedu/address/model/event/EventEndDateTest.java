@@ -1,12 +1,13 @@
 package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
 
-import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 
 class EventEndDateTest {
@@ -49,4 +50,5 @@ class EventEndDateTest {
         assertTrue(EventEndDate.isValidEndDate("02/12/2019")); // dd/MM/yyyy format
         assertTrue(EventEndDate.isValidEndDate("02/01/2018")); // dd/MM/yyyy format
     }
+
 }

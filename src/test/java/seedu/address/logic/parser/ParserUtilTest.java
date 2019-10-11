@@ -198,12 +198,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventName_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEventName(INVALID_NAME);
-    }
-
-    @Test
-    public void parseEventId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEventId(INVALID_ID));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventName(INVALID_NAME));
     }
 
     @Test

@@ -23,8 +23,6 @@ class EventTest {
     private final Event eventTest = new Event(id, name, venue, hoursNeeded,
             manpowerNeeded, startDate, endDate, tags);
 
-    @org.junit.jupiter.api.Test
-
     @Test
     public void isSameEvent() {
         //same object --> Return true;
