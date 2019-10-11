@@ -2,23 +2,18 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
-    "phone" : "94351253",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "phone" : "98765432",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "phone" : "95352563",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "phone" : "87652533",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "phone" : "9482224",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -26,7 +21,6 @@
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "phone" : "9482442",
     "tagged" : [ ]
   } ]
 }
