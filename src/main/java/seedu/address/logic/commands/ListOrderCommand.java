@@ -20,6 +20,6 @@ public class ListOrderCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDER);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.ORDER);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.ORDER);
     }
 }
