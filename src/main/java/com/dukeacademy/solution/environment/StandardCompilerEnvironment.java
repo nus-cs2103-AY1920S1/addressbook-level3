@@ -38,13 +38,13 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             + "the following location";
 
     // Logger used to report behavior of the environment
-    private Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
+    private final Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
 
     // Root path for the location of the environment
-    private Path locationPath;
+    private final Path locationPath;
 
     // List of previous created Java files
-    private List<JavaFile> createdFiles;
+    private final List<JavaFile> createdFiles;
 
     public StandardCompilerEnvironment(String locationPath) throws CompilerEnvironmentException {
         this.locationPath = Path.of(locationPath);
@@ -100,7 +100,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                     .forEach(File::delete);
 
             // Discard any references to previously created files
-            this.createdFiles = new ArrayList<>();
+            this.createdFiles.clear();
         } catch (IOException e) {
             throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
         }
@@ -116,7 +116,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                     .forEach(File::delete);
 
             // Discard any references to previously created files
-            this.createdFiles = new ArrayList<>();
+            this.createdFiles.clear();
         } catch (IOException e) {
             logger.fine(messageClearEnvironmentFailed);
         }

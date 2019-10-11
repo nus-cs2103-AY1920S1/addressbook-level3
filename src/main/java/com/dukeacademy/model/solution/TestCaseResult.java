@@ -5,9 +5,9 @@ package com.dukeacademy.model.solution;
  * flag to indicate the success of running the test case, along with the expected and actual results.
  */
 public class TestCaseResult {
-    private boolean isSuccessful;
-    private String expectedOutput;
-    private String actualOutput;
+    private final boolean isSuccessful;
+    private final String expectedOutput;
+    private final String actualOutput;
 
     public TestCaseResult(boolean isSuccessful, String expectedOutput, String actualOutput) {
         this.isSuccessful = isSuccessful;
