@@ -116,6 +116,16 @@ public class Amount implements Comparable<Amount> {
         return new Amount(operand1.getValueInCents() - operand2.getValueInCents());
     }
 
+    /**
+     * Returns the negative of an {@code Amount}.
+     *
+     * @param amount {@code Amount} object to be negated.
+     * @return The negative of an {@code Amount}.
+     */
+    public Amount negate(Amount amount) {
+        return new Amount(-amount.getValueInCents());
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
