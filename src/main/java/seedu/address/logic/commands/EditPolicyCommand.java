@@ -48,8 +48,8 @@ public class EditPolicyCommand extends Command {
             + "[" + PREFIX_END_AGE + "END_AGE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             // Todo: check if price takes in a "$" sign
-            + PREFIX_DESCRIPTION + "Fire Insurance Policy. Covers all ages up to 10 years."
-            + PREFIX_PRICE + "$20000 ";
+            + PREFIX_DESCRIPTION + "Fire Insurance Policy. Covers all ages up to 10 years. "
+            + PREFIX_PRICE + "$20000";
 
     public static final String MESSAGE_EDIT_POLICY_SUCCESS = "Edited Policy: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
