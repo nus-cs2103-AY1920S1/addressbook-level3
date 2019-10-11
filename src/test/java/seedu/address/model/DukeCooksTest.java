@@ -3,7 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
@@ -45,8 +44,7 @@ public class DukeCooksTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         DukeCooksStub newData = new DukeCooksStub(newPersons);
 
@@ -72,8 +70,7 @@ public class DukeCooksTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).build();
         assertTrue(dukeCooks.hasPerson(editedAlice));
     }
 
