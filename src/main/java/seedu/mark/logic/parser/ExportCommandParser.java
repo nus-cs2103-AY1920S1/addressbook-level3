@@ -3,7 +3,6 @@ package seedu.mark.logic.parser;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;

@@ -75,7 +75,8 @@ public class MarkParserTest {
         // assumption: bookmarks are exported to the folder data/bookmarks/ (see ExportCommandParser)
         String fileName = "myBookmarks";
         ExportCommand command = (ExportCommand) parser.parseCommand(ExportCommand.COMMAND_WORD + " " + fileName);
-        assertEquals(new ExportCommand(Path.of("data", "bookmarks", fileName)), command);
+        assertEquals(new ExportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
+        // TODO: method to generate export/import filePath
     }
 
     @Test
@@ -83,7 +84,7 @@ public class MarkParserTest {
         // assumption: bookmarks are imported from the folder data/bookmarks/ (see ImportCommandParser)
         String fileName = "myBookmarks";
         ImportCommand command = (ImportCommand) parser.parseCommand(ImportCommand.COMMAND_WORD + " " + fileName);
-        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName)), command);
+        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
     }
 
     @Test

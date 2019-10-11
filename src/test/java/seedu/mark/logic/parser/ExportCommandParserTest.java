@@ -29,7 +29,7 @@ public class ExportCommandParserTest {
     public void parse_validArgs_returnsExportCommand() {
         // no leading and trailing whitespaces
         ExportCommand expectedExportCommand =
-                new ExportCommand(Paths.get("data", "bookmarks", "myBookmarks"));
+                new ExportCommand(Paths.get("data", "bookmarks", "myBookmarks.json"));
         assertParseSuccess(parser, "myBookmarks", expectedExportCommand);
 
         // leading and trailing whitespaces

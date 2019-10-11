@@ -29,7 +29,7 @@ public class ImportCommandParserTest {
     public void parse_validArgs_returnsImportCommand() {
         // no leading and trailing whitespaces
         ImportCommand expectedImportCommand =
-                new ImportCommand(Paths.get("data", "bookmarks", "myBookmarks"));
+                new ImportCommand(Paths.get("data", "bookmarks", "myBookmarks.json"));
         assertParseSuccess(parser, "myBookmarks", expectedImportCommand);
 
         // leading and trailing whitespaces
