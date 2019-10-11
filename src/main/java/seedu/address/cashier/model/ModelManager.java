@@ -11,7 +11,6 @@ import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.person.model.person.Person;
-import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.util.TransactionList;
@@ -135,12 +134,15 @@ public class ModelManager implements Model {
         }
     }
 
-    public void setCashier(String name, seedu.address.person.model.Model personModel) throws NoSuchPersonException {
-        try {
-            this.cashier = personModel.getPersonByName(name);
+    public void setCashier(Person p, seedu.address.person.model.Model personModel) throws NoSuchPersonException {
+        this.cashier = p;
+      /*  try {
+            System.out.println("inside set cashier");
+            this.cashier = p;
+            System.out.println("after setting cashier");
         } catch (PersonNotFoundException e) {
             throw new NoSuchPersonException(CashierUi.NO_SUCH_PERSON);
-        }
+        }*/
     }
 
     public Person getCashier() throws NoCashierFoundException {
