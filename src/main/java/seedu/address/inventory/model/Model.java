@@ -22,4 +22,12 @@ public interface Model {
 
     boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException;
 
+    void updateIndexes() throws NoSuchIndexException;
+
+    void sortByDescription();
+
+    void sortByCategory();
+
+    void sortByQuantity();
+
 }

@@ -50,8 +50,8 @@ public class Inventory extends UiPart<Region> {
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("date"));
-        costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("amount"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("quantity"));
+        costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("cost"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
     }
 }

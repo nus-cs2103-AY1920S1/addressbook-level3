@@ -44,10 +44,10 @@ public class StorageManager {
     public static Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ", 0);
         Item i = null;
-        if (stringArr.length == 4) {
-            i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
-                    Double.parseDouble(stringArr[3]));
-        } else if (stringArr.length == 5) {
+        if (stringArr.length == 5) {
+            i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
+                    Double.parseDouble(stringArr[4]), Integer.parseInt(stringArr[0]));
+        } else if (stringArr.length == 6) {
             i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
                     Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]),
                     Integer.parseInt(stringArr[5]));
