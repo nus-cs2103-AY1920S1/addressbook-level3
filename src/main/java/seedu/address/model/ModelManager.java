@@ -23,6 +23,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    //Previous predicate variable to keep track of the predicate used by FindCommands
+    private Predicate<Person> previousPredicate = PREDICATE_SHOW_ALL_PERSONS;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -97,6 +100,7 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+        refreshFilteredPersonList();
     }
 
     @Override
@@ -112,6 +116,15 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    /**
+     * Returns an unmodifiable view of the full list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return new FilteredList<>(this.addressBook.getPersonList());
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -119,13 +132,25 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public FilteredList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    /**
+     * Refreshes the filter of the filtered patient list to filter by the given {@code predicate}.
+     * This will update the indexes of patients if a patient outside of the filtered list has been removed.
+     */
+    private void refreshFilteredPersonList() {
+        //In order to refresh predicate, need to reset it to show all persons first.
+        //Otherwise it will not change anything
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
+        filteredPersons.setPredicate(previousPredicate);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
+        previousPredicate = predicate;
         filteredPersons.setPredicate(predicate);
     }
 
