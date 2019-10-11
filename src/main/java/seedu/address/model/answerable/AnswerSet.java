@@ -12,6 +12,11 @@ public class AnswerSet {
     public Set<Answer> correctAnswerSet;
     public Set<Answer> wrongAnswerSet;
 
+    /**
+     * Default Constructor for Answer.
+     */
+    public AnswerSet() {}
+
     public AnswerSet(Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet) {
         this.correctAnswerSet = correctAnswerSet;
         this.wrongAnswerSet = wrongAnswerSet;
