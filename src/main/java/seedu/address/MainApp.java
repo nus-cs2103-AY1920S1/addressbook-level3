@@ -96,11 +96,11 @@ public class MainApp extends Application {
             }
             initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner(modulesInfo);
+            logger.warning("Data file not in the correct format. Will be starting with a sample ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner(modulesInfo);
+            logger.warning("Problem while reading from the file. Will be starting with a sample ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         }
 
         return new ModelManager(initialData, userPrefs, modulesInfo);
