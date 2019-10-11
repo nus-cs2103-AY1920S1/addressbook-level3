@@ -8,11 +8,16 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.utils.ReversibleCommandStub;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.UserPrefs;
 
 class CommandHistoryTest {
 
@@ -25,15 +30,17 @@ class CommandHistoryTest {
 
     @Test
     void execute_performUndo_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                new QueueManager(), new AppointmentBook());
 
         assertFalse(history.canUndo());
 
-        history.addToCommandHistory(new UndoableCommandStub("cmd 1"));
+        history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));
         assertTrue(history.canUndo());
 
-        history.addToCommandHistory(new UndoableCommandStub("cmd 2"));
+        history.addToCommandHistory(new ReversibleCommandStub("cmd 2"));
         assertTrue(history.canUndo());
 
         try {
@@ -55,15 +62,17 @@ class CommandHistoryTest {
 
     @Test
     void canRedo() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new QueueManager(),
+                new AppointmentBook());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                new QueueManager(), new AppointmentBook());
 
         assertFalse(history.canRedo());
 
-        history.addToCommandHistory(new UndoableCommandStub("cmd 1"));
+        history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));
         assertFalse(history.canRedo());
 
-        history.addToCommandHistory(new UndoableCommandStub("cmd 2"));
+        history.addToCommandHistory(new ReversibleCommandStub("cmd 2"));
         assertFalse(history.canRedo());
 
         try {
@@ -79,7 +88,7 @@ class CommandHistoryTest {
             assertTrue(history.canUndo());
             assertTrue(history.canRedo());
 
-            history.addToCommandHistory(new UndoableCommandStub("cmd 3"));
+            history.addToCommandHistory(new ReversibleCommandStub("cmd 3"));
             assertTrue(history.canUndo());
             assertFalse(history.canRedo());
 

@@ -62,9 +62,16 @@ public class ConfigUtilTest {
     }
 
     private Config getTypicalConfig() {
+        Path preferencePath = Paths.get("preferences.json");
+
         Config config = new Config();
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath(Paths.get("preferences.json"));
+        config.setUserPrefsFilePath(preferencePath);
+
+        assertEquals(config.getLogLevel(), Level.INFO);
+        assertEquals(config.getUserPrefsFilePath(), preferencePath);
+        assertFalse(config.equals(null));
+
         return config;
     }
 
@@ -108,8 +115,8 @@ public class ConfigUtilTest {
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
         return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
+                       ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+                       : null;
     }
 
 
