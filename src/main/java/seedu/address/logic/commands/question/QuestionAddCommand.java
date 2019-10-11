@@ -12,6 +12,7 @@ import seedu.address.model.question.Question;
 /**
  * Creates a new question to be added to the question list.
  */
+
 public class QuestionAddCommand extends QuestionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new question\n"

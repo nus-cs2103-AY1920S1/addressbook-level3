@@ -18,9 +18,15 @@ import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
+<<<<<<< HEAD
 import seedu.address.model.question.QuestionBank;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
+=======
+import seedu.address.model.question.QuestionList;
+import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
+>>>>>>> upstream/master
 
 /**
  * Represents the in-memory model of the address book data.
@@ -34,6 +40,7 @@ public class ModelManager implements Model {
     private final QuizBank quizBank;
     private final NoteList notes;
     private final UserPrefs userPrefs;
+    private final UniqueStudentList students;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -51,6 +58,7 @@ public class ModelManager implements Model {
         this.quizBank = new QuizBank();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
+        this.students = new UniqueStudentList();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
@@ -103,6 +111,33 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    //=========== Students ================================================================================
+
+    @Override
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    @Override
+    public Student deleteStudent(Index index) {
+        return students.remove(index);
+    }
+
+    @Override
+    public Student getStudent(Index index) {
+        return students.getStudent(index);
+    }
+
+    @Override
+    public void setStudent(Index index, Student student) {
+        students.setStudent(index, student);
+    }
+
+    @Override
+    public String getStudentList() {
+        return students.getStudentList();
     }
 
     //=========== Questions ================================================================================

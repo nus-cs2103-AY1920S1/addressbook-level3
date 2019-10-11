@@ -2,6 +2,7 @@
   "guiSettings" : {
     "windowWidth" : 740.0,
     "windowHeight" : 600.0,
+<<<<<<< HEAD
     "windowCoordinates" : {
       "x" : 270,
       "y" : 26
@@ -10,3 +11,10 @@
   "addressBookFilePath" : "data\\addressbook.json",
   "studentRecordFilePath" : "data\\students.json"
 }
+=======
+    "windowCoordinates" : null
+  },
+  "addressBookFilePath" : "data/addressbook.json",
+  "studentRecordFilePath" : "data/students.json"
+}
+>>>>>>> upstream/master

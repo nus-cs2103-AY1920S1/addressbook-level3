@@ -1,4 +1,8 @@
 {
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

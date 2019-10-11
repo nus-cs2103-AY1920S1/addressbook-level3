@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.question.Question;
 import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.model.student.exceptions.StudentNotFoundException;
 
@@ -68,6 +70,16 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.set(index, editedStudent);
     }
 
+    public Student remove(Index index) {
+        return internalList.remove(index.getZeroBased());
+    }
+
+
+    public void setStudent(Index index, Student student) {
+        internalList.set(index.getZeroBased(), student);
+    }
+
+
     /**
      * Removes the equivalent Student from the list.
      * The Student must exist in the list.
@@ -84,6 +96,11 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(replacement.internalList);
     }
 
+    public Student getStudent(Index index) {
+        return internalList.get(index.getZeroBased());
+    }
+
+
     /**
      * Replaces the contents of this list with {@code Students}.
      * {@code Students} must not contain duplicate Students.
@@ -95,6 +112,14 @@ public class UniqueStudentList implements Iterable<Student> {
         }
 
         internalList.setAll(students);
+    }
+
+    public String getStudentList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < internalList.size(); i++) {
+            sb.append(internalList.get(i));
+        }
+        return sb.toString();
     }
 
     /**
