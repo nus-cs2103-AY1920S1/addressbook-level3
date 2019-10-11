@@ -26,12 +26,11 @@ public class StudentEditCommand extends StudentCommand {
             + "name/ [NAME]\n"
             + "Example: name/ Jeong Sock Hwee\n\n";
 
-    private final Index index;
-    private final EditStudentDescriptor editStudentDescriptor;
-
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student storage.";
+    private final Index index;
+    private final EditStudentDescriptor editStudentDescriptor;
 
     /**
      * Creates a StudentEditCommand object.

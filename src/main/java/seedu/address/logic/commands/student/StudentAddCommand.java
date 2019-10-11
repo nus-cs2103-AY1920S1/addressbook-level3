@@ -17,10 +17,10 @@ public class StudentAddCommand extends StudentCommand {
             + "student/[STUDENT_NAME]\n"
             + "Example: student student/JusBevo \n\n";
 
-    private final Student toAdd;
-
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
+
+    private final Student toAdd;
 
     /**
      * Creates a StudentAddCommand object.

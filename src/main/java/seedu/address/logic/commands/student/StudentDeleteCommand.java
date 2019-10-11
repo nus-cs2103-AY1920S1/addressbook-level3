@@ -18,9 +18,9 @@ public class StudentDeleteCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a student\n"
             + "Note: index has to be greater than 0";
 
-    private final Index targetIndex;
-
     public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
+
+    private final Index targetIndex;
 
     /**
      * Creates a StudentDeleteCommand object.
