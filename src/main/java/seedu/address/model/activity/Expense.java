@@ -10,18 +10,18 @@ import seedu.address.model.person.Person;
  * except only isDeleted is mutable.
  */
 public class Expense {
-    private final double amount;
+    private final Amount amount;
     private final Person person;
     private boolean isDeleted;
 
-    public Expense(Person person, double amount) {
-        requireAllNonNull(person);
+    public Expense(Person person, Amount amount) {
+        requireAllNonNull(person, amount);
         this.person = person;
         this.amount = amount;
         this.isDeleted = false;
     }
 
-    public double getAmount() {
+    public Amount getAmount() {
         return amount;
     }
 
@@ -38,5 +38,21 @@ public class Expense {
      */
     public void delete() {
         this.isDeleted = true;
+    }
+
+    /**
+     * Returns true if both expenses contain the same person and amount.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof Expense) {
+            Expense otherExpense = (Expense) other;
+            return otherExpense.getPerson().equals(getPerson())
+                    && otherExpense.getAmount().equals(getAmount());
+        } else {
+            return false;
+        }
     }
 }
