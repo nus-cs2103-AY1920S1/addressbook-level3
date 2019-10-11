@@ -28,7 +28,7 @@ public class JsonAdaptedItemTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validItemDetails_returnsPerson() throws Exception {
+    public void toModelType_validItemDetails_returnsItem() throws Exception {
         JsonAdaptedItem item = new JsonAdaptedItem(KIWI);
         assertEquals(KIWI, item.toModelType());
     }

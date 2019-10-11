@@ -21,7 +21,7 @@ public class JsonSerializableXpireTest {
     private static final Path DUPLICATE_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateItemXpire.json");
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalItemsFile_success() throws Exception {
         JsonSerializableXpire dataFromFile = JsonUtil.readJsonFile(TYPICAL_ITEMS_FILE,
                 JsonSerializableXpire.class).get();
         Xpire xpireFromFile = dataFromFile.toModelType();
@@ -30,14 +30,14 @@ public class JsonSerializableXpireTest {
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidItemFile_throwsIllegalValueException() throws Exception {
         JsonSerializableXpire dataFromFile = JsonUtil.readJsonFile(INVALID_ITEM_FILE,
                 JsonSerializableXpire.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateItems_throwsIllegalValueException() throws Exception {
         JsonSerializableXpire dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ITEM_FILE,
                 JsonSerializableXpire.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableXpire.MESSAGE_DUPLICATE_ITEM,

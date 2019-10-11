@@ -82,13 +82,13 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasItem_itemInAddressBook_returnsTrue() {
         modelManager.addItem(TypicalItems.KIWI);
         assertTrue(modelManager.hasItem(TypicalItems.KIWI));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager
                 .getFilteredItemList().remove(0));
     }
