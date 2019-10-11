@@ -1,9 +1,7 @@
-package seedu.address.logic.commands.storage;
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.studyplan.StudyPlan;
@@ -12,8 +10,6 @@ import seedu.address.model.studyplan.StudyPlan;
  * Creates a new studyPlan.
  */
 public class CreateStudyPlanCommand extends Command {
-
-    // TODO: must be modified accordingly (this was directly refactored from the original address book)
 
     public static final String COMMAND_WORD = "newplan";
 

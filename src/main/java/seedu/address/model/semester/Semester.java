@@ -85,9 +85,6 @@ public class Semester {
         modules.remove(module);
     }
 
-    public boolean hasModule(Module module) {
-        return this.modules.contains(module);
-
     // NOTE: this is for the GUI to use for Milestone 2
     @Override
     public String toString() {
@@ -100,6 +97,5 @@ public class Semester {
         }
 
         return result.toString();
-
     }
 }

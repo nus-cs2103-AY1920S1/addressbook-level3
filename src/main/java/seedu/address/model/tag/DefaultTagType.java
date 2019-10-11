@@ -19,16 +19,10 @@ public enum DefaultTagType {
     }
 
     /**
-     * Checks if the given name is one of the default tag type names.
-     * @param name The given name that is to be checked.
-     * @return True if it is one of the default tag type names.
+     * Returns the name of the default type.
+     * @return Name of the default type.
      */
-    public static boolean contains(String name) {
-        for (DefaultTagType defaultTagType : DefaultTagType.values()) {
-            if (defaultTagType.name().equals(name)) {
-                return true;
-            }
-        }
-        return false;
+    public String getDefaultTagTypeName() {
+        return defaultName;
     }
 }
