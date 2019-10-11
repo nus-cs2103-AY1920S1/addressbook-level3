@@ -28,19 +28,19 @@ public class UniqueDishListTest {
 
     @Test
     public void contains_dishNotInList_returnsFalse() {
-        assertFalse(uniqueDishList.contains(TypicalDishes.ALICE));
+        assertFalse(uniqueDishList.contains(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void contains_dishInList_returnsTrue() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        assertTrue(uniqueDishList.contains(TypicalDishes.ALICE));
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        assertTrue(uniqueDishList.contains(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void contains_dishWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
                 .build();
         assertTrue(uniqueDishList.contains(editedAlice));
     }
@@ -52,42 +52,42 @@ public class UniqueDishListTest {
 
     @Test
     public void add_duplicateDish_throwsDuplicateDishException() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        Assert.assertThrows(DuplicateDishException.class, () -> uniqueDishList.add(TypicalDishes.ALICE));
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        Assert.assertThrows(DuplicateDishException.class, () -> uniqueDishList.add(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void setDish_nullTargetDish_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueDishList.setDish(null, TypicalDishes.ALICE));
+        Assert.assertThrows(NullPointerException.class, () -> uniqueDishList.setDish(null, TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void setDish_nullEditedDish_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () ->
-            uniqueDishList.setDish(TypicalDishes.ALICE, null));
+            uniqueDishList.setDish(TypicalDishes.SPAGHETTI, null));
     }
 
     @Test
     public void setDish_targetDishNotInList_throwsDishNotFoundException() {
         Assert.assertThrows(DishNotFoundException.class, ()
-            -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.ALICE));
+            -> uniqueDishList.setDish(TypicalDishes.SPAGHETTI, TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void setDish_editedDishIsSameDish_success() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.ALICE);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        uniqueDishList.setDish(TypicalDishes.SPAGHETTI, TypicalDishes.SPAGHETTI);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
-        expectedUniqueDishList.add(TypicalDishes.ALICE);
+        expectedUniqueDishList.add(TypicalDishes.SPAGHETTI);
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
 
     @Test
     public void setDish_editedDishHasSameIdentity_success() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        Dish editedAlice = new DishBuilder(TypicalDishes.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
                 .build();
-        uniqueDishList.setDish(TypicalDishes.ALICE, editedAlice);
+        uniqueDishList.setDish(TypicalDishes.SPAGHETTI, editedAlice);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
         expectedUniqueDishList.add(editedAlice);
         assertEquals(expectedUniqueDishList, uniqueDishList);
@@ -95,19 +95,19 @@ public class UniqueDishListTest {
 
     @Test
     public void setDish_editedDishHasDifferentIdentity_success() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.BOB);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        uniqueDishList.setDish(TypicalDishes.SPAGHETTI, TypicalDishes.MACARONI);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
-        expectedUniqueDishList.add(TypicalDishes.BOB);
+        expectedUniqueDishList.add(TypicalDishes.MACARONI);
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
 
     @Test
     public void setDish_editedDishHasNonUniqueIdentity_throwsDuplicateDishException() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        uniqueDishList.add(TypicalDishes.BOB);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        uniqueDishList.add(TypicalDishes.MACARONI);
         Assert.assertThrows(DuplicateDishException.class, ()
-            -> uniqueDishList.setDish(TypicalDishes.ALICE, TypicalDishes.BOB));
+            -> uniqueDishList.setDish(TypicalDishes.SPAGHETTI, TypicalDishes.MACARONI));
     }
 
     @Test
@@ -117,13 +117,13 @@ public class UniqueDishListTest {
 
     @Test
     public void remove_dishDoesNotExist_throwsDishNotFoundException() {
-        Assert.assertThrows(DishNotFoundException.class, () -> uniqueDishList.remove(TypicalDishes.ALICE));
+        Assert.assertThrows(DishNotFoundException.class, () -> uniqueDishList.remove(TypicalDishes.SPAGHETTI));
     }
 
     @Test
     public void remove_existingDish_removesDish() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        uniqueDishList.remove(TypicalDishes.ALICE);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        uniqueDishList.remove(TypicalDishes.SPAGHETTI);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
@@ -135,9 +135,9 @@ public class UniqueDishListTest {
 
     @Test
     public void setDishes_uniqueDishList_replacesOwnListWithProvidedUniqueDishList() {
-        uniqueDishList.add(TypicalDishes.ALICE);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
-        expectedUniqueDishList.add(TypicalDishes.BOB);
+        expectedUniqueDishList.add(TypicalDishes.MACARONI);
         uniqueDishList.setDishes(expectedUniqueDishList);
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
@@ -149,17 +149,17 @@ public class UniqueDishListTest {
 
     @Test
     public void setDishes_list_replacesOwnListWithProvidedList() {
-        uniqueDishList.add(TypicalDishes.ALICE);
-        List<Dish> dishList = Collections.singletonList(TypicalDishes.BOB);
+        uniqueDishList.add(TypicalDishes.SPAGHETTI);
+        List<Dish> dishList = Collections.singletonList(TypicalDishes.MACARONI);
         uniqueDishList.setDishes(dishList);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
-        expectedUniqueDishList.add(TypicalDishes.BOB);
+        expectedUniqueDishList.add(TypicalDishes.MACARONI);
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
 
     @Test
     public void setDishes_listWithDuplicateDishes_throwsDuplicateDishException() {
-        List<Dish> listWithDuplicateDishes = Arrays.asList(TypicalDishes.ALICE, TypicalDishes.ALICE);
+        List<Dish> listWithDuplicateDishes = Arrays.asList(TypicalDishes.SPAGHETTI, TypicalDishes.SPAGHETTI);
         Assert.assertThrows(DuplicateDishException.class, () -> uniqueDishList.setDishes(listWithDuplicateDishes));
     }
 

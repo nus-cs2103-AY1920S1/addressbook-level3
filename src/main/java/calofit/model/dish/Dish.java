@@ -29,6 +29,15 @@ public class Dish {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Constructor for a Dish without Tag.
+     *
+     * @param name is the name of the dish.
+     */
+    public Dish(Name name) {
+        this(name, new HashSet<Tag>());
+    }
+
     public Name getName() {
         return name;
     }

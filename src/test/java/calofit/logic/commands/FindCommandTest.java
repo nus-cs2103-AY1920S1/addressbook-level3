@@ -63,12 +63,12 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleDishesFound() {
-        String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("spaghetti");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDishList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalDishes.CARL, TypicalDishes.ELLE, TypicalDishes.FIONA),
+        assertEquals(Arrays.asList(TypicalDishes.SPAGHETTI),
                 model.getFilteredDishList());
     }
 

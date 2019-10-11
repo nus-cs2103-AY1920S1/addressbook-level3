@@ -22,30 +22,31 @@ import calofit.testutil.EditDishDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_DUCK_RICE = "Duck Rice";
+    public static final String VALID_NAME_MACARONI = "Macaroni";
+    public static final String VALID_TAG_SALTY = "salty";
+    public static final String VALID_TAG_EXPENSIVE = "expensive";
 
-    public static final String NAME_DESC_AMY = " " + CliSyntax.PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BOB;
-    public static final String TAG_DESC_FRIEND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_DUCK_RICE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_DUCK_RICE;
+    public static final String NAME_DESC_MACARONI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_MACARONI;
+    public static final String TAG_DESC_EXPENSIVE = " " + CliSyntax.PREFIX_TAG + VALID_TAG_EXPENSIVE;
+    public static final String TAG_DESC_SALTY = " " + CliSyntax.PREFIX_TAG + VALID_TAG_SALTY;
 
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " "
+            + CliSyntax.PREFIX_NAME + "Duck Noodles&"; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "bland*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditDishDescriptor DESC_AMY;
-    public static final EditCommand.EditDishDescriptor DESC_BOB;
+    public static final EditCommand.EditDishDescriptor DESC_DUCK_RICE;
+    public static final EditCommand.EditDishDescriptor DESC_MACARONI;
 
     static {
-        DESC_AMY = new EditDishDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditDishDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_DUCK_RICE = new EditDishDescriptorBuilder().withName(VALID_NAME_DUCK_RICE)
+                .withTags(VALID_TAG_EXPENSIVE).build();
+        DESC_MACARONI = new EditDishDescriptorBuilder().withName(VALID_NAME_MACARONI)
+                .withTags(VALID_TAG_SALTY, VALID_TAG_EXPENSIVE).build();
     }
 
     /**
