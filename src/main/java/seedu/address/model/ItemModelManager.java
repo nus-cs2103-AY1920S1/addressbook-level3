@@ -25,14 +25,14 @@ public class ItemModelManager implements ItemModel {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
 
-    public ItemModelManager(AddressBook addressBook, UserPrefs userPrefs) {
+    public ItemModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         this.itemList = new ItemList();
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
         this.visualList = taskList;
-        this.addressBook = addressBook;
-        this.userPrefs = userPrefs;
+        this.addressBook = new AddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
     }
 
     @Override
