@@ -8,6 +8,7 @@ import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Income;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
 
@@ -23,7 +24,8 @@ public class AddIncomeCommandParser extends AddTransactionCommandParser implemen
      */
     public AddIncomeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_COST, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_COST,
+                        CliSyntax.PREFIX_REMARK, CliSyntax.PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_COST)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -33,10 +35,11 @@ public class AddIncomeCommandParser extends AddTransactionCommandParser implemen
 
         Description description = parseTransactionDescription(argMultimap);
         Value value = parseTransactionValue(argMultimap);
+        Remark remark = parseTransactionRemark(argMultimap);
         TransactionDate date = parseTransactionDate();
         Set<Tag> tagList = parseTransactionTags(argMultimap);
 
-        Income income = new Income(description, value, date, tagList);
+        Income income = new Income(description, value, remark, date, tagList);
 
         return new AddIncomeCommand(income);
     }

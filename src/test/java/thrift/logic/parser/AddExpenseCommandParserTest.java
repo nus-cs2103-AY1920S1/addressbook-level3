@@ -17,12 +17,13 @@ public class AddExpenseCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // whitespace only preamble
         assertDoesNotThrow(() -> parser.parse(CommandTestUtil.PREAMBLE_WHITESPACE
-                + CommandTestUtil.DESC_LAKSA + CommandTestUtil.VALUE_LAKSA
+                + CommandTestUtil.DESC_LAKSA + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.REMARK_LAKSA
                 + CommandTestUtil.TAG_LAKSA));
 
         // multiple tags - all accepted
         assertDoesNotThrow(() -> parser.parse(CommandTestUtil.DESC_LAKSA
-                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.TAG_LAKSA + CommandTestUtil.TAG_BRUNCH));
+                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.REMARK_LAKSA
+                + CommandTestUtil.TAG_LAKSA + CommandTestUtil.TAG_BRUNCH));
     }
 
     @Test

@@ -18,6 +18,7 @@ import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
@@ -86,13 +87,14 @@ public class UpdateCommand extends Command {
         Description updatedDescription = updateTransactionDescriptor.getDescription()
                 .orElse(transactionToUpdate.getDescription());
         Value updatedValue = updateTransactionDescriptor.getValue().orElse(transactionToUpdate.getValue());
+        Remark updatedRemark = updateTransactionDescriptor.getRemark().orElse(transactionToUpdate.getRemark());
         TransactionDate updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToUpdate.getDate());
         Set<Tag> updatedTags = updateTransactionDescriptor.getTags().orElse(transactionToUpdate.getTags());
 
         if (transactionToUpdate instanceof Expense) {
-            return new Expense(updatedDescription, updatedValue, updatedDate, updatedTags);
+            return new Expense(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         } else {
-            return new Income(updatedDescription, updatedValue, updatedDate, updatedTags);
+            return new Income(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         }
     }
 
@@ -121,6 +123,7 @@ public class UpdateCommand extends Command {
     public static class UpdateTransactionDescriptor {
         private Description description;
         private Value value;
+        private Remark remark;
         private TransactionDate date;
         private Set<Tag> tags;
 
@@ -133,6 +136,7 @@ public class UpdateCommand extends Command {
         public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
             setDescription(toCopy.description);
             setValue(toCopy.value);
+            setRemark(toCopy.remark);
             setDate(toCopy.date);
             setTags(toCopy.tags);
         }
@@ -141,7 +145,7 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is updated.
          */
         public boolean isAnyFieldUpdated() {
-            return CollectionUtil.isAnyNonNull(description, value, date, tags);
+            return CollectionUtil.isAnyNonNull(description, value, remark, date, tags);
         }
 
         public void setDescription(Description description) {
@@ -158,6 +162,14 @@ public class UpdateCommand extends Command {
 
         public Optional<Value> getValue() {
             return Optional.ofNullable(value);
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
         }
 
         public void setDate(TransactionDate date) {
@@ -202,6 +214,7 @@ public class UpdateCommand extends Command {
 
             return getDescription().equals(e.getDescription())
                     && getValue().equals(e.getValue())
+                    && getRemark().equals(e.getRemark())
                     && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }

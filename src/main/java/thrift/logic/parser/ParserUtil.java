@@ -11,6 +11,7 @@ import thrift.commons.util.StringUtil;
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.Value;
 
 /**
@@ -23,6 +24,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -36,7 +38,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
-     *
      */
     public static Description parseDescription(String description) {
         requireNonNull(description);
@@ -57,6 +58,16 @@ public class ParserUtil {
             throw new ParseException(Value.VALUE_CONSTRAINTS);
         }
         return new Value(trimmedValue);
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Remark parseRemark(String remark) {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        return new Remark(trimmedRemark);
     }
 
     /**

@@ -27,7 +27,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_INDEX, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_COST,
-                        CliSyntax.PREFIX_TAG);
+                        CliSyntax.PREFIX_REMARK, CliSyntax.PREFIX_TAG);
 
         Index index;
 
@@ -48,6 +48,12 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (argMultimap.getValue(CliSyntax.PREFIX_COST).isPresent()) {
             updateTransactionDescriptor.setValue(ParserUtil.parseValue(
                     argMultimap.getValue(CliSyntax.PREFIX_COST).get()));
+        }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_REMARK).isPresent()) {
+            updateTransactionDescriptor.setRemark(ParserUtil.parseRemark(
+                    argMultimap.getValue(CliSyntax.PREFIX_REMARK).get()
+            ));
         }
 
         parseTagsForUpdate(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))

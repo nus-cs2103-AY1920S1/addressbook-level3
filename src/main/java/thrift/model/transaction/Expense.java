@@ -17,15 +17,17 @@ public class Expense extends Transaction {
     private final Description description;
     private final TransactionDate date;
     private final Value value;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Value value, TransactionDate date, Set<Tag> tags) {
+    public Expense(Description description, Value value, Remark remark, TransactionDate date, Set<Tag> tags) {
         this.description = description;
-        this.date = date;
         this.value = value;
+        this.remark = remark;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -39,6 +41,10 @@ public class Expense extends Transaction {
 
     public Value getValue() {
         return value;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -77,6 +83,7 @@ public class Expense extends Transaction {
         return otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getDate().equals(getDate())
                 && otherExpense.getValue().equals(getValue())
+                && otherExpense.getRemark().equals(getRemark())
                 && otherExpense.getTags().equals(getTags());
     }
 
@@ -95,6 +102,8 @@ public class Expense extends Transaction {
                 .append(getValue())
                 .append(") Date: ")
                 .append(getDate())
+                .append(" Remarks: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

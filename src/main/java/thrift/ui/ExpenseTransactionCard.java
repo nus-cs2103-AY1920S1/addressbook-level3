@@ -37,7 +37,7 @@ public class ExpenseTransactionCard extends UiPart<Region> {
     @FXML
     private Label expenseDate;
     @FXML
-    private Label expenseReserved;
+    private Label expenseRemark;
     @FXML
     private FlowPane tags;
 
@@ -48,13 +48,13 @@ public class ExpenseTransactionCard extends UiPart<Region> {
         expenseDescription.setText(transaction.getDescription().toString());
         expenseValue.setText("-$" + transaction.getValue().toString());
         expenseDate.setText(transaction.getDate().toString());
-        expenseReserved.setText("Dummy text label in ExpenseTransactionCard.java.");
+        expenseRemark.setText(transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         expenseDescription.setWrapText(true);
         expenseValue.setWrapText(true);
-        expenseReserved.setWrapText(true);
+        expenseRemark.setWrapText(true);
     }
 
     @Override

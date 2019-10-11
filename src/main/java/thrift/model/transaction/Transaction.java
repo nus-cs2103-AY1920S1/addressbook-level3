@@ -37,6 +37,13 @@ public abstract class Transaction {
     public abstract Value getValue();
 
     /**
+     * Gets this Transaction object's Remark.
+     *
+     * @return This Transaction object's Remark.
+     */
+    public abstract Remark getRemark();
+
+    /**
      * Gets this Transaction object's set of Tag.
      *
      * @return Set&lt;Tag&gt; belonging to this Transaction object.
