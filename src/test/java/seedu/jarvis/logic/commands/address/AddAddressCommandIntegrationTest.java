@@ -13,15 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-<<<<<<< HEAD
-import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.person.Person;
-=======
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
->>>>>>> upstream/master
 import seedu.jarvis.testutil.PersonBuilder;
 
 /**

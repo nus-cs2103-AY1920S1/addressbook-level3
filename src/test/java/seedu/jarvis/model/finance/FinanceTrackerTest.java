@@ -39,7 +39,7 @@ public class FinanceTrackerTest {
     @Test
     public void addPayment_normalInput_addedCorrectly() {
         financeTracker.addSinglePayment(new PurchaseStub());
-        Purchase addedPurchase = financeTracker.getPayment(4);
+        Purchase addedPurchase = financeTracker.getPurchase(4);
         assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), addedPurchase.getMoneySpent());
         assertEquals(4, financeTracker.getTotalPurchases());

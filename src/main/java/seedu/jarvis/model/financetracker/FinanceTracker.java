@@ -61,7 +61,7 @@ public class FinanceTracker {
 
     //=========== Getter Methods ==================================================================================
 
-    public Purchase getPayment(int paymentIndex) {
+    public Purchase getPurchase(int paymentIndex) {
         return purchaseList.getPurchase(paymentIndex);
     }
 

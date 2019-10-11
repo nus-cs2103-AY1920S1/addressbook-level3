@@ -22,8 +22,8 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
-import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**

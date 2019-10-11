@@ -1,8 +1,8 @@
 package seedu.jarvis.model;
 
 import seedu.jarvis.model.address.AddressModel;
-import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.financetracker.FinanceTrackerModel;
+import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;
 
 /**

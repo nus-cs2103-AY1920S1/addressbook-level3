@@ -15,9 +15,9 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class ClearAddressCommandTest {

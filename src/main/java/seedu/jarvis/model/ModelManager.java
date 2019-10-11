@@ -15,12 +15,13 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.history.HistoryManager;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -191,6 +192,16 @@ public class ModelManager implements Model {
     @Override
     public void setFinanceTracker(FinanceTracker financeTracker) {
         this.financeTracker.resetData(financeTracker);
+    }
+
+    @Override
+    public Purchase getPurchase(int paymentIndex) {
+        return financeTracker.getPurchase(paymentIndex);
+    }
+
+    @Override
+    public Installment getInstallment(int instalIndex) {
+        return financeTracker.getInstallment(instalIndex);
     }
 
     /**

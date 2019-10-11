@@ -27,10 +27,10 @@ import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 
 /**
  * Tests the behaviour of {@code HistoryManagerTest}.
@@ -489,6 +489,16 @@ public class HistoryManagerTest {
 
         @Override
         public void setFinanceTracker(FinanceTracker financeTracker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Purchase getPurchase(int paymentIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Installment getInstallment(int instalIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

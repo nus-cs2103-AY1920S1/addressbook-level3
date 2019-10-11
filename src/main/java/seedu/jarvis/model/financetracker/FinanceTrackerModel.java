@@ -1,7 +1,4 @@
 package seedu.jarvis.model.financetracker;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Installment;
-import seedu.jarvis.model.financetracker.Purchase;
 
 /**
  * The API of Finance Tracker component.
@@ -22,6 +19,9 @@ public interface FinanceTrackerModel {
      */
     void setFinanceTracker(FinanceTracker financeTracker);
 
+    public Purchase getPurchase(int paymentIndex);
+
+    public Installment getInstallment(int instalIndex);
     /**
      * Adds single use payment.
      *
