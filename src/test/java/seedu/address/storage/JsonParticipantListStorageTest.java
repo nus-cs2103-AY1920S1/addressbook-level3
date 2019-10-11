@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 
-import seedu.address.AlfredException;
+import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;

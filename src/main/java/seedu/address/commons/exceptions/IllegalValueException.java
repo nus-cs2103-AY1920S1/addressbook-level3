@@ -1,7 +1,5 @@
 package seedu.address.commons.exceptions;
 
-import seedu.address.AlfredException;
-
 /**
  * Represents an exception thrown to signals that some given data does not fulfill some constraints.
  */

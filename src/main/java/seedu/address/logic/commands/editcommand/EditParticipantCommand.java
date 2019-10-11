@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import seedu.address.AlfredException;
+import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
@@ -20,12 +21,22 @@ import seedu.address.model.entity.Phone;
  */
 public class EditParticipantCommand extends EditCommand {
 
-    /* Possible Fields */
+    public static final String COMMAND_WORD = "edit participant";
     public static final String MESSAGE_EDIT_PARTICIPANT_SUCCESS = "Edited Participant: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PARTICIPANT = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
             "The participant index provided is invalid";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the participant identified "
+            + "by the index number used in the displayed participant list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: participant ID "
+            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
+            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
+            + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL]\n"
+            + "Example: " + COMMAND_WORD + " P-1 "
+            + CliSyntax.PREFIX_PHONE + "91234567 "
+            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
 
     private EditParticipantDescriptor editParticipantDescriptor;
 
@@ -55,11 +66,11 @@ public class EditParticipantCommand extends EditCommand {
          *     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
          * }
          */
-        if (model.updateParticipant(this.id, editedParticipant)) {
-            // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
+        if (!model.updateParticipant(this.id, editedParticipant)) {
+            return new CommandResult(MESSAGE_DUPLICATE_PARTICIPANT);
         }
-        return new CommandResult(MESSAGE_DUPLICATE_PARTICIPANT);
+        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
     }
 
     /**
@@ -75,12 +86,12 @@ public class EditParticipantCommand extends EditCommand {
         assert participantToEdit != null;
 
         Name updatedName = editParticipantDescriptor.getName().orElse(participantToEdit.getName());
-        Id updatedId = editParticipantDescriptor.getId().orElse(participantToEdit.getId());
+        Id id = participantToEdit.getId();
         Email updatedEmail = editParticipantDescriptor.getEmail().orElse(participantToEdit.getEmail());
         Phone updatedPhone = editParticipantDescriptor.getPhone().orElse(participantToEdit.getPhone());
 
         // Reorder parameters as necessary
-        return new Participant(updatedName, updatedId, updatedEmail, updatedPhone);
+        return new Participant(updatedName, id, updatedEmail, updatedPhone);
     }
 
     /**
@@ -106,7 +117,7 @@ public class EditParticipantCommand extends EditCommand {
         @Override
         public boolean isAnyFieldEdited() {
             return super.isAnyFieldEdited()
-                    && CollectionUtil.isAnyNonNull(this.email, this.phone);
+                    || CollectionUtil.isAnyNonNull(this.email, this.phone);
         }
 
         /* ======== Getters ======== */
@@ -147,7 +158,6 @@ public class EditParticipantCommand extends EditCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail());
         }
-
     }
 
 }

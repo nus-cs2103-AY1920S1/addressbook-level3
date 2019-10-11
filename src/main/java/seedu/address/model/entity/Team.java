@@ -19,6 +19,14 @@ public class Team extends Entity {
     private ProjectType projectType;
     private Location location;
 
+    // Should we have a 'default' constructor that takes in ID and name only?
+    /*
+     * public Team(Id teamId, Name teamName) {
+     *     super(teamId, teamName);
+     *     // Initialize other fields through add/edit commands
+     * }
+     */
+
     /**
      * Constructor with mentor.
      *

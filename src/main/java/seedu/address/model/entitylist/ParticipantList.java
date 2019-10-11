@@ -3,8 +3,8 @@ package seedu.address.model.entitylist;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.AlfredException;
-import seedu.address.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredRuntimeException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
@@ -50,6 +50,15 @@ public class ParticipantList extends EntityList {
      * @return boolean
      */
     public boolean update(Id id, Participant updatedParticipant) {
+        // Also check if new Participant with updated details exists already
+        // i.e. update John to Joshua, but list already contains Joshua
+        // AB3 had a isSamePerson() method
+        // so maybe we can have a isSameParticipant() in the Participant class (and rest of the entities)
+        /*
+         * for each p in this.participants
+         *     if p.isSameParticipant(updatedParticipant)
+         *         return false
+         */
         for (int i = 0; i < this.participants.size(); i++) {
             if (this.participants.get(i).getId() == id) {
                 this.participants.set(i, updatedParticipant);

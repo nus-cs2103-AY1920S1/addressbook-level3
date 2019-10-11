@@ -1,6 +1,6 @@
 package seedu.address.model.person.exceptions;
 
-import seedu.address.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredRuntimeException;
 
 /**
  * Signals that the operation is unable to find the specified Entity.

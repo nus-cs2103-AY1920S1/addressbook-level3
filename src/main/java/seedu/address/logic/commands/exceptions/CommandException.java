@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.exceptions;
 
-import seedu.address.AlfredException;
+import seedu.address.commons.exceptions.AlfredException;
 
 /**
  * Represents an error which occurs during execution of a {@link Command}.

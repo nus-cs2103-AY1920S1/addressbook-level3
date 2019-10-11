@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Abhiman Yadav - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
