@@ -1,29 +1,30 @@
-//@@ShuTingY
+//@@author shutingy-reused
+//original code is form AB3
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
-
+import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCategoryCommand extends Command {
+public class FindQuestionCommand extends Command {
 
-    public static final String COMMAND_WORD = "findcat";
+    public static final String COMMAND_WORD = "findQuestion";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards which contain any of "
-            + "the specified category keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards whose questions contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " math science";
+            + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final CategoryContainsAnyKeywordsPredicate predicate;
+    private final QuestionContainsAnyKeywordsPredicate predicate;
 
-    public FindCategoryCommand(CategoryContainsAnyKeywordsPredicate predicate) {
+    public FindQuestionCommand(QuestionContainsAnyKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -39,7 +40,7 @@ public class FindCategoryCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCategoryCommand // instanceof handles nulls
-                && predicate.equals(((FindCategoryCommand) other).predicate)); // state check
+                || (other instanceof FindQuestionCommand // instanceof handles nulls
+                && predicate.equals(((FindQuestionCommand) other).predicate)); // state check
     }
 }

@@ -41,12 +41,12 @@ public class QuestionContainsAllKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different flashCard -> returns false
+        // different keywords -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
-    public void test_nameContainsAllKeywords_returnsTrue() {
+    public void test_questionContainsAllKeywords_returnsTrue() {
         // One keyword all match
         QuestionContainsAllKeywordsPredicate predicate =
                 new QuestionContainsAllKeywordsPredicate(Collections.singletonList("remainder"));
@@ -64,7 +64,7 @@ public class QuestionContainsAllKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotAllContainKeywords_returnsFalse() {
+    public void test_questionDoesNotAllContainKeywords_returnsFalse() {
         // Non-matching keyword
         QuestionContainsAllKeywordsPredicate predicate =
                 new QuestionContainsAllKeywordsPredicate(Arrays.asList("addition"));
@@ -74,7 +74,7 @@ public class QuestionContainsAllKeywordsPredicateTest {
         predicate = new QuestionContainsAllKeywordsPredicate(Arrays.asList("remainder", "divide"));
         assertFalse(predicate.test(new FlashCardBuilder().withQuestion("remainder quotient").build()));
 
-        // Keywords match answer and rating, but does not match name
+        // Keywords match answer and rating, but does not match question
         predicate = new QuestionContainsAllKeywordsPredicate(Arrays.asList("12345", "Main", "good"));
         assertFalse(predicate.test(
                 new FlashCardBuilder()
