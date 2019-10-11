@@ -1,8 +1,6 @@
 package seedu.address.model;
 
-import java.util.List;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import seedu.address.model.book.SerialNumber;
