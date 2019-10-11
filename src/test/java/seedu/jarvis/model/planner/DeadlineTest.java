@@ -7,7 +7,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.tag.Tag;
+import seedu.jarvis.model.address.tag.Tag;
 
 
 
