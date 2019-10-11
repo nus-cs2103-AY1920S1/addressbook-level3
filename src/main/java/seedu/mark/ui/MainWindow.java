@@ -54,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane folderStructurePlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -116,6 +119,10 @@ public class MainWindow extends UiPart<Stage> {
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
+
+        FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
+                logic.getFolderStructure(), logic.getFilteredBookmarkList());
+        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

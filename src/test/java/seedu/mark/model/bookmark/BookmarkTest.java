@@ -2,6 +2,7 @@ package seedu.mark.model.bookmark;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -77,6 +78,10 @@ public class BookmarkTest {
 
         // different remark -> returns false
         editedAlice = new BookmarkBuilder(ALICE).withRemark(VALID_REMARK_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different folder -> returns false
+        editedAlice = new BookmarkBuilder(ALICE).withFolder(VALID_FOLDER_CS2103T).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

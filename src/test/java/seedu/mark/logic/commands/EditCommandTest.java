@@ -35,7 +35,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Bookmark editedBookmark = new BookmarkBuilder().build();
+        Bookmark editedBookmark = new BookmarkBuilder().withFolder("contacts").build();
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(editedBookmark).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOKMARK, descriptor);
 

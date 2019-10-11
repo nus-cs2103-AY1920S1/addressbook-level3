@@ -3,5 +3,9 @@
     "name": "Bookmark with invalid name field: Ha!ns Mu@ster",
     "url": "https://hans-example.com",
     "remark": "4th street"
-  } ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": []
+  }
 }

@@ -15,6 +15,7 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.Storage;
 
 /**
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Bookmark> getFilteredBookmarkList() {
         return model.getFilteredBookmarkList();
+    }
+
+    @Override
+    public FolderStructure getFolderStructure() {
+        return model.getMark().getFolderStructure();
     }
 
     @Override

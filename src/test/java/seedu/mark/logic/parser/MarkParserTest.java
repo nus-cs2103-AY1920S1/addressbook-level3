@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.AddCommand;
+import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
@@ -26,6 +28,7 @@ import seedu.mark.logic.commands.ImportCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
@@ -40,6 +43,13 @@ public class MarkParserTest {
         Bookmark bookmark = new BookmarkBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(BookmarkUtil.getAddCommand(bookmark));
         assertEquals(new AddCommand(bookmark), command);
+    }
+
+    @Test
+    public void parseCommand_addFolder() throws Exception {
+        AddFolderCommand command = (AddFolderCommand) parser.parseCommand(
+                AddFolderCommand.COMMAND_WORD + " " + VALID_FOLDER_CS2103T);
+        assertEquals(new AddFolderCommand(new Folder(VALID_FOLDER_CS2103T), null), command);
     }
 
     @Test
