@@ -443,7 +443,7 @@ Use case ends
 Use case ends.
 
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC7)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC5)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
