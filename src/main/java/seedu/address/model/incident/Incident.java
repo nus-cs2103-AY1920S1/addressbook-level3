@@ -27,7 +27,6 @@ public class Incident {
      * Creates a new Incident report, fields will be filled in through prompts in the GUI.
      * @param caller is the phone number of the caller that reported the incident.
      */
-
     public Incident(String caller) {
         //this.operator = autofilled on sign in
         this.dateTime = LocalDateTime.now();
