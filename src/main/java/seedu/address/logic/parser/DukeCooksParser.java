@@ -11,7 +11,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -61,9 +60,6 @@ public class DukeCooksParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
