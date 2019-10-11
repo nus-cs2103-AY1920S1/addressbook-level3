@@ -17,7 +17,7 @@ public class Amount {
     public static final String CENTS_REGEX = "(\\.\\d\\d)"; // '.' followed by exactly two numerical digits
     public static final String DOLLARS_REGEX = "([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally
-    public final long valueInCents;
+    public final int valueInCents;
 
     /**
      * Constructs a {@code Amount}.
@@ -29,9 +29,9 @@ public class Amount {
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         String[] amounts = amount.split(".");
         if (amounts.length == 1) { // String contains only dollar and no cents
-            valueInCents = Long.parseLong(amount) * 100;
+            valueInCents = Integer.parseInt(amount) * 100;
         } else { // String contains only cents
-            valueInCents = Long.parseLong(amounts[0]) * 100 + Long.parseLong(amounts[1]);
+            valueInCents = Integer.parseInt(amounts[0]) * 100 + Integer.parseInt(amounts[1]);
         }
     }
 
@@ -44,8 +44,8 @@ public class Amount {
 
     @Override
     public String toString() {
-        long dollars = valueInCents / 100;
-        long cents = valueInCents % 100;
+        int dollars = valueInCents / 100;
+        int cents = valueInCents % 100;
         String centsString = convertCentsToString(cents);
         return "$" + dollars + "." + centsString;
     }
@@ -57,7 +57,7 @@ public class Amount {
      * @param cents The number of cents in an {@code Amount} that is less than 100.
      * @return A two character {@code String}
      */
-    private String convertCentsToString(long cents) {
+    private String convertCentsToString(int cents) {
         if (cents == 0) {
             return "00";
         } else if (cents < 10) {
@@ -67,7 +67,7 @@ public class Amount {
         }
     }
 
-    public long getValueInCents() {
+    public int getValueInCents() {
         return valueInCents;
     }
 
