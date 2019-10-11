@@ -7,4 +7,4 @@ package seedu.jarvis.model;
  * {@code UserPrefsModel} is the API for User preferences and GUI settings.
  * {@code HistoryModel} is the API for undoing and redoing commands.
  */
-public interface Model extends AddressModel, UserPrefsModel, HistoryModel {}
+public interface Model extends AddressModel, UserPrefsModel, HistoryModel, FinanceTrackerModel {}

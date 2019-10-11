@@ -26,6 +26,9 @@ import seedu.jarvis.model.HistoryManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ReadOnlyAddressBook;
 import seedu.jarvis.model.ReadOnlyUserPrefs;
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Installment;
+import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.person.Person;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -207,6 +210,51 @@ public class AddAddressCommandTest {
 
         @Override
         public boolean commit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FinanceTracker getFinanceTracker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFinanceTracker(FinanceTracker financeTracker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPayment(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePayment(int itemNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInstallment(Installment installment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteInstallment(int instalNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editInstallmentByValue(int installmentNumber, String description, double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMonthlyLimit(double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void listSpending() {
             throw new AssertionError("This method should not be called.");
         }
     }

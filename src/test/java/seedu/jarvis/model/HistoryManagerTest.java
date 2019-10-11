@@ -24,6 +24,9 @@ import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Installment;
+import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.person.Person;
 
 /**
@@ -473,6 +476,51 @@ public class HistoryManagerTest {
 
         @Override
         public boolean commit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FinanceTracker getFinanceTracker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFinanceTracker(FinanceTracker financeTracker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPayment(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePayment(int itemNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInstallment(Installment installment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteInstallment(int instalNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editInstallmentByValue(int installmentNumber, String description, double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMonthlyLimit(double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void listSpending() {
             throw new AssertionError("This method should not be called.");
         }
     }

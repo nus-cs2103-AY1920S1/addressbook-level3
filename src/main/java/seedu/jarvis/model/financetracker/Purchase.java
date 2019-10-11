@@ -15,6 +15,23 @@ public class Purchase {
         this.moneySpent = moneySpent;
     }
 
+    //=========== Reset Methods ==================================================================================
+
+    public Purchase(Purchase purchase) {
+        resetData(purchase);
+    }
+
+    /**
+     * Resets all data from {@code description} and {@code moneySpent} from the given {@code purchase}.
+     *
+     * @param purchase
+     */
+    public void resetData(Purchase purchase) {
+        requireNonNull(purchase);
+        this.description = purchase.getDescription();
+        this.moneySpent = purchase.getMoneySpent();
+    }
+
     //=========== Getter Methods ==================================================================================
 
     public String getDescription() {
@@ -24,6 +41,8 @@ public class Purchase {
     public double getMoneySpent() {
         return moneySpent;
     }
+
+    //=========== Common Methods ==================================================================================
 
     @Override
     public String toString() {
