@@ -11,6 +11,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
@@ -27,7 +28,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     private StudyPlan activeStudyPlan;
     private final ModulesInfo modulesInfo;
     private final VersionTrackingManager versionTrackingManager;
-
+    private SemesterName currentSemester;
 
     public ModulePlanner() {
         studyPlans = new UniqueStudyPlanList();
