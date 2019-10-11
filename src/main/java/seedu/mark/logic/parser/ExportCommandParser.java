@@ -27,7 +27,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
-        Path destinationFile = Paths.get("data", "bookmarks", trimmedArgs);
+        Path destinationFile = Path.of("data", "bookmarks", trimmedArgs + ".json");
 
         return new ExportCommand(destinationFile);
     }

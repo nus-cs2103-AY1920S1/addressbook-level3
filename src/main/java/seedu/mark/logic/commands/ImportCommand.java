@@ -86,10 +86,12 @@ public class ImportCommand extends Command {
         addBookmarksToModel(model, bookmarksToImport, skippedBookmarks);
 
         if (!skippedBookmarks.isEmpty()) {
+            logger.info("Bookmarks imported from " + filePath + ": Some duplicates skipped");
             return new CommandResult(String.format(MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                     toIndentedString(skippedBookmarks)));
         }
 
+        logger.info("Bookmarks imported from " + filePath);
         return new CommandResult(String.format(MESSAGE_IMPORT_SUCCESS, filePath));
     }
 
@@ -103,10 +105,10 @@ public class ImportCommand extends Command {
         try {
             newMark = storage.readMark(filePath);
         } catch (IOException ioe) {
-            logger.info("Bookmarks not imported: Problem while reading from the file");
+            logger.info("Bookmarks not imported: Problem while reading from the file " + filePath);
             throw new CommandException(MESSAGE_IMPORT_FAILURE);
         } catch (DataConversionException dce) {
-            logger.info("Bookmarks not imported: Data file has wrong format");
+            logger.info("Bookmarks not imported: Data file " + filePath + " has wrong format");
             throw new CommandException(String.format(MESSAGE_FILE_FORMAT_INCORRECT, filePath));
         }
 

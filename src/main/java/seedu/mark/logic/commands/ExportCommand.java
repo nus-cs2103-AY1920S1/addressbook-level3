@@ -4,10 +4,13 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
+import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
+import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.Storage;
 
 /**
@@ -24,6 +27,8 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_EXPORT_SUCCESS = "Bookmarks successfully exported to %1$s";
     public static final String MESSAGE_EXPORT_FAILURE = "Bookmarks could not be exported";
 
+    private static final Logger logger = LogsCenter.getLogger(JsonMarkStorage.class);
+
     private final Path filePath;
 
     public ExportCommand(Path filePath) {
@@ -37,9 +42,11 @@ public class ExportCommand extends Command {
         try {
             storage.saveMark(model.getMark(), filePath);
         } catch (IOException ioe) {
+            logger.info("Bookmarks not exported: Error while writing to file " + filePath);
             throw new CommandException(MESSAGE_EXPORT_FAILURE);
         }
 
+        logger.info("Bookmarks exported to file " + filePath);
         return new CommandResult(String.format(MESSAGE_EXPORT_SUCCESS, filePath));
     }
 

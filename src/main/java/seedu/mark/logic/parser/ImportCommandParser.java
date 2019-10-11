@@ -27,7 +27,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
 
-        Path sourceFile = Paths.get("data", "bookmarks", trimmedArgs);
+        Path sourceFile = Path.of("data", "bookmarks", trimmedArgs + ".json");
 
         return new ImportCommand(sourceFile);
     }
