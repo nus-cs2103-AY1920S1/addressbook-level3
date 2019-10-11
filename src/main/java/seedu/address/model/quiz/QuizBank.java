@@ -29,8 +29,8 @@ public class QuizBank {
      * @param quizId The quiz to be removed from the quiz bank.
      */
     public void removeQuiz(String quizId) {
-        for(Quiz q : quizzes) {
-            if(q.getQuizId().equals(quizId)) {
+        for (Quiz q : quizzes) {
+            if (q.getQuizId().equals(quizId)) {
                 quizzes.remove(q);
             }
         }

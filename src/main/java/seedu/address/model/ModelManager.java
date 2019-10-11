@@ -170,7 +170,7 @@ public class ModelManager implements Model {
         Quiz quiz = new Quiz(quizId);
 
         ArrayList<Question> questions = new ArrayList<>();
-        for(Integer i : questionNumbers) {
+        for (Integer i : questionNumbers) {
             questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
         }
 
@@ -188,7 +188,7 @@ public class ModelManager implements Model {
         ArrayList<Question> relevantQuestions = new ArrayList<>();
         switch (type) {
         case "mcq":
-            relevantQuestions = questionBank.getMCQQuestions();
+            relevantQuestions = questionBank.getMcqQuestions();
             break;
         case "open":
             relevantQuestions = questionBank.getOpenEndedQuestions();

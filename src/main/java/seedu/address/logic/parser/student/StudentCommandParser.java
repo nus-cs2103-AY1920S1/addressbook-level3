@@ -1,16 +1,16 @@
 package seedu.address.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
-import seedu.address.commons.core.index.Index;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentCommand;
 import seedu.address.logic.commands.student.StudentDeleteCommand;

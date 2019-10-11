@@ -60,7 +60,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      */
     private String generateSuccessMessage() {
         int numQuestions = questionNumbers.size();
-        if(numQuestions == 1) {
+        if (numQuestions == 1) {
             return "Created quiz: " + quizId + " with " + numQuestions + " question.";
         } else {
             return "Created quiz: " + quizId + " with " + questionNumbers.size() + " questions.";

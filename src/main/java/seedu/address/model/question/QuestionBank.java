@@ -72,7 +72,7 @@ public class QuestionBank {
      * Returns all the McqQuestions in a question bank in an ArrayList representation.
      * @return All the McqQuestions in the question bank in an ArrayList representation.
      */
-    public ArrayList<Question> getMCQQuestions() {
+    public ArrayList<Question> getMcqQuestions() {
         ArrayList<Question> mcqQuestions = new ArrayList<>();
         for (Question q : questions) {
             if (q instanceof McqQuestion) {

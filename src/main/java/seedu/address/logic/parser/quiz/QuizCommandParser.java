@@ -55,11 +55,11 @@ public class QuizCommandParser implements Parser<QuizCommand> {
                                 .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCreateAutomaticallyCommand.MESSAGE_USAGE));
             }
 
-            String quizID = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
             int numQuestions = Integer.parseInt(argMultimap.getValue(PREFIX_NUM_QUESTIONS).orElse(""));
             String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
 
-            return new QuizCreateAutomaticallyCommand(quizID, numQuestions, typeName);
+            return new QuizCreateAutomaticallyCommand(quizId, numQuestions, typeName);
         } else if (argMultimap.getValue(PREFIX_MODE_MANUAL).isPresent()) { // Create manual command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUESTION_NUMBER)
                     || !argMultimap.getPreamble().isEmpty()) {
@@ -81,11 +81,11 @@ public class QuizCommandParser implements Parser<QuizCommand> {
                                 .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizAddQuestionCommand.MESSAGE_USAGE));
             }
 
-            String quizID = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
             int questionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUESTION_NUMBER).orElse(""));
             int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
-            return new QuizAddQuestionCommand(quizID, questionNumber, quizQuestionNumber);
+            return new QuizAddQuestionCommand(quizId, questionNumber, quizQuestionNumber);
         } else if (argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).isPresent()) { // Remove command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
@@ -94,20 +94,21 @@ public class QuizCommandParser implements Parser<QuizCommand> {
                                 .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizRemoveQuestionCommand.MESSAGE_USAGE));
             }
 
-            String quizID = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
             int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
-            return new QuizRemoveQuestionCommand(quizID, quizQuestionNumber);
+            return new QuizRemoveQuestionCommand(quizId, quizQuestionNumber);
         } else { // List command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(
                         String
-                                .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizGetQuestionsAndAnswersCommand.MESSAGE_USAGE));
+                                .format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                            QuizGetQuestionsAndAnswersCommand.MESSAGE_USAGE));
             }
 
-            String quizID = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-            return new QuizGetQuestionsAndAnswersCommand(quizID);
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            return new QuizGetQuestionsAndAnswersCommand(quizId);
         }
 
     }

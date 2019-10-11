@@ -69,6 +69,10 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.set(index, editedStudent);
     }
 
+    public void setStudent(Index index, Student student) {
+        internalList.set(index.getZeroBased(), student);
+    }
+
     public Student remove(Index index) {
         return internalList.remove(index.getZeroBased());
     }
@@ -82,10 +86,6 @@ public class UniqueStudentList implements Iterable<Student> {
         if (!internalList.remove(toRemove)) {
             throw new StudentNotFoundException();
         }
-    }
-
-    public void setStudent(Index index, Student student) {
-        internalList.set(index.getZeroBased(), student);
     }
 
     public void setStudents(UniqueStudentList replacement) {
