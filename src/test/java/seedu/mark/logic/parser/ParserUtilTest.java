@@ -135,12 +135,17 @@ public class ParserUtilTest {
     public void parseTab_validIndex_success() throws Exception {
         TabCommand.Tab expected = TabCommand.Tab.ONLINE;
         assertEquals(expected, ParserUtil.parseTab("2"));
+        expected = TabCommand.Tab.OFFLINE;
+        assertEquals(expected, ParserUtil.parseTab("3"));
+        expected = TabCommand.Tab.DASHBOARD;
+        assertEquals(expected, ParserUtil.parseTab("1"));
     }
 
     @Test
     public void parseTab_invalidIndex_throwsInvalidIndexParseException() {
         try {
             ParserUtil.parseTab("5");
+            ParserUtil.parseTab("0.5");
             fail();
         } catch (ParseException pe) {
             assertEquals(new ParseException(TabCommand.MESSAGE_INVALID_INDEX).getMessage(), pe.getMessage());

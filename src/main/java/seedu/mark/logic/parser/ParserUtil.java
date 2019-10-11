@@ -102,9 +102,16 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
         }
 
-        if (index.getOneBased() < 1 || index.getOneBased() > 3) {
-            throw new ParseException(TabCommand.MESSAGE_INVALID_INDEX);
-        }
+        return convertIndexToTabType(index);
+    }
+
+    /**
+     * Converts an {@code Index} into a {@code Tab}.
+     * @param index A one-based index
+     * @return corresponding tab
+     * @throws ParseException if index does not represent 1, 2 or 3.
+     */
+    private static TabCommand.Tab convertIndexToTabType(Index index) throws ParseException {
 
         TabCommand.Tab type = null;
         switch (index.getOneBased()) {
@@ -118,8 +125,7 @@ public class ParserUtil {
             type = TabCommand.Tab.OFFLINE;
             break;
         default:
-            assert false : "convertToTab forced to handle invalid index.";
-            break;
+            throw new ParseException(TabCommand.MESSAGE_INVALID_INDEX);
         }
 
         return type;

@@ -1,5 +1,8 @@
 package seedu.mark.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.TabCommand.MESSAGE_SWITCH_ACKNOWLEDGEMENT;
 
@@ -30,6 +33,17 @@ class TabCommandTest {
                 String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, TabCommand.Tab.ONLINE.toString()),
                 false, true, false);
         assertCommandSuccess(new TabCommand(TabCommand.Tab.ONLINE), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void equals_success() {
+        assertEquals(new TabCommand(TabCommand.Tab.DASHBOARD), new TabCommand(TabCommand.Tab.DASHBOARD));
+        assertEquals(new TabCommand(TabCommand.Tab.OFFLINE), new TabCommand(TabCommand.Tab.OFFLINE));
+        assertEquals(new TabCommand(TabCommand.Tab.ONLINE), new TabCommand(TabCommand.Tab.ONLINE));
+
+        assertNotEquals(new TabCommand(TabCommand.Tab.DASHBOARD), new TabCommand(TabCommand.Tab.OFFLINE));
+
+        assertThrows(NullPointerException.class, () -> new TabCommand(null));
     }
 
 }
