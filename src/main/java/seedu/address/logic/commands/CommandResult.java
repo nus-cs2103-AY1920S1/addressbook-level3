@@ -43,7 +43,11 @@ public class CommandResult {
         this.addVisit = addVisit;
         this.deleteVisit = deleteVisit;
         this.exit = exit;
+    }
 
+    public CommandResult(String feedbackToUser, int idx) {
+        this(feedbackToUser, false, false, false, false);
+        this.index = idx;
     }
 
     public CommandResult(String feedbackToUser, int idx, String date) {
@@ -62,7 +66,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false,
+                false);
     }
 
     public String getFeedbackToUser() {
