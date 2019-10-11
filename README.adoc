@@ -15,7 +15,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop Project Management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
 
