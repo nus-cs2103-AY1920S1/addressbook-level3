@@ -1,6 +1,8 @@
 package mams.model.module;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import mams.commons.util.CollectionUtil;
 import mams.model.student.Student;
@@ -28,26 +30,27 @@ public class Module {
 
     // Identity fields
     private final String moduleCode;
-    private final int sessionId;
+    private final String sessionId;
 
     // Data fields
     /**
      * timeSlots of lecture of the module. Time slots can occupy any number
      *  of hours in a day.
-     * Assumptions: No more than 1 session per daytracing.
+     * Assumptions: No more than 1 session per day.
      *   TimeSlots(value) are arranged in ascending order
      */
-    private final int[] timeSlot;
-    private final Student[] students = null; // to be added
+    private final String timeSlot;
+    private final Set<Student> students = new HashSet<>(); // to be added
 
     /**
      * Every field must be present and not null.
      */
-    public Module(String moduleCode, int sessionId, int[] timeSlot) {
-        CollectionUtil.requireAllNonNull(moduleCode, sessionId, timeSlot);
+    public Module(String moduleCode, String sessionId, String timeSlot, Set<Student> students) {
+        CollectionUtil.requireAllNonNull(moduleCode, sessionId, timeSlot, students);
         this.moduleCode = moduleCode;
         this.sessionId = sessionId;
         this.timeSlot = timeSlot;
+        this.students.addAll(students);
     }
 
     /**
@@ -59,11 +62,12 @@ public class Module {
 
     /**
      * Returns true if a given session ID is valid
-     * @param test int sessionId to be tested
+     * @param test String sessionId to be tested
      * @return result of test
      */
-    public static boolean isValidSessionId(int test) {
-        if (test == 1 || test == 2) {
+    public static boolean isValidSessionId(String test) {
+        int result = Integer.parseInt(test);
+        if (result == 1 || result == 2) {
             return true;
         } else {
             return false;
@@ -75,7 +79,7 @@ public class Module {
      * @param test time slots to be tested
      * @return result of test
      */
-    public static boolean isValidTimeSlot(int[] test) {
+    public static boolean isValidTimeSlot(String test) {
         final int lastTimeSlot = 69;
         int currentTimeSlot = 0;
 
@@ -83,22 +87,25 @@ public class Module {
             return false;
         }
 
+        String []arr = test.split(",");
+
         /*
          * Test for one time slot
          */
-        if (test.length == 1 && test[0] <= lastTimeSlot) {
+        if (arr.length == 1 && Integer.parseInt(arr[0]) <= lastTimeSlot) {
             return true;
         }
 
         /*
-         * Test for more than 1 time slots.
+         * Test for more than 1 time slots
          */
-        currentTimeSlot = test[0];
-        for (int i = 1; i < test.length; i++) {
-            if ((test[i] <= currentTimeSlot) || test[i] > lastTimeSlot) {
+        currentTimeSlot = Integer.parseInt(arr[0]);
+        for (String str : arr) {
+            int temp = Integer.parseInt(str);
+            if (temp <= currentTimeSlot || temp > lastTimeSlot) {
                 return false;
             }
-            currentTimeSlot = test[i];
+            currentTimeSlot = temp;
         }
 
         return true;
@@ -108,15 +115,11 @@ public class Module {
         return moduleCode;
     }
 
-    public int getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public String getSessionIdString() {
-        return String.valueOf(sessionId);
-    }
-
-    public int[] getTimeSlot() {
+    public String getTimeSlot() {
         return timeSlot;
     }
     
@@ -131,7 +134,8 @@ public class Module {
 
         return otherModule != null
                 && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionIdString().equals(getSessionIdString());
+                && otherModule.getSessionId().equals(getSessionId())
+                && otherModule.getTimeSlot().equals(getTimeSlot());
     }
 
     /**
@@ -150,14 +154,14 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionIdString().equals(getSessionIdString());
-
+                && otherModule.getSessionId().equals(getSessionId())
+                && otherModule.getTimeSlot().equals((getTimeSlot()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, sessionId);
+        return Objects.hash(moduleCode, sessionId, timeSlot);
     }
 
     @Override
@@ -177,30 +181,38 @@ public class Module {
      * @return Day and TimeSlots of this module
      */
     String timeSlotsToString() {
+        String []arr = timeSlot.split(",");
+        int[] temp = new int[arr.length];
+
+        int x = 0;
+        for (String str : arr) {
+            temp[x] = Integer.parseInt(str);
+        }
+
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
 
-        for (int i = 0; i < timeSlot.length; i++) {
-            if (((startTimeSlot == 0) && (i != timeSlot.length - 1) && (timeSlot[i] < timeSlot[i + 1] - 1))
-                    || ((i == timeSlot.length - 1) && (startTimeSlot == 0))) {
+        for (int i = 0; i < temp.length; i++) {
+            if (((startTimeSlot == 0) && (i != temp.length - 1) && (temp[i] < temp[i + 1] - 1))
+                    || ((i == temp.length - 1) && (startTimeSlot == 0))) {
                 //print for 1hour time slot OR print 1hr time slot(last time in array)
-                builder.append(getDay(timeSlot[i]))
+                builder.append(getDay(temp[i]))
                         .append(" ")
-                        .append(getTime(timeSlot[i]))
+                        .append(getTime(temp[i]))
                         .append(" to ")
-                        .append(getTime(timeSlot[i] + 1))
+                        .append(getTime(temp[i] + 1))
                         .append(" "); //Ends at next hour
                 startTimeSlot = 0;
-            } else if (startTimeSlot == 0 && (i != timeSlot.length - 1)) {
+            } else if (startTimeSlot == 0 && (i != temp.length - 1)) {
                 //first hour of 2/3hr sessions.
-                startTimeSlot = timeSlot[i];
-            } else if ((i == timeSlot.length - 1) || (timeSlot[i] < timeSlot[i + 1] - 1)) {
+                startTimeSlot = temp[i];
+            } else if ((i == temp.length - 1) || (temp[i] < temp[i + 1] - 1)) {
                 //print time slot 2nd hour of 2hr session/3rd hour of 3 hours session.
-                builder.append(getDay(timeSlot[i]))
+                builder.append(getDay(temp[i]))
                         .append(" ")
                         .append(getTime(startTimeSlot))
                         .append(" to ")
-                        .append(getTime(timeSlot[i] + 1))
+                        .append(getTime(temp[i] + 1))
                         .append(" "); //Ends at next hour
                 startTimeSlot = 0;
             }
