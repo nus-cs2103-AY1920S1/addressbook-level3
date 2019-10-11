@@ -9,12 +9,12 @@ import static seedu.jarvis.commons.util.CourseUtilTest.INVALID_COURSE_CODES;
 import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES;
 import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES_NO_PREREQ;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.model.course.Course;
 
@@ -31,9 +31,9 @@ public class AndOrTreeTest {
     }
 
     @Test
-    public void buildTree_invalidCourse_throwsIoException() {
+    public void buildTree_invalidCourse_throwsException() {
         for (String course : INVALID_COURSE_CODES) {
-            assertThrows(IOException.class, () -> AndOrTree.buildTree(course));
+            assertThrows(CourseNotFoundException.class, () -> AndOrTree.buildTree(course));
         }
     }
 
@@ -54,7 +54,7 @@ public class AndOrTreeTest {
     }
 
     @Test
-    public void fulfillsCondition_sufficientRequirements_returnsTrueAndDoesNotThrowsException() {
+    public void fulfillsCondition_sufficientRequirements_returnsTrueAndDoesNotThrowException() {
         assertDoesNotThrow(() -> {
             Map<String, List<Course>> toTest = Map.of(
                 "CS3244", List.of(
