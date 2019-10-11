@@ -88,7 +88,7 @@ public class Amount implements Comparable<Amount> {
      */
     public Amount addAll(List<Amount> amounts) {
         int valueInCents = 0;
-        for(Amount amount : amounts){
+        for (Amount amount : amounts) {
             valueInCents += amount.getValueInCents();
         }
         return new Amount(valueInCents);
