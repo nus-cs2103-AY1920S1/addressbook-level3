@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ProjectDashboard;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
@@ -68,10 +68,10 @@ public class TypicalTasks {
     private TypicalTasks() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code ProjectDashboard} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ProjectDashboard getTypicalAddressBook() {
+        ProjectDashboard ab = new ProjectDashboard();
         for (Task task : getTypicalTasks()) {
             ab.addTask(task);
         }

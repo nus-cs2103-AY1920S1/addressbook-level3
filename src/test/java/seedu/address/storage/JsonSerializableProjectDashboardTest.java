@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ProjectDashboard;
 import seedu.address.testutil.TypicalTasks;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableProjectDashboardTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableProjectDashboardTest");
     private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalTasksAddressBook.json");
     private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskAddressBook.json");
     private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskAddressBook.json");
@@ -24,9 +24,9 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_typicalTasksFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalTasksAddressBook = TypicalTasks.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalTasksAddressBook);
+        ProjectDashboard projectDashboardFromFile = dataFromFile.toModelType();
+        ProjectDashboard typicalTasksProjectDashboard = TypicalTasks.getTypicalAddressBook();
+        assertEquals(projectDashboardFromFile, typicalTasksProjectDashboard);
     }
 
     @Test

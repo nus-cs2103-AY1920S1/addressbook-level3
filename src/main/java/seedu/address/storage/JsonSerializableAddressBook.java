@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ProjectDashboard;
+import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.task.Task;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ProjectDashboard that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -32,29 +32,29 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyProjectDashboard} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyProjectDashboard source) {
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code ProjectDashboard} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ProjectDashboard toModelType() throws IllegalValueException {
+        ProjectDashboard projectDashboard = new ProjectDashboard();
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();
-            if (addressBook.hasTask(task)) {
+            if (projectDashboard.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASKS);
             }
-            addressBook.addTask(task);
+            projectDashboard.addTask(task);
         }
-        return addressBook;
+        return projectDashboard;
     }
 
 }

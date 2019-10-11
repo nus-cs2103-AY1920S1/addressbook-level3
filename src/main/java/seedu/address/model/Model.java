@@ -45,12 +45,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code projectDashboard}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ProjectDashboard */
+    ReadOnlyProjectDashboard getProjectDashboard();
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

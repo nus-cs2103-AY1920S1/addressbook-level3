@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new ProjectDashboard(), new ProjectDashboard(modelManager.getProjectDashboard()));
     }
 
     @Test
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
-        AddressBook differentAddressBook = new AddressBook();
+        ProjectDashboard projectDashboard = new AddressBookBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
+        ProjectDashboard differentProjectDashboard = new ProjectDashboard();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(projectDashboard, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(projectDashboard, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +113,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different projectDashboard -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentProjectDashboard, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ORDER_SHIRTS.getName().fullName.split("\\s+");
         modelManager.updateFilteredTasksList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(projectDashboard, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(projectDashboard, differentUserPrefs)));
     }
 }
