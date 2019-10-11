@@ -22,14 +22,9 @@
       </padding>
       <HBox spacing="5" alignment="CENTER_LEFT">
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-        <Label fx:id="totalMcCount" styleClass="cell_small_label" text="\$totalMcCount" />
+        <Label fx:id="mcCount" styleClass="cell_small_label" wrapText="true" text="\$McCount" />
       </HBox>
-      <VBox fx:id="semesterList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-        <padding>
-          <Insets top="10" right="10" bottom="10" left="10" />
-        </padding>
-        <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-      </VBox>
+      <FlowPane fx:id="tags" />
     </VBox>
   </GridPane>
 </HBox>

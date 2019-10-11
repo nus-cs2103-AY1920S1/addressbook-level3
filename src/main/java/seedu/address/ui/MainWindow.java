@@ -14,7 +14,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -35,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
 
     @FXML
-    private Label name;
+    private Label title;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -78,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
 //        logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
         semesterListPanel = new SemesterListPanel(semesters);
         semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
-        name.setText(sp.getTitle().toString());
+        title.setText(sp.getTitle().toString());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

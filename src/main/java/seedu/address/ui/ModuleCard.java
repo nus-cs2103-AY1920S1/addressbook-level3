@@ -10,12 +10,14 @@ import javafx.scene.layout.StackPane;
 import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 
+import java.util.Comparator;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class SemesterCard extends UiPart<Region> {
+public class ModuleCard extends UiPart<Region> {
 
-    private static final String FXML = "SemesterListCard.fxml";
+    private static final String FXML = "ModuleListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,9 +27,7 @@ public class SemesterCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Semester semester;
-
-    private ModuleListPanel moduleListPanel;
+    public final Module module;
 
     @FXML
     private HBox cardPane;
@@ -36,22 +36,18 @@ public class SemesterCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label totalMcCount;
+    private Label mcCount;
     @FXML
     private FlowPane tags;
-    @FXML
-    private StackPane moduleListPanelPlaceholder;
 
-    public SemesterCard(Semester semester, int displayedIndex) {
+    public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
-        this.semester = semester;
-        name.setText(semester.getSemesterName().name());
-        totalMcCount.setText(Integer.toString(semester.getMcCount()));
-
-        ObservableList<Module> modules = semester.getModules().asUnmodifiableObservableList();
-
-        moduleListPanel = new ModuleListPanel(modules);
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        this.module = module;
+        name.setText(module.getModuleCode().value + " " + module.getName().fullName);
+        mcCount.setText(Integer.toString(module.getMcCount()));
+        module.getTags().asUnmodifiableObservableList().stream()
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
     }
 
     @Override
@@ -62,13 +58,13 @@ public class SemesterCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SemesterCard)) {
+        if (!(other instanceof ModuleCard)) {
             return false;
         }
 
         // state check
-        SemesterCard card = (SemesterCard) other;
+        ModuleCard card = (ModuleCard) other;
         return id.getText().equals(card.id.getText())
-                && semester.equals(card.semester);
+                && module.equals(card.module);
     }
 }

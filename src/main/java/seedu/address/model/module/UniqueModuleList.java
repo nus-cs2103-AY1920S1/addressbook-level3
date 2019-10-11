@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -133,6 +134,10 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     public int getMcCount() {
-        return internalList.stream().map(Module::getMcCount).reduce(Integer::sum).get();
+        try {
+            return internalList.stream().map(Module::getMcCount).reduce(Integer::sum).get();
+        } catch (NoSuchElementException e) {
+            return 0;
+        }
     }
 }
