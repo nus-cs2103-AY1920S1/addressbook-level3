@@ -16,8 +16,8 @@ import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
 /**

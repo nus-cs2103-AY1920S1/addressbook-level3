@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 
 /**
  * Represents the in-memory model of the address book data.

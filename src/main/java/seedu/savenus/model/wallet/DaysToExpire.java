@@ -1,13 +1,13 @@
 package seedu.savenus.model.wallet;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import static java.util.Objects.requireNonNull;
+import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.savenus.commons.util.AppUtil.checkArgument;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Represents the number of days to budget expiration in the application.

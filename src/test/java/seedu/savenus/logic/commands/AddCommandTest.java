@@ -21,6 +21,8 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class AddCommandTest {
@@ -135,6 +137,26 @@ public class AddCommandTest {
 
         @Override
         public void setFood(Food target, Food editedFood) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public float getRemainingBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getDaysToExpire() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDaysToExpire(DaysToExpire newDaysToExpire) {
             throw new AssertionError("This method should not be called.");
         }
 

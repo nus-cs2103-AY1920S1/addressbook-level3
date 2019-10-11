@@ -1,10 +1,11 @@
 package seedu.savenus.model.wallet;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.savenus.commons.util.AppUtil.checkArgument;
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
@@ -34,9 +35,9 @@ public class RemainingBudget {
      * Returns true if a given string is a valid {@code RemainingBudget}.
      */
     public static boolean isValidRemainingBudget(String test) {
-        if (test.equals("0"))
+        if (test.equals("0")) {
             return true;
-        else {
+        } else {
             return test.matches(VALIDATION_REGEX);
         }
     }

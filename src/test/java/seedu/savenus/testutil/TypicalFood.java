@@ -21,6 +21,7 @@ import java.util.List;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
@@ -88,6 +89,7 @@ public class TypicalFood {
         for (Food food : getTypicalFood()) {
             menu.addFood(food);
         }
+        menu.addWallet(new Wallet());
         return menu;
     }
 

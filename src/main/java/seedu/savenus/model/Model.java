@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 
 /**
  * The API of the Model component.

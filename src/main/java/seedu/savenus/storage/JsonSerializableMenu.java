@@ -46,7 +46,7 @@ class JsonSerializableMenu {
     }
 
     /**
-     * Converts this address book into the model's {@code Menu} object.
+     * Converts this menu into the model's {@code Menu} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class MenuTest {
@@ -87,6 +88,7 @@ public class MenuTest {
      */
     private static class MenuStub implements ReadOnlyMenu {
         private final ObservableList<Food> foods = FXCollections.observableArrayList();
+        private final Wallet wallet = new Wallet();
 
         MenuStub(Collection<Food> foods) {
             this.foods.setAll(foods);
@@ -95,6 +97,11 @@ public class MenuTest {
         @Override
         public ObservableList<Food> getFoodList() {
             return foods;
+        }
+
+        @Override
+        public Wallet getWallet() {
+            return wallet;
         }
     }
 

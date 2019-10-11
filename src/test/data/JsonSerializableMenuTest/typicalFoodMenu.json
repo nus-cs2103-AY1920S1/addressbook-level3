@@ -56,5 +56,9 @@
     "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
     "openingHours": "0900 1700",
     "restrictions": "Not halal"
-  } ]
+  } ],
+  "wallet" : {
+    "remainingBudget" : 0,
+    "daysToExpire" : 0
+  }
 }

@@ -1,16 +1,19 @@
 package seedu.savenus.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Command to add a {@code Wallet} for the user.
  * TODO Make Days to Expire optional
+ * TODO Fix existing tests
+ * TODO Add tests for the Budget Command
  */
 public class BudgetCommand extends Command {
 

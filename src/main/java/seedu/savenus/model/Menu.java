@@ -7,8 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
