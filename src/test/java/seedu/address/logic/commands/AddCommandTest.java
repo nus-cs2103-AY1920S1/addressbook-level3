@@ -23,7 +23,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 public class AddCommandTest {
 
@@ -151,13 +151,23 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredFoodMap(Predicate<Food> predicate) {
-            throw new AssertionError("This method should not be called.");
+        public void setFoodList(UniqueFoodList newFoodList) {
+
         }
 
         @Override
-        public FoodMap getFoodMap() {
+        public ObservableList<Food> getFoodList() {
             return null;
+        }
+
+        @Override
+        public ObservableList<Food> getFilterFoodList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredFoodList(Predicate<Food> predicate) {
+
         }
     }
 
@@ -201,6 +211,8 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+
     }
 
 }

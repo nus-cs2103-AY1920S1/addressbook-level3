@@ -23,15 +23,6 @@ public class UniqueFoodList implements Iterable<Food> {
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private final FoodType foodType;
-
-    public UniqueFoodList(FoodType foodType) {
-        this.foodType = foodType;
-    }
-
-    public FoodType getFoodType() {
-        return foodType;
-    }
 
     /**
      * Returns true if the list contains an equivalent food as the given argument.

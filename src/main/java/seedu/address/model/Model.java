@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * The API of the Model component.
@@ -92,16 +92,26 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /*
-     * Sets the food recommendation map.
 
-    void setFoodMap(UniqueFoodList... uniqueFoodLists);
-    */
     /**
-     * Returns the FoodMap.
+     * Replaces food list data with the data in {@code newFoodList}.
      */
-    FoodMap getFoodMap();
+    void setFoodList(UniqueFoodList newFoodList);
 
-    void updateFilteredFoodMap(Predicate<Food> predicate);
+    /**
+     * Returns the a list of foods.
+     */
+    ObservableList<Food> getFoodList();
 
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
+    ObservableList<Food> getFilterFoodList();
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodList(Predicate<Food> predicate);
 }

@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.sgm.model.food.Food;
 
 /**
@@ -15,11 +19,7 @@ public class FoodCard extends UiPart<Region> {
     public final Food food;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label foodName;
-    @FXML
-    private Label id;
     @FXML
     private Label calorie;
     @FXML
@@ -29,10 +29,13 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label fat;
 
-    public FoodCard(Food food, int displayedIndex) {
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+
+    public FoodCard(Food food) {
+
+
         super(FXML);
         this.food = food;
-        id.setText(displayedIndex + ". ");
         foodName.setText(food.getFoodName().foodName);
         calorie.setText(food.getCalorie().value);
         gi.setText(food.getGi().value);
