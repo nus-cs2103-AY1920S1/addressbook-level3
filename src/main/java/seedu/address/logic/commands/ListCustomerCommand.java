@@ -20,6 +20,6 @@ public class ListCustomerCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.CUSTOMER);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.CUSTOMER);
     }
 }

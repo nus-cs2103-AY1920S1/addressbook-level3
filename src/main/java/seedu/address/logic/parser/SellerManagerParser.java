@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SwitchCustomerPanelCommand;
+import seedu.address.logic.commands.SwitchOrderPanelCommand;
+import seedu.address.logic.commands.SwitchPhonePanelCommand;
+import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -40,7 +44,14 @@ public class SellerManagerParser {
 
         case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
-
+        case SwitchCustomerPanelCommand.COMMAND_WORD:
+            return new SwitchCustomerPanelCommand();
+        case SwitchPhonePanelCommand.COMMAND_WORD:
+            return new SwitchPhonePanelCommand();
+        case SwitchOrderPanelCommand.COMMAND_WORD:
+            return new SwitchOrderPanelCommand();
+        case SwitchSchedulePanelCommand.COMMAND_WORD:
+            return new SwitchSchedulePanelCommand();
         /*case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 

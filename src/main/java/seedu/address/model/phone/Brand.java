@@ -55,7 +55,7 @@ public class Brand implements Cloneable {
     }
 
     @Override
-    protected Object clone() {
+    protected Brand clone() {
         return new Brand(new String(value));
     }
 

@@ -20,6 +20,6 @@ public class ListScheduleCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.SCHEDULE);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);
     }
 }
