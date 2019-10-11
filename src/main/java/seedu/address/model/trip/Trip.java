@@ -76,7 +76,8 @@ public class Trip {
         if (otherTrip == this) {
             return true;
         } else {
-            return otherTrip.getName().equals(getName())
+            return otherTrip != null
+                    && otherTrip.getName().equals(getName())
                     && otherTrip.getStartDate().equals(getStartDate())
                     && otherTrip.getEndDate().equals(getEndDate())
                     && otherTrip.getDestination().equals(getDestination());

@@ -33,8 +33,8 @@ public class TripBuilder {
                     .setStartDate(trip.getStartDate())
                     .setEndDate(trip.getEndDate())
                     .setLocation(trip.getDestination())
-                    .setTotalBudget(trip.getBudget())
-                    .setDayList(trip.getDayList());
+                    .setTotalBudget(trip.getBudget());
+//                    .setDayList(trip.getDayList());
         }
 
         private TripBuilder(){
