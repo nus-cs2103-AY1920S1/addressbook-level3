@@ -38,7 +38,9 @@ public class BloodtypeTest {
         assertTrue(Bloodtype.isValidBloodtype("B")); // exactly 1 alphabet
         assertTrue(Bloodtype.isValidBloodtype("AB")); //2 alphabets
         assertTrue(Bloodtype.isValidBloodtype("Ab")); //case insensitive
-        assertTrue(Bloodtype.isValidBloodtype("O+")); // with positive
+        assertTrue(Bloodtype.isValidBloodtype("aB+")); // with positive and case insensitive
+        assertTrue(Bloodtype.isValidBloodtype("O+")); // with positive and capital
+        assertTrue(Bloodtype.isValidBloodtype("o+")); // with positive and non capital
     }
 
     @Test
