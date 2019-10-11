@@ -11,8 +11,8 @@ public class Item {
     private final String description;
     private int quantity;
     private final double cost;
-    private static double price;
-    private static String id;
+    private double price;
+    private String id;
 
     /**
      * Every field must be present and not null.
@@ -29,12 +29,13 @@ public class Item {
     /**
      * A separate constructor in the event that the Item is not for sale. Price can be set later.
      */
-    public Item(String description, String category, int quantity, double cost) {
+    public Item(String description, String category, int quantity, double cost, int i) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
         this.price = 0;
+        this.id = "" + i;
     }
 
     public String getDescription() {

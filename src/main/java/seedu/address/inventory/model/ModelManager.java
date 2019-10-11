@@ -85,8 +85,6 @@ public class ModelManager implements Model {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
             item.setId(i + 1);
-            Logger logger = LogsCenter.getLogger(getClass());
-            logger.info(item + " is set at id " + i + 1);
         }
     }
 
