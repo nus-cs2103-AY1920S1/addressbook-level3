@@ -4,6 +4,7 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -13,6 +14,7 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
+import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +29,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE);
 
         // According to the command format, no preamble should be present.
         if (!argumentMultimap.getPreamble().isBlank()) {
@@ -60,7 +62,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             descriptionPredicate = null;
         }
 
-        Predicate[] predicates = {namePredicate, authorPredicate, descriptionPredicate};
+        final SourceMatchesKeywordPredicate sourcePredicate;
+        if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
+            String sourceKeyword = argumentMultimap.getValue(PREFIX_SOURCE).get();
+            sourcePredicate = new SourceMatchesKeywordPredicate(sourceKeyword);
+        } else {
+            sourcePredicate = null;
+        }
+
+        Predicate[] predicates = {namePredicate, authorPredicate, descriptionPredicate, sourcePredicate};
         boolean allPredicatesAreNull = true;
         for (Predicate predicate : predicates) {
             if (predicate != null) {
@@ -73,6 +83,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(FindCommand.MESSAGE_NO_CONSTRAINTS);
         }
 
-        return new FindCommand(namePredicate, authorPredicate, descriptionPredicate);
+        return new FindCommand(namePredicate, authorPredicate, descriptionPredicate, sourcePredicate);
     }
 }

@@ -99,11 +99,12 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE]`
 ** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
 ** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
 ** is considered a match as long as one word matches. e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`
-* Author requires an exact match
+* Author requires an exact match.
 * Description
 ** is case-insensitive
 ** is matched word by word
 ** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
+* Source requires an exact match.
 
 Examples:
 

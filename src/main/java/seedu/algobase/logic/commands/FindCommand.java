@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 
 import java.util.function.Predicate;
 
@@ -13,6 +14,7 @@ import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
 
 /**
  * Finds and lists all problems in algobase fulfilling all the given constraints.
@@ -27,6 +29,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_SOURCE + "SOURCE] "
             + "Example: " + COMMAND_WORD
             + PREFIX_AUTHOR + "Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
@@ -35,7 +38,8 @@ public class FindCommand extends Command {
 
     public FindCommand(NameContainsKeywordsPredicate namePredicate,
                        AuthorMatchesKeywordPredicate authorPredicate,
-                       DescriptionContainsKeywordsPredicate descriptionPredicate) {
+                       DescriptionContainsKeywordsPredicate descriptionPredicate,
+                       SourceMatchesKeywordPredicate sourcePredicate) {
         predicate = problem -> {
             boolean result = true;
             if (namePredicate != null) {
@@ -46,6 +50,9 @@ public class FindCommand extends Command {
             }
             if (descriptionPredicate != null) {
                 result = result && descriptionPredicate.test(problem);
+            }
+            if (sourcePredicate != null) {
+                result = result && sourcePredicate.test(problem);
             }
             return result;
         };
