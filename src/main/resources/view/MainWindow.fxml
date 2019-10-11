@@ -2,12 +2,11 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TravelPal" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/dummytrip.jpeg" />

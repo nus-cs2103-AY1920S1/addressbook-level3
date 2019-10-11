@@ -1,17 +1,31 @@
 package seedu.address.logic.parser.itinerary.eventview.edit;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Optional;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
 
+/**
+ * Placeholder javadoc.
+ */
 public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
 
     /**
@@ -66,17 +80,18 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
             editEventDescriptor.setBudget(ItineraryParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editEventDescriptor.setDestination(ItineraryParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+            editEventDescriptor.setDestination(
+                    ItineraryParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+        }
+        /*
+        if(argMultimap.getValue(PREFIX_BOOKING).isPresent()) {
+            editEventDescriptor.setBooking(ItineraryParserUtil.parseBooking());
         }
 
-//        if(argMultimap.getValue(PREFIX_BOOKING).isPresent()) {
-//            editEventDescriptor.setBooking(ItineraryParserUtil.parseBooking());
-//        }
-//
-//        if (argMultimap.getValue(PREFIX_INVENTORY).isPresent()) {
-//            editEventDescriptor.setInventory(ItineraryParserUtil.parseInventory());
-//        }
-
+        if (argMultimap.getValue(PREFIX_INVENTORY).isPresent()) {
+            editEventDescriptor.setInventory(ItineraryParserUtil.parseInventory());
+        }
+        */
         if (!editEventDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditEventFieldCommand.MESSAGE_NOT_EDITED);
         }

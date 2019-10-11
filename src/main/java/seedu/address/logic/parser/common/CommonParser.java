@@ -1,12 +1,15 @@
 package seedu.address.logic.parser.common;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
-
+/**
+ * Parses commands that work regardless of the current page of the application.
+ */
 public class CommonParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterPrefsCommand.COMMAND_WORD;

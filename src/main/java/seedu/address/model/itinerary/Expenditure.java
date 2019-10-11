@@ -1,10 +1,15 @@
 package seedu.address.model.itinerary;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Generic abstraction of expenditure.
+ */
 public class Expenditure {
-    public static final String MESSAGE_CONSTRAINTS = "Expenditure can take any positive numerical value with no more than 2 decimal places, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Expenditure can take any positive numerical value with"
+            + " no more than 2 decimal places, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -25,7 +30,7 @@ public class Expenditure {
         this.value = Double.parseDouble(value);
     }
 
-    public Expenditure(double value){
+    public Expenditure(double value) {
         requireNonNull(value);
         this.value = (double) Math.round(value * 100) / 100;
     }
@@ -37,7 +42,7 @@ public class Expenditure {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isValidExpenditure(double test){
+    public static boolean isValidExpenditure(double test) {
         return test > 0;
     }
 

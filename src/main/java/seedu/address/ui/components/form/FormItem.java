@@ -1,13 +1,11 @@
 package seedu.address.ui.components.form;
 
-import javafx.collections.ObservableList;
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import seedu.address.ui.UiPart;
-
-import java.util.function.Consumer;
 
 /**
  * Abstraction of a javaFX form item, consisting of a label and a form control.
@@ -19,13 +17,13 @@ import java.util.function.Consumer;
 public abstract class FormItem<T> extends UiPart<AnchorPane> {
 
     /** Form field change handler that receives the form field value of type {@code T}. */
-    Consumer<T> executeChangeHandler;
+    protected Consumer<T> executeChangeHandler;
 
     @FXML
-    Label formItemLabel;
+    protected Label formItemLabel;
 
-    FormItem(String FXML, Consumer<T> executeChangeHandler) {
-        super(FXML);
+    FormItem(String fxml, Consumer<T> executeChangeHandler) {
+        super(fxml);
         this.executeChangeHandler = executeChangeHandler;
     }
 

@@ -1,5 +1,9 @@
 package seedu.address.ui.trips;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -17,10 +21,9 @@ import seedu.address.model.trip.Trip;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.Page;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+/**
+ * {@code Page} class for displaying the trip manager page.
+ */
 public class TripsPage extends Page<AnchorPane> {
 
     private static final String FXML = "trips/TripsPage.fxml";

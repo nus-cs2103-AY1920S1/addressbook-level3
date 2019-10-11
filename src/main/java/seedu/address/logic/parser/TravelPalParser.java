@@ -64,7 +64,7 @@ public class TravelPalParser {
         PageParser commonParser;
 
         try {
-            Command commonCommand =  new CommonParser().parse(commandWord, arguments);
+            Command commonCommand = new CommonParser().parse(commandWord, arguments);
             return commonCommand;
         } catch (ParseException ex) {
             logger.info("User command executed was not a common command");

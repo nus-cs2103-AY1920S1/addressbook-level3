@@ -1,8 +1,12 @@
 package seedu.address.model.itinerary;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Generic abstraction of a description for various abstractions.
+ */
 public class Description {
     public static final String MESSAGE_CONSTRAINTS = "Description can take any values, and it should not be blank";
 

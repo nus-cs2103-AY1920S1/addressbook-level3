@@ -1,9 +1,9 @@
 package seedu.address.ui.components.form;
 
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-
-import java.util.function.Consumer;
 
 /**
  * Abstraction of a text form item allowing the user to enter text.

@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.itinerary.dayview;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.itinerary.days.DeleteDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
@@ -14,8 +16,9 @@ import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
 import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
-
+/**
+ * Parser class responsible for directing commands belonging to the day view.
+ */
 public class DayViewParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateDayCommand.COMMAND_WORD + " "

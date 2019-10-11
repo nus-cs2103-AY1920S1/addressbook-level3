@@ -1,5 +1,9 @@
 package seedu.address.ui.itinerary;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,10 +24,9 @@ import seedu.address.ui.components.NavigationSidebarLeft;
 import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+/**
+ * {@code Page} class implementing the itinerary landing page.
+ */
 public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     private static final String FXML = "itinerary/ItineraryPage.fxml";
 
@@ -46,10 +49,10 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     private Label totalBudgetLabel;
 
     @FXML
-    VBox sideBarLeft;
+    private VBox sideBarLeft;
 
     @FXML
-    VBox sideBarRight;
+    private VBox sideBarRight;
 
     public ItineraryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
@@ -69,18 +72,18 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
         startDateLabel.setText(model.getPageStatus().getTrip().getStartDate().toString());
         endDateLabel.setText(model.getPageStatus().getTrip().getEndDate().toString());
-//        destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
+        //destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
         totalBudgetLabel.setText(model.getPageStatus().getTrip().getBudget().toString());
 
         List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
 
         List<Node> dayButtons = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
-                .map(index ->{
+                .map(index -> {
                     Button button = new Button();
                     button.setText(Integer.toString(index.getOneBased()));
-                    button.addEventFilter(MouseEvent.MOUSE_CLICKED
-                            , new EventHandler<MouseEvent>() {
+                    button.addEventFilter(MouseEvent.MOUSE_CLICKED,
+                            new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent event) {
                                     mainWindow.executeGuiCommand(EnterDayCommand.COMMAND_WORD

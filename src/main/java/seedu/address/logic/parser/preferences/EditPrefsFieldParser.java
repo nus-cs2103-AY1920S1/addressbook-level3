@@ -1,23 +1,7 @@
 package seedu.address.logic.parser.preferences;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.preferences.EditPrefsFieldCommand;
-import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_EXISTING;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
@@ -28,6 +12,24 @@ import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDO
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
 
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.preferences.EditPrefsFieldCommand;
+import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses the arguments to return a {@code EditPrefsFieldCommand}.
+ */
 public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
 
     /**
@@ -75,7 +77,8 @@ public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
         return new EditPrefsFieldCommand(editPrefsDescriptor);
     }
 
-    private void setPrefsDescriptor(ArgumentMultimap argMultimap, EditPrefsDescriptor editPrefsDescriptor) throws ParseException {
+    private void setPrefsDescriptor(ArgumentMultimap argMultimap, EditPrefsDescriptor editPrefsDescriptor)
+            throws ParseException {
         try {
             argMultimap.getValue(PREFIX_WINDOW_HEIGHT)
                     .ifPresent(height -> {
@@ -103,7 +106,8 @@ public class EditPrefsFieldParser implements Parser<EditPrefsFieldCommand> {
                         ParserUtil.parseBool(argMultimap.getValue(PREFIX_GUI_LOCK).get()));
             }
         } catch (NumberFormatException | ParseException ex) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPrefsFieldCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPrefsFieldCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getValue(PREFIX_DATA_FILE_PATH).isPresent()) {

@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.itinerary.dayview.edit;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.itinerary.days.edit.CancelEditDayCommand;
 import seedu.address.logic.commands.itinerary.days.edit.DoneEditDayCommand;
@@ -7,8 +9,9 @@ import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
-
+/**
+ * Placeholder javadoc.
+ */
 public class EditDayParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditDayFieldCommand.COMMAND_WORD + " "

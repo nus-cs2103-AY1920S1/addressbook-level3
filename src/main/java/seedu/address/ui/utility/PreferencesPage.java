@@ -1,5 +1,12 @@
 package seedu.address.ui.utility;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -11,16 +18,13 @@ import seedu.address.logic.commands.preferences.EditPrefsFieldCommand;
 import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.components.form.CheckBoxFormItem;
+import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
-
+/**
+ * {@code Page} class implementing the preferences page.
+ */
 public class PreferencesPage extends Page<AnchorPane> {
 
     private static final String FXML = "common/PreferencesPage.fxml";
@@ -47,8 +51,8 @@ public class PreferencesPage extends Page<AnchorPane> {
      * Fills up all the placeholders of this window.
      */
     public void fillPage() {
-        EditPrefsDescriptor currentPrefsDescriptor
-                = model.getPageStatus().getEditPrefsDescriptor();
+        EditPrefsDescriptor currentPrefsDescriptor =
+                model.getPageStatus().getEditPrefsDescriptor();
         requireNonNull(currentPrefsDescriptor);
 
         windowWidthFormItem.setValue(

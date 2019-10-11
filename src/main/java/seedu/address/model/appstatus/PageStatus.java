@@ -8,6 +8,9 @@ import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.trip.Trip;
 
+/**
+ * Abstraction of the page context of the TravelPal application.
+ */
 public class PageStatus {
     private final PageType pageType;
     private final Trip trip;
@@ -19,8 +22,9 @@ public class PageStatus {
     private final EditEventFieldCommand.EditEventDescriptor editEventDescriptor;
 
     public PageStatus(PageType pageType, Trip trip, Day day,
-                      Event event, EditTripDescriptor editTripDescriptor, EditPrefsDescriptor editPrefsDescriptor
-            , EditDayFieldCommand.EditDayDescriptor editDayDescriptor, EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
+                      Event event, EditTripDescriptor editTripDescriptor, EditPrefsDescriptor editPrefsDescriptor,
+                      EditDayFieldCommand.EditDayDescriptor editDayDescriptor,
+                      EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
         this.pageType = pageType;
         this.trip = trip;
         this.day = day;
@@ -31,22 +35,50 @@ public class PageStatus {
         this.editEventDescriptor = editEventDescriptor;
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param pageType page type to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewPageType(PageType pageType) {
-        return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
     }
 
-    // Keeps reference to new parameters
+    /**
+     * Immutable chained constructor.
+     *
+     * @param trip trip to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewTrip(Trip trip) {
-        return new PageStatus(getPageType(), trip, getDay(), getEvent(), getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(getPageType(), trip, getDay(), getEvent(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param day day to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewDay(Day day) {
-        return new PageStatus(getPageType(), getTrip(), day, getEvent(), getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(getPageType(), getTrip(), day, getEvent(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param event event to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewEvent(Event event) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), event, getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), event, getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
     }
+
     public PageStatus withResetTrip() {
         return withNewTrip(null);
     }
@@ -59,20 +91,48 @@ public class PageStatus {
         return withNewEvent(null);
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param editTripDescriptor editTripDescriptor to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewEditTripDescriptor(EditTripDescriptor editTripDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), editTripDescriptor, getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), editTripDescriptor,
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param editPrefsDescriptor editPrefsDescriptor to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewEditPrefsDescriptor(EditPrefsDescriptor editPrefsDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(), editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(),
+                editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor());
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param editDayDescriptor editDayDescriptor to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewEditDayDescriptor(EditDayFieldCommand.EditDayDescriptor editDayDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(), getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor());
     }
 
+    /**
+     * Immutable chained constructor.
+     *
+     * @param editEventDescriptor editEventDescriptor to use.
+     * @return The new PageStatus instance.
+     */
     public PageStatus withNewEditEventDescriptor(EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor);
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor);
     }
 
     public PageStatus withResetEditTripDescriptor() {

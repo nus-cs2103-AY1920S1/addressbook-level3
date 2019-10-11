@@ -1,15 +1,17 @@
 package seedu.address.logic.commands.preferences;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.model.trip.Trip;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Command that brings the user out of the preferences screen.
+ */
 public class CancelEditPrefsCommand extends Command {
     public static final String COMMAND_WORD = "cancel";
 

@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.itinerary.eventview.edit;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.itinerary.events.edit.CancelEditEventCommand;
 import seedu.address.logic.commands.itinerary.events.edit.DoneEditEventCommand;
@@ -7,8 +9,9 @@ import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
-
+/**
+ * Placeholder javadoc.
+ */
 public class EditEventParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditEventFieldCommand.COMMAND_WORD + " "

@@ -1,5 +1,16 @@
 package seedu.address.logic.parser.trips.edit;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -10,16 +21,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.trips.TripParserUtil;
 
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
+/**
+ * Parses the arguments to return a {@code EditTripFieldCommand}.
+ */
 public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
 
     /**
@@ -72,7 +76,8 @@ public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
             editTripDescriptor.setBudget(TripParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editTripDescriptor.setDestination(TripParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+            editTripDescriptor.setDestination(
+                    TripParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
 
         if (!editTripDescriptor.isAnyFieldEdited()) {

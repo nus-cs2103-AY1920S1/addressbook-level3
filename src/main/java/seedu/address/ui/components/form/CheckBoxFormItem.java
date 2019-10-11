@@ -1,10 +1,13 @@
 package seedu.address.ui.components.form;
 
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
-import java.util.function.Consumer;
-
+/**
+ * A {@code FormItem} implemented using a checkbox control.
+ */
 public class CheckBoxFormItem extends FormItem<Boolean> {
     private static final String FXML = "components/forms/CheckBoxFormItem.fxml";
 

@@ -1,15 +1,19 @@
 package seedu.address.model.trip;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Abstraction of a list containing trips, backed by ConsecutiveOccurenceList.
+ */
 public class TripList extends ConsecutiveOccurrenceList<Trip> {
 
     @Override
@@ -27,7 +31,7 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     @Override
     public void add(Trip toAdd) throws ClashingTripException {
         requireNonNull(toAdd);
-        if (contains(toAdd)){
+        if (contains(toAdd)) {
             throw new DuplicateTripException();
         }
         if (containsClashing(toAdd)) {
@@ -59,14 +63,6 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     }
 
     @Override
-    public void remove(Trip toRemove) throws TripNotFoundException {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new TripNotFoundException();
-        }
-    }
-
-    @Override
     public void set(ConsecutiveOccurrenceList<Trip> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -75,14 +71,22 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
     @Override
     public void set(List<Trip> trips) {
         requireAllNonNull(trips);
-        if(!areUnique(trips)){
+        if (!areUnique(trips)) {
             throw new DuplicateTripException();
         }
-        if(!areConsecutive(trips)){
+        if (!areConsecutive(trips)) {
             throw new ClashingTripException();
         }
 
         internalList.setAll(trips);
+    }
+
+    @Override
+    public void remove(Trip toRemove) throws TripNotFoundException {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new TripNotFoundException();
+        }
     }
 
     @Override

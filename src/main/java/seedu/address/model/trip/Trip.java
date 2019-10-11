@@ -1,15 +1,12 @@
 package seedu.address.model.trip;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.exceptions.CompulsoryFieldEmptyException;
-
-import java.time.LocalDateTime;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Trip in TravelPal.
@@ -28,8 +25,8 @@ public class Trip {
     /**
      * Constructs a trip.
      */
-    public Trip (Name name, LocalDateTime startDate, LocalDateTime endDate,
-                      Location destination, Expenditure totalBudget, DayList dayList) {
+    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate,
+                Location destination, Expenditure totalBudget, DayList dayList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -102,11 +99,17 @@ public class Trip {
                 && otherTrip.getDayList().equals(getDayList());
     }
 
-    public boolean isClashingWith(Trip other){
+    /**
+     * Checks whether this trip is clashing with {@code other}.
+     *
+     * @param other The other trip instance to check.
+     * @return Boolean of whether the trip clashes.
+     */
+    public boolean isClashingWith(Trip other) {
         return (this.getStartDate().compareTo(other.getStartDate()) >= 0
                 && this.getStartDate().compareTo(other.getEndDate()) <= 0)
                 || (this.getEndDate().compareTo(other.getStartDate()) >= 0
-                        && this.getEndDate().compareTo(other.getEndDate()) <= 0);
+                && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
     @Override

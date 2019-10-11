@@ -4,9 +4,9 @@ matrix:
     - jdk: openjdk11
 
 script: >-
-  ./gradlew clean asciidoctor
+  ./gradlew clean asciidoctor checkstyleMain test coverage coveralls
 #    ./config/travis/run-checks.sh &&
-#    ./gradlew checkstyleMain checkstyleTest test coverage coveralls
+#    ./gradlew checkstyleTest
 
 
 deploy:

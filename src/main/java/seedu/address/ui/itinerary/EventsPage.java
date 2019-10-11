@@ -1,5 +1,9 @@
 package seedu.address.ui.itinerary;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,13 +21,11 @@ import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.NavigationSidebarLeft;
 import seedu.address.ui.components.NavigationSidebarRight;
-import seedu.address.ui.template.Page;
 import seedu.address.ui.template.PageWithSidebar;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+/**
+ * {@code Page} for displaying the event details.
+ */
 public class EventsPage extends PageWithSidebar<AnchorPane> {
 
     private static final String FXML = "itinerary/events/EventsPage.fxml";
@@ -40,11 +42,10 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
     private Label bookingLabel;
 
     @FXML
-    VBox sideBarLeft;
+    private VBox sideBarLeft;
 
     @FXML
-    VBox sideBarRight;
-
+    private VBox sideBarRight;
 
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
@@ -71,16 +72,18 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
                     EventCard eventCard = new EventCard(events.get(index.getZeroBased()), index);
-                    eventCard.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<javafx.scene.input.MouseEvent>() {
-                        @Override
-                        public void handle(javafx.scene.input.MouseEvent event) {
-                            if (events.get(index.getZeroBased()).getTotalBudget().isPresent()){
-                                totalBudgetLabel.setText("Total Budget: " + events.get(index.getZeroBased()).getTotalBudget().get().toString());
-                            } else {
-                                totalBudgetLabel.setText("NO BUDGET SET");
-                            }
-                        }
-                    });
+                    eventCard.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED,
+                            new EventHandler<javafx.scene.input.MouseEvent>() {
+                                @Override
+                                public void handle(javafx.scene.input.MouseEvent event) {
+                                    if (events.get(index.getZeroBased()).getTotalBudget().isPresent()) {
+                                        totalBudgetLabel.setText("Total Budget: "
+                                                + events.get(index.getZeroBased()).getTotalBudget().get().toString());
+                                    } else {
+                                        totalBudgetLabel.setText("NO BUDGET SET");
+                                    }
+                                }
+                            });
                     return eventCard.getRoot();
                 }).collect(Collectors.toList());
         eventCardContainer.getChildren().addAll(FXCollections.observableArrayList(eventCards));

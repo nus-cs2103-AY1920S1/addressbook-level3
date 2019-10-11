@@ -1,5 +1,18 @@
 package seedu.address.logic.commands.itinerary.days.edit;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -14,14 +27,9 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.EventList;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-
+/**
+ * Placeholder.
+ */
 public class EditDayFieldCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -141,25 +149,26 @@ public class EditDayFieldCommand extends Command {
          * @param oldDescriptor Old {@code EditEventDescriptor} to use.
          * @param newDescriptor New {@code EditEventDescriptor} to use.
          */
-        public EditDayDescriptor(EditDayFieldCommand.EditDayDescriptor oldDescriptor, EditDayFieldCommand.EditDayDescriptor newDescriptor) {
+        public EditDayDescriptor(EditDayFieldCommand.EditDayDescriptor oldDescriptor,
+                                 EditDayFieldCommand.EditDayDescriptor newDescriptor) {
             this();
-            newDescriptor.name.ifPresentOrElse(this::setName,
-                    () -> oldDescriptor.name.ifPresent(this::setName));
+            newDescriptor.name.ifPresentOrElse(this::setName, () ->
+                    oldDescriptor.name.ifPresent(this::setName));
 
-            newDescriptor.startDate.ifPresentOrElse(this::setStartDate,
-                    () -> oldDescriptor.startDate.ifPresent(this::setStartDate));
+            newDescriptor.startDate.ifPresentOrElse(this::setStartDate, () ->
+                    oldDescriptor.startDate.ifPresent(this::setStartDate));
 
-            newDescriptor.endDate.ifPresentOrElse(this::setEndDate,
-                    () -> oldDescriptor.endDate.ifPresent(this::setEndDate));
+            newDescriptor.endDate.ifPresentOrElse(this::setEndDate, () ->
+                    oldDescriptor.endDate.ifPresent(this::setEndDate));
 
-            newDescriptor.destination.ifPresentOrElse(this::setDestination,
-                    () -> oldDescriptor.destination.ifPresent(this::setDestination));
+            newDescriptor.destination.ifPresentOrElse(this::setDestination, () ->
+                    oldDescriptor.destination.ifPresent(this::setDestination));
 
-            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
-                    () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
+            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
+                    oldDescriptor.totalBudget.ifPresent(this::setBudget));
 
-            newDescriptor.description.ifPresentOrElse(this::setDescription,
-                    () -> oldDescriptor.description.ifPresent(this::setDescription));
+            newDescriptor.description.ifPresentOrElse(this::setDescription, () ->
+                    oldDescriptor.description.ifPresent(this::setDescription));
         }
 
 
@@ -224,7 +233,6 @@ public class EditDayFieldCommand extends Command {
         }
 
 
-
         public void setName(Name name) {
             this.name = Optional.of(name);
         }
@@ -262,6 +270,10 @@ public class EditDayFieldCommand extends Command {
             this.description = Optional.of(description);
         }
 
+        private void setDescription(Optional<Description> description) {
+            this.description = description;
+        }
+
         public void setBudget(Expenditure totalBudget) {
             this.totalBudget = Optional.of(totalBudget);
         }
@@ -271,13 +283,10 @@ public class EditDayFieldCommand extends Command {
             this.totalBudget = totalBudget;
         }
 
-        private void setDescription(Optional<Description> description) {
-            this.description = description;
-        }
-
         public Optional<Expenditure> getBudget() {
             return totalBudget;
         }
+
         public Optional<Description> getDescription() {
             return description;
         }

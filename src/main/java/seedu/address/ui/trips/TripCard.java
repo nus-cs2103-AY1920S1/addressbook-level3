@@ -8,6 +8,9 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.trip.Trip;
 import seedu.address.ui.UiPart;
 
+/**
+ * A component for displaying the details of a singular {@code Trip}.
+ */
 public class TripCard extends UiPart<GridPane> {
     private static final String FXML = "trips/TripCard.fxml";
 
@@ -35,6 +38,9 @@ public class TripCard extends UiPart<GridPane> {
         fillTripCardLabels();
     }
 
+    /**
+     * Fills the labels of this trip card with the info in {@code trip}.
+     */
     private void fillTripCardLabels() {
         tripDisplayIndexLabel.setText(displayedIndex.getOneBased() + "");
         tripNameLabel.setText(trip.getName().toString());
