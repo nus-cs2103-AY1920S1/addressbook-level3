@@ -369,15 +369,15 @@ _{More to be added}_
 
 1.  New patient arrives at the clinic
 2.  User wants to add new patient into the queue
-3.  ClerkPro adds the patient into the queue
+3.  System adds the patient into the queue
 
 Use case ends.
 
 *Extensions*
 
-* 2a. Actor inputs invalid format
+* 2a. User inputs invalid format
 
-** 2a1. ClerkPro requests for correct input format. +
+** 2a1. System requests for correct input format. +
 +
 Use case resumes at step 2.
 
@@ -388,7 +388,7 @@ Use case resumes at step 2.
 
 1.  Patient wants to leave
 2.  User requests to remove patient from the queue
-3.  ClerkPro removes the person from queue
+3.  System removes the person from queue
 
 Use case ends.
 
@@ -402,7 +402,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. ClerkPro shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
