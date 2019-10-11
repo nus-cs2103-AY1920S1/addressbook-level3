@@ -52,7 +52,8 @@ public class UniqueRestaurantList implements Iterable<Restaurant> {
     /**
      * Replaces the restaurant {@code target} in the list with {@code editedRestaurant}.
      * {@code target} must exist in the list.
-     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the list.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
+     * in the list.
      */
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireAllNonNull(target, editedRestaurant);

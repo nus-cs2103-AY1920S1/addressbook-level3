@@ -77,7 +77,8 @@ public class RestaurantDatabase {
     /**
      * Replaces the given restaurant {@code target} in the list with {@code editedRestaurant}.
      * {@code target} must exist in the address book.
-     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the address book.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
+     * in the address book.
      */
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireNonNull(editedRestaurant);

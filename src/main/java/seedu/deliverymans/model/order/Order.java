@@ -1,13 +1,12 @@
 package seedu.deliverymans.model.order;
 
-import seedu.deliverymans.model.food.Food;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.deliverymans.model.food.Food;
 
 /**
  * Represents an Order of food.

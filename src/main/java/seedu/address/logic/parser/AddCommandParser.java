@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Email;
-import seedu.deliverymans.model.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -22,6 +21,7 @@ import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.model.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object
