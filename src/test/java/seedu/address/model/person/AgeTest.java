@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.person.Age.AGE_MAX;
 import static seedu.address.model.person.Age.AGE_MIN;
@@ -10,8 +12,10 @@ import org.junit.jupiter.api.Test;
 
 public class AgeTest {
     static final Integer AGE_MAX_ONE_MORE = AGE_MAX + 1;
+    static final Integer AGE_MAX_ONE_LESS = AGE_MAX - 1;
     static final Integer AGE_MAX_TEN_MORE = AGE_MAX + 10;
     static final Integer AGE_MIN_ONE_LESS = AGE_MIN - 1;
+    static final Integer AGE_MIN_ONE_MORE = AGE_MIN + 1;
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -49,5 +53,29 @@ public class AgeTest {
             Integer currentAge = age;
             assertTrue(Age.isValidAge(currentAge.toString()));
         }
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new Age(AGE_MAX_ONE_LESS.toString()).toString(), AGE_MAX_ONE_LESS.toString());
+        assertEquals(new Age(AGE_MIN_ONE_MORE.toString()).toString(), AGE_MIN_ONE_MORE.toString());
+    }
+
+    @Test
+    public void equals() {
+        Age maxValidAge = new Age((AGE_MAX_ONE_LESS.toString()));
+
+        assertFalse(maxValidAge.equals(null));
+        assertFalse(maxValidAge.equals(new Age(AGE_MIN_ONE_MORE.toString())));
+        assertTrue(maxValidAge.equals(maxValidAge));
+        assertTrue(maxValidAge.equals(new Age(AGE_MAX_ONE_LESS.toString())));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Age maxValidAge = new Age((AGE_MAX_ONE_LESS.toString()));
+
+        assertEquals(maxValidAge.hashCode(), new Age((AGE_MAX_ONE_LESS.toString())).hashCode());
+        assertNotEquals(maxValidAge.hashCode(), new Age((AGE_MIN_ONE_MORE.toString())).hashCode());
     }
 }

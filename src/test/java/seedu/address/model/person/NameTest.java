@@ -1,7 +1,11 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -36,5 +40,28 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new Name(VALID_NAME_BOB).toString(), VALID_NAME_BOB);
+    }
+
+    @Test
+    public void equals() {
+        Name name = new Name(VALID_NAME_BOB);
+
+        assertFalse(name.equals(null));
+        assertFalse(name.equals(new Name(VALID_NAME_AMY)));
+        assertTrue(name.equals(name));
+        assertTrue(name.equals(new Name(VALID_NAME_BOB)));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Name name = new Name(VALID_NAME_BOB);
+
+        assertEquals(name.hashCode(), new Name(VALID_NAME_BOB).hashCode());
+        assertNotEquals(name.hashCode(), new Name(VALID_NAME_AMY).hashCode());
     }
 }

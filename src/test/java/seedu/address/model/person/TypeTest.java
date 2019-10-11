@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -38,5 +40,35 @@ public class TypeTest {
         assertTrue(Type.isValidType("patient"));
         assertTrue(Type.isValidType("doctor"));
         assertTrue(Type.isValidType("donor"));
+    }
+
+    @Test
+    public void typeCheckTest() {
+        assertTrue(new Type(Type.DONOR).isDonor());
+        assertTrue(new Type(Type.DOCTOR).isDoctor());
+        assertTrue(new Type(Type.PATIENT).isPatient());
+    }
+
+    @Test
+    public void toStringTest() {
+        assertEquals(new Type(Type.PATIENT).toString(), "patient");
+    }
+
+    @Test
+    public void equals() {
+        Type type = new Type(Type.PATIENT);
+
+        assertFalse(type.equals(null));
+        assertFalse(type.equals(new Type(Type.DOCTOR)));
+        assertTrue(type.equals(type));
+        assertTrue(type.equals(new Type(Type.PATIENT)));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Type type = new Type(Type.PATIENT);
+
+        assertEquals(type.hashCode(), new Type(Type.PATIENT).hashCode());
+        assertNotEquals(type.hashCode(), new Type(Type.DOCTOR).hashCode());
     }
 }

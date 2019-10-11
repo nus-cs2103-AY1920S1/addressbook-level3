@@ -28,14 +28,14 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        value = nric;
+        value = nric.toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid nric.
      */
     public static boolean isValidNric(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.toUpperCase().matches(VALIDATION_REGEX);
     }
 
     @Override

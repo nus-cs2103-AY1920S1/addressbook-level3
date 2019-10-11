@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
@@ -80,5 +82,20 @@ public class PatientTest {
         // different person type -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withType("doctor").build();
         assertFalse(editedAlice.equals(editedIrene));
+    }
+
+    @Test
+    public void toStringTest() {
+        Patient irene = new PatientBuilder(IRENE).build();
+        assertEquals(irene.toString().trim() , "Irene Person Type: patient Nric: S1111111A Phone: 85355255 Age: 21");
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Patient irene = new PatientBuilder(IRENE).build();
+
+        assertEquals(irene.hashCode(), new PatientBuilder(IRENE).build().hashCode());
+        assertNotEquals(irene.hashCode(),
+                new PatientBuilder(IRENE).withPhone(VALID_PHONE_BOB).build().hashCode());
     }
 }
