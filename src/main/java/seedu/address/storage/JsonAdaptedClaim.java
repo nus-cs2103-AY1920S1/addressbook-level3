@@ -15,15 +15,14 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link seedu.address.model.contact.Contact}.
  */
 class JsonAdaptedClaim {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "FinSec's %s field is missing!";
 
     private final String description;
     private final String amount;
@@ -61,9 +60,8 @@ class JsonAdaptedClaim {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * Converts this Jackson-friendly adapted contact object into the model's {@code FinSec} object.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Claim toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();

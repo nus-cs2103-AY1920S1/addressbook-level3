@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.claim.exceptions.ClaimNotFoundException;
 import seedu.address.model.claim.exceptions.DuplicateClaimException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.contact.exceptions.DuplicateContactException;
 
 /**
  * A list of claims that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +43,7 @@ public class UniqueClaimsList implements Iterable<Claim> {
     public void add(Claim toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateContactException();
         }
         internalList.add(toAdd);
     }

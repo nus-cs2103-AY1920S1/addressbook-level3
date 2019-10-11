@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
-/**
+ /**
  * Config values used by the app
  */
 public class Config {

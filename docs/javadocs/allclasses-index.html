@@ -114,7 +114,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i0" class="altColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/AddCommand.html" title="class in seedu.address.logic.commands">AddCommand</a></td>
 <th class="colLast" scope="row">
-<div class="block">Adds a person to the address book.</div>
+<div class="block">Adds a contact to the address book.</div>
 </th>
 </tr>
 <tr id="i1" class="rowColor">
@@ -138,7 +138,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/Address.html" title="class in seedu.address.model.person">Address</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/Address.html" title="class in seedu.address.model.contact">Address</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a Person's address in the address book.</div>
 </th>
@@ -177,7 +177,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/AddressTest.html" title="class in seedu.address.model.person">AddressTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/AddressTest.html" title="class in seedu.address.model.contact">AddressTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i13" class="rowColor">
@@ -352,7 +352,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i44" class="altColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/DeleteCommand.html" title="class in seedu.address.logic.commands">DeleteCommand</a></td>
 <th class="colLast" scope="row">
-<div class="block">Deletes a person identified using it's displayed index from the address book.</div>
+<div class="block">Deletes a contact identified using it's displayed index from the address book.</div>
 </th>
 </tr>
 <tr id="i45" class="rowColor">
@@ -389,7 +389,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i50" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/exceptions/DuplicatePersonException.html" title="class in seedu.address.model.person.exceptions">DuplicatePersonException</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/exceptions/DuplicatePersonException.html" title="class in seedu.address.model.contact.exceptions">DuplicatePersonException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same
  identity).</div>
@@ -398,13 +398,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i51" class="rowColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/EditCommand.html" title="class in seedu.address.logic.commands">EditCommand</a></td>
 <th class="colLast" scope="row">
-<div class="block">Edits the details of an existing person in the address book.</div>
+<div class="block">Edits the details of an existing contact in the address book.</div>
 </th>
 </tr>
 <tr id="i52" class="altColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/EditCommand.EditPersonDescriptor.html" title="class in seedu.address.logic.commands">EditCommand.EditPersonDescriptor</a></td>
 <th class="colLast" scope="row">
-<div class="block">Stores the details to edit the person with.</div>
+<div class="block">Stores the details to edit the contact with.</div>
 </th>
 </tr>
 <tr id="i53" class="rowColor">
@@ -434,13 +434,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i58" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/Email.html" title="class in seedu.address.model.person">Email</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/Email.html" title="class in seedu.address.model.contact">Email</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a Person's email in the address book.</div>
 </th>
 </tr>
 <tr id="i59" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/EmailTest.html" title="class in seedu.address.model.person">EmailTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/EmailTest.html" title="class in seedu.address.model.contact">EmailTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i60" class="altColor">
@@ -466,7 +466,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i64" class="altColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/FindCommand.html" title="class in seedu.address.logic.commands">FindCommand</a></td>
 <th class="colLast" scope="row">
-<div class="block">Finds and lists all persons in address book whose name contains any of the argument keywords.</div>
+<div class="block">Finds and lists all contacts in address book whose name contains any of the argument keywords.</div>
 </th>
 </tr>
 <tr id="i65" class="rowColor">
@@ -572,7 +572,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i84" class="altColor">
 <td class="colFirst"><a href="seedu/address/logic/commands/ListCommand.html" title="class in seedu.address.logic.commands">ListCommand</a></td>
 <th class="colLast" scope="row">
-<div class="block">Lists all persons in the address book to the user.</div>
+<div class="block">Lists all contacts in the address book to the user.</div>
 </th>
 </tr>
 <tr id="i85" class="rowColor">
@@ -647,23 +647,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i97" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/Name.html" title="class in seedu.address.model.person">Name</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/Name.html" title="class in seedu.address.model.contact">Name</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a Person's name in the address book.</div>
 </th>
 </tr>
 <tr id="i98" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/NameContainsKeywordsPredicate.html" title="class in seedu.address.model.person">NameContainsKeywordsPredicate</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/NameContainsKeywordsPredicate.html" title="class in seedu.address.model.contact">NameContainsKeywordsPredicate</a></td>
 <th class="colLast" scope="row">
 <div class="block">Tests that a <code>Person</code>'s <code>Name</code> matches any of the keywords given.</div>
 </th>
 </tr>
 <tr id="i99" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/NameContainsKeywordsPredicateTest.html" title="class in seedu.address.model.person">NameContainsKeywordsPredicateTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/NameContainsKeywordsPredicateTest.html" title="class in seedu.address.model.contact">NameContainsKeywordsPredicateTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i100" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/NameTest.html" title="class in seedu.address.model.person">NameTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/NameTest.html" title="class in seedu.address.model.contact">NameTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i101" class="rowColor">
@@ -689,7 +689,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i105" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/Person.html" title="class in seedu.address.model.person">Person</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/Person.html" title="class in seedu.address.model.contact">Person</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a Person in the address book.</div>
 </th>
@@ -709,17 +709,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i108" class="altColor">
 <td class="colFirst"><a href="seedu/address/ui/PersonListPanel.html" title="class in seedu.address.ui">PersonListPanel</a></td>
 <th class="colLast" scope="row">
-<div class="block">Panel containing the list of persons.</div>
+<div class="block">Panel containing the list of contacts.</div>
 </th>
 </tr>
 <tr id="i109" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/exceptions/PersonNotFoundException.html" title="class in seedu.address.model.person.exceptions">PersonNotFoundException</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/exceptions/PersonNotFoundException.html" title="class in seedu.address.model.contact.exceptions">PersonNotFoundException</a></td>
 <th class="colLast" scope="row">
-<div class="block">Signals that the operation is unable to find the specified person.</div>
+<div class="block">Signals that the operation is unable to find the specified contact.</div>
 </th>
 </tr>
 <tr id="i110" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/PersonTest.html" title="class in seedu.address.model.person">PersonTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/PersonTest.html" title="class in seedu.address.model.contact">PersonTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i111" class="rowColor">
@@ -729,13 +729,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i112" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/Phone.html" title="class in seedu.address.model.person">Phone</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/Phone.html" title="class in seedu.address.model.contact">Phone</a></td>
 <th class="colLast" scope="row">
 <div class="block">Represents a Person's phone number in the address book.</div>
 </th>
 </tr>
 <tr id="i113" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/PhoneTest.html" title="class in seedu.address.model.person">PhoneTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/PhoneTest.html" title="class in seedu.address.model.contact">PhoneTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i114" class="altColor">
@@ -871,13 +871,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i138" class="altColor">
-<td class="colFirst"><a href="seedu/address/model/person/UniquePersonList.html" title="class in seedu.address.model.person">UniquePersonList</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/UniquePersonList.html" title="class in seedu.address.model.contact">UniquePersonList</a></td>
 <th class="colLast" scope="row">
-<div class="block">A list of persons that enforces uniqueness between its elements and does not allow nulls.</div>
+<div class="block">A list of contacts that enforces uniqueness between its elements and does not allow nulls.</div>
 </th>
 </tr>
 <tr id="i139" class="rowColor">
-<td class="colFirst"><a href="seedu/address/model/person/UniquePersonListTest.html" title="class in seedu.address.model.person">UniquePersonListTest</a></td>
+<td class="colFirst"><a href="seedu/address/model/contact/UniquePersonListTest.html" title="class in seedu.address.model.contact">UniquePersonListTest</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i140" class="altColor">

@@ -8,8 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.contact.Contact;
 
 /**
  * API of the Logic component
@@ -25,14 +25,14 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FinSec.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getFinSec()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFinSec getFinSec();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Contact> getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.

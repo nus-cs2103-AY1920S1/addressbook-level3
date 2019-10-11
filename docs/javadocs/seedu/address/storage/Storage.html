@@ -178,7 +178,7 @@ extends <a href="AddressBookStorage.html" title="interface in seedu.address.stor
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)</code></th>
 <td class="colLast">
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 </td>
@@ -192,11 +192,11 @@ extends <a href="AddressBookStorage.html" title="interface in seedu.address.stor
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.seedu.address.storage.AddressBookStorage">
+<li class="blockList"><a id="methods.inherited.from.class.seedu.address.storage.FinSecStorage">
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;seedu.address.storage.<a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></h3>
-<code><a href="AddressBookStorage.html#readAddressBook(java.nio.file.Path)">readAddressBook</a>, <a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">saveAddressBook</a></code></li>
+<code><a href="AddressBookStorage.html#readAddressBook(java.nio.file.Path)">readAddressBook</a>, <a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">saveAddressBook</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.seedu.address.storage.UserPrefsStorage">
@@ -298,21 +298,21 @@ extends <a href="AddressBookStorage.html" title="interface in seedu.address.stor
 </dl>
 </li>
 </ul>
-<a id="saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">
+<a id="saveAddressBook(seedu.address.model.ReadOnlyContact)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>saveAddressBook</h4>
-<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)
+<pre class="methodSignature">void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)
               throws java.io.IOException</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">AddressBookStorage</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)">AddressBookStorage</a></code></span></div>
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
+<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>addressBook</code> - cannot be null.</dd>
+<dd><code>finSec</code> - cannot be null.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code> - if there was any problem writing to the file.</dd>
 </dl>
