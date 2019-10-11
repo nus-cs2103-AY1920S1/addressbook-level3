@@ -64,7 +64,7 @@ public class Amount implements Comparable<Amount> {
      * Precondition: The input must be less than 100.
      *
      * @param cents The number of cents in an {@code Amount} that is less than 100.
-     * @return A two character {@code String}
+     * @return A two character {@code String}.
      */
     private String convertCentsToString(int cents) {
         if (cents == 0) {
@@ -81,9 +81,10 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * Sums a {@code List} of {@code Amount} objects.
      *
-     * @param amounts
-     * @return
+     * @param amounts List of {@code Amount} to be added.
+     * @return An {@code Amount} obtained from summation.
      */
     public Amount addAll(List<Amount> amounts) {
         int valueInCents = 0;
@@ -94,20 +95,22 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * Adds two {@code Amount} objects.
      *
-     * @param operand1
-     * @param operand2
-     * @return
+     * @param operand1 First operand to be added.
+     * @param operand2 Second operand to be added.
+     * @return An {@code Amount} obtained from addition.
      */
     public Amount add(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() + operand2.getValueInCents());
     }
 
     /**
+     * Subtract an {@Amount} object from another {@Amount} object.
      *
-     * @param operand1
-     * @param operand2
-     * @return
+     * @param operand1 First operand to be subtracted.
+     * @param operand2 Second operand to be subtracted from first operand.
+     * @return An {@code Amount} obtained from subtraction.
      */
     public Amount subtract(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() - operand2.getValueInCents());
