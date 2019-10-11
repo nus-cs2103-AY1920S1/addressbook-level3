@@ -3,12 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+
 /**
  * Represents a Transaction's amount in the transaction recorder.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount implements Comparable<Amount> {
-
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should be in the format '<dollars>.<cents>' or '<dollars>'.\n"
@@ -35,6 +36,10 @@ public class Amount implements Comparable<Amount> {
         }
     }
 
+    private Amount(int valueInCents) {
+        this.valueInCents = valueInCents;
+    }
+
     /**
      * Returns true if a given string is a valid amount.
      */
@@ -44,10 +49,14 @@ public class Amount implements Comparable<Amount> {
 
     @Override
     public String toString() {
-        int dollars = valueInCents / 100;
-        int cents = valueInCents % 100;
-        String centsString = convertCentsToString(cents);
-        return "$" + dollars + "." + centsString;
+        if (valueInCents < 0) {
+            return "-" + (new Amount(-valueInCents)).toString();
+        } else {
+            int dollars = valueInCents / 100;
+            int cents = valueInCents % 100;
+            String centsString = convertCentsToString(cents);
+            return "$" + dollars + "." + centsString;
+        }
     }
 
     /**
@@ -69,6 +78,39 @@ public class Amount implements Comparable<Amount> {
 
     public int getValueInCents() {
         return valueInCents;
+    }
+
+    /**
+     *
+     * @param amounts
+     * @return
+     */
+    public Amount addAll(List<Amount> amounts) {
+        int valueInCents = 0;
+        for(Amount amount : amounts){
+            valueInCents += amount.getValueInCents();
+        }
+        return new Amount(valueInCents);
+    }
+
+    /**
+     *
+     * @param operand1
+     * @param operand2
+     * @return
+     */
+    public Amount add(Amount operand1, Amount operand2) {
+        return new Amount(operand1.getValueInCents() + operand2.getValueInCents());
+    }
+
+    /**
+     *
+     * @param operand1
+     * @param operand2
+     * @return
+     */
+    public Amount subtract(Amount operand1, Amount operand2) {
+        return new Amount(operand1.getValueInCents() - operand2.getValueInCents());
     }
 
     @Override
