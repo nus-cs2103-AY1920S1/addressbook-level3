@@ -24,7 +24,7 @@ import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.app.AddCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;

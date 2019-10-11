@@ -1,5 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.game;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
@@ -26,17 +28,39 @@ public class GuessCommand extends GameCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        Game game = model.getGame();
+        CommandResult commandResult;
+        if (game.isOver()) {
+            String exceptionText = ("The Game has ended."
+                    + "\n"
+                    + "Type 'start' to try again!");
+        }
+
         if (model.getGame() == null) {
-            return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
+            commandResult = new CommandResult(MESSAGE_NO_ACTIVE_GAME);
         } else {
             int guessResult = model.getGame().makeGuess(inputGuess);
 
             if (guessResult == Game.CORRECT_GUESS) {
-                return new CommandResult(MESSAGE_CORRECT_GUESS, true);
+                commandResult = new CommandResult(MESSAGE_CORRECT_GUESS, true);
             } else {
-                // guessResult == Game.WRONG_GUESS
-                return new CommandResult(MESSAGE_WRONG_GUESS, true);
+                commandResult = new CommandResult(MESSAGE_WRONG_GUESS, true);
             }
         }
+
+        game.moveToNextCard();
+
+        if (game.isOver()) {
+            commandResult = new CommandResult(commandResult.getFeedbackToUser()
+                    + "\n"
+                    + "GAME OVER!!!");
+            commandResult = commandResult;
+        }
+
+        String nextQuestionToShow = game.showCurrQuestion();
+
+        commandResult = new CommandResult(commandResult.getFeedbackToUser()
+                + "\n" + nextQuestionToShow, true);
+        return commandResult;
     }
 }

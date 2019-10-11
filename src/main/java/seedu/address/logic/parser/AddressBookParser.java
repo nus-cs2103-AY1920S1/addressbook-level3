@@ -6,18 +6,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.GuessCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HomeCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.app.AddCommand;
+import seedu.address.logic.commands.app.ClearCommand;
+import seedu.address.logic.commands.app.DeleteCommand;
+import seedu.address.logic.commands.app.EditCommand;
+import seedu.address.logic.commands.app.ExitCommand;
+import seedu.address.logic.commands.app.FindCommand;
+import seedu.address.logic.commands.app.HelpCommand;
+import seedu.address.logic.commands.app.ListCommand;
+import seedu.address.logic.commands.game.GuessCommand;
+import seedu.address.logic.commands.switches.HomeCommand;
+import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -79,7 +79,6 @@ public class AddressBookParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
-
 
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);

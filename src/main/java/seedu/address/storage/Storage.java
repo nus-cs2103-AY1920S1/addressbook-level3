@@ -34,5 +34,4 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
-
 }
