@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalPhones.IPHONETWO;

@@ -12,7 +12,7 @@ import seedu.address.testutil.PhoneBuilder;
 
 class PhoneTest {
 
-    private static final String VALID_IMEI = "000000000000000";
+    private static final String VALID_IDENTITYNUMBER = "000000000000000";
     private static final String VALID_SERIALNUMBER = "12asd34";
     private static final String VALID_NAME = "iPhone 2";
     private static final String VALID_BRAND = "Huawei";
@@ -30,7 +30,8 @@ class PhoneTest {
         assertFalse(IPHONEONE.isSamePhone(null));
 
         // different IMEI -> returns false
-        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withImei(VALID_IMEI).build()));
+        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE)
+                .withIdentityNumber(VALID_IDENTITYNUMBER).build()));
 
         // different serial number -> returns false
         assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withSerialNumber(VALID_SERIALNUMBER).build()));
@@ -63,7 +64,7 @@ class PhoneTest {
         assertNotEquals(null, IPHONEONE);
 
         // different IMEI -> not equals
-        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withImei(VALID_IMEI).build());
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withIdentityNumber(VALID_IDENTITYNUMBER).build());
 
         // different serial number -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withSerialNumber(VALID_SERIALNUMBER).build());

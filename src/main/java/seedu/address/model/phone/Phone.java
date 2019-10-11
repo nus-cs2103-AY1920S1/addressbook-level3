@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Phone {
 
     // Identity fields
-    private final Imei imei;
+    private final IdentityNumber identityNumber;
     private final SerialNumber serialNumber;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Phone {
     private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Phone(Imei imei, SerialNumber serialNumber, PhoneName phoneName, Brand brand,
+    public Phone(IdentityNumber identityNumber, SerialNumber serialNumber, PhoneName phoneName, Brand brand,
                  Capacity capacity, Colour colour, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(imei, serialNumber, phoneName, brand, capacity, colour, cost, tags);
-        this.imei = imei;
+        requireAllNonNull(identityNumber, serialNumber, phoneName, brand, capacity, colour, cost, tags);
+        this.identityNumber = identityNumber;
         this.serialNumber = serialNumber;
         this.phoneName = phoneName;
         this.brand = brand;
@@ -40,8 +40,8 @@ public class Phone {
         this.tags.addAll(tags);
     }
 
-    public Imei getImei() {
-        return imei;
+    public IdentityNumber getIdentityNumber() {
+        return identityNumber;
     }
 
     public SerialNumber getSerialNumber() {
@@ -86,7 +86,7 @@ public class Phone {
         }
 
         return otherPhone != null
-                && otherPhone.getImei().equals(getImei())
+                && otherPhone.getIdentityNumber().equals(getIdentityNumber())
                 && otherPhone.getSerialNumber().equals(getSerialNumber());
     }
 
@@ -105,7 +105,7 @@ public class Phone {
         }
 
         Phone otherPhone = (Phone) other;
-        return otherPhone.getImei().equals(getImei())
+        return otherPhone.getIdentityNumber().equals(getIdentityNumber())
                 && otherPhone.getSerialNumber().equals(getSerialNumber())
                 && otherPhone.getPhoneName().equals(getPhoneName())
                 && otherPhone.getBrand().equals((getBrand()))
@@ -118,14 +118,14 @@ public class Phone {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(imei, serialNumber, phoneName, brand, capacity, colour, cost, tags);
+        return Objects.hash(identityNumber, serialNumber, phoneName, brand, capacity, colour, cost, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" IMEI: ")
-                .append(getImei())
+                .append(getIdentityNumber())
                 .append(" SN: ")
                 .append(getSerialNumber())
                 .append(" Name: ")

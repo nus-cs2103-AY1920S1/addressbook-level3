@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Phone's Imei in the SML.
- * Guarantees: immutable; is valid as declared in {@link #isValidImei(String)}.
+ * Represents a Phone's IdentityNumber in the SML.
+ * Guarantees: immutable; is valid as declared in {@link #isValidIdentityNumber(String)}.
  */
-public class Imei {
+public class IdentityNumber {
 
     public static final String MESSAGE_CONSTRAINTS = "IMEIs must contain only digits and be 15 digits long";
 
@@ -15,16 +15,16 @@ public class Imei {
 
     public final String value;
 
-    public Imei(String Imei) {
-        requireNonNull(Imei);
-        checkArgument(isValidImei(Imei), MESSAGE_CONSTRAINTS);
-        value = Imei;
+    public IdentityNumber(String identityNumber) {
+        requireNonNull(identityNumber);
+        checkArgument(isValidIdentityNumber(identityNumber), MESSAGE_CONSTRAINTS);
+        value = identityNumber;
     }
 
     /**
-     * Returns true if a given string is a valid Imei.
+     * Returns true if a given string is a valid IMEI.
      */
-    public static boolean isValidImei(String test) {
+    public static boolean isValidIdentityNumber(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -36,8 +36,8 @@ public class Imei {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Imei // instanceof handles nulls
-                && value.equals(((Imei) other).value)); // state check
+                || (other instanceof IdentityNumber // instanceof handles nulls
+                && value.equals(((IdentityNumber) other).value)); // state check
     }
 
     @Override

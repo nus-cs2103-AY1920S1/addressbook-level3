@@ -2,13 +2,12 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
-import seedu.address.model.phone.Imei;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
@@ -20,7 +19,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PhoneBuilder {
 
-    public static final String DEFAULT_IMEI = "123456789098765";
+    public static final String DEFAULT_IDENTITYNUMBER = "123456789098765";
     public static final String DEFAULT_SERIALNUMBER = "E0315345346";
     public static final String DEFAULT_NAME = "Samsung Galaxy 10";
     public static final String DEFAULT_BRAND = "Samsung";
@@ -28,7 +27,7 @@ public class PhoneBuilder {
     public static final String DEFAULT_COLOUR = "Vanilla White";
     public static final String DEFAULT_COST = "$42.42";
 
-    private Imei imei;
+    private IdentityNumber identityNumber;
     private SerialNumber serialNumber;
     private PhoneName phoneName;
     private Brand brand;
@@ -38,7 +37,7 @@ public class PhoneBuilder {
     private Set<Tag> tags;
 
     public PhoneBuilder() {
-        imei = new Imei(DEFAULT_IMEI);
+        identityNumber = new IdentityNumber(DEFAULT_IDENTITYNUMBER);
         serialNumber = new SerialNumber(DEFAULT_SERIALNUMBER);
         phoneName = new PhoneName(DEFAULT_NAME);
         brand = new Brand(DEFAULT_BRAND);
@@ -52,7 +51,7 @@ public class PhoneBuilder {
      * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
      */
     public PhoneBuilder(Phone phoneToCopy) {
-        imei = phoneToCopy.getImei();
+        identityNumber = phoneToCopy.getIdentityNumber();
         serialNumber = phoneToCopy.getSerialNumber();
         phoneName = phoneToCopy.getPhoneName();
         brand = phoneToCopy.getBrand();
@@ -63,10 +62,10 @@ public class PhoneBuilder {
     }
 
     /**
-     * Sets the {@code Imei} of the {@code Phone} that we are building.
+     * Sets the {@code IdentityNumber} of the {@code Phone} that we are building.
      */
-    public PhoneBuilder withImei(String imei) {
-        this.imei = new Imei(imei);
+    public PhoneBuilder withIdentityNumber(String identityNumber) {
+        this.identityNumber = new IdentityNumber(identityNumber);
         return this;
     }
 
@@ -127,7 +126,7 @@ public class PhoneBuilder {
     }
 
     public Phone build() {
-        return new Phone(imei, serialNumber, phoneName, brand, capacity, colour, cost, tags);
+        return new Phone(identityNumber, serialNumber, phoneName, brand, capacity, colour, cost, tags);
     }
 
 }
