@@ -442,6 +442,33 @@ Use case ends
 
 Use case ends.
 
+[discrete]
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC5)
+Pre-condition: Details of the doctor is already registered in system.
+
+*MSS*
+
+1.  User finds the doctor using either his/her name or staff id.
+2.  User assigns the on-duty doctor to a consultation room.
+3.  System updates the ui to display the available consultation rooms and doctors.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Consultation room has already been taken.
+[none]
+** 2a1. System shows an error message. Informing the user that the room has already been assigned to another doctor.
+
+* Use case ends.
+
+[none]
+* 2b. Doctor has already been assigned to a consultation room.
+[none]
+** 2b1. System shows an error message. Informing the user that the doctor has already been assigned to a room.
+
+* Use case ends.
 
 _{More to be added}_
 
