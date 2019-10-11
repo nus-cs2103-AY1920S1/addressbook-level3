@@ -17,14 +17,13 @@ public class SerialNumberGenerator {
     private static TreeSet<SerialNumber> serialNumberTree = new TreeSet<>();
 
     /**
-     * Populates the serial nuber tree from a catalog.
+     * Populates the serial number tree from a catalog.
      *
      * @param catalog catalog to retrieve books from.
      */
     public static void setCatalog(Catalog catalog) {
         serialNumberTree = new TreeSet<>();
         catalog.getBookList()
-                .stream()
                 .forEach(book -> serialNumberTree.add(book.getSerialNumber()));
     }
 
