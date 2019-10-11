@@ -39,7 +39,8 @@ public class CreateStudyPlanCommandParser implements Parser<CreateStudyPlanComma
 
         return new CreateStudyPlanCommand(studyPlan);
          */
-        return new CreateStudyPlanCommand(new StudyPlan(new Title("this is just a temporary holder")));
+        // return new CreateStudyPlanCommand(new StudyPlan(new Title("this is just a temporary holder")));
+        return null;
     }
 
     /**

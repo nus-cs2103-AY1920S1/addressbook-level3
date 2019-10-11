@@ -15,18 +15,19 @@ import seedu.address.model.tag.UserTag;
  * Contains utility methods for populating {@code ModulePlanner} with sample data.
  */
 public class SampleDataUtil {
-    public static StudyPlan[] getSampleStudyPlans() {
+    public static StudyPlan[] getSampleStudyPlans(ModulesInfo modulesInfo) {
         // Can populate this with more study plans
         return new StudyPlan[] {
-                new StudyPlan(new Title("study plan first draft"))
+                new StudyPlan(new Title("study plan first draft"), modulesInfo)
         };
     }
 
     public static ReadOnlyModulePlanner getSampleModulePlanner(ModulesInfo modulesInfo) {
         ModulePlanner sampleAb = new ModulePlanner(modulesInfo);
-        for (StudyPlan sampleStudyPlan : getSampleStudyPlans()) {
+        for (StudyPlan sampleStudyPlan : getSampleStudyPlans(modulesInfo)) {
             sampleAb.addStudyPlan(sampleStudyPlan);
         }
+        sampleAb.activateStudyPlan(1);
         return sampleAb;
     }
 

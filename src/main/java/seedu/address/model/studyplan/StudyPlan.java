@@ -1,9 +1,16 @@
 package seedu.address.model.studyplan;
 
+import java.awt.image.TileObserver;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
+import seedu.address.model.Color;
+import seedu.address.model.ModuleInfo;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Name;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.tag.UniqueTagList;
@@ -31,31 +38,22 @@ public class StudyPlan implements Cloneable {
 
 
     // to create a study plan without a Title
-    public StudyPlan() {
-        this.semesters = new UniqueSemesterList();
-        // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
-        this.isActive = true;
-
-        // TODO: initialise modules and (default) tags. this should be done when module info is ready.
-        //  get the list from Module?
-        modules = new HashMap<>(); //TODO need to change this.
-        tags = new UniqueTagList();
-
-        totalNumberOfStudyPlans++;
-        this.index = totalNumberOfStudyPlans;
+    public StudyPlan(ModulesInfo modulesInfo) {
+        this(new Title(""), modulesInfo);
     }
 
     // to create a study plan with a Title
-    public StudyPlan(Title title) {
+    public StudyPlan(Title title, ModulesInfo modulesInfo) {
         this.title = title;
         this.semesters = new UniqueSemesterList();
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
-        // TODO: initialise modules and (default) tags. this should be done when module info is ready.
-        //  get the list from Module?
-        modules = new HashMap<>(); //TODO need to change this.
+        // add all default tags
+        // TODO: initialise it
         tags = new UniqueTagList();
+
+        setMegaModuleHashMap(modulesInfo);
 
         totalNumberOfStudyPlans++;
         this.index = totalNumberOfStudyPlans;
@@ -114,6 +112,27 @@ public class StudyPlan implements Cloneable {
     // "Mega-list" of tags
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    /**
+     * Given a {@code ModuleInfo} object, convert it to a {@code Module}.
+     */
+    private Module convertModuleInfoToModule(ModuleInfo moduleInfo) {
+        // TODO: Yi Wai: assign default tags to the result (Module).
+
+        Name name = new Name(moduleInfo.getName());
+        ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
+        int mcCount = moduleInfo.getMc();
+        return new Module(name, moduleCode, mcCount, Color.RED, new UniqueTagList());
+    }
+
+    private void setMegaModuleHashMap(ModulesInfo modulesInfo) {
+        HashMap<String, ModuleInfo> moduleInfoHashMap = modulesInfo.getModuleInfoHashMap();
+        modules = new HashMap<>();
+        for (ModuleInfo moduleInfo : moduleInfoHashMap.values()) {
+            Module module = convertModuleInfoToModule(moduleInfo);
+            modules.put(module.getModuleCode().toString(), module);
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
@@ -166,7 +167,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             }
         }
 
-        // TODO: get default tags from moduleInfo, and make the tags refer to the megalist of tags
+        // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
+        for (Module module : megaModuleHash.values()) {
+            UniqueTagList tagList = module.getTags();
+        }
 
         return activeStudyPlan;
     }
