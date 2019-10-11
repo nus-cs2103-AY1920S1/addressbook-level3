@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -32,6 +33,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SemesterListPanel semesterListPanel;
     private ResultDisplay resultDisplay;
+
+    @FXML
+    private Label name;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -70,11 +74,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         StudyPlan sp = logic.getActiveStudyPlan();
-        UniqueSemesterList u = sp.getSemesters();
-        ObservableList<Semester> ol = u.asUnmodifiableObservableList();
+        ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
 //        logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
-        semesterListPanel = new SemesterListPanel(ol);
+        semesterListPanel = new SemesterListPanel(semesters);
         semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+        name.setText(sp.getTitle().toString());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
