@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
@@ -113,6 +115,20 @@ public class Menu implements ReadOnlyMenu {
      */
     public Wallet getWallet() {
         return wallet;
+    }
+
+    /**
+     * Returns the user's {@code RemainingBudget}'s {@code FloatProperty}.
+     */
+    public FloatProperty getRemainingBudgetProperty() {
+        return wallet.getRemainingBudgetProperty();
+    }
+
+    /**
+     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
+     */
+    public IntegerProperty getDaysToExpireProperty() {
+        return wallet.getDaysToExpireProperty();
     }
 
     /**

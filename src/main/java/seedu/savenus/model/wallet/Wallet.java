@@ -87,6 +87,14 @@ public class Wallet {
         daysToExpire.setDaysToExpire(newDaysToExpire);
     }
 
+
+    /**
+     * Update number of days left with respect to current time.
+     */
+    public void updateDaysToExpire() {
+        daysToExpire.updateDaysToExpire();
+    }
+
     @Override
     public String toString() {
         return "Current Budget: " + this.getRemainingBudgetAmount() + "\n"

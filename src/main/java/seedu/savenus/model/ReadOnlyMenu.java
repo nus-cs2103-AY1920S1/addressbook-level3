@@ -1,5 +1,7 @@
 package seedu.savenus.model;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.wallet.Wallet;
@@ -19,4 +21,14 @@ public interface ReadOnlyMenu {
      * Returns the user's wallet.
      */
     Wallet getWallet();
+
+    /**
+     * Returns the user's {@code RemainingBudget}'s {@code FloatProperty}.
+     */
+    FloatProperty getRemainingBudgetProperty();
+
+    /**
+     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
+     */
+    IntegerProperty getDaysToExpireProperty();
 }

@@ -15,8 +15,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
 import seedu.savenus.model.wallet.Wallet;
@@ -102,6 +105,16 @@ public class MenuTest {
         @Override
         public Wallet getWallet() {
             return wallet;
+        }
+
+        @Override
+        public FloatProperty getRemainingBudgetProperty() {
+            return wallet.getRemainingBudgetProperty();
+        }
+
+        @Override
+        public IntegerProperty getDaysToExpireProperty() {
+            return wallet.getDaysToExpireProperty();
         }
     }
 

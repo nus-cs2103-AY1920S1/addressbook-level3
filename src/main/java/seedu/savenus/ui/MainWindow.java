@@ -88,14 +88,14 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // Bind remaining budget to displayed value
-        remainingBudgetPlaceholder.textProperty().bind(logic.getMenu().getWallet()
+        remainingBudgetPlaceholder.textProperty().bind(logic.getMenu()
                 .getRemainingBudgetProperty().asString("$%.02f"));
 
         // Update number of days left
-        logic.getMenu().getWallet().getDaysToExpire().updateDaysToExpire();
+        logic.getMenu().getWallet().updateDaysToExpire();
 
         // Bind number of days to budget expiration to displayed value
-        daysToExpirePlaceholder.textProperty().bind(logic.getMenu().getWallet()
+        daysToExpirePlaceholder.textProperty().bind(logic.getMenu()
                 .getDaysToExpireProperty().asString("%d days"));
     }
 
