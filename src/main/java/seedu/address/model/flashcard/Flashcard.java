@@ -40,6 +40,13 @@ public class Flashcard {
     }
 
     /**
+     * Returns whether the flashcard contains a question in the form of a image file.
+     */
+    public boolean isImageFlashcard() {
+        return false;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

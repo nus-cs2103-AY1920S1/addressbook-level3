@@ -39,9 +39,9 @@ public class FlashcardCard extends UiPart<Region> {
         this.flashcard = flashcard;
         this.questionLabel.setText(flashcard.getQuestion().toString());
         this.answerLabel.setText(flashcard.getAnswer().toString());
-//        person.getTags().stream()
-//                .sorted(Comparator.comparing(tag -> tag.tagName))
-//                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        //        person.getTags().stream()
+        //                .sorted(Comparator.comparing(tag -> tag.tagName))
+        //                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
