@@ -47,7 +47,8 @@ public class DeleteFlashcardCommand extends Command {
         }
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(flashcardToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));    }
+        return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+    }
 
     @Override
     public boolean equals(Object other) {
