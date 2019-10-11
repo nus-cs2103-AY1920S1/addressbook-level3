@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code FinSec} with sample data.
  */
 public class SampleDataUtil {
-    public static seedu.address.model.contact.Contact[] getSamplePersons() {
+    public static seedu.address.model.contact.Contact[] getSampleContacts() {
         return new seedu.address.model.contact.Contact[] {
             new seedu.address.model.contact.Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -39,12 +39,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyFinSec getSampleAddressBook() {
-        FinSec sampleAb = new FinSec();
-        for (seedu.address.model.contact.Contact sampleContact : getSamplePersons()) {
-            sampleAb.addContact(sampleContact);
+    public static ReadOnlyFinSec getSampleFinSec() {
+        FinSec sampleFs = new FinSec();
+        for (seedu.address.model.contact.Contact sampleContact : getSampleContacts()) {
+            sampleFs.addContact(sampleContact);
         }
-        return sampleAb;
+        return sampleFs;
     }
 
     /**

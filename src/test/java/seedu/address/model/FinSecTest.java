@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,8 +19,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.income.Income;
+import seedu.address.testutil.ContactBuilder;
 
 public class FinSecTest {
 
@@ -38,7 +40,7 @@ public class FinSecTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        FinSec newData = getTypicalAddressBook();
+        FinSec newData = getTypicalFinSec();
         finSec.resetData(newData);
         assertEquals(newData, finSec);
     }
@@ -46,7 +48,7 @@ public class FinSecTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two contacts with the same identity fields
-        seedu.address.model.contact.Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<seedu.address.model.contact.Contact> newContacts = Arrays.asList(ALICE, editedAlice);
         ContactStub newData = new ContactStub(newContacts);
@@ -73,7 +75,7 @@ public class FinSecTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         finSec.addContact(ALICE);
-        seedu.address.model.contact.Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(finSec.hasContact(editedAlice));
     }
@@ -87,9 +89,12 @@ public class FinSecTest {
      * A stub ReadOnlyContact whose contacts list can violate interface constraints.
      */
     private static class ContactStub implements ReadOnlyFinSec {
-        private final ObservableList<seedu.address.model.contact.Contact> contacts = FXCollections.observableArrayList();
 
-        ContactStub(Collection<seedu.address.model.contact.Contact> contacts) {
+        private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        private final ObservableList<Income> incomes = FXCollections.observableArrayList();
+        private final ObservableList<Claim> claims = FXCollections.observableArrayList();
+
+        ContactStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
         }
 
@@ -99,9 +104,12 @@ public class FinSecTest {
         }
 
         @Override
-        public ObservableList<Claim> getClaimList() {
-            return null;
+        public ObservableList<Income> getIncomeList() {
+            return incomes;
         }
+
+        @Override
+        public ObservableList<Claim> getClaimList() { return claims; }
     }
 
 }

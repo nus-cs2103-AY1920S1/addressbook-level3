@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 
 import java.nio.file.Path;
 
@@ -12,6 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.FinSec;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -53,9 +54,9 @@ public class StorageManagerTest {
          * {@link JsonFinSecStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonFinSecStorageTest} class.
          */
-        FinSec original = getTypicalAddressBook();
+        FinSec original = getTypicalFinSec();
         storageManager.saveFinSec(original);
-        ReadOnlyContact retrieved = storageManager.readContacts().get();
+        ReadOnlyFinSec retrieved = storageManager.readContacts().get();
         assertEquals(original, new FinSec(retrieved));
     }
 

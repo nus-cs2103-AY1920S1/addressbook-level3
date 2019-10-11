@@ -115,14 +115,14 @@ public class Income {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Amount: ")
+                .append(getAmount())
+                .append(" Name: ")
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Amount: ")
-                .append(getAmount())
-                .append(" Dated Added: ")
-                .append(getDateAdded())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

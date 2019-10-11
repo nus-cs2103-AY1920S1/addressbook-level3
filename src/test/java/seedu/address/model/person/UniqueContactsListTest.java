@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactsList;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.contact.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ContactBuilder;
 
 public class UniqueContactsListTest {
 
@@ -44,7 +44,7 @@ public class UniqueContactsListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueContactsList.add(ALICE);
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueContactsList.contains(editedAlice));
     }
@@ -87,7 +87,7 @@ public class UniqueContactsListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueContactsList.add(ALICE);
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueContactsList.setPerson(ALICE, editedAlice);
         UniqueContactsList expectedUniqueContactsList = new UniqueContactsList();

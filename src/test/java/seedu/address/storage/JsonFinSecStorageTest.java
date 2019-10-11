@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.HOON;
+import static seedu.address.testutil.TypicalContacts.IDA;
+import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.FinSec;
+import seedu.address.model.ReadOnlyFinSec;
 
 public class JsonFinSecStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonFinSecStorageTest");
@@ -29,7 +30,7 @@ public class JsonFinSecStorageTest {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
     }
 
-    private java.util.Optional<ReadOnlyContact> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyFinSec> readAddressBook(String filePath) throws Exception {
         return new JsonFinSecStorage(Paths.get(filePath)).readContacts(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -62,23 +63,23 @@ public class JsonFinSecStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        FinSec original = getTypicalAddressBook();
+        FinSec original = getTypicalFinSec();
         JsonFinSecStorage jsonAddressBookStorage = new JsonFinSecStorage(filePath);
 
         // Save in new file and read back
         jsonAddressBookStorage.saveFinSec(original, filePath);
-        ReadOnlyContact readBack = jsonAddressBookStorage.readContacts(filePath).get();
+        ReadOnlyFinSec readBack = jsonAddressBookStorage.readContacts(filePath).get();
         assertEquals(original, new FinSec(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addContact(HOON);
+        original.removeContact(ALICE);
         jsonAddressBookStorage.saveFinSec(original, filePath);
         readBack = jsonAddressBookStorage.readContacts(filePath).get();
         assertEquals(original, new FinSec(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addContact(IDA);
         jsonAddressBookStorage.saveFinSec(original); // file path not specified
         readBack = jsonAddressBookStorage.readContacts().get(); // file path not specified
         assertEquals(original, new FinSec(readBack));
@@ -93,7 +94,7 @@ public class JsonFinSecStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyContact addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyFinSec addressBook, String filePath) {
         try {
             new JsonFinSecStorage(Paths.get(filePath))
                     .saveFinSec(addressBook, addToTestDataPathIfNotNull(filePath));

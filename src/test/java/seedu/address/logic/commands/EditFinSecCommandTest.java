@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,19 +23,19 @@ import seedu.address.model.FinSec;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditFinSecCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        seedu.address.model.contact.Contact editedContact = new PersonBuilder().build();
+        seedu.address.model.contact.Contact editedContact = new ContactBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -52,7 +52,7 @@ public class EditFinSecCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         seedu.address.model.contact.Contact lastContact = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastContact);
+        ContactBuilder personInList = new ContactBuilder(lastContact);
         seedu.address.model.contact.Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -85,7 +85,7 @@ public class EditFinSecCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         seedu.address.model.contact.Contact contactInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        seedu.address.model.contact.Contact editedContact = new PersonBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
+        seedu.address.model.contact.Contact editedContact = new ContactBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

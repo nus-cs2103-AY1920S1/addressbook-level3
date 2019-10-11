@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -15,11 +14,19 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
 import seedu.address.model.FinSec;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
+import seedu.address.storage.FinSecStorage;
 import seedu.address.storage.JsonFinSecStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -48,7 +55,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        FinSecStorage finSecStorage = new JsonFinSecStorage(userPrefs.getAddressBookFilePath());
+        FinSecStorage finSecStorage = new JsonFinSecStorage(userPrefs.getFinSecFilePath());
         storage = new StorageManager(finSecStorage, userPrefsStorage);
 
         initLogging(config);
@@ -73,7 +80,7 @@ public class MainApp extends Application {
             if (!contactsBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FinSec");
             }
-            initialData = contactsBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = contactsBookOptional.orElseGet(SampleDataUtil::getSampleFinSec);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FinSec");
             initialData = new FinSec();

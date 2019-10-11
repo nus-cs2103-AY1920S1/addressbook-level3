@@ -110,8 +110,8 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     /**
-     * Adds a claim to the address book.
-     * The claim must not already exist in the address book.
+     * Adds a claim to the finSec.
+     * The claim must not already exist in the finSec.
      */
     public void addClaim(Claim c) {
         claims.add(c);
@@ -119,7 +119,7 @@ public class FinSec implements ReadOnlyFinSec {
 
     /**
      * Replaces the given claim {@code target} in the list with {@code editedClaim}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the finSec.
      * The claim identity of {@code editedClaim} must not be the same as another existing claim in the address book.
      */
     public void setClaim(Claim target, Claim editedClaim) {
@@ -185,13 +185,15 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     @Override
+    public ObservableList<Income> getIncomeList() {
+        return incomes.asUnmodifiableObservableList();
+    }
+
+    @Override
     public ObservableList<Claim> getClaimList() {
         return claims.asUnmodifiableObservableList();
     }
 
-    public ObservableList<Income> getIncomeList() {
-        return incomes.asUnmodifiableObservableList();
-    }
 
     public boolean equals(Object other) {
         return other == this // short circuit if same object

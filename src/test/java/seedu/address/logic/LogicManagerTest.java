@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalContacts.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,12 +24,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.JsonFinSecStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ContactBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -42,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonFinSecStorage addressBookStorage =
-                new JsonFinSecStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonFinSecStorage finSecStorage =
+                new JsonFinSecStorage(temporaryFolder.resolve("finsec.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(finSecStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -80,7 +81,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddContactCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Contact expectedContact = new PersonBuilder(AMY).withTags().build();
+        Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addContact(expectedContact);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -154,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveFinSec(ReadOnlyContact contact, Path filePath) throws IOException {
+        public void saveFinSec(ReadOnlyFinSec contact, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

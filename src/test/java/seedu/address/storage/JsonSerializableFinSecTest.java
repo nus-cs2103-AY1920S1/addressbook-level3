@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.FinSec;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalContacts;
 
 public class JsonSerializableFinSecTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableFinSecTest {
         JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableFinSec.class).get();
         FinSec finSecFromFile = dataFromFile.toModelType();
-        FinSec typicalPersonsFinSec = TypicalPersons.getTypicalAddressBook();
+        FinSec typicalPersonsFinSec = TypicalContacts.getTypicalFinSec();
         assertEquals(finSecFromFile, typicalPersonsFinSec);
     }
 

@@ -23,7 +23,7 @@ public class AddressBookBuilder {
      * Adds a new {@code FinSec} to the {@code FinSec} that we are building.
      */
     public AddressBookBuilder withPerson(seedu.address.model.contact.Contact contact) {
-        finSec.addPerson(contact);
+        finSec.addContact(contact);
         return this;
     }
 

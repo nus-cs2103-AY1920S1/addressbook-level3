@@ -18,10 +18,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ContactBuilder;
 
 public class AddFinSecCommandTest {
 
@@ -33,7 +35,7 @@ public class AddFinSecCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        seedu.address.model.contact.Contact validContact = new PersonBuilder().build();
+        seedu.address.model.contact.Contact validContact = new ContactBuilder().build();
 
         CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
@@ -43,7 +45,7 @@ public class AddFinSecCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        seedu.address.model.contact.Contact validContact = new PersonBuilder().build();
+        seedu.address.model.contact.Contact validContact = new ContactBuilder().build();
         AddContactCommand addContactCommand = new AddContactCommand(validContact);
         ModelStub modelStub = new ModelStubWithPerson(validContact);
 
@@ -53,8 +55,8 @@ public class AddFinSecCommandTest {
 
     @Test
     public void equals() {
-        seedu.address.model.contact.Contact alice = new PersonBuilder().withName("Alice").build();
-        seedu.address.model.contact.Contact bob = new PersonBuilder().withName("Bob").build();
+        seedu.address.model.contact.Contact alice = new ContactBuilder().withName("Alice").build();
+        seedu.address.model.contact.Contact bob = new ContactBuilder().withName("Bob").build();
         AddContactCommand addAliceCommand = new AddContactCommand(alice);
         AddContactCommand addBobCommand = new AddContactCommand(bob);
 
@@ -115,12 +117,12 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public void setFinSec(ReadOnlyContact newData) {
+        public void setFinSec(ReadOnlyFinSec newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyContact getFinSec() {
+        public ReadOnlyFinSec getFinSec() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -236,7 +238,7 @@ public class AddFinSecCommandTest {
      * A Model stub that contains a single contact.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final seedu.address.model.contact.Contact contact;
+        private final Contact contact;
 
         ModelStubWithPerson(seedu.address.model.contact.Contact contact) {
             requireNonNull(contact);
@@ -269,7 +271,7 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public ReadOnlyContact getFinSec() {
+        public ReadOnlyFinSec getFinSec() {
             return new FinSec();
         }
     }

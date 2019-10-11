@@ -73,13 +73,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getFinSecFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getFinSecFilePath();
     }
 
     @Override
     public void setFinSecFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setFinSecFilePath(addressBookFilePath);
     }
 
     //=========== FinSec ================================================================================

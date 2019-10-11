@@ -26,8 +26,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class FinSecParserTest {
@@ -36,7 +36,7 @@ public class FinSecParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ContactBuilder().build();
         AddContactCommand command = (AddContactCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
         assertEquals(new AddContactCommand(contact), command);
     }
@@ -56,7 +56,7 @@ public class FinSecParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ContactBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
         EditContactCommand command = (EditContactCommand) parser.parseCommand(EditContactCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
