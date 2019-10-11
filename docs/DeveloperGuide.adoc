@@ -442,6 +442,60 @@ Use case ends
 
 Use case ends.
 
+[discrete]
+=== Use case: Editing Information in GUI (UC5)
+
+*Actor:* Clerk
+
+*Guarantees:*
+
+1. Information is edited after change is completed in GUI.
+
+*MSS:*
+
+1. Clerk selects the tabs of information (e.g Patients, Appointments) that requires modification.
+2. Clerk selects an item in the list of information.
+3. Clerk selects an attribute of the item.
+4. Clerk modifies the attribute.
+5. Clerk completes the modificatigit on.
+6. ClerkPro stores the change and displays the new information.
+
+Use case ends.
+
+[discrete]
+=== Use case: AutoCompleter (UC6)
+
+*Actor:* Clerk
+
+*Guarantees:*
+
+1. Display suggestions of commands available from whatever has been typed.
+2. Autofill of commands selected from AutoCompleter into Command Box.
+
+*MSS:*
+
+1. Clerk types "a" into the Command Box.
+2. ClerkPro shows suggestions of commands available for "a".
+3. Clerk selects a command from AutoCompleter.
+4. ClerkPro auto-fills the selected command into Command Box.
+
+Use case ends.
+
+[discrete]
+=== Use case: History (UC7)
+
+*Actor:* Clerk
+
+*Guarantees:*
+
+1. Autofill of commands while traversing History.
+
+*MSS:*
+
+1. If AutoCompleter is not suggesting, Clerk can traverse history commands.
+2. While traversing, the command box is auto-filled with the history command.
+
+Use case ends.
 
 _{More to be added}_
 
