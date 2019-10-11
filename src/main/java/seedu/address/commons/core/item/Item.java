@@ -221,12 +221,12 @@ public class Item {
     public static class ItemBuilder {
 
         // Identity fields
-        private Task task;
-        private Event event;
-        private Reminder reminder;
+        private Task task = null;
+        private Event event = null;
+        private Reminder reminder = null;
 
         // Data fields
-        private ItemDescription itemDescription;
+        private ItemDescription itemDescription = null;
         private Set<Tag> tags = new HashSet<>();
 
         public ItemBuilder() {}

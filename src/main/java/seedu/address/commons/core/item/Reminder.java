@@ -53,7 +53,7 @@ public class Reminder {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Reminder)) {
             return false;
         }
 

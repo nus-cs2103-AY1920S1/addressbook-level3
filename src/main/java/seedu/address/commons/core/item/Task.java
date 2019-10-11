@@ -68,7 +68,7 @@ public class Task {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
