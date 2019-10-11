@@ -11,6 +11,7 @@ package seedu.address.logic.commands.switchmode;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.ModeEnum;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -47,6 +48,11 @@ public class StartCommand extends SwitchCommand {
 
     public StartCommand(String wordBankName) {
         this.wordBankName = wordBankName;
+    }
+
+    @Override
+    public ModeEnum getNewMode() {
+        return ModeEnum.GAME;
     }
 
     @Override

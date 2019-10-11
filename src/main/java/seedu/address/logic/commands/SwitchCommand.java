@@ -8,4 +8,6 @@ import seedu.address.model.Model;
  */
 public abstract class SwitchCommand extends Command {
     public abstract CommandResult execute(Model model) throws CommandException;
+
+    public abstract ModeEnum getNewMode();
 }

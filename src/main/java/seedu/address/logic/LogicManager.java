@@ -10,6 +10,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;
+import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.switchmode.HomeCommand;
 import seedu.address.logic.commands.switchmode.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,11 +34,13 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
 
     private boolean gameStarted;
+    private ModeEnum mode;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.gameStarted = false;
+        this.mode = ModeEnum.APP;
         /*
         Step 9.
         this.game = game //get from constructor
@@ -64,6 +68,9 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         //commandResult = command.execute(model);
+        if (command instanceof SwitchCommand) {
+            this.mode = ((SwitchCommand) command).getNewMode();
+        }
         if (command instanceof GameCommand || command instanceof StartCommand) {
             //Game logic
             if (command instanceof StartCommand) {
