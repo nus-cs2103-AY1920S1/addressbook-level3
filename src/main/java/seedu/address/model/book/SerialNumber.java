@@ -32,6 +32,16 @@ public class SerialNumber implements Comparable<SerialNumber> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Converts a serial number to an integer (for comparing).
+     *
+     * @return an integer represented by the given serial number.
+     */
+    public int serialNumberToInt() {
+        assert this.value.length() > 0 : "Invalid serial number";
+        return Integer.parseInt(this.toString().substring(1));
+    }
+
     @Override
     public String toString() {
         return value;
@@ -46,9 +56,7 @@ public class SerialNumber implements Comparable<SerialNumber> {
 
     @Override
     public int compareTo(SerialNumber b) {
-        return Integer.compare(
-                Integer.parseInt(this.toString().substring(1)), Integer.parseInt(b.toString().substring(1))
-        );
+        return Integer.compare(this.serialNumberToInt(), b.serialNumberToInt());
     }
 
     @Override

@@ -39,14 +39,15 @@ public class SerialNumberGenerator {
             return serialNumber;
         }
         int key = serialNumberTree.size();
-        String serialNumberKeyString = PREFIX + getPadding(key) + key;
-        SerialNumber keyCompare = new SerialNumber(serialNumberKeyString);
-        SerialNumber floorIndex = serialNumberTree.floor(keyCompare);
-        int newIndex = Integer.parseInt(floorIndex.toString().substring(1)) + 1;
-        String newSerialNumberString = PREFIX + getPadding(newIndex) + newIndex;
-        SerialNumber newSerialNumber = new SerialNumber(newSerialNumberString);
+        SerialNumber keyCompare = constructSerialNumberFromInt(key);
+        int newIndex = serialNumberTree.floor(keyCompare).serialNumberToInt() + 1;
+        SerialNumber newSerialNumber = constructSerialNumberFromInt(newIndex);
         serialNumberTree.add(newSerialNumber);
         return newSerialNumber;
+    }
+
+    public static SerialNumber constructSerialNumberFromInt(int k) {
+        return new SerialNumber(PREFIX + getPadding(k) + k);
     }
 
     private static String getPadding(int index) {
