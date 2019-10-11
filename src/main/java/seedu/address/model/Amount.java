@@ -75,7 +75,7 @@ public class Amount {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && cents == (((Amount) other).cents)); // state check
+                && valueInCents == (((Amount) other).valueInCents)); // state check
     }
 
     @Override
