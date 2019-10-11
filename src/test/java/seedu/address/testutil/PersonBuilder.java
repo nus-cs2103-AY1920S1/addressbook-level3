@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -10,6 +12,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * A utility class to help with building Person objects.
@@ -26,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Collection<VisitTodo> visitTodos;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +37,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        visitTodos = new LinkedHashSet<>();
     }
 
     /**
@@ -44,6 +49,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        visitTodos = new LinkedHashSet<>(personToCopy.getVisitTodos());
     }
 
     /**
@@ -86,8 +92,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code visitTodos} into a {@code Collection<VisitTodo>}
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withVisitTodos(String ... visitTodos) {
+        this.visitTodos = SampleDataUtil.getVisitTodos(visitTodos);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, visitTodos);
     }
 
 }

@@ -1,7 +1,9 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -29,20 +32,27 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedVisitTodo> visitTodos = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("visitTodos") List<JsonAdaptedVisitTodo> visitTodos) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (visitTodos != null) {
+            this.visitTodos.addAll(visitTodos);
         }
     }
 
@@ -56,6 +66,9 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
+        visitTodos.addAll(source.getVisitTodos().stream()
+                .map(JsonAdaptedVisitTodo::new)
                 .collect(Collectors.toList()));
     }
 
@@ -103,7 +116,13 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        final List<VisitTodo> visitTodoList = new ArrayList<>();
+        for (JsonAdaptedVisitTodo visitTodo : visitTodos) {
+            visitTodoList.add(visitTodo.toModelType());
+        }
+        final Collection<VisitTodo> modelVisitTodos = new LinkedHashSet<VisitTodo>(visitTodoList);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelVisitTodos);
     }
 
 }

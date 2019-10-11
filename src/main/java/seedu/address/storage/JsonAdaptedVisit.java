@@ -12,7 +12,7 @@ import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
-import seedu.address.model.visittask.VisitTaskList;
+import seedu.address.model.visittask.UniqueVisitTaskList;
 
 /**
  * Jackson-friendly version of {@link Visit}.
@@ -60,7 +60,7 @@ class JsonAdaptedVisit {
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
     public Visit toModelType() throws IllegalValueException {
-        final VisitTaskList modelVisitTasks = new VisitTaskList();
+        final UniqueVisitTaskList modelVisitTasks = new UniqueVisitTaskList();
         for (JsonAdaptedVisitTask visitTask : visitTasks) {
             modelVisitTasks.add(visitTask.toModelType());
         }

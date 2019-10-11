@@ -2,12 +2,17 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visit.Visit;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Represents a Person in the address book.
@@ -23,17 +28,19 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Collection<VisitTodo> visitTodos = new LinkedHashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Collection<VisitTodo> visitTodos) {
+        requireAllNonNull(name, phone, email, address, tags, visitTodos);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.visitTodos.addAll(visitTodos);
     }
 
     public Name getName() {
@@ -59,6 +66,15 @@ public class Person {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    /**
+     * Returns an immutable visitTodo collection, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Collection<VisitTodo> getVisitTodos() {
+        return Collections.unmodifiableCollection(visitTodos);
+    }
+
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -89,6 +105,13 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
+
+        //Verify visit todos separately because .equals doesn't work with Collection<>
+        Iterator otherPersonVisitTodos = otherPerson.getVisitTodos().iterator();
+        for (Object obj:getVisitTodos())
+            if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next()))
+                return false;
+
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
@@ -114,6 +137,8 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Visit Todos: ");
+        getVisitTodos().forEach(builder::append);
         return builder.toString();
     }
 

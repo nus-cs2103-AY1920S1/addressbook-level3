@@ -1,15 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,6 +24,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -42,6 +42,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_PATIENT_VISIT_TODO + "VISIT_TODO]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -98,8 +99,9 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Collection<VisitTodo> updatedVisitTodos = editPersonDescriptor.getVisitTodos().orElse(personToEdit.getVisitTodos());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedVisitTodos);
     }
 
     @Override
@@ -130,6 +132,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Collection<VisitTodo> visitTodos;
 
         public EditPersonDescriptor() {}
 
@@ -143,13 +146,14 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setVisitTodos(toCopy.visitTodos);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, visitTodos);
         }
 
         public void setName(Name name) {
@@ -201,6 +205,23 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code visitTodos} to this object's {@code visitTodos}.
+         * A defensive copy of {@code visitTodos} is used internally.
+         */
+        public void setVisitTodos(Collection<VisitTodo> visitTodos) {
+            this.visitTodos = (visitTodos != null) ? new LinkedHashSet<>(visitTodos) : null;
+        }
+
+        /**
+         * Returns an unmodifiable visitTodo collection, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code visitTodos} is null.
+         */
+        public Optional<Collection<VisitTodo>> getVisitTodos() {
+            return (visitTodos != null) ? Optional.of(Collections.unmodifiableCollection(visitTodos)) : Optional.empty();
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -215,6 +236,20 @@ public class EditCommand extends Command {
 
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
+
+            if (getVisitTodos().isEmpty() == e.getVisitTodos().isEmpty()) {
+                //If both collections populated, ensure equal data
+                if (getVisitTodos().isPresent()) {
+                    //Verify visit todos separately because .equals doesn't work with Collection<>
+                    Iterator otherPersonVisitTodos = e.getVisitTodos().get().iterator();
+                    for (Object obj : getVisitTodos().get())
+                        if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next()))
+                            return false;
+                }
+            } else {
+                //One empty, one populated, different
+                return false;
+            }
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

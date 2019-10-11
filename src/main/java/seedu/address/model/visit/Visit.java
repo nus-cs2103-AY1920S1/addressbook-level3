@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.visittask.VisitTaskList;
+import seedu.address.model.visittask.UniqueVisitTaskList;
 
 /**
  * Represents a Visit in the application.
@@ -15,13 +15,13 @@ public class Visit {
     private final Remark remark;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
-    private final VisitTaskList visitTasks;
+    private final UniqueVisitTaskList visitTasks;
 
     /**
      * Every field must be present and not null.
      */
     public Visit(Remark remark, StartDateTime startDateTime,
-                 EndDateTime endDateTime, VisitTaskList visitTasks) {
+                 EndDateTime endDateTime, UniqueVisitTaskList visitTasks) {
         requireAllNonNull(remark, startDateTime, endDateTime, visitTasks);
         this.remark = remark;
         this.startDateTime = startDateTime;
@@ -44,7 +44,7 @@ public class Visit {
     /**
      * Returns a VisitTaskList.
      */
-    public VisitTaskList getVisitTasks() {
+    public UniqueVisitTaskList getVisitTasks() {
         return visitTasks;
     }
 

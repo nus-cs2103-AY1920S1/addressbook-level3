@@ -12,25 +12,25 @@ import seedu.address.model.visittask.exceptions.DuplicateVisitTaskException;
 import seedu.address.model.visittask.exceptions.VisitTaskNotFoundException;
 
 /**
- * A list of visits that enforces uniqueness between its elements and does not allow nulls.
- * A visit is considered unique by comparing using {@code Visit#isSameVisitTask(Visit)}.
- * As such, adding and updating of visits uses Visit#isSameVisitTask(Visit) for
- * equality so as to ensure that the visit being added or updated is unique in terms of identity
- * in the UniqueVisitList. However, the removal of a visit uses Visit#equals(Object) so
- * as to ensure that the visit with exactly the same fields will be removed.
+ * A list of visitTasks that enforces uniqueness between its elements and does not allow nulls.
+ * A visit task is considered unique by comparing using {@code VisitTask#isSameVisitTask(Visit)}.
+ * As such, adding and updating of visitTasks uses VisitTask#isSameVisitTask(Visit) for
+ * equality so as to ensure that the visit task being added or updated is unique in terms of identity
+ * in the UniqueVisitList. However, the removal of a visit task uses VisitTask#equals(Object) so
+ * as to ensure that the visit task with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see VisitTask#isSameVisitTask(VisitTask)
  */
-public class VisitTaskList implements Iterable<VisitTask> {
+public class UniqueVisitTaskList implements Iterable<VisitTask> {
 
     private final ObservableList<VisitTask> internalList = FXCollections.observableArrayList();
     private final ObservableList<VisitTask> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent visit as the given argument.
+     * Returns true if the list contains an equivalent visit task as the given argument.
      */
     public boolean contains(VisitTask toCheck) {
         requireNonNull(toCheck);
@@ -38,8 +38,8 @@ public class VisitTaskList implements Iterable<VisitTask> {
     }
 
     /**
-     * Adds a visit to the list.
-     * The visit must not already exist in the list.
+     * Adds a visit task to the list.
+     * The visit task must not already exist in the list.
      */
     public void add(VisitTask toAdd) {
         requireNonNull(toAdd);
@@ -50,9 +50,9 @@ public class VisitTaskList implements Iterable<VisitTask> {
     }
 
     /**
-     * Replaces the visit {@code target} in the list with {@code editedVisit}.
+     * Replaces the visit task {@code target} in the list with {@code editedVisitTask}.
      * {@code target} must exist in the list.
-     * The visit identity of {@code editedVisit} must not be the same as another existing visit in the list.
+     * The visit task identity of {@code editedVisitTask} must not be the same as another existing visit task in the list.
      */
     public void setVisit(VisitTask target, VisitTask editedVisitTask) {
         requireAllNonNull(target, editedVisitTask);
@@ -70,8 +70,8 @@ public class VisitTaskList implements Iterable<VisitTask> {
     }
 
     /**
-     * Removes the equivalent visit from the list.
-     * The visit must exist in the list.
+     * Removes the equivalent visit task from the list.
+     * The visit task must exist in the list.
      */
     public void remove(VisitTask toRemove) {
         requireNonNull(toRemove);
@@ -80,18 +80,18 @@ public class VisitTaskList implements Iterable<VisitTask> {
         }
     }
 
-    public void setVisits(VisitTaskList replacement) {
+    public void setVisits(UniqueVisitTaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code visits}.
-     * {@code visits} must not contain duplicate visits.
+     * Replaces the contents of this list with {@code visitTasks}.
+     * {@code visitTasks} must not contain duplicate visitTasks.
      */
     public void setVisits(List<VisitTask> visitTasks) {
         requireAllNonNull(visitTasks);
-        if (!visitsAreUnique(visitTasks)) {
+        if (!visitTasksAreUnique(visitTasks)) {
             throw new DuplicateVisitTaskException();
         }
 
@@ -113,8 +113,8 @@ public class VisitTaskList implements Iterable<VisitTask> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VisitTaskList // instanceof handles nulls
-                        && internalList.equals(((VisitTaskList) other).internalList));
+                || (other instanceof UniqueVisitTaskList // instanceof handles nulls
+                        && internalList.equals(((UniqueVisitTaskList) other).internalList));
     }
 
     @Override
@@ -123,9 +123,9 @@ public class VisitTaskList implements Iterable<VisitTask> {
     }
 
     /**
-     * Returns true if {@code visits} contains only unique visits.
+     * Returns true if {@code visitTasks} contains only unique visitTasks.
      */
-    private boolean visitsAreUnique(List<VisitTask> visitTasks) {
+    private boolean visitTasksAreUnique(List<VisitTask> visitTasks) {
         for (int i = 0; i < visitTasks.size() - 1; i++) {
             for (int j = i + 1; j < visitTasks.size(); j++) {
                 if (visitTasks.get(i).isSameVisitTask(visitTasks.get(j))) {
