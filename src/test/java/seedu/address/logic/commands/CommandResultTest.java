@@ -51,4 +51,20 @@ public class CommandResultTest {
         // different date value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", 0, "false").hashCode());
     }
+
+    @Test
+    public void getters() {
+        CommandResult commandResult = new CommandResult("feedback", false, false, false, false);
+
+        assertEquals(commandResult.isAddVisit(), false);
+        assertEquals(commandResult.isDeleteVisit(), false);
+        assertEquals(commandResult.isExit(), false);
+        assertEquals(commandResult.isShowHelp(), false);
+
+        CommandResult commandResult2 = new CommandResult("feedback", 3, "12/12/2012");
+
+        assertEquals(commandResult2.getIdx(), 3);
+        assertEquals(commandResult2.getDate(), "12/12/2012");
+    }
+
 }
