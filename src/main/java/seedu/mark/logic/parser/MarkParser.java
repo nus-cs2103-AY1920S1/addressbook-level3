@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.mark.logic.commands.AddCommand;
+import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
@@ -71,6 +72,9 @@ public class MarkParser {
 
         case TabCommand.COMMAND_WORD:
             return new TabCommandParser().parse(arguments);
+
+        case AddFolderCommand.COMMAND_WORD:
+            return new AddFolderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

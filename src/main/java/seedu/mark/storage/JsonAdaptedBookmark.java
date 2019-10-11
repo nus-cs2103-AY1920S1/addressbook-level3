@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
@@ -27,20 +28,22 @@ class JsonAdaptedBookmark {
     private final String url;
     private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String folder;
 
     /**
      * Constructs a {@code JsonAdaptedBookmark} with the given bookmark details.
      */
     @JsonCreator
     public JsonAdaptedBookmark(@JsonProperty("name") String name,
-                               @JsonProperty("url") String url, @JsonProperty("remark") String remark,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        @JsonProperty("url") String url, @JsonProperty("remark") String remark,
+        @JsonProperty("folder") String folder, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.url = url;
         this.remark = remark;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.folder = folder;
     }
 
     /**
@@ -53,6 +56,7 @@ class JsonAdaptedBookmark {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        folder = source.getFolder().folderName;
     }
 
     /**
@@ -91,7 +95,15 @@ class JsonAdaptedBookmark {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(bookmarkTags);
-        return new Bookmark(modelName, modelUrl, modelRemark, modelTags);
+
+        if (folder == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Folder.class.getSimpleName()));
+        }
+        if (!Folder.isValidFolder(folder)) {
+            throw new IllegalValueException(Folder.MESSAGE_CONSTRAINTS);
+        }
+        final Folder modelFolder = new Folder(folder);
+        return new Bookmark(modelName, modelUrl, modelRemark, modelFolder, modelTags);
     }
 
 }
