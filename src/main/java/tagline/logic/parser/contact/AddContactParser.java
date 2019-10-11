@@ -14,12 +14,12 @@ import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.person.Address;
-import tagline.model.person.Description;
-import tagline.model.person.Email;
-import tagline.model.person.Name;
-import tagline.model.person.Person;
-import tagline.model.person.Phone;
+import tagline.model.contact.Address;
+import tagline.model.contact.Contact;
+import tagline.model.contact.Description;
+import tagline.model.contact.Email;
+import tagline.model.contact.Name;
+import tagline.model.contact.Phone;
 
 /**
  * Parses input arguments and creates a new CreateContactCommand object
@@ -73,9 +73,9 @@ public class AddContactParser implements Parser<CreateContactCommand> {
             description = ContactParserUtil.parseDescription("");
         }
 
-        Person person = new Person(name, phone, email, address, description);
+        Contact contact = new Contact(name, phone, email, address, description);
 
-        return new CreateContactCommand(person);
+        return new CreateContactCommand(contact);
     }
 
     /**

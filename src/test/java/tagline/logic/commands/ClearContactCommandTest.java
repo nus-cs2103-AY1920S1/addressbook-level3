@@ -1,7 +1,7 @@
 package tagline.logic.commands;
 
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalPersons.getTypicalAddressBook;
+import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

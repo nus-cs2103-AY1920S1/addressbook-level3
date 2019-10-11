@@ -3,7 +3,7 @@ package tagline.logic.parser;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class DeleteContactParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteContactCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeleteContactCommand(INDEX_FIRST_CONTACT));
     }
 
     @Test

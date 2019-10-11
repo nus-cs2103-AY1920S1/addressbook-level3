@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.parser.contact.ContactParserUtil.MESSAGE_INVALID_INDEX;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import tagline.logic.parser.contact.ContactParserUtil;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.person.Address;
-import tagline.model.person.Email;
-import tagline.model.person.Name;
-import tagline.model.person.Phone;
+import tagline.model.contact.Address;
+import tagline.model.contact.Email;
+import tagline.model.contact.Name;
+import tagline.model.contact.Phone;
 import tagline.model.tag.Tag;
 
 public class ContactParserUtilTest {
@@ -51,10 +51,10 @@ public class ContactParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ContactParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_CONTACT, ContactParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ContactParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_CONTACT, ContactParserUtil.parseIndex("  1  "));
     }
 
     @Test

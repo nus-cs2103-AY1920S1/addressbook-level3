@@ -7,7 +7,7 @@ import java.util.Arrays;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.person.NameContainsKeywordsPredicate;
+import tagline.model.contact.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindContactCommand object

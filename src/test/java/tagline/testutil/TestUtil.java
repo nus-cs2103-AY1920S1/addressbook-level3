@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import tagline.commons.core.index.Index;
 import tagline.model.Model;
-import tagline.model.person.Person;
+import tagline.model.contact.Contact;
 
 /**
  * A utility class for test cases.
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the contact in the {@code model}'s contact list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredContactList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the contact in the {@code model}'s contact list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredContactList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the contact in the {@code model}'s contact list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Contact getContact(Model model, Index index) {
+        return model.getFilteredContactList().get(index.getZeroBased());
     }
 }

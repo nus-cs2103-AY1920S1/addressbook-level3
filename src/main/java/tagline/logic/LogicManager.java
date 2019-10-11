@@ -15,7 +15,7 @@ import tagline.logic.parser.TaglineParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyAddressBook;
-import tagline.model.person.Person;
+import tagline.model.contact.Contact;
 import tagline.storage.Storage;
 
 /**
@@ -58,8 +58,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Contact> getFilteredContactList() {
+        return model.getFilteredContactList();
     }
 
     @Override

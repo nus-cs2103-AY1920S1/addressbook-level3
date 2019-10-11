@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.parser.contact.FindContactParser;
-import tagline.model.person.NameContainsKeywordsPredicate;
+import tagline.model.contact.NameContainsKeywordsPredicate;
 
 public class FindContactParserTest {
 

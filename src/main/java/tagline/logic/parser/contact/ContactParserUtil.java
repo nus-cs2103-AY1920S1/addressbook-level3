@@ -9,11 +9,11 @@ import java.util.Set;
 import tagline.commons.core.index.Index;
 import tagline.commons.util.StringUtil;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.person.Address;
-import tagline.model.person.Description;
-import tagline.model.person.Email;
-import tagline.model.person.Name;
-import tagline.model.person.Phone;
+import tagline.model.contact.Address;
+import tagline.model.contact.Description;
+import tagline.model.contact.Email;
+import tagline.model.contact.Name;
+import tagline.model.contact.Phone;
 import tagline.model.tag.Tag;
 
 /**
