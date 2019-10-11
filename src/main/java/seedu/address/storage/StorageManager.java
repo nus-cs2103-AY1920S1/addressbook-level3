@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ActivityBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -19,12 +20,17 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private ActivityBookStorage activityBookStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(
+            AddressBookStorage addressBookStorage,
+            UserPrefsStorage userPrefsStorage,
+            ActivityBookStorage activityBookStorage
+    ) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.activityBookStorage = activityBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +80,20 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ ActivityBook methods ==============================
+
+    @Override
+    public Path getActivityBookFilePath() {
+        return activityBookStorage.getActivityBookFilePath();
+    }
+
+    @Override
+    public Optional<ActivityBook> readActivityBook() throws DataConversionException, IOException {
+        return activityBookStorage.readActivityBook();
+    }
+
+    @Override
+    public void saveActivityBook(ActivityBook activityBook) throws IOException {
+        activityBookStorage.saveActivityBook(activityBook);
+    }
 }

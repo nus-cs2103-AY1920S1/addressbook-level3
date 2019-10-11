@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
@@ -45,6 +46,11 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Sets the user prefs' activity book file path.
+     */
+    void setActivityBookFilePath(Path activityBookFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
@@ -78,6 +84,31 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Replaces activity book data with the data in {@code activityBook}.
+     */
+    void setActivityBook(ActivityBook activityBook);
+
+    /** Returns the ActivityBook */
+    ActivityBook getActivityBook();
+
+    /**
+     * Deletes the given activity.
+     * The activity must exist in the activity book.
+     */
+    void deleteActivity(Activity target);
+
+    /**
+     * Adds the given activity.
+     */
+    void addActivity(Activity activity);
+
+    /**
+     * Replaces the given activity {@code target} with {@code editedActivity}.
+     * {@code target} must exist in the activity book.
+     */
+    void setActivity(Activity target, Activity editedActivity);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

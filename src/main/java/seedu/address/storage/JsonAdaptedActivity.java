@@ -19,7 +19,7 @@ public class JsonAdaptedActivity {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
 
     private final String title;
-    private final ArrayList<JsonAdaptedPerson> participants = new ArrayList<JsonAdaptedPerson>();
+    private final ArrayList<Integer> participants = new ArrayList<Integer>();
     private final ArrayList<JsonAdaptedExpense> expenses = new ArrayList<JsonAdaptedExpense>();
 
     /**
@@ -27,7 +27,7 @@ public class JsonAdaptedActivity {
      */
     @JsonCreator
     public JsonAdaptedActivity(@JsonProperty("title") String title,
-                               @JsonProperty("participants") ArrayList<JsonAdaptedPerson> participants) {
+                               @JsonProperty("participants") ArrayList<Integer> participants) {
         this.title = title;
         if (participants != null) {
             this.participants.addAll(participants);
@@ -39,9 +39,7 @@ public class JsonAdaptedActivity {
      */
     public JsonAdaptedActivity(Activity source) {
         title = source.getTitle().title;
-        participants.addAll(source.getParticipants().stream()
-                .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList()));
+        participants.addAll(source.getParticipantIds());
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
@@ -61,12 +59,8 @@ public class JsonAdaptedActivity {
         // converting arraylist to array for vararg
         Expense[] expenditures = activityExpenses.toArray(new Expense[0]);
 
-        final ArrayList<Person> activityParticipants = new ArrayList<>();
-        for (JsonAdaptedPerson person : participants) {
-            activityParticipants.add(person.toModelType());
-        }
         // converting arraylist to array for vararg
-        Person[] people = activityParticipants.toArray(new Person[0]);
+        Integer[] participantIds = participants.toArray(new Integer[0]);
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
@@ -75,7 +69,9 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
         final Title activityTitle = new Title(title);
+        Activity activity = new Activity(activityTitle, participantIds);
+        activity.addExpense(expenditures);
 
-        return new Activity(activityTitle, people).addExpense(expenditures);
+        return activity;
     }
 }
