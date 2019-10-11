@@ -17,8 +17,7 @@ public class Amount {
     public static final String CENTS_REGEX = "(\\.\\d\\d)"; // '.' followed by exactly two numerical digits
     public static final String DOLLARS_REGEX = "([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally
-    public final String value;
-    public final long cents;
+    public final long valueInCents;
 
     /**
      * Constructs a {@code Amount}.
@@ -28,7 +27,12 @@ public class Amount {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        value = amount;
+        String[] amounts = amount.split(".");
+        if (amounts.length == 1) { // String contains only dollar and no cents
+            valueInCents = Long.parseLong(amount) * 100;
+        } else { // String contains only cents
+            valueInCents = Long.parseLong(amounts[0]) * 100 + Long.parseLong(amounts[1]);
+        }
     }
 
     /**
@@ -40,19 +44,43 @@ public class Amount {
 
     @Override
     public String toString() {
-        return value;
+        long dollars = valueInCents / 100;
+        long cents = valueInCents % 100;
+        String centsString = convertCentsToString(cents);
+        return "$" + dollars + "." + centsString;
+    }
+
+    /**
+     * Converts a value in cents to a two character {@code String}.
+     * Precondition: The input must be less than 100.
+     *
+     * @param cents The number of cents in an {@code Amount} that is less than 100.
+     * @return A two character {@code String}
+     */
+    private String convertCentsToString(long cents) {
+        if (cents == 0) {
+            return "00";
+        } else if (cents < 10) {
+            return "0" + cents;
+        } else {
+            return "" + cents;
+        }
+    }
+
+    public long getValueInCents() {
+        return valueInCents;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && value.equals(((Amount) other).value)); // state check
+                && cents == (((Amount) other).cents)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return toString().hashCode();
     }
 
 }
