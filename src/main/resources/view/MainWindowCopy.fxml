@@ -50,7 +50,6 @@
                <children>
                   <VBox GridPane.columnIndex="1">
                      <children>
-            
                     <StackPane fx:id="commandBoxPlaceholder" style="-fx-border-color: #383838;" styleClass="pane-with-border">
                       <padding>
                         <Insets bottom="5.0" right="10.0" top="5.0" />
@@ -59,7 +58,6 @@
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                     </StackPane>
-            
                                 <StackPane fx:id="resultDisplayPlaceholder" style="-fx-border-color: #8C6262; -fx-border-radius: 5px; -fx-border-width: 3px; -fx-background-radius: 5px;" styleClass="pane-with-border">
                            <opaqueInsets>
                               <Insets />
