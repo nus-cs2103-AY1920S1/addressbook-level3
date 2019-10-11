@@ -84,12 +84,6 @@ public interface Model {
     FilteredList<Person> getFilteredPersonList();
 
     /**
-     * Refreshes the filter of the filtered person list to filter by the given {@code predicate}.
-     * This will update the indexes of patients if it is modified.
-     */
-    void refreshFilteredPersonList();
-
-    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */

@@ -136,9 +136,13 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
-    @Override
-    public void refreshFilteredPersonList() {
-        //In order to refresh predicate, need to reset it to show all persons first
+    /**
+     * Refreshes the filter of the filtered patient list to filter by the given {@code predicate}.
+     * This will update the indexes of patients if a patient outside of the filtered list has been removed.
+     */
+    private void refreshFilteredPersonList() {
+        //In order to refresh predicate, need to reset it to show all persons first.
+        //Otherwise it will not change anything
         filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
         filteredPersons.setPredicate(previousPredicate);
     }
