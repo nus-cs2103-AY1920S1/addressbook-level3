@@ -33,7 +33,6 @@ class TabCommandParserTest {
         assertParseFailure(parser, "4", TabCommand.MESSAGE_INVALID_INDEX);
 
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, null, String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
     }
 
 }
