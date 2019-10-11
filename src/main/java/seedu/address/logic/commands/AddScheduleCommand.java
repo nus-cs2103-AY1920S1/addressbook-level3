@@ -23,8 +23,7 @@ public class AddScheduleCommand extends Command {
     public static final String COMMAND_WORD = "add-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a schedule to an existing order in the SMl "
-            + "by the index number used in the displayed order list. "
-            + "Existing schedule will be overwritten by the input schedule.\n"
+            + "by the index number used in the displayed order list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_CALENDAR + "YYYY.MM.DD.HH.MM "
             + PREFIX_VENUE + "VENUE "
@@ -38,7 +37,9 @@ public class AddScheduleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists in SML.";
     public static final String MESSAGE_ORDER_DOES_NOT_EXIST = "This order does not exists in SML.";
-    public static final String MESSAGE_ORDER_ALREADY_SCHEDULED = "This order is already scheduled in SML.";
+    public static final String MESSAGE_ORDER_SCHEDULED = "This order is already scheduled in SML.";
+    public static final String MESSAGE_ORDER_CANCELLED = "This order is already cancelled in SML.";
+    public static final String MESSAGE_ORDER_COMPLETED = "This order is already completed in SML.";
 
     private final Schedule toAdd;
     private final Index orderIndex;
@@ -65,12 +66,19 @@ public class AddScheduleCommand extends Command {
         }
 
         Order orderToSchedule = lastShownList.get(orderIndex.getZeroBased());
-        if (orderToSchedule.getStatus().equals(Status.SCHEDULED)) {
-            throw new CommandException(MESSAGE_ORDER_ALREADY_SCHEDULED);
+        switch (orderToSchedule.getStatus()) {
+        case SCHEDULED:
+            throw new CommandException(MESSAGE_ORDER_SCHEDULED);
+        case COMPLETED:
+            throw new CommandException(MESSAGE_ORDER_COMPLETED);
+        case CANCELLED:
+            throw new CommandException(MESSAGE_ORDER_CANCELLED);
+        default:
+            // do nothing
         }
 
         Order scheduledOrder = new Order(orderToSchedule.getCustomer(), orderToSchedule.getPhone(),
-                orderToSchedule.getPrice(), orderToSchedule.getStatus(), toAdd, orderToSchedule.getTags());
+                orderToSchedule.getPrice(), Status.SCHEDULED, toAdd, orderToSchedule.getTags());
 
         model.setOrder(orderToSchedule, scheduledOrder);
         model.addSchedule(toAdd);
