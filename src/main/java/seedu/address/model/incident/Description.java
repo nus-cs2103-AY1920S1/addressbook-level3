@@ -1,5 +1,8 @@
 package seedu.address.model.incident;
 
+/**
+ * Represents the description of the incident.
+ */
 public class Description {
     private String desc;
 

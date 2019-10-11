@@ -45,15 +45,19 @@ public class Incident {
      */
     public static District promptForLocation() {
         System.out.println("Enter location:"); //need to change to GUI prompt
-        Scanner sc = new Scanner(System.in);   //need to change to GUI input
-       int dist = Integer.parseInt(sc.next());
-        while(!District.isValidDistrict(dist)) {
+        Scanner sc = new Scanner(System.in); //need to change to GUI input
+        int dist = Integer.parseInt(sc.next());
+        while (!District.isValidDistrict(dist)) {
             System.out.println("Please enter a valid district");
             dist = Integer.parseInt(sc.next());
         }
         return new District(dist);
     }
 
+    /**
+     * static method to prompt operator for incident description
+     * @return a new description object
+     */
     public static Description promptForDescription() {
         System.out.println("Enter incident description now? y/n"); //change to GUI
         Scanner sc = new Scanner(System.in); //change to GUI
