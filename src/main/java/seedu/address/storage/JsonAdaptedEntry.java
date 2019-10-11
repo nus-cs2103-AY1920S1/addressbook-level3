@@ -23,9 +23,6 @@ class JsonAdaptedEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Entry's %s field is missing!";
 
     private final String desc;
-//    private final String phone;
-//    private final String email;
-//    private final String address;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -37,9 +34,7 @@ class JsonAdaptedEntry {
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
-//        this.phone = phone;
-//        this.email = email;
-//        this.address = address;
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,9 +45,6 @@ class JsonAdaptedEntry {
      */
     public JsonAdaptedEntry(Entry source) {
         desc = source.getDesc().fullDesc;
-//        phone = source.getPhone().value;
-//        email = source.getEmail().value;
-//        address = source.getAddress().value;
         amt = source.getAmount().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -71,7 +63,8 @@ class JsonAdaptedEntry {
         }
 
         if (desc == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -79,29 +72,6 @@ class JsonAdaptedEntry {
         final Description modelDesc = new Description(desc);
 
         final Amount modelAmt = new Amount(amt);
-//        if (phone == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-//        }
-//        if (!Phone.isValidPhone(phone)) {
-//            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-//        }
-//        final Phone modelPhone = new Phone(phone);
-//
-//        if (email == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-//        }
-//        if (!Email.isValidEmail(email)) {
-//            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-//        }
-//        final Email modelEmail = new Email(email);
-//
-//        if (address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-//        }
-//        if (!Address.isValidAddress(address)) {
-//            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-//        }
-//        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         return new Entry(modelDesc, modelAmt, modelTags);

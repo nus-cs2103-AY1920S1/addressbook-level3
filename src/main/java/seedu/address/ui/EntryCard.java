@@ -36,8 +36,6 @@ public class EntryCard extends UiPart<Region> {
     private Label time;
     @FXML
     private Label amt;
-//    @FXML
-//    private Label email;
     @FXML
     private FlowPane tags;
 
@@ -48,8 +46,7 @@ public class EntryCard extends UiPart<Region> {
         desc.setText(entry.getDesc().fullDesc);
         time.setText("16-09-2019");
         amt.setText(Double.toString(entry.getAmount().value));
-//        address.setText(person.getAddress().value);
-//        email.setText(person.getEmail().value);
+
         entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

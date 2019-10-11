@@ -1,11 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
@@ -20,11 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-//import seedu.address.model.person.Address;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
-//import seedu.address.model.person.Email;
-//import seedu.address.model.person.Phone;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.tag.Tag;
@@ -94,9 +88,6 @@ public class EditCommand extends Command {
         assert entryToEdit != null;
 
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
-//        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-//        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-//        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
@@ -127,9 +118,6 @@ public class EditCommand extends Command {
      */
     public static class EditEntryDescriptor {
         private Description desc;
-//        private Phone phone;
-//        private Email email;
-//        private Address address;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -141,9 +129,6 @@ public class EditCommand extends Command {
          */
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setDesc(toCopy.desc);
-//            setPhone(toCopy.phone);
-//            setEmail(toCopy.email);
-//            setAddress(toCopy.address);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -162,22 +147,6 @@ public class EditCommand extends Command {
         public Optional<Description> getDesc() {
             return Optional.ofNullable(desc);
         }
-
-//        public void setPhone(Phone phone) {
-//            this.phone = phone;
-//        }
-//
-//        public Optional<Phone> getPhone() {
-//            return Optional.ofNullable(phone);
-//        }
-//
-//        public void setEmail(Email email) {
-//            this.email = email;
-//        }
-//
-//        public Optional<Email> getEmail() {
-//            return Optional.ofNullable(email);
-//        }
 
         public void setAmount(Amount amt) {
             this.amt = amt;
@@ -220,9 +189,6 @@ public class EditCommand extends Command {
             EditEntryDescriptor e = (EditEntryDescriptor) other;
 
             return getDesc().equals(e.getDesc())
-//                    && getPhone().equals(e.getPhone())
-//                    && getEmail().equals(e.getEmail())
-//                    && getAddress().equals(e.getAddress())
                     && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }

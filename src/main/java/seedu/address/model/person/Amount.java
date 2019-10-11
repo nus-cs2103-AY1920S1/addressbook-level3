@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -29,9 +28,9 @@ public class Amount {
     /**
      * Returns true if a given string is a valid phone number.
      */
-//    public static boolean isValidAmount(int test) {
-//        return test.matches(VALIDATION_REGEX);
-//    }
+    //public static boolean isValidAmount(int test) {
+    //    return test.matches(VALIDATION_REGEX);
+    //}
 
     @Override
     public String toString() {
@@ -44,10 +43,5 @@ public class Amount {
                 || (other instanceof Amount) // instanceof handles nulls
                 && value == ((Amount) other).value; // state check
     }
-
-//    @Override
-//    public int hashCode() {
-//        return value.hashCode();
-//    }
 
 }

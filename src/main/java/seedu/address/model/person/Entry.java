@@ -18,8 +18,6 @@ public class Entry {
     // Identity fields
     private final Description desc;
     private final Amount amt;
-//    private final Phone phone;
-//    private final Email email;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -32,8 +30,6 @@ public class Entry {
         requireAllNonNull(desc, amount, tags);
         this.desc = desc;
         this.amt = amount;
-//        this.phone = phone;
-//        this.email = email;
         this.tags.addAll(tags);
     }
 
@@ -48,15 +44,6 @@ public class Entry {
     public String getType() {
         return "Not like this";
     }
-
-//    public Phone getPhone() {
-//        return phone;
-//    }
-//
-//    public Email getEmail() {
-//        return email;
-//    }
-
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -106,19 +93,19 @@ public class Entry {
         return Objects.hash(desc, amt, tags);
     }
 
-//    @Override
-//    public String toString() {
-//        final StringBuilder builder = new StringBuilder();
-//        builder.append(getDesc())
-//                .append(" Amount: ")
-//                .append()
-//                .append(" Email: ")
-//                .append(getEmail())
-//                .append(" Address: ")
-//                .append(" Tags: ");
-//        getTags().forEach(builder::append);
-//        return builder.toString();
-//    }
+    //@Override
+    //public String toString() {
+    //    final StringBuilder builder = new StringBuilder();
+    //    builder.append(getDesc())
+    //            .append(" Amount: ")
+    //            .append()
+    //            .append(" Email: ")
+    //            .append(getEmail())
+    //            .append(" Address: ")
+    //           .append(" Tags: ");
+    //    getTags().forEach(builder::append);
+    //    return builder.toString();
+    //}
 
 
 }

@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's name in the address book.
@@ -27,16 +26,16 @@ public class Time {
      */
     public Time(String time) {
         requireNonNull(time);
-       // checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
+        //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
         fullTime = time;
     }
 
     /**
      * Returns true if a given string is a valid name.
-//     */
-//    public static boolean isValidDescription(String test) {
-//        return test.matches(VALIDATION_REGEX);
-//    }
+     */
+    //public static boolean isValidDescription(String test) {
+    //    return test.matches(VALIDATION_REGEX);
+    //}
 
 
     @Override

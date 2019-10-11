@@ -39,9 +39,7 @@ class JsonAdaptedExpense {
         this.desc = desc;
         this.amt = amt;
         this.time = time;
-//        this.phone = phone;
-//        this.email = email;
-//        this.address = address;
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -71,37 +69,17 @@ class JsonAdaptedExpense {
         }
 
         if (desc == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDesc = new Description(desc);
+
         final Time modelTime = new Time(time);
+
         final Amount modelAmt = new Amount(amt);
-//        if (phone == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-//        }
-//        if (!Phone.isValidPhone(phone)) {
-//            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-//        }
-//        final Phone modelPhone = new Phone(phone);
-//
-//        if (email == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-//        }
-//        if (!Email.isValidEmail(email)) {
-//            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-//        }
-//        final Email modelEmail = new Email(email);
-//
-//        if (address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-//        }
-//        if (!Address.isValidAddress(address)) {
-//            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-//        }
-//        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         return new Expense(modelDesc, modelTime, modelAmt, modelTags);
