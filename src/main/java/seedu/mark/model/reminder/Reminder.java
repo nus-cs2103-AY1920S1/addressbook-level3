@@ -61,8 +61,8 @@ public class Reminder {
 
         final StringBuilder builder = new StringBuilder();
         builder.append(getNote())
-                .append(" by ")
-                .append(timeFormatter());
+                .append(" Time: ")
+                .append(getFormattedTime());
         return builder.toString();
     }
 
@@ -71,7 +71,7 @@ public class Reminder {
      *
      * @return formatted time string.
      */
-    public String timeFormatter() {
+    public String getFormattedTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         String formatTime = remindTime.format(formatter);
         return formatTime;
