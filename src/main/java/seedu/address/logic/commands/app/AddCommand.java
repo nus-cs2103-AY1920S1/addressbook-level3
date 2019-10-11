@@ -18,7 +18,7 @@ public class AddCommand extends AppCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the word bank. "
             + "Parameters: "
             + PREFIX_WORD + "WORD "
             + PREFIX_MEANING + "MEANING "
@@ -29,7 +29,7 @@ public class AddCommand extends AppCommand {
             + PREFIX_TAG + "psychic ";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank";
 
     private final Card toAdd;
 

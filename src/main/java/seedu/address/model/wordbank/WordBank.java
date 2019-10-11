@@ -10,7 +10,7 @@ import seedu.address.model.card.Card;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by Card#isSameMeaning(Card) comparison)
  */
 public class WordBank implements ReadOnlyWordBank {
 
@@ -41,7 +41,7 @@ public class WordBank implements ReadOnlyWordBank {
 
     /**
      * Replaces the contents of the card list with {@code cards}.
-     * {@code cards} must not contain any cards with the same name.
+     * {@code cards} must not contain any cards with the same meaning.
      */
     public void setCards(List<Card> cards) {
         this.cards.setCards(cards);
@@ -59,7 +59,7 @@ public class WordBank implements ReadOnlyWordBank {
     //// card-level operations
 
     /**
-     * Returns true if a card with the same name as {@code card} exists in the word bank.
+     * Returns true if a card with the same meaning as {@code card} exists in the word bank.
      */
     public boolean hasCard(Card card) {
         requireNonNull(card);
@@ -68,7 +68,7 @@ public class WordBank implements ReadOnlyWordBank {
 
     /**
      * Adds a card to the word bank.
-     * A card with the same name must not already exist in the word bank.
+     * A card with the same meaning must not already exist in the word bank.
      */
     public void addCard(Card p) {
         cards.add(p);
@@ -77,7 +77,7 @@ public class WordBank implements ReadOnlyWordBank {
     /**
      * Replaces the given card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the word bank.
-     * The card name of {@code editedCard} must not be the same as another existing card in the word bank.
+     * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
      */
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);

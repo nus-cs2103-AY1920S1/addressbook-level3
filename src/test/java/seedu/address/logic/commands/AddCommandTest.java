@@ -53,8 +53,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Card abra = new CardBuilder().withName("Abra").build();
-        Card butterfree = new CardBuilder().withName("Butterfree").build();
+        Card abra = new CardBuilder().withWord("Abra").build();
+        Card butterfree = new CardBuilder().withWord("Butterfree").build();
         AddCommand addAbraCommand = new AddCommand(abra);
         AddCommand addButterfreeCommand = new AddCommand(butterfree);
 
@@ -174,7 +174,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return this.card.isSameName(card);
+            return this.card.isSameMeaning(card);
         }
     }
 
@@ -187,7 +187,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameName);
+            return cardsAdded.stream().anyMatch(card::isSameMeaning);
         }
 
         @Override

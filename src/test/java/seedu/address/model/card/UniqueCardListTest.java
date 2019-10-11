@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PSYCHIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
@@ -43,9 +44,9 @@ public class UniqueCardListTest {
     }
 
     @Test
-    public void contains_cardWithSameNameInList_returnsTrue() {
+    public void contains_cardWithSameMeaningInList_returnsTrue() {
         uniqueCardList.add(ABRA);
-        Card editedAbra = new CardBuilder(ABRA).withMeaning(VALID_MEANING_BUTTERFREE)
+        Card editedAbra = new CardBuilder(ABRA).withWord(VALID_WORD_BUTTERFREE)
                 .withTags(VALID_TAG_PSYCHIC)
                 .build();
         assertTrue(uniqueCardList.contains(editedAbra));

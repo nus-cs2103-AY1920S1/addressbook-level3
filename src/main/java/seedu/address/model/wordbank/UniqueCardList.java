@@ -15,14 +15,14 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
- * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding and updating of
- * cards uses Card#isSameName(Card) for equality so as to ensure that the person being added or updated is
+ * A card is considered unique by comparing using {@code Card#isSameMeaning(Card)}. As such, adding and updating of
+ * cards uses Card#isSameMeaning(Card) for equality so as to ensure that the person being added or updated is
  * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.card.Card#isSameName(seedu.address.model.card.Card)
+ * @see seedu.address.model.card.Card#isSameMeaning(seedu.address.model.card.Card)
  */
 public class UniqueCardList implements Iterable<Card> {
 
@@ -31,11 +31,11 @@ public class UniqueCardList implements Iterable<Card> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains a card with the same name.
+     * Returns true if the list contains a card with the same meaning.
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameName);
+        return internalList.stream().anyMatch(toCheck::isSameMeaning);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UniqueCardList implements Iterable<Card> {
             throw new CardNotFoundException();
         }
 
-        if (!target.isSameName(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameMeaning(editedPerson) && contains(editedPerson)) {
             throw new DuplicateCardException();
         }
 
@@ -138,7 +138,7 @@ public class UniqueCardList implements Iterable<Card> {
     private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).isSameName(cards.get(j))) {
+                if (cards.get(i).isSameMeaning(cards.get(j))) {
                     return false;
                 }
             }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ABRA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BUTTERFREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING_BUTTERFREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -54,10 +53,10 @@ public class EditCommandTest {
         Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
 
         CardBuilder cardInList = new CardBuilder(lastCard);
-        Card editedCard = cardInList.withMeaning(VALID_MEANING_BUTTERFREE).withTags(VALID_TAG_BUG).build();
+        Card editedCard = cardInList.withWord(VALID_WORD_BUTTERFREE).withTags(VALID_TAG_BUG).build();
 
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withMeaning(VALID_MEANING_BUTTERFREE).withTags(VALID_TAG_BUG).build();
+                .withWord(VALID_WORD_BUTTERFREE).withTags(VALID_TAG_BUG).build();
         EditCommand editCommand = new EditCommand(indexLastCard, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
@@ -85,9 +84,9 @@ public class EditCommandTest {
         showCardAtIndex(model, INDEX_FIRST_PERSON);
 
         Card cardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Card editedCard = new CardBuilder(cardInFilteredList).withMeaning(VALID_MEANING_BUTTERFREE).build();
+        Card editedCard = new CardBuilder(cardInFilteredList).withWord(VALID_WORD_BUTTERFREE).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditCardDescriptorBuilder().withMeaning(VALID_MEANING_BUTTERFREE).build());
+                new EditCardDescriptorBuilder().withWord(VALID_WORD_BUTTERFREE).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 

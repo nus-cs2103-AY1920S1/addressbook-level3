@@ -31,7 +31,7 @@ public class DeleteCommandTest {
         Card personToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getWordBank(), new UserPrefs());
         expectedModel.deleteCard(personToDelete);
@@ -54,7 +54,7 @@ public class DeleteCommandTest {
         Card personToDelete = model.getFilteredCardList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARD_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(model.getWordBank(), new UserPrefs());
         expectedModel.deleteCard(personToDelete);

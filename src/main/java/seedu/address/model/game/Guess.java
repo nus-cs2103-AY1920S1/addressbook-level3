@@ -1,15 +1,19 @@
 package seedu.address.model.game;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.card.Word;
 
 /**
- * Represents a user's guess.
+ * Represents a user's guess during a Game session.
  */
 public class Guess {
 
+    // User's input guessString cannot be changed once assigned.
     private final String guessString;
 
     public Guess(String guessString) {
+        requireAllNonNull(guessString);
         this.guessString = guessString;
     }
 
@@ -21,8 +25,6 @@ public class Guess {
      * Returns true if the {@code word} matches the {@code guessString}.
      */
     public boolean matches(Word word) {
-        //  System.out.println("Guess String is: " + guessString );
-        //  System.out.println("Answer String is: " + answer.getAnswerString());
         return guessString.toLowerCase().equals(word.value.toLowerCase());
     }
 }

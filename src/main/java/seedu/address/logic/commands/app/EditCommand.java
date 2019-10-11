@@ -25,7 +25,7 @@ import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing card in the word bank.
  */
 public class EditCommand extends AppCommand {
 
@@ -43,7 +43,7 @@ public class EditCommand extends AppCommand {
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the word bank.";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
@@ -72,7 +72,7 @@ public class EditCommand extends AppCommand {
         Card cardToEdit = lastShownList.get(index.getZeroBased());
         Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
-        if (!cardToEdit.isSameName(editedCard) && model.hasCard(editedCard)) {
+        if (!cardToEdit.isSameMeaning(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
@@ -85,12 +85,12 @@ public class EditCommand extends AppCommand {
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
      */
-    private static Card createEditedCard(Card personToEdit, EditCardDescriptor editCardDescriptor) {
-        assert personToEdit != null;
+    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor) {
+        assert cardToEdit != null;
 
-        Word updatedWord = editCardDescriptor.getWord().orElse(personToEdit.getWord());
-        Meaning updatedMeaning = editCardDescriptor.getMeaning().orElse(personToEdit.getMeaning());
-        Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(personToEdit.getTags());
+        Word updatedWord = editCardDescriptor.getWord().orElse(cardToEdit.getWord());
+        Meaning updatedMeaning = editCardDescriptor.getMeaning().orElse(cardToEdit.getMeaning());
+        Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
         return new Card(updatedWord, updatedMeaning, updatedTags);
     }

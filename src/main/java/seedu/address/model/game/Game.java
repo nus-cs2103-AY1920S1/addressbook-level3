@@ -1,34 +1,63 @@
 package seedu.address.model.game;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 
 /**
- * Represents a game. todo give a more descriptive comment
+ * Represents a game session using Cards from a specified WordBank.
+ * Guarantees: WordBank is not null, and that WordBank is not empty.
  */
 public class Game {
 
     public static final int CORRECT_GUESS = 1;
     public static final int WRONG_GUESS = 0;
 
-    private WordBank wordBank;
+    // Current WordBank cannot be changed once assigned.
+    private final WordBank wordBank;
+
+    // Stateful field Index that updates as game progresses.
     private Index cardIndex;
 
+    /**
+     * Constructor for Game instance that takes in a WordBank.
+     * WordBank must not be null.
+     * @param wordBank WordBank that current Game session will run on.
+     */
     public Game(WordBank wordBank) {
+        requireAllNonNull(wordBank);
         this.wordBank = wordBank;
         this.cardIndex = Index.fromZeroBased(0);
     }
 
-    private Card getCurrCard() {
+    /**
+     * Returns current Card at the current index. Throws {@code UnsupportedOperationException}
+     * if game has already ended (no more available cards).
+     */
+    private Card getCurrCard() throws UnsupportedOperationException {
+        if (isOver()) {
+            throw new UnsupportedOperationException("Game is already Over");
+        }
         return wordBank.getCard(cardIndex);
     }
 
-    public String showCurrQuestion() {
+    /**
+     * Returns meaning of current Card at the current index as a string.
+     * Throws {@code UnsupportedOperationException} if game has already ended (no more available cards).
+     */
+    public String showCurrQuestion() throws UnsupportedOperationException {
         return getCurrCard().getMeaning().toString();
     }
 
-    public int makeGuess(Guess inputGuess) {
+    /**
+     * Returns an integer representing whether the user's guess is correct.
+     * @param inputGuess User's input guess of the game's current card.
+     * @return 1 if guess is correct, 0 if guess is wrong.
+     * @throws UnsupportedOperationException if game has already ended.
+     */
+    public int makeGuess(Guess inputGuess) throws UnsupportedOperationException {
         return inputGuess.matches(getCurrCard().getWord()) ? CORRECT_GUESS : WRONG_GUESS;
     }
 

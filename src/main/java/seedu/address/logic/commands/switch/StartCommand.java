@@ -26,7 +26,7 @@ public class StartCommand extends SwitchCommand {
     public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";
     public static final String FIRST_QUESTION_MESSAGE = "guess the keyword! ";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Starts the word bank identified by the index number used in the displayed person list.\n"
+            + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     private final Index targetIndex;

@@ -104,9 +104,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasCard(Card person) {
-        requireNonNull(person);
-        return wordBank.hasCard(person);
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return wordBank.hasCard(card);
     }
 
     @Override
@@ -115,16 +115,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addCard(Card person) {
-        wordBank.addCard(person);
+    public void addCard(Card card) {
+        wordBank.addCard(card);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setCard(Card target, Card editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setCard(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
 
-        wordBank.setCard(target, editedPerson);
+        wordBank.setCard(target, editedCard);
     }
 
     //=========== Filtered Card List Accessors =============================================================

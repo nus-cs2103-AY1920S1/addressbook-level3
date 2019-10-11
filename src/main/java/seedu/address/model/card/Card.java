@@ -51,13 +51,13 @@ public class Card {
     }
 
     /**
-     * Returns true if both cards have the same name.
+     * Returns true if both cards have the same meaning.
      */
-    public boolean isSameName(Card other) {
+    public boolean isSameMeaning(Card other) {
         if (other == null) {
             return false;
         }
-        return getWord().equals(other.getWord());
+        return getMeaning().equals(other.getMeaning());
     }
 
     /**
@@ -69,7 +69,7 @@ public class Card {
 
     /**
      * Returns true if both cards have the same name, description, and tags.
-     * Defines a stronger equality than {@link Card#isSameName(Card)}.
+     * Defines a stronger equality than {@link Card#isSameMeaning(Card)}.
      */
     @Override
     public boolean equals(Object other) {

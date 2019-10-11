@@ -53,13 +53,7 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
+            <StackPane fx:id="titleScreenPanelPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

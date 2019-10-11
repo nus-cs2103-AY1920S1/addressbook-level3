@@ -49,18 +49,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String meaning} into a {@code Description}.
+     * Parses a {@code String meaning} into a {@code Meaning}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code meaning} is invalid.
      */
     public static Meaning parseMeaning(String meaning) throws ParseException {
         requireNonNull(meaning);
-        String trimmedDescription = meaning.trim();
-        if (!Meaning.isValidMeaning(trimmedDescription)) {
+        String trimmedMeaning = meaning.trim();
+        if (!Meaning.isValidMeaning(trimmedMeaning)) {
             throw new ParseException(Meaning.MESSAGE_CONSTRAINTS);
         }
-        return new Meaning(trimmedDescription);
+        return new Meaning(trimmedMeaning);
     }
 
     /**
