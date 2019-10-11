@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.activity.Activity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.activity.Activity;
 
 /**
  * Wrapper for all the activities stored by this application.
@@ -16,7 +16,7 @@ public class ActivityBook {
     private final ArrayList<Activity> activityList;
 
     public ActivityBook() {
-       activityList = new ArrayList<Activity>();
+        activityList = new ArrayList<Activity>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class ActivityBook {
      * Replaces the contents of the activity list with {@code activityList}.
      */
     public void setActivities(List<Activity> activities) {
-        while(activityList.size() > 0) {
+        while (activityList.size() > 0) {
             activityList.remove(0);
         }
         activityList.addAll(activities);

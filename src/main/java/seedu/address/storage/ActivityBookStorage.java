@@ -11,9 +11,9 @@ import seedu.address.model.ActivityBook;
  * Represents a storage for {@link seedu.address.model.ActivityBook}.
  */
 public interface ActivityBookStorage {
-   /**
-    * Returns the file path of the UserPrefs data file.
-    */
+    /**
+     * Returns the file path of the UserPrefs data file.
+     */
 
     Path getActivityBookFilePath();
 
@@ -27,7 +27,7 @@ public interface ActivityBookStorage {
 
     /**
     * Saves the given {@link seedu.address.model.ActivityBook} to the storage.
-    * @param state cannot be null.
+    * @param activityBook cannot be null.
     * @throws IOException if there was any problem writing to the file.
     */
     void saveActivityBook(ActivityBook activityBook) throws IOException;

@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Expense;
-import seedu.address.model.person.Person;
 import seedu.address.model.activity.Title;
 
 /**
