@@ -11,7 +11,6 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.module.Module;
 
 /**
  * Manages storage of ModulePlanner data in local storage.

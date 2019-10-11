@@ -237,6 +237,9 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         return true;
     }
 
+    /**
+     * Initialises default tags for the unique tag list, using all values in {@code DefaultTagType}.
+     */
     private void initDefaultTags() {
         for (DefaultTagType defaultTagType: DefaultTagType.values()) {
             // addDefaultTag(new DefaultTag(defaultTagType));

@@ -1,8 +1,6 @@
 package seedu.address.model.studyplan;
 
-import java.awt.image.TileObserver;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.Color;
@@ -170,8 +168,8 @@ public class StudyPlan implements Cloneable {
     @Override
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
-            return this.index == ((StudyPlan) other).index &&
-                    this.semesters.equals(((StudyPlan) other).getSemesters());
+            return this.index == ((StudyPlan) other).index
+                    && this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }

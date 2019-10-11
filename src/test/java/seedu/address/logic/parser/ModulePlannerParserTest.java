@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.CreateStudyPlanCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditStudyPlanDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -25,7 +23,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.EditStudyPlanDescriptorBuilder;
 import seedu.address.testutil.StudyPlanBuilder;
 import seedu.address.testutil.StudyPlanUtil;
 

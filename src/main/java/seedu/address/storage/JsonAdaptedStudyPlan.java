@@ -70,7 +70,7 @@ class JsonAdaptedStudyPlan {
             semesters.add(new JsonAdaptedSemester(semesterToAdd));
         }
 
-        for  (Module module : source.getModules().values()) {
+        for (Module module : source.getModules().values()) {
             modules.add(new JsonAdaptedModule(module));
         }
 

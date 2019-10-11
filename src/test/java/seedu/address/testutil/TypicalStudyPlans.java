@@ -23,6 +23,8 @@ import seedu.address.model.studyplan.StudyPlan;
  */
 public class TypicalStudyPlans {
 
+    // TODO: Create typical study plans
+    /*
     public static final StudyPlan ALICE = new StudyPlanBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
@@ -54,6 +56,7 @@ public class TypicalStudyPlans {
     public static final StudyPlan BOB = new StudyPlanBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+     */
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -71,6 +74,8 @@ public class TypicalStudyPlans {
     }
 
     public static List<StudyPlan> getTypicalStudyPlans() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        // TODO: return typical study plans
+        // return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return null;
     }
 }
