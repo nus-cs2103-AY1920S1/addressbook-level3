@@ -47,17 +47,17 @@ public class JsonProjectDashboardStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatProjectDashboard.json"));
     }
 
     @Test
     public void readAddressBook_invalidTaskAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidTaskAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidTaskProjectDashboard.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidTaskAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidTaskAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidTaskProjectDashboard.json"));
     }
 
     @Test

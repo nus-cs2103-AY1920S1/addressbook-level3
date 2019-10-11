@@ -6,24 +6,24 @@ import seedu.address.model.task.Task;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ProjectDashboard ab = new AddressBookBuilder().withTask("John", "Doe").build();}
+ *     {@code ProjectDashboard ab = new ProjectDashboardBuilder().withTask("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class ProjectDashboardBuilder {
 
     private ProjectDashboard projectDashboard;
 
-    public AddressBookBuilder() {
+    public ProjectDashboardBuilder() {
         projectDashboard = new ProjectDashboard();
     }
 
-    public AddressBookBuilder(ProjectDashboard projectDashboard) {
+    public ProjectDashboardBuilder(ProjectDashboard projectDashboard) {
         this.projectDashboard = projectDashboard;
     }
 
     /**
      * Adds a new {@code Task} to the {@code ProjectDashboard} that we are building.
      */
-    public AddressBookBuilder withTask(Task task) {
+    public ProjectDashboardBuilder withTask(Task task) {
         projectDashboard.addTask(task);
         return this;
     }

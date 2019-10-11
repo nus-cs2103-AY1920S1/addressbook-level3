@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ProjectDashboardBuilder;
 
 public class ModelManagerTest {
 
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ProjectDashboard projectDashboard = new AddressBookBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
+        ProjectDashboard projectDashboard = new ProjectDashboardBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
         ProjectDashboard differentProjectDashboard = new ProjectDashboard();
         UserPrefs userPrefs = new UserPrefs();
 
