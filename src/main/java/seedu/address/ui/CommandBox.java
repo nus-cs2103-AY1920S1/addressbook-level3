@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,23 +19,25 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final AutoCompleterUpdater autoCompleterUpdater;
+    private final AutoCompleterSelector autoCompleterSelector;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, AutoCompleterUpdater autoCompleterUpdater) {
+    public CommandBox(CommandExecutor commandExecutor, AutoCompleterUpdater autoCompleterUpdater,
+                      AutoCompleterSelector autoCompleterSelector) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autoCompleterUpdater = autoCompleterUpdater;
+        this.autoCompleterSelector = autoCompleterSelector;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
     /**
-     * Handles the Enter button pressed event.
+     * Handles Command Entered.
      */
-    @FXML
-    private void handleCommandEntered() {
+    public void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
@@ -49,6 +52,25 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleTextChanged() {
         autoCompleterUpdater.update(commandTextField.getText());
+    }
+
+    /**
+     * Handles the Key Pressed event.
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent e) {
+        switch (e.getCode()) {
+        case UP:
+            autoCompleterSelector.notify(true);
+            break;
+        case DOWN:
+            autoCompleterSelector.notify(false);
+            break;
+        case ENTER:
+            autoCompleterSelector.notify(null);
+            break;
+        default:
+        }
     }
 
     /**
@@ -69,6 +91,12 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    public void setCommandTextField(String suggestion) {
+        commandTextField.setText(suggestion);
+        commandTextField.positionCaret(commandTextField.getLength());
+        handleTextChanged();
     }
 
     /**
@@ -95,4 +123,14 @@ public class CommandBox extends UiPart<Region> {
         void update(String commandText);
     }
 
+    /**
+     * Represents a function that updates the AutoCompleter.
+     */
+    @FunctionalInterface
+    public interface AutoCompleterSelector {
+        /**
+         * Updates AutoCompleter of the command text.
+         */
+        void notify(Boolean traverseUp);
+    }
 }
