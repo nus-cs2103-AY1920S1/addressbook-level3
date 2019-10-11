@@ -36,6 +36,7 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    //@@author keiteo
     private boolean isRunningFlashcardTest = false;
 
     /**
@@ -77,6 +78,7 @@ public class AddressBookParser {
         }
     }
 
+    //@@author
     /** Parses for normal commands. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
