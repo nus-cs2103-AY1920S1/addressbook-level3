@@ -54,15 +54,6 @@ public class ScheduleCard extends UiPart<Region> {
         this.schedule = schedule;
         index.setText(displayedIndex + ". ");
 
-        customerName.setText(schedule.getOrder().getCustomer().getCustomerName().fullName);
-        customerNumber.setText(schedule.getOrder().getCustomer().getContactNumber().value);
-
-        phoneName.setText(schedule.getOrder().getPhone().getPhoneName().fullName);
-        phoneColour.setText(schedule.getOrder().getPhone().getColour().value);
-        phoneCapacity.setText(schedule.getOrder().getPhone().getCapacity().value);
-
-        orderId.setText(schedule.getOrder().getId().toString());
-
         time.setText(schedule.getCalendar().getTime().toString());
         venue.setText(schedule.getVenue().venue);
 

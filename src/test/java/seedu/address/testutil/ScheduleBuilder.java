@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
@@ -37,7 +38,6 @@ public class ScheduleBuilder {
      * Initializes the ScheduleBuilder with the data of {@code scheduleToCopy}.
      */
     public ScheduleBuilder(Schedule scheduleToCopy) {
-        order = scheduleToCopy.getOrder();
         calendar = scheduleToCopy.getCalendar();
         venue = scheduleToCopy.getVenue();
         tags = new HashSet<>(scheduleToCopy.getTags());
@@ -76,7 +76,7 @@ public class ScheduleBuilder {
     }
 
     public Schedule build() {
-        return new Schedule(order, calendar, venue, tags);
+        return new Schedule(UUID.randomUUID(), calendar, venue, tags);
     }
 
 }

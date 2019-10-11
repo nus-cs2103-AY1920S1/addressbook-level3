@@ -25,18 +25,12 @@ public class ScheduleTest {
 
         // null -> returns false
         assertFalse(SCHEDULEONE.isSameSchedule(null));
-
-        // clone -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule((Schedule) SCHEDULEONE.clone()));
     }
 
     @Test
     public void testEquals() {
         // same object -> returns true
         assertTrue(SCHEDULEONE.equals(SCHEDULEONE));
-
-        // clone -> returns true
-        assertTrue(SCHEDULEONE.equals((Schedule) SCHEDULEONE.clone()));
 
         // null -> returns false
         assertFalse(SCHEDULEONE.equals(null));

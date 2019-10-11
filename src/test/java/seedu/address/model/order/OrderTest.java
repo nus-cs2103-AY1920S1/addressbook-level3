@@ -26,18 +26,12 @@ public class OrderTest {
 
         // different id -> returns false
         assertFalse(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).build()));
-
-        // clone -> returns true
-        assertTrue(ORDERONE.isSameOrder((Order) ORDERONE.clone()));
     }
 
     @Test
     public void testEquals() {
         // same object -> returns true
         assertTrue(ORDERONE.equals(ORDERONE));
-
-        // clone -> returns true
-        assertTrue(ORDERONE.equals((Order) ORDERONE.clone()));
 
         // null -> returns false
         assertFalse(ORDERONE.equals(null));
