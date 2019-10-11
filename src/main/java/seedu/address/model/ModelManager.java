@@ -26,13 +26,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given projectDashboard and userPrefs.
      */
-    public ModelManager(ReadOnlyProjectDashboard addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyProjectDashboard projectDashboard, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(projectDashboard, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + projectDashboard + " and user prefs " + userPrefs);
 
-        this.projectDashboard = new ProjectDashboard(addressBook);
+        this.projectDashboard = new ProjectDashboard(projectDashboard);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
     }

@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard and {@code userPrefs}. <br>
+     * The data from the sample project dashboard will be used instead if {@code storage}'s project dashboard is not found,
+     * or an project dashboard will be used instead if errors occur when reading {@code storage}'s project dashboard.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyProjectDashboard> addressBookOptional;
+        Optional<ReadOnlyProjectDashboard> projectDashboardOptional;
         ReadOnlyProjectDashboard initialData;
         try {
-            addressBookOptional = storage.readProjectDashBoard();
-            if (!addressBookOptional.isPresent()) {
+            projectDashboardOptional = storage.readProjectDashBoard();
+            if (!projectDashboardOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ProjectDashboard");
             }
-            initialData = addressBookOptional.orElseGet(SampleTaskDataUtil::getSampleProjectDashboard);
+            initialData = projectDashboardOptional.orElseGet(SampleTaskDataUtil::getSampleProjectDashboard);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ProjectDashboard");
             initialData = new ProjectDashboard();
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Project Dashboard ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
