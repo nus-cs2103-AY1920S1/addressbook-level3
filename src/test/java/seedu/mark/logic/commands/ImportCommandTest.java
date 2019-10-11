@@ -4,10 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.testutil.TypicalBookmarks.BENSON;
+import static seedu.mark.testutil.TypicalBookmarks.CARL;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +26,7 @@ import seedu.mark.model.ModelManager;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.Storage;
 
 /**
@@ -29,15 +36,6 @@ public class ImportCommandTest {
     private Model model = new ModelManager(new Mark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
     private Storage storage = new StorageStubAllowsRead();
-
-    @Test
-    public void execute_validFile_success() {
-        Path filePath = Path.of("data", "validFile");
-        ImportCommand command = new ImportCommand(filePath);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath);
-
-        assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
-    }
 
     @Test
     public void execute_invalidFile_exceptionThrown() {
@@ -57,6 +55,39 @@ public class ImportCommandTest {
         filePath = Path.of("problemFile");
         command = new ImportCommand(filePath);
         assertCommandFailure(command, model, storage, ImportCommand.MESSAGE_IMPORT_FAILURE);
+    }
+
+    @Test
+    public void execute_validFileNoDuplicates_success() {
+        Path filePath = Path.of("data", "validFile");
+        ImportCommand command = new ImportCommand(filePath);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath);
+
+        assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validFileWithDuplicateBookmarks_duplicatesSkipped() {
+        // set up valid file path
+        Path filePath = Path.of("data", "validFile");
+        ImportCommand command = new ImportCommand(filePath);
+
+        // some duplicate bookmarks
+        List<Bookmark> existingBookmarks = Arrays.asList(ALICE, BENSON, CARL);
+        Mark mark = new Mark();
+        existingBookmarks.forEach(mark::addBookmark);
+        Model initialModel = new ModelManager(mark, new UserPrefs());
+        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
+                ImportCommand.toIndentedString(existingBookmarks));
+
+        assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
+
+        // all duplicate bookmarks
+        initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
+        expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
+                ImportCommand.toIndentedString(getTypicalBookmarks()));
+
+        assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }
 
     @Test
