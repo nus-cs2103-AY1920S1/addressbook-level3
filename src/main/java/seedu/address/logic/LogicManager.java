@@ -9,11 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.ModeEnum;
-import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -40,7 +36,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.gameStarted = false;
-        this.mode = ModeEnum.APP;
+        this.mode = ModeEnum.LOAD;
         /*
         Step 9.
         this.game = game //get from constructor
@@ -68,28 +64,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, game);
          */
         //commandResult = command.execute(model);
-        if (command instanceof SwitchCommand) {
-            this.mode = ((SwitchCommand) command).getNewMode();
-        }
-        if (command instanceof GameCommand || command instanceof StartCommand) {
-            //Game logic
-            if (command instanceof StartCommand) {
-                gameStarted = true;
-            }
-            if (!gameStarted) {
-                throw new CommandException("Start game first!");
-            }
-            commandResult = new GameLogic(model, (Command) command).process();
-        } else {
-            //Non-game Logic
-            if (command instanceof HomeCommand) {
-                gameStarted = false;
-            }
-            if (gameStarted) {
-                throw new CommandException("Go home first!");
-            }
-            commandResult = command.execute(model);
-        }
+
+        /* Checks if command entered in wrong mode */
+        this.mode = command.check(model, mode);
+        commandResult = command.execute(model);
 
         /*
         Step 12.

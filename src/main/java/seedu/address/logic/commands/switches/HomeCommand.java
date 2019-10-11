@@ -3,6 +3,7 @@ package seedu.address.logic.commands.switches;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -16,7 +17,7 @@ public class HomeCommand extends SwitchCommand {
 
 
     @Override
-    public ModeEnum getNewMode() {
+    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
         return ModeEnum.APP;
     }
 

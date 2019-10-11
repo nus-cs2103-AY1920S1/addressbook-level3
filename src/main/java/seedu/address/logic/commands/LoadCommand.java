@@ -7,10 +7,14 @@ import seedu.address.model.Model;
 /**
  * Represents a game command todo give a more descriptive comment
  */
-public abstract class GameCommand extends Command {
+public abstract class LoadCommand extends Command {
+    public abstract CommandResult execute(Model model) throws CommandException;
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
+        if (mode != ModeEnum.LOAD) {
+            throw new CommandException("Load word bank first!");
+        }
         return ModeEnum.GAME;
     }
 }

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
@@ -36,19 +37,14 @@ public class StartCommand extends SwitchCommand {
             + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    private Index targetIndex;
     private String wordBankName;
-
-    public StartCommand(Index index) {
-        this.targetIndex = index;
-    }
 
     public StartCommand(String wordBankName) {
         this.wordBankName = wordBankName;
     }
 
     @Override
-    public ModeEnum getNewMode() {
+    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
         return ModeEnum.GAME;
     }
 
