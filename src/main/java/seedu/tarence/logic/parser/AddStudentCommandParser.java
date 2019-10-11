@@ -12,6 +12,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.Optional;
 
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
@@ -27,13 +28,13 @@ import seedu.tarence.model.tutorial.TutName;
  */
 public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private static final boolean IS_FULL_FORMAT = true;
-    private static final String TEMP_MOD_CODE = "AB1231";
-    private static final String TEMP_TUT_NAME = "temp tutorial";
+    private static final ModCode TEMP_MOD_CODE = new ModCode("AB1231");
+    private static final TutName TEMP_TUT_NAME = new TutName("temp tutorial");
 
     private static final OptionalArgument[] optionalArgs = {
         OptionalArgument.OPTIONAL_MATNO,
-        OptionalArgument.OPTIONAL_NUSID};
-
+        OptionalArgument.OPTIONAL_NUSID
+    };
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -104,7 +105,6 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             return Optional.empty();
         }
-
         return Optional.of(argMultimap);
     }
 
@@ -135,30 +135,11 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-
         ModCode modCode;
         TutName tutName;
-        Optional<Integer> tutIdx = Optional.empty();
+        Index tutIdx;
 
-        if (isFullFormat) {
-            modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
-            tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
-        } else {
-            modCode = ParserUtil.parseModCode(TEMP_MOD_CODE);
-            tutName = ParserUtil.parseTutorialName(TEMP_TUT_NAME);
-
-            try {
-                Integer value = Integer.valueOf(argMultimap.getValue(PREFIX_TUTORIAL_INDEX).get());
-                if (value <= 0) {
-                    throw new ParseException(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT);
-                }
-                tutIdx = Optional.of(value);
-            } catch (NumberFormatException e) {
-                throw new ParseException(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT);
-            }
-
-        }
-
+        // Retrieve optional arguments
         Optional<MatricNum> matricNum;
         if (argMultimap.getValue(PREFIX_MATNO).isPresent()) {
             matricNum = Optional.of(ParserUtil.parseMatricNum(argMultimap.getValue(PREFIX_MATNO).get()));
@@ -172,13 +153,30 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
             nusnetId = Optional.empty();
         }
 
-        Student student = new Student(name, email, matricNum, nusnetId, modCode, tutName);
-
-        if (tutIdx.isPresent()) {
-            return new AddStudentCommand(student, tutIdx.get());
+        Student student;
+        // Retrieve tutorial and module code based on index
+        if (isFullFormat) {
+            modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
+            tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
+            student = new Student(name, email, matricNum, nusnetId, modCode, tutName);
+            return new AddStudentCommand(student);
+        } else {
+            argMultimap.getValue(PREFIX_TUTORIAL_INDEX);
+            tutIdx = retrieveIndex(argMultimap);
+            student = new Student(name, email, matricNum, nusnetId, TEMP_MOD_CODE, TEMP_TUT_NAME);
+            return new AddStudentCommand(student, tutIdx);
         }
-
-        return new AddStudentCommand(student);
     }
 
+    /**
+     * Retrieves index entered by user and parses through the Indexing format
+     */
+    private Index retrieveIndex(ArgumentMultimap argumentMultimap) throws ParseException {
+        try {
+            return Index.fromOneBased(Integer.valueOf(argumentMultimap.getValue(PREFIX_TUTORIAL_INDEX).get()));
+        } catch (RuntimeException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT,
+                    AddStudentCommand.MESSAGE_USAGE));
+        }
+    }
 }

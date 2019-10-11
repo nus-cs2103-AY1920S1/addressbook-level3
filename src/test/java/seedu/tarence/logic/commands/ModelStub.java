@@ -10,6 +10,7 @@ import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
@@ -111,6 +112,11 @@ class ModelStub implements Model {
     }
 
     @Override
+    public void updateFilteredStudentList(NameContainsKeywordsPredicate predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         throw new AssertionError("This method should not be called.");
     }
@@ -122,13 +128,22 @@ class ModelStub implements Model {
 
     @Override
     public boolean hasStudent(Student student) {
-        // TODO: Implement test for hasStudent
         return false;
     }
 
     @Override
     public void addStudent(Student student) {
-        // TODO: Implement test for addStudent
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setStudent(Student target, Student editedStudent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteStudent(Student student) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override

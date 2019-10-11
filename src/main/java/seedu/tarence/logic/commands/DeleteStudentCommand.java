@@ -8,7 +8,7 @@ import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 
 /**
  * Deletes a student identified using its displayed index from T.A.rence.
@@ -36,15 +36,15 @@ public class DeleteStudentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Student> lastShownList = model.getFilteredStudentList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteStudent(studentToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, studentToDelete));
     }
 
     @Override

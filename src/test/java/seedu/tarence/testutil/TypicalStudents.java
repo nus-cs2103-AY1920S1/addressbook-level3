@@ -11,6 +11,11 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NUSNET_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_BOB;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.tarence.model.Application;
 import seedu.tarence.model.student.Student;
 
 /**
@@ -19,7 +24,7 @@ import seedu.tarence.model.student.Student;
 public class TypicalStudents {
 
     public static final Student ALICE = new StudentBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com").withMatricNum("A0123456A").withNusnetId("e0123456")
+            .withEmail("alice@example.com").withMatricNum("A0123456X").withNusnetId("e0123456")
             .build();
     public static final Student BENSON = new StudentBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withMatricNum("A1234560A").withNusnetId("e1234560")
@@ -58,4 +63,19 @@ public class TypicalStudents {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalStudents() {} // prevents instantiation
+
+    /**
+     * Returns an {@code Application} with all the typical students.
+     */
+    public static Application getTypicalApplication() {
+        Application ab = new Application();
+        for (Student student : getTypicalStudents()) {
+            ab.addStudent(student);
+        }
+        return ab;
+    }
+
+    public static List<Student> getTypicalStudents() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 }

@@ -8,6 +8,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import javafx.collections.ObservableList;
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
@@ -51,7 +52,7 @@ public class AddStudentCommand extends Command {
         "addstu", "addstud"};
 
     private Student toAdd;
-    private Integer tutIdx;
+    private Index tutIdx;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -62,7 +63,7 @@ public class AddStudentCommand extends Command {
         this.tutIdx = null;
     }
 
-    public AddStudentCommand(Student student, Integer tutorialIndex) {
+    public AddStudentCommand(Student student, Index tutorialIndex) {
         requireNonNull(student);
         requireNonNull(tutorialIndex);
         this.toAdd = student;
@@ -75,7 +76,7 @@ public class AddStudentCommand extends Command {
 
         if (tutIdx != null) {
             ObservableList<Tutorial> tutList = model.getFilteredTutorialList();
-            Tutorial tutorial = getTutorial(tutList, (tutIdx - 1));
+            Tutorial tutorial = getTutorial(tutList, tutIdx.getZeroBased());
             TutName tutName = tutorial.getTutName();
             ModCode modCode = tutorial.getModCode();
             this.toAdd = new Student(toAdd.getName(), toAdd.getEmail(), toAdd.getMatricNum(),

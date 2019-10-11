@@ -8,6 +8,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
@@ -95,6 +96,20 @@ public interface Model {
      */
     boolean hasStudent(Student student);
 
+    /**
+     * Removes the student from the studentList
+     * {@code student} must already exist in the application.
+     */
+    void deleteStudent(Student student);
+
+
+    /**
+     * Replaces the given student {@code target} with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * The student identity of {@code editedStudent} must not be the same as another
+     * existing student in the application.
+     */
+    void setStudent(Student target, Student editedStudent);
 
     /**
      * Adds the given student.
@@ -125,6 +140,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given NameContainsKeywordsPredicate
+     * Special case only used for find command
+     */
+    void updateFilteredStudentList(NameContainsKeywordsPredicate predicate);
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.

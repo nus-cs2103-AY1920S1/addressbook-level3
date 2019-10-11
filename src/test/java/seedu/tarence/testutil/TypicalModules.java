@@ -1,8 +1,11 @@
 package seedu.tarence.testutil;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import seedu.tarence.model.Application;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
 
@@ -20,4 +23,28 @@ public class TypicalModules {
             .withTutorials(new ArrayList<Tutorial>()).build();
 
     private TypicalModules() {} // prevents instantiation
+
+    /**
+     * Returns an {@code Application} with all the typical modules.
+     */
+    public static Application getTypicalApplication() {
+        List<Student> students = TypicalStudents.getTypicalStudents();
+        Tutorial tutorial = new TutorialBuilder().withStudents(students).build();
+        List<Module> modules = new ArrayList<Module>();
+        modules.add(CS1101S);
+        modules.add(CS2103);
+        modules.get(0).addTutorial(tutorial);
+
+        Application ab = new Application();
+        for (Module module : modules) {
+            ab.addModule(module);
+        }
+
+        ab.addTutorial(tutorial);
+
+        for (Student student : students) {
+            ab.addStudent(student);
+        }
+        return ab;
+    }
 }

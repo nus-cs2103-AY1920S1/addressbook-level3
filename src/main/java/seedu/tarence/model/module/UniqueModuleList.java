@@ -30,6 +30,14 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Returns true if the list contains an equivalent tutorial with the given argument.
+     */
+    public boolean containsModCode(ModCode modCode) {
+        requireNonNull(modCode);
+        return internalList.stream().anyMatch(module -> module.getModCode().equals(modCode));
+    }
+
+    /**
      * Adds a module to the list.
      * The module must not already exist in the list.
      */

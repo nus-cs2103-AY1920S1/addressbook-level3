@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.EditCommand;
-import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.tarence.logic.commands.EditCommand.EditStudentDescriptor;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
-import seedu.tarence.testutil.EditPersonDescriptorBuilder;
+import seedu.tarence.testutil.EditStudentDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -73,7 +73,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_IN_LIST;
         String userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY + NAME_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -85,7 +85,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_IN_LIST;
         String userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -96,13 +96,13 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_IN_LIST;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        descriptor = new EditStudentDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -113,7 +113,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY
                 + EMAIL_DESC_AMY + EMAIL_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder()
                 .withEmail(VALID_EMAIL_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -125,13 +125,13 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_IN_LIST;
         String userInput = targetIndex.getOneBased() + INVALID_EMAIL_DESC + EMAIL_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_BOB).build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withEmail(VALID_EMAIL_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_BOB).build();
+        descriptor = new EditStudentDescriptorBuilder().withEmail(VALID_EMAIL_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

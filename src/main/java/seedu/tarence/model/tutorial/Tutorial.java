@@ -52,6 +52,18 @@ public class Tutorial {
         return students;
     }
 
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).isSameStudent(target)) {
+                students.set(i, editedStudent);
+            }
+        }
+    }
 
     public ModCode getModCode() {
         return modCode;
@@ -67,6 +79,13 @@ public class Tutorial {
     public void addStudent(Student student) {
         students.add(student);
         attendance.addStudent(student);
+    }
+
+    /**
+     * Removes a student from a tutorial
+     */
+    public void deleteStudent(Student student) {
+        students.remove(student);
     }
 
     /**

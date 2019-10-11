@@ -5,6 +5,7 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -32,6 +33,24 @@ public class Module {
 
     public List<Tutorial> getTutorials() {
         return tutorials;
+    }
+
+    /**
+     * Deletes the given tutorial from the module
+     */
+    public void deleteTutorial(Tutorial tutorial) {
+        this.tutorials.remove(tutorial);
+    }
+
+    /**
+     * Deletes the given student from the module
+     */
+    public void deleteStudent(Student student) {
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(student.getTutName())) {
+                tutorial.deleteStudent(student);
+            }
+        }
     }
 
     public void addTutorial(Tutorial tutorial) {

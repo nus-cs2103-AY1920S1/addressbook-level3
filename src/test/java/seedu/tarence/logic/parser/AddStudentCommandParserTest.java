@@ -6,9 +6,9 @@ import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_1;
-import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_2;
-import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_3;
+import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_DESC_1;
+import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_DESC_2;
+import static seedu.tarence.logic.commands.CommandTestUtil.INVALID_TUTORIAL_INDEX_DESC_3;
 import static seedu.tarence.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.MODULE_DESC_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.MODULE_DESC_BOB;
@@ -34,6 +34,7 @@ import static seedu.tarence.testutil.TypicalStudents.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
@@ -70,7 +71,7 @@ public class AddStudentCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_AMY + EMAIL_DESC_AMY
                         + MATRIC_DESC_AMY + NUSNET_DESC_AMY + TUTORIAL_IDX_DESC_AMY,
-                new AddStudentCommand(expectedStudent, VALID_TUTORIAL_INDEX_AMY));
+                new AddStudentCommand(expectedStudent, Index.fromOneBased(VALID_TUTORIAL_INDEX_AMY)));
     }
 
     @Test
@@ -97,12 +98,12 @@ public class AddStudentCommandParserTest {
         // Missing optional fields
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB
                         + TUTORIAL_IDX_DESC_BOB,
-                new AddStudentCommand(expectedStudentBob, VALID_TUTORIAL_INDEX_BOB));
+                new AddStudentCommand(expectedStudentBob, Index.fromOneBased(VALID_TUTORIAL_INDEX_BOB)));
 
         // random ordering of fields
         assertParseSuccess(parser, TUTORIAL_IDX_DESC_AMY + NAME_DESC_AMY + NUSNET_DESC_AMY
                         + EMAIL_DESC_AMY + MATRIC_DESC_AMY,
-                new AddStudentCommand(expectedStudentAmy, VALID_TUTORIAL_INDEX_AMY));
+                new AddStudentCommand(expectedStudentAmy, Index.fromOneBased(VALID_TUTORIAL_INDEX_AMY)));
     }
 
     @Test
@@ -168,20 +169,24 @@ public class AddStudentCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + MODULE_DESC_BOB + TUTORIAL_IDX_DESC_BOB,
                 expectedMessage);
 
-        // Invalid index - non-integer
-        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_1,
-                MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT);
-
-        // Invalid index - character
-        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_2,
-                MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT);
-
-        // Invalid index - Index <= 0
-        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_3,
-                MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT);
-
         // Missing index - no tutorial & no module
         assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB,
                 expectedMessage);
+
+        String invalidIndexExpectedMessage = String.format(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT,
+                AddStudentCommand.MESSAGE_USAGE);
+
+        // Invalid index - non-integer
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_DESC_1,
+                invalidIndexExpectedMessage);
+
+        // Invalid index - character
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_DESC_2,
+                invalidIndexExpectedMessage);
+
+        // Invalid index - Index <= 0
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + INVALID_TUTORIAL_INDEX_DESC_3,
+                invalidIndexExpectedMessage);
+
     }
 }

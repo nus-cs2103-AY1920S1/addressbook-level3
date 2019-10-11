@@ -3,6 +3,7 @@ package seedu.tarence.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
@@ -73,8 +74,12 @@ public class Application implements ReadOnlyApplication {
      * Replaces the contents of the student list with {@code students}.
      * {@code persons} must not contain duplicate students.
      */
-    public void setStudents(List<Person> students) {
-        this.students.setPersons(students);
+    public void setStudents(List<Student> students) {
+        List<Person> personList = new ArrayList<>();
+        for (Student student : students) {
+            personList.add(student);
+        }
+        this.students.setPersons(personList);
     }
 
     /**
@@ -100,6 +105,7 @@ public class Application implements ReadOnlyApplication {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setStudents(newData.getStudentList());
         setModules(newData.getModuleList());
         setTutorials(newData.getTutorialList());
     }
@@ -159,6 +165,7 @@ public class Application implements ReadOnlyApplication {
             }
         }
     }
+
     ////=================== student-level operations    ================================================================
     /**
      * Returns true if a student with the same identity as {@code student} exists in the application.
@@ -183,7 +190,32 @@ public class Application implements ReadOnlyApplication {
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
-        persons.setPerson(target, editedStudent);
+        //students.setPerson(target, editedStudent);
+        removeStudent(target);
+
+        addStudent(editedStudent);
+        addStudentToTutorial(editedStudent);
+        /*
+        // Modify tutorial level
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(target.getTutName())) {
+                tutorial.setStudent(target, editedStudent);
+            }
+        }
+
+        // Modify Module level: TODO - refactor
+        for (Module module : modules) {
+            if (module.getModCode().equals(target.getModCode())) {
+                Module targetMod = module;
+                for (Tutorial tutorial : targetMod.getTutorials()) {
+                    if (tutorial.getTutName().equals(target.getTutName())) {
+                        tutorial.setStudent(target, editedStudent);
+                    }
+                }
+            }
+        }
+
+         */
     }
 
     /**
@@ -191,7 +223,24 @@ public class Application implements ReadOnlyApplication {
      * {@code key} must exist in the application.
      */
     public void removeStudent(Student key) {
-        persons.remove(key);
+        // Delete students from the main list
+        students.remove(key);
+
+
+        // Delete students from existing tutorials
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(key.getTutName())) {
+                tutorial.deleteStudent(key);
+            }
+        }
+
+        // Delete students from existing modules
+        for (Module module : modules) {
+            if (module.getModCode().equals(key.getModCode())) {
+                module.deleteStudent(key);
+                break;
+            }
+        }
     }
 
     ////=================== module-level operations    =================================================================
@@ -307,6 +356,13 @@ public class Application implements ReadOnlyApplication {
     public void removeTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
         tutorials.remove(tutorial);
+
+        // Delete from existing modules
+        for (Module module : modules) {
+            if (module.getModCode().equals(tutorial.getModCode())) {
+                module.deleteTutorial(tutorial);
+            }
+        }
     }
 
     public void setAttendance(Tutorial tutorial, Week week, Student student) {

@@ -7,6 +7,7 @@ import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
@@ -76,7 +77,7 @@ public class AddStudentCommandIntegrationTest {
         expectedModel.addStudentToTutorial(validStudent);
 
         Student indexedStudent = new StudentBuilder().build();
-        Integer validTutorialIndex = 1;
+        Index validTutorialIndex = Index.fromOneBased(1);
 
         assertCommandSuccess(new AddStudentCommand(indexedStudent, validTutorialIndex), model,
                 String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);

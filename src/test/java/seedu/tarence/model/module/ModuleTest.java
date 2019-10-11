@@ -36,4 +36,19 @@ public class ModuleTest {
         assertFalse(CS2103.equals(editedCS2103));
 
     }
+
+    @Test
+    public void isSameModule() {
+        // same object -> returns true
+        assertTrue(CS1101S.isSameModule(CS1101S));
+
+        // null -> returns false
+        assertFalse(CS1101S.isSameModule(null));
+
+        // different modcode -> returns false
+        Module editedModule = new ModuleBuilder(CS1101S).withModCode("CS1231").build();
+        assertFalse(CS1101S.isSameModule(editedModule));
+
+    }
+
 }

@@ -30,6 +30,14 @@ public class UniqueTutorialList implements Iterable<Tutorial> {
     }
 
     /**
+     * Returns true if the list contains an equivalent tutorial with the given argument.
+     */
+    public boolean containsTutName(TutName tutName) {
+        requireNonNull(tutName);
+        return internalList.stream().anyMatch(tutorial -> tutorial.getTutName().equals(tutName));
+    }
+
+    /**
      * Adds a Tutorial to the list.
      * The Tutorial must not already exist in the list.
      */
