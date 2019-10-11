@@ -6,5 +6,4 @@
   },
   "addressBookFilePath" : "data/addressbook.json",
   "studentRecordFilePath" : "data/students.json",
-
 }
