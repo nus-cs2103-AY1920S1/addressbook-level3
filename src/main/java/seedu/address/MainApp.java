@@ -38,13 +38,14 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
+    public static Stage primary;
+    public static Config config;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
 
     @Override
     public void init() throws Exception {
@@ -167,6 +168,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primary = primaryStage;
+
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
