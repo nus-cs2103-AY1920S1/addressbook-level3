@@ -168,14 +168,14 @@ Finds all transaction repeater with "Income" contained in their descriptions, an
 
 === Loans
 
-==== Adding new loan: `newloan`
+==== Adding new loan: `loannew `
 
 Adds new loan to list. +
-Format: `newloan i/AMOUNT  n/NAME d/DESCRIPTION`
+Format: `loannew  i/AMOUNT  n/NAME d/DESCRIPTION`
 
 Examples:
 
-* `newloan a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
+* `loannew  a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
 Takes input with initialization values and adds them to a lost of current unpaid loans.
 
 ==== Marking Loan Paid: `loan paid`
