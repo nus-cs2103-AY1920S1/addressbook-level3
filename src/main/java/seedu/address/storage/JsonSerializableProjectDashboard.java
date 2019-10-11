@@ -16,32 +16,33 @@ import seedu.address.model.task.Task;
 /**
  * An Immutable ProjectDashboard that is serializable to JSON format.
  */
+// TODO change serializable object root name
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableProjectDashboard {
 
     public static final String MESSAGE_DUPLICATE_TASKS = "Tasks list contains duplicate task(s).";
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given task.
+     * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+    public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
         this.tasks.addAll(tasks);
     }
 
     /**
      * Converts a given {@code ReadOnlyProjectDashboard} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableProjectDashboard}.
      */
-    public JsonSerializableAddressBook(ReadOnlyProjectDashboard source) {
+    public JsonSerializableProjectDashboard(ReadOnlyProjectDashboard source) {
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code ProjectDashboard} object.
+     * Converts this project information into the model's {@code ProjectDashboard} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

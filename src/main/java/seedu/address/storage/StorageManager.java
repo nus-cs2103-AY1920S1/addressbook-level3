@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ProjectDashboardStorage projectDashboardStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.projectDashboardStorage = projectDashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return projectDashboardStorage.getAddressBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyProjectDashboard> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(projectDashboardStorage.getAddressBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyProjectDashboard> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return projectDashboardStorage.readAddressBook(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyProjectDashboard addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, projectDashboardStorage.getAddressBookFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyProjectDashboard addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        projectDashboardStorage.saveAddressBook(addressBook, filePath);
     }
 
 }

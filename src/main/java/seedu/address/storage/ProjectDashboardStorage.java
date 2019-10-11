@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 /**
  * Represents a storage for {@link ProjectDashboard}.
  */
-public interface AddressBookStorage {
+public interface ProjectDashboardStorage {
 
     /**
      * Returns the file path of the data file.

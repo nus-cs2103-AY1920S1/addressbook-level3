@@ -22,8 +22,8 @@ public class JsonSerializableProjectDashboardTest {
 
     @Test
     public void toModelType_typicalTasksFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
+                JsonSerializableProjectDashboard.class).get();
         ProjectDashboard projectDashboardFromFile = dataFromFile.toModelType();
         ProjectDashboard typicalTasksProjectDashboard = TypicalTasks.getTypicalAddressBook();
         assertEquals(projectDashboardFromFile, typicalTasksProjectDashboard);
@@ -31,16 +31,16 @@ public class JsonSerializableProjectDashboardTest {
 
     @Test
     public void toModelType_invalidTaskFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_TASK_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(INVALID_TASK_FILE,
+                JsonSerializableProjectDashboard.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateTasks_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TASK_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_TASKS,
+        JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TASK_FILE,
+                JsonSerializableProjectDashboard.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableProjectDashboard.MESSAGE_DUPLICATE_TASKS,
                 dataFromFile::toModelType);
     }
 
