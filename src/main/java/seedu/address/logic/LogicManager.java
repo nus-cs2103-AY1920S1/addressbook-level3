@@ -34,7 +34,6 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private GameLogic gameLogic;
 
     private boolean gameStarted;
     private ModeEnum mode;
@@ -44,7 +43,6 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.gameStarted = false;
         this.mode = ModeEnum.LOAD;
-        this.gameLogic = new GameLogic(model);
         /*
         Step 9.
         this.game = game //get from constructor
