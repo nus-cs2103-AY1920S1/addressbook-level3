@@ -73,7 +73,16 @@ public class UniversalParser {
             return new ContextCommand(nextContext);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            switch (currentContext) {
+            case CUSTOMER:
+                return new CustomerParser().parseCommand(userInput);
+            case RESTAURANT:
+                return new RestaurantParser().parseCommand(userInput);
+            case DELIVERYMEN:
+                return new DeliverymanParser().parseCommand(userInput);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         }
     }
 
