@@ -11,12 +11,9 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Event;
-import seedu.address.commons.core.item.Item;
-import seedu.address.commons.core.item.Item.ItemBuilder;
 import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
-import seedu.address.commons.core.item.Task;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -41,6 +38,13 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses {@code description} into a {@code ItemDescription} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param description given for the item.
+     * @return a new item description that is processed
+     * @throws ParseException if the description is invalid (empty description).
+     */
     public static ItemDescription parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
@@ -50,6 +54,13 @@ public class ParserUtil {
         return new ItemDescription(trimmedDescription);
     }
 
+    /**
+     * Parse the {@code dateTime} into a {@code Optional<Event>} and returns it.
+     * Converts a String to a LocalDateTime object and creates a new event with it.
+     * @param dateTime representing the deadline of the event
+     * @return Optional.of(event) if the Event created is valid, Optional.empty() otherwise
+     * @throws ParseException if the format of deadline provided is incorrect
+     */
     public static Optional<Event> parseDateTime(String dateTime) throws ParseException {
         if (dateTime == null) {
             return Optional.empty();
@@ -60,9 +71,9 @@ public class ParserUtil {
 
         try {
             formattedDateTime = LocalDateTime.parse(trimmedDateTime);
-        } catch(DateTimeParseException e) {
-            throw new ParseException("Date Time format given is incorrect. " +
-                    "Please follow this format: \"-d 2018-12-30T19:34:50.63\"");
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-d 2018-12-30T19:34:50.63\"");
             //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
         }
 
@@ -71,6 +82,13 @@ public class ParserUtil {
         return Optional.of(newEvent);
     }
 
+    /**
+     * Parse the {@code reminder} into a {@code Optional<Reminder>} and returns it.
+     * Converts the string time into a LocalDateTime object and create a Reminder with it.
+     * @param reminder representing the time of the reminder
+     * @return Optional.of(reminder) if the reminder created is valid, Optional.empty() otherwise
+     * @throws ParseException if the format of the reminder time is incorrect
+     */
     public static Optional<Reminder> parseReminder(String reminder) throws ParseException {
         if (reminder == null) {
             return Optional.empty();
@@ -81,9 +99,9 @@ public class ParserUtil {
 
         try {
             formattedDateTime = LocalDateTime.parse(trimmedDateTime);
-        } catch(DateTimeParseException e) {
-            throw new ParseException("Date Time format given is incorrect. " +
-                    "Please follow this format: \"-r 2018-12-30T19:34:50.63\"");
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-r 2018-12-30T19:34:50.63\"");
             //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
         }
 
@@ -91,6 +109,13 @@ public class ParserUtil {
         return Optional.of(newReminder);
     }
 
+    /**
+     * Parse the {@code priority} into a {@code Optional<Priority>} and returns it.
+     * Converts the string of priority into an enumeration priority object, is case-insensitive.
+     * @param priority of the task or event
+     * @return Optional.of(priority) if the priority is valid, Optional.empty() otherwise
+     * @throws ParseException if the priority given is not high/medium/low
+     */
     public static Optional<Priority> parsePriority(String priority) throws ParseException {
         if (priority == null) {
             return Optional.empty();
@@ -99,15 +124,15 @@ public class ParserUtil {
         String trimmedPriority = priority.trim();
         Priority processedPriority;
 
-        if (trimmedPriority.equalsIgnoreCase("HIGH")){
+        if (trimmedPriority.equalsIgnoreCase("HIGH")) {
             processedPriority = Priority.HIGH;
         } else if (trimmedPriority.equalsIgnoreCase("MEDIUM")) {
             processedPriority = Priority.MEDIUM;
         } else if (trimmedPriority.equalsIgnoreCase("LOW")) {
             processedPriority = Priority.LOW;
         } else {
-            throw new ParseException("Priority format given is incorrect. " +
-                    "Please follow this format \"-p High\"");
+            throw new ParseException("Priority format given is incorrect. "
+                    + "Please follow this format \"-p High\"");
         }
 
         return Optional.of(processedPriority); //maybe use enum here

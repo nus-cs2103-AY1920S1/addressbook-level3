@@ -3,6 +3,9 @@ package seedu.address.model.item;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Priority of an item
+ */
 public class Priority {
 
     public static final String MESSAGE_CONSTRAINTS = "Description should not be blank.";

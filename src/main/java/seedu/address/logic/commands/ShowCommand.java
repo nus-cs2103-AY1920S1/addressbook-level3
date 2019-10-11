@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
@@ -28,18 +29,18 @@ public class ShowCommand extends Command {
     public ShowCommand(String targetView) {
         this.targetView = targetView;
         switch(targetView) {
-            case TASK_VIEW_COMMAND:
-                this.targetList = TASK_VIEW_COMMAND; //"TASK"
-                break;
-            case EVENT_VIEW_COMMAND:
-            case CALENDAR_VIEW_COMMAND:
-                this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
-                break;
-            case REMINDER_VIEW_COMMAND:
-                this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
-                break;
-            default:
-                this.targetList = null;
+        case TASK_VIEW_COMMAND:
+            this.targetList = TASK_VIEW_COMMAND; //"TASK"
+            break;
+        case EVENT_VIEW_COMMAND:
+        case CALENDAR_VIEW_COMMAND:
+            this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
+            break;
+        case REMINDER_VIEW_COMMAND:
+            this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
+            break;
+        default:
+            this.targetList = null;
         }
     }
 

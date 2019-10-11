@@ -1,22 +1,20 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ItemModel;
-//import seedu.address.model.item.*;
 import seedu.address.commons.core.item.Event;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Item.ItemBuilder;
@@ -24,13 +22,16 @@ import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.core.item.Task;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemModel;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ItemList;
 import seedu.address.model.item.TaskList;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing item in the item list.
  */
 public class EditCommand extends Command {
 
@@ -86,6 +87,14 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
+    /**
+     * Create a new Item with the new edited details.
+     * @param itemToEdit old item to edit
+     * @param editItemDescriptor details to edit the item with
+     * @param lastShownList the last list shown to the user, set by the model
+     * @return a new Item with the edited details
+     * @throws CommandException representing failure to create new edited item
+     */
     private static Item createEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor,
                                          ItemList lastShownList) throws CommandException {
         assert itemToEdit != null;
@@ -141,7 +150,9 @@ public class EditCommand extends Command {
         return updatedItem;
     }
 
-
+    /**
+     * Create a new EditItemDescriptor that edits the details of an item.
+     */
     public static class EditItemDescriptor {
         private ItemDescription description;
         private Task task;

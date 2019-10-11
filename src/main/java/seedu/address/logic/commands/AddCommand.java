@@ -1,15 +1,19 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ItemModel;
-import seedu.address.model.Model;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.item.Item;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemModel;
 
 
+/**
+ * Add an Item to the item list.
+ */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
