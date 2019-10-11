@@ -32,6 +32,6 @@ public class Tab {
 
     @Override
     public String toString() {
-        return name;
+        return name + ":(" + url + ")";
     }
 }

@@ -7,7 +7,7 @@ import com.typee.ui.Tab;
 
 /**
  * Parses the given {@code String} of arguments in the context of the TabCommand
- * and returns an TabCommand object for execution.
+ * and returns an Tab Command object for execution.
  * @throws ParseException if the user input does not conform the expected format
  */
 public class TabCommandParser implements Parser<TabCommand> {

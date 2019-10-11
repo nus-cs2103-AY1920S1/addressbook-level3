@@ -187,12 +187,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switch the window to the {@code Tab} specified.
      */
-    private void handleTabSwitch(Tab tab) throws IOException {
+    private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
         logger.info("switching tab to game window");
-        VBox newPane = new FXMLLoader(getClass().getClassLoader()
-                .getResource("view/GameWindow.fxml")).load();
-        mainWindow.getChildren().clear();
-        mainWindow.getChildren().add(newPane);
+        String tabUrl = null;
+        boolean isTabValid = false;
+        for (Tab tab : tabList) {
+            if (tabInput.getName().equals(tab.getName())) {
+                tabUrl = tab.getUrl();
+                isTabValid = true;
+            }
+        }
+        if (isTabValid && tabInput != null) {
+            VBox newPane = new FXMLLoader(getClass().getClassLoader()
+                    .getResource("view/" + tabUrl)).load();
+            mainWindow.getChildren().clear();
+            mainWindow.getChildren().add(newPane);
+        } else {
+            throw new CommandException("Invalid tab. Please enter a valid tab name");
+        }
     }
 
     public PersonListPanel getPersonListPanel() {

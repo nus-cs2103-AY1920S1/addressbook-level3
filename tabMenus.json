@@ -2,13 +2,13 @@
   { "name" : "Appointment",
     "url" :  "AppointmentWindow.fxml"
   },
-  { "name" :  "Typing Game",
+  { "name" :  "TypingGame",
     "url" :  "GameWindow.fxml"
   },
-  { "name" : "Calendar View",
+  { "name" : "Calendar",
   "url" :  "CalendarWindow.fxml"
   },
-  { "name" :  "Generate Report",
+  { "name" :  "Report",
   "url" :  "ReportWindow.fxml"
   }
 ]
