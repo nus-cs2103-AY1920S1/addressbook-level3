@@ -2,12 +2,19 @@ package seedu.address.commons.core.item;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -185,6 +192,7 @@ public class Item {
         }
 
         Item otherItem = (Item) other;
+
         return otherItem.getTask().equals(getTask())
                 && otherItem.getReminder().equals(getReminder())
                 && otherItem.getEvent().equals(getEvent())
@@ -296,4 +304,57 @@ public class Item {
         }
 
     }
+
+    /**
+     * Converts the item object into a json string.
+     * @return string representation of the item
+     * @throws JsonProcessingException when the item cannot be converted into a JSON string
+     */
+    public String toJson() throws JsonProcessingException {
+        return JsonUtil.toJsonString(this);
+    }
+
+    /**
+     * Creates an item object from a JSON string.
+     * @param jsonString the JSON string that represents the item
+     * @return the item object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     * @throws IllegalValueException when the JSON string contains incorrect value
+     */
+    public static Item fromJson(String jsonString) throws IOException, IllegalValueException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+        ItemBuilder temp = new ItemBuilder();
+
+        String itemDescriptionString = node.get("itemDescription").toString();
+        ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
+        temp.setItemDescription(id);
+
+        if (node.hasNonNull("task")) {
+            String taskString = node.get("task").toString();
+            Task t = Task.fromJson(taskString);
+            temp = temp.setTask(t);
+        }
+
+        if (node.hasNonNull("event")) {
+            String eventString = node.get("event").toString();
+            Event e = Event.fromJson(eventString);
+            temp = temp.setEvent(e);
+        }
+
+        if (node.hasNonNull("reminder")) {
+            String reminderString = node.get("reminder").toString();
+            Reminder r = Reminder.fromJson(reminderString);
+            temp = temp.setReminder(r);
+        }
+
+        Set<Tag> tagsSet = new HashSet<>();
+        JsonNode tags = node.get("tags");
+        Iterator<JsonNode> it = tags.elements();
+        while (it.hasNext()) {
+            tagsSet.add(new Tag(it.next().get("tagName").asText()));
+        }
+
+        return temp.setTags(tagsSet).build();
+    }
+
 }

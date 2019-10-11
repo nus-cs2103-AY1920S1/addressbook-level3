@@ -2,9 +2,15 @@ package seedu.address.commons.core.item;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
 
 /**
  * Represents an Item's Event in ELISA.
@@ -107,6 +113,28 @@ public class Event {
     @Override
     public int hashCode() {
         return Objects.hash(startDateTime, endDateTime, duration, priority);
+    }
+
+    /**
+     * Creates an event object from a JSON string.
+     * @param jsonString the JSON string that represents the event
+     * @return the event object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     * @throws IllegalValueException when the JSON string contains incorrect value
+     */
+    public static Event fromJson(String jsonString) throws IOException, IllegalValueException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+
+        String startDateTimeString = node.get("startDateTime").asText();
+        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString);
+
+        String durationString = node.get("duration").asText();
+        Duration duration = Duration.parse(durationString);
+
+        String priorityString = node.get("priority").asText();
+        Priority priority = Priority.valueOf(priorityString);
+
+        return new Event(startDateTime, duration, priority);
     }
 
 }

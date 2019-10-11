@@ -3,6 +3,12 @@ package seedu.address.commons.core.item;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.util.JsonUtil;
+
 /**
  * Represents an Item's description in ELISA.
  * Guarantees: immutable; is valid as declared in {@link #isValidItemDescription(String)}
@@ -53,4 +59,15 @@ public class ItemDescription {
         return description.hashCode();
     }
 
+    /**
+     * Creates an item description object from a JSON string.
+     * @param jsonString the JSON string that represents the item description
+     * @return the item description object that is created
+     * @throws IOException when the jsonString is not in JSON format
+     */
+    public static ItemDescription fromJson(String jsonString) throws IOException {
+        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+
+        return new ItemDescription(node.get("description").asText());
+    }
 }
