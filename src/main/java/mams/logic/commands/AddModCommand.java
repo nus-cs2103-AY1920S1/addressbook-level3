@@ -66,7 +66,8 @@ public class AddModCommand extends Command {
         List<Student> studentInList = lastShownList.stream()
                 .filter(p -> p.getName().fullName.equals(studentId)).collect(Collectors.toList());
 
-        //TODO: addmod command!
+        //TODO: addmod command. Most fields untouched. Decide: Parse here(to get index from matric id
+        // OR return to editcommandparser to do parsing?...
 
         Student studentToEdit = studentInList.get(1);
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);

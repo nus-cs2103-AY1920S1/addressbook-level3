@@ -37,6 +37,8 @@ public class AddModCommandParser implements Parser<AddModCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MATRICID, PREFIX_MODULE_CODE,
                         PREFIX_SESSIONID);
 
+        //TODO: Note that fields not changed(name,email etc) will be retaken in EditCommand
+        // Here, only need to tokenize and push the strings to Addmodcommand
         AddModCommand.EditStudentDescriptor editStudentDescriptor = new AddModCommand.EditStudentDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));

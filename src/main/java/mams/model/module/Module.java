@@ -1,11 +1,12 @@
 package mams.model.module;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import mams.commons.util.CollectionUtil;
-import mams.model.student.Student;
+import mams.model.tag.Tag;
 
 /**
  * Represents a Module in MAMS.
@@ -40,12 +41,12 @@ public class Module {
      *   TimeSlots(value) are arranged in ascending order
      */
     private final String timeSlot;
-    private final Set<Student> students = new HashSet<>(); // to be added
+    private final Set<Tag> students = new HashSet<>(); // to be added
 
     /**
      * Every field must be present and not null.
      */
-    public Module(String moduleCode, String sessionId, String timeSlot, Set<Student> students) {
+    public Module(String moduleCode, String sessionId, String timeSlot, Set<Tag> students) {
         CollectionUtil.requireAllNonNull(moduleCode, sessionId, timeSlot, students);
         this.moduleCode = moduleCode;
         this.sessionId = sessionId;
@@ -122,6 +123,15 @@ public class Module {
     public String getTimeSlot() {
         return timeSlot;
     }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getStudents() {
+        return Collections.unmodifiableSet(students);
+    }
+
     /**
      * Returns true if both module of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two students.
@@ -154,13 +164,14 @@ public class Module {
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getSessionId().equals(getSessionId())
-                && otherModule.getTimeSlot().equals((getTimeSlot()));
+                && otherModule.getTimeSlot().equals((getTimeSlot()))
+                && otherModule.getStudents().equals(getStudents());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, sessionId, timeSlot);
+        return Objects.hash(moduleCode, sessionId, timeSlot, students);
     }
 
     @Override
@@ -170,8 +181,9 @@ public class Module {
                 .append(" SessionID: ")
                 .append(getSessionId())
                 .append(" TimeSlots: ")
-                .append(timeSlotsToString());
-
+                .append(timeSlotsToString())
+                .append(" Students: ");
+        getStudents().forEach(builder::append);
         return builder.toString();
     }
 
