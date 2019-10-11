@@ -9,6 +9,8 @@ import calofit.commons.core.GuiSettings;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
+import calofit.model.meal.MealLog;
+import calofit.model.util.Statistics;
 
 /**
  * The API of the Model component.
@@ -91,4 +93,10 @@ public interface Model {
     ObservableList<Meal> getFilteredMealList();
 
     void addMeal(Meal meal);
+
+    MealLog getMealLog();
+
+    void updateStatistics();
+
+    Statistics getStatistics();
 }

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import calofit.logic.commands.EditCommand;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
@@ -30,6 +31,7 @@ public class EditDishDescriptorBuilder {
     public EditDishDescriptorBuilder(Dish dish) {
         descriptor = new EditCommand.EditDishDescriptor();
         descriptor.setName(dish.getName());
+        descriptor.setCalories(dish.getCalories());
         descriptor.setTags(dish.getTags());
     }
 
@@ -38,6 +40,14 @@ public class EditDishDescriptorBuilder {
      */
     public EditDishDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Calorie} of the {@code EditDishDescriptor} that we are building.
+     */
+    public EditDishDescriptorBuilder withCalories(String calories) {
+        descriptor.setCalories(new Calorie(calories));
         return this;
     }
 

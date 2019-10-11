@@ -22,6 +22,8 @@ import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
+import calofit.model.meal.MealLog;
+import calofit.model.util.Statistics;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 
@@ -159,6 +161,21 @@ public class AddCommandTest {
         @Override
         public void addMeal(Meal meal) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MealLog getMealLog() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void updateStatistics() {
+            throw new AssertionError("This method should not be called");
         }
     }
 

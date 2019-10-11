@@ -19,6 +19,7 @@ import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
+import calofit.model.util.Statistics;
 
 /**
  * Represents the in-memory model of the dish database data.
@@ -26,11 +27,12 @@ import calofit.model.meal.MealLog;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static Statistics statistics;
+
     private final DishDatabase dishDatabase;
     private final MealLog mealLog;
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
-
     private final FilteredList<Meal> filteredMeals;
     private final SortedList<Meal> sortedMeals;
 
@@ -46,10 +48,10 @@ public class ModelManager implements Model {
         this.dishDatabase = new DishDatabase(dishDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
         this.mealLog = mealLog;
-        filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
-
-        filteredMeals = new FilteredList<>(this.mealLog.getMeals());
-        sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
+        this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
+        this.filteredMeals = new FilteredList<>(this.mealLog.getMeals());
+        this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
+        this.statistics = null;
     }
 
     public ModelManager() {
@@ -154,6 +156,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateStatistics() {
+        this.statistics = Statistics.generateStatistics(this.mealLog);
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return this.statistics;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -175,5 +187,10 @@ public class ModelManager implements Model {
     @Override
     public void addMeal(Meal meal) {
         this.mealLog.addMeal(meal);
+    }
+
+    @Override
+    public MealLog getMealLog() {
+        return this.mealLog;
     }
 }

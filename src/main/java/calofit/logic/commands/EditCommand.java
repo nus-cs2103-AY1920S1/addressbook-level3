@@ -1,5 +1,6 @@
 package calofit.logic.commands;
 
+import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
@@ -16,6 +17,7 @@ import calofit.commons.core.index.Index;
 import calofit.commons.util.CollectionUtil;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
@@ -32,6 +34,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_CALORIES + "CALORIES] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -83,9 +86,10 @@ public class EditCommand extends Command {
         assert dishToEdit != null;
 
         Name updatedName = editDishDescriptor.getName().orElse(dishToEdit.getName());
+        Calorie updatedCalories = editDishDescriptor.getCalories().orElse(dishToEdit.getCalories());
         Set<Tag> updatedTags = editDishDescriptor.getTags().orElse(dishToEdit.getTags());
 
-        return new Dish(updatedName, updatedTags);
+        return new Dish(updatedName, updatedCalories, updatedTags);
     }
 
     @Override
@@ -112,6 +116,7 @@ public class EditCommand extends Command {
      */
     public static class EditDishDescriptor {
         private Name name;
+        private Calorie calories;
         private Set<Tag> tags;
 
         public EditDishDescriptor() {}
@@ -122,6 +127,7 @@ public class EditCommand extends Command {
          */
         public EditDishDescriptor(EditDishDescriptor toCopy) {
             setName(toCopy.name);
+            setCalories(toCopy.calories);
             setTags(toCopy.tags);
         }
 
@@ -129,7 +135,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, tags);
+            return CollectionUtil.isAnyNonNull(name, calories, tags);
         }
 
         public void setName(Name name) {
@@ -138,6 +144,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setCalories(Calorie calories) {
+            this.calories = calories;
+        }
+
+        public Optional<Calorie> getCalories() {
+            return Optional.ofNullable(calories);
         }
 
         /**
@@ -173,6 +187,7 @@ public class EditCommand extends Command {
             EditDishDescriptor e = (EditDishDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getCalories().equals(e.getCalories())
                     && getTags().equals(e.getTags());
         }
     }

@@ -23,11 +23,13 @@ public class AddCommandParserTest {
         // whitespace only preamble
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE
                 + CommandTestUtil.NAME_DESC_MACARONI
+                + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_EXPENSIVE, new AddCommand(expectedDish));
 
         // multiple names - last name accepted
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_DUCK_RICE
                 + CommandTestUtil.NAME_DESC_MACARONI
+                + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_EXPENSIVE, new AddCommand(expectedDish));
 
         // multiple tags - all accepted
@@ -35,6 +37,7 @@ public class AddCommandParserTest {
                 .withTags(CommandTestUtil.VALID_TAG_EXPENSIVE, CommandTestUtil.VALID_TAG_SALTY)
                 .build();
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_MACARONI
+                + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_SALTY + CommandTestUtil.TAG_DESC_EXPENSIVE,
                 new AddCommand(expectedDishMultipleTags));
     }
@@ -43,7 +46,8 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Dish expectedDish = new DishBuilder(TypicalDishes.DUCK_RICE).withTags().build();
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_DUCK_RICE,
+        CommandParserTestUtil.assertParseSuccess(parser,
+                CommandTestUtil.NAME_DESC_DUCK_RICE + CommandTestUtil.CALORIE_DESC_1000,
                 new AddCommand(expectedDish));
     }
 
@@ -60,10 +64,12 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.INVALID_NAME_DESC
+                + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_SALTY + CommandTestUtil.TAG_DESC_EXPENSIVE, Name.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.NAME_DESC_MACARONI
+                + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.INVALID_TAG_DESC + CommandTestUtil.VALID_TAG_EXPENSIVE, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
@@ -72,7 +78,9 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY
-                        + CommandTestUtil.NAME_DESC_MACARONI + CommandTestUtil.TAG_DESC_SALTY
+                        + CommandTestUtil.NAME_DESC_MACARONI
+                        + CommandTestUtil.CALORIE_DESC_1000
+                        + CommandTestUtil.TAG_DESC_SALTY
                         + CommandTestUtil.TAG_DESC_EXPENSIVE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

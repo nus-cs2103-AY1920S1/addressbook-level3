@@ -58,7 +58,8 @@ public class CommandParserTest {
         EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder(dish).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased() + " "
-                + DishUtil.getEditDishDescriptorDetails(descriptor));
+                + DishUtil.getEditDishDescriptorDetails(descriptor)
+        );
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_MEAL, descriptor), command);
     }
 

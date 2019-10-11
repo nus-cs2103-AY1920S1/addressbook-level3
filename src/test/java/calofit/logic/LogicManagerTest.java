@@ -76,12 +76,14 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_DUCK_RICE;
+        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_DUCK_RICE
+                + CommandTestUtil.CALORIE_DESC_1000;
         Dish expectedDish = new DishBuilder(TypicalDishes.DUCK_RICE).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addDish(expectedDish);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+
     }
 
     @Test

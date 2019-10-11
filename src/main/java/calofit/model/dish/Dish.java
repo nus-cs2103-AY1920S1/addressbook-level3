@@ -16,6 +16,8 @@ import calofit.model.tag.Tag;
 public class Dish {
 
     // Identity fields
+    private final Calorie calories;
+
     private final Name name;
 
     private final Set<Tag> tags = new HashSet<>();
@@ -23,9 +25,10 @@ public class Dish {
     /**
      * Every field must be present and not null.
      */
-    public Dish(Name name, Set<Tag> tags) {
+    public Dish(Name name, Calorie calories, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
+        this.calories = calories;
         this.tags.addAll(tags);
     }
 
@@ -34,12 +37,16 @@ public class Dish {
      *
      * @param name is the name of the dish.
      */
-    public Dish(Name name) {
-        this(name, new HashSet<Tag>());
+    public Dish(Name name, Calorie calories) {
+        this(name, calories, new HashSet<Tag>());
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Calorie getCalories() {
+        return this.calories;
     }
 
     /**
@@ -60,7 +67,8 @@ public class Dish {
         }
 
         return otherDish != null
-                && otherDish.getName().equals(getName());
+                && otherDish.getName().equals(getName())
+                && otherDish.getCalories().equals(getCalories());
     }
 
     /**
@@ -79,6 +87,7 @@ public class Dish {
 
         Dish otherDish = (Dish) other;
         return otherDish.getName().equals(getName())
+                && otherDish.getCalories().equals(getCalories())
                 && otherDish.getTags().equals(getTags());
     }
 
@@ -92,6 +101,8 @@ public class Dish {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Calories: ")
+                .append(getCalories().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
