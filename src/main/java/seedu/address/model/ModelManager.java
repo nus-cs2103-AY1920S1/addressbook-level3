@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.person.Person;
 
 /**
@@ -146,6 +147,20 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return null;
+    }
+
+    @Override
+    public void deleteFlashcard(Flashcard target) {
+        return;
     }
 
 }

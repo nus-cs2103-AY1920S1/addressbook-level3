@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.person.Person;
 
 /**
@@ -84,4 +85,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered flashcard list */
+    ObservableList<Flashcard> getFilteredFlashcardList();
+
+    /**
+     * Deletes the given flashcard.
+     * The flashcard must exist in the flashcard bank.
+     */
+    void deleteFlashcard(Flashcard target);
 }
