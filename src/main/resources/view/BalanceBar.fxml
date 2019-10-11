@@ -4,8 +4,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<HBox styleClass="balance-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
-  <Label fx:id="balanceRemainingLabel" />
+<HBox styleClass="balance-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <Pane minWidth="10"></Pane>
+  <Label fx:id="monthlyBudgetLabel" />
+  <Label fx:id="monthlyBudget" />
   <Pane HBox.hgrow="ALWAYS"></Pane>
+  <Label fx:id="balanceRemainingLabel" />
   <Label fx:id="balance" />
+  <Pane minWidth="20"></Pane>
 </HBox>

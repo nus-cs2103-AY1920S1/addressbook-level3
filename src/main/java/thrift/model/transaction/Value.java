@@ -90,7 +90,7 @@ public class Value {
      * storing.
      */
     public String getUnformattedString() {
-        return Double.toString(getMonetaryValue());
+        return String.format("%.2f", getMonetaryValue());
     }
 
     @Override

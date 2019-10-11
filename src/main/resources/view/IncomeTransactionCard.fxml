@@ -34,7 +34,7 @@
                     <Label fx:id="incomeDate" styleClass="cell_small_label" text="\$date" />
                     <Label fx:id="incomeReserved" styleClass="cell_small_label" text="\$reserved" />
                 </VBox>
-                <Pane HBox.hgrow="ALWAYS"></Pane>
+                <Pane HBox.hgrow="ALWAYS" minWidth="50"></Pane>
                 <Label fx:id="incomeValue" styleClass="cell_small_label" text="\$value" />
             </HBox>
         </VBox>

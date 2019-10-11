@@ -52,6 +52,9 @@ public class IncomeTransactionCard extends UiPart<Region> {
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        incomeDescription.setWrapText(true);
+        incomeValue.setWrapText(true);
+        incomeReserved.setWrapText(true);
     }
 
     @Override

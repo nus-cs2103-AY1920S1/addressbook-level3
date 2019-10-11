@@ -52,6 +52,9 @@ public class ExpenseTransactionCard extends UiPart<Region> {
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        expenseDescription.setWrapText(true);
+        expenseValue.setWrapText(true);
+        expenseReserved.setWrapText(true);
     }
 
     @Override
