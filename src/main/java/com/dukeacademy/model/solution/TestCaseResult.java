@@ -8,6 +8,12 @@ public class TestCaseResult {
     private String expectedOutput;
     private String actualOutput;
 
+    public TestCaseResult(boolean isSuccessful, String expectedOutput, String actualOutput) {
+        this.isSuccessful = isSuccessful;
+        this.expectedOutput = expectedOutput;
+        this.actualOutput = actualOutput;
+    }
+
     public boolean isSuccessful() {
         return isSuccessful;
     }

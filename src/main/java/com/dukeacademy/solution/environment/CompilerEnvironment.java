@@ -16,8 +16,7 @@ public interface CompilerEnvironment {
      * @param program the program to be converted to a Java file.
      * @return the file created.
      */
-    public JavaFile createJavaFile(UserProgram program) throws CompilerFileCreationException,
-            CompilerEnvironmentException;
+    public JavaFile createJavaFile(UserProgram program) throws CompilerFileCreationException;
 
     /**
      * Returns the file corresponding to the name provided.
@@ -25,7 +24,7 @@ public interface CompilerEnvironment {
      * @return the file corresponding to the name provided.
      * @throws FileNotFoundException if the file does not exists.
      */
-    public JavaFile getJavaFile(String name) throws FileNotFoundException, CompilerEnvironmentException;
+    public JavaFile getJavaFile(String name) throws FileNotFoundException;
 
     /**
      * Clears the environment of any existing files and artifacts.
