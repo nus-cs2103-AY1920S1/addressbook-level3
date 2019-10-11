@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.model.customer.Customer;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,7 +22,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Customer> filteredCustomers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,7 +35,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
     }
 
     public ModelManager() {
@@ -116,29 +112,6 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    @Override
-    public boolean hasCustomer(Customer customer) {
-        requireNonNull(customer);
-        return addressBook.hasCustomer(customer);
-    }
-    /*
-    @Override
-    public void deleteCustomer(Customer target) {
-        addressBook.removeCustomer(target);
-    }
-    */
-    @Override
-    public void addCustomer(Customer customer) {
-        addressBook.addCustomer(customer);
-        //updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS); - to add.
-    }
-
-    @Override
-    public void setCustomer(Customer target, Customer editedCustomer) {
-        requireAllNonNull(target, editedCustomer);
-
-        addressBook.setCustomer(target, editedCustomer);
-    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
