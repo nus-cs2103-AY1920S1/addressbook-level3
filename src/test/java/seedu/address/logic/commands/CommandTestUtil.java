@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
@@ -105,7 +106,7 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        ModulePlanner expectedModulePlanner = new ModulePlanner(actualModel.getModulePlanner());
+        ModulePlanner expectedModulePlanner = new ModulePlanner(actualModel.getModulePlanner(), new ModulesInfo());
         List<StudyPlan> expectedFilteredList = new ArrayList<>(actualModel.getFilteredStudyPlanList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

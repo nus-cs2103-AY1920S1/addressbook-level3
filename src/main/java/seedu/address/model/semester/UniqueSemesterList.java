@@ -13,9 +13,9 @@ import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 
 /**
  * A list of semesters that enforces uniqueness between its elements and does not allow nulls.
- * A {@code Semester} is considered unique by comparing using {@code Semester#equals(Semester)}. As such, adding, updating and
- * removing of semesters uses Semester#equals(Semester) for equality so as to ensure that the semester
- * is unique in terms of identity in the UniqueSemesterList.
+ * A {@code Semester} is considered unique by comparing using {@code Semester#equals(Semester)}.
+ * As such, adding, updating and removing of semesters uses Semester#equals(Semester) for equality so as to ensure
+ * that the semester is unique in terms of identity in the UniqueSemesterList.
  *
  * Supports a minimal set of list operations.
  *
@@ -87,7 +87,7 @@ public class UniqueSemesterList implements Iterable<Semester>, Cloneable {
      */
     public void setSemesters(List<Semester> semesters) {
         requireAllNonNull(semesters);
-        if (!SemestersAreUnique(semesters)) {
+        if (!semestersAreUnique(semesters)) {
             throw new DuplicateSemesterException();
         }
 
@@ -126,7 +126,7 @@ public class UniqueSemesterList implements Iterable<Semester>, Cloneable {
     /**
      * Returns true if {@code Semesters} contains only unique Semesters.
      */
-    private boolean SemestersAreUnique(List<Semester> semesters) {
+    private boolean semestersAreUnique(List<Semester> semesters) {
         for (int i = 0; i < semesters.size() - 1; i++) {
             for (int j = i + 1; j < semesters.size(); j++) {
                 if (semesters.get(i).equals(semesters.get(j))) {

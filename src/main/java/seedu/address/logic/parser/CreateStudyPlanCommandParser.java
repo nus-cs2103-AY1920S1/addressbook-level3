@@ -4,8 +4,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.CreateStudyPlanCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.studyplan.Title;
 
 /**
  * Parses input arguments and creates a new CreateStudyPlanCommand object
@@ -26,7 +24,8 @@ public class CreateStudyPlanCommandParser implements Parser<CreateStudyPlanComma
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateStudyPlanCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CreateStudyPlanCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
