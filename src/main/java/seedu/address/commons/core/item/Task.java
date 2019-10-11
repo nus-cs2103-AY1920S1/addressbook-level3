@@ -42,6 +42,8 @@ public class Task {
         return complete;
     }
 
+    public Task changePriority(Priority priority) { return new Task(priority, isComplete()); }
+
     public Task markComplete() {
         return new Task(getPriority(), true);
     }
