@@ -34,6 +34,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private GameLogic gameLogic;
 
     private boolean gameStarted;
     private ModeEnum mode;
@@ -43,6 +44,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.gameStarted = false;
         this.mode = ModeEnum.LOAD;
+        this.gameLogic = new GameLogic(model);
         /*
         Step 9.
         this.game = game //get from constructor
@@ -72,39 +74,8 @@ public class LogicManager implements Logic {
         //commandResult = command.execute(model);
 
         /* Checks if command entered in wrong mode */
-        if (command instanceof SwitchCommand) {
-            this.mode = ((SwitchCommand) command).getNewMode();
-        }
-        if (this.mode == ModeEnum.LOAD && !(command instanceof LoadCommand)) {
-            throw new CommandException("Load word bank first!");
-        }
-        if (this.mode == ModeEnum.APP && !(command instanceof AppCommand)) {
-            throw new CommandException("You are in App Mode");
-        }
-        if (this.mode == ModeEnum.GAME && !(command instanceof GameCommand)) {
-            throw new CommandException("You are in Game Mode!");
-        }
-
-
-        if (command instanceof GameCommand || command instanceof StartCommand) {
-            //Game logic
-            if (command instanceof StartCommand) {
-                gameStarted = true;
-            }
-            if (!gameStarted) {
-                throw new CommandException("Start game first!");
-            }
-            commandResult = new GameLogic(model, (Command) command).process();
-        } else {
-            //Non-game Logic
-            if (command instanceof HomeCommand) {
-                gameStarted = false;
-            }
-            if (gameStarted) {
-                throw new CommandException("Go home first!");
-            }
-            commandResult = command.execute(model);
-        }
+        this.mode = command.check(model, mode);
+        commandResult = command.execute(model);
 
         /*
         Step 12.

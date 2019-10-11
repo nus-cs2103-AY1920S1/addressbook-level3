@@ -23,6 +23,11 @@ public class GameLogic {
         this.gameCommand = gameCommand;
     }
 
+    public GameLogic(Model model) {
+        this.model = model;
+        this.game = model.getGame();
+    }
+
     /**
      * Executes {@code gameCommand} and returns the resulting {@code CommandResult}.
      * @throws CommandException If the executed command results in an exception.

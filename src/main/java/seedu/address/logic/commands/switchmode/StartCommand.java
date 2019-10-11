@@ -51,12 +51,13 @@ public class StartCommand extends SwitchCommand {
     }
 
     @Override
-    public ModeEnum getNewMode() {
+    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
         return ModeEnum.GAME;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
         String pathString = "data/" + wordBankName + ".json";
         Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
