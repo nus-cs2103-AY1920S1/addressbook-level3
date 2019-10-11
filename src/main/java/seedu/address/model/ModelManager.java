@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Flashcard> filteredFlashcards;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
     }
 
     public ModelManager() {
@@ -113,6 +115,18 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasFlashcard(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return addressBook.hasFlashcard(flashcard);
+    }
+
+    @Override
+    public void addFlashcard(Flashcard flashcard) {
+        addressBook.addFlashcard(flashcard);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -128,6 +142,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Flashcard List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return filteredFlashcards;
+    }
+
+    @Override
+    public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+        requireNonNull(predicate);
+        filteredFlashcards.setPredicate(predicate);
     }
 
     @Override

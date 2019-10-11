@@ -15,6 +15,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Flashcard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -86,6 +89,18 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+
+    /**
+     * Returns true if the same flashcard as {@code flashcard} exists in the application.
+     */
+    boolean hasFlashcard(Flashcard flashcard);
+
+    /**
+     * Adds the given flashcard.
+     * {@code flashcard} must not already exist in the application.
+     */
+    void addFlashcard(Flashcard toAdd);
+
     /** Returns an unmodifiable view of the filtered flashcard list */
     ObservableList<Flashcard> getFilteredFlashcardList();
 
@@ -94,4 +109,9 @@ public interface Model {
      * The flashcard must exist in the flashcard bank.
      */
     void deleteFlashcard(Flashcard target);
+
+    /** Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
 }
