@@ -18,15 +18,14 @@ import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
-<<<<<<< HEAD
+
 import seedu.address.model.question.QuestionBank;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
-=======
-import seedu.address.model.question.QuestionList;
+
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
->>>>>>> upstream/master
+
 
 /**
  * Represents the in-memory model of the address book data.

@@ -17,19 +17,19 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.question.QuestionAddCommand;
-<<<<<<< HEAD
+
 import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.note.NoteCommandParser;
 import seedu.address.logic.parser.question.QuestionCommandParser;
 import seedu.address.logic.parser.quiz.QuizCommandParser;
-=======
+
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.note.NoteCommandParser;
 import seedu.address.logic.parser.question.QuestionCommandParser;
 import seedu.address.logic.parser.student.StudentCommandParser;
->>>>>>> upstream/master
+
 
 /**
  * Parses user input.
