@@ -46,7 +46,7 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-        
+
         <HBox fx:id="achievementsTitlePlaceholder" styleClass="pane-with-border">
            <padding>
               <Insets bottom="5" left="10" right="10" top="5" />
