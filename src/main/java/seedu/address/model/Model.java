@@ -19,6 +19,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    //region PREFERENCES & SETTINGS
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -39,7 +40,9 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    //=========== AddressBook ================================================================================
+    //endregion
+
+    //region AddressBook
 
     /**
      * Returns the user prefs' address book file path.
@@ -59,7 +62,45 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    //=========== StudentRecord ================================================================================
+    //endregion
+
+    //region Person
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    boolean hasPerson(Person person);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deletePerson(Person target);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addPerson(Person person);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void setPerson(Person target, Person editedPerson);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    //endregion
+
+    //region StudentRecord
 //    /**
 //     * Adds the given student.
 //     * {@code student} must not exist in the student list.
@@ -93,16 +134,18 @@ public interface Model {
 
     ReadOnlyStudentRecord getStudentRecord();
 
+    //endregion
+
     //region Students
     boolean hasStudent(Student student);
     void deleteStudent(Student target);
     void addStudent(Student student);
     void setStudent(Student target, Student editedStudent);
+    ObservableList<Student> getStudentList();
 
     //endregion
 
-
-    //=========== Questions ================================================================================
+    //region Questions
     /**
      * Adds the given question.
      * {@code question} must not exist in the question list.
@@ -131,8 +174,9 @@ public interface Model {
      */
     String getQuestionsSummary();
 
-    //=========== Questions ================================================================================
+    //endregion
 
+    //region Notes
     /**
      * Adds the given note.
      * {@code note} must not exist in the note list.
@@ -163,38 +207,5 @@ public interface Model {
 
     List<Note> getNotes();
 
-    //=========== Person ================================================================================
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    //endregion
 }

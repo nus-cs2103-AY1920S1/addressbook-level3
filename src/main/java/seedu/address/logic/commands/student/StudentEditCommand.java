@@ -31,13 +31,10 @@ public class StudentEditCommand extends StudentCommand{
     @Override
     public CommandResult execute(Model model) throws CommandException {
 //        Student studentObj = model.getStudent(index);
-//
 //        String studentName = (!this.name.isBlank()) ? this.name : studentObj.getName().toString();
-//
 //        studentObj.setName(studentName);
-//
 //        model.setStudent(index, studentObj);
-        return null;//new CommandResult(generateSuccessMessage(studentObj));
+        return null; //new CommandResult(generateSuccessMessage(studentObj));
     }
 
     /**

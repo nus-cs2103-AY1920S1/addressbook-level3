@@ -13,8 +13,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class StudentAddCommand extends StudentCommand{
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new student\n"
             + "Parameters:\n"
-            + "name/ [NAME]\n"
-            + "Example: name/ Jeong Sock Hwee\n\n";
+            + "student/[STUDENT_NAME]\n"
+            + "Example: student student/JusBevo \n\n";
 
     private final Student toAdd;
 
