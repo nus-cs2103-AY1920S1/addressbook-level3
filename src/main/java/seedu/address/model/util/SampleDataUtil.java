@@ -14,10 +14,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.project.Description;
+import seedu.address.model.project.Project;
 import seedu.address.model.project.Title;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.project.Project;
-
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -66,8 +65,8 @@ public class SampleDataUtil {
 
     public static Project[] getSampleProjects() {
         return new Project[] {
-                new Project(new Title("CS2103T"), new Description("The mod that takes most time")),
-                new Project(new Title("GER1000"), new Description("Free and easy"))
+            new Project(new Title("CS2103T"), new Description("The mod that takes most time")),
+            new Project(new Title("GER1000"), new Description("Free and easy"))
         };
     }
 
