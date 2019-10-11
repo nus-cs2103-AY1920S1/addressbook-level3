@@ -79,6 +79,7 @@ public class AddStudentCommandIntegrationTest {
         Student indexedStudent = new StudentBuilder().build();
         Index validTutorialIndex = Index.fromOneBased(1);
 
+
         assertCommandSuccess(new AddStudentCommand(indexedStudent, validTutorialIndex), model,
                 String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), expectedModel);
     }

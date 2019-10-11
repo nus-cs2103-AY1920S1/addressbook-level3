@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
+
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.exceptions.StudentNotFoundException;
 import seedu.tarence.model.tutorial.exceptions.WeekNotFoundException;
@@ -19,13 +20,14 @@ import seedu.tarence.model.tutorial.exceptions.WeekNotFoundException;
  */
 public class Attendance {
     private final Map<Week, Map<Student, Boolean>> attendance;
-
+  
     /**
      * Every field must be present and not null.
      */
     public Attendance(Set<Week> weeks, List<Student> students) {
         requireAllNonNull(weeks, students);
         attendance = new TreeMap<>();
+
         for (Week week : weeks) {
             attendance.put(week, new HashMap<>());
             for (Student student: students) {
@@ -35,6 +37,7 @@ public class Attendance {
     }
 
     public Map<Week, Map<Student, Boolean>> getAttendance() {
+
         return attendance;
     }
 
@@ -42,6 +45,7 @@ public class Attendance {
      * Returns attendance for that week if it exists, else throws an error.
      */
     public Map<Student, Boolean> getWeek(Week week) throws WeekNotFoundException {
+
         if (!attendance.containsKey(week)) {
             throw new WeekNotFoundException();
         }
@@ -95,6 +99,7 @@ public class Attendance {
         for (Week week : weeks) {
             setAttendance(week, student, false);
         };
+
     }
 
     /**

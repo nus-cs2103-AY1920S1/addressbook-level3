@@ -193,6 +193,7 @@ public class ParserUtil {
         requireNonNull(weeks);
         Set<Week> listOfWeeks = new TreeSet<>();
 
+
         // check for user input of "odd" or "even"
         if (weeks.toLowerCase().equals("odd")) { // weeks 3, 5, 7, 9, 11, 13
             for (int i = 3; i <= 13; i += 2) {
@@ -226,6 +227,7 @@ public class ParserUtil {
 
         for (String weekNumber : weekNumbers) {
             listOfWeeks.add(parseWeek(weekNumber));
+
         }
         return listOfWeeks;
     }

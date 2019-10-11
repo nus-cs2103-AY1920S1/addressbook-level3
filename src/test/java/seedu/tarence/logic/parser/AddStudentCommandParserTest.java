@@ -100,10 +100,12 @@ public class AddStudentCommandParserTest {
                         + TUTORIAL_IDX_DESC_BOB,
                 new AddStudentCommand(expectedStudentBob, Index.fromOneBased(VALID_TUTORIAL_INDEX_BOB)));
 
+
         // random ordering of fields
         assertParseSuccess(parser, TUTORIAL_IDX_DESC_AMY + NAME_DESC_AMY + NUSNET_DESC_AMY
                         + EMAIL_DESC_AMY + MATRIC_DESC_AMY,
                 new AddStudentCommand(expectedStudentAmy, Index.fromOneBased(VALID_TUTORIAL_INDEX_AMY)));
+
     }
 
     @Test

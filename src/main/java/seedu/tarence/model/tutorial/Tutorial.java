@@ -96,6 +96,7 @@ public class Tutorial {
     }
 
     /**
+
      * Returns true if both tutorials have the same identity or data fields.
      */
     @Override

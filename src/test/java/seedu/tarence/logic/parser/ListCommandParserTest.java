@@ -47,6 +47,7 @@ public class ListCommandParserTest {
 
         // Invalid index - Index <= 0
         assertParseFailure(parser, INVALID_TUTORIAL_INDEX_DESC_3,
+
                 invalidIndexMessage);
     }
 }
