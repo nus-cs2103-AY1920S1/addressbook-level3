@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.GuessCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.game.GuessCommand;
+import seedu.address.logic.commands.switchmode.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

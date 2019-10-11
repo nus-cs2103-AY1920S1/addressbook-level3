@@ -3,7 +3,7 @@ package seedu.address.logic;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.game.GuessCommand;
-import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.switchmode.StartCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
