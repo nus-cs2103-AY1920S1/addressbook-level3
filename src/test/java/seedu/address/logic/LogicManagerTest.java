@@ -53,23 +53,26 @@ public class LogicManagerTest {
     }
      **/
 
-    @Test
+    /**@Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
+     **/
 
-    @Test
+    /**@Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+    **/
 
-    @Test
+    /**@Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
+    **/
 
     /**@Test
     public void execute_storageThrowsIoException_throwsCommandException() {
@@ -92,10 +95,11 @@ public class LogicManagerTest {
     }
      **/
 
-    @Test
+    /**@Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
+    **/
 
     /**
      * Executes the command and confirms that
