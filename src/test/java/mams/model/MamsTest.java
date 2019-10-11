@@ -46,7 +46,7 @@ public class MamsTest {
     public void resetData_withDuplicateStudents_throwsDuplicateStudentException() {
         // Two students with the same identity fields
         Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+                .withMatricId(CommandTestUtil.VALID_MATRICID_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         List<Student> newStudents = Arrays.asList(TypicalStudents.ALICE, editedAlice);
         MamsStub newData = new MamsStub(newStudents);
@@ -74,7 +74,7 @@ public class MamsTest {
     public void hasStudent_studentWithSameIdentityFieldsInMams_returnsTrue() {
         mams.addStudent(TypicalStudents.ALICE);
         Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withAddress(CommandTestUtil.VALID_ADDRESS_BOB)
+                .withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         assertTrue(mams.hasStudent(editedAlice));

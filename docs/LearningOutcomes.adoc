@@ -97,7 +97,7 @@ image::ReadOnlyAddressBookUsage.png[width=500]
 * Add a `Printable` interface as follows.
 +
 image::PrintableInterface.png[width=400]
-* `Override` the `getPrintableString` in classes `Name`, `Phone`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
+* `Override` the `getPrintableString` in classes `Name`, `Credits`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Credits: 12349862`
 * Add the following method in a suitable place of some other class. Note how the method depends on the Interface.
 +
 [source,java]
@@ -114,7 +114,7 @@ For example, you should be able to call that method like this:
 [source,java]
 ----
 // p is a Person object
-return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
+return getPrintableString(p.getCredits(), p.getEmail(), p.getAddress());
 ----
 
 == Follow Liskov Substitution Principle `[LO-LSP]`

@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import mams.commons.exceptions.IllegalValueException;
-import mams.model.student.Address;
+import mams.model.student.Credits;
 import mams.model.student.Email;
+import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -25,22 +25,23 @@ class JsonAdaptedStudent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Student's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String credits;
     private final String email;
-    private final String address;
+    private final String matricId;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
      */
     @JsonCreator
-    public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+    //todo
+    public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("credits") String credits,
+                              @JsonProperty("email") String email, @JsonProperty("matricId") String matricId,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.credits = credits;
         this.email = email;
-        this.address = address;
+        this.matricId = matricId;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,9 +52,9 @@ class JsonAdaptedStudent {
      */
     public JsonAdaptedStudent(Student source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        credits = source.getCredits().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        matricId = source.getMatricId().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,13 +79,13 @@ class JsonAdaptedStudent {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (credits == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Credits.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Credits.isValidCredits(credits)) {
+            throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Credits modelCredits = new Credits(credits);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -94,16 +95,17 @@ class JsonAdaptedStudent {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (matricId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MatricId.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!MatricId.isValidMatricId(matricId)) {
+            throw new IllegalValueException(MatricId.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final MatricId modelMatricId = new MatricId(matricId);
 
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Student(modelName, modelCredits, modelEmail, modelMatricId, modelTags);
     }
 
 }

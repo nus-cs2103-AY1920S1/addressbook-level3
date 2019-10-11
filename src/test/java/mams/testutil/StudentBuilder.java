@@ -3,10 +3,10 @@ package mams.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import mams.model.student.Address;
+import mams.model.student.Credits;
 import mams.model.student.Email;
+import mams.model.student.MatricId;
 import mams.model.student.Name;
-import mams.model.student.Phone;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 import mams.model.util.SampleDataUtil;
@@ -17,21 +17,21 @@ import mams.model.util.SampleDataUtil;
 public class StudentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_CREDITS = "18";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_MATRICID = "A0179930Y";
 
     private Name name;
-    private Phone phone;
+    private Credits credits;
     private Email email;
-    private Address address;
+    private MatricId matricId;
     private Set<Tag> tags;
 
     public StudentBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        credits = new Credits(DEFAULT_CREDITS);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        matricId = new MatricId(DEFAULT_MATRICID);
         tags = new HashSet<>();
     }
 
@@ -40,9 +40,9 @@ public class StudentBuilder {
      */
     public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
-        phone = studentToCopy.getPhone();
+        credits = studentToCopy.getCredits();
         email = studentToCopy.getEmail();
-        address = studentToCopy.getAddress();
+        matricId = studentToCopy.getMatricId();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -63,18 +63,18 @@ public class StudentBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Student} that we are building.
+     * Sets the {@code MatricId} of the {@code Student} that we are building.
      */
-    public StudentBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public StudentBuilder withMatricId(String matricId) {
+        this.matricId = new MatricId(matricId);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Student} that we are building.
+     * Sets the {@code Credits} of the {@code Student} that we are building.
      */
-    public StudentBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public StudentBuilder withCredits(String credits) {
+        this.credits = new Credits(credits);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class StudentBuilder {
     }
 
     public Student build() {
-        return new Student(name, phone, email, address, tags);
+        return new Student(name, credits, email, matricId, tags);
     }
 
 }
