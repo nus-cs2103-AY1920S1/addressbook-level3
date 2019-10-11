@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import seedu.address.model.tag.Tag;
  * Represents an Order in the SML.
  * Guarantees: details are present, field values are validated.
  */
-public class Order implements Cloneable {
+public class Order {
 
     // Identity fields
     private final UUID id;
@@ -27,43 +28,15 @@ public class Order implements Cloneable {
     private final Phone phone;
     private final Price price;
     private final Status status;
-    private final Schedule schedule;
+    private final Optional<Schedule> schedule;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Phone phone, Price price, Set<Tag> tags) {
-        requireAllNonNull(customer, phone, price, tags);
-        this.id = UUID.randomUUID();
-        this.customer = (Customer) customer.clone();
-        this.phone = (Phone) phone.clone();
-        this.price = price;
-        this.status = Status.UNSCHEDULED;
-        this.schedule = null;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Constructor for OrderBuilder to create an object with corresponding data fields with random UUID.
-     */
-    public Order(Customer customer, Phone phone, Price price, Status status, Schedule schedule, Set<Tag> tags) {
-        requireAllNonNull(customer, phone, price, tags);
-        this.id = UUID.randomUUID();
-        this.customer = (Customer) customer.clone();
-        this.phone = (Phone) phone.clone();
-        this.price = price;
-        this.status = status;
-        this.schedule = schedule;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Private constructor to make a cloned Order.
-     */
-    private Order(UUID id, Customer customer, Phone phone, Price price, Status status, Schedule schedule,
-                  Set<Tag> tags) {
-        requireAllNonNull(id, customer, phone, price, status, tags);
+    public Order(UUID id, Customer customer, Phone phone, Price price, Status status,
+                 Optional<Schedule> schedule, Set<Tag> tags) {
+        requireAllNonNull(id, customer, phone, price, status, schedule, tags);
         this.id = id;
         this.customer = customer;
         this.phone = phone;
@@ -93,7 +66,7 @@ public class Order implements Cloneable {
         return status;
     }
 
-    public Schedule getSchedule() {
+    public Optional<Schedule> getSchedule() {
         return schedule;
     }
 
@@ -141,22 +114,9 @@ public class Order implements Cloneable {
     }
 
     @Override
-    public Object clone() {
-        Order clone;
-        if (schedule == null) {
-            clone = new Order(this.id, (Customer) this.customer.clone(), (Phone) this.phone.clone(),
-                    (Price) this.price.clone(), this.status, null, this.getTags());
-        } else {
-            clone = new Order(this.id, (Customer) this.customer.clone(), (Phone) this.phone.clone(),
-                    (Price) this.price.clone(), this.status, (Schedule) this.schedule.clone(), this.getTags());
-        }
-        return clone;
-    }
-
-    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, customer, phone, price, status, tags);
+        return Objects.hash(id, customer, phone, price, status, schedule, tags);
     }
 
     @Override
@@ -176,4 +136,5 @@ public class Order implements Cloneable {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
 }

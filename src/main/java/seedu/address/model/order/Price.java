@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Phone's selling price in an Order in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
-public class Price implements Cloneable {
+public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Costs must start with $, have at most 2 decimals and be non-negative.";
@@ -44,11 +44,6 @@ public class Price implements Cloneable {
         return other == this // short circuit if same object
                 || (other instanceof Price // instanceof handles nulls
                 && value.equals(((Price) other).value)); // state check
-    }
-
-    @Override
-    protected Object clone() {
-        return new Price(new String(value));
     }
 
     @Override
