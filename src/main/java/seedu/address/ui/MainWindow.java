@@ -32,9 +32,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private WatchedPanel watchedPanel;
+    private SearchPanel searchPanel;
+    private StatisticsPanel statisticsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private NavigationBar navigationBar;
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -42,10 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane navigationBarPlaceHolder;
+    private StackPane contentPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -103,17 +102,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the placeholders of main window.
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        watchedPanel = new WatchedPanel(/*logic.getWatchedList()*/);
+        searchPanel = new SearchPanel(/*logic.getWatchedList()*/);
+        statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
+        contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        navigationBar = new NavigationBar();
-        navigationBarPlaceHolder.getChildren().add(navigationBar.getRoot());
     }
 
     /**
@@ -185,5 +184,28 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+    @FXML
+    private void goToWatchlist() {
+        contentPanelPlaceholder.getChildren().clear();
+        contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    @FXML
+    private void goToWatched() {
+        contentPanelPlaceholder.getChildren().clear();
+        contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
+    }
+
+    @FXML
+    private void goToSearch() {
+        contentPanelPlaceholder.getChildren().clear();
+        contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+    }
+
+    @FXML
+    private void goToStatistics() {
+        contentPanelPlaceholder.getChildren().clear();
+        contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }
 }
