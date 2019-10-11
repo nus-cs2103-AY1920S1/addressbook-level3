@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteFlashcardCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -113,6 +112,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_deleteFlashcard() throws Exception {
-        //        assertTrue(parser.parseCommand(DeleteFlashcardCommand.COMMAND_WORD) instanceof DeleteFlashcardCommand);
+        //        assertTrue(parser.parseCommand(DeleteFlashcardCommand.COMMAND_WORD)
+        //          instanceof DeleteFlashcardCommand);
     }
 }
