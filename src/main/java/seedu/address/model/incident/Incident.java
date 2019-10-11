@@ -46,10 +46,10 @@ public class Incident {
     public static District promptForLocation() {
         System.out.println("Enter location:"); //need to change to GUI prompt
         Scanner sc = new Scanner(System.in);   //need to change to GUI input
-        String dist = sc.next();
+       int dist = Integer.parseInt(sc.next());
         while(!District.isValidDistrict(dist)) {
             System.out.println("Please enter a valid district");
-            dist = sc.next();
+            dist = Integer.parseInt(sc.next());
         }
         return new District(dist);
     }
