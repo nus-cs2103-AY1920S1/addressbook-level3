@@ -12,7 +12,8 @@ public class StatsTotalProfitCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generated Statistics!.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_STATS_MESSAGE = "Opened Statistics window.";
+    public static final String SHOWING_STATS_MESSAGE = "Opened Statistics window with total " +
+            "profit of completed orders.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

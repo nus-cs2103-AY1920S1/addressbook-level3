@@ -22,16 +22,19 @@ public interface Statistic {
 
 
     /**
-     * calculate total Profit
+     * calculate total Gross Profit
      */
     String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
 
     /**
-     * calculate total Revenue
+     * calculate total Gross Revenue
      */
     String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook);
+
     /**
-     * calculate total Gross revenue
+     * calculate total Gross Cost
      */
-    void calculateTotalRevenue();
+    String calculateTotalCost(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> PhoneBook);
+
+
 }

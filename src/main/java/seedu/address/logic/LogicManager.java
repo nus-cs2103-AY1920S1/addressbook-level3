@@ -117,4 +117,9 @@ public class LogicManager implements Logic {
     public String calculateTotalRevenue() {
         return this.statistic.calculateTotalRevenue(this.getOrderBook());
     }
+
+    @Override
+    public String calculateTotalCost() {
+        return this.statistic.calculateTotalCost(this.getOrderBook(), this.getPhoneBook());
+    }
 }

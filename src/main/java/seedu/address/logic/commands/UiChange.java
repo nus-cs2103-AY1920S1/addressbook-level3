@@ -12,6 +12,7 @@ public enum UiChange {
     SCHEDULE,
     STATS_TOTAL_PROFIT,
     STATS_TOTAL_REVENUE,
+    STATS_TOTAL_COST,
     HELP,
     EXIT;
 }

@@ -1,6 +1,7 @@
 package seedu.address.statistic;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import org.apache.commons.math3.stat.StatUtils;
 
@@ -33,16 +34,33 @@ public class StatisticManager implements Statistic {
 
     @Override
     public String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook) {
-        ObservableList<Order> orderList = orderBook.getList();
-        for (Order currentOrder : orderList) {
-            currentOrder.getPrice();
-        }
+        double revenueString = Double.parseDouble(this.calculateTotalRevenue(orderBook));
+        double costString = Double.parseDouble(this.calculateTotalCost(orderBook,phoneBook));
+        double totalProfitResult = revenueString - costString;
+        return String.valueOf(totalProfitResult);
 
-        return "test profit";
     }
 
     @Override
     public String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook) {
+        requireNonNull(orderBook);
+        double[] completedOrderPriceArray = getDoubleOrderPriceArray(orderBook);
+        double totalRevenue = StatUtils.sum(completedOrderPriceArray);
+        return String.valueOf(totalRevenue);
+    }
+
+    @Override
+    public String calculateTotalCost(ReadOnlyDataBook<Order> orderBook,
+                                     ReadOnlyDataBook<Phone> phoneBook) {
+        requireAllNonNull(orderBook, phoneBook);
+        double[] completedOrderPhoneCostList = getDoublePhoneCostArray(orderBook);
+        double totalCost = StatUtils.sum(completedOrderPhoneCostList);
+        return String.valueOf(totalCost);
+    }
+
+
+    // helper methods
+    private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook) {
         ObservableList<Order> orderList = orderBook.getList();
         List<Double> completedOrderPriceList = new ArrayList();
         for (Order currentOrder : orderList) {
@@ -51,14 +69,19 @@ public class StatisticManager implements Statistic {
                 completedOrderPriceList.add(currentPrice);
             }
         }
-        double[] completedOrderPriceArray =
-                completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
-        double totalRevenue = StatUtils.sum(completedOrderPriceArray);
-        return String.valueOf(totalRevenue);
+        return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 
-    @Override
-    public void calculateTotalRevenue() {
-
+    private static double[] getDoublePhoneCostArray(ReadOnlyDataBook<Order> orderBook) {
+        ObservableList<Order> orderList = orderBook.getList();
+        List<Double> completedOrderPhoneList = new ArrayList();
+        for (Order currentOrder : orderList) {
+            if (currentOrder.getStatus() == Status.COMPLETED) {
+                Double currentPhonePrice = Double.parseDouble(
+                        currentOrder.getPhone().getCost().value);
+                completedOrderPhoneList.add(currentPhonePrice);
+            }
+        }
+        return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
     }
 }

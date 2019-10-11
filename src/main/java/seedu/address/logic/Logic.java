@@ -89,4 +89,9 @@ public interface Logic {
      * Gets logic to calculate Total Revenue
      */
     String calculateTotalRevenue();
+
+    /**
+     * Gets logic to calculate total profit
+     */
+    String calculateTotalCost();
 }

@@ -202,6 +202,11 @@ public class MainWindow extends UiPart<Stage> {
             this.statsWindow = new StatisticsWindow(totalRevenueResult);
             this.statsWindow.show();
             break;
+        case STATS_TOTAL_COST:
+            String totalCostResult = this.logic.calculateTotalCost();
+            this.statsWindow = new StatisticsWindow(totalCostResult);
+            this.statsWindow.show();
+            break;
         default:
             break;
         }
@@ -256,6 +261,7 @@ public class MainWindow extends UiPart<Stage> {
                 this.handleExit();
                 break;
             case STATS_TOTAL_PROFIT:
+            case STATS_TOTAL_COST:
             case STATS_TOTAL_REVENUE:
                 this.handleStats(type);
                 break;
