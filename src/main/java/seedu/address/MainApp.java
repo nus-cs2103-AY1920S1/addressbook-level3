@@ -3,8 +3,8 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -210,7 +210,7 @@ public class MainApp extends Application {
             initState = new InternalState();
             writeFile.accept(initState);
         }
-            
+
         initState.applyInternalState();
         return initState;
     }

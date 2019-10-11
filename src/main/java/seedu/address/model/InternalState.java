@@ -40,4 +40,17 @@ public final class InternalState {
         primaryKeyCounter = Person.getPrimaryKeyCounter();
         System.out.println("IS STATE, pk: " + primaryKeyCounter);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof InternalState)) { //this handles null as well.
+            return false;
+        }
+
+        InternalState o = (InternalState) other;
+        return primaryKeyCounter == o.primaryKeyCounter;
+    }
 }
