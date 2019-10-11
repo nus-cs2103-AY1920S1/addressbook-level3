@@ -20,16 +20,20 @@ public class CategoryTest {
     }
 
     @Test
+    public void isBlankCategory() {
+        assertFalse(Category.isValidCategory("")); // empty string
+        assertFalse(Category.isValidCategory(" ")); // spaces only
+        assertFalse(Category.isValidCategory("             ")); // tons of spaces
+    }
+
+    @Test
     public void isInvalidCategory() {
         // null email
         assertThrows(NullPointerException.class, () -> Category.isValidCategory(null));
 
-        // blank email
-        assertFalse(Category.isValidCategory("")); // empty string
-        assertFalse(Category.isValidCategory(" ")); // spaces only
-
         // with unexpected characters
         assertFalse(Category.isValidCategory("@35^"));
+        assertFalse(Category.isValidCategory("-------"));
     }
 
     @Test

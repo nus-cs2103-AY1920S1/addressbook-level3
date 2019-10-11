@@ -25,8 +25,6 @@ public class PriceTest {
         assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
         // invalid price numbers
-        assertFalse(Price.isValidPrice("")); // empty string
-        assertFalse(Price.isValidPrice(" ")); // spaces only
         assertFalse(Price.isValidPrice("price")); // non-numeric
         assertFalse(Price.isValidPrice("9011p041")); // alphabets within digits
         assertFalse(Price.isValidPrice("9312 1534")); // spaces within digits
@@ -36,5 +34,12 @@ public class PriceTest {
         assertTrue(Price.isValidPrice("911.10")); // small amount
         assertTrue(Price.isValidPrice("93121534.10")); // big amount
         assertTrue(Price.isValidPrice("124293842033123.10")); // very big price numbers
+    }
+
+    @Test
+    public void isEmptyPrice() {
+        assertFalse(Price.isValidPrice("")); // empty string
+        assertFalse(Price.isValidPrice(" ")); // spaces only
+        assertFalse(Price.isValidPrice("           ")); // tons of spaves
     }
 }

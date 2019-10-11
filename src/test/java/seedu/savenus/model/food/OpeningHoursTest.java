@@ -36,6 +36,8 @@ public class OpeningHoursTest {
     @Test
     public void isValidOpeningHours() {
         // valid opening hours
-        assertTrue(OpeningHours.isValidOpeningHours("1200 1900")); // Correct HHMM HHMM format.
+        assertTrue(OpeningHours.isValidOpeningHours("1200 1900"));
+        assertTrue(OpeningHours.isValidOpeningHours("0000 2359"));
+        assertTrue(OpeningHours.isValidOpeningHours("1200 1200"));
     }
 }

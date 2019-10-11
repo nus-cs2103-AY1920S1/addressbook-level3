@@ -24,7 +24,7 @@ import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_CHI
 import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_RICE;
-import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_NASI_LEMAK;
+import static seedu.savenus.logic.commands.CommandTestUtil.VALID_CATEGORY_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
@@ -97,7 +97,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
+    public void parse_tagsMissing_success() {
         // zero tags
         Food expectedFood = new FoodBuilder(CHICKEN_RICE).withTags().build();
         assertParseSuccess(parser, NAME_DESC_CHICKEN_RICE + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE
@@ -110,19 +110,47 @@ public class AddCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing name
+        assertParseFailure(parser, PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
+                        + CATEGORY_DESC_NASI_LEMAK,
+                expectedMessage);
+
+        // missing price
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
+                        + CATEGORY_DESC_NASI_LEMAK,
+                expectedMessage);
+
+        // missing category
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
+                        + DESCRIPTION_DESC_NASI_LEMAK,
+                expectedMessage);
+
+        // all compulsory fields
+        assertParseFailure(parser, DESCRIPTION_DESC_NASI_LEMAK,
+                expectedMessage);
+    }
+
+    @Test
+    public void parse_missingNamePrefix_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, VALID_NAME_NASI_LEMAK + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
                         + CATEGORY_DESC_NASI_LEMAK,
                 expectedMessage);
+    }
 
-        // missing price prefix
+    @Test
+    public void parse_missingPricePrefix_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, NAME_DESC_NASI_LEMAK + VALID_PRICE_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
                         + CATEGORY_DESC_NASI_LEMAK,
                 expectedMessage);
+    }
 
-        // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_NASI_LEMAK + VALID_PRICE_NASI_LEMAK + VALID_DESCRIPTION_NASI_LEMAK
-                        + CATEGORY_DESC_NASI_LEMAK,
+    @Test
+    public void parse_missingCategoryPrefix_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
+                        + VALID_CATEGORY_NASI_LEMAK,
                 expectedMessage);
     }
 

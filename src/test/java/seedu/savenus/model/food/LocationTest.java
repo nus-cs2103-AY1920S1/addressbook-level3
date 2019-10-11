@@ -20,13 +20,16 @@ public class LocationTest {
     }
 
     @Test
-    public void isInvalidLocation() {
-        // null location
-        assertThrows(NullPointerException.class, () -> Location.isValidLocation(null));
-
-        // blank location
+    public void isEmptyLocation() {
         assertFalse(Location.isValidLocation("")); // empty string
         assertFalse(Location.isValidLocation(" ")); // spaces only
+        assertFalse(Location.isValidLocation("             ")); // tons of spaces
+    }
+
+    @Test
+    public void isNullLocation() {
+        // null location
+        assertThrows(NullPointerException.class, () -> Location.isValidLocation(null));
     }
 
     @Test

@@ -25,9 +25,6 @@ public class IndexTest {
 
     @Test
     public void createZeroBasedIndex() {
-        // invalid index
-        assertThrows(IndexOutOfBoundsException.class, () -> Index.fromZeroBased(-1));
-
         // check equality using the same base
         assertEquals(0, Index.fromZeroBased(0).getZeroBased());
         assertEquals(5, Index.fromZeroBased(5).getZeroBased());
@@ -35,6 +32,12 @@ public class IndexTest {
         // convert from zero-based index to one-based index
         assertEquals(1, Index.fromZeroBased(0).getOneBased());
         assertEquals(6, Index.fromZeroBased(5).getOneBased());
+    }
+
+    @Test
+    public void createNegativeIndex() {
+        // invalid index
+        assertThrows(IndexOutOfBoundsException.class, () -> Index.fromZeroBased(-1));
     }
 
     @Test
