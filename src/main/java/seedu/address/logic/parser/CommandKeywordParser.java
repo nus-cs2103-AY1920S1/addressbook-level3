@@ -10,18 +10,17 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a parser that can derive command keywords, and return the appropriate {@link CommandBuilder}.
- * Represents the invoker class in https://en.wikipedia.org/wiki/Command_pattern.
  */
 public class CommandKeywordParser implements Parser<CommandBuilder> {
 
     private final HashMap<String, Supplier<CommandBuilder>> commandKeywordMap;
 
-    CommandKeywordParser(CommandKeywordParserBuilder builder) {
-        this.commandKeywordMap = builder.getCommandKeywordMap();
+    public CommandKeywordParser() {
+        this.commandKeywordMap = new HashMap<>();
     }
 
-    public static CommandKeywordParserBuilder newBuilder() {
-        return new CommandKeywordParserBuilder();
+    public void addCommand(String keyword, Supplier<CommandBuilder> command) {
+        this.commandKeywordMap.put(keyword, command);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.model.Model;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UserOutput;
 
 /**
  * Represents a Command which adds an EventSource to the Model.
@@ -29,8 +30,8 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public UserOutput execute() {
         model.addEvent(this.event);
-        return new CommandResult(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
+        return new UserOutput(String.format(MESSAGE_ADD_EVENT_SUCCESS, this.event.getDescription()));
     }
 }

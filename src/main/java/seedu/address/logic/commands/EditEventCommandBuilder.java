@@ -76,6 +76,10 @@ class EditEventCommandBuilder extends CommandBuilder {
         );
     }
 
+    Model getModel() {
+        return model;
+    }
+
     List<Integer> getIndexes() {
         return this.indexes.getValues();
     }

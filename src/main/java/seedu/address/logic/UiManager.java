@@ -1,5 +1,7 @@
-package seedu.address.ui;
+package seedu.address.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -10,24 +12,30 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
+import seedu.address.logic.commands.listeners.CommandInputListener;
+import seedu.address.model.events.EventSource;
+import seedu.address.model.listeners.EventListListener;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.Ui;
+import seedu.address.ui.UserOutput;
+import seedu.address.ui.listeners.UserOutputListener;
 
 /**
  * The manager of the UI component.
+ * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui {
+public class UiManager implements Ui, UserOutputListener, EventListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic logic;
     private MainWindow mainWindow;
+    private List<CommandInputListener> uiListeners;
 
-    public UiManager(Logic logic) {
-        super();
-        this.logic = logic;
+    public UiManager() {
+        this.uiListeners = new ArrayList<>();
     }
 
     @Override
@@ -38,7 +46,15 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, commandInput -> {
+                // TODO: Temporary command
+                if (commandInput.equals("view")) {
+                    this.mainWindow.toggleView();
+                } else {
+                    // Notify listeners of new command input.
+                    this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
+                }
+            });
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -48,11 +64,15 @@ public class UiManager implements Ui {
         }
     }
 
+    public void addCommandInputListener(CommandInputListener listener) {
+        this.uiListeners.add(listener);
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
@@ -83,4 +103,13 @@ public class UiManager implements Ui {
         System.exit(1);
     }
 
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        this.mainWindow.onEventListChange(events);
+    }
+
+    @Override
+    public void onUserOutput(UserOutput output) {
+        this.mainWindow.onUserOutput(output);
+    }
 }

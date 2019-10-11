@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UserOutput;
 
 /**
  * Represents a Command that edits EventSources in the Model.
@@ -43,7 +44,7 @@ public class EditEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public UserOutput execute() throws CommandException {
         ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
 
         List<EventSource> events = new ArrayList<>();
@@ -73,7 +74,7 @@ public class EditEventCommand extends Command {
             model.setEvent(event, new EventSource(description, start));
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
+        return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
             .map(EventSource::getDescription)
             .collect(Collectors.joining(", "))));
     }

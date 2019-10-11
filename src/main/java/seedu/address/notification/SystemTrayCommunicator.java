@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.NotificationManager;
 
 /**
  * Controls interactions between the main program and the System Tray.

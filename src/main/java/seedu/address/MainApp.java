@@ -13,10 +13,10 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
+import seedu.address.logic.CommandManager;
+import seedu.address.logic.NotificationManager;
+import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.CommandManager;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.model.AddressBook;
@@ -28,15 +28,12 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.events.EventList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.notification.Notification;
-import seedu.address.notification.NotificationManager;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
 
 /**
  * Runs the application.
@@ -50,11 +47,9 @@ public class MainApp extends Application {
     private static final String COMMAND_DELETE_EVENT = "delete_event";
     private static final String COMMAND_EDIT_EVENT = "edit_event";
 
-    private Ui ui;
-    private Logic logic;
     private Storage storage;
-    private Model model;
-    private Config config;
+    private ModelManager modelManager;
+    private UiManager uiManager;
     private Notification notification;
 
     @Override
@@ -63,7 +58,7 @@ public class MainApp extends Application {
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        Config config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
@@ -72,17 +67,20 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
-        CommandManager commandManager = CommandManager.newBuilder()
-            .addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(model))
-            .addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(model))
-            .addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(model))
-            .build();
-
         notification = new NotificationManager();
 
-        ui = new UiManager(logic);
+        CommandManager commandManager = new CommandManager();
+        modelManager = new ModelManager(new AddressBook(), new EventList(), userPrefs);
+        uiManager = new UiManager();
+
+        commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
+        commandManager.addUserOutputListener(uiManager);
+
+        modelManager.addEventListListener(uiManager);
+
+        uiManager.addCommandInputListener(commandManager);
     }
 
     /**
@@ -185,7 +183,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
-        ui.start(primaryStage);
+        uiManager.start(primaryStage);
     }
 
     @Override
@@ -194,7 +192,7 @@ public class MainApp extends Application {
         notification.shutDown();
 
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(modelManager.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

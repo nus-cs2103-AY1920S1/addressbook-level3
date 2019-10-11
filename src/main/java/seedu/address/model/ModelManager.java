@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
+import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,6 +31,8 @@ public class ModelManager implements Model {
     private final UndoableHistory undoableHistory;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private final List<EventListListener> eventListListeners;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,10 +50,16 @@ public class ModelManager implements Model {
         this.undoableHistory = new UndoableHistory(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.eventListListeners = new ArrayList<>();
     }
 
     public ModelManager() {
         this(new AddressBook(), new EventList(), new UserPrefs());
+    }
+
+    public void addEventListListener(EventListListener listener) {
+        this.eventListListeners.add(listener);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -132,6 +143,8 @@ public class ModelManager implements Model {
 
         // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
+
+        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
     }
 
     @Override
@@ -142,6 +155,8 @@ public class ModelManager implements Model {
 
         // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
+
+        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
     }
 
     @Override
@@ -162,6 +177,8 @@ public class ModelManager implements Model {
 
         // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
+
+        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
     }
 
     @Override
@@ -172,6 +189,8 @@ public class ModelManager implements Model {
 
         // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
+
+        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
     }
 
     //=========== Filtered Person List Accessors =============================================================
