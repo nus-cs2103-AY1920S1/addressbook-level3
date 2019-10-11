@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collection;
@@ -99,7 +104,8 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Collection<VisitTodo> updatedVisitTodos = editPersonDescriptor.getVisitTodos().orElse(personToEdit.getVisitTodos());
+        Collection<VisitTodo> updatedVisitTodos = editPersonDescriptor.getVisitTodos()
+                .orElse(personToEdit.getVisitTodos());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedVisitTodos);
     }
@@ -219,7 +225,8 @@ public class EditCommand extends Command {
          * Returns {@code Optional#empty()} if {@code visitTodos} is null.
          */
         public Optional<Collection<VisitTodo>> getVisitTodos() {
-            return (visitTodos != null) ? Optional.of(Collections.unmodifiableCollection(visitTodos)) : Optional.empty();
+            return (visitTodos != null) ? Optional
+                    .of(Collections.unmodifiableCollection(visitTodos)) : Optional.empty();
         }
 
         @Override
@@ -242,9 +249,11 @@ public class EditCommand extends Command {
                 if (getVisitTodos().isPresent()) {
                     //Verify visit todos separately because .equals doesn't work with Collection<>
                     Iterator otherPersonVisitTodos = e.getVisitTodos().get().iterator();
-                    for (Object obj : getVisitTodos().get())
-                        if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next()))
+                    for (Object obj : getVisitTodos().get()) {
+                        if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next())) {
                             return false;
+                        }
+                    }
                 }
             } else {
                 //One empty, one populated, different
