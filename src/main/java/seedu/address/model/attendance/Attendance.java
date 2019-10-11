@@ -10,16 +10,15 @@ import seedu.address.model.training.Training;
 
 public class Attendance {
     private static List<Training> trainings = new ArrayList<>();
-    
     public Attendance(Training training) {
         trainings.add(training);
     }
-    
     public List<Training> getTrainings() {
         return trainings;
     }
-    
-    //returns the attendance rate of the person
+    /**
+     * Returns the attendance rate of a given person name
+     */
     public String viewPersonAttendance(Person name) {
         int attended = 0;
         int missed = 0;
@@ -31,12 +30,12 @@ public class Attendance {
                 missed ++;
             }
         }
-        
         result = ((double) attended / (attended + missed));
         return result * 100 + "%";
     }
-    
-    //prints the attendance of all players on this date
+    /**
+     * Prints out the list of athlete with their attendance in the given date
+     */
     public void selectTraining(String date) {
         for (Training training: trainings) {
             if (date.equals(training.getDate())) {
@@ -50,9 +49,9 @@ public class Attendance {
             }
         }
     }
-    
-    
-    //get the list of person who has attended the training for the date
+    /**
+     * Returns a list of person who have attended the training at the given date
+     */
     public List<Person> getAttended(String date) {
         List<Person> listOfAttended = new ArrayList<>();
         for (Training training: trainings) {
