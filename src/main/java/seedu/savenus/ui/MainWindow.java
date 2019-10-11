@@ -51,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private Text budgetPlaceholder;
+    private Text remainingBudgetPlaceholder;
 
     @FXML
     private Text daysToExpirePlaceholder;
@@ -91,9 +91,9 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        // Bind budget to displayed value
-        budgetPlaceholder.textProperty().bind(logic.getMenu().getWallet()
-                .getBudgetProperty().asString("$%.02f"));
+        // Bind remaining budget to displayed value
+        remainingBudgetPlaceholder.textProperty().bind(logic.getMenu().getWallet()
+                .getRemainingBudgetProperty().asString("$%.02f"));
 
         // Update number of days left
         logic.getMenu().getWallet().getDaysToExpire().updateDaysToExpire();

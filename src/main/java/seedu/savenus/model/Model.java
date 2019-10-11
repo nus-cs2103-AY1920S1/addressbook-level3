@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
 
 /**
@@ -78,12 +78,24 @@ public interface Model {
      */
     void setFood(Food target, Food editedFood);
 
-    float getBudget();
+    /**
+     * Getter for current user's {@code budget} amount
+     */
+    float getRemainingBudget();
 
-    void setBudget(Budget newBudget);
+    /**
+     * Setter for current user's {@code Budget} to new {@code Budget}
+     */
+    void setRemainingBudget(RemainingBudget newRemainingBudget);
 
+    /**
+     * Getter for current user's {@code daysToExpire}
+     */
     int getDaysToExpire();
 
+    /**
+     * Setter for current user's {@code DaysToExpire} to new {@code DaysToExpire}
+     */
     void setDaysToExpire(DaysToExpire newDaysToExpire);
 
 

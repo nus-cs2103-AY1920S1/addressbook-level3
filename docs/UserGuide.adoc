@@ -142,12 +142,12 @@ Example: `sort OPENING_HOURS`
 === Budgeting
 
 ==== Budget
-Allows the user to set a budget AMOUNT for food expenses for a certain number
+Allows the user to set a remainingBudget AMOUNT for food expenses for a certain number
 of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
 
-Format: `budget AMOUNT DAYS`
+Format: `remainingBudget AMOUNT DAYS`
 
-Example: `budget 100.00 10`
+Example: `remainingBudget 100.00 10`
 
 ==== Buy
 Allows users the log a food expense into the application.
@@ -164,7 +164,7 @@ Format: `track -d | -w | -m`
 Example: `track -d`
 
 ==== Recommend
-Allow users to get a recommendation from the application, based on the budget
+Allow users to get a recommendation from the application, based on the remainingBudget
 as well as the available food items entries.
 
 Format: `rec`
@@ -205,7 +205,7 @@ Unfortunately you are unable to change the app’s language
 | Alias <<Alias>>
 | Adds a custom alias to a command. All future occurrences of that alias will be executing that command.
 | Budget <<Budget>>
-| Allows the user to set a budget amount for food expenses for a certain number
+| Allows the user to set a remainingBudget amount for food expenses for a certain number
 of days.
 | Buy <<Buy>>
 | Allows users the log a food expense into the application.
@@ -224,7 +224,7 @@ of days.
 | List <<List>>
 | List all saved food items
 | Recommend <<Recommend>>
-| Recommend a food item, based on the user's budget.
+| Recommend a food item, based on the user's remainingBudget.
 | Redo <<Redo>>
 | Redo a command a specified number of times.
 | Sort <<Sort>>

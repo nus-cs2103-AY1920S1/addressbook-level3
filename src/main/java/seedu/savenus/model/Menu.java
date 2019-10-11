@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
-import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.Wallet;
 
@@ -115,8 +115,8 @@ public class Menu implements ReadOnlyMenu {
     /**
      * Set current budget.
      */
-    public void setBudget(Budget newBudget) {
-        wallet.setBudget(newBudget);
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+        wallet.setRemainingBudget(newRemainingBudget);
     }
 
     /**

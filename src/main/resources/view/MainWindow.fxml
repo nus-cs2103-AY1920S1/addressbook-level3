@@ -90,7 +90,7 @@
                                       <Font name="Arial Black" size="20.0" />
                                   </font>
                               </Text>
-                              <Text fx:id="budgetPlaceholder" fill="WHITE" layoutX="300.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                              <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="300.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                   <font>
                                       <Font name="Arial Black" size="20.0" />
                                   </font>

@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.wallet.Budget;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.DaysToExpire;
 
 /**
@@ -114,14 +114,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public float getBudget() {
-        return menu.getWallet().getBudgetAmount();
+    public float getRemainingBudget() {
+        return menu.getWallet().getRemainingBudgetAmount();
     }
 
     @Override
-    public void setBudget(Budget newBudget) {
-        requireAllNonNull(newBudget);
-        menu.setBudget(newBudget);
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+        requireAllNonNull(newRemainingBudget);
+        menu.setRemainingBudget(newRemainingBudget);
     }
 
     @Override

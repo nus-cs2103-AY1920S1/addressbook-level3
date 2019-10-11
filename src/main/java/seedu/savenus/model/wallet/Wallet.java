@@ -6,51 +6,51 @@ import javafx.beans.property.IntegerProperty;
 /**
  * Represents a user's Wallet in the application.
  * Guarantees: mutable;
- * JSON File should have wallet: { currentBalance: 0, daysToExpire: 0 } property
+ * JSON File should have wallet: { remainingBudget: 0, daysToExpire: 0 } property
  */
 public class Wallet {
     // Default Properties
-    private Budget budget;
+    private RemainingBudget remainingBudget;
     private DaysToExpire daysToExpire;
 
     public Wallet() {
-        this.budget = new Budget("0");
+        this.remainingBudget = new RemainingBudget("0");
         this.daysToExpire = new DaysToExpire("0");
     }
 
-    public Wallet(Budget budget, DaysToExpire daysToExpire) {
-        this.budget = budget;
+    public Wallet(RemainingBudget remainingBudget, DaysToExpire daysToExpire) {
+        this.remainingBudget = remainingBudget;
         this.daysToExpire = daysToExpire;
     }
 
     /**
      * Returns Budget property.
      */
-    public FloatProperty getBudgetProperty() {
-        return budget.getBudgetProperty();
+    public FloatProperty getRemainingBudgetProperty() {
+        return remainingBudget.getRemainingBudgetProperty();
     }
 
 
     /**
-     * Return wallet's Budget
+     * Return wallet's remaining budget
      */
-    public Budget getBudget() {
-        return budget;
+    public RemainingBudget getRemainingBudget() {
+        return remainingBudget;
     }
 
     /**
-     * Returns budget amount.
+     * Returns remaining budget amount.
      */
-    public float getBudgetAmount() {
-        return budget.getBudget();
+    public float getRemainingBudgetAmount() {
+        return remainingBudget.getRemainingBudget();
     }
 
     /**
-     * Set Budget with user's input.
-     * @param newBudget New Budget created from user's input
+     * Set RemainingBudget with user's input.
+     * @param newRemainingBudget New Budget created from user's input
      */
-    public final void setBudget(Budget newBudget) {
-        budget.setBudget(newBudget);
+    public final void setRemainingBudget(RemainingBudget newRemainingBudget) {
+        remainingBudget.setRemainingBudget(newRemainingBudget);
     }
 
     /**
@@ -84,7 +84,7 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Current Budget: " + this.getBudgetAmount() + "\n"
+        return "Current Budget: " + this.getRemainingBudgetAmount() + "\n"
                 + "Days to Expire: " + this.getNumberOfDaysToExpire();
     }
 }

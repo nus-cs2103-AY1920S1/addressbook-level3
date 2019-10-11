@@ -281,7 +281,7 @@ Refer to the guide <<DevOps#, here>>.
 
 * has a need to manage a significant number of food items
 * has trouble tracking expenditure over a period of time
-* wants meal recommendations within their specified budget
+* wants meal recommendations within their specified remainingBudget
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -300,7 +300,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |know the total amount I have spent |plan my finances for the remaining days of the month.
 
-|`* * *` |greedy user |have reminders when I am about to hit the limits I set for my expenditure |plan my budget better for the weeks ahead.
+|`* * *` |greedy user |have reminders when I am about to hit the limits I set for my expenditure |plan my remainingBudget better for the weeks ahead.
 
 |`* * *` |meticulous user |sort the food items based on categories |see which items are the best or worst based on certain categories.
 
@@ -312,7 +312,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |possess the ability to update existing food entries |update the existing food entries if there are changes in their prices/descriptions.
 
-|`* * *` |user |only be able to see what I can afford for meals and beverages |save time scrolling through meals that fit my budget.
+|`* * *` |user |only be able to see what I can afford for meals and beverages |save time scrolling through meals that fit my remainingBudget.
 
 |`* *` |user |know the opening and closing timings of the food stores in NUS |closed shops are not recommended to me to prevent me from wasting time to travel to these shops.
 
@@ -438,7 +438,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list recommendations.
-2. $aveNUS shows a list of recommended food items based on their specified budget.
+2. $aveNUS shows a list of recommended food items based on their specified remainingBudget.
 3. User requests to add a specific food item in the list into purchased food items.
 4. $aveNUS adds the food item into list of purchased food items.
 +
@@ -469,19 +469,19 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use case: Set budget
+=== Use case: Set remainingBudget
 
 *MSS*
 
-1. User requests to set budget.
-2. $aveNUS calculates the daily budget based on the specified weekly budget.
+1. User requests to set remainingBudget.
+2. $aveNUS calculates the daily remainingBudget based on the specified weekly remainingBudget.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The budget set is invalid (such as a negative number).
+* 1a. The remainingBudget set is invalid (such as a negative number).
 +
 [none]
 ** 1a1. $aveNUS shows an error message.

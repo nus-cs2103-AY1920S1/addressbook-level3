@@ -71,7 +71,7 @@ public class DaysToExpire {
             return true;
         }
 
-        if (!(other instanceof Budget)) {
+        if (!(other instanceof RemainingBudget)) {
             return false;
         }
 
