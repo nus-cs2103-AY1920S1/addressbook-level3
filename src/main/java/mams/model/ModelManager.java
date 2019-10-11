@@ -11,8 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
 import mams.commons.util.CollectionUtil;
-import mams.model.student.Student;
 import mams.model.module.Module;
+import mams.model.student.Student;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -190,5 +190,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents);
     }
-
 }

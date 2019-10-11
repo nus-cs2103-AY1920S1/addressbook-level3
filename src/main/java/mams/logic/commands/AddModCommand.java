@@ -15,11 +15,14 @@ import mams.model.Model;
 
 import mams.model.student.Credits;
 import mams.model.student.Email;
-import mams.model.student.Name;
 import mams.model.student.MatricId;
+import mams.model.student.Name;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
+/**
+ * Adds a module to a student
+ */
 public class AddModCommand extends Command {
 
     public static final String COMMAND_WORD = "addmod";
@@ -50,6 +53,12 @@ public class AddModCommand extends Command {
         this.editStudentDescriptor = new EditStudentDescriptor(editStudentDescriptor);
     }
 
+    /**
+     * temp.
+     * @param model {@code Model} which the command should operate on.
+     * @return temp
+     * @throws CommandException temp
+     */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
@@ -63,20 +72,24 @@ public class AddModCommand extends Command {
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        //throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
-        if (model.hasModule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
-        }
+        //if (model.hasModule(toAdd)) {
+        // throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+        // }
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_MODULE_SUCCESS, editedStudent));
-
-
     }
 
+    /**
+     * temp.
+     * @param studentToEdit temp
+     * @param editStudentDescriptor temp
+     * @return temp
+     */
     private static Student createEditedStudent(Student studentToEdit, EditStudentDescriptor editStudentDescriptor) {
         assert studentToEdit != null;
 
@@ -97,14 +110,15 @@ public class AddModCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof AddModCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editStudentDescriptor.equals(e.editStudentDescriptor);
+        AddModCommand e = (AddModCommand) other;
+        //return index.equals(e.index)
+        //        && editStudentDescriptor.equals(e.editStudentDescriptor);
+        return false;
     }
 
     /**

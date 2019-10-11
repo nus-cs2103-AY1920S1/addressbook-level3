@@ -28,6 +28,7 @@ public class Mams implements ReadOnlyMams {
      */
     {
         students = new UniqueStudentList();
+        modules = new UniqueModuleList();
     }
 
     public Mams() {}
