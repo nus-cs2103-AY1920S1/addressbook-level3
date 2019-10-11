@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
-import seedu.address.logic.commands.storage.EditTitleCommand.EditTitleStudyPlanDescriptor;
+import seedu.address.logic.commands.CreateStudyPlanCommand;
+import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 

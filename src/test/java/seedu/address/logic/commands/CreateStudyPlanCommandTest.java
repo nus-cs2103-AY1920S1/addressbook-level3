@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
 

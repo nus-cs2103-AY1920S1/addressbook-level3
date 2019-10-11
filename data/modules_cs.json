@@ -127,7 +127,7 @@
       "su": false,
       "core": true,
       "focusPrimaries": [
-        "AT"
+        "Algo"
       ],
       "focusElectives": [
 
@@ -232,7 +232,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "AT"
+        "Algo"
       ],
       "focusElectives": [
 
@@ -247,8 +247,8 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "AT",
-        "PC",
+        "Algo",
+        "Para",
         "NDS"
       ],
       "focusElectives": [
@@ -264,7 +264,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "AT"
+        "Algo"
       ],
       "focusElectives": [
 
@@ -279,13 +279,13 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "AT"
+        "Algo"
       ],
       "focusElectives": [
 
       ],
       "description": "This module covers common algorithmic techniques for solving optimisation problems, and introduces students to approaches for finding good-enough solutions to NP-hard problems. Topics covered include linear and integer programming, network flow algorithms, local search heuristics, approximation algorithms, and randomized algorithms. Through analysis and application of the techniques to a variety of canonical problems, students develop confidence to (i) appropriately model a given optimisation problem, (ii) apply appropriate algorithmic techniques to solve the problem, (iii) analyse the properties of the problem and candidate algorithms, such as time and space complexity, convergence, approximability, and optimality bound.",
-      "prereqTreeString": "(AND MA1101R CS3230)"
+      "prereqTreeString": "(AND CS3230 MA1101R)"
     },
     {
       "code": "CS3233",
@@ -297,7 +297,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "This module aims to prepare students in competitive problem solving. It covers techniques for attacking and solving challenging computational problems. Fundamental algorithmic solving techniques covered include divide and conquer, greedy, dynamic programming, backtracking and branch and bound. Domain specific techniques like number theory, computational geometry, string processing and graph theoretic will also be covered. Advanced AI search techniques like iterative deepening, A* and heuristic search will be included.  The module also covers algorithmic and programming language toolkits used in problem solving supported by the solution of representative or well-known problems in the various algorithmic paradigms.",
       "prereqTreeString": ""
@@ -312,11 +312,11 @@
 
       ],
       "focusElectives": [
-        "AT",
-        "CS"
+        "Algo",
+        "ComSec"
       ],
       "description": "This module covers algorithmic foundations of computation\nand communication privacy. It provides a thorough\nmethodology for analysis of privacy against inference\nattacks using techniques from statistics, probability theory,\nand machine learning. Students will learn how to reason\nquantitatively about privacy, and evaluate it using the\nappropriate metrics. The module will help students to\ndesign privacy-preserving mechanisms for a range of\nsystems from anonymous communication to data analytics.\nAfter this module, students should be able to identify\nprivacy vulnerabilities in a system, design inference\nattacks, and propose effective countermeasures in a\nsystematic manner.",
-      "prereqTreeString": "(AND ST2334 CS3230 CS2107)"
+      "prereqTreeString": "(AND CS2107 CS3230 ST2334)"
     },
     {
       "code": "CS4268",
@@ -328,10 +328,10 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "This module will introduce basics of quantum computing and cover various well known algorithms e.g. Deutsch-Jozsa algorithm, Simon’s algorithms, quantum Fourier transform, phase estimation, order finding, Shor’s algorithm and Grover’s algorithm. The module will also cover some basics in quantum information theory, cryptography and error correction.",
-      "prereqTreeString": "(AND CS3230 ST2334 MA1101R)"
+      "prereqTreeString": "(AND CS3230 MA1101R ST2334)"
     },
     {
       "code": "CS5230",
@@ -343,7 +343,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "The aim of this module is to study the various measures of difficulty of problem solving in computing, and to introduce some techniques in theoretical computer science such as non-determinism, digitalisation, simulation, padding, reduction, randomisation and interaction. Topics covered include: space and time complexity - the classes P, NP, co-NP, PSPACE, EXP, etc.; tape compression; linear speedup; polynomial reduction; Cook's theorem; Savitch's theorem; translation lemma; Gap theorem; NP-completeness and NP-hard problems; probabilistic complexity classes; approximation algorithms; and interactive protocols.",
       "prereqTreeString": "CS4232"
@@ -358,7 +358,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "This course presents advanced techniques for the design and analysis of algorithms and data structures, with emphasis on efficiency and scalability. It will cover a variety of algorithmic topics that arise when coping with very large data sets. How do you design algorithms that scale well? How do you process streaming data? How do you construct algorithms that run efficiently on modern hardware? The goal of this module is to cover modern tools and techniques in algorithm design.",
       "prereqTreeString": "CS3230"
@@ -373,7 +373,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "In computer science, automata are an important tool for many theoretical investigations. Various types of automata have been used to characterise complexity classes. This module covers automata theory in depth, describes the\nChomsky hierarchy, and introduces various advanced topics including automata structures, automata on infinite words, automata on trees and the learnability of classes of regular languages from queries and positive data.",
       "prereqTreeString": "CS4232"
@@ -388,7 +388,7 @@
 
       ],
       "focusElectives": [
-        "AT",
+        "Algo",
         "CGG"
       ],
       "description": "The course aims to provide students with a geometric viewpoint in problem solving. It lays a foundation for solving problems with computational geometric methods, and bridges the gap between theoretical computer science and the real applications by introducing application areas, such as bio-geometric modelling, computer graphics and mesh generation, as well as other engineering problems such as reverse engineering. Topics include: convex-hull algorithms, simplicial complexes, union of balls, Voronoi diagram, Delaunay triangulation, lifting and projecting, alpha shape, surface reconstruction, sphere algebra, orthogonality and complementarity, molecular skin surfaces, curvatures and surface meshing, deformation and morphing, etc.",
@@ -404,7 +404,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "Biology data are too enormous. Handling them using brute-force approaches becomes impossible and efficient algorithms are required. This module has an in-depth study of some of these advanced algorithms. Through the course, students not only are able to understand these algorithms in detail, but are also given chances to solve some research problems in this field. Topics include sequence comparison, structure comparison and prediction, phylogenetic tree reconstruction and comparison, sequencing by hybridisation, Genome rearrangements, gene network, micro-array.",
       "prereqTreeString": "CS3230"
@@ -419,7 +419,7 @@
 
       ],
       "focusElectives": [
-        "AT"
+        "Algo"
       ],
       "description": "The module will cover basic concepts in the design and analysis of randomized algorithms. It will cover both basic techniques, such as Chernoff bounds, random walks, and the probabilistic method, and a variety of practical algorithmic applications, such as load balancing, hash functions, and graph/network algorithms. The focus will be on utilizing randomization to develop algorithms that are more efficient and/or simpler than their deterministic counterparts.",
       "prereqTreeString": "CS3230"
@@ -452,7 +452,7 @@
 
       ],
       "description": "This module introduces basic concepts and algorithms in machine learning and neural networks. The main reason for studying computational learning is to make better use of powerful computers to learn knowledge (or regularities) from the raw data. The ultimate objective is to build self-learning systems to relieve human from some of already-too-many programming tasks. At the end of the course, students are expected to be familiar with the theories and paradigms of computational learning, and capable of implementing basic learning systems.",
-      "prereqTreeString": "(AND CS2040S ST2334 MA1521 MA1101R)"
+      "prereqTreeString": "(AND CS2040S MA1101R MA1521 ST2334)"
     },
     {
       "code": "CS4243",
@@ -497,7 +497,7 @@
 
       ],
       "description": "This module introduces the major concepts and paradigms in planning and decision making in complex environments. It examines issues, challenges, and techniques in problem representation, goal or objective specification, response selection, and action\nconsequence for a wide range of strategic and tactical planning and decision making situations. Topics covered include deterministic and non-deterministic planning,\npractical planning and acting under resource constraints and uncertainy, expected utility and rational decision making, decision networks, Markov decision processes,\nelementary game theory, and multi-agent planning and decision making.",
-      "prereqTreeString": "(AND ST2334 CS3243)"
+      "prereqTreeString": "(AND CS3243 ST2334)"
     },
     {
       "code": "CS4248",
@@ -542,7 +542,7 @@
       ],
       "focusElectives": [
         "AI",
-        "DS"
+        "DB"
       ],
       "description": "The advent of high throughput technologies (e.g., DNA chips, microarray), biologists are being overloaded with information (e.g., gene expression data). A systematic way is needed to analyze the data to make sense of them. This module is introduced to provide students with knowledge of techniques that can be used to analyse biological data to enable them to discover new knowledge. At the end of the module, students will be able to identify the relevant techniques for different biological data to uncover new information. Topics include: Clustering analysis, classification, association rule mining; support vector machines; Hidden Markov Models.",
       "prereqTreeString": "CS2220"
@@ -588,10 +588,10 @@
       ],
       "focusElectives": [
         "AI",
-        "DS"
+        "DB"
       ],
       "description": "This course introduces fundamental principles behind data mining and efficient techniques for mining large databases. It provides an overview of the algorithmic aspect of data mining: its efficiency (high-dimensional database indexing, OLAP, data reduction, compression techniques) and effectiveness (machine learning involving greedy search, branch and bound, stochastic search, parameter optimisation). Efficient techniques covered include association rules mining (Apriori algorithm, correlation search, constrained association rule discovery), classifier induction (decision trees, RainForest, SLIQ; Support vector machine; Naive Bayesian; classification based on association / visualisation), cluster analysis (k-means, k-mediods, DBSCAN, OPTICS, DENCLUE, STING, CLUSEQ, ROCK etc), and outliers/deviants detection (LOF, Distance-based outlier etc).",
-      "prereqTreeString": "(AND CS2102 ST2334 CS3243)"
+      "prereqTreeString": "(AND CS2102 CS3243 ST2334)"
     },
     {
       "code": "CS5242",
@@ -621,7 +621,7 @@
         "AI"
       ],
       "description": "The module covers modelling methods that are suitable for reasoning with uncertainty. The main focus will be on probabilistic models including Bayesian networks and Markov networks. Topics include representing conditional independence, building graphical models, inference using graphical models and learning from data. Selected applications in various domains such as speech, vision, natural language processing, medical informatics, bioinformatics, data mining and others will be discussed.",
-      "prereqTreeString": "(AND ST2334 CS3243)"
+      "prereqTreeString": "(AND CS3243 ST2334)"
     },
     {
       "code": "CS5339",
@@ -666,7 +666,7 @@
 
       ],
       "description": "This module aims to provide fundamental concepts in 3D modeling and animation. It also serves as a bridge to advanced media modules. After taking this module, students should be able to use these concepts to easily build or work with digital models, manipulate the models by means of computer deformation and animation, and use lighting and rendering techniques to create appealing scenes. Topics include coordinate spaces, transforms, 3D model representations, hierarchical structures, deformation, procedural modelling, particle systems, character animation, shading networks, lighting, and scripting concepts.",
-      "prereqTreeString": "(AND CS3241 MA1521 MA1101R)"
+      "prereqTreeString": "(AND CS3241 MA1101R MA1521)"
     },
     {
       "code": "CS3247",
@@ -726,7 +726,7 @@
         "CGG"
       ],
       "description": "Modern mobile platforms such as smart phones and tablets are equipped with an increasing number of sensing modalities. In addition to traditional components such as keyboards and touch screens, they are also equipped with cameras, microphones, inertial sensor, and GPS receivers. With these modalities all packed into a single platform, it is important to empower application developers with basic knowledge and practical skills in dealing with these modalities. This module introduces the students to basic theories, concept and practical skills needed in input, processing and output of multimodal data on mobile platforms.",
-      "prereqTreeString": "(AND MA1521 MA1101R (OR CS2030 CS2040S))"
+      "prereqTreeString": "(AND (OR CS2030 CS2040S) MA1101R MA1521)"
     },
     {
       "code": "CS3240",
@@ -815,7 +815,7 @@
       ],
       "focusElectives": [
         "CGG",
-        "PC"
+        "Para"
       ],
       "description": "With the advancements in the technology of graphics processing units (GPUs), many computations can be performed faster on the GPUs than the CPUs. They are also programmable, making them useful for not just computer graphics processing but also general-purpose computations. Therefore, they are a natural choice as high-speed coprocessors to the CPUs in various applications. This module introduces the architecture of GPU, program writing on GPU using high-level language such as Cg, and the use of GPU in applications including computer graphics, games, scientific computation, and image processing.",
       "prereqTreeString": "CS3241"
@@ -848,7 +848,7 @@
         "CGG"
       ],
       "description": "The module lays the theoretical foundation for graduate students to do research in multimedia: images, videos, audio, speech, graphics and text documents. The module covers the main theoretical issues common to various multimedia research.  These issues provide a general framework within which specific techniques in particular research areas can be understood. Topics include: vector and signal representations of multimedia, spatial and frequency analyses, models and parameter estimation methods. Examples will be drawn from different types of media.  Upon completion, students will be well-grounded to pursue further research in computer vision, graphics, natural language processing, audio analysis and multimedia applications.",
-      "prereqTreeString": "(AND CS2040S MA1521 (OR MA1101R ST2334))"
+      "prereqTreeString": "(AND CS2040S MA1101R MA1521 ST2334)"
     },
     {
       "code": "CS5343",
@@ -887,7 +887,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "CS"
+        "ComSec"
       ],
       "focusElectives": [
 
@@ -902,7 +902,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "CS"
+        "ComSec"
       ],
       "focusElectives": [
 
@@ -917,7 +917,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "CS"
+        "ComSec"
       ],
       "focusElectives": [
 
@@ -932,7 +932,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "CS"
+        "ComSec"
       ],
       "focusElectives": [
 
@@ -947,7 +947,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "CS",
+        "ComSec",
         "SE"
       ],
       "focusElectives": [
@@ -966,7 +966,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "This module builds upon the conceptual foundation formed in CS2106 and extends it to the study of real-life operating systems. The focus is to understand how actual operating systems work including the pragmatics, system architecture and design and implementation. Details will be drawn from contemporary operating systems such as Unix/Linux and Windows. Topics include kernel architecture and interfaces, computer architecture issues, process APIs and implementation, threads, scheduling, physical and kernel memory management, virtual memory, synchronisation and interprocess communication mechanisms, multi-processor issues, device characteristics and management, file system implementation, memory mapped files, special purpose file systems.",
       "prereqTreeString": "CS2106"
@@ -981,7 +981,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "With the advent of the Internet-of-Things, the computing paradigm is quickly changing from the traditional cyber domain to cyber-physical domain. This is made possible from devices that are equipped with sensors and actuators that interact with the physical world. In this module, we will investigate how such sensing systems affect the notion of computer security. We will also explore the state-of-the-art research in the areas of sensing systems and how they can provide benefits to the security of the Internet-of-Things. This module will also investigate how an attacker may compromise the sensing information to exploit security vulnerabilities in these systems.",
       "prereqTreeString": ""
@@ -996,7 +996,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "This module introduces fundamental notions and requirements in computer system security and the mechanisms that provide security in various systems and applications. It aims to teach students the security perspective of popular computer systems, such as desktop systems, mobile systems, and web-based systems. Its topics include software security, operating system security, mobile security, web security, trusted platforms, and auditing and forensic analysis.",
       "prereqTreeString": "CS3235"
@@ -1011,8 +1011,8 @@
 
       ],
       "focusElectives": [
-        "CS",
-        "PC"
+        "ComSec",
+        "Para"
       ],
       "description": "The module covers a broad range of issues in the design and implementation of modern advanced operating systems. The topics covered in this module includes OS design strategies (including microkernels, mobile, embedded and real-time operating systems and the component’s interfaces), priority and resource allocation strategies; scheduling algorithms (including for multi-core, multi-processors); naming, protection and security; UI and windowing systems; file system implementations (including network and distributed file systems); failure and recovery; and virtualization and the Internet-ready OS. They extend and provide in-depth coverage of material in earlier prerequisite OS modules.",
       "prereqTreeString": "CS2106"
@@ -1027,7 +1027,7 @@
 
       ],
       "focusElectives": [
-        "CS",
+        "ComSec",
         "NDS"
       ],
       "description": "The objective of this module is to introduce students to the various issues that arise in securing the networks, and study the state-of-the-art techniques for addressing these challenges. A number of most damaging attacks on computer systems involve the exploitation of network infrastructure. This module provides an in-depth study of network attack techniques and methods to defend against them. Topics include basic concepts in network security; firewalls and virtual private networks; network intrusion detection; denial of service (DoS); traffic analysis; secure routing protocols; protocol scrubbing; and advanced topics such as wireless network security.",
@@ -1043,8 +1043,8 @@
 
       ],
       "focusElectives": [
-        "CS",
-        "DS"
+        "ComSec",
+        "DB"
       ],
       "description": "Database security has a great impact on the design of today's information systems. This course will provide an overview of database security concepts and techniques and discuss new directions of database security in the context of Internet information management. Topics covered include: Access control models for DBMSs, Inference controls, XML database security, Encrypted databases, Digital credentials and PKIs, Trust in open systems, and Peer-to-peer system security.",
       "prereqTreeString": "CS3223"
@@ -1059,7 +1059,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "This module aims to prepare graduate students for understanding the security of the latest web platform and its interplay with operating systems and the cloud infrastructure. The topics covered include the design of web browsers and web \napplications, vulnerabilities in web applications and web browsers, design of web scanners, authentication in web-based platforms, security policies and enforcement mechanisms. This module also covers security topics on the interface between the \nweb platform and the backend systems, such as the underlying database systems and cloud infrastructure.",
       "prereqTreeString": "CS3235"
@@ -1074,10 +1074,10 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "Biometrics (such as fingerprint, iris images) are commonly used for authentication. This module covers authentication methods, different types of biometrics, pattern recognition, performance measurement, spoofing attacks, as well as issues such as privacy, user acceptance, and standards compliance. Students will gain a solid understanding of the fundamentals of the technology underlying biometric authentication, and the key issues to be addressed for successful deployment. Both the theoretical and practical\naspects of biometrics authentication will be discussed.",
-      "prereqTreeString": "(AND CS2040S MA1521 MA1101R ST2334)"
+      "prereqTreeString": "(AND CS2040S MA1101R MA1521 ST2334)"
     },
     {
       "code": "IFS4101",
@@ -1089,7 +1089,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "This module examines the laws relating to information security. The issues and considerations concerning information security have greatly shaped many laws, in particular, the laws relating to cybercrimes, electronic commerce, electronic evidence, document discovery, information management and data protection. These areas of the law have in turn altered the development and practice of information security in the industry. The objective of this module is to provide information security professionals with a working knowledge of these legal issues in information security, so that they are better placed to represent and protect the legal interests of their employers and their institutions.",
       "prereqTreeString": "CS2107"
@@ -1104,7 +1104,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "Digital forensics encompasses the recovery and investigation of material found in digital devices in relation to cyber crime and other crimes where digital evidence is relevant. This module gives an introduction to principles, techniques, and tools to perform digital forensics. Students will gain a good understanding of the fundamentals of digital forensics; key techniques for performing evidence extraction and analysis on UNIX/Linux systems, Windows\nsystems, networks, Web applications, and mobile devices; and gain exposure to available tools. Some legal aspects of digital forensics will also be discussed.",
       "prereqTreeString": "CS3235"
@@ -1119,7 +1119,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "This is a practice-oriented and project-based module that provides a hands-on experience of performing penetration testing on a collaborating organisation’s system. It aims to provide students with a realistic platform for applying offensive-based vulnerability assessment and analysis techniques on designated target systems. Students will be part of a penetration testing team, and be guided to apply the methodology, techniques, and tools of assessing the security of the target systems. This module contains a mix of technical-review seminars, testing-scoping meetings, and penetration testing exercises, analysis, as well as reporting.",
       "prereqTreeString": "CS3235"
@@ -1134,7 +1134,7 @@
 
       ],
       "focusElectives": [
-        "CS"
+        "ComSec"
       ],
       "description": "The main focus of this module is on the managerial aspects of information security. This module prepares the students for their future roles as IS managers or IS security professionals. Through this module, students will appreciate the challenges of managing information security in the modern business organization. Topics include risk management, security policies and programmes, managing the security function, and planning for continuity.",
       "prereqTreeString": "CS2107"
@@ -1146,7 +1146,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "DS"
+        "DB"
       ],
       "focusElectives": [
 
@@ -1161,7 +1161,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "DS"
+        "DB"
       ],
       "focusElectives": [
 
@@ -1176,7 +1176,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "DS"
+        "DB"
       ],
       "focusElectives": [
 
@@ -1191,7 +1191,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "DS"
+        "DB"
       ],
       "focusElectives": [
 
@@ -1206,7 +1206,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "DS"
+        "DB"
       ],
       "focusElectives": [
 
@@ -1224,7 +1224,7 @@
 
       ],
       "focusElectives": [
-        "DS"
+        "DB"
       ],
       "description": "This module is concerned with the performance related database administration issues. The topics include: an overview of query optimisation techniques, physical data base design, system configuration, buffer management, performance analysis and tuning techniques.",
       "prereqTreeString": "CS3223"
@@ -1287,7 +1287,7 @@
 
       ],
       "description": "This module introduces the fundamental technologies employed in sound and music computing which are grouped into three major areas: Sound, Music, and Interaction. It begins with an introduction to sound production, propagation and perception, followed by digital sound recording, editing, post-processing and compression. Its core components consists of the analytic and synthetic approaches of sound and music. The analytic approach pertains to analysis and understanding, whereas the synthetic approach pertains to generation and processing. Interaction aspects include multimodal mobile music interface and sound interaction design. Finally, music information retrieval will be introduced as an application of analytic techniques.",
-      "prereqTreeString": "(AND MA1521 MA1101R CS2108)"
+      "prereqTreeString": "(AND CS2108 MA1101R MA1521)"
     },
     {
       "code": "CS5246",
@@ -1390,7 +1390,7 @@
       ],
       "focusElectives": [
         "NDS",
-        "PC"
+        "Para"
       ],
       "description": "The topic of Distributed Systems is now garnering increasing importance, especially with the advancement in technology of the Internet and WWW. The aim of this module is to provide students with basic concepts and principles of distributed operating systems, interprocess communications, distributed file systems, shared data, and the middleware approach. The module is taught in seminar style, and several case studies are included, e.g. CORBA.   Topics: Introduction - Characteristics of Distributed Systems; Process Management Communication in Distributed Systems; Distributed Synchronisation; Distributed Real-time Systems; File Systems; Naming Security; Fault Tolerant Distributed Systems; Distributed Simulation; WWW as an application of Distributed System.",
       "prereqTreeString": "CS3211"
@@ -1406,7 +1406,7 @@
       ],
       "focusElectives": [
         "NDS",
-        "PC"
+        "Para"
       ],
       "description": "This module aims to provide an overview of the design, management and application of cloud computing. The topics include managing virtualization, cloud computing environments, cloud design patterns and use cases, data centre architectures and technologies, cloud services fulfillment and assurance, orchestration and automation of cloud resources, cloud capacity management, cloud economics, case studies.",
       "prereqTreeString": ""
@@ -1448,7 +1448,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "PC"
+        "Para"
       ],
       "focusElectives": [
 
@@ -1463,7 +1463,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "PC",
+        "Para",
         "PL"
       ],
       "focusElectives": [
@@ -1479,7 +1479,7 @@
       "su": false,
       "core": false,
       "focusPrimaries": [
-        "PC"
+        "Para"
       ],
       "focusElectives": [
 
@@ -1497,7 +1497,7 @@
 
       ],
       "focusElectives": [
-        "PC"
+        "Para"
       ],
       "description": "This module is an introductory course to fundamental and advanced operating systems techniques aimed for computer science graduate students.  The topics covered include threads, scheduling, concurrency, memory management, and storage systems, software management, and security.  After taking the module, students are expected to understand common design principles used, understand the common issues and problems in computer systems, and be able to design and evaluate a system.",
       "prereqTreeString": ""
@@ -1512,7 +1512,7 @@
 
       ],
       "focusElectives": [
-        "PC"
+        "Para"
       ],
       "description": "The aim of this module is to introduce the state-of-the-art architectural advances underlying the current generation of computing systems. A review of pipelined processor design and hierarchical memory design is followed by advanced topics including exploitation of instruction-level parallelism through dynamic instruction scheduling and speculation, exploiting thread-level parallelism through\nmultiprocessors, and optimizations for memory and storage subsystems. Throughout the module, particular emphasis will be placed on cost-performance-power-reliability trade-offs in designing the different architectural components.",
       "prereqTreeString": "CS4223"
@@ -1527,7 +1527,7 @@
 
       ],
       "focusElectives": [
-        "PC"
+        "Para"
       ],
       "description": "The objective of this module is to provide students a working knowledge of computer performance evaluation and capacity planning. They will be able to identify performance bottlenecks, to predict when performance limits of a system will be exceeded, and to characterise present and future workload to perform capacity planning activities. Topics include: performance analysis overview; measurement techniques and  tools including workload characterisation, instrumentation, benchmarking, analytical modelling techniques including operational analysis, stochastic queuing network analysis; performance of client-server architectures; capacity planning; case studies.",
       "prereqTreeString": "(AND CS2030 ST2334)"
@@ -1818,7 +1818,7 @@
 
       ],
       "description": "This module aims to provide students with a working knowledge of applying\nsimulation techniques to model, simulate and study complex systems. It covers techniques in simulation model design, model execution, and model analysis. Students will have hands-on experience using a simulation package. The module will also introduce concepts of parallel and distributed simulation, and high level architecture.",
-      "prereqTreeString": "(AND ST2334 CS4231)"
+      "prereqTreeString": "(AND CS4231 ST2334)"
     },
     {
       "code": "CS3203",
