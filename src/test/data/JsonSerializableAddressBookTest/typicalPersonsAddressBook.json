@@ -15,7 +15,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ],
     "visitTodos" : [ ],
-    "visits" : [ 
+    "visits" : [
       {
         "remark" : "",
         "startDateTime" : "10-11-2019 1500",

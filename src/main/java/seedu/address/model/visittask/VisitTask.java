@@ -88,9 +88,9 @@ public class VisitTask {
                 .append(" Details: ")
                 .append(getDetail());
         if (isDone()) {
-            builder.append("(done)");
+            builder.append(" (done)");
         } else {
-            builder.append("(unfinished)");
+            builder.append(" (unfinished)");
         }
         return builder.toString();
     }
