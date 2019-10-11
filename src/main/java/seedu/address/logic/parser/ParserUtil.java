@@ -155,22 +155,4 @@ public class ParserUtil {
         return new CustomerName(trimmedCustomerName);
     }
 
-    /**
-     * Parses a {@code String orderIndex} into a {@code orderIndex}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code orderIndex} is invalid.
-     */
-    /*
-    public static CustomerName parseOrderIndex(String orderIndex) throws ParseException {
-        requireNonNull(orderIndex);
-        String trimmedOrderIndex = orderIndex.trim();
-        if (!CustomerName.isValidCustomerName(trimmedCustomerName)) {
-            throw new ParseException(CustomerName.MESSAGE_CONSTRAINTS);
-        }
-        return new CustomerName(trimmedCustomerName);
-    }
-    */
-
-
 }
