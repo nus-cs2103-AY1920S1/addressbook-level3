@@ -241,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = new OverallCommandResult("Implement inventory logic");
                 //should be replace with inventory's logic
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic");
+                commandResult = cashierLogic.execute(commandText);
                 //should be replace with cashier's logic
             } else {
                 commandResult = new OverallCommandResult("Implement overview logic");

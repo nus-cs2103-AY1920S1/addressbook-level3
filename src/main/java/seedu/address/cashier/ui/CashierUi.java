@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.person.Person;
 
 public class CashierUi {
 
@@ -34,8 +35,8 @@ public class CashierUi {
         return "Total amount is " + totalAmount + ". \n" + "The change is " + change + ". \nCheckout successful.";
     }
 
-    public static String addCashierSuccessful(String name) {
-        return "Added cashier successfully. Cashier-in-charge is " + name + ". \n";
+    public static String addCashierSuccessful(Person cashier) {
+        return "Added cashier successfully. Cashier-in-charge is " + cashier + ". \n";
     }
 
     public static String addedItem(Item item) {
