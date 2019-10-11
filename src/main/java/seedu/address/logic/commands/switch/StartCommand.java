@@ -63,7 +63,9 @@ public class StartCommand extends SwitchCommand {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
         try {
             Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
-            wordBank = (WordBank) thisBank.get();
+            if (thisBank.isPresent()) {
+                wordBank = (WordBank) thisBank.get();
+            }
         } catch (DataConversionException e) {
             e.printStackTrace();
         } catch (IOException e) {
