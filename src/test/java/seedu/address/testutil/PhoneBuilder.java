@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
@@ -23,6 +24,7 @@ public class PhoneBuilder {
     public static final String DEFAULT_COLOUR = "Vanilla White";
     public static final String DEFAULT_COST = "$42.42";
 
+    private UUID id;
     private PhoneName phoneName;
     private Brand brand;
     private Capacity capacity;
@@ -31,6 +33,7 @@ public class PhoneBuilder {
     private Set<Tag> tags;
 
     public PhoneBuilder() {
+        id = UUID.randomUUID();
         phoneName = new PhoneName(DEFAULT_NAME);
         brand = new Brand(DEFAULT_BRAND);
         capacity = DEFAULT_CAPACITY;
@@ -42,13 +45,25 @@ public class PhoneBuilder {
     /**
      * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
      */
-    public PhoneBuilder(Phone phoneToCopy) {
+    public PhoneBuilder(Phone phoneToCopy, boolean copyId) {
+        if (copyId) {
+            id = phoneToCopy.getId();
+        } else {
+            id = UUID.randomUUID();
+        }
         phoneName = phoneToCopy.getPhoneName();
         brand = phoneToCopy.getBrand();
         capacity = phoneToCopy.getCapacity();
         colour = phoneToCopy.getColour();
         cost = phoneToCopy.getCost();
         tags = new HashSet<>(phoneToCopy.getTags());
+    }
+
+    /**
+     * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
+     */
+    public PhoneBuilder(Phone phoneToCopy) {
+        this(phoneToCopy, true);
     }
 
     /**
@@ -100,7 +115,7 @@ public class PhoneBuilder {
     }
 
     public Phone build() {
-        return new Phone(phoneName, brand, capacity, colour, cost, tags);
+        return new Phone(id, phoneName, brand, capacity, colour, cost, tags);
     }
 
 }

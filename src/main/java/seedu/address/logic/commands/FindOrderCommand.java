@@ -31,7 +31,7 @@ public class FindOrderCommand extends Command {
         model.updateFilteredOrderList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW,
-                        model.getFilteredOrderList().size()), PanelType.ORDER);
+                        model.getFilteredOrderList().size()), UiChange.ORDER);
     }
 
     @Override

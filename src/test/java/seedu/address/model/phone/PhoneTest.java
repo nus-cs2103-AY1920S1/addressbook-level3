@@ -1,6 +1,8 @@
 package seedu.address.model.phone;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 
@@ -22,45 +24,45 @@ class PhoneTest {
         assertTrue(IPHONEONE.isSamePhone(IPHONEONE));
 
         // clone -> returns true
-        assertTrue(IPHONEONE.isSamePhone((Phone) IPHONEONE.clone()));
+        assertTrue(IPHONEONE.isSamePhone(IPHONEONE.clone()));
 
         // null -> returns false
         assertFalse(IPHONEONE.isSamePhone(null));
 
         // different id -> returns false
-        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).build()));
+        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE, false).build()));
     }
 
     @Test
     void testEquals() {
         // same object -> returns true
-        assertTrue(IPHONEONE.equals(IPHONEONE));
+        assertEquals(IPHONEONE, IPHONEONE);
 
         // clone -> returns true
-        assertTrue(IPHONEONE.equals(IPHONEONE.clone()));
+        assertEquals(IPHONEONE, IPHONEONE.clone());
 
         // null -> returns false
-        assertFalse(IPHONEONE.equals(null));
+        assertNotEquals(null, IPHONEONE);
 
         // same data fields -> returns true
-        assertTrue(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).build()));
+        assertEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).build());
 
         // different name -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build());
 
         // different brand -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withBrand(VALID_BRAND).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withBrand(VALID_BRAND).build());
 
         // different capacity -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withCapacity(Capacity.SIZE_8GB).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withCapacity(Capacity.SIZE_8GB).build());
 
         // different colour -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withColour(VALID_COLOUR).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withColour(VALID_COLOUR).build());
 
         // different cost -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withCost(VALID_COST).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withCost(VALID_COST).build());
 
         // different tags -> returns false
-        assertFalse(IPHONEONE.equals(new PhoneBuilder(IPHONEONE).withTags(VALID_TAG).build()));
+        assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withTags(VALID_TAG).build());
     }
 }

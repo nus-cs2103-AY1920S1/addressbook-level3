@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,75 +12,23 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
-
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-    private final boolean exit;
-
-    /** The application show statistics in another window*/
-    private final boolean showStatistics;
-
-    private final PanelType panelType;
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this.panelType = PanelType.DEFAULT;
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showStatistics = false;
-        this.showHelp = showHelp;
-        this.exit = exit;
-    }
-
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isStatistic) {
-        this.panelType = PanelType.DEFAULT;
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showStatistics = isStatistic;
-        this.showHelp = showHelp;
-        this.exit = exit;
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
-    }
+    private final List<UiChange> uiChange;
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
      * and set other fields to their default value.
      */
-    public CommandResult(String feedbackToUser, PanelType type) {
+    public CommandResult(String feedbackToUser, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.showStatistics = false;
-        this.panelType = type;
+        this.uiChange = Arrays.asList(type);
     }
 
-    public PanelType getPanelType() {
-        return panelType;
+    public List<UiChange> getUiChange() {
+        return uiChange;
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
-    public boolean isExit() {
-        return exit;
-    }
-
-    public boolean isShowStatistics() {
-        return showStatistics;
     }
 
     @Override
@@ -93,14 +43,12 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+        return feedbackToUser.equals(otherCommandResult.feedbackToUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser);
     }
 
 }

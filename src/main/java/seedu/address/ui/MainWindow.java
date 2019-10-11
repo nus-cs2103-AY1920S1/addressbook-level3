@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -14,9 +15,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exception.EnumNotPresentException;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
@@ -41,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
-
 
     //real panels
     private CustomerListPanel customerListPanel;
@@ -142,7 +143,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
     }
 
     /**
@@ -169,7 +169,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-
     void show() {
         primaryStage.show();
     }
@@ -185,43 +184,24 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-    /*
-    @FXML
-    private void handleStatistics() {
-        if (!statisticsWindow.isShowing()) {
-            statisticsWindow.show();
-        } else {
-            statisticsWindow.focus();
-        }
-    }*/
 
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException,
+            ParseException, EnumNotPresentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            if (commandResult.isShowStatistics()) {
-
-            }
             //retrieve the type that the command works on here;
-            PanelType panelToSwitchTo = commandResult.getPanelType();
-            switchPanel(panelToSwitchTo);
+            List<UiChange> uiChanges = commandResult.getUiChange();
+            performUiChanges(uiChanges);
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | EnumNotPresentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -232,17 +212,31 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void switchPanel(PanelType input) {
-        if (input.equals(PanelType.CUSTOMER)) {
-            this.showCustomerPanel();
-        } else if (input.equals(PanelType.PHONE)) {
-            this.showPhonePanel();
-        } else if (input.equals(PanelType.ORDER)) {
-            this.showOrderPanel();
-        } else if (input.equals(PanelType.SCHEDULE)) {
-            this.showSchedulePanel();
-        } else if (input.equals(PanelType.DEFAULT)) {
-            //do nothing
+    private void performUiChanges(List<UiChange> input) throws EnumNotPresentException {
+        for (UiChange type : input) {
+            switch (type) {
+            case CUSTOMER:
+                this.showCustomerPanel();
+                break;
+            case PHONE:
+                this.showPhonePanel();
+                break;
+            case ORDER:
+                this.showOrderPanel();
+                break;
+            case SCHEDULE:
+                this.showSchedulePanel();
+                break;
+            case HELP:
+                this.handleHelp();
+                break;
+            case EXIT:
+                this.handleExit();
+                break;
+            default:
+                //do nothing
+                throw new EnumNotPresentException("Enum not present in command");
+            }
         }
     }
 
