@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -7,39 +9,63 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all {@code Loan} data at the LoanRecords level.
  */
 public class LoanRecords implements ReadOnlyLoanRecords {
 
-    private HashMap<LoanId, Loan> loansMap = new HashMap<>();
+    private HashMap<LoanId, Loan> loansMap;
 
+    /**
+     * Creates a LoanRecords using the Loans in the {@code toBeCopied}
+     */
     public LoanRecords(ReadOnlyLoanRecords toBeCopied) {
+        requireNonNull(toBeCopied);
 
+        loansMap = new HashMap<>();
+        toBeCopied.getLoanCollection().forEach(loan -> loansMap.put(loan.getLoanId(), loan));
+    }
+
+    public LoanRecords() {
+        loansMap = new HashMap<>();
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Get all the Loan objects tracked by LoanRecords.
+     *
+     * @return All the Loans in a {@Code Collection<Loan>}.
      */
-    public LoanRecords() {
-
-    }
-
     @Override
     public Collection<Loan> getLoanCollection() {
         return loansMap.values();
     }
 
+    /**
+     * Checks if the LoanRecords contains this {@code loan} object or not.
+     *
+     * @param loan Loan object to be checked.
+     * @return True if LoanRecords contains this {@code loan} object, false otherwise.
+     */
     public boolean hasLoan(Loan loan) {
         return loansMap.containsValue(loan);
     }
 
+    /**
+     * Checks if the LoanRecords contains a {@code loan} object with this {@code loanId} or not.
+     *
+     * @param loanId Loan ID of loan object to be checked.
+     * @return True if LoanRecords contains a {@code loan} object with this {@code loanId}, false otherwise.
+     */
     public boolean hasLoan(LoanId loanId) {
         return loansMap.containsKey(loanId);
     }
 
+    /**
+     * Add a {@code loan} object into the LoanRecords.
+     *
+     * @param loan Loan object to be added.
+     */
     public void addLoan(Loan loan) {
-        loansMap.put(loan.getLoanId() , loan);
+        loansMap.put(loan.getLoanId(), loan);
     }
 
     @Override
