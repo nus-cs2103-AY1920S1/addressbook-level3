@@ -93,7 +93,7 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 ==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
-Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE]`
+Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [t/TAG]...`
 
 * Name
 ** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
@@ -105,6 +105,10 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE]`
 ** is matched word by word
 ** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
 * Source requires an exact match.
+* Tag
+** Constraints are separated by spaces. (e.g. `find t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
+** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
+** Tags are considered equal only when the tag strings are exactly matched.
 
 Examples:
 

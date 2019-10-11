@@ -5,6 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -15,6 +16,7 @@ import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
+import seedu.algobase.model.problem.TagIncludesKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,7 +31,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
+                        PREFIX_TAG);
 
         // According to the command format, no preamble should be present.
         if (!argumentMultimap.getPreamble().isBlank()) {
@@ -70,7 +73,16 @@ public class FindCommandParser implements Parser<FindCommand> {
             sourcePredicate = null;
         }
 
-        Predicate[] predicates = {namePredicate, authorPredicate, descriptionPredicate, sourcePredicate};
+        final TagIncludesKeywordsPredicate tagPredicate;
+        if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
+            String trimmedTagArg = argumentMultimap.getValue(PREFIX_TAG).get().trim();
+            String[] tagKeywords = trimmedTagArg.split("\\s+");
+            tagPredicate = new TagIncludesKeywordsPredicate(Arrays.asList(tagKeywords));
+        } else {
+            tagPredicate = null;
+        }
+
+        Predicate[] predicates = {namePredicate, authorPredicate, descriptionPredicate, sourcePredicate, tagPredicate};
         boolean allPredicatesAreNull = true;
         for (Predicate predicate : predicates) {
             if (predicate != null) {
@@ -83,6 +95,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(FindCommand.MESSAGE_NO_CONSTRAINTS);
         }
 
-        return new FindCommand(namePredicate, authorPredicate, descriptionPredicate, sourcePredicate);
+        return new FindCommand(namePredicate, authorPredicate, descriptionPredicate, sourcePredicate, tagPredicate);
     }
 }

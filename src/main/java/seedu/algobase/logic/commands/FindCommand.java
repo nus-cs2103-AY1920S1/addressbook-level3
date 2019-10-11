@@ -5,6 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
 
@@ -15,6 +16,7 @@ import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
+import seedu.algobase.model.problem.TagIncludesKeywordsPredicate;
 
 /**
  * Finds and lists all problems in algobase fulfilling all the given constraints.
@@ -30,6 +32,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_AUTHOR + "Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
@@ -39,7 +42,8 @@ public class FindCommand extends Command {
     public FindCommand(NameContainsKeywordsPredicate namePredicate,
                        AuthorMatchesKeywordPredicate authorPredicate,
                        DescriptionContainsKeywordsPredicate descriptionPredicate,
-                       SourceMatchesKeywordPredicate sourcePredicate) {
+                       SourceMatchesKeywordPredicate sourcePredicate,
+                       TagIncludesKeywordsPredicate tagPredicate) {
         predicate = problem -> {
             boolean result = true;
             if (namePredicate != null) {
@@ -53,6 +57,9 @@ public class FindCommand extends Command {
             }
             if (sourcePredicate != null) {
                 result = result && sourcePredicate.test(problem);
+            }
+            if (tagPredicate != null) {
+                result = result && tagPredicate.test(problem);
             }
             return result;
         };
