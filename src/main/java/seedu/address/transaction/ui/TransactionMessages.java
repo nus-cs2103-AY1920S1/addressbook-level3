@@ -44,6 +44,8 @@ public class TransactionMessages {
             + "delete still has transaction records. Please make sure the person is reimbursed and delete "
             + "those transaction records first.";
 
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";;
+
     public static String editedTransaction(Transaction editedTransaction) {
         return "Edited Transaction:\n" + editedTransaction;
     }
