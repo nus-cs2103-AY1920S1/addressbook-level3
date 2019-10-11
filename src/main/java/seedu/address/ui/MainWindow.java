@@ -11,6 +11,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,13 +30,12 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SemesterListPanel semesterListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane semesterListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -51,8 +52,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -68,8 +67,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //        semesterListPanel = new SemesterListPanel(logic.getFilteredStudyPlanList());
-        //        personListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+        StudyPlan sp = logic.getActiveStudyPlan();
+        UniqueSemesterList u = sp.getSemesters();
+//        logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
+//        semesterListPanel = new SemesterListPanel(logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList());
+//        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -93,18 +95,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -117,7 +107,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -135,10 +124,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();
