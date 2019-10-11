@@ -109,6 +109,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void saveMark() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
         public ReadOnlyMark getMark() {
             return new Mark();
         }

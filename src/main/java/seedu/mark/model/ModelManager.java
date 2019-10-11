@@ -20,7 +20,7 @@ import seedu.mark.model.bookmark.Folder;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Mark mark;
+    private final VersionedMark versionedMark;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
 
@@ -33,9 +33,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with Mark: " + mark + " and user prefs " + userPrefs);
 
-        this.mark = new Mark(mark);
+        versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookmarks = new FilteredList<>(this.mark.getBookmarkList());
+        filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
     }
 
     public ModelManager() {
@@ -81,28 +81,28 @@ public class ModelManager implements Model {
 
     @Override
     public void setMark(ReadOnlyMark mark) {
-        this.mark.resetData(mark);
+        versionedMark.resetData(mark);
     }
 
     @Override
     public ReadOnlyMark getMark() {
-        return mark;
+        return versionedMark;
     }
 
     @Override
     public boolean hasBookmark(Bookmark bookmark) {
         requireNonNull(bookmark);
-        return mark.hasBookmark(bookmark);
+        return versionedMark.hasBookmark(bookmark);
     }
 
     @Override
     public void deleteBookmark(Bookmark target) {
-        mark.removeBookmark(target);
+        versionedMark.removeBookmark(target);
     }
 
     @Override
     public void addBookmark(Bookmark bookmark) {
-        mark.addBookmark(bookmark);
+        versionedMark.addBookmark(bookmark);
         updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
     }
 
@@ -110,19 +110,18 @@ public class ModelManager implements Model {
     public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         requireAllNonNull(target, editedBookmark);
 
-        mark.setBookmark(target, editedBookmark);
+        versionedMark.setBookmark(target, editedBookmark);
     }
-
 
     @Override
     public void addFolder(Folder folder, Folder parentFolder) {
         requireAllNonNull(folder, parentFolder);
-        mark.addFolder(folder, parentFolder);
+        versionedMark.addFolder(folder, parentFolder);
     }
 
     @Override
     public boolean hasFolder(Folder folder) {
-        return mark.hasFolder(folder);
+        return versionedMark.hasFolder(folder);
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================
@@ -142,6 +141,33 @@ public class ModelManager implements Model {
         filteredBookmarks.setPredicate(predicate);
     }
 
+    //=========== Undo/Redo =================================================================================
+
+    @Override
+    public boolean canUndoMark() {
+        return versionedMark.canUndo();
+    }
+
+    @Override
+    public boolean canRedoMark() {
+        return versionedMark.canRedo();
+    }
+
+    @Override
+    public void undoMark() {
+        versionedMark.undo();
+    }
+
+    @Override
+    public void redoMark() {
+        versionedMark.redo();
+    }
+
+    @Override
+    public void saveMark() {
+        versionedMark.save();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -156,7 +182,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return mark.equals(other.mark)
+        return versionedMark.equals(other.versionedMark)
                 && userPrefs.equals(other.userPrefs)
                 && filteredBookmarks.equals(other.filteredBookmarks);
     }
