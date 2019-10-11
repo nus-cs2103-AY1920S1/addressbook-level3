@@ -53,11 +53,11 @@ public class StartCommand extends Command {
         // start stub
         List<FlashCard> testList = new ArrayList<>();
         testList.add(new FlashCard(new Question("1+1"), new Answer("2"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         testList.add(new FlashCard(new Question("1+2"), new Answer("3"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         testList.add(new FlashCard(new Question("1+3"), new Answer("4"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         // end stub
 
         // TODO: integrate into GUI

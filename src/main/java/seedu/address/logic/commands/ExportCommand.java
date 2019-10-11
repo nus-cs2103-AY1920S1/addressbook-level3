@@ -11,7 +11,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.util.FilePath;
 
 /**
- * Finds and lists all persons in address book whose question contains any of the argument keywords.
+ * Finds and lists all flashcards in address book whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class ExportCommand extends Command {
