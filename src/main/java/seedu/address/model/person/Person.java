@@ -69,7 +69,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable policy set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Policy> getPolicies() {

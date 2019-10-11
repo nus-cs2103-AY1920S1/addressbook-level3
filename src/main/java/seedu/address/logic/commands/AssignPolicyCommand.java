@@ -1,18 +1,34 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
-import seedu.address.model.policy.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+
+import seedu.address.model.policy.Coverage;
+import seedu.address.model.policy.Description;
+import seedu.address.model.policy.EndAge;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.Price;
+import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
-
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Command to assign a new policy to a person.
@@ -21,14 +37,17 @@ public class AssignPolicyCommand extends Command {
 
     public static final String COMMAND_WORD = "assignpolicy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns the policy (identified by the first index) "
-            + "to a person (identified by the second index).\n"
-            + "Parameters: INDEX_POLICY (must be a positive integer) "
-            + "INDEX_PERSON (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 1 ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns the policy to a person.\n"
+            + "Parameters: "
+            + PREFIX_POLICY_INDEX + "POLICY INDEX "
+            + PREFIX_PERSON_INDEX + "PERSON INDEX\n"
+            + "Example: "
+            + COMMAND_WORD + " "
+            + PREFIX_POLICY_INDEX + "1 "
+            + PREFIX_PERSON_INDEX + "1";
 
     public static final String MESSAGE_ASSIGN_POLICY_SUCCESS = "Assigned Policy: %1$s to Person: %2$s";
-    public static final String MESSAGE_ALREADY_ASSIGNED = "Person already has the policy.";
+    public static final String MESSAGE_ALREADY_ASSIGNED = "Person: %1$s already has the Policy: %2$s.";
 
 
     private final Index policyIndex;
@@ -63,14 +82,16 @@ public class AssignPolicyCommand extends Command {
         Person person = lastShownPersonList.get(personIndex.getZeroBased());
 
         if (person.hasPolicy(policy)) {
-            throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
+            throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
+                    person.getName(), policy.getName()));
         }
 
         Person assignedPerson = createAssignedPerson(person, policy);
 
         model.setPerson(person, assignedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS, policy, assignedPerson));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
+                policy.getName(), assignedPerson.getName()));
     }
 
     /**
@@ -102,7 +123,7 @@ public class AssignPolicyCommand extends Command {
         Email email = person.getEmail();
         Address address = person.getAddress();
         DateOfBirth dateOfBirth = person.getDateOfBirth();
-        Set<Policy> updatedPolicies = person.getPolicies();
+        Set<Policy> updatedPolicies = new HashSet<Policy>(person.getPolicies());
         updatedPolicies.add(copyPolicy(policy));
         Set<Tag> tags = person.getTags();
 
