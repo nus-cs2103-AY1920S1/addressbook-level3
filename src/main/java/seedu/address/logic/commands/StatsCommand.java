@@ -17,6 +17,6 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        return new CommandResult(SHOWING_STATS_MESSAGE, false, false, true);
+        return new CommandResult(SHOWING_STATS_MESSAGE, UiChange.STATS);
     }
 }

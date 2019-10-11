@@ -16,6 +16,7 @@ import seedu.address.model.schedule.Schedule;
  */
 public class StatisticManager implements Statistic {
 
+    /*
     private final Model currentModel;
 
     // private data fields from the model instance
@@ -23,18 +24,18 @@ public class StatisticManager implements Statistic {
     private final ReadOnlyDataBook<Phone> phoneBook;
     private final ReadOnlyDataBook<Order> orderBook;
     private final ReadOnlyDataBook<Schedule> scheduleBook;
-
+*/
     // data to store the statistics that has been calculated
     private StatisticBook currentBook;
 
 
-    public StatisticManager(Model model) {
-        requireNonNull(model);
-        currentModel = model;
+    public StatisticManager() {
+
+        /*currentModel = model;
         customerBook = currentModel.getCustomerBook();
         phoneBook = currentModel.getPhoneBook();
         orderBook = currentModel.getOrderBook();
-        scheduleBook = currentModel.getScheduleBook();
+        scheduleBook = currentModel.getScheduleBook();*/
         currentBook = new StatisticBook();
     }
 

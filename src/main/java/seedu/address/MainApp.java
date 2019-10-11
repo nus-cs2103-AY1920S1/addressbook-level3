@@ -63,13 +63,13 @@ public class MainApp extends Application {
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
-
+        //create statistic manager;
+        statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage,statistic );
 
-        //create statistic manager;
-        statistic = new StatisticManager(model);
+
 
         ui = new UiManager(logic);
     }
