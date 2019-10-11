@@ -26,10 +26,6 @@ public class EventCard extends UiPart<HBox> {
     @FXML
     private Label destinationLabel;
     @FXML
-    private Label inventoryLabel;
-    @FXML
-    private Label bookingLabel;
-    @FXML
     private VBox propertiesContainer;
 
     private Event event;

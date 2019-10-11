@@ -13,12 +13,12 @@
             <Image url="@../../../../../../build/resources/main/images/dummytrip.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="nameLabel" layoutX="57.0" layoutY="36.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="NameLabel" stylesheets="@days.css" text="\$Name" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="36.0">
+      <Label fx:id="nameLabel" layoutX="57.0" layoutY="36.0" style="-fx-text-fill: black; -fx-font-size: 20;" styleClass="NameLabel" stylesheets="@days.css" text="\$Name" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="destinationLabel" layoutX="23.0" layoutY="67.0" style="-fx-text-fill: white; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0">
+      <Label fx:id="destinationLabel" layoutX="23.0" layoutY="67.0" style="-fx-text-fill: white; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="26.0" />
          </font>

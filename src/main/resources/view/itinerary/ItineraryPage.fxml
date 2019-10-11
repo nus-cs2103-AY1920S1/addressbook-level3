@@ -9,22 +9,19 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.itinerary.ItineraryPage">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane layoutX="186.0" layoutY="186.0" prefHeight="63.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ScrollPane layoutX="186.0" layoutY="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <content>
-            <HBox fx:id="DayButtonsContainer" />
+            <HBox fx:id="dayButtonsContainer" />
          </content>
       </ScrollPane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="338.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="112.0">
-         <image>
-            <Image url="@../../../../../build/resources/main/images/dummytrip.jpeg" />
-         </image>
-      </ImageView>
-      <GridPane layoutX="96.0" layoutY="111.0" prefHeight="280.0" prefWidth="225.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="30.0">
+      <GridPane layoutX="96.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,12 +31,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="Name" text="\$Name" />
-            <Label fx:id="StartDate" text="\$StartDate" GridPane.rowIndex="1" />
-            <Label fx:id="EndDate" text="\$EndDate" GridPane.rowIndex="2" />
-            <Label fx:id="Destination" text="\$Destination" GridPane.rowIndex="3" />
-            <Label fx:id="TotalBudget" text="\$TotalBudget" GridPane.rowIndex="4" />
+            <Label fx:id="nameLabel" text="\$Name" />
+            <Label fx:id="startDateLabel" text="\$StartDate" GridPane.rowIndex="1" />
+            <Label fx:id="endDateLabel" text="\$EndDate" GridPane.rowIndex="2" />
+            <Label fx:id="destintationLabel" text="\$Destination" GridPane.rowIndex="3" />
+            <Label fx:id="totalBudgetLabel" text="\$TotalBudget" GridPane.rowIndex="4" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../../../../build/resources/main/images/dummytrip.jpeg" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
+      <VBox fx:id="sideBarLeft" prefHeight="200.0" prefWidth="100.0" />
+      <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

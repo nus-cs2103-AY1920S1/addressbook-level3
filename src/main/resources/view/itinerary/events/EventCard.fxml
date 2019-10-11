@@ -30,8 +30,6 @@
             <Label fx:id="startDateLabel" styleClass="cell_small_label" text="\$startDate" />
             <Label fx:id="endDateLabel" styleClass="cell_small_label" text="\$endDate" />
          <Label fx:id="destinationLabel" styleClass="cell_small_label" text="\$destination" />
-         <Label fx:id="inventoryLabel" styleClass="cell_small_label" text="\$inventory" />
-         <Label fx:id="bookingLabel" styleClass="cell_small_label" text="\$booking" />
         </VBox>
       <rowConstraints>
          <RowConstraints />

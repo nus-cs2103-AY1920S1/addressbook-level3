@@ -15,6 +15,8 @@ import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
+import seedu.address.ui.components.NavigationSidebarLeft;
+import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.Page;
 import seedu.address.ui.template.PageWithSidebar;
 
@@ -22,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class EventsPage extends Page<AnchorPane> {
+public class EventsPage extends PageWithSidebar<AnchorPane> {
 
     private static final String FXML = "itinerary/events/EventsPage.fxml";
 
@@ -37,6 +39,13 @@ public class EventsPage extends Page<AnchorPane> {
     @FXML
     private Label bookingLabel;
 
+    @FXML
+    VBox sideBarLeft;
+
+    @FXML
+    VBox sideBarRight;
+
+
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
@@ -46,6 +55,15 @@ public class EventsPage extends Page<AnchorPane> {
      * Fills up all the placeholders of this window.
      */
     public void fillPage() {
+        // nav bar
+        sideBarRight.getChildren().clear();
+        sideBarLeft.getChildren().clear();
+        NavigationSidebarRight navigationSidebarRight = new NavigationSidebarRight(mainWindow);
+        NavigationSidebarLeft navigationSidebarLeft = new NavigationSidebarLeft(mainWindow);
+        sideBarLeft.getChildren().add(navigationSidebarLeft.getRoot());
+        sideBarRight.getChildren().add(navigationSidebarRight.getRoot());
+
+        // Filling events
         eventCardContainer.getChildren().clear();
         List<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
 
