@@ -3,8 +3,9 @@ package seedu.deliverymans.model;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.customer.Customer;
 
-/*
- * to implement once adding customers work on AddressBook.
+/**
+ * Wraps all data at the customer database level
+ * Duplicates are not allowed (by .isSameCustomer comparison)
  */
 public class CustomerBook implements ReadOnlyCustomerBook {
 
