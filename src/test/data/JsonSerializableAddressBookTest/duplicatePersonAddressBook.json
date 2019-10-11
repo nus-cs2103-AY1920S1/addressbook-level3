@@ -1,10 +1,8 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
-    "phone": "94351253"
+    "name": "Alice Pauline"
   } ]
 }
