@@ -116,7 +116,7 @@ public class PersonBuilder {
      * Adds finished visits to the list of visits.
      */
     public PersonBuilder withPreviousVisits() {
-        this.visits = collateVisits(makeVisit("",
+        this.visits.addAll(collateVisits(makeVisit("",
                 "10-11-2019 1500",
                 "10-11-2019 1700",
                 collateVisitTasks(
@@ -136,7 +136,7 @@ public class PersonBuilder {
                                 makeVisitTask("Top-up medicine", "", true)
                         )
                 )
-        );
+        ));
         return this;
     }
 
@@ -144,17 +144,14 @@ public class PersonBuilder {
      * Adds finished visits to the list of visits.
      */
     public PersonBuilder withOngoingVisit() {
-        this.visits = collateVisits(makeVisit("",
+        this.visits.addAll(collateVisits(makeVisit("",
                 "10-11-2019 1500",
                 null,
                 collateVisitTasks(
                         makeVisitTask("Apply Eyedrops", "", true),
-                        makeVisitTask("Top-up medicine", "", false),
-                        makeVisitTask("Check his diet",
-                                "", false),
-                        makeVisitTask("Check his sleep cycle",
-                                "Could not sleep on Monday and Thursday", true)
-                )));
+                        makeVisitTask("Top-up medicine", "Need more Vit. D",
+                                false)
+                ))));
         return this;
     }
 

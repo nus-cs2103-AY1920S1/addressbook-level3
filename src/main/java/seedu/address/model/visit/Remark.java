@@ -1,17 +1,11 @@
 package seedu.address.model.visit;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents a Visit's remark in the application.
- * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
 
     public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values.";
-    
-    public static final String VALIDATION_REGEX = ".*";
 
     public final String remark;
 
@@ -21,18 +15,8 @@ public class Remark {
      * @param remark A valid remark.
      */
     public Remark(String remark) {
-        requireNonNull(remark);
-        checkArgument(isValidRemark(remark), MESSAGE_CONSTRAINTS);
-        this.remark = remark;
+        this.remark = remark == null ? "" : remark;
     }
-
-    /**
-     * Returns true if a given string is a valid remark.
-     */
-    public static boolean isValidRemark(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
 
     @Override
     public String toString() {

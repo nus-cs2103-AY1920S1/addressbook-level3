@@ -21,6 +21,8 @@ import seedu.address.model.visittask.VisitTask;
 class JsonAdaptedVisit {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Visit's %s field is missing!";
+    public static final String END_DATE_EARLIER_THAN_START_DATE = "Visit's start date is earlier "
+            + "than its end date";
 
     private final String remark;
     private final String startDateTime;
@@ -71,13 +73,6 @@ class JsonAdaptedVisit {
             modelVisitTasks.add(visitTask.toModelType());
         }
 
-        if (remark == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Remark.class.getSimpleName()));
-        }
-        if (!Remark.isValidRemark(remark)) {
-            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
-        }
         final Remark modelRemark = new Remark(remark);
 
         if (startDateTime == null) {
@@ -97,6 +92,11 @@ class JsonAdaptedVisit {
                 throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
             }
             modelEndDateTime = new EndDateTime(endDateTime);
+
+            //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
+            if (modelEndDateTime.dateTime.before(modelStartDateTime.dateTime)) {
+                throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
+            }
         }
 
         return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
