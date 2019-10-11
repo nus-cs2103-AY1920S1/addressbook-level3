@@ -1,6 +1,14 @@
 = CS ModBuddy
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+ifdef::env-github[]
+image::docs/images/title.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/title.png[width="600"]
+endif::[]
+
 https://travis-ci.com/AY1920S1-CS2103-F09-3/main[image:https://travis-ci.com/AY1920S1-CS2103-F09-3/main.svg?branch=master[Build Status]]
 image:https://api.codacy.com/project/badge/Grade/20e37f4d4e58492388ec4572c072cd91["Codacy code quality", link="https://www.codacy.com/manual/andyylam/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103-F09-3/main&utm_campaign=Badge_Grade"]
 
