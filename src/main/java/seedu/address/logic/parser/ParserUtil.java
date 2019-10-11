@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,12 +12,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.event.EventEndDate;
 import seedu.address.model.event.EventHoursNeeded;
 import seedu.address.model.event.EventId;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
-
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -28,6 +31,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -185,6 +189,38 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String EventStartDate} into a {@code startDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EventStartDate} is invalid.
+     */
+    public static EventStartDate parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmed = startDate.trim();
+        if (!EventStartDate.isValidStartDate(trimmed)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        LocalDate newStartDate = LocalDate.parse(trimmed, FORMATTER);
+        return new EventStartDate(newStartDate);
+    }
+
+    /**
+     * Parses a {@code String EventEndDate} into a {@code endDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EventEndDate} is invalid.
+     */
+    public static EventEndDate parseEndDate(String endDate) throws ParseException {
+        requireNonNull(endDate);
+        String trimmed = endDate.trim();
+        if (!EventEndDate.isValidEndDate(trimmed)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        LocalDate newEndDate = LocalDate.parse(trimmed, FORMATTER);
+        return new EventEndDate(newEndDate);
+    }
+
+    /**
      * Parses a {@code String manpowerNeeded} into a {@code EventManpowerNeeded}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -193,9 +229,11 @@ public class ParserUtil {
     public static EventManpowerNeeded parseManpowerNeeded(String manpowerNeeded) throws ParseException {
         requireNonNull(manpowerNeeded);
         String trimmed = manpowerNeeded.trim();
-        if (!EventManpowerNeeded.isValidEventManpowerNeeded(manpowerNeeded)) {
+        if (!EventManpowerNeeded.isValidEventManpowerNeeded(trimmed)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new EventManpowerNeeded(trimmed);
     }
+
+
 }

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,10 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventEndDate;
 import seedu.address.model.event.EventHoursNeeded;
 import seedu.address.model.event.EventId;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
@@ -25,40 +29,35 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String eventId;
     private final String eventName;
     private final String eventVenue;
     private final String hoursNeeded;
     private final String manpowerNeeded;
-    //private final String startDate;
-    //private final String endDate;
+    private final String startDate;
+    private final String endDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    //public JsonAdaptedEvent(@JsonProperty("eventId") String eventId,
-    //@JsonProperty("eventName") String eventName,
-    //@JsonProperty("eventVenue") String eventVenue,
-    //@JsonProperty("hoursNeeded") String hoursNeeded,
-    //@JsonProperty("manpowerNeeded") String manpowerNeeded,
-    //@JsonProperty("startDate") String startDate,
-    //@JsonProperty("endDate") String endDate,
-    // @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
     public JsonAdaptedEvent(@JsonProperty("eventId") String eventId, @JsonProperty("eventName") String eventName,
                             @JsonProperty("eventVenue") String eventVenue,
                             @JsonProperty("hoursNeeded") String hoursNeeded,
                             @JsonProperty("manpowerNeeded") String manpowerNeeded,
+                            @JsonProperty("startDate") String startDate,
+                            @JsonProperty("endDate") String endDate,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventVenue = eventVenue;
         this.hoursNeeded = hoursNeeded;
         this.manpowerNeeded = manpowerNeeded;
-        //this.startDate = startDate;
-        //this.endDate = endDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -73,8 +72,8 @@ class JsonAdaptedEvent {
         eventVenue = source.getVenue().venue;
         hoursNeeded = source.getHoursNeeded().toString();
         manpowerNeeded = source.getManpowerNeeded().toString();
-        //startDate = source.getStartDate().toString();
-        //endDate = source.getEndDate().toString();
+        startDate = source.getStartDate().toString();
+        endDate = source.getEndDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -134,9 +133,30 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(EventManpowerNeeded.MESSAGE_CONSTRAINTS);
         }
         final EventManpowerNeeded modelManpowerNeeded = new EventManpowerNeeded(manpowerNeeded);
+
+        if (startDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EventStartDate.class.getSimpleName()));
+        }
+        if (!EventStartDate.isValidStartDate(startDate)) {
+            throw new IllegalValueException(EventStartDate.MESSAGE_CONSTRAINTS);
+        }
+        LocalDate newStartDate = LocalDate.parse(endDate, FORMATTER);
+        final EventStartDate modelStartDate = new EventStartDate(newStartDate);
+
+        if (endDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EventEndDate.class.getSimpleName()));
+        }
+        if (!EventEndDate.isValidEndDate(endDate)) {
+            throw new IllegalValueException(EventEndDate.MESSAGE_CONSTRAINTS);
+        }
+        LocalDate newEndDate = LocalDate.parse(endDate, FORMATTER);
+        final EventEndDate modelEndDate = new EventEndDate(newEndDate);
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
-        return new Event(modelId, modelName, modelVenue, modelHoursNeeded, modelManpowerNeeded, modelTags);
+        return new Event(modelId, modelName, modelVenue, modelHoursNeeded,
+                modelManpowerNeeded, modelStartDate, modelEndDate, modelTags);
     }
 
 }

@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_HOURS_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -25,12 +27,16 @@ public class AddEventCommand extends EventRelatedCommand {
             + PREFIX_EVENT_VENUE + "VENUE "
             + PREFIX_EVENT_HOURS_NEEDED + "HOURS NEEDED "
             + PREFIX_EVENT_MANPOWER_NEEDED + "MANPOWER NEEDED "
+            + PREFIX_EVENT_START_DATE + "START DATE"
+            + PREFIX_EVENT_END_DATE + "END DATE"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_EVENT_NAME + "John Doe "
+            + PREFIX_EVENT_NAME + "Free Coffee "
             + PREFIX_EVENT_VENUE + "Utown Starbucks "
             + PREFIX_EVENT_HOURS_NEEDED + "6 "
             + PREFIX_EVENT_MANPOWER_NEEDED + "5 "
+            + PREFIX_EVENT_START_DATE + "16/03/2019 "
+            + PREFIX_EVENT_END_DATE + "17/03/2019 "
             + PREFIX_TAG + "fun "
             + PREFIX_TAG + "free ";
 
