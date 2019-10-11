@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.AppUtil.checkArgument;
 
 /**
- * Represent a note in reminder.
+ * Represents a note in reminder.
  */
 public class Note {
 
