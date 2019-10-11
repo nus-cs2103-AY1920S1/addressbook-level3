@@ -94,6 +94,16 @@ public class ModelManager implements Model {
         return mams.hasStudent(student);
     }
 
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in MAMS.
+     *
+     * @param module
+     */
+    @Override
+    public boolean hasModule(Module module) {
+        return false;
+    }
+
     @Override
     public void deleteStudent(Student target) {
         mams.removeStudent(target);
