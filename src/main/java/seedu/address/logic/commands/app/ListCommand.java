@@ -1,8 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.app;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
+import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**

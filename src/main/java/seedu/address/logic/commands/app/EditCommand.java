@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.app;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
@@ -15,6 +15,8 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;

@@ -6,9 +6,11 @@ It has to override execute() from command interface.
 Interacts with Game interface.
 Extends to Step 15 in Game.java
  */
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.switchmode;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
@@ -18,7 +20,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Start the game.
  */
-public class StartCommand extends AppCommand {
+public class StartCommand extends SwitchCommand {
 
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";

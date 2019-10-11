@@ -1,7 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.app;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.wordbank.WordBank;
 
