@@ -38,9 +38,10 @@ public class Flashcard {
     public Answer getAnswer() {
         return answer;
     }
-    
+
     /**
      * Returns whether the flashcard contains a question in the form of a image file.
+     * @return Returns whether the flashcard contains a question in the form of a image file.
      */
     public boolean isImageFlashcard() {
         return false;
