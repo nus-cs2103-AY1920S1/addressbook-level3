@@ -348,8 +348,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
 === Use case: UC01 - Add a project
 
@@ -394,7 +392,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User [.underline]#checkout to a project(UC02)#
+1. User [.underline]#checkout to a project(UC02)#.
 1. User requests to edit current project.
 2. MyProject requests for details of change.
 3. User enters the requested details.
@@ -415,15 +413,16 @@ Use case resumes from step 4.
 
 *MSS*
 
-1. User [.underline]#checkout to a project(UC02)#
-2. User requests a list of members
-3. MyProject shows a list members in this project
-4. User chooses a member to edit based on the index and uses the corresponding prefix to change the desired attribute
+1. User [.underline]#checkout to a project(UC02)#.
+2. User requests a list of members.
+3. MyProject shows a list members in this project.
+4. User chooses a member to edit based on the index and uses the corresponding prefix to change the desired attribute.
 5. MyProject makes the changes and displays the member with the updated attributes.
-Use case ends
+Use case ends.
 
 [none]
 *Extensions*
+
 * 3a. The given index is invalid.
 ** 3a1. MyProject shows an error message.
 Use case ends.
@@ -433,12 +432,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: [.underline]#UC05# Send reminder
+=== Use case: [.underline]#UC05# - Send reminder
 Preconditions: User has the e-mail addresses of all the team members, user has an email account and team members has the e-mail address of the user.
 
 *MSS*
 
-1. User [.underline]#checkout to a project(UC02)#
+1. User [.underline]#checkout to a project(UC02)#.
 2. User selects the uncompleted tasks in the project.
 3. User sends reminder to the members in charge of the tasks to complete by the specified deadline.
 4. Team members reply for acknowledgement.
@@ -457,13 +456,13 @@ Use case ends.
 Use case resumes from step 6.
 
 [discrete]
-=== Use case: UC05 - Store team members’ availability
+=== Use case: UC06 - Store team members’ availability
 
 *MSS*
 
-1. Team members send to user their respective timetable as a text file.
+1. Team members send user their respective timetable as a text file.
 2. User [.underline]#checkout to a project(UC02)#.
-3. Team leader store timetable for the respective team member.
+3. Team leader stores timetable for the respective team member.
 Steps 1 - 2 are repeated for each team member, until all team members’ timetables are stored.
 Use case ends.
 
@@ -476,11 +475,11 @@ Use case ends.
 Use case resumes from step 2.
 
 [discrete]
-=== Use case: UC06 - Generate time slot where all team members are available for meeting
+=== Use case: UC07 - Generate time slot where all team members are available for meeting
 
 *MSS*
 
-1. User [.underline]#stores all team members’ availability (UC4)#.
+1. User [.underline]#stores all team members’ availability (UC06)#.
 2. Team leader request for a meeting within a specific range of time.
 3. MyProject displays a time frame where all team members are available.
 Use case ends.
