@@ -26,6 +26,8 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_ID = "#f21";
+    private static final String INVALID_VENUE = "sTA@BUCKS";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -193,4 +195,21 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseEventName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventName(INVALID_NAME);
+    }
+
+    @Test
+    public void parseEventId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventId(INVALID_ID));
+    }
+
+    @Test
+    public void parseEventVenue_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseVenue(INVALID_VENUE));
+    }
+
+
 }
