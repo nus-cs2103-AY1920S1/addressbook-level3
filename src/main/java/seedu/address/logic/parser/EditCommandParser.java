@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -53,7 +58,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-        parseVisitTodosForEdit(argMultimap.getAllValues(PREFIX_PATIENT_VISIT_TODO)).ifPresent(editPersonDescriptor::setVisitTodos);
+        parseVisitTodosForEdit(argMultimap.getAllValues(PREFIX_PATIENT_VISIT_TODO))
+                .ifPresent(editPersonDescriptor::setVisitTodos);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -83,14 +89,16 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code VisitTodos} contain only one element which is an empty string, it will be parsed into a
      * {@code Collection<VisitTodo>} containing zero VisitTodos.
      */
-    private Optional<Collection<VisitTodo>> parseVisitTodosForEdit(Collection<String> visitTodos) throws ParseException {
+    private Optional<Collection<VisitTodo>> parseVisitTodosForEdit(Collection<String> visitTodos)
+            throws ParseException {
         assert visitTodos != null;
 
         if (visitTodos.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> visitTodosSet = visitTodos.size() == 1 && visitTodos.contains("") ?
-                Collections.emptySet() : visitTodos;
+        Collection<String> visitTodosSet = visitTodos.size() == 1
+                && visitTodos.contains("")
+                ? Collections.emptySet() : visitTodos;
         return Optional.of(ParserUtil.parseVisitTodos(visitTodosSet));
     }
 }

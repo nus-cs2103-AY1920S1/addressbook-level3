@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.visit.Visit;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -108,9 +107,11 @@ public class Person {
 
         //Verify visit todos separately because .equals doesn't work with Collection<>
         Iterator otherPersonVisitTodos = otherPerson.getVisitTodos().iterator();
-        for (Object obj:getVisitTodos())
-            if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next()))
+        for (Object obj:getVisitTodos()) {
+            if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next())) {
                 return false;
+            }
+        }
 
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())

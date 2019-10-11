@@ -52,7 +52,8 @@ public class UniqueVisitTaskList implements Iterable<VisitTask> {
     /**
      * Replaces the visit task {@code target} in the list with {@code editedVisitTask}.
      * {@code target} must exist in the list.
-     * The visit task identity of {@code editedVisitTask} must not be the same as another existing visit task in the list.
+     * The visit task identity of {@code editedVisitTask} must not be the same
+     * as another existing visit task in the list.
      */
     public void setVisit(VisitTask target, VisitTask editedVisitTask) {
         requireAllNonNull(target, editedVisitTask);
