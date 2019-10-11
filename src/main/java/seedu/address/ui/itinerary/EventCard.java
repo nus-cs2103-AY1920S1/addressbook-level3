@@ -30,8 +30,6 @@ public class EventCard extends UiPart<HBox> {
     @FXML
     private Label bookingLabel;
     @FXML
-    private Label totalBudgetLabel;
-    @FXML
     private VBox propertiesContainer;
 
     private Event event;
@@ -50,11 +48,6 @@ public class EventCard extends UiPart<HBox> {
         destinationLabel.setText("Destination :" + event.getDestination().toString());
         startDateLabel.setText("Start: " + ParserDateUtil.getDisplayTime(event.getStartDate()));
         endDateLabel.setText("End: " + ParserDateUtil.getDisplayTime(event.getEndDate()));
-        if (event.getTotalBudget().isPresent()){
-            totalBudgetLabel.setText("Total Budget: " + event.getTotalBudget().get().toString());
-        } else {
-            propertiesContainer.getChildren().remove(totalBudgetLabel);
-        }
     }
     @Override
     public boolean equals(Object other) {
@@ -73,5 +66,4 @@ public class EventCard extends UiPart<HBox> {
         return event.equals(otherCard.event)
                 && this.displayedIndex.equals(otherCard.displayedIndex);
     }
-
 }

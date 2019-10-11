@@ -1,9 +1,11 @@
 package seedu.address.ui.itinerary;
 
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
@@ -27,19 +29,6 @@ public class EventsPage extends Page<AnchorPane> {
     @FXML
     private VBox eventCardContainer;
 
-    @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label startDateLabel;
-
-    @FXML
-    private Label endDateLabel;
-
-    @FXML
-    private Label destinationLabel;
-
-    @FXML
     private Label inventoryLabel;
 
     @FXML
@@ -64,6 +53,16 @@ public class EventsPage extends Page<AnchorPane> {
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
                     EventCard eventCard = new EventCard(events.get(index.getZeroBased()), index);
+                    eventCard.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<javafx.scene.input.MouseEvent>() {
+                        @Override
+                        public void handle(javafx.scene.input.MouseEvent event) {
+                            if (events.get(index.getZeroBased()).getTotalBudget().isPresent()){
+                                totalBudgetLabel.setText("Total Budget: " + events.get(index.getZeroBased()).getTotalBudget().get().toString());
+                            } else {
+                                totalBudgetLabel.setText("NO BUDGET SET");
+                            }
+                        }
+                    });
                     return eventCard.getRoot();
                 }).collect(Collectors.toList());
         eventCardContainer.getChildren().addAll(FXCollections.observableArrayList(eventCards));

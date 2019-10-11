@@ -32,7 +32,6 @@
          <Label fx:id="destinationLabel" styleClass="cell_small_label" text="\$destination" />
          <Label fx:id="inventoryLabel" styleClass="cell_small_label" text="\$inventory" />
          <Label fx:id="bookingLabel" styleClass="cell_small_label" text="\$booking" />
-         <Label fx:id="totalBudgetLabel" text="\$totalBudget" />
         </VBox>
       <rowConstraints>
          <RowConstraints />
