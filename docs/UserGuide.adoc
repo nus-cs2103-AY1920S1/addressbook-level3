@@ -1,8 +1,9 @@
-= AddressBook Level 3 - User Guide
+= iFridge - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -23,7 +24,7 @@ AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for mana
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `iFridge.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,8 +34,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : lists all food items in your grocery list
+* **`add`**`add n/milk e/23/10/2019 a/1000 u/ml` : adds the food item `milk` to the iFridge application.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -46,100 +47,406 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/ITEM_NAME`, `ITEM_NAME` is a parameter which can be used as `add n/apple`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/apple t/fruit` or as `n/apple`.
+* Items with … after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/fruit`, `t/fruit t/healthy` etc.
+* Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== System Management
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Loading the file
+Upon launching the app, existing lists will be automatically loaded into their respective lists.
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Saving the file
+Upon exiting the app, updated lists will be automatically saved.
+
+==== Checking reminders on expiry dates
+Display list with all food expiring within n days.
+`rem n/NUMBER_OF_DAYS`
+
+Change default number of days which food is expiring in, to be displayed at the start of the app every time the app is launched.
+`remDefault n/NUMBER_OF_DAYS`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `rem n/3`
+* `remDefault n/3`
 
-=== Listing all persons : `list`
+Upon launching the app, list of food expiring within (default; 3 days if not yet specified) is displayed.
 
-Shows a list of all persons in the address book. +
+==== Sort settings
+Supports sorting of list displayed by alphabetical order first, or expiry date first.
+
+`sort by/TYPE` - displays list with the specified sorting method first.
+`sortDefault by/TYPE` - change default sorting method when list method is called every time the app is launched.
+
+Examples:
+
+* `sort by/alphabetical`
+* `sortDefault by/expiry`
+
+For food with the same name, it will be automatically sorted by their expiry dates.
+For food with the same expiry dates, it will be automatically sorted by their alphabetical order.
+For same name *and* same expiry dates, it will be displayed based on the order they are added into the grocery list.
+
+==== Display settings
+`display merged` - display grocery list of food objects, where food objects with the same name and expiry dates are merged.
+
+==== Waste list clearing
+Clearing of waste list is done automatically at the start of every month.
+
+=== Grocery List Management
+
+==== Adding a food item
+
+Format: `add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT u/UNIT [t/TAG]`
+
+Adds a food item to the grocery list
+
+==== Listing all food items
 Format: `list`
 
-=== Editing a person : `edit`
+Shows a list of food items in the grocery list
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Deleting a food item (Throw away)
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
 Format: `delete INDEX`
 
+Deletes the specified food item from the grocery list when it is done being used
+If the amount of the food item left > 0, the item will be moved to the waste list
+
+==== Tagging a food item
+
+Format: `tag INDEX t/TAG`
+
+Adds a tag to the specified food item in the grocery list
+
+==== Remove a tag from an item
+
+Format: `remove INDEX t/TAG`
+
+Removes the specified tag from the specified food item from the grocery list
+
+==== Use an item (Subtract by the amount)
+
+Format: `use INDEX a/AMOUNT`
+
+Decreases the amount left of the item by the specified amount.
+
+==== Edit an item
+
+Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [a/AMOUNT]`
+
+Edits an item based on the arguments provided
+
+=== Viewing Grocery List
+
+==== Sort the grocery list
+
+Format: `sort by/TYPE`
+
+Sorts the grocery list based on the type of sorting
+The type of sorting is as follows:
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* alphabetical: Sort the grocery list in alphabetical order
+* expiry date: Sort the grocery list based on the expiry date
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `sort by/alphabetical`
+* `sort by/expiry`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Filter
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: `filter t/TAG`
+
+From the grocery list, returns a list of food items with the specified tag
+
+==== Find an item
+
+Format: `find STRING`
+
+Returns a list of items, of which the items contain the input string
+
+=== Waste List Management
+
+==== Moving an item into waste list
+
+When you delete an item from your grocery list using `delete`, the item will automatically be
+moved into the waste list if it has not been fully used (the amount of food remaining > 0).
+
+==== Moving all expired food items from grocery list to waste list
+
+By default, every time the application is launched, Food Orchestra helps you check which items
+are expired and automatically moves them into the waste list.
+
+==== Viewing the waste list: `wlist`
+
+Shows a list of the food items which have been wasted +
+Format: `wlist [m/MONTH_OF_YEAR]` +
+****
+* If a particular month is specified, the food waste of the particular month will be displayed.
+Otherwise, the food waste of the current month is displayed.
+* The `MONTH_OF_YEAR` should be in the format `mmyyyy`, e.g. `032018` indicates March of 2018.
+****
+
+Examples:
+
+* `wlist`
+* `wlist m/022019`
+
+==== Displaying food wastage statistics: `wlist report`
+
+Shows a charted report detailing your food wastage statistics across a time frame.
+Format: `wlist report [sd/START_DATE] [ed/END_DATE]`
+
+****
+* The report will display 3 charts: kg, litres and units of food wasted per month across the
+time frame.
+* If both the start date and the end date are not specified, the default will be for the time
+frame of 1 year, from 1 year before to the current time.
+* If only the starting date is specified, the report will show the statistics from start date
+to the year following the start_date or the current time, whichever is earlier.
+* If only the end date is specified, the report will show the statistics from the year before the
+end date to the end date.
+* If you wish to specify both the start and end dates, please ensure that they are at least one
+month apart.
+****
+
+Examples:
+
+* `wlist report sd/3 Mar 2019`
+* `wlist report sd/3 Mar 2019 ed/4 Oct 2019`
+
+The allowable date formats can be found in the Natty library documentation.
+
+==== Obtain feedback based on current food wastage: `wlist feedback`
+
+Format: `wlist feedback`
+****
+Shows the current month’s wastage statistics:
+
+* How many kg, litres, and units wasted so far
+* Predicted wastage for the month
+* Feedback on how user is managing food waste compared to the average food waste management across the past year
+****
+
+==== View most commonly wasted food items: `wlist food`
+
+Format: `wlist food`
+
+Generates a word cloud based on user's most commonly wasted food.
+
+=== Templates List Management
+
+==== Add new template: 'tlist add'
+
+Adds a new template into template list. +
+Format: 'tlist add n/TEMPLATENAME'
+
+Examples:
+
+* `tlist add n/Weekly Necessities`
+* `tlist add n/Birthday Party Prep`
+* `tlist add n/Cake-Making`
+
+==== Rename template: `tlist rename`
+
+Updates name of specified template in template list. +
+Format: `tlist rename INDEX n/TEMPLATENAME`
+
+****
+* Edits the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist rename 1 n/Daily Necessities`
+Edits the name of the 1st template in the template list to `Daily Necessities`
+
+==== Deleting a template: `tlist delete`
+
+Deletes a specified template from the template list. +
+Format: `tlist delete INDEX`
+
+****
+* Deletes the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist delete 1`
+Deletes the 1st template in the template list
+
+==== Clear template list: `tlist clear`
+
+Clears all template entries from the template list. +
+Format: `tlist clear`
+
+==== Show list of all templates: `tlist all`
+
+Shows all entries in the template list +
+Format: `tlist all`
+
+
+=== Template Management
+
+==== Add new grocery item: `tlist n/TEMPLATENAME add`
+
+Adds an item into a specified template.+
+Format: `tlist n/TEMPLATENAME add f/FOODITEM a/AMOUNT`
+
+****
+* Adds item into the template under the specified `TEMPLATENAME` as shown in the displayed template list.
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities add n/Milk a/1l`
+* `tlist n/Weekly Necessities add n/Eggs a/12`
+
+==== Edit item name: `tlist edit`
+
+Edits a specified item in the specified template `TEMPLATENAME`. +
+Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
+
+****
+* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Units in the amount field must match that of the item specified
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities edit 1 f/Low-Fat Milk`
+Edits the name of the first food item in the template `Weekly Necessities` to  `Low-Fat Milk`
+* `tlist n/Weekly Necessities edit 1 a/2l`
+Edits the amount of the first food item in the template `Weekly Necessities` to 2 litres.
+
+==== Delete food item: `tlist n/TEMPLATENAME delete`
+
+Deletes the specified item from the specified template. +
+Format: `tlist n/TEMPLATENAME delete INDEX`
+
+****
+* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `tlist n/Weekly Necessities delete 1`
+Deletes the first food item in the template `Weekly Necessities`
+
+==== Shows template: `tlist n/TEMPLATENAME`
+
+Shows all entries in the specified template. +
+Format: `tlist n/TEMPLATENAME`
+
+Examples:
+
+* `tlist n/Weekly Necessities`
+Shows all entries in the `Weekly Necessities` templa
+
+
+=== Shopping List Management
+
+=== Add new item to shopping list: 'slist add'
+
+Adds a new item to the shopping list. +
+Format: 'slist add f/FOOD_ITEM a/AMOUNT'
+
+Examples:
+
+* `slist add n/apple a/2`
+* `slist add n/milk a/1l`
+* `slist add n/banana a/3`
+
+=== Edit item in shopping list: 'slist edit'
+
+Edits the name of a specified item in a shopping list. +
+Format: 'slist edit INDEX [f/FOODNAME] [a/AMOUNT]'
+
+****
+* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Units in the amount field must match that of the item specified
+
+Examples:
+* `slist edit 3 f/pomegranate`
+Edits the name of the third food item in the shopping list to  `pomegranate`
+* `slist edit 2 a/2l`
+Edits the amount of the second food item in the shopping list to 2 litres.
+
+=== Delete item in shopping list: 'slist delete'
+
+Delete specified item from shopping list. +
+Format: 'slist delete INDEX'
+
+****
+* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `slist delete 1`
+Deletes the first food item in the shopping list.
+
+=== Show shopping list: 'slist'
+
+Lists out all items in the shopping list with bought items first
+Format: `slist`
+
+Examples:
+
+* `slist`
+Shows all entries in the shopping list.
+
+=== Mark item as ‘bought’: 'slist bought'
+
+Marks an item as bought and assigns the expiry date and amount to that item
+There is flexibility in the amount of items that are bought. You can indicate more or less number of items bought than the number indicated in the shopping list.
+Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
+
+Examples:
+
+* `slist bought 1 e/3 Dec 2019 a/3`
+Marks the item at index 1 as bought and sets its expiry date as 3rd December, 2019 and amount as 3.
+* `slist bought 2 e/3 Nov 2019 a/2l`
+Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 2 litres.
+
+=== Add bought items: 'slist merge bought'
+
+Adds all items marked as ‘bought’ to the grocery list.
+Format: `slist merge bought`
+
+****
+* Adds all the items marked as bought in shopping list into the grocery list.
+* If the item with same expiry date is already present in the shopping list, just add the amount to the amount already present in the grocery list.
+* `slist merge bought`
+Merges all the items in shopping list marked as bought into the grocery list.
+
+==== Generate shopping list: `slist addAll`
+
+Generates a shopping list from all missing grocery items in the template.
+Format: `slist addAll [l/TEMPLATENAME] ...`
+
+****
+* At least one template name must be provided.
+* In the case of multiple template lists, the amount of duplicate items will be summed up.
+* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
+****
+
+Examples:
+* `slist addAll l/Weekly Necessities l/Birthday Cake`
+All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
 
 === Exiting the program : `exit`
 
@@ -148,14 +455,9 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+iFridge data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -164,14 +466,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Add* `slist add f/FOOD_ITEM a/AMOUNT`
+* *Delete* : `slist delete INDEX`
+* *Edit* : `slist edit INDEX [f/FOOD_ITEM] [a/AMOUNT]`
+* *Merge* : `slist merge bought`
+* *Bought* : `slist bought INDEX [e/EXPIRY_DATE] [a/AMOUNT]`
