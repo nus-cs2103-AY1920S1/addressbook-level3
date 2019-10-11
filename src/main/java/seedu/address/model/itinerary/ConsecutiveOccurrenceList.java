@@ -12,8 +12,10 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a list of
- * @param <T>
+ * Represents a list of consecutive, non clashing occurrences (trips/events/days).
+ * Todo, make list consecutive.
+ *
+ * @param <T> Type of occurrence
  */
 public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
 

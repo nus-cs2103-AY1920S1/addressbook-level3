@@ -38,7 +38,7 @@ public class EnterTripCommand extends Command {
 
         Trip tripToEnter = lastShownList.get(indexToEnter.getZeroBased());
         model.setPageStatus(model.getPageStatus()
-                .withNewPageType(PageType.ITINERARY)
+                .withNewPageType(PageType.OVERALL_VIEW)
                 .withNewTrip(tripToEnter));
 
         return new CommandResult(String.format(MESSAGE_ENTER_TRIP_SUCCESS, tripToEnter), true);

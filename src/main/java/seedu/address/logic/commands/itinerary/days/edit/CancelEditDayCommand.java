@@ -25,7 +25,7 @@ public class CancelEditDayCommand extends Command {
         Day currentlyEditingDay = model.getPageStatus().getDay();
         model.setPageStatus(model.getPageStatus()
                 .withResetEditDayDescriptor()
-                .withNewPageType(PageType.ITINERARY)
+                .withNewPageType(PageType.OVERALL_VIEW)
                 .withResetDay());
 
         if (currentlyEditingDay == null) {

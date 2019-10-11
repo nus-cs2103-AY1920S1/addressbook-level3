@@ -50,7 +50,7 @@ public class DoneEditDayCommand extends Command {
 
             model.setPageStatus(model.getPageStatus()
                     .withResetEditDayDescriptor()
-                    .withNewPageType(PageType.ITINERARY)
+                    .withNewPageType(PageType.OVERALL_VIEW)
                     .withResetDay());
 
             return new CommandResult(String.format(MESSAGE_EDIT_DAY_SUCCESS, dayToAdd), true);

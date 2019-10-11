@@ -163,11 +163,11 @@ public class EditEventFieldCommand extends Command {
             newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
                     () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
 
-            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
-                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
-
-            newDescriptor.booking.ifPresentOrElse(this::setBooking,
-                    () -> oldDescriptor.booking.ifPresent(this::setBooking));
+//            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
+//                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
+//
+//            newDescriptor.booking.ifPresentOrElse(this::setBooking,
+//                    () -> oldDescriptor.booking.ifPresent(this::setBooking));
         }
 
 

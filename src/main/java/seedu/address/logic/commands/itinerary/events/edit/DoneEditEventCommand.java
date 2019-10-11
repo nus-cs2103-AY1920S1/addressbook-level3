@@ -49,7 +49,7 @@ public class DoneEditEventCommand extends Command {
 
             model.setPageStatus(model.getPageStatus()
                     .withResetEditEventDescriptor()
-                    .withNewPageType(PageType.TRIP_MANAGER)
+                    .withNewPageType(PageType.EVENT_PAGE)
                     .withResetEvent());
 
             return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToAdd), true);

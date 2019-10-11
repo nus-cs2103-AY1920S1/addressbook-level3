@@ -16,7 +16,7 @@
         <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #F2DFD7;" VBox.vgrow="ALWAYS">
             <content>
-               <FlowPane fx:id="DayThumbnailPane" prefWrapLength="1005.0" />
+               <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="1005.0" style="-fx-background-color: #F2DFD7;" vgap="10.0" />
             </content></ScrollPane>
         </children>
     </VBox>
@@ -30,7 +30,7 @@
             <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleAddTrip" prefHeight="35.0" prefWidth="150.0" text="Add Day" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleAddDay" prefHeight="35.0" prefWidth="150.0" text="Add Day" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <font>
                     <Font name="Consolas" size="16.0" />
                 </font>
