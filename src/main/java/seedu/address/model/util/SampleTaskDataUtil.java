@@ -26,7 +26,7 @@ public class SampleTaskDataUtil {
         };
     }
 
-    public static ReadOnlyProjectDashboard getSampleAddressBook() {
+    public static ReadOnlyProjectDashboard getSampleProjectDashboard() {
         ProjectDashboard sampleAb = new ProjectDashboard();
         for (Task sampleTask : getSampleTasks()) {
             sampleAb.addTask(sampleTask);

@@ -55,14 +55,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonProjectDashboardStorageTest} class.
          */
         ProjectDashboard original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyProjectDashboard retrieved = storageManager.readAddressBook().get();
+        storageManager.saveProjectDashboard(original);
+        ReadOnlyProjectDashboard retrieved = storageManager.readProjectDashBoard().get();
         assertEquals(original, new ProjectDashboard(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getProjectDashboardFilePath());
     }
 
 }

@@ -28,7 +28,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getProjectDashboard()
      */
-    ReadOnlyProjectDashboard getAddressBook();
+    ReadOnlyProjectDashboard getProjectDashboard();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getProjectDashboardFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getProjectDashboard());
+            storage.saveProjectDashboard(model.getProjectDashboard());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProjectDashboard getAddressBook() {
+    public ReadOnlyProjectDashboard getProjectDashboard() {
         return model.getProjectDashboard();
     }
 
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getProjectDashboardFilePath() {
+        return model.getProjectDashboardFilePath();
     }
 
     @Override

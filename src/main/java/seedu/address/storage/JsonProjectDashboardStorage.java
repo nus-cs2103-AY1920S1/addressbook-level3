@@ -27,22 +27,22 @@ public class JsonProjectDashboardStorage implements ProjectDashboardStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getProjectDashboardFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyProjectDashboard> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard() throws DataConversionException {
+        return readProjectDashBoard(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readProjectDashBoard()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyProjectDashboard> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableProjectDashboard> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,21 +60,21 @@ public class JsonProjectDashboardStorage implements ProjectDashboardStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyProjectDashboard addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard) throws IOException {
+        saveProjectDashboard(projectDashboard, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyProjectDashboard)}.
+     * Similar to {@link #saveProjectDashboard(ReadOnlyProjectDashboard)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyProjectDashboard addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard, Path filePath) throws IOException {
+        requireNonNull(projectDashboard);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableProjectDashboard(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableProjectDashboard(projectDashboard), filePath);
     }
 
 }

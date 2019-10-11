@@ -77,11 +77,11 @@ public class MainApp extends Application {
         Optional<ReadOnlyProjectDashboard> addressBookOptional;
         ReadOnlyProjectDashboard initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readProjectDashBoard();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ProjectDashboard");
             }
-            initialData = addressBookOptional.orElseGet(SampleTaskDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleTaskDataUtil::getSampleProjectDashboard);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ProjectDashboard");
             initialData = new ProjectDashboard();

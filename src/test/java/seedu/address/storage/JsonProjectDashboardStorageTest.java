@@ -31,7 +31,7 @@ public class JsonProjectDashboardStorageTest {
     }
 
     private java.util.Optional<ReadOnlyProjectDashboard> readAddressBook(String filePath) throws Exception {
-        return new JsonProjectDashboardStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonProjectDashboardStorage(Paths.get(filePath)).readProjectDashBoard(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -67,21 +67,21 @@ public class JsonProjectDashboardStorageTest {
         JsonProjectDashboardStorage jsonAddressBookStorage = new JsonProjectDashboardStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyProjectDashboard readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveProjectDashboard(original, filePath);
+        ReadOnlyProjectDashboard readBack = jsonAddressBookStorage.readProjectDashBoard(filePath).get();
         assertEquals(original, new ProjectDashboard(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addTask(FIND_VP);
         original.removeTask(ORDER_SHIRTS);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveProjectDashboard(original, filePath);
+        readBack = jsonAddressBookStorage.readProjectDashBoard(filePath).get();
         assertEquals(original, new ProjectDashboard(readBack));
 
         // Save and read without specifying file path
         original.addTask(FAREWELL_PARTY);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonAddressBookStorage.saveProjectDashboard(original); // file path not specified
+        readBack = jsonAddressBookStorage.readProjectDashBoard().get(); // file path not specified
         assertEquals(original, new ProjectDashboard(readBack));
 
     }
@@ -97,7 +97,7 @@ public class JsonProjectDashboardStorageTest {
     private void saveAddressBook(ReadOnlyProjectDashboard addressBook, String filePath) {
         try {
             new JsonProjectDashboardStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveProjectDashboard(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

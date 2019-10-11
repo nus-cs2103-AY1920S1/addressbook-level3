@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ ProjectDashboard methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return projectDashboardStorage.getAddressBookFilePath();
+    public Path getProjectDashboardFilePath() {
+        return projectDashboardStorage.getProjectDashboardFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyProjectDashboard> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(projectDashboardStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard() throws DataConversionException, IOException {
+        return readProjectDashBoard(projectDashboardStorage.getProjectDashboardFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyProjectDashboard> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return projectDashboardStorage.readAddressBook(filePath);
+        return projectDashboardStorage.readProjectDashBoard(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyProjectDashboard addressBook) throws IOException {
-        saveAddressBook(addressBook, projectDashboardStorage.getAddressBookFilePath());
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard) throws IOException {
+        saveProjectDashboard(projectDashboard, projectDashboardStorage.getProjectDashboardFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyProjectDashboard addressBook, Path filePath) throws IOException {
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        projectDashboardStorage.saveAddressBook(addressBook, filePath);
+        projectDashboardStorage.saveProjectDashboard(projectDashboard, filePath);
     }
 
 }

@@ -66,14 +66,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getProjectDashboardFilePath() {
         return userPrefs.getProjectDashboardFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setProjectDashboardFilePath(addressBookFilePath);
+    public void setProjectDashboardFilePath(Path projectDashboardFilePath) {
+        requireNonNull(projectDashboardFilePath);
+        userPrefs.setProjectDashboardFilePath(projectDashboardFilePath);
     }
 
     //=========== ProjectDashboard ================================================================================

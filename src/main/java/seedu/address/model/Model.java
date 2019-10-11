@@ -35,14 +35,14 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' project dashboard file path.
      */
-    Path getAddressBookFilePath();
+    Path getProjectDashboardFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' project dashboard file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setProjectDashboardFilePath(Path projectDashboardFilePath);
 
     /**
      * Replaces address book data with the data in {@code projectDashboard}.

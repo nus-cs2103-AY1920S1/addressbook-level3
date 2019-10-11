@@ -21,12 +21,12 @@ public interface Storage extends ProjectDashboardStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getProjectDashboardFilePath();
 
     @Override
-    Optional<ReadOnlyProjectDashboard> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyProjectDashboard> readProjectDashBoard() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyProjectDashboard addressBook) throws IOException;
+    void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard) throws IOException;
 
 }
