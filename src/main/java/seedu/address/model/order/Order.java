@@ -106,10 +106,12 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getCustomer().equals(getCustomer())
+        return otherOrder.getId().equals(getId())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getPrice().equals(getPrice())
                 && otherOrder.getStatus().equals(getStatus())
+                && otherOrder.getSchedule().equals(getSchedule())
                 && otherOrder.getTags().equals((getTags()));
     }
 

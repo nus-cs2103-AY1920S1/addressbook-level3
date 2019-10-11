@@ -22,9 +22,14 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class OrderBuilder {
 
+    private static final UUID DEFAULT_UUID = UUID.randomUUID();
+    private static final Customer DEFAULT_CUSTOMER = CUSTOMERONE;
+    private static final Phone DEFAULT_PHONE = IPHONEONE;
     private static final String DEFAULT_PRICE = "$1212";
     private static final Status DEFAULT_STATUS = Status.UNSCHEDULED;
+    private static final Optional<Schedule> DEFAULT_SCHEDULE = Optional.empty();
 
+    private UUID id;
     private Customer customer;
     private Phone phone;
     private Price price;
@@ -33,11 +38,12 @@ public class OrderBuilder {
     private Set<Tag> tags;
 
     public OrderBuilder() {
-        customer = new CustomerBuilder(CUSTOMERONE).build();
-        phone = new PhoneBuilder(IPHONEONE).build();
+        id = DEFAULT_UUID;
+        customer = DEFAULT_CUSTOMER;
+        phone = DEFAULT_PHONE;
         price = new Price(DEFAULT_PRICE);
         status = DEFAULT_STATUS;
-        schedule = Optional.empty();
+        schedule = DEFAULT_SCHEDULE;
         tags = new HashSet<>();
     }
 
@@ -45,12 +51,21 @@ public class OrderBuilder {
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
     public OrderBuilder(Order orderToCopy) {
+        id = orderToCopy.getId();
         customer = orderToCopy.getCustomer();
         phone = orderToCopy.getPhone();
         price = orderToCopy.getPrice();
         status = orderToCopy.getStatus();
         schedule = orderToCopy.getSchedule();
         tags = new HashSet<>(orderToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withId(UUID id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -102,6 +117,6 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(UUID.randomUUID(), customer, phone, price, status, schedule, tags);
+        return new Order(id, customer, phone, price, status, schedule, tags);
     }
 }
