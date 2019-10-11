@@ -94,10 +94,8 @@ Format: `meme list`
 Edit the details of a meme at the specified index. Only optional fields are editable. +
 Format: `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
 
-Examples:
-
-
 // tag::delete[]
+
 ==== Delete - meme : `delete`
 
 Delete the specified meme from ɯeme.

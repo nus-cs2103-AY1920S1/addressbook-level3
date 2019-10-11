@@ -3,10 +3,12 @@ package seedu.weme.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_JOKER;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_FILEPATH_JOKER;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
 import static seedu.weme.testutil.Assert.assertThrows;
-import static seedu.weme.testutil.TypicalMemes.ALICE;
+import static seedu.weme.testutil.TypicalMemes.DOGE;
+import static seedu.weme.testutil.TypicalMemes.JOKER;
 import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.util.Arrays;
@@ -46,9 +48,9 @@ public class MemeBookTest {
     @Test
     public void resetData_withDuplicateMemes_throwsDuplicateMemeException() {
         // Two memes with the same identity fields
-        Meme editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Meme> newMemes = Arrays.asList(ALICE, editedAlice);
+        Meme editedAlice = new MemeBuilder(JOKER).withDescription(VALID_DESCRIPTION_JOKER)
+                .withFilePath(VALID_FILEPATH_JOKER).withTags(VALID_TAG_JOKER).build();
+        List<Meme> newMemes = Arrays.asList(JOKER, editedAlice);
         MemeBookStub newData = new MemeBookStub(newMemes);
 
         assertThrows(DuplicateMemeException.class, () -> memeBook.resetData(newData));
@@ -61,21 +63,22 @@ public class MemeBookTest {
 
     @Test
     public void hasMeme_memeNotInMemeBook_returnsFalse() {
-        assertFalse(memeBook.hasMeme(ALICE));
+        assertFalse(memeBook.hasMeme(DOGE));
     }
 
     @Test
     public void hasMeme_memeInMemeBook_returnsTrue() {
-        memeBook.addMeme(ALICE);
-        assertTrue(memeBook.hasMeme(ALICE));
+        memeBook.addMeme(DOGE);
+        assertTrue(memeBook.hasMeme(DOGE));
     }
 
     @Test
     public void hasMeme_memeWithSameIdentityFieldsInMemeBook_returnsTrue() {
-        memeBook.addMeme(ALICE);
-        Meme editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(memeBook.hasMeme(editedAlice));
+        memeBook.addMeme(JOKER);
+        Meme editedBob = new MemeBuilder(JOKER).withDescription(VALID_DESCRIPTION_JOKER)
+                .withFilePath(VALID_FILEPATH_JOKER)
+                .withTags(VALID_TAG_JOKER).build();
+        assertTrue(memeBook.hasMeme(editedBob));
     }
 
     @Test

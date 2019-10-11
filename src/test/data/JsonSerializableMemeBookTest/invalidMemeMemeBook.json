@@ -1,8 +1,13 @@
 {
-  "memes": [ {
-    "name": "Alice Pau@!line",
+  "memes": [
+    {
+      "description": "Popular Meme among NUS Students",
+      "tagged": [ "friends" ],
+      "filePath": "Hello world"
+    },
+    {
     "description": "Popular Meme among NUS Students",
-    "tagged": [ "friends" ]
-  }
-  ]
+    "tagged": [ "friends" ],
+    "filePath": "https://tinyurl.com/testWeme"
+  } ]
 }

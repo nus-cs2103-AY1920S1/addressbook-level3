@@ -1,10 +1,11 @@
 {
-  "memes": [ {
-    "name": "Alice Pauline",
-    "description": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+  "memes" : [ {
+    "filePath": "src/test/data/memes/charmander_meme.jpg",
+    "tagged" : [ "charmander" ],
+    "description" : "A meme about Char and charmander."
   }, {
-    "name": "Alice Pauline",
-    "description": "4th street"
+    "filePath": "src/test/data/memes/charmander_meme.jpg",
+    "tagged": [ "charmander" ],
+    "description": "A meme about Char and charmander."
   } ]
 }

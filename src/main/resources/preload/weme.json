@@ -1,19 +1,18 @@
 {
-  "_comment": "Meme save file which contains the same Meme values as in TypicalMemes#getTypicalMemes()",
   "memes" : [ {
-    "filePath": "src/test/data/memes/charmander_meme.jpg",
+    "url" : "src/test/data/memes/charmander_meme.jpg",
     "tagged" : [ "charmander" ],
     "description" : "A meme about Char and charmander."
   }, {
-    "filePath": "src/test/data/memes/doge_meme.jpg",
+    "url" : "src/test/data/memes/doge_meme.jpg",
     "tagged" : ["doge"],
     "description" : "A meme about doge."
   }, {
-    "filePath": "src/test/data/memes/joker_meme.jpg",
+    "url" : "src/test/data/memes/joker_meme.jpg",
     "tagged" : ["joker"],
     "description" : "A meme about joker."
   }, {
-    "filePath": "src/test/data/memes/toy_meme.jpg",
+    "url" : "src/test/data/memes/toy_meme.jpg",
     "tagged" : ["toy"],
     "description" : "A toy story meme."
   }]

@@ -3,9 +3,7 @@ package seedu.weme.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.weme.testutil.Assert.assertThrows;
-import static seedu.weme.testutil.TypicalMemes.ALICE;
-import static seedu.weme.testutil.TypicalMemes.HOON;
-import static seedu.weme.testutil.TypicalMemes.IDA;
+import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.io.IOException;
@@ -72,14 +70,13 @@ public class JsonMemeBookStorageTest {
         assertEquals(original, new MemeBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addMeme(HOON);
-        original.removeMeme(ALICE);
+        original.removeMeme(DOGE);
         jsonAddressBookStorage.saveMemeBook(original, filePath);
         readBack = jsonAddressBookStorage.readMemeBook(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Save and read without specifying file path
-        original.addMeme(IDA);
+        original.addMeme(DOGE);
         jsonAddressBookStorage.saveMemeBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readMemeBook().get(); // file path not specified
         assertEquals(original, new MemeBook(readBack));

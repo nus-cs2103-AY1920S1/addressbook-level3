@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.util.SampleDataUtil;
 
@@ -14,15 +14,15 @@ import seedu.weme.model.util.SampleDataUtil;
  */
 public class MemeBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Kingsleigh";
-    public static final String DEFAULT_DESCRIPTION = "Meme created in CS2103 Lecture";
+    public static final String DEFAULT_DESCRIPTION = "Meme created for testing.";
+    public static final String DEFAULT_FILEPATH = "src/test/data/memes/test_meme.jpg";
 
-    private Name name;
     private Description description;
+    private ImagePath filePath;
     private Set<Tag> tags;
 
     public MemeBuilder() {
-        name = new Name(DEFAULT_NAME);
+        filePath = new ImagePath(DEFAULT_FILEPATH);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
@@ -31,17 +31,9 @@ public class MemeBuilder {
      * Initializes the MemeBuilder with the data of {@code memeToCopy}.
      */
     public MemeBuilder(Meme memeToCopy) {
-        name = memeToCopy.getName();
         description = memeToCopy.getDescription();
+        filePath = memeToCopy.getFilePath();
         tags = new HashSet<>(memeToCopy.getTags());
-    }
-
-    /**
-     * Sets the {@code Name} of the {@code Meme} that we are building.
-     */
-    public MemeBuilder withName(String name) {
-        this.name = new Name(name);
-        return this;
     }
 
     /**
@@ -61,8 +53,17 @@ public class MemeBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ImageUrl} of the {@code Meme} that we are building.
+     * @param filePath
+     */
+    public MemeBuilder withFilePath(String filePath) {
+        this.filePath = new ImagePath(filePath);
+        return this;
+    }
+
     public Meme build() {
-        return new Meme(name, description, tags);
+        return new Meme(filePath, description, tags);
     }
 
 }

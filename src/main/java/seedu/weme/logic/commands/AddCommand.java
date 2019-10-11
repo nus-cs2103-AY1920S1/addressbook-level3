@@ -2,7 +2,7 @@ package seedu.weme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.weme.logic.commands.exceptions.CommandException;
@@ -18,14 +18,13 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meme to weme. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_FILEPATH + "PATH "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_FILEPATH + "C:\\Users\\username\\Downloads\\funny_meme.jpg "
             + PREFIX_DESCRIPTION + "Popular Meme among SoC Students  "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "funny";
 
     public static final String MESSAGE_SUCCESS = "New meme added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in weme";

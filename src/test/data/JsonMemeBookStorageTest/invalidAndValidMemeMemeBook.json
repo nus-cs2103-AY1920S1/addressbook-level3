@@ -1,9 +1,9 @@
 {
   "memes": [ {
-    "name": "Valid Person",
-    "address": "4th street"
+    "description": "A meme about Pikachu.",
+    "filePath": "Hello Pikachu"
   }, {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "address": "5th street"
+    "description": "",
+    "filePath": "test/data/memes/Pikachu.jpg"
   } ]
 }

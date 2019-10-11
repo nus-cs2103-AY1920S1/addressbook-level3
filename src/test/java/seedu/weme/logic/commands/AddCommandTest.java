@@ -52,26 +52,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Meme alice = new MemeBuilder().withName("Alice").build();
-        Meme bob = new MemeBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Meme meme1 = new MemeBuilder().withFilePath("src/test/data/memes/charmander_meme.jpg").build();
+        Meme meme2 = new MemeBuilder().withFilePath("src/test/data/memes/joker_meme.jpg").build();
+        AddCommand addMeme1Command = new AddCommand(meme1);
+        AddCommand addMeme2Command = new AddCommand(meme2);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addMeme1Command.equals(addMeme1Command));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(meme1);
+        assertTrue(addMeme1Command.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addMeme1Command.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addMeme1Command.equals(null));
 
         // different meme -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addMeme1Command.equals(addMeme2Command));
     }
 
     /**

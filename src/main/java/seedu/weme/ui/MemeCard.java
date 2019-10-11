@@ -29,7 +29,7 @@ public class MemeCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label path;
     @FXML
     private Label id;
     @FXML
@@ -41,7 +41,7 @@ public class MemeCard extends UiPart<Region> {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + ". ");
-        name.setText(meme.getName().fullName);
+        path.setText(meme.getFilePath().toString()); // for now the MemeCard displays the path.
         description.setText(meme.getDescription().value);
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

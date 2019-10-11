@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -17,24 +17,18 @@ import seedu.weme.model.tag.Tag;
 public class SampleDataUtil {
     public static Meme[] getSampleMemes() {
         return new Meme[] {
-            new Meme(new Name("Alex Yeoh"),
-                new Description("Meme Description 01"),
-                getTagSet("friends")),
-            new Meme(new Name("Bernice Yu"),
-                new Description("Meme Description 02"),
-                getTagSet("colleagues", "friends")),
-            new Meme(new Name("Charlotte Oliveiro"),
-                new Description("Meme Description 03"),
-                getTagSet("neighbours")),
-            new Meme(new Name("David Li"),
-                new Description("Meme Description 04"),
-                getTagSet("family")),
-            new Meme(new Name("Irfan Ibrahim"),
-                new Description("Meme Description 05"),
-                getTagSet("classmates")),
-            new Meme(new Name("Roy Balakrishnan"),
-                new Description("Meme Description 06"),
-                getTagSet("colleagues"))
+            new Meme(new ImagePath("src/main/resources/memes/charmander_meme.jpg"),
+                new Description("A meme about Char and charmander."),
+                getTagSet("charmander")),
+            new Meme(new ImagePath("src/main/resources/memes/doge_meme.jpg"),
+                    new Description("A meme about doge."),
+                    getTagSet("doge")),
+            new Meme(new ImagePath("src/main/resources/memes/joker_meme.jpg"),
+                    new Description("A meme about joker."),
+                    getTagSet("joker")),
+            new Meme(new ImagePath("src/main/resources/memes/toy_meme.jpg"),
+                    new Description("A meme about toy."),
+                    getTagSet("toy"))
         };
     }
 

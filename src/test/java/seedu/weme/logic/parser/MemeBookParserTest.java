@@ -24,7 +24,7 @@ import seedu.weme.logic.commands.HelpCommand;
 import seedu.weme.logic.commands.ListCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.meme.NameContainsKeywordsPredicate;
+import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.MemeUtil;
@@ -73,7 +73,7 @@ public class MemeBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new TagContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

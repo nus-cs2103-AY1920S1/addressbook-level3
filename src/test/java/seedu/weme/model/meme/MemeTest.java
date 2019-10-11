@@ -2,12 +2,12 @@ package seedu.weme.model.meme;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_JOKER;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_FILEPATH_JOKER;
+import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_CHARMANDER;
 import static seedu.weme.testutil.Assert.assertThrows;
-import static seedu.weme.testutil.TypicalMemes.ALICE;
-import static seedu.weme.testutil.TypicalMemes.BOB;
+import static seedu.weme.testutil.TypicalMemes.DOGE;
+import static seedu.weme.testutil.TypicalMemes.JOKER;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,51 +22,43 @@ public class MemeTest {
     }
 
     @Test
-    public void isSameMeme() {
+    public void isSameUrl() {
         // same object -> returns true
-        assertTrue(ALICE.isSameMeme(ALICE));
+        assertTrue(DOGE.isSameMeme(DOGE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameMeme(null));
-
-        // different name -> returns false
-        Meme editedAlice = new MemeBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameMeme(editedAlice));
+        assertFalse(DOGE.isSameMeme(null));
 
         // same name, different attributes -> returns true
-        editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameMeme(editedAlice));
+        Meme editedAlice = new MemeBuilder(DOGE).withDescription(VALID_DESCRIPTION_JOKER)
+                .withTags(VALID_TAG_CHARMANDER).build();
+        assertTrue(DOGE.isSameMeme(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Meme aliceCopy = new MemeBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Meme aliceCopy = new MemeBuilder(DOGE).build();
+        assertTrue(DOGE.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(DOGE.equals(DOGE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(DOGE.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(DOGE.equals(5));
 
         // different meme -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(DOGE.equals(JOKER));
 
-        // different name -> returns false
-        Meme editedAlice = new MemeBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different weme -> returns false
-        editedAlice = new MemeBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different url -> returns false
+        Meme editedAlice = new MemeBuilder(DOGE).withFilePath(VALID_FILEPATH_JOKER).build();
+        assertFalse(DOGE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new MemeBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new MemeBuilder(DOGE).withTags(VALID_TAG_CHARMANDER).build();
+        assertFalse(DOGE.equals(editedAlice));
     }
 }

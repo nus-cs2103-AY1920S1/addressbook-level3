@@ -3,20 +3,20 @@ package seedu.weme.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.weme.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
+import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.meme.NameContainsKeywordsPredicate;
+import seedu.weme.model.meme.PathMatchesPathPredicate;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
 /**
@@ -24,34 +24,34 @@ import seedu.weme.testutil.EditMemeDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_DESCRIPTION_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_DESCRIPTION_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_CHARMANDER = "A meme about Char and charmander.";
+    public static final String VALID_DESCRIPTION_JOKER = "A meme about joker.";
+    public static final String VALID_FILEPATH_CHARMANDER = "src/test/data/memes/charmander_meme.jpg";
+    public static final String VALID_FILEPATH_JOKER = "src/test/data/memes/joker_meme.jpg";
+    public static final String VALID_TAG_CHARMANDER = "charmander";
+    public static final String VALID_TAG_JOKER = "joker";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DESCRIPTION_DESC_CHARMANDER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHARMANDER;
+    public static final String DESCRIPTION_DESC_JOKER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_JOKER;
+    public static final String FILEPATH_DESC_CHARMANDER = " " + PREFIX_FILEPATH + VALID_FILEPATH_CHARMANDER;
+    public static final String FILEPATH_DESC_JOKER = " " + PREFIX_FILEPATH + VALID_FILEPATH_JOKER;
+    public static final String TAG_DESC_CHARMANDER = " " + PREFIX_TAG + VALID_TAG_CHARMANDER;
+    public static final String TAG_DESC_JOKER = " " + PREFIX_TAG + VALID_TAG_JOKER;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_FILEPATH_DESC = " " + PREFIX_FILEPATH; // empty string not allowed for file path
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMemeDescriptor DESC_AMY;
-    public static final EditCommand.EditMemeDescriptor DESC_BOB;
+    public static final EditCommand.EditMemeDescriptor DESC_CHARMANDER;
+    public static final EditCommand.EditMemeDescriptor DESC_JOKER;
 
     static {
-        DESC_AMY = new EditMemeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDescription(VALID_DESCRIPTION_AMY).withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditMemeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_CHARMANDER = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_CHARMANDER)
+                .withDescription(VALID_DESCRIPTION_CHARMANDER).withTags(VALID_TAG_CHARMANDER).build();
+        DESC_JOKER = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_JOKER)
+                .withDescription(VALID_DESCRIPTION_JOKER).withTags(VALID_TAG_JOKER).build();
     }
 
     /**
@@ -104,8 +104,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredMemeList().size());
 
         Meme meme = model.getFilteredMemeList().get(targetIndex.getZeroBased());
-        final String[] splitName = meme.getName().fullName.split("\\s+");
-        model.updateFilteredMemeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final ImagePath filePath = meme.getFilePath();
+        model.updateFilteredMemeList(new PathMatchesPathPredicate(filePath));
 
         assertEquals(1, model.getFilteredMemeList().size());
     }

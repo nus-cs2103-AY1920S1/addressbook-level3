@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.meme.Name;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -22,17 +22,18 @@ class JsonAdaptedMeme {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meme's %s field is missing!";
 
-    private final String name;
     private final String description;
+    private final String filePath;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeme} with the given meme details.
      */
     @JsonCreator
-    public JsonAdaptedMeme(@JsonProperty("name") String name, @JsonProperty("weme") String description,
+    public JsonAdaptedMeme(@JsonProperty("filePath") String filePath, @JsonProperty("weme") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
+
+        this.filePath = filePath;
         this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -43,7 +44,7 @@ class JsonAdaptedMeme {
      * Converts a given {@code Meme} into this class for Jackson use.
      */
     public JsonAdaptedMeme(Meme source) {
-        name = source.getName().fullName;
+        filePath = source.getFilePath().toString();
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -61,13 +62,14 @@ class JsonAdaptedMeme {
             memeTags.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (filePath == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ImagePath.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!ImagePath.isValidFilePath(filePath)) {
+            throw new IllegalValueException(ImagePath.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final ImagePath modelUrl = new ImagePath(filePath);
 
         if (description == null) {
             throw new IllegalValueException(String.format(
@@ -79,7 +81,7 @@ class JsonAdaptedMeme {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(memeTags);
-        return new Meme(modelName, modelDescription, modelTags);
+        return new Meme(modelUrl, modelDescription, modelTags);
     }
 
 }

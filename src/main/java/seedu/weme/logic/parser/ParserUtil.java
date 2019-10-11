@@ -10,7 +10,7 @@ import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.Name;
+import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -19,6 +19,7 @@ import seedu.weme.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -34,18 +35,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String input} into an {@code ImagePath}.
      * Leading and trailing whitespaces will be trimmed.
-     *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static ImagePath parseFilePath(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmedPath = input.trim();
+        if (!ImagePath.isValidFilePath(trimmedPath)) {
+            throw new ParseException(MESSAGE_INVALID_FILEPATH);
         }
-        return new Name(trimmedName);
+        return new ImagePath(trimmedPath);
     }
 
     /**
