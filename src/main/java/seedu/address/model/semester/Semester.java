@@ -90,10 +90,14 @@ public class Semester {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(semesterName + ":" + "\n");
-        Iterator<Module> moduleIterator = modules.iterator();
-        while (moduleIterator.hasNext()) {
-            Module module = moduleIterator.next();
-            result.append(module.toString() + "\n");
+        if (modules != null) {
+            Iterator<Module> moduleIterator = modules.iterator();
+            while (moduleIterator.hasNext()) {
+                Module module = moduleIterator.next();
+                result.append(module.toString() + "\n");
+            }
+        } else {
+            result.append("NO MODULES FOUND \n");
         }
 
         return result.toString();
