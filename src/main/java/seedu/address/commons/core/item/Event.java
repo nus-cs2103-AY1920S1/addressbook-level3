@@ -42,7 +42,7 @@ public class Event {
         }
 
         this.startDateTime = startDateTime;
-        this.endDateTime = startDateTime.plus(duration);
+        this.endDateTime = startDateTime.plus(this.duration);
     }
 
     public LocalDateTime getStartDateTime() {
@@ -93,7 +93,7 @@ public class Event {
             return true;
         }
 
-        if (!(other instanceof Item)) {
+        if (!(other instanceof Event)) {
             return false;
         }
 

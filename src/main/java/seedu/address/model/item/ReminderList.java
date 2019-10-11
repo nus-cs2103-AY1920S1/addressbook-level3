@@ -1,5 +1,7 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.core.item.Item;
+
 /**
  * Object class to store all the items that are reminders within the program
  */
@@ -18,7 +20,8 @@ public class ReminderList extends ItemList {
         for (Item i : list) {
             rl.add(i);
         }
-        rl.list.sort((item1, item2) -> item1.getReminder().getDate().compareTo(item2.getReminder().getDate()));
+        rl.list.sort((item1, item2) -> item1.getReminder().get().getDateTime()
+                .compareTo(item2.getReminder().get().getDateTime()));
         return rl;
     }
 
