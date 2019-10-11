@@ -132,7 +132,7 @@ public class Event {
         Duration duration = Duration.parse(durationString);
 
         String priorityString = node.get("priority").asText();
-        Priority priority = Priority.parse(priorityString);
+        Priority priority = Priority.valueOf(priorityString);
 
         return new Event(startDateTime, duration, priority);
     }
