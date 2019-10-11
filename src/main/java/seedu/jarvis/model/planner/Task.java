@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
+import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
 
 /**
  * Represents a task object in JARVIS
@@ -47,7 +49,7 @@ public abstract class Task {
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
-    protected void addPriority(String priority) {
+    protected void addPriority(String priority) throws InvalidPriorityException {
         switch (priority) {
         case "high":
             this.priority = PriorityLevel.HIGH;
@@ -59,7 +61,7 @@ public abstract class Task {
             this.priority = PriorityLevel.LOW;
             break;
         default:
-            break;
+            throw new InvalidPriorityException();
         }
     }
 
@@ -67,7 +69,7 @@ public abstract class Task {
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-    protected void addFrequency(String freq) {
+    protected void addFrequency(String freq) throws InvalidFrequencyException {
         switch (freq) {
         case "daily":
             this.frequency = FreqLevel.DAILY;
@@ -82,7 +84,7 @@ public abstract class Task {
             this.frequency = FreqLevel.YEARLY;
             break;
         default:
-            break;
+            throw new InvalidFrequencyException();
         }
     }
 

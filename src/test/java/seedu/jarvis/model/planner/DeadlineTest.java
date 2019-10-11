@@ -1,20 +1,22 @@
 package seedu.jarvis.model.planner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-
+import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
+import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
 
 
 class DeadlineTest {
 
     @Test
-    void addPriority() {
+    void addPriority_validInput_success() {
         Date due = new Date(2019, 10, 10);
         Deadline d = new Deadline("homework", due);
         d.addPriority("high");
@@ -22,7 +24,15 @@ class DeadlineTest {
     }
 
     @Test
-    void addFrequency() {
+    void addPriority_invalidInput_exceptionThrown() {
+        Date due = new Date(2019, 10, 10);
+        Deadline d = new Deadline("homework", due);
+
+        assertThrows(InvalidPriorityException.class, () -> d.addPriority("highest"));
+    }
+
+    @Test
+    void addFrequency_validInput_success() {
         Date due = new Date(2019, 10, 10);
         Deadline d = new Deadline("homework", due);
         d.addFrequency("weekly");
@@ -30,7 +40,14 @@ class DeadlineTest {
     }
 
     @Test
-    void addTag() {
+    void addFrequency_invalidInput_exceptionThrown() {
+        Date due = new Date(2019, 10, 10);
+        Deadline d = new Deadline("homework", due);
+        assertThrows(InvalidFrequencyException.class, () -> d.addFrequency("every week"));
+    }
+
+    @Test
+    void addTag_validInput_success() {
         Date due = new Date(2019, 10, 10);
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
@@ -39,11 +56,11 @@ class DeadlineTest {
     }
 
     @Test
-    void getTags() {
+    void getTags_validInput_success() {
         Date due = new Date(2019, 10, 10);
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
-        assertEquals(d.getTags().contains(t), true);
+        assertTrue(d.getTags().contains(t));
     }
 }
