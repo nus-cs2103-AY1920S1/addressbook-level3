@@ -5,7 +5,7 @@ import seedu.address.model.tag.Tag;
 import java.util.Set;
 
 /**
- * Represents a Answerable in the category book.
+ * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Saq extends Answerable {

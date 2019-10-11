@@ -7,7 +7,7 @@ import java.util.Set;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Answerable in the category book.
+ * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Mcq extends Answerable {

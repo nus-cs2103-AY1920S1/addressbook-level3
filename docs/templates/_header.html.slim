@@ -25,7 +25,7 @@
   #site-header
     nav.navbar.navbar-light.bg-light
       .container
-        - if attr? 'site-question'
+        - if attr? 'site-name'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-question')
         ul.navbar-nav
           li.nav-item
