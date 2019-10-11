@@ -132,7 +132,9 @@ public class EditCommand extends Command {
         private Category category;
         private Set<Tag> tags;
 
-        public EditAnswerableDescriptor() {}
+        public EditAnswerableDescriptor() {
+            answerSet = new AnswerSet();
+        }
 
         /**
          * Copy constructor.
@@ -150,7 +152,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, difficulty, category, tags);
+            return CollectionUtil.isAnyNonNull(question, answerSet, difficulty, category, tags);
         }
 
         public void setQuestion(Question question) {
@@ -166,6 +168,7 @@ public class EditCommand extends Command {
         }
 
         public void setCorrectAnswerSet(Set<Answer> correctAnswerSet) {
+            answerSet = new AnswerSet();
             this.answerSet.setCorrectAnswerSet(correctAnswerSet);
         }
 

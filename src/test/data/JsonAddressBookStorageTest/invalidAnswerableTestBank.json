@@ -1,6 +1,13 @@
 {
   "answerables": [ {
-    "question": "Answerable with invalid question field: Ha!ns Mu@ster",
+    "question": "",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
     "difficulty": "9482424",
     "category": "4th street"
   } ]

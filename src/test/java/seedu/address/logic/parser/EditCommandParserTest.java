@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
@@ -10,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -19,6 +21,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.WRONG_ANSWER_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -94,8 +97,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY,
-                Question.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + QUESTION_TYPE_DESC + CORRECT_ANSWER_DESC
+                + WRONG_ANSWER_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY, Question.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -105,7 +108,7 @@ public class EditCommandParserTest {
                 + ADDRESS_DESC_AMY + QUESTION_DESC_AMY + TAG_DESC_FRIEND;
 
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withAddress(VALID_ADDRESS_AMY)
+                .withDifficulty(VALID_DIFFICULTY_BOB).withCategory(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -140,7 +143,7 @@ public class EditCommandParserTest {
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditAnswerableDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        descriptor = new EditAnswerableDescriptorBuilder().withCategory(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -159,7 +162,7 @@ public class EditCommandParserTest {
                 + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -178,7 +181,7 @@ public class EditCommandParserTest {
         userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + ADDRESS_DESC_BOB
                 + DIFFICULTY_DESC_BOB;
         descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+                .withCategory(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

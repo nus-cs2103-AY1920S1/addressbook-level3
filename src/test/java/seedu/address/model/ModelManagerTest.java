@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalAnswerables.ALICE;
-import static seedu.address.testutil.TypicalAnswerables.BENSON;
+import static seedu.address.testutil.TypicalAnswerables.A_ANSWERABLE;
+import static seedu.address.testutil.TypicalAnswerables.B_ANSWERABLE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasAnswerable(ALICE));
+        assertFalse(modelManager.hasAnswerable(A_ANSWERABLE));
     }
 
     @Test
     public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        modelManager.addAnswerable(ALICE);
-        assertTrue(modelManager.hasAnswerable(ALICE));
+        modelManager.addAnswerable(A_ANSWERABLE);
+        assertTrue(modelManager.hasAnswerable(A_ANSWERABLE));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withAnswerable(ALICE).withAnswerable(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withAnswerable(A_ANSWERABLE).withAnswerable(B_ANSWERABLE).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getQuestion().fullQuestion.split("\\s+");
+        String[] keywords = A_ANSWERABLE.getQuestion().fullQuestion.split("\\s+");
         modelManager.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

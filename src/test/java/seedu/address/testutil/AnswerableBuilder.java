@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +19,14 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class AnswerableBuilder {
 
-    public static final String DEFAULT_QUESTION = "Alice Pauline";
-    public static final String DEFAULT_DIFFICULTY = "85355255";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_QUESTION = "Is this a question?";
+    public static final String DEFAULT_DIFFICULTY = "1";
+    public static final String DEFAULT_CATEGORY = "UML";
+    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final Answer wrongAnswer = new Answer("WRONG");
+    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
+    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
 
     private Question question;
     //TODO: Implement Answerable
@@ -32,9 +38,9 @@ public class AnswerableBuilder {
     public AnswerableBuilder() {
         question = new Question(DEFAULT_QUESTION);
         //TODO: Implement Answerable
-        answer = new AnswerSet(new HashSet<>(), new HashSet<>());
+        answer = defaultAnswerSet;
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
-        category = new Category(DEFAULT_ADDRESS);
+        category = new Category(DEFAULT_CATEGORY);
         tags = new HashSet<>();
     }
 
@@ -62,8 +68,8 @@ public class AnswerableBuilder {
      * Sets the {@code Question} of the {@code Answerable} that we are building.
      */
     //TODO: Implement Answerable
-    public AnswerableBuilder withAnswer(Set<Answer> correctAnswers, Set<Answer> wrongAnswers) {
-        this.answer = new AnswerSet(correctAnswers, wrongAnswers);
+    public AnswerableBuilder withAnswerSet(AnswerSet answerSet) {
+        this.answer = answerSet;
         return this;
     }
 
@@ -78,7 +84,7 @@ public class AnswerableBuilder {
     /**
      * Sets the {@code Category} of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withAddress(String address) {
+    public AnswerableBuilder withCategory(String address) {
         this.category = new Category(address);
         return this;
     }

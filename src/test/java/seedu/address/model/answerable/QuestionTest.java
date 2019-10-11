@@ -21,20 +21,18 @@ public class QuestionTest {
 
     @Test
     public void isValidName() {
-        // null name
+        // null question
         assertThrows(NullPointerException.class, () -> Question.isValidQuestion(null));
 
-        // invalid name
+        // invalid question
         assertFalse(Question.isValidQuestion("")); // empty string
         assertFalse(Question.isValidQuestion(" ")); // spaces only
-        assertFalse(Question.isValidQuestion("^")); // only non-alphanumeric characters
-        assertFalse(Question.isValidQuestion("peter*")); // contains non-alphanumeric characters
 
-        // valid name
+        // valid question
         assertTrue(Question.isValidQuestion("peter jack")); // alphabets only
         assertTrue(Question.isValidQuestion("12345")); // numbers only
         assertTrue(Question.isValidQuestion("peter the 2nd")); // alphanumeric characters
         assertTrue(Question.isValidQuestion("Capital Tan")); // with capital letters
-        assertTrue(Question.isValidQuestion("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Question.isValidQuestion("With a question mark?")); // with question mark
     }
 }

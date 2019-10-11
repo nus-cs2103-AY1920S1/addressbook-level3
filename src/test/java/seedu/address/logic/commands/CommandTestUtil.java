@@ -13,12 +13,16 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.answerable.Answer;
+import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.QuestionContainsKeywordsPredicate;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.testutil.EditAnswerableDescriptorBuilder;
@@ -30,12 +34,9 @@ public class CommandTestUtil {
 
     public static final String VALID_QUESTION_AMY = "Amy Bee";
     public static final String VALID_QUESTION_BOB = "Bob Choo";
-    public static final String VALID_QUESTION_TYPE_AMY = "mcq";
-    public static final String VALID_QUESTION_TYPE_BOB = "mcq";
-    public static final String VALID_ANSWER_AMY = "Valid AnswerSet";
-    public static final String VALID_ANSWER_BOB = "Valid AnswerSet";
-    public static final String VALID_DIFFICULTY_AMY = "11111111";
-    public static final String VALID_DIFFICULTY_BOB = "22222222";
+    public static final String VALID_QUESTION_TYPE = "mcq";
+    public static final String VALID_DIFFICULTY_AMY = "1";
+    public static final String VALID_DIFFICULTY_BOB = "2";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -43,12 +44,9 @@ public class CommandTestUtil {
 
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
     public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
-    public static final String CORRECT_ANSWER_DESC_AMY = " " + PREFIX_CORRECT + VALID_ANSWER_AMY;
-    public static final String CORRECT_ANSWER_DESC_BOB = " " + PREFIX_CORRECT + VALID_ANSWER_BOB;
-    public static final String WRONG_ANSWER_DESC_AMY = " " + PREFIX_WRONG + VALID_ANSWER_AMY;
-    public static final String WRONG_ANSWER_DESC_BOB = " " + PREFIX_WRONG + VALID_ANSWER_BOB;
-    public static final String QUESTION_TYPE_DESC_AMY = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE_AMY;
-    public static final String QUESTION_TYPE_DESC_BOB = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE_BOB;
+    public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "CORRECT";
+    public static final String WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "WRONG";
+    public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
     public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
     public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_CATEGORY + VALID_ADDRESS_AMY;
@@ -56,7 +54,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + "James&"; // '&' not allowed in names
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for questions
     public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a"; // 'a' not allowed in difficulty
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_CATEGORY; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -67,12 +65,18 @@ public class CommandTestUtil {
     public static final EditCommand.EditAnswerableDescriptor DESC_AMY;
     public static final EditCommand.EditAnswerableDescriptor DESC_BOB;
 
+    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final Answer wrongAnswer = new Answer("WRONG");
+    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
+    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
+
     static {
         DESC_AMY = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswer(VALID_ANSWER_AMY).withDifficulty(VALID_DIFFICULTY_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withAnswerSet(defaultAnswerSet).withDifficulty(VALID_DIFFICULTY_AMY).withCategory(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withAnswer(VALID_ANSWER_BOB).withDifficulty(VALID_DIFFICULTY_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withAnswerSet(defaultAnswerSet).withDifficulty(VALID_DIFFICULTY_BOB).withCategory(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

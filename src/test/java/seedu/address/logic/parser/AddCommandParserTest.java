@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalAnswerables.AMY;
-import static seedu.address.testutil.TypicalAnswerables.BOB;
+import static seedu.address.testutil.TypicalAnswerables.ALPHA;
+import static seedu.address.testutil.TypicalAnswerables.BETA;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Answerable expectedAnswerable = new AnswerableBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Answerable expectedAnswerable = new AnswerableBuilder(BETA).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_BOB + DIFFICULTY_DESC_BOB
@@ -59,7 +59,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedAnswerable));
 
         // multiple tags - all accepted
-        Answerable expectedAnswerableMultipleTags = new AnswerableBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Answerable expectedAnswerableMultipleTags = new AnswerableBuilder(BETA).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, QUESTION_DESC_BOB + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedAnswerableMultipleTags));
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Answerable expectedAnswerable = new AnswerableBuilder(AMY).withTags().build();
+        Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withTags().build();
         assertParseSuccess(parser, QUESTION_DESC_AMY + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedAnswerable));
     }

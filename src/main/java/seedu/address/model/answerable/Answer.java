@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Answer {
 
-    public static final String MESSAGE_CONSTRAINTS = "Answers should be alphanumeric??";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Answers should not be blank";
+    public static final String VALIDATION_REGEX = ".*";
 
     public String answer;
 

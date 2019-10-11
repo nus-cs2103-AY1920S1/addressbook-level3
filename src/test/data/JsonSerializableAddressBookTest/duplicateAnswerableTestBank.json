@@ -1,11 +1,25 @@
 {
   "answerables": [ {
     "question": "Alice Pauline",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
     "difficulty": "94351253",
     "category": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
     "question": "Alice Pauline",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
     "difficulty": "94351253",
     "category": "4th street"
   } ]

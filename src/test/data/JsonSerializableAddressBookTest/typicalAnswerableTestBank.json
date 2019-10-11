@@ -1,39 +1,64 @@
 {
   "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
   "answerables" : [ {
-    "question" : "Alice Pauline",
-    "difficulty" : "94351253",
-    "category" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "question" : "A Question?",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
+    "category" : "Category A",
+    "tagged" : [ "easy" ]
   }, {
-    "question" : "Benson Meier",
-    "difficulty" : "98765432",
-    "category" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "question" : "Brownfield or Greenfield?",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "2",
+    "category" : "Requirements",
+    "tagged" : [ "field", "introduction" ]
   }, {
     "question" : "Carl Kurz",
-    "difficulty" : "95352563",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
     "category" : "wall street",
     "tagged" : [ ]
   }, {
-    "question" : "Daniel Meier",
-    "difficulty" : "87652533",
-    "category" : "10th street",
-    "tagged" : [ "friends" ]
-  }, {
     "question" : "Elle Meyer",
-    "difficulty" : "9482224",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
     "category" : "michegan ave",
     "tagged" : [ ]
   }, {
     "question" : "Fiona Kunz",
-    "difficulty" : "9482427",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
     "category" : "little tokyo",
-    "tagged" : [ ]
-  }, {
-    "question" : "George Best",
-    "difficulty" : "9482442",
-    "category" : "4th street",
     "tagged" : [ ]
   } ]
 }

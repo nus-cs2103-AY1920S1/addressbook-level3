@@ -11,44 +11,49 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.answerable.Answer;
+import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Answerable;
 
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
 public class TypicalAnswerables {
+    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final Answer wrongAnswer = new Answer("WRONG");
+    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
+    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
 
-    public static final Answerable ALICE = new AnswerableBuilder().withQuestion("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withDifficulty("94351253")
-            .withTags("friends").build();
-    public static final Answerable BENSON = new AnswerableBuilder().withQuestion("Benson Meier")
-            .withAnswer("placeholder answer").withAddress("311, Clementi Ave 2, #02-25").withDifficulty("98765432")
-            .withTags("owesMoney", "friends").build();
-    public static final Answerable CARL = new AnswerableBuilder().withQuestion("Carl Kurz").withDifficulty("95352563")
-            .withAnswer("placeholder answer").withAddress("wall street").build();
-    public static final Answerable DANIEL = new AnswerableBuilder().withQuestion("Daniel Meier").withDifficulty("87652533")
-            .withAnswer("placeholder answer").withAddress("10th street").withTags("friends").build();
-    public static final Answerable ELLE = new AnswerableBuilder().withQuestion("Elle Meyer").withDifficulty("9482224")
-            .withAnswer("placeholder answer").withAddress("michegan ave").build();
-    public static final Answerable FIONA = new AnswerableBuilder().withQuestion("Fiona Kunz").withDifficulty("9482427")
-            .withAnswer("placeholder answer").withAddress("little tokyo").build();
-    public static final Answerable GEORGE = new AnswerableBuilder().withQuestion("George Best").withDifficulty("9482442")
-            .withAnswer("placeholder answer").withAddress("4th street").build();
+    public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("A Question?")
+            .withAnswerSet(defaultAnswerSet).withCategory("Category A").withDifficulty("1")
+            .withTags("easy").build();
+    public static final Answerable B_ANSWERABLE = new AnswerableBuilder().withQuestion("Brownfield or Greenfield?")
+            .withAnswerSet(defaultAnswerSet).withCategory("Requirements").withDifficulty("2")
+            .withTags("field", "introduction").build();
+    public static final Answerable C_ANSWERABLE = new AnswerableBuilder().withQuestion("Carl Kurz").withDifficulty("1")
+            .withAnswerSet(defaultAnswerSet).withCategory("wall street").build();
+    public static final Answerable E_ANSWERABLE = new AnswerableBuilder().withQuestion("Elle Meyer").withDifficulty("1")
+            .withAnswerSet(defaultAnswerSet).withCategory("michegan ave").build();
+    public static final Answerable F_ANSWERABLE = new AnswerableBuilder().withQuestion("Fiona Kunz").withDifficulty("1")
+            .withAnswerSet(defaultAnswerSet).withCategory("little tokyo").build();
 
     // Manually added
-    public static final Answerable HOON = new AnswerableBuilder().withQuestion("Hoon Meier").withDifficulty("8482424")
-            .withAnswer("placeholder answer").withAddress("little india").build();
-    public static final Answerable IDA = new AnswerableBuilder().withQuestion("Ida Mueller").withDifficulty("8482131")
-            .withAnswer("placeholder answer").withAddress("chicago ave").build();
+    public static final Answerable H_ANSWERABLE = new AnswerableBuilder().withQuestion("Hoon Meier").withDifficulty("1")
+            .withAnswerSet(defaultAnswerSet).withCategory("little india").build();
+    public static final Answerable I_ANSWERABLE = new AnswerableBuilder().withQuestion("Ida Mueller").withDifficulty("1")
+            .withAnswerSet(defaultAnswerSet).withCategory("chicago ave").build();
 
     // Manually added - Answerable's details found in {@code CommandTestUtil}
-    public static final Answerable AMY = new AnswerableBuilder().withQuestion(VALID_QUESTION_AMY).withDifficulty(VALID_DIFFICULTY_AMY)
-            .withAnswer("placeholder answer").withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Answerable BOB = new AnswerableBuilder().withQuestion(VALID_QUESTION_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
-            .withAnswer("placeholder answer").withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Answerable ALPHA = new AnswerableBuilder().withQuestion(VALID_QUESTION_AMY).withDifficulty(VALID_DIFFICULTY_AMY)
+            .withAnswerSet(defaultAnswerSet).withCategory(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Answerable BETA = new AnswerableBuilder().withQuestion(VALID_QUESTION_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
+            .withAnswerSet(defaultAnswerSet).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
@@ -67,6 +72,7 @@ public class TypicalAnswerables {
     }
 
     public static List<Answerable> getTypicalAnswerables() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(A_ANSWERABLE, B_ANSWERABLE, C_ANSWERABLE,
+                E_ANSWERABLE, F_ANSWERABLE));
     }
 }
