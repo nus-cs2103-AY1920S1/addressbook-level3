@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private DishListPanel dishListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportWindow reportWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -126,6 +127,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
     }
 
     /**
@@ -166,6 +168,13 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        reportWindow.hide();
+    }
+
+    @FXML
+    private void handleReport() {
+        this.reportWindow = new ReportWindow(logic.getStatistics());
+        this.reportWindow.show();
     }
 
     public MealListPanel getMealListPanel() {
@@ -189,6 +198,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowReport()) {
+                handleReport();
             }
 
             return commandResult;

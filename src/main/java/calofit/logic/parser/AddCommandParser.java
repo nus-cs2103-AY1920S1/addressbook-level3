@@ -1,14 +1,15 @@
 package calofit.logic.parser;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.util.Set;
 import java.util.stream.Stream;
 
 import calofit.logic.commands.AddCommand;
 import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
@@ -25,7 +26,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -33,9 +34,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Calorie calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Dish dish = new Dish(name, tagList);
+        Dish dish = new Dish(name, calories, tagList);
 
         return new AddCommand(dish);
     }

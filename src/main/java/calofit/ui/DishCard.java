@@ -34,6 +34,8 @@ public class DishCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label calories;
+    @FXML
     private FlowPane tags;
 
     public DishCard(Dish dish, int displayedIndex) {
@@ -41,6 +43,7 @@ public class DishCard extends UiPart<Region> {
         this.dish = dish;
         id.setText(displayedIndex + ". ");
         name.setText(dish.getName().fullName);
+        calories.setText(dish.getCalories().toString());
         dish.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

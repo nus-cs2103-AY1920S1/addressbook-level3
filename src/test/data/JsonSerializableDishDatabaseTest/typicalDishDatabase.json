@@ -3,18 +3,14 @@
   "dishes": [
     {
       "name": "Spaghetti",
-      "phone": "94351253",
-      "email": "alice@example.com",
-      "address": "123, Jurong West Ave 6, #08-111",
+      "calories": "789",
       "tagged": [
         "creamys"
       ]
     },
     {
       "name": "Mushroom Soup",
-      "phone": "98765432",
-      "email": "johnd@example.com",
-      "address": "311, Clementi Ave 2, #02-25",
+      "calories": "200",
       "tagged": [
         "shitake",
         "expensive"
@@ -22,39 +18,29 @@
     },
     {
       "name": "Chicken Rice",
-      "phone": "95352563",
-      "email": "heinz@example.com",
-      "address": "wall street",
+      "calories": "562",
       "tagged": []
     },
     {
       "name": "Nasi Lemak",
-      "phone": "87652533",
-      "email": "cornelia@example.com",
-      "address": "10th street",
+      "calories":"691",
       "tagged": [
         "value"
       ]
     },
     {
       "name": "Cheese Baked Rice",
-      "phone": "9482224",
-      "email": "werner@example.com",
-      "address": "michegan ave",
+      "calories": "943",
       "tagged": []
     },
     {
       "name": "Apple Pie",
-      "phone": "9482427",
-      "email": "lydia@example.com",
-      "address": "little tokyo",
+      "calories": "234",
       "tagged": []
     },
     {
       "name": "Chendol",
-      "phone": "9482442",
-      "email": "anna@example.com",
-      "address": "4th street",
+      "calories": "312",
       "tagged": []
     }
   ]

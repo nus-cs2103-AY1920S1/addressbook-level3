@@ -9,6 +9,7 @@ import java.util.Set;
 import calofit.commons.core.index.Index;
 import calofit.commons.util.StringUtil;
 import calofit.logic.parser.exceptions.ParseException;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
 
@@ -45,6 +46,17 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Calorie}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Calorie parseCalorie(String calories) {
+        requireNonNull(calories);
+        String trimmedCalorie = calories.trim();
+        return new Calorie(calories);
     }
 
     /**

@@ -12,6 +12,7 @@ import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
+import calofit.model.util.Statistics;
 
 /**
  * API of the Logic component
@@ -52,4 +53,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<Meal> getFilteredMealList();
+
+    Statistics getStatistics();
 }

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import calofit.commons.exceptions.IllegalValueException;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Dish;
 import calofit.model.dish.Name;
 import calofit.model.tag.Tag;
@@ -22,6 +23,7 @@ class JsonAdaptedDish {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Dish's %s field is missing!";
 
     private final String name;
+    private final String calories;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -29,8 +31,10 @@ class JsonAdaptedDish {
      */
     @JsonCreator
     public JsonAdaptedDish(@JsonProperty("name") String name,
+                           @JsonProperty("calories") String calories,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.calories = calories;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -41,6 +45,7 @@ class JsonAdaptedDish {
      */
     public JsonAdaptedDish(Dish source) {
         name = source.getName().fullName;
+        calories = source.getCalories().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -65,8 +70,10 @@ class JsonAdaptedDish {
         }
         final Name modelName = new Name(name);
 
+        final Calorie modelCalories = new Calorie(calories);
+
         final Set<Tag> modelTags = new HashSet<>(dishTags);
-        return new Dish(modelName, modelTags);
+        return new Dish(modelName, modelCalories, modelTags);
     }
 
 }

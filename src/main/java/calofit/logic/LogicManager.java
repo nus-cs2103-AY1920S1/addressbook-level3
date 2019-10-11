@@ -17,6 +17,7 @@ import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
+import calofit.model.util.Statistics;
 import calofit.storage.Storage;
 
 /**
@@ -81,5 +82,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return model.getStatistics();
     }
 }

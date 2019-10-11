@@ -24,16 +24,19 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_DUCK_RICE = "Duck Rice";
     public static final String VALID_NAME_MACARONI = "Macaroni";
+    public static final String VALID_CALORIE_1000 = "1000";
     public static final String VALID_TAG_SALTY = "salty";
     public static final String VALID_TAG_EXPENSIVE = "expensive";
 
     public static final String NAME_DESC_DUCK_RICE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_DUCK_RICE;
     public static final String NAME_DESC_MACARONI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_MACARONI;
+    public static final String CALORIE_DESC_1000 = " " + CliSyntax.PREFIX_CALORIES + VALID_CALORIE_1000;
     public static final String TAG_DESC_EXPENSIVE = " " + CliSyntax.PREFIX_TAG + VALID_TAG_EXPENSIVE;
     public static final String TAG_DESC_SALTY = " " + CliSyntax.PREFIX_TAG + VALID_TAG_SALTY;
 
     public static final String INVALID_NAME_DESC = " "
             + CliSyntax.PREFIX_NAME + "Duck Noodles&"; // '&' not allowed in names
+    public static final String INVAID_CALORIES_NEGATIVE = " " + CliSyntax.PREFIX_CALORIES + "-1000";
     public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "bland*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -44,8 +47,10 @@ public class CommandTestUtil {
 
     static {
         DESC_DUCK_RICE = new EditDishDescriptorBuilder().withName(VALID_NAME_DUCK_RICE)
+                .withCalories(VALID_CALORIE_1000)
                 .withTags(VALID_TAG_EXPENSIVE).build();
         DESC_MACARONI = new EditDishDescriptorBuilder().withName(VALID_NAME_MACARONI)
+                .withCalories(VALID_CALORIE_1000)
                 .withTags(VALID_TAG_SALTY, VALID_TAG_EXPENSIVE).build();
     }
 
