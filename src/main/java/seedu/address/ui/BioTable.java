@@ -15,22 +15,22 @@ public class BioTable extends UiPart<Region> {
     private static final String FXML = "BioTable.fxml";
 
     @FXML
-    private TableView tableView;
+    private TableView<BioTableFieldDataPair> tableView;
 
     @FXML
-    private TableColumn field;
+    private TableColumn<String, String> field;
 
     @FXML
-    private TableColumn data;
+    private TableColumn<String, String> data;
 
     public BioTable() {
         super(FXML);
-        field.setCellValueFactory(new PropertyValueFactory<>("field"));
-        data.setCellValueFactory(new PropertyValueFactory<>("data"));
+        field.setCellValueFactory(new PropertyValueFactory<String, String>("field"));
+        data.setCellValueFactory(new PropertyValueFactory<String, String>("data"));
         tableView.setSelectionModel(null);
     }
 
-    public TableView getTableView() {
+    public TableView<BioTableFieldDataPair> getTableView() {
         return this.tableView;
     }
 }
