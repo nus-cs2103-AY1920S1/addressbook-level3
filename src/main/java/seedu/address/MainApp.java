@@ -15,16 +15,16 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.ProjectDashboard;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleTaskDataUtil;
 import seedu.address.storage.JsonProjectDashboardStorage;
-import seedu.address.storage.ProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ProjectDashboardStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -56,7 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ProjectDashboardStorage projectDashboardStorage = new JsonProjectDashboardStorage(userPrefs.getProjectDashboardFilePath());
+        ProjectDashboardStorage projectDashboardStorage =
+                new JsonProjectDashboardStorage(userPrefs.getProjectDashboardFilePath());
         storage = new StorageManager(projectDashboardStorage, userPrefsStorage);
 
         initLogging(config);
@@ -70,8 +71,9 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard and {@code userPrefs}. <br>
-     * The data from the sample project dashboard will be used instead if {@code storage}'s project dashboard is not found,
-     * or an project dashboard will be used instead if errors occur when reading {@code storage}'s project dashboard.
+     * The data from the sample project dashboard will be used instead if {@code storage}'s project dashboard
+     * is not found, or an project dashboard will be used instead if errors occur when reading {@code storage}'s
+     * project dashboard.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyProjectDashboard> projectDashboardOptional;

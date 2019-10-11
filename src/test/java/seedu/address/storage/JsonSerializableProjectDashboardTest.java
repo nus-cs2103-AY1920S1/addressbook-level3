@@ -15,7 +15,8 @@ import seedu.address.testutil.TypicalTasks;
 
 public class JsonSerializableProjectDashboardTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableProjectDashboardTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonSerializableProjectDashboardTest");
     private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalTasksProjectDashboard.json");
     private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskProjectDashboard.json");
     private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskProjectDashboard.json");

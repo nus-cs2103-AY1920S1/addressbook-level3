@@ -95,7 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ProjectDashboard projectDashboard = new ProjectDashboardBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
+        ProjectDashboard projectDashboard =
+                new ProjectDashboardBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
         ProjectDashboard differentProjectDashboard = new ProjectDashboard();
         UserPrefs userPrefs = new UserPrefs();
 

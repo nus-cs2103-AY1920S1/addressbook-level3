@@ -17,7 +17,7 @@ import seedu.address.model.task.Task;
  * An Immutable ProjectDashboard that is serializable to JSON format.
  */
 // TODO change serializable object root name
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "projectdashboard")
 class JsonSerializableProjectDashboard {
 
     public static final String MESSAGE_DUPLICATE_TASKS = "Tasks list contains duplicate task(s).";

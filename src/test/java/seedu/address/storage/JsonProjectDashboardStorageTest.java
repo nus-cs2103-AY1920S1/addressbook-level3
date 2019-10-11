@@ -31,7 +31,8 @@ public class JsonProjectDashboardStorageTest {
     }
 
     private java.util.Optional<ReadOnlyProjectDashboard> readProjectDashboard(String filePath) throws Exception {
-        return new JsonProjectDashboardStorage(Paths.get(filePath)).readProjectDashBoard(addToTestDataPathIfNotNull(filePath));
+        return new JsonProjectDashboardStorage(Paths.get(filePath))
+                .readProjectDashBoard(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,17 +48,20 @@ public class JsonProjectDashboardStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readProjectDashboard("notJsonFormatProjectDashboard.json"));
+        assertThrows(DataConversionException.class, () ->
+            readProjectDashboard("notJsonFormatProjectDashboard.json"));
     }
 
     @Test
     public void readProjectDashboard_invalidTaskProjectDashboard_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readProjectDashboard("invalidTaskProjectDashboard.json"));
+        assertThrows(DataConversionException.class, () ->
+            readProjectDashboard("invalidTaskProjectDashboard.json"));
     }
 
     @Test
     public void readProjectDashboard_invalidAndValidTaskProjectDashboard_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
+        assertThrows(DataConversionException.class, () ->
+            readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
     }
 
     @Test
