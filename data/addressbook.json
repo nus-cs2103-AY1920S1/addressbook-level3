@@ -30,8 +30,5 @@
     "rating" : "good",
     "categories" : [ ]
   } ],
-  "deadlines" : [ {
-    "task" : "something",
-    "date" : "10/10/2019"
-  } ]
+  "deadlines" : [ ]
 }

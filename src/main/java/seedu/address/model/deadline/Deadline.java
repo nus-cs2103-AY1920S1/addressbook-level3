@@ -63,9 +63,9 @@ public class Deadline {
      */
     @Override
     public boolean equals(Object other) {
-//        if (other == this) {
-//            return true;
-//        }
+        if (other == this) {
+            return true;
+        }
 
         if (!(other instanceof Deadline)) {
             return false;
