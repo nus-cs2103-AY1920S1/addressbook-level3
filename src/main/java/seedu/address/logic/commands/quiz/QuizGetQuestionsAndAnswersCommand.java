@@ -46,4 +46,5 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
                     + message;
     }
 
+    
 }

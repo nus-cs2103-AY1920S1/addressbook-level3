@@ -84,4 +84,5 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         return this.quizID.equals(e.quizID);
     }
 
+
 }

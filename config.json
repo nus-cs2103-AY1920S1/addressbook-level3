@@ -1,4 +1,5 @@
 {
   "logLevel" : "INFO",
-  "userPrefsFilePath" : "preferences.json"
+  "userPrefsFilePath" : "preferences.json",
+
 }
