@@ -25,7 +25,7 @@ public class BudgetCommand extends UndoableCommand {
             + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "school related expenses "
             + PREFIX_PRICE + "300 "
-            + PREFIX_START_DATE + "10-1 "
+            + PREFIX_START_DATE + "01-10 "
             + PREFIX_PERIOD + "month";
 
     public static final String MESSAGE_SUCCESS = "New budget added:\n %1$s";

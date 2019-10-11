@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Alias;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
@@ -29,6 +30,12 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    private static final String VALID_ALIAS_NAME_1 = "name";
+    private static final String VALID_ALIAS_INPUT_1 = "input";
+    private static final String INVALID_ALIAS_NAME_1 = "";
+    private static final String INVALID_ALIAS_NAME_2 = "@#*j";
+    private static final String INVALID_ALIAS_INPUT_1 = "";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -140,5 +147,39 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    void parseAlias_validInput_returnsAlias() throws Exception {
+        Alias expectedAlias = new Alias(VALID_ALIAS_NAME_1, VALID_ALIAS_INPUT_1);
+
+        assertEquals(ParserUtil.parseAlias(VALID_ALIAS_NAME_1, VALID_ALIAS_INPUT_1), expectedAlias);
+    }
+
+    @Test
+    void parseAlias_invalidInput_throwsParseException() {
+        // non alphanumeric name
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(INVALID_ALIAS_NAME_1, VALID_ALIAS_INPUT_1));
+
+        // space in name
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(
+                VALID_ALIAS_NAME_1 + WHITESPACE + VALID_ALIAS_NAME_1,
+                VALID_ALIAS_INPUT_1));
+
+        // empty name
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(
+                WHITESPACE,
+                VALID_ALIAS_INPUT_1));
+
+        // white space input
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(
+                VALID_ALIAS_NAME_1,
+                WHITESPACE));
+
+        // both invalid
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(
+                INVALID_ALIAS_NAME_2,
+                WHITESPACE));
+
     }
 }

@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Timestamp {
 
     public static final String MESSAGE_CONSTRAINTS_DATE =
-            "Timestamps must be in the format dd-MM";
+            "Timestamps must be in the format dd-MM[-yyyy]";
 
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not week/month/year";
