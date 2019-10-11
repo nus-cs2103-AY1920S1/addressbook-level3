@@ -4,8 +4,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import java.util.HashMap;
-
 /**
  * Represents an add question command, specific to a quiz.
  */
@@ -20,18 +18,18 @@ public class QuizAddQuestionCommand extends QuizCommand {
             + "quizQuestionNumber/ [QUIZ_QUESTION_NUMBER]\n"
             + "Example: quizQuestionNumber/ 2 (Specifies the question number in the quiz to add to)";
 
-    private final String quizID;
+    private final String quizId;
     private final int questionNumber;
     private final int quizQuestionNumber;
 
     /**
      * Creates a QuizAddQuestionCommand instance with the appropriate attributes.
-     * @param quizID The identifier of the quiz.
+     * @param quizId The identifier of the quiz.
      * @param questionNumber The question number in the question bank to be added.
      * @param quizQuestionNumber The quiz question number to be added to.
      */
-    public QuizAddQuestionCommand(String quizID, int questionNumber, int quizQuestionNumber) {
-        this.quizID = quizID;
+    public QuizAddQuestionCommand(String quizId, int questionNumber, int quizQuestionNumber) {
+        this.quizId = quizId;
         this.questionNumber = questionNumber;
         this.quizQuestionNumber = quizQuestionNumber;
     }
@@ -44,7 +42,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.addQuizQuestion(quizID, questionNumber, quizQuestionNumber);
+        model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
         return new CommandResult(generateSuccessMessage());
     }
 
@@ -70,7 +68,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
 
         // state check
         QuizAddQuestionCommand e = (QuizAddQuestionCommand) other;
-        return this.quizID.equals(e.quizID);
+        return this.quizId.equals(e.quizId);
     }
 
 }

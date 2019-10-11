@@ -2,26 +2,26 @@ package seedu.address.logic.parser.quiz;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_MANUAL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_QUESTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_QUESTION_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.quiz.QuizCommand;
-import seedu.address.logic.commands.quiz.QuizGetQuestionsAndAnswersCommand;
-import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizAddQuestionCommand;
+import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
 import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
+import seedu.address.logic.commands.quiz.QuizGetQuestionsAndAnswersCommand;
+import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
+
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

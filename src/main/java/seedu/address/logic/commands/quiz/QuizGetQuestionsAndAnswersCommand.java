@@ -14,14 +14,14 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
             + "quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n";
 
-    private final String quizID;
+    private final String quizId;
 
     /**
      * Creates a QuizGetQuestionsAndAnswersCommand instance with the appropriate attributes.
-     * @param quizID The identifier of the quiz.
+     * @param quizId The identifier of the quiz.
      */
-    public QuizGetQuestionsAndAnswersCommand(String quizID) {
-        this.quizID = quizID;
+    public QuizGetQuestionsAndAnswersCommand(String quizId) {
+        this.quizId = quizId;
     }
 
     /**
@@ -32,7 +32,7 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(generateSuccessMessage(model.getQuestionsAndAnswers(quizID)));
+        return new CommandResult(generateSuccessMessage(model.getQuestionsAndAnswers(quizId)));
     }
 
     /**
@@ -42,7 +42,7 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
      */
     private String generateSuccessMessage(String message) {
         System.out.println(message);
-        return "These are the questions & answers for " + quizID + " "
+        return "These are the questions & answers for " + quizId + " "
                     + message;
     }
 

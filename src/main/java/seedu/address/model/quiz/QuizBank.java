@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class QuizBank {
 
-    ArrayList<Quiz> quizzes;
+    private ArrayList<Quiz> quizzes;
 
     /**
      * Creates a QuizBank instance with the appropriate attributes.
@@ -26,11 +26,11 @@ public class QuizBank {
 
     /**
      * Removes a quiz from a quiz bank.
-     * @param quizID The quiz to be removed from the quiz bank.
+     * @param quizId The quiz to be removed from the quiz bank.
      */
-    public void removeQuiz(String quizID) {
+    public void removeQuiz(String quizId) {
         for(Quiz q : quizzes) {
-            if(q.getQuizID().equals(quizID)) {
+            if(q.getQuizId().equals(quizId)) {
                 quizzes.remove(q);
             }
         }
@@ -38,13 +38,13 @@ public class QuizBank {
 
     /**
      * Returns the quizIndex of a quiz if found, else -1.
-     * @param quizID The quiz identifier of the quiz.
+     * @param quizId The quiz identifier of the quiz.
      * @return The quizIndex of the quiz.
      */
-    public int getQuizIndex(String quizID) {
-        for(int i = 0; i < quizzes.size(); i++) {
+    public int getQuizIndex(String quizId) {
+        for (int i = 0; i < quizzes.size(); i++) {
             Quiz currentQuiz = quizzes.get(i);
-            if(currentQuiz.getQuizID().equals(quizID)) {
+            if (currentQuiz.getQuizId().equals(quizId)) {
                 return i;
             }
         }

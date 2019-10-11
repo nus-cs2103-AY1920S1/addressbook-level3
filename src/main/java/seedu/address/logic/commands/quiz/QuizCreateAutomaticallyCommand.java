@@ -4,8 +4,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import java.util.HashMap;
-
 /**
  * Represents an quiz create command (automatic).
  */
@@ -22,18 +20,18 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
             + "type/ [TYPE: open, mcq, all]\n"
             + "Example: type/ open (Specifies the question type for the quiz)\n\n";
 
-    private final String quizID;
+    private final String quizId;
     private final int numQuestions;
     private final String type;
 
     /**
      * Creates a QuizCreateAutomaticallyCommand instance with the appropriate attributes.
-     * @param quizID The identifier of the quiz.
+     * @param quizId The identifier of the quiz.
      * @param numQuestions The number of questions to add to the quiz.
      * @param type The type of questions to add to the quiz.
      */
-    public QuizCreateAutomaticallyCommand(String quizID, int numQuestions, String type) {
-        this.quizID = quizID;
+    public QuizCreateAutomaticallyCommand(String quizId, int numQuestions, String type) {
+        this.quizId = quizId;
         this.numQuestions = numQuestions;
         this.type = type;
     }
@@ -46,7 +44,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.createQuizAutomatically(quizID, numQuestions, type);
+        model.createQuizAutomatically(quizId, numQuestions, type);
         return new CommandResult(generateSuccessMessage());
     }
 
@@ -55,7 +53,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Created quiz: " + quizID + " with " + numQuestions + " questions.";
+        return "Created quiz: " + quizId + " with " + numQuestions + " questions.";
     }
 
     @Override
@@ -72,7 +70,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
 
         // state check
         QuizCreateAutomaticallyCommand e = (QuizCreateAutomaticallyCommand) other;
-        return this.quizID.equals(e.quizID);
+        return this.quizId.equals(e.quizId);
     }
 
 }

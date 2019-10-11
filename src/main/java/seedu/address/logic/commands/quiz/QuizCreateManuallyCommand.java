@@ -1,11 +1,11 @@
 package seedu.address.logic.commands.quiz;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Represents an quiz create command (manual).
@@ -21,7 +21,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
             + "questionNumber/ [QUESTION_NUMBER]\n"
             + "Example: questionNumber/ 1 3 5 (Adds questions 1, 3 and 5 in the question bank to the quiz)\n\n";
 
-    private final String quizID;
+    private final String quizId;
     private final ArrayList<Integer> questionNumbers;
 
     /**
@@ -29,16 +29,16 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      * @param fields The fields to be edited, including quizID and questions.
      */
     public QuizCreateManuallyCommand(HashMap<String, String> fields) {
-        String quizID = fields.get("quizID");
+        String quizId = fields.get("quizID");
         String questionNumbersKey = fields.get("questionNumbers");
         String[] splitQuestionNumbers = questionNumbersKey.split(" ");
 
         ArrayList<Integer> questionNumbers = new ArrayList<>();
-        for(String s : splitQuestionNumbers) {
+        for (String s : splitQuestionNumbers) {
             questionNumbers.add(Integer.parseInt(s));
         }
 
-        this.quizID = quizID;
+        this.quizId = quizId;
         this.questionNumbers = questionNumbers;
     }
 
@@ -50,7 +50,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.createQuizManually(quizID, questionNumbers);
+        model.createQuizManually(quizId, questionNumbers);
         return new CommandResult(generateSuccessMessage());
     }
 
@@ -61,9 +61,9 @@ public class QuizCreateManuallyCommand extends QuizCommand {
     private String generateSuccessMessage() {
         int numQuestions = questionNumbers.size();
         if(numQuestions == 1) {
-            return "Created quiz: " + quizID + " with " + numQuestions + " question.";
+            return "Created quiz: " + quizId + " with " + numQuestions + " question.";
         } else {
-            return "Created quiz: " + quizID + " with " + questionNumbers.size() + " questions.";
+            return "Created quiz: " + quizId + " with " + questionNumbers.size() + " questions.";
         }
     }
 
@@ -81,7 +81,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
 
         // state check
         QuizCreateManuallyCommand e = (QuizCreateManuallyCommand) other;
-        return this.quizID.equals(e.quizID);
+        return this.quizId.equals(e.quizId);
     }
 
 }

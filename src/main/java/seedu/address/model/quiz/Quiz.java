@@ -1,24 +1,24 @@
 package seedu.address.model.quiz;
 
+import java.util.ArrayList;
+
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
-
-import java.util.ArrayList;
 
 /**
  * Represents a quiz, including a question list and an answer list.
  */
 public class Quiz {
 
-    private String quizID;
+    private String quizId;
     private QuestionList questionList;
 
     /**
      * Creates a Quiz instance with the appropriate attributes.
-     * @param quizID The identifier of the quiz, in String representation.
+     * @param quizId The identifier of the quiz, in String representation.
      */
-    public Quiz(String quizID) {
-        this.quizID = quizID;
+    public Quiz(String quizId) {
+        this.quizId = quizId;
         this.questionList = new QuestionList();
     }
 
@@ -26,8 +26,8 @@ public class Quiz {
      * Returns a String representation of the quiz identifier.
      * @return The String representation of the quiz identifier.
      */
-    public String getQuizID() {
-        return quizID;
+    public String getQuizId() {
+        return quizId;
     }
 
     /**
@@ -64,16 +64,16 @@ public class Quiz {
      */
     public String getFormattedQuestions() {
         ArrayList<Question> questions = questionList.getQuestions();
-        String formattedQuestions = quizID + "\n";
+        String formattedQuestions = quizId + "\n";
 
         int listSize = questions.size();
-        for(int i = 0; i < listSize; i++) {
+        for (int i = 0; i < listSize; i++) {
             int questionNumber = i + 1;
             Question question = questions.get(i);
             String questionText = question.getQuestion();
             formattedQuestions += questionNumber + ". " + questionText + "\n";
 
-            if(isMcqQuestion(question)) {
+            if (isMcqQuestion(question)) {
                 McqQuestion mcqQuestion = (McqQuestion) question;
                 formattedQuestions += "A. " + mcqQuestion.getOptionA() + "\n";
                 formattedQuestions += "B. " + mcqQuestion.getOptionB() + "\n";
@@ -93,10 +93,10 @@ public class Quiz {
      */
     public String getFormattedAnswers() {
         ArrayList<String> answers = questionList.getAnswers();
-        String formattedAnswers = quizID + " Answers (Only for teachers!)\n";
+        String formattedAnswers = quizId + " Answers (Only for teachers!)\n";
 
         int listSize = answers.size();
-        for(int i = 0; i < listSize; i++) {
+        for (int i = 0; i < listSize; i++) {
             int questionNumber = i + 1;
             String answer = answers.get(i);
             formattedAnswers += questionNumber + ". " + answer + "\n";

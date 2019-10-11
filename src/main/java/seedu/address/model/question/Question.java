@@ -62,11 +62,11 @@ public abstract class Question {
 
     @Override
     public boolean equals(Object o) {
-        if(o == this) {
+        if (o == this) {
             return true;
         }
 
-        if(!(o instanceof Question)) {
+        if (!(o instanceof Question)) {
             return false;
         }
 

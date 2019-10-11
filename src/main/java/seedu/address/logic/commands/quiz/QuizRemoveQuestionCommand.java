@@ -16,16 +16,16 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
             + "quizQuestionNumber/ [QUIZ_QUESTION_NUMBER]\n"
             + "Example: quizQuestionNumber/ 2 (Specifies the question number in the quiz to remove)";
 
-    private final String quizID;
+    private final String quizId;
     private final int quizQuestionNumber;
 
     /**
      * Creates a QuizRemoveQuestionCommand instance with the appropriate attributes.
-     * @param quizID The identifier of the quiz.
+     * @param quizId The identifier of the quiz.
      * @param quizQuestionNumber The question number of the quiz to be removed.
      */
-    public QuizRemoveQuestionCommand(String quizID, int quizQuestionNumber) {
-        this.quizID = quizID;
+    public QuizRemoveQuestionCommand(String quizId, int quizQuestionNumber) {
+        this.quizId = quizId;
         this.quizQuestionNumber = quizQuestionNumber;
     }
 
@@ -37,7 +37,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.removeQuizQuestion(quizID, quizQuestionNumber);
+        model.removeQuizQuestion(quizId, quizQuestionNumber);
         return new CommandResult(generateSuccessMessage());
     }
 
@@ -46,7 +46,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Removed question: " + quizQuestionNumber + " from quiz: " + quizID;
+        return "Removed question: " + quizQuestionNumber + " from quiz: " + quizId;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
 
         // state check
         QuizRemoveQuestionCommand e = (QuizRemoveQuestionCommand) other;
-        return this.quizID.equals(e.quizID);
+        return this.quizId.equals(e.quizId);
     }
 
 }

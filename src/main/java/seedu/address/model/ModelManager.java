@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
-import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionBank;
 import seedu.address.model.quiz.Quiz;
@@ -167,15 +166,15 @@ public class ModelManager implements Model {
     //=========== Quizzes ================================================================================
 
     @Override
-    public void createQuizManually(String quizID, ArrayList<Integer> questionNumbers) {
-        Quiz quiz = new Quiz(quizID);
+    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+        Quiz quiz = new Quiz(quizId);
 
         ArrayList<Question> questions = new ArrayList<>();
         for(Integer i : questionNumbers) {
             questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
         }
 
-        for(Question q : questions) {
+        for (Question q : questions) {
             quiz.addQuestion(q);
         }
 
@@ -183,24 +182,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void createQuizAutomatically(String quizID, int numQuestions, String type) {
-        Quiz quiz = new Quiz(quizID);
+    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
+        Quiz quiz = new Quiz(quizId);
 
         ArrayList<Question> relevantQuestions = new ArrayList<>();
         switch (type) {
         case "mcq":
             relevantQuestions = questionBank.getMCQQuestions();
+            break;
         case "open":
             relevantQuestions = questionBank.getOpenEndedQuestions();
+            break;
         case "all":
             relevantQuestions = questionBank.getAllQuestions();
+            break;
         default:
             break;
         }
 
         int listSize = relevantQuestions.size();
 
-        if(listSize > numQuestions) {
+        if (listSize > numQuestions) {
             for (int i = 0; i < numQuestions; i++) {
                 int randomQuestionIndex = getRandomQuestionIndex(listSize);
                 Question randomQuestion = relevantQuestions.get(randomQuestionIndex);
@@ -221,12 +223,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addQuizQuestion(String quizID, int questionNumber, int quizQuestionNumber) {
+    public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
         int questionIndex = questionNumber - 1;
         Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
 
-        int quizIndex = quizBank.getQuizIndex(quizID);
-        if(quizIndex != -1) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             return quiz.addQuestion(quizQuestionNumber, question);
         }
@@ -234,20 +236,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeQuizQuestion(String quizID, int questionNumber) {
-        int quizIndex = quizBank.getQuizIndex(quizID);
-        if(quizIndex != -1) {
+    public void removeQuizQuestion(String quizId, int questionNumber) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             quiz.removeQuestion(questionNumber);
         }
     }
 
     @Override
-    public String getQuestionsAndAnswers(String quizID) {
+    public String getQuestionsAndAnswers(String quizId) {
         String questions = "";
         String answers = "";
-        int quizIndex = quizBank.getQuizIndex(quizID);
-        if(quizIndex != -1) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             questions = quiz.getFormattedQuestions();
             answers = quiz.getFormattedAnswers();

@@ -24,7 +24,7 @@ public class QuestionBank {
      * @param question to add to the list.
      */
     public void addQuestion(Question question) {
-        if(!isRepeated(question)) {
+        if (!isRepeated(question)) {
             this.questions.add(question);
         }
         // TODO: Implement check if duplicated question AND answer is entered
@@ -74,8 +74,8 @@ public class QuestionBank {
      */
     public ArrayList<Question> getMCQQuestions() {
         ArrayList<Question> mcqQuestions = new ArrayList<>();
-        for(Question q : questions) {
-            if(q instanceof McqQuestion) {
+        for (Question q : questions) {
+            if (q instanceof McqQuestion) {
                 mcqQuestions.add(q);
             }
         }
@@ -88,8 +88,8 @@ public class QuestionBank {
      */
     public ArrayList<Question> getOpenEndedQuestions() {
         ArrayList<Question> openEndedQuestions = new ArrayList<>();
-        for(Question q : questions) {
-            if(q instanceof OpenEndedQuestion) {
+        for (Question q : questions) {
+            if (q instanceof OpenEndedQuestion) {
                 openEndedQuestions.add(q);
             }
         }
@@ -116,11 +116,16 @@ public class QuestionBank {
         return summary;
     }
 
+    /**
+     * Returns true if a question has been repeated, else false.
+     * @param question The question to be checked.
+     * @return True if the question has been repeated, else false.
+     */
     private boolean isRepeated(Question question) {
         String otherQuestion = question.question;
-        for(Question q : questions) {
+        for (Question q : questions) {
             String currentQuestion = q.question;
-            if(currentQuestion.equals(otherQuestion)) {
+            if (currentQuestion.equals(otherQuestion)) {
                 return true;
             }
         }

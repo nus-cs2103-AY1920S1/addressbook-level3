@@ -123,30 +123,30 @@ public interface Model {
     /**
      * Creates a quiz manually.
      */
-    void createQuizManually(String quizID, ArrayList<Integer> questionNumbers);
+    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
 
     /**
      * Creates a quiz automatically.
      */
-    void createQuizAutomatically(String quizID, int numQuestions, String type);
+    void createQuizAutomatically(String quizId, int numQuestions, String type);
 
     /**
      * Adds a question to a quiz.
-     * {@code quizID} Must already exist in the quiz bank.
+     * {@code quizId} Must already exist in the quiz bank.
      * {@code questionNumber} Must already exist in the question bank.
      * {@code quizQuestionNumber} Must already exist in the quiz.
      */
-    boolean addQuizQuestion(String quizID, int questionNumber, int quizQuestionNumber);
+    boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber);
 
     /**
      * Removes a question from a quiz.
      */
-    void removeQuizQuestion(String quizID, int questionNumber);
+    void removeQuizQuestion(String quizId, int questionNumber);
 
     /**
      * Returns a quiz's questions and answers, for testing purposes.
      */
-    String getQuestionsAndAnswers(String quizID);
+    String getQuestionsAndAnswers(String quizId);
 
     //=========== Notes ================================================================================
 

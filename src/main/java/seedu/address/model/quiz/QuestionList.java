@@ -1,8 +1,8 @@
 package seedu.address.model.quiz;
 
-import seedu.address.model.question.Question;
-
 import java.util.ArrayList;
+
+import seedu.address.model.question.Question;
 
 /**
  * Represents a question list for a quiz.
@@ -24,7 +24,7 @@ public class QuestionList {
      * @return True if the question is not a repeat, else false.
      */
     public boolean addQuestion(Question question) {
-        if(!isRepeated(question)) {
+        if (!isRepeated(question)) {
             questions.add(question);
             return true;
         }
@@ -39,7 +39,7 @@ public class QuestionList {
      */
     public boolean addQuestion(int questionNumber, Question question) {
         int questionIndex = questionNumber - 1;
-        if(!isRepeated(question)) {
+        if (!isRepeated(question)) {
             questions.add(questionIndex, question);
             return true;
         }
@@ -71,7 +71,7 @@ public class QuestionList {
      */
     public ArrayList<String> getAnswers() {
         ArrayList<String> answers = new ArrayList<>();
-        for(Question q : questions) {
+        for (Question q : questions) {
             answers.add(q.getAnswer());
         }
         return answers;
@@ -84,9 +84,9 @@ public class QuestionList {
      */
     private boolean isRepeated(Question question) {
         String otherQuestion = question.getQuestion();
-        for(Question q : questions) {
+        for (Question q : questions) {
             String currentQuestion = q.getQuestion();
-            if(currentQuestion.equals(otherQuestion)) {
+            if (currentQuestion.equals(otherQuestion)) {
                 return true;
             }
         }
