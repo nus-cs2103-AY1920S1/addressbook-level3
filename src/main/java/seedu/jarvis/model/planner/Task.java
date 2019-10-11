@@ -3,7 +3,7 @@ package seedu.jarvis.model.planner;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.jarvis.model.tag.Tag;
+import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * Represents a task object in JARVIS
