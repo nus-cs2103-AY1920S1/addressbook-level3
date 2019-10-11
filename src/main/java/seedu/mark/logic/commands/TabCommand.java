@@ -16,12 +16,14 @@ public class TabCommand extends Command {
 
     public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab %1$s.";
     public static final String MESSAGE_INVALID_INDEX = "Tab index should be 1, 2, or 3.";
+    public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Switches view to the tab identified by the given index. "
             + "The dashboard tab is index 1, the online tab is index 2, and the offline tab is index 3.\n"
             + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1 \n"
+            + "Alternatively, use 'tab dash', 'tab on' or 'tab off', respectively.";
 
     private final Tab tab;
 

@@ -94,7 +94,7 @@ public class ParserUtil {
      * @return The corresponding tab
      * @throws ParseException if the given {@code arg} is invalid.
      */
-    public static TabCommand.Tab parseTab(String arg) throws ParseException {
+    public static TabCommand.Tab parseTabIndex(String arg) throws ParseException {
         Index index = null;
         try {
             index = ParserUtil.parseIndex(arg);
@@ -126,6 +126,34 @@ public class ParserUtil {
             break;
         default:
             throw new ParseException(TabCommand.MESSAGE_INVALID_INDEX);
+        }
+
+        return type;
+    }
+
+    /**
+     * Parses a {@code String arg} into a {@code Tab}.
+     * Parsing will be successful only if {@code arg} is either "dash", "on" or "off".
+     *
+     * @param arg The argument of a tab command
+     * @return The corresponding tab
+     * @throws ParseException if the given {@code arg} is invalid.
+     */
+    public static TabCommand.Tab parseTabKeyword(String arg) throws ParseException {
+        TabCommand.Tab type = null;
+
+        switch (arg.toLowerCase().strip()) {
+        case "dash":
+            type = TabCommand.Tab.DASHBOARD;
+            break;
+        case "on":
+            type = TabCommand.Tab.ONLINE;
+            break;
+        case "off":
+            type = TabCommand.Tab.OFFLINE;
+            break;
+        default:
+            throw new ParseException(TabCommand.MESSAGE_INVALID_KEYWORD);
         }
 
         return type;

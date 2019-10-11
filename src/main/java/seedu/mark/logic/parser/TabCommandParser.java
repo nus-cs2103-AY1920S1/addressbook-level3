@@ -19,9 +19,15 @@ public class TabCommandParser implements Parser<TabCommand> {
         requireNonNull(args);
         TabCommand.Tab tab;
         try {
-            tab = ParserUtil.parseTab(args);
-        } catch (ParseException pe) {
-            throw pe;
+            tab = ParserUtil.parseTabIndex(args);
+        } catch (ParseException pe_index) {
+
+            try {
+                tab = ParserUtil.parseTabKeyword(args);
+            } catch (ParseException pe_kw) {
+                throw pe_index;
+            }
+
         }
 
         return new TabCommand(tab);
