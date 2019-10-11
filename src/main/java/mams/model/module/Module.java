@@ -5,7 +5,6 @@ import java.util.Objects;
 import mams.commons.util.CollectionUtil;
 import mams.model.student.Student;
 
-
 /**
  * Represents a Module in MAMS.
  */
@@ -40,10 +39,6 @@ public class Module {
      */
     private final int[] timeSlot;
     private final Student[] students = null; // to be added
-
-
-
-
 
     /**
      * Every field must be present and not null.
