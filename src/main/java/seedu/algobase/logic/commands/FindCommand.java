@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
@@ -13,6 +14,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
+import seedu.algobase.model.problem.DifficultyIsInRangePredicate;
 import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
@@ -32,6 +34,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
+            + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_AUTHOR + "Tung Kam Chuen";
@@ -43,6 +46,7 @@ public class FindCommand extends Command {
                        AuthorMatchesKeywordPredicate authorPredicate,
                        DescriptionContainsKeywordsPredicate descriptionPredicate,
                        SourceMatchesKeywordPredicate sourcePredicate,
+                       DifficultyIsInRangePredicate difficultyPredicate,
                        TagIncludesKeywordsPredicate tagPredicate) {
         predicate = problem -> {
             boolean result = true;
@@ -57,6 +61,9 @@ public class FindCommand extends Command {
             }
             if (sourcePredicate != null) {
                 result = result && sourcePredicate.test(problem);
+            }
+            if (difficultyPredicate != null) {
+                result = result && difficultyPredicate.test(problem);
             }
             if (tagPredicate != null) {
                 result = result && tagPredicate.test(problem);

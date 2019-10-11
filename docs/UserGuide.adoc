@@ -93,7 +93,7 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 ==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
-Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [t/TAG]...`
+Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
 * Name
 ** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
@@ -109,6 +109,9 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [t/TAG]...`
 ** Constraints are separated by spaces. (e.g. `find t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
 ** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
 ** Tags are considered equal only when the tag strings are exactly matched.
+* Difficulty
+** matches problems with `LOWER_BOUND <= difficulty <= UPPER_BOUND`
+** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
 
 Examples:
 
