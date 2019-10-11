@@ -31,7 +31,7 @@ import seedu.address.testutil.TaskUtil;
 
 public class ProjectDashboardParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ProjectDasboardParser parser = new ProjectDasboardParser();
 
     @Test
     public void parseCommand_add() throws Exception {
