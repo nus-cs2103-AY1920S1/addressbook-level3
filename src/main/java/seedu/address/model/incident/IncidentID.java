@@ -8,11 +8,11 @@ package seedu.address.model.incident;
  */
 
 public class IncidentId {
-    private static int previousM= 0;
+    private static int previousM = 0;
     private static int xxxx = 0;
     private int mm;
     private int yyyy;
-    private String ID;
+    private String id;
 
     /**
      * Generates the ID for the incident based on the following inputs
@@ -30,10 +30,10 @@ public class IncidentId {
         this.mm = mm;
         this.yyyy = yyyy;
         int temp = mm * 100000000 + yyyy * 1000 + xxxx;
-        this.ID = String.format("%10d", temp);
+        this.id = String.format("%10d", temp);
     }
 
     public String getId() {
-        return this.ID;
+        return this.id;
     }
 }

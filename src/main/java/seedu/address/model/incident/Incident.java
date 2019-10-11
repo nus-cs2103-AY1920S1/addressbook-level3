@@ -15,7 +15,7 @@ public class Incident {
     private Person operator;
     private LocalDateTime dateTime;
     private Vehicle car;
-    private IncidentID id;
+    private IncidentId id;
 
     //needs to be entered by operator
     private Description incidentDesc;
@@ -31,7 +31,7 @@ public class Incident {
     public Incident(String caller) {
         //this.operator = autofilled on sign in
         this.dateTime = LocalDateTime.now();
-        this.id = new IncidentID(dateTime.getMonthValue(), dateTime.getYear());
+        this.id = new IncidentId(dateTime.getMonthValue(), dateTime.getYear());
         this.incidentDesc = promptForDescription();
         this.location = promptForLocation();
         this.callerNumber = caller;
@@ -62,7 +62,7 @@ public class Incident {
         System.out.println("Enter incident description now? y/n"); //change to GUI
         Scanner sc = new Scanner(System.in); //change to GUI
         String desc = "";
-        if(sc.next().equals("y")) {
+        if (sc.next().equals("y")) {
             System.out.println("Please enter description:");
             desc = sc.nextLine();
         }
