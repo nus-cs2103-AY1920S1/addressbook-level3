@@ -18,6 +18,7 @@ public class Amount {
     public static final String DOLLARS_REGEX = "([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally
     public final String value;
+    public final long cents;
 
     /**
      * Constructs a {@code Amount}.
