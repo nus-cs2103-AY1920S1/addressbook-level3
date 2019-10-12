@@ -54,9 +54,9 @@ public class Schedule {
     public String getCalendarString() {
         StringBuilder sb = new StringBuilder();
         sb.append(calendar.get(Calendar.YEAR) + ".")
-                .append(calendar.get(Calendar.MONTH) + ".")
-                .append(calendar.get(Calendar.DAY_OF_MONTH) + " ")
-                .append(calendar.get(Calendar.HOUR_OF_DAY) + ":")
+                .append(String.format("%02d", calendar.get(Calendar.MONTH) + "."))
+                .append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH) + " "))
+                .append(String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY) + ":"))
                 .append(String.format("%02d", calendar.get(Calendar.MINUTE)));
         return sb.toString();
     }

@@ -34,7 +34,7 @@ public class EditScheduleCommand extends Command {
     public static final String COMMAND_WORD = "edit-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the schedule identified "
-            + "by the order index number used in the displayed order list. "
+            + "by the schedule's order index number in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CALENDAR + "CALENDAR] "
@@ -159,7 +159,6 @@ public class EditScheduleCommand extends Command {
      * corresponding field value of the schedule.
      */
     public static class EditScheduleDescriptor {
-        private UUID id;
         private Calendar calendar;
         private Venue venue;
         private Set<Tag> tags;
@@ -171,7 +170,6 @@ public class EditScheduleCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditScheduleDescriptor(EditScheduleDescriptor toCopy) {
-            setId(toCopy.id);
             setCalendar(toCopy.calendar);
             setVenue(toCopy.venue);
             setTags(toCopy.tags);
@@ -182,10 +180,6 @@ public class EditScheduleCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(calendar, venue, tags);
-        }
-
-        public void setId(UUID id) {
-            this.id = id;
         }
 
         public void setCalendar(Calendar calendar) {
