@@ -1,14 +1,16 @@
 package seedu.jarvis.logic.parser.course;
 
-import org.junit.jupiter.api.Test;
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-import seedu.jarvis.commons.util.CourseUtil;
-import seedu.jarvis.logic.commands.course.LookUpCommand;
-
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.commons.exceptions.CourseNotFoundException;
+import seedu.jarvis.commons.util.CourseUtil;
+import seedu.jarvis.logic.commands.course.LookUpCommand;
+
 
 public class LookUpCommandParserTest {
 
@@ -31,6 +33,7 @@ public class LookUpCommandParserTest {
             assertParseSuccess(parser, "  " + PREFIX_COURSE + "\n \t" + "CS3230" + "\t",
                     expectedLookUpCommand);
         } catch (CourseNotFoundException e) {
+            // "CS3230" will succeed as long as the .json file exists
         }
     }
 }
