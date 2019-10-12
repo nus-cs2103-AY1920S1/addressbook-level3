@@ -28,11 +28,6 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="orderId" styleClass="cell_small_label" text="\$orderId" />
-            <Label fx:id="customerName" styleClass="cell_small_label" text="\$customerName" />
-            <Label fx:id="phoneName" styleClass="cell_small_label" text="\$phoneName" />
-            <Label fx:id="phoneColour" styleClass="cell_small_label" text="\$phoneColour" />
-            <Label fx:id="phoneCapacity" styleClass="cell_small_label" text="\$phoneCapacity" />
             <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
             <Label fx:id="venue" styleClass="cell_small_label" text="\$venue" />
         </VBox>

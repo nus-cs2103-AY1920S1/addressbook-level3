@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -35,10 +36,7 @@ public class AddScheduleCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists in SML.";
-    public static final String MESSAGE_ORDER_DOES_NOT_EXIST = "This order does not exists in SML.";
-    public static final String MESSAGE_ORDER_SCHEDULED = "This order is already scheduled in SML.";
-    public static final String MESSAGE_ORDER_CANCELLED = "This order is already cancelled in SML.";
-    public static final String MESSAGE_ORDER_COMPLETED = "This order is already completed in SML.";
+
 
     private final Schedule toAdd;
     private final Index orderIndex;
@@ -62,17 +60,17 @@ public class AddScheduleCommand extends Command {
         if (model.hasSchedule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         } else if (orderIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_ORDER_DOES_NOT_EXIST);
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
         Order orderToSchedule = lastShownList.get(orderIndex.getZeroBased());
         switch (orderToSchedule.getStatus()) {
         case SCHEDULED:
-            throw new CommandException(MESSAGE_ORDER_SCHEDULED);
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED);
         case COMPLETED:
-            throw new CommandException(MESSAGE_ORDER_COMPLETED);
+            throw new CommandException(Messages.MESSAGE_ORDER_COMPLETED);
         case CANCELLED:
-            throw new CommandException(MESSAGE_ORDER_CANCELLED);
+            throw new CommandException(Messages.MESSAGE_ORDER_CANCELLED);
         default:
             // do nothing
          }

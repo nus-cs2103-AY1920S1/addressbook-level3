@@ -51,13 +51,13 @@ public class Schedule {
     /**
      * Return a formatted String of the Calendar Object.
      */
-    private String getCalendarString() {
+    public String getCalendarString() {
         StringBuilder sb = new StringBuilder();
         sb.append(calendar.get(Calendar.YEAR) + ".")
                 .append(calendar.get(Calendar.MONTH) + ".")
                 .append(calendar.get(Calendar.DAY_OF_MONTH) + " ")
                 .append(calendar.get(Calendar.HOUR_OF_DAY) + ":")
-                .append(calendar.get(Calendar.MINUTE));
+                .append(String.format("%02d", calendar.get(Calendar.MINUTE)));
         return sb.toString();
     }
 
