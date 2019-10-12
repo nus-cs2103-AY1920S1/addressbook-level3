@@ -12,7 +12,7 @@ import seedu.billboard.commons.exceptions.DataConversionException;
 import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.commons.util.FileUtil;
 import seedu.billboard.commons.util.JsonUtil;
-import seedu.billboard.model.ReadOnlyBillboard;
+import seedu.billboard.model.ReadOnlyArchives;
 
 /**
  * A class to access Archive data stored as a json file on the hard disk.
@@ -30,7 +30,7 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
     }
 
     @Override
-    public Optional<ReadOnlyBillboard> readArchive() throws DataConversionException {
+    public Optional<ReadOnlyArchives> readArchive() throws DataConversionException {
         return readArchive(getFilePath());
     }
 
@@ -40,7 +40,7 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyBillboard> readArchive(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyArchives> readArchive(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBillboard> jsonArchive = JsonUtil.readJsonFile(
@@ -58,16 +58,16 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
     }
 
     @Override
-    public void saveArchive(ReadOnlyBillboard archive) throws IOException {
+    public void saveArchive(ReadOnlyArchives archive) throws IOException {
         saveArchive(archive, getFilePath());
     }
 
     /**
-     * Similar to {@link #saveArchive(ReadOnlyBillboard)}.
+     * Similar to {@link #saveArchive(ReadOnlyArchives)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveArchive(ReadOnlyBillboard archive, Path filePath) throws IOException {
+    public void saveArchive(ReadOnlyArchives archive, Path filePath) throws IOException {
         requireNonNull(archive);
         requireNonNull(filePath);
 

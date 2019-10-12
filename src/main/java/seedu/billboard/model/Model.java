@@ -102,39 +102,41 @@ public interface Model {
     /**
      * Replaces archive data with the data in {@code billboard}.
      */
-    void setArchiveExpenses(ReadOnlyBillboard archiveExpenses);
+    void setArchiveExpenses(ReadOnlyArchives archiveExpenses);
 
     /** Returns the archive */
-    ReadOnlyBillboard getArchiveExpenses();
+    ReadOnlyArchives getArchiveExpenses();
 
     /**
-     * Returns true if an expense with the same identity as {@code expense} exists in the archive.
+     * Returns true if an expense with the same identity as {@code expense} exists in the given archive.
      */
-    boolean hasArchiveExpense(Expense expense);
+    boolean hasArchiveExpense(String archiveName, Expense expense);
 
     /**
-     * Deletes the given expense.
-     * The expense must exist in the archive.
+     * Deletes the given expense in the given archive.
+     * The given {@code archiveName} must exist.
      */
-    void deleteArchiveExpense(Expense target);
+    void deleteArchiveExpense(String archiveName, Expense target);
 
     /**
-     * Adds the given expense.
+     * Adds the given expense into the given archive.
+     * The given {@code archiveName} must exist.
      */
-    void addArchiveExpense(Expense expense);
+    void addArchiveExpense(String archiveName, Expense expense);
 
     /**
-     * Replaces the given expense {@code target} with {@code editedExpense}.
+     * Replaces the given expense {@code target} with {@code editedExpense} in the given archive.
+     * The given {@code archiveName} must exist.
      * {@code target} must exist in the archive.
      */
-    void setArchiveExpense(Expense target, Expense editedExpense);
+    void setArchiveExpense(String archiveName, Expense target, Expense editedExpense);
 
     /** Returns an unmodifiable view of the filtered archive expense list */
-    ObservableList<Expense> getFilteredArchiveExpenses();
+    ObservableList<Expense> getFilteredArchiveExpenses(String archiveName);
 
     /**
      * Updates the filter of the filtered archive expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredArchiveExpenses(Predicate<Expense> predicate);
+    void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate);
 }

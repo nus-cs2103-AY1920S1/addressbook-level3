@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,15 +22,15 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Billboard billboardExpenses;
-    private final Billboard archiveExpenses;
+    private final Archives archiveExpenses;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpense;
-    private final FilteredList<Expense> filteredArchiveExpense;
+    private final HashMap<String, FilteredList<Expense>> filteredArchives;
 
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
      */
-    public ModelManager(ReadOnlyBillboard billboardExpenses, ReadOnlyBillboard archiveExpenses, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBillboard billboardExpenses, ReadOnlyArchives archiveExpenses, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(billboardExpenses, archiveExpenses, userPrefs);
 
@@ -36,14 +38,20 @@ public class ModelManager implements Model {
                  + " and user prefs " + userPrefs);
 
         this.billboardExpenses = new Billboard(billboardExpenses);
-        this.archiveExpenses = new Billboard(archiveExpenses);
+        this.archiveExpenses = new Archives(archiveExpenses);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExpense = new FilteredList<>(this.billboardExpenses.getExpenses());
-        filteredArchiveExpense = new FilteredList<>(this.archiveExpenses.getExpenses());
+
+        filteredArchives = new HashMap<>();
+        Set<String> archiveNames = this.archiveExpenses.getArchiveNames();
+        for (String archiveName : archiveNames) {
+            filteredArchives.put(archiveName,
+                    new FilteredList<>(this.archiveExpenses.getArchiveExpenses(archiveName)));
+        }
     }
 
     public ModelManager() {
-        this(new Billboard(), new Billboard(), new UserPrefs());
+        this(new Billboard(), new Archives(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -130,36 +138,36 @@ public class ModelManager implements Model {
     //=========== Archive ================================================================================
 
     @Override
-    public void setArchiveExpenses(ReadOnlyBillboard archiveExpenses) {
+    public void setArchiveExpenses(ReadOnlyArchives archiveExpenses) {
         this.archiveExpenses.resetData(archiveExpenses);
     }
 
     @Override
-    public ReadOnlyBillboard getArchiveExpenses() {
+    public ReadOnlyArchives getArchiveExpenses() {
         return archiveExpenses;
     }
 
     @Override
-    public boolean hasArchiveExpense(Expense expense) {
-        requireNonNull(expense);
-        return archiveExpenses.hasExpense(expense);
+    public boolean hasArchiveExpense(String archiveName, Expense expense) {
+        requireAllNonNull(archiveName, expense);
+        return archiveExpenses.hasArchiveExpense(archiveName, expense);
     }
 
     @Override
-    public void deleteArchiveExpense(Expense target) {
-        archiveExpenses.removeExpense(target);
+    public void deleteArchiveExpense(String archiveName, Expense target) {
+        archiveExpenses.removeArchiveExpense(archiveName, target);
     }
 
     @Override
-    public void addArchiveExpense(Expense expense) {
-        archiveExpenses.addExpense(expense);
-        updateFilteredArchiveExpenses(PREDICATE_SHOW_ALL_EXPENSES);
+    public void addArchiveExpense(String archiveName, Expense expense) {
+        archiveExpenses.addArchiveExpense(archiveName, expense);
+        updateFilteredArchiveExpenses(archiveName, PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
-    public void setArchiveExpense(Expense target, Expense editedExpense) {
-        requireAllNonNull(target, editedExpense);
-        archiveExpenses.setExpense(target, editedExpense);
+    public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
+        requireAllNonNull(archiveName, target, editedExpense);
+        archiveExpenses.setArchiveExpense(archiveName, target, editedExpense);
     }
 
 
@@ -181,14 +189,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Expense> getFilteredArchiveExpenses() {
-        return filteredArchiveExpense;
+    public ObservableList<Expense> getFilteredArchiveExpenses(String archiveName) {
+        return filteredArchives.get(archiveName);
     }
 
     @Override
-    public void updateFilteredArchiveExpenses(Predicate<Expense> predicate) {
+    public void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate) {
         requireNonNull(predicate);
-        filteredArchiveExpense.setPredicate(predicate);
+        filteredArchives.get(archiveName).setPredicate(predicate);
     }
 
     @Override
@@ -209,7 +217,7 @@ public class ModelManager implements Model {
                 && archiveExpenses.equals(other.archiveExpenses)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpense.equals(other.filteredExpense)
-                && filteredArchiveExpense.equals(other.filteredArchiveExpense);
+                && filteredArchives.equals(other.filteredArchives);
     }
 
 }

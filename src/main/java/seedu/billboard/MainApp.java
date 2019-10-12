@@ -15,12 +15,7 @@ import seedu.billboard.commons.util.ConfigUtil;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.Logic;
 import seedu.billboard.logic.LogicManager;
-import seedu.billboard.model.Billboard;
-import seedu.billboard.model.Model;
-import seedu.billboard.model.ModelManager;
-import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.ReadOnlyUserPrefs;
-import seedu.billboard.model.UserPrefs;
+import seedu.billboard.model.*;
 import seedu.billboard.model.util.SampleDataUtil;
 import seedu.billboard.storage.*;
 import seedu.billboard.ui.Ui;
@@ -88,8 +83,8 @@ public class MainApp extends Application {
             initialData = new Billboard();
         }
 
-        Optional<ReadOnlyBillboard> archiveOptional;
-        ReadOnlyBillboard initialArchiveData;
+        Optional<ReadOnlyArchives> archiveOptional;
+        ReadOnlyArchives initialArchiveData;
         try {
             archiveOptional = storage.readArchive();
             if (archiveOptional.isEmpty()) {
@@ -98,10 +93,10 @@ public class MainApp extends Application {
             initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleBillboard);
         } catch (DataConversionException e) {
             logger.warning("Archive file not in the correct format. Will be starting with an empty archive");
-            initialArchiveData = new Billboard();
+            initialArchiveData = new Archives();
         } catch (IOException e) {
             logger.warning("Problem while reading from the archive file. Will be starting with an empty archive");
-            initialArchiveData = new Billboard();
+            initialArchiveData = new Archives();
         }
 
         return new ModelManager(initialData, initialArchiveData, userPrefs);

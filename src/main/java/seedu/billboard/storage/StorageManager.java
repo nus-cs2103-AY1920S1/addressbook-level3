@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.exceptions.DataConversionException;
+import seedu.billboard.model.ReadOnlyArchives;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.UserPrefs;
@@ -84,23 +85,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyBillboard> readArchive() throws DataConversionException, IOException {
+    public Optional<ReadOnlyArchives> readArchive() throws DataConversionException, IOException {
         return readArchive(archiveStorage.getArchiveFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBillboard> readArchive(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyArchives> readArchive(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from archive file: " + filePath);
         return archiveStorage.readArchive(filePath);
     }
 
     @Override
-    public void saveArchive(ReadOnlyBillboard archive) throws IOException {
-        saveBillboard(archive, archiveStorage.getArchiveFilePath());
+    public void saveArchive(ReadOnlyArchives archive) throws IOException {
+        saveArchive(archive, archiveStorage.getArchiveFilePath());
     }
 
     @Override
-    public void saveArchive(ReadOnlyBillboard archive, Path filePath) throws IOException {
+    public void saveArchive(ReadOnlyArchives archive, Path filePath) throws IOException {
         logger.fine("Attempting to write to archive file: " + filePath);
         archiveStorage.saveArchive(archive, filePath);
     }
