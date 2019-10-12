@@ -2,7 +2,7 @@ package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.calendar.AddressCalendarBook;
+import seedu.address.model.calendar.AddressBook;
 import seedu.address.model.calendar.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressCalendarBook());
+        model.setAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -17,14 +17,14 @@ import seedu.address.model.calendar.UserPrefs;
 /**
  * Manages storage of AddressBook data in local storage.
  */
-public class StorageCalendarManager implements Storage {
+public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageCalendarManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageCalendarManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;

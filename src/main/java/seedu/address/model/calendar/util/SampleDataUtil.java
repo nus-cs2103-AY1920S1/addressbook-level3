@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.calendar.AddressCalendarBook;
+import seedu.address.model.calendar.AddressBook;
 import seedu.address.model.calendar.ReadOnlyAddressBook;
 import seedu.address.model.calendar.person.Address;
 import seedu.address.model.calendar.person.Email;
@@ -41,7 +41,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressCalendarBook sampleAb = new AddressCalendarBook();
+        AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

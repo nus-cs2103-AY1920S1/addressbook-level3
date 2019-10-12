@@ -17,17 +17,17 @@ import seedu.address.logic.calendar.Logic;
 /**
  * The manager of the UI component.
  */
-public class UiCalendarManager implements Ui {
+public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
-    private static final Logger logger = LogsCenter.getLogger(UiCalendarManager.class);
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
     private MainWindow mainWindow;
 
-    public UiCalendarManager(Logic logic) {
+    public UiManager(Logic logic) {
         super();
         this.logic = logic;
     }

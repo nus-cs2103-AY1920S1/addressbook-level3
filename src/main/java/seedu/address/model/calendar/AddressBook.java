@@ -15,7 +15,7 @@ import seedu.address.model.calendar.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressCalendarBook implements ReadOnlyAddressBook {
+public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
 
@@ -30,12 +30,12 @@ public class AddressCalendarBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressCalendarBook() {}
+    public AddressBook() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressCalendarBook(ReadOnlyAddressBook toBeCopied) {
+    public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -112,8 +112,8 @@ public class AddressCalendarBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressCalendarBook // instanceof handles nulls
-                && persons.equals(((AddressCalendarBook) other).persons));
+                || (other instanceof AddressBook // instanceof handles nulls
+                && persons.equals(((AddressBook) other).persons));
     }
 
     @Override

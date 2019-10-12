@@ -9,7 +9,7 @@ import seedu.address.model.calendar.tag.Tag;
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonCalendarAdaptedTag {
+class JsonAdaptedTag {
 
     private final String tagName;
 
@@ -17,14 +17,14 @@ class JsonCalendarAdaptedTag {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonCalendarAdaptedTag(String tagName) {
+    public JsonAdaptedTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    public JsonCalendarAdaptedTag(Tag source) {
+    public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
     }
 

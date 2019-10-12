@@ -21,29 +21,29 @@ import seedu.address.model.calendar.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelCalendarManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelCalendarManager.class);
+public class ModelManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressCalendarBook addressBook;
+    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelCalendarManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressCalendarBook(addressBook);
+        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
-    public ModelCalendarManager() {
-        this(new AddressCalendarBook(), new UserPrefs());
+    public ModelManager() {
+        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -142,12 +142,12 @@ public class ModelCalendarManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelCalendarManager)) {
+        if (!(obj instanceof ModelManager)) {
             return false;
         }
 
         // state check
-        ModelCalendarManager other = (ModelCalendarManager) obj;
+        ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);

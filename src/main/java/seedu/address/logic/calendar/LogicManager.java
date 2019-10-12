@@ -21,15 +21,15 @@ import seedu.address.storage.calendar.Storage;
 /**
  * The main LogicManager of the app.
  */
-public class LogicCalendarManager implements Logic {
+public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicCalendarManager.class);
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicCalendarManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendar.AddressCalendarBook;
+import seedu.address.model.calendar.AddressBook;
 import seedu.address.model.calendar.ReadOnlyAddressBook;
 import seedu.address.model.calendar.person.Person;
 
@@ -20,17 +20,17 @@ import seedu.address.model.calendar.person.Person;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonCalendarSerializableAddressBook {
+class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonCalendarAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonCalendarSerializableAddressBook(@JsonProperty("persons") List<JsonCalendarAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
@@ -39,9 +39,9 @@ class JsonCalendarSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonCalendarSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList()
-                .stream().map(JsonCalendarAdaptedPerson::new).collect(Collectors.toList()));
+                .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,9 +49,9 @@ class JsonCalendarSerializableAddressBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressCalendarBook toModelType() throws IllegalValueException {
-        AddressCalendarBook addressBook = new AddressCalendarBook();
-        for (JsonCalendarAdaptedPerson jsonAdaptedPerson : persons) {
+    public AddressBook toModelType() throws IllegalValueException {
+        AddressBook addressBook = new AddressBook();
+        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);

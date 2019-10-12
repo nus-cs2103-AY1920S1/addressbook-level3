@@ -23,7 +23,7 @@ import seedu.address.model.calendar.tag.Tag;
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class JsonCalendarAdaptedPerson {
+class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
@@ -31,15 +31,15 @@ class JsonCalendarAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonCalendarAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonCalendarAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                                     @JsonProperty("email") String email, @JsonProperty("address") String address,
-                                     @JsonProperty("tagged") List<JsonCalendarAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -52,13 +52,13 @@ class JsonCalendarAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonCalendarAdaptedPerson(Person source) {
+    public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
-                .map(JsonCalendarAdaptedTag::new)
+                .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 
@@ -69,7 +69,7 @@ class JsonCalendarAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
-        for (JsonCalendarAdaptedTag tag : tagged) {
+        for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
 
