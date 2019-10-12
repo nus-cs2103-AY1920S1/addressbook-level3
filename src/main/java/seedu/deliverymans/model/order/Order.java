@@ -1,33 +1,71 @@
 package seedu.deliverymans.model.order;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import seedu.address.model.tag.Tag;
 import seedu.deliverymans.model.food.Food;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
- * Represents an Order of food.
+ * Represents an Order in the application.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Order {
-
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String orderName;
-    public final Set<Food> foods = new HashSet<>(); //implement food class
+
+    // Identity fields
+    private final String customer;
+    private final String restaurant;
+    private final String deliveryman;
+    private final Set<Food> foods = new HashSet<>(); //implement food class
+
+    // Data fields
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Constructs a {@code Order}
      *
-     * @param orderName A valid order name.
+     * @param customer The customer who made the order.
+     * @param restaurant The restaurant...
      */
-    public Order(String orderName) {
-        requireNonNull(orderName);
-        checkArgument(isValidOrderName(orderName), MESSAGE_CONSTRAINTS);
+    public Order(String orderName, String customer, String restaurant, String deliveryman) {
+        // requireNonNull(orderName);
+        // checkArgument(isValidOrderName(orderName), MESSAGE_CONSTRAINTS);
         this.orderName = orderName;
+        this.customer = customer;
+        this.restaurant = restaurant;
+        this.deliveryman = deliveryman;
+    }
+
+    public void addFood(Food food) {
+        foods.add(food);
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public String getDeliveryman() {
+        return deliveryman;
+    }
+
+    public String getFood() {
+        StringBuilder sb = new StringBuilder();
+        foods.forEach(sb::append);
+        return sb.toString();
+    }
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public boolean isCompleted() {
+        return false;
     }
 
     /**
@@ -37,21 +75,53 @@ public class Order {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public void addFood(Food food) {
-        foods.add(food);
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns true if both orders have the same identity and data fields.
+     * This defines a stronger notion of equality between two orders.
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Order && orderName.equals(((Order) other).orderName));
+        if (other == this) {
+            return true;
+        }
+        // return other == this || (other instanceof Order && orderName.equals(((Order) other).orderName));
+
+        if (!(other instanceof Order)) {
+            return false;
+        }
+
+        Order otherOrder = (Order) other;
+        return otherOrder.getCustomer().equals(getCustomer())
+                && otherOrder.getDeliveryman().equals(getDeliveryman())
+                && otherOrder.getFood().equals(getFood())
+                && otherOrder.getRestaurant().equals(getRestaurant());
     }
 
     @Override
     public int hashCode() {
-        return orderName.hashCode();
+        return Objects.hash(customer, restaurant, deliveryman, foods);
     }
 
+    @Override
     public String toString() {
-        return '[' + orderName + ']';
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Customer: ")
+                .append(getCustomer())
+                .append(" Restaurant: ")
+                .append(getRestaurant())
+                .append(" Deliveryman: ")
+                .append(getDeliveryman())
+                .append(" Food: ")
+                .append(getFood());
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 }
