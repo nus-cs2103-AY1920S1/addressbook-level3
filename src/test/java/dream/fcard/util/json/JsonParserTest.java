@@ -3,9 +3,10 @@ package dream.fcard.util.json;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
-import org.junit.jupiter.api.Test;
 
 public class JsonParserTest {
     @Test

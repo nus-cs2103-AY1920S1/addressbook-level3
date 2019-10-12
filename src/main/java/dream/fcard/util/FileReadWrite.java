@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+/**
+ * Collection of file read write and path manipulation functions.
+ */
 public class FileReadWrite {
 
     /**
@@ -88,6 +91,11 @@ public class FileReadWrite {
         return "";
     }
 
+    /**
+     * Delete the file of the given path
+     * @param path  path to file
+     * @return      true successful delete
+     */
     public static Boolean delete(String path) {
         File file = new File(normalizePath(path));
         return file.delete();
