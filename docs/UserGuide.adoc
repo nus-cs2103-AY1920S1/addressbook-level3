@@ -133,7 +133,7 @@ NOTE: Assume 2nd command occurs after 1st
 [[TagTag]]
 === Tagging a transaction: `tag`
 
-Format: `tag i/INDEX t/TAG_NAME`
+Format: `tag i/INDEX t/TAG_NAME...`
 
 ****
 * Tags the transaction at the specified `INDEX` with `TAG_NAME`.
@@ -155,7 +155,7 @@ Expected output:
 [[UntagTag]]
 === Untagging a transaction: `untag`
 
-Format: `untag i/INDEX t/TAG_NAME`
+Format: `untag i/INDEX t/TAG_NAME...`
 
 ****
 * Untags `TAG_NAME` from the transaction at the specified `INDEX`.
