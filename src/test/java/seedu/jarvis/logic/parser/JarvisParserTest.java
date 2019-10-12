@@ -1,9 +1,11 @@
 package seedu.jarvis.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -23,6 +25,7 @@ import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
+import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -115,6 +118,13 @@ public class JarvisParserTest {
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
+    }
+
+    @Test
+    public void parseCommand_lookUp() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(LookUpCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(LookUpCommand.COMMAND_WORD + " " + PREFIX_COURSE + "cs2102")
+                instanceof LookUpCommand);
     }
 
     @Test
