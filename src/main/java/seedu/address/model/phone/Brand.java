@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Phone's brand in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidBrand(String)}
  */
-public class Brand implements Cloneable {
+public class Brand {
 
     public static final String MESSAGE_CONSTRAINTS = "Brands can take any values, and should not be blank";
 
@@ -52,11 +52,6 @@ public class Brand implements Cloneable {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    @Override
-    protected Object clone() {
-        return new Brand(new String(value));
     }
 
 }

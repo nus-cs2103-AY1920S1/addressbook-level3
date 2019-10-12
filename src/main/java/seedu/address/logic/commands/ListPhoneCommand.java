@@ -20,6 +20,6 @@ public class ListPhoneCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPhoneList(PREDICATE_SHOW_ALL_PHONES);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.PHONE);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.PHONE);
     }
 }

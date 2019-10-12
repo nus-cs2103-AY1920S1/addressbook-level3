@@ -1,12 +1,10 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalOrders.ORDERONE;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
@@ -17,17 +15,18 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ScheduleBuilder {
 
+    private static final UUID DEFAULT_ID = UUID.randomUUID();
     private static final String DEFAULT_VENUE = "Central Library";
     private static final Calendar DEFAULT_CALENDAR = new Calendar.Builder()
             .setDate(2019, 12, 1).setTimeOfDay(23, 30, 0).build();
 
-    private Order order;
+    private UUID id;
     private Calendar calendar;
     private Venue venue;
     private Set<Tag> tags;
 
     public ScheduleBuilder() {
-        order = new OrderBuilder(ORDERONE).build();
+        id = DEFAULT_ID;
         calendar = DEFAULT_CALENDAR;
         venue = new Venue(DEFAULT_VENUE);
         tags = new HashSet<>();
@@ -37,19 +36,20 @@ public class ScheduleBuilder {
      * Initializes the ScheduleBuilder with the data of {@code scheduleToCopy}.
      */
     public ScheduleBuilder(Schedule scheduleToCopy) {
-        order = scheduleToCopy.getOrder();
+        id = scheduleToCopy.getId();
         calendar = scheduleToCopy.getCalendar();
         venue = scheduleToCopy.getVenue();
         tags = new HashSet<>(scheduleToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Order} of the {@code Schedule} that we are building.
+     * Sets the {@code UUID} of the {@code Order} that we are building.
      */
-    public ScheduleBuilder withOrder(Order order) {
-        this.order = order;
+    public ScheduleBuilder withId(UUID id) {
+        this.id = id;
         return this;
     }
+
 
     /**
      * Sets the {@code Calendar} of the {@code Schedule} that we are building.
@@ -76,7 +76,7 @@ public class ScheduleBuilder {
     }
 
     public Schedule build() {
-        return new Schedule(order, calendar, venue, tags);
+        return new Schedule(id, calendar, venue, tags);
     }
 
 }
