@@ -5,11 +5,11 @@ import static seedu.mark.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.commandresult.ExitCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
+import seedu.mark.storage.StorageStub;
 
 public class ExitCommandTest {
     private Model model = new ModelManager();

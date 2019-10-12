@@ -5,11 +5,11 @@ import static seedu.mark.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.commandresult.HelpCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
+import seedu.mark.storage.StorageStub;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();

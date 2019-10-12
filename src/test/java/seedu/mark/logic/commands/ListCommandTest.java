@@ -8,10 +8,10 @@ import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

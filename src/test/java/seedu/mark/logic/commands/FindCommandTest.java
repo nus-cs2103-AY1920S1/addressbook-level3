@@ -15,11 +15,11 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

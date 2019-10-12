@@ -11,13 +11,13 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {

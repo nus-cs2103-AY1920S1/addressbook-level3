@@ -11,11 +11,12 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.storage.Storage;
+import seedu.mark.storage.StorageStub;
 
 public class RedoCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
-    private Storage storage = new CommandTestUtil.StorageStub();
+    private Storage storage = new StorageStub();
 
     @Test
     public void execute() {

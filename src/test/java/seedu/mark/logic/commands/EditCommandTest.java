@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 

@@ -5,11 +5,11 @@ import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.StorageStub;
 
 public class ClearCommandTest {
 

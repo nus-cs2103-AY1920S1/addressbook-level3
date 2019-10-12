@@ -11,20 +11,15 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
-import seedu.mark.model.ReadOnlyMark;
-import seedu.mark.model.ReadOnlyUserPrefs;
-import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.storage.Storage;
@@ -159,48 +154,4 @@ public class CommandTestUtil {
         deleteBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
     }
 
-    /**
-     * A default Storage Stub that has all of its methods failing.
-     */
-    public static final class StorageStub implements Storage {
-        @Override
-        public Path getUserPrefsFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<UserPrefs> readUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getMarkFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<ReadOnlyMark> readMark() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<ReadOnlyMark> readMark(Path filePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveMark(ReadOnlyMark mark) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveMark(ReadOnlyMark mark, Path filePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
 }

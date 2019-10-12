@@ -13,12 +13,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.CommandTestUtil.StorageStub;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.storage.StorageStub;
 
 public class AddFolderCommandTest {
     private static final String NON_NULL_STRING = "nonNull";
