@@ -2,9 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.lang.invoke.WrongMethodTypeException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Represents the result of a command execution.
@@ -29,6 +32,18 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public String getStartingDate() throws CommandException {
+        throw new CommandException("wrong command result type");
+    }
+
+    public String getEndingDate() throws CommandException {
+        throw new CommandException("wrong command result type");
+    }
+
+    public StatisticType getStatisticType() throws CommandException {
+        throw new CommandException("wrong command result type");
     }
 
     @Override

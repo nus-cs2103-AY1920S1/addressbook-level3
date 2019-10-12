@@ -15,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandStatsResult;
+import seedu.address.logic.commands.StatisticType;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -215,6 +217,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * handle StatisticsWindow and create a new one
+     * !!!!!!!!!! HANDLE WITH USER INPUT !!!!!
+     */
+    @FXML
+    private void handleStats2(String startingDate, String endingDate, StatisticType type) {
+        switch (type) {
+        case COST:
+        case PROFIT:
+        case REVENUE:
+
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -226,9 +242,18 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            //retrieve the type that the command works on here;
-            List<UiChange> uiChanges = commandResult.getUiChange();
-            performUiChanges(uiChanges);
+            if (commandResult instanceof CommandStatsResult) {
+                //directly call the handle stats argument and pass the args in
+                handleStats2(
+                        commandResult.getStartingDate(),
+                        commandResult.getStartingDate(),
+                        commandResult.getStatisticType());
+                //retrieve the type that the command works on here;
+            } else {
+                //retrieve the type that the command works on here;
+                List<UiChange> uiChanges = commandResult.getUiChange();
+                performUiChanges(uiChanges);
+            }
             return commandResult;
         } catch (CommandException | ParseException | EnumNotPresentException e) {
             logger.info("Invalid command: " + commandText);

@@ -16,6 +16,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsTotalCostOnCompletedCommand;
 import seedu.address.logic.commands.StatsTotalRevenueCompletedCommand;
 import seedu.address.logic.commands.SwitchCustomerPanelCommand;
@@ -80,6 +81,11 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommandParser().parse(arguments);
+
+
         case SwitchCustomerPanelCommand.COMMAND_WORD:
             return new SwitchCustomerPanelCommand();
         case SwitchPhonePanelCommand.COMMAND_WORD:
