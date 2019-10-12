@@ -44,10 +44,10 @@ public class IncidentCard extends UiPart<Region> {
         super(FXML);
         this.incident = incident;
         id.setText(displayedIndex + ". ");
-        incidentId.setText(incident.getIncidentId().getId());
-        incidentlocation.setText(String.valueOf(incident.getLocation().districtNum));
-        dateTime.setText(incident.getDateTime().toString());
-        operator.setText(incident.getOperator().getName().toString());
+        incidentId.setText("Incident ID: " + incident.getIncidentId().getId());
+        incidentlocation.setText("District: " + String.valueOf(incident.getLocation().districtNum));
+        dateTime.setText("DateTime of Report: " + incident.getDateTime().toString());
+        operator.setText("Operator on Call: " + incident.getOperator().getName().toString());
     }
 
     @Override
