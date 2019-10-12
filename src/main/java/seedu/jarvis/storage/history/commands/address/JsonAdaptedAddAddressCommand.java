@@ -20,6 +20,7 @@ public class JsonAdaptedAddAddressCommand {
 
     /**
      * Constructs a {@code JsonAdaptedAddAddressCommand} with the given {@code Person} to add.
+     *
      * @param toAdd {@code Person} in Json format.
      */
     @JsonCreator
