@@ -67,4 +67,11 @@ public class LookUpCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof LookUpCommand
+                && this.toShow.equals(((LookUpCommand) other).toShow));
+    }
 }
