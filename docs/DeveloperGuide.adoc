@@ -329,10 +329,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |secretary |generate a PDF file of a selected appointment |make a distributable copy of the appointment
 
-|`*` |highly driven secretary |practise typing |improve my efficiency during work
-
-|`*` |bored secretary |keep myself entertained|
-
 |=======================================================================
 
 [appendix]
