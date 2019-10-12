@@ -1,6 +1,4 @@
-package seedu.jarvis.model;
-
-import seedu.jarvis.model.cca.Cca;
+package seedu.jarvis.model.cca;
 
 /**
  * The API of the CcaTrackerModel component
