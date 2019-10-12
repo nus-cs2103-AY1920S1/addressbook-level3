@@ -16,15 +16,31 @@ public class FoodComparator implements Comparator<Food> {
 
     @Override
     public int compare(Food a, Food b) {
-        for (int i = 0; i < fieldList.size(); i++) {
+        for (int i = 0; i < fieldList.size(); i = i + 2) {
             String field = fieldList.get(i);
             Field f1 = a.getField(field);
             Field f2 = b.getField(field);
-            int comparisonFactor = f1.compareTo(f2);
-            if (comparisonFactor != 0) {
-                return comparisonFactor;
+            if (isDirectionAscending(fieldList.get(i + 1))) {
+                int comparisonFactor = f1.compareTo(f2);
+                if (comparisonFactor != 0) {
+                    return comparisonFactor;
+                }
+            } else {
+                int comparisonFactor = -1 * f1.compareTo(f2);
+                if (comparisonFactor != 0) {
+                    return comparisonFactor;
+                }
             }
         }
         return 0;
+    }
+
+    /**
+     * Simply checks if the direction to be sorted is ascending or descending, for sorting purposes.
+     * @param direction the direction to be sorted.
+     * @return true if the direction is ascending. False if otherwise.
+     */
+    public boolean isDirectionAscending(String direction) {
+        return direction.equals("ASC");
     }
 }

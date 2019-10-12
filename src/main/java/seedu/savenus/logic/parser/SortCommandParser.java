@@ -25,12 +25,18 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        if (areFieldsValid(nameKeywords)) {
+        if (areFieldsInvalid(nameKeywords)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.INVALID_FIELD_USAGE));
         } else if (areFieldsDuplicate(nameKeywords)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.DUPLICATE_FIELD_USAGE));
+        } else if (areDirectionsMissing(nameKeywords)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MISSING_DIRECTION_USAGE));
+        } else if (areDirectionsInaccurate(nameKeywords)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.INVALID_DIRECTION_USAGE));
         }
 
         return new SortCommand((Arrays.asList(nameKeywords)));
@@ -41,10 +47,34 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @param keywords the array of fields.
      * @return true if the fields do contain invalid fields. False if otherwise.
      */
-    public boolean areFieldsValid(String[] keywords) {
-        for (int i = 0; i < keywords.length; i++) {
+    public boolean areFieldsInvalid(String[] keywords) {
+        for (int i = 0; i < keywords.length; i = i + 2) {
             String field = keywords[i];
             if (!isValidField(field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the directions are missing for certain fields.
+     * @param keywords the array of fields.
+     * @return true if directions are missing, false if otherwise.
+     */
+    public boolean areDirectionsMissing(String[] keywords) {
+        return keywords.length % 2 != 0;
+    }
+
+    /**
+     * Checks if the array of fields contain invalid directions.
+     * @param keywords the array of fields.
+     * @return true if the fields do contain invalid directions. False if otherwise.
+     */
+    public boolean areDirectionsInaccurate(String[] keywords) {
+        for (int i = 1; i < keywords.length; i = i + 2) {
+            String field = keywords[i];
+            if (!isAscOrDesc(field)) {
                 return true;
             }
         }
@@ -58,7 +88,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public boolean areFieldsDuplicate(String[] keywords) {
         Set<String> noDuplicateFields = new HashSet<String>();
-        for (int i = 0; i < keywords.length; i++) {
+        for (int i = 0; i < keywords.length; i += 2) {
             String field = keywords[i];
             if (!noDuplicateFields.add(field)) {
                 return true;
@@ -80,5 +110,14 @@ public class SortCommandParser implements Parser<SortCommand> {
                 || field.equals("LOCATION")
                 || field.equals("OPENING_HOURS")
                 || field.equals("RESTRICTIONS");
+    }
+
+    /**
+     * Checks if the field represents ascending or descending.
+     * @param direction the field.
+     * @return true if the field is ascending or descending. False if otherwise.
+     */
+    public boolean isAscOrDesc(String direction) {
+        return direction.equals("ASC") || direction.equals("DESC");
     }
 }
