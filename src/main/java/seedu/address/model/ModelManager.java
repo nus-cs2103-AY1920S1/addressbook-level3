@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
@@ -27,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Worker> filteredWorkers;
     private final FilteredList<Body> filteredBodies;
+    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,12 +46,25 @@ public class ModelManager implements Model {
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+        commandHistory = new CommandHistory();
 
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
+    //@@author ambervoong
+    //=========== CommandHistory ==================================================================================
+    public void addExecutedCommand(UndoableCommand command) {
+        requireNonNull(command);
+        commandHistory.addExecutedCommand(command);
+    }
+
+    public UndoableCommand getExecutedCommand() {
+        return commandHistory.getExecutedCommand();
+    }
+    //@@author
 
     //=========== UserPrefs ==================================================================================
 

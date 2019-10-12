@@ -22,7 +22,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BODIES;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +42,7 @@ import seedu.address.model.entity.worker.Worker;
 /**
  * Updates the details of an existing body, worker, or fridge in Mortago.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
 
@@ -138,11 +137,36 @@ public class UpdateCommand extends Command {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
-        this.originalEntityDescriptor = saveOriginalFields(entity);
+        try {
+            this.originalEntityDescriptor = saveOriginalFields(entity);
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
 
-        model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
+        setUndoable();
+        model.addExecutedCommand(this);
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
+    }
+
+    /**
+     * Undoes the effects of this command. Only can be executed if this command was previously executed before.
+     * @return result of undoing the command.
+     */
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        if (!(getCommandState().equals(UndoableCommandState.UNDOABLE))) {
+            throw new CommandException(MESSAGE_UNDO_FAIL);
+        }
+        try {
+            model.setEntity(entity, originalEntityDescriptor.apply(entity));
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
+        setRedoable();
+        // todo: add to redo stack.
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
+        // todo: write test for this.
     }
 
     public Entity getEntityFromId(Model model, IdentificationNumber id, UpdateEntityDescriptor descriptor)

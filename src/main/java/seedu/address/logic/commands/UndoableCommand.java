@@ -22,7 +22,7 @@ public abstract class UndoableCommand extends Command {
 
     private UndoableCommandState commandState = UndoableCommandState.PRE_EXECUTION;
 
-    public abstract CommandResult undo();
+    public abstract CommandResult undo(Model model) throws CommandException;
 
     /**
      * Re-executes the command that was previously undone.

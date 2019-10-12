@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
@@ -18,6 +19,18 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
+
+    /**
+     * Adds an executed command to the model's command history.
+     * @param command a command that was executed.
+     */
+    void addExecutedCommand(UndoableCommand command);
+
+    /**
+     * Gets the last executed UndoableCommand.
+     * @return the last executed command.
+     */
+    UndoableCommand getExecutedCommand();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

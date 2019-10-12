@@ -13,7 +13,7 @@ class UndoableCommandTest {
     }
     @Test
     void setUndoable() {
-    }
+    }        // todo: write test for this.
 
     @Test
     void setRedoable() {
