@@ -25,6 +25,10 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
+application {
+    applicationDefaultJvmArgs = [ "-Djdk.gtk.version=2"]
+}
+
 checkstyle {
     toolVersion = '8.1'
 }

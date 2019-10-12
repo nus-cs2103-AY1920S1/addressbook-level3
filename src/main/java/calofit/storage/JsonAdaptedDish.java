@@ -23,7 +23,7 @@ class JsonAdaptedDish {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Dish's %s field is missing!";
 
     private final String name;
-    private final String calories;
+    private final int calories;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,7 +31,7 @@ class JsonAdaptedDish {
      */
     @JsonCreator
     public JsonAdaptedDish(@JsonProperty("name") String name,
-                           @JsonProperty("calories") String calories,
+                           @JsonProperty("calories") int calories,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.calories = calories;
@@ -45,7 +45,7 @@ class JsonAdaptedDish {
      */
     public JsonAdaptedDish(Dish source) {
         name = source.getName().fullName;
-        calories = source.getCalories().toString();
+        calories = source.getCalories().getValue();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

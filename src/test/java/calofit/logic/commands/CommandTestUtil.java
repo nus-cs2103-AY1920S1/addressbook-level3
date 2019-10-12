@@ -24,7 +24,7 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_DUCK_RICE = "Duck Rice";
     public static final String VALID_NAME_MACARONI = "Macaroni";
-    public static final String VALID_CALORIE_1000 = "1000";
+    public static final int VALID_CALORIE_1000 = 1000;
     public static final String VALID_TAG_SALTY = "salty";
     public static final String VALID_TAG_EXPENSIVE = "expensive";
 
