@@ -1,12 +1,14 @@
 package seedu.address.model.quiz;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.quiz.person.Person;
 import seedu.address.model.quiz.person.UniquePersonList;
 
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level

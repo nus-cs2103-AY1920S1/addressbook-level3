@@ -1,8 +1,9 @@
 package seedu.address.logic.quiz.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the result of a command execution.

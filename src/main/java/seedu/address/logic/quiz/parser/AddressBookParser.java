@@ -1,13 +1,23 @@
 package seedu.address.logic.quiz.parser;
 
-import seedu.address.logic.quiz.commands.*;
-import seedu.address.logic.quiz.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.logic.quiz.commands.AddCommand;
+import seedu.address.logic.quiz.commands.ClearCommand;
+import seedu.address.logic.quiz.commands.Command;
+import seedu.address.logic.quiz.commands.DeleteCommand;
+import seedu.address.logic.quiz.commands.EditCommand;
+import seedu.address.logic.quiz.commands.ExitCommand;
+import seedu.address.logic.quiz.commands.FindCommand;
+import seedu.address.logic.quiz.commands.HelpCommand;
+import seedu.address.logic.quiz.commands.ListCommand;
+import seedu.address.logic.quiz.commands.SwitchCommand;
+import seedu.address.logic.quiz.parser.exceptions.ParseException;
+
 
 /**
  * Parses user input.
