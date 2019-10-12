@@ -1,6 +1,5 @@
 package seedu.address.model.transaction;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -9,10 +8,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public final String MESSAGE_CONSTRAINTS =
+    public static final String MESSAGE_CONSTRAINTS =
             "Amounts should be non-negative, and should not be blank.";
 
-    public final String VALIDATION_REGEX = "^\\d+$";
+    public static final String VALIDATION_REGEX = "^\\d+$";
 
     public final long amount;
 
@@ -34,19 +33,19 @@ public class Amount {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Long.toString(amount);
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
                 && amount == ((Amount) other).amount);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Long.hashCode(amount);
     }
 }

@@ -1,14 +1,16 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.transaction.stub.Category;
-import seedu.address.model.transaction.stub.Description;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.transaction.stub.Category;
+import seedu.address.model.transaction.stub.Description;
+
+
 
 /**
  * Represents a Transaction in a TransactionList.
@@ -23,7 +25,6 @@ public class Transaction {
 
     /**
      * Every field must be present and not null.
-     *
      */
     public Transaction(Date date, Amount amount, Description description, Set<Category> categories) {
         requireAllNonNull(date, amount, description, categories);
@@ -33,11 +34,11 @@ public class Transaction {
         this.categories.addAll(categories);
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
-    public Amount getAmount(){
+    public Amount getAmount() {
         return amount;
     }
 
@@ -45,7 +46,7 @@ public class Transaction {
         return description;
     }
 
-    public Set<Category> getCategories(){
+    public Set<Category> getCategories() {
         return categories;
     }
 
@@ -53,12 +54,12 @@ public class Transaction {
      * Returns true if both Transactions have all the same fields (date, amount, description, categories).
      */
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        if (!(other instanceof Transaction)){
+        if (!(other instanceof Transaction)) {
             return false;
         }
 
@@ -71,12 +72,12 @@ public class Transaction {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(date, amount, description, categories);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Amount: ")
                 .append(getAmount())

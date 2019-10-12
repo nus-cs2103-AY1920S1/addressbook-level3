@@ -1,17 +1,16 @@
 package seedu.address.model.transaction;
 
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-
-import java.util.Iterator;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+/**
+ * A list of Transactions that does not allow nulls.
+ */
 public class TransactionList implements Iterable<Transaction> {
 
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
