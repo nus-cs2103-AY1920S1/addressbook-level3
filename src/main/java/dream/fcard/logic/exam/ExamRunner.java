@@ -1,9 +1,11 @@
 package dream.fcard.logic.exam;
 
+import java.util.Scanner;
+
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 
-import java.util.Scanner;
+
 
 /**
  * ...

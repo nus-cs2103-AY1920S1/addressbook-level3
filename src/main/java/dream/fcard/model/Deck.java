@@ -44,5 +44,7 @@ public class Deck implements JsonInterface {
         return null;
     }
 
-    public ArrayList<FlashCard> getCards() { return this.cards; }
+    public ArrayList<FlashCard> getCards() {
+        return this.cards;
+    }
 }
