@@ -1,6 +1,9 @@
 package seedu.address.logic.quiz;
 
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
@@ -8,7 +11,6 @@ import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.person.Person;
 
-import java.nio.file.Path;
 
 /**
  * API of the Logic component

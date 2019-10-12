@@ -1,14 +1,15 @@
 package seedu.address.storage.quiz;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.quiz.ReadOnlyUserPrefs;
 import seedu.address.model.quiz.UserPrefs;
-import seedu.address.storage.quiz.UserPrefsStorage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
+
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

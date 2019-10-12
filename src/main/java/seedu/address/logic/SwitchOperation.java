@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
@@ -8,13 +12,17 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.quiz.LogicQuizManager;
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ModelQuizManager;
-import seedu.address.storage.quiz.*;
+import seedu.address.storage.quiz.AddressBookStorage;
+import seedu.address.storage.quiz.JsonQuizAddressBookStorage;
+import seedu.address.storage.quiz.JsonQuizUserPrefsStorage;
+import seedu.address.storage.quiz.Storage;
+import seedu.address.storage.quiz.StorageQuizManager;
+import seedu.address.storage.quiz.UserPrefsStorage;
 import seedu.address.ui.quiz.UiQuizManager;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-
+/**
+ * Switches the Application to a new component (Calendar, Module, Quiz, or Finance)
+ */
 public class SwitchOperation {
     private String args;
     private seedu.address.model.quiz.UserPrefs userPrefs;
@@ -26,9 +34,13 @@ public class SwitchOperation {
         this.args = args;
     }
 
+    /**
+     * Switches the current application component by initializing Model, Logic, and Ui that corresponds with the type
+     * of component currently saved as args
+     */
     public void execute() {
         if (args.equals("quiz")) {
-            Config config = MainApp.config;
+            Config config = MainApp.getConfig();
             UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(config.getUserPrefsFilePath());
             userPrefs = initPrefs(userPrefsStorage);
             AddressBookStorage addressBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
@@ -37,13 +49,18 @@ public class SwitchOperation {
             quizModel = initModelManager(quizStorage, userPrefs);
             quizLogic = new LogicQuizManager(quizModel, quizStorage);
             quizUi = new UiQuizManager(quizLogic);
-            Stage stages = MainApp.primary;
+            Stage stages = MainApp.getPrimary();
             quizUi.start(stages);
         } else {
 
         }
     }
 
+    /**
+     * Load user's Quiz preference.
+     * @param storage Quiz storage
+     * @return UserPrefs
+     */
     protected seedu.address.model.quiz.UserPrefs initPrefs(seedu.address.storage.quiz.UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         System.out.println("Using prefs file : " + prefsFilePath);
@@ -71,6 +88,9 @@ public class SwitchOperation {
         return initializedPrefs;
     }
 
+    /**
+     * Returns a {@code ModelQuizManager} with the data from {@code storage}'s and {@code userPrefs}. <br>
+     */
     private seedu.address.model.quiz.Model initModelManager(seedu.address.storage.quiz.Storage storage,
                                                             seedu.address.model.quiz.ReadOnlyUserPrefs userPrefs) {
         Optional<seedu.address.model.quiz.ReadOnlyAddressBook> addressBookOptional;
@@ -80,7 +100,8 @@ public class SwitchOperation {
             if (!addressBookOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(seedu.address.model.quiz.util.SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional
+                    .orElseGet(seedu.address.model.quiz.util.SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new seedu.address.model.quiz.AddressQuizBook();

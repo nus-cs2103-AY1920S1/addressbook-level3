@@ -1,9 +1,11 @@
 package seedu.address.model.quiz.tag;
 
+import static seedu.address.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.tag.Tag;
 
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class TagTest {
 

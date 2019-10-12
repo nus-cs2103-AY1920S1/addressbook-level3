@@ -1,12 +1,13 @@
 package seedu.address.storage.quiz;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.quiz.ReadOnlyUserPrefs;
 import seedu.address.model.quiz.UserPrefs;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
 
 /**
  * Represents a storage for {@link UserPrefs}.

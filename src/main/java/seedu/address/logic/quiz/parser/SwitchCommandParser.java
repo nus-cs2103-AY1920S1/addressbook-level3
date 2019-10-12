@@ -1,9 +1,13 @@
 package seedu.address.logic.quiz.parser;
 
-import seedu.address.logic.quiz.commands.SwitchCommand;
-import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.quiz.commands.SwitchCommand;
+import seedu.address.logic.quiz.parser.exceptions.ParseException;
+
+/**
+ * Parses the command to switch
+ */
 public class SwitchCommandParser implements Parser<SwitchCommand> {
 
     /**

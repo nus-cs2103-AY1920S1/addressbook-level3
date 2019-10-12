@@ -1,17 +1,21 @@
 package seedu.address.logic.quiz.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
 import seedu.address.model.quiz.Model;
 
-import static java.util.Objects.requireNonNull;
 
+/**
+ * Switches to a new application component.
+ */
 public class SwitchCommand extends Command {
 
     public static final String COMMAND_WORD = "switch";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": need to pass the argument " +
-            "you want to switch";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": need to pass the argument "
+            + "you want to switch";
 
     private final String args;
 
