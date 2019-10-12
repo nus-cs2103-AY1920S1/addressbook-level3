@@ -49,6 +49,14 @@ public interface AddressModel {
     void addPerson(Person person);
 
     /**
+     * Adds {@code Person} at a given {@code Index}.
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
+     * @param person {@code Person} to be added.
+     */
+    void addPerson(int zeroBasedIndex, Person person);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.

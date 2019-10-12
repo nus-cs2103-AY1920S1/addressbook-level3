@@ -1,19 +1,18 @@
 package seedu.jarvis.logic.commands.address;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFailure;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.jarvis.model.address.AddressModel.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +44,7 @@ public class DeleteAddressCommandTest {
     @Test
     public void hasInverseExecution() {
         DeleteAddressCommand deleteAddressCommand = new DeleteAddressCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteAddressCommand.hasInverseExecution());
+        Assertions.assertTrue(deleteAddressCommand.hasInverseExecution());
     }
 
     @Test
@@ -92,7 +91,7 @@ public class DeleteAddressCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        Assertions.assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         DeleteAddressCommand deleteAddressCommand = new DeleteAddressCommand(outOfBoundIndex);
 
@@ -146,7 +145,8 @@ public class DeleteAddressCommandTest {
         String inverseExpectedMessage = String.format(
                 DeleteAddressCommand.MESSAGE_INVERSE_SUCCESS_ADD, personToDelete);
 
-        expectedModel.addPerson(personToDelete);
+        expectedModel.addPerson(INDEX_FIRST_PERSON.getZeroBased(), personToDelete);
+        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertCommandInverseSuccess(deleteAddressCommand, model, inverseExpectedMessage, expectedModel);
     }
 
@@ -177,6 +177,7 @@ public class DeleteAddressCommandTest {
                     assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
 
                     expectedModel.addPerson(personToDelete);
+                    expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
                     assertCommandInverseSuccess(deleteAddressCommand, model, inverseExpectedMessage,
                             expectedModel);
                 });
@@ -188,20 +189,20 @@ public class DeleteAddressCommandTest {
         DeleteAddressCommand deleteSecondCommand = new DeleteAddressCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        Assertions.assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
         DeleteAddressCommand deleteFirstCommandCopy = new DeleteAddressCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        Assertions.assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        Assertions.assertFalse(deleteFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        Assertions.assertFalse(deleteFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        Assertions.assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
@@ -210,6 +211,6 @@ public class DeleteAddressCommandTest {
     private void showNoPerson(Model model) {
         model.updateFilteredPersonList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        Assertions.assertTrue(model.getFilteredPersonList().isEmpty());
     }
 }
