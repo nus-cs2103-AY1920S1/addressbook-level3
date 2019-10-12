@@ -75,11 +75,9 @@ Examples:
 === Adding a policy: `addpolicy`
 
 Adds a policy to the list of policies +
-Format: `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] p/PRICE [sa/START_AGE] [ea/END_AGE] [t/TAGS]...[cri/CRITERIA]...`
+Format: `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] p/PRICE [sa/START_AGE] [ea/END_AGE]`
 
 ****
-* A policy can have any number of tags (including 0).
-* A policy can have any number of criteria (including 0).
 * Coverage time period is specified in days, years and months, in the format days/D months/M years/Y (e.g. 20 days, 11 months, 5 years is represented by days/20 months/11 years/5)
 * Price is specified in dollar ($) units.
 ****
@@ -807,7 +805,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add Person* `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH​` +
 e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980`
-* *Add Policy* `addpolicy  add pol n/NAME d/DESCRIPTION c/c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]  p/PRICE [sa/START_AGE] [ea/END_AGE]... [t/TAGS]...` +
+* *Add Policy* `addpolicy  addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]  p/PRICE [sa/START_AGE] [ea/END_AGE]...` +
 e.g. `add pol n/SeniorCare d/care for seniors c/months/10 p/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`

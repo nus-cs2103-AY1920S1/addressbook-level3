@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -37,10 +38,10 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
     public AddPolicyCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
-                        PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_TAG);
+                        PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
-                PREFIX_PRICE)
+                PREFIX_PRICE) || arePrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
         }
@@ -53,8 +54,8 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
                 ? ParserUtil.parseStartAge(argMultimap.getValue(PREFIX_START_AGE).get()) : ParserUtil.parseStartAge("");
         EndAge endAge = argMultimap.getValue(PREFIX_END_AGE).isPresent()
                 ? ParserUtil.parseEndAge(argMultimap.getValue(PREFIX_END_AGE).get()) : ParserUtil.parseEndAge("");
-        Set<Tag> criteriaList = ParserUtil.parseCriteria(argMultimap.getAllValues(PREFIX_CRITERIA));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> criteriaList = new HashSet<>();
+        Set<Tag> tagList = new HashSet<>();
 
         Policy policy = new Policy(name, description, coverage, price, startAge, endAge, criteriaList, tagList);
         return new AddPolicyCommand(policy);
