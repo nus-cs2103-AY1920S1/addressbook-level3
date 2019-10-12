@@ -20,6 +20,7 @@ public class DukeCooksParser {
 
     /**
      * Used for initial separation of command word and args.
+     * Ensures that commandWord is non-whitespace word, followed by any number of arguments
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -38,10 +39,11 @@ public class DukeCooksParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddDiaryCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddDiaryCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

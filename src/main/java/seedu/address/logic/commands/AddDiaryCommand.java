@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,11 +11,11 @@ import seedu.address.model.diary.Diary;
  */
 public class AddDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a diary to Duke Cooks. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME ";
+            + "NAME ";
 
     public static final String MESSAGE_SUCCESS = "New diary added: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks";
