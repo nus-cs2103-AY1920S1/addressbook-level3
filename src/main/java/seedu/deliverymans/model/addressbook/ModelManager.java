@@ -1,4 +1,4 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.addressbook;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,14 +9,9 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.model.addressbook.AddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,7 +22,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    //private final FilteredList<Customer> filteredCustomers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,7 +35,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        //filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
     }
 
     public ModelManager() {
@@ -119,44 +112,6 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Customer Methods =============================================================
-    /*
-    @Override
-    public boolean hasCustomer(Customer customer) {
-        requireNonNull(customer);
-        return addressBook.hasCustomer(customer);
-    }
-
-    @Override
-    public void deleteCustomer(Customer target) {
-        addressBook.removeCustomer(target);
-    }
-
-    @Override
-    public void addCustomer(Customer customer) {
-        addressBook.addCustomer(customer);
-        //updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS); - to add.
-    }
-
-    @Override
-    public void setCustomer(Customer target, Customer editedCustomer) {
-        requireAllNonNull(target, editedCustomer);
-
-        addressBook.setCustomer(target, editedCustomer);
-    }
-    */
-    //=========== Deliveryman Methods =============================================================
-
-    @Override
-    public boolean hasDeliveryman(Deliveryman deliveryman) {
-        requireNonNull(deliveryman);
-        return true;
-    }
-
-    @Override
-    public void addDeliveryman(Deliveryman deliveryman) {
-        requireNonNull(deliveryman);
-    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -192,4 +147,5 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
 }

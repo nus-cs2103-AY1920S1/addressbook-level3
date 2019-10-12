@@ -12,9 +12,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.tag.Tag;
+import seedu.deliverymans.logic.commands.addressbook.EditCommand;
+import seedu.deliverymans.logic.commands.addressbook.EditCommand.EditPersonDescriptor;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
@@ -35,6 +35,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AssignCommand parse(String args) throws ParseException {
+        /*
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
@@ -62,6 +63,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
+         */
 
         return new AssignCommand();
     }
