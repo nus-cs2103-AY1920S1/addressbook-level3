@@ -40,7 +40,7 @@ public class EditProblemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code PlanName} of the {@code EditProblemDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditProblemDescriptor} that we are building.
      */
     public EditProblemDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -64,7 +64,7 @@ public class EditProblemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code PlanDescription} of the {@code EditProblemDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditProblemDescriptor} that we are building.
      */
     public EditProblemDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));

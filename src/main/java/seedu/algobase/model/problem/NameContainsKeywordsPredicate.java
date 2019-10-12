@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.algobase.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Problem}'s {@code PlanName} matches any of the keywords given.
+ * Tests that a {@code Problem}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Problem> {
     private final List<String> keywords;

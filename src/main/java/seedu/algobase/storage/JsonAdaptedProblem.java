@@ -98,10 +98,10 @@ class JsonAdaptedProblem {
     }
 
     /**
-     * Converts a name in string format to a PlanName Object.
+     * Converts a name in string format to a Name Object.
      *
      * @param name name in string format.
-     * @return the corresponding PlanName Object.
+     * @return the corresponding Name Object.
      * @throws IllegalValueException if string format is invalid.
      */
     public Name retrieveName(String name) throws IllegalValueException {
@@ -161,10 +161,10 @@ class JsonAdaptedProblem {
     }
 
     /**
-     * Converts a description in string format to a PlanDescription Object.
+     * Converts a description in string format to a Description Object.
      *
      * @param description description in string format.
-     * @return the corresponding PlanDescription Object.
+     * @return the corresponding Description Object.
      * @throws IllegalValueException if string format is invalid.
      */
     public Description retrieveDescription(String description) throws IllegalValueException {

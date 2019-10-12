@@ -22,7 +22,7 @@ public class Description {
     public final String value;
 
     /**
-     * Constructs an {@code PlanDescription}.
+     * Constructs an {@code Description}.
      *
      * @param description A valid description.
      */
@@ -44,7 +44,7 @@ public class Description {
     }
 
     /**
-     * Returns true if a given {@code PlanDescription} is the default description.
+     * Returns true if a given {@code Description} is the default description.
      */
     public static boolean isDefaultDescription(Description test) {
         return test == DEFAULT_DESCRIPTION;
