@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.MoneyUtil;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
@@ -56,7 +57,7 @@ public class StatisticManager implements Statistic {
         List<Double> completedOrderPriceList =
                 orderList.stream()
                 .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
-                .map(currentOrder -> Double.parseDouble(currentOrder.getPrice().value))
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                 .collect(Collectors.toList());
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
@@ -66,7 +67,7 @@ public class StatisticManager implements Statistic {
         List<Double> completedOrderPhoneList =
                 orderList.stream()
                 .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
-                .map(currentOrder -> Double.parseDouble(currentOrder.getPhone().getCost().value))
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
                 .collect(Collectors.toList());
         return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
     }
