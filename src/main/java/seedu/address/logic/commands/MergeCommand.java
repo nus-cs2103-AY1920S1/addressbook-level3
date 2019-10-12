@@ -40,7 +40,6 @@ public class MergeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
         requireNonNull(model);
-        StringBuilder prompt = new StringBuilder();
         this.originalPerson = model.getPerson(inputPerson);
         getDifferences();
         return new CommandResult(getNextMergePrompt());
