@@ -206,8 +206,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return billboardExpenses.equals(other.billboardExpenses)
+                && archiveExpenses.equals(other.archiveExpenses)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExpense.equals(other.filteredExpense);
+                && filteredExpense.equals(other.filteredExpense)
+                && filteredArchiveExpense.equals(other.filteredArchiveExpense);
     }
 
 }

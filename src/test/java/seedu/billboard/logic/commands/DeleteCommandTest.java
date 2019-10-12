@@ -25,7 +25,7 @@ import seedu.billboard.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBillboard(), getTypicalBillboard(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getBillboardExpenses(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getBillboardExpenses(), model.getArchiveExpenses(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -57,7 +57,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        Model expectedModel = new ModelManager(model.getBillboardExpenses(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getBillboardExpenses(), model.getArchiveExpenses(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
         showNoExpense(expectedModel);
 

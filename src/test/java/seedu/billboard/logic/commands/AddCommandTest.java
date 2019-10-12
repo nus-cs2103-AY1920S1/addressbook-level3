@@ -146,6 +146,56 @@ public class AddCommandTest {
         public void updateFilteredExpenses(Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Path getArchiveFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveFilePath(Path archiveFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveExpenses(ReadOnlyBillboard archiveExpenses) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyBillboard getArchiveExpenses() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasArchiveExpense(Expense expense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteArchiveExpense(Expense target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addArchiveExpense(Expense expense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveExpense(Expense target, Expense editedExpense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Expense> getFilteredArchiveExpenses() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredArchiveExpenses(Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

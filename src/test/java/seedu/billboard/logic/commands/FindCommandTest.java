@@ -23,8 +23,8 @@ import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBillboard(), getTypicalBillboard(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBillboard(), getTypicalBillboard(), new UserPrefs());
 
     @Test
     public void equals() {

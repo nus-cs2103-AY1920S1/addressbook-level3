@@ -8,6 +8,8 @@ import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
+import static seedu.billboard.testutil.TypicalExpenses.GROCERIES;
+import static seedu.billboard.testutil.TypicalExpenses.MOVIE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +30,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Billboard(), new Billboard(modelManager.getBillboardExpenses()));
+        assertEquals(new Billboard(), new Billboard(modelManager.getArchiveExpenses()));
     }
 
     @Test
@@ -97,12 +100,13 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         Billboard billboard = new BillboardBuilder().withExpense(BILLS).withExpense(FOOD).build();
+        Billboard archive = new BillboardBuilder().withExpense(GROCERIES).withExpense(MOVIE).build();
         Billboard differentBillboard = new Billboard();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(billboard, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(billboard, userPrefs);
+        modelManager = new ModelManager(billboard, archive, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(billboard, archive, userPrefs);
         assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
@@ -115,12 +119,15 @@ public class ModelManagerTest {
         assertNotEquals(5, modelManager);
 
         // different billboard -> returns false
-        assertNotEquals(modelManager, new ModelManager(differentBillboard, userPrefs));
+        assertNotEquals(modelManager, new ModelManager(differentBillboard, archive, userPrefs));
+
+        // different archive -> returns false
+        assertNotEquals(modelManager, new ModelManager(billboard, differentBillboard, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = BILLS.getName().name.split("\\s+");
         modelManager.updateFilteredExpenses(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertNotEquals(modelManager, new ModelManager(billboard, userPrefs));
+        assertNotEquals(modelManager, new ModelManager(billboard, archive, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
@@ -128,6 +135,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setBillboardFilePath(Paths.get("differentFilePath"));
-        assertNotEquals(modelManager, new ModelManager(billboard, differentUserPrefs));
+        assertNotEquals(modelManager, new ModelManager(billboard, archive, differentUserPrefs));
     }
 }

@@ -22,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyBillboard_success() {
-        Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());
+        Model model = new ModelManager(getTypicalBillboard(), getTypicalBillboard(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalBillboard(), getTypicalBillboard(), new UserPrefs());
         expectedModel.setBillboardExpenses(new Billboard());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

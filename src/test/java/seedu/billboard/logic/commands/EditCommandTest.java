@@ -32,7 +32,7 @@ import seedu.billboard.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBillboard(), getTypicalBillboard(),new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), getTypicalBillboard(), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenses().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), getTypicalBillboard(), new UserPrefs());
         expectedModel.setExpense(lastExpense, editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), getTypicalBillboard(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), getTypicalBillboard(), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenses().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
