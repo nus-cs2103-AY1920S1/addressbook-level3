@@ -104,7 +104,6 @@ public class CommandTestUtil {
     public static final String VALID_PRICE_LIFE_INSURANCE = "$1000000";
     public static final String VALID_PRICE_FIRE_INSURANCE = "$7500";
 
-    // TODO: add valid criteria
     public static final String VALID_CRITERIA_HEALTH_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_LIFE_INSURANCE = "high blood pressure";
     public static final String VALID_CRITERIA_FIRE_INSURANCE = "public housing";

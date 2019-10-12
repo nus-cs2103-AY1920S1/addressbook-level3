@@ -25,7 +25,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Policy> filteredPolicies;
 
-    // TODO: getPolicies method
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -198,11 +197,11 @@ public class ModelManager implements Model {
         }
 
         // state check
-        // Todo: Refactor for filteredPolicies
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredPolicies.equals(other.filteredPolicies);
     }
 
 }

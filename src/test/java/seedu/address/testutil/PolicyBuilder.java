@@ -10,7 +10,6 @@ import seedu.address.model.util.SampleDataUtil;
 import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
-// TODO: test for PolicyBuilder
 /**
  * A utility class to help with building Policy objects.
  */
@@ -24,7 +23,6 @@ public class PolicyBuilder {
     public static final String DEFAULT_END_AGE = "95";
     public static final Set<Tag> DEFAULT_CRITERIA = getCriteriaSet("diabetic");
     public static final Set<Tag> DEFAULT_TAG = getTagSet("diabetic");
-    // TODO: add criteria and tags
 
     private PolicyName name;
     private Description description;
@@ -42,7 +40,6 @@ public class PolicyBuilder {
         price = new Price(DEFAULT_PRICE);
         startAge = new StartAge(DEFAULT_START_AGE);
         endAge = new EndAge(DEFAULT_END_AGE);
-        // TODO: update
         criteria = DEFAULT_CRITERIA;
         tags = DEFAULT_TAG;
     }
@@ -71,7 +68,6 @@ public class PolicyBuilder {
         price = new Price(DEFAULT_PRICE);
         startAge = new StartAge(DEFAULT_START_AGE);
         endAge = new EndAge(DEFAULT_END_AGE);
-        // TODO: update
         criteria = new HashSet<>(criteria);
         tags = new HashSet<>(tags);
     }

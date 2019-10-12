@@ -13,7 +13,6 @@ import static seedu.address.logic.commands.CommandTestUtil.*;
  */
 public class TypicalPolicy {
 
-    // TODO: add criterias and more tags
     public static final Policy HEALTH_INSURANCE = new PolicyBuilder().withName(VALID_NAME_HEALTH_INSURANCE)
             .withDescription(VALID_DESCRIPTION_HEALTH_INSURANCE).withCoverage(VALID_COVERAGE_HEALTH_INSURANCE)
             .withStartAge(VALID_START_AGE_HEALTH_INSURANCE).withEndAge(VALID_END_AGE_HEALTH_INSURANCE)

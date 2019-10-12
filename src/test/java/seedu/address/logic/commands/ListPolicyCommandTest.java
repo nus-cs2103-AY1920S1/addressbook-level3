@@ -33,12 +33,12 @@ public class ListPolicyCommandTest {
                 ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-    //    @Test
-    //    public void execute_listIsFiltered_showsEverything() {
-    //        showPolicyAtIndex(model, INDEX_FIRST_PERSON);
-    //
-    //        assertListPolicyCommandSuccess(new ListPolicyCommand(),
-    //                model,
-    //                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
-    //    }
+    @Test
+    public void execute_listIsFiltered_showsEverything() {
+        showPolicyAtIndex(model, INDEX_FIRST_PERSON);
+
+        assertListPolicyCommandSuccess(new ListPolicyCommand(),
+                model,
+                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 }
