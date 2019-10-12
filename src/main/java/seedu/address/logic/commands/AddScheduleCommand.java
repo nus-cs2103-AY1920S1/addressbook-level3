@@ -2,18 +2,18 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
-//import seedu.address.model.order.Status;
+import seedu.address.model.order.Status;
 import seedu.address.model.schedule.Schedule;
 
 /**
@@ -56,7 +56,6 @@ public class AddScheduleCommand extends Command {
 
         List<Order> lastShownList = model.getFilteredOrderList();
 
-        /*
         if (model.hasSchedule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         } else if (orderIndex.getZeroBased() >= lastShownList.size()) {
@@ -73,14 +72,21 @@ public class AddScheduleCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ORDER_CANCELLED);
         default:
             // do nothing
-         }
+        }
 
-        Order scheduledOrder = new Order(orderToSchedule.getCustomer(), orderToSchedule.getPhone(),
-                orderToSchedule.getPrice(), Status.SCHEDULED, toAdd, orderToSchedule.getTags());
+        Order scheduledOrder = new Order(orderToSchedule.getId(), orderToSchedule.getCustomer(),
+                orderToSchedule.getPhone(), orderToSchedule.getPrice(), Status.SCHEDULED, Optional.of(toAdd),
+                orderToSchedule.getTags());
 
         model.setOrder(orderToSchedule, scheduledOrder);
-         */
         model.addSchedule(toAdd);
+
+        // For testing without order
+        /*
+        List<Order> lastShownList = model.getFilteredOrderList();
+        model.addSchedule(toAdd);
+         */
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.SCHEDULE);
     }
 

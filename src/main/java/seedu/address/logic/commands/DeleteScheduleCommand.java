@@ -27,7 +27,6 @@ public class DeleteScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_SCHEDULE_SUCCESS = "Deleted Schedule: %1$s";
-    public static final String MESSAGE_ORDER_DOES_NOT_EXIST = "This order does not exists in SML.";
 
     private final Index targetIndex;
 
@@ -38,10 +37,11 @@ public class DeleteScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Order> lastShownList = model.getFilteredOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_ORDER_DOES_NOT_EXIST);
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
         Order orderToUnschedule = lastShownList.get(targetIndex.getZeroBased());
@@ -66,7 +66,17 @@ public class DeleteScheduleCommand extends Command {
             model.deleteSchedule(toDelete);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.CUSTOMER);
+        // For testing without order
+        /*
+        List<Schedule> lastShownList = model.getFilteredScheduleList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        }
+        Schedule toDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteSchedule(toDelete);
+        */
+
+        return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.SCHEDULE);
     }
 
     @Override
