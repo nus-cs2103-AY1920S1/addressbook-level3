@@ -27,9 +27,9 @@ public class CheckCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         // TODO: add module information to ModelManager, and add methods to ModelManager and Model
-        // throw new CommandException("This command has not been implemented yet.");
+        throw new CommandException("This command has not been implemented yet.");
 
-        return new CommandResult("HAHAHAHHA");
+        //return new CommandResult("HAHAHAHHA");
     }
 
     @Override
