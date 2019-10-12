@@ -14,6 +14,7 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -67,15 +68,15 @@ public class StudyPlan implements Cloneable {
      * This constructor is used for {@code JsonAdaptedStudyPlan}.
      */
     public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, List<Semester> modelSemesters,
-                     HashMap<String, Module> modelModules, UniqueTagList modelTags) {
+                     HashMap<String, Module> modelModules, List<Tag> modelTags) {
         title = modelTitle;
         index = modelIndex;
         isActive = modelIsActive;
         semesters = new UniqueSemesterList();
         semesters.setSemesters(modelSemesters);
-
         modules = modelModules;
-        tags = modelTags;
+        tags = new UniqueTagList();
+        tags.setTags(modelTags);
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits

@@ -34,10 +34,10 @@ class JsonSerializableModulePlanner {
      */
     @JsonCreator
     public JsonSerializableModulePlanner(@JsonProperty("studyPlans") List<JsonAdaptedStudyPlan> studyPlans,
-                                         @JsonProperty("activeStudyPlanIndex") StudyPlan activeStudyPlan,
+                                         @JsonProperty("activeStudyPlanIndex") int activeStudyPlanIndex,
                                          @JsonProperty("manager") JsonAdaptedVersionTrackingManager manager) {
         this.studyPlans.addAll(studyPlans);
-        this.activeStudyPlanIndex = activeStudyPlan.getIndex();
+        this.activeStudyPlanIndex = activeStudyPlanIndex;
         this.manager = manager;
     }
 

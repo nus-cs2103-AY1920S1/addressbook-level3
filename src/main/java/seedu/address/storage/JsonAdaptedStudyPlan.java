@@ -14,8 +14,6 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
 
 /**
  * Jackson-friendly version of {@link seedu.address.model.studyplan.StudyPlan}.
@@ -121,9 +119,9 @@ class JsonAdaptedStudyPlan {
             modelModules.put(module.getModuleCode(), module.toModelType());
         }
 
-        final UniqueTagList modelTags = new UniqueTagList();
+        final List<Tag> modelTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            modelTags.addTag(tag.toModelType());
+            modelTags.add(tag.toModelType());
         }
 
         return new StudyPlan(modelTitle, modelIndex, modelIsActive, modelSemesters, modelModules, modelTags);
