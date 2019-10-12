@@ -210,16 +210,26 @@ public class Item {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
-                .append(itemDescription.toString())
-                .append(" Task: ")
-                .append(getTask().toString())
-                .append(" Event: ")
-                .append(getEvent().toString())
-                .append(" Reminder: ")
-                .append(getReminder().toString())
-                .append(" Tags: ")
-                .append(getTags().toString());
-        //getTags().forEach(builder::append);
+                .append(itemDescription.toString());
+
+        if (getTask().isPresent()) {
+            builder.append(" Task: ")
+                    .append(getTask().toString());
+        }
+
+        if (getEvent().isPresent()) {
+            builder.append(" Event: ")
+                    .append(getEvent().toString());
+        }
+
+        if (getReminder().isPresent()) {
+            builder.append(" Reminder: ")
+                    .append(getReminder().toString());
+        }
+
+        builder.append(" Tags: ");
+        getTags().forEach(builder::append);
+
         return builder.toString();
     }
 
