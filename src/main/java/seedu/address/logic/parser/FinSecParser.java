@@ -8,16 +8,14 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddClaimCommand;
 import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.AddIncomeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditClaimCommand;
 import seedu.address.logic.commands.EditContactCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.GotoCommand;
+import seedu.address.logic.commands.GotoContactsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -60,12 +58,6 @@ public class FinSecParser {
         case EditClaimCommand.COMMAND_WORD:
             return new EditClaimCommandParser().parse(arguments);
 
-        case AddIncomeCommand.COMMAND_WORD:
-            return new AddIncomeCommandParser().parse(arguments);
-
-        case EditIncomeCommand.COMMAND_WORD:
-            return new EditIncomeCommandParser().parse(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -75,14 +67,14 @@ public class FinSecParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case GotoCommand.COMMAND_WORD:
-            return new GotoCommandParser().parse(arguments);
+        case GotoContactsCommand.COMMAND_WORD:
+            return new GotoContactsCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments);
+            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
