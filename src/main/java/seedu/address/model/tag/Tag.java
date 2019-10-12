@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag implements Cloneable {
+public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
@@ -51,8 +51,4 @@ public class Tag implements Cloneable {
         return '[' + tagName + ']';
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return new Tag(new String(tagName));
-    }
 }

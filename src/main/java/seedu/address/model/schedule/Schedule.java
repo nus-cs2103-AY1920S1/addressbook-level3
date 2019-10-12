@@ -7,18 +7,18 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
-import seedu.address.model.order.Order;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Schedule in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Schedule implements Cloneable {
+public class Schedule {
 
     // Identity fields
-    private final Order order;
+    private final UUID id;
 
     // Data fields
     private final Calendar calendar;
@@ -27,18 +27,17 @@ public class Schedule implements Cloneable {
 
     /**
      * Every field must be present and not null.
-     * @throws CloneNotSupportedException If Order class does not implement Cloneable interface.
      */
-    public Schedule(Order order, Calendar calendar, Venue venue, Set<Tag> tags) {
-        requireAllNonNull(order, calendar, venue, tags);
-        this.order = (Order) order.clone();
+    public Schedule(UUID id, Calendar calendar, Venue venue, Set<Tag> tags) {
+        requireAllNonNull(id, calendar, venue, tags);
+        this.id = id;
         this.calendar = calendar;
         this.venue = venue;
         this.tags.addAll(tags);
     }
 
-    public Order getOrder() {
-        return order;
+    public UUID getId() {
+        return id;
     }
 
     public Calendar getCalendar() {
@@ -80,7 +79,7 @@ public class Schedule implements Cloneable {
         }
 
         return otherSchedule != null
-                && otherSchedule.getOrder().isSameOrder(getOrder());
+                && otherSchedule.getId().equals(getId());
     }
 
     /**
@@ -98,30 +97,23 @@ public class Schedule implements Cloneable {
         }
 
         Schedule otherSchedule = (Schedule) other;
-        return otherSchedule.getOrder().equals(getOrder())
+        return otherSchedule.getId().equals(getId())
                 && otherSchedule.getCalendar().equals(getCalendar())
                 && otherSchedule.getVenue().equals(getVenue())
                 && otherSchedule.getTags().equals((getTags()));
     }
 
     @Override
-    public Object clone() {
-        Schedule clone = new Schedule((Order) this.order.clone(), (Calendar) this.calendar.clone(),
-                (Venue) this.venue.clone(), this.getTags());
-        return clone;
-    }
-
-    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(order, calendar, venue, tags);
+        return Objects.hash(id, calendar, venue, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Order: ")
-                .append(getOrder())
+        builder.append(" # ")
+                .append(getId())
                 .append(" Date and Time: ")
                 .append(getCalendarString())
                 .append(" Venue: ")
@@ -130,4 +122,5 @@ public class Schedule implements Cloneable {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
 }

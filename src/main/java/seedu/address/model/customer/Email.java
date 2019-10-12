@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Customer's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email implements Cloneable {
+public class Email {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -62,11 +62,6 @@ public class Email implements Cloneable {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    @Override
-    protected Object clone() {
-        return new Email(new String(value));
     }
 
 }
