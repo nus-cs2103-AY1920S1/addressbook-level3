@@ -77,7 +77,7 @@ public class JsonActivityBookStorage implements ActivityBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(activityBook, filePath);
+        JsonUtil.saveJsonFile(new JsonActivityBook(activityBook), filePath);
     }
 
 }

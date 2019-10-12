@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_MISSING_TITLE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ActivityCommand.MESSAGE_USAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_TITLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ActivityCommand;
+import seedu.address.model.activity.Title;
 
 
 public class ActivityCommandParserTest {
@@ -22,13 +24,13 @@ public class ActivityCommandParserTest {
     public void parse_compulsoryFieldsPresent_success() {
         // Valid title
         assertParseSuccess(parser, " " + PREFIX_TITLE + VALID_ACTIVITY_TITLE,
-                new ActivityCommand(VALID_ACTIVITY_TITLE, new ArrayList<String>()));
+                new ActivityCommand(new Title(VALID_ACTIVITY_TITLE), new ArrayList<String>()));
     }
 
     @Test
     public void parse_compulsoryFieldsMissing_failure() {
         // Title Missing
-        assertParseFailure(parser, "", MESSAGE_ACTIVITY_MISSING_TITLE);
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test
@@ -38,6 +40,6 @@ public class ActivityCommandParserTest {
         String commandWithPerson = " " + PREFIX_PARTICIPANT + VALID_NAME_BOB + " "
                 + PREFIX_TITLE + VALID_ACTIVITY_TITLE;
         assertParseSuccess(parser, commandWithPerson,
-                new ActivityCommand(VALID_ACTIVITY_TITLE, new ArrayList<String>()));
+                new ActivityCommand(new Title(VALID_ACTIVITY_TITLE), new ArrayList<String>()));
     }
 }

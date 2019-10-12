@@ -101,6 +101,11 @@ public class Activity {
     }
 
     @Override
+    public String toString() {
+        return String.format("Activity \"%s\"\n", title);
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(title, participantIds, expenses);
