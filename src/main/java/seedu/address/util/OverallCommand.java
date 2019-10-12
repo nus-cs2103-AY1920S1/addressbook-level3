@@ -2,6 +2,7 @@ package seedu.address.util;
 
 import java.io.IOException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
+
 import seedu.address.transaction.commands.CommandResult;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;

@@ -129,9 +129,6 @@ public class MainApp extends Application {
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
                 transactionModel, transactionStorage, model);
-     /*   cashierLogic = new
-                seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
-                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);  */
 
         inventoryLogic = new
                 seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,

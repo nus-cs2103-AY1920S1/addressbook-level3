@@ -4,23 +4,27 @@ import java.util.logging.Logger;
 
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
-import seedu.address.cashier.ui.CashierUi;
+import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 
-public class AddCashierCommand extends Command {
+/**
+ * Sets a cashier who is in-charge of the sales made.
+ */
+public class SetCashierCommand extends Command {
 
-    private Person cashier;
     public static final String COMMAND_WORD = "cashier";
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private Person cashier;
+
 
     /**
-     * Creates an AddCommand to add the specified {@code Transaction}
+     * Creates a SetCashierCommand to add the specified {@code Person}
      */
-    public AddCashierCommand(Person p) {
+    public SetCashierCommand(Person p) {
         cashier = p;
     }
 
@@ -29,10 +33,9 @@ public class AddCashierCommand extends Command {
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
-        CashierUi cashierUi = new CashierUi();
+        CashierMessages cashierMessages = new CashierMessages();
         modelManager.setCashier(cashier);
-        //logger.info((Supplier<String>) cashier.getName());
-        return new CommandResult(CashierUi.addCashierSuccessful(cashier));
+        return new CommandResult(cashierMessages.addCashierSuccessful(cashier));
     }
 
 }

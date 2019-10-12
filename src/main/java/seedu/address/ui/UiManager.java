@@ -49,7 +49,8 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, transactionLogic, reimbursementLogic, inventoryLogic, personLogic, cashierLogic);
+            mainWindow = new MainWindow(primaryStage, transactionLogic, reimbursementLogic,
+                    inventoryLogic, personLogic, cashierLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
