@@ -26,20 +26,7 @@ public class RecommendCommand extends Command {
 
         /*
          * Currently this only filters based on given budget and sorts them by price.
-         * TODO: Also filter out user's restrictions
-         *
-         * Some ideas are noted below:
-         * Positive bonuses -
-         * 1. User purchased this food > 2 times
-         * 2. User purchased food with the same category
-         * 3. User purchased food with the same tags
-         * 4. User purchased food with the same location
-         * 5. User purchased food with the same dining hours
-         * 6. User 'likes' this category/tag (need to implement a 'like'/'dislike' feature)
-         *
-         * Negative penalties -
-         * 1. User just purchased this food (maybe a decreasing exponential function from time purchased)
-         * 2. User 'disliked' this category/tag (need to implement a 'like'/'dislike' feature)
+         * The recommendations can be cleared using the list command.
          */
         model.updateFilteredFoodList(BUDGET_RECOMMENDATION);
         model.updateComparator(Comparator.comparingDouble(x -> Double.parseDouble(x.getPrice().value)));
