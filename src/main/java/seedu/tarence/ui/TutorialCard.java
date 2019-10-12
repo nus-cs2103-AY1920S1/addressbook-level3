@@ -52,6 +52,7 @@ public class TutorialCard extends UiPart<Region> {
                 + tutorial.getTimeTable().getStartTime().toString() + " - "
                 + tutorial.getTimeTable().getStartTime().plus(tutorial.getTimeTable().getDuration());
         day.setText(dayTimeAndDuration);
+
         String tutorialWeeks = tutorial.getTimeTable().getWeeks().stream()
                 .map(n -> n.toString())
                 .collect(Collectors.joining(", "));

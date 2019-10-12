@@ -81,6 +81,7 @@ public class CommandTestUtil {
     public static final int VALID_WEEK = 1;
 
     public static final String INVALID_MODCODE = "ABCD1100S";
+
     public static final String INVALID_WEEKS_RANGE = "1-14";
 
     public static final String VALID_MODCODE_DESC = " " + PREFIX_MODULE + VALID_MODCODE;
@@ -92,10 +93,10 @@ public class CommandTestUtil {
     public static final String VALID_WEEKS_ODD_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_ODD;
     public static final String VALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_RANGE;
     public static final String VALID_WEEK_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEK;
-
     public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
 
     public static final String INVALID_MODCODE_DESC = " " + PREFIX_MODULE + INVALID_MODCODE;
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -103,6 +104,7 @@ public class CommandTestUtil {
     public static final String INVALID_TUTORIAL_INDEX_DESC_1 = " " + PREFIX_TUTORIAL_INDEX + "sa&";
     public static final String INVALID_TUTORIAL_INDEX_DESC_2 = " " + PREFIX_TUTORIAL_INDEX + "☹";
     public static final String INVALID_TUTORIAL_INDEX_DESC_3 = " " + PREFIX_TUTORIAL_INDEX + "0";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

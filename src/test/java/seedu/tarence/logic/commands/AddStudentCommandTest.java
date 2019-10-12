@@ -41,6 +41,7 @@ public class AddStudentCommandTest {
     public static final String VALID_TUT_NAME = "T02";
     public static final Index VALID_TUT_INDEX = Index.fromOneBased(1);
 
+
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
@@ -114,6 +115,7 @@ public class AddStudentCommandTest {
         String tutorialIndexOutOfBoundsMessage =
                 String.format(AddStudentCommand.MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS,
                         outOfBoundsTutorialIndex.getOneBased());
+
 
         assertThrows(CommandException.class,
                 tutorialIndexOutOfBoundsMessage, () -> addStudentCommand.execute(modelStub));
@@ -239,6 +241,7 @@ public class AddStudentCommandTest {
 
         @Override
         public void updateFilteredStudentList(NameContainsKeywordsPredicate predicate) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -270,6 +273,7 @@ public class AddStudentCommandTest {
         @Override
         public void setStudent(Student target, Student editedStudent) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -309,6 +313,7 @@ public class AddStudentCommandTest {
         @Override
         public void deleteStudentsFromTutorial(Tutorial tutorial) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -357,6 +362,7 @@ public class AddStudentCommandTest {
         @Override
         public boolean hasPendingCommand() {
             return false;
+
         }
     }
 

@@ -54,4 +54,8 @@ public class TutName {
         return tutName.hashCode();
     }
 
+    public String toJsonString() {
+        return tutName.toString();
+    }
+
 }

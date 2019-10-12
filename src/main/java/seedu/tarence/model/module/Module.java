@@ -85,8 +85,11 @@ public class Module {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModCode())
-                .append(" Tutorials: ")
-                .append(getTutorials());
+                .append(" | ");
+        for (Tutorial t : tutorials) {
+            builder.append(t.toString());
+        }
+
         return builder.toString();
     }
 
