@@ -1,7 +1,5 @@
 package seedu.address.model.util;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,22 +47,16 @@ public class SampleDataUtil {
 
     public static Incident[] getSampleIncidents() {
         return new Incident[] {
-                new Incident(new IncidentId(3, 2018), new District(3),
-                        new IncidentDateTime("2018-03-03T10:15:30"), "Jeremy Irons"),
-                new Incident(new IncidentId(10, 2016), new District(20),
-                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
-                new Incident(new IncidentId(2, 2015), new District(20),
-                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
-                new Incident(new IncidentId(3, 2013), new District(20),
-                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
-                new Incident(new IncidentId(12, 2015), new District(20),
-                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt")
-//                new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
-//                        new District(6), new Availability("BUSY")),
-//                new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
-//                        new District(20), new Availability("AVAILABLE")),
-//                new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
-//                        new District(8), new Availability("BUSY"))
+            new Incident(new IncidentId(3, 2018), new District(3),
+                    new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"),
+            new Incident(new IncidentId(10, 2016), new District(20),
+                    new IncidentDateTime("2016-10-10T12:30:35"), "David Li"),
+            new Incident(new IncidentId(2, 2015), new District(20),
+                    new IncidentDateTime("2016-10-10T12:30:35"), "Bernice Yu"),
+            new Incident(new IncidentId(3, 2013), new District(20),
+                    new IncidentDateTime("2016-10-10T12:30:35"), "Alex Yeoh"),
+            new Incident(new IncidentId(12, 2015), new District(20),
+                    new IncidentDateTime("2016-10-10T12:30:35"), "David Li")
         };
     }
 

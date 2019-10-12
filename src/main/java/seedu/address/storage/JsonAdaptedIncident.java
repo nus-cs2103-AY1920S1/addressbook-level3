@@ -7,14 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
-//import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.VehicleNumber;
-import seedu.address.model.vehicle.VehicleType;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Jackson-friendly version of {@link Incident}.
@@ -58,41 +51,29 @@ class JsonAdaptedIncident {
      * @throws IllegalValueException if there were any data constraints violated in the adapted incident.
      */
     public Incident toModelType() throws IllegalValueException {
-//        if (vehicleNumber == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-//                    VehicleNumber.class.getSimpleName()));
-//        }
-//        if (!VehicleNumber.isValidVehicleNumber(vehicleNumber)) {
-//            throw new IllegalValueException(VehicleNumber.MESSAGE_CONSTRAINTS);
-//        }
+        if (dateTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    IncidentDateTime.class.getSimpleName()));
+        }
+        if (!IncidentDateTime.isValidIncidentDateTime(dateTime)) {
+            throw new IllegalValueException(IncidentDateTime.MESSAGE_CONSTRAINTS);
+        }
         final IncidentDateTime modelDateTime = new IncidentDateTime(dateTime);
+
+        // no need to run checks for incidentId as it is generated from IncidentDateTime
         final IncidentId modelIncidentId = new IncidentId(modelDateTime.getMonth(),
                 modelDateTime.getYear());
-//
-//        if (districtNum == 0) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-//                    District.class.getSimpleName()));
-//        }
-//        if (!District.isValidDistrict(districtNum)) {
-//            throw new IllegalValueException(District.MESSAGE_CONSTRAINTS);
-//        }
+
+        if (districtNum == 0) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    District.class.getSimpleName()));
+        }
+        if (!District.isValidDistrict(districtNum)) {
+            throw new IllegalValueException(District.MESSAGE_CONSTRAINTS);
+        }
         final District modelDistrict = new District(districtNum);
 
-//        if (vehicleType == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-//                    VehicleType.class.getSimpleName()));
-//        }
-//        if (!VehicleType.isValidVehicleType(vehicleType)) {
-//            throw new IllegalValueException(VehicleType.MESSAGE_CONSTRAINTS);
-//        }
-//
-//        if (availability == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-//                    Availability.class.getSimpleName()));
-//        }
-//        if (!Availability.isValidAvailability(availability)) {
-//            throw new IllegalValueException(Availability.MESSAGE_CONSTRAINTS);
-//        }
+        // TODO: Implement Person check for operator when it takes in Person class
         final String modelOperator = operator;
 
         return new Incident(modelIncidentId, modelDistrict, modelDateTime, modelOperator);

@@ -171,7 +171,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Incident> getIncidentList() { return incidents.asUnmodifiableObservableList(); }
+    public ObservableList<Incident> getIncidentList() {
+        return incidents.asUnmodifiableObservableList();
+    }
 
     @Override
     public ObservableList<Vehicle> getVehicleList() {

@@ -1,11 +1,9 @@
 package seedu.address.model.incident;
 
-import java.time.LocalDate;
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Incident's IncidentDateTime in the address book.
@@ -14,11 +12,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class IncidentDateTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "IncidentDateTimes should only take in an ISO Date Time String, return LocalDateTime, and it should not be blank";
+            "IncidentDateTimes should only take in an ISO Date Time String, return LocalDateTime, and it should not "
+                    + "be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * TODO: Regex check for whether dateTime is an ISO Date Time String
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
@@ -32,7 +30,7 @@ public class IncidentDateTime {
      */
     public IncidentDateTime(String dateTimeString) {
         requireNonNull(dateTimeString);
-//        checkArgument(isValidIncidentDateTime(dateTimeString), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidIncidentDateTime(dateTimeString), MESSAGE_CONSTRAINTS);
         this.incidentDateTime = LocalDateTime.parse(dateTimeString, formatter);
     }
 
@@ -47,7 +45,8 @@ public class IncidentDateTime {
      * Returns true if a given string is a valid VehicleNumber.
      */
     public static boolean isValidIncidentDateTime(String test) {
-        return test.matches(VALIDATION_REGEX);
+        // return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     public int getMonth() {
