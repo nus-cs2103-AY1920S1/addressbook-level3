@@ -13,7 +13,7 @@ public enum Direction {
 
     /**
      * Constructs a {@code direction}.
-     * @param direction The String representing the direction.
+     * @param direction The String representing the direction of money flow.
      */
     Direction(String direction) {
         this.direction = direction;
