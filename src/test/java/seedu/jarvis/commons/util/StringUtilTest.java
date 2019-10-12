@@ -1,5 +1,6 @@
 package seedu.jarvis.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -140,4 +141,39 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for as80CharactersPerLine --------------------------
+    @Test
+    public void asLimitedCharactersPerLine_inputString_success() {
+        final int limit = 80;
+        String testString =
+            "This module introduces different techniques of designing and "
+            + "analysing algorithms. Students will learn about the framework for algorithm "
+            + "analysis, for example, lower bound arguments, average case analysis, and the "
+            + "theory of NP-completeness. In addition, students are exposed to various "
+            + "algorithm design paradigms. The module serves two purposes: to improve the "
+            + "students' ability to design algorithms in different areas, and to prepare "
+            + "students for the study of more advanced algorithms. The module covers lower "
+            + "and upper bounds, recurrences, basic algorithm paradigms (such as "
+            + "prune-and-search, dynamic programming, branch-and-bound, graph traversal, "
+            + "and randomised approaches), amortized analysis, NP-completeness, and some "
+            + "selected advanced topics. "
+            + "THISISDEFINITELYLONGERTHAN80CHARACTERSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. "
+            + "last line";
+
+        String expected =
+            "This module introduces different techniques of designing and analysing\n"
+                + "algorithms. Students will learn about the framework for algorithm analysis, for\n"
+                + "example, lower bound arguments, average case analysis, and the theory of\n"
+                + "NP-completeness. In addition, students are exposed to various algorithm design\n"
+                + "paradigms. The module serves two purposes: to improve the students' ability to\n"
+                + "design algorithms in different areas, and to prepare students for the study of\n"
+                + "more advanced algorithms. The module covers lower and upper bounds,\n"
+                + "recurrences, basic algorithm paradigms (such as prune-and-search, dynamic\n"
+                + "programming, branch-and-bound, graph traversal, and randomised approaches),\n"
+                + "amortized analysis, NP-completeness, and some selected advanced topics.\n"
+                + "THISISDEFINITELYLONGERTHAN80CHARACTERSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\n"
+                + "last line";
+
+        assertEquals(StringUtil.asLimitedCharactersPerLine(testString, limit), expected);
+    }
 }

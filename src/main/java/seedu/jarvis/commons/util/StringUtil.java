@@ -65,4 +65,87 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Checks if the given {@code StringBuilder} can accommodate its current length, a new
+     * token and an extra newline and space, beneath the given limit.
+     *
+     * @param sb {@code StringBuilder} to check
+     * @param token {@code String} to check
+     * @param limit length limit of the {@code String}
+     * @return true if the result {@code String} can accommodate the limit
+     */
+    private static boolean canAppend(StringBuilder sb, String token, int limit) {
+        int tokenLen = token.length();
+        int sbLen = sb.length();
+        int newLineLen = "\n".length();
+        int spaceLen = " ".length();
+        return tokenLen + sbLen + newLineLen + spaceLen <= limit;
+    }
+
+    /**
+     * Appends the given token to the given {@code StringBuilder}. This method
+     * only appends just the token if the {@code StringBuilder} is empty, the token with
+     * a preceding a space otherwise.
+     */
+    private static void appendToken(StringBuilder sb, String token) {
+        if (sb.length() == 0) {
+            sb.append(token);
+        } else {
+            sb.append(" " + token);
+        }
+    }
+
+    /**
+     * Appends the given token to the given {@code StringBuilder} if the length of the
+     * given {@code StringBuilder} is above the {@code limit}. Appends preceding and
+     * subsequent newline if the token is above the limit, appends a newline otherwise.
+     *
+     * @return true if the given token is above the limit.
+     */
+    private static boolean appendTokenAboveLimit(StringBuilder sb, String token, int limit) {
+        if (token.length() >= limit) {
+            sb.append("\n").append(token).append("\n");
+            return true;
+        } else {
+            sb.append("\n");
+            return false;
+        }
+    }
+
+    /**
+     * Returns a {@code String} containing the input string, but delimited by {@code \n}
+     * after every 80 characters. Words (a {@code CharSequence} delimited by spaces)
+     * are not cut halfway and will insert newlines only between spaces.
+     *
+     * If a word is longer than 80 characters, the word will be put on its own line.
+     *
+     * This method only guarantees lines shorter than 80 characters if the above scenario
+     * does not occur.
+     *
+     * @param s input string
+     * @return an 80 character limited {@code String} per line
+     */
+    public static String asLimitedCharactersPerLine(String s, int limit) {
+        if (s.length() == 0) {
+            return "";
+        }
+        String[] tokens = s.split("\\s+");
+        StringBuilder lines = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < tokens.length;) {
+            if (canAppend(builder, tokens[i], limit)) {
+                appendToken(builder, tokens[i]);
+                i++;
+            } else {
+                if (appendTokenAboveLimit(builder, tokens[i], limit)) {
+                    i++;
+                }
+                lines.append(builder.toString());
+                builder = new StringBuilder();
+            }
+        }
+        lines.append(builder.toString()); // get last line
+        return lines.toString();
+    }
 }
