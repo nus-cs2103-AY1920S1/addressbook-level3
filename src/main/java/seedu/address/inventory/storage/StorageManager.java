@@ -1,10 +1,14 @@
 package seedu.address.inventory.storage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
-
-import java.io.*;
-import java.util.ArrayList;
 
 public class StorageManager implements Storage {
     private String filepath;

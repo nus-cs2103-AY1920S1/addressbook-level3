@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -14,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.OverallCommandResult;
 
@@ -211,14 +211,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Closes the application.
      */
-    /*@FXML
+    @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        personLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }*/
+    }
 
     //public PersonListPanel getPersonListPanel() {
     //    return personListPanel;
@@ -240,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
                 commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic");
+                commandResult = cashierLogic.execute(commandText);
                 //should be replace with cashier's logic
             } else {
                 commandResult = new OverallCommandResult("Implement overview logic");
@@ -268,11 +268,11 @@ public class MainWindow extends UiPart<Stage> {
             //later when we implement help and exit
             /*if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
+            }*/
 
             if (commandResult.isExit()) {
                 handleExit();
-            }*/
+            }
 
             return commandResult;
         } catch (Exception e) {

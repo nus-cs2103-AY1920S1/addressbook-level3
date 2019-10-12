@@ -42,15 +42,15 @@ public class StorageManager {
     }
 
     public static Item readInInventoryFileLine(String line) {
-        String[] stringArr = line.split(" [|] ", 0);
+        String[] stringArr = line.split(" [|] ");
         Item i = null;
         if (stringArr.length == 5) {
             i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
-                    Double.parseDouble(stringArr[4]), Integer.parseInt(stringArr[0]));
+                    Double.parseDouble(stringArr[4]), 0, Integer.parseInt(stringArr[0]));
         } else if (stringArr.length == 6) {
-            i = new Item(stringArr[0], stringArr[1], Integer.parseInt(stringArr[2]),
-                    Double.parseDouble(stringArr[3]), Double.parseDouble(stringArr[4]),
-                    Integer.parseInt(stringArr[5]));
+            i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
+                    Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]),
+                    Integer.parseInt(stringArr[0]));
         }
         return i;
     }
@@ -60,9 +60,9 @@ public class StorageManager {
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
             if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + ". " + inventoryList.getItemByIndex(i).toWriteIntoFile();
+                textFileMsg = textFileMsg + (i + 1) + inventoryList.getItemByIndex(i).toWriteIntoFile();
             } else {
-                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". " +
+                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) +
                         inventoryList.getItemByIndex(i).toWriteIntoFile();
             }
         }

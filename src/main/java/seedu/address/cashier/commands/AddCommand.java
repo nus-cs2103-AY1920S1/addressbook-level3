@@ -18,11 +18,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel)
+    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchItemException {
         CashierUi cashierUi = new CashierUi();
         Item i = modelManager.addItem(description, quantity);
-        return new CommandResult(CashierUi.addedItem(i));
+        return new CommandResult(cashierUi.addedItem(i));
     }
 }
 

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.person.Person;
 import seedu.address.transaction.util.TransactionList;
 
 /**
@@ -110,6 +111,17 @@ public class ModelManager implements Model {
     @Override
     public void resetPredicate() {
         this.predicate = transaction -> true;
+    }
+
+    @Override
+    public void deleteAllTransactionOfPerson(Person person) {
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).getPerson().equals(person)) {
+                logger.info(person.toString());
+                transactionList.delete(i);
+                i--;
+            }
+        }
     }
 
     @Override

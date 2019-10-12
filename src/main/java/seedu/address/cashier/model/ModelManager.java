@@ -11,13 +11,13 @@ import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.person.model.person.Person;
-import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
 
+    private static final String SALES_DESCRIPTION = "Items sold";
+    private static final String SALES_CATEGORY = "Sales";
     public Person cashier = null;
     private static ArrayList<Item> salesList = new ArrayList<Item>();
     private InventoryList inventoryList;
@@ -53,38 +53,44 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
-        if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
-            return false;
+        Item originalItem = inventoryList.getOriginalItem(description);
+        for (Item i : salesList) {
+            if (originalItem.isSameItem(i)) {
+                int initialSalesQty = i.getQuantity();
+                return (originalItem.getQuantity() >= (initialSalesQty + quantity));
+            }
         }
-        else {
+        if (originalItem.getQuantity() >= quantity) {
             return true;
         }
+        return false;
+    }
+
+    public int getStockLeft(String description) throws NoSuchItemException {
+        return inventoryList.getOriginalItem(description).getQuantity();
     }
 
     @Override
     public boolean hasItemInInventory(Item item) {
-        for (int i = 0 ; i < inventoryList.size(); i++) {
-            try {
+        //for (int i = 0 ; i < inventoryList.size(); i++) {
+        try {
+            for (int i = 0; i < inventoryList.size(); i++) {
                 if (inventoryList.getItemByIndex(i).isSameItem(item)) {
                     return true;
                 }
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
                 return false;
             }
-        }
         return false;
     }
 
-    public boolean hasItemInInventory(String description) {
-        for (int i = 0 ; i < inventoryList.size(); i++) {
-            try {
-                inventoryList.getOriginalItem(description);
-                return true;
-            } catch (NoSuchItemException e) {
-                return false;
-            }
-        }
-        return false;
+    public void updateRecentInventory() throws Exception {
+        this.inventoryList = storage.getInventoryList();
+    }
+
+    public boolean hasItemInInventory(String description) throws NoSuchIndexException {
+        return inventoryList.hasItem(description);
     }
 
     @Override
@@ -117,7 +123,6 @@ public class ModelManager implements Model {
         salesList.remove(index - 1);
     }
 
-
     @Override
     public void setItem(int i, Item editedItem) throws Exception {
         inventoryList.set(i, editedItem);
@@ -131,16 +136,13 @@ public class ModelManager implements Model {
     public void updateInventoryList() throws Exception {
         for (int i = 0; i < salesList.size(); i++) {
             Item item = salesList.get(i);
-            inventoryList.getOriginalItem(item).setQuantity(i + 1);
+            int originalQty = inventoryList.getOriginalItem(item).getQuantity();
+            inventoryList.getOriginalItem(item).setQuantity(originalQty - item.getQuantity());
         }
     }
 
-    public void setCashier(String name, seedu.address.person.model.Model personModel) throws NoSuchPersonException {
-        try {
-            this.cashier = personModel.getPersonByName(name);
-        } catch (PersonNotFoundException e) {
-            throw new NoSuchPersonException(CashierUi.NO_SUCH_PERSON);
-        }
+    public void setCashier(Person p) {
+        this.cashier = p;
     }
 
     public Person getCashier() throws NoCashierFoundException {
@@ -150,17 +152,19 @@ public class ModelManager implements Model {
         return this.cashier;
     }
 
-    public Transaction checkoutAsTransaction(double amount, Person person) throws Exception {
-        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.myFormatter),
-                "salesItems", "sales", amount, person, transactionList.size(), false);
+    public Transaction checkoutAsTransaction(double amount, Person person,
+                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
+        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
         storage.appendToTransaction(transaction);
+        transactionModel.addTransaction(transaction);
         return transaction;
     }
 
     public static double getTotalAmount() {
         double total = 0;
         for (Item i : salesList) {
-            total += i.getPrice();
+            total += (i.getPrice() * i.getQuantity());
         }
         return total;
     }
