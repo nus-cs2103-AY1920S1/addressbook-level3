@@ -12,6 +12,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
+    @Override
+    public String name() {
+        return DeleteCommand.COMMAND_WORD;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
