@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddDiaryCommand;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteDiaryCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,9 +32,9 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_DIARY.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_DIARY), command);
+        DeleteDiaryCommand command = (DeleteDiaryCommand) parser.parseCommand(
+                DeleteDiaryCommand.COMMAND_WORD + " " + INDEX_FIRST_DIARY.getOneBased());
+        assertEquals(new DeleteDiaryCommand(INDEX_FIRST_DIARY), command);
     }
 
     @Test
