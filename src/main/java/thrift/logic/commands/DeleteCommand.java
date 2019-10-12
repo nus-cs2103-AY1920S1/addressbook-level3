@@ -7,6 +7,7 @@ import java.util.List;
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
+import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
@@ -21,8 +22,8 @@ public class DeleteCommand extends Command implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1";
 
     public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Transaction: %1$s";
 
