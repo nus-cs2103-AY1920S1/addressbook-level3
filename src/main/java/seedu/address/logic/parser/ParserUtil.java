@@ -172,12 +172,8 @@ public class ParserUtil {
         String trimmedCalendar = calendar.trim();
 
         String[] stringCalendar = trimmedCalendar.split("\\.");
-        String result = "";
-        for (String s: stringCalendar) {
-            result += s + " ";
-        }
         if (stringCalendar.length != 5) {
-            throw new ParseException(MESSAGE_INVALID_CALENDAR + " YO " + result);
+            throw new ParseException(MESSAGE_INVALID_CALENDAR);
         }
 
         int[] input = new int[5];

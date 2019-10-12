@@ -45,7 +45,7 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR, PREFIX_VENUE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CALENDAR, PREFIX_VENUE)) {
-            throw new ParseException(String.format("PREFIX" + MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE));
         }
 
         Index index;
@@ -53,7 +53,7 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format("INDEX" + MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE), pe);
         }
 
         Calendar calendar = ParserUtil.parseCalendar(argMultimap.getValue(PREFIX_CALENDAR).get());

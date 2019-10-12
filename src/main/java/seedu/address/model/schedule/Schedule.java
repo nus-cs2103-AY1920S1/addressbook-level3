@@ -50,6 +50,19 @@ public class Schedule implements Cloneable {
     }
 
     /**
+     * Return a formatted String of the Calendar Object.
+     */
+    private String getCalendarString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(calendar.get(Calendar.YEAR) + ".")
+                .append(calendar.get(Calendar.MONTH) + ".")
+                .append(calendar.get(Calendar.DAY_OF_MONTH) + " ")
+                .append(calendar.get(Calendar.HOUR_OF_DAY) + ":")
+                .append(calendar.get(Calendar.MINUTE));
+        return sb.toString();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -110,7 +123,7 @@ public class Schedule implements Cloneable {
         builder.append("Order: ")
                 .append(getOrder())
                 .append(" Date and Time: ")
-                .append(getCalendar().getTime())
+                .append(getCalendarString())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
