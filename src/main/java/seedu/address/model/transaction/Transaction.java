@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Direction;
 import seedu.address.model.transaction.stub.Category;
 import seedu.address.model.transaction.stub.Description;
 
@@ -20,16 +21,19 @@ public class Transaction {
 
     private final Date date;
     private final Amount amount;
+    private final Direction direction;
     private final Description description;
     private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Date date, Amount amount, Description description, Set<Category> categories) {
-        requireAllNonNull(date, amount, description, categories);
+    public Transaction(Date date, Amount amount, Direction direction, Description description,
+                       Set<Category> categories) {
+        requireAllNonNull(date, amount, direction, description, categories);
         this.date = date;
         this.amount = amount;
+        this.direction = direction;
         this.description = description;
         this.categories.addAll(categories);
     }
@@ -40,6 +44,10 @@ public class Transaction {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public Description getDescription() {
@@ -66,6 +74,7 @@ public class Transaction {
         Transaction otherTransaction = (Transaction) other;
         return otherTransaction.getDate().equals(date)
                 && otherTransaction.getAmount().equals(amount)
+                && otherTransaction.getDirection().equals(direction)
                 && otherTransaction.getDescription().equals(description)
                 && otherTransaction.getCategories().equals(categories);
 
@@ -73,7 +82,7 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, amount, description, categories);
+        return Objects.hash(date, amount, direction, description, categories);
     }
 
     @Override
@@ -81,7 +90,8 @@ public class Transaction {
         final StringBuilder builder = new StringBuilder();
         builder.append("Amount: ")
                 .append(getAmount())
-                .append("on ")
+                .append(direction.toString())
+                .append(" on ")
                 .append(getDate())
                 .append(" Description: ")
                 .append(getDescription())
