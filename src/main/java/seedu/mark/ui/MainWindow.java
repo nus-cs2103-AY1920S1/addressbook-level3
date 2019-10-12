@@ -15,8 +15,8 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
 import seedu.mark.logic.commands.TabCommand.Tab;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -45,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane mainViewAreaPlaceholder;
-    //private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -122,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
+        browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
         dashboardPanel = new DashboardPanel();
         offlinePanel = new OfflinePanel();
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());

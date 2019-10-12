@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands.commandresult;
+package seedu.mark.logic.commands.results;
 
 import static java.util.Objects.requireNonNull;
 
@@ -35,6 +35,7 @@ public class CommandResult {
     public TabCommand.Tab getTab() {
         return null;
     }
+
 
     @Override
     public boolean equals(Object other) {
