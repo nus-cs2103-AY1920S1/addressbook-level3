@@ -1,13 +1,12 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import javafx.scene.Node;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
-public class JavascriptCard implements FlashCard, JsonInterface {
+public class JavascriptCard implements FlashCard {
 
     protected String front;
     protected String output;
