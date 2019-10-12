@@ -104,7 +104,9 @@ public class Course {
                 .append("Offered by: ").append(getFaculty()).append("\n")
                 .append(getFaculty()).append("\n")
                 .append("Preclusion: ").append(getPreclusion()).append("\n")
-                .append("Required for: ").append(getFulfillRequirements()).append("\n");
+                .append("Required for: ").append(getFulfillRequirements()).append("\n")
+                .append("\n") // newline for better readability
+                .append(getDescription());
         return builder.toString();
     }
 
