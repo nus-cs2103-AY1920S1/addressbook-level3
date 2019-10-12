@@ -70,7 +70,11 @@
                   </VBox>
                </children>
             </HBox>
-
+          <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="300.0" prefHeight="300.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+          </StackPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

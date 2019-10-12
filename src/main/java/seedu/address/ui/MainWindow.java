@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,11 +31,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ReadOnlyAddressBook readOnlyAddressBook;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private WorkerListPanel workerListPanel;
     private BodyListPanel bodyListPanel;
+    private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -51,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane bodyListPanelPlaceholder;
+
+    @FXML
+    private StackPane lineChartPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,6 +130,9 @@ public class MainWindow extends UiPart<Stage> {
 
         bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
         bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
+
+        lineChartPanel = new LineChartPanel(logic.getAddressBook().getWorkerList());
+        lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
