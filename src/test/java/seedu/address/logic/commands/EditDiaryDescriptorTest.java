@@ -5,19 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditDiaryDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        EditCommand.EditDiaryDescriptor descriptorWithSameValues = new EditCommand.EditDiaryDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -33,11 +31,8 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        EditCommand.EditDiaryDescriptor editedAmy = new EditDiaryDescriptorBuilder(DESC_AMY)
+                .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

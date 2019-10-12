@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
 
 /**
  * Panel containing the list of persons.
@@ -18,27 +18,27 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Diary> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Diary> diaryList) {
         super(FXML);
-        personListView.setItems(personList);
+        personListView.setItems(diaryList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Diary} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Diary> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Diary diary, boolean empty) {
+            super.updateItem(diary, empty);
 
-            if (empty || person == null) {
+            if (empty || diary == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(diary, getIndex() + 1).getRoot());
             }
         }
     }

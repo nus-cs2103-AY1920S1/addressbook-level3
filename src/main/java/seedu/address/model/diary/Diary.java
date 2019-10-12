@@ -1,59 +1,41 @@
-package seedu.address.model.person;
+package seedu.address.model.diary;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in Duke Cooks.
+ * Represents a Diary in Duke Cooks.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Diary {
 
     // Identity fields
     private final Name name;
 
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
-
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
+    public Diary(Name name) {
+        requireAllNonNull(name);
         this.name = name;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
     }
 
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameDiary(Diary otherDiary) {
+        if (otherDiary == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherDiary != null
+                && otherDiary.getName().equals(getName());
     }
 
     /**
@@ -66,27 +48,24 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Diary)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getTags().equals(getTags());
+        Diary otherDiary = (Diary) other;
+        return otherDiary.getName().equals(getName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getName());
         return builder.toString();
     }
 

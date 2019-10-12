@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
@@ -19,16 +19,16 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "exercisecatalogue")
 class JsonSerializableExerciseCatalogue {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_DIARY = "Diaries list contains duplicate diary(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedDiary> diaries = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
+     * Constructs a {@code JsonSerializableExerciseCatalogue} with the given diaries.
      */
     @JsonCreator
-    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableExerciseCatalogue(@JsonProperty("diaries") List<JsonAdaptedDiary> diaries) {
+        this.diaries.addAll(diaries);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableExerciseCatalogue {
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
     public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        diaries.addAll(source.getDiaryList().stream().map(JsonAdaptedDiary::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableExerciseCatalogue {
     */
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (dukeCooks.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedDiary jsonAdaptedDiary : diaries) {
+            Diary diary = jsonAdaptedDiary.toModelType();
+            if (dukeCooks.hasDiary(diary)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DIARY);
             }
-            dukeCooks.addPerson(person);
+            dukeCooks.addDiary(diary);
         }
         return dukeCooks;
     }

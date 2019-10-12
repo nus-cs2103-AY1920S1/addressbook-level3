@@ -1,0 +1,54 @@
+package seedu.address.model.diary;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.testutil.TypicalDiaries.ALICE;
+import static seedu.address.testutil.TypicalDiaries.BOB;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.DiaryBuilder;
+
+public class DiaryTest {
+
+    @Test
+    public void isSamePerson() {
+        // same object -> returns true
+        assertTrue(ALICE.isSameDiary(ALICE));
+
+        // null -> returns false
+        assertFalse(ALICE.isSameDiary(null));
+
+        // different name -> returns false
+        Diary editedAlice = new DiaryBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.isSameDiary(editedAlice));
+
+        // same name, same email, different attributes -> returns true
+        editedAlice = new DiaryBuilder(ALICE).build();
+        assertTrue(ALICE.isSameDiary(editedAlice));
+    }
+
+    @Test
+    public void equals() {
+        // same values -> returns true
+        Diary aliceCopy = new DiaryBuilder(ALICE).build();
+        assertTrue(ALICE.equals(aliceCopy));
+
+        // same object -> returns true
+        assertTrue(ALICE.equals(ALICE));
+
+        // null -> returns false
+        assertFalse(ALICE.equals(null));
+
+        // different type -> returns false
+        assertFalse(ALICE.equals(5));
+
+        // different diary -> returns false
+        assertFalse(ALICE.equals(BOB));
+
+        // different name -> returns false
+        Diary editedAlice = new DiaryBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+    }
+}

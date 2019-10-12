@@ -5,16 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.UniqueDiaryList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameDiary comparison)
  */
 public class DukeCooks implements ReadOnlyDukeCooks {
 
-    private final UniquePersonList persons;
+    private final UniqueDiaryList diaries;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        diaries = new UniqueDiaryList();
     }
 
     public DukeCooks() {}
@@ -40,11 +40,11 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the diary list with {@code diaries}.
+     * {@code diaries} must not contain duplicate diaries.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setDiaries(List<Diary> diaries) {
+        this.diaries.setDiaries(diaries);
     }
 
     /**
@@ -53,68 +53,68 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void resetData(ReadOnlyDukeCooks newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setDiaries(newData.getDiaryList());
     }
 
-    //// person-level operations
+    //// diary-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
+     * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasDiary(Diary diary) {
+        requireNonNull(diary);
+        return diaries.contains(diary);
     }
 
     /**
-     * Adds a person to Duke Cooks.
-     * The person must not already exist in Duke Cooks.
+     * Adds a diary to Duke Cooks.
+     * The diary must not already exist in Duke Cooks.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addDiary(Diary p) {
+        diaries.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given diary {@code target} in the list with {@code editedDiary}.
      * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in Duke Cooks.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in Duke Cooks.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setDiary(Diary target, Diary editedDiary) {
+        requireNonNull(editedDiary);
 
-        persons.setPerson(target, editedPerson);
+        diaries.setDiary(target, editedDiary);
     }
 
     /**
      * Removes {@code key} from this {@code DukeCooks}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeDiary(Diary key) {
+        diaries.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return diaries.asUnmodifiableObservableList().size() + " diaries";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Diary> getDiaryList() {
+        return diaries.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DukeCooks // instanceof handles nulls
-                && persons.equals(((DukeCooks) other).persons));
+                && diaries.equals(((DukeCooks) other).diaries));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return diaries.hashCode();
     }
 }

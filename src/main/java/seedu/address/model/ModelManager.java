@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
 
 /**
  * Represents the in-memory model of Duke Cooks data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final DukeCooks dukeCooks;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Diary> filteredDiaries;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredDiaries = new FilteredList<>(this.dukeCooks.getDiaryList());
     }
 
     public ModelManager() {
@@ -89,44 +89,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return dukeCooks.hasPerson(person);
+    public boolean hasDiary(Diary diary) {
+        requireNonNull(diary);
+        return dukeCooks.hasDiary(diary);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        dukeCooks.removePerson(target);
+    public void deleteDiary(Diary target) {
+        dukeCooks.removeDiary(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        dukeCooks.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addDiary(Diary diary) {
+        dukeCooks.addDiary(diary);
+        updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setDiary(Diary target, Diary editedDiary) {
+        requireAllNonNull(target, editedDiary);
 
-        dukeCooks.setPerson(target, editedPerson);
+        dukeCooks.setDiary(target, editedDiary);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Diary List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Diary} backed by the internal list of
      * {@code versionedDukeCooks}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Diary> getFilteredDiaryList() {
+        return filteredDiaries;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredDiaryList(Predicate<Diary> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredDiaries.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return dukeCooks.equals(other.dukeCooks)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredDiaries.equals(other.filteredDiaries);
     }
 
 }

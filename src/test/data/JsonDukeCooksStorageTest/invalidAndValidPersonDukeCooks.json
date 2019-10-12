@@ -1,7 +1,0 @@
-{
-  "persons": [ {
-    "name": "Valid Person"
-  }, {
-    "name": "Person With invalid n@me"
-  } ]
-}
