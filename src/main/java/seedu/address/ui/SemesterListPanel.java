@@ -14,15 +14,15 @@ import seedu.address.model.semester.Semester;
  * Panel containing the list of persons.
  */
 public class SemesterListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "SemesterListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SemesterListPanel.class);
 
     @FXML
     private ListView<Semester> semesterListView;
 
-    public SemesterListPanel(ObservableList<Semester> personList) {
+    public SemesterListPanel(ObservableList<Semester> semesters) {
         super(FXML);
-        semesterListView.setItems(personList);
+        semesterListView.setItems(semesters);
         semesterListView.setCellFactory(listView -> new SemesterListViewCell());
     }
 
