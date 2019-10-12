@@ -91,6 +91,9 @@ public class LogicManager implements Logic {
             case "note":
                 storage.saveNoteBook(model.getNoteBook());
                 break;
+            case "password":
+                storage.savePasswordBook(model.getPasswordBook());
+                break;
             default:
                 storage.saveAddressBook(model.getAddressBook());
                 break;

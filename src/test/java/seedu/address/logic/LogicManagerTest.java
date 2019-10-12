@@ -25,6 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.UserPrefs;
@@ -33,6 +34,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCardBookStorage;
 import seedu.address.storage.JsonFileBookStorage;
 import seedu.address.storage.JsonNoteBookStorage;
+import seedu.address.storage.JsonPasswordBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -49,6 +51,9 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
+        //TODO: add in new tests with password book storage
+        JsonPasswordBookStorage passwordBookStorage =
+                new JsonPasswordBookStorage(temporaryFolder.resolve("passwordBook.json"), PASSWORD);
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"), PASSWORD);
         JsonFileBookStorage fileBookStorage =
@@ -60,7 +65,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"), PASSWORD);
         StorageManager storage = new StorageManager(addressBookStorage, fileBookStorage,
-                cardBookStorage, noteBookStorage, userPrefsStorage, PASSWORD);
+                cardBookStorage, noteBookStorage, passwordBookStorage, userPrefsStorage, PASSWORD);
+
         logic = new LogicManager(model, storage);
     }
 
@@ -93,11 +99,12 @@ public class LogicManagerTest {
                 new JsonCardBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCardBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"), PASSWORD);
-
         JsonNoteBookStorage noteBookStorage =
                 new JsonNoteBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionNoteBook.json"));
+        JsonPasswordBookStorage passwordBookStorage =
+                new JsonPasswordBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionPasswordBook.json"));
         StorageManager storage = new StorageManager(addressBookStorage, fileBookStorage,
-                cardBookStorage, noteBookStorage, userPrefsStorage, PASSWORD);
+                cardBookStorage, noteBookStorage, passwordBookStorage, userPrefsStorage, PASSWORD);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -152,7 +159,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getFileBook(),
-                model.getCardBook(), model.getNoteBook(), new UserPrefs());
+                model.getCardBook(), model.getNoteBook(), model.getPasswordBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -190,9 +197,19 @@ public class LogicManagerTest {
         private JsonCardBookIoExceptionThrowingStub(Path filePath) {
             super(filePath, PASSWORD);
         }
-
         @Override
         public void saveCardBook(CardBook cardBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    private static class JsonPasswordBookIoExceptionThrowingStub extends JsonPasswordBookStorage {
+        private JsonPasswordBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath, PASSWORD);
+        }
+
+        @Override
+        public void savePasswordBook(PasswordBook passwordBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -16,4 +16,7 @@ public interface ReadOnlyUserPrefs {
     Path getCardBookFilePath();
 
     Path getNoteBookFilePath();
+
+    Path getPasswordBookFilePath();
+
 }

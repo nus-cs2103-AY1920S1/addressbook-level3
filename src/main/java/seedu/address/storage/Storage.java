@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CardBook;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
@@ -15,8 +16,9 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
+
 public interface Storage extends AddressBookStorage, FileBookStorage, CardBookStorage,
-        NoteBookStorage, UserPrefsStorage {
+        NoteBookStorage, PasswordBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -53,6 +55,7 @@ public interface Storage extends AddressBookStorage, FileBookStorage, CardBookSt
 
     @Override
     void saveCardBook(CardBook cardBook) throws IOException;
+
     Path getNoteBookFilePath();
 
     @Override
@@ -60,5 +63,13 @@ public interface Storage extends AddressBookStorage, FileBookStorage, CardBookSt
 
     @Override
     void saveNoteBook(ReadOnlyNoteBook noteBook) throws IOException;
+
+    Path getPasswordBookFilePath();
+
+    @Override
+    Optional<PasswordBook> readPasswordBook() throws DataConversionException, IOException;
+
+    @Override
+    void savePasswordBook(PasswordBook passwordBook) throws IOException;
 
 }

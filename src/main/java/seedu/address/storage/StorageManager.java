@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CardBook;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
@@ -25,12 +26,14 @@ public class StorageManager implements Storage {
     private CardBookStorage cardBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private NoteBookStorage noteBookStorage;
+    private PasswordBookStorage passwordBookStorage;
     private String password;
 
     public StorageManager(AddressBookStorage addressBookStorage,
                           FileBookStorage fileBookStorage,
                           CardBookStorage cardBookStorage,
                           NoteBookStorage noteBookStorage,
+                          PasswordBookStorage passwordBookStorage,
                           UserPrefsStorage userPrefsStorage,
                           String password) {
         super();
@@ -39,6 +42,7 @@ public class StorageManager implements Storage {
         this.cardBookStorage = cardBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.noteBookStorage = noteBookStorage;
+        this.passwordBookStorage = passwordBookStorage;
         this.password = password;
     }
 
@@ -178,6 +182,34 @@ public class StorageManager implements Storage {
     public void saveNoteBook(ReadOnlyNoteBook noteBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         noteBookStorage.saveNoteBook(noteBook, filePath);
+    }
+    // ================ PasswordBook methods ==============================
+
+    @Override
+    public Path getPasswordBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath();
+    }
+
+    @Override
+    public Optional<PasswordBook> readPasswordBook() throws DataConversionException, IOException {
+        return readPasswordBook(passwordBookStorage.getPasswordBookFilePath());
+    }
+
+    @Override
+    public Optional<PasswordBook> readPasswordBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return passwordBookStorage.readPasswordBook(filePath);
+    }
+
+    @Override
+    public void savePasswordBook(PasswordBook passwordBook) throws IOException {
+        savePasswordBook(passwordBook, passwordBookStorage.getPasswordBookFilePath());
+    }
+
+    @Override
+    public void savePasswordBook(PasswordBook passwordBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        passwordBookStorage.savePasswordBook(passwordBook, filePath);
     }
 
 }

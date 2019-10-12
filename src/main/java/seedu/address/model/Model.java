@@ -5,13 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-<<<<<<< HEAD
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
-=======
 import seedu.address.model.password.Password;
->>>>>>> Integrate UI with password model
 import seedu.address.model.person.Person;
 
 /**
@@ -136,7 +133,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-<<<<<<< HEAD
+
     /** Returns an unmodifiable view of the filtered file list */
     ObservableList<EncryptedFile> getFilteredFileList();
 
@@ -242,9 +239,11 @@ public interface Model {
     public Path getNoteBookFilePath();
 
     public void setNoteBookFilePath(Path noteBookFilePath);
-=======
+
     ObservableList<Password> getFilteredPasswordList();
 
     void addPassword(Password password);
->>>>>>> Integrate UI with password model
+
+    /** Returns the PasswordBook */
+    PasswordBook getPasswordBook();
 }

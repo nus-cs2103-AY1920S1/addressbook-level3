@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -247,11 +248,14 @@ public class AddCommandTest {
         }
 
         @Override
+<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest
         public void deletePassword(Password password) {
 
         }
 
         @Override
+=======
+>>>>>>> Add in storage class for password:src/test/java/seedu/address/logic/commands/AddCommandTest.java
         public PasswordBook getPasswordBook() {
             return null;
         }
