@@ -102,7 +102,7 @@ public class Task {
      * @throws IOException when the jsonString is not in JSON format
      * @throws IllegalValueException when the JSON string contains incorrect value
      */
-    public static Task fromJson(String jsonString) throws IOException, IllegalValueException {
+    public static Task fromJson(String jsonString) throws IOException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
         final Priority p;
         final boolean complete;
