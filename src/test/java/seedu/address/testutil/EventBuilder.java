@@ -1,13 +1,20 @@
 package seedu.address.testutil;
 
-
-import seedu.address.model.event.*;
-import seedu.address.model.tag.Tag;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventEndDate;
+import seedu.address.model.event.EventHoursNeeded;
+import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventManpowerAllocatedList;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventStartDate;
+import seedu.address.model.event.EventVenue;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building Person objects.
