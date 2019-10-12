@@ -65,6 +65,6 @@ public class LookUpCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        throw new CommandException("Lookup cannot be inverted");
+        throw new CommandException(MESSAGE_NO_INVERSE);
     }
 }
