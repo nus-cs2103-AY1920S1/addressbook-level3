@@ -51,7 +51,7 @@
     - unless notitle
       h1 =header.title
     - if [:author, :revnumber, :revdate, :revremark].any? {|a| attr? a }
-      .detail
+      .details
         - if attr? :author
           span.author#author =(attr :author)
           br

@@ -18,7 +18,7 @@ If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Curren
 
 == Setting up Coveralls
 
-.  Go to https://coveralls.io/ and click `SIGN IN`. Then click `GITHUB SIGN IN` and enter your GitHub account detail if needed.
+.  Go to https://coveralls.io/ and click `SIGN IN`. Then click `GITHUB SIGN IN` and enter your GitHub account details if needed.
 +
 .  After logging in, you will be brought to the `Your Repositories` page. On the site's navigation bar, click https://coveralls.io/repos/new[ADD REPOS].
 +

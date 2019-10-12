@@ -69,7 +69,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The sections below give more detail of each component.
+The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
@@ -151,7 +151,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy detail on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -349,7 +349,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |assign each patient a priority number |I can keep track of who needs me the most
 
-|`* *` |user |hide <<private-contact-detail,private contact detail>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user |solve the Travelling CN problem |I can save time when visiting my patients
 
@@ -564,7 +565,7 @@ _{ more test cases ... }_
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error detail shown in the status message. Status bar remains the same.
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
