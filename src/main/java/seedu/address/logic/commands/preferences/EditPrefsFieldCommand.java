@@ -1,5 +1,21 @@
 package seedu.address.logic.commands.preferences;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -9,22 +25,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
 
 /**
  * Constructs a command that attempts to modify the current values in the edit trip page.
@@ -159,25 +159,25 @@ public class EditPrefsFieldCommand extends Command {
         public EditPrefsDescriptor(EditPrefsDescriptor oldDescriptor, EditPrefsDescriptor newDescriptor) {
             this();
             newDescriptor.windowWidth.ifPresentOrElse(
-                    this::setWindowWidth,
-                    () -> oldDescriptor.windowWidth.ifPresent(this::setWindowWidth));
+                    this::setWindowWidth, () ->
+                            oldDescriptor.windowWidth.ifPresent(this::setWindowWidth));
             newDescriptor.windowHeight.ifPresentOrElse(
-                    this::setWindowHeight,
-                    () -> oldDescriptor.windowHeight.ifPresent(this::setWindowHeight));
+                    this::setWindowHeight, () ->
+                            oldDescriptor.windowHeight.ifPresent(this::setWindowHeight));
 
             newDescriptor.windowXPosition.ifPresentOrElse(
-                    this::setWindowXPos,
-                    () -> oldDescriptor.windowXPosition.ifPresent(this::setWindowXPos));
+                    this::setWindowXPos, () ->
+                            oldDescriptor.windowXPosition.ifPresent(this::setWindowXPos));
             newDescriptor.windowYPosition.ifPresentOrElse(
-                    this::setWindowYPos,
-                    () -> oldDescriptor.windowYPosition.ifPresent(this::setWindowYPos));
+                    this::setWindowYPos, () ->
+                            oldDescriptor.windowYPosition.ifPresent(this::setWindowYPos));
 
             newDescriptor.dataFilePath.ifPresentOrElse(
-                    this::setDataFilePath,
-                    () -> oldDescriptor.dataFilePath.ifPresent(this::setDataFilePath));
+                    this::setDataFilePath, () ->
+                            oldDescriptor.dataFilePath.ifPresent(this::setDataFilePath));
             newDescriptor.isGuiLocked.ifPresentOrElse(
-                    this::setGuiLocked,
-                    () -> oldDescriptor.isGuiLocked.ifPresent(this::setGuiLocked));
+                    this::setGuiLocked, () ->
+                            oldDescriptor.isGuiLocked.ifPresent(this::setGuiLocked));
         }
 
         /**

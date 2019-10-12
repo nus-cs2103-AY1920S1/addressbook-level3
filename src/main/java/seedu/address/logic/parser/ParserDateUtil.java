@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Utility methods for parsing date times and collection of date formats.
+ */
 public abstract class ParserDateUtil {
     /** The required input date format to use. */
     private static final String DATE_TIME_FORMAT = "d/M/y HHmm";

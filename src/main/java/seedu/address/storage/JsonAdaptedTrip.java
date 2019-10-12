@@ -1,7 +1,13 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
@@ -9,11 +15,6 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Jackson friendly version of {@code Trip}.
@@ -44,7 +45,7 @@ public class JsonAdaptedTrip {
         this.endDate = endDate;
         this.destination = destination;
         this.totalBudget = totalBudget;
-        if(dayList != null) {
+        if (dayList != null) {
             this.dayList.addAll(dayList);
         }
     }
@@ -72,39 +73,39 @@ public class JsonAdaptedTrip {
      */
     public Trip toModelType() throws IllegalValueException {
         final List<Day> days = new ArrayList<>();
-        for (JsonAdaptedDay day : dayList){
+        for (JsonAdaptedDay day : dayList) {
             days.add(day.toModelType());
         }
 
-        if(name == null){
+        if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Name.class.getSimpleName()));
         }
 
-        if(!Name.isValidName(name)){
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
 
         final Name modelName = new Name(name);
 
-        if(startDate == null){
+        if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start Date"));
         }
 
         final LocalDateTime modelStartDate = startDate;
 
-        if (endDate == null){
+        if (endDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Date"));
         }
 
         final LocalDateTime modelEndDate = endDate;
 
-        if(destination == null){
+        if (destination == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Location.class.getSimpleName()));
         }
 
-        if(!Location.isValidLocation(destination)){
+        if (!Location.isValidLocation(destination)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
 
@@ -118,6 +119,6 @@ public class JsonAdaptedTrip {
         modelDayList.set(days);
 
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget ,modelDayList);
+                modelDestination, modelTotalBudget, modelDayList);
     }
 }

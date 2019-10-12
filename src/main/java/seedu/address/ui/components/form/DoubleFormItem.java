@@ -1,12 +1,10 @@
 package seedu.address.ui.components.form;
 
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
-import seedu.address.model.itinerary.Expenditure;
-
-import java.text.ParseException;
-import java.util.function.Consumer;
 
 /**
  * Abstraction of a double form item allowing the user to enter double.

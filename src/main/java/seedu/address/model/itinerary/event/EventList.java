@@ -1,14 +1,18 @@
 package seedu.address.model.itinerary.event;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
 import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * List containing {@code Event}s.
+ */
 public class EventList extends ConsecutiveOccurrenceList<Event> {
 
     @Override
@@ -27,7 +31,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     @Override
     public void add(Event toAdd) {
         requireNonNull(toAdd);
-        if(containsClashing(toAdd)){
+        if (containsClashing(toAdd)) {
             throw new ClashingEventException();
         }
         internalList.add(toAdd);
@@ -37,7 +41,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     public void set(Event target, Event edited) {
         requireAllNonNull(target, edited);
         int index = internalList.indexOf(target);
-        if(index == -1){
+        if (index == -1) {
             throw new EventNotFoundException();
         }
 
@@ -49,20 +53,20 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     }
 
     @Override
+    public void set(List<Event> occurrences) {
+        requireAllNonNull(occurrences);
+        if (!areConsecutive(occurrences)) {
+            throw new ClashingEventException();
+        }
+        internalList.setAll(occurrences);
+    }
+
+    @Override
     public void remove(Event toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EventNotFoundException();
         }
-    }
-
-    @Override
-    public void set(List<Event> occurrences) {
-        requireAllNonNull(occurrences);
-        if(!areConsecutive(occurrences)){
-            throw new ClashingEventException();
-        }
-        internalList.setAll(occurrences);
     }
 
     @Override

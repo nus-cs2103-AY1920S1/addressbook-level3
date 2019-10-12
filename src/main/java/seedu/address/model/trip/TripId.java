@@ -2,6 +2,10 @@ package seedu.address.model.trip;
 
 import java.util.UUID;
 
+/**
+ * Abstraction of an identification for Trip.
+ * Currently unused.
+ */
 public class TripId {
     private final UUID tripUuid;
 

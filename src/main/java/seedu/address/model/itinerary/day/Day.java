@@ -1,16 +1,13 @@
 package seedu.address.model.itinerary.day;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
-import seedu.address.model.itinerary.day.exceptions.CompulsoryFieldEmptyException;
 import seedu.address.model.itinerary.event.EventList;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Day in TravelPal.
@@ -30,7 +27,8 @@ public class Day {
     private final Description description;
 
     /** Constructs a Day */
-    public Day(Name name, LocalDateTime startDate, LocalDateTime endDate, Description description, Location destination, Expenditure totalBudget, EventList eventList) {
+    public Day(Name name, LocalDateTime startDate, LocalDateTime endDate, Description description,
+               Location destination, Expenditure totalBudget, EventList eventList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -41,8 +39,8 @@ public class Day {
     }
 
     /** Constructs a day with optional fields */
-    public Day (Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description
-            , Location destination, Optional<Expenditure> totalBudget, EventList eventList) {
+    public Day (Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description,
+                Location destination, Optional<Expenditure> totalBudget, EventList eventList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -83,6 +81,12 @@ public class Day {
     }
 
 
+    /**
+     * Soft check of whether the days clash.
+     *
+     * @param otherDay The other day to check.
+     * @return Boolean of whether the days clash.
+     */
     public boolean isSameDay(Day otherDay) {
         if (otherDay == this) {
             return true;
@@ -113,7 +117,13 @@ public class Day {
                 && otherDay.getEventList().equals(getEventList());
     }
 
-    public boolean isClashingWith(Day other){
+    /**
+     * Checks whether this day clashes with another.
+     *
+     * @param other The other day instance to check.
+     * @return Boolean of whether the days clash.
+     */
+    public boolean isClashingWith(Day other) {
         return (this.getStartDate().compareTo(other.getStartDate()) >= 0
                 && this.getStartDate().compareTo(other.getEndDate()) <= 0)
                 || (this.getEndDate().compareTo(other.getStartDate()) >= 0

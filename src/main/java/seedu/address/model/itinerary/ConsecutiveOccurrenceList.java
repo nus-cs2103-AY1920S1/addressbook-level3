@@ -1,15 +1,15 @@
 package seedu.address.model.itinerary;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
-
-import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a list of consecutive, non clashing occurrences (trips/events/days).
@@ -17,7 +17,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <T> Type of occurrence
  */
-public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
+public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T> {
 
     public final ObservableList<T> internalList = FXCollections.observableArrayList();
     public final ObservableList<T> internalUnmodifiableList =
@@ -49,19 +49,7 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      */
     public abstract void set(T target, T edited) throws TripNotFoundException, ClashingTripException;
 
-
-    /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
-     */
-    public abstract void remove(T toRemove) throws TripNotFoundException;
-
-    public void remove(Index index) {
-        requireNonNull(index);
-        internalList.remove(index.getZeroBased());
-    }
-
-    public void set(ConsecutiveOccurrenceList<T> replacement){
+    public void set(ConsecutiveOccurrenceList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -71,6 +59,22 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
      * {@code persons} must not contain duplicate persons.
      */
     public abstract void set(List<T> entities);
+
+    /**
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
+     */
+    public abstract void remove(T toRemove) throws TripNotFoundException;
+
+    /**
+     * Removes the item at the specified index.
+     *
+     * @param index The index of the item to remove.
+     */
+    public void remove(Index index) {
+        requireNonNull(index);
+        internalList.remove(index.getZeroBased());
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -103,6 +107,7 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T>{
 
     /**
      * Returns true if {@code trips} contains only unique trips.
+     *
      * @param occurrence
      */
     public abstract boolean areUnique(List<T> occurrence);

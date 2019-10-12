@@ -1,5 +1,11 @@
 package seedu.address.ui.trips;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -11,17 +17,14 @@ import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.template.Page;
 import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
+import seedu.address.ui.template.Page;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
+/**
+ * {@code Page} class for displaying the edit trip page.
+ */
 public class EditTripPage extends Page<AnchorPane> {
 
     private static final String FXML = "trips/EditTripPage.fxml";
@@ -43,9 +46,12 @@ public class EditTripPage extends Page<AnchorPane> {
         initFormWithModel();
     }
 
+    /**
+     * Fills up all the controls of this window.
+     */
     public void fillPage() {
-        EditTripFieldCommand.EditTripDescriptor currentEditDescriptor
-                = model.getPageStatus().getEditTripDescriptor();
+        EditTripFieldCommand.EditTripDescriptor currentEditDescriptor =
+                model.getPageStatus().getEditTripDescriptor();
         if (currentEditDescriptor == null) {
             return;
         }
@@ -71,27 +77,25 @@ public class EditTripPage extends Page<AnchorPane> {
             mainWindow.executeGuiCommand(
                     EditTripFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
-                });
-        tripStartDateFormItem = new DateFormItem("Start date : ",
-                startDate -> {
-                    mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_DATE_START
-                            + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
-                });
-        tripEndDateFormItem = new DateFormItem("End date : ",
-                endDate -> {
-                    mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_DATE_END
-                            + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
-                });
+        });
+        tripStartDateFormItem = new DateFormItem("Start date : ", startDate -> {
+            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DATE_START
+                    + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
+        });
+        tripEndDateFormItem = new DateFormItem("End date : ", endDate -> {
+            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DATE_END
+                    + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
+        });
         tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
-                });
+        });
         tripDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_LOCATION + destinationValue);
-                });
+        });
 
         fillPage(); //update and overwrite with existing edit descriptor
 

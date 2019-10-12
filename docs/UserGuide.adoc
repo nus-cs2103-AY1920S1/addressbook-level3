@@ -49,8 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ** <command> is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
 ** When an argument is optional, it will be tagged be enclosed in square brackets [...] instead of angle brackets <...>
 ** When required, a separator / delimiter between arguments will be displayed with *separator*.
-* Commands support tab-autocomplete when appropriate. 
-** Autocompletion for commands : For example, typing he then pressing tab will autocomplete the command to help. 
+* Commands support tab-autocomplete when appropriate.
+** Autocompletion for commands : For example, typing he then pressing tab will autocomplete the command to help.
 **Autocompletion for separators : When a command requires a separator, and the command name is already in the text input, pressing tab again will append the separator automatically.
 * Commands help popup
 ** Once the command name is already in the text input, a handy, non-intrusive popup will appear slightly above the text input.
@@ -78,7 +78,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ** Checkboxes & toggles : edit <field> will toggle the current value of the checkbox
 ** Text fields : edit <field> <value> will change the value of the checkbox to the new value specified.
 ** Dropdowns :
-*** To see the available options for a dropdown, first type edit <field> 
+*** To see the available options for a dropdown, first type edit <field>
 *** To change the value, type edit <field> <value>, where <value> is one of the options shown, or the number of the option in the order in which they were shown.
 
 === Trip manager
@@ -99,7 +99,7 @@ Trip setup is the first page in configuring a new/existing task. Upon commands t
 
 * edit -startDate <starting Date> -endDate <ending Date>: sets the starting date and ending date of the trip being created/edited
 * edit -dest <destination>: sets the destination of the trip being created/edited
-* edit -addDay <name of day>: adds a day after the last day previously added. If no days were previously added, add the first day 
+* edit -addDay <name of day>: adds a day after the last day previously added. If no days were previously added, add the first day
 
 === Event Setup
 
@@ -157,7 +157,7 @@ Throughout the Bookings Manager, there will be many contacts which you will come
 
 ====
 * Save data:
-** The data of the trips is saved in the data directory located in the same directory as where TravelPal.jar is. 
+** The data of the trips is saved in the data directory located in the same directory as where TravelPal.jar is.
 ** The data is stored in a human readable json format, allowing manual editing of the data files using a seperate text editor.
 * Most info, where relevant, can be sent to a printer or saved in pdf format, if the info is needed while travelling without your computer.
 ** The pdfs are output in the output directory located in the same directory as TravelPal.jar

@@ -1,5 +1,9 @@
 package seedu.address.ui.itinerary;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,11 +22,9 @@ import seedu.address.ui.components.NavigationSidebarLeft;
 import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-
+/**
+ * {@code Page} class implementing the days view page.
+ */
 public class DaysPage extends PageWithSidebar<AnchorPane> {
 
     private static final String FXML = "itinerary/days/DaysPage.fxml";
@@ -34,10 +36,10 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
     private Button addButton;
 
     @FXML
-    VBox sideBarLeft;
+    private VBox sideBarLeft;
 
     @FXML
-    VBox sideBarRight;
+    private VBox sideBarRight;
 
 
     public DaysPage(MainWindow mainWindow, Logic logic, Model model) {
@@ -63,7 +65,7 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
 
         List<Node> dayThumbnails = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
-                .map(index ->{
+                .map(index -> {
                     DayThumbnail dayThumbnail = new DayThumbnail(days.get(index.getZeroBased()), index);
                     return dayThumbnail.getRoot();
                 }).collect(Collectors.toList());

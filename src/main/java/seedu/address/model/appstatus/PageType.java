@@ -1,5 +1,8 @@
 package seedu.address.model.appstatus;
 
+/**
+ * The available page types in the TravelPal application.
+ */
 public enum PageType {
     PREFERENCES,
     TRIP_MANAGER,

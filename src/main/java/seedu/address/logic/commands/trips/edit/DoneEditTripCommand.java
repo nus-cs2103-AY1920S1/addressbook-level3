@@ -1,15 +1,15 @@
 package seedu.address.logic.commands.trips.edit;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appstatus.PageType;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
-import seedu.address.model.appstatus.PageType;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Constructs a command that attempts to commit the current changes in the edit trip page.

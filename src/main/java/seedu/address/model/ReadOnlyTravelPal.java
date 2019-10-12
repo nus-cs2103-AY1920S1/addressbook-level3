@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.trip.Trip;
 import seedu.address.model.person.Person;
+import seedu.address.model.trip.Trip;
 
 /**
  * Unmodifiable view of an address book

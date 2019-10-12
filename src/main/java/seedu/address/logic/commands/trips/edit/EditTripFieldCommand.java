@@ -1,5 +1,17 @@
 package seedu.address.logic.commands.trips.edit;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -11,17 +23,6 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 /**
  * Constructs a command that attempts to modify the current values in the edit trip page.
@@ -143,20 +144,20 @@ public class EditTripFieldCommand extends Command {
          */
         public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
             this();
-            newDescriptor.name.ifPresentOrElse(this::setName,
-                    () -> oldDescriptor.name.ifPresent(this::setName));
+            newDescriptor.name.ifPresentOrElse(this::setName, () ->
+                    oldDescriptor.name.ifPresent(this::setName));
 
-            newDescriptor.startDate.ifPresentOrElse(this::setStartDate,
-                    () -> oldDescriptor.startDate.ifPresent(this::setStartDate));
+            newDescriptor.startDate.ifPresentOrElse(this::setStartDate, () ->
+                    oldDescriptor.startDate.ifPresent(this::setStartDate));
 
-            newDescriptor.endDate.ifPresentOrElse(this::setEndDate,
-                    () -> oldDescriptor.endDate.ifPresent(this::setEndDate));
+            newDescriptor.endDate.ifPresentOrElse(this::setEndDate, () ->
+                    oldDescriptor.endDate.ifPresent(this::setEndDate));
 
-            newDescriptor.destination.ifPresentOrElse(this::setDestination,
-                    () -> oldDescriptor.destination.ifPresent(this::setDestination));
+            newDescriptor.destination.ifPresentOrElse(this::setDestination, () ->
+                    oldDescriptor.destination.ifPresent(this::setDestination));
 
-            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
-                    () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
+            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
+                    oldDescriptor.totalBudget.ifPresent(this::setBudget));
         }
 
         /**

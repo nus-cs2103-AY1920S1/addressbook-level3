@@ -1,17 +1,18 @@
 package seedu.address.model.itinerary.day;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.index.Index;
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
 import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * List holding {@code Day}s.
+ */
 public class DayList extends ConsecutiveOccurrenceList<Day> {
 
     @Override
@@ -29,7 +30,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     @Override
     public void add(Day toAdd) {
         requireNonNull(toAdd);
-        if(containsClashing(toAdd)){
+        if (containsClashing(toAdd)) {
             throw new ClashingDayException();
         }
         internalList.add(toAdd);
@@ -39,7 +40,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     public void set(Day targetDay, Day editedDay) {
         requireAllNonNull(targetDay, editedDay);
         int index = internalList.indexOf(targetDay);
-        if(index == -1){
+        if (index == -1) {
             throw new DayNotFoundException();
         }
 
@@ -51,20 +52,20 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     }
 
     @Override
+    public void set(List<Day> occurrences) {
+        requireAllNonNull(occurrences);
+        if (!areConsecutive(occurrences)) {
+            throw new ClashingDayException();
+        }
+        internalList.setAll(occurrences);
+    }
+
+    @Override
     public void remove(Day toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new DayNotFoundException();
         }
-    }
-
-    @Override
-    public void set(List<Day> occurrences) {
-        requireAllNonNull(occurrences);
-        if(!areConsecutive(occurrences)){
-            throw new ClashingDayException();
-        }
-        internalList.setAll(occurrences);
     }
 
     @Override

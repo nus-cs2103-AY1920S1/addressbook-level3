@@ -1,12 +1,15 @@
 package seedu.address.logic.parser.trips;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Collection of methods for parsing trip's abstractions.
+ */
 public abstract class TripParserUtil {
 
     /**

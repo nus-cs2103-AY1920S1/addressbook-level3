@@ -1,5 +1,19 @@
 package seedu.address.logic.commands.itinerary.events.edit;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -14,13 +28,9 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * Placeholder.
+ */
 public class EditEventFieldCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -148,26 +158,27 @@ public class EditEventFieldCommand extends Command {
          */
         public EditEventDescriptor(EditEventDescriptor oldDescriptor, EditEventDescriptor newDescriptor) {
             this();
-            newDescriptor.name.ifPresentOrElse(this::setName,
-                    () -> oldDescriptor.name.ifPresent(this::setName));
+            newDescriptor.name.ifPresentOrElse(this::setName, () ->
+                    oldDescriptor.name.ifPresent(this::setName));
 
-            newDescriptor.startDate.ifPresentOrElse(this::setStartDate,
-                    () -> oldDescriptor.startDate.ifPresent(this::setStartDate));
+            newDescriptor.startDate.ifPresentOrElse(this::setStartDate, () ->
+                    oldDescriptor.startDate.ifPresent(this::setStartDate));
 
-            newDescriptor.endDate.ifPresentOrElse(this::setEndDate,
-                    () -> oldDescriptor.endDate.ifPresent(this::setEndDate));
+            newDescriptor.endDate.ifPresentOrElse(this::setEndDate, () ->
+                    oldDescriptor.endDate.ifPresent(this::setEndDate));
 
-            newDescriptor.destination.ifPresentOrElse(this::setDestination,
-                    () -> oldDescriptor.destination.ifPresent(this::setDestination));
+            newDescriptor.destination.ifPresentOrElse(this::setDestination, () ->
+                    oldDescriptor.destination.ifPresent(this::setDestination));
 
-            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget,
-                    () -> oldDescriptor.totalBudget.ifPresent(this::setBudget));
+            newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
+                    oldDescriptor.totalBudget.ifPresent(this::setBudget));
+            /*
+            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
+                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
 
-//            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
-//                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
-//
-//            newDescriptor.booking.ifPresentOrElse(this::setBooking,
-//                    () -> oldDescriptor.booking.ifPresent(this::setBooking));
+            newDescriptor.booking.ifPresentOrElse(this::setBooking,
+                    () -> oldDescriptor.booking.ifPresent(this::setBooking));
+             */
         }
 
 
@@ -193,8 +204,8 @@ public class EditEventFieldCommand extends Command {
          * WARNING: USING INCOMPLETE CONSTRUCTOR, REFACTOR AFTER IMPLEMENTING BOOKING AND INVENTORY
          *
          * @param event Source {@code Event} instance.
-         * @return Edited {@code Event} instance.
          * @param event
+         * @return Edited {@code Event} instance.
          */
         public Event buildEvent(Event event) {
             Name eventName = event.getName();
@@ -223,7 +234,7 @@ public class EditEventFieldCommand extends Command {
             if (this.inventory.isPresent()) {
                 inventory = this.inventory;
             }
-            if(this.booking.isPresent()) {
+            if (this.booking.isPresent()) {
                 booking = this.booking;
             }
 
@@ -237,7 +248,6 @@ public class EditEventFieldCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, booking, inventory);
         }
-
 
 
         public void setName(Name name) {
@@ -277,6 +287,10 @@ public class EditEventFieldCommand extends Command {
             this.totalBudget = Optional.of(totalBudget);
         }
 
+        public void setBudget(Optional<Expenditure> totalBudget) {
+            this.totalBudget = totalBudget;
+        }
+
         public Optional<Expenditure> getBudget() {
             return totalBudget;
         }
@@ -293,20 +307,14 @@ public class EditEventFieldCommand extends Command {
             this.inventory = Optional.of(inventory);
         }
 
-        private void setBooking(Booking booking) {
-            this.booking = Optional.of(booking);
-        }
-
         // Support optional fields from Event
-        public void setBudget(Optional<Expenditure> totalBudget) {
-            this.totalBudget = totalBudget;
-        }
-
         public void setInventory(Optional<Inventory> inventory) {
             this.inventory = inventory;
         }
 
-
+        private void setBooking(Booking booking) {
+            this.booking = Optional.of(booking);
+        }
 
         public void setBooking(Optional<Booking> booking) {
             this.booking = booking;
@@ -348,9 +356,10 @@ public class EditEventFieldCommand extends Command {
                     builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
-//            this.inventory.ifPresent(inventory -> builder.append(" Inventory: ").append(inventory));
-//            this.booking.ifPresent(booking -> builder.append(" Booking/s: ").append(booking));
-
+            /*
+            this.inventory.ifPresent(inventory -> builder.append(" Inventory: ").append(inventory));
+            this.booking.ifPresent(booking -> builder.append(" Booking/s: ").append(booking));
+            */
             return builder.toString();
         }
     }

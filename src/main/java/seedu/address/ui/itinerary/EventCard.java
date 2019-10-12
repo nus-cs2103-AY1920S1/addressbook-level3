@@ -4,13 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.UiPart;
-import seedu.address.commons.core.index.Index;
 
 /**
- * TODO: Implement display for inventory and booking labels
+ * TODO: Implement display for inventory and booking labels.
  */
 public class EventCard extends UiPart<HBox> {
     private static final String FXML = "itinerary/events/EventCard.fxml";
@@ -38,6 +38,9 @@ public class EventCard extends UiPart<HBox> {
         fillEventCardLabels();
     }
 
+    /**
+     * Fills the labels of this event card.
+     */
     private void fillEventCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText("Name: " + event.getName().toString());

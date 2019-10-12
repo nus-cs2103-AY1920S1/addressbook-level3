@@ -1,10 +1,10 @@
 package seedu.address.ui.components.form;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-
 import java.time.LocalDate;
 import java.util.function.Consumer;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 
 /**
  * Abstraction of a form item allowing the user to choose a date.

@@ -1,15 +1,15 @@
 package seedu.address.testutil;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.time.LocalDateTime;
+
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.EventList;
-
-import java.time.LocalDateTime;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Builder class to accommodate optional properties using builder pattern.
@@ -24,15 +24,21 @@ public class DayBuilder {
     private Expenditure totalBudget;
     private EventList eventList;
 
-    public static DayBuilder newInstance (){
-        return new DayBuilder();
-    }
-
-    private DayBuilder(){
+    private DayBuilder() {
         eventList = new EventList();
     }
 
-    public static DayBuilder of (Day day){
+    public static DayBuilder newInstance() {
+        return new DayBuilder();
+    }
+
+    /**
+     * Constructs a {@code DayBuilder} from the specified day.
+     *
+     * @param day Day instance to use.
+     * @return new DayBuilder instance.
+     */
+    public static DayBuilder of(Day day) {
         requireAllNonNull(day.getName(), day.getStartDate(), day.getEndDate(), day.getDestination());
         return DayBuilder.newInstance()
                 .setName(day.getName())
@@ -45,7 +51,7 @@ public class DayBuilder {
     }
 
 
-    public DayBuilder setName(Name name){
+    public DayBuilder setName(Name name) {
         this.name = name;
         return this;
     }
@@ -60,27 +66,27 @@ public class DayBuilder {
         return this;
     }
 
-    public DayBuilder setDescription (Description description){
+    public DayBuilder setDescription(Description description) {
         this.description = description;
         return this;
     }
 
-    public DayBuilder setLocation (Location location) {
+    public DayBuilder setLocation(Location location) {
         this.destination = location;
         return this;
     }
 
-    public DayBuilder setTotalBudget (Expenditure totalBudget){
+    public DayBuilder setTotalBudget(Expenditure totalBudget) {
         this.totalBudget = totalBudget;
         return this;
     }
 
-    public DayBuilder setEventList (EventList eventList) {
+    public DayBuilder setEventList(EventList eventList) {
         this.eventList = eventList;
         return this;
     }
 
-    public Day build(){
+    public Day build() {
         return new Day(name, startDate, endDate, description, destination, totalBudget, eventList);
     }
 

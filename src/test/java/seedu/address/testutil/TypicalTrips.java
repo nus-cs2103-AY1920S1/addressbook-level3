@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.TravelPal;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
@@ -8,11 +13,9 @@ import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * Collection of typical trip test cases.
+ */
 public class TypicalTrips {
 
     public static final Trip TRIP_A = TripBuilder.newInstance().setName(new Name("Australia Trip"))
@@ -59,7 +62,8 @@ public class TypicalTrips {
             .setDayList(new DayList())
             .build();
 
-    private TypicalTrips() {}
+    private TypicalTrips() {
+    }
 
     public static TravelPal getTypicalTravelPal() {
         TravelPal tp = new TravelPal();
@@ -67,7 +71,7 @@ public class TypicalTrips {
             for (Trip trip : getTypicalTrips()) {
                 tp.addTrip(trip);
             }
-        } catch (ClashingTripException e){
+        } catch (ClashingTripException e) {
             return tp;
         }
         return tp;

@@ -1,5 +1,12 @@
 package seedu.address.ui.itinerary;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -16,8 +23,9 @@ import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * {@code Page} class implementing the edit day page.
+ */
 public class EditDayPage extends Page<AnchorPane> {
 
     private static final String FXML = "itinerary/days/EditDayPage.fxml";
@@ -39,9 +47,12 @@ public class EditDayPage extends Page<AnchorPane> {
         initFormWithModel();
     }
 
+    /**
+     * Fills the form items with model data.
+     */
     public void fillPage() {
-        EditDayFieldCommand.EditDayDescriptor currentEditDescriptor
-                = model.getPageStatus().getEditDayDescriptor();
+        EditDayFieldCommand.EditDayDescriptor currentEditDescriptor =
+                model.getPageStatus().getEditDayDescriptor();
 
         if (currentEditDescriptor == null) {
             return;
@@ -71,18 +82,16 @@ public class EditDayPage extends Page<AnchorPane> {
                     EditDayFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        dayStartDateFormItem = new DateFormItem("Start date : ",
-                startDate -> {
-                    mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_DATE_START
-                            + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
-                });
-        dayEndDateFormItem = new DateFormItem("End date : ",
-                endDate -> {
-                    mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_DATE_END
-                            + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
-                });
+        dayStartDateFormItem = new DateFormItem("Start date : ", startDate -> {
+            mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DATE_START
+                    + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
+        });
+        dayEndDateFormItem = new DateFormItem("End date : ", endDate -> {
+            mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DATE_END
+                    + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
+        });
         dayTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);

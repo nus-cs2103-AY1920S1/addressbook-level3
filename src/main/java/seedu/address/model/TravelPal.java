@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.TripList;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -33,7 +33,8 @@ public class TravelPal implements ReadOnlyTravelPal {
         tripList = new TripList();
     }
 
-    public TravelPal() {}
+    public TravelPal() {
+    }
 
     /**
      * Creates an TravelPal using the Persons in the {@code toBeCopied}
@@ -53,7 +54,7 @@ public class TravelPal implements ReadOnlyTravelPal {
         this.persons.setPersons(persons);
     }
 
-    public void setTripList(List<Trip> trips){
+    public void setTripList(List<Trip> trips) {
         this.tripList.set(trips);
     }
 
@@ -129,12 +130,6 @@ public class TravelPal implements ReadOnlyTravelPal {
         return persons.hashCode();
     }
 
-    // trip-level operations
-    public boolean hasClashingTrip(Trip trip){
-        requireNonNull(trip);
-        return tripList.containsClashing(trip);
-    }
-
     public void addTrip(Trip trip) throws ClashingTripException {
         tripList.add(trip);
     }
@@ -147,11 +142,20 @@ public class TravelPal implements ReadOnlyTravelPal {
         tripList.remove(trip);
     }
 
-    public boolean hasTrip(Trip trip){
+    /**
+     * Convenience wrapper for checking whether the specified trip exists.
+     *
+     * @param trip The trip instance to check.
+     * @return Boolean of whether the trip exists.
+     */
+    public boolean hasTrip(Trip trip) {
         requireNonNull(trip);
         return tripList.contains(trip);
     }
 
+    /**
+     * @return ObservableList of the trip list in the application.
+     */
     @Override
     public ObservableList<Trip> getTripList() {
         return tripList.asUnmodifiableObservableList();

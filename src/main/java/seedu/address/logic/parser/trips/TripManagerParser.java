@@ -1,15 +1,18 @@
 package seedu.address.logic.parser.trips;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.trips.EnterCreateTripCommand;
 import seedu.address.logic.commands.trips.DeleteTripCommand;
+import seedu.address.logic.commands.trips.EnterCreateTripCommand;
 import seedu.address.logic.commands.trips.EnterEditTripCommand;
 import seedu.address.logic.commands.trips.EnterTripCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
-
+/**
+ * Parses commands related to the trip manager page.
+ */
 public class TripManagerParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateTripCommand.COMMAND_WORD + " "

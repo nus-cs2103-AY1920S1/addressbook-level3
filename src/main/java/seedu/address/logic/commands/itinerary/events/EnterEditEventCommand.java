@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.itinerary.events;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -10,10 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.event.Event;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Placeholder.
+ */
 public class EnterEditEventCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
@@ -40,7 +43,8 @@ public class EnterEditEventCommand extends Command {
         }
 
         Event eventToEdit = lastShownList.get(indexToEdit.getZeroBased());
-        EditEventFieldCommand.EditEventDescriptor editEventDescriptor = new EditEventFieldCommand.EditEventDescriptor(eventToEdit);
+        EditEventFieldCommand.EditEventDescriptor editEventDescriptor =
+                new EditEventFieldCommand.EditEventDescriptor(eventToEdit);
 
         model.setPageStatus(model.getPageStatus()
                 .withNewPageType(PageType.ADD_EVENT)

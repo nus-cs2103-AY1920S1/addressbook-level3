@@ -24,7 +24,11 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
-import seedu.address.ui.itinerary.*;
+import seedu.address.ui.itinerary.DaysPage;
+import seedu.address.ui.itinerary.EditDayPage;
+import seedu.address.ui.itinerary.EditEventPage;
+import seedu.address.ui.itinerary.EventsPage;
+import seedu.address.ui.itinerary.ItineraryPage;
 import seedu.address.ui.template.Page;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
@@ -36,9 +40,10 @@ import seedu.address.ui.utility.PreferencesPage;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindow.fxml";
     private static final int PAGE_TRANSITION_DURATION_MILLIS = 500;
     private static final double PAGE_TRANSITION_INITIAL_OPACITY = 0.2;
+    private static final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
 
     protected final Logger logger = LogsCenter.getLogger(getClass());
     protected Stage primaryStage;
@@ -48,20 +53,20 @@ public class MainWindow extends UiPart<Stage> {
     private CommandUpdater commandUpdater;
 
     @FXML
-    protected StackPane commandBoxPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
-    protected StackPane resultDisplayPlaceholder;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
-    protected StackPane statusbarPlaceholder;
+    private StackPane statusbarPlaceholder;
 
     @FXML
-    protected StackPane contentPlaceholder;
+    private StackPane contentPlaceholder;
 
     // Independent Ui parts residing in this Ui container
-    protected ResultDisplay resultDisplay;
-    HelpWindow helpWindow;
+    private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
 
     public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
@@ -92,6 +97,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.yProperty().addListener(guiChangeListener);
     }
 
+    /**
+     * Fills the place holders of the MainWindow.
+     */
     private void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -191,7 +199,6 @@ public class MainWindow extends UiPart<Stage> {
      * TODO
      */
     private void handleSwitch() {
-        final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
         PageType currentPageType = model.getPageStatus().getPageType();
         Page<? extends Node> newPage;
 
@@ -265,6 +272,9 @@ public class MainWindow extends UiPart<Stage> {
         timeline.play();
     }
 
+    /**
+     * Functional interface for allowing custom operations to occur after a command is executed.
+     */
     @FunctionalInterface
     public interface CommandUpdater {
         void executeUpdateCallback();
@@ -295,7 +305,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
     /*
-        /*
+        *
          * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
          * is fixed in later version of SDK.
@@ -309,7 +319,7 @@ public class MainWindow extends UiPart<Stage> {
          * For now, we add following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
-         */
+         *
         /*
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {

@@ -320,9 +320,8 @@ image::us4.PNG[]
 
 5.  TravelPal adds the **Trip**
 
-6.  TravelPal shows the list of **Trips**
-    
-    Use case ends.
+6.  TravelPal shows the list of **Trips**.
+Use case ends.
 
 ***Extensions***
 
@@ -349,9 +348,8 @@ Steps 5a1-5a2 are repeated until no clashes occur between trips
 
 3.  User edits the information in the specified **Trip**
 
-4.  User submits the details and confirms the edit
-    
-    Use case ends
+4.  User submits the details and confirms the edit.
+Use case ends.
 
 ***Extensions***
 

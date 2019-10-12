@@ -7,6 +7,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.UiPart;
 
+/**
+ * A component for displaying the details of a day.
+ */
 public class DayThumbnail extends UiPart<AnchorPane> {
     private static final String FXML = "itinerary/days/DayThumbnail.fxml";
 
@@ -16,12 +19,13 @@ public class DayThumbnail extends UiPart<AnchorPane> {
     @FXML
     private Label destinationLabel;
 
-    @FXML Label indexLabel;
+    @FXML
+    private Label indexLabel;
 
     private Day day;
     private Index displayedIndex;
 
-    public DayThumbnail(Day day, Index displayedIndex){
+    public DayThumbnail(Day day, Index displayedIndex) {
         super(FXML);
         this.day = day;
         this.displayedIndex = displayedIndex;
