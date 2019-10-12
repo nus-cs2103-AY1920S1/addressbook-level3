@@ -70,4 +70,9 @@ public class LogicManager implements Logic {
     public TransactionList getFilteredList() {
         return model.getFilteredList();
     }
+
+    @Override
+    public void addTransaction(Transaction transaction) {
+        model.addTransaction(transaction);
+    }
 }

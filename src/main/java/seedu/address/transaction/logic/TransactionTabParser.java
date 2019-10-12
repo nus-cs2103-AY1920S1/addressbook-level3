@@ -2,10 +2,11 @@ package seedu.address.transaction.logic;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.model.Model;
 import seedu.address.transaction.commands.Command;
-import seedu.address.transaction.commands.DeleteCommand;
+import seedu.address.transaction.commands.DeleteIndexCommand;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.commands.ExitCommand;
 import seedu.address.transaction.commands.FindCommand;
@@ -51,8 +52,8 @@ public class TransactionTabParser {
             return new AddCommandParser().parse(arguments, transactionListSize, personModel);
 
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteIndexCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments, personModel);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

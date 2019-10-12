@@ -43,4 +43,10 @@ public interface Logic {
      * @return Filtered list according to predicate in model manager.
      */
     TransactionList getFilteredList();
+
+    /**
+     * Adds a transaction into the transaction list in model manager.
+     * @param transaction Transaction to be added.
+     */
+    void addTransaction(Transaction transaction);
 }

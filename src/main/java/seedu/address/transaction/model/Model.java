@@ -1,5 +1,6 @@
 package seedu.address.transaction.model;
 
+import seedu.address.person.model.person.Person;
 import seedu.address.transaction.util.TransactionList;
 
 /**
@@ -88,4 +89,10 @@ public interface Model {
      * Resets the predicate to the default one where all is true.
      */
     void resetPredicate();
+
+    /**
+     * Deletes all transactions in transaction list that contains the same person as specified.
+     * @param person Person to check for in transaction.
+     */
+    void deleteAllTransactionOfPerson(Person person);
 }
