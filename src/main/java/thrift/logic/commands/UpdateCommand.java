@@ -43,6 +43,7 @@ public class UpdateCommand extends Command {
             + CliSyntax.PREFIX_COST + "3.00";
 
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
+    public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
 
     private final Index index;
@@ -70,11 +71,13 @@ public class UpdateCommand extends Command {
         }
 
         Transaction transactionToUpdate = lastShownList.get(index.getZeroBased());
+        String originalTransactionNotification = String.format(MESSAGE_ORIGINAL_TRANSACTION, transactionToUpdate);
         Transaction updatedTransaction = createUpdatedTransaction(transactionToUpdate, updateTransactionDescriptor);
+        String updatedTransactionNotification = String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
         model.setTransaction(transactionToUpdate, updatedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
-        return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
+        return new CommandResult(updatedTransactionNotification + originalTransactionNotification);
     }
 
     /**

@@ -121,7 +121,12 @@ Expected output: +
 NOTE: Assume 2nd command occurs after 1st
 
 *   `Updated Transaction: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]` +
-*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 12/10/2019 Remarks: My first time trying! Tags: [Dinner][Food]`
++
+`Original: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
+
+*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 12/10/2019 Remarks: My first time trying! Tags: [Dinner][Food]` +
++
+`Original: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
 // end::update[]
 
 //tag::tag[]

@@ -32,7 +32,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreambleTillIndex());
+            index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
