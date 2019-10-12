@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 
 import seedu.address.overview.commands.*;
 import seedu.address.overview.logic.exception.ParseException;
-import seedu.address.overview.model.Model;
 import seedu.address.overview.ui.OverviewMessages;
 
 import static seedu.address.overview.logic.CliSyntax.PREFIX_BUDGET;
