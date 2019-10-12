@@ -1,11 +1,13 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.order.Price;
 import seedu.address.model.phone.Cost;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 class MoneyUtilTest {
 
