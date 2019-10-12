@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Account in the account book.
+ * Represents an account in the account book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Account {
@@ -49,8 +49,8 @@ public class Account {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both accounts of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two accounts.
      */
     public boolean isSameAccount(Account otherAccount) {
         if (otherAccount == this) {
@@ -63,8 +63,8 @@ public class Account {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both accounts have the same identity and data fields.
+     * This defines a stronger notion of equality between two accounts.
      */
     @Override
     public boolean equals(Object other) {
@@ -84,7 +84,6 @@ public class Account {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, transaction, tags);
     }
 

@@ -25,7 +25,7 @@ public class UniqueAccountList implements Iterable<Account> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent account as the given argument.
      */
     public boolean contains(Account toCheck) {
         requireNonNull(toCheck);
@@ -33,8 +33,8 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds an account to the list.
+     * The account must not already exist in the list.
      */
     public void add(Account toAdd) {
         requireNonNull(toAdd);
@@ -45,9 +45,9 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the account {@code target} in the list with {@code editedAccount}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The account identity of {@code editedAccount} must not be the same as another existing account in the list.
      */
     public void setAccount(Account target, Account editedAccount) {
         requireAllNonNull(target, editedAccount);
@@ -65,8 +65,8 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent account from the list.
+     * The account must exist in the list.
      */
     public void remove(Account toRemove) {
         requireNonNull(toRemove);
@@ -81,8 +81,8 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code accounts}.
+     * {@code accounts} must not contain duplicate accounts.
      */
     public void setAccounts(List<Account> accounts) {
         requireAllNonNull(accounts);
@@ -118,7 +118,7 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code accounts} contains only unique accounts.
      */
     private boolean accountsAreUnique(List<Account> accounts) {
         for (int i = 0; i < accounts.size() - 1; i++) {

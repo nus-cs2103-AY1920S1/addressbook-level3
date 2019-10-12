@@ -46,10 +46,10 @@ public class AccountBook implements ReadOnlyAccountBook {
         setAccounts(newData.getAccountList());
     }
 
-    //// person-level operations
+    //// account-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an account with the same identity as {@code account} exists in the account book.
      */
     public boolean hasAccount(Account account) {
         requireNonNull(account);
@@ -57,35 +57,34 @@ public class AccountBook implements ReadOnlyAccountBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an account to the account book.
+     * The account must not already exist in the account book.
      */
     public void addAccount(Account a) {
         accounts.add(a);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given account {@code target} in the list with {@code editedAccount}.
+     * {@code target} must exist in the account book.
      */
-    public void setAccounts(Account target, Account editedAccount) {
+    public void setAccount(Account target, Account editedAccount) {
         requireNonNull(editedAccount);
 
         accounts.setAccount(target, editedAccount);
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the account list with {@code accounts}.
+     * {@code accounts} must not contain duplicate accounts.
      */
     public void setAccounts(List<Account> accounts) {
         this.accounts.setAccounts(accounts);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AccountBook}.
+     * {@code key} must exist in the account book.
      */
     public void removeAccount(Account key) {
         accounts.remove(key);
@@ -96,7 +95,6 @@ public class AccountBook implements ReadOnlyAccountBook {
     @Override
     public String toString() {
         return accounts.asUnmodifiableObservableList().size() + " accounts";
-        // TODO: refine later
     }
 
     @Override
