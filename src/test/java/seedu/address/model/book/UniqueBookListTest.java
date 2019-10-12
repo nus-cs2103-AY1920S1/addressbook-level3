@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -166,10 +165,5 @@ public class UniqueBookListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueBookList.asUnmodifiableObservableList().remove(0));
-    }
-
-    @Test
-    public void iterator_returnsIterator() {
-        assertTrue(uniqueBookList.iterator() instanceof Iterator);
     }
 }
