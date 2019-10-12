@@ -10,11 +10,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.FinSecParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +28,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final FinSecParser finSecParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        finSecParser = new FinSecParser();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = finSecParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -59,6 +61,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Contact> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Claim> getFilteredClaimList() {
+        return model.getFilteredClaimList();
+    }
+
+    @Override
+    public ObservableList<Income> getFilteredIncomeList() {
+        return model.getFilteredIncomeList();
     }
 
     @Override

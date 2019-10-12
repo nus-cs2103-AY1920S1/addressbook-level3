@@ -8,7 +8,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 
 /**
  * Panel containing the list of persons.

@@ -9,12 +9,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 
 /**
  * API of the Logic component
  */
 public interface Logic {
+
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -33,6 +36,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Contact> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of claims */
+    ObservableList<Claim> getFilteredClaimList();
+
+    /** Returns an unmodifiable view of the filtered list of incomes */
+    ObservableList<Income> getFilteredIncomeList();
 
     /**
      * Returns the user prefs' address book file path.
