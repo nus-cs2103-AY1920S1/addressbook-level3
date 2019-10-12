@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Color;
-import seedu.address.model.ModulePlanner;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
-import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.SemesterName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
@@ -60,19 +56,8 @@ class JsonAdaptedModule {
         }
     }
 
-    @JsonValue
     public String getModuleCode() {
         return moduleCode;
-    }
-
-    @JsonValue
-    public String getColor() {
-        return color;
-    }
-
-    @JsonValue
-    public List<JsonAdaptedTag> getUserTags() {
-        return userTags;
     }
 
     /**

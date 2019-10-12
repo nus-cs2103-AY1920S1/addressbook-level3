@@ -1,11 +1,19 @@
 package seedu.address.model.studyplan;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import seedu.address.model.Color;
+import seedu.address.model.ModuleInfo;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Name;
 import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -31,31 +39,24 @@ public class StudyPlan implements Cloneable {
 
 
     // to create a study plan without a Title
-    public StudyPlan() {
-        this.semesters = new UniqueSemesterList();
-        // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
-        this.isActive = true;
-
-        // TODO: initialise modules and (default) tags. this should be done when module info is ready.
-        //  get the list from Module?
-        modules = new HashMap<>(); //TODO need to change this.
-        tags = new UniqueTagList();
-
-        totalNumberOfStudyPlans++;
-        this.index = totalNumberOfStudyPlans;
+    public StudyPlan(ModulesInfo modulesInfo) {
+        this(new Title(""), modulesInfo);
     }
 
     // to create a study plan with a Title
-    public StudyPlan(Title title) {
+    public StudyPlan(Title title, ModulesInfo modulesInfo) {
         this.title = title;
         this.semesters = new UniqueSemesterList();
+        setDefaultSemesters();
+
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
-        // TODO: initialise modules and (default) tags. this should be done when module info is ready.
-        //  get the list from Module?
-        modules = new HashMap<>(); //TODO need to change this.
+        // add all default tags
+        // TODO: initialise it
         tags = new UniqueTagList();
+
+        setMegaModuleHashMap(modulesInfo);
 
         totalNumberOfStudyPlans++;
         this.index = totalNumberOfStudyPlans;
@@ -117,6 +118,85 @@ public class StudyPlan implements Cloneable {
     }
 
     /**
+     * Populates the unique semester list with the 8 semesters in the normal 4-year candidature. These
+     * semesters will be empty initially.
+     */
+    public void setDefaultSemesters() {
+        semesters.add(new Semester(SemesterName.Y1S1));
+        semesters.add(new Semester(SemesterName.Y1S2));
+        semesters.add(new Semester(SemesterName.Y2S1));
+        semesters.add(new Semester(SemesterName.Y2S2));
+        semesters.add(new Semester(SemesterName.Y3S1));
+        semesters.add(new Semester(SemesterName.Y3S2));
+        semesters.add(new Semester(SemesterName.Y4S1));
+        semesters.add(new Semester(SemesterName.Y4S2));
+    }
+
+    /**
+     * Given a {@code ModuleInfo} object, convert it to a {@code Module}.
+     */
+    private Module convertModuleInfoToModule(ModuleInfo moduleInfo) {
+        // TODO: Yi Wai: assign default tags to the result (Module).
+
+        Name name = new Name(moduleInfo.getName());
+        ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
+        int mcCount = moduleInfo.getMc();
+        return new Module(name, moduleCode, mcCount, Color.RED, new UniqueTagList());
+    }
+
+    private void setMegaModuleHashMap(ModulesInfo modulesInfo) {
+        HashMap<String, ModuleInfo> moduleInfoHashMap = modulesInfo.getModuleInfoHashMap();
+        modules = new HashMap<>();
+        for (ModuleInfo moduleInfo : moduleInfoHashMap.values()) {
+            Module module = convertModuleInfoToModule(moduleInfo);
+            modules.put(module.getModuleCode().toString(), module);
+        }
+    }
+
+    /**
+     * Adds a module to a semester, given the {@code ModuleCode} and {@code SemesterName}.
+     *
+     * @param moduleCode module code of the module to be added.
+     * @param semesterName semester name of the target semester.
+     * @throws SemesterNotFoundException
+     */
+    public void addModuleToSemester(ModuleCode moduleCode, SemesterName semesterName)
+            throws SemesterNotFoundException {
+        Semester targetSemester = null;
+        Iterator<Semester> semesterIterator = semesters.iterator();
+        while (semesterIterator.hasNext()) {
+            Semester semester = semesterIterator.next();
+            if (semester.getSemesterName().equals(semesterName)) {
+                targetSemester = semester;
+            }
+        }
+        if (targetSemester == null) {
+            throw new SemesterNotFoundException();
+        }
+
+        Module moduleToAdd = modules.get(moduleCode.toString());
+
+        targetSemester.addModule(moduleToAdd);
+    }
+
+    /**
+     * Sets the current semester. The user cannot change any module before the current semester. But they can
+     * still change those in the current semester and after the current semester.
+     */
+    public void setCurrentSemester() {
+        // TODO: implement this
+    }
+
+    /**
+     * Blocks a semester with the given {@code SemesterName} so that the user cannot add modules to that semester.
+     * The user can enter a reason for blocking it (e.g. NOC, internship).
+     */
+    public void blockSemester(SemesterName semesterName, String reasonForBlock) {
+        // TODO: implement this
+
+    }
+
+    /**
      * Returns true if both study plans of the same index have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two study plans.
      */
@@ -151,8 +231,8 @@ public class StudyPlan implements Cloneable {
     @Override
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
-            return this.index == ((StudyPlan) other).index &&
-                    this.semesters.equals(((StudyPlan) other).getSemesters());
+            return this.index == ((StudyPlan) other).index
+                    && this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }

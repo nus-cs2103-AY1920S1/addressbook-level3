@@ -36,7 +36,7 @@ public class Semester {
         this.semesterName = semesterName;
         this.isBlocked = isBlocked;
         this.reasonForBlocked = reasonForBlocked;
-        for(Module module : modules) {
+        for (Module module : modules) {
             this.modules.add(module);
         }
     }
@@ -85,21 +85,21 @@ public class Semester {
         modules.remove(module);
     }
 
-    public boolean hasModule(Module module) {
-        return this.modules.contains(module);
-
     // NOTE: this is for the GUI to use for Milestone 2
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(semesterName + ":" + "\n");
-        Iterator<Module> moduleIterator = modules.iterator();
-        while (moduleIterator.hasNext()) {
-            Module module = moduleIterator.next();
-            result.append(module.toString() + "\n");
+        if (modules != null) {
+            Iterator<Module> moduleIterator = modules.iterator();
+            while (moduleIterator.hasNext()) {
+                Module module = moduleIterator.next();
+                result.append(module.toString() + "\n");
+            }
+        } else {
+            result.append("NO MODULES FOUND \n");
         }
 
         return result.toString();
-
     }
 }

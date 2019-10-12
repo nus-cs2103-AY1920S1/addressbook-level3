@@ -1,9 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -11,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UserTag;
 
 /**
  * Jackson-friendly version of {@link Module}. This version is specifically used for storing modules under semesters
@@ -38,11 +32,6 @@ class JsonAdaptedSkeletalModule {
      */
     public JsonAdaptedSkeletalModule(Module source) {
         moduleCode = source.getModuleCode().toString();
-    }
-
-    @JsonValue
-    public String getModuleCode() {
-        return moduleCode;
     }
 
     /**

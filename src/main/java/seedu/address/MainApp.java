@@ -16,7 +16,6 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ModulesInfo;
@@ -24,10 +23,10 @@ import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.ModulePlannerStorage;
 import seedu.address.storage.JsonModulePlannerStorage;
 import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModulePlannerStorage;
 import seedu.address.storage.ModulesInfoStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -96,11 +95,11 @@ public class MainApp extends Application {
             }
             initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner(modulesInfo);
+            logger.warning("Data file not in the correct format. Will be starting with a sample ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner(modulesInfo);
+            logger.warning("Problem while reading from the file. Will be starting with a sample ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         }
 
         return new ModelManager(initialData, userPrefs, modulesInfo);

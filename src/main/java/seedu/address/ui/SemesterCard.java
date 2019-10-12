@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -14,7 +12,7 @@ import seedu.address.model.semester.Semester;
  */
 public class SemesterCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "SemesterListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,11 +31,7 @@ public class SemesterCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label description;
     @FXML
     private FlowPane tags;
 
@@ -45,8 +39,8 @@ public class SemesterCard extends UiPart<Region> {
         super(FXML);
         this.semester = semester;
         id.setText(displayedIndex + ". ");
-//        name.setText(semester.getName().fullName);
-//        phone.setText(semester.getPhone().value);
+        name.setText(semester.getSemesterName().name());
+        description.setText(semester.toString());
 //        address.setText(semester.getAddress().value);
 //        email.setText(semester.getEmail().value);
 //        semester.getTags().stream()

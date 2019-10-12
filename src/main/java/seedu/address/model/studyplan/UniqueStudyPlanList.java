@@ -110,7 +110,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     /**
      * Returns a {@code StudyPlan} with the given index.
      */
-    public StudyPlan getStudyPlanByIndex(int index) throws StudyPlanNotFoundException{
+    public StudyPlan getStudyPlanByIndex(int index) throws StudyPlanNotFoundException {
         Iterator<StudyPlan> iterator = this.iterator();
         StudyPlan result = null;
         while (iterator.hasNext()) {

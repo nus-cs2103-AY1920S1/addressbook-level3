@@ -1,4 +1,4 @@
-= CS ModBuddy - Developer Guide
+= CSmodbuddy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,6 +13,8 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+
+image::title.png[width="600"]
 
 By: `Team CS2103-F09-3`      Since: `Sep 2019`      Licence: `MIT`
 

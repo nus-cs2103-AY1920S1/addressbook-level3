@@ -2,12 +2,8 @@ package seedu.address.model.module;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.Color;
 import seedu.address.model.tag.Tag;
@@ -144,10 +140,35 @@ public class Module implements Cloneable {
         }
 
         seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
-        return otherModule.getName().equals(getName())
-                && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getMcCount() == getMcCount()
-                && otherModule.getTags().equals(getTags());
+
+        boolean result = true;
+
+        // TODO: refactor this, ensure there are no nulls upon creation
+        // need to make sure they are not null to prevent null pointer exception
+        if ((name == null && ((Module) other).name != null) || name != null && ((Module) other).name == null) {
+            result = false;
+        } else if ((color == null && ((Module) other).color != null)
+                || color != null && ((Module) other).color == null) {
+            result = false;
+        } else if ((tags == null && ((Module) other).tags != null) || tags != null && ((Module) other).tags == null) {
+            result = false;
+        } else if (name != null && ((Module) other).name != null) {
+            if (!otherModule.getName().equals(getName())) {
+                result = false;
+            }
+        } else if ((color != null && ((Module) other).color != null)) {
+            if (!otherModule.getColor().equals(color)) {
+                result = false;
+            }
+        } else if (otherModule.getMcCount() != getMcCount()) {
+            result = false;
+        } else if (!otherModule.getTags().equals(getTags())) {
+            result = false;
+        } else if (!otherModule.getModuleCode().equals(getModuleCode())) {
+            result = false;
+        }
+
+        return result;
     }
 
     @Override

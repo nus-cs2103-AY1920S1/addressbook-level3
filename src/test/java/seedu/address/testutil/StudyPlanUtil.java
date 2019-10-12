@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
-import seedu.address.logic.commands.storage.EditTitleCommand.EditTitleStudyPlanDescriptor;
+import seedu.address.logic.commands.CreateStudyPlanCommand;
+import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 
@@ -30,6 +30,7 @@ public class StudyPlanUtil {
      */
     public static String getStudyPlanDetails(StudyPlan studyPlan) {
         StringBuilder sb = new StringBuilder();
+        /*
         sb.append(PREFIX_NAME + studyPlan.getName().fullName + " ");
         sb.append(PREFIX_PHONE + studyPlan.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + studyPlan.getEmail().value + " ");
@@ -37,6 +38,7 @@ public class StudyPlanUtil {
         studyPlan.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.getTagName() + " ")
         );
+        */
         return sb.toString();
     }
 
@@ -45,6 +47,7 @@ public class StudyPlanUtil {
      */
     public static String getEditStudyPlanDescriptorDetails(EditTitleStudyPlanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
+        /*
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
@@ -57,6 +60,7 @@ public class StudyPlanUtil {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.getTagName()).append(" "));
             }
         }
+        */
         return sb.toString();
     }
 }

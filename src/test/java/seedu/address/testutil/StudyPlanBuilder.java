@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.UserTag;
@@ -49,7 +50,7 @@ public class StudyPlanBuilder {
 
     public StudyPlan build() {
         //return new StudyPlan(name, phone, email, address, tags);
-        return new StudyPlan(new Title("this is just a temporary holder"));
+        return new StudyPlan(new Title("this is just a temporary holder"), new ModulesInfo());
     }
 
 }
