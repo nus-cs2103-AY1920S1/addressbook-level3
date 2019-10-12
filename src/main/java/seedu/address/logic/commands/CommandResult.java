@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application window should switch */
+    private final boolean isSwitch;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +27,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isSwitch = false;
     }
 
     /**
@@ -32,6 +36,16 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Construct a switching command result.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isSwitch) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isSwitch = isSwitch;
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +58,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isSwitch() {
+        return isSwitch;
     }
 
     @Override
