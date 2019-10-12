@@ -30,12 +30,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private PageScenes pageScenes;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private Scene primaryScene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,6 +65,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        Scene primaryScene = primaryStage.getScene();
+        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. PageScenes(primaryScene, diaryScene)
+        // note that one of the PageScene's constructor is a vararg
+        pageScenes = new PageScenes(primaryScene);
+
     }
 
     public Stage getPrimaryStage() {
@@ -162,6 +168,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes application page.
+     */
+    @FXML
+    private void handlePageChange(CommandResult commandResult) {
+        Scene requestedPage = pageScenes.getPage(commandResult);
+        primaryStage.setScene(requestedPage);
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -183,6 +198,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowPage()) {
+                handlePageChange(commandResult);
             }
 
             return commandResult;
