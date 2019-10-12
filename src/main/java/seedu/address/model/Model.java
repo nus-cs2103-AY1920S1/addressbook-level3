@@ -6,12 +6,17 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
+import seedu.address.model.question.Subject;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
@@ -49,7 +54,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -74,12 +81,20 @@ public interface Model {
      */
     void setNote(Note target, Note editedNote);
 
-    /** Returns an unmodifiable view of the filtered note list */
+    /**
+     * Returns an unmodifiable view of the filtered note list
+     */
     ObservableList<Note> getFilteredNoteList();
 
     /**
      * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
+
+    /**
+     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     */
+    void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty);
 }

@@ -7,6 +7,9 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
+import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizQuestionList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +18,7 @@ import seedu.address.model.note.UniqueNoteList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNoteList notes;
+    private final QuizQuestionList quiz;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -22,12 +26,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         notes = new UniqueNoteList();
+        quiz = new QuizQuestionList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Notes in {@code toBeCopied}.
@@ -88,6 +93,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeNote(Note title) {
         notes.remove(title);
+    }
+
+    // quiz operations
+
+    /**
+     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     */
+    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
+        quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
     }
 
     // util methods
