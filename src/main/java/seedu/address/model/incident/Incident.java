@@ -14,7 +14,6 @@ import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Represents an incident report in the IMS.
@@ -22,10 +21,10 @@ import seedu.address.model.vehicle.Vehicle;
 public class Incident {
 
     //is autofilled
-    private Person operator;
-    private IncidentDateTime incidentDateTime;
-    private Vehicle car;
-    private IncidentId id;
+    private final Person operator;
+    private final IncidentDateTime incidentDateTime;
+    // private final Vehicle car;
+    private final IncidentId id;
 
     //needs to be entered by operator
     private final Description incidentDesc;
@@ -109,10 +108,6 @@ public class Incident {
 
     public District getLocation() {
         return this.location;
-    }
-
-    public Vehicle getCar() {
-        return car;
     }
 
     public IncidentId getIncidentId() {
