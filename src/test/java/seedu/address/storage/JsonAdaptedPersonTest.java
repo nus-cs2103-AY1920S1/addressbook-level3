@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.IRENE;
 import static seedu.address.testutil.TypicalPersons.JOHN;
@@ -38,15 +39,21 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_validPatientDetails_returnsPatient() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(IRENE);
-        assertEquals(IRENE, person.toModelType());
+    public void toModelType_validDoctorDetails_returnsDoctor() throws Exception {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(ALICE);
+        assertEquals(ALICE, person.toModelType());
     }
 
     @Test
     public void toModelType_validDonorDetails_returnsDonor() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(JOHN);
         assertEquals(JOHN, person.toModelType());
+    }
+
+    @Test
+    public void toModelType_validPatientDetails_returnsPatient() throws Exception {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(IRENE);
+        assertEquals(IRENE, person.toModelType());
     }
 
     @Test

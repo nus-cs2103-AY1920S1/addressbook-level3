@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Donor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
@@ -31,9 +32,9 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withType("doctor").withNric("S1532142A")
+    public static final Doctor ALICE = new DoctorBuilder().withNric("S1532142A")
             .withName("Alice Pauline").withPhone("94351253").build();
-    public static final Person BENSON = new PersonBuilder().withType("doctor").withNric("T5231426Q")
+    public static final Doctor BENSON = new DoctorBuilder().withNric("T5231426Q")
             .withName("Benson Meier").withPhone("98765432").build();
     public static final Patient CARL = new PatientBuilder().withAge("22").withNric("G5642431P")
             .withName("Carl Kurz").withPhone("95352563").build();

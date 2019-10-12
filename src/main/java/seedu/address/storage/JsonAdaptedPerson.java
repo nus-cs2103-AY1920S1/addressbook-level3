@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Donor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
@@ -52,11 +53,13 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
 
-        if (source instanceof Patient) {
-            age = ((Patient) source).getAge().value;
+        if (source instanceof Doctor) {
+            age = "";
         } else if (source instanceof Donor) {
             age = ((Donor) source).getAge().value;
-        } else { //TODO: change to else if instanceof Doctor
+        } else if (source instanceof Patient) {
+            age = ((Patient) source).getAge().value;
+        } else {
             age = "";
         }
     }
@@ -100,18 +103,8 @@ class JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
-        //if it is a patient
-        if (modelType.isPatient()) {
-            if (age == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
-            }
-
-            if (!Age.isValidAge(age)) {
-                throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
-            }
-            final Age modelAge = new Age(age);
-
-            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge);
+        if (modelType.isDoctor()) {
+            return new Doctor(modelType, modelNric, modelName, modelPhone);
         } else if (modelType.isDonor()) {
             if (age == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
@@ -123,6 +116,17 @@ class JsonAdaptedPerson {
             final Age modelAge = new Age(age);
 
             return new Donor(modelType, modelNric, modelName, modelPhone, modelAge);
+        } else if (modelType.isPatient()) {
+            if (age == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
+            }
+
+            if (!Age.isValidAge(age)) {
+                throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+            }
+            final Age modelAge = new Age(age);
+
+            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge);
         }
 
         return new Person(modelType, modelNric, modelName, modelPhone);

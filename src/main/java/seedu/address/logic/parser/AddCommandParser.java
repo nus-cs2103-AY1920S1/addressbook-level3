@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Donor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Type;
 
@@ -51,25 +51,14 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Type type = parseType(argMultimap);
 
-        if (type.isPatient()) {
-            arePrefixesPresentPatient(argMultimap);
-
-            Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
-
-            Patient patient = new Patient(type, nric, name, phone, age);
-            return new AddCommand(patient);
-        } else if (type.isDoctor()) {
-            //TODO: change implementation of creating a Doctor
+        if (type.isDoctor()) {
             arePrefixesPresentDoctor(argMultimap);
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
 
-            Person person = new Person(type, nric, name, phone);
-            return new AddCommand(person);
+            Doctor doctor = new Doctor(type, nric, name, phone);
+            return new AddCommand(doctor);
         } else if (type.isDonor()) {
             arePrefixesPresentDonor(argMultimap);
 
@@ -80,6 +69,16 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             Donor donor = new Donor(type, nric, name, phone, age);
             return new AddCommand(donor);
+        } else if (type.isPatient()) {
+            arePrefixesPresentPatient(argMultimap);
+
+            Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
+
+            Patient patient = new Patient(type, nric, name, phone, age);
+            return new AddCommand(patient);
         } else {
             //TODO: refine error message later
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
