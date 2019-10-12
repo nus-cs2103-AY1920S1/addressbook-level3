@@ -28,7 +28,6 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
 
     public LogicManager(ItemModel model, Storage storage) {
-
         this.storage = storage;
         this.model = model;
         addressBookParser = new AddressBookParser();
@@ -63,6 +62,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getVisualList();
+<<<<<<< HEAD
     }
 
      */
