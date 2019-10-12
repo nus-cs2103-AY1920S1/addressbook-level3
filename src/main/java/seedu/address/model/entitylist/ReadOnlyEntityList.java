@@ -8,7 +8,7 @@ import seedu.address.model.entity.Id;
 /**
  * Aims to make each EntityList readable.
  */
-public interface ReadableEntityList {
+public interface ReadOnlyEntityList {
     /**
      * Checks if a given entity list contains a certain entity.
      *
@@ -23,12 +23,4 @@ public interface ReadableEntityList {
      * @return List<? extends Entity>
      */
     List<? extends Entity> list();
-
-    /**
-     * This generates the id for the next entity object to be created.
-     *
-     * @return Id
-     */
-    Id generateId();
-
 }

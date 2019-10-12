@@ -9,7 +9,7 @@ import seedu.address.model.entity.Id;
  * This interface serves as the new API for the model.
  * Each child of {@code EntityList} should behave as a singleton.
  */
-public abstract class EntityList implements ReadableEntityList {
+public abstract class EntityList implements ReadOnlyEntityList {
     //    /**
     //     * Gets the entity from the entityList.
     //     *

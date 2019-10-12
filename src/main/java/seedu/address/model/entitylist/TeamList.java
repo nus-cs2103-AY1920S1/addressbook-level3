@@ -15,15 +15,15 @@ import seedu.address.model.entity.Team;
  * {@code TeamList} should behave as a singleton.
  */
 public class TeamList extends EntityList {
+    private static int lastUsedId = 0;
+
     private List<Team> teams;
-    private int lastUsedId;
 
     /**
      * Constructor.
      */
     public TeamList() {
         this.teams = new ArrayList<>();
-        this.lastUsedId = 0;
     }
 
     /**
@@ -129,9 +129,17 @@ public class TeamList extends EntityList {
      *
      * @return ID
      */
-    @Override
-    public Id generateId() {
-        this.lastUsedId++;
-        return new Id(PrefixType.T, this.lastUsedId);
+    public static Id generateId() {
+        lastUsedId++;
+        return new Id(PrefixType.T, lastUsedId);
+    }
+
+    /**
+     * Sets the lastUsedId class attribute.
+     *
+     * @param number
+     */
+    public static void setLastUsedId(int number) {
+        lastUsedId = number;
     }
 }

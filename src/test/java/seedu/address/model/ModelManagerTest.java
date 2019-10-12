@@ -3,6 +3,8 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -13,21 +15,24 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mockito;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.storage.AlfredStorage;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalMentors;
 import seedu.address.testutil.TypicalParticipants;
 import seedu.address.testutil.TypicalTeams;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ModelManagerTest {
-
-    private ModelManager modelManager = new ModelManager();
+    private AlfredStorage storage = mock(AlfredStorage.class);
+    private ModelManager modelManager = new ModelManager(storage, new UserPrefs());
 
     @Test
     public void constructor() {
@@ -103,11 +108,14 @@ public class ModelManagerTest {
     @Test
     public void addAndGetParticipant_validId_returnsParticipant() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             modelManager.addParticipant(TypicalParticipants.A);
             Participant participant = modelManager.getParticipant(new Id(PrefixType.P, 1));
             assertTrue(participant.equals(TypicalParticipants.A));
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -115,13 +123,16 @@ public class ModelManagerTest {
     @Test
     public void deleteParticipant_validId_returnsParticipant() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             modelManager.addParticipant(TypicalParticipants.A);
             TypicalTeams.clearTeamA();
             modelManager.addTeam(TypicalTeams.A);
             Participant participant = modelManager.deleteParticipant(new Id(PrefixType.P, 1));
             assertTrue(participant.equals(TypicalParticipants.A));
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -129,6 +140,9 @@ public class ModelManagerTest {
     @Test
     public void updateParticipant_validId_returnsTrue() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             modelManager.addParticipant(TypicalParticipants.A);
             TypicalTeams.clearTeamA();
@@ -137,7 +151,7 @@ public class ModelManagerTest {
                     TypicalParticipants.A_UPDATED);
             assertTrue(TypicalTeams.A.getParticipants().get(0)
                     .equals(TypicalParticipants.A_UPDATED));
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -145,12 +159,15 @@ public class ModelManagerTest {
     @Test
     public void getTeamByParticipantId_validId_returnsTeam() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             TypicalTeams.clearTeamA();
             modelManager.addTeam(TypicalTeams.A);
             assertTrue(TypicalTeams.A
                     .equals(modelManager.getTeamByParticipantId(new Id(PrefixType.P, 1))));
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -158,12 +175,15 @@ public class ModelManagerTest {
     @Test
     public void getTeamByMentorId_validId_returnsMentor() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             TypicalTeams.clearTeamA();
             modelManager.addTeam(TypicalTeams.A);
             assertTrue(TypicalTeams.A
                     .equals(modelManager.getTeamByMentorId(new Id(PrefixType.M, 3))));
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -171,6 +191,9 @@ public class ModelManagerTest {
     @Test
     public void updateMentor_validMentor_updatesMentor() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             TypicalTeams.clearTeamA();
             modelManager.addTeam(TypicalTeams.A);
@@ -180,7 +203,7 @@ public class ModelManagerTest {
             assertTrue(modelManager.getTeamByMentorId(new Id(PrefixType.M, 3))
                     .equals(TypicalTeams.A));
 
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }
@@ -188,6 +211,9 @@ public class ModelManagerTest {
     @Test
     public void addParticipantToTeam_validParticipant_addsParticipant() {
         try {
+            Mockito.doNothing().when(storage).saveParticipantList(any());
+            Mockito.doNothing().when(storage).saveTeamList(any());
+            Mockito.doNothing().when(storage).saveMentorList(any());
             modelManager = new ModelManager();
             TypicalTeams.clearTeamA();
             modelManager.addTeam(TypicalTeams.A);
@@ -195,7 +221,7 @@ public class ModelManagerTest {
                     TypicalParticipants.B);
             assertTrue(modelManager.getTeam(new Id(PrefixType.T, 1))
                     .getParticipants().size() == 2);
-        } catch (AlfredException e) {
+        } catch (Exception e) {
             // do nothing
         }
     }

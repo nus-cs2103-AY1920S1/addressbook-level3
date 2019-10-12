@@ -15,15 +15,15 @@ import seedu.address.model.entity.PrefixType;
  * {@code ParticipantList} should behave as a singleton.
  */
 public class ParticipantList extends EntityList {
+    private static int lastUsedId = 0;
+
     private List<Participant> participants;
-    private int lastUsedId;
 
     /**
      * Constructor.
      */
     public ParticipantList() {
         this.participants = new ArrayList<>();
-        this.lastUsedId = 0;
     }
 
     /**
@@ -140,9 +140,17 @@ public class ParticipantList extends EntityList {
      *
      * @return ID
      */
-    @Override
-    public Id generateId() {
-        this.lastUsedId++;
-        return new Id(PrefixType.P, this.lastUsedId);
+    public static Id generateId() {
+        lastUsedId++;
+        return new Id(PrefixType.P, lastUsedId);
+    }
+
+    /**
+     * Sets the lastUsedId class attribute.
+     *
+     * @param number
+     */
+    public static void setLastUsedId(int number) {
+        lastUsedId = number;
     }
 }
