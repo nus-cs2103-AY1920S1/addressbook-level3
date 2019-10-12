@@ -16,11 +16,11 @@ public class DeleteCommand extends Command {
     //  This will be displayed to the user when the help command is called
     public static final String MESSAGE_USAGE = "";
 
-    private final Flashcard toDelete;
+    private final int toDeleteId;
 
-    public DeleteCommand (Flashcard flashcard) {
-        requireNonNull(flashcard);
-        toDelete = flashcard;
+    public DeleteCommand (int toDeleteId) {
+        requireNonNull(toDeleteId);
+        this.toDeleteId = toDeleteId;
     }
 
     // TODO: Implement the following execution method for delete command, beware to generate a goof command result.
