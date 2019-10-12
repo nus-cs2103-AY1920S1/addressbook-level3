@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -19,9 +20,12 @@ public class IncidentListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Incident> incidentListView;
+    @FXML
+    private Label boxLabel;
 
     public IncidentListPanel(ObservableList<Incident> incidentList) {
         super(FXML);
+        boxLabel.setText("Incidents");
         incidentListView.setItems(incidentList);
         incidentListView.setCellFactory(listView -> new IncidentListViewCell());
     }
