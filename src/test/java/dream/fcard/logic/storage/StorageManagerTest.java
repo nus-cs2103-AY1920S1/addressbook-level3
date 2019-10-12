@@ -2,14 +2,16 @@ package dream.fcard.logic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.util.FileReadWrite;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.junit.jupiter.api.Test;
 
 public class StorageManagerTest {
     @Test
@@ -33,10 +35,10 @@ public class StorageManagerTest {
         StorageManager.writeDeck(d2);
         // write decks
 
-        for(Deck d : StorageManager.loadDecks()) {
+        for (Deck d : StorageManager.loadDecks()) {
             if (d.getName() == "deck1") {
                 assertEquals(d1.toJson().toString(), d.toJson().toString());
-            }else if (d.getName() == "deck2") {
+            } else if (d.getName() == "deck2") {
                 assertEquals(d2.toJson().toString(), d.toJson().toString());
             }
         }
