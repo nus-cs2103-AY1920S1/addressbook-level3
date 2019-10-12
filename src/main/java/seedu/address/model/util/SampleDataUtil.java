@@ -77,8 +77,8 @@ public class SampleDataUtil {
                                     makeVisitTask("Blood pressure", "140/90mmHg", true),
                                     makeVisitTask("Check bed for bugs", "", true),
                                     makeVisitTask("Top-up medicine", "", false),
-                                    makeVisitTask("Ask spouse about David's condition"
-                                            , "", false)
+                                    makeVisitTask("Ask spouse about David's condition",
+                                            "", false)
                             )))),
             new Person(new Name("Irfan Ibrahim"),
                     new Phone("92492021"),
