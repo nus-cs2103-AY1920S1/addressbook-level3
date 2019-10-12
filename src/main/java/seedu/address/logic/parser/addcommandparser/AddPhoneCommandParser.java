@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -23,8 +25,10 @@ import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,15 +43,18 @@ public class AddPhoneCommandParser implements Parser<AddPhoneCommand> {
      */
     public AddPhoneCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PHONENAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_IDENTITYNUM, PREFIX_SERIALNUM, PREFIX_PHONENAME,
                         PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PHONENAME,
+        if (!arePrefixesPresent(argMultimap, PREFIX_IDENTITYNUM, PREFIX_SERIALNUM, PREFIX_PHONENAME,
                 PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhoneCommand.MESSAGE_USAGE));
         }
 
+
+        IdentityNumber identityNumber = ParserUtil.parseIdentityNumber(argMultimap.getValue(PREFIX_IDENTITYNUM).get());
+        SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIALNUM).get());
         PhoneName phoneName = ParserUtil.parsePhoneName(argMultimap.getValue(PREFIX_PHONENAME).get());
         Brand brand = ParserUtil.parseBrand(argMultimap.getValue(PREFIX_BRAND).get());
         Capacity capacity = ParserUtil.parseCapacity(argMultimap.getValue(PREFIX_CAPACITY).get());
@@ -55,7 +62,7 @@ public class AddPhoneCommandParser implements Parser<AddPhoneCommand> {
         Cost cost = ParserUtil.parseCost(argMultimap.getValue(PREFIX_COST).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Phone phone = new Phone(phoneName, brand, capacity, colour, cost, tagList);
+        Phone phone = new Phone(identityNumber, serialNumber, phoneName, brand, capacity, colour, cost, tagList);
 
 
         return new AddPhoneCommand(phone);

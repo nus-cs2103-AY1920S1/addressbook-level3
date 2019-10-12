@@ -10,6 +10,10 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SwitchCustomerPanelCommand;
+import seedu.address.logic.commands.SwitchOrderPanelCommand;
+import seedu.address.logic.commands.SwitchPhonePanelCommand;
+import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
@@ -26,11 +30,6 @@ import seedu.address.logic.parser.deletecommandparser.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
 import seedu.address.logic.parser.editcommandparser.EditCustomerCommandParser;
 import seedu.address.logic.parser.editcommandparser.EditPhoneCommandParser;
-
-import seedu.address.logic.commands.SwitchCustomerPanelCommand;
-import seedu.address.logic.commands.SwitchOrderPanelCommand;
-import seedu.address.logic.commands.SwitchPhonePanelCommand;
-import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

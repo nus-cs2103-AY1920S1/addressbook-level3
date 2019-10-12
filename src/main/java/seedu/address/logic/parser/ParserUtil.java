@@ -19,7 +19,9 @@ import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -263,6 +265,35 @@ public class ParserUtil {
         return new PhoneName(trimmedPhoneName);
     }
 
+    /**
+     * Parses a {@code String identityNumber} into a {@code identityNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phoneName} is invalid.
+     */
+    public static IdentityNumber parseIdentityNumber(String identityNumber) throws ParseException {
+        requireNonNull(identityNumber);
+        String trimmedIdentityNumber = identityNumber.trim();
+        if (!IdentityNumber.isValidIdentityNumber(trimmedIdentityNumber)) {
+            throw new ParseException(IdentityNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new IdentityNumber(trimmedIdentityNumber);
+    }
+
+    /**
+     * Parses a {@code String serialNumber} into a {@code serialNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code serialNumber} is invalid.
+     */
+    public static SerialNumber parseSerialNumber(String serialNumber) throws ParseException {
+        requireNonNull(serialNumber);
+        String trimmedSerialNumber = serialNumber.trim();
+        if (!SerialNumber.isValidSerialNumber(trimmedSerialNumber)) {
+            throw new ParseException(SerialNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new SerialNumber(trimmedSerialNumber);
+    }
 
 
 

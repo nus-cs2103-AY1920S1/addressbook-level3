@@ -8,7 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
@@ -44,7 +44,7 @@ public class DeletePhoneCommand extends Command {
 
         Phone phoneToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePhone(phoneToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PHONE_SUCCESS, phoneToDelete), PanelType.PHONE);
+        return new CommandResult(String.format(MESSAGE_DELETE_PHONE_SUCCESS, phoneToDelete), UiChange.PHONE);
     }
 
     @Override

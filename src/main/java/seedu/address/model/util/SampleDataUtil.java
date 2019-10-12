@@ -15,8 +15,10 @@ import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -81,22 +83,28 @@ public class SampleDataUtil {
 
     public static Phone[] getSamplePhones() {
         return new Phone[] {
-            new Phone(new PhoneName("iPhone 11"), new Brand("Apple"),
+            new Phone(new IdentityNumber("990003709954321"),
+                new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
                 Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
                 getTagSet("New")),
-            new Phone(new PhoneName("iPhone 8"), new Brand("Apple"),
+            new Phone(new IdentityNumber("990001940227978"),
+                new SerialNumber("1d27s9az"), new PhoneName("iPhone 8"), new Brand("Apple"),
                 Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
                 getTagSet("Used")),
-            new Phone(new PhoneName("Galaxy S11"), new Brand("Samsung"),
+            new Phone(new IdentityNumber("352039075644270"),
+                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
                 getTagSet("New")),
-            new Phone(new PhoneName("iPhone XR"), new Brand("Apple"),
+            new Phone(new IdentityNumber("013373005371667"),
+                new SerialNumber("29asdn1mx"), new PhoneName("iPhone XR"), new Brand("Apple"),
                 Capacity.SIZE_256GB, new Colour("Coral"), new Cost("$750"),
                 getTagSet("Used")),
-            new Phone(new PhoneName("Pixel 3"), new Brand("Google"),
+            new Phone(new IdentityNumber("358373060612446"),
+                new SerialNumber("129zn28xa"), new PhoneName("Pixel 3"), new Brand("Google"),
                 Capacity.SIZE_64GB, new Colour("White"), new Cost("$800"),
                 getTagSet("New")),
-            new Phone(new PhoneName("iPhone 11"), new Brand("Apple"),
+            new Phone(new IdentityNumber("990002722150925"),
+                new SerialNumber("x82n10zm1a"), new PhoneName("iPhone 11"), new Brand("Apple"),
                 Capacity.SIZE_256GB, new Colour("Purple"), new Cost("$1300"),
                 getTagSet("New"))
         };

@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PHONES;
 
@@ -14,23 +16,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
+
+//import com.sun.scenario.effect.Identity;
 
 /**
  * Edits the details of an existing phone in SML.
@@ -43,6 +48,8 @@ public class EditPhoneCommand extends Command {
             + "by the index number used in the displayed phone list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_IDENTITYNUM + "IMEI] "
+            + "[" + PREFIX_SERIALNUM + "SERIAL NUMBER] "
             + "[" + PREFIX_PHONENAME + "NAME] "
             + "[" + PREFIX_BRAND + "BRAND] "
             + "[" + PREFIX_CAPACITY + "CAPACITY] "
@@ -90,7 +97,7 @@ public class EditPhoneCommand extends Command {
 
         model.setPhone(phoneToEdit, editedPhone);
         model.updateFilteredPhoneList(PREDICATE_SHOW_ALL_PHONES);
-        return new CommandResult(String.format(MESSAGE_EDIT_PHONE_SUCCESS, editedPhone), PanelType.PHONE);
+        return new CommandResult(String.format(MESSAGE_EDIT_PHONE_SUCCESS, editedPhone), UiChange.PHONE);
     }
 
     /**
@@ -101,8 +108,11 @@ public class EditPhoneCommand extends Command {
                                                  EditPhoneDescriptor editPhoneDescriptor) {
         assert phoneToEdit != null;
 
-        UUID id = phoneToEdit.getId();
 
+        IdentityNumber updatedIdentityNumber =
+                editPhoneDescriptor.getIdentityNumber().orElse(phoneToEdit.getIdentityNumber());
+        SerialNumber updatedSerialNumber =
+                editPhoneDescriptor.getSerialNumber().orElse(phoneToEdit.getSerialNumber());
         PhoneName updatedName = editPhoneDescriptor.getPhoneName().orElse(phoneToEdit.getPhoneName());
         Brand updatedBrand = editPhoneDescriptor.getBrand().orElse(phoneToEdit.getBrand());
         Capacity updatedCapacity = editPhoneDescriptor.getCapacity().orElse(phoneToEdit.getCapacity());
@@ -110,7 +120,8 @@ public class EditPhoneCommand extends Command {
         Cost updatedCost = editPhoneDescriptor.getCost().orElse(phoneToEdit.getCost());
         Set<Tag> updatedTags = editPhoneDescriptor.getTags().orElse(phoneToEdit.getTags());
 
-        return new Phone(id, updatedName, updatedBrand, updatedCapacity, updatedColour, updatedCost, updatedTags);
+        return new Phone(updatedIdentityNumber, updatedSerialNumber,
+                updatedName, updatedBrand, updatedCapacity, updatedColour, updatedCost, updatedTags);
     }
 
     @Override
@@ -136,12 +147,15 @@ public class EditPhoneCommand extends Command {
      * corresponding field value of the phone.
      */
     public static class EditPhoneDescriptor {
+        private IdentityNumber identityNumber;
+        private SerialNumber serialNumber;
         private PhoneName phoneName;
         private Brand brand;
         private Capacity capacity;
         private Colour colour;
         private Cost cost;
         private Set<Tag> tags;
+
 
         public EditPhoneDescriptor() {}
 
@@ -150,6 +164,7 @@ public class EditPhoneCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPhoneDescriptor(EditPhoneDescriptor toCopy) {
+
             setPhoneName(toCopy.phoneName);
             setBrand(toCopy.brand);
             setCapacity(toCopy.capacity);
@@ -163,6 +178,22 @@ public class EditPhoneCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(phoneName, brand, capacity, colour, cost, tags);
+        }
+
+        public Optional<IdentityNumber> getIdentityNumber() {
+            return Optional.ofNullable(identityNumber);
+        }
+
+        public void setIdentityNumber(IdentityNumber identityNumber) {
+            this.identityNumber = identityNumber;
+        }
+
+        public Optional<SerialNumber> getSerialNumber() {
+            return Optional.ofNullable(serialNumber);
+        }
+
+        public void setSerialNumber(SerialNumber serialNumber) {
+            this.serialNumber = serialNumber;
         }
 
         public Optional<PhoneName> getPhoneName() {
@@ -237,13 +268,16 @@ public class EditPhoneCommand extends Command {
             // state check
             EditPhoneDescriptor e = (EditPhoneDescriptor) other;
 
-            return getPhoneName().equals(e.getPhoneName())
+            return getIdentityNumber().equals(e.getIdentityNumber())
+                    && getSerialNumber().equals(e.getSerialNumber())
+                    && getPhoneName().equals(e.getPhoneName())
                     && getBrand().equals(e.getBrand())
                     && getCapacity().equals(e.getCapacity())
                     && getColour().equals(e.getColour())
                     && getCost().equals(e.getCost())
                     && getTags().equals(e.getTags());
         }
+
 
 
     }

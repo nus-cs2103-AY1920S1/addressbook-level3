@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
@@ -25,6 +27,8 @@ public class AddPhoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a phone to SML. "
             + "Parameters: "
+            + PREFIX_IDENTITYNUM + "IDENTITY NUMBER (IMEI) "
+            + PREFIX_SERIALNUM + "SERIAL NUMBER "
             + PREFIX_PHONENAME + "NAME "
             + PREFIX_BRAND + "BRAND "
             + PREFIX_CAPACITY + "CAPACITY (in GB) "
@@ -32,6 +36,8 @@ public class AddPhoneCommand extends Command {
             + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_IDENTITYNUM + "543407158585522"
+            + PREFIX_SERIALNUM + "A123bcfe29 "
             + PREFIX_PHONENAME + "iPhone 11 "
             + PREFIX_BRAND + "Apple "
             + PREFIX_CAPACITY + "128 "
