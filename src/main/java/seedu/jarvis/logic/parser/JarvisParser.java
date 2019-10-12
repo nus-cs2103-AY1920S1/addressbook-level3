@@ -23,6 +23,7 @@ import seedu.jarvis.logic.parser.address.AddAddressCommandParser;
 import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;
 import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
 import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
+import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
 import seedu.jarvis.logic.parser.history.UndoCommandParser;
