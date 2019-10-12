@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Expense;
-import thrift.model.transaction.Transaction;
 
 /**
  * Adds an expense transaction to the THRIFT.
@@ -56,10 +55,7 @@ public class AddExpenseCommand extends Command implements Undoable {
     @Override
     public void undo(Model model) {
         requireNonNull(model);
-        //added this line to avoid deleting its duplicate transaction.
-        Transaction transactionToDelete = model.getLastTransactionFromThrift();
-        assert transactionToDelete == toAdd : "Incorrect expense";
-        model.deleteTransaction(transactionToDelete);
+        model.deleteLastTransaction();
     }
 
     @Override

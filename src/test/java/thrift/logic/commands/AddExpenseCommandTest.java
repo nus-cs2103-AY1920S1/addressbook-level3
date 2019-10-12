@@ -3,6 +3,7 @@ package thrift.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.testutil.Assert.assertThrows;
 
@@ -10,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
 
@@ -76,13 +78,13 @@ public class AddExpenseCommandTest {
         assertFalse(modelStub.undoableCommandStack.isEmpty());
 
         Undoable undoable = modelStub.getPreviousUndoableCommand();
-        assertTrue(undoable == addExpenseCommand);
+        assertSame(undoable, addExpenseCommand);
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
         assertTrue(modelStub.undoableCommandStack.isEmpty());
 
         undoable = modelStub.getUndoneCommand();
-        assertTrue(undoable == addExpenseCommand);
+        assertSame(undoable, addExpenseCommand);
         undoable.redo(modelStub);
         assertEquals(1, modelStub.getThrift().getTransactionList().size());
         assertFalse(modelStub.undoableCommandStack.isEmpty());
@@ -182,8 +184,19 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public Optional<Index> getIndexInFullTransactionList(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteLastTransaction() {
+            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -314,15 +327,15 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public Transaction getLastTransactionFromThrift() {
-            return thriftStub.getLastTransaction();
-        }
-
-        @Override
         public Undoable getUndoneCommand() {
             Undoable undoable = redoCommandStack.pop();
             undoableCommandStack.push(undoable);
             return undoable;
+        }
+
+        @Override
+        public void deleteLastTransaction() {
+            thriftStub.removeLastTransaction();
         }
     }
 
@@ -347,8 +360,8 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public Transaction getLastTransaction() {
-            return transactionsAdded.get(transactionsAdded.size() - 1);
+        public void removeLastTransaction() {
+            transactionsAdded.remove(transactionsAdded.size() - 1);
         }
     }
 }

@@ -29,10 +29,12 @@ public class DeleteCommand extends Command implements Undoable {
 
     private final Index targetIndex;
     private Transaction transactionToDelete;
+    private Index actualIndex;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.transactionToDelete = null;
+        this.actualIndex = null;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class DeleteCommand extends Command implements Undoable {
         }
 
         transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        actualIndex = model.getIndexInFullTransactionList(transactionToDelete).get();
         model.deleteTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
     }
@@ -58,10 +61,11 @@ public class DeleteCommand extends Command implements Undoable {
 
     @Override
     public void undo(Model model) {
+        requireNonNull(model);
         if (transactionToDelete instanceof Expense) {
-            model.addExpense((Expense) transactionToDelete, targetIndex);
+            model.addExpense((Expense) transactionToDelete, actualIndex);
         } else if (transactionToDelete instanceof Income) {
-            model.addIncome((Income) transactionToDelete, targetIndex);
+            model.addIncome((Income) transactionToDelete, actualIndex);
         }
     }
 

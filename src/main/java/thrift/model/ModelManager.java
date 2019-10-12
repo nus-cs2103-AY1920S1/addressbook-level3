@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -102,8 +103,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<Index> getIndexInFullTransactionList(Transaction transaction) {
+        return thrift.getTransactionIndex(transaction);
+    }
+
+    @Override
     public void deleteTransaction(Transaction transaction) {
         thrift.removeTransaction(transaction);
+    }
+
+    @Override
+    public void deleteLastTransaction() {
+        thrift.removeLastTransaction();
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override

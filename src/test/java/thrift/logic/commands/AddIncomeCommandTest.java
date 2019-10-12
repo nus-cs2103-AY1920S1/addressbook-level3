@@ -3,6 +3,7 @@ package thrift.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.testutil.Assert.assertThrows;
 
@@ -10,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
 
@@ -48,10 +50,9 @@ public class AddIncomeCommandTest {
 
     @Test
     public void undo_undoSuccessful() {
-        ModelStubUndoAddIncome modelStub = new ModelStubUndoAddIncome();
+        ModelStubUndoRedoAddIncome modelStub = new ModelStubUndoRedoAddIncome();
 
         Income validIncome = new IncomeBuilder().build();
-
         modelStub.addIncome(validIncome);
         AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
         modelStub.keepTrackCommands(addIncomeCommand);
@@ -62,6 +63,30 @@ public class AddIncomeCommandTest {
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
         assertTrue(modelStub.undoableCommandStack.isEmpty());
+    }
+
+    @Test
+    public void redo_redoSuccessful() {
+        ModelStubUndoRedoAddIncome modelStub = new ModelStubUndoRedoAddIncome();
+
+        Income validIncome = new IncomeBuilder().build();
+        modelStub.addIncome(validIncome);
+        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
+        modelStub.keepTrackCommands(addIncomeCommand);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
+
+        Undoable undoable = modelStub.getPreviousUndoableCommand();
+        assertSame(undoable, addIncomeCommand);
+        undoable.undo(modelStub);
+        assertEquals(0, modelStub.getThrift().getTransactionList().size());
+        assertTrue(modelStub.undoableCommandStack.isEmpty());
+
+        undoable = modelStub.getUndoneCommand();
+        assertSame(undoable, addIncomeCommand);
+        undoable.redo(modelStub);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
     }
 
     @Test
@@ -158,7 +183,17 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public Optional<Index> getIndexInFullTransactionList(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteLastTransaction() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,12 +285,13 @@ public class AddIncomeCommandTest {
         }
     }
 
-    private class ModelStubUndoAddIncome extends ModelStub {
+    private class ModelStubUndoRedoAddIncome extends ModelStub {
         final Stack<Undoable> undoableCommandStack = new Stack<>();
-        final ThriftStubForUndoAddIncome thriftStub;
+        final Stack<Undoable> redoCommandStack = new Stack<>();
+        final ThriftStub thriftStub;
 
-        public ModelStubUndoAddIncome() {
-            thriftStub = new ThriftStubForUndoAddIncome();
+        public ModelStubUndoRedoAddIncome() {
+            thriftStub = new ThriftStub();
         }
 
         @Override
@@ -265,9 +301,10 @@ public class AddIncomeCommandTest {
 
         @Override
         public Undoable getPreviousUndoableCommand() {
-            return undoableCommandStack.pop();
+            Undoable undoable = undoableCommandStack.pop();
+            redoCommandStack.push(undoable);
+            return undoable;
         }
-
         @Override
         public Thrift getThrift() {
             return thriftStub;
@@ -284,15 +321,22 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public Transaction getLastTransactionFromThrift() {
-            return thriftStub.getLastTransaction();
+        public Undoable getUndoneCommand() {
+            Undoable undoable = redoCommandStack.pop();
+            undoableCommandStack.push(undoable);
+            return undoable;
+        }
+
+        @Override
+        public void deleteLastTransaction() {
+            thriftStub.removeLastTransaction();
         }
     }
 
     /**
      * A Thrift stub that contains an empty list of transaction.
      */
-    private class ThriftStubForUndoAddIncome extends Thrift {
+    private class ThriftStub extends Thrift {
         final List<Transaction> transactionsAdded = new ArrayList<>();
         @Override
         public void removeTransaction(Transaction transaction) {
@@ -310,8 +354,8 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public Transaction getLastTransaction() {
-            return transactionsAdded.get(transactionsAdded.size() - 1);
+        public void removeLastTransaction() {
+            transactionsAdded.remove(transactionsAdded.size() - 1);
         }
     }
 }

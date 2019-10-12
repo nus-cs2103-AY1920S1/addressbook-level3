@@ -5,6 +5,7 @@ import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,6 +75,13 @@ public class TransactionList implements Iterable<Transaction> {
         }
     }
 
+    /**
+     * Remove the last transaction from the list.
+     */
+    public void removeLast() {
+        internalList.remove(internalList.size() - 1);
+    }
+
     public void setTransactions(TransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -94,6 +102,23 @@ public class TransactionList implements Iterable<Transaction> {
      */
     public Transaction getLast() {
         return internalList.get(internalList.size() - 1);
+    }
+
+
+    /**
+     * Returns an Optional that contains the {@link Index} of the {@code transaction}.
+     *
+     * @param transaction is the transaction that you are interested in its index in the full transaction list.
+     * @return an Optional containing the index of the transaction.
+     */
+    public Optional<Index> getIndex(Transaction transaction) {
+        requireNonNull(transaction);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (transaction == internalList.get(i)) {
+                return Optional.of(Index.fromZeroBased(i));
+            }
+        }
+        return Optional.empty();
     }
 
     /**

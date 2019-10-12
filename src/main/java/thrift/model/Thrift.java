@@ -3,6 +3,7 @@ package thrift.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import thrift.commons.core.index.Index;
@@ -108,7 +109,25 @@ public class Thrift implements ReadOnlyThrift {
         transactions.remove(key);
     }
 
+    /**
+     * Removes last transaction from this {@code Thrift}.
+     */
+    public void removeLastTransaction() {
+        transactions.removeLast();
+    }
+
     //// util methods
+
+    /**
+     * Returns an Optional that contains the {@link Index} of the {@code transaction}.
+     *
+     * @param transaction is the transaction that you are interested in its index in the full transaction list.
+     * @return an Optional containing the index of the transaction.
+     */
+    public Optional<Index> getTransactionIndex(Transaction transaction) {
+        requireNonNull(transaction);
+        return transactions.getIndex(transaction);
+    }
 
     @Override
     public String toString() {

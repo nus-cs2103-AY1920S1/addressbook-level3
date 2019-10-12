@@ -108,7 +108,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void undo_undoDeleteExpense_success() throws CommandException {
+    public void undo_undoDeleteExpenseOnFullList_success() throws CommandException {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
 
@@ -129,7 +129,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void undo_undoDeleteIncome_success() throws CommandException {
+    public void undo_undoDeleteIncomeOnFullList_success() throws CommandException {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
 

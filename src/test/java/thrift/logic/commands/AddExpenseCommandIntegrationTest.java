@@ -12,7 +12,6 @@ import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
-import thrift.model.transaction.Transaction;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TypicalTransactions;
 
@@ -52,8 +51,7 @@ public class AddExpenseCommandIntegrationTest {
 
         Undoable undoable = model.getPreviousUndoableCommand();
         undoable.undo(model);
-        Transaction transactionToDelete = expectedModel.getLastTransactionFromThrift();
-        expectedModel.deleteTransaction(transactionToDelete);
+        expectedModel.deleteLastTransaction();
         assertEquals(expectedModel, model);
     }
 
@@ -72,8 +70,7 @@ public class AddExpenseCommandIntegrationTest {
         //undo add_expense command
         Undoable undoable = model.getPreviousUndoableCommand();
         undoable.undo(model);
-        Transaction transactionToDelete = expectedModel.getLastTransactionFromThrift();
-        expectedModel.deleteTransaction(transactionToDelete);
+        expectedModel.deleteLastTransaction();
         assertEquals(expectedModel, model);
 
         //redo add_expense command
