@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -23,10 +22,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PolicyBuilder;
 
-public class AddCommandPolicyTest {
+public class AddPolicyCommandTest {
 
     @Test
     public void constructor_nullPolicy_throwsNullPointerException() {
@@ -52,7 +50,7 @@ public class AddCommandPolicyTest {
 
         assertThrows(CommandException.class, addPolicyCommand.MESSAGE_DUPLICATE_POLICY + "\n"
                 + validPolicy.toString() + "\n" + addPolicyCommand.DUPLICATE_POLICY_MERGE_PROMPT, ()
-            -> addPolicyCommand.execute(modelStub));
+                -> addPolicyCommand.execute(modelStub));
     }
 
     @Test
