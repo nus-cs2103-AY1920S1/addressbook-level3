@@ -1,6 +1,7 @@
 package seedu.savenus.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -75,6 +76,11 @@ public interface Model {
      * The food identity of {@code editedFood} must not be the same as another existing food in the menu.
      */
     void setFood(Food target, Food editedFood);
+
+    /**
+     * Replace the original list with a new list.
+     */
+    void setFoods(List<Food> list);
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();

@@ -7,7 +7,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  * Represents a Food's category in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Category {
+public class Category implements Field {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Categories should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -38,6 +38,13 @@ public class Category {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
 
     @Override
     public String toString() {
@@ -54,5 +61,15 @@ public class Category {
     @Override
     public int hashCode() {
         return category.hashCode();
+    }
+
+    @Override
+    public int compareTo(Field other) {
+        Category otherCategory = (Category) other;
+        if (otherCategory == null) {
+            return 1;
+        } else {
+            return this.getField().compareTo(otherCategory.getField());
+        }
     }
 }

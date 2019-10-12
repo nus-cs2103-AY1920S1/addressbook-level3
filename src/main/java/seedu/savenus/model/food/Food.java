@@ -79,6 +79,34 @@ public class Food {
         return restrictions;
     }
 
+    public Field getField(String field) {
+        switch(field) {
+        case "NAME":
+            return getName();
+
+        case "PRICE":
+            return getPrice();
+
+        case "CATEGORY":
+            return getCategory();
+
+        case "DESCRIPTION":
+            return getDescription();
+
+        case "LOCATION":
+            return getLocation();
+
+        case "OPENING_HOURS":
+            return getOpeningHours();
+
+        case "RESTRICTIONS":
+            return getRestrictions();
+
+        default:
+            return null;
+        }
+    }
+
     /**
      * Returns true if both foods of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two foods.

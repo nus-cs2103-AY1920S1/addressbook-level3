@@ -6,7 +6,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 /**
  * Represents the opening hours a particular food item.
  */
-public class OpeningHours {
+public class OpeningHours implements Field {
 
     // This to show the user how they should type the opening hours.
     public static final String MESSAGE_CONSTRAINTS =
@@ -45,6 +45,14 @@ public class OpeningHours {
         }
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return openingHours;
@@ -60,5 +68,15 @@ public class OpeningHours {
     @Override
     public int hashCode() {
         return openingHours.hashCode();
+    }
+
+    @Override
+    public int compareTo(Field other) {
+        OpeningHours otherOpeningHours = (OpeningHours) other;
+        if (otherOpeningHours == null) {
+            return 1;
+        } else {
+            return this.getField().compareTo(otherOpeningHours.getField());
+        }
     }
 }

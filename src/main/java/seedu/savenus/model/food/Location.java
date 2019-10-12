@@ -7,7 +7,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  * Represents a Food's location in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidLocation(String)}
  */
-public class Location {
+public class Location implements Field {
 
     public static final String MESSAGE_CONSTRAINTS = "Location should not be blank";
     public static final String DEFAULT_VALUE = "No location specfied";
@@ -35,6 +35,13 @@ public class Location {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
 
     @Override
     public String toString() {
@@ -51,5 +58,15 @@ public class Location {
     @Override
     public int hashCode() {
         return location.hashCode();
+    }
+
+    @Override
+    public int compareTo(Field other) {
+        Location otherLocation = (Location) other;
+        if (otherLocation == null) {
+            return 1;
+        } else {
+            return this.getField().compareTo(otherLocation.getField());
+        }
     }
 }

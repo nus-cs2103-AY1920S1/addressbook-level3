@@ -7,7 +7,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  * Represents a Food's price number in the menu.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
-public class Price {
+public class Price implements Field {
 
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -70,6 +70,14 @@ public class Price {
         }
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return value;
@@ -87,4 +95,15 @@ public class Price {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Field other) {
+        Price otherPrice = (Price) other;
+        if (otherPrice == null) {
+            return 1;
+        } else {
+            int thisAmount = (int) (100 * Double.parseDouble(this.getField()));
+            int otherAmount = (int) (100 * Double.parseDouble(otherPrice.getField()));
+            return thisAmount - otherAmount;
+        }
+    }
 }
