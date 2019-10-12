@@ -11,9 +11,9 @@ public class SampleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows you your calendar.\n"
             + "Example: " + COMMAND_WORD;
-
+    // todo-this-week: update value of showing_...__message
+    // value should be "diary", "itinerary", "calendar", "financial_tracker", or "address_book"
     public static final String SHOWING_SAMPLE_MESSAGE = "sample";
-    // todo-this-week: above showing_..._message should be the same as toString() value of the page which this command shows, see SamplePage
 
     @Override
     public CommandResult execute(Model model) {

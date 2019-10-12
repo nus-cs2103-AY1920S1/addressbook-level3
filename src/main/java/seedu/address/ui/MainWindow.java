@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -36,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CalendarPage calendarPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,11 +68,13 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        calendarPage = new CalendarPage();
 
         Scene primaryScene = primaryStage.getScene();
+
         // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene);
+        pages = new Pages(primaryScene, new SamplePage(), calendarPage);
 
     }
 
