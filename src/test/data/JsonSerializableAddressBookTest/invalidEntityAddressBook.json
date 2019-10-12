@@ -6,6 +6,12 @@
     "username": "tester11",
     "password": "password"
   } ],
+  "incidents": [ {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
+  } ],
   "vehicles": [{
     "vehicleType": "Bus",
     "vehicleNumber": "invalid####",

@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private IncidentListPanel incidentListPanel;
     private VehicleListPanel vehicleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -44,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane incidentListPanelPlaceholder;
 
     @FXML
     private StackPane vehicleListPanelPlaceholder;
@@ -114,6 +118,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        incidentListPanel = new IncidentListPanel(logic.getFilteredIncidentList());
+        incidentListPanelPlaceholder.getChildren().add(incidentListPanel.getRoot());
+
         vehicleListPanel = new VehicleListPanel(logic.getFilteredVehicleList());
         vehicleListPanelPlaceholder.getChildren().add(vehicleListPanel.getRoot());
 
@@ -171,9 +178,15 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public IncidentListPanel getIncidentListPanel() {
+        return incidentListPanel;
+    }
+
     public VehicleListPanel getVehicleListPanel() {
         return vehicleListPanel;
     }
+
+
 
     /**
      * Executes the command and returns the result.

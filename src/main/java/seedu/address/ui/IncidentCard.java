@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.incident.Incident;
 
 /**
- * An UI component that displays information of a {@code Vehicle}.
+ * An UI component that displays information of a {@code Person}.
  */
-public class VehicleCard extends UiPart<Region> {
+public class IncidentCard extends UiPart<Region> {
 
-    private static final String FXML = "VehicleListCard.fxml";
+    private static final String FXML = "IncidentListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,29 +21,29 @@ public class VehicleCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Vehicle vehicle;
+    public final Incident incident;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label id;
     @FXML
-    private Label vehicleNumber;
+    private Label incidentId;
     @FXML
-    private Label vehicleType;
+    private Label incidentlocation;
     @FXML
-    private Label district;
+    private Label dateTime;
     @FXML
-    private Label availability;
+    private Label operator;
 
-    public VehicleCard(Vehicle vehicle, int displayedIndex) {
+    public IncidentCard(Incident incident, int displayedIndex) {
         super(FXML);
-        this.vehicle = vehicle;
+        this.incident = incident;
         id.setText(displayedIndex + ". ");
-        vehicleNumber.setText(vehicle.getVehicleNumber().vehicleNumber);
-        vehicleType.setText(vehicle.getVehicleType().vehicleType);
-        district.setText("District: " + String.valueOf(vehicle.getDistrict().districtNum));
-        availability.setText("Availability: " + vehicle.getAvailability().getAvailabilityTag());
+        incidentId.setText("Incident ID: " + incident.getIncidentId().getId());
+        incidentlocation.setText("District: " + String.valueOf(incident.getLocation().districtNum));
+        dateTime.setText("DateTime of Report: " + incident.getDateTime().toString());
+        operator.setText("Operator on Call: " + incident.getOperator().getName().toString());
     }
 
     @Override
@@ -54,13 +54,13 @@ public class VehicleCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VehicleCard)) {
+        if (!(other instanceof PersonCard)) {
             return false;
         }
 
         // state check
-        VehicleCard card = (VehicleCard) other;
+        IncidentCard card = (IncidentCard) other;
         return id.getText().equals(card.id.getText())
-                && vehicle.equals(card.vehicle);
+                && incident.equals(card.incident);
     }
 }

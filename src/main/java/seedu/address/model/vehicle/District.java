@@ -47,6 +47,5 @@ public class District {
                 || (other instanceof District // instanceof handles nulls
                 && districtNum == ((District) other).districtNum); // state check
     }
-
 }
 
