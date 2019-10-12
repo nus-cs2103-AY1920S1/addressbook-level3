@@ -167,12 +167,15 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Date of birth: ")
-                .append(getDateOfBirth())
-                .append(" Policies: ");
-        getPolicies().forEach(policy -> builder.append(policy.getName().policyName));
-        builder.append(" Tags: ");
-        getTags().forEach(builder::append);
-
+                .append(getDateOfBirth());
+        if (getPolicies().size() != 0) {
+            builder.append(" Policies: ");
+            getPolicies().forEach(policy -> builder.append(policy.getName().policyName));
+        }
+        if (getTags().size() != 0) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

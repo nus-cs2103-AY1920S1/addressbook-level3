@@ -139,13 +139,23 @@ public class Policy {
                 .append(" Coverage: ")
                 .append(getCoverage())
                 .append(" Price: ")
-                .append(getPrice())
-                .append(" Start Age: ")
-                .append(getStartAge())
-                .append(" End Age: ")
-                .append(getEndAge())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getPrice());
+        if (!startAge.getAge().equals(StartAge.AGE_ZERO)) {
+            builder.append(" Start Age: ")
+                    .append(getStartAge());
+        }
+        if (!endAge.getAge().equals(EndAge.AGE_INFINITY)) {
+            builder.append(" End Age: ")
+                    .append(getEndAge());
+        }
+        if (getCriteria().size() != 0) {
+            builder.append(" Criteria: ");
+            getCriteria().forEach(builder::append);
+        }
+        if (getTags().size() != 0) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 }
