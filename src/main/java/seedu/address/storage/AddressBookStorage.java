@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCheatSheetBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -51,22 +52,22 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readCheatSheet() throws DataConversionException, IOException;
+    Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException;
 
     /**
      * @see #getAddressBookFilePath()
      */
-    Optional<ReadOnlyAddressBook> readCheatSheet(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCheatSheet(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException;
 
     /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveCheatSheet(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException;
 }

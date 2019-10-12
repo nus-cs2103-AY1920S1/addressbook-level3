@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCheatSheetBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -91,22 +92,22 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readCheatSheet() throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readCheatSheet(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath) throws DataConversionException, IOException {
         return Optional.empty();
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
 
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
 
     }
 }

@@ -3,7 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
-public interface ReadOnlyCheatSheet {
+public interface ReadOnlyCheatSheetBook {
 
     /**
      * Returns an unmodifiable view of the persons list.

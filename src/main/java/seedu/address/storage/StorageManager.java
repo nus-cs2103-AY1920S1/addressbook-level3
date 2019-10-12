@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCheatSheetBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -82,22 +83,22 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readCheatSheet() throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readCheatSheet(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath) throws DataConversionException, IOException {
         return Optional.empty();
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
 
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
 
     }
 }
