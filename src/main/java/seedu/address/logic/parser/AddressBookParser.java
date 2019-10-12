@@ -78,10 +78,9 @@ public class AddressBookParser {
             return new RemarkCommandParser().parse(arguments);
 
         default:
-            switch (currentContext) {
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
         }
+
     }
 }

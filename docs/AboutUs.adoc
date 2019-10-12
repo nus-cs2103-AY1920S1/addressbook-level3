@@ -48,7 +48,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 '''
 
 === Zhou Tianyu
-image::yl_coder.jpg[width="150", align="left"]
+image::mackymaguire.png[width="150", align="left"]
 {empty}[http://github.com/MackyMaguire[github]]
 
 Role: Developer +

@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.StringUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.model.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
