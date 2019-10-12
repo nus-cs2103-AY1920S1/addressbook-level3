@@ -22,7 +22,7 @@ class AddEventCommandTest {
         String remind = "11/11/1111 08:00";
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> {
-            AddEventCommand.newBuilder()
+            AddEventCommand.newBuilder(null)
                 .acceptSentence(description)
                 .acceptSentence(start)
                 .acceptSentence(OPTION_END_DATE_TIME)
@@ -42,17 +42,17 @@ class AddEventCommandTest {
         String description = "description";
         String start = "11/11/1111 11:00";
         assertDoesNotThrow(() -> {
-            Command command = AddEventCommand.newBuilder()
-                .acceptSentence(description)
-                .acceptSentence(start)
-                .build();
-
             // TODO: Create stub
             Model model = new ModelManager();
             assertEquals(model.getEventList().getReadOnlyList().size(), 0);
 
+            Command command = AddEventCommand.newBuilder(model)
+                .acceptSentence(description)
+                .acceptSentence(start)
+                .build();
+
             // TODO: Equality test
-            command.execute(model);
+            command.execute();
             assertEquals(model.getEventList().getReadOnlyList().size(), 1);
         });
     }

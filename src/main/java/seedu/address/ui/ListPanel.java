@@ -21,7 +21,7 @@ public class ListPanel extends UiPart<Region> {
      */
     public ListPanel(ObservableList<EventSource> eventList, UiParser uiParser) {
         super(FXML);
-        EventListPanel eventListPanel = new EventListPanel(eventList, uiParser);
+        EventListPanel eventListPanel = new EventListPanel(uiParser);
         list.getChildren().add(eventListPanel.getRoot());
     }
 }

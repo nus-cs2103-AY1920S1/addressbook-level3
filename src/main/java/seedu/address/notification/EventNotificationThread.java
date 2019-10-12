@@ -7,6 +7,7 @@ import java.util.Queue;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.NotificationManager;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;

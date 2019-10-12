@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.NotificationManager;
 
 /**
  * The Listener responding to a Notification being clicked.

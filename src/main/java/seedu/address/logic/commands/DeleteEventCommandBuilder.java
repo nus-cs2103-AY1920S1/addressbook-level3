@@ -9,6 +9,7 @@ import seedu.address.logic.commands.arguments.StringVariableArguments;
 import seedu.address.logic.commands.arguments.StringVariableArgumentsBuilder;
 import seedu.address.logic.commands.options.Option;
 import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.model.Model;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link DeleteEventCommand}.
@@ -20,10 +21,12 @@ class DeleteEventCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_INDEXES = "INDEXES";
     private static final String ARGUMENT_TAGS = "TAGS";
 
+    private final Model model;
     private final IndexVariableArgumentsBuilder indexes;
     private final StringVariableArgumentsBuilder tags;
 
-    DeleteEventCommandBuilder() {
+    DeleteEventCommandBuilder(Model model) {
+        this.model = model;
         this.indexes = IndexVariableArguments.newBuilder(ARGUMENT_INDEXES);
         this.tags = StringVariableArguments.newBuilder(ARGUMENT_TAGS);
     }
@@ -40,6 +43,10 @@ class DeleteEventCommandBuilder extends CommandBuilder {
             OPTION_TAGS, Option.newBuilder()
                 .setVariableArguments(this.tags)
         );
+    }
+
+    Model getModel() {
+        return model;
     }
 
     List<Integer> getIndexes() {

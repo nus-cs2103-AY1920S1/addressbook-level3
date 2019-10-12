@@ -20,7 +20,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandParser implements Parser<Command> {
 
+    private final CommandKeywordParser keywordParser;
     private CommandBuilder commandBuilder;
+
+    public CommandParser(CommandKeywordParser keywordParser) {
+        this.keywordParser = keywordParser;
+    }
 
     @Override
     public Command parse(String userInput) throws ParseException {
@@ -32,7 +37,7 @@ public class CommandParser implements Parser<Command> {
 
         state1.addPattern("\\s*", matches -> state2);
         state2.addPattern("[^\\s]+", matches -> {
-            this.commandBuilder = new CommandKeywordParser().parse(matches.get(0));
+            this.commandBuilder = this.keywordParser.parse(matches.get(0));
             return state3;
         });
         state3.addPattern("\\s+", matches -> state4);

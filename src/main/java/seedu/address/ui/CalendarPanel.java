@@ -3,20 +3,20 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.List;
 
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.model.listeners.EventListListener;
 
 /**
  * An Ui that stores the logged feedback from the program to the user.
  */
-public class CalendarPanel extends UiPart<Region> {
+public class CalendarPanel extends UiPart<Region> implements EventListListener {
 
     private static final String FXML = "CalendarPanel.fxml";
 
@@ -34,15 +34,14 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public CalendarPanel(ObservableList<EventSource> eventList, UiParser uiParser) {
+    public CalendarPanel(UiParser uiParser) {
         super(FXML);
         this.yearMonth = YearMonth.now();
         this.calendarDate = LocalDate.now();
-        this.currentMonthDayCards = new ArrayList<DayCard>();
+        this.currentMonthDayCards = new ArrayList<>();
         this.uiParser = uiParser;
         setCurrentMonth();
-        fillIndexOfCalendar(calendarDate.getDayOfWeek().getValue(), eventList);
-        createListener(eventList);
+        resetCalendar();
     }
 
     /**
@@ -56,11 +55,12 @@ public class CalendarPanel extends UiPart<Region> {
 
     /**
      * Fills the index of the calendar.
-     * @param startingDay Indicates the starting day of the week
-     * @param eventList Contains the EventSource
      */
-    private void fillIndexOfCalendar(int startingDay, ObservableList<EventSource> eventList) {
+    private void resetCalendar() {
+        this.currentMonthDayCards.clear();
+
         int index = 1;
+        int startingDay = calendarDate.getDayOfWeek().getValue();
         int totalDays = yearMonth.lengthOfMonth();
         for (int weeks = 0; weeks < 6; weeks++) {
             for (int days = 0; days < 7; days++) {
@@ -71,7 +71,7 @@ public class CalendarPanel extends UiPart<Region> {
                 if (index > totalDays) {
                     break;
                 }
-                DayCard todayCard = new DayCard(index, yearMonth.getMonthValue(), yearMonth.getYear(), eventList);
+                DayCard todayCard = new DayCard(index, yearMonth.getMonthValue(), yearMonth.getYear());
                 calendar.add(todayCard.getRoot(), days, weeks);
                 currentMonthDayCards.add(todayCard);
                 index++;
@@ -79,46 +79,15 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
-    /**
-     * Creates a listener for the eventList such that it will update the Ui as necessary.
-     * @param eventList The event list containing the events.
-     */
-    private void createListener(ObservableList<EventSource> eventList) {
-        eventList.addListener((ListChangeListener<EventSource>) c -> {
-            System.out.println("I've just added");
-            while (c.next()) {
-                if (c.wasPermutated()) {
-                    for (int i = c.getFrom(); i < c.getTo(); ++i) {
-                        //permutate
-                    }
-                } else if (c.wasUpdated()) {
-                    //update item
-                    for(EventSource changedEvent : c.getList()) {
-                        System.out.println("I've been edited");
-                        DayCard dayCard = currentMonthDayCards.get(
-                                uiParser.getDay(changedEvent.getStartDateTime().getDateTime()) - 1);
-                    }
-                } else {
-                    for (EventSource removedEvent : c.getRemoved()) {
-                        // Remove items
-                        DayCard dayCard = currentMonthDayCards.get(
-                                uiParser.getDay(removedEvent.getStartDateTime().getDateTime()) - 1);
-                        if(dayCard.sameDateAsEvent(removedEvent, uiParser)) {
-                            dayCard.removeDayCardEvent(removedEvent);
-                        }
-                    }
-                    for (EventSource addedEvent : c.getAddedSubList()) {
-                        // Adds items
-                        DayCard dayCard = currentMonthDayCards.get(
-                                uiParser.getDay(addedEvent.getStartDateTime().getDateTime()) - 1);
-                        if (dayCard.sameDateAsEvent(addedEvent, uiParser)) {
-                            dayCard.addDayCardEvent(addedEvent);
-                        }
-                    }
-                }
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        resetCalendar();
+        for (EventSource event : events) {
+            DayCard dayCard = currentMonthDayCards.get(
+                uiParser.getDay(event.getStartDateTime().getDateTime()) - 1);
+            if (dayCard.sameDateAsEvent(event, uiParser)) {
+                dayCard.addDayCardEvent(event);
             }
-        });
+        }
     }
-
-
 }

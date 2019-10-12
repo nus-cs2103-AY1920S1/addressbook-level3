@@ -14,12 +14,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UserOutput;
 
 /**
  * Represents a Command that edits EventSources in the Model.
  */
 public class EditEventCommand extends Command {
 
+    private final Model model;
     private final List<Integer> indexes;
     private final String description;
     private final DateTime start;
@@ -28,6 +30,7 @@ public class EditEventCommand extends Command {
     private final List<String> tags;
 
     EditEventCommand(EditEventCommandBuilder builder) {
+        this.model = builder.getModel();
         this.indexes = Objects.requireNonNull(builder.getIndexes());
         this.description = builder.getDescription();
         this.start = builder.getStart();
@@ -36,12 +39,12 @@ public class EditEventCommand extends Command {
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder() {
-        return new EditEventCommandBuilder().init();
+    public static CommandBuilder newBuilder(Model model) {
+        return new EditEventCommandBuilder(model).init();
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public UserOutput execute() throws CommandException {
         ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
 
         List<EventSource> events = new ArrayList<>();
@@ -71,7 +74,7 @@ public class EditEventCommand extends Command {
             model.setEvent(event, new EventSource(description, start));
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
+        return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
             .map(EventSource::getDescription)
             .collect(Collectors.joining(", "))));
     }
