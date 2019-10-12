@@ -20,9 +20,9 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Username username;
-    private final Password password;
 
     // Data fields
+    private final Password password;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
