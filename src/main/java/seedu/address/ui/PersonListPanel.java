@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -20,7 +20,7 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(FilteredList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -38,7 +38,10 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                //Modify index such that the displayed index is the source index
+                FilteredList<Person> personList = (FilteredList<Person>) personListView.getItems();
+                int index = personList.getSourceIndex(personList.indexOf(person));
+                setGraphic(new PersonCard(person, index + 1).getRoot());
             }
         }
     }
