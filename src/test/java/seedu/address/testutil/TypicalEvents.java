@@ -16,11 +16,8 @@ public class TypicalEvents {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();*/
-    public static final Event AAA = new Event();
-    public static final Event BBB = new Event();
+    public static final Event AAA = new EventBuilder().build();
 
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalEvents() {} // prevents instantiation
 
@@ -36,6 +33,6 @@ public class TypicalEvents {
     }
 
     public static List<Event> getTypicalEvent() {
-        return new ArrayList<>(Arrays.asList(AAA, BBB));
+        return new ArrayList<>(Arrays.asList(AAA));
     }
 }

@@ -22,6 +22,10 @@ public class EventId {
         nextID++;
     }
 
+    public EventId(String id) {
+        this.id = id;
+    }
+
     /**
      * Returns true if a given string is a valid name.
      */
