@@ -23,6 +23,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
@@ -34,8 +35,9 @@ public class FindAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getHistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs(), new Planner());
+        expectedModel = new ModelManager(model.getHistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), model.getPlanner());
     }
 
     /**
