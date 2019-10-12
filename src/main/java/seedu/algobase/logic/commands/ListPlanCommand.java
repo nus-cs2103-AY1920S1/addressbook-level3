@@ -11,7 +11,7 @@ import seedu.algobase.model.Model;
  */
 public class ListPlanCommand extends Command {
 
-    public static final String COMMAND_WORD = "lsplan";
+    public static final String COMMAND_WORD = "listplan";
 
     public static final String MESSAGE_SUCCESS = "Listed all plans";
 

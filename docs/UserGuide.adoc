@@ -201,10 +201,10 @@ Returns `training-set-1` and `training-set-2`
 * `find training set` +
 Returns any problem having names `training`, or `set`
 
-==== Listing all training plans: `lsplan`
+==== Listing all training plans: `listplan`
 
 Displays a list of all existing plans alphabetically. +
-Format: `lsplan`
+Format: `listplan`
 
 ==== Marking a problem as done: `done`
 
@@ -307,7 +307,7 @@ e.g. `addplan n/CS2040`
 e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
-* *List Training Plans* : `lsplan`
+* *List Training Plans* : `listplan`
 * *Mark Training Plan as done* : `done PLAN_INDEX PROBLEM_INDEX` +
 e.g. `done 1 2`
 * *Mark Training Plan as undone* : `undone PLAN_INDEX PROBLEM_INDEX` +
