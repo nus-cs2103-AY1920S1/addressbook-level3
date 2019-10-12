@@ -3,8 +3,6 @@ package thrift.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,12 +45,15 @@ public class AddIncomeCommandIntegrationTest {
         Income validIncome = new IncomeBuilder().build();
 
         model.addIncome(validIncome);
-        List<Transaction> lastShownList = model.getThrift().getTransactionList();
-        assertEquals(validIncome, lastShownList.get(lastShownList.size() - 1));
+        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
+        model.keepTrackCommands(addIncomeCommand);
+        expectedModel.addIncome(validIncome);
+        assertEquals(expectedModel, model);
 
-        Transaction transactionToDelete = lastShownList.get(lastShownList.size() - 1);
-        model.deleteTransaction(transactionToDelete);
-
+        Undoable undoable = model.getPreviousUndoableCommand();
+        undoable.undo(model);
+        Transaction transactionToDelete = expectedModel.getLastTransactionFromThrift();
+        expectedModel.deleteTransaction(transactionToDelete);
         assertEquals(expectedModel, model);
     }
 }

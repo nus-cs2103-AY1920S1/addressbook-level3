@@ -93,6 +93,13 @@ public interface Model {
      */
     void setTransaction(Transaction target, Transaction updatedTransaction);
 
+    /**
+     * Gets the last transaction from thrift's transaction list
+     *
+     * @return the last transaction from thrift's transaction list
+     */
+    Transaction getLastTransactionFromThrift();
+
     /** Returns an unmodifiable view of the filtered transaction list */
     ObservableList<Transaction> getFilteredTransactionList();
 
@@ -120,4 +127,18 @@ public interface Model {
      * @return true if there is undoable command, else false.
      */
     boolean hasUndoableCommand();
+
+    /**
+     * Returns the undone command.
+     *
+     * @return undone command
+     */
+    Undoable getUndoneCommand();
+
+    /**
+     * Checks if there is any undone command to redo.
+     *
+     * @return true if there is undone command, else false.
+     */
+    boolean hasUndoneCommand();
 }

@@ -88,6 +88,15 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Retrieve the last transaction.
+     *
+     * @return the last transaction
+     */
+    public Transaction getLast() {
+        return internalList.get(internalList.size() - 1);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Transaction> asUnmodifiableObservableList() {

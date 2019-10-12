@@ -92,6 +92,15 @@ public class Thrift implements ReadOnlyThrift {
     }
 
     /**
+     * Retrieve the last transaction from transaction list.
+     *
+     * @return the last transaction from transaction list.
+     */
+    public Transaction getLastTransaction() {
+        return transactions.getLast();
+    }
+
+    /**
      * Removes {@code key} from this {@code Thrift}.
      * {@code key} must exist in THRIFT.
      */

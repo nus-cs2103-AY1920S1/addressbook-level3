@@ -48,15 +48,44 @@ public class AddExpenseCommandTest {
 
     @Test
     public void undo_undoSuccessful() {
-        ModelStubUndoAddExpenses modelStub = new ModelStubUndoAddExpenses();
+        ModelStubUndoRedoAddExpenses modelStub = new ModelStubUndoRedoAddExpenses();
+
         Expense validExpense = new ExpenseBuilder().build();
         modelStub.addExpense(validExpense);
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
         modelStub.keepTrackCommands(addExpenseCommand);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
+
         Undoable undoable = modelStub.getPreviousUndoableCommand();
+        assertTrue(undoable instanceof AddExpenseCommand);
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
         assertTrue(modelStub.undoableCommandStack.isEmpty());
+    }
+
+    @Test
+    public void redo_redoSuccessful() {
+        ModelStubUndoRedoAddExpenses modelStub = new ModelStubUndoRedoAddExpenses();
+
+        Expense validExpense = new ExpenseBuilder().build();
+        modelStub.addExpense(validExpense);
+        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
+        modelStub.keepTrackCommands(addExpenseCommand);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
+
+        Undoable undoable = modelStub.getPreviousUndoableCommand();
+        assertTrue(undoable == addExpenseCommand);
+        undoable.undo(modelStub);
+        assertEquals(0, modelStub.getThrift().getTransactionList().size());
+        assertTrue(modelStub.undoableCommandStack.isEmpty());
+
+        undoable = modelStub.getUndoneCommand();
+        assertTrue(undoable == addExpenseCommand);
+        undoable.redo(modelStub);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
     }
 
     @Test
@@ -163,6 +192,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public Transaction getLastTransactionFromThrift() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,6 +218,16 @@ public class AddExpenseCommandTest {
 
         @Override
         public boolean hasUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Undoable getUndoneCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUndoneCommand() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -231,14 +275,15 @@ public class AddExpenseCommandTest {
     }
 
     /**
-     * A Model stub that allows user to perform undo operation.
+     * A Model stub that allows user to perform redo operation.
      */
-    private class ModelStubUndoAddExpenses extends ModelStub {
+    private class ModelStubUndoRedoAddExpenses extends ModelStub {
         final Stack<Undoable> undoableCommandStack = new Stack<>();
-        final ThriftStubForUndoAddExpenses thriftStub;
+        final Stack<Undoable> redoCommandStack = new Stack<>();
+        final ThriftStub thriftStub;
 
-        public ModelStubUndoAddExpenses() {
-            thriftStub = new ThriftStubForUndoAddExpenses();
+        public ModelStubUndoRedoAddExpenses() {
+            thriftStub = new ThriftStub();
         }
 
         @Override
@@ -248,7 +293,9 @@ public class AddExpenseCommandTest {
 
         @Override
         public Undoable getPreviousUndoableCommand() {
-            return undoableCommandStack.pop();
+            Undoable undoable = undoableCommandStack.pop();
+            redoCommandStack.push(undoable);
+            return undoable;
         }
 
         @Override
@@ -265,12 +312,24 @@ public class AddExpenseCommandTest {
         public void deleteTransaction(Transaction transaction) {
             thriftStub.removeTransaction(transaction);
         }
+
+        @Override
+        public Transaction getLastTransactionFromThrift() {
+            return thriftStub.getLastTransaction();
+        }
+
+        @Override
+        public Undoable getUndoneCommand() {
+            Undoable undoable = redoCommandStack.pop();
+            undoableCommandStack.push(undoable);
+            return undoable;
+        }
     }
 
     /**
      * A Thrift stub that contains an empty list of transaction.
      */
-    private class ThriftStubForUndoAddExpenses extends Thrift {
+    private class ThriftStub extends Thrift {
         final List<Transaction> transactionsAdded = new ArrayList<>();
         @Override
         public void removeTransaction(Transaction transaction) {
@@ -285,6 +344,11 @@ public class AddExpenseCommandTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return FXCollections.observableArrayList(transactionsAdded);
+        }
+
+        @Override
+        public Transaction getLastTransaction() {
+            return transactionsAdded.get(transactionsAdded.size() - 1);
         }
     }
 }

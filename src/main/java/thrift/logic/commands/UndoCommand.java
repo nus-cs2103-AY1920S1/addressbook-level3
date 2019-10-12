@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the previous undoable command"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Undo successfully";
+    public static final String MESSAGE_SUCCESS = "Undo successful";
 
     public static final String NO_UNDOABLE_COMMAND = "No valid command to undo";
 

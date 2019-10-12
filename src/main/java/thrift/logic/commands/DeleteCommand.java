@@ -64,4 +64,9 @@ public class DeleteCommand extends Command implements Undoable {
             model.addIncome((Income) transactionToDelete, targetIndex);
         }
     }
+
+    @Override
+    public void redo(Model model) {
+
+    }
 }

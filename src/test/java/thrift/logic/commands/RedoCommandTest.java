@@ -13,19 +13,19 @@ import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TypicalTransactions;
 
-public class UndoCommandTest {
+public class RedoCommandTest {
 
     private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
             new PastUndoableCommands());
 
     @Test
-    public void execute_noUndoableCommand_throwsCommandException() {
-        UndoCommand undoCommand = new UndoCommand();
-        assertCommandFailure(undoCommand, model, UndoCommand.NO_UNDOABLE_COMMAND);
+    public void execute_noUndoneCommand_throwsCommandException() {
+        RedoCommand redoCommand = new RedoCommand();
+        assertCommandFailure(redoCommand, model, RedoCommand.NO_REDOABLE_COMMAND);
     }
 
     @Test
-    public void execute_undoAddExpensesCommand_success() {
+    public void execute_redoAddExpensesCommand_success() {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
 
@@ -35,7 +35,12 @@ public class UndoCommandTest {
 
         model.addExpense(expense);
         model.keepTrackCommands(addExpenseCommand);
-
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        RedoCommand redoCommand = new RedoCommand();
+        expectedModel.addExpense(expense);
+        expectedModel.keepTrackCommands(addExpenseCommand);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
     }
 }

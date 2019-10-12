@@ -2,8 +2,6 @@ package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Income;
@@ -56,9 +54,15 @@ public class AddIncomeCommand extends Command implements Undoable {
 
     @Override
     public void undo(Model model) {
-        List<Transaction> transactionList = model.getThrift().getTransactionList();
-        assert transactionList.size() > 0 : "No transactions in the list";
-        Transaction transactionToDelete = transactionList.get(transactionList.size() - 1);
+        requireNonNull(model);
+        //added this line to avoid deleting its duplicate transaction.
+        Transaction transactionToDelete = model.getLastTransactionFromThrift();
+        assert transactionToDelete == toAdd : "Incorrect expense";
         model.deleteTransaction(transactionToDelete);
+    }
+
+    @Override
+    public void redo(Model model) {
+
     }
 }

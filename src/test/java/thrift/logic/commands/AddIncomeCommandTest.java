@@ -49,10 +49,15 @@ public class AddIncomeCommandTest {
     @Test
     public void undo_undoSuccessful() {
         ModelStubUndoAddIncome modelStub = new ModelStubUndoAddIncome();
+
         Income validIncome = new IncomeBuilder().build();
+
         modelStub.addIncome(validIncome);
         AddIncomeCommand addIncomeCommand = new AddIncomeCommand(validIncome);
         modelStub.keepTrackCommands(addIncomeCommand);
+        assertEquals(1, modelStub.getThrift().getTransactionList().size());
+        assertFalse(modelStub.undoableCommandStack.isEmpty());
+
         Undoable undoable = modelStub.getPreviousUndoableCommand();
         undoable.undo(modelStub);
         assertEquals(0, modelStub.getThrift().getTransactionList().size());
@@ -163,6 +168,11 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public Transaction getLastTransactionFromThrift() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,6 +194,16 @@ public class AddIncomeCommandTest {
 
         @Override
         public boolean hasUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Undoable getUndoneCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUndoneCommand() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -262,6 +282,11 @@ public class AddIncomeCommandTest {
         public void deleteTransaction(Transaction transaction) {
             thriftStub.removeTransaction(transaction);
         }
+
+        @Override
+        public Transaction getLastTransactionFromThrift() {
+            return thriftStub.getLastTransaction();
+        }
     }
 
     /**
@@ -282,6 +307,11 @@ public class AddIncomeCommandTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return FXCollections.observableArrayList(transactionsAdded);
+        }
+
+        @Override
+        public Transaction getLastTransaction() {
+            return transactionsAdded.get(transactionsAdded.size() - 1);
         }
     }
 }

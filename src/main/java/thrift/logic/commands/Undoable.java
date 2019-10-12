@@ -14,4 +14,12 @@ public interface Undoable {
      * @param model {@code Model} which the command should operate on.
      */
     void undo(Model model);
+
+    /**
+     * Redo undone command. <br>
+     * E.g. Redo {@link AddExpenseCommand} will add back the expense which was deleted by undo function.
+     *
+     * @param model {@code Model} which the command should operate on.
+     */
+    void redo(Model model);
 }
