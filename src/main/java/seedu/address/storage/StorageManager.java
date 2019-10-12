@@ -64,4 +64,8 @@ public class StorageManager implements Storage {
         itemListStorage.saveItemStorage(itemStorage, filePath);
     }
 
+    public ItemStorage toModelType() throws IOException, DataConversionException {
+        return itemListStorage.toModelType();
+    }
+
 }
