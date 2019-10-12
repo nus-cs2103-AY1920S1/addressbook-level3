@@ -8,9 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
-import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
-import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowers;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +22,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.TitleContainsKeywordPredicate;
-import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
@@ -176,50 +173,6 @@ public class ModelManagerTest {
         modelManager.addBook(BOOK_1);
         overdueBooks = modelManager.getOverdueBooks();
         assertTrue(overdueBooks.isEmpty());
-    }
-
-    @Test
-    public void getOverdueBooksBorrowers_haveOverdueBooks_success() {
-        BorrowerRecords borrowers = new BorrowerRecords();
-        getTypicalBorrowers().stream().forEach(borrower -> borrowers.addBorrower(borrower));
-        modelManager = new ModelManager(new Catalog(), new LoanRecords(), borrowers, new UserPrefs());
-
-        Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        Loan loan = new Loan(
-                toBeLoaned.getSerialNumber(),
-                ALICE.getBorrowerId(),
-                DateUtil.getTodayMinusDays(31),
-                DateUtil.getTodayMinusDays(1));
-        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
-        modelManager.addLoan(loan);
-        modelManager.addBook(loanedBook);
-        modelManager.addBook(BOOK_2);
-        List<Borrower> overdueBooksBorrowers = modelManager.getOverdueBooksBorrowers();
-        List<Borrower> expectedList = getTypicalBorrowers()
-                .stream()
-                .filter(borrower -> borrower.isSameBorrower(ALICE))
-                .collect(Collectors.toList());
-        assertEquals(overdueBooksBorrowers, expectedList);
-    }
-
-    @Test
-    public void getOverdueBooksBorrowers_noOverdueBooks_success() {
-        BorrowerRecords borrowers = new BorrowerRecords();
-        getTypicalBorrowers().stream().forEach(borrower -> borrowers.addBorrower(borrower));
-        modelManager = new ModelManager(new Catalog(), new LoanRecords(), borrowers, new UserPrefs());
-
-        Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        Loan loan = new Loan(
-                toBeLoaned.getSerialNumber(),
-                ALICE.getBorrowerId(),
-                DateUtil.getTodayDate(),
-                DateUtil.getTodayPlusDays(30));
-        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
-        modelManager.addLoan(loan);
-        modelManager.addBook(loanedBook);
-        modelManager.addBook(BOOK_2);
-        List<Borrower> overdueBooksBorrowers = modelManager.getOverdueBooksBorrowers();
-        assertTrue(overdueBooksBorrowers.isEmpty());
     }
 
     @Test
