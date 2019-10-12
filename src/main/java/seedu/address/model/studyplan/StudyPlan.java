@@ -13,6 +13,7 @@ import seedu.address.model.module.Name;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.semester.exceptions.SemesterAlreadyBlockedException;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -118,6 +119,14 @@ public class StudyPlan implements Cloneable {
         return tags;
     }
 
+    public static int getTotalNumberOfStudyPlans() {
+        return totalNumberOfStudyPlans;
+    }
+
+    public static void setTotalNumberOfStudyPlans(int totalNumberOfStudyPlans) {
+        StudyPlan.totalNumberOfStudyPlans = totalNumberOfStudyPlans;
+    }
+
     /**
      * Populates the unique semester list with the 8 semesters in the normal 4-year candidature. These
      * semesters will be empty initially.
@@ -181,20 +190,26 @@ public class StudyPlan implements Cloneable {
     }
 
     /**
-     * Sets the current semester. The user cannot change any module before the current semester. But they can
-     * still change those in the current semester and after the current semester.
-     */
-    public void setCurrentSemester() {
-        // TODO: implement this
-    }
-
-    /**
      * Blocks a semester with the given {@code SemesterName} so that the user cannot add modules to that semester.
      * The user can enter a reason for blocking it (e.g. NOC, internship).
      */
-    public void blockSemester(SemesterName semesterName, String reasonForBlock) {
-        // TODO: implement this
-
+    public void blockSemester (SemesterName semesterName, String reasonForBlock) throws SemesterNotFoundException {
+        Semester semesterToBlock = null;
+        Iterator<Semester> iterator = semesters.iterator();
+        while (iterator.hasNext()) {
+            Semester semester = iterator.next();
+            if (semester.getSemesterName().equals(semesterName)) {
+                semesterToBlock = semester;
+            }
+        }
+        if (semesterToBlock == null) {
+            throw new SemesterNotFoundException();
+        }
+        if (semesterToBlock.isBlocked()) {
+            throw new SemesterAlreadyBlockedException();
+        }
+        semesterToBlock.setBlocked(true);
+        semesterToBlock.setReasonForBlocked(reasonForBlock);
     }
 
     /**

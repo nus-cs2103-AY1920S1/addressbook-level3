@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
@@ -28,6 +29,7 @@ class JsonSerializableModulePlanner {
     private final List<JsonAdaptedStudyPlan> studyPlans = new ArrayList<>();
     private final int activeStudyPlanIndex;
     private final JsonAdaptedVersionTrackingManager manager;
+    private final String currentSemester;
 
     /**
      * Constructs a {@code JsonSerializableModulePlanner} with the given study plans.
@@ -35,10 +37,12 @@ class JsonSerializableModulePlanner {
     @JsonCreator
     public JsonSerializableModulePlanner(@JsonProperty("studyPlans") List<JsonAdaptedStudyPlan> studyPlans,
                                          @JsonProperty("activeStudyPlanIndex") int activeStudyPlanIndex,
-                                         @JsonProperty("manager") JsonAdaptedVersionTrackingManager manager) {
+                                         @JsonProperty("manager") JsonAdaptedVersionTrackingManager manager,
+                                         @JsonProperty("currentSemester") String currentSemester) {
         this.studyPlans.addAll(studyPlans);
         this.activeStudyPlanIndex = activeStudyPlanIndex;
         this.manager = manager;
+        this.currentSemester = currentSemester;
     }
 
     /**
@@ -55,8 +59,12 @@ class JsonSerializableModulePlanner {
         }
 
         activeStudyPlanIndex = source.getActiveStudyPlan().getIndex();
-
         manager = new JsonAdaptedVersionTrackingManager(source.getVersionTrackingManager());
+        if (source.getCurrentSemester() == null) {
+            currentSemester = "Y1S1";
+        } else {
+            currentSemester = source.getCurrentSemester().toString();
+        }
     }
 
     /**
@@ -87,6 +95,12 @@ class JsonSerializableModulePlanner {
                 modulesInfo, modelManager);
 
         modulePlanner.activateStudyPlan(activeStudyPlanIndex);
+
+        if (currentSemester == null) {
+            modulePlanner.setCurrentSemester(SemesterName.Y1S1);
+        } else {
+            modulePlanner.setCurrentSemester(SemesterName.valueOf(currentSemester));
+        }
 
         return modulePlanner;
     }
