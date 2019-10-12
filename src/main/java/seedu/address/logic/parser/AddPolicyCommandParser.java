@@ -38,10 +38,10 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
     public AddPolicyCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
-                        PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE);
-
+                        PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_TAG);
+        System.out.println(arePrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG));
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
-                PREFIX_PRICE) || arePrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
+                PREFIX_PRICE) || areAnyPrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
         }
@@ -67,6 +67,10 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
