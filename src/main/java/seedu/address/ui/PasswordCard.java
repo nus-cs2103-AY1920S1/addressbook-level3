@@ -1,13 +1,15 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
 
 import seedu.address.model.password.Password;
 
-
+/**
+ * An UI component that displays information of a {@code Password}.
+ */
 public class PasswordCard extends UiPart<Region> {
     private static final String FXML = "PasswordListCard.fxml";
 

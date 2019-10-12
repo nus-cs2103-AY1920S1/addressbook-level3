@@ -1,8 +1,10 @@
 package seedu.address.model.password;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Password's password value in the password book.
+ */
 public class PasswordValue {
     public static final String MESSAGE_CONSTRAINTS = "PasswordValue can take any values, and it should not be blank";
 
@@ -16,9 +18,9 @@ public class PasswordValue {
         value = passwordValue;
     }
 
-//    public static boolean isValidPasswordValue(String test) {
-//        return test.matches(VALIDATION_REGEX);
-//    }
+    //public static boolean isValidPasswordValue(String test) {
+    //    return test.matches(VALIDATION_REGEX);
+    //}
 
     @Override
     public String toString() {

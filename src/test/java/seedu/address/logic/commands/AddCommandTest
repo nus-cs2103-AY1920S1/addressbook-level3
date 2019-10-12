@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -183,7 +184,6 @@ public class AddCommandTest {
         }
 
         @Override
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest.java
         public ObservableList<EncryptedFile> getFilteredFileList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -235,7 +235,8 @@ public class AddCommandTest {
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
-=======
+
+
         public ObservableList<Password> getFilteredPasswordList() {
             return null;
         }
@@ -253,7 +254,6 @@ public class AddCommandTest {
         @Override
         public PasswordBook getPasswordBook() {
             return null;
->>>>>>> fixed up some notes test stubs:src/test/java/seedu/address/logic/commands/AddCommandTest
         }
     }
 

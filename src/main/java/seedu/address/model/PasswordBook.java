@@ -1,15 +1,18 @@
 package seedu.address.model;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.password.Password;
 
-public class PasswordBook{
+/**
+ * Wraps all data at the password-book level
+ */
+public class PasswordBook {
 
     private final ObservableList<Password> internalList = FXCollections.observableArrayList();
 
-    public PasswordBook(){
+    public PasswordBook() {
 
     }
 

@@ -2,6 +2,9 @@ package seedu.address.model.password;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Password's username in the password book.
+ */
 public class Username {
     public final String value;
 

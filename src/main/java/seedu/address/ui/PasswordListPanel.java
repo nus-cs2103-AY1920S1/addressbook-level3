@@ -1,13 +1,16 @@
 package seedu.address.ui;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import javafx.fxml.FXML;
 
 import seedu.address.model.password.Password;
 
+/**
+ * Panel containing the list of passwords.
+ */
 public class PasswordListPanel extends UiPart<Region> {
     private static final String FXML = "PasswordListPanel.fxml";
 
@@ -20,6 +23,9 @@ public class PasswordListPanel extends UiPart<Region> {
         passwordListView.setCellFactory(listView -> new PasswordListViewCell());
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Password} using a {@code PasswordCard}.
+     */
     class PasswordListViewCell extends ListCell<Password> {
         @Override
         protected void updateItem(Password password, boolean empty) {

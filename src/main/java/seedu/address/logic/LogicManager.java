@@ -73,6 +73,7 @@ public class LogicManager implements Logic {
             break;
         case "password":
             command = passwordBookParser.parseCommand(commandText);
+            break;
         default:
             command = addressBookParser.parseCommand(commandText);
             break;

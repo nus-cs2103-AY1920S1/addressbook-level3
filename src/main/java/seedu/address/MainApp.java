@@ -27,7 +27,7 @@ import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.*;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.util.SampleDataPasswordUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -125,7 +125,7 @@ public class MainApp extends Application {
 
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
         ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
-        return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData, userPrefs);
+        return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData, new PasswordBook(), userPrefs);
     }
 
     /**
