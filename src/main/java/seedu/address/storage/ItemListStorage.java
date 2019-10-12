@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ItemStorage;
 
 /**
@@ -26,5 +27,7 @@ public interface ItemListStorage {
      * @see #saveItemStorage(ItemStorage itemStorage)
      */
     void saveItemStorage(ItemStorage itemStorage, Path filePath) throws IOException;
+
+    ItemStorage toModelType() throws IOException, DataConversionException;
 
 }
