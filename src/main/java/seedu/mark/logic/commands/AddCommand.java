@@ -54,6 +54,7 @@ public class AddCommand extends Command {
         }
 
         model.addBookmark(toAdd);
+        model.saveMark();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

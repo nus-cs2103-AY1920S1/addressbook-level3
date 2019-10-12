@@ -89,6 +89,10 @@ public class ImportCommand extends Command {
         List<Bookmark> skippedBookmarks = new ArrayList<>(); // empty list to operate on
         addBookmarksToModel(model, bookmarksToImport, skippedBookmarks);
 
+        if (bookmarksToImport.size() != skippedBookmarks.size()) {
+            model.saveMark();
+        }
+
         // TODO: refactor log and command result messages to include folder import
         if (!skippedBookmarks.isEmpty()) {
             logger.info("Bookmarks imported from " + filePath + ": Some duplicates skipped");

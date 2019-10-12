@@ -63,9 +63,12 @@ public class ImportCommandTest {
 
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath);
 
+        // set up expected model with appropriate state
+        Model expectedModel = new ModelManager(new Mark(), new UserPrefs());
         Mark expectedMark = new Mark();
         expectedMark.setBookmarks(getTypicalBookmarks());
-        Model expectedModel = new ModelManager(expectedMark, new UserPrefs());
+        expectedModel.setMark(expectedMark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
@@ -83,9 +86,12 @@ public class ImportCommandTest {
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                 ImportCommand.toIndentedString(existingBookmarks));
 
+        // set up expected model with appropriate state
+        Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
         Mark expectedMark = new Mark();
         expectedMark.setBookmarks(getTypicalBookmarks());
-        Model expectedModel = new ModelManager(expectedMark, new UserPrefs());
+        expectedModel.setMark(expectedMark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }

@@ -83,6 +83,7 @@ public class EditCommand extends Command {
         }
 
         model.setBookmark(bookmarkToEdit, editedBookmark);
+        model.saveMark();
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
     }

@@ -9,6 +9,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.testutil.Assert.assertThrows;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -135,6 +136,27 @@ public class CommandTestUtil {
         model.updateFilteredBookmarkList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredBookmarkList().size());
+    }
+
+    /**
+     * Deletes the bookmark at the given {@code targetIndex} in the {@code model}'s mark.
+     */
+    public static void deleteBookmarkAtIndex(Model model, Index targetIndex) {
+        int initialSize = model.getFilteredBookmarkList().size();
+        assertTrue(targetIndex.getZeroBased() < initialSize);
+
+        Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
+        model.deleteBookmark(bookmarkToDelete);
+        model.saveMark();
+
+        assertEquals(initialSize - 1, model.getFilteredBookmarkList().size());
+    }
+
+    /**
+     * Deletes the first bookmark in {@code model}'s mark.
+     */
+    public static void deleteFirstBookmark(Model model) {
+        deleteBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
     }
 
     /**

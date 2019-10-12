@@ -50,6 +50,7 @@ public class AddFolderCommand extends Command {
         }
 
         model.addFolder(folder, parentFolder);
+        model.saveMark();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, folder));
     }
