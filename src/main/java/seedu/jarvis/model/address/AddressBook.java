@@ -29,7 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        filteredPersons = new FilteredList<>(getPersonList());
+        filteredPersons = new FilteredList<>(getPersonList(), AddressModel.PREDICATE_SHOW_ALL_PERSONS);
     }
 
     public AddressBook() {}
@@ -114,7 +114,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
     }
 
     @Override
