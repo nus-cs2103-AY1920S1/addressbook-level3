@@ -96,32 +96,32 @@ public class AddressBookParser {
             case AssignPolicyCommand.COMMAND_WORD:
                 return new AssignPolicyCommandParser().parse(arguments);
 
-        /*
-        case UnassignPolicyCommand.COMMAND_WORD:
-            return new UnassignPolicyCommandParser().parse(arguments);
+            /*
+            case UnassignPolicyCommand.COMMAND_WORD:
+                return new UnassignPolicyCommandParser().parse(arguments);
 
-        case AddTagCommand.COMMAND_WORD:
-            return new AddTagCommandParser().parse(arguments);
+            case AddTagCommand.COMMAND_WORD:
+                return new AddTagCommandParser().parse(arguments);
 
-        case AddPolicyTagCommand.COMMAND_WORD:
-            return new AddPolicyTagCommandParser().parse(arguments);
+            case AddPolicyTagCommand.COMMAND_WORD:
+                return new AddPolicyTagCommandParser().parse(arguments);
 
-        case DeleteTagCommand.COMMAND_WORD:
-            return new DeleteTagCommandParser().parse(arguments);
+            case DeleteTagCommand.COMMAND_WORD:
+                return new DeleteTagCommandParser().parse(arguments);
 
-        case DeletePolicyTagCommand.COMMAND_WORD:
-            return new DeletePolicyTagCommandParser().parse(arguments);
-        */
+            case DeletePolicyTagCommand.COMMAND_WORD:
+                return new DeletePolicyTagCommandParser().parse(arguments);
+            */
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
             case FindCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
-        /*
-        case FindPolicyCommand.COMMAND_WORD:
-            return new FindPolicyCommandParser().parse(arguments);
-        */
+            /*
+            case FindPolicyCommand.COMMAND_WORD:
+                return new FindPolicyCommandParser().parse(arguments);
+            */
             case ListPeopleCommand.COMMAND_WORD:
                 return new ListPeopleCommand();
 
