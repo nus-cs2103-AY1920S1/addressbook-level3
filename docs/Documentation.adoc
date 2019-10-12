@@ -59,11 +59,11 @@ Attributes left unset in the `build.gradle` file will use their *default value*,
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
 |===
-|Attribute planName |Description |Default value
+|Attribute name |Description |Default value
 
-|`site-planName`
-|The planName of the website.
-If set, the planName will be displayed near the top of the page.
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
 |_not set_
 
 |`site-githuburl`
@@ -91,7 +91,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
-|Attribute planName |Description |Default value
+|Attribute name |Description |Default value
 
 |`site-section`
 |Site section that the document belongs to.

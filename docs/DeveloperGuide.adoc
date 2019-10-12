@@ -53,7 +53,7 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same planName as the Component.
+* Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -346,7 +346,7 @@ Problem will be added to the application if and only if the required fields are 
 *MSS*
 
 1.  User launches AlgoBase.
-2.  User adds a new problem by entering the planName of the problem, optionally specifying the planDescription, author, weblink, source as well as any remarks or tags.
+2.  User adds a new problem by entering the name of the problem, optionally specifying the description, author, weblink, source as well as any remarks or tags.
 3.  AlgoBase indicates successful addition of new problem.
 4.  AlgoBase displays details of problem added.
 +
@@ -354,14 +354,14 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects that an existing planName already exists.
+* 2a. AlgoBase detects that an existing name already exists.
 +
 [none]
-** 2a1. AlgoBase informs user that problem was not successfully added because the planName already exists.
+** 2a1. AlgoBase informs user that problem was not successfully added because the name already exists.
 +
 Use case ends.
 
-* 2b. AlgoBase detects a missing planName or invalid format for some field(s).
+* 2b. AlgoBase detects a missing name or invalid format for some field(s).
 +
 [none]
 ** 2b1. AlgoBase informs user that problem was not successfully added because the format is invalid.
@@ -383,7 +383,7 @@ The matched problem in the application will be edited with the provided fields.
 *MSS*
 
 1.  User launches AlgoBase.
-2.  User edits an existing problem by entering the index, followed by fields that the user intends to edit (including planName, planDescription, weblink, author, source, remark, tag, etc.).
+2.  User edits an existing problem by entering the index, followed by fields that the user intends to edit (including name, description, weblink, author, source, remark, tag, etc.).
 3.  AlgoBase indicates successful edition of the existing problem.
 4.  AlgoBase updates the UI with the updated problem.
 +

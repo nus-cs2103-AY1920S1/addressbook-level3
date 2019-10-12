@@ -88,16 +88,16 @@ Examples:
 * `edit 1 a/John Doe +
 Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
-Edits the planName of the 2nd problem to be `permutations` and clears all existing tags.
+Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-==== Locating problems by planName: `find`
+==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case insensitive. e.g `henz` will match `Henz`
 * The order of the keywords does not matter. e.g. `Henz Martin` will match `Martin Henz`
-* Only the planName is searched.
+* Only the name is searched.
 * Only full words will be matched e.g. `Hen` will not match `Henz`
 * Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Henz Ben` will return `Henz Martin`, `Ben Leong`
 
@@ -189,7 +189,7 @@ Examples:
 
 * `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 
-==== Locating training plans by planName: `findplan`
+==== Locating training plans by name: `findplan`
 
 Finds problems whose names contain any of the given keywords. +
 Format: `findplan KEYWORD [MORE_KEYWORDS]`
