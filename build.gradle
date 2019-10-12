@@ -143,7 +143,12 @@ asciidoctor {
     }
 
     compileJava {
-        options.compilerArgs += ["-Xlint:unchecked"]
+        options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
+        options.fork = true
+    }
+
+    compileTestJava {
+        options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
         options.fork = true
     }
 }
