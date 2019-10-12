@@ -1,9 +1,12 @@
-package seedu.address.notification;
+package seedu.address.logic;
 
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.ReadOnlyEventList;
+import seedu.address.notification.EventNotificationThread;
+import seedu.address.notification.Notification;
+import seedu.address.notification.SystemTrayCommunicator;
 
 
 /**

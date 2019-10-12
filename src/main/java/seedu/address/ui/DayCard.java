@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.time.Instant;
 import java.util.ArrayList;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -35,7 +34,7 @@ public class DayCard extends UiPart<Region> {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public DayCard(int day, int month, int year, ObservableList<EventSource> eventList) {
+    public DayCard(int day, int month, int year) {
         super(FXML);
         this.day = day;
         this.month = month;
