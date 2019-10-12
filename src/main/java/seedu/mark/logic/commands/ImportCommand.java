@@ -17,6 +17,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.Storage;
 
@@ -81,10 +82,14 @@ public class ImportCommand extends Command {
 
         ReadOnlyMark newMark = readMarkFromStorageFile(storage, filePath);
 
+        FolderStructure foldersToImport = newMark.getFolderStructure();
+        addFoldersToModel(model, foldersToImport);
+
         ObservableList<Bookmark> bookmarksToImport = newMark.getBookmarkList();
         List<Bookmark> skippedBookmarks = new ArrayList<>(); // empty list to operate on
         addBookmarksToModel(model, bookmarksToImport, skippedBookmarks);
 
+        // TODO: refactor log and command result messages to include folder import
         if (!skippedBookmarks.isEmpty()) {
             logger.info("Bookmarks imported from " + filePath + ": Some duplicates skipped");
             return new CommandResult(String.format(MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
@@ -112,7 +117,6 @@ public class ImportCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FILE_FORMAT_INCORRECT, filePath));
         }
 
-        assert newMark != null;
         if (newMark.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_FILE_NOT_FOUND, filePath));
         }
@@ -135,6 +139,28 @@ public class ImportCommand extends Command {
             logger.fine("Bookmark imported: " + bookmark);
             model.addBookmark(bookmark);
         }
+    }
+
+
+    /**
+     * Adds the given folder structure to the model. Implementation to be decided.
+     */
+    private void addFoldersToModel(Model model, FolderStructure foldersToImport) {
+        // TODO: decide what to do here
+
+        // option 1:
+        // get ROOT
+        // add subfolders of imported folder structure to ROOT
+        // check for duplicate folders and ignore them
+            // if folder is found, then ignore
+            // for each Bookmark in list, if name = duplicate-folder, change folder to ROOT
+
+        // option 2:
+        // get ROOT
+        // create a new subfolder for imported bookmarks (de-conflict names if necessary)
+        // import each folder into import-folder
+        // check for duplicate folders and rename if necessary (e.g. folder-1)
+            // for each Bookmark in list, if name = renamed-folder, change name to new-name
     }
 
     /**

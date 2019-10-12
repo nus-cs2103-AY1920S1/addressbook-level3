@@ -34,7 +34,6 @@ import seedu.mark.storage.Storage;
  */
 public class ImportCommandTest {
     private Model model = new ModelManager(new Mark(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
     private Storage storage = new StorageStubAllowsRead();
 
     @Test
@@ -61,31 +60,46 @@ public class ImportCommandTest {
     public void execute_validFileNoDuplicates_success() {
         Path filePath = Path.of("data", "validFile");
         ImportCommand command = new ImportCommand(filePath);
+
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath);
+
+        Mark expectedMark = new Mark();
+        expectedMark.setBookmarks(getTypicalBookmarks());
+        Model expectedModel = new ModelManager(expectedMark, new UserPrefs());
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_validFileWithDuplicateBookmarks_duplicatesSkipped() {
-        // set up valid file path
+    public void execute_validFileSomeDuplicates_duplicatesSkipped() {
         Path filePath = Path.of("data", "validFile");
         ImportCommand command = new ImportCommand(filePath);
 
-        // some duplicate bookmarks
         List<Bookmark> existingBookmarks = Arrays.asList(ALICE, BENSON, CARL);
-        Mark mark = new Mark();
-        existingBookmarks.forEach(mark::addBookmark);
-        Model initialModel = new ModelManager(mark, new UserPrefs());
+        Mark markWithSomeBookmarks = new Mark();
+        existingBookmarks.forEach(markWithSomeBookmarks::addBookmark);
+        Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
+
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                 ImportCommand.toIndentedString(existingBookmarks));
 
-        assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
+        Mark expectedMark = new Mark();
+        expectedMark.setBookmarks(getTypicalBookmarks());
+        Model expectedModel = new ModelManager(expectedMark, new UserPrefs());
 
-        // all duplicate bookmarks
-        initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
-        expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
+        assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validFileAllDuplicates_modelNotChanged() {
+        Path filePath = Path.of("data", "validFile");
+        ImportCommand command = new ImportCommand(filePath);
+
+        Model initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
+        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                 ImportCommand.toIndentedString(getTypicalBookmarks()));
+
+        Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
 
         assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }
