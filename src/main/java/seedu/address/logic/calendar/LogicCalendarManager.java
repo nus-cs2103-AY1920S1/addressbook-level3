@@ -1,5 +1,9 @@
 package seedu.address.logic.calendar;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -12,10 +16,6 @@ import seedu.address.model.calendar.Model;
 import seedu.address.model.calendar.ReadOnlyAddressBook;
 import seedu.address.model.calendar.person.Person;
 import seedu.address.storage.calendar.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 
 /**

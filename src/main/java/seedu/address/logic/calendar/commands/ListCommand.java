@@ -1,9 +1,10 @@
 package seedu.address.logic.calendar.commands;
 
-import seedu.address.model.calendar.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.calendar.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import seedu.address.model.calendar.Model;
+
 
 /**
  * Lists all persons in the address book to the user.

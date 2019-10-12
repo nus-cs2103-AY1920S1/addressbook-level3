@@ -1,10 +1,11 @@
 package seedu.address.logic.calendar.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.calendar.Model;
 import seedu.address.model.calendar.person.NameContainsKeywordsPredicate;
 
-import static java.util.Objects.requireNonNull;
 
 
 /**

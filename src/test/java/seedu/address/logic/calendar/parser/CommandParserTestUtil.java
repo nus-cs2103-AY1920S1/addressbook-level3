@@ -1,10 +1,11 @@
 package seedu.address.logic.calendar.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**

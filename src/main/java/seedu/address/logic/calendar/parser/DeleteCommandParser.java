@@ -1,10 +1,11 @@
 package seedu.address.logic.calendar.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.calendar.commands.DeleteCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 
 /**

@@ -1,10 +1,9 @@
 package seedu.address.logic.calendar.commands;
 
-import seedu.address.model.calendar.AddressCalendarBook;
-import seedu.address.model.calendar.Model;
-
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.model.calendar.AddressCalendarBook;
+import seedu.address.model.calendar.Model;
 
 /**
  * Clears the address book.

@@ -1,10 +1,11 @@
 package seedu.address.logic.calendar.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
 import seedu.address.model.calendar.Model;
 
-import static java.util.Objects.requireNonNull;
 
 
 /**

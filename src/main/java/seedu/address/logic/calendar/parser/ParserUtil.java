@@ -1,5 +1,11 @@
 package seedu.address.logic.calendar.parser;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
@@ -9,11 +15,8 @@ import seedu.address.model.calendar.person.Name;
 import seedu.address.model.calendar.person.Phone;
 import seedu.address.model.calendar.tag.Tag;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
+
 
 
 /**

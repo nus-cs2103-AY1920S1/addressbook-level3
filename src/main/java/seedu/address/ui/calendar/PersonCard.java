@@ -1,5 +1,7 @@
 package seedu.address.ui.calendar;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -7,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.quiz.person.Person;
 
-import java.util.Comparator;
 
 
 /**

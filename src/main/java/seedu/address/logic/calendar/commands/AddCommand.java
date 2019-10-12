@@ -1,15 +1,15 @@
 package seedu.address.logic.calendar.commands;
 
-import seedu.address.logic.calendar.commands.exceptions.CommandException;
-import seedu.address.model.calendar.Model;
-import seedu.address.model.calendar.person.Person;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.address.logic.calendar.commands.exceptions.CommandException;
+import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.person.Person;
 
 
 /**

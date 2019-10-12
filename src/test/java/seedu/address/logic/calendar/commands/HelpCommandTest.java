@@ -1,13 +1,15 @@
 package seedu.address.logic.calendar.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 
 public class HelpCommandTest {
