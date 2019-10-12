@@ -13,10 +13,10 @@ public class CalendarCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows you your calendar.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_CALENDAR_MESSAGE = "Opened calendar page.";
+    public static final String SHOWING_CALENDAR_MESSAGE = "calendar";
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_CALENDAR_MESSAGE, false, false);
+        return new CommandResult(SHOWING_CALENDAR_MESSAGE, false, false, true);
     }
 }

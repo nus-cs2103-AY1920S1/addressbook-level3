@@ -9,23 +9,29 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Pages {
-    private List<Scene> pageScenes;
+    private List<Page> pages;
     private Scene mainPageScene;
 
     // todo: change this parameter to the specified scenes to minimise possible errors
     // keep PageScene constructor package private to prevent creation of this class elsewhere
-    Pages(Scene mainPageScene, Scene... scenes) {
+    Pages(Scene mainPageScene, Page... pages) {
         this.mainPageScene = mainPageScene;
-        pageScenes = Stream.of(scenes)
+        this.pages = Stream.of(pages)
                 .collect(Collectors.toList());
     }
 
     public Scene getPage(CommandResult commandResult) {
-        String requestedPage = commandResult.getFeedback();
-        Optional<Scene> requestedPageScene = pageScenes.stream().filter(p -> p.toString().equals(requestedPage)).
-                findFirst();
-        // todo: when all pages have been added, throw error if requestedPageScene isEmpty
-        return requestedPageScene.orElseGet(() -> SamplePage.getScene());
+        PageType request = PageType.of(commandResult.getFeedback());
+        Optional<Scene> requestedPage = pages.stream()
+                .filter(p -> p.getPageType().equals(request))
+                .map(p -> p.getScene())
+                .findFirst();
+
+        if (requestedPage.isEmpty()) {
+            assert false : "Every get page command should have a page class implemented for it";
+        }
+
+        return requestedPage.get();
     }
 
     public Scene getMainPageScene() {
