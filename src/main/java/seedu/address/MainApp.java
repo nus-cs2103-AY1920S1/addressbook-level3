@@ -84,7 +84,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
+    protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
         ReadOnlyAddressBook initialAddressData;
         try {
             Optional<ReadOnlyAddressBook> addressBookOptional = storage.readAddressBook();
@@ -118,7 +118,7 @@ public class MainApp extends Application {
         return new ModelManager(initialAddressData, userPrefs, queueManager, initialAppointmentData);
     }
 
-    private void initLogging(Config config) {
+    protected void initLogging(Config config) {
         LogsCenter.init(config);
     }
 
