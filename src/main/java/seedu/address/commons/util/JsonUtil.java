@@ -140,4 +140,8 @@ public class JsonUtil {
         }
     }
 
+    public static ObjectMapper getObjectMapper() {
+        return objectMapper;
+    }
+
 }
