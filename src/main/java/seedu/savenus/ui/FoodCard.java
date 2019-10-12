@@ -81,7 +81,7 @@ public class FoodCard extends UiPart<Region> {
             String[] hours = food.getOpeningHours().openingHours.split(" ");
             String open = hours[0];
             String close = hours[1];
-            textForOptionalInfo += "Opens: " + open + " - Close: " + close + partition;
+            textForOptionalInfo += "Opens: " + open + " - Closes: " + close + partition;
         }
 
         // Label for restrictions.
