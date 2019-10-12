@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -118,6 +119,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Customer Methods =============================================================
+
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
@@ -140,6 +143,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCustomer);
 
         addressBook.setCustomer(target, editedCustomer);
+    }
+
+    //=========== Deliveryman Methods =============================================================
+
+    @Override
+    public boolean hasDeliveryman(Deliveryman deliveryman) {
+        requireNonNull(deliveryman);
+        return true;
+    }
+
+    @Override
+    public void addDeliveryman(Deliveryman deliveryman) {
+        requireNonNull(deliveryman);
     }
     //=========== Filtered Person List Accessors =============================================================
 

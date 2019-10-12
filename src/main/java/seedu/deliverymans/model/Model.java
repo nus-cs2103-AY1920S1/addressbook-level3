@@ -8,6 +8,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * The API of the Model component.
@@ -87,6 +88,8 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //=========== Customer methods =============================================================
+
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.
      */
@@ -111,5 +114,19 @@ public interface Model {
      * book.
      */
     void setCustomer(Customer target, Customer editedCustomer);
+
+    //=========== Deliveryman Methods =============================================================
+
+    /**
+     * Returns true if a deliveryman with the same identity as {@code deliveryman} exists in the deliveryman book.
+     */
+    boolean hasDeliveryman(Deliveryman deliveryman);
+
+    /**
+     * Adds the given customer.
+     * {@code customer} must not already exist in the address book.
+     */
+    void addDeliveryman(Deliveryman deliveryman);
+
 
 }
