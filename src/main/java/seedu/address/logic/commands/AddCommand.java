@@ -33,8 +33,8 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_USERNAME + "John123 "
             + PREFIX_PASSWORD + "password "
-            + PREFIX_TAG + "Senior Operator "
-            + PREFIX_TAG + "Team A";
+            + PREFIX_TAG + "Supervisor "
+            + PREFIX_TAG + "Team-A";
 
     public static final String MESSAGE_SUCCESS = "New user added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This user already exists in the incident management system";
