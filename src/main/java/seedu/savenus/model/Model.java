@@ -90,5 +90,10 @@ public interface Model {
      * Updates the comparator of the food list to filter by the given {@code comparator}.
      * @throws NullPointerException if {@code comparator} is null.
      */
-    void updateComparator(Comparator<Food> comparator);
+    void updateRecommendationComparator(Comparator<Food> recommendationComparator);
+
+    /**
+     * Resets the comparator of the food list..
+     */
+    void resetRecommendationComparator();
 }

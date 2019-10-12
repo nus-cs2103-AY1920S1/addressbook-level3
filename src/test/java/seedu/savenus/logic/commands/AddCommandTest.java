@@ -150,7 +150,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateComparator(Comparator<Food> comparator) {
+        public void updateRecommendationComparator(Comparator<Food> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetRecommendationComparator() {
             throw new AssertionError("This method should not be called.");
         }
     }

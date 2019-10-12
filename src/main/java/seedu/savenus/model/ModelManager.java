@@ -5,6 +5,7 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,7 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
 
-    private Comparator<Food> comparator;
+    private Optional<Comparator<Food>> recommendationComparator;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
@@ -39,8 +40,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
 
-        // Initialize comparator to default
-        comparator = (x, y) -> 0;
+        // Initialize recommendationComparator to default
+        recommendationComparator = Optional.empty();
     }
 
     public ModelManager() {
@@ -127,7 +128,11 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
-        return filteredFoods.sorted(comparator);
+        if (recommendationComparator.isPresent()) {
+            return filteredFoods.sorted(recommendationComparator.get());
+        } else {
+            return filteredFoods;
+        }
     }
 
 
@@ -137,11 +142,16 @@ public class ModelManager implements Model {
         filteredFoods.setPredicate(predicate);
     }
 
-    // Updates the comparator used for sorting
+    // Updates the comparator used for recommendations
     @Override
-    public void updateComparator(Comparator<Food> comparator) {
-        requireNonNull(comparator);
-        this.comparator = comparator;
+    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
+        requireNonNull(recommendationComparator);
+        this.recommendationComparator = Optional.of(recommendationComparator);
+    }
+
+    @Override
+    public void resetRecommendationComparator() {
+        this.recommendationComparator = Optional.empty();
     }
 
     @Override

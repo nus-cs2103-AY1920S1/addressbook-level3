@@ -29,7 +29,7 @@ public class RecommendCommand extends Command {
          * The recommendations can be cleared using the list command.
          */
         model.updateFilteredFoodList(BUDGET_RECOMMENDATION);
-        model.updateComparator(Comparator.comparingDouble(x -> Double.parseDouble(x.getPrice().value)));
+        model.updateRecommendationComparator(Comparator.comparingDouble(x -> Double.parseDouble(x.getPrice().value)));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

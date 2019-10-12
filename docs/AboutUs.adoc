@@ -15,7 +15,7 @@ image::robytanama.png[width="150", align="left"]
 {empty}[Github](https://github.com/robytanama) | <<johndoe#, Portfolio>>
 
 Role: Project lead +
-Responsibilities: UI + 
+Responsibilities: UI +
 Main project tasks: Information and UI features
 
 '''
