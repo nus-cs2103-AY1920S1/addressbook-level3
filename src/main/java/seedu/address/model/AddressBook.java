@@ -16,7 +16,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private Pair<Integer, Integer> indexPairOfOngoingVisit = new Pair<>(-1,-1);
+    private Pair<Integer, Integer> indexPairOfOngoingVisit = new Pair<>(-1, -1);
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
