@@ -2,11 +2,11 @@ package seedu.address.statistic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.model.OrderBook;
+
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.TypicalOrders;
@@ -23,7 +23,7 @@ public class StatisticsManagerTest {
         OrderBookStub orderBookStub = new OrderBookStub();
         String actualResult = "2640.12";
         String testResult = this.statisticModule.calculateTotalRevenueOnCompleted(orderBookStub);
-        assertEquals(actualResult,testResult);
+        assertEquals(actualResult, testResult);
     }
 
     /**

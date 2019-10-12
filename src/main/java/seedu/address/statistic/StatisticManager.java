@@ -26,7 +26,8 @@ public class StatisticManager implements Statistic {
     public StatisticManager() {}
 
     @Override
-    public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook) {
+    public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,
+                                                  ReadOnlyDataBook<Phone> phoneBook) {
         double revenueString = Double.parseDouble(this.calculateTotalRevenueOnCompleted(orderBook));
         double costString = Double.parseDouble(this.calculateTotalCostOnCompleted(orderBook, phoneBook));
         double totalProfitResult = revenueString - costString;
