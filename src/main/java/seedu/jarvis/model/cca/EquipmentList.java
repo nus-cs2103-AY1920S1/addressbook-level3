@@ -36,7 +36,7 @@ public class EquipmentList {
      */
     public void addEquipment(Equipment equipment) {
         requireNonNull(equipment);
-        if (!internalEquipmentList.contains(equipment)) {
+        if (internalEquipmentList.contains(equipment)) {
             throw new DuplicateEquipmentException();
         }
 
