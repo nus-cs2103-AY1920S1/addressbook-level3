@@ -107,7 +107,7 @@ public class UniqueEventList {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code persons} contains only unique events.
      */
     /*
     private boolean personsAreUnique(List<Person> persons) {

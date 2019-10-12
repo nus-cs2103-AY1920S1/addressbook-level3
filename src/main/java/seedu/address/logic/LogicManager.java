@@ -9,12 +9,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AllCommands;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EventRelatedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -26,13 +26,12 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Model eventModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Model eventModel, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.eventModel = eventModel;
+        //this.eventModel = eventModel;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
     }
@@ -43,22 +42,24 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         AllCommands command = addressBookParser.parseCommand(commandText);
-        if (command instanceof EventRelatedCommand) {
-            logger.info("----------------[TEST]");
-            commandResult = command.execute(eventModel);
+        commandResult = command.execute(model);
+
+        /*if (command instanceof EventRelatedCommand) {
+            //logger.info("----------------[TEST]");
         } else { //Non-Event Command
             commandResult = command.execute(model);
-        }
+        }*/
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-            storage.saveEventBook(eventModel.getEventBook());
+            storage.saveEventBook(model.getEventBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult;
     }
+
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -68,6 +69,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
     }
 
     @Override

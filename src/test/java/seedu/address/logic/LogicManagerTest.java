@@ -50,7 +50,7 @@ public class LogicManagerTest {
                 new JsonEventBookStorage(temporaryFolder.resolve("eventBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, eventBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, model, storage);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, eventBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, model, storage);
+        logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY

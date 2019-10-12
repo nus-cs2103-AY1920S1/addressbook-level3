@@ -28,6 +28,7 @@ public class UiManager implements Ui {
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
+
     }
 
     @Override
