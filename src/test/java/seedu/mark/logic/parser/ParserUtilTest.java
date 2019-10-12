@@ -143,13 +143,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTab_invalidIndex_throwsInvalidIndexParseException() {
-        try {
-            ParserUtil.parseTabIndex("5");
-            ParserUtil.parseTabIndex("0.5");
-            fail();
-        } catch (ParseException pe) {
-            assertEquals(new ParseException(TabCommand.MESSAGE_INVALID_INDEX).getMessage(), pe.getMessage());
-        }
+        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTabIndex("5"));
+        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTabIndex("0.5"));
     }
 
     @Test

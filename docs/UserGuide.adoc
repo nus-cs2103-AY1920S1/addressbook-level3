@@ -727,19 +727,10 @@ Examples:
 * `*tab* 1` +
 Goes to the <<Dashboard,Dashboard>> tab.
 
-* `*tab* dash` +
-Goes to the <<Dashboard,Dashboard>> tab.
-
-* `*tab* 2` +
-Goes to the Online tab which is a web view.
-
 * `*tab* on` +
 Goes to the Online tab which is a web view.
 
 * `*tab* 3` +
-Goes to the Offline tab which shows the offline copy of bookmarks.
-
-* `*tab* off` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
 
