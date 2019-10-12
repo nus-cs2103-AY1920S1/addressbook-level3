@@ -1,5 +1,7 @@
 package seedu.mark.testutil;
 
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,12 +9,13 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 
+
 /**
  * A utility class to help with building Reminder objects.
  */
 public class ReminderBuilder {
     public static final String DEFAULT_NOTE = "See Website";
-    public static final Bookmark DEFAULT_BOOKMARK = TypicalBookmarks.ALICE;
+    public static final Bookmark DEFAULT_BOOKMARK = ALICE;
     public static final String DEFAULT_TIME = "12/12/2020 1800";
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER);

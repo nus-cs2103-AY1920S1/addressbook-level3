@@ -10,13 +10,13 @@ public class Note {
 
     public static final String INVALID_CHARACTER = "/";
 
-    public static final String MESSAGE_CONSTRAINTS = "Remarks can contain any characters except " + INVALID_CHARACTER;
+    public static final String MESSAGE_CONSTRAINTS = "Notes can contain any characters except " + INVALID_CHARACTER;
 
     /*
-     * The first character of the remark must not be a whitespace,
+     * The first character of the note must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      *
-     * The rest of the remark can contain any character except the invalid character.
+     * The rest of the note can contain any character except the invalid character.
      */
     public static final String VALIDATION_REGEX = "[^\\s][^" + INVALID_CHARACTER + "]*";
 
@@ -37,7 +37,7 @@ public class Note {
     }
 
     /**
-     * Returns true if a given string is an empty remark.
+     * Returns true if a given string is an empty note.
      */
     public static boolean isEmptyNote(String test) {
         return test.trim().equals("");

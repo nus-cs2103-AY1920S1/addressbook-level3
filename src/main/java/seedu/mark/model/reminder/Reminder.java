@@ -10,14 +10,14 @@ import seedu.mark.model.bookmark.Bookmark;
 
 
 /**
- * Represent a reminder in Mark.
+ * Represents a reminder in Mark.
  */
 public class Reminder {
 
     //TODO: temporarily; to change when confirmed
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
 
-    //data field
+    //data fields
     private Bookmark bookmark;
     private LocalDateTime remindTime;
 
@@ -102,7 +102,7 @@ public class Reminder {
     }
 
     /**
-     * Turn reminding time to the formatted string.
+     * Converts reminding time to the formatted string.
      *
      * @return formatted time string.
      */
