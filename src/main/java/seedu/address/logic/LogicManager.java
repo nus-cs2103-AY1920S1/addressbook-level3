@@ -12,6 +12,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ItemModel;
+import seedu.address.model.ItemModelManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -24,13 +26,14 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    //private final Model model;
+    private final ItemModel model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
-        this.model = model;
+    public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
+        this.model = model;
         addressBookParser = new AddressBookParser();
     }
 
@@ -46,7 +49,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveItemStorage(model.getItemStorage());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -56,17 +59,17 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+        return model.getItemStorage();
     }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getVisualList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getItemStorageFilePath();
     }
 
     @Override
