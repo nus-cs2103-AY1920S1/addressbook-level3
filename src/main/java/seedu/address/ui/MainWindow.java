@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
     private seedu.address.cashier.logic.Logic cashierLogic;
+    private seedu.address.overview.logic.Logic overviewLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -77,15 +78,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab homeTab;
-
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
-
-    //@FXML
-    //private StackPane resultDisplayPlaceholder;
-
-    //@FXML
-    //private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,

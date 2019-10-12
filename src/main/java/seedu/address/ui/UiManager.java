@@ -26,6 +26,7 @@ public class UiManager implements Ui {
     private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
     private seedu.address.cashier.logic.Logic cashierLogic;
+    private seedu.address.overview.logic.Logic overviewLogic;
     private MainWindow mainWindow;
 
     public UiManager(seedu.address.transaction.logic.Logic transactionLogic,
