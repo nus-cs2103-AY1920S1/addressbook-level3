@@ -1,8 +1,12 @@
 package seedu.address.model.incident;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.Vehicle;
 
@@ -29,11 +33,29 @@ public class Incident {
      */
     public Incident(String caller) {
         //this.operator = autofilled on sign in
+        // TODO: autofill operator upon sign in. Currently dummy data
+        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                getTagSet("friends"));
         this.dateTime = LocalDateTime.now();
         this.id = new IncidentId(dateTime.getMonthValue(), dateTime.getYear());
         this.incidentDesc = promptForDescription();
         this.location = promptForLocation();
         this.callerNumber = caller;
+        //this.car = VehicleAssigner.assignVehicle(location);
+    }
+
+    // load past incident cases
+    public Incident(IncidentId id, District location, LocalDateTime dateTime, String operator) {
+        // TODO: figure out importing rest of person class
+        this.operator = new Person(new Name(operator), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                getTagSet("friends"));
+        this.dateTime = dateTime;
+        this.id = id;
+        this.incidentDesc = new Description("Fluff description");
+        this.location = location;
+        this.callerNumber = "9898 9898";
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
@@ -69,7 +91,7 @@ public class Incident {
     }
 
 
-    public LocalDateTime getTime() {
+    public LocalDateTime getDateTime() {
         return this.dateTime;
     }
 
@@ -81,7 +103,51 @@ public class Incident {
         return this.callerNumber;
     }
 
+    public District getLocation() { return this.location; }
+
     public Vehicle getCar() {
         return car;
+    }
+
+    public IncidentId getIncidentId() { return id; }
+
+    public Person getOperator() { return operator; }
+
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two Vehicles.
+     */
+    public boolean isSameIncident(Incident otherIncident) {
+        if (otherIncident == this) {
+            return true;
+        }
+
+        return otherIncident != null
+                && otherIncident.getIncidentId().equals(getIncidentId());
+    }
+
+    /**
+     * Returns true if both Vehicles have the same identity and data fields.
+     * This defines a stronger notion of equality between two Vehicles.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Incident)) {
+            return false;
+        }
+
+        Incident otherIncident = (Incident) other;
+        return otherIncident.getIncidentId().equals(getIncidentId())
+                && otherIncident.getDesc().equals(getDesc());
     }
 }

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
 
@@ -79,6 +80,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered incident list */
+    ObservableList<Incident> getFilteredIncidentList();
 
     /** Returns an unmodifiable view of the filtered vehicle list */
     ObservableList<Vehicle> getFilteredVehicleList();

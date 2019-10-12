@@ -1,11 +1,15 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -45,6 +49,28 @@ public class SampleDataUtil {
         };
     }
 
+    public static Incident[] getSampleIncidents() {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return new Incident[] {
+                new Incident(new IncidentId(3, 2018), new District(3),
+                        LocalDateTime.parse("2018-03-03T10:15:30", formatter), "Jeremy Irons"),
+                new Incident(new IncidentId(10, 2016), new District(20),
+                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                new Incident(new IncidentId(2, 2015), new District(20),
+                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                new Incident(new IncidentId(3, 2013), new District(20),
+                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                new Incident(new IncidentId(12, 2015), new District(20),
+                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt")
+//                new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
+//                        new District(6), new Availability("BUSY")),
+//                new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
+//                        new District(20), new Availability("AVAILABLE")),
+//                new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
+//                        new District(8), new Availability("BUSY"))
+        };
+    }
+
     public static Vehicle[] getSampleVehicles() {
         return new Vehicle[] {
             new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SGS2121G"),
@@ -62,6 +88,9 @@ public class SampleDataUtil {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Incident sampleIncident : getSampleIncidents()) {
+            sampleAb.addIncident(sampleIncident);
         }
         for (Vehicle sampleVehicle : getSampleVehicles()) {
             sampleAb.addVehicle(sampleVehicle);
