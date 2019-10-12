@@ -103,6 +103,13 @@ public interface Model {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
+    // ===================== MODULE INFORMATION ==========================
+
+    /**
+     * Returns true if the module code is a valid, false otherwise.
+     */
+    boolean isValidModuleCode(String moduleCode);
+
     /**
      * Returns the module information.
      */

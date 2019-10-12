@@ -122,6 +122,13 @@ public class ModelManager implements Model {
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
 
+    //=========== Module Information ============================================================================
+
+    @Override
+    public boolean isValidModuleCode(String moduleCode) {
+        return modulePlanner.getModule(moduleCode) != null;
+    }
+
     @Override
     public String getModuleInformation(String moduleCode) {
         return modulePlanner.getModuleInformation(moduleCode);
