@@ -7,6 +7,7 @@ import java.util.Collection;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.model.course.Course;
 
@@ -43,18 +44,11 @@ public class AndOrTree {
      * @throws IOException if the course file could not be found
      */
     public static AndOrTree buildTree(String courseCode)
-            throws IOException {
+            throws CourseNotFoundException {
         Course course;
-
-        try {
-            course = CourseUtil.getCourse(courseCode);
-        } catch (IOException e) {
-            throw new IOException(courseCode + " could not be found");
-        }
-
+        course = CourseUtil.getCourse(courseCode);
         AndOrNode rootNode = AndOrNode.createLeafNode(course, null);
         JsonNode node;
-
         try {
             String prereqTree = course.getPrereqTree().toString();
             prereqTree = CourseUtil.addQuotes(prereqTree);
@@ -62,6 +56,8 @@ public class AndOrTree {
             buildTree(node, rootNode);
         } catch (NullPointerException e) {
             // return empty tree
+        } catch (IOException e) {
+            throw new CourseNotFoundException("course not found");
         }
         return new AndOrTree(rootNode);
     }
@@ -106,7 +102,7 @@ public class AndOrTree {
         Course leaf;
         try {
             leaf = CourseUtil.getCourse(node.asText());
-        } catch (IOException e) {
+        } catch (CourseNotFoundException e) {
             // do not create the node -> if the file does not exist, means the
             // course is likely no longer being offered
             return;
