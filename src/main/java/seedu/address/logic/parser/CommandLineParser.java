@@ -19,7 +19,12 @@ public class CommandLineParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern ONEWORD_REGEX = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    /**
+     * Used for two-word commands like <code>account edit</code>.
+     */
+    private static final Pattern TWOWORD_REGEX = Pattern.compile("(?<commandWord>\\S+\\s\\S+)(?<arguments>.*)");
 
     /**
      * Contains a map of command names to parsers.
@@ -37,55 +42,33 @@ public class CommandLineParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param rawUserInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+    public Command parseCommand(String rawUserInput) throws ParseException {
+        final String userInput = rawUserInput.trim();
+        CommandParser parser = null;
+
+        Matcher matcher = TWOWORD_REGEX.matcher(userInput);
+        if (matcher.matches()) {
+            parser = commandParsers.get(matcher.group("commandWord").toLowerCase());
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        if (parser == null) {
+            matcher = ONEWORD_REGEX.matcher(userInput);
+            if (!matcher.matches()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            parser = commandParsers.get(matcher.group("commandWord").toLowerCase());
+        }
 
-        CommandParser parser = commandParsers.get(commandWord.toLowerCase());
         if (parser == null) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
+        final String arguments = matcher.group("arguments");
         return parser.parse(arguments);
-        /*
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }*/
     }
 
     /**
