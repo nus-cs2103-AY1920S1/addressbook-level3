@@ -84,6 +84,31 @@ class TestExecutorTest {
     }
 
     @Test
+    public void runIncorrectProgram() throws IOException, TestExecutorException {
+        System.out.println("Running incorrect program against test cases...\n");
+
+        Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "incorrect");
+        List<TestCase> testCases = this.loadTestCases(rootFolder);
+
+        Path program = rootFolder.resolve("incorrect.txt");
+        String sourceCode = Files.readString(program);
+        UserProgram userProgram = new UserProgram("Incorrect", sourceCode);
+
+        TestExecutorResult result = executor.runTestCases(testCases, userProgram);
+        assertFalse(result.getCompileError().isPresent());
+        assertEquals(0, result.getNumPassed());
+
+        result.getResults().stream().forEach(testCaseResult -> {
+            assertFalse(testCaseResult.isSuccessful());
+            assertEquals("Correct solution\n", testCaseResult.getExpectedOutput());
+            assertEquals("Wrong solution\n", testCaseResult.getActualOutput());
+
+            System.out.print("Expected result: " + testCaseResult.getExpectedOutput());
+            System.out.println("Actual result: " + testCaseResult.getActualOutput());
+        });
+    }
+
+    @Test
     public void testCompileError() throws TestExecutorException {
         System.out.println("Running programs that should throw compile error...\n");
 
