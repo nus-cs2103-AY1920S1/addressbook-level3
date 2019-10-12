@@ -68,7 +68,6 @@ public class StorageManager implements Storage {
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-        saveAddressBook(addressBook, addressBookStorage.getCheatSheetFilePath());
     }
 
     @Override
@@ -96,11 +95,12 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
-
+        saveCheatSheetBook(cheatSheetBook, addressBookStorage.getCheatSheetFilePath());
     }
 
     @Override
     public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
-
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveCheatSheetBook(cheatSheetBook, filePath);
     }
 }
