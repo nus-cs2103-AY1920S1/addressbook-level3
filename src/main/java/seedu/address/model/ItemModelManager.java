@@ -63,13 +63,13 @@ public class ItemModelManager implements ItemModel {
 
     @Override
     public Path getItemStorageFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getItemStorageFilePath();
     }
 
     @Override
     public void setItemStorageFilePath(Path itemStorageFilePath) {
         requireNonNull(itemStorageFilePath);
-        userPrefs.setAddressBookFilePath(itemStorageFilePath);
+        userPrefs.setItemStorageFilePath(itemStorageFilePath);
     }
 
     //=========== AddressBook ================================================================================
