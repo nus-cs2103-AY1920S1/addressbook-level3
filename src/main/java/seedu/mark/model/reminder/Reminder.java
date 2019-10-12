@@ -73,7 +73,7 @@ public class Reminder {
             return true;
         }
 
-        if (!(other instanceof Bookmark)) {
+        if (!(other instanceof Reminder)) {
             return false;
         }
 

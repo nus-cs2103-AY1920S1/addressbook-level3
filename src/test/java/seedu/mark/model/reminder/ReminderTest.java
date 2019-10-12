@@ -59,10 +59,6 @@ class ReminderTest {
         Reminder openCopy = new ReminderBuilder(OPEN).build();
         assertTrue(OPEN.equals(openCopy));
 
-        openCopy = new ReminderBuilder(OPEN).withBookmark(ALICE).withTime(VALID_TIME_OPEN)
-                .withNote(VALID_NOTE_OPEN).build();
-        assertTrue(OPEN.equals(openCopy));
-
         // same object -> returns true
         assertTrue(OPEN.equals(OPEN));
 
