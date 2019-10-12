@@ -2,20 +2,20 @@ package seedu.mark.model.reminder;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.testutil.Assert.assertThrows;
+
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_READ;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_READ;
-import static seedu.mark.testutil.TypicalBookmarks.*;
+
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 import static seedu.mark.testutil.TypicalReminders.OPEN;
 import static seedu.mark.testutil.TypicalReminders.READ;
 
 import org.junit.jupiter.api.Test;
-import seedu.mark.model.bookmark.Bookmark;
+
 import seedu.mark.testutil.ReminderBuilder;
-
-
 
 class ReminderTest {
 
@@ -28,29 +28,29 @@ class ReminderTest {
         assertFalse(OPEN.isSameReminder(null));
 
         // different note, different bookmark, different time-> returns false
-        Reminder editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
+        Reminder editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
                 .withBookmark(BENSON).withTime(VALID_TIME_READ).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         // same note, different bookmark, same time-> returns false
-        editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
+        editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
                 .withBookmark(BENSON).withTime(VALID_TIME_OPEN).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different note, same bookmark, same time -> returns false
-        editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
+        editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
                 .withBookmark(ALICE).withTime(VALID_TIME_OPEN).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         // same note, same bookmark, different time -> returns false
-        editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
+        editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
                 .withBookmark(ALICE).withTime(VALID_TIME_READ).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         //same attributes -> returns true
-        editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
+        editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
                 .withBookmark(ALICE).withTime(VALID_TIME_OPEN).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        assertFalse(OPEN.isSameReminder(editedOpen));
     }
 
     @Test
@@ -76,16 +76,15 @@ class ReminderTest {
         assertFalse(OPEN.equals(READ));
 
         // different note -> returns false
-        Reminder editedOPEN = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        Reminder editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ).build();
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different bookmark -> returns false
-        editedOPEN = new ReminderBuilder(OPEN).withBookmark(BENSON).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        editedOpen = new ReminderBuilder(OPEN).withBookmark(BENSON).build();
+        assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different time -> returns false
-        editedOPEN = new ReminderBuilder(OPEN).withTime(VALID_TIME_READ).build();
-        assertFalse(OPEN.isSameReminder(editedOPEN));
+        editedOpen = new ReminderBuilder(OPEN).withTime(VALID_TIME_READ).build();
+        assertFalse(OPEN.isSameReminder(editedOpen));
     }
-
 }

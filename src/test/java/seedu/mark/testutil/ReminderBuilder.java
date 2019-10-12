@@ -1,11 +1,11 @@
 package seedu.mark.testutil;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * A utility class to help with building Reminder objects.

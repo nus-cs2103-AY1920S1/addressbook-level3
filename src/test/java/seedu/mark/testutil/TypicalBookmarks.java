@@ -19,7 +19,7 @@ import seedu.mark.model.bookmark.Bookmark;
 /**
  * A utility class containing a list of {@code Bookmark} objects to be used in tests.
  */
-public class  TypicalBookmarks {
+public class TypicalBookmarks {
 
     public static final Bookmark ALICE = new BookmarkBuilder().withName("Alice Pauline")
             .withRemark("123, Jurong West Ave 6, #08-111").withUrl("https://alice@example.com")

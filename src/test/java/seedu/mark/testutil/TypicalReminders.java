@@ -1,11 +1,14 @@
 package seedu.mark.testutil;
 
-import seedu.mark.model.reminder.Reminder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.mark.model.reminder.Reminder;
+
+/**
+ * A utility class containing a list of {@code Reminder} objects to be used in tests.
+ */
 public class TypicalReminders {
     public static final Reminder OPEN = new ReminderBuilder().withNote("Open")
             .withBookmark(TypicalBookmarks.ALICE).withTime("12/12/2020 1800")
@@ -17,6 +20,6 @@ public class TypicalReminders {
     private TypicalReminders() {} // prevents instantiation
 
     public static List<Reminder> getTypicalReminders() {
-        return new ArrayList<>(Arrays.asList(OPEN,READ));
+        return new ArrayList<>(Arrays.asList(OPEN, READ));
     }
 }
