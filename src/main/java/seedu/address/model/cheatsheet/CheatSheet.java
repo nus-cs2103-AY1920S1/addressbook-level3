@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Cheatsheet object in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Cheatsheet {
+public class CheatSheet {
     // Identity fields
     private final Title title;
 
@@ -24,7 +24,7 @@ public class Cheatsheet {
     /**
      * Every field must be present and not null.
      */
-    public Cheatsheet(Title title, Set<Content> contents, Set<Tag> tags) {
+    public CheatSheet(Title title, Set<Content> contents, Set<Tag> tags) {
         requireAllNonNull(title, contents, tags);
         this.title = title;
         this.contents.addAll(contents);
@@ -51,13 +51,13 @@ public class Cheatsheet {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameCheatsheet(Cheatsheet otherCheatsheet) {
-        if (otherCheatsheet == this) {
+    public boolean isSameCheatSheet(CheatSheet otherCheatSheet) {
+        if (otherCheatSheet == this) {
             return true;
         }
 
-        return otherCheatsheet != null
-                && otherCheatsheet.getTitle().equals(getTitle());
+        return otherCheatSheet != null
+                && otherCheatSheet.getTitle().equals(getTitle());
     }
 
     /**
@@ -70,14 +70,14 @@ public class Cheatsheet {
             return true;
         }
 
-        if (!(other instanceof Cheatsheet)) {
+        if (!(other instanceof CheatSheet)) {
             return false;
         }
 
-        Cheatsheet otherPerson = (Cheatsheet) other;
-        return otherPerson.getTitle().equals(getTitle())
-                && otherPerson.getContents().equals(getContents())
-                && otherPerson.getTags().equals(getTags());
+        CheatSheet otherCheatSheet = (CheatSheet) other;
+        return otherCheatSheet.getTitle().equals(getTitle())
+                && otherCheatSheet.getContents().equals(getContents())
+                && otherCheatSheet.getTags().equals(getTags());
     }
 
     @Override
