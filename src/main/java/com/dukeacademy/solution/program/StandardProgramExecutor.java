@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;
@@ -64,6 +66,18 @@ public class StandardProgramExecutor implements ProgramExecutor {
      * @return the program output of the process.
      */
     private ProgramOutput getProgramOutput(Process process) {
+        // Retrieve the error stream of the process
+        InputStream err = process.getErrorStream();
+
+        // Read any errors
+        BufferedReader errorReader = new BufferedReader(new InputStreamReader(err));
+        String error = errorReader.lines().collect(Collectors.joining());
+
+        // Return errored program output if present
+        if (!error.equals("")) {
+            return ProgramOutput.getErroredProgramOutput(error);
+        }
+
         // Retrieve the output stream of the process
         InputStream stdout = process.getInputStream();
 
