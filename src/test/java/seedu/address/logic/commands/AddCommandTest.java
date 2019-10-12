@@ -151,6 +151,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getActivityBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ActivityBook getActivityBook() {
             throw new AssertionError("This method should not be called.");
         }
