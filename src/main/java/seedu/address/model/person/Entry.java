@@ -54,9 +54,10 @@ public class Entry {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both entries of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
      */
+
     public boolean isSameEntry(Entry otherEntry) {
         if (otherEntry == this) {
             return true;
@@ -93,19 +94,16 @@ public class Entry {
         return Objects.hash(desc, amt, tags);
     }
 
-    //@Override
-    //public String toString() {
-    //    final StringBuilder builder = new StringBuilder();
-    //    builder.append(getDesc())
-    //            .append(" Amount: ")
-    //            .append()
-    //            .append(" Email: ")
-    //            .append(getEmail())
-    //            .append(" Address: ")
-    //           .append(" Tags: ");
-    //    getTags().forEach(builder::append);
-    //    return builder.toString();
-    //}
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getDesc())
+                .append(" Amount: ")
+                .append(amt)
+               .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 
 
 }

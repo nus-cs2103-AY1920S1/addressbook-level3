@@ -33,9 +33,8 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("desc") String desc, @JsonProperty("time") String time,
-                            @JsonProperty("amt") double amt,
-                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
+                              @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
         this.time = time;

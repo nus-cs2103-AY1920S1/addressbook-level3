@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
+import seedu.address.model.person.Income;
+import seedu.address.model.person.IncomeList;
 import seedu.address.model.person.UniqueEntryList;
 
 /**
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntryList entries;
     private final ExpenseList expenses;
+    private final IncomeList incomes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         expenses = new ExpenseList();
         entries = new UniqueEntryList();
+        incomes = new IncomeList();
     }
 
     public AddressBook() {}
@@ -73,16 +77,26 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addEntry(Entry p) {
-        entries.add(p);
+    public void addEntry(Entry entry) {
+        entries.add(entry);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a specified Expense to the finance app.
+     * @param expense the specified Expense to be added.
      */
-    public void addExpense(Expense p) {
-        expenses.add(p);
+    public void addExpense(Expense expense) {
+        entries.add(expense);
+        expenses.add(expense);
+    }
+
+    /**
+     * Adds the specified Income to the finance app.
+     * @param income the specified Income to be added.
+     */
+    public void addIncome(Income income) {
+        entries.add(income);
+        incomes.add(income);
     }
 
     /**

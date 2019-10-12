@@ -17,16 +17,16 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a entry to the finance tracker. "
             + "Parameters: "
             + PREFIX_DESC + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESC + "John Doe "
+            + PREFIX_DESC + "deck mala "
             + PREFIX_AMOUNT + "5.50 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "food "
+            + PREFIX_TAG + "mala";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 

@@ -22,16 +22,16 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  *
  * @see Person#isSamePerson(Person)
  */
-public class ExpenseList implements Iterable<Expense> {
+public class IncomeList implements Iterable<Income> {
 
-    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Expense> internalUnmodifiableList =
+    private final ObservableList<Income> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Income> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Expense toCheck) {
+    public boolean contains(Income toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameEntry);
     }
@@ -40,7 +40,7 @@ public class ExpenseList implements Iterable<Expense> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Expense toAdd) {
+    public void add(Income toAdd) {
         requireNonNull(toAdd);
 
         internalList.add(toAdd);
@@ -51,33 +51,33 @@ public class ExpenseList implements Iterable<Expense> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setExpense(Expense target, Expense editedExpense) {
-        requireAllNonNull(target, editedExpense);
+    public void setIncome(Income target, Income editedIncome) {
+        requireAllNonNull(target, editedIncome);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EntryNotFoundException();
         }
 
-        if (!target.equals(editedExpense) && contains(editedExpense)) {
+        if (!target.equals(editedIncome) && contains(editedIncome)) {
             throw new DuplicateEntryException();
         }
 
-        internalList.set(index, editedExpense);
+        internalList.set(index, editedIncome);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Expense toRemove) {
+    public void remove(Income toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
     }
 
-    public void setEntries(ExpenseList replacement) {
+    public void setEntries(IncomeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,7 +86,7 @@ public class ExpenseList implements Iterable<Expense> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Expense> entries) {
+    public void setEntries(List<Income> entries) {
         requireAllNonNull(entries);
 
         internalList.setAll(entries);
@@ -95,20 +95,20 @@ public class ExpenseList implements Iterable<Expense> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Expense> asUnmodifiableObservableList() {
+    public ObservableList<Income> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Expense> iterator() {
+    public Iterator<Income> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExpenseList // instanceof handles nulls
-                && internalList.equals(((ExpenseList) other).internalList));
+                || (other instanceof IncomeList // instanceof handles nulls
+                && internalList.equals(((IncomeList) other).internalList));
     }
 
     @Override

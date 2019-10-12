@@ -5,15 +5,15 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Expense.
+ * Represents an Income.
  */
-public class Expense extends Entry {
+public class Income extends Entry {
 
-    private static final String ENTRY_TYPE = "Expense";
+    private static final String ENTRY_TYPE = "Income";
     private final Time time;
 
-    public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, amount, tags);
+    public Income(Description desc, Amount amt, Time time, Set<Tag> tags) {
+        super(desc, amt, tags);
         this.time = time;
     }
 
@@ -26,7 +26,7 @@ public class Expense extends Entry {
     }
 
     /**
-     * Returns true if both expenses have the same data fields.
+     * Returns true if both incomes have the same data fields.
      * This defines a stronger notion of equality between two entries.
      */
     @Override
@@ -35,15 +35,15 @@ public class Expense extends Entry {
             return true;
         }
 
-        if (!(other instanceof Expense)) {
+        if (!(other instanceof Income)) {
             return false;
         }
 
-        Expense otherExpense = (Expense) other;
-        return otherExpense.getDesc().equals(getDesc())
-                && otherExpense.getAmount().equals(getAmount())
-                && otherExpense.getTags().equals(getTags())
-                && otherExpense.getTime().equals(getTime());
+        Income otherIncome = (Income) other;
+        return otherIncome.getDesc().equals(getDesc())
+                && otherIncome.getAmount().equals(getAmount())
+                && otherIncome.getTags().equals(getTags())
+                && otherIncome.getTime().equals(getTime());
     }
 
     @Override
