@@ -8,16 +8,14 @@ import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.View;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for GotoCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for GotoContactsCommand.
  */
-public class GotoCommandTest {
+public class GotoContactsCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -29,15 +27,15 @@ public class GotoCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() throws ParseException {
-        assertCommandSuccess(new GotoCommand(new View("contacts", 1)), model,
-                GotoCommand.MESSAGE_SUCCESS, expectedModel);
+    public void execute_listIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new GotoContactsCommand("contacts"), model,
+                GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() throws ParseException {
+    public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new GotoCommand(new View("contacts", 1)), model,
-                GotoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new GotoContactsCommand("contacts"), model,
+                GotoContactsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
