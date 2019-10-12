@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +16,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueCheatSheetList cheatSheets;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        cheatSheets = new UniqueCheatSheetList();
     }
 
     public AddressBook() {}
@@ -104,6 +107,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    //=============================CheatSheet tools====================================================
+
+    /**
+     * Adds a cheatSheet to the cheatSheet book.
+     * The cheatSheet must not already exist in the cheatSheet book.
+     */
+    public void addCheatSheet(CheatSheet cs) {
+        cheatSheets.add(cs);
     }
 
     @Override
