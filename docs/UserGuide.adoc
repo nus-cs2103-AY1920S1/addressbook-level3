@@ -22,8 +22,7 @@ Budget Buddy is for computing students who prefer to use a desktop app to manage
 More importantly, Budget Buddy is *optimized for those who prefer to work with a Command Line Interface* (CLI)
 while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
-Furthermore, Budget Buddy allows computing students to add their own functions through customized JavaScript files,
-as well as a set of rules to simplify expense tracking.
+Furthermore, computing students can take full advantage of Budget Buddy by adding their own functions through custom JavaScript files.
 
 == Quick Start
 
