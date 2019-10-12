@@ -2,12 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Event;
@@ -70,11 +70,11 @@ public class ParserUtil {
         LocalDateTime formattedDateTime;
 
         try {
-            formattedDateTime = LocalDateTime.parse(trimmedDateTime);
+            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
         } catch (DateTimeParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
-                    + "Please follow this format: \"-d 2018-12-30T19:34:50.63\"");
-            //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
+                    + "Please follow this format: \"-d 2019-09-25T23:59:50.63\""
+                    + "or \"-d 25/09/2019 2359\"");
         }
 
         Event newEvent = new Event(formattedDateTime, null, null);
@@ -98,11 +98,11 @@ public class ParserUtil {
         LocalDateTime formattedDateTime;
 
         try {
-            formattedDateTime = LocalDateTime.parse(trimmedDateTime);
+            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
         } catch (DateTimeParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
-                    + "Please follow this format: \"-r 2018-12-30T19:34:50.63\"");
-            //throw new ParseException(Event.MESSAGE_CONSTRAINTS);
+                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
+                    + "or \"-r 25/09/2019 2359\"");
         }
 
         Reminder newReminder = new Reminder(formattedDateTime);
@@ -163,5 +163,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    private static LocalDateTime getFormattedDateTime(String stringDateTime) throws DateTimeParseException {
+        LocalDateTime processedDateTime;
+
+        try {
+            processedDateTime = LocalDateTime.parse(stringDateTime);
+        } catch (DateTimeParseException e1) {
+            try {
+                processedDateTime = parseUsingFormatter(stringDateTime);
+            }
+            catch (Exception e2) {
+                throw new DateTimeParseException(e2.getMessage(), stringDateTime, 0);
+            }
+        }
+
+        return processedDateTime;
+    }
+
+    private static LocalDateTime parseUsingFormatter(String stringDateTime) {
+        String[] splitTime = stringDateTime.split(" ");
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate processedDate = LocalDate.parse(splitTime[0], dateFormatter);
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime processedTime = LocalTime.parse(splitTime[1], timeFormatter);
+
+        LocalDateTime processedDateTime = LocalDateTime.of(processedDate, processedTime);
+        return processedDateTime;
     }
 }
