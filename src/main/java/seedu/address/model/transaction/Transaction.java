@@ -34,7 +34,6 @@ public class Transaction {
         this.date = date;
         this.amount = amount;
         this.direction = direction;
-        this.amount = amount;
         this.description = description;
         this.categories.addAll(categories);
     }
