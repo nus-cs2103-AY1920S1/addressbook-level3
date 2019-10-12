@@ -7,12 +7,16 @@ public class Day {
     private DayOfWeek dayOfWeek;
     private int day;
 
-    Day(DayOfWeek dayOfWeek, int day) {
+    private Day(DayOfWeek dayOfWeek, int day) {
         this.dayOfWeek = dayOfWeek;
         this.day = day;
     }
 
-    int getDay() {
+    static Day getOneBased(DayOfWeek dayOfWeek, int dayZeroBased) {
+        return new Day(dayOfWeek, dayZeroBased + 1);
+    }
+
+    int getDayAsNum() {
         return day;
     }
 

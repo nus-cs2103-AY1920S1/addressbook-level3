@@ -1,5 +1,8 @@
 package seedu.address.calendar.model;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 enum DayOfWeek {
     SUN(0),
     MON(1),
@@ -17,5 +20,17 @@ enum DayOfWeek {
 
     int getNumericalVal() {
         return numericalVal;
+    }
+
+    static DayOfWeek of(int numericalVal) {
+        Optional<DayOfWeek> desiredDay = Stream.of(DayOfWeek.values())
+                .filter(d -> d.numericalVal == numericalVal)
+                .findAny();
+
+        if (desiredDay.isEmpty()) {
+            assert false : "All days should be represented by some value between 0 and 6 inclusive";
+        }
+
+        return desiredDay.get();
     }
 }
