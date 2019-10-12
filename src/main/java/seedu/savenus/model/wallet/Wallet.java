@@ -108,4 +108,12 @@ public class Wallet {
         return "Current Budget: " + this.getRemainingBudgetAmount() + "\n"
                 + "Days to Expire: " + this.getNumberOfDaysToExpire();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Wallet // instanceof handles nulls
+                && getRemainingBudget().equals(((Wallet) other).getRemainingBudget()) // state check
+                && getDaysToExpire().equals(((Wallet) other).getDaysToExpire())); // state check
+    }
 }

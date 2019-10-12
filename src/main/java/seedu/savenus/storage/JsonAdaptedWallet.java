@@ -26,9 +26,6 @@ class JsonAdaptedWallet {
                              @JsonProperty("daysToExpire") String daysToExpire) {
         this.remainingBudget = remainingBudget;
         this.daysToExpire = daysToExpire;
-        System.out.println("BUDGET: " + remainingBudget);
-        System.out.println("DAYS: " + daysToExpire);
-
     }
 
     /**
