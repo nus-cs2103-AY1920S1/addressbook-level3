@@ -62,8 +62,10 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
 
         // To change null into random UUID generated.
         // Put random order in to not let it be null
-        Customer c = new Customer(new CustomerName("Jack"), new ContactNumber("12345678"), new Email("jack@email.com"), new HashSet<>());
-        Phone p = new Phone(new PhoneName("Galaxy S10"), new Brand("Samsung"), Capacity.SIZE_8GB, new Colour("Blue"), new Cost("$121"), new HashSet<>());
+        Customer c = new Customer(new CustomerName("Jack"), new ContactNumber("12345678"), new Email("jack@email.com"),
+                new HashSet<>());
+        Phone p = new Phone(new PhoneName("Galaxy S10"), new Brand("Samsung"), Capacity.SIZE_8GB, new Colour("Blue"),
+                new Cost("$121"), new HashSet<>());
         Order o = new Order(c, p, new Price("$1000"), Status.UNSCHEDULED, null, new HashSet<>());
         Schedule schedule = new Schedule(o, calendar, venue, tagList);
 

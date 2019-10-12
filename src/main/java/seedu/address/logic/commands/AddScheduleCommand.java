@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
@@ -12,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
+//import seedu.address.model.order.Status;
 import seedu.address.model.schedule.Schedule;
 
 /**
@@ -58,7 +58,7 @@ public class AddScheduleCommand extends Command {
 
         List<Order> lastShownList = model.getFilteredOrderList();
 
-        /**
+        /*
         if (model.hasSchedule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         } else if (orderIndex.getZeroBased() >= lastShownList.size()) {

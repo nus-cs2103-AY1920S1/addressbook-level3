@@ -1,6 +1,6 @@
 package seedu.address.ui.panels;
 
-import  java.util.logging.Logger;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
