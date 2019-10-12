@@ -15,6 +15,7 @@ import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -61,6 +62,9 @@ public class MenuParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case RecommendCommand.COMMAND_WORD:
+            return new RecommendCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
