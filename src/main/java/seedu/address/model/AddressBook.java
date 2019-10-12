@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -115,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a cheatSheet to the cheatSheet book.
      * The cheatSheet must not already exist in the cheatSheet book.
      */
-    public void addCheatSheet(CheatSheet cs) {
+    public void addCheatSheet(seedu.address.model.cheatsheet.CheatSheet cs) {
         cheatSheets.add(cs);
     }
 
