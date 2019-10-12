@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS = "Description should only contain alphanumeric characters and "
-            + "spaces, and should not be blank!";
+            + "spaces, and should not be blank! The first character should be a alphanumeric character.";
 
     /*
      * The first character of the description must not be a whitespace to prevent " " (a blank string) from becoming
