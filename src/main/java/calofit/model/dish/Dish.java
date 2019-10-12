@@ -58,21 +58,25 @@ public class Dish {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both dishes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two dishes.
      */
     public boolean isSameDish(Dish otherDish) {
         if (otherDish == this) {
             return true;
         }
 
-//        return otherDish != null
-//                && otherDish.getName().equals(getName());
+        //return otherDish != null && otherDish.getName().equals(getName());
 
         return otherDish != null
                 && otherDish.getName().equals(getName())
                 && otherDish.getCalories().equals(getCalories());
     }
+
+    /**
+     * Returns true if both dishes have the same name
+     * This defines a weaker notion of equality between two dishes.
+     */
 
     public boolean isSameDishName(Dish otherDish) {
         if (otherDish == this) {
@@ -84,8 +88,8 @@ public class Dish {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both dishes have the same identity and data fields.
+     * This defines a stronger notion of equality between two dishes.
      */
     @Override
     public boolean equals(Object other) {

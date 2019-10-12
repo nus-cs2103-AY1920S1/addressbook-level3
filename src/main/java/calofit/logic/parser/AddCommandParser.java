@@ -35,7 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Calorie calories;
-        if(argMultimap.getValue(PREFIX_CALORIES).isPresent()){
+        if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
             calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
         } else {
             calories = ParserUtil.parseCalorie("700");

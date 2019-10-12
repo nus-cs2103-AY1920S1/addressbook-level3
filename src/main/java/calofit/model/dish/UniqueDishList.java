@@ -37,12 +37,19 @@ public class UniqueDishList implements Iterable<Dish> {
         return internalList.stream().anyMatch(toCheck::isSameDish);
     }
 
+    /**
+     * Returns true if the list contains a dish with the same name as the given argument.
+     */
+
     public boolean containsDishName(Dish toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameDishName);
     }
 
-    public Dish getDishByName(Dish get){
+    /**
+     * Get the dish by name from the dish database
+     */
+    public Dish getDishByName(Dish get) {
         requireNonNull(get);
         boolean foundDish = false;
         for (int i = 0; i < internalList.size(); i++) {
