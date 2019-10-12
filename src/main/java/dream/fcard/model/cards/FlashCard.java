@@ -1,11 +1,12 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.util.json.JsonInterface;
 import javafx.scene.Node;
 
 /**
  * Interface all flash card types must implement.
  */
-public interface FlashCard {
+public interface FlashCard extends JsonInterface {
 
     /**
      * Returns render of front of this flash card.

@@ -2,8 +2,11 @@ package dream.fcard.model;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.jsontypes.JsonArray;
+import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 import javafx.scene.Node;
@@ -14,18 +17,29 @@ import javafx.scene.Node;
 public class Deck implements JsonInterface {
 
     private ArrayList<FlashCard> cards;
+    private String name;
 
-    public Deck () {
+    public Deck (String deckName) {
+        name = deckName;
         cards = new ArrayList<>();
     }
 
-    public Deck(ArrayList<FlashCard> initialCards) {
+    public Deck(String deckName, ArrayList<FlashCard> initialCards) {
+        name = deckName;
         cards = initialCards;
     }
 
     @Override
     public JsonValue toJson() {
-        return null;
+        JsonArray cardJson = new JsonArray();
+        for (FlashCard card : cards) {
+            cardJson.add(card.toJson());
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.DECK_NAME, name);
+        obj.put(Schema.DECK_CARDS, cardJson);
+        return new JsonValue(obj);
     }
 
     /**
@@ -42,5 +56,9 @@ public class Deck implements JsonInterface {
      */
     public Node renderTileView() {
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 }
