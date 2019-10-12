@@ -110,9 +110,14 @@ public class TestExecutor {
     }
 
     private TestCaseResult getTestCaseResultFromProgramOutput(TestCase testcase, ProgramOutput output) {
+        if (output.getRuntimeError().isPresent()) {
+            String expected = testcase.getExpectedResult();
+            String errorMessage = output.getRuntimeError().get().getErrorMessage();
+            return TestCaseResult.getErroredTestCaseResult(expected, errorMessage);
+        }
+
         String expected = testcase.getExpectedResult();
         String actual = output.getOutput();
-
         if (expected.equals(actual)) {
             return new TestCaseResult(true, expected, actual);
         } else {

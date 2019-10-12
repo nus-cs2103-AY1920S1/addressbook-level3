@@ -101,34 +101,36 @@ class TestExecutorTest {
         System.out.println();
     }
 
-//    @Test
-//    public void testRuntimeError() throws IOException, TestExecutorException {
-//        System.out.println("Running programs that should throw runtime error...\n");
-//
-//        System.out.println("IndexOutOfBoundsException: ");
-//        Path programPath = Paths.get("src", "test", "data",
-//                "TestPrograms", "errors", "indexoutofbounds.txt");
-//        UserProgram program = new UserProgram("Main" , Files.readString(programPath));
-//
-//
-//        TestCase mockTestCase = new TestCase("", "");
-//        List<TestCase> mockTestCases = new ArrayList<>();
-//        mockTestCases.add(mockTestCase);
-//        mockTestCases.add(mockTestCase);
-//        mockTestCases.add(mockTestCase);
-//
-//        TestExecutorResult results = executor.runTestCases(mockTestCases, program);
-//        assertTrue(results.getCompileError().isEmpty());
-//        assertEquals(0, results.getNumPassed());
-//
-//        IntStream.range(0, 3).forEach(index -> {
-//            TestCaseResult result = results.getResults().get(index);
-//            assertFalse(result.isSuccessful());
-//
-//            System.out.println("Error for test case " + index + ":");
-//            System.out.println(result.getActualOutput());
-//        });
-//    }
+    @Test
+    public void testRuntimeError() throws IOException, TestExecutorException {
+        System.out.println("Running programs that should throw runtime error...\n");
+
+        System.out.println("IndexOutOfBoundsException:\n");
+        Path programPath = Paths.get("src", "test", "data",
+                "TestPrograms", "errors", "indexoutofbounds.txt");
+        UserProgram program = new UserProgram("Main" , Files.readString(programPath));
+
+
+        TestCase mockTestCase = new TestCase("", "");
+        List<TestCase> mockTestCases = new ArrayList<>();
+        mockTestCases.add(mockTestCase);
+        mockTestCases.add(mockTestCase);
+        mockTestCases.add(mockTestCase);
+
+        TestExecutorResult results = executor.runTestCases(mockTestCases, program);
+        assertTrue(results.getCompileError().isEmpty());
+        assertEquals(0, results.getNumPassed());
+
+        IntStream.range(0, 3).forEach(index -> {
+            TestCaseResult result = results.getResults().get(index);
+            assertFalse(result.isSuccessful());
+            assertTrue(result.getRuntimeError().isPresent());
+
+            System.out.println("Error for test case " + index + ":");
+            System.out.println(result.getRuntimeError().get().getErrorMessage());
+            System.out.println();
+        });
+    }
 
     private List<TestCase> loadTestCases(Path rootFolder) throws IOException {
         String test1 = Files.readString(rootFolder.resolve("test1.txt"));
