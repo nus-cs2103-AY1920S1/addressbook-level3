@@ -1,5 +1,8 @@
 package seedu.billboard.model.statistics;
 
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,6 +38,9 @@ public class ExpenseTimeline {
      */
     public ExpenseTimeline(DateRange dateRange, DateInterval dateInterval, List<Amount> aggregateExpenses)
             throws IllegalValueException {
+
+        requireAllNonNull(dateRange, dateInterval, aggregateExpenses);
+
         this.dateRange = dateRange;
         this.dateInterval = dateInterval;
         this.timelineIntervals = dateRange.partitionByInterval(dateInterval);
@@ -71,12 +77,14 @@ public class ExpenseTimeline {
 
     /**
      * Map representing the aggregate expenses over a timeline. The keys are {@code DateRange}s with duration equal to
-     * the given interval, and the values are the aggregate expenses over that date range.
+     * the given interval, and the values are the aggregate expenses over that date range. The output map has a
+     * predictable chronological ordering when iterated.
      * @return Map representing the timeline.
      */
     public Map<DateRange, Amount> getTimeline() {
         return IntStream.range(0, timelineIntervals.size())
                 .boxed()
-                .collect(Collectors.toMap(timelineIntervals::get, aggregateExpenses::get));
+                .collect(Collectors.toMap(timelineIntervals::get, aggregateExpenses::get,
+                        Amount::add, LinkedHashMap::new));
     }
 }

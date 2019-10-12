@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-import seedu.billboard.commons.exceptions.IllegalValueException;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -15,6 +12,10 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.billboard.commons.exceptions.IllegalValueException;
+
 
 public class DateRangeTest {
 
@@ -22,7 +23,7 @@ public class DateRangeTest {
     private LocalDate endDate = LocalDate.of(2019, 4, 13);
 
     @Test
-    public void constructor_GivenValidDates_ReturnsEquivalentDateRange() throws IllegalValueException {
+    public void constructor_givenValidDates_returnsEquivalentDateRange() throws IllegalValueException {
         DateRange dateRange = new DateRange(startDate, endDate);
 
         assertEquals(startDate, dateRange.getStartDate());
@@ -35,12 +36,12 @@ public class DateRangeTest {
     }
 
     @Test
-    public void constructor_GivenEndDateEarlierThanStartDate_ThrowsException() {
+    public void constructor_givenEndDateEarlierThanStartDate_throwsException() {
         assertThrows(IllegalValueException.class, () -> new DateRange(endDate, startDate));
     }
 
     @Test
-    public void partitionByInterval_WeeklyInterval_ExpectedList() throws IllegalValueException {
+    public void partitionByInterval_weeklyInterval_expectedList() throws IllegalValueException {
         DateRange dateRange = new DateRange(startDate, endDate);
         DateInterval weekInterval = DateInterval.WEEK;
 
@@ -62,7 +63,7 @@ public class DateRangeTest {
         }
     }
 
-    @Test void partitionByInterval_MonthlyInterval_ExpectedList() throws IllegalValueException {
+    @Test void partitionByInterval_monthlyInterval_expectedList() throws IllegalValueException {
         LocalDate startDate = LocalDate.of(2018, Month.DECEMBER, 6);
         LocalDate endDate = LocalDate.of(2019, Month.FEBRUARY, 13);
         DateRange range = new DateRange(startDate, endDate);
@@ -90,7 +91,7 @@ public class DateRangeTest {
 
 
     @Test
-    public void partitionByInterval_IntervalLargerThanDateRange_ListOfSizeOne() throws IllegalValueException {
+    public void partitionByInterval_intervalLargerThanDateRange_listOfSizeOne() throws IllegalValueException {
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 1),
                 LocalDate.of(2019, 1, 2));
         DateInterval yearInterval = DateInterval.YEAR;

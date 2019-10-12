@@ -2,13 +2,13 @@ package seedu.billboard.commons.core.date;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.billboard.commons.exceptions.IllegalValueException;
-
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import seedu.billboard.commons.exceptions.IllegalValueException;
 
 
 /**
@@ -72,6 +72,12 @@ public class DateRange {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Creates a date range starting at the given start date, and lasting for as long as the given period.
+     * @param startDate Given start date.
+     * @param period Period the date range should last for.
+     * @return the newly created date range.
+     */
     private DateRange dateRangeOverPeriod(LocalDate startDate, Period period) {
         try {
             return new DateRange(startDate, startDate.plus(period).minus(Period.ofDays(1)));
@@ -79,6 +85,12 @@ public class DateRange {
             // should never happen
             return null;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(startDate, endDate);
     }
 
     @Override
