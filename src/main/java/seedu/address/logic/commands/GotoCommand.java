@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.*;
 
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.View;
@@ -48,11 +50,11 @@ public class GotoCommand extends Command {
             //message = "contacts listed";
             return new CommandResult(MESSAGE_SUCCESS);
         } else if (gotoView.getIndex() == 2) { //case of claims
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
             //message = "claims listed";
             return new CommandResult(MESSAGE_SUCCESS);
         } else if (gotoView.getIndex() == 3) { //case of income
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             //message = "nothing";

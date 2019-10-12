@@ -32,7 +32,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class FinSecParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final FinSecParser parser = new FinSecParser();
 
     @Test
     public void parseCommand_add() throws Exception {
