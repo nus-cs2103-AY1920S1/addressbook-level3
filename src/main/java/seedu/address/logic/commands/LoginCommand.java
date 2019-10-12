@@ -37,7 +37,7 @@ public class LoginCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
         model.setSession(model.getFilteredPersonList().get(0)); // Sets session to person remaining in list
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override

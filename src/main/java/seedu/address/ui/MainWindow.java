@@ -167,6 +167,14 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Swaps the Persons view for Incidents and Vehicles.
+     */
+    @FXML
+    public void handleLogin() {
+        // TODO: Implement Login GUI Effect
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -192,6 +200,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isLogin()) {
+                handleLogin();
             }
 
             return commandResult;
