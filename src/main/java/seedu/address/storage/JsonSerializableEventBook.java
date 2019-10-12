@@ -14,12 +14,12 @@ import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.event.Event;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable EventBook that is serializable to JSON format.
  */
 @JsonRootName(value = "eventbook")
 class JsonSerializableEventBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EVENTS = "Events list contains duplicate event(s).";
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 
     /**
@@ -49,7 +49,7 @@ class JsonSerializableEventBook {
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {
             Event event = jsonAdaptedEvent.toModelType();
             if (eventBook.hasEvent(event)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENTS);
             }
             eventBook.addEvent(event);
         }

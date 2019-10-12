@@ -69,7 +69,8 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
         eventModel = initModelManager(storage, userPrefs);
-        logic = new LogicManager(model, eventModel, storage);
+        //logic = new LogicManager(model, eventModel, storage);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
@@ -87,11 +88,16 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             eventBookOptional = storage.readEventBook();
+
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
+            if (!eventBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample EventBook");
+            }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialEventData = eventBookOptional.orElseGet(SampleDataUtil::getSampleEventBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
@@ -104,25 +110,6 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData, initialEventData, userPrefs);
     }
-
-    /*private EventModelManager initEventModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyEventBook> eventBookOptional;
-        ReadOnlyEventBook initialData;
-        try {
-            eventBookOptional = storage.readEventBook();
-            if (!eventBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = eventBookOptional.orElseGet(SampleDataUtil::getSampleEventBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty EventBook");
-            initialData = new EventBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty EventBook");
-            initialData = new EventBook();
-        }
-        return new ModelManager(initialData, userPrefs);
-    }*/
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
