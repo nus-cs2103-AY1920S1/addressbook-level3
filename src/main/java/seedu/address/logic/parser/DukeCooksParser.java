@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDiaryCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -45,7 +45,7 @@ public class DukeCooksParser {
         case AddDiaryCommand.COMMAND_WORD:
             return new AddDiaryCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditDiaryCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case DeleteDiaryCommand.COMMAND_WORD:

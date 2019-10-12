@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditDiaryDescriptor;
+import seedu.address.logic.commands.EditDiaryCommand;
+import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.Name;
 
@@ -10,10 +10,10 @@ import seedu.address.model.diary.Name;
  */
 public class EditDiaryDescriptorBuilder {
 
-    private EditCommand.EditDiaryDescriptor descriptor;
+    private EditDiaryCommand.EditDiaryDescriptor descriptor;
 
     public EditDiaryDescriptorBuilder() {
-        descriptor = new EditCommand.EditDiaryDescriptor();
+        descriptor = new EditDiaryCommand.EditDiaryDescriptor();
     }
 
     public EditDiaryDescriptorBuilder(EditDiaryDescriptor descriptor) {
@@ -24,7 +24,7 @@ public class EditDiaryDescriptorBuilder {
      * Returns an {@code EditDiaryDescriptor} with fields containing {@code diary}'s details
      */
     public EditDiaryDescriptorBuilder(Diary diary) {
-        descriptor = new EditCommand.EditDiaryDescriptor();
+        descriptor = new EditDiaryCommand.EditDiaryDescriptor();
         descriptor.setName(diary.getName());
     }
 
@@ -36,7 +36,7 @@ public class EditDiaryDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditDiaryDescriptor build() {
+    public EditDiaryCommand.EditDiaryDescriptor build() {
         return descriptor;
     }
 }

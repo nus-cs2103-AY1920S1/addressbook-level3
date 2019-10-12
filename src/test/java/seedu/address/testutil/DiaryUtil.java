@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.AddDiaryCommand;
-import seedu.address.logic.commands.EditCommand.EditDiaryDescriptor;
+import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.model.diary.Diary;
 
 /**

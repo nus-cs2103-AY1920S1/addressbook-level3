@@ -32,8 +32,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditDiaryDescriptor DESC_AMY;
-    public static final EditCommand.EditDiaryDescriptor DESC_BOB;
+    public static final EditDiaryCommand.EditDiaryDescriptor DESC_AMY;
+    public static final EditDiaryCommand.EditDiaryDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY).build();

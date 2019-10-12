@@ -23,7 +23,7 @@ public class AddDiaryCommandParserTest {
         Diary expectedDiary = new DiaryBuilder(BOB).build();
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB, new AddDiaryCommand(expectedDiary));
+        assertParseSuccess(parser, NAME_DESC_BOB, new AddDiaryCommand(expectedDiary));
     }
 
     @Test

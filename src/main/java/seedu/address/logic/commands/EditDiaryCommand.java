@@ -17,7 +17,7 @@ import seedu.address.model.diary.Name;
 /**
  * Edits the details of an existing diary in Duke Cooks.
  */
-public class EditCommand extends Command {
+public class EditDiaryCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -39,7 +39,7 @@ public class EditCommand extends Command {
      * @param index of the diary in the filtered diary list to edit
      * @param editDiaryDescriptor details to edit the diary with
      */
-    public EditCommand(Index index, EditDiaryDescriptor editDiaryDescriptor) {
+    public EditDiaryCommand(Index index, EditDiaryDescriptor editDiaryDescriptor) {
         requireNonNull(index);
         requireNonNull(editDiaryDescriptor);
 
@@ -88,12 +88,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditDiaryCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditDiaryCommand e = (EditDiaryCommand) other;
         return index.equals(e.index)
                 && editDiaryDescriptor.equals(e.editDiaryDescriptor);
     }
