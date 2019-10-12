@@ -3,12 +3,15 @@ package seedu.address.model.transaction.stub;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * A stub class to represent a description of a Transaction.
+ */
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Description should not be null.";
 
-    public String description;
+    private String description;
 
     public Description(String description) {
         requireNonNull(description);
@@ -16,17 +19,21 @@ public class Description {
         this.description = description;
     }
 
-    boolean isValidDescription(String description){
+    boolean isValidDescription(String description) {
         return description != null;
     }
 
-    @Override
-    public String toString(){
+    public String getDescription() {
         return description;
     }
 
     @Override
-    public boolean equals(Object other){
+    public String toString() {
+        return description;
+    }
+
+    @Override
+    public boolean equals(Object other) {
         return other == this
                 || (other instanceof Description && description == ((Description) other).description);
     }
