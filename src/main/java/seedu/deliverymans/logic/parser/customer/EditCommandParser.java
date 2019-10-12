@@ -12,9 +12,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.tag.Tag;
+import seedu.deliverymans.logic.commands.customer.EditCommand;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
@@ -26,14 +25,15 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
+
     public EditCommand parse(String args) throws ParseException {
+        /*
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
@@ -63,6 +63,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editPersonDescriptor);
+         */
+
+        return new EditCommand();
     }
 
     /**

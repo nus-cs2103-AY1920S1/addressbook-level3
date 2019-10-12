@@ -1,14 +1,11 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.addressbook;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * The API of the Model component.
@@ -87,46 +84,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    //=========== Customer methods =============================================================
-
-    /**
-     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
-     */
-    //boolean hasCustomer(Customer customer);
-
-    /**
-     * Deletes the given customer.
-     * The customer must exist in the address book.
-     */
-    //void deleteCustomer(Customer target);
-
-    /**
-     * Adds the given customer.
-     * {@code customer} must not already exist in the address book.
-     */
-    //void addCustomer(Customer customer);
-
-    /**
-     * Replaces the given customer {@code target} with {@code editedCustomer}.
-     * {@code target} must exist in the address book.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the address
-     * book.
-     */
-    //void setCustomer(Customer target, Customer editedCustomer);
-
-    //=========== Deliveryman Methods =============================================================
-
-    /**
-     * Returns true if a deliveryman with the same identity as {@code deliveryman} exists in the deliveryman book.
-     */
-    boolean hasDeliveryman(Deliveryman deliveryman);
-
-    /**
-     * Adds the given customer.
-     * {@code customer} must not already exist in the address book.
-     */
-    void addDeliveryman(Deliveryman deliveryman);
-
-
 }

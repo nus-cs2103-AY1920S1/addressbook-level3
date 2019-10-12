@@ -1,4 +1,4 @@
-package seedu.deliverymans.logic.parser;
+package seedu.deliverymans.logic.parser.addressbook;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,8 +11,8 @@ import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.StringUtil;
-import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.Name;
+import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
+import seedu.deliverymans.model.addressbook.person.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
