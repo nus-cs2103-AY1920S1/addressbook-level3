@@ -70,7 +70,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet>{
         }
     }
 
-    public void setPersons(UniqueCheatSheetList replacement) {
+    public void setCheatSheets(UniqueCheatSheetList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }

@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCheatSheetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -44,9 +46,9 @@ public class AddCheatSheetCommandParser implements Parser<AddCheatSheetCommand> 
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
-
-        return new AddCheatSheetCommand(person);
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
+        CheatSheet cheatSheet = new CheatSheet(title, tagList);
+        return new AddCheatSheetCommand(cheatSheet);
     }
 
     /**

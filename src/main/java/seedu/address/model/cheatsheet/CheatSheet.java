@@ -31,6 +31,14 @@ public class CheatSheet {
         this.tags.addAll(tags);
     }
 
+    // temporary cheatsheet constructor, just title and tags
+
+    public CheatSheet(Title title, Set<Tag> tags) {
+        requireAllNonNull(title, tags);
+        this.title = title;
+        this.tags.addAll(tags);
+    }
+
     public Title getTitle() {
         return title;
     }
