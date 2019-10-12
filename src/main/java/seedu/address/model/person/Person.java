@@ -85,7 +85,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same name and nric.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -103,6 +103,24 @@ public class Person {
      */
     public boolean hasPolicy(Policy policy) {
         return this.policies.contains((Policy) policy);
+    }
+
+    /**
+     * Returns true if both persons of the same compulsory fields.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean hasEqualCompulsoryFields(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getName().equals(getName())
+                && otherPerson.getNric().equals(getNric())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getDateOfBirth().equals(getDateOfBirth());
     }
 
     /**

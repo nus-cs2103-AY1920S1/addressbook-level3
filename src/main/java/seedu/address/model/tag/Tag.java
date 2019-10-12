@@ -11,6 +11,7 @@ public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "[a-z\\d\\-_\\s]+";
+    public static final String DATA_TYPE = "TAG";
 
     public final String tagName;
 

@@ -14,6 +14,7 @@ public class Nric {
                     + "NRICs should only contain alphanumeric characters. It should start with S, T, F or G"
                     + " followed by 6 numerical numbers and a checksum letter. It should not be blank.\n";
 
+    public static final String DATA_TYPE = "NRIC";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

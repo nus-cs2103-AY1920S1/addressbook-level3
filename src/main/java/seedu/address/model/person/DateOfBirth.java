@@ -20,6 +20,8 @@ public class DateOfBirth {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d LLLL Y");
 
+    public static final String DATA_TYPE = "DATE OF BIRTH";
+
     public final LocalDate dateOfBirth;
     public final String value;
 

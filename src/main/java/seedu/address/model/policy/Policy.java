@@ -18,6 +18,8 @@ public class Policy {
     public static final String MESSAGE_CONSTRAINTS =
             "This policy is not available.";
 
+    public static final String DATA_TYPE = "POLICY";
+
     private final PolicyName name;
     private final Description description;
     private final Coverage coverage;
