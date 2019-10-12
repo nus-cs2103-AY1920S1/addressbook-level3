@@ -211,7 +211,6 @@ public class ParserUtil {
     public static Coverage parseCoverage (String coverage) throws ParseException {
         requireNonNull(coverage);
         String trimmedCoverage = coverage.trim();
-        System.out.println(trimmedCoverage);
         if (!Coverage.isValidCoverage(trimmedCoverage)) {
             throw new ParseException(Coverage.MESSAGE_CONSTRAINTS);
         }
@@ -262,4 +261,5 @@ public class ParserUtil {
         }
         return new EndAge(trimmedEndAge);
     }
+
 }
