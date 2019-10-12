@@ -171,9 +171,13 @@ public class ParserUtil {
         requireNonNull(calendar);
         String trimmedCalendar = calendar.trim();
 
-        String[] stringCalendar = trimmedCalendar.split(".");
+        String[] stringCalendar = trimmedCalendar.split("\\.");
+        String result = "";
+        for (String s: stringCalendar) {
+            result += s + " ";
+        }
         if (stringCalendar.length != 5) {
-            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+            throw new ParseException(MESSAGE_INVALID_CALENDAR + " YO " + result);
         }
 
         int[] input = new int[5];
@@ -184,7 +188,7 @@ public class ParserUtil {
             }
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], input[3], input[4]);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+            throw new ParseException(MESSAGE_INVALID_CALENDAR + "OOR");
         }
 
         return new Calendar.Builder().setDate(input[0], input[1], input[2])

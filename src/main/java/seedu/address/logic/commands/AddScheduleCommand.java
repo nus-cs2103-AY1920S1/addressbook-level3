@@ -22,14 +22,13 @@ public class AddScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "add-s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a schedule to an existing order in the SMl "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a schedule to an existing order in the SML "
             + "by the index number used in the displayed order list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_CALENDAR + "YYYY.MM.DD.HH.MM "
             + PREFIX_VENUE + "VENUE "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ORDER + "2 "
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CALENDAR + "2019.12.12.17.30 "
             + PREFIX_VENUE + "Changi Airport T3 "
             + PREFIX_TAG + "freebie ";
@@ -59,6 +58,7 @@ public class AddScheduleCommand extends Command {
 
         List<Order> lastShownList = model.getFilteredOrderList();
 
+        /**
         if (model.hasSchedule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         } else if (orderIndex.getZeroBased() >= lastShownList.size()) {
@@ -75,12 +75,13 @@ public class AddScheduleCommand extends Command {
             throw new CommandException(MESSAGE_ORDER_CANCELLED);
         default:
             // do nothing
-        }
+         }
 
         Order scheduledOrder = new Order(orderToSchedule.getCustomer(), orderToSchedule.getPhone(),
                 orderToSchedule.getPrice(), Status.SCHEDULED, toAdd, orderToSchedule.getTags());
 
         model.setOrder(orderToSchedule, scheduledOrder);
+         */
         model.addSchedule(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.SCHEDULE);
     }
