@@ -59,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        filteredPersons.setPredicate(AddressModel.PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //// person-level operations
