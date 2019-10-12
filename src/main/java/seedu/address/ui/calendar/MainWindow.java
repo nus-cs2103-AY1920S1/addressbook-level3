@@ -12,10 +12,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.quiz.Logic;
-import seedu.address.logic.quiz.commands.CommandResult;
-import seedu.address.logic.quiz.commands.exceptions.CommandException;
-import seedu.address.logic.quiz.parser.exceptions.ParseException;
+import seedu.address.logic.calendar.Logic;
+import seedu.address.logic.calendar.commands.CommandResult;
+import seedu.address.logic.calendar.commands.exceptions.CommandException;
+import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
 
 

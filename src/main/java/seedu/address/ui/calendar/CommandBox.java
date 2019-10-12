@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.logic.quiz.commands.CommandResult;
-import seedu.address.logic.quiz.commands.exceptions.CommandException;
-import seedu.address.logic.quiz.parser.exceptions.ParseException;
+import seedu.address.logic.calendar.commands.CommandResult;
+import seedu.address.logic.calendar.commands.exceptions.CommandException;
+import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
