@@ -7,6 +7,9 @@ import seedu.address.model.policy.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
 // TODO: test for PolicyBuilder
 /**
  * A utility class to help with building Policy objects.
@@ -19,6 +22,8 @@ public class PolicyBuilder {
     public static final String DEFAULT_PRICE = "$5000";
     public static final String DEFAULT_START_AGE = "65";
     public static final String DEFAULT_END_AGE = "95";
+    public static final Set<Tag> DEFAULT_CRITERIA = getCriteriaSet("diabetic");
+    public static final Set<Tag> DEFAULT_TAG = getTagSet("diabetic");
     // TODO: add criteria and tags
 
     private PolicyName name;
@@ -38,8 +43,8 @@ public class PolicyBuilder {
         startAge = new StartAge(DEFAULT_START_AGE);
         endAge = new EndAge(DEFAULT_END_AGE);
         // TODO: update
-        criteria = new HashSet<>();
-        tags = new HashSet<>();
+        criteria = DEFAULT_CRITERIA;
+        tags = DEFAULT_TAG;
     }
 
     /**
@@ -123,7 +128,7 @@ public class PolicyBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
      */
     public PolicyBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = getTagSet(tags);
         return this;
     }
 
@@ -131,7 +136,7 @@ public class PolicyBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
      */
     public PolicyBuilder withCriteria(String ... criteria) {
-        this.criteria = SampleDataUtil.getTagSet(criteria);
+        this.criteria = getCriteriaSet(criteria);
         return this;
     }
 
