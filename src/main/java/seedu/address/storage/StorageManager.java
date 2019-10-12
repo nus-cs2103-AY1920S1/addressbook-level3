@@ -95,12 +95,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
 
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
 
     }
 }

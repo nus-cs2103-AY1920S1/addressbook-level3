@@ -119,12 +119,16 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
-
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
+        saveCheatSheetBook(cheatSheetBook, cheatSheetFilePath);
     }
 
     @Override
-    public void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
+        requireNonNull(cheatSheetBook);
+        requireNonNull(filePath);
 
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), filePath);
     }
 }

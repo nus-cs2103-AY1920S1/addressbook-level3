@@ -61,13 +61,13 @@ public interface AddressBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param cheatSheetBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException;
+    void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException;
 
     /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveCheatSheet(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException;
+    void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException;
 }
