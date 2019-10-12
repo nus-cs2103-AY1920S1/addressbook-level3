@@ -1,14 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import seedu.address.model.ItemModel;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

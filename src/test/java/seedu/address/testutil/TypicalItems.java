@@ -12,14 +12,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_REMINDER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_2;
 
-
-import seedu.address.commons.core.item.Item;
-import seedu.address.model.item.ItemList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.core.item.Item;
+import seedu.address.model.item.ItemList;
 /**
  * A utility class containing a list of {@code Item} objects to be used in tests.
  */

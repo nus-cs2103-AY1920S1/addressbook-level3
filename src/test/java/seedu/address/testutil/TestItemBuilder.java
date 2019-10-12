@@ -3,13 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.item.Item;
-import seedu.address.commons.core.item.ItemDescription;
-import seedu.address.commons.core.item.Item.ItemBuilder;
 import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Item.ItemBuilder;
+import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -81,6 +80,10 @@ public class TestItemBuilder {
         return this;
     }
 
+    /**
+     * Builds a new Item object with the given descriptions
+     * @return a new Item with the given descriptors
+     */
     public Item build() {
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(description);
@@ -98,7 +101,13 @@ public class TestItemBuilder {
         return newItem;
     }
 
-
+    /**
+     * Processes a {@code datetime}, a {@code duration} and a {@code itemPriority} to generate an appropriate Event.
+     * @param datetime start DateTime of this Event
+     * @param duration of this Event
+     * @param itemPriority of this Event
+     * @return a new Event with the given parameters
+     */
     private Event processEvent(String datetime, String duration, String itemPriority) {
         Event event = null;
         try {
@@ -111,6 +120,11 @@ public class TestItemBuilder {
         return event;
     }
 
+    /**
+     * Processes the {@code itemReminder} given to generate an appropriate Reminder with the dateTime given.
+     * @param itemReminder representing the DateTime of the reminder
+     * @return a new Reminder with the given date and time
+     */
     private Reminder processReminder(String itemReminder) {
         Reminder reminder = null;
         try {
