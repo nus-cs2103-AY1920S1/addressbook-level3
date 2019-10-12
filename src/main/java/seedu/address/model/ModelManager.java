@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
+//import seedu.deliverymans.model.Model;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -127,6 +130,26 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasDeliveryman(Deliveryman toAdd) {
+        return false;
+    }
+
+    @Override
+    public void addDeliveryman(Deliveryman toAdd) {
+
+    }
+
+    @Override
+    public boolean hasCustomer(Customer toAdd) {
+        return false;
+    }
+
+    @Override
+    public void addCustomer(Customer toAdd) {
+
     }
 
     @Override

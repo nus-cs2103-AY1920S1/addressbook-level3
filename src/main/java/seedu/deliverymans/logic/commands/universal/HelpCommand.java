@@ -1,8 +1,8 @@
 package seedu.deliverymans.logic.commands.universal;
 
-import seedu.address.model.Model;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.model.Model;
 
 /**
  * Format full help instructions for every command for display.

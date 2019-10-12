@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.deliverymans.commons.core.GuiSettings;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * The API of the Model component.
@@ -84,4 +86,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    // for debugging purposes
+    boolean hasDeliveryman(Deliveryman toAdd);
+    void addDeliveryman(Deliveryman toAdd);
+    boolean hasCustomer(Customer toAdd);
+    void addCustomer(Customer toAdd);
 }

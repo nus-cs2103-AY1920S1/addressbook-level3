@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.Context;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.Model;
 
 /**
  * Clears the address book.
