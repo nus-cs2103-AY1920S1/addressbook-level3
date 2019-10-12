@@ -9,13 +9,14 @@ import com.typee.logic.commands.exceptions.NullUndoableActionException;
 /**
  * {@code AppointmentList} with a list of its previous states.
  */
-public class StatedAddressBook extends AddressBook {
+public class HistoryManager extends AddressBook {
 
     private final List<ReadOnlyAddressBook> historyBook;
     private int versionPointer;
 
-    public StatedAddressBook(ReadOnlyAddressBook initialList) {
+    public HistoryManager(ReadOnlyAddressBook initialList) {
         super(initialList);
+        
         versionPointer = 0;
         historyBook = new LinkedList<>();
         historyBook.add(new AddressBook(initialList));
@@ -71,11 +72,11 @@ public class StatedAddressBook extends AddressBook {
             return true;
         }
 
-        if (!(other instanceof StatedAddressBook)) {
+        if (!(other instanceof HistoryManager)) {
             return false;
         }
 
-        StatedAddressBook otherStatedAppointmentList = (StatedAddressBook) other;
+        HistoryManager otherStatedAppointmentList = (HistoryManager) other;
         return super.equals(otherStatedAppointmentList)
                 && versionPointer == otherStatedAppointmentList.versionPointer;
     }
