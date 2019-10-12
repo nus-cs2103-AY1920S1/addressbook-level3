@@ -11,8 +11,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;

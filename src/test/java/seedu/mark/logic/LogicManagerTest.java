@@ -20,8 +20,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.ListCommand;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;

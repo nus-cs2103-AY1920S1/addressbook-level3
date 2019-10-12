@@ -3,7 +3,7 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.Messages;
-import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 

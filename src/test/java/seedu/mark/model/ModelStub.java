@@ -3,11 +3,13 @@ package seedu.mark.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -90,6 +92,21 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public SimpleObjectProperty<Url> getCurrentUrlProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Url getCurrentUrl() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCurrentUrl(Url url) {
         throw new AssertionError("This method should not be called.");
     }
 
