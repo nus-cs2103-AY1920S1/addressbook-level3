@@ -11,10 +11,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.person.Address;
-import com.dukeacademy.model.person.Email;
-import com.dukeacademy.model.person.Name;
-import com.dukeacademy.model.person.Phone;
+import com.dukeacademy.model.question.Address;
+import com.dukeacademy.model.question.Email;
+import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.tag.Tag;
 import com.dukeacademy.testutil.Assert;
 import com.dukeacademy.testutil.TypicalIndexes;
@@ -49,10 +49,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(TypicalIndexes.INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(TypicalIndexes.INDEX_FIRST_QUESTION, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(TypicalIndexes.INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(TypicalIndexes.INDEX_FIRST_QUESTION, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -67,15 +67,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        Title expectedTitle = new Title(VALID_NAME);
+        assertEquals(expectedTitle, ParserUtil.parseName(VALID_NAME));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+        Title expectedTitle = new Title(VALID_NAME);
+        assertEquals(expectedTitle, ParserUtil.parseName(nameWithWhitespace));
     }
 
     @Test

@@ -9,10 +9,10 @@ import java.util.Set;
 import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.person.Address;
-import com.dukeacademy.model.person.Email;
-import com.dukeacademy.model.person.Name;
-import com.dukeacademy.model.person.Phone;
+import com.dukeacademy.model.question.Address;
+import com.dukeacademy.model.question.Email;
+import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.tag.Tag;
 
 /**
@@ -36,18 +36,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code title} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Title parseName(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Title(trimmedTitle);
     }
 
     /**

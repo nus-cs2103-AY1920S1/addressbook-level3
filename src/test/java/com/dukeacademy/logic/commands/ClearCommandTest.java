@@ -4,16 +4,16 @@ import static com.dukeacademy.logic.commands.CommandTestUtil.assertCommandSucces
 
 import org.junit.jupiter.api.Test;
 
-import com.dukeacademy.model.AddressBook;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
+import com.dukeacademy.model.QuestionBank;
 import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.testutil.TypicalPersons;
+import com.dukeacademy.testutil.TypicalQuestions;
 
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyQuestionBank_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,10 +21,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+    public void execute_nonEmptyQuestionBank_success() {
+        Model model = new ModelManager(TypicalQuestions.getTypicalQuestionBank(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalQuestions.getTypicalQuestionBank(), new UserPrefs());
+        expectedModel.setQuestionBank(new QuestionBank());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -15,48 +15,48 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.model.AddressBook;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ReadOnlyAddressBook;
+import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.ReadOnlyUserPrefs;
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.question.Question;
 import com.dukeacademy.testutil.Assert;
-import com.dukeacademy.testutil.PersonBuilder;
+import com.dukeacademy.testutil.QuestionBuilder;
 
 import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullQuestion_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_questionAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
+        Question validQuestion = new QuestionBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validQuestion), modelStub.questionsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateQuestion_throwsCommandException() {
+        Question validQuestion = new QuestionBuilder().build();
+        AddCommand addCommand = new AddCommand(validQuestion);
+        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
 
         Assert.assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+                AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Question alice = new QuestionBuilder().withTitle("Alice").build();
+        Question bob = new QuestionBuilder().withTitle("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -73,7 +73,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different question -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -102,95 +102,95 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getQuestionBankFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setQuestionBankFilePath(Path questionBankFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setQuestionBank(ReadOnlyQuestionBank newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyQuestionBank getQuestionBank() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteQuestion(Question target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setQuestion(Question target, Question editedQuestion) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Question> getFilteredQuestionList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single question.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithQuestion extends ModelStub {
+        private final Question question;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithQuestion(Question question) {
+            requireNonNull(question);
+            this.question = question;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasQuestion(Question question) {
+            requireNonNull(question);
+            return this.question.isSameQuestion(question);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingQuestionAdded extends ModelStub {
+        final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasQuestion(Question question) {
+            requireNonNull(question);
+            return questionsAdded.stream().anyMatch(question::isSameQuestion);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addQuestion(Question question) {
+            requireNonNull(question);
+            questionsAdded.add(question);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyQuestionBank getQuestionBank() {
+            return new QuestionBank();
         }
     }
 

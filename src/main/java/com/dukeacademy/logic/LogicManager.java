@@ -12,8 +12,8 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.AddressBookParser;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ReadOnlyAddressBook;
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
+import com.dukeacademy.model.question.Question;
 import com.dukeacademy.storage.Storage;
 
 import javafx.collections.ObservableList;
@@ -44,7 +44,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveQuestionBank(model.getQuestionBank());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,18 +53,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyQuestionBank getQuestionBank() {
+        return model.getQuestionBank();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Question> getFilteredPersonList() {
+        return model.getFilteredQuestionList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getQuestionBankFilePath() {
+        return model.getQuestionBankFilePath();
     }
 
     @Override

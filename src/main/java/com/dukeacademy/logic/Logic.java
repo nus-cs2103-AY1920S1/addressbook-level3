@@ -7,8 +7,8 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ReadOnlyAddressBook;
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
+import com.dukeacademy.model.question.Question;
 
 import javafx.collections.ObservableList;
 
@@ -26,19 +26,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the QuestionBank.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getQuestionBank()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyQuestionBank getQuestionBank();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Question> getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getQuestionBankFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

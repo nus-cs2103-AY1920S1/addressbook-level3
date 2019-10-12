@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
 import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.model.person.Person;
-import com.dukeacademy.testutil.PersonBuilder;
-import com.dukeacademy.testutil.TypicalPersons;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.testutil.QuestionBuilder;
+import com.dukeacademy.testutil.TypicalQuestions;
 
 
 /**
@@ -20,24 +20,25 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalQuestions.getTypicalQuestionBank(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newQuestion_success() {
+        Question validQuestion = new QuestionBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
+        expectedModel.addQuestion(validQuestion);
 
-        CommandTestUtil.assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        CommandTestUtil.assertCommandSuccess(new AddCommand(validQuestion), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateQuestion_throwsCommandException() {
+        Question questionInList = model.getQuestionBank().getQuestionList().get(0);
+        CommandTestUtil.assertCommandFailure(new AddCommand(questionInList), model,
+            AddCommand.MESSAGE_DUPLICATE_QUESTION);
     }
 
 }

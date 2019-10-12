@@ -2,8 +2,8 @@ package com.dukeacademy.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.dukeacademy.model.AddressBook;
 import com.dukeacademy.model.Model;
+import com.dukeacademy.model.QuestionBank;
 
 /**
  * Clears the address book.
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setQuestionBank(new QuestionBank());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

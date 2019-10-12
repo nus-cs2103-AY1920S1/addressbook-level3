@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 import com.dukeacademy.logic.commands.AddCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.person.Address;
-import com.dukeacademy.model.person.Email;
-import com.dukeacademy.model.person.Name;
-import com.dukeacademy.model.person.Person;
-import com.dukeacademy.model.person.Phone;
+import com.dukeacademy.model.question.Address;
+import com.dukeacademy.model.question.Email;
+import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.tag.Tag;
 
 /**
@@ -38,15 +38,15 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Title title = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Question question = new Question(title, phone, email, address, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(question);
     }
 
     /**

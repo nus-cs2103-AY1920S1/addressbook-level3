@@ -14,22 +14,22 @@ import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
 import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.model.person.NameContainsKeywordsPredicate;
-import com.dukeacademy.testutil.TypicalPersons;
+import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
+import com.dukeacademy.testutil.TypicalQuestions;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalQuestions.getTypicalQuestionBank(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalQuestions.getTypicalQuestionBank(), new UserPrefs());
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        TitleContainsKeywordsPredicate firstPredicate =
+                new TitleContainsKeywordsPredicate(Collections.singletonList("first"));
+        TitleContainsKeywordsPredicate secondPredicate =
+                new TitleContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -47,35 +47,35 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different question -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+    public void execute_zeroKeywords_noQuestionFound() {
+        String expectedMessage = String.format(Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW, 0);
+        TitleContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredQuestionList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+    public void execute_multipleKeywords_multipleQuestionsFound() {
+        String expectedMessage = String.format(Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW, 3);
+        TitleContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalPersons.CARL, TypicalPersons.ELLE, TypicalPersons.FIONA),
-                model.getFilteredPersonList());
+        assertEquals(Arrays.asList(TypicalQuestions.CARL, TypicalQuestions.ELLE, TypicalQuestions.FIONA),
+                model.getFilteredQuestionList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TitleContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private TitleContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new TitleContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

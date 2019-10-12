@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.question.Question;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,26 +21,26 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final QuestionBank questionBank;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Question> filteredQuestions;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given questionBank and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyQuestionBank questionBank, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(questionBank, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + questionBank + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.questionBank = new QuestionBank(questionBank);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredQuestions = new FilteredList<>(this.questionBank.getQuestionList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new QuestionBank(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -68,67 +68,67 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getQuestionBankFilePath() {
+        return userPrefs.getQuestionBankFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setQuestionBankFilePath(Path questionBankFilePath) {
+        requireNonNull(questionBankFilePath);
+        userPrefs.setQuestionBankFilePath(questionBankFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== QuestionBank ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setQuestionBank(ReadOnlyQuestionBank questionBank) {
+        this.questionBank.resetData(questionBank);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyQuestionBank getQuestionBank() {
+        return questionBank;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return questionBank.hasQuestion(question);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteQuestion(Question target) {
+        questionBank.removeQuestion(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void addQuestion(Question question) {
+        questionBank.addQuestion(question);
+        updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setQuestion(Question target, Question editedQuestion) {
+        requireAllNonNull(target, editedQuestion);
+
+        questionBank.setQuestion(target, editedQuestion);
+    }
+
+    //=========== Filtered Question List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
+     * {@code versionedQuestionBank}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Question> getFilteredQuestionList() {
+        return filteredQuestions;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredQuestions.setPredicate(predicate);
     }
 
     @Override
@@ -145,9 +145,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return questionBank.equals(other.questionBank)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredQuestions.equals(other.filteredQuestions);
     }
 
 }

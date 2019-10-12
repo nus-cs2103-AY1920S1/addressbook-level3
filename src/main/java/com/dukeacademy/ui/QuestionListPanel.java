@@ -3,7 +3,7 @@ package com.dukeacademy.ui;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.question.Question;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,27 +19,27 @@ public class QuestionListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(QuestionListPanel.class);
 
     @FXML
-    private ListView<Person> questionListView;
+    private ListView<Question> questionListView;
 
-    public QuestionListPanel(ObservableList<Person> questionList) {
+    public QuestionListPanel(ObservableList<Question> questionList) {
         super(FXML);
         questionListView.setItems(questionList);
         questionListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code QuestionCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Question> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Question question, boolean empty) {
+            super.updateItem(question, empty);
 
-            if (empty || person == null) {
+            if (empty || question == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionCard(person, getIndex() + 1).getRoot());
+                setGraphic(new QuestionCard(question, getIndex() + 1).getRoot());
             }
         }
     }

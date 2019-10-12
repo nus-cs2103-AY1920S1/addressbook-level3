@@ -2,7 +2,7 @@ package com.dukeacademy.ui;
 
 import java.util.Comparator;
 
-import com.dukeacademy.model.person.Person;
+import com.dukeacademy.model.question.Question;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Question}.
  */
 public class QuestionCard extends UiPart<Region> {
 
@@ -22,15 +22,15 @@ public class QuestionCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on QuestionBank level 4</a>
      */
 
-    public final Person person;
+    public final Question question;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label title;
     @FXML
     private Label id;
     @FXML
@@ -42,15 +42,15 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public QuestionCard(Person person, int displayedIndex) {
+    public QuestionCard(Question question, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.question = question;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        title.setText(question.getTitle().fullTitle);
+        phone.setText(question.getPhone().value);
+        address.setText(question.getAddress().value);
+        email.setText(question.getEmail().value);
+        question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -70,6 +70,6 @@ public class QuestionCard extends UiPart<Region> {
         // state check
         QuestionCard card = (QuestionCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && question.equals(card.question);
     }
 }
