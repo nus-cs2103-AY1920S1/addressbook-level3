@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,6 +9,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class EventEndDate {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "End Date Needed should be an in the following format DDMMYYYY";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public final LocalDate endDate;
 
     /**
@@ -17,6 +21,18 @@ public class EventEndDate {
      */
     public EventEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+
+    /**
+     * Returns true if a given string is a valid localDate number.
+     */
+    public static boolean isValidEndDate(String test) {
+        try {
+            return LocalDate.parse(test, FORMATTER) instanceof LocalDate;
+        } catch (DateTimeException e) {
+            return false;
+        }
     }
 
     @Override

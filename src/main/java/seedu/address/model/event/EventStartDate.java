@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +8,10 @@ import java.time.format.DateTimeFormatter;
  * Represents the Event Starting Date.
  */
 public class EventStartDate {
+
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final String MESSAGE_CONSTRAINTS =
+            "Start Date Needed should be an in the following format dd/MM/yyyy";
 
     public final LocalDate startDate;
 
@@ -17,6 +22,17 @@ public class EventStartDate {
      */
     public EventStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+
+    /**
+     * Returns true if a given string is a valid localDate number.
+     */
+    public static boolean isValidStartDate(String test) {
+        try {
+            return LocalDate.parse(test, FORMATTER) instanceof LocalDate;
+        } catch (DateTimeException e) {
+            return false;
+        }
     }
 
     @Override

@@ -1,12 +1,12 @@
-# Gradle build files
-/.gradle/
-/build/
-src/main/resources/docs/
-
 # IDEA files
 /.idea/
 /out/
 /*.iml
+
+# Gradle build files
+/.gradle/
+/build/
+src/main/resources/docs/
 
 # Storage/log files
 /data/
@@ -19,3 +19,4 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+*.iml

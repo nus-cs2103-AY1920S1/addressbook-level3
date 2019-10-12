@@ -26,15 +26,16 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     public Event(EventId id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
-                 EventManpowerNeeded manpowerNeeded, EventStartDate startDate, EventEndDate endDate, Set<Tag> tags) {
+                 EventManpowerNeeded manpowerNeeded, EventStartDate startDate,
+                 EventEndDate endDate, Set<Tag> tags) {
         this.eventId = id;
         this.name = name;
         this.venue = venue;
         this.hoursNeeded = hoursNeeded;
         this.manpowerNeeded = manpowerNeeded;
+        this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.startDate = startDate;
         this.endDate = endDate;
-        this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.tags.addAll(tags);
     }
 
@@ -47,9 +48,9 @@ public class Event {
         this.venue = null;
         this.hoursNeeded = null;
         this.manpowerNeeded = null;
+        this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.startDate = null;
         this.endDate = null;
-        this.manpowerAllocatedList = new EventManpowerAllocatedList();
         this.tags.addAll(tags);
     }
 
@@ -136,7 +137,7 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(eventId, name, venue, manpowerNeeded, hoursNeeded,
-                startDate, endDate, manpowerAllocatedList, tags);
+            startDate, endDate, manpowerAllocatedList, tags);
     }
 
     @Override
@@ -153,5 +154,4 @@ public class Event {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
