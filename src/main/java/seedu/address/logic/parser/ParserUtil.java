@@ -9,12 +9,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.View;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.help.SecondaryCommand;
+import seedu.address.model.help.Type;
+import seedu.address.model.contact.Address;
+import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,8 +29,26 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
 
-    public boolean checkView(String view) {
-        return true;
+    private static int viewIndex;
+    /**
+     * Checks if the parsed argument is a valid view
+     * @param view
+     * @return
+     */
+    public static boolean checkView(String view) {
+
+        if (view.equals("contacts")) {
+            viewIndex = 1;
+            return true;
+        } else if (view.equals("claims")) {
+            viewIndex = 2;
+            return true;
+        } else if (view.equals("income")) {
+            viewIndex = 3;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -36,9 +57,13 @@ public class ParserUtil {
      * @return Trimmed view command
      * @throws ParseException If the command cannot be parsed.
      */
-    public static String parseView(String view) throws ParseException {
+    public static View parseView(String view) throws ParseException {
         String trimmedView = view.trim();
-        return "";
+        if (checkView(trimmedView)) {
+            return new View(view, viewIndex);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_VIEW);
+        }
     }
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -111,6 +136,40 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String command} into an {@code Command}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code command} is invalid.
+     */
+    public static SecondaryCommand parseCommand(String command) throws ParseException {
+        requireNonNull(command);
+        String trimmedCommand = command.trim();
+
+
+        if (!SecondaryCommand.isValidSecondaryCommand(trimmedCommand)) {
+            throw new ParseException(SecondaryCommand.MESSAGE_CONSTRAINTS);
+        }
+        return new SecondaryCommand(trimmedCommand);
+    }
+
+    /**
+     * Parses a {@code String command} into an {@code Command}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code command} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+
+
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
     }
 
     /**

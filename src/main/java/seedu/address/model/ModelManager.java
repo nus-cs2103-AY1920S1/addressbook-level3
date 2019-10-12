@@ -9,10 +9,11 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
-import seedu.address.model.person.Person;
+import seedu.address.model.income.Income;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -20,26 +21,30 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final FinSec finSec;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<seedu.address.model.contact.Contact> filteredContacts;
+    private final FilteredList<Claim> filteredClaims;
+    private final FilteredList<Income> filteredIncomes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given finSec and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFinSec finSec, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(finSec, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + finSec + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.finSec = new FinSec(finSec);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredContacts = new FilteredList<>(this.finSec.getContactList());
+        filteredClaims = new FilteredList<>(this.finSec.getClaimList());
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FinSec(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,66 +72,67 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getFinSecFilePath() {
+        return userPrefs.getFinSecFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setFinSecFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setFinSecFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FinSec ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setFinSec(ReadOnlyFinSec finSec) {
+        this.finSec.resetData(finSec);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyFinSec getFinSec() {
+        return finSec;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasContact(seedu.address.model.contact.Contact contact) {
+        requireNonNull(contact);
+        return finSec.hasContact(contact);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
+    public void deleteContact(seedu.address.model.contact.Contact target) {
+        finSec.removeContact(target);
+    }
+
+    @Override
+    public void addContact(seedu.address.model.contact.Contact contact) {
+        finSec.addContact(contact);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+        requireAllNonNull(target, editedContact);
 
-        addressBook.setPerson(target, editedPerson);
+        finSec.setContact(target, editedContact);
     }
 
+    //=========== Claims ================================================================================
     @Override
     public boolean hasClaim(Claim claim) {
         requireNonNull(claim);
-        return addressBook.hasClaim(claim);
+        return finSec.hasClaim(claim);
     }
 
     @Override
     public void deleteClaim(Claim target) {
-        addressBook.removeClaim(target);
+        finSec.removeClaim(target);
     }
 
     @Override
     public void addClaim(Claim claim) {
-        addressBook.addClaim(claim);
+        finSec.addClaim(claim);
         updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
     }
 
@@ -134,24 +140,51 @@ public class ModelManager implements Model {
     public void setClaim(Claim target, Claim editedClaim) {
         requireAllNonNull(target, editedClaim);
 
-        addressBook.setClaim(target, editedClaim);
+        finSec.setClaim(target, editedClaim);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Incomes ================================================================================
+    @Override
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return finSec.hasIncome(income);
+    }
+
+    @Override
+    public void deleteIncome(Income target) {
+        finSec.removeIncome(target);
+    }
+
+    @Override
+    public void addIncome(Income income) {
+        finSec.addIncome(income);
+        updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedIncome) {
+        requireAllNonNull(target, editedIncome);
+
+        finSec.setIncome(target, editedIncome);
+    }
+
+
+
+    //=========== Filtered FinSec List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code FinSec} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<seedu.address.model.contact.Contact> getFilteredPersonList() {
+        return filteredContacts;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<seedu.address.model.contact.Contact> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredContacts.setPredicate(predicate);
     }
 
     @Override
@@ -168,23 +201,40 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return finSec.equals(other.finSec)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredContacts.equals(other.filteredContacts);
     }
 
+    //=========== Filtered Claims List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Claim} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<Claim> getFilteredClaimList() {
-        /*
-         FUNCTION TO BE EDITED
-         */
-        return null;
+        return filteredClaims;
     }
 
     @Override
     public void updateFilteredClaimList(Predicate<Claim> predicate) {
-        /*
-         FUNCTION TO BE EDITED
-         */
+        requireNonNull(predicate);
+        filteredClaims.setPredicate(predicate);
+    }
+
+    //=========== Filtered Income List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Income} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Income> getFilteredIncomeList() {
+        return filteredIncomes;
+    }
+
+    @Override
+    public void updateFilteredIncomeList(Predicate<Income> predicate) {
+        requireNonNull(predicate);
+        filteredIncomes.setPredicate(predicate);
     }
 }

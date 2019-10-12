@@ -13,8 +13,8 @@ seedu.address.model.claim
 seedu.address.model.claim.exceptions
 seedu.address.model.help
 seedu.address.model.help.exceptions
-seedu.address.model.person
-seedu.address.model.person.exceptions
+seedu.address.model.contact
+seedu.address.model.contact.exceptions
 seedu.address.model.tag
 seedu.address.model.util
 seedu.address.storage

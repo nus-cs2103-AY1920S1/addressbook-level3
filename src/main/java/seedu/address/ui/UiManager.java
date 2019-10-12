@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.View;
 
 /**
  * The manager of the UI component.
@@ -36,12 +37,20 @@ public class UiManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
-
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
-
+            if (View.index == 1) {
+                mainWindow = new MainWindow(primaryStage, logic);
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillWithContacts();
+            } else if (View.index == 2) {
+                mainWindow = new MainWindow(primaryStage, logic);
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillWithClaims();
+            } else if (View.index == 3) {
+                mainWindow = new MainWindow(primaryStage, logic);
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillWithIncomes();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

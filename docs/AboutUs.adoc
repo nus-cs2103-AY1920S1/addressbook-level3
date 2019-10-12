@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::lawncegoh.png[width="150", align="left"]
 {empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
-Roles: Documentation + Scheduling and Tracking
+Roles: Documentation + Scheduling and Tracking + In Charge of Model and Views + IntelliJ Expert +
 Responsibilities: Goto feature(Changing views)
 
 '''
@@ -23,7 +23,7 @@ Responsibilities: Goto feature(Changing views)
 image::weigenie.png[width="150", align="left"]
 {empty}[http://github.com/weigenie[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead + Code Quality
+Role: Team Lead + Code Quality + In Charge of Storage + Travis Expert +
 Responsibilities: Claims Feature
 
 '''
@@ -32,7 +32,7 @@ Responsibilities: Claims Feature
 image::joshuaseet.png[width="150", align="left"]
 {empty}[http://github.com/joshuaseetss[github]] [<<johndoe#, portfolio>>]
 
-Role: Testing
+Role: Testing + In charge of UI + Integration + Coverall Expert +
 Responsibilities: Income Feature
 
 '''
@@ -41,8 +41,8 @@ Responsibilities: Income Feature
 image::tanzhanming.png[width="150", align="left"]
 {empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
 
-Role: Integration
-Responsibilities: Budget Feature
+Role: Integration + Deliverables and deadlines + Git Expert +
+Responsibilities: Budget and Help Features
 
 
 '''

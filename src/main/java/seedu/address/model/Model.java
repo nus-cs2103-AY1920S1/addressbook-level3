@@ -4,19 +4,24 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.claim.Claim;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Claim> PREDICATE_SHOW_ALL_CLAIMS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -41,37 +46,38 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinSecFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFinSecFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code finSec}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setFinSec(ReadOnlyFinSec finSec);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FinSec */
+    ReadOnlyFinSec getFinSec();
 
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    void deletePerson(Person target);
+    boolean hasContact(Contact contact);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given contact.
+     * The contact must exist in the address book.
      */
-    void addPerson(Person person);
+    void deleteContact(Contact target);
+
+    /**
+     * Adds the given contact.
+     * {@code contact} must not already exist in the address book.
+     */
+    void addContact(Contact contact);
 
 
     /**
@@ -92,11 +98,11 @@ public interface Model {
     void addClaim(Claim claim);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given contact {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setContact(Contact target, Contact editedContact);
 
     /**
      * Replaces the given claim {@code target} with {@code editedClaim}.
@@ -105,14 +111,40 @@ public interface Model {
      */
     void setClaim(Claim target, Claim editedClaim);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /**
+     * Returns true if an income with the same identity as {@code income} exists in the address book.
+     */
+    boolean hasIncome(Income income);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Deletes the given income.
+     * The income must exist in the address book.
+     */
+    void deleteIncome(Income target);
+
+    /**
+     * Adds the given income.
+     * {@code income} must not already exist in the address book.
+     */
+    void addIncome(Income income);
+
+    /**
+     * Replaces the given income {@code target} with {@code editedIncome}.
+     * {@code target} must exist in the address book.
+     * The income identity of {@code editedIncome} must not be the same as another existing income
+     * in the address book.
+     */
+    void setIncome(Income target, Income editedIncome);
+
+
+    /** Returns an unmodifiable view of the filtered contact list */
+    ObservableList<Contact> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Contact> predicate);
 
     /** Returns an unmodifiable view of the filtered claim list */
     ObservableList<Claim> getFilteredClaimList();
@@ -122,4 +154,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredClaimList(Predicate<Claim> predicate);
+
+    /** Returns an unmodifiable view of the filtered income list */
+    ObservableList<Income> getFilteredIncomeList();
+
+    /**
+     * Updates the filter of the filtered income list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIncomeList(Predicate<Income> predicate);
 }
