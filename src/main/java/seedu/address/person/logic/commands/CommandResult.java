@@ -2,8 +2,6 @@ package seedu.address.person.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
-
 import seedu.address.util.OverallCommandResult;
 
 /**
@@ -17,15 +15,14 @@ public class CommandResult extends OverallCommandResult {
     private final boolean showHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        super(requireNonNull(feedbackToUser));
+        super(requireNonNull(feedbackToUser), exit);
         this.showHelp = showHelp;
-        this.exit = exit;
     }
 
     /**
@@ -36,34 +33,7 @@ public class CommandResult extends OverallCommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public boolean isShowHelp() {
+    /*public boolean isShowHelp() {
         return showHelp;
-    }
-
-    public boolean isExit() {
-        return exit;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CommandResult)) {
-            return false;
-        }
-
-        CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
-    }
-
+    }*/
 }

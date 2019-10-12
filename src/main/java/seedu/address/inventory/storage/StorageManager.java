@@ -1,10 +1,14 @@
 package seedu.address.inventory.storage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
-
-import java.io.*;
-import java.util.ArrayList;
 
 public class StorageManager implements Storage {
     private String filepath;
@@ -28,10 +32,17 @@ public class StorageManager implements Storage {
     }
 
     public static Item readInFileLine(String line) {
-        String[] stringArr = line.split(" [|] ", 0);
-        Item t = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
-                Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]), Integer.parseInt(stringArr[0]));
-        return t;
+        String[] stringArr = line.split(" [|] ");
+        Item i = null;
+        if (stringArr.length == 5) {
+            i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
+                    Double.parseDouble(stringArr[4]), 0, Integer.parseInt(stringArr[0]));
+        } else if (stringArr.length == 6) {
+            i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
+                    Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]),
+                    Integer.parseInt(stringArr[0]));
+        }
+        return i;
     }
 
     public void writeFile(InventoryList inventoryList) throws IOException, seedu.address.inventory.model.exception.NoSuchIndexException {

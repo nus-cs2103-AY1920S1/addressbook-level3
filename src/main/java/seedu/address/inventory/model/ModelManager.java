@@ -4,9 +4,6 @@ import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
-import seedu.address.person.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 public class ModelManager implements Model {
     private InventoryList inventoryList;
@@ -101,5 +98,14 @@ public class ModelManager implements Model {
     @Override
     public void sortByQuantity() {
         inventoryList.sortByQuantity();
+    }
+
+    @Override
+    public void readInUpdatedList() {
+        try {
+            this.inventoryList = storage.getInventoryList();
+        } catch (Exception e) {
+            this.inventoryList = new InventoryList();
+        }
     }
 }

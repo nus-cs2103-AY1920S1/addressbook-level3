@@ -3,15 +3,13 @@ package seedu.address.inventory.logic;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.inventory.logic.DeleteCommandParser;
 import seedu.address.inventory.commands.AddCommand;
 import seedu.address.inventory.commands.Command;
-import seedu.address.inventory.commands.DeleteCommand;
 import seedu.address.inventory.commands.EditCommand;
 import seedu.address.inventory.commands.SortCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
-import seedu.address.person.model.Model;
+import seedu.address.transaction.commands.DeleteIndexCommand;
 
 public class InventoryTabParser {
 
@@ -32,7 +30,7 @@ public class InventoryTabParser {
             return new AddCommandParser().parse(arguments, inventoryListSize);
 
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteIndexCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:

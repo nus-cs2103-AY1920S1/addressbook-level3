@@ -99,6 +99,13 @@ public class MainApp extends Application {
         inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
+        //For Cashier Storage and Manager
+        cashierStorage =
+                new seedu.address.cashier.storage.StorageManager("data"
+                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
+        cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierStorage);
+
         //All logic
         seedu.address.transaction.logic.LogicManager transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, storage,
@@ -110,12 +117,10 @@ public class MainApp extends Application {
                 seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage, inventoryModel,
                 inventoryStorage);
 
-        //For Cashier Storage and Manager
-        cashierStorage =
-                new seedu.address.cashier.storage.StorageManager("data"
-                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
-        cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierStorage);
+        seedu.address.cashier.logic.LogicManager cashierLogic = new
+                seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
+                reimbursementModel, reimbursementStorage, transactionModel,
+                transactionStorage, inventoryModel, inventoryStorage);
 
         //All logic
         transactionLogic = new
@@ -124,9 +129,10 @@ public class MainApp extends Application {
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
                 transactionModel, transactionStorage, model);
-        cashierLogic = new
+     /*   cashierLogic = new
                 seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
-                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);
+                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);  */
+
         inventoryLogic = new
                 seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
                 inventoryModel, inventoryStorage);

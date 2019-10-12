@@ -6,6 +6,7 @@ import static seedu.address.cashier.logic.CliSyntax.PREFIX_QUANTITY;
 import java.util.stream.Stream;
 
 import seedu.address.cashier.commands.AddCommand;
+import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -14,7 +15,7 @@ import seedu.address.cashier.ui.CashierUi;
 
 public class AddCommandParser {
 
-    public static AddCommand parse(String args, ModelManager modelManager) throws ParseException, NoSuchItemException {
+    public static AddCommand parse(String args, ModelManager modelManager) throws Exception {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
 
@@ -26,20 +27,21 @@ public class AddCommandParser {
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();
         int quantity = Integer.parseInt(quantityString);
-        boolean isValidDescription = false;
 
+        modelManager.updateRecentInventory();
 
-        try {
-            if (modelManager.hasItemInInventory(description)) {
-                AddCommand addCommand = new AddCommand(description, quantity);
-                return addCommand;
-            } else {
-                System.out.println("invalid add command");
-                throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
-            }
-        } catch (Exception e) {
-            throw new ParseException(CashierUi.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+        if (!modelManager.hasItemInInventory(description)) {
+            throw new NoSuchItemException(CashierUi.NO_SUCH_ITEM_CASHIER);
         }
+        if (!modelManager.hasSufficientQuantity(description, quantity)) {
+            int quantityLeft = modelManager.getStockLeft(description);
+            throw new InsufficientAmountException(CashierUi.insufficientStock(String.valueOf(quantityLeft), description));
+        }
+        if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantity(description, quantity)) {
+            AddCommand addCommand = new AddCommand(description, quantity);
+            return addCommand;
+        }
+        return null;
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {

@@ -51,7 +51,6 @@ public class AddCommandParser {
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {
-            System.out.println("invalid add command");
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         } catch (Exception e) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);

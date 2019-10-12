@@ -30,4 +30,6 @@ public interface Model {
 
     void sortByQuantity();
 
+    void readInUpdatedList();
+
 }
