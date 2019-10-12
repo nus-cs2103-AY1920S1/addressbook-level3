@@ -36,16 +36,8 @@ public class FoodFlowPanel extends UiPart<Region> {
             }
         });
 
-        //mainScrollPanel = new ScrollPane();
-        mainScrollPanel.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        mainScrollPanel.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        mainScrollPanel.setFitToWidth(true);
-        //flowPane = new FlowPane();
-        flowPane.setPadding(new Insets(5,5,5,5));
-
         foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
             .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
-
         mainScrollPanel.setContent(flowPane);
     }
 

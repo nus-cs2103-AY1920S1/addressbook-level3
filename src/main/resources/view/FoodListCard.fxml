@@ -3,13 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER_LEFT" minHeight="105" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <padding>
-        <Insets top="5" right="5" bottom="5" left="15"/>
-    </padding>
-    <Label fx:id="foodName" styleClass="cell_big_label"/>
-    <Label fx:id="calorie" styleClass="cell_small_label"/>
-    <Label fx:id="gi" styleClass="cell_small_label"/>
-    <Label fx:id="sugar" styleClass="cell_small_label"/>
-    <Label fx:id="fat" styleClass="cell_small_label"/>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox alignment="TOP_CENTER" styleClass="v-box" minHeight="200" minWidth="150" prefHeight="200" prefWidth="150"
+      maxHeight="200" maxWidth="150" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane>
+        <Rectangle fx:id="header" height="70" width="150"/>
+        <Label fx:id="foodName" styleClass="card_big_label"/>
+        <padding>
+            <Insets bottom="10"/>
+        </padding>
+    </StackPane>
+
+    <Label fx:id="calorie" styleClass="card_small_label"/>
+    <Label fx:id="gi" styleClass="card_small_label"/>
+    <Label fx:id="sugar" styleClass="card_small_label"/>
+    <Label fx:id="fat" styleClass="card_small_label"/>
 </VBox>
