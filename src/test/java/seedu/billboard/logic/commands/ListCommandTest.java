@@ -23,7 +23,7 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalBillboard(), new UserPrefs());
-        expectedModel = new ModelManager(model.getBillboard(), new UserPrefs());
+        expectedModel = new ModelManager(model.getBillboardExpenses(), new UserPrefs());
     }
 
     @Test

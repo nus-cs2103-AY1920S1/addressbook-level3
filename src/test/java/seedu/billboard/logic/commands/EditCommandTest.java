@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenses().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
         expectedModel.setExpense(lastExpense, editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Billboard(model.getBillboardExpenses()), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenses().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class EditCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         // edit expense in filtered list into a duplicate in address book
-        Expense expenseInList = model.getBillboard().getExpenses().get(INDEX_SECOND_EXPENSE.getZeroBased());
+        Expense expenseInList = model.getBillboardExpenses().getExpenses().get(INDEX_SECOND_EXPENSE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
 
@@ -138,7 +138,7 @@ public class EditCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getBillboard().getExpenses().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getBillboardExpenses().getExpenses().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES).build());

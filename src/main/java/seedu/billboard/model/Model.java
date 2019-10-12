@@ -34,6 +34,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    // ================ Billboard methods ==============================
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -47,10 +49,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code billboard}.
      */
-    void setBillboard(ReadOnlyBillboard billboard);
+    void setBillboardExpenses(ReadOnlyBillboard billboardExpenses);
 
     /** Returns the Billboard */
-    ReadOnlyBillboard getBillboard();
+    ReadOnlyBillboard getBillboardExpenses();
 
     /**
      * Returns true if a expense with the same identity as {@code expense} exists in the address book.
@@ -84,4 +86,55 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
+
+    // ================ Archive methods ==============================
+
+    /**
+     * Returns the user prefs' archive file path.
+     */
+    Path getArchiveFilePath();
+
+    /**
+     * Sets the user prefs' archive file path.
+     */
+    void setArchiveFilePath(Path archiveFilePath);
+
+    /**
+     * Replaces archive data with the data in {@code billboard}.
+     */
+    void setArchiveExpenses(ReadOnlyBillboard archiveExpenses);
+
+    /** Returns the archive */
+    ReadOnlyBillboard getArchiveExpenses();
+
+    /**
+     * Returns true if an expense with the same identity as {@code expense} exists in the archive.
+     */
+    boolean hasArchiveExpense(Expense expense);
+
+    /**
+     * Deletes the given expense.
+     * The expense must exist in the archive.
+     */
+    void deleteArchiveExpense(Expense target);
+
+    /**
+     * Adds the given expense.
+     */
+    void addArchiveExpense(Expense expense);
+
+    /**
+     * Replaces the given expense {@code target} with {@code editedExpense}.
+     * {@code target} must exist in the archive.
+     */
+    void setArchiveExpense(Expense target, Expense editedExpense);
+
+    /** Returns an unmodifiable view of the filtered archive expense list */
+    ObservableList<Expense> getFilteredArchiveExpenses();
+
+    /**
+     * Updates the filter of the filtered archive expense list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchiveExpenses(Predicate<Expense> predicate);
 }

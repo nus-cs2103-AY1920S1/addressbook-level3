@@ -9,8 +9,8 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameRecord comparison)
+ * Wraps all data at the Billboard level
+ * Duplicates are allowed
  */
 public class Billboard implements ReadOnlyBillboard {
 

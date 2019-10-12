@@ -43,7 +43,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveBillboard(model.getBillboard());
+            storage.saveBillboard(model.getBillboardExpenses());
+            storage.saveArchive(model.getArchiveExpenses());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,7 +54,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyBillboard getBillboard() {
-        return model.getBillboard();
+        return model.getBillboardExpenses();
     }
 
     @Override
@@ -74,5 +75,20 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlyBillboard getArchive() {
+        return model.getArchiveExpenses();
+    }
+
+    @Override
+    public ObservableList<Expense> getFilteredArchiveExpenseList() {
+        return model.getFilteredArchiveExpenses();
+    }
+
+    @Override
+    public Path getArchiveFilePath() {
+        return model.getArchiveFilePath();
     }
 }

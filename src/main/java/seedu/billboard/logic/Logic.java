@@ -26,7 +26,7 @@ public interface Logic {
     /**
      * Returns the Billboard.
      *
-     * @see seedu.billboard.model.Model#getBillboard()
+     * @see seedu.billboard.model.Model#getBillboardExpenses()
      */
     ReadOnlyBillboard getBillboard();
 
@@ -47,4 +47,19 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the archive.
+     *
+     * @see seedu.billboard.model.Model#getArchiveExpenses()
+     */
+    ReadOnlyBillboard getArchive();
+
+    /** Returns an unmodifiable view of the filtered list of archive expenses */
+    ObservableList<Expense> getFilteredArchiveExpenseList();
+
+    /**
+     * Returns the user prefs' billboard file path.
+     */
+    Path getArchiveFilePath();
 }

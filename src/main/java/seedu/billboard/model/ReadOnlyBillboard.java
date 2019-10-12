@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a Billboard
  */
 public interface ReadOnlyBillboard {
 
