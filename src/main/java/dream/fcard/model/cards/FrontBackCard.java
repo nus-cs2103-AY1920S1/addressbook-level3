@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import javafx.scene.Node;
@@ -20,8 +21,9 @@ public class FrontBackCard implements FlashCard {
     @Override
     public JsonValue toJson() {
         JsonObject obj = new JsonObject();
-        obj.put("front", front);
-        obj.put("back", back);
+        obj.put(Schema.TYPE_FIELD, Schema.FRONT_BACK_TYPE);
+        obj.put(Schema.FRONT_FIELD, front);
+        obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
     }
 
