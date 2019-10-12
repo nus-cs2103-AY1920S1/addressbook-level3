@@ -80,10 +80,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES,
                 expectedMessage);
 
-        // missing description prefix
-        assertParseFailure(parser, NAME_DESC_TAXES + VALID_DESCRIPTION_TAXES + AMOUNT_DESC_TAXES,
-                expectedMessage);
-
         // missing amount prefix
         assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + VALID_AMOUNT_TAXES,
                 expectedMessage);
