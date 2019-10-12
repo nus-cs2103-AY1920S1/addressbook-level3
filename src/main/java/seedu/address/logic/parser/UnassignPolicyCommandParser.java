@@ -1,16 +1,15 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AssignPolicyCommand;
-import seedu.address.logic.commands.UnassignPolicyCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
+
+import java.util.stream.Stream;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.UnassignPolicyCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new UnassignPolicyCommand object
@@ -29,7 +28,8 @@ public class UnassignPolicyCommandParser implements Parser<UnassignPolicyCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_POLICY_INDEX, PREFIX_PERSON_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignPolicyCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnassignPolicyCommand.MESSAGE_USAGE));
         }
 
         Index personIndex = null;
@@ -40,7 +40,7 @@ public class UnassignPolicyCommandParser implements Parser<UnassignPolicyCommand
             personIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PERSON_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AssignPolicyCommand.MESSAGE_USAGE), pe);
+                    UnassignPolicyCommand.MESSAGE_USAGE), pe);
         }
 
         return new UnassignPolicyCommand(policyIndex, personIndex);
