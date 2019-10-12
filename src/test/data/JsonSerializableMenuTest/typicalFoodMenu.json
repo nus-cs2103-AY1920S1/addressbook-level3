@@ -1,5 +1,4 @@
 {
-  "_comment": "$aveNUS save file which contains the same food values as in Typicalfoods#getTypicalMenu()",
   "foods" : [ {
     "name" : "Carbonara",
     "price" : "5.00",
@@ -57,11 +56,15 @@
   }, {
     "name" : "Nasi Ayam",
     "price" : "4.80",
-    "description" : "Rice with fried chicken",
+    "description" : "Fatty rice with chicken",
     "category": "Malay",
-    "tagged" : [ "Chicken" , "Roasted" ],
+    "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
     "location" : "Techno Edge",
-    "openingHours" : "0900 1700",
-    "restrictions" : "Halal"
-  } ]
+    "openingHours": "0900 1700",
+    "restrictions": "Halal"
+  } ],
+  "wallet" : {
+    "remainingBudget" : "100",
+    "daysToExpire" : "30"
+  }
 }

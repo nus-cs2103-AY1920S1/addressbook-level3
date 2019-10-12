@@ -12,36 +12,41 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Menu that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "savenus")
 class JsonSerializableMenu {
 
     public static final String MESSAGE_DUPLICATE_FOOD = "foods list contains duplicate food(s).";
 
     private final List<JsonAdaptedFood> foods = new ArrayList<>();
+    private JsonAdaptedWallet wallet = new JsonAdaptedWallet(new Wallet());
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given foods.
+     * Constructs a {@code JsonSerializableMenu} with the given foods.
      */
     @JsonCreator
-    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods) {
+    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods,
+                                @JsonProperty("wallet") JsonAdaptedWallet wallet) {
         this.foods.addAll(foods);
+        this.wallet = wallet;
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyMenu} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableMenu}.
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
         foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        wallet = new JsonAdaptedWallet(source.getWallet());
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this menu into the model's {@code Menu} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -54,6 +59,7 @@ class JsonSerializableMenu {
             }
             menu.addFood(food);
         }
+        menu.addWallet(wallet.toModelType());
         return menu;
     }
 

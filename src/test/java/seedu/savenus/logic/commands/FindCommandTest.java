@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.savenus.testutil.TypicalFood.BAK_KUT_TEH;
-import static seedu.savenus.testutil.TypicalFood.TEH_PING;
-import static seedu.savenus.testutil.TypicalFood.WAGYU_DONBURI;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.BAK_KUT_TEH;
+import static seedu.savenus.testutil.TypicalMenu.TEH_PING;
+import static seedu.savenus.testutil.TypicalMenu.WAGYU_DONBURI;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import java.util.Arrays;
 import java.util.Collections;

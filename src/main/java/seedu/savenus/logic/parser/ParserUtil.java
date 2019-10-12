@@ -17,6 +17,9 @@ import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -24,6 +27,7 @@ import seedu.savenus.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_WALLET = "Budget parameters is not in the proper format.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -36,6 +40,23 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String} into a {@code Wallet}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String} is invalid.
+     */
+    public static Wallet parseWallet(String walletString) throws ParseException {
+        String trimmedWalletString = walletString.trim();
+        String[] splitWalletString = trimmedWalletString.split("\\s+");
+        if (splitWalletString.length != 2
+                || !RemainingBudget.isValidRemainingBudget(splitWalletString[0])
+                || !DaysToExpire.isValidDaysToExpire(splitWalletString[1])) {
+            throw new ParseException(MESSAGE_INVALID_WALLET);
+        }
+        return new Wallet(new RemainingBudget(splitWalletString[0]), new DaysToExpire(splitWalletString[1]));
     }
 
     /**

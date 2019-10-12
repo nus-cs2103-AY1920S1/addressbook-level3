@@ -4,9 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
+import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Wraps all data at the menu level
@@ -15,6 +20,7 @@ import seedu.savenus.model.food.UniqueFoodList;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
+    private Wallet wallet = new Wallet();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -54,6 +60,7 @@ public class Menu implements ReadOnlyMenu {
         requireNonNull(newData);
 
         setFoods(newData.getFoodList());
+        addWallet(newData.getWallet());
     }
 
     //// food-level operations
@@ -93,11 +100,57 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
+
+    //// wallet operations
+
+    /**
+     * Adds a {@code Wallet} to the application.
+     */
+    public void addWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    /**
+     * Get user's {@code Wallet}.
+     */
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    /**
+     * Returns the user's {@code RemainingBudget}'s {@code DoubleProperty}.
+     */
+    public DoubleProperty getRemainingBudgetProperty() {
+        return wallet.getRemainingBudgetProperty();
+    }
+
+    /**
+     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
+     */
+    public IntegerProperty getDaysToExpireProperty() {
+        return wallet.getDaysToExpireProperty();
+    }
+
+    /**
+     * Set user's {@code RemainingBudget}.
+     */
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+        wallet.setRemainingBudget(newRemainingBudget);
+    }
+
+    /**
+     * Set user's {@code DaysToExpire}.
+     */
+    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
+        wallet.setDaysToExpire(newDaysToExpire);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return foods.asUnmodifiableObservableList().size() + " foods";
+        return foods.asUnmodifiableObservableList().size()
+                + " Food Items: \n" + "...\n" + "Wallet: \n" + wallet.toString();
         // TODO: refine later
     }
 

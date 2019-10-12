@@ -3,10 +3,10 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.BEE_HOON;
-import static seedu.savenus.testutil.TypicalFood.CARBONARA;
-import static seedu.savenus.testutil.TypicalFood.FISHBALL_NOODLES;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.BEE_HOON;
+import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
+import static seedu.savenus.testutil.TypicalMenu.FISHBALL_NOODLES;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import java.io.IOException;
 import java.nio.file.Path;

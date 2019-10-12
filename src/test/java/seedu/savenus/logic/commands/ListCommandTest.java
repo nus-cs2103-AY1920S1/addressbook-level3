@@ -2,8 +2,8 @@ package seedu.savenus.logic.commands;
 
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.logic.commands.CommandTestUtil.showFoodAtIndex;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
