@@ -9,8 +9,8 @@ import static seedu.mark.logic.commands.TabCommand.Tab;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
-import seedu.mark.logic.commands.commandresult.TabCommandResult;
+import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.logic.commands.results.TabCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 
