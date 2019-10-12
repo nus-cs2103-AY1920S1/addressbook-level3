@@ -3,6 +3,10 @@ package seedu.address.model.person.loan.stub;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents the amount of a loan.
+ * Guarantees: immutable; is valid as declared in {@link #isValidAmount(long)}
+ */
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =

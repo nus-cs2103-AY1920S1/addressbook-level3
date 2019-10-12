@@ -1,5 +1,9 @@
 package seedu.address.model.person.loan.stub;
 
+/**
+ * Represents the date of a loan.
+ * Guarantees: immutable.
+ */
 public class Date {
 
     public final String date;
