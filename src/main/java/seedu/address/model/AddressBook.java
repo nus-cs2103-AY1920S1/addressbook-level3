@@ -97,6 +97,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    public boolean hasCheatSheet(CheatSheet cheatSheet) {
+        requireNonNull(cheatSheet);
+        return cheatSheets.contains(cheatSheet);
+    }
     //// util methods
 
     @Override

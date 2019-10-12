@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 
 /**
@@ -89,6 +90,15 @@ public interface Model {
      * Adds the given cheatSheet.
      * {@code cheatSheet} must not already exist in the cheatSheet book.
      */
-    void addCheatSheet(seedu.address.model.cheatsheet.CheatSheet cheatSheet);
+    void addCheatSheet(CheatSheet cheatSheet);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    boolean hasCheatSheet(CheatSheet cheatSheet);
+
+    public ObservableList<CheatSheet> getFilteredCheatSheetList();
+
+    public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate);
 
 }
