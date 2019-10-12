@@ -17,9 +17,13 @@ import seedu.savenus.model.food.FoodComparator;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "You are only allowed to input the following fields:\n"
+    public static final String NO_ARGUMENTS_USAGE = "Note you have input in zero arguments:\n"
+            + "Example Usage: " + COMMAND_WORD + " PRICE NAME";
+    public static final String DUPLICATE_FIELD_USAGE = "Note you have input a duplicate field.";
+    public static final String INVALID_FIELD_USAGE = "Note you have input an invalid field:\n"
+            + "You are only allowed to input the following fields:\n"
             + "NAME, PRICE, CATEGORY, DESCRIPTION, LOCATION, OPENING_HOURS, RESTRICTIONS";
-    public static final String MESSAGE_SUCCESS = "Sort Success!";
+    public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items!";
 
     private List<String> fields;
 

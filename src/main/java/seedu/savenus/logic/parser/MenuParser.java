@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.ClearCommand;
 import seedu.savenus.logic.commands.Command;
 import seedu.savenus.logic.commands.DeleteCommand;
@@ -47,6 +48,9 @@ public class MenuParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case BudgetCommand.COMMAND_WORD:
+            return new BudgetCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

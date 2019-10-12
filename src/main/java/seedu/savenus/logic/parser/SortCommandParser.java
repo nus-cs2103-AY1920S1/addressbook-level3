@@ -21,32 +21,50 @@ public class SortCommandParser implements Parser<SortCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.NO_ARGUMENTS_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        if (!areFieldsValid(nameKeywords)) {
+        if (areFieldsValid(nameKeywords)) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.INVALID_FIELD_USAGE));
+        } else if (areFieldsDuplicate(nameKeywords)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.DUPLICATE_FIELD_USAGE));
         }
 
         return new SortCommand((Arrays.asList(nameKeywords)));
     }
 
     /**
-     * Checks if the array of fields contain duplicate of invalid values.
+     * Checks if the array of fields contain invalid values.
      * @param keywords the array of fields.
-     * @return true if the fields do not contain duplicate of invalid fields. False if otherwise.
+     * @return true if the fields do contain invalid fields. False if otherwise.
      */
     public boolean areFieldsValid(String[] keywords) {
+        for (int i = 0; i < keywords.length; i++) {
+            String field = keywords[i];
+            if (!isValidField(field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the array of fields contain duplicate values.
+     * @param keywords the array of fields.
+     * @return true if the fields do contain duplicate fields. False if otherwise.
+     */
+    public boolean areFieldsDuplicate(String[] keywords) {
         Set<String> noDuplicateFields = new HashSet<String>();
         for (int i = 0; i < keywords.length; i++) {
             String field = keywords[i];
-            if (!isValidField(field) || !noDuplicateFields.add(field)) {
-                return false;
+            if (!noDuplicateFields.add(field)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

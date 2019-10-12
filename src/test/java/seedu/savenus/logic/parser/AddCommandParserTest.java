@@ -31,8 +31,8 @@ import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_RICE;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.savenus.testutil.TypicalFood.CHICKEN_RICE;
-import static seedu.savenus.testutil.TypicalFood.NASI_LEMAK;
+import static seedu.savenus.testutil.TypicalMenu.CHICKEN_RICE;
+import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
 
 import org.junit.jupiter.api.Test;
 

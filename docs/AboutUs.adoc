@@ -15,7 +15,8 @@ image::robytanama.png[width="150", align="left"]
 {empty}[Github](https://github.com/robytanama) | <<johndoe#, Portfolio>>
 
 Role: Project lead +
-Responsibilities: UI
+Responsibilities: UI +
+Main project tasks: Information and UI features
 
 '''
 
@@ -24,7 +25,8 @@ image::seanlowjk.png[width="150", align="left"]
 {empty}[Github](https://github.com/seanlowjk) | <<johndoe#, Portfolio>>
 
 Role: Documentation +
-Responsibilities: Deliverables and deadlines
+Responsibilities: Deliverables, and deadlines +
+Main project tasks: Recommend and Budgeting features
 
 '''
 
@@ -33,7 +35,8 @@ image::jon-chua.png[width="150", align="left"]
 {empty}[Github](http://github.com/jon-chua) | <<johndoe#, Portfolio>>
 
 Role: Developer +
-Responsibilities: Storage handling
+Responsibilities: Storage handling +
+Main project tasks: Sorting and Algorithm features
 
 '''
 
@@ -42,7 +45,8 @@ image::fatclarence.png[width="150", align="left"]
 {empty}[Github](http://github.com/fatclarence) | <<johndoe#, Portfolio>>
 
 Role: Developer +
-Responsibilities: Implementing features
+Responsibilities: Implementing features +
+Main project tasks: Updating and Editing features
 
 '''
 
@@ -51,6 +55,7 @@ image::raikonen.png[width="150", align="left"]
 {empty}[Github](http://github.com/raikonen) | <<johndoe#, Portfolio>>
 
 Role: Developer +
-Responsibilities: Implementing features
+Responsibilities: Implementing features +
+Main project tasks: Expenses and Wallet features
 
 '''

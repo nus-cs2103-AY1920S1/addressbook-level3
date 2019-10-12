@@ -1,4 +1,4 @@
-package seedu.savenus.ui;
+package seedu.savenus.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.savenus.storage.JsonAdaptedFood.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.TONKATSU_RAMEN;
+import static seedu.savenus.testutil.TypicalMenu.TONKATSU_RAMEN;
 
 import java.util.ArrayList;
 import java.util.List;

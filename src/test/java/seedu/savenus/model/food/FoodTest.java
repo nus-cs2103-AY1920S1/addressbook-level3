@@ -8,8 +8,8 @@ import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_NASI_LEMAK
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.CARBONARA;
-import static seedu.savenus.testutil.TypicalFood.NASI_LEMAK;
+import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
+import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
 
 import org.junit.jupiter.api.Test;
 

@@ -89,7 +89,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
             initialData = new Menu();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 
