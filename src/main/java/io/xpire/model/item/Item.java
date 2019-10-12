@@ -20,7 +20,7 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
-    private final Set<Tag> tags = new TreeSet<>(new TagComparator());
+    private Set<Tag> tags = new TreeSet<>(new TagComparator());
     private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
 
     /**
@@ -57,6 +57,15 @@ public class Item {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(this.tags);
+    }
+
+    /**
+     * Sets and overrides the tags.
+     *
+     * @param tags tags.
+     */
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     /**

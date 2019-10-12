@@ -2,6 +2,7 @@ package io.xpire.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -134,5 +135,26 @@ public class ParserUtil {
      */
     public static String parseTagsToSentenceCase(String tag) {
         return Character.toUpperCase(tag.charAt(0)) + tag.substring(1).toLowerCase();
+    }
+
+    /**
+     * Parses tag from user input in the form of "#Tag1 #Tag2"
+     *
+     * @param arg Argument that contains tags.
+     * @return Set containing parsed tags from user input.
+     * @throws ParseException if tags cannot be parsed properly.
+     */
+    public static Set<Tag> parseTagsFromInput(String arg) throws ParseException {
+        Set<Tag> set;
+        String tagInput = arg.trim();
+        String[] tags = tagInput.split("#");
+        String[] copiedTags;
+        try {
+            copiedTags = Arrays.copyOfRange(tags, 1, tags.length); //to get rid of empty string
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        set = ParserUtil.parseTags(Arrays.asList(copiedTags));
+        return set;
     }
 }

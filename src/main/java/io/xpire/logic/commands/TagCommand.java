@@ -80,6 +80,29 @@ public class TagCommand extends Command {
         return set;
     }
 
+    @Override
+    public int hashCode() {
+        return this.tagItemDescriptor.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+
+        // state check
+        TagCommand e = (TagCommand) other;
+        return index.equals(e.index)
+                && tagItemDescriptor.equals(e.tagItemDescriptor);
+    }
+
     /**
      * Stores the tags to edit the item with.
      */
@@ -109,6 +132,26 @@ public class TagCommand extends Command {
         public Set<Tag>getTags() {
             return (this.tags != null) ? Collections.unmodifiableSet(this.tags) : null;
         }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof TagItemDescriptor)) {
+                return false;
+            }
+
+            // state check
+            TagItemDescriptor e = (TagItemDescriptor) other;
+
+            return getTags().equals(e.getTags());
+        }
     }
+
+
 
 }
