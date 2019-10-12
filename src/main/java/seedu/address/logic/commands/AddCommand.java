@@ -26,7 +26,7 @@ public class AddCommand extends Command {
             + "<Optional> " + PREFIX_TAG + "Tag ";
 
     public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This item already exists in the List";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the List";
 
     private final Item toAdd;
 
