@@ -8,6 +8,7 @@ import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
@@ -34,6 +35,7 @@ public class UpdateTransactionDescriptorBuilder {
         descriptor = new UpdateTransactionDescriptor();
         descriptor.setDescription(transaction.getDescription());
         descriptor.setValue(transaction.getValue());
+        descriptor.setRemark(transaction.getRemark());
         descriptor.setDate(transaction.getDate());
         descriptor.setTags(transaction.getTags());
     }
@@ -51,6 +53,14 @@ public class UpdateTransactionDescriptorBuilder {
      */
     public UpdateTransactionDescriptorBuilder withValue(String value) {
         descriptor.setValue(new Value(value));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code UpdateTransactionDescriptor} that we are building.
+     */
+    public UpdateTransactionDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 

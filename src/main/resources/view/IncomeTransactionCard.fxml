@@ -32,7 +32,11 @@
                     </HBox>
                     <FlowPane fx:id="tags" />
                     <Label fx:id="incomeDate" styleClass="cell_small_label" text="\$date" />
-                    <Label fx:id="incomeReserved" styleClass="cell_small_label" text="\$reserved" />
+                    <HBox>
+                      <Label styleClass="cell_small_label">Remarks:</Label>
+                      <Label minWidth="3" />
+                      <Label fx:id="incomeRemark" styleClass="cell_small_label" text="\$reserved" />
+                    </HBox>
                 </VBox>
                 <Pane HBox.hgrow="ALWAYS" minWidth="50"></Pane>
                 <Label fx:id="incomeValue" styleClass="cell_small_label" text="\$value" />

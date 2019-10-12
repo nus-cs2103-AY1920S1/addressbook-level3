@@ -17,7 +17,7 @@ public class TypicalTransactions {
     public static final Expense LAKSA = new ExpenseBuilder().withDescription("Laksa").withValue("3.50")
             .withDate("13/03/1937").withTags("Lunch").build();
     public static final Expense PENANG_LAKSA = new ExpenseBuilder().withDescription("Penang Laksa1").withValue("5")
-            .withDate("11/10/2010").withTags("Brunch").build();
+            .withDate("11/10/2010").withRemark("One of the best Laksa").withTags("Brunch").build();
     public static final Income BURSARY = new IncomeBuilder().withDescription("Bursary").withValue("500")
             .withDate("13/11/2011").withTags("Award").build();
 

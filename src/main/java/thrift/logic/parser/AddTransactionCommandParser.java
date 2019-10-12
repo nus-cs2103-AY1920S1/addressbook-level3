@@ -3,12 +3,14 @@ package thrift.logic.parser;
 import static thrift.model.transaction.TransactionDate.DATE_FORMATTER;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
 
@@ -44,6 +46,21 @@ public abstract class AddTransactionCommandParser {
      */
     protected Value parseTransactionValue(ArgumentMultimap argMultimap) throws ParseException {
         return ParserUtil.parseValue(argMultimap.getValue(CliSyntax.PREFIX_COST).get());
+    }
+
+    /**
+     * Parses for {@code Remark} object given the {@code ArgumentMultimap} object.
+     *
+    * @param argMultimap the object to parse from.
+    * @return {@code Remark} object based on the values in the input {@code ArgumentMultimap}.
+    */
+    protected Remark parseTransactionRemark(ArgumentMultimap argMultimap) {
+        Optional<String> remark = argMultimap.getValue(CliSyntax.PREFIX_REMARK);
+        if (remark.isEmpty()) {
+            return ParserUtil.parseRemark("");
+        } else {
+            return ParserUtil.parseRemark(remark.get());
+        }
     }
 
     /**

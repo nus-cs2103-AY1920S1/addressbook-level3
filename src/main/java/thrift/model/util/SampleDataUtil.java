@@ -10,6 +10,7 @@ import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
@@ -20,12 +21,12 @@ import thrift.model.transaction.Value;
 public class SampleDataUtil {
     public static Transaction[] getSampleTransaction() {
         return new Transaction[] {
-            new Expense(new Description("Laksa"), new Value("3.50"), new TransactionDate("13/03/1937"),
+            new Expense(new Description("Laksa"), new Value("3.50"), new Remark(""), new TransactionDate("13/03/1937"),
                     getTagSet("Lunch")),
             new Expense(new Description("Airpods 2nd Generation"), new Value("300"),
-                    new TransactionDate("14/03/1937"), getTagSet("Accessory")),
-            new Income(new Description("Bursary"), new Value("500"), new TransactionDate("12/03/1937"),
-                    getTagSet("Award"))
+                    new Remark("Good buy!"), new TransactionDate("14/03/1937"), getTagSet("Accessory")),
+            new Income(new Description("Bursary"), new Value("500"), new Remark("I worked hard."),
+                    new TransactionDate("12/03/1937"), getTagSet("Award"))
         };
     }
 

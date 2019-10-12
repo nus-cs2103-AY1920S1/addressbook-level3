@@ -37,7 +37,7 @@ public class IncomeTransactionCard extends UiPart<Region> {
     @FXML
     private Label incomeDate;
     @FXML
-    private Label incomeReserved;
+    private Label incomeRemark;
     @FXML
     private FlowPane tags;
 
@@ -48,13 +48,13 @@ public class IncomeTransactionCard extends UiPart<Region> {
         incomeDescription.setText(transaction.getDescription().toString());
         incomeValue.setText("$" + transaction.getValue().toString());
         incomeDate.setText(transaction.getDate().toString());
-        incomeReserved.setText("Dummy text label in IncomeTransactionCard.java.");
+        incomeRemark.setText(transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         incomeDescription.setWrapText(true);
         incomeValue.setWrapText(true);
-        incomeReserved.setWrapText(true);
+        incomeRemark.setWrapText(true);
     }
 
     @Override

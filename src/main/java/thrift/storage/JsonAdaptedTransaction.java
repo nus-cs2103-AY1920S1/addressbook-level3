@@ -14,6 +14,7 @@ import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
+import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
@@ -28,6 +29,7 @@ class JsonAdaptedTransaction {
     private final String type;
     private final String description;
     private final String value;
+    private final String remark;
     private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -36,11 +38,12 @@ class JsonAdaptedTransaction {
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("type") String type, @JsonProperty("description") String description,
-            @JsonProperty("value") String value, @JsonProperty("date") String date,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("value") String value, @JsonProperty("remark") String remark,
+            @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.type = type;
         this.description = description;
         this.value = value;
+        this.remark = remark;
         this.date = date;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -58,6 +61,7 @@ class JsonAdaptedTransaction {
         }
         description = source.getDescription().toString();
         value = source.getValue().getUnformattedString();
+        remark = source.getRemark().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -96,6 +100,12 @@ class JsonAdaptedTransaction {
         }
         final Value modelValue = new Value(value);
 
+        if (remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Remark.class.getSimpleName()));
+        }
+        final Remark modelRemark = new Remark(remark);
+
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TransactionDate.class.getSimpleName()));
@@ -108,9 +118,9 @@ class JsonAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
 
         if (modelType.equals("expense")) {
-            return new Expense(modelDescription, modelValue, modelDate, modelTags);
+            return new Expense(modelDescription, modelValue, modelRemark, modelDate, modelTags);
         } else {
-            return new Income(modelDescription, modelValue, modelDate, modelTags);
+            return new Income(modelDescription, modelValue, modelRemark, modelDate, modelTags);
         }
     }
 

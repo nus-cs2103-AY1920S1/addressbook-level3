@@ -48,35 +48,35 @@ Command format:
 [[ExpenseTag]]
 === Adding an expense: `add_expense`
 
-Format: `add_expense n/EXPENSE_NAME c/COST [t/TAG]...`
+Format: `add_expense n/EXPENSE_NAME c/COST [r/REMARKS] [t/TAG]...`
 
 TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `COST`.
 
 Examples:
 
 *   `add_expense n/Laksa c/10.50 t/Lunch t/Food`
-*   `add_expense n/Travel c/53 t/Travel`
+*   `add_expense n/Travel c/53 r/Went to Johor Bahru t/Travel`
 
 Expected output:
 
-*   `New entry added: 1. [-] Laksa ($10.50) [Lunch][Food]`
-*   `New entry added: 2. [-] Travel ($53) [Travel]`
+*   `New expense added: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
+*   `New expense added: [-] Travel ($53.00) Date: 12/10/2019 Remarks: Went to Johor Bahru Tags: [Travel]`
 
 
 [[IncomeTag]]
 === Adding an income: `add_income`
 
-Format: `add_income n/INCOME_NAME c/COST [t/TAG]...`
+Format: `add_income n/INCOME_NAME c/COST [r/REMARKS] [t/TAG]...`
 
 Examples:
 
 *   `add_income n/Allowance c/1000 t/Monthly`
+*   `add_income n/Bursary c/500 r/Did well in previous semester. t/Award`
 
 Expected output:
 
-*   `New entry added: 3. [+] Allowance ($1000) [Monthly]`
-
-
+*   `New income added: [+] Allowance ($1,000.00) Date: 12/10/2019 Remarks:  Tags: [Monthly]`
+*   `New income added: [+] Bursary ($500.00) Date: 12/10/2019 Remarks: Did well in previous semester. Tags: [Award]`
 
 [[DeleteTag]]
 === Deleting a transaction: `delete`
@@ -95,7 +95,7 @@ Examples:
 
 Expected output:
 
-*   `Entry deleted: 1. Laksa ($10.50) [Lunch][Food]`
+*   `Deleted Transaction: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
 
 // tag::update[]
 [[UpdateTag]]
@@ -114,18 +114,19 @@ Format: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...`
 Examples:
 
 *   `update i/1 n/Curry Laksa`
-*   `update i/1 n/Asam Laksa c/11 t/Dinner t/Food`
+*   `update i/1 n/Asam Laksa c/11 r/My first time trying! t/Dinner t/Food`
 
 Expected output: +
 
 NOTE: Assume 2nd command occurs after 1st
 
-*   `Updated Transaction: [-] Curry Laksa ($10.50) Date: 09/10/2019 Tags: [Food][Lunch]` +
+*   `Updated Transaction: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]` +
 +
-`Original: [-] Laksa ($10.50) Date: 09/10/2019 Tags: [Food][Lunch]`
-*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 09/10/2019 Tags: [Dinner][Food] +`
+`Original: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
+
+*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 12/10/2019 Remarks: My first time trying! Tags: [Dinner][Food]` +
 +
-`Original: [-] Curry Laksa ($10.50) Date: 09/10/2019 Tags: [Food][Lunch]`
+`Original: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
 // end::update[]
 
 //tag::tag[]
@@ -327,10 +328,10 @@ If you are especially conscious about having your data spied on, this function w
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
-* <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME c/COST [t/TAG]...` +
-Example: `add_expense n/Laksa c/10.50 t/Lunch t/Food`
+* <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME c/COST [r/REMARKS] [t/TAG]...` +
+Example: `add_expense n/Laksa c/10.50 r/At Hougang t/Lunch t/Food`
 * <<IncomeTag, *Income*>>: `add_income n/INCOME_NAME c/COST [t/TAG]...` +
-Example: `add_income n/Allowance c/1000 t/Monthly`
+Example: `add_income n/Allowance c/1000 r/From my parents t/Monthly`
 * <<DeleteTag, *Delete*>>: `delete i/INDEX` +
 Example: `delete i/1`
 * <<UpdateTag, *Update*>>: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...` +

@@ -20,12 +20,13 @@ public class AddIncomeCommand extends Command implements Undoable {
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
             + CliSyntax.PREFIX_COST + "COST "
+            + "[" + CliSyntax.PREFIX_REMARK + "REMARK] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "Laksa "
-            + CliSyntax.PREFIX_COST + "4.50 "
-            + CliSyntax.PREFIX_TAG + "Lunch "
-            + CliSyntax.PREFIX_TAG + "Meal ";
+            + CliSyntax.PREFIX_NAME + "Bursary "
+            + CliSyntax.PREFIX_COST + "500 "
+            + CliSyntax.PREFIX_REMARK + "For studying well "
+            + CliSyntax.PREFIX_TAG + "Award ";
 
     public static final String MESSAGE_SUCCESS = "New income added: %1$s";
 

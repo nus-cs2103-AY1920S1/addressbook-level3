@@ -17,15 +17,17 @@ public class Income extends Transaction {
     private final Description description;
     private final TransactionDate date;
     private final Value value;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Income(Description description, Value value, TransactionDate date, Set<Tag> tags) {
+    public Income(Description description, Value value, Remark remark, TransactionDate date, Set<Tag> tags) {
         this.description = description;
-        this.date = date;
         this.value = value;
+        this.remark = remark;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -39,6 +41,10 @@ public class Income extends Transaction {
 
     public Value getValue() {
         return value;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -77,6 +83,7 @@ public class Income extends Transaction {
         return otherIncome.getDescription().equals(getDescription())
                 && otherIncome.getDate().equals(getDate())
                 && otherIncome.getValue().equals(getValue())
+                && otherIncome.getRemark().equals(getRemark())
                 && otherIncome.getTags().equals(getTags());
     }
 
@@ -95,6 +102,8 @@ public class Income extends Transaction {
                 .append(getValue())
                 .append(") Date: ")
                 .append(getDate())
+                .append(" Remarks: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

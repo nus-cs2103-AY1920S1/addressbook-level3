@@ -20,10 +20,12 @@ public class AddExpenseCommand extends Command implements Undoable {
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
             + CliSyntax.PREFIX_COST + "COST "
+            + "[" + CliSyntax.PREFIX_REMARK + "REMARK] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "Laksa "
             + CliSyntax.PREFIX_COST + "4.50 "
+            + CliSyntax.PREFIX_REMARK + "Ate at Changi Village "
             + CliSyntax.PREFIX_TAG + "Lunch "
             + CliSyntax.PREFIX_TAG + "Meal ";
 

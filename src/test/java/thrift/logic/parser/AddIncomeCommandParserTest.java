@@ -18,12 +18,12 @@ public class AddIncomeCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // whitespace only preamble
         assertDoesNotThrow(() -> parser.parse(CommandTestUtil.PREAMBLE_WHITESPACE
-                + CommandTestUtil.DESC_BURSARY + CommandTestUtil.VALUE_BURSARY
+                + CommandTestUtil.DESC_BURSARY + CommandTestUtil.VALUE_BURSARY + CommandTestUtil.REMARK_LAKSA
                 + CommandTestUtil.TAG_BURSARY));
 
         // multiple tags - all accepted
         assertDoesNotThrow(() -> parser.parse(CommandTestUtil.DESC_BURSARY + CommandTestUtil.VALUE_BURSARY
-                + CommandTestUtil.TAG_BURSARY + CommandTestUtil.TAG_AIRPODS));
+                + CommandTestUtil.REMARK_LAKSA + CommandTestUtil.TAG_BURSARY + CommandTestUtil.TAG_AIRPODS));
     }
 
     @Test
