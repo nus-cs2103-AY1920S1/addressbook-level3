@@ -4,9 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.note.Content;
-import seedu.address.model.note.Title;
-
 /**
  * Represents a Note in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -40,8 +37,8 @@ public class Note {
     }
     
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both notes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two notes.
      */
     public boolean isSameNote(Note otherNote) {
         if (otherNote == this) {
@@ -52,8 +49,8 @@ public class Note {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both notes have the same identity and data fields.
+     * This defines a stronger notion of equality between two notes.
      */
     @Override
     public boolean equals(Object other) {
