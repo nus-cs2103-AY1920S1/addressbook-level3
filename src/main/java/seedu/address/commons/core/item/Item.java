@@ -219,7 +219,7 @@ public class Item {
                 .append(getReminder().toString())
                 .append(" Tags: ")
                 .append(getTags().toString());
-        getTags().forEach(builder::append);
+        //getTags().forEach(builder::append);
         return builder.toString();
     }
 
