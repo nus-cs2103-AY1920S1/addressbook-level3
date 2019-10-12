@@ -44,11 +44,7 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label loc; // As explained above, location is a reserved keyword
-    @FXML
-    private Label openingHours;
-    @FXML
-    private Label restrictions;
+    private Label optionalInfo;
 
     public FoodCard(Food food, int displayedIndex) {
         super(FXML);
@@ -69,22 +65,34 @@ public class FoodCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        loc.setText("Location: " + food.getLocation().location);
+        // The label for short optional information which contains opening hours, location, and restrictions.
+        String textForOptionalInfo = "";
 
+        // Partition string.
+        String partition = "  |  ";
+
+        // Label for location.
+        textForOptionalInfo += "Location: " + food.getLocation().location + partition;
+
+        // Label for opening hours.
         if (food.getOpeningHours().openingHours.equals(OpeningHours.DEFAULT_VALUE)) {
-            openingHours.setText("No opening hours specified");
+            textForOptionalInfo += "No opening hours specified." + partition;
         } else {
             String[] hours = food.getOpeningHours().openingHours.split(" ");
             String open = hours[0];
             String close = hours[1];
-            openingHours.setText("Opens at: " + open + " and closes at: " + close);
+            textForOptionalInfo += "Opens: " + open + " - Close: " + close + partition;
         }
 
+        // Label for restrictions.
         if (food.getRestrictions().restrictions.equals(Restrictions.DEFAULT_VALUE)) {
-            restrictions.setText("No restriction");
+            textForOptionalInfo += "No restrictions.";
         } else {
-            restrictions.setText("Restrictions: " + food.getRestrictions().restrictions);
+            textForOptionalInfo += "Restrictions: " + food.getRestrictions().restrictions;
         }
+
+        // Setting the text for optional info.
+        optionalInfo.setText(textForOptionalInfo);
     }
 
     @Override
