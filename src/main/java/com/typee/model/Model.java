@@ -95,5 +95,7 @@ public interface Model {
 
     boolean hasNoRedoableCommand();
 
+    void saveAppointmentList();
+
     void redoAppointmentList() throws NullRedoableActionException;
 }

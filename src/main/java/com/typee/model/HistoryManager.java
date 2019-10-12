@@ -11,15 +11,14 @@ import com.typee.logic.commands.exceptions.NullUndoableActionException;
  */
 public class StatedAddressBook extends AddressBook {
 
-    private final List<ReadOnlyAddressBook> historyStateList;
+    private final List<ReadOnlyAddressBook> historyBook;
     private int versionPointer;
 
     public StatedAddressBook(ReadOnlyAddressBook initialList) {
         super(initialList);
-
-        historyStateList = new LinkedList<>();
-        historyStateList.add(new AddressBook(initialList));
         versionPointer = 0;
+        historyBook = new LinkedList<>();
+        historyBook.add(new AddressBook(initialList));
     }
 
     /**
@@ -30,7 +29,7 @@ public class StatedAddressBook extends AddressBook {
             throw new NullUndoableActionException();
         }
         versionPointer--;
-        resetData(historyStateList.get(versionPointer));
+        resetData(historyBook.get(versionPointer));
     }
 
     /**
@@ -40,8 +39,9 @@ public class StatedAddressBook extends AddressBook {
         if (!isRedoable()) {
             throw new NullRedoableActionException();
         }
+
         versionPointer++;
-        resetData(historyStateList.get(versionPointer));
+        resetData(historyBook.get(versionPointer));
     }
 
     public boolean isUndoable() {
@@ -49,7 +49,20 @@ public class StatedAddressBook extends AddressBook {
     }
 
     public boolean isRedoable() {
-        return versionPointer < historyStateList.size() - 1;
+        return versionPointer < historyBook.size() - 1;
+    }
+
+    private void clearUpToNow() {
+        historyBook.subList(versionPointer + 1, historyBook.size()).clear();
+    }
+
+    /**
+     * Saves the current state of appointmentList and discards previous undone changes.
+     */
+    public void saveState() {
+        clearUpToNow();
+        historyBook.add(new AddressBook(this));
+        versionPointer++;
     }
 
     @Override
@@ -63,7 +76,6 @@ public class StatedAddressBook extends AddressBook {
         }
 
         StatedAddressBook otherStatedAppointmentList = (StatedAddressBook) other;
-
         return super.equals(otherStatedAppointmentList)
                 && versionPointer == otherStatedAppointmentList.versionPointer;
     }
