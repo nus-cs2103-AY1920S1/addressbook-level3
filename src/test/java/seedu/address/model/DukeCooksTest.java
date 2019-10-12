@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
 public class DukeCooksTest {
@@ -43,10 +43,10 @@ public class DukeCooksTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newPersons);
+        // Two diaries with the same identity fields
+        Diary editedAlice = new PersonBuilder(ALICE).build();
+        List<Diary> newDiaries = Arrays.asList(ALICE, editedAlice);
+        DukeCooksStub newData = new DukeCooksStub(newDiaries);
 
         assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
     }
@@ -70,7 +70,7 @@ public class DukeCooksTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).build();
+        Diary editedAlice = new PersonBuilder(ALICE).build();
         assertTrue(dukeCooks.hasPerson(editedAlice));
     }
 
@@ -80,18 +80,18 @@ public class DukeCooksTest {
     }
 
     /**
-     * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
+     * A stub ReadOnlyDukeCooks whose diaries list can violate interface constraints.
      */
     private static class DukeCooksStub implements ReadOnlyDukeCooks {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Diary> diaries = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        DukeCooksStub(Collection<Diary> diaries) {
+            this.diaries.setAll(diaries);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Diary> getPersonList() {
+            return diaries;
         }
     }
 

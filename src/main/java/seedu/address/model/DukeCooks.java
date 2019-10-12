@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -40,11 +40,11 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the diary list with {@code diaries}.
+     * {@code diaries} must not contain duplicate diaries.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Diary> diaries) {
+        this.persons.setPersons(diaries);
     }
 
     /**
@@ -56,40 +56,40 @@ public class DukeCooks implements ReadOnlyDukeCooks {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// diary-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
+     * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Diary diary) {
+        requireNonNull(diary);
+        return persons.contains(diary);
     }
 
     /**
-     * Adds a person to Duke Cooks.
-     * The person must not already exist in Duke Cooks.
+     * Adds a diary to Duke Cooks.
+     * The diary must not already exist in Duke Cooks.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Diary p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given diary {@code target} in the list with {@code editedDiary}.
      * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in Duke Cooks.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in Duke Cooks.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Diary target, Diary editedDiary) {
+        requireNonNull(editedDiary);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedDiary);
     }
 
     /**
      * Removes {@code key} from this {@code DukeCooks}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Diary key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Diary> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

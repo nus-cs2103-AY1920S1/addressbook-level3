@@ -4,26 +4,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
 
 /**
- * A utility class for Person.
+ * A utility class for Diary.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code diary}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Diary diary) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(diary);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code diary}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Diary diary) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        sb.append(PREFIX_NAME + diary.getName().fullName + " ");
         return sb.toString();
     }
 

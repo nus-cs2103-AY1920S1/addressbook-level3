@@ -1,14 +1,14 @@
-package seedu.address.model.person;
+package seedu.address.model.diary;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 /**
- * Represents a Person in Duke Cooks.
+ * Represents a Diary in Duke Cooks.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Diary {
 
     // Identity fields
     private final Name name;
@@ -16,7 +16,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name) {
+    public Diary(Name name) {
         requireAllNonNull(name);
         this.name = name;
     }
@@ -29,13 +29,13 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Diary otherDiary) {
+        if (otherDiary == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherDiary != null
+                && otherDiary.getName().equals(getName());
     }
 
     /**
@@ -48,12 +48,12 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Diary)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName());
+        Diary otherDiary = (Diary) other;
+        return otherDiary.getName().equals(getName());
     }
 
     @Override

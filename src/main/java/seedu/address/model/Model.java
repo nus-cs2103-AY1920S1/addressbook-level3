@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Diary> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,35 @@ public interface Model {
     ReadOnlyDukeCooks getDukeCooks();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
+     * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Diary diary);
 
     /**
-     * Deletes the given person.
-     * The person must exist in Duke Cooks.
+     * Deletes the given diary.
+     * The diary must exist in Duke Cooks.
      */
-    void deletePerson(Person target);
+    void deletePerson(Diary target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in Duke Cooks.
+     * Adds the given diary.
+     * {@code diary} must not already exist in Duke Cooks.
      */
-    void addPerson(Person person);
+    void addPerson(Diary diary);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given diary {@code target} with {@code editedDiary}.
      * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the Duke Cooks.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in the Duke Cooks.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Diary target, Diary editedDiary);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered diary list */
+    ObservableList<Diary> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered diary list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Diary> predicate);
 }

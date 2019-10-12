@@ -15,8 +15,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.Name;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -24,21 +24,21 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).build();
+        Diary expectedDiary = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB, new AddCommand(expectedDiary));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB, new AddCommand(expectedDiary));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Diary expectedDiary = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedDiary));
     }
 
     @Test
