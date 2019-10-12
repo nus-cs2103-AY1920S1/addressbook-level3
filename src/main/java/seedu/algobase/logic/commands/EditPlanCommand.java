@@ -1,5 +1,17 @@
 package seedu.algobase.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
@@ -10,18 +22,6 @@ import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.task.Task;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
-import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 /**
  * Edits the details of an existing Plan in the algobase.
@@ -87,7 +87,8 @@ public class EditPlanCommand extends Command {
         assert planToEdit != null;
 
         PlanName updatedName = editPlanDescriptor.getPlanName().orElse(planToEdit.getPlanName());
-        PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(planToEdit.getPlanDescription());
+        PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(
+                planToEdit.getPlanDescription());
         LocalDateTime startDate = editPlanDescriptor.getStartDate().orElse(planToEdit.getStartDate());
         LocalDateTime endDate = editPlanDescriptor.getEndDate().orElse(planToEdit.getEndDate());
         Set<Task> tasks = editPlanDescriptor.getTasks().orElse(planToEdit.getTasks());

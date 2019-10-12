@@ -1,12 +1,14 @@
 package seedu.algobase.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
+
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
 
 /**
  * Adds a Plan to AlgoBase.

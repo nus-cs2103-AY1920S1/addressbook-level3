@@ -1,10 +1,10 @@
 package seedu.algobase.logic.parser;
 
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-
-import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 
 /**
