@@ -20,8 +20,6 @@ public class TypicalPolicy {
             .withPrice(VALID_PRICE_HEALTH_INSURANCE).withCriteria(VALID_CRITERIA_HEALTH_INSURANCE)
             .withTags(VALID_TAG_HEALTH_INSURANCE).build();
 
-//    public static final Policy HEALTH_INSURANCE = new PolicyBuilder().build();
-
     public static final Policy LIFE_INSURANCE = new PolicyBuilder().withName(VALID_NAME_LIFE_INSURANCE)
             .withDescription(VALID_DESCRIPTION_LIFE_INSURANCE).withCoverage(VALID_COVERAGE_LIFE_INSURANCE)
             .withStartAge(VALID_START_AGE_LIFE_INSURANCE).withEndAge(VALID_END_AGE_LIFE_INSURANCE)
@@ -37,9 +35,7 @@ public class TypicalPolicy {
     private TypicalPolicy() {} // prevents instantiation
 
     public static List<Policy> getTypicalPolicy() {
-        PolicyBuilder pb = new PolicyBuilder();
         return new ArrayList<>(Arrays.asList(HEALTH_INSURANCE, LIFE_INSURANCE, FIRE_INSURANCE));
-//            return null;
     }
 }
 

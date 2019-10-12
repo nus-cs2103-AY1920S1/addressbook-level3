@@ -84,7 +84,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_LIFE_INSURANCE = "Life Insurance";
     public static final String VALID_NAME_FIRE_INSURANCE = "Fire Insurance";
 
-    public static final String VALID_DESCRIPTION_HEALTH_INSURANCE = "Life Insurance";
+    public static final String VALID_DESCRIPTION_HEALTH_INSURANCE = "Insurance for healthcare";
     public static final String VALID_DESCRIPTION_LIFE_INSURANCE = "Insurance for life";
     public static final String VALID_DESCRIPTION_FIRE_INSURANCE = "Insurance for fire";
 
@@ -197,21 +197,6 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
-
-    // TODO: Larry's test
-    /**
-     * Updates {@code model}'s filtered list to show only the policy at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    //    public static void showPolicyAtIndex(Model model, Index targetIndex) {
-    //        assertTrue(targetIndex.getZeroBased() < model.getFilteredPolicyList().size());
-    //
-    //        Policy policy = model.getFilteredPolicyList().get(targetIndex.getZeroBased());
-    //        final String[] splitName = policy.getName().toString().split("\\s+");
-    //        model.updateFilteredPolicyList(new PolicyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-    //
-    //        assertEquals(1, model.getFilteredPolicyList().size());
-    //    }
 
     public static void showPolicyAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPolicyList().size());

@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_HEALTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SMOKER;
+import static seedu.address.testutil.TypicalPolicy.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,12 +32,12 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withNric("S000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253").withDateOfBirth("12.12.1992").withPolicies("Health Insurance")
+            .withPhone("94351253").withDateOfBirth("12.12.1992").withTypicalPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
             .withTags("diabetic").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withNric("S000002J").withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922")
-            .withPolicies("Health Insurance", "Life Insurance").withTags("smoker", "disabled").build();
+            .withTypicalPolicies(LIFE_INSURANCE).withTags("smoker", "disabled").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S000003J")
             .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
             .withDateOfBirth("6.6.1996").build();

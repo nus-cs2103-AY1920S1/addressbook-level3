@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
 
 public class TypicalAddressBook {
-// TODO: Important - need to add policies
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
@@ -19,14 +18,13 @@ public class TypicalAddressBook {
 
         List<Policy> l = getTypicalPolicy();
 
-        // TODO: typical person policy set does not match typical policy
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
 
-//        for (Policy policy : getTypicalPolicy()) {
-//            ab.addPolicy(policy);
-//        }
+        for (Policy policy : getTypicalPolicy()) {
+            ab.addPolicy(policy);
+        }
 
         return ab;
     }
