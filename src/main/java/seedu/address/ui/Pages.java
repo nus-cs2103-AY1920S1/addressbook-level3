@@ -8,13 +8,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PageScenes {
+public class Pages {
     private List<Scene> pageScenes;
     private Scene mainPageScene;
 
     // todo: change this parameter to the specified scenes to minimise possible errors
     // keep PageScene constructor package private to prevent creation of this class elsewhere
-    PageScenes(Scene mainPageScene, Scene... scenes) {
+    Pages(Scene mainPageScene, Scene... scenes) {
         this.mainPageScene = mainPageScene;
         pageScenes = Stream.of(scenes)
                 .collect(Collectors.toList());

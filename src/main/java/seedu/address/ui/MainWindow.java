@@ -30,7 +30,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private PageScenes pageScenes;
+    private Pages pages;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -67,9 +67,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         Scene primaryScene = primaryStage.getScene();
-        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. PageScenes(primaryScene, diaryScene)
+        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pageScenes = new PageScenes(primaryScene);
+        pages = new Pages(primaryScene);
 
     }
 
@@ -173,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handlePageChange(CommandResult commandResult) {
-        Scene requestedPage = pageScenes.getPage(commandResult);
+        Scene requestedPage = pages.getPage(commandResult);
         primaryStage.setScene(requestedPage);
     }
 
