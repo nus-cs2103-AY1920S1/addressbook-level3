@@ -22,17 +22,21 @@ public class ItemModelManager implements ItemModel {
     private ReminderList reminderList;
     // The list to be used for visualizing in the Ui
     private ItemList visualList;
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private ItemStorage itemStorage;
 
-    public ItemModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this.itemList = new ItemList();
+    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
+        this.itemList = itemStorage.getItems();
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
         this.visualList = taskList;
-        this.addressBook = new AddressBook(addressBook);
+        this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
+
+        for (Item item: itemList.getList()) {
+            addToSeparateList(item);
+        }
     }
 
     @Override
@@ -58,26 +62,26 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getItemStorageFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setItemStorageFilePath(Path itemStorageFilePath) {
+        requireNonNull(itemStorageFilePath);
+        userPrefs.setAddressBookFilePath(itemStorageFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setItemStorage(ItemStorage itemStorage) {
+        this.itemStorage = itemStorage;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ItemStorage getItemStorage() {
+        return itemStorage;
     }
 
     /**
@@ -87,6 +91,23 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         itemList.add(item);
+        addToSeparateList(item);
+    }
+
+    /**
+     * Adds an item to a specific list
+     * @param item the item to be added to the list
+     * @param il the list the item is to be added to
+     */
+    public void addItem (Item item, ItemList il) {
+        il.add(item);
+    }
+
+    /**
+     * Helper function to add an item to it's respective list
+     * @param item the item to be added into the lists
+     */
+    private void addToSeparateList(Item item) {
         if (item.hasTask()) {
             taskList.add(item);
         }
@@ -98,15 +119,6 @@ public class ItemModelManager implements ItemModel {
         if (item.hasReminder()) {
             reminderList.add(item);
         }
-    }
-
-    /**
-     * Adds an item to a specific list
-     * @param item the item to be added to the list
-     * @param il the list the item is to be added to
-     */
-    public void addItem (Item item, ItemList il) {
-        il.add(item);
     }
 
     /**
@@ -181,7 +193,7 @@ public class ItemModelManager implements ItemModel {
         visualList.setItem(index, newItem);
 
         if ((index = itemList.indexOf(item)) >= 0) {
-            taskList.setItem(index, newItem);
+            itemList.setItem(index, newItem);
         }
 
         if ((index = taskList.indexOf(item)) >= 0) {
