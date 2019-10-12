@@ -39,6 +39,9 @@ public class MainWindow extends UiPart<Stage> {
     private ReportWindow reportWindow;
 
     @FXML
+    private BudgetBar budgetBar;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -69,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        budgetBar.setMeals(logic.getModel().getMealLog().getMeals());
+        budgetBar.budgetProperty().bind(logic.getModel().getCalorieBudget().currentBudget());
     }
 
     public Stage getPrimaryStage() {

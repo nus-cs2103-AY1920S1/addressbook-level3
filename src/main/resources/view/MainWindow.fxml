@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<?import calofit.ui.BudgetBar?>
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="CaloFit" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
@@ -22,6 +23,7 @@
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
+
 
       <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
@@ -44,6 +46,8 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
+
+        <BudgetBar fx:id="budgetBar" maxWidth="Infinity"/>
 
         <HBox VBox.vgrow="ALWAYS">
           <VBox fx:id="mealList" minWidth="340" prefWidth="340" styleClass="pane-with-border" HBox.hgrow="ALWAYS">

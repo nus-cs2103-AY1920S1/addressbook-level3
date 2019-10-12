@@ -88,4 +88,9 @@ public class LogicManager implements Logic {
     public Statistics getStatistics() {
         return model.getStatistics();
     }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
 }

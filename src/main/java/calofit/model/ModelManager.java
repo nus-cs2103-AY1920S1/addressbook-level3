@@ -36,6 +36,8 @@ public class ModelManager implements Model {
     private final FilteredList<Meal> filteredMeals;
     private final SortedList<Meal> sortedMeals;
 
+    private final CalorieBudget budget;
+
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
@@ -52,6 +54,7 @@ public class ModelManager implements Model {
         this.filteredMeals = new FilteredList<>(this.mealLog.getMeals());
         this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
         this.statistics = null;
+        this.budget = new CalorieBudget();
     }
 
     public ModelManager() {
@@ -203,5 +206,10 @@ public class ModelManager implements Model {
     @Override
     public MealLog getMealLog() {
         return this.mealLog;
+    }
+
+    @Override
+    public CalorieBudget getCalorieBudget() {
+        return this.budget;
     }
 }
