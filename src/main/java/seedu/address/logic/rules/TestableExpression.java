@@ -2,18 +2,20 @@ package seedu.address.logic.rules;
 
 import java.util.List;
 
+import seedu.address.model.rule.Parameter;
+
 /**
  * Represents a predicate written as an expression.
  */
 public abstract class TestableExpression implements Testable {
-    protected final List<String> args;
+    protected final List<Parameter> params;
 
     /**
-     * Constructs a TestableExpression given a list of arguments.
+     * Constructs a TestableExpression given a list of parameters.
      *
-     * @param args the arguments of the expression.
+     * @param params the parameters of the expression.
      */
-    public TestableExpression(List<String> args) {
-        this.args = args;
+    public TestableExpression(List<Parameter> params) {
+        this.params = params;
     }
 }
