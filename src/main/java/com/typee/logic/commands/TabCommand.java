@@ -24,6 +24,7 @@ public class TabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(MESSAGE_SUCCESS + tabToSwitch.getName(), true, tabToSwitch);
+        return new CommandResult(MESSAGE_SUCCESS + tabToSwitch.getName(),
+                true, tabToSwitch);
     }
 }

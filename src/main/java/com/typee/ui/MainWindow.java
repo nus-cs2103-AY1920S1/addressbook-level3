@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -57,8 +58,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane tabPanelPlaceHolder;
 
+    //main window VBox
     @FXML
     private VBox mainWindow;
+
+    @FXML
+    private Label lblWindowTitle;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -202,6 +207,7 @@ public class MainWindow extends UiPart<Stage> {
                     .getResource("view/" + tabUrl)).load();
             mainWindow.getChildren().clear();
             mainWindow.getChildren().add(newPane);
+            lblWindowTitle.setText(tabInput.getName() + " Window");
         } else {
             throw new CommandException("Invalid tab. Please enter a valid tab name");
         }

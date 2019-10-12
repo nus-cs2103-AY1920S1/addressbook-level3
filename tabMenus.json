@@ -6,9 +6,9 @@
     "url" :  "GameWindow.fxml"
   },
   { "name" : "Calendar",
-  "url" :  "CalendarWindow.fxml"
+    "url" :  "CalendarWindow.fxml"
   },
   { "name" :  "Report",
-  "url" :  "ReportWindow.fxml"
+    "url" :  "ReportWindow.fxml"
   }
 ]
