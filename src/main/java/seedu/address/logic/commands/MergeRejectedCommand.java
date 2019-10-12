@@ -30,14 +30,14 @@ public class MergeRejectedCommand extends Command {
         requireNonNull(model);
         String fieldType = previousMergeCommand.getNextMergeFieldType();
         previousMergeCommand.removeFirstDifferentField();
-        try {
-            String nextMerge = previousMergeCommand.getNextMergePrompt();
-            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
-                    + "\n" + nextMerge);
-        } catch (IndexOutOfBoundsException e) {
+        if (isLastMerge()) {
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
                     previousMergeCommand.getOriginalPerson()));
+        } else {
+            String nextMerge = previousMergeCommand.getNextMergePrompt();
+            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
+                    + "\n" + nextMerge);
         }
     }
 
