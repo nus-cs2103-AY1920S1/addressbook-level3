@@ -13,6 +13,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePolicyCommand;
+import seedu.address.logic.commands.DoNotMergeCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -20,6 +21,9 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.MergeCommand;
+import seedu.address.logic.commands.MergeConfirmedCommand;
+import seedu.address.logic.commands.MergeRejectedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -31,6 +35,9 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private boolean isMerging = false;
+    private MergeCommand currentMergeCommand;
 
     /**
      * Parses user input into command for execution.
@@ -47,28 +54,47 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        if (isMerging) {
+            switch (commandWord) {
+            case MergeConfirmedCommand.COMMAND_WORD:
+                MergeConfirmedCommand confirmCommand = new MergeConfirmedCommand(currentMergeCommand);
+                if (confirmCommand.isLastMerge()) {
+                    isMerging = false;
+                }
+                return confirmCommand;
+            case MergeRejectedCommand.COMMAND_WORD:
+                MergeRejectedCommand rejectCommand = new MergeRejectedCommand(currentMergeCommand);
+                if (rejectCommand.isLastMerge()) {
+                    isMerging = false;
+                }
+                return rejectCommand;
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+        } else {
+            switch (commandWord) {
 
-        case AddPolicyCommand.COMMAND_WORD:
-            return new AddPolicyCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            case AddPolicyCommand.COMMAND_WORD:
+                return new AddPolicyCommandParser().parse(arguments);
 
-        case EditPolicyCommand.COMMAND_WORD:
-            return new EditPolicyCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case EditPolicyCommand.COMMAND_WORD:
+                return new EditPolicyCommandParser().parse(arguments);
 
-        case DeletePolicyCommand.COMMAND_WORD:
-            return new DeletePolicyCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case AssignPolicyCommand.COMMAND_WORD:
-            return new AssignPolicyCommandParser().parse(arguments);
+            case DeletePolicyCommand.COMMAND_WORD:
+                return new DeletePolicyCommandParser().parse(arguments);
+
+            case AssignPolicyCommand.COMMAND_WORD:
+                return new AssignPolicyCommandParser().parse(arguments);
 
         /*
         case UnassignPolicyCommand.COMMAND_WORD:
@@ -87,33 +113,39 @@ public class AddressBookParser {
             return new DeletePolicyTagCommandParser().parse(arguments);
         */
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
         /*
         case FindPolicyCommand.COMMAND_WORD:
             return new FindPolicyCommandParser().parse(arguments);
         */
-        case ListPeopleCommand.COMMAND_WORD:
-            return new ListPeopleCommand();
+            case ListPeopleCommand.COMMAND_WORD:
+                return new ListPeopleCommand();
 
-        case ListPolicyCommand.COMMAND_WORD:
-            return new ListPolicyCommand();
+            case ListPolicyCommand.COMMAND_WORD:
+                return new ListPolicyCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        /*
-        case MergeCommand.COMMAND_WORD:
-            return new MergeCommandParser().parse(arguments);
-        */
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case MergeCommand.COMMAND_WORD:
+                isMerging = true;
+                MergeCommand command = new MergeCommandParser().parse(arguments);
+                currentMergeCommand = command;
+                return command;
+
+            case DoNotMergeCommand.COMMAND_WORD:
+                return new DoNotMergeCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         }
     }
 

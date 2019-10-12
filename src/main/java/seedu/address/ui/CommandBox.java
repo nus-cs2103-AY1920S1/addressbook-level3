@@ -6,8 +6,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DoNotMergeCommand;
+import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.DuplicatePersonException;
+import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
+import seedu.address.logic.commands.exceptions.DuplicatePersonWithoutMergeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -19,6 +22,10 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+
+    private String mergeCommand;
+    private String doNotMergeCommand;
+    private boolean isOnMergeStandby = false;
 
     @FXML
     private TextField commandTextField;
@@ -34,19 +41,62 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered() throws CommandException, ParseException {
         String command = commandTextField.getText();
-        try {
-            commandExecutor.execute(command);
-            commandTextField.setText("");
-        } catch (DuplicatePersonException e) {
-            commandTextField.setText("");
-            setStyleToIndicateCommandFailure();
-        } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
+        if (isOnMergeStandby) {
+            handleInitialisingMergeCommand(command);
+        } else {
+            try {
+                commandExecutor.execute(command + " ");
+                commandTextField.setText("");
+            } catch (DuplicatePersonWithMergeException e) {
+                commandTextField.setText("");
+                setStyleToIndicateCommandFailure();
+                standByForMerge(command);
+            } catch (DuplicatePersonWithoutMergeException e) {
+                setStyleToIndicateCommandFailure();
+                commandTextField.setText("");
+            } catch (CommandException | ParseException e) {
+                setStyleToIndicateCommandFailure();
+            }
         }
     }
 
+    /**
+     * Creates a new merge command and do not merge command and puts command box on standby to accept a merge command.
+     * @param command Input command by user.
+     * @throws CommandException Should not be thrown.
+     * @throws ParseException Should not be thrown.
+     */
+    private void standByForMerge(String command) throws CommandException, ParseException {
+        this.mergeCommand = MergeCommand.COMMAND_WORD + " " + command;
+        this.doNotMergeCommand = DoNotMergeCommand.COMMAND_WORD + " " + command;
+        this.isOnMergeStandby = true;
+    }
+
+    /**
+     * Calls {@code commandExecutor} to execute a merge if user inputs a "yes" and calls {@code commandExecutor} to
+     * execute a do not merge command if user inputs "no". This method then performs a clean up to remove the
+     * "on-standby" boolean flag.
+     * @param command Add command input by the user that throws a duplicate person error.
+     * @throws CommandException Should not be thrown.
+     * @throws ParseException Should not be thrown.
+     */
+    private void handleInitialisingMergeCommand(String command) throws CommandException, ParseException {
+        if (command.equals("yes")) {
+            try {
+                commandExecutor.execute(mergeCommand);
+                commandTextField.setText("");
+            } catch (CommandException | ParseException e) {
+                setStyleToIndicateCommandFailure();
+            }
+        } else {
+            commandExecutor.execute(doNotMergeCommand);
+            commandTextField.setText("");
+        }
+        this.mergeCommand = null;
+        this.isOnMergeStandby = false;
+    }
 
     /**
      * Sets the command box style to use the default style.
