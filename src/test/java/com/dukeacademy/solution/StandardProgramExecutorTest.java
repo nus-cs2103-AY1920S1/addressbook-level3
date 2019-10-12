@@ -20,7 +20,8 @@ import com.dukeacademy.solution.program.StandardProgramExecutor;
 class StandardProgramExecutorTest {
     private static StandardProgramExecutor executor;
 
-    private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms");
+    private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms",
+            "ProgramExecutor");
     private static String noInputTestOutput;
     private static String withInputTestOutput;
     private static String input;

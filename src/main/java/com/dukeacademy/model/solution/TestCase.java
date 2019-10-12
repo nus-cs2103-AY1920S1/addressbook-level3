@@ -19,4 +19,9 @@ public class TestCase {
     public String getExpectedResult() {
         return expectedResult;
     }
+
+    @Override
+    public String toString() {
+        return "Input: " + input + "Expected: " + expectedResult;
+    }
 }

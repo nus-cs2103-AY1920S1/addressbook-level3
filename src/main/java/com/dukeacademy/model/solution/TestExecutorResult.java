@@ -24,4 +24,16 @@ public class TestExecutorResult {
         this.numPassed = results.parallelStream().filter(TestCaseResult::isSuccessful).count();
         this.compileError = Optional.of(compileError);
     }
+
+    public List<TestCaseResult> getResults() {
+        return results;
+    }
+
+    public long getNumPassed() {
+        return numPassed;
+    }
+
+    public Optional<CompileError> getCompileError() {
+        return compileError;
+    }
 }

@@ -26,4 +26,11 @@ public class TestCaseResult {
     public String getActualOutput() {
         return actualOutput;
     }
+
+    @Override
+    public String toString() {
+        return "Success: " + this.isSuccessful + "\n"
+                + "Expected: " + this.expectedOutput
+                + "Actual: " + this.actualOutput;
+    }
 }
