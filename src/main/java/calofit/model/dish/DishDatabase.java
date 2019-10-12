@@ -64,6 +64,16 @@ public class DishDatabase implements ReadOnlyDishDatabase {
         return dishes.contains(dish);
     }
 
+    public boolean hasDishName(Dish dish) {
+        requireNonNull(dish);
+        return dishes.containsDishName(dish);
+    }
+
+    public Dish getDishByName(Dish dish) {
+        requireNonNull(dish);
+        return dishes.getDishByName(dish);
+    }
+
     /**
      * Adds a dish to the dish database.
      * The dish must not already exist in the dish database.

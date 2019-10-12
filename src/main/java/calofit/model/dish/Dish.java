@@ -66,9 +66,21 @@ public class Dish {
             return true;
         }
 
+//        return otherDish != null
+//                && otherDish.getName().equals(getName());
+
         return otherDish != null
                 && otherDish.getName().equals(getName())
                 && otherDish.getCalories().equals(getCalories());
+    }
+
+    public boolean isSameDishName(Dish otherDish) {
+        if (otherDish == this) {
+            return true;
+        }
+
+        return otherDish != null
+                && otherDish.getName().equals(getName());
     }
 
     /**

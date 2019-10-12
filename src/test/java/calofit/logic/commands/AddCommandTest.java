@@ -51,7 +51,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validDish);
         ModelStub modelStub = new ModelStubWithDish(validDish);
 
-        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL, ()
+        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL,()
             -> addCommand.execute(modelStub));
     }
 
@@ -134,6 +134,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasDishName(Dish dish){
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Dish getDishByName(Dish dish){
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteDish(Dish target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,6 +194,7 @@ public class AddCommandTest {
      */
     private class ModelStubWithDish extends ModelStub {
         private final Dish dish;
+        final MealLog mealLog = new MealLog();
 
         ModelStubWithDish(Dish dish) {
             requireNonNull(dish);
@@ -195,6 +206,22 @@ public class AddCommandTest {
             requireNonNull(dish);
             return this.dish.isSameDish(dish);
         }
+
+        @Override
+        public boolean hasDishName(Dish dish){
+            requireNonNull(dish);
+            return this.dish.isSameDishName(dish);
+        }
+
+        @Override
+        public Dish getDishByName(Dish dish){
+            return this.dish;
+        }
+
+        @Override
+        public MealLog getMealLog(){
+            return mealLog;
+        }
     }
 
     /**
@@ -202,6 +229,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingDishAdded extends ModelStub {
         final ArrayList<Dish> dishesAdded = new ArrayList<>();
+        final MealLog mealLog = new MealLog();
 
         @Override
         public boolean hasDish(Dish dish) {
@@ -213,6 +241,28 @@ public class AddCommandTest {
         public void addDish(Dish dish) {
             requireNonNull(dish);
             dishesAdded.add(dish);
+        }
+
+        @Override
+        public boolean hasDishName(Dish dish){
+            requireNonNull(dish);
+            return dishesAdded.stream().anyMatch(dish::isSameDishName);
+        }
+
+        @Override
+        public Dish getDishByName(Dish dish){
+            for (int i = 0; i < dishesAdded.size(); i++) {
+                Dish dishInList = dishesAdded.get(i);
+                if (dishInList.getName().equals(dish.getName())) {
+                    return dishInList;
+                }
+            }
+            return dish;
+        }
+
+        @Override
+        public MealLog getMealLog(){
+            return mealLog;
         }
 
         @Override
