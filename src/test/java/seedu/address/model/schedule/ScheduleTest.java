@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.ScheduleBuilder;
 
-public class ScheduleTest {
+class ScheduleTest {
 
     private static final UUID VALID_ID = UUID.randomUUID();
     private static final String VALID_VENUE = "Changi Airport T3";
@@ -22,7 +22,7 @@ public class ScheduleTest {
             .setDate(2030, 3, 19).setTimeOfDay(15, 30, 0).build();
 
     @Test
-    public void isSameSchedule() {
+    void isSameSchedule() {
         // same object -> returns true
         assertTrue(SCHEDULEONE.isSameSchedule(SCHEDULEONE));
 
@@ -43,7 +43,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         // same object -> equals
         assertEquals(SCHEDULEONE, SCHEDULEONE);
 

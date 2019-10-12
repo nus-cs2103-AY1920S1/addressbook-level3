@@ -69,22 +69,22 @@ class PhoneTest {
         // different serial number -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withSerialNumber(VALID_SERIALNUMBER).build());
 
-        // different phone name -> returns false
+        // different phone name -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build());
 
-        // different brand -> returns false
+        // different brand -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withBrand(VALID_BRAND).build());
 
-        // different capacity -> returns false
+        // different capacity -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withCapacity(VALID_CAPACITY).build());
 
-        // different colour -> returns false
+        // different colour -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withColour(VALID_COLOUR).build());
 
-        // different cost -> returns false
+        // different cost -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withCost(VALID_COST).build());
 
-        // different tags -> returns false
+        // different tags -> not equals
         assertNotEquals(IPHONEONE, new PhoneBuilder(IPHONEONE).withTags(VALID_TAG).build());
     }
 }
