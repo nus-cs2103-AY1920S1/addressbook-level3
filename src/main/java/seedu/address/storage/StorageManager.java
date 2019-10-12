@@ -74,4 +74,10 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ CheatSheet methods ==============================
+
+    @Override
+    public Path getCheatSheetFilePath() {
+        return addressBookStorage.getCheatSheetFilePath();
+    }
 }

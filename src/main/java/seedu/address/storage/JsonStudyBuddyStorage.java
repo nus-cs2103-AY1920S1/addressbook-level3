@@ -17,19 +17,32 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonStudyBuddyStorage implements AddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonStudyBuddyStorage.class);
 
     private Path filePath;
+    private Path cheatSheetFilePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonStudyBuddyStorage(Path filePath) {
         this.filePath = filePath;
+    }
+
+    /**
+     * New constructor to now take in 2 filepaths, one for each mode
+     * @param filePath
+     * @param cheatSheetFilePath
+     */
+    public JsonStudyBuddyStorage(Path filePath, Path cheatSheetFilePath) {
+        this.filePath = filePath;
+        this.cheatSheetFilePath = cheatSheetFilePath;
     }
 
     public Path getAddressBookFilePath() {
         return filePath;
     }
+
+    public Path getCheatSheetFilePath() { return cheatSheetFilePath; }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {

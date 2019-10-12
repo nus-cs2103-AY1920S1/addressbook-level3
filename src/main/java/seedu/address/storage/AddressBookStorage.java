@@ -11,11 +11,12 @@ import seedu.address.model.ReadOnlyAddressBook;
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
 public interface AddressBookStorage {
-
+// TO RENAME THE INTERFACE NAME
     /**
      * Returns the file path of the data file.
      */
     Path getAddressBookFilePath();
+    Path getCheatSheetFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
