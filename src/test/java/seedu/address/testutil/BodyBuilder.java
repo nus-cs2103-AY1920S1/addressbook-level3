@@ -267,4 +267,14 @@ public class BodyBuilder {
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }
+
+    /**
+     * Creates a Body object using the parameters currently in this BodyBuilder object and a user-input custom ID.
+     * @return
+     */
+    public Body build(int id) {
+        return new Body(true, id, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
+                kinPhoneNumber);
+    }
 }

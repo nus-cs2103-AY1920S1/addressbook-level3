@@ -178,7 +178,7 @@ public class IdentificationNumber {
             return false;
         }
         IdentificationNumber that = (IdentificationNumber) o;
-        return typeOfEntity.equals(that.typeOfEntity) && idNum == that.idNum;
+        return idNum == that.idNum && typeOfEntity.equals(that.typeOfEntity);
     }
 
     @Override

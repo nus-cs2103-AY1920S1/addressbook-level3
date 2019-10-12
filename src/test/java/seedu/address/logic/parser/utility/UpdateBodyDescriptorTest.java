@@ -60,98 +60,112 @@ class UpdateBodyDescriptorTest {
     @Test
     void getSetName() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setName(new Name("Long Tetulu"));
-        assertEquals(new Name("Long Tetulu"), body.getName());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setName(new Name("Long Tetulu"));
+        assertEquals(new Name("Long Tetulu"), descriptor.getName().get());
     }
 
     @Test
     void getSetSex() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setSex(Sex.MALE);
-        assertEquals(Sex.MALE, body.getSex());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setSex(Sex.MALE);
+        assertEquals(Sex.MALE, descriptor.getSex().get());
     }
 
     @Test
     void getSetNric() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setNric(new Nric("F9123456B"));
-        assertEquals(new Nric("F9123456B"), body.getNric().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setNric(new Nric("F9123456B"));
+        assertEquals(new Nric("F9123456B"), descriptor.getNric().get());
     }
 
     @Test
     void getSetReligion() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setReligion(Religion.ISLAM);
-        assertEquals(Religion.ISLAM, body.getReligion().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setReligion(Religion.ISLAM);
+        assertEquals(Religion.ISLAM, descriptor.getReligion().get());
     }
 
     @Test
     void getSetCauseOfDeath() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setCauseOfDeath("Sepsis");
-        assertEquals("Sepsis", body.getCauseOfDeath().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setCauseOfDeath("Sepsis");
+        assertEquals("Sepsis", descriptor.getCauseOfDeath().get());
     }
 
     @Test
     void getSetOrgansForDonation() {
         Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+
         ArrayList<String> list = new ArrayList<>(3);
         list.add("kidney");
         list.add("cornea");
-        body.setOrgansForDonation(list);
-        assertEquals(list, body.getOrgansForDonation().get());
+        descriptor.setOrgansForDonation(list);
+        assertEquals(list, descriptor.getOrgansForDonation().get());
     }
 
     @Test
     void getSetStatus() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setBodyStatus(BodyStatus.PENDING_IDENTIFICATION);
-        assertEquals(BodyStatus.PENDING_IDENTIFICATION, body.getBodyStatus().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(BodyStatus.PENDING_IDENTIFICATION);
+        assertEquals(BodyStatus.PENDING_IDENTIFICATION, descriptor.getBodyStatus().get());
     }
 
     @Test
     void getSetFridgeId() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
-        assertEquals(IdentificationNumber.customGenerateId("F", 5), body.getFridgeId().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
+        assertEquals(IdentificationNumber.customGenerateId("F", 5), descriptor.getFridgeId().get());
     }
 
     @Test
     void getSetDateOfBirth() throws ParseException {
         Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         Date birthday = ParserUtil.parseDate("01/02/2018");
-        body.setDateOfBirth(birthday);
-        assertEquals(birthday, body.getDateOfBirth().get());
+        descriptor.setDateOfBirth(birthday);
+        assertEquals(birthday, descriptor.getDateOfBirth().get());
     }
 
     @Test
     void getSetDateOfDeath() throws ParseException {
         Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         Date deathDay = ParserUtil.parseDate("01/05/2018");
-        body.setDateOfDeath(deathDay);
-        assertEquals(deathDay, body.getDateOfDeath());
+        descriptor.setDateOfDeath(deathDay);
+        assertEquals(deathDay, descriptor.getDateOfDeath().get());
     }
 
     @Test
     void getSetNextOfKin() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setNextOfKin(new Name("Sepe Lok Aew"));
-        assertEquals(new Name("Sepe Lok Aew"), body.getNextOfKin().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setNextOfKin(new Name("Sepe Lok Aew"));
+        assertEquals(new Name("Sepe Lok Aew"), descriptor.getNextOfKin().get());
     }
 
     @Test
     void getSetRelationship() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setRelationship("Mother");
-        assertEquals("Mother", body.getRelationship().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setRelationship("Mother");
+        assertEquals("Mother", descriptor.getRelationship().get());
     }
 
 
     @Test
     void getSetKinPhoneNumber() {
         Body body = new BodyBuilder(ALICE).build();
-        body.setKinPhoneNumber(new PhoneNumber("98981234"));
-        assertEquals(new PhoneNumber("98981234"), body.getKinPhoneNumber().get());
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setKinPhoneNumber(new PhoneNumber("98981234"));
+        assertEquals(new PhoneNumber("98981234"), descriptor.getKinPhoneNumber().get());
     }
 
     @Test

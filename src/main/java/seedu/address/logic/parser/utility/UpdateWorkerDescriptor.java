@@ -129,7 +129,7 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
             return false;
         }
         UpdateWorkerDescriptor that = (UpdateWorkerDescriptor) o;
-        return Objects.equals(getPhone(), that.getPhone())
+        return getPhone().equals(that.getPhone())
                 && getSex().equals(that.getSex())
                 && getDateOfBirth().equals(that.getDateOfBirth())
                 && getDateJoined().equals(that.getDateJoined())

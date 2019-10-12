@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.BodyBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
+import static seedu.address.testutil.TypicalWorkers.CLARA;
 
 import java.util.ArrayList;
 
@@ -16,8 +17,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
+import seedu.address.testutil.WorkerBuilder;
 
 //@@author ambervoong
 class BodyTest {
@@ -35,6 +40,27 @@ class BodyTest {
         // Not equal because the NRIC is different.
         editedAlice = new BodyBuilder(ALICE).withNric("F9531049B").build();
         assertFalse(ALICE.isSameBody(editedAlice));
+    }
+
+    @Test
+    public void isSameBodyIdNum() {
+        Body alice = new BodyBuilder(ALICE).build();
+        Body bob = new BodyBuilder(BOB).build(1);
+        assertTrue(alice.isSameBodyIdNum(bob));
+
+        Body differentId = new BodyBuilder(BOB).build(2);
+        assertFalse(alice.isSameBodyIdNum(differentId));
+    }
+
+    @Test
+    public void isSameEntity() {
+        Body alice = new BodyBuilder(ALICE).build();
+        Body bob = new BodyBuilder(BOB).build(1);
+        Worker worker = new WorkerBuilder(CLARA).build();
+        assertFalse(alice.isSameEntity(bob));
+        // Test equality with non-Body entity.
+        assertFalse(alice.isSameEntity(worker));
+        assertTrue(alice.isSameEntity(alice));
     }
 
     @Test
@@ -146,6 +172,11 @@ class BodyTest {
     void getSetFridgeId() {
         ALICE.setFridgeId(IdentificationNumber.customGenerateId("F", 5));
         assertEquals(IdentificationNumber.customGenerateId("F", 5), ALICE.getFridgeId().get());
+
+        ALICE.setFridgeId(IdentificationNumber.customGenerateId("F", 1));
+        // Check that it works with an actual fridge.
+        Fridge fridge = new FridgeBuilder().build();
+        assertEquals(fridge.getIdNum(), ALICE.getFridgeId().get());
     }
 
     // Stub Classes
