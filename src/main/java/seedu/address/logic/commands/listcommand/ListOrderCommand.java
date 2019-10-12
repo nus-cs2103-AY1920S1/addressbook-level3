@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
 
 /**
@@ -23,6 +23,6 @@ public class ListOrderCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDER);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.ORDER);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.ORDER);
     }
 }

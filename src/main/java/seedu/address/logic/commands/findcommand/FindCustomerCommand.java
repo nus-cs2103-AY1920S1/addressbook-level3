@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
@@ -34,7 +34,7 @@ public class FindCustomerCommand extends Command {
         model.updateFilteredCustomerList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW,
-                        model.getFilteredCustomerList().size()), PanelType.CUSTOMER);
+                        model.getFilteredCustomerList().size()), UiChange.CUSTOMER);
     }
 
     @Override

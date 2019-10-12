@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PHONES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
 
 /**
@@ -23,6 +23,6 @@ public class ListPhoneCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPhoneList(PREDICATE_SHOW_ALL_PHONES);
-        return new CommandResult(MESSAGE_SUCCESS, PanelType.PHONE);
+        return new CommandResult(MESSAGE_SUCCESS, UiChange.PHONE);
     }
 }

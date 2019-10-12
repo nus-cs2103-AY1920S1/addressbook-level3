@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
@@ -62,7 +62,7 @@ public class AddPhoneCommand extends Command {
         }
 
         model.addPhone(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), PanelType.PHONE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.PHONE);
     }
 
     @Override

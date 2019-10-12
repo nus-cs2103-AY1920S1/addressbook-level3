@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalOrders.ORDERONE;
-import static seedu.address.testutil.TypicalOrders.ORDERTWO;
-
 import java.util.Calendar;
 
 import seedu.address.model.schedule.Schedule;
@@ -21,9 +18,9 @@ public class TypicalSchedules {
     private static final String DEFAULT_TAG_1 = "Carrier";
     private static final String DEFAULT_TAG_2 = "Freebie";
 
-    public static final Schedule SCHEDULEONE = new ScheduleBuilder().withOrder(ORDERONE)
+    public static final Schedule SCHEDULEONE = new ScheduleBuilder()
             .withCalendar(DEFAULT_CALENDAR_1).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
 
-    public static final Schedule SCHEDULETWO = new ScheduleBuilder().withOrder(ORDERTWO)
+    public static final Schedule SCHEDULETWO = new ScheduleBuilder()
             .withCalendar(DEFAULT_CALENDAR_2).withVenue(DEFAULT_VENUE_2).withTags(DEFAULT_TAG_2).build();
 }

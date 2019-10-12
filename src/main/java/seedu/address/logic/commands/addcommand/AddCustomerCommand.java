@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.PanelType;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -55,7 +55,7 @@ public class AddCustomerCommand extends Command {
         }
 
         model.addCustomer(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), PanelType.CUSTOMER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.CUSTOMER);
     }
 
     @Override
