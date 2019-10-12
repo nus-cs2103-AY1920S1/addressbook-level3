@@ -1,5 +1,6 @@
 package seedu.address.transaction.ui;
 
+import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 
 /**
@@ -44,6 +45,8 @@ public class TransactionMessages {
             + "delete still has transaction records. Please make sure the person is reimbursed and delete "
             + "those transaction records first.";
 
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+
     public static String editedTransaction(Transaction editedTransaction) {
         return "Edited Transaction:\n" + editedTransaction;
     }
@@ -58,5 +61,9 @@ public class TransactionMessages {
 
     public static String deletedTransaction(Transaction transaction) {
         return "Deleted Transaction:\n" + transaction;
+    }
+
+    public static String deletedTransactionsOfPerson(Person person) {
+        return "I've deleted all transactions by this member:\n" + person.toString();
     }
 }
