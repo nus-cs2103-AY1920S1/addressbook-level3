@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.ui.util.BubbleGenerator;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -31,7 +33,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label personId;
+    private StackPane personId;
     @FXML
     private Label phone;
     @FXML
@@ -46,7 +48,7 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(PersonDisplay person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        personId.setText(displayedIndex + ". ");
+        personId.getChildren().add(new BubbleGenerator(displayedIndex, 50, 2).getBubble());
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
@@ -71,7 +73,6 @@ public class PersonCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return personId.getText().equals(card.personId.getText())
-                && person.isSamePerson(card.person);
+        return person.isSamePerson(card.person);
     }
 }

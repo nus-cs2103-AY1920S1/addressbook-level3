@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
 
@@ -27,7 +25,7 @@ public class GroupDetailsView extends UiPart<Region> {
     private StackPane groupSchedule;
 
     @FXML
-    private ScrollPane groupDetailContainer;
+    private StackPane groupDetailContainer;
 
     public GroupDetailsView(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
@@ -37,7 +35,7 @@ public class GroupDetailsView extends UiPart<Region> {
         ScheduleView scheduleView = new ScheduleView(schedules);
         GroupCard groupCard = new GroupCard(detailWindowDisplay.getGroupDisplay(), 1);
         groupDetailCard.getChildren().add(groupCard.getRoot());
-        groupSchedule.getChildren().add(scheduleView.getScheduleView());
+        groupSchedule.getChildren().add(scheduleView.getRoot());
     }
 
 }

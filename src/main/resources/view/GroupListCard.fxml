@@ -17,13 +17,8 @@
         <padding>
             <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
-        <HBox spacing="5" alignment="TOP_LEFT">
-            <Label fx:id="groupId" styleClass="cell_big_label">
-                <minWidth>
-                    <!-- Ensures that the label text is never truncated -->
-                    <Region fx:constant="USE_PREF_SIZE" />
-                </minWidth>
-            </Label>
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <StackPane fx:id="groupId" id="groupId" />
             <Label fx:id="groupName" styleClass="cell_big_label"></Label>
         </HBox>
         <Label fx:id="groupDescription" styleClass="cell_small_label"></Label>

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="scheduleView" id="scheduleView" />
-</StackPane>
+<VBox fx:id="scheduleContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <ScrollPane fx:id="scheduleHeaderWrapper" />
+    <ScrollPane fx:id="scheduleContents" id="scheduleContents" />
+</VBox>

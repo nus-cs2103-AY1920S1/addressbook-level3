@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane fx:id="groupDetailContainer" id="groupDetailContainer">
+    <StackPane fx:id="groupDetailContainer" id="groupDetailContainer">
         <VBox fx:id="groupDetailsView" id="groupDetailsView">
             <StackPane fx:id="groupDetailCard"></StackPane>
             <StackPane fx:id="groupSchedule"></StackPane>
         </VBox>
-    </ScrollPane>
+    </StackPane>
 </StackPane>

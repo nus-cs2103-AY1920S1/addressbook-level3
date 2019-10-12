@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
@@ -21,7 +20,7 @@ public class PersonDetailsView extends UiPart<Region> {
     private StackPane personSchedule;
 
     @FXML
-    private ScrollPane personDetailContainer;
+    private StackPane personDetailContainer;
 
     public PersonDetailsView(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
@@ -29,7 +28,7 @@ public class PersonDetailsView extends UiPart<Region> {
         PersonDetailCard personDetailCard = new PersonDetailCard(schedule.getPersonDisplay());
         ScheduleView sv = new ScheduleView();
         this.personDetailCard.getChildren().add(personDetailCard.getRoot());
-        this.personSchedule.getChildren().add(sv.getScheduleView());
+        this.personSchedule.getChildren().add(sv.getRoot());
     }
 
 }

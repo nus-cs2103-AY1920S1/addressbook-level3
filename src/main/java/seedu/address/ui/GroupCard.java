@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.ui.util.BubbleGenerator;
 
 /**
  * Class to view groups.
@@ -17,7 +19,7 @@ public class GroupCard extends UiPart<Region> {
     private static final Label memberLabel = new Label("Members:");
 
     @FXML
-    private Label groupId;
+    private StackPane groupId;
 
     @FXML
     private HBox groupCardPane;
@@ -33,7 +35,7 @@ public class GroupCard extends UiPart<Region> {
     public GroupCard(GroupDisplay groupDisplay, int displayedIndex) {
         super(FXML);
         this.groupDisplay = groupDisplay;
-        groupId.setText(displayedIndex + ". ");
+        groupId.getChildren().add(new BubbleGenerator(displayedIndex, 50, 2).getBubble());
         groupName.setText(groupDisplay.getGroupName().toString());
         //Remark field in groups cannot be initialised to null.
         groupDescription.setText("REMARK");

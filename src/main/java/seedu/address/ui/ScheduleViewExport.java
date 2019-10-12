@@ -9,7 +9,6 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -27,109 +26,76 @@ import seedu.address.ui.util.TimeFormatter;
 /**
  * A class to generate a schedule table (ui) from a Schedule object.
  */
-public class ScheduleView extends UiPart<Region> {
+public class ScheduleViewExport extends UiPart<Region> {
     //Schedule to be received from logic MUST have timeslots in chronological order.
-    //ScheduleView must be wrapped in a scroll pane otherwise the view will become distorted.
-    private static final String FXML = "ScheduleView.fxml";
+    //ScheduleViewExport must be wrapped in a scroll pane otherwise the view will become distorted.
+    private static final String FXML = "ScheduleViewExport.fxml";
+    private static ArrayList<String> dayNames = new ArrayList<String>(List.of("Monday", "Tuesday",
+            "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
     private static ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
             "darkorange", "lightslategray", "orchid", "teal", "darkmagenta"));
-
     @FXML
-    private VBox scheduleContainer;
-
-    @FXML
-    private ScrollPane scheduleHeaderWrapper;
-
-    @FXML
-    private ScrollPane scheduleContents;
-
-    private GridPane scheduleHeader;
     private GridPane scheduleView;
 
     private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
     private int oneHourLength = 60;
-    private int preferredWidth = 120;
-    private double blockWidth = 120;
+    private int preferredWidth = 140;
+    private double blockWidth = 140;
     private int startTime = 8;
     private int endTime = 20;
     private int currentDay;
     private LocalDate currentDate;
 
-    public ScheduleView() {
+    public ScheduleViewExport() {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
         initialiseHeaders();
-        initialiseTimeslotHeaders();
         initialiseTableCells();
-        scheduleContents.setContent(scheduleView);
-        scheduleHeaderWrapper.setContent(scheduleHeader);
-        scheduleHeaderWrapper.setMinHeight(50);
-        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
-    public ScheduleView(WeekSchedule weekSchedule) {
+    public ScheduleViewExport(WeekSchedule weekSchedule) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
         initialiseHeaders();
-        initialiseTimeslotHeaders();
         initialiseTableCells();
         HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap = weekSchedule.getWeekSchedule();
         showIndividualSchedule(scheduleMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
-        scheduleContents.setContent(scheduleView);
-        scheduleHeaderWrapper.setContent(scheduleHeader);
-        scheduleHeaderWrapper.setMinHeight(50);
-        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
-    public ScheduleView(ArrayList<WeekSchedule> weekSchedules) {
+    public ScheduleViewExport(ArrayList<WeekSchedule> weekSchedules) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
         initialiseHeaders();
-        initialiseTimeslotHeaders();
         initialiseTableCells();
         showGroupSchedule(weekSchedules);
-        scheduleContents.setContent(scheduleView);
-        scheduleHeaderWrapper.setContent(scheduleHeader);
-        scheduleHeaderWrapper.setMinHeight(50);
-        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
-    private ScheduleView initialise() {
+    private ScheduleViewExport initialise() {
         scheduleView = new GridPane();
-        scheduleView.setStyle("-fx-border-width: 2; -fx-pref-width: 950;");
-        scheduleHeader = new GridPane();
-        scheduleHeader.setStyle("-fx-pref-width: 950;");
+        scheduleView.setStyle("-fx-border-width: 2; -fx-border-color: black; -fx-pref-width: 1100;");
         return this;
     }
 
     /**
-     * initialise top headers in the table view.
+     * Helper method to initialise the headers in the table view.
      */
     private void initialiseHeaders() {
+        //initialise headers
         Region placeHolder = new Region();
         placeHolder.setStyle("-fx-background-color: transparent");
-        scheduleHeader.add(placeHolder, 0, 0);
+        scheduleView.add(placeHolder, 0, 0);
+        Region secondPlaceHolder = new Region();
+        secondPlaceHolder.setStyle("-fx-background-color: transparent");
+        scheduleView.add(secondPlaceHolder, 8, 0);
         ColumnConstraints colCOffset = new ColumnConstraints();
-        colCOffset.setPercentWidth(9);
-        scheduleHeader.getColumnConstraints().add(colCOffset);
+        colCOffset.setPercentWidth(5);
+        scheduleView.getColumnConstraints().add(colCOffset);
         //day headers
         for (int i = 1; i <= 7; i++) {
             int offset = (currentDay + i - 1) > 7 ? currentDay + i - 8 : currentDay + i - 1;
@@ -139,28 +105,17 @@ public class ScheduleView extends UiPart<Region> {
             VBox dayLabelContainer = new VBox();
             dayLabelContainer.setPrefSize(preferredWidth, 50);
             ColumnConstraints colC = new ColumnConstraints();
-            colC.setPercentWidth(13);
-            scheduleHeader.getColumnConstraints().add(colC);
+            colC.setPercentWidth(12.857);
+            scheduleView.getColumnConstraints().add(colC);
             dayLabelContainer.setStyle("-fx-background-color: white; -fx-border-width: 2; -fx-alignment: center;");
             dayLabelContainer.getChildren().addAll(dayText, dayDate);
             sp.getChildren().addAll(dayLabelContainer);
-            scheduleHeader.add(sp, i, 0);
+            scheduleView.add(sp, i, 0);
         }
-    }
-
-    /**
-     * Helper method to initialise the time slot headers in the table view.
-     */
-    private void initialiseTimeslotHeaders() {
+        ColumnConstraints colCOffset2 = new ColumnConstraints();
+        colCOffset2.setPercentWidth(5);
+        scheduleView.getColumnConstraints().add(colCOffset2);
         //timeslot headers
-        ColumnConstraints colCOffset = new ColumnConstraints();
-        colCOffset.setPercentWidth(9);
-        scheduleView.getColumnConstraints().add(colCOffset);
-        for (int i = 1; i <= 7; i++) {
-            ColumnConstraints colC = new ColumnConstraints();
-            colC.setPercentWidth(13);
-            scheduleView.getColumnConstraints().add(colC);
-        }
         for (int j = startTime; j < endTime; j++) {
             //left-side headers
             String time = TimeFormatter.formatIntToTime(j);
@@ -170,7 +125,16 @@ public class ScheduleView extends UiPart<Region> {
             Label timeslotLeftText = new Label(time);
             StackPane leftTimeslotHeaderContainer = new StackPane();
             leftTimeslotHeaderContainer.getChildren().addAll(timeslotLeftLabelContainer, timeslotLeftText);
-            scheduleView.add(leftTimeslotHeaderContainer, 0, j - startTime);
+            scheduleView.add(leftTimeslotHeaderContainer, 0, j - startTime + 1);
+
+            //right-side headers
+            Region timeslotRightLabelContainer = new Region();
+            timeslotRightLabelContainer.setPrefSize(preferredWidth, oneHourLength);
+            timeslotRightLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
+            Label timeslotRightText = new Label(time);
+            StackPane rightTimeslotHeaderContainer = new StackPane();
+            rightTimeslotHeaderContainer.getChildren().addAll(timeslotRightLabelContainer, timeslotRightText);
+            scheduleView.add(rightTimeslotHeaderContainer, 8, j - startTime + 1);
         }
     }
 
@@ -209,7 +173,7 @@ public class ScheduleView extends UiPart<Region> {
             }
             stackPane.getChildren().add(timeslotContainer);
             dayTimeslotStackPanes.put(DayOfWeek.of(offsetDay), stackPane);
-            scheduleView.add(stackPane, l, 0, 1, endTime - startTime);
+            scheduleView.add(stackPane, l, 1, 1, endTime - startTime);
         }
     }
 
