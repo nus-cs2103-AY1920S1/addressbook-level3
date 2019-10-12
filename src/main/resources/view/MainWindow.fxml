@@ -51,14 +51,14 @@
                 </StackPane>
                 <BorderPane prefHeight="58.0" prefWidth="410.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <left>
-                        <StackPane fx:id="sortedListPanelPlaceholder" minHeight="150.0" minWidth="100.0"
+                        <StackPane fx:id="regimeListPanelPlaceholder" minHeight="150.0" minWidth="100.0"
                                    prefHeight="150.0" prefWidth="400.0" BorderPane.alignment="CENTER"/>
                     </left>
                     <bottom>
                         <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER"/>
                     </bottom>
                     <right>
-                        <StackPane fx:id="filteredListPanelPlaceholder" prefHeight="150.0" prefWidth="400.0"
+                        <StackPane fx:id="exerciseListPanelPlaceholder" prefHeight="150.0" prefWidth="400.0"
                                    BorderPane.alignment="CENTER"/>
                     </right>
                     <center>

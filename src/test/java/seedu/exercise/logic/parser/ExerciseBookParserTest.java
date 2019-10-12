@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.exercise.logic.commands.CommandTestUtil.CATEGORY_DESC_EXERCISE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
@@ -13,9 +15,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.logic.commands.AddCommand;
+import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
-import seedu.exercise.logic.commands.DeleteCommand;
+import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.logic.commands.ExitCommand;
@@ -36,8 +38,8 @@ public class ExerciseBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Exercise exercise = new ExerciseBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(ExerciseUtil.getAddCommand(exercise));
-        assertEquals(new AddCommand(exercise), command);
+        AddExerciseCommand command = (AddExerciseCommand) parser.parseCommand(ExerciseUtil.getAddCommand(exercise));
+        assertEquals(new AddExerciseCommand(exercise), command);
     }
 
     @Test
@@ -48,9 +50,10 @@ public class ExerciseBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_EXERCISE.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_EXERCISE), command);
+        DeleteExerciseCommand command = (DeleteExerciseCommand) parser.parseCommand(
+                DeleteExerciseCommand.COMMAND_WORD + " " + CATEGORY_DESC_EXERCISE + " "
+                        + PREFIX_INDEX + INDEX_FIRST_EXERCISE.getOneBased());
+        assertEquals(new DeleteExerciseCommand(INDEX_FIRST_EXERCISE), command);
     }
 
     @Test

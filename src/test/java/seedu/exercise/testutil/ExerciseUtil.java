@@ -1,6 +1,7 @@
 package seedu.exercise.testutil;
 
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -9,10 +10,10 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Set;
 
-import seedu.exercise.logic.commands.AddCommand;
+import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.tag.Muscle;
+import seedu.exercise.model.exercise.Muscle;
 
 /**
  * A utility class for Exercise.
@@ -23,7 +24,7 @@ public class ExerciseUtil {
      * Returns an add command string for adding the {@code exercise}.
      */
     public static String getAddCommand(Exercise exercise) {
-        return AddCommand.COMMAND_WORD + " " + getExerciseDetails(exercise);
+        return AddExerciseCommand.COMMAND_WORD + " " + getExerciseDetails(exercise);
     }
 
     /**
@@ -31,6 +32,7 @@ public class ExerciseUtil {
      */
     private static String getExerciseDetails(Exercise exercise) {
         StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_CATEGORY + "exercise ");
         sb.append(PREFIX_NAME + exercise.getName().fullName + " ");
         sb.append(PREFIX_DATE + exercise.getDate().toString() + " ");
         sb.append(PREFIX_CALORIES + exercise.getCalories().value + " ");

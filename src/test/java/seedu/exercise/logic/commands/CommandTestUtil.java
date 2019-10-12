@@ -3,6 +3,7 @@ package seedu.exercise.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -27,6 +28,7 @@ import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_CATEGORY_EXERCISE = "exercise";
     public static final String VALID_NAME_AEROBICS = "Aerobics";
     public static final String VALID_NAME_BASKETBALL = "Basketball";
     public static final String VALID_DATE_AEROBICS = "26/09/2019";
@@ -40,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_MUSCLE_AEROBICS = "Back";
     public static final String VALID_MUSCLE_BASKETBALL = "Arms";
 
+    public static final String CATEGORY_DESC_EXERCISE = " " + PREFIX_CATEGORY + VALID_CATEGORY_EXERCISE;
     public static final String NAME_DESC_AEROBICS = " " + PREFIX_NAME + VALID_NAME_AEROBICS;
     public static final String NAME_DESC_BASKETBALL = " " + PREFIX_NAME + VALID_NAME_BASKETBALL;
     public static final String DATE_DESC_AEROBICS = " " + PREFIX_DATE + VALID_DATE_AEROBICS;
@@ -111,11 +114,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        ExerciseBook expectedExerciseBook = new ExerciseBook(actualModel.getAllData());
+        ExerciseBook expectedExerciseBook = new ExerciseBook(actualModel.getAllExerciseData());
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExerciseBook, actualModel.getAllData());
+        assertEquals(expectedExerciseBook, actualModel.getAllExerciseData());
         assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
     }
 

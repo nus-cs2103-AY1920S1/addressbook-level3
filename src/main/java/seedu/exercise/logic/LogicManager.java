@@ -14,7 +14,9 @@ import seedu.exercise.logic.parser.ExerciseBookParser;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyExerciseBook;
+import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.regime.Regime;
 import seedu.exercise.storage.Storage;
 
 /**
@@ -43,7 +45,13 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveExerciseBook(model.getAllData());
+            storage.saveExerciseBook(model.getAllExerciseData());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        try {
+            storage.saveRegimeBook(model.getAllRegimeData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,7 +61,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyExerciseBook getExerciseBook() {
-        return model.getAllData();
+        return model.getAllExerciseData();
     }
 
     @Override
@@ -62,13 +70,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Exercise> getSortedExerciseList() {
-        return model.getSortedExerciseList();
+    public ReadOnlyRegimeBook getRegimeBook() {
+        return model.getAllRegimeData();
+    }
+
+    @Override
+    public ObservableList<Regime> getFilteredRegimeList() {
+        return model.getFilteredRegimeList();
     }
 
     @Override
     public Path getExerciseBookFilePath() {
         return model.getExerciseBookFilePath();
+    }
+
+    @Override
+    public Path getRegimeBookFilePath() {
+        return model.getRegimeBookFilePath();
     }
 
     @Override

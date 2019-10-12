@@ -25,7 +25,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new ExerciseBook(), new ExerciseBook(modelManager.getAllData()));
+        assertEquals(new ExerciseBook(), new ExerciseBook(modelManager.getAllExerciseData()));
     }
 
     @Test
@@ -95,12 +95,13 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ExerciseBook exerciseBook = new ExerciseBookBuilder().withExercise(WALK).withExercise(SWIM).build();
+        RegimeBook regimeBook = new RegimeBook();
         ExerciseBook differentExerciseBook = new ExerciseBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(exerciseBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(exerciseBook, userPrefs);
+        modelManager = new ModelManager(exerciseBook, regimeBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(exerciseBook, regimeBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,12 +114,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different exerciseBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExerciseBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExerciseBook, regimeBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = WALK.getName().fullName.split("\\s+");
         modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(exerciseBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(exerciseBook, regimeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
@@ -126,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(exerciseBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(exerciseBook, regimeBook, differentUserPrefs)));
     }
 }

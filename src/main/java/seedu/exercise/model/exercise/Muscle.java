@@ -1,4 +1,4 @@
-package seedu.exercise.model.tag;
+package seedu.exercise.model.exercise;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;

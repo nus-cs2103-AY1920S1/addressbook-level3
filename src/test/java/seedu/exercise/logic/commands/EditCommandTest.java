@@ -22,6 +22,7 @@ import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
+import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
@@ -32,7 +33,7 @@ import seedu.exercise.testutil.ExerciseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExerciseBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +43,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllData()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
+                new RegimeBook(), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -64,7 +66,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllData()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
+                new RegimeBook(), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -77,7 +80,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllData()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
+                new RegimeBook(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +98,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllData()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseBook(model.getAllExerciseData()),
+                new RegimeBook(), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -114,7 +119,8 @@ public class EditCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in exercise book
-        Exercise exerciseInList = model.getAllData().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
+        Exercise exerciseInList = model.getAllExerciseData().getExerciseList()
+                .get(INDEX_SECOND_EXERCISE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
             new EditExerciseDescriptorBuilder(exerciseInList).build());
 
@@ -140,7 +146,7 @@ public class EditCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of exercise book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAllData().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAllExerciseData().getExerciseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build());

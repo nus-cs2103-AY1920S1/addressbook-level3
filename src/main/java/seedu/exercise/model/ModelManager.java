@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.regime.Regime;
 
 /**
  * Represents the in-memory model of the exercise book data.
@@ -21,28 +21,30 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ExerciseBook exerciseBook;
+    private final RegimeBook regimeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
-    private final SortedList<Exercise> sortedExercises;
+    private final FilteredList<Regime> filteredRegimes;
 
     /**
      * Initializes a ModelManager with the given exerciseBook and userPrefs.
      */
-    public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyRegimeBook regimeBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(exerciseBook, userPrefs);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
         this.exerciseBook = new ExerciseBook(exerciseBook);
+        this.regimeBook = new RegimeBook(regimeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
-        sortedExercises = new SortedList<>(this.exerciseBook.getExerciseList());
+        filteredRegimes = new FilteredList<>(this.regimeBook.getRegimeList());
 
     }
 
     public ModelManager() {
-        this(new ExerciseBook(), new UserPrefs());
+        this(new ExerciseBook(), new RegimeBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,6 +82,17 @@ public class ModelManager implements Model {
         userPrefs.setExerciseBookFilePath(exerciseBookFilePath);
     }
 
+    @Override
+    public Path getRegimeBookFilePath() {
+        return userPrefs.getRegimeBookFilePath();
+    }
+
+    @Override
+    public void setRegimeBookFilePath(Path regimeBookFilePath) {
+        requireNonNull(regimeBookFilePath);
+        userPrefs.setRegimeBookFilePath(regimeBookFilePath);
+    }
+
     //=========== ExerciseBook ================================================================================
 
     @Override
@@ -88,7 +101,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyExerciseBook getAllData() {
+    public ReadOnlyExerciseBook getAllExerciseData() {
         return exerciseBook;
     }
 
@@ -116,6 +129,45 @@ public class ModelManager implements Model {
 
         exerciseBook.setExercise(target, editedExercise);
     }
+    //===================RegimeBook==============================================================================
+    @Override
+    public void setRegimeBook(ReadOnlyRegimeBook anotherBook) {
+        this.regimeBook.resetData(anotherBook);
+    }
+
+    @Override
+    public ReadOnlyRegimeBook getAllRegimeData() {
+        return regimeBook;
+    }
+
+    /**
+     * Adds a {@code Regime} object into the regime book.
+     */
+    @Override
+    public void addRegime(Regime regime) {
+        regimeBook.addRegime(regime);
+    }
+
+    @Override
+    public void deleteRegime(Regime target) {
+        regimeBook.removeRegime(target);
+    }
+
+    @Override
+    public void setRegime(Regime target, Regime editedRegime) {
+        regimeBook.setRegime(target, editedRegime);
+    }
+
+    @Override
+    public boolean hasRegime(Regime regime) {
+        requireNonNull(regime);
+        return regimeBook.hasRegime(regime);
+    }
+
+    @Override
+    public int getRegimeIndex(Regime regime) {
+        return regimeBook.getRegimeIndex(regime);
+    }
 
     //=========== Filtered Exercise List Accessors =============================================================
 
@@ -129,14 +181,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Exercise> getSortedExerciseList() {
-        return sortedExercises;
-    }
-
-    @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
         filteredExercises.setPredicate(predicate);
+    }
+
+    //=========== Filtered Regime List Accessors ===============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Regime} backed by the internal list of
+     * {@code versionedRegimeBook}
+     */
+    public ObservableList<Regime> getFilteredRegimeList() {
+        return filteredRegimes;
+    }
+
+    @Override
+    public void updateFilteredRegimeList(Predicate<Regime> predicate) {
+        requireNonNull(predicate);
+        filteredRegimes.setPredicate(predicate);
     }
 
     @Override
@@ -156,6 +218,6 @@ public class ModelManager implements Model {
         return exerciseBook.equals(other.exerciseBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && sortedExercises.equals(other.sortedExercises);
+                && filteredRegimes.equals(other.filteredRegimes);
     }
 }

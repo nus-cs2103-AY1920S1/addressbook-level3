@@ -19,12 +19,16 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyExerciseBook;
+import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
+import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.ExerciseBookStorage;
 import seedu.exercise.storage.JsonExerciseBookStorage;
+import seedu.exercise.storage.JsonRegimeBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
+import seedu.exercise.storage.RegimeBookStorage;
 import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageManager;
 import seedu.exercise.storage.UserPrefsStorage;
@@ -57,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExerciseBookStorage exerciseBookStorage = new JsonExerciseBookStorage(userPrefs.getExerciseBookFilePath());
-        storage = new StorageManager(exerciseBookStorage, userPrefsStorage);
+        RegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(userPrefs.getRegimeBookFilePath());
+        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,22 +80,38 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseBook> exerciseBookOptional;
-        ReadOnlyExerciseBook initialData;
+        ReadOnlyExerciseBook initialExerciseData;
+        Optional<ReadOnlyRegimeBook> regimeBookOptional;
+        ReadOnlyRegimeBook initialRegimeData;
         try {
             exerciseBookOptional = storage.readExerciseBook();
             if (!exerciseBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseBook");
             }
-            initialData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
+            initialExerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseBook");
-            initialData = new ExerciseBook();
+            initialExerciseData = new ExerciseBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
-            initialData = new ExerciseBook();
+            initialExerciseData = new ExerciseBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            regimeBookOptional = storage.readRegimeBook();
+            if (!regimeBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample RegimeBook");
+            }
+            initialRegimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty RegimeBook");
+            initialRegimeData = new RegimeBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty RegimeBook");
+            initialRegimeData = new RegimeBook();
+        }
+
+        return new ModelManager(initialExerciseData, initialRegimeData, userPrefs);
     }
 
     private void initLogging(Config config) {

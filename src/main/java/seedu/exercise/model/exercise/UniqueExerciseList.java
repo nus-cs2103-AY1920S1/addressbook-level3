@@ -39,7 +39,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
 
     /**
      * Adds an exercise to the list.
-     * The person must not already exist in the list.
+     * The exercise must not already exist in the list.
      */
     public void add(Exercise toAdd) {
         requireNonNull(toAdd);

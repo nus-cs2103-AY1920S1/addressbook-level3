@@ -41,10 +41,10 @@ import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
+import seedu.exercise.model.exercise.Muscle;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
 import seedu.exercise.model.exercise.Unit;
-import seedu.exercise.model.tag.Muscle;
 import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
 
 public class EditCommandParserTest {

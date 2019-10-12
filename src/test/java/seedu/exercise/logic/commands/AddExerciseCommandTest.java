@@ -19,15 +19,17 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyExerciseBook;
+import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.regime.Regime;
 import seedu.exercise.testutil.ExerciseBuilder;
 
-public class AddCommandTest {
+public class AddExerciseCommandTest {
 
     @Test
     public void constructor_nullExercise_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddExerciseCommand(null));
     }
 
     @Test
@@ -35,34 +37,34 @@ public class AddCommandTest {
         ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
         Exercise validPerson = new ExerciseBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddExerciseCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.exercisesAdded);
     }
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
         Exercise validExercise = new ExerciseBuilder().build();
-        AddCommand addCommand = new AddCommand(validExercise);
+        AddExerciseCommand addExerciseCommand = new AddExerciseCommand(validExercise);
         ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
         assertThrows(CommandException.class,
-            AddCommand.MESSAGE_DUPLICATE_EXERCISE, () -> addCommand.execute(modelStub));
+            AddExerciseCommand.MESSAGE_DUPLICATE_EXERCISE, () -> addExerciseCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Exercise aerobics = new ExerciseBuilder().withName("Aerobics").build();
         Exercise basketball = new ExerciseBuilder().withName("Basketball").build();
-        AddCommand addAliceCommand = new AddCommand(aerobics);
-        AddCommand addBobCommand = new AddCommand(basketball);
+        AddExerciseCommand addAliceCommand = new AddExerciseCommand(aerobics);
+        AddExerciseCommand addBobCommand = new AddExerciseCommand(basketball);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(aerobics);
+        AddExerciseCommand addAliceCommandCopy = new AddExerciseCommand(aerobics);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -120,7 +122,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyExerciseBook getAllData() {
+        public ReadOnlyExerciseBook getAllExerciseData() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,18 +141,69 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=======================regime================================================================================
+        @Override
+        public Path getRegimeBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRegimeBookFilePath(Path exerciseBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRegime(Regime regime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRegimeBook(ReadOnlyRegimeBook anotherBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRegimeBook getAllRegimeData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRegime(Regime regime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRegime(Regime regime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRegime(Regime target, Regime editedRegime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getRegimeIndex(Regime regime) {
+            throw new AssertionError("This method shuold not be called.");
+        }
+
         @Override
         public ObservableList<Exercise> getFilteredExerciseList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Exercise> getSortedExerciseList() {
+        public ObservableList<Regime> getFilteredRegimeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRegimeList(Predicate<Regime> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -192,7 +245,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyExerciseBook getAllData() {
+        public ReadOnlyExerciseBook getAllExerciseData() {
             return new ExerciseBook();
         }
     }

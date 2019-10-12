@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
+import seedu.exercise.model.exercise.Muscle;
 import seedu.exercise.model.exercise.Name;
 import seedu.exercise.model.exercise.Quantity;
 import seedu.exercise.model.exercise.Unit;
-import seedu.exercise.model.tag.Muscle;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "D@nce";

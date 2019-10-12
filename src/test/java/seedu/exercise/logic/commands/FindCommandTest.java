@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
+import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.NameContainsKeywordsPredicate;
 
@@ -24,8 +25,8 @@ import seedu.exercise.model.exercise.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalExerciseBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExerciseBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
 
     @Test
     public void equals() {

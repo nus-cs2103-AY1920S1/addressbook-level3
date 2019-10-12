@@ -105,7 +105,7 @@ Examples:
 Adds exercises from the exercises you have added into a new exercise regime.
 If a regime of the same name already exists, exercises will be added to the same scheduling regime.
 
-Format: `add t/regime [n/REGIME_NAME] [i/INDEX]...`
+Format: `add t/regime n/REGIME_NAME [i/INDEX]...`
 
 Example:
 

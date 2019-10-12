@@ -8,7 +8,9 @@ import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.ReadOnlyExerciseBook;
+import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.regime.Regime;
 
 /**
  * API of the Logic component
@@ -26,19 +28,30 @@ public interface Logic {
     /**
      * Returns the ExerciseBook.
      *
-     * @see seedu.exercise.model.Model#getAllData()
+     * @see seedu.exercise.model.Model#getAllExerciseData()
      */
     ReadOnlyExerciseBook getExerciseBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Exercise> getFilteredExerciseList();
+    /**
+     * Returns the RegimeBook.
+     *
+     * @see seedu.exercise.model.Model#getAllRegimeData()
+     */
+    ReadOnlyRegimeBook getRegimeBook();
 
-    ObservableList<Exercise> getSortedExerciseList();
+    ObservableList<Regime> getFilteredRegimeList();
 
     /**
      * Returns the user prefs' exercise book file path.
      */
     Path getExerciseBookFilePath();
+
+    /**
+     * Returns the user prefs' regime book file path.
+     */
+    Path getRegimeBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

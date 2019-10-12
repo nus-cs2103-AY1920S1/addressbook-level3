@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.commands.CommandTestUtil.CALORIES_DESC_AEROBICS;
+import static seedu.exercise.logic.commands.CommandTestUtil.CATEGORY_DESC_EXERCISE;
 import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.exercise.logic.commands.AddCommand;
+import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -26,9 +27,11 @@ import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyExerciseBook;
+import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.storage.JsonExerciseBookStorage;
+import seedu.exercise.storage.JsonRegimeBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
 import seedu.exercise.storage.StorageManager;
 import seedu.exercise.testutil.ExerciseBuilder;
@@ -46,8 +49,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonExerciseBookStorage exerciseBookStorage =
             new JsonExerciseBookStorage(temporaryFolder.resolve("exerciseBook.json"));
+        JsonRegimeBookStorage regimeBookStorage =
+                new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -59,7 +64,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete t/exercise i/9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
@@ -74,14 +79,16 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonExerciseBookIoExceptionThrowingStub
         JsonExerciseBookStorage exerciseBookStorage =
             new JsonExerciseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseBook.json"));
+        JsonRegimeBookStorage regimeBookStorage =
+            new JsonRegimeBookStorage(temporaryFolder.resolve("ioExceptionRegimeBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AEROBICS + DATE_DESC_AEROBICS + CALORIES_DESC_AEROBICS
-            + QUANTITY_DESC_AEROBICS + UNIT_DESC_AEROBICS;
+        String addCommand = AddExerciseCommand.COMMAND_WORD + CATEGORY_DESC_EXERCISE + NAME_DESC_AEROBICS
+            + DATE_DESC_AEROBICS + CALORIES_DESC_AEROBICS + QUANTITY_DESC_AEROBICS + UNIT_DESC_AEROBICS;
         Exercise expectedExercise = new ExerciseBuilder(AEROBICS).withMuscles().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExercise(expectedExercise);
@@ -134,7 +141,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAllData(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
