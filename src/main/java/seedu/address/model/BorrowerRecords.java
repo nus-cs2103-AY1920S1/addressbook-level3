@@ -41,8 +41,8 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      */
     public boolean hasBorrower(Borrower borrower) {
         return listOfBorrowers.stream().anyMatch(current -> current.getName().equals(borrower.getName())
-            && (current.getPhone().equals(borrower.getPhone()) ||
-                    current.getEmail().equals(borrower.getEmail())));
+            && (current.getPhone().equals(borrower.getPhone())
+                || current.getEmail().equals(borrower.getEmail())));
     }
 
     /**
