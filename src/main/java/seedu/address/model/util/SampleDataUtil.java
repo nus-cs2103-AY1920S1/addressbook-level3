@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
@@ -42,9 +42,9 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<MedicalHistory> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(MedicalHistory::new)
                 .collect(Collectors.toSet());
     }
 

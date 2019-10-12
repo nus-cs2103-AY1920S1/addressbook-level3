@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -22,14 +22,14 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedMedicalHistory> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedMedicalHistory> tagged) {
         this.name = name;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -41,8 +41,8 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        tagged.addAll(source.getMedicalHistories().stream()
+                .map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
     }
 
@@ -52,9 +52,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+        final List<MedicalHistory> personMedicalHistories = new ArrayList<>();
+        for (JsonAdaptedMedicalHistory tag : tagged) {
+            personMedicalHistories.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -65,8 +65,8 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelTags);
+        final Set<MedicalHistory> modelMedicalHistories = new HashSet<>(personMedicalHistories);
+        return new Person(modelName, modelMedicalHistories);
     }
 
 }

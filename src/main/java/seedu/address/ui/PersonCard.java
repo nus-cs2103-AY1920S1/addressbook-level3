@@ -40,9 +40,9 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getMedicalHistories().stream()
+                .sorted(Comparator.comparing(tag -> tag.medicalHistoryName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.medicalHistoryName)));
     }
 
     @Override

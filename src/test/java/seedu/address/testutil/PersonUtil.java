@@ -7,8 +7,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Person.
@@ -28,8 +28,8 @@ public class PersonUtil {
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        person.getMedicalHistories().stream().forEach(
+            s -> sb.append(PREFIX_TAG + s.medicalHistoryName + " ")
         );
         return sb.toString();
     }
@@ -40,12 +40,12 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
+        if (descriptor.getMedicalHistories().isPresent()) {
+            Set<MedicalHistory> medicalHistories = descriptor.getMedicalHistories().get();
+            if (medicalHistories.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                medicalHistories.forEach(s -> sb.append(PREFIX_TAG).append(s.medicalHistoryName).append(" "));
             }
         }
         return sb.toString();

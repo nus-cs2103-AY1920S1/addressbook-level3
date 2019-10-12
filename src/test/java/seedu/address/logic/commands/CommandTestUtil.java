@@ -44,9 +44,9 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withMedicalHistories(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withMedicalHistories(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**

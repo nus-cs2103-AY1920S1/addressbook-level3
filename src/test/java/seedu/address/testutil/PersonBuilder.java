@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -16,11 +16,11 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
 
     private Name name;
-    private Set<Tag> tags;
+    private Set<MedicalHistory> medicalHistories;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        tags = new HashSet<>();
+        medicalHistories = new HashSet<>();
     }
 
     /**
@@ -28,7 +28,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        tags = new HashSet<>(personToCopy.getTags());
+        medicalHistories = new HashSet<>(personToCopy.getMedicalHistories());
     }
 
     /**
@@ -40,16 +40,17 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code medicalHistories} into a {@code Set<MedicalHistory>}
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.medicalHistories = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
 
     public Person build() {
-        return new Person(name, tags);
+        return new Person(name, medicalHistories);
     }
 
 }

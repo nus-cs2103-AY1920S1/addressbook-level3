@@ -14,8 +14,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -82,15 +82,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        MedicalHistory expectedMedicalHistory = new MedicalHistory(VALID_TAG_1);
+        assertEquals(expectedMedicalHistory, ParserUtil.parseTag(VALID_TAG_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+        MedicalHistory expectedMedicalHistory = new MedicalHistory(VALID_TAG_1);
+        assertEquals(expectedMedicalHistory, ParserUtil.parseTag(tagWithWhitespace));
     }
 
     @Test
@@ -110,9 +110,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<MedicalHistory> actualMedicalHistorySet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<MedicalHistory> expectedMedicalHistorySet = new HashSet<MedicalHistory>(
+                Arrays.asList(new MedicalHistory(VALID_TAG_1), new MedicalHistory(VALID_TAG_2)));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedMedicalHistorySet, actualMedicalHistorySet);
     }
 }
