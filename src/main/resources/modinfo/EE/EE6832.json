@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6832",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide students the theory and concept of multi-antenna communications. The fundamental theory of conventional antenna arrays is covered in the first part. In the second part, the latest developments and techniques in multi-antenna communications are described, such as smart antenna technology, MIMO communication technique, adaptive array beamforming, etc. The focus of this module will be on the antenna array as a realization method to enable multi-antenna communications. The array design techniques will be highlighted and emphasized. The effect of antenna and array configuration characteristics on multichannel simultaneous communications and the dependence of the multi-channel ommunications on the antenna arrays will be fully illustrated and exemplified in this module.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5308",
+            "EE5308R"
+        ]
+    },
+    "title": "Advanced Multi-Antenna Communications"
+}

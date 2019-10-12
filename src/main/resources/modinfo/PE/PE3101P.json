@@ -1,0 +1,14 @@
+{
+    "courseCode": "PE3101P",
+    "courseCredit": "4",
+    "description": "This course is an introduction to decision and social choice theory. The first half introduces the theory of expected utility, according to which rational actions maximise the probability of desirable consequences. The second half introduces utilitarianism, according to which the right action is one which maximises the satisfaction of desire for the population at large. Both theories are controversial for their highly quantitative nature, their demanding conception of rationality and rightness, their insensitivity to risk and inequality, their prioritization of ends over means, and their tenuous relationship to actual human behaviour and morality. These controversies are discussed.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH3249",
+    "prereqTree": {
+        "or": [
+            "GEM2006",
+            "GET1028"
+        ]
+    },
+    "title": "Decision and Social Choice"
+}

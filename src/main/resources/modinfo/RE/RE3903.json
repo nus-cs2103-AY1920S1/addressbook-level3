@@ -1,0 +1,8 @@
+{
+    "courseCode": "RE3903",
+    "courseCredit": "4",
+    "description": "This module is an introduction course to Geographic Information Systems (GIS) and its applications in the real estate field. Its primary goal is to help students understand the basic principles of GIS and gain expertise in data processing and visualization techniques, spatial analysis, and internet GIS.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE2301 GIS for Real Estate\nGE2215 Introduction to GIS & Remote Sensing\nGE2227 Cartography and Visualisation\nGE3216 Applications of GIS & Remote Sensing,\nGE3238 GIS Design and Practices",
+    "title": "GIS for Real Estate"
+}

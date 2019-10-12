@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4114",
+    "courseCredit": "4",
+    "description": "This module offers an introduction to the fundamental principles and components of optical communication systems. The module objective is to provide a basic understanding of present optical communication systems as well as future engineering challenges. To this end, the module covers the basic concepts of fiber optics, data modulation in optical fiber channels, management of fiber degrading effects, and wavelength division multiplexing. It also includes the basic constituent components of optical communication systems, including transmitters, receivers, optical amplifiers, and optical fibers.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3131C",
+    "title": "Optical Communications"
+}

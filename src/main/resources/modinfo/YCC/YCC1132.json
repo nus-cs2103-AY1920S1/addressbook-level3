@@ -1,0 +1,11 @@
+{
+    "courseCode": "YCC1132",
+    "courseCredit": "5",
+    "description": "Integrated science provides an introduction to the sciences designed for students who intend to major in science. It is the first course in a sequence that continues with a 10MC module in the third semester. In this first module, a particular topic is chosen, and contributions from all the scientific disciplines to this topic are explored in detail. Special attention is paid to the connections, similarities and differences between the different sciences.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YCC2133",
+        "YCC2134"
+    ],
+    "title": "Integrated Science 1"
+}

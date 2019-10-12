@@ -1,0 +1,14 @@
+{
+    "courseCode": "ESE4406",
+    "courseCredit": "4",
+    "description": "This module describes the technology and scientific understanding by which the world\u2019s nations could ameliorate the growing urban, regional, and global environmental problems associated with energy use while still providing sufficient energy to meet the needs of populations for a human existence. Topics include a general introduction to the subject of energy, its use and its environmental effects; the world\u2019s energy reserves and resources; electrical energy generation, transmission and storage; fossilfuelled and nuclear-fuelled power plants; environmental effects of fossil and nuclear fuel use; renewable energy; transportation.",
+    "faculty": "Engineering",
+    "preclusion": "CN4248",
+    "prereqTree": {
+        "and": [
+            "ESE3101",
+            "ESE3201"
+        ]
+    },
+    "title": "Energy and the Environment"
+}

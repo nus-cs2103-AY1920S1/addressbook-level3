@@ -1,0 +1,8 @@
+{
+    "courseCode": "SYE5202",
+    "courseCredit": "4",
+    "description": "This module covers the basic principles of the subjects Six Sigma and Lean as well as associated tools such as 5S and value stream analysis. Essential techniques related to setting up project charter, management and execution of Six Sigma projects are covered. Case studies will be used.",
+    "faculty": "Engineering",
+    "preclusion": "IE5217 Fundamentals of Lean Six Sigma",
+    "title": "Lean Six Sigma"
+}

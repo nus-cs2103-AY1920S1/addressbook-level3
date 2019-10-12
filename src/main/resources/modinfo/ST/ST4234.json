@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST4234",
+    "courseCredit": "4",
+    "description": "Bayesian principles: Bayes' theorem, estimation, hypothesis testing, prior distributions, likelihood, predictive distributions. Bayesian computation: numerical approximation, posterior simulation and integration, Markov chain simulation, models and applications: hierarchical linear models, generalized linear models, multivariate models, mixture models, models for missing data, case studies. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST2132",
+    "title": "Bayesian Statistics"
+}

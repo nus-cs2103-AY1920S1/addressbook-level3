@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM3227",
+    "courseCredit": "4",
+    "description": "This course explores virology, which is the study of viruses that infect different forms of living organisms. It introduces general concepts related to the viral structure, host spectrum and replication. We will elaborate how viruses are identified, how viruses go 'viral' and how we can live with viruses. The impacts of viral diseases on human health, food security and environment will be discussed. The course also includes new developments in how viruses can be used as vectors for drug delivery, nanomaterials and bio-control agents. Students will have chances to practice virus culture, isolation and infectivity assay.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "LSM1102",
+            "LSM1106",
+            "LSM2191"
+        ]
+    },
+    "title": "General Virology"
+}

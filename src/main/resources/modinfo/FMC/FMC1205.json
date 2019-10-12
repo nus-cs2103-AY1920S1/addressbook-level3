@@ -1,0 +1,7 @@
+{
+    "courseCode": "FMC1205",
+    "courseCredit": "4",
+    "description": "In order to appreciate the science of information security, one needs to understand how computer systems can be compromised by insecured design and implementation. In this course, students will be exposed to common security vulnerabilities of modern computing systems, the standard tools that can be deployed to guard against such vulnerabilities, and the best practices to design systems that can minimise not only known security issues, but also future risk arising from currently unknown security attacks. Students will do case studies to investigate how they could potentially compromise some standard computing systems, and propose solutions to mitigate against the risks. This module will be graded as 'Completed Satisfactory/Completed Unsatisfactory (CS/CU)'.",
+    "faculty": "Computing",
+    "title": "Freshman Seminar: Practical Information Security"
+}

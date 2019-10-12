@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4305",
+    "courseCredit": "4",
+    "description": "This module introduces fuzzy logic and neural networks, two tools used in robotics, and their application. It examines the principles of fuzzy sets and fuzzy logic, which leads to fuzzy inference and control. It also covers the structures and learning process of a neural network including genetic algorithm and classification. Topics covered include: fuzzy set theory, fuzzy systems and control of robots, basic concepts of neural networks, single-layer and multilayer perceptions, self-organizing maps, neural network training and neural network modelling of robots. Applications to Robotics will be specifically elaborated throughout the course.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2023",
+    "title": "Fuzzy/Neural Systems for Intelligent Robotics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS4220",
+    "courseCredit": "4",
+    "description": "The advent of high throughput technologies (e.g., DNA chips, microarray), biologists are being overloaded with information (e.g., gene expression data). A systematic way is needed to analyze the data to make sense of them. This module is introduced to provide students with knowledge of techniques that can be used to analyse biological data to enable them to discover new knowledge. At the end of the module, students will be able to identify the relevant techniques for different biological data to uncover new information. Topics include: Clustering analysis, classification, association rule mining; support vector machines; Hidden Markov Models.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS2220",
+            "LSM2241"
+        ]
+    },
+    "title": "Knowledge Discovery Methods in Bioinformatics"
+}

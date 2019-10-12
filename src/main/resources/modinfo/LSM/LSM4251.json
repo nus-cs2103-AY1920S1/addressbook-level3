@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM4251",
+    "courseCredit": "4",
+    "description": "Growth and development of higher vascular plants through their life cycles. Discussion in this module include selected topics in gamete development, fertilization, embryo development, seed germination, development of various plant organs and flowering, the role of plant growth regulators, and the cellular, physiological and molecular basis of plant morphogenesis. The molecular basis of various stages of plant development will be discussed using developmental mutant analyses.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2254",
+            "LSM3233",
+            "LSM3258"
+        ]
+    },
+    "title": "Plant Growth and Development"
+}

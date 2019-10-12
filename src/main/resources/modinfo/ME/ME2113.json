@@ -1,0 +1,14 @@
+{
+    "courseCode": "ME2113",
+    "courseCredit": "3",
+    "description": "This course provides a foundation for an understanding of the basic principles of solid mechanics and its applications to simple engineering structures. It provides a foundation for the understanding of basic principles of solid mechanics and its applications to simple engineering structures. The topics covered are: Introduction to Mechanics of deformable bodies; Concepts of Stress and Strain; One-dimensional systems; Shear force and Bending moment; Deflection of laterally loaded symmetrical beams; Stresses in laterally loaded symmetrical beams; Torsion. It is a core module.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109",
+            "CE1109X"
+        ]
+    },
+    "title": "Mechanics Of Materials I"
+}

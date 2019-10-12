@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN3102",
+    "courseCredit": "4",
+    "description": "This module provides practical experience to students in process dynamics and control, mass transfer and separation processes. It also strengthens teamwork, technical writing and oral presentation skills, and problem-solving skills. The importance of safety continues to be emphasised through rigorous implementation of proper operational and waste disposal procedures. The practical experience in fault diagnosis, instrumental analysis, data logging and processing, error analysis and data validation, and operation of process units gained in CN3101 are reinforced and extended further. Students perform four experiments (each in two 4-hour sessions) during the semester.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN3121",
+            "CN3132"
+        ]
+    },
+    "title": "Chemical Engineering Process Lab II"
+}

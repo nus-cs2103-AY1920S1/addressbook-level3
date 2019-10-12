@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PR4207",
+    "courseCredit": "4",
+    "description": "Learning objectives? To enhance and broaden students' knowledge of pharmacokinetics and its application in toxicology. To enable students to develop critical thinking in optimization of pharmacotherapy for patients. To serve patients better with evidence-based judgement in future clinical practice. To learn the principles of pharmacokinetics, toxicokinetics and pharmacogenomics. To learn how to apply these principles for the understanding of drug response (efficacy and toxicity)Major topics? Principles of clinical pharmacokinetics. Principles of clinical toxicokinetics. Pharmacokinetic/pharmacodynamic modeling. Kinetics of drug interactions. Interspecies pharmacokinetic scaling. Bioactivation of drugs and toxicity relevance. Genomics and variable drug response. Management of patients with adverse drug events and drug toxicityTarget students ? Pharmacy Final Year",
+    "faculty": "Science",
+    "prereqTree": "PR3116",
+    "title": "Applied Pharmacokinetics and Toxicokinetics"
+}

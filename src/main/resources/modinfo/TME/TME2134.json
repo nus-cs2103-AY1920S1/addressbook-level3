@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TME2134",
+    "courseCredit": "4",
+    "description": "This is an introductory course to fluid mechanics as applied to engineering. After introducing the basic terminology and a classification of fluid and flow, students are taught fluid statics, which cover hydrostatic forces on submerged bodies, surface tension forces, buoyancy, metacentric height and stability of floating bodies. Numerous examples of engineering applications pertaining to each aspect of fluid statics are presented. In the section on fluid dynamics, basic principles of fluid motion are introduced. This covers the continuity equation, Bernoulli and energy equations. The momentum equation and its engineering application using the control volume approach are included. In the analysis of fluid-mechanics problems, dimensional analysis and similitude are taught with engineering examples. Finally, laminar and turbulent pipe flows, Hagen-Poiseuille law, friction factor, losses in pipe fittings and use of Moody\u2019s Chart will also be covered.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME2135"
+    ],
+    "preclusion": "TM1131, ME2134E",
+    "title": "Fluid Mechanics I"
+}

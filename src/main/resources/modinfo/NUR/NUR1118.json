@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1118",
+    "courseCredit": "4",
+    "description": "This module will develop knowledge and understanding of the normal structure and function of the human body. Following an introduction to the basic principles of anatomy and physiology, learning will take from the cell to organ-systems\u2019 approach to guide student learning. Body systems covered include: cardiovascular, respiratory, endocrine, and integumentary. Knowledge of these systems is fundamental to, and underpins, the nursing practice modules and Medical/Surgical Nursing modules.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "AY1104 Anatomy\nPY1105 Physiology I\nPY1106 Physiology II",
+    "title": "Anatomy and Physiology II"
+}

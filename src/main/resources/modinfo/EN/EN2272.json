@@ -1,0 +1,17 @@
+{
+    "courseCode": "EN2272",
+    "courseCredit": "4",
+    "description": "This module introduces students to the techniques of writing prose fiction in both the short story and longer forms (i.e., novella and novel) in order to prepare students both intellectually and professionally for a potential career in fiction writing. Students will complete several technique honing exercises and two short stories, each week critiquing their peers\u2019 work and building a critical vocabulary\u2019 that they can apply to their own work. Students will complete written analyses of reading assignments to foster their ability to read as practitioners of the writing craft. Techniques discussed include: character, plot, point of view, structure, time, and voice.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "EN1101E",
+            "TS1101E",
+            "GEK1011",
+            "GEK1000",
+            "GEM1003"
+        ]
+    },
+    "title": "Introduction to Writing Prose Fiction"
+}

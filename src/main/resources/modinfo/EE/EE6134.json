@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6134",
+    "courseCredit": "4",
+    "description": "This module aims to provide a comprehensive treatment of the concepts, architectures, algorithms, protocols, and research issues in major optical networking technologies that include wavelength division multiplexing (WDM), early generation optical networks such as synchronous optical networks (SONET), and optical access networks. It covers the topics on early generation optical networks such as network elements, architectures, functions, and survivability. The second part covers the topics on WDM networks that include technology, switch architectures, wavelength-selective and wavelength-convertible networks, routing and wavelength assignment, virtual topology, survivability and traffic grooming. It then covers the issues of scheduling and quality of service in optical burst switching (OBS) and architectural and technological issues in optical packet switching (OPS) networks. Finally, it covers topics on optical access networks discussing the architectures, operations, and protocols.",
+    "faculty": "Engineering",
+    "preclusion": "EE5134, EE5912",
+    "title": "Optical Networks (Advanced)"
+}

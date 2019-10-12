@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5404",
+    "courseCredit": "4",
+    "description": "In this module students will learn various neural network models and develop all the essential background needed to apply these models to solve practical pattern recognition and regression problems. The main topics that will be covered are: single and multilayer perceptrons, support vector machines, radial basis function networks, Kohonen networks, principal component analysis, and recurrent networks. There is a compulsory computer project for this module. This module is intended for graduate students and engineers interested in learning about neural networks and using them to solve real world problems.",
+    "faculty": "Engineering",
+    "preclusion": "EE5904/EE5904R, MCH5202",
+    "title": "Neural Networks"
+}

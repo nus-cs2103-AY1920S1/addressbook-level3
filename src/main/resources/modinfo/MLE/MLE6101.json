@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MLE6101",
+    "courseCredit": "4",
+    "description": "This module teaches thermodynamics and kinetics of different engineering materials including metals, ceramics and polymers. The major topics cover: Equilibrium and non-equilibrium. Introduction to statistical thermodynamics, Transition state theory and field effects, Solution theory, Phase diagrams. Diffusion mechanisms, Nucleation in condensed phases, Surface energy, Crystal growth, Defects in crystals, Phase transformation theories, Formation of nanostructures: nano-dots, nano-wells, nano-wires and nano-tubes.",
+    "faculty": "Engineering",
+    "title": "Thermodynamics and Kinetics of Materials"
+}

@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YHU2202",
+    "courseCredit": "5",
+    "description": "This course will introduce students to the practice of creative nonfiction writing. It will explore the genre's manifold forms, including memoir, personal essay, literary journalism, lyric essay, and op-eds. Each week, students will read classic and contemporary examples of creative nonfiction and practise the craft themselves through guided writing exercises. The reading list will include many diaspora, emigrant, and third-culture writers alongside progenitors of the genre, such as Michel de Montaigne and Li Shang-Yin. Students will craft two main essays over the course of the semester, as well as a variety of shorter original pieces.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4214"
+    ],
+    "title": "Introduction to Creative Nonfiction"
+}

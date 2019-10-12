@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001L",
+    "courseCredit": "4",
+    "description": "In this research-based module, we will explore how urban spaces across Southeast Asia have been imagined through visual forms like cinema, painting, advertising, and digital media. Using historical, theoretical, and anthropological texts as models, we will inquire into the process by which images negotiate and redefine the contours and notions of the geographies they are made to replace. How do movies transform disregarded cityscapes into protagonists? How are photographs and postcards of abandoned or demolished structures incorporated into historical memory? How do territorial, tourist, and transit maps shape aspirations of citizens and migrants? Students can pursue one of several trajectories.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Visualizing Southeast Asian Cities"
+}

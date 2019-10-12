@@ -1,0 +1,13 @@
+{
+    "courseCode": "MNO3326",
+    "courseCredit": "2",
+    "description": "This independent study module delves into the leadership experiences a leader may go through as an individual. Leaders are also individual persons like you and me. How to deal with the leadership role and personally make sense of what a person does as a leader thus constitutes an essential part of leadership training. This module will address these topics: 1. The Leader as an Individual 2. Personality Traits and Leader Behavior 3. Leadership World View and Attitude 4. Ledership Mind and Heart 5. What Does It Mean to be a Follower 6. Developing Personal Potential",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "MNO1001",
+            "MNO2007"
+        ]
+    },
+    "title": "Personal Leadership Development"
+}

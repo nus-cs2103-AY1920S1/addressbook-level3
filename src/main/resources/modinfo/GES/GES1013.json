@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GES1013",
+    "courseCredit": "4",
+    "description": "This module introduces the urban history and architecture of Singapore from an inter-disciplinary perspective. It will cover the period from the ancient market and settlement of Tanma-hsi or Singapura, to the formation and development of a colonial town, and to the recent post-independence period, until the contemporary debates in Architecture and Urbanism in Singapore. The module, which is targeted at general audiences of undergraduate students, aims to stimulate intellectual discourse and critical thinking by using inter-disciplinary approaches to understanding the city and architecture.",
+    "faculty": "Design and Environment",
+    "preclusion": "SSD2213",
+    "title": "Singapore Urban History & Architecture"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "TCE5206",
+    "courseCredit": "4",
+    "description": "This module is concerned with the analysis and design of foundations for offshore structures. Students will learn the principles, concepts, analysis methodology and design considerations that are applied to the offshore environment. The major topics covered include: offshore design considerations; offshore site investigation; foundations for jack-up rigs and offshore gravity platforms; anchor foundations; suction caissons; and offshore pile foundations installation, analysis and design. Students gain an understanding of the design methodology for offshore foundations for fixed and floating structures.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "OT5206",
+    "prereqTree": {
+        "and": [
+            "TCE2112",
+            "TCE3116"
+        ]
+    },
+    "title": "Offshore Foundations"
+}

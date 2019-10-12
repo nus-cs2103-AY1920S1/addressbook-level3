@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2410",
+    "courseCredit": "4",
+    "description": "This module explores the concepts, practices and issues related to rebuilding communities in countries marked by factors such as past conflict, inequality or rapid development. It focuses on the building and/or rebuilding of marginalised communities (e.g. women, the poor, ethnic minorities) in such countries. It offers students an interactive learning opportunity that combines development theories, classroom discussions in Singapore, and a study trip abroad. Students will critically examine debates about rebuilding communities, as well as the ethical, social, economic and environmental challenges of ground-up community development.",
+    "faculty": "Residential College",
+    "preclusion": "UTC24%",
+    "prereqTree": "UTW1001",
+    "title": "Building Communities: Exploring Global Connections"
+}

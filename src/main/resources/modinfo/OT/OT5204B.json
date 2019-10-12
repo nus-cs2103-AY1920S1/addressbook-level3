@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5204B",
+    "courseCredit": "2",
+    "description": "Moorings and risers are critical components of floating systems. In this module, the students will be taught the fundamental concepts of analysis and design of different mooring and riser systems, focussing on the dynamic aspects.",
+    "faculty": "Engineering",
+    "title": "Moorings and Risers - Dynamics"
+}

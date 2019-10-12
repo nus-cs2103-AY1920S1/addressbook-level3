@@ -1,0 +1,8 @@
+{
+    "courseCode": "CE5515",
+    "courseCredit": "4",
+    "description": "Continuous and ad-hoc structural health monitoring to obtain information of the structural integrity and damage allows engineers to pre-empt structural failures by carrying out preventive maintenance and thus reducing service downtime and avoiding potential catastrophe due to undetected structural degradation. Digitalisation of civil structures with integrating sensor systems together with identification algorithms allows the performance and health of the structures to be monitored in real-time to ensure safe and efficient operation. This module provides an overview of the state-of-the-art technologies and approaches implemented in civil structures in the field as well as cutting-edge techniques still under research and development.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3202",
+    "title": "Structural Health Monitoring"
+}

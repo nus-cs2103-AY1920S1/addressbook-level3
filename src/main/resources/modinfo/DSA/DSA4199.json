@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "DSA4199",
+    "courseCredit": "16",
+    "description": "The objectives of the module are to develop skills for independent data-driven research and to promote the application of novel problem-solving strategies in data science. On completion of the module, students should be able to demonstrate an appreciation of the current state of knowledge in a particular field of research, to master the techniques required for the study of a research question, and to communicate research findings clearly and concisely in written and spoken English.",
+    "faculty": "Science",
+    "preclusion": "DSA4299",
+    "title": "Honours Project in Data Science and Analytics"
+}

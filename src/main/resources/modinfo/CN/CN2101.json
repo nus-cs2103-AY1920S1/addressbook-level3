@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CN2101",
+    "courseCredit": "3",
+    "description": "This module provides students with basic concepts of material and energy balances in chemical engineering processes. It also gives a comprehensive introduction to different analytical and problem-solving methods. In particular, steady state material and energy balances, including recycles, phase changes and reactions, simultaneous material and energy balances and unsteady state balances are covered in this module. All fundamental concepts are illustrated by using relevant process examples. This module is targeted at level one engineering or science students.",
+    "faculty": "Engineering",
+    "title": "Material and Energy Balances"
+}

@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA4230",
+    "courseCredit": "4",
+    "description": "This course provides essential ideas and techniques as well as algorithms in numerical linear algebra that are needed in scientific computing and data analytics for effectively working with vectors and matrices. The major difficulties faced in solving problems in linear algebra numerically are discussed, as well as the associated applications often seen in practice. The emphasis is on the development of elegant and powerful algorithms and their applications for solving practical problems. Major topics include basic vector and matrix manipulation, the singular value decomposition, QR factorization, least squares problems, conditioning and stability, eigenvalue problems, and various applications in scientific computing and data science.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSA5203",
+        "MA5233"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2101",
+                    "MA2101S"
+                ]
+            },
+            {
+                "or": [
+                    "MA2213",
+                    "DSA2102"
+                ]
+            }
+        ]
+    },
+    "title": "Matrix Computation"
+}

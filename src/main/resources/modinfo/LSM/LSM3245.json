@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM3245",
+    "courseCredit": "4",
+    "description": "This module examines the roles of RNA, coding and in particular non-coding (ncRNA), in regulation of gene expression, host\u2013pathogen interaction, and catalysis as well as their applications in research, diagnosis, and therapy of human diseases. The topics cover the \u2018RNA world hypothesis\u2019, the relation between structure and function of RNA, the mechanisms of regulation and dysregulation of gene expression by ncRNAs, selection and design of functional RNAs, features and usage of ncRNAs, the role of RNA in early stage pharmaceutical developments, and RNA-based drug development.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "RNA Biology and Technology"
+}

@@ -1,0 +1,28 @@
+{
+    "courseCode": "CS4215",
+    "courseCredit": "4",
+    "description": "This module provides the students with theoretical knowledge and practical skill in the implementation of programming languages. It discusses implementation aspects of fundamental programming paradigms (imperative, functional and object-oriented), and of basic programming language concepts such as binding, scope, parameter-passing mechanisms and types. It introduces the language processing techniques of interpretation and compilation and virtual machines. The lectures are accompanied by lab sessions which will focus on language processing tools, and take the student through a sequence of programming language implementations. This modules also covers automatic memory management, dynamic linking and just-in-time compilation, as features of modern execution systems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5218"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS2010",
+            "CS2020",
+            {
+                "and": [
+                    "CS2040",
+                    {
+                        "or": [
+                            "CS2030",
+                            "CS2113",
+                            "CS2113T"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Programming Language Implementation"
+}

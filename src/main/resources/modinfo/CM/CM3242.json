@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CM3242",
+    "courseCredit": "4",
+    "description": "Instrumentation-based analytic techniques are essential for research & development, and for process/product control in manufacturing. These techniques are widely deployed in the chemicals, electronics and other manufacturing industries. Students will learn the principles, instrumentation and applications of the key analytical techniques including atomic and molecular spectrometries, basic mass spectrometry, electrochemical and thermal analysis methods. Students will also learn the extraction and separation techniques for sample preparation needed for these analyses. Students will also receive in-depth hands on training in selected techniques.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4241",
+        "CM4242",
+        "CM4267"
+    ],
+    "prereqTree": {
+        "or": [
+            "CM2142",
+            "CM2192",
+            "LSM2191"
+        ]
+    },
+    "title": "Instrumental Analysis II"
+}

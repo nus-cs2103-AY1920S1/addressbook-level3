@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS2214",
+    "courseCredit": "5",
+    "description": "Economics is concerned with the study of how individuals make decisions and how these decisions affect, and in turn are affected by, the distribution of limited resources in society. This course introduces students to the formal analysis of the economy as a whole. The goal is to understand how decisions by the firms, consumers and institutions affect the markets, and the welfare implications of such choices for society. Special attention is placed on the effect of government and monetary policies on the economy. Emphasis is placed upon the mathematical foundations of theoretical models.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS3224",
+        "YSS3248",
+        "YSS3264",
+        "YSS4249"
+    ],
+    "title": "Intermediate Macroeconomics"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CN4221R",
+    "courseCredit": "4",
+    "description": "This module will give students sound knowledge and appreciation of the development of plant-wide control (PWC) systems for chemical processes. The course will cover the systematic design of a regulatory control system with the aid of heuristics and computer-aided simulation tools. Students will be introduced to dynamic (real-time) simulation of chemical processes. Active learning techniques will be employed throughout. As part of the assessment, students will get to work hands-on with a project to design and simulate PWC systems for a chemical plant. Students are also assessed by means of a class test, and small individual assignments.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN3121",
+            "CN4122"
+        ]
+    },
+    "title": "Control of Industrial Processes"
+}

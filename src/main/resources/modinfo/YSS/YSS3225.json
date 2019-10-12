@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSS3225",
+    "courseCredit": "5",
+    "description": "This course will enable students to understand the role of international law, regimes, institutions, and non\u2010governmental organizations in international politics. The first section of the course is dedicated to theoretical, institutional and legal issues of global governance. The second section explores how the global governance and international law structure has evolved over time and how it technically functions today. The third section will explore the operations of specific actors in global governance including the United Nations, World Trade Organization, International Monetary Fund, APEC and ASEAN. The final section will explore the \u2018threats without borders\u2019 and challenges to global governance.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4238"
+    ],
+    "prereqTree": "YSS2202",
+    "title": "Global Governance"
+}

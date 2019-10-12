@@ -1,0 +1,18 @@
+{
+    "courseCode": "CE3121",
+    "courseCredit": "4",
+    "description": "This module introduces basic principles and tools to design, plan, evaluate, analyze, manage and control transportation systems. The aim is to enable students to identify, formulate, examine, and solve transportation engineering problems. The major topics include transportation system, planning and management, geometric design of roads and intersections, structural design of pavement, pavement materials, traffic flow and analysis, and traffic management and control.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5203",
+        "CE5205",
+        "TP5025",
+        "CE5206",
+        "CE5208",
+        "CE5209",
+        "CE4221"
+    ],
+    "preclusion": "TCE3121",
+    "prereqTree": "CE2407",
+    "title": "Transportation Engineering"
+}

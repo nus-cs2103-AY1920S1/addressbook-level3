@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5305",
+    "courseCredit": "4",
+    "description": "This is an introductory course on aeroelasticity as applied to aerospace specialization. Aeroelasticity is defined as the interactions of the deformable elastic structures in free airstream and the resulting aerodynamic force, which broadly falls under fluid-structure interaction. After introducing the basic terminology and a classification, the basics of statics and dynamics of fluid-structure interaction will be given. Topics covered include static aeroelasticity (divergence, control surface reversal), dynamic aeroelasticity (flutter, buffeting, and gust response), aeroservoelasticity (fluid-structure-control interaction), unsteady aerodynamics over lifting surfaces, and experimental methods for flutter prediction.",
+    "faculty": "Engineering",
+    "preclusion": "ME4235",
+    "prereqTree": {
+        "or": [
+            "ME2134",
+            "ME2114"
+        ]
+    },
+    "title": "Fundamentals of Aeroelasticity"
+}

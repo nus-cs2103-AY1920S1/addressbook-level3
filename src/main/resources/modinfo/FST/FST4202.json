@@ -1,0 +1,18 @@
+{
+    "courseCode": "FST4202",
+    "courseCredit": "4",
+    "description": "The aim of this module is to examine in depth the minor components of food and how these are important in health and disease. The biological basis of nutrition and the cellular mechanisms by which diet can influence health and activity will be examined along with the special dietary needs for minor components (e.g. micronutrients, selected phytochemicals) in certain disease states. Methods of isolation and identification of the compounds will be discussed and how food processing may affect their concentrations, bio-availability and bio-activity. Claims for nutritional benefits from food supplements such as herbs will be examined and the labelling of foods as regards health claims will be discussed.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "FST3202",
+            {
+                "or": [
+                    "LSM2101",
+                    "LSM2211"
+                ]
+            }
+        ]
+    },
+    "title": "Nutritional Biochemistry"
+}

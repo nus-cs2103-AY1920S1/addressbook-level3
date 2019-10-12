@@ -1,0 +1,11 @@
+{
+    "courseCode": "SW3101",
+    "courseCredit": "4",
+    "description": "This module provides an overview of the research process with specific emphasis on social work research. It deals with the development of scientific inquiry as the basis of social work practice. It covers different elements involved in the research process from problem formulation to designing the research, data collection, data analysis, and interpretation and presentation of the research findings. The module assists students with first-hand experience in writing a research proposal and conducting basic research. It also assists students in understanding and appreciating published research reports.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CLC3305"
+    ],
+    "prereqTree": "SW1101E",
+    "title": "Social Work Research Methods"
+}

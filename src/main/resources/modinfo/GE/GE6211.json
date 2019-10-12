@@ -1,0 +1,11 @@
+{
+    "courseCode": "GE6211",
+    "courseCredit": "4",
+    "description": "This module aims to familiarize students with advanced spatial data handling techniques and the theoretical debates of various spatial data handling approaches. Topics examined include spatial data mining, uncertainty, geospatial simulation, location based services, and/or Web GIS. Various GIS, remote sensing, spatial statistics, and spatial temporal modeling techniques will be covered, dependent on student\u2019s requirement. Upon completion of the module, students will be expected to be able to apply these spatial data handling technologies to their field of interest. Students are required to undertake an independent project, and their work will be presented in a seminar format.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE6225",
+        "GE6226"
+    ],
+    "title": "Spatial Data Handling"
+}

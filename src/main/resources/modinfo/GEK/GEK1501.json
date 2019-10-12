@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1501",
+    "courseCredit": "4",
+    "description": "The objective is to discuss the social impact of information technology on in public and private sectors. A contemporary history of computers and information technology is presented to provide the context and framework. Topics include: In a nutshell - microelectronics, microprocessors, multiprocessing. Social impact of information technology. Influence in business and the global economy. IT in the workplace. IT in education, management, law and government. Healthcare information systems: Quality healthcare. Privacy and freedom of information. Themes and case studies: (a) The information superhighway: Where does it lead to? (b) The World Wide Web: Future possibilities. (c) The ecological computer: Preserving the environment. (d) The coming millennium: Myriad possibilities.",
+    "faculty": "Engineering",
+    "preclusion": "To preclude all Facultyof Engineering, Computer Engineering (CEG) &amp; School of Computing students",
+    "title": "Information Technology And Us"
+}

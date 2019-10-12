@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3265",
+    "courseCredit": "5",
+    "description": "In this course, we will examine some central philosophical issues concerning religious belief and practice. Topics may include the problem of evil, petitionary prayer, and religious experience; readings will be contemporary but not exclusively Anglophone.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Philosophy of Religion"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "MA5209",
+    "courseCredit": "4",
+    "description": "This module studies topology using algebraic methods. It covers the following major topics: Fundamental groups, covering spaces, computation of fundamental groups, van Kampen Theorem, the classification of covering spaces, braid groups, simplicial complexes, simplicial homology, simplicial approximation, maps of spheres, classification of surfaces, Brouwer Fixed-point Theorem and Lefschetz Fixed-point Theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5236"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3251",
+            "MA4215",
+            "MA4266"
+        ]
+    },
+    "title": "Algebraic Topology"
+}

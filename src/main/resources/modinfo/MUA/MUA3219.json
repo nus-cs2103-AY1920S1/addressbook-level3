@@ -1,0 +1,10 @@
+{
+    "courseCode": "MUA3219",
+    "courseCredit": "2",
+    "description": "The World Music Ensemble offers students a chance to play and perform music from different cultures. The focus of the course will change from semester to semester allowing students a chance to participate in different traditional musics in different terms. Students can see what music is covered each term by checking the NUS and YSTCM websites. Most semesters are available to any student regardless of musical background, some may require proficiency on an instrument.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3220"
+    ],
+    "title": "World Music Ensemble"
+}

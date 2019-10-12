@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE4205",
+    "courseCredit": "4",
+    "description": "Introduction to quantum chemistry and quantum electronics, band theory of solid materials, transport phenomena in solids from the microscopic viewpoint, random processes in solids, Monte-Carlo calculations of diffusion, introduction to the theory of phase transitions, crystal growth and precipitation, self-organization in open non-equilibrium solid state systems, molecular dynamics modeling of properties and processes in condensed materials. Learning objectives: Introductory knowledge on theory and modeling of solid state systems with the emphasis of nanomateirals. Target students: Students of Materials Science and Engineering and related disciplines.",
+    "faculty": "Engineering",
+    "prereqTree": "MLE2101",
+    "title": "Theory and Modelling of Materials Properties"
+}

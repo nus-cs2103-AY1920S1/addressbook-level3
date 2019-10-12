@@ -1,0 +1,17 @@
+{
+    "courseCode": "MNO3314",
+    "courseCredit": "4",
+    "description": "This module will develop students abilities to recognise and think critically about difficult ethical and social dilemmas in organisational life and about managerial and corporate behaviour. Some examples of topics that will be covered are: workforce diversity, employee rights, cultural differences in moral standards and the social and natural environment in which organisations operate. Several different theoretical perspectives will be adopted, including values and culture, decision-making and philosophical and normative frameworks. Students will learn through debates, analysis of articles and cases, role-plays and other interactive methods.",
+    "faculty": "NUS Business School",
+    "preclusion": "PH2218",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "Social And Ethical Issues In Management"
+}

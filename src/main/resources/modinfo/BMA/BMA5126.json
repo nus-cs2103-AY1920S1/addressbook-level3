@@ -1,0 +1,8 @@
+{
+    "courseCode": "BMA5126",
+    "courseCredit": "4",
+    "description": "The application of computing power to the collection and analysis of detailed information relating to wide variety of processes and issues \u2013 summarized as big data \u2013 has the potential to change how business problems are evaluated and solved. In turn this has the potential to change how organizations operate and succeed. This module introduces students to big data constructs and uses in strategy and decision making. It will focus on the implications of big data for all aspects of business strategy, focusing primarily on customer interactions, competitive advantage, capabilities development, and how these influence the content and implementation of strategy.",
+    "faculty": "NUS Business School",
+    "prereqTree": "BMA5013",
+    "title": "Strategy and Big Data"
+}

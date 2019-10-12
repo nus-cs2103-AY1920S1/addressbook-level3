@@ -1,0 +1,25 @@
+{
+    "courseCode": "MA3264",
+    "courseCredit": "4",
+    "description": "The objective of this course is to introduce the use of mathematics as an effective tool in solving real-world problems through mathematical modelling and analytical and/or numerical computations. By using examples in physical, engineering, biological and social sciences, we show how to convert real-world problems into mathematical equations through proper assumptions and physical laws. Qualitative analysis and analytical solutions for some models will be provided to interpret and explain qualitative and quantitative phenomena of the real-world problems. Major topics: Introduction of modelling; dynamic (or ODE) models: population models, pendulum motion; electrical networks, chemical reaction, etc; optimization and discrete models: profit of company, annuity, etc; probability models: president election poll, random walk, etc; Model analysis: dimensional analysis, equilibrium and stability, bifurcation, etc; and some typical applications.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4272"
+    ],
+    "preclusion": "MPE students",
+    "prereqTree": {
+        "or": [
+            "MA1104",
+            "MA2104",
+            "MA1104S",
+            "MA1506",
+            "MA2108",
+            "MA2108S",
+            "MA2221",
+            "MA1505",
+            "MA1511",
+            "MA2311"
+        ]
+    },
+    "title": "Mathematical Modelling"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSC2231",
+    "courseCredit": "5",
+    "description": "This course provides an introduction to neurobiology and equips students with the background necessary to understand key concepts and fundamental questions in studies of the nervous system and cognition. Students will learn about cellular and molecular neurobiology, neurophysiology, neuroanatomy, and neuroethology. This course should be of interest to students contemplating further studies in neuroscience, psychology, neuropharmacology, and behavioural ecology, or students considering careers in medical, veterinary, and behavioural sciences.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3235"
+    ],
+    "preclusion": "YSC2211 Neurobiology and Behaviour",
+    "title": "Foundations of Neuroscience"
+}

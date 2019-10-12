@@ -1,0 +1,11 @@
+{
+    "courseCode": "PR2115",
+    "courseCredit": "4",
+    "description": "This module provides the basic principles of medicinal chemistry for drug design, with the emphasis on the relationship between structure, physicochemical properties and the molecular basis of drug action. Students will learn to apply various synthetic reaction mechanisms to construct organic molecules. They will also learn to apply computational methodologies to derive lead compounds from databases, derive pharmacophore from bioactive compounds and rationalise the optimal drug-target interaction through docking experiments.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4205"
+    ],
+    "prereqTree": "PR1110",
+    "title": "Medicinal Chemistry for Drug Design"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "YSC2229",
+    "courseCredit": "5",
+    "description": "We cover basic data structures and algorithms with an emphasis on implementation, although theory (asymptotic analysis, including amortization) is also covered. Topics include lists, queues, stacks, unionfind, binary heaps, red-black trees, hashtables, tries, binary search, efficient quicksort, graph representations, depth-first and breadth-first search, topological sort, Dijkstra\u2019s, Prim\u2019s and Kruskal\u2019s, Huffman coding, and Knuth-Morris-Pratt. Additional topics may include: - Randomization (e.g. Bloom filters, Miller-Rabin, Rabin-Karp) - Time-space tradeoffs (e.g. range queries) - Parallel considerations (e.g. Map/Reduce, prefix-sum, quicksort) - Purely functional data structures (e.g. of red-black trees) - Approximation algorithms (e.g. vertex covering) - More sophisticated data structures and algorithms (e.g. leftist heaps, binomial heaps, splay trees)",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3203",
+        "YSC3208",
+        "YSC3225",
+        "YSC3248"
+    ],
+    "preclusion": "YSC2204 Fundamentals of Programming",
+    "prereqTree": "YSC1212",
+    "title": "Introductory Data Structures and Algorithms"
+}

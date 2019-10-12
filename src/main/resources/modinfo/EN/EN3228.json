@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3228",
+    "courseCredit": "4",
+    "description": "From 1750 to 1800, the number of novels written by women rose, even as women were increasingly confined to the domestic sphere. After the French Revolution, in the 1790s, conservative and reformist women novelists, agreeing that the patriarchal family was England's most important institution, argued that domestic conduct could have serious political implications. But they disagreed sharply about the nature of those implications. In this module, we will read a variety of novels against this historical backdrop, considering the fictional strategies women used to tell stories that were often at odds with the dominant values of their culture.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Women Novelists: 1750-1800"
+}

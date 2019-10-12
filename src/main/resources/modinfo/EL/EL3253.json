@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3253",
+    "courseCredit": "4",
+    "description": "The aim of this module is to promote critical thinking through critical analysis of actual discourse/texts. There are two major components to this module: (1) the theoretical section where students will be introduced to the central ideas of critical discourse analysis; and (2) the practical section where students will be encouraged to analyse samples of actual discourse/text. Through developing individual awareness of the politics of language use, it is hoped that students will become even more competent readers and writers, equipped to cope with the discourses encountered in everyday interactions.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Critical Discourse Analysis"
+}

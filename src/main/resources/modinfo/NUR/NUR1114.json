@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1114",
+    "courseCredit": "4",
+    "description": "This module focuses on the development of foundation knowledge and skills for provision of nursing care to patients in a variety of health care settings. The focus will be on the role of the nurse, requirements for creating a safe patient-care environment, skills of clinical decision making, nursing health assessment, and nursing care practices to meet the activities of daily living for patients.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "NUR1119",
+        "NUR2121"
+    ],
+    "title": "Fundamentals of Nursing"
+}

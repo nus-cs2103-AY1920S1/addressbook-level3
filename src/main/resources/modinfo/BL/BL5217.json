@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BL5217",
+    "courseCredit": "4",
+    "description": "The module will examine how genome-wide datasets can be applied to questions relating to the evolutionary history of animal and plant lineages. Some of the major topics discussed will be (1) genome-wide datasets used to entangle rapid radiations, (2) genome-wide SNPs deployed to discover patterns of gene flow between neighbouring lineages, (3) introgression and admixture across hybrid zones, and many more.",
+    "faculty": "Science",
+    "title": "Population Genomics and Phylogenomics"
+}

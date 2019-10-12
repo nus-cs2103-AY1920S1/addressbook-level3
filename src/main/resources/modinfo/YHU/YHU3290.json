@@ -1,0 +1,14 @@
+{
+    "courseCode": "YHU3290",
+    "courseCredit": "5",
+    "description": "This course is a slow and philological reading Dante\u2019s Divine Comedy, an undisputed masterwork of world literature. As the Italian poet narrates his vision of the world beyond, we will journey with him through Hell to Purgatory and ascend to Paradise and finally return to earth. We will pay special attention to the historical, intellectual and social world of the European Middle Ages and the fraught legacy of the classical tradition. Based on student interest, we might work on volume 2 of the Dante Journal of Singapore, highlighting the original research of the seminar participants.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YHU2230 Dante and the European Middle Ages (previous module code and title)",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Dante\u2019s Divine Comedy"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PR1110A",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental physical & chemical principles that are important to the design and development of drugs. Physicochemical properties such as electronic effect, resonance, water solubility, hydrophobicity, acidity, basicity, intermolecular interaction, stereochemical property are derived from various functional groups and heterocyclic rings in a drug molecule. These properties influence the drug-target interaction as well as the pharmacokinetic disposition of the drug.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR2115A",
+        "PR3204",
+        "PHS1120",
+        "PHS2120",
+        "PHS2143"
+    ],
+    "preclusion": "PR1110",
+    "title": "Foundations for Medicinal Chemistry"
+}

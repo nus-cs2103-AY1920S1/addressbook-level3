@@ -1,0 +1,23 @@
+{
+    "courseCode": "ZB4171",
+    "courseCredit": "4",
+    "description": "This is a seminar-style module based on the literature with practical and project-based work that exposes students to open issues and scientific research in contemporary bioinformatics and computational biology. The exact topics covered are chosen each year on the basis of recent developments in the field of bioinformatics, as well as a survey of students regarding their own research projects.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1010S",
+                    "LSM2253"
+                ]
+            },
+            {
+                "or": [
+                    "LSM3241",
+                    "CS2220"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Topics in Bioinformatics"
+}

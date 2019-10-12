@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1028",
+    "courseCredit": "4",
+    "description": "An introduction to classical logic. The first half of the course introduces propositional logic, using the techniques of truth-tables and linear proof by contradiction. The second half of the course extends the use of linear proof by contradiction to predicate logic. Emphasis is placed on applying the techniques to philosophical arguments.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3247",
+        "PH2112",
+        "PE3101P"
+    ],
+    "preclusion": "PH2110, CS3234, MA4207, GEM2006",
+    "title": "Logic"
+}

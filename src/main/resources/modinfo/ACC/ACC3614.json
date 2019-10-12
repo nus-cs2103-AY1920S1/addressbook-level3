@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC3614",
+    "courseCredit": "4",
+    "description": "This module equips students with an understanding of the various valuation issues and methodologies available to accountants and managers. It specifically discusses valuation issues pertaining to the enterprise, assets for use, and liabilities. After taking this course, the students should be able to value certain classes of assets and liabilities which are of significant interest and importance to the modern business. Coverage includes fair value and value-in-use concepts, earnings multiple analysis, discounted cash flow analysis and real option analysis.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3126 are not allowed to take ACC3614.",
+    "prereqTree": {
+        "or": [
+            "FNA2004",
+            "FIN2004"
+        ]
+    },
+    "title": "Valuation"
+}

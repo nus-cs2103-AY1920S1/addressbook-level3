@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5007B",
+    "courseCredit": "2",
+    "description": "The aim of this course is to help students develop a strong foundation pertaining to technology and innovation strategies. The module will cover various strategies that technology managers can adopt in introducing innovations to the marketplace and maximizing economic rents from them. The focus is on management rather than the specific details of any particular technology.",
+    "faculty": "Engineering",
+    "preclusion": "MT5007 Management of Technological Innovation",
+    "title": "Technological Innovation Strategies"
+}

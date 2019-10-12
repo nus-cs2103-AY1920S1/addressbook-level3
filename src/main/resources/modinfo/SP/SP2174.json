@@ -1,0 +1,11 @@
+{
+    "courseCode": "SP2174",
+    "courseCredit": "4",
+    "description": "This is the second module of an interdisciplinary program covering nature at different scales from 'Atoms to Molecules', 'The Cell', 'The Earth' and 'The Universe'. Using simple bacteria as the model organism, key chemical and physical principles underlying several biological processes which cells can integrate and function as an autonomous machine in order to regenerate (selfreplicate), repair and re-program (differentiate), respond (energy harness and utilization) and re-model (community formation) will be explored. These processes will be examined at single molecule, single cell to multi-cellular levels under their general ability to store, decode and process information ('Information'), to self-assemble, migrate ('Dynamics') and to harness and utilise energy ('Energy').",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP3175"
+    ],
+    "prereqTree": "SP2173",
+    "title": "The Cell"
+}

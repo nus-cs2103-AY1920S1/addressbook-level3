@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL3249",
+    "courseCredit": "4",
+    "description": "The course will examine contemporary theories of human memory. Topics range from sensory memory all the way to long-term memory. Evidence for different types of memory systems such as episodic, generic, implicit, and procedural will be discussed. Biological and developmental bases for human memory will also be covered. The course will use these topics to explore the link between research, theory, and data on human memory.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3232",
+            "PL3233"
+        ]
+    },
+    "title": "Memory"
+}

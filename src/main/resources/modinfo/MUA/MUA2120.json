@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2120",
+    "courseCredit": "2",
+    "description": "Orchestral Repertoire for Double Bass is an orchestral repertory class designed to give orchestral playing experience to the Double Bass majors of YSTCM. In 13 sessions throughout the semester, the class will read and rehearse significant orchestral repertoire for Double Bass. Repertoire selected in this module will build on and complement repertoire studied in MUA2119. As with MUA2119, Double Bass students are expected to demonstrate aptitude in large ensemble playing including: orchestral concepts in sound, intonation, and blend, as well as a professional attitude in working with conductors and colleagues. This module also teaches them essential audition techniques and skills.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3184"
+    ],
+    "prereqTree": "MUA2119",
+    "title": "Orchestral Repertoire for Double Bass 2B"
+}

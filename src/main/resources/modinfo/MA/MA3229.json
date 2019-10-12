@@ -1,0 +1,30 @@
+{
+    "courseCode": "MA3229",
+    "courseCredit": "4",
+    "description": "Geometric modelling combines elementary geometry, analysis and computing for applications in various disciplines in science and technology, such as computer aided design, computer graphics, biomedical modeling and visualization. The course involves modeling, design and analysis of freeform curves and surfaces and covers the basic mathematics and algorithms. Topics covered include Bernstein polynomials, de Casteljau algorithm, Bezier curves, curve splitting, composite Bezier curves, geometric continuity, tensor product Bezier surfaces; Chaikin's algorithm, uniform Bsplines, refinement equations, uniform B-spline curves and surfaces, uniform B-spline subdivision algorithms; Non-uniform B-splines, recurrence relations, derivatives, discrete B-splines, nonuniformm B-spline curves and surfaces, discrete B-spline algorithm, homogeneous coordinates and projective transformations, non-uniform rational B-splines (NURBS), NURBS curves and surfaces. NURBS is the current industry standard in computer aided design and computer graphics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104",
+                    "MA1505",
+                    "MA1507",
+                    "MA1511",
+                    "MA2311"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506",
+                    "MA1508",
+                    "MA1508E",
+                    "MA1513"
+                ]
+            }
+        ]
+    },
+    "title": "Intro. to Geometric Modelling"
+}

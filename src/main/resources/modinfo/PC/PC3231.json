@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC3231",
+    "courseCredit": "4",
+    "description": "This is the sequel to PC2131 Electricity & Magnetism I, leading to the objective of understanding classical electrodynamics. Most of the examples presented require a certain degree of mathematical manipulation, as compared to a first course in electricity and magnetism. It covers the following topics: conservation laws, electromagnetic waves in vacuum and in matter, guided waves, the potential formulation, Lienard-Wiechert potentials, dipole radiation, radiation from point charges, special relativity, relativistic mechanics and relativistic electrodynamics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4262",
+        "PC4242"
+    ],
+    "preclusion": "ESP2104",
+    "prereqTree": "PC2131",
+    "title": "Electricity & Magnetism II"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4253",
+    "courseCredit": "4",
+    "description": "The module educates students in the ways of applying fundamental materials science and engineering principles in order to solve challenging problems in medical related fields such as in implant and medical devices. It targets at students who wish to ensure a broad-based curriculum. Life science topics are introduced. Students gain an appreciation of a multidisciplinary approach to problem-solving. Topics include biological materials, metals, polymers, ceramics and composites use in implants, host-tissue response, materials selection, relationship between structure-composition-manufacturing process, mechanical testing and evaluation of implants and numerous case studies ranging from heart valves to tissue engineering of bones. A series of guest lectures from clinicians are included in this course.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2151",
+    "title": "Biomaterials Engineering"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "FIN4112K",
+    "courseCredit": "4",
+    "description": "This advanced Seminar in Finance module will serve as a comprehensive real world examination of the quantitative techniques available and how these might be applied to portfolio management in the investment management industry. Major topics covered include exploring various quantitative tools and models for Estimating Expected Returns, Modelling Risks, Style Analysis & Bench-marking, and Strategic & Tactical Asset Allocation. Lectures will involve frequent interaction with practitioners from the industry hands-on lab projects and real-life examples. Suitable for students interested in a career as an investment analyst or as a portfolio manager in the financial services sector.",
+    "faculty": "NUS Business School",
+    "prereqTree": "FIN3102",
+    "title": "SIF: Applied Portfolio Management Techniques"
+}

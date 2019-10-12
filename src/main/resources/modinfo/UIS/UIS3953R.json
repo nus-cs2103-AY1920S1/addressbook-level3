@@ -1,0 +1,17 @@
+{
+    "courseCode": "UIS3953R",
+    "courseCredit": "4",
+    "description": "The objective of this project module enables students to undertake a substantial project work over a period of six months. Students may work individually or in groups on projects proposed by staff. They will have good opportunity to apply what they have learnt on practical problems, be it research-oriented or software-development. At the end of the project, the students must submit a report to their respective supervisors describing in details of what they have accomplished.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "IS3102",
+            "IS4102",
+            "CS3201",
+            "CS3281",
+            "CS4201",
+            "CS4203"
+        ]
+    },
+    "title": "Independent Project"
+}

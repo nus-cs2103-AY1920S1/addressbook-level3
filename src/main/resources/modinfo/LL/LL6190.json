@@ -1,0 +1,13 @@
+{
+    "courseCode": "LL6190",
+    "courseCredit": "4",
+    "description": "Through examining the jurisprudence in three common law Western liberal democracies of the United States, United Kingdom and Australia, this course compares and critiques how the freedom of speech is construed in these jurisdictions. By confronting the complexities of the US First Amendment, the interplay between Articles 8 and 10 of the European Convention on Human Rights, and the Australian implied constitutional guarantee, one is exposed to different theoretical, practical and often controversial approaches in the protection of free speech. Cases covered span the spectrum from flag burning to duck shooting, from the Gay Olympics to the Barbie Doll, from regulating the display of offensive art to protecting the privacy of a supermodel. Mode of Assessment: 1 Research Paper (70%) - [to be handed in week 13]; Class Performance - 30%.",
+    "faculty": "Law",
+    "prereqTree": {
+        "and": [
+            "LC1005",
+            "LC2007"
+        ]
+    },
+    "title": "Freedom of Speech: Critical & Comparative Perspectives"
+}

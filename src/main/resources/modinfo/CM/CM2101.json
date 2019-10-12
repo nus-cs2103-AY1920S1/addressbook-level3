@@ -1,0 +1,18 @@
+{
+    "courseCode": "CM2101",
+    "courseCredit": "4",
+    "description": "In this course, the basic ideas and applications of various types of spectroscopy will be taught in a concerted manner, with discussions on some basic applications of these techniques. Topics discussed include microwave spectroscopy, infrared spectroscopy, Raman spectroscopy, electronic spectroscopy, electron and nuclear spin resonance spectroscopy. The fundamental principles such as energy quantization, rigid rotors and harmonic oscillators are discussed, the techniques and instrumentation are studied, and the practical applications are emphasized.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM3231",
+        "CM3232",
+        "CM3292",
+        "CM3296",
+        "CM4261",
+        "CM4269",
+        "CM3201",
+        "CM4238"
+    ],
+    "prereqTree": "CM1131",
+    "title": "Physical Chemistry 2"
+}

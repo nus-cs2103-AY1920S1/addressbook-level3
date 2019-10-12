@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO3702",
+    "courseCredit": "4",
+    "description": "The course focuses on negotiations and conflict management in the context of leading and managing interpersonal relationship at work and life in general. Participants first focus on principles and skills required to gain mastery as fair and ethical negotiators. Following which participants progress to acquire the theory and skills of facilitating conflict resolution. This involves 1) influencing counter-parties to behave in an efficient and amicable manner and engage in joint problem solving; 2) playing the role of a mediator in helping others resolve issues at work. Both these roles will be set in a leadership context.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO3322",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Negotiation and Conflict Management"
+}

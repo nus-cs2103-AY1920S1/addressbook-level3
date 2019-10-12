@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5201",
+    "courseCredit": "4",
+    "description": "The module covers the main topics on marine hydrodynamics and structure dynamics in offshore engineering. It first discusses the hydrostatics and stability of offshore structures, which is followed by the special properties of potential and viscous flows. The wave forces on offshore structures of different sizes are then discussed, including Morison equation for small structures, and diffraction theory for large structures. Accordingly, the corresponding numerical techniques are introduced. The module also covers random wave forces on offshore structures. Lastly, the dynamic response of offshore structures in waves is discussed.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "OT5204"
+    ],
+    "preclusion": "CE5307 Offshore Hydrodynamics (title before AY2010/2011),\nCE5887 Topics in Offshore Engineering: Marine Statics & Dynamics (Sem1, AY2010/2011)",
+    "title": "Marine Statics & Dynamics"
+}

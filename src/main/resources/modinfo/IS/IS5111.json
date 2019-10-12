@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS5111",
+    "courseCredit": "4",
+    "description": "This module examines C-level perspectives of IT-relevant strategy and corporate governance. It covers the importance of IT as a tool for business competitiveness and transformation. As IT is an investment, the deployment and governance of its use has to be an important management activity. The module will focus on the development of business-centric IT strategy, management of innovation and disruption and the evolving role of the CIO.",
+    "faculty": "Computing",
+    "preclusion": "IS4204",
+    "prereqTree": "IS3103",
+    "title": "IT Strategy and Governance"
+}

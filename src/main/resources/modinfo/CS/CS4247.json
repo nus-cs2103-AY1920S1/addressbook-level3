@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4247",
+    "courseCredit": "4",
+    "description": "This module provides a general treatment of real-time and offline rendering techniques in 3D computer graphics. Specific topics include the raster graphics pipeline, viewing and transformation, real-time mapping techniques, real-time shadow algorithms, local reflection models, global illumination, distributed ray tracing, photon mapping, radiosity, volume rendering, image-based rendering and modelling, and strategies for anti-aliasing and photo-realism.",
+    "faculty": "Computing",
+    "prereqTree": "CS3241",
+    "title": "Graphics Rendering Techniques"
+}

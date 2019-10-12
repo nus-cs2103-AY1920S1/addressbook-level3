@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PR1111A",
+    "courseCredit": "4",
+    "description": "This module is aimed to provide fundamental biochemistry knowledge which is important and relevant for pharmacy students to relate the knowledge to drug discovery and development. The module will emphasise the relevance and application of biochemistry in pharmaceutical and pharmacy practices.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM2241",
+        "PR2115A"
+    ],
+    "preclusion": "PR1111",
+    "title": "Pharmaceutical Biochemistry"
+}

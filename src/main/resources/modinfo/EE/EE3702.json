@@ -1,0 +1,10 @@
+{
+    "courseCode": "EE3702",
+    "courseCredit": "4",
+    "description": "The production of electronic games whether on a computer, video console, or a handheld device is a highly interdisciplinary and team-oriented task. This module provides a holistic overview (big picture) of electronic gaming and provides insights about the interplay of the single disciplines, components, and workflows. The course covers the basics of the games industry and game production, ranging from the business environment and development processes, to hardware platforms, game structures, and tool and technology basics. Students will be able to develop their own game product proposal in a group work project.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4702"
+    ],
+    "title": "Electronic Gaming"
+}

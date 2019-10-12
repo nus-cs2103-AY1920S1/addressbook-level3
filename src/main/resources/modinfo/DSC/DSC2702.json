@@ -1,0 +1,8 @@
+{
+    "courseCode": "DSC2702",
+    "courseCredit": "4",
+    "description": "Data Science involves both a theoretical foundation of Statistics and practical implementation via programming. The two are typically covered separately, but his module aims to bring theory and practice together. It starts with some Python programming fundamentals, then walks through Statistics topics from visualizing and summarizing data, to estimating model parameters and hypothesis testing, and then linear regression. For each topic, Python illustrations and experimentations are interwoven to help students better appreciate how it practically works. Completing the cycle, the module finally deals with acquiring, cleaning, and organizing data using Python. Students can then independently execute a Data Science project.",
+    "faculty": "NUS Business School",
+    "prereqTree": "DSC1704",
+    "title": "Programming for Business Analytics"
+}

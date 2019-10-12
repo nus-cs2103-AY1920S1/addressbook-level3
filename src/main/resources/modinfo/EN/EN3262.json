@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3262",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to interactions between postcolonial literatures and 'postmodern' writing strategies. It proceeds through a series of case-studies attentive to how specific texts represent complex interactions in the global literature of the later half of the twentieth century between the influence of and reactions to colonialism in the field of political history and modernism in the field of literature and the arts. In addition to a close reading of representative texts, the module will also provide an opportunity for an assessment of the significance of 'postcolonial' and 'postmodern' to contemporary societies and cultures.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Postcolonial/Postmodern Writing"
+}

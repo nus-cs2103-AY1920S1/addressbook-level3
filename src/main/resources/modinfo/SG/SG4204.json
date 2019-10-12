@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG4204",
+    "courseCredit": "4",
+    "description": "This course is intended to teach students how web services can be used to develop viable architectures. It begins by describing the driving forces behind web services, and describe a web services framework. It shows how web services fits in with existing Internet technologies (e.g. J2EE, .NET, CGI), and how to develop and deploy a web service enabled solution using the .NET and C#. It also explains what goes on behind .NET to improve the interoperability of web services. Topics covered in this course include Web Services Architecture; Visual Studio.NET (Web projects); ASP.NET WebMethods; HTTP Pipeline; XML; XML Schema; SOAP; WSDL; UDDI; Security; Interoperability; Extending WebMethods (SoapExtension); Extending the HTTP Pipeline (HTTP modules) and Global XML Web Services Architecture (GXA). There will be an assignment on developing Web services. This course is intended for IT professionals who will be designing and implementing Web services solutions.",
+    "faculty": "Institute of Systems Science",
+    "title": "Developing Web Services"
+}

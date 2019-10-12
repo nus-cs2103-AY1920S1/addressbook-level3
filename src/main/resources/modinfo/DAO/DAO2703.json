@@ -1,0 +1,29 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "DAO2703",
+    "courseCredit": "4",
+    "description": "This module provides students with an introduction to, and an understanding of, the substantive knowledge which has developed over the years in the field of Operations and Technology Management (OTM). The module also highlights the relevance and strategic significance of technology and the operations function in enterprises. This module will build around the foundational topics of operations. Students will be exposed to the process view of oraganizations. Topics such as product (or service) technology, process analysis and process technology, quality management and the role of technology in process control in both manufacturing and service organizations will be introduced. Students will also learn about how firms match demand and supply efficiently and effectively with the support of coordination technology such as ERP. Operations strategy and sustainability will also be introduced at the entrance level.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DOS4711",
+        "DOS3701",
+        "DOS3702",
+        "DOS3703",
+        "DOS3712",
+        "DOS3714",
+        "DOS3751",
+        "DOS3752",
+        "DOS3761",
+        "DOS4751",
+        "DOS4752",
+        "DOS4761",
+        "DOS3761X",
+        "DOS3761Y",
+        "DOS3761Z"
+    ],
+    "title": "Operations and Technology Management"
+}

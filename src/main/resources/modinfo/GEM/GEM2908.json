@@ -1,0 +1,14 @@
+{
+    "courseCode": "GEM2908",
+    "courseCredit": "4",
+    "description": "The course will look at how claims to knowledge are legitimized and how our concept and representations of it have developed over time due to the kinds of technologies that have been adopted. We examine the role and nature of knowledge, communication, data, trust, privacy, and related concepts from an interdisciplinary angle. Through 13 seminars, we explore these issues with examples such as big data, humanmachine interaction, engineering, and the internet. The goal of the module is to enable students to critically appreciate various forms of knowledge and assess how they shape our individual and collective lives.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Senior Seminar: Technology and the Fate of Knowledge"
+}

@@ -1,0 +1,10 @@
+{
+    "courseCode": "GE5226",
+    "courseCredit": "4",
+    "description": "This module provides students with an opportunity to gain hands\u2010on experience in GIS applications across a range of different subject areas, including geography, geology, environmental science, ecology, civil engineering, urban planning, real estate, health sciences, social sciences and humanities. Through this module, students are expected to explore different modelling approaches, discuss applications of the models, and work on lab exercises and research projects.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE6226"
+    ],
+    "title": "GIS Applications"
+}

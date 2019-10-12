@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF1103",
+    "courseCredit": "4",
+    "description": "This module is designed to provide an overview of the concepts and applications of digital construction. The concepts of computational thinking will form the theoretical basis of this module and will be incorporated to teach how computation can be used to accomplish a variety of goals. It will also provide students with a brief introduction to programming skills with applications to digital construction. The major topics include basics of computational thinking, basic coding, and applications in digital construction such as Building Information Modelling (BIM).",
+    "faculty": "Design and Environment",
+    "title": "Digital Construction"
+}

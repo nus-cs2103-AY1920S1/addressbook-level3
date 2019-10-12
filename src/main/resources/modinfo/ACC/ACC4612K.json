@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC4612K",
+    "courseCredit": "4",
+    "description": "This module seeks to strengthen students\u2019 accounting knowledge and skills necessary to read and analyse the financial information of banks. The banking industry is one of the key pillars of modern economy and plays the unique role as an intermediary providing liquidity for the economy, facilitating commerce and providing credit to business enterprises and individuals.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4761H",
+    "prereqTree": {
+        "and": [
+            "FIN2004",
+            "ACC3601"
+        ]
+    },
+    "title": "Sem. in Acctg: Accounting & Business Analysis for Banks"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM4211",
+    "courseCredit": "4",
+    "description": "The aim of this module is alert students to modern topics in inorganic/coordination chemistry such as metal-based drugs, macrocyclic chemistry and crystal engineering. The module will describe aspects of the coordination chemistry of transition metal and main group compounds concentrating on themes dealing with macrocyclic chemistry, crystal engineering and metal-based drugs. Throughout the lectures discussions on inorganic stereochemistry (sources and classification, optically active metal complexes, applications) will be included. The module is directed towards students majoring in chemistry and related disciplines.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM3211",
+            "CM3212"
+        ]
+    },
+    "title": "Advanced Coordination Chemistry"
+}

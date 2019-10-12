@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TCN1422",
+    "courseCredit": "4",
+    "description": "This module starts with an introduction to the fundamental principles of materials science, which include basic structural chemistry and crystal structures. After that, the second part of this module covers typical properties of materials, which include structure imperfection and diffusion, mechanical properties, thermal behavior, electrochemical corrosions, and phase diagrams of metals. The third part describes structural characteristics of materials including ceramic, metallic, polymeric and composite materials. The last part gives a general introduction to more physically related properties, namely electrical and optical properties as well as the environmental aspects of structural materials selection.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4216",
+        "TCN4217"
+    ],
+    "preclusion": "TC1422",
+    "title": "Materials for Chemical Engineers"
+}

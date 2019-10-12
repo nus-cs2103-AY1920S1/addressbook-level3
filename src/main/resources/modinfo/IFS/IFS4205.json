@@ -1,0 +1,9 @@
+{
+    "courseCode": "IFS4205",
+    "courseCredit": "8",
+    "description": "This module provides students an active learning opportunity to work independently in a group on significant information security-related projects. Project activities can include analyzing the security requirements, designing and implementing security systems, and attacking and defending a system. Students get to apply what they learn in the classroom and gain hands-on experience on solving significant information security problems.",
+    "faculty": "Computing",
+    "preclusion": "Students who have taken and passed CS3205 will not be allowed to take\nIFS4205.",
+    "prereqTree": "CS3235",
+    "title": "Information Security Capstone Project."
+}

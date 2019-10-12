@@ -1,0 +1,7 @@
+{
+    "courseCode": "MA6253",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics whose research areas fall within optimization and operations research. It focuses on fundamental theory and algorithms for linear and nonlinear conic programming problems. Major topics covered include first order optimality conditions, second order necessary and sufficient conditions, sensitivity and perturbation analysis, and design and convergence analysis and various Newton's methods.",
+    "faculty": "Science",
+    "title": "Conic Programming"
+}

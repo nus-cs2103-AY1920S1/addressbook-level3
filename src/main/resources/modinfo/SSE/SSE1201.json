@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SSE1201",
+    "courseCredit": "4",
+    "description": "The focus of the module is to highlight how engineering and technology have contributed to the development of Singapore. The module is structured around case studies such as the creation of Jurong island, one-north, the water story etc. In these case studies, the constraints faced by Singapore (e.g. scarcity of land, lack of water) are overcome through technological, organizational and other forms of innovation. Simple diagrams that can be understood by layman are used to explain some of the innovations (e.g. the water loop).",
+    "faculty": "Engineering",
+    "preclusion": "GES1017",
+    "title": "Building a Dynamic Singapore - Role of Engineers"
+}

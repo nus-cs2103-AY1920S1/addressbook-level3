@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA6216",
+    "courseCredit": "4",
+    "description": "This module is an advanced course on dynamical systems. It covers the following topics: higher dimensional real dynamics, one-dimensional complex dynamics, hyperbolic dynamical systems, symbolic dynamics, chaos, strange attractors, fractals in higher dimensions. Julia sets, Meldebrot sets, quasi-conformal mappings. The course is for mathematics graduate students with interest in dynamical systems.",
+    "faculty": "Science",
+    "prereqTree": "MA4233",
+    "title": "Advanced Dynamical Systems"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "SC5101",
+    "courseCredit": "4",
+    "description": "This module is designed as an intermediate level of research methods in Sociology. The module covers the following key areas (a) theorising and conceptualization, (b) measurement (c) sampling approaches (d) quantitative research methods (including survey research, nonreactive research, and experimental research); (e) qualitative research methods (including interviewing andobservational techniques); (f) qualitative analysis (grounded theory); (g) quantitative analysis. Following the change in content, SC5101 will be retitled as 'Graduate Research Methods'",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SC6780"
+    ],
+    "preclusion": "SC6101",
+    "title": "Graduate Research Methods"
+}

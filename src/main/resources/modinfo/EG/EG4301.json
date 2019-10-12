@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "EG4301",
+    "courseCredit": "12",
+    "description": "In this module, students will apply knowledge and skills acquired in the earlier years to develop innovative ways of solving problems in their DCP projects. These projects may be a continuation/extension of their projects from EG3301R to deliver integrated, improved and optimized solutions to their original design problems, or fresh projects that arise from new problems. At the end of this module, students are expected to be able to: -Identify and formulate a problem/question of interest. -Propose a solution/study to address the problem/question through use of appropriate methodologies. -Implement the proposed solution/study. -Assess whether proposed solution/study effectively addresses the problem/question based on appropriate performance indicators. -Draw meaningful conclusions and make improvements to methodology or proposed solution/study based on proper analyses and interpretation of results/observations. -Present and defend their work in the appropriate written and verbal forms. -Perform their work in a timely, professional and independent manner.",
+    "faculty": "Engineering",
+    "preclusion": "ESP4901: Research Project (12 MC)\nBN4101R: B.Eng. Dissertation (12 MC)\nCN4118R: B.Eng. Dissertation (10 MC)\nCG4001: B.Eng. Dissertation (12 MC)\nEE4001: B.Eng. Dissertation (12 MC)\nIE4100: B.Eng. Dissertation (12 MC)\nME4101: B.Eng. Dissertation (12 MC)\nCE4104: B.Eng. Dissertation (8 MC)\nESE4502: B.Eng. Dissertation (12 MC)\nMLE4101: B.Eng. Dissertation (12 MC)\nBN4101 B.Eng. Dissertation (8 MCs)\nCG4003 B.Eng. Dissertation (12 MCs)\nCN4118 B.Eng. Dissertation (8 MCs)\nEE4002R Research Capstone (8 MCs)\nESE4502R B.Eng. Dissertation (8 MCs)\nIE4100R B.Eng. Dissertation (8 MCs)\nME4101A B.Eng. Dissertation (8 MCs)\nMLE4101A B.Eng. Dissertation (6 MCs)",
+    "title": "DCP Dissertation"
+}

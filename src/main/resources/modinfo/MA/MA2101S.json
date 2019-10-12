@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA2101S",
+    "courseCredit": "5",
+    "description": "The objective of this module is to develop the learning capabilities and hone the problem solving skills of talented students at a mathematically deeper and more rigorous level. In addition to the classes of the regular module, one extra special hour each week will be devoted to solving challenging problems and studying some additional topics and those topics briefly mentioned in the regular module. The contents of this module will consist of those in the regular module (MA2101) and the following additional topics: proofs of Jordan Normal Form Theorem, Cayley Hamilton Theorem, introductory module theory, further applications of linear algebra.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5265",
+        "MA4271",
+        "MA3291",
+        "MA4230",
+        "MA4229",
+        "MA3227",
+        "MA3218",
+        "MA3201"
+    ],
+    "preclusion": "MA2101, MA2101H, MA2201, MA2203, MQ2201, MQ2101, MQ2203",
+    "prereqTree": {
+        "or": [
+            "MA1101R",
+            "MA1506",
+            "MA1508",
+            "MA1508E",
+            "MA1513"
+        ]
+    },
+    "title": "Linear Algebra II (S)"
+}

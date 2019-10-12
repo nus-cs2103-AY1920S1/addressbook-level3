@@ -1,0 +1,13 @@
+{
+    "courseCode": "BT4016",
+    "courseCredit": "4",
+    "description": "This module exposes students to fundamentals of risk analytics in financial service sector. Students will be taught on the fundamentals of financial services and financial risks. They also learn about interest risk analytics and credit risk analytics.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "BT2101",
+            "BT2102"
+        ]
+    },
+    "title": "Risk Analytics for Financial Services"
+}

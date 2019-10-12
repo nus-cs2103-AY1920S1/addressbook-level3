@@ -1,0 +1,42 @@
+{
+    "courseCode": "CS3283",
+    "courseCredit": "4",
+    "description": "This module is the first part of a two-part series on the development of media technology systems such as interactive systems, games, retrieval systems, multimedia computing applications, etc. Students will form project teams to work on media technology projects. This first part focuses on the analysis of the user\u2019s needs, formulation of the computing requirements of the desired solution that meets the user\u2019s needs, design of the systems according to the requirements, implementation of first-cut prototype for evaluation purpose, and evaluation of the design.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS3284"
+    ],
+    "preclusion": "CS4201, CS4202, CS4203, CS4204.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2103",
+                    "CS2103T"
+                ]
+            },
+            {
+                "or": [
+                    "CS3218",
+                    "CS3240",
+                    "CS3241",
+                    "CS3242",
+                    "CS3245",
+                    "CS3246",
+                    "CS3247",
+                    "CS3249"
+                ]
+            },
+            {
+                "or": [
+                    "NM3216",
+                    "NM3221",
+                    "NM3226",
+                    "NM3227",
+                    "NM3231"
+                ]
+            }
+        ]
+    },
+    "title": "Media Technology Project I"
+}

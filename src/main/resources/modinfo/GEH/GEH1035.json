@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEH1035",
+    "courseCredit": "4",
+    "description": "This module demonstrates the application of physical science to everyday situations besides to excite the curiosity and imagination of the students and bring out their awareness of the many marvels that surround them. Students will develope a deeper knowledge and a greater appreciation towards apparently mundane events of their daily life. Everyday phenomenon relate to physical concepts will be discussed in the context to real-world topics, societal issues, and modern technology, underscoring the relevance of science and how it relates to our day-to-day lives. During the module, students will select and discuss their own apparently mundane event and present their topic accordingly.",
+    "faculty": "Science",
+    "preclusion": "GEM2507",
+    "title": "Phy'cal Qns from Everyday Life"
+}

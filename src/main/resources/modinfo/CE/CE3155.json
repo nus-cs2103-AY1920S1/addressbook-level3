@@ -1,0 +1,21 @@
+{
+    "courseCode": "CE3155",
+    "courseCredit": "4",
+    "description": "This module covers the fundamentals of structural analysis. Students will learn idealization of structural components, materials, loads and supports, concepts of statical redundancy, determinacy and stability, energy theorems, analysis of trusses, beams and frames. The second part of the module will teach students the methods and principles of advanced structural analysis, with emphasis on matrix methods of linear structural analysis, influence line analysis and approximate lateral load analysis. Students will also familiarize themselves with software for stress and deformation analysis of typical civil engineering structures. The module is compulsory for civil engineering undergraduate students without which he will not be qualified to perform his task as respectable civil engineer.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE3165",
+        "CE3166",
+        "CE4257",
+        "CE4258"
+    ],
+    "preclusion": "TCE3155",
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109",
+            "CE1109X"
+        ]
+    },
+    "title": "Structural Analysis"
+}

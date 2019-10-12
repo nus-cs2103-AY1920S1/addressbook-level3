@@ -1,0 +1,13 @@
+{
+    "courseCode": "MKT3424",
+    "courseCredit": "4",
+    "description": "This course is designed to help students learn how to assess the strengths and weaknesses of a brand, and understand how to successfully develop technical branding strategy at different levels: corporate level, product level, and communication level. That is, this course concerns how to monitor and manage a brand over time to keep it healthy and strong by assessing important technical branding factors. Students will learn how to make branding decisions such as brand portfolio, co-branding ideas, brand revitalization, and branding beyond geographical boundaries. Beyond learning frameworks and theories, students will also conduct hands-on brand audit and brand portfolio projects.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Branding Strategy"
+}

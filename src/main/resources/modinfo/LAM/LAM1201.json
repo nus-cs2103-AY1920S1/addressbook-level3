@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAM1201",
+    "courseCredit": "4",
+    "description": "This module aims at guiding the beginner to achieve competence in understanding and using basic Malay. The emphasis is mainly on conversational Malay and its practical use at the level of everyday discourse. To facilitate immersion into the language students would be taught the necessary skills of listening, reading, writing and conversing in basic conversational Malay. The rudiments of Malay grammar would be taught where relevant or necessary.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAM2201"
+    ],
+    "preclusion": "LAB1201 Bahasa Indonesia 1",
+    "title": "Malay 1"
+}

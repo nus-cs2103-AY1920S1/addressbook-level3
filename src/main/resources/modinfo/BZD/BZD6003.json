@@ -1,0 +1,10 @@
+{
+    "courseCode": "BZD6003",
+    "courseCredit": "4",
+    "description": "This course covers the theoretical and practical concerns in testing real world business data. The basic building blocks of empirical research design and identification are covered. This introductory course centers on how to use observational data to test for causal relationships.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BZD6004"
+    ],
+    "title": "Applied Econometrics I"
+}

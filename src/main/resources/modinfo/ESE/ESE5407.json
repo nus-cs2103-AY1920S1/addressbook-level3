@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ESE5407",
+    "courseCredit": "4",
+    "description": "Membrane technology has been widely adopted for water reclamation and seawater desalination. It shall continue to be a key technology for resolving the problem of water scarcity in the near future. This module shall focus on the design and operational consideration of membrane processes for water reclamation and seawater desalination, Topics covered in this module include water quality standards relevant to reclaimed and desalinated water, filtrate quality consideration, membrane filtration system, design and operation of MF/UF filtration system, membrane bioreactor, nanofiltration and reverse osmosis system, examples of commercial plants and economics of membrane system.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ESE4403",
+            "ESE5406"
+        ]
+    },
+    "title": "Membrane Technology for Water Management"
+}

@@ -1,0 +1,20 @@
+{
+    "courseCode": "BSE3701",
+    "courseCredit": "4",
+    "description": "This module will provide students with the necessary tools and economic frameworks to better understand and analyse macroeconomics issues such as economic growth, unemployment, inflation, business cycles, government budget, trade deficit/surplus and financial crisis. This module emphasizes application of the macroeconomic models and analytical frameworks to real life macroeconomic events in the global economy.",
+    "faculty": "NUS Business School",
+    "preclusion": "EC2102; BSP2001.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1301"
+                ]
+            },
+            "BSP2701"
+        ]
+    },
+    "title": "Macroeconomic Principles in the Global Economy"
+}

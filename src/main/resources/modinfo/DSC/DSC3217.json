@@ -1,0 +1,8 @@
+{
+    "courseCode": "DSC3217",
+    "courseCredit": "4",
+    "description": "Numerous studies have shown that in many simple decision situations, people make decisions that upon close examination they regard as wrong. This module introduces a normative framework of decision-making, called Decision Analysis, that can help everyone improve the quality of their decisions. The framework comprises the philosophy, theory, methodology, and professional practice necessary to address decision situations in a formal manner. It is applicable to decisions in various domains, including but not limited to business, legal, medical, and technological. Topics include distinctions and decision basis, uncertainties and probabilities, preference and utilities, probabilistic relevance and inference, risk attitudes and certain equivalents, sensitivity analysis and value of information, decision trees and influence diagrams, applications in managerial and other decisionmakings.",
+    "faculty": "NUS Business School",
+    "preclusion": "All Industrial and Systems Engineering (ISE) students",
+    "title": "Introduction to Decision Analysis"
+}

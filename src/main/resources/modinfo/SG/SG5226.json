@@ -1,0 +1,8 @@
+{
+    "courseCode": "SG5226",
+    "courseCredit": "3",
+    "description": "The objective of this module is to provide students with in-depth knowledge and skills in architecting robust Distributed Enterprise Applications. The module would discuss key critical issues that impact multi-tier and multi-platform applications and would provide scientific solutions to address these. The module would also address research issues in the area of enterprise applications to prepare students in evolving innovative design models and implementation strategies for engineering secure, scalable and interoperable applications. The students would learn to experiment and apply these models in practice through project work that involves building and deploying multi-tier enterprise applications with .NET components, WCF and Web services as implementation vehicles.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "SG5026",
+    "title": "Enterprise .NET II"
+}

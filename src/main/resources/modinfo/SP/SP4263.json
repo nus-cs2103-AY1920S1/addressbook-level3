@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "SP4263",
+    "courseCredit": "4",
+    "description": "Ever wondered how much of the coffee you consumed is subsequently metabolised? Find out using forensic toxicology! This multi-disciplinary module aims to support medical and legal investigation into the cause of death, poisoning and adverse responses to substances. Drawing from the foundational principles in toxicokinetics, students will be able to (1) study the physicochemical properties of substances and their effect(s) on the host and (2) consider the toxicological outcomes of exposure due to the unique handling of substances by organ systems. The lectures will conclude with real-life applications led by practitioners.",
+    "faculty": "Science",
+    "preclusion": "LSM4211 Toxicology",
+    "prereqTree": "LSM1306",
+    "title": "Forensic Toxicology and Poisons"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "PR3103",
+    "courseCredit": "4",
+    "description": "Learning objectives: To understand the basic principles of analytical techniques. To apply the analytical techniques to study bulk-drug pharmaceuticals, quality control. To get hands-on experience with analytical instrumentation and application to real-life problems.Major topics: Basic principles of the following techniques will be covered: nuclear magnetic resonance spectroscopy; electrochemistry and potentiometric titration; chromatography-column, TLC, paper, size-exclusion, HPLC and gas chromatography; atomic absorption and flame photometry. Analytical method validation and development, guidelines of ICH and FDS. Application of these analytical techniques in bulk-drug pharmaceuticals, quality control and structural elucidation.Target students: Pharmacy Year Three",
+    "faculty": "Science",
+    "prereqTree": "PR2104",
+    "title": "Pharmaceutical Analysis II"
+}

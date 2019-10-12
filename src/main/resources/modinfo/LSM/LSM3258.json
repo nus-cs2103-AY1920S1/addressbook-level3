@@ -1,0 +1,17 @@
+{
+    "courseCode": "LSM3258",
+    "courseCredit": "4",
+    "description": "This module explores the basic relationships between the diverse forms and functions in plants. Each plant group shares a common basic structural plan but contains many members that deviate from the basic plan in response to selection pressures from the environment. Knowledge of organismal biology is enhanced through selected topics in morpho-anatomical designs and functional adaptions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4251"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM2231",
+            "LSM2252",
+            "LSM2254"
+        ]
+    },
+    "title": "Comparative Botany"
+}

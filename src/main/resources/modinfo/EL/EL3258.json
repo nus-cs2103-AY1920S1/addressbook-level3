@@ -1,0 +1,23 @@
+{
+    "courseCode": "EL3258",
+    "courseCredit": "4",
+    "description": "This course is about understanding language through the vehicle of humour. It is often the case that people assume the meanings of jokes, cartoons, and comedies based on their knowledge. This course will introduce students to understanding the various types of humour through sociolinguistics and cognitive science approaches. By looking at different examples, this course highlights the fact that \u2018getting\u2019 humour actually takes quite sophisticated yet tacit linguistic knowledge in speakers\u2019 grammatical and communicative routines.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EL1101E",
+                    "GEK1011"
+                ]
+            },
+            {
+                "or": [
+                    "EL2251",
+                    "EL2151"
+                ]
+            }
+        ]
+    },
+    "title": "The Sociolinguistics of Humour: Jokes and Comedies"
+}

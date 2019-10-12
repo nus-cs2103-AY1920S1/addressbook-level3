@@ -1,0 +1,47 @@
+{
+    "courseCode": "MA2216",
+    "courseCredit": "4",
+    "description": "The objective of this module is to give an elementary introduction to probability theory for science (including computing science, social sciences and management sciences) and engineering students with knowledge of elementary calculus. It will cover not only the mathematics of probability theory but will work through many diversified examples to illustrate the wide scope of applicability of probability. Topics covered are: counting methods, sample space and events, axioms of probability, conditional probability, independence, random variables, discrete and continuous distributions, joint and marginal distributions, conditional distribution, independence of random variables, expectation, conditional expectation, moment generating function, central limit theorem, the weak law of large numbers. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite. It is an essential module for Industrial and Systems Engineering students.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "EC3303",
+        "DSC3223",
+        "FIN4111",
+        "FNA4111",
+        "MNO4312",
+        "CS5338",
+        "CS5446",
+        "CS4246",
+        "MA4270",
+        "MA3269",
+        "MA3238",
+        "MA4264",
+        "MA4260",
+        "MA3259",
+        "MA3227",
+        "ST2132",
+        "ST2137",
+        "ST3131",
+        "ST3234",
+        "ST3235",
+        "ST3239",
+        "ST3243",
+        "ST3247",
+        "ST4237",
+        "ST3236",
+        "DSA2101"
+    ],
+    "preclusion": "ST2131 (Cross-listing), ST2334, CE2407",
+    "prereqTree": {
+        "or": [
+            "MA1102R",
+            "MA1312",
+            "MA1507",
+            "MA1505",
+            "MA1505C",
+            "MA1511",
+            "MA1521"
+        ]
+    },
+    "title": "Probability"
+}

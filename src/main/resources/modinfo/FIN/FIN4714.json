@@ -1,0 +1,24 @@
+{
+    "courseCode": "FIN4714",
+    "courseCredit": "4",
+    "description": "The course aims to survey the financial methods used in mergers and acquisitions, buyouts and corporate restructuring. Related legal, strategic, organizational and management issues will also be considered.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4116",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FIN2704",
+                    "FIN2704X"
+                ]
+            },
+            {
+                "or": [
+                    "FIN3701",
+                    "RE3807"
+                ]
+            }
+        ]
+    },
+    "title": "Valuation and Mergers & Acquisition"
+}

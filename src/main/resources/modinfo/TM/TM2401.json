@@ -1,0 +1,12 @@
+{
+    "courseCode": "TM2401",
+    "courseCredit": "4",
+    "description": "The following topics will be covered in detail: Vector algebra, vector functions; Cartesian, cylindrical and spherical coordinates; Curves, tangents and lengths; Gradient, directional derivatives; Divergence and curl vector fields; Line, surface and volume integrals, Jacobian.; Green\u2019s theorem, Gauss\u2019 and Stokes\u2019 theorems.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "ME2142E",
+        "TME2142"
+    ],
+    "preclusion": "TE2002 or TC2401 or TC1402 or TM1402 or TME2401",
+    "title": "Engineering Mathematics II"
+}

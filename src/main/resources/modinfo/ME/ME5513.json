@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "ME5513",
+    "courseCredit": "4",
+    "description": "The objective is to expose students to the various methods to tackle practical problems related to fracture and fatigue of materials so that they can apply them to real situations. Particular emphasis is placed on fracture and fatigue properties of materials. Major topics include: linear elastic fracture mechanics, fracture mechanics in yielded regime, standard tests for fracture toughness; high and low cycle fatigue, factors affecting fatigue properties of materials, conventional and fracture mechanic fatigue design, fatigue crack propagation, fatigue life prediction and monitoring, fracture and fatigue mechanisms and control. This module is useful for students who see themselves in a career related to service failure analysis and/or materials applications.",
+    "faculty": "Engineering",
+    "preclusion": "OT5208 Fatigue and Fracture for Offshore Structures\nME5513A Fatigue Analysis for Additive Manufacturing",
+    "title": "Fracture and Fatigue of Materials"
+}

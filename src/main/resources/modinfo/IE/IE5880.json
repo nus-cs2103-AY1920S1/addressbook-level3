@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5880",
+    "courseCredit": "4",
+    "description": "This is an advanced module in Supply Chain Systems. Specific topics are selected on the basis of current teaching and research needs. Lectures will be given by both department staff and/or visiting specialists.",
+    "faculty": "Engineering",
+    "prereqTree": "IE5105",
+    "title": "Topics in Supply Chain Systems"
+}

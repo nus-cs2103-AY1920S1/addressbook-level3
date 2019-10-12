@@ -1,0 +1,13 @@
+{
+    "courseCode": "PR3106",
+    "courseCredit": "4",
+    "description": "Learning objectives: To understand the basic concepts and kinetic processes of drug absorption, distribution and elimination (i.e. excretion and metabolism). To learn how formulation, physicochemical and physiological factors affect therapeutic performance of drug products. To evaluate how internal and external factors affect drug metabolism. Major Topics: Basic kinetic modelling on drug absorption, distribution and elimination. Physicochemical and physiological factors governing drug absorption; distribution, excretion and metabolism. Biopharmaceutical factors affecting the drug absorption and bioavailability; gastrointestinal membrane transport. Internal and external factors affecting drug metabolism; polymorphism of drug metabolism; pharmacogenetics. Kinetics of drug following various modes of drug administration. Application of pharmacokinetics in drug development. Target students: Pharmacy Year Three",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PP2106",
+            "PA2106"
+        ]
+    },
+    "title": "Pharmacokinetics & Drug Disposition"
+}

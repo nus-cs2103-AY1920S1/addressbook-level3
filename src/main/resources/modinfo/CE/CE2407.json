@@ -1,0 +1,23 @@
+{
+    "courseCode": "CE2407",
+    "courseCredit": "4",
+    "description": "his module is designed to equip undergraduate civil engineering students with mathematical and statistical tools for fast and efficient solutions of various practical engineering problems in their further education and in their professional life. A bridge is built from mathematics and statistics to engineering applications based on a reasonable depth in fundamental knowledge. The focus is on numerical solution methods for linear algebraic problems and differential equations as well as on probability theory and statistics. The subjects are discussed and demonstrated in the context of practical civil engineering problems. This allows students to solve problems in many fields and disciplines. Application areas include but are not limited to stability problems, dynamics/vibrations, linear and nonlinear structural analysis, reliability and risk analysis, structural and system analysis under uncertainty, and design of processes and structures under uncertainty.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE2100",
+        "IE2130",
+        "IE3101",
+        "IE4211",
+        "CE5702",
+        "CE3121",
+        "CE4258"
+    ],
+    "preclusion": "TCE2407",
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1506"
+        ]
+    },
+    "title": "Engineering & Uncertainty Analyses"
+}

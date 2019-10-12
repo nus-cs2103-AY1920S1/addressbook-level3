@@ -1,0 +1,15 @@
+{
+    "courseCode": "LL4032",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5356",
+        "LL6356",
+        "LL5356V",
+        "LL6356V",
+        "LL4356",
+        "LL4356V"
+    ],
+    "title": "International Investment Law"
+}

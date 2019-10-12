@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME3231",
+    "courseCredit": "4",
+    "description": "This course introduces to students the principles of gas dynamics in subsonic and supersonic flow, and the fundamental concepts in unsteady confined flow. Upon completion, students should be able to analyse a broad range of flow situations. Major topics in compressible flow covered: subsonic and supersonic flow, converging?diverging nozzle, normal and oblique shock waves, Prandtl-Meyer flows, flow with friction and heat exchange, Fanno line, Rayleigh line, two-dimensional compressible flows, thin airfoils in supersonic flow, method of characteristics, optical methods in compressible flow measurements. Major topics in unsteady flow covered: Elastic pipe theory; Analysis of pressure surges; Various types of boundary devices; Numerical solutions; and Various methods of controlling pressure surges in industrial fluid system.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2134",
+    "title": "Compressible And Unsteady Flow"
+}

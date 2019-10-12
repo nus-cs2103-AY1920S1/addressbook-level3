@@ -1,0 +1,8 @@
+{
+    "courseCode": "CN4245R",
+    "courseCredit": "4",
+    "description": "This course aims to provide students with the design and analysis skills necessary to generate and exploit data for a wide variety of tasks that include process monitoring, process modelling, control, optimisation and new product design. Topics covered will include multivariate statistics, system identification and design of experiments. Theory and applications will be equally emphasised. The students will gain an appreciation for the possibilities and limitations of various data based modelling techniques and also the confidence to apply these methods in practical situations. They will be able to make judicious choices of methods and design variables for real world applications.",
+    "faculty": "Engineering",
+    "prereqTree": "CN3121",
+    "title": "Data Based Process Characterisation"
+}

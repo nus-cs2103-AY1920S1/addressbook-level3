@@ -1,0 +1,24 @@
+{
+    "courseCode": "PL5222",
+    "courseCredit": "4",
+    "description": "This module introduces students to the use of multivariate methods for the analysis of psychological data. Included among the methods to be covered may be canonical correlation, discriminant function analysis, multivariate analysis of variance, exploratory and confirmatory factor analysis, and structural equation modeling. Emphasis will be placed on the development of skills for multivariate data analysis through hands-on analysis and interpretation of datasets.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PL4204",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PL2101Y",
+                    "PL2131"
+                ]
+            },
+            {
+                "or": [
+                    "PL2102Y",
+                    "PL2132"
+                ]
+            }
+        ]
+    },
+    "title": "Multivariate Statistics in Psychology"
+}

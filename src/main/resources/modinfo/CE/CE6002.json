@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE6002",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate research students in the Department of Civil Engineering. It introduces students the nature of civil engineering experiments and characteristics of data gathered. Fundamental methods to conduct in-laboratory and field experiments to verify civil engineering models will be covered. Included in this module is also the procedure to construct empirical, deterministic and stochastic civil engineering models based on experimental measurements. Examples are drawn from the various fields in civil engineering discipline, including structure, geotechnical, hydraulics, environmental and transportation engineering.",
+    "faculty": "Engineering",
+    "title": "Analysis of Civil Engineering Experiments"
+}

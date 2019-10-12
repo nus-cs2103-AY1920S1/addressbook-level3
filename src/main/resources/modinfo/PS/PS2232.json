@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PS2232",
+    "courseCredit": "4",
+    "description": "This module is divided into two parts, namely, Hindu Political Thought (HPT) and Islamic Political Thought (IPT). HPT will expose students to the rich tradition of competing ideas that shape the evolution of Hindu political thought and philosophy and will cover the major ideas of classical Hindu epics such as Kautilya and Manu. IPT will help students understand the Islamic worldview in general and the Islamic conception of political theory in particular, and will deal with topics such as principles and sources of Islamic thought and governance of Islamic states, according to the primary sources of Islamic Law, the Qur'an and Sunnah. This module is suitable for beginning students interested in normative political theory in eastern civilizations.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS2202B, PS3218",
+    "title": "Islamic and Hindu Political Thought"
+}

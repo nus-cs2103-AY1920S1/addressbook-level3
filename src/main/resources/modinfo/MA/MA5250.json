@@ -1,0 +1,7 @@
+{
+    "courseCode": "MA5250",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics. It focuses on high-resolution numerical methods and their analysis and applications in computational fluid dynamics. It covers the following major topics: Hyperbolic conservation laws and shock capturing schemes, convergence, accuracy and stability, high-resolution methods for gas dynamics and Euler equations, applications in multi-phase flows and combustion.",
+    "faculty": "Science",
+    "title": "Computational Fluid Dynamics"
+}

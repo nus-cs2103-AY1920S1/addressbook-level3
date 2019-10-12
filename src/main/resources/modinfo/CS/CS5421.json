@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5421",
+    "courseCredit": "4",
+    "description": "This module addresses the design and performance tuning of database applications. The syllabus focuses on relational database applications implemented with relational database management systems. Topics covered include normalisation theory (functional, multi-valued and join dependency, normal forms, decomposition and synthesis methods), entity relationship approach and SQL tuning (performance evaluation, execution plan verification, indexing, de-normalization, code level and transactions tuning). The syllabus optionally includes selected topics in the technologies, design and performance tuning of nonrelational database applications (for instance, network and hierarchical models and nested relational model for an historical perspective, as well as XML and NoSQL systems for a modern perspective).",
+    "faculty": "Computing",
+    "preclusion": "CS4221",
+    "prereqTree": "CS3223",
+    "title": "Database Applications Design and Tuning"
+}

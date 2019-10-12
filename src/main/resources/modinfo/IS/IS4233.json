@@ -1,0 +1,14 @@
+{
+    "courseCode": "IS4233",
+    "courseCredit": "4",
+    "description": "This module is a study of major area of law that has an impact on the IT industry. Among the topics to be addressed are intellectual property of software, database, and multimedia entertainment contents, data privacy, information security, and electronic commerce law. The goal of the course is to provide basic background in these issues for non-lawyers. The course enables IT professionals to better handle their legal resources and better understand their commercial opportunities. Real-world examples from the text and current events will be used to demonstrate the applicability of the law in IT industries.",
+    "faculty": "Computing",
+    "preclusion": "CS4259",
+    "prereqTree": {
+        "or": [
+            "IS3101",
+            "IS3103"
+        ]
+    },
+    "title": "Legal Aspects of Information Technology"
+}

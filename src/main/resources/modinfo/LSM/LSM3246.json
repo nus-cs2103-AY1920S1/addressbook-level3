@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM3246",
+    "courseCredit": "4",
+    "description": "The ability to rationally engineer living cells has been a long anticipated goal dating back for more than half a century. With the advent of DNA synthesis and genome engineering tools, biological systems can now be systematically designed for a myriad of industrial applications including disease prevention, biochemicals production and drug development. This module aims to provide basic principles to the engineering of biology with emphasis on the design and construction of synthetic gene circuits in living cells. The module also discusses current and emerging applications driven by synthetic biology, and the socio-ethical responsibilities that are required of synthetic biologists.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2211",
+            "LSM2232",
+            "LSM2233"
+        ]
+    },
+    "title": "Synthetic Biology"
+}

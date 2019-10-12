@@ -1,0 +1,25 @@
+{
+    "courseCode": "EE4131",
+    "courseCredit": "4",
+    "description": "This module is designed to serve as a first course in stochastic signal analysis-and-processing for senior and graduate engineering students. It aims to bridge the gap between the elements of probability theory, as taught in early undergraduate level modules, and the basic concepts needed in contemporary signal processing applications. Topics include: general concepts and classification of random variables and stochastic processes; transformation of random variables; effects of linear time-invariant filtering on the autocorrelation function and power spectrum of a stochastic process; Gaussian, chi and chi-square statistics; random binary signals, random walk process, Wiener-L\u00e9vy process; Poisson and related processes; random telegraph signals.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5139",
+        "EE5131",
+        "EE5133",
+        "EE6735"
+    ],
+    "preclusion": "EE5306 Random Signals Analysis\nand\nEE5137R Stochastic Processes",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE2012",
+                    "ST2334"
+                ]
+            },
+            "EE2023"
+        ]
+    },
+    "title": "Random Signals"
+}

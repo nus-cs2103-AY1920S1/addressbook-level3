@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3246",
+    "courseCredit": "5",
+    "description": "This course will provide a thorough understanding of the fundamentals required to understand modern astrophysical research. Topics covered will include stellar structure and evolution, the interstellar medium, radiative processes, galactic structure and dynamics, and cosmology. These topics will be introduced in the context of their use for some of the most active fields of astronomy research. This course will also include several observational labs where students will learn to analyse astronomical data across the electromagnetic spectrum.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC1213",
+            "YSC2203"
+        ]
+    },
+    "title": "Modern Astrophysics"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "IS6004",
+    "courseCredit": "4",
+    "description": "Ever since the beginning of research into information systems, economics has been recognized as one of the most important reference disciplines. Economics has made useful contributions to the understanding of information systems research and applications. Some examples include the theory of information, decision analysis, game theory, and econometric methodologies. The objective of this course is to equip graduate students with econometrics research methodologies pertaining to the analysis of IT/IS, and to help students understand emerging IS-economics and econometric issues. Specific learning objectives of this course are as follows: \ufffd\ufffd Understand economic issues and theories associated with decision makers, goals, choices and relationship between choices and outcomes of IS/IT artifacts \ufffd\ufffd Understand econometrics modeling and estimation methods, including ordinary least squares, generalized least squares, maximum likelihood estimation, instrumental variables estimation simultaneous equation models, fixed and random effects models, discrete choice models, hierarchical Bayes models, etc.",
+    "faculty": "Computing",
+    "title": "Econometrics for IS Research"
+}

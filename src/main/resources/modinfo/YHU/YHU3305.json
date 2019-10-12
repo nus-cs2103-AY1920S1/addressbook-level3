@@ -1,0 +1,15 @@
+{
+    "courseCode": "YHU3305",
+    "courseCredit": "5",
+    "description": "This course will focus on several things. First, each actor will learn how to build their acting craft, and will achieve personal confidence in a way of working. Second, each actor will work on two or three scenes with a partner. These scenes will be chosen from World literature, and any time frame, depending on the student actor\u2019s needs. Third, we will cre-ate an original piece of theatre as the culmination of the course. This module fulfills the Art Practice track in the Arts & Humanities major.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113",
+            "YCC1121",
+            "YCC1122"
+        ]
+    },
+    "title": "The Actor's Journey: Training, Scene Work, Performance"
+}

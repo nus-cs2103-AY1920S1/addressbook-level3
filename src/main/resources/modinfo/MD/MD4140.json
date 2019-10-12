@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MD4140",
+    "courseCredit": "1",
+    "description": "Acute and Speciality Clinical Practice consists of three major postings (Obstetrics and Gynaecology; Psychological Medicine, and Acute Care comprising of Anaesthesia and Emergency Medicine), as well as three shorter postings (Ophthalmology, Otolaryngology, and Pathology and Forensic Medicine). Three major postings will constitute three blocks and three shorter posting will constitute one block. There will be one CA for each of the four blocks. The postings will allow the students to expand their knowledge, skills, and attitudes obtained from the Core Clinical Practice and focus on more in-depth clinical care experience.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "MD5140",
+        "MD5150"
+    ],
+    "preclusion": "N.A.",
+    "prereqTree": "MD3140",
+    "title": "Acute and Specialty Clinical Practice"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "CS5231",
+    "courseCredit": "4",
+    "description": "This module introduces fundamental notions and requirements in computer system security and the mechanisms that provide security in various systems and applications. It aims to teach students the security perspective of popular computer systems, such as desktop systems, mobile systems, and web-based systems. Its topics include software security, operating system security, mobile security, web security, trusted platforms, and auditing and forensic analysis.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6231"
+    ],
+    "prereqTree": "CS3235",
+    "title": "Systems Security"
+}

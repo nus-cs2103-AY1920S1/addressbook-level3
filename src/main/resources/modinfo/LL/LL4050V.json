@@ -1,0 +1,16 @@
+{
+    "courseCode": "LL4050V",
+    "courseCredit": "5",
+    "description": "This foundational course introduces the student to the nature, major principles, processes and institutions of the international legal system, the relationship between international and domestic law and the role of law in promoting world public order. Students will acquire an understanding of the conceptual issues underlying this discipline and a critical appreciation of how law inter-relates with contemporary world politics, its global, regional and domestic significance. Topics include the creation and status of international law, participation and competence in the international legal system, primary substantive norms such as the law regulating the use of force and enforcement procedures.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5291",
+        "LL6291",
+        "LL5291V",
+        "LL6291V",
+        "LL4291",
+        "LL4291V"
+    ],
+    "preclusion": "Students who are taking or have taken LL4050.",
+    "title": "Public International Law"
+}

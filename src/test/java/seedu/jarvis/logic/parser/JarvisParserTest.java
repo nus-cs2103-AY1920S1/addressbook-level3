@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
-import seedu.jarvis.logic.commands.RedoCommand;
-import seedu.jarvis.logic.commands.UndoCommand;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
@@ -25,9 +23,11 @@ import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
+import seedu.jarvis.logic.commands.history.RedoCommand;
+import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
 import seedu.jarvis.testutil.PersonBuilder;
 import seedu.jarvis.testutil.PersonUtil;
@@ -97,13 +97,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_undo() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all")
-                instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
-                instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "0")
-                instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "-5")
                 instanceof UndoCommand);
     }
 
@@ -113,13 +107,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all")
-                instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
-                instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "0")
-                instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "-5")
                 instanceof RedoCommand);
     }
 

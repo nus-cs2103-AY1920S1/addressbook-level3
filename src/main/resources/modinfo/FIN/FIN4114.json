@@ -1,0 +1,14 @@
+{
+    "courseCode": "FIN4114",
+    "courseCredit": "4",
+    "description": "This is a two-part module. The first half of the course adopts a case analytic approach and includes discussion on the venture capital and private equity cycles, from fund raising, structuring to deal screening, investment negotiations, fund management and performance reporting. An underlying theme of this part of the course is to emphasize how venture capital and private equity markets can create wealth and promote economic growth. The second half, uses a combination of lectures and discussions, is devoted to help students understand the business activities typically undertaken, and the financial instruments created and used, by investment banks. Special attention will be paid to discuss investment banks involvement in the current financial crisis.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "FIN3101",
+            "FIN3102",
+            "FIN3103"
+        ]
+    },
+    "title": "Private Equity and Investment Banking"
+}

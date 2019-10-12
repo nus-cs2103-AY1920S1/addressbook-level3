@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3289",
+    "courseCredit": "5",
+    "description": "'China' and 'Chinese' are no longer adequate terms for the study of Sinitic-language communities and cultures that evince politically tenuous and linguistically polyphonic relations with the People\u2019s Republic of China. This course interrogates Sinophone Studies as a critical, interdisciplinary alternative to previous constructions of Chinese literature and culture tied to the nation-state and progressive narratives of modernity. Students will study fiction and films from Hong Kong, Malaysia, Singapore, Taiwan, the United States, and the PRC, along with critical works explaining the ways that diaspora, colonialism, comparative empires, and ethnic or minority studies have informed the rise of Sinophone Studies. All Chinese-language materials will be read in English translation.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Beyond China: Sinophone Literature, Film, and Culture"
+}

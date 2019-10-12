@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6219",
+    "courseCredit": "4",
+    "description": "This graduate-level module covers advanced topics in computer systems that are of current research or application interests. Topics include operating systems, systems architecture and hardware, distributed systems, computer networks, and the interaction between these areas. The exact topics to be taught will depend on the lecturers teaching the module. Upon completion of this module, the student will have a deeper understanding on some of the latest research problems in the area of computer systems, as well as the state-of-the-art approaches to address the problems. This module will help prepare students towards doing research in computer systems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2105",
+            "CS2106"
+        ]
+    },
+    "title": "Advanced Topics in Computer Systems"
+}

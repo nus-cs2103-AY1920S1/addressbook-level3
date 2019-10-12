@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT2413",
+    "courseCredit": "4",
+    "description": "Effective marketing research is necessary for successful management of all phases of the marketing process, ranging from product development and introduction to selling through growth and maturity stages. In today's information-oriented environment, a marketing manager cannot succeed without a thorough understanding of the research process. By understanding the research process, he can better judge the suitability, reliability and the validity of a research study in his decision-makings. Students will learn by doing in this course. While we will use class time to discuss appropriate research topics, students are required to do lots of activities by themselves in order to facilitate their learning by doing. In doing so, this course incorporates an experimental element in marketing research and consulting. As a marketing information provider, students will be assisting a firm by collecting and interpreting market data as a means toward the development of a superior marketing plan. At the same time, students will conduct tutorial activities that will provide opportunities for students to practice the key topics covered in the class. This course is intended to acquaint students with the fundamental marketing research process. More specifically, this course aims: (i) To familiarise the student with the fundamental marketing research skills of problem formulation, research design, questionnaire design, data collection, data analysis, and report presentation and writing. (ii) To have the student gain perspective and practice in applying these skills through a research project. (iii) To develop an understanding of decision making in marketing, its inherent difficulties and pitfalls and the importance of information in marketing research.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH2413 or BZ3614 or BK3202 or MKT2413A or MKT2413B",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003"
+        ]
+    },
+    "title": "Marketing Research"
+}

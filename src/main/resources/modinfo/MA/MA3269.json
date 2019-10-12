@@ -1,0 +1,37 @@
+{
+    "courseCode": "MA3269",
+    "courseCredit": "4",
+    "description": "This module introduces the students to the basics of financial mathematics and targets all students who have an interest in building a foundation in financial mathematics. Topics include basic mathematical theory of interest, term structure of interest rates, fixed income securities, risk aversion, basic utility theory, single-period portfolio optimization, basic option theory. Mathematical rigor will be emphasized.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4269A",
+        "MA4269",
+        "QF3101"
+    ],
+    "preclusion": "QF2101 Basic Financial Mathematics",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS1010",
+                    "CS1010E",
+                    "CS1010S",
+                    "CS1010FC",
+                    "IT1006",
+                    "CS1101",
+                    "CS1101C",
+                    "CS1101S",
+                    "IT1002"
+                ]
+            },
+            {
+                "or": [
+                    "ST2131",
+                    "ST2334",
+                    "MA2216"
+                ]
+            }
+        ]
+    },
+    "title": "Mathematical Finance I"
+}

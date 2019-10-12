@@ -1,0 +1,10 @@
+{
+    "courseCode": "BT5110",
+    "courseCredit": "4",
+    "description": "This module aims to provide students with practical knowledge and understanding of basic issues and techniques in data management and warehousing with relational database management systems. The module covers data management concepts, conceptual (entity relationship model) and logical design (relational model) and database management (data definition, data manipulation, SQL) with relational database management systems.The module covers data warehousing concepts, data warehousing design and data warehousing with relational database management systems and tools.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5344"
+    ],
+    "title": "Data Management and Warehousing"
+}

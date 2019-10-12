@@ -1,0 +1,32 @@
+{
+    "courseCode": "PC3130",
+    "courseCredit": "4",
+    "description": "This module continues from PC2130 and completes the basic formation of the student in quantum mechanics. Description of composite systems: tensor product, two-particle entanglement; systems of N identical particles. Perturbation theory: time-independent, both non-degenerate and degenerate; example: Zeeman effect. Time-dependent: Fermi golden rule; example: atom in a classical e-m field. Discussion of stimulated and spontaneous emission. Other approximation schemes: the variational principle; the WKB approximation and the 'classical' region, tunneling and the connecting formula; the adiabatic approximation. Scattering: partial wave analysis and the Born approximation.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5228",
+        "PC5210",
+        "PC5203",
+        "PC5201",
+        "PC4228",
+        "PC4230",
+        "PC4259",
+        "PC4246",
+        "PC4245",
+        "PC4130",
+        "PC3243",
+        "QT5101"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "PC2130",
+                    "PC2130B"
+                ]
+            },
+            "PC2134"
+        ]
+    },
+    "title": "Quantum Mechanics II"
+}

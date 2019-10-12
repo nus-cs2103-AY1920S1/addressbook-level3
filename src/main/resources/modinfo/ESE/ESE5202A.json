@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ESE5202A",
+    "courseCredit": "2",
+    "description": "This module aims to equip students with sufficient knowledge to understand common air pollution problems due to various anthropogenic activities as well as the environmental fate of air pollutants in the atmosphere, and to evaluate potential hazards of air pollutants to the society and the environment. Students will also develop capability to analyse of air quality monitoring data for the development and application of effective air quality control strategies and government policies in the environment of interest.",
+    "faculty": "Engineering",
+    "title": "Technologies for Air Quality Control"
+}

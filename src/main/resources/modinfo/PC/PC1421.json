@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1421",
+    "courseCredit": "4",
+    "description": "This module provides a comprehensive and basic physics training within a single semester for first-year students from life sciences. It will cover mechanics, thermodynamics, electromagnetism, optics plus a few topics in atomic and nuclear physics. The specific contents have been chosen according to their relevance to life sciences as well as their importance in the conceptual framework of general physics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC2267"
+    ],
+    "preclusion": "N.A.",
+    "title": "Physics for Life Sciences"
+}

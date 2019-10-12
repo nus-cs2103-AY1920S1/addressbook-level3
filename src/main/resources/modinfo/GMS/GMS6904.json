@@ -1,0 +1,8 @@
+{
+    "courseCode": "GMS6904",
+    "courseCredit": "4",
+    "description": "This module will provide an overview of parasitic, bacterial, and viral diseases with an emphasis on emerging infectious agents and those of regional importance. The module is directed towards graduate students with basic cell biology, microbiology, and immunology background. The first part of the module with focus on general principles of the biology, dynamics, detection, control, and pathogenesis of infectious agents, followed by case studies of selected agents.",
+    "faculty": "Duke-NUS Medical School",
+    "prereqTree": "GMS6901",
+    "title": "Principles of Infectious Diseases"
+}

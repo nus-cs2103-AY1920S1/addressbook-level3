@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "TP5025",
+    "courseCredit": "4",
+    "description": "Intelligent transportation systems and its simulation are crucial for efficient and effective management of urban transportation and mobility in modern cities. A broad range of diverse technologies, including information processing, computing, communications, control and electronics can be applied to our transportation systems and many simulation methods are adopted by transport agencies. The topics covered in this module include state-of-the-practice and state-of-the-art ITS technologies and simulation methods. This module enables the student opportunity acquiring the knowledge and practical skills through the lectures, field investigations, and course projects.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5025",
+    "prereqTree": "CE3121",
+    "title": "Intelligent Transportation Systems and Simulation"
+}

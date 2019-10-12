@@ -1,0 +1,11 @@
+{
+    "courseCode": "CS5234",
+    "courseCredit": "4",
+    "description": "This course presents advanced techniques for the design and analysis of algorithms and data structures, with emphasis on efficiency and scalability. It will cover a variety of algorithmic topics that arise when coping with very large data sets. How do you design algorithms that scale well? How do you process streaming data? How do you construct algorithms that run efficiently on modern hardware? The goal of this module is to cover modern tools and techniques in algorithm design.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6234"
+    ],
+    "prereqTree": "CS3230",
+    "title": "Algorithms at Scale"
+}

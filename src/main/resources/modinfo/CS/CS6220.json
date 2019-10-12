@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6220",
+    "courseCredit": "4",
+    "description": "With the rapid advances of computer and internet technologies, a large amount of data accumulates. Discovering knowledge from the data will give us a competitive advantage. The process of knowledge discovery involves pre-processing the data, mining or discovering patterns from the data, and post-processing the discovered patterns. In this course, we will review and examine the present techniques and the theories behind them and explore new and improved techniques for real world knowledge discovery applications. The course is designed to encourage active discussion, creative thinking, and hands-on project development.",
+    "faculty": "Computing",
+    "prereqTree": "CS5228",
+    "title": "Advanced Topics in Data Mining"
+}

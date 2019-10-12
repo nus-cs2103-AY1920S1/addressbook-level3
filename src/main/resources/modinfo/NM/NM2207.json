@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "NM2207",
+    "courseCredit": "4",
+    "description": "Communication (and most scientific and corporate endeavours today) is deeply entwined with the world of computing. From social media to public relations campaigns, from game design to website layout, from business decision\u2010making to news, from democratic participation to interactive art \u2013 the ability to understand and make creative use of computational media is of fundamental importance. This module is a hands\u2010on introduction to essential concepts in computational media including internet architecture, mediated communication, interactive systems, animation, visualization, big data, and creative design. JavaScript and other common technologies that power the web are introduced to empower non\u2010programmers to explore these concepts independently.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CS3240"
+    ],
+    "preclusion": "CS1010/CS1101, NM2207Y",
+    "title": "Computational Media Literacy"
+}

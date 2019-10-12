@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "SH5110",
+    "courseCredit": "4",
+    "description": "This module is on concepts and techniques related to the evaluation of occupational exposure to gases, vapors, and aerosols. Covered topics include air flow measurements, aerosol science, particulate sampling with and without size separation, optical microscopy, active and passive sampling of gases and vapors, direct reading instruments, sampling strategy and statistical evaluation of exposure data, occupational exposure limits and threshold limit values.",
+    "faculty": "Engineering",
+    "preclusion": "SH5004: Fundamentals in Industrial Hygiene",
+    "title": "Chemical Hazard Evaluation"
+}

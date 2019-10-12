@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CE5310",
+    "courseCredit": "4",
+    "description": "Hydroinformatics is concerned with the development and application of mathematical modelling and advanced information technology tools to hydraulics, hydrological and environmental problems of urban, inland and coastal waters. On the technical side, in addition to computational hydraulics, hydroinformatics has a strong interest in the use of techniques originating in data-driven techniques, such as artificial neural networks, support vector machines and evolutionary programming.",
+    "faculty": "Engineering",
+    "title": "Hydroinformatics"
+}

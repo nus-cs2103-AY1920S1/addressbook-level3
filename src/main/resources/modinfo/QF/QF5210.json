@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "QF5210",
+    "courseCredit": "4",
+    "description": "This module introduces students to financial time series techniques, focusing primarily on Box-Jenkins (ARIMA) method, conditional volatility (ARCH/GARCGH models), stochastic volatility models, regime switching and nonlinear filtering, diverse non-linear state models, co-integration, and their applications on real-life financial problems. We provide both the relevant time series concepts and their financial applications. Potential application of financial time series models include modeling equity returns, volatility estimations, Value at Risk modelling and option valuation. This module targets honours students in the Quantitative Finance Programme and students in the Master of Science in Quantitative Finance Programme.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "QF3101",
+            "MA4269"
+        ]
+    },
+    "title": "Financial Time Series: Theory and Computation"
+}

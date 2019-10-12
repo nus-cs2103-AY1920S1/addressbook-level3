@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1521",
+    "courseCredit": "4",
+    "description": "Life science is the science that deals with phenomena regarding living organisms. It includes branches such as biology, medicine, anthropology and ecology. Physics on the other hand, studies the fundamental relationship between matter, energy, space, and time. Many people may consider them to be in different regimes and require different mindsets to work on. But as both disciplines advanced, it became increasingly clear that the interactions between them are far more pervasive and fundamental than one might expect. For example, the field of biophysics has risen since the 1950s, and it has vastly changed how biologists look at living systems or study biology. It proved that the mindsets of biology and physics can join together to provide deeper insight into the phenomenon we call life. We will base the material on the basic laws of physics, and discuss how they are interwined with all kinds of life science and daily life phenomena, from cells to ecosystems and from Earth to outer space. Through reading this module, the students would be able to think deeper about the daily phenomena around them, and understand better the foundation of life on Earth.",
+    "faculty": "Science",
+    "preclusion": "GET1013. Students majoring in Physics are not allowed to take this module",
+    "title": "Physics in the Life Sciences"
+}

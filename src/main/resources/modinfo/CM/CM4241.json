@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "CM4241",
+    "courseCredit": "4",
+    "description": "Chemical trace analysis is the use of analytical techniques to detect and/or quantify the presence of very low concentrations of substances. This is important in various industries, including for quality assurance, environmental monitoring, food and biomedical/pharmaceutical safety. Students will learn the principles, instrumentation and applications of trace analysis of both inorganic and organic contaminants, including: sample preparation, measurement methodologies, including isotope dilution, chemosensors and biosensors, matrix effects, sampling bias & statistical evaluation. Students will also receive practical training in trace analysis methodology and instrumentation.",
+    "faculty": "Science",
+    "prereqTree": "CM3242",
+    "title": "Trace Analysis"
+}

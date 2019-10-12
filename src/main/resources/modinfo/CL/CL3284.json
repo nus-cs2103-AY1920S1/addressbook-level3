@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3284",
+    "courseCredit": "4",
+    "description": "This module aims to introduce knowledge in translation strategies and literary translation. Students will have the opportunity to translate texts (both Chinese to English and English to Chinese) from fiction, drama and poetry. Being different from translation for technology and business, the concept of beauty, poetics and equivalence will be discussed in this module.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Literary Translation"
+}

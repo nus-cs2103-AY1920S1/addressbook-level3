@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "PR3117",
+    "courseCredit": "4",
+    "description": "This module gives an insight into various liquid, semi-solid and solid dosage forms. The fundamental knowledge of the properties, formulation, manufacture, quality control and applications of these dosage forms will be discussed. The behaviour of materials and unit operations employed in the manufacture of the various dosage forms will also be emphasised.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4206",
+        "PR4204"
+    ],
+    "prereqTree": "PR2114",
+    "title": "Formulation & Technology II"
+}

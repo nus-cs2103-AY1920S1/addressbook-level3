@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC2220",
+    "courseCredit": "2",
+    "description": "Many problems in the social and natural world involve transitions. For example, an economy\u2019s state this quarter leads to its condition next quarter. This module explores simple linear mathematical modelling to investigate such phenomena, study their extrapolation further into the future, and explore whether a steady state eventuates. It introduces students to matrices, and shows how their eigenvalues determine the ultimate fate of the balance of forces being studied. Students will gain an appreciation of how mathematics can unify approaches to very diverse problems. Only high-school mathematics, and probability from Quantitative Reasoning, is required background for the module.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YCC1122",
+    "title": "Linearity"
+}

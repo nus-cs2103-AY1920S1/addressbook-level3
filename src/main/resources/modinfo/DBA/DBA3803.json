@@ -1,0 +1,18 @@
+{
+    "courseCode": "DBA3803",
+    "courseCredit": "4",
+    "description": "Managerial success rests strategically on the ability to forecast the demand for the goods and services that a firm provides. Demand forecasting drives the effective planning of the supply chain: personnel requirements, capital investment, production schedules, logistics etc.This module surveys forecasting techniques and their applications. These encompass traditional qualitative (e.g. front line intelligence, Delphi method) and quantitative techniques (e.g. regression, time series) as well as emerging techniques based on neural networks. Concepts such as trends, seasonality and business cycles will be discussed. Their value in improving forecasts will be illustrated. The module makes extensive use of software including MS Excel and dedicated forecasting packages.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DBA4761",
+        "DBA4712",
+        "DBA4711",
+        "BT4222",
+        "BT4221",
+        "BT4212",
+        "BT4211"
+    ],
+    "preclusion": "DSC3216",
+    "prereqTree": "DAO2702",
+    "title": "Predictive Analytics in Business"
+}

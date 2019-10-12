@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ4203",
+    "courseCredit": "5",
+    "description": "In this module, students learn how to read, understand and analyse articles in newspapers and business journals. The aim is to familiarise students with a wide range of more advanced reading materials that are relevant to current social, economic and political developments in Japan.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "LAJ3201",
+            "LAJ3203"
+        ]
+    },
+    "title": "Newspaper Reading"
+}

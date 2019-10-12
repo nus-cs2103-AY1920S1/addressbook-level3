@@ -1,0 +1,10 @@
+{
+    "courseCode": "PLC5008",
+    "courseCredit": "2",
+    "description": "This compulsory module provides an introduction to evidence-based practice and focuses on research skills for clinical psychologists. Students will acquire a solid grasp of the scientific and statistical methods relevant to psychology. There will be emphasis on skills and methods required for the completion of research proposals, the design of experiments, measurement decisions, survey approaches, sampling issues, practical management of research projects, and data analyses options.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5018"
+    ],
+    "title": "Graduate Research Methods"
+}

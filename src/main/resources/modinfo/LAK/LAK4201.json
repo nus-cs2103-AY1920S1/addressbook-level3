@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAK4201",
+    "courseCredit": "5",
+    "description": "Korean 5 is a continuation of Korean 4. In this module. a wide variety of interesting, informative, authentic and culturally significant reading materials will be introduced to help students achieve high levels of proficiency not only in interpersonal but also in interpretive and presentational communication. This module aims to equip students with adequate skills and strategies to engage in serious discourse with native or other foreign speakers and write argumentative pieces on complex social, political, cultural and environmental topics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAK4202"
+    ],
+    "prereqTree": {
+        "or": [
+            "LAK3202",
+            "LAK3203"
+        ]
+    },
+    "title": "Korean 5"
+}

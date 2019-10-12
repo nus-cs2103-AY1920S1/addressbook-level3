@@ -1,0 +1,23 @@
+{
+    "courseCode": "LSM3211",
+    "courseCredit": "4",
+    "description": "This module aims to provide basic principles of receptor pharmacology and of pharmacokinetics with emphasis on molecular and cellular mechanisms of action, clinical uses and adverse effects using lectures, tutorials and practicals. The lecture topics will start with the classical drug receptor theory followed by pharmacokinetics and molecular pharmacology of drug receptors and their regulation including receptor-mediated signal transduction and membrane ion channel function. Autonomic pharmacology (adrenergic and cholinergic) will be introduced. The module also focuses on the pharmacology of autacoids, non-steroidal anti-inflammatory agents, corticosteroids, immunosuppressants, anti-asthma drugs, and anti-arthritic drugs.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3219",
+        "LSM3218",
+        "LSM4214",
+        "LSM4221",
+        "LSM4212",
+        "LSM4211",
+        "LSM4229"
+    ],
+    "preclusion": "GEK2501",
+    "prereqTree": {
+        "or": [
+            "LSM2211",
+            "LSM2233"
+        ]
+    },
+    "title": "Fundamental Pharmacology"
+}

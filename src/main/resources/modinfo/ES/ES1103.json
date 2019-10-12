@@ -1,0 +1,23 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ES1103",
+    "courseCredit": "4",
+    "description": "ES1103 serves as a bridging course for students who have taken the university\u2019s Qualifying English Test and are deemed to require additional language support for the academic context. It aims to equip students with the knowledge of the academic genre and the ability to apply such knowledge in academic communication. The module adopts a reading-into-writing approach using themed readings as springboard texts for students\u2019 writing and provides opportunities for analysing and internalising ways of organising academic texts. Students will acquire essential academic skills required to cope with the rigour of academic writing at a tertiary level.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "PR4196",
+        "IS2101",
+        "ES2007D",
+        "ES2331",
+        "ES1601",
+        "ES1601A",
+        "ENV1202",
+        "CS2101",
+        "FAS1101",
+        "FAS1102"
+    ],
+    "preclusion": "ES1102",
+    "title": "English for Academic Purposes"
+}

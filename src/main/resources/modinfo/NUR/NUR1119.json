@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1119",
+    "courseCredit": "4",
+    "description": "This module focuses on the therapeutic management of patients with alterations in cardiovascular, respiratory, hematological, endocrine, visual and dermatological function. It equips students with knowledge and skills to provide safe care to meet the needs of patients in medical and surgical settings.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2114 Medical/Surgical Nursing is precluded.",
+    "prereqTree": {
+        "or": [
+            "NUR1114",
+            "NUR1108"
+        ]
+    },
+    "title": "Medical-Surgical Nursing I"
+}

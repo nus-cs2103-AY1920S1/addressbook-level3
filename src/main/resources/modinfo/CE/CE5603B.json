@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CE5603B",
+    "courseCredit": "2",
+    "description": "This module builds on the concepts covered in the module 'Evaluating Economic Feasibility of Projects'. It considers the effect of factors like risk, uncertainty, inflation, and foreign exchange in the modelling of project cashflows. The course introduces methods to undertake project sensitivity studies, and make decisions under conditions of risk and uncertainty.",
+    "faculty": "Engineering",
+    "title": "Evaluating Economic Risks in Projects"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "SA4102",
+    "courseCredit": "8",
+    "description": "- Application Development Life Cycle I - Application Development Life Cycle II",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "SA4109",
+        "SA4109A"
+    ],
+    "title": "Enterprise Solutions Design and Development"
+}

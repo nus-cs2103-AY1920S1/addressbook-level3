@@ -1,0 +1,29 @@
+{
+    "courseCode": "MA3111",
+    "courseCredit": "4",
+    "description": "This module is a first course on the analysis of one complex variable. In this module, students will learn the basic theory and techniques of complex analysis as well as some of its applications. Target students are mathematics undergraduate students in the Faculty of Science. Major topics: complex numbers, analytic functions, Cauchy-Riemann equations, harmonic functions, contour integrals, Cauchy-Goursat theorem, Cauchy integral formulas, Taylor series, Laurent series, residues and poles, applications to computation of improper integrals.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4263",
+        "MA4247"
+    ],
+    "preclusion": "MA3111S, EE3002, MPE students",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104",
+                    "MA1507"
+                ]
+            },
+            {
+                "or": [
+                    "MA3110",
+                    "MA3110S"
+                ]
+            }
+        ]
+    },
+    "title": "Complex Analysis I"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "EE3501E",
+    "courseCredit": "4",
+    "description": "Power electronics forms an integral part of all electronics equipment from household appliances through information technology to transportation systems. This module develops the working knowledge, the foundation theory for generic power electronic circuits and the principles of their design. At the end of this module the student should be able to analyze and evaluate and carry out basic design of power electronics system for a large spectrum of applications. The topics covered are: Power semiconductor switches and characteristics. AC-to-DC converters and their performance. DC-to-DC converters: analysis and performance. DC-to-AC converters; analysis and performance. Switching circuits design and protection.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE3501",
+    "prereqTree": {
+        "or": [
+            "EE2005E",
+            "EE2021E",
+            "TEE2027"
+        ]
+    },
+    "title": "Power Electronics"
+}

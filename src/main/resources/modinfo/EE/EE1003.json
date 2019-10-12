@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EE1003",
+    "courseCredit": "4",
+    "description": "This module introduces students to the important area of signal processing and communications which are two major areas in electrical engineering. daily lives. It uses an open-ended project approach, and students are guided through the various parts of the project to build the different component modules which can finally be integrated into a complete communication system. It exposes students to the concepts of signals, spectra, sampling, digitization, coding, transmission and reception over physical channels, receiver noise, symbol detection and message reconstruction. Both the systems and the physics aspects of communication are covered. Students will be assessed through assignments, laboratory reports and a final project report with oral presentation.",
+    "faculty": "Engineering",
+    "title": "Introduction to Signals and Communications"
+}

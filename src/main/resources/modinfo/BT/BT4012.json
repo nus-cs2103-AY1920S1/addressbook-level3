@@ -1,0 +1,8 @@
+{
+    "courseCode": "BT4012",
+    "courseCredit": "4",
+    "description": "This module provides you with the foundational application of analytics in the audit and investigation processes. Students will have an opportunity to gain technological and managerial overview of analytical techniques, link analytics, continuous monitoring of business activities, and analytics reporting. The crimes to be covered in this module include fraud, money laundering, terror financing, collusion, market manipulation, cyber intrusion, and control lapses.",
+    "faculty": "Computing",
+    "prereqTree": "BT3102",
+    "title": "Fraud Analytics"
+}

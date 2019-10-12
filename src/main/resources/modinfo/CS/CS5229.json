@@ -1,0 +1,16 @@
+{
+    "courseCode": "CS5229",
+    "courseCredit": "4",
+    "description": "This course covers advanced fundamental principles of computer networks and techniques for networking. The goal of this course is to teach these fundamentals/techniques that will remain important and relevant regardless of the hot topics in networks and networking. Briefly, the topics include advanced network architecture and design principles, protocol mechanisms, implementation principles and software engineering practices, network algorithmic, network simulation techniques and tools, performance analysis and measurement, and protocol specification/verification techniques.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6204"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS4226",
+            "EE4210"
+        ]
+    },
+    "title": "Advanced Computer Networks"
+}

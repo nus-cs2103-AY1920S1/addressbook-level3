@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC2201",
+    "courseCredit": "4",
+    "description": "This module is a continuation of Chinese 1. It consists of three main components, conversation, grammar and Chinese characters learning. Another 200 Chinese characters and 500 phrases will be introduced. Emphasis is placed on listening, speaking, reading and the writing of Chinese characters. Students are required to give short speeches and to conduct projects in tutorials.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAC3201"
+    ],
+    "prereqTree": "LAC1201",
+    "title": "Chinese 2"
+}

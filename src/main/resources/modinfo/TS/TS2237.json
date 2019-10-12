@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2237",
+    "courseCredit": "4",
+    "description": "Actors and their craft stand at the centre of many theatrical traditions. Yet what is acting is, and who actors are, remain subjects of intense fascination, which continue to be explored in live performance, as well as through writings by practitioners, scholars and critics. This module combines practical workshops and critical reading to explore diverse approaches to acting and to investigate the role and status of the actor within the art form of theatre, and in society at large. Focusing on actor development and the process of acting, assessment tasks highlight the importance of participation, reflection and presentation.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "As If: Actors and Acting"
+}

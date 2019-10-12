@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS5451",
+    "courseCredit": "4",
+    "description": "Pervasive technology is immensely omnipresent in our daily life and brings novel business prospects. Indeed, pervasive technology immerses the users in a triad of interaction, computation, and communication. But it also presents significant challenges ranging from technology architectural design and security concerns among many. This module will study the mechanisms and operating environments of pervasive technology. Some of the topics covered include computer and network architectures for pervasive computing, wearable technologies, internet of things, mobile computing mechanisms, location mechanisms, techniques for security and userauthentication.",
+    "faculty": "Computing",
+    "preclusion": "IS4151, IS4150, SMA5508, and SG5233",
+    "title": "Pervasive Technology Solutions and Development"
+}

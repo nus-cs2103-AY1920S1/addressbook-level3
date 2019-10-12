@@ -1,0 +1,23 @@
+{
+    "courseCode": "MA2214",
+    "courseCredit": "4",
+    "description": "The main objective of this module is to introduce to students fundamental principles and techniques in combinatorics as well as the basics of graph theory, which have practical applications in such areas as computer science and operations research. The major topics from combinatorics are: Permutations and Combinations, Binomial and Multinomial Coefficients, The Principle of Inclusion and Exclusion, Generating Functions, Recurrence Relations, Special Numbers including Fibonacci Numbers, Stirling Numbers, Catalan Numbers, Harmonic Numbers and Bernoulli Numbers. The major topics from graph theory are: Basic Concepts and Results, Bipartite graphs and trees.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA3233"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "MA1101R",
+            "MA1311",
+            "MA1506",
+            "MA1508",
+            "MA1508E",
+            "MA1513",
+            "CS1231",
+            "CS1231S"
+        ]
+    },
+    "title": "Combinatorics and Graphs I"
+}

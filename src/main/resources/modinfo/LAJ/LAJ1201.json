@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ1201",
+    "courseCredit": "4",
+    "description": "This is the first part of introductory-level Japanese. It is designed to provide competence in handling various language tasks in authentic situations, using basic linguistic and socio-cultural skills. While more emphasis is placed on the development of oral communication skills, students will also learn how to read and write using hiragana, katakana, and approximately 100 kanji (i.e. Chinese characters) and 170 kanji-words. Students are also trained to learn basic self-study skills in Japanese to enable them to continue studying Japanese both in and outside of the classroom.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAJ2201"
+    ],
+    "title": "Japanese 1"
+}

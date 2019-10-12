@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CE5308",
+    "courseCredit": "4",
+    "description": "The objectives of this module are to provide the basic knowledge on the coastal engineering and to apply the concepts and principles to solve coastal engineering problems such as beach processes and coastal structure protection. Topics include review of wave theory, coastal wave dynamics (wave transformation and propagation, radiation stress theory, wave set-up and set-down, edge waves, and rip currents), oscillatory boundary layers (wave boundary layer, and wave-current interaction), discrete sediment transport (sediment characterization and settling velocity, initiation of motion and entrainment, suspended load, bedload, total load and sediment discharge rating), continuous sediment transport (turbidity, debris flows, and suspension dynamics) and coastal structures (seawall, breakwater, groynes, headlands). This module is strongly recommended to students opting for the offshore engineering specialization.",
+    "faculty": "Engineering",
+    "prereqTree": "CE5307",
+    "title": "Coastal Processes & Sediment Transport"
+}

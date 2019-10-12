@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5210",
+    "courseCredit": "4",
+    "description": "The module aims to understand Lagrangian mechanics, Hamiltonian mechanics, and basic ideas of nonlinear dynamics and chaos. Topics discussed are: variational principle and Lagrangian mechanics, Hamiltonian mechanics, the Hamiltonian formulation of relativistic mechanics, symplectic approach to canonical transformation, Poisson brackets and other canonical invariants, Liouville theorem, the Hamilton-Jacobi equation, Hamilton's characteristic function, action-angle variables, integrable systems, transition from a discrete to continuous system, relativistic field theory, Noether's theorem, Lie groups and group actions, Poisson manifolds, Hamiltonian vector fields, properties of the Hamiltonian fields, conservative chaos, the Poincare surface of section, KAM theorem, Poincare-Birkhoff theorem, Lyapunov exponents, global chaos, effects of double dissipation and fractals.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "PC3274",
+            "PC3130"
+        ]
+    },
+    "title": "Advanced Dynamics"
+}

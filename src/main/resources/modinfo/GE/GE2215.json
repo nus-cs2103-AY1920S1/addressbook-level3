@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GE2215",
+    "courseCredit": "4",
+    "description": "This module focuses on the important concepts and the practical use of Geographic Information System (GIS) in problem solving in both the social and physical sciences. Topics to be covered include vector and raster data formats and their analytical functions. This module is designed as learning through practicing, so practical laboratory excises utilising GIS software such as ArcGIS will be major classroom activities. This module is mounted for students throughout NUS with interests in GIS applications in sciences, social sciences, engineering and business analysis.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE3216",
+        "GE3238",
+        "GE3550A"
+    ],
+    "title": "Introduction to GIS"
+}

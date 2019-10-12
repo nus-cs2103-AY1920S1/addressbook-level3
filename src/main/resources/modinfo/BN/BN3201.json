@@ -1,0 +1,15 @@
+{
+    "courseCode": "BN3201",
+    "courseCredit": "4",
+    "description": "The module aims to introduce students to the applications of engineering statics and dynamics to perform simple force analysis of the musculoskeletal system; give an appreciation of kinematics and kinetics of human motions; apply the fundamentals of strength of materials, i.e. stress and strain in biological systems, sheer force, bending moment and torsion; introduce biomechanics of soft and hard tissues.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EG1109FC",
+            "EG1109",
+            "CE1109",
+            "CE1109X"
+        ]
+    },
+    "title": "Introduction To Biomechanics"
+}

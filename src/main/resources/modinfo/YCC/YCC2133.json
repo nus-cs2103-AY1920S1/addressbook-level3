@@ -1,0 +1,11 @@
+{
+    "courseCode": "YCC2133",
+    "courseCredit": "5",
+    "description": "This 5 MC course explores basic principles, knowledge, and techniques broadly relevant to science through an integrated approach. A number of tracks will be available to choose from, and of these the student will select two. Although each track may have the flavour of a particular field, it will focus on common foundational themes that cut broadly across Science: information and entropy; shape and symmetry; recursion and emergence; equilibrium and stability; conservation laws. The course will lead from these themes to solutions of problems that require multidisciplinary approaches.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3209"
+    ],
+    "prereqTree": "YCC1132",
+    "title": "Integrated Science 2"
+}

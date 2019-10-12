@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2704",
+    "courseCredit": "4",
+    "description": "A growing population, changing dietary habits and climate change are contributing to the challenge of securing food for Singapore. Singapore imports over 90% of its food supply and uses under 1% of its land area for agriculture. In 2015, Singapore was ranked the second most food secure country in the world. On the other hand, Singapore\u2019s food wastage has increased by 50% since 2005 and 1 in 10 people in Singapore is food insecure. This module takes a systems thinking and systems dynamics perspective to analyse and understand this apparent paradox between food security and food waste in Singapore.",
+    "faculty": "Residential College",
+    "preclusion": "UTC2712 or UTS27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Hard to secure easy to waste - Singapore\u2019s food story"
+}

@@ -1,0 +1,23 @@
+{
+    "courseCode": "IS4100",
+    "courseCredit": "4",
+    "description": "This module focuses on the management of IS projects. Various managerial issues pertaining to the evaluation and selection of information systems projects, choice of project organization, planning, scheduling and budgeting of project activities and basic principles in control and project auditing will be covered. The students will also learn how to use practical techniques and tools, such as network models (PERT/CPM), simulation, and state-of-the-art project management software, in scheduling project activities. This module serves as a good introduction to information systems project management for students who may participate in coordinating and managing large-scale information systems projects.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS4301"
+    ],
+    "preclusion": "IS5110 and CS5212(old code for IS5110)",
+    "prereqTree": {
+        "and": [
+            "IS2102",
+            "IS2103",
+            {
+                "or": [
+                    "IS1103",
+                    "EG2401"
+                ]
+            }
+        ]
+    },
+    "title": "IT Project Management"
+}

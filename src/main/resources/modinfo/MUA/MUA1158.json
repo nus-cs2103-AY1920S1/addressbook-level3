@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1158",
+    "courseCredit": "2",
+    "description": "This module continues the practical study of solfege covered in MUA 1123. The class will again be exposed to many sight-reading opportunities from single line melodies to orchestral scores. Atonal sight-singing will also be covered. The texts used are George Dandelot\u2019s 'Manuel Practique', Dannhauser\u2019s sight-singing books, Pasquale Bona\u2019s 'Rhythmical Articulation', as well as excerpts from Lars Edlund\u2019s 'Modus Novus.' The final three of seven clefs not covered in MUA 1123 will also be studied. These are the Soprano, Mezzo-Soprano and Baritone clefs.",
+    "faculty": "YST Conservatory of Music",
+    "prereqTree": "MUA1123",
+    "title": "Solfege 2"
+}

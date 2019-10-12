@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN2122",
+    "courseCredit": "5",
+    "description": "This module considers the classification of fluids and their properties, followed by the analysis of static fluid. The integral and differential forms of the fundamental equations \u2013 Continuity, Momentum and Energy equations are then studied. The concept of momentum transfer by the shear stress is introduced in this course. Dimensional analysis and model theory are studied. The concept about boundary layer theory, flow with pressure gradient, viscous flow and turbulence are also described. Practical aspect involves the consideration of flows in closed conduits. The concepts of flow through packed beds and fluidization are included. At the end of the course, basic concepts regarding fluid machinery is also covered.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN3501",
+        "BN4202",
+        "CN2108",
+        "CN3135",
+        "CN3101"
+    ],
+    "title": "Fluid Mechanics"
+}

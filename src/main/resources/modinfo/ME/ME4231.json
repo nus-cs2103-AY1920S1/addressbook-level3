@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4231",
+    "courseCredit": "4",
+    "description": "This module introduces to students the basic concepts/ theories/applications in aerodynamics. Major topics are: Characteristics and parameters for airfoil and wing aerodynamics; Incompressible flow past thin airfoils and finite-span wings; Aerodynamic design considerations; Compressible subsonic, transonic and supersonic flows past airfoils and supersonic flow past thin wings. The module is targeted at students who are interested in aerodynamics, especially those who intend to work in the aviation industry or those who intend to conduct R & D work in the aerodynamics area.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2134",
+    "title": "Aerodynamics"
+}

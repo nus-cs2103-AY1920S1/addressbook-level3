@@ -1,0 +1,28 @@
+{
+    "courseCode": "MA2101",
+    "courseCredit": "4",
+    "description": "This module is a continuation of MA1101 Linear Algebra I intended for second year students. The student will learn more advanced topics and concepts in linear algebra. A key difference from MA1101 is that there is a greater emphasis on conceptual understanding and proof techniques than on computations. Major topics: Matrices over a field. Determinant. Vector spaces. Subspaces. Linear independence. Basis and dimension. Linear transformations. Range and kernel. Isomorphism. Coordinates. Representation of linear transformations by matrices. Change of basis. Eigenvalues and eigenvectors. Diagonalizable linear operators. Cayley-Hamilton Theorem. Minimal polynomial. Jordan canonical form. Inner product spaces. Cauchy-Schwartz inequality. Orthonormal basis. Gram-Schmidt Process. Orthogonal complement. Orthogonal projections. Best approximation. The adjoint of a linear operator. Normal and self-adjoint operators. Orthogonal and unitary operators.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5266",
+        "MA5265",
+        "MA4271",
+        "MA3291",
+        "MA4230",
+        "MA4229",
+        "MA3227",
+        "MA3218",
+        "MA3201"
+    ],
+    "preclusion": "MA2101S, MA2101H, MA2201, MA2203, MQ2201, MQ2101, MQ2203",
+    "prereqTree": {
+        "or": [
+            "MA1101R",
+            "MA1506",
+            "MA1508",
+            "MA1508E",
+            "MA1513"
+        ]
+    },
+    "title": "Linear Algebra II"
+}

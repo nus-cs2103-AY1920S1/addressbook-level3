@@ -1,0 +1,9 @@
+{
+    "courseCode": "BMF5342",
+    "courseCredit": "4",
+    "description": "Technologies is transforming and disrupting the financial services industry. This module introduces financial data analytics by integrating finance domain knowledge and programming skills together. The module aims to give students an understanding on how technologicals can assist and improve functions in the financial services industry, and equip students with technical tools and programming skills to assisit their decision making in the financial services industry. It will also benefit students aspiring to enter the FinTech industry.",
+    "faculty": "NUS Business School",
+    "preclusion": "- FIN4124\n- FIN4719",
+    "prereqTree": "BMF5322",
+    "title": "Technological Disruptions in Finance and Data Analytics"
+}

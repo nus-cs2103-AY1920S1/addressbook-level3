@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PC4262",
+    "courseCredit": "4",
+    "description": "Remote sensing is the acquisition of information about a target from a distance, in particular from satellites, aircrafts, and drones. This course equips students with knowledge to understand, and model, satellite orbital dynamics and global positioning, radiometry, multi-spectral and hyper-spectral imaging of atmosphere, land, and ocean. Students will also learn skills in data processing of real-life satellite images through project work, including the application of radiometric, terrain and atmospheric corrections. The course will also leverage on access to Singapore's Centre for Remote Imaging, Sensing and Processing.",
+    "faculty": "Science",
+    "prereqTree": "PC3231",
+    "title": "Remote Sensing"
+}

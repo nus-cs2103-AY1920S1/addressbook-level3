@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4211",
+    "courseCredit": "4",
+    "description": "This introductory course is aimed at providing the basic principles and modern concepts of toxicology ? adverse effects of chemicals on humans and the biosphere. The students will understand how to make quantitative risk assessments from exposure to hazardous compounds, how to extrapolate from animal data, and how to link adverse effects at the molecular level to overall toxic responses in humans. Lecture topics include health hazards from drugs, naturally occurring toxins, industrial chemicals, or environmental toxicants; toxicokinetics and toxicodynamics; cellular and molecular mechanisms of toxicity; organ-selective toxicity; and safety evaluation of drugs and other chemicals. The general concepts will be illustrated with a number of both classical and highly topical examples.",
+    "faculty": "Science",
+    "prereqTree": "LSM3211",
+    "title": "Toxicology"
+}

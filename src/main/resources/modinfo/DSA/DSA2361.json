@@ -1,0 +1,9 @@
+{
+    "courseCode": "DSA2361",
+    "courseCredit": "2",
+    "description": "This course uses data analytics to analyse customer lifetime value, identify high value customers, and customers to upsell and cross-sell to. Students would learn how this enables businesses to devise customer retention campaigns, customer profiling and segmentation strategies and product marketing This course would cover the following key techniques used to derive actionable insights: Descriptive Statistics, RFM Modelling, Customer Segmentation, Customer Profile, Customer Lifetime Value, Market Basket Analysis, Association Rule Mining, and Product Recommendation & Marketing Strategy. The software programming language used in this course is R programming.",
+    "faculty": "Science",
+    "preclusion": "All DSA major students",
+    "prereqTree": "DSA1361",
+    "title": "Data Analytics for Customer Insights"
+}

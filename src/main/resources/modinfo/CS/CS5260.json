@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5260",
+    "courseCredit": "4",
+    "description": "This module is a follow-up to CS5242 and covers advanced topics in neural networks and deep learning. This module explores the underlying mechanism of a variety of different types of learning models: unsupervised, semi-supervised, and adversarial learning models, that are not covered in CS5242. Topics may include: generative adversarial networks, adversarial machine learning, zero-shot learning, geometric deep learning, neural architecture search.",
+    "faculty": "Computing",
+    "prereqTree": "CS5242",
+    "title": "Neural Networks and Deep Learning II"
+}

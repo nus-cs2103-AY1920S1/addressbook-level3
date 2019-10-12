@@ -54,34 +54,36 @@ seconds.
 
 == Command Format
 
-1. Words in `UPPER CASE` are the parameters supplied by the user, while those in `lower case` are *key-words* used by the program.
+1. Words in `UPPER CASE` are the parameters supplied by the user, while those
+in `lower case` are *key-words* used by the program.
 +
 For example:
 +
 `add t/TASK-TYPE/TASK-DESCRIPTION`
 +
-In this case, `TASK-TYPE` and `TASK-DESCRIPTION`. and `add` is a key-word.
+In this case, `TASK-TYPE` and `TASK-DESCRIPTION` and `add` is a key-word.
 
-2. Items in square brackets `[]` are option
+2. Items in square brackets `[]` are optional fields with the command.
 +
 For example:
 +
 `add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE]`
 +
-Can be used as
+Can be used
 +
-THIS:: `t/todo/CS2103T Assignment d/12/03/2019`
-OR:: `t/todo/CS2103T Assignment`
+With a date:: `t/todo/CS2103T Assignment d/12/03/2019`
+Without a date:: `t/todo/CS2103T Assignment`
 
-3. Parameters with `...` can be used a multiple times including zero times
+3. Parameters with `...` can be used 0, or any number of items
 +
 For example:
 +
-`[#TAG]...` can be used `#friend #family #food` etc
+`[#TAG]...` can are both optional, or used like `#friend #family #food` etc
 
 4. Jarvis can parse the commands in any order.
 
-5. Commands that can take different inputs are represented with a pipe `{|}`.
+5. Commands that can take different inputs are represented with a pipe,
+surrounded by curly braces, i.e `{|}`.
 +
 For example:
 +
@@ -89,10 +91,9 @@ For example:
 +
 means you can use the command as `delete 2` or `delete t/Assignment`
 
-6. `DATE`
-+
-[WARNING]
-Coordinate date formatting amongst Scheduler and Finance Tracker
+////
+DATE Section, coordinate with team to standardise on a single date format.
+////
 
 ////
 Task Scheduler
@@ -109,7 +110,7 @@ Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
 Format: `list {d/DATE | #TAG...}`
 
 Examples: +
-`list #food #science_club`
+`list #food #science_club` +
 `list d/10/06/2019`
 
 ==== Adding a task: `add`
@@ -187,6 +188,8 @@ as undone, represented by a `[✗]`. Upon finishing the task, the task will be
 represented with a `[✓]`.
 
 Format: `done INDEX`
+
+where `INDEX` is the **one-based** index of the task list.
 
 
 ==== Clearing entries: `clear`
@@ -437,7 +440,8 @@ Example: +
 
 ==== Calculate CAP: `cap`
 Calculates the user's Cumulative Average Point (CAP). Requires at least one
-course to have been added.
+course to have been added. Any course that does not have a `GRADE` added
+will not be counted in the calculation.
 
 Format: `cap`
 
@@ -561,27 +565,41 @@ Feature by
 ==== undo
 Undo action(s) on the application. This will allow users to roll back certain
 actions that the user may have accidentally or erroneously done on the
-application.
+application. Keep in mind that only commands that change the data on the application
+are undoable. Commands that just render and display information are not actions
+that can be undone.
 
-Format: `undo [r/NUMBER-OF-COMMANDS]`
+There is a limit of to the number of undoable actions you can make in the application,
+which is set to 20 actions.
+
+Format: `undo [r/NUMBER]`
 
 Examples: +
 `undo` (undoes the latest action) +
 `undo r/3` (undoes the last three actions) +
-`undo r/all` (undoes all actions that Jarvis remembers (20 max))
 
 
 
 ==== redo
 Redo action(s) on the application. This will allow users to redo certain
-actions, or any accidental or erroneous undos.
+actions, or any accidental or erroneous undo actions. Keep in mind that
+only commands that can be undone can be redone. Therefore, only commands
+that change the data on the application can be redone as they can be undone.
+Commands that just render and display information are not actions that can be
+undone and hence will not be able to be redone.
 
-Format: `redo [r/NUMBER-OF-COMMANDS]`
+The maximum number of available redo actions you can make is 20 due to the limit
+of undo actions on the application which is 20.
+
+Take note that if you have undone a certain amount of actions and from that point,
+you type in a new command that is not `redo`, the actions available to be redone
+will be cleared as of that point, similar to a browser navigation on a single tab.
+
+Format: `redo [r/NUMBER]`
 
 Examples: +
 `redo` (redoes the latest undo) +
 `redo r/3` (redoes the last three undos) +
-`redo r/all` (redoes all actions that has been undone (20 max))
 
 = FAQ
 
@@ -610,6 +628,7 @@ Examples: +
 = Command Summary
 
 === Task Scheduler
+
 * `list {d/DATE | #TAG...}`
 * `add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE] [#TAG]... [p/PRIORITY] [r/FREQ]`
 * `delete {INDEX | t/TASK-DESCRIPTION}`
@@ -621,6 +640,7 @@ Examples: +
 * `stats`
 
 === Finance Tracker
+
 * `pay a/AMOUNT {#TAG | n/PERSON}`
 * `pay delete INDEX`
 * `instal set n/ITEM a/AMOUNT`
@@ -643,6 +663,7 @@ Examples: +
 
 
 === Course Lookup
+
 * `add c/MODCODE [g/GRADE`
 * `delete c/MODCODE`
 * `lookup c/MODCODE`
@@ -651,5 +672,6 @@ Examples: +
 * `focus n/FOCUS-AREA`
 
 === App History
+
 * `undo`
 * `redo`

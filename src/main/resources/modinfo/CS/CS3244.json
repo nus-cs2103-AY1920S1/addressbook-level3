@@ -1,0 +1,55 @@
+{
+    "courseCode": "CS3244",
+    "courseCredit": "4",
+    "description": "This module introduces basic concepts and algorithms in machine learning and neural networks. The main reason for studying computational learning is to make better use of powerful computers to learn knowledge (or regularities) from the raw data. The ultimate objective is to build self-learning systems to relieve human from some of already-too-many programming tasks. At the end of the course, students are expected to be familiar with the theories and paradigms of computational learning, and capable of implementing basic learning systems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5242",
+        "CS5339",
+        "CS6216"
+    ],
+    "preclusion": "IT3011",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2010",
+                    "CS2020",
+                    "CS2040"
+                ]
+            },
+            {
+                "or": [
+                    "ESP1107",
+                    "ESP2107",
+                    "ST1232",
+                    "ST2131",
+                    "ST2132",
+                    "ST2334"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    },
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            }
+        ]
+    },
+    "title": "Machine Learning"
+}

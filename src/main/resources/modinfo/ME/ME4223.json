@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4223",
+    "courseCredit": "4",
+    "description": "This module aims to integrate knowledge in thermodynamics, heat transfer and fluid mechanics to design and simulate air-conditioning systems, as well as to estimate and analyse the energy performance of buildings. Major topics include: Applications and basics; Psychrometrics; Comfort and health; Heat gains through building envelopes; Cooling load calculations; Air conditioning design calculations; Air conditioning systems; Air conditioning plants and equipment., Energy estimation and energy performance analysis. The module is designed for third and final-year students who are interested in the Cooling and Energy Efficiency of Buildings.",
+    "faculty": "Engineering",
+    "prereqTree": "ME2121",
+    "title": "Thermal Environmental Engineering"
+}

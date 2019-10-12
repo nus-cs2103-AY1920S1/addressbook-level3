@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6703",
+    "courseCredit": "4",
+    "description": "This module deals with the modelling and control of electrical actuators, both rotary as well as linear types. DC Machines and AC Machines (both Induction as well as Permanent Magnet types and Switched Reluctance machines) will be discussed. This module will make the student aware of the fundamental considerations needed to model and control the electrical actuators in different reference frames that would conform to the general industrial standards.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE5703",
+                    "EE5703R"
+                ]
+            },
+            {
+                "or": [
+                    "EE5711",
+                    "EE5711R"
+                ]
+            }
+        ]
+    },
+    "title": "Modelling and Control of Electrical Actuators"
+}

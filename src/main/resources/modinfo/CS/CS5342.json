@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS5342",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS4341",
+            "CS3246"
+        ]
+    },
+    "title": "Multimedia Computing and Applications"
+}

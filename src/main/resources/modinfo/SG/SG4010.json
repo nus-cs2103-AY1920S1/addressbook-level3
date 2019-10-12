@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG4010",
+    "courseCredit": "4",
+    "description": "The module aims to equip students with the knowledge and skills to design and develop Enterprise Applications using state-of-the-art computing principles and practices. The module teaches important software engineering patterns with an emphasis on the critical analysis of their applicability to large enterprise systems under specific platforms. By exploring the various challenges in real-life enterprise situations, the module would prepare students to devise novel approaches of problem solving for implementing reusable software components. The module would use a sequence of practical business cases to train students in implementing a wellengineered web-based, component-oriented application on the .NET platform.",
+    "faculty": "Institute of Systems Science",
+    "title": "Enterprise .NET I"
+}

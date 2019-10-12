@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6506",
+    "courseCredit": "4",
+    "description": "This module covers systematical analysis and design of advanced mixed-signal integrated circuits in CMOS technology and updates students with the current state-ofthe-art designs. It also stresses the understanding of the mixed-signal circuit design from the system level perspectives.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5507",
+            "EE5507R",
+            "EE5518",
+            "EE5518R"
+        ]
+    },
+    "title": "Advanced Integrated Circuit Design"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5040",
+    "courseCredit": "4",
+    "description": "Its objective is to introduce to the students the concept and theory of fluid mechanics, and heat and mass transfer at advanced level. This module starts with derivation of three conservation equations for momentum, energy and mass, and introduction of constitutive equations that relate fluxes to material properties and driving forces. Application and simplification of these basic equations for various cases is then followed. Various classical methods are learned to solve different problems. It is targeted at students who have interested in the three transports. Some background in engineering mathematics, fluid mechanics, and heat and mass transfer is beneficial.",
+    "faculty": "Engineering",
+    "title": "Advanced Transport Phenomena"
+}

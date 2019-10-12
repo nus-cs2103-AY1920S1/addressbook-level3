@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC2239",
+    "courseCredit": "5",
+    "description": "Data science has revolutionised modern life and technology using a broad spectrum of methods from Mathematics, Statistics and Computer Science. Intrinsically, mathematical and statistical techniques are married to modern computing power to provide accurate and complex tools to capture real life phenomena. In this course we develop an introduction to methods used in data science, at a level requiring basic mathematics and statistics.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YCC1122",
+    "title": "Introduction to Data Science"
+}

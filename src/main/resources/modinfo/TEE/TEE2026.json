@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TEE2026",
+    "courseCredit": "4",
+    "description": "This is a first course that introduces fundamental digital logic, digital circuits, and programmable devices. This course provides students with an understanding of the building blocks of modern digital systems and methods of designing, simulating and realizing such systems. The emphasis of this module is on understanding the fundamentals of digital design across different levels of abstraction using hardware description languages, and developing a solid design perspective towards complex digital systems.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "EE4415E",
+        "TEE4415",
+        "TEE2028"
+    ],
+    "preclusion": "EE2020E, TEE2020",
+    "prereqTree": "EE1002",
+    "title": "Digital Design"
+}

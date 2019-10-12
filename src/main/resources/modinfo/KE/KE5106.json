@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE5106",
+    "courseCredit": "8",
+    "description": "The aim of this second core course - unit 3 of the Master of Technology (MTech) in Knowledge Engineering (KE) - is to present Data Warehousing as an important preparatory process in the development of intelligent systems for Business Analytics. The objectives of the course are to: (1) Present the fundamental principles and practices of Data Warehousing. (2) Present the Data Warehousing process through the discussion of data modelling, dimension design, domain knowledge acquisition, understanding and modelling customer requirements, identifying data sources, data extraction, cleansing and transformation, data loading onto the analytical engine, and data preparation and exploration.",
+    "faculty": "Institute of Systems Science",
+    "title": "Data Warehousing for Business Analytics"
+}

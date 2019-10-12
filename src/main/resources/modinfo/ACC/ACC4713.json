@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC4713",
+    "courseCredit": "4",
+    "description": "This module equips students with internal audit, risk and compliance knowledge and skills. With a slant towards internal auditing, students will learn the key risks and controls in the major banking products such as global markets, credit and lending, wealth management, as well as the major banking regulations such as anti-money laundering/countering of terrorist financing rules. Students will learn how to design internal audit programmes to assess the adequacy and effectiveness of internal controls in these areas. Topics covered include data analytics, common modus operandi of banking frauds and control lapses, internal auditing standards, and internal audit report writing.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4614",
+    "prereqTree": {
+        "and": [
+            "ACC3701",
+            "ACC3706"
+        ]
+    },
+    "title": "Financial Institution Audit & Compliance"
+}

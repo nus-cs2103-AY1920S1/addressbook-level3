@@ -1,0 +1,9 @@
+{
+    "courseCode": "CS3202",
+    "courseCredit": "4",
+    "description": "This module is the second part of a two-part series on the practice of software engineering in Software Development Life Cycle (SDLC). These two modules together provide the students with hands-on experience in working in project groups through a complete SDLC to develop a well-tested, large-scaled software system. This second part focuses on applying best software engineering practices on the implementation and testing of the software system. The students will practice efficient implementation of software components, system integration, software version control, and rigorous testing.",
+    "faculty": "Computing",
+    "preclusion": "CS3215 Software Engineering Project",
+    "prereqTree": "CS2103",
+    "title": "Software Engineering Project II"
+}

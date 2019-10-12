@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PR4201",
+    "courseCredit": "4",
+    "description": "Learning objectives: To understand the systems and principles of marketing. To acquire an overview of the global pharmaceutical industry. To appreciate the unique features of pharmaceutical marketing namely, the players, the types of competitions, international regulations and technology innovation. Major topics: Marketing decisions. Understanding and identifying a market. Creating and managing a product. Assigning value and delivering a product. Communicating about a product. Emphasis is placed on marketing issues pertaining to pharmaceutical/healthcare products and services.Target students: Pharmacy Final Year",
+    "faculty": "Science",
+    "preclusion": "BH1003 or MKT1003 or CS3261",
+    "prereqTree": "PR1140",
+    "title": "Pharmaceutical Marketing"
+}

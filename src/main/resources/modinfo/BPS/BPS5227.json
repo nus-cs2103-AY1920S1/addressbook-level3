@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BPS5227",
+    "courseCredit": "4",
+    "description": "This module focuses on the evaluation of design and spearheading the integration of sustainable design and maintainability, with green facilities management (FM) in mind throughout the life cycle of a facility, right from the planning/design stage. It aims to improve the standard and quality of design, construction and maintenance practices to produce efficient facilities that require minimum maintenance. Major topics covered include technical issues related to maintainability and green FM of major components of a facility for wet area, fa\u00e7ade, basement, roof and Mechanical & Electrical services. Other topics covered are the implications and selection of materials for high maintainability, diagnostic techniques and maintainability grading system.",
+    "faculty": "Design and Environment",
+    "preclusion": "Students who have taken BPS5205 not able to take BPS5227",
+    "title": "Maintainability and Green Facilities Management"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "SP4264",
+    "courseCredit": "2",
+    "description": "The central dogma of Forensic Science is 'every contact leaves a trace', popularly known as the Locard\u2019s principle. However, in reality, juxtaposed against this central dogma is that evidence of absence is not necessary absence of evidence. To scintillate the bridge between science and law, which is exactly what forensic science is, this interactive module will be taught in three parts, 1) proof beyond a reasonable doubt; 2) not all evidence are proof; and 3) evidence of absence is not absence of evidence.",
+    "faculty": "Science",
+    "prereqTree": "LSM1306",
+    "title": "Criminalistics: Evidence and Proof"
+}

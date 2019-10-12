@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4249",
+    "courseCredit": "4",
+    "description": "In this module, basic principles of molecular biotechnology will be introduced. Design process based on engineering principles will also be introduced. Subsequently the module will apply the concepts and tools of molecular biotechnology to design useful methods and processes in biotechnology. Representative examples of molecular biotechnology applications such as molecular diagnostics, therapeutics, and their impact on human health will also be covered.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "LSM1401",
+            "CN2108",
+            "CN3108"
+        ]
+    },
+    "title": "Engg. Design in Molecular Biotechnology"
+}

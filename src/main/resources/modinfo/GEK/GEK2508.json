@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2508",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide a practical introduction to the skies and optical equipment. Students will learn the movements of celestial objects, their properties and telescopic instrumentations. In addition, there will be astronomy field trips, observatory visits and students will learn how to read star charts, operate telescopes and take astro-photographs.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "GEK1520",
+            "PC1322",
+            "GEK1508",
+            "PC1325"
+        ]
+    },
+    "title": "Sky and Telescopes"
+}

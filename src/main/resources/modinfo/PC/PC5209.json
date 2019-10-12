@@ -1,0 +1,14 @@
+{
+    "courseCode": "PC5209",
+    "courseCredit": "4",
+    "description": "The course gives an introduction to the physics of ion beam analysis. After a general introduction, inter-atomic potentials, cross sections and stopping powers are discussed, and the theory of the stopping process is developed based on the Thomas-Fermi statistical atom. Accelerators and other instrumentation are introduced, and a range of analytical techniques is discussed in detail: Rutherford Backscattering (RBS), Proton Induced X-ray Emission (PIXE), Elastic Recoil Detection Analysis (ERDA), Nuclear Reaction Analysis NRA, and Accelerator Mass Spectrometry (AMS). Finally, the more specialised fields of Nuclear Microscopy and Synchrotron radiation are discussed.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4244",
+            "PC4212",
+            "PC4261"
+        ]
+    },
+    "title": "Accelerator Based Materials Characterisation"
+}

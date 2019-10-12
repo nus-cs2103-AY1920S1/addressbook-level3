@@ -1,0 +1,15 @@
+{
+    "courseCode": "CN2125",
+    "courseCredit": "4",
+    "description": "This course considers three modes of heat transfer, namely, conduction, convection, and radiation. For heat conduction, both steady and unsteady states are examined. These are followed by analyses for convective heat transfer and heat transfer with phase change, and subsequently radiative heat transfer. Heat exchangers and their design are discussed. Steady and unsteady-state molecular diffusion is studied, while convective mass transfer is analyzed using exact and approximate integral analysis. Finally, analogies between mass, heat and momentum transfer are discussed leading to the concept of transport phenomena.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN3108",
+        "CN3132",
+        "CN4215R",
+        "CN4205R",
+        "CN4251",
+        "CN3101"
+    ],
+    "title": "Heat & Mass Transfer"
+}

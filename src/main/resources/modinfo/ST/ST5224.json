@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5224",
+    "courseCredit": "4",
+    "description": "Confidence intervals, P-values, classical (Neyman- Pearson) tests, UMP tests, Likelihood ratio test, Power, Wald\u2019s test, Rao\u2019s Score test, Application of likelihood ratio tests to regression. Additional topics that can be covered in this module includes resampling methods, Bayes procedures, robustness, times series, empirical and point processes, optimal experimental design, parametric, semiparametric and non-parametric modelling, survival analysis and sequential analysis.",
+    "faculty": "Science",
+    "prereqTree": "ST5215",
+    "title": "Advanced Statistical Theory II"
+}

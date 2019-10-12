@@ -1,0 +1,12 @@
+{
+    "courseCode": "PR2101",
+    "courseCredit": "4",
+    "description": "Learning objectives: To study the classification, composition, properties and applications of common liquid and semisolid preparations and some solid and novel pharmaceutical systems. To understand and apply the principles of pharmaceutical formulation, technology, evaluation and standardisation in the design and development of the above pharmaceutical systems.Major topics: Fluid mixing. Viscosity and rheology. Interfacial phenomena and colloidal disperse systems. Extraction, filtration and centrifugation. Solutions, emulsions and suspensions. Ointments and gels. Suppositories. Percutaneous delivery systems.Target students: Pharmacy Year Two",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR5302",
+        "PR5303"
+    ],
+    "prereqTree": "PR1102",
+    "title": "Dosage Form Design I"
+}

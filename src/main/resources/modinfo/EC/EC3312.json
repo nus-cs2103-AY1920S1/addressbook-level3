@@ -1,0 +1,8 @@
+{
+    "courseCode": "EC3312",
+    "courseCredit": "4",
+    "description": "This module introduces students in economics and other social sciences to game theory, a theory of interactive decision making. This module provides students with the basic solution concepts for different types of non-cooperative games, including static and dynamic games under complete and incomplete information. The basic solution concepts that this module covers are Nash equilibrium, subgame perfect equilibrium, Bayesian equilibrium, and perfect Bayesian equilibrium. This module emphasizes the applications of game theory to economics, such as duopolies, auctions, and bargaining.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "MA4264",
+    "title": "Game Theory & Applications to Economics"
+}

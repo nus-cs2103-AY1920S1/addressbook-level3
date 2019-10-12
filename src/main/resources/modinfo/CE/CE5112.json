@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5112",
+    "courseCredit": "4",
+    "description": "Students will learn the various methods of excavation construction and apply the fundamental knowledge of structural mechanics to design a wide range of earth retaining walls and their support systems. The key focus is to develop the capability to design various types of retaining walls, ground anchorage, walers, struts, kingposts, bracing and connection details. It will also cover the design of working platforms which are often required in deep excavations, as well as methods of jointing and splicing to allow incorporation of instrumentation. The course will cover both steel and reinforced concrete retaining walls, such as sheetpile, soldier piles, timber lagging, contiguous bored piles, diaphragm walls and etc. The course enables students to acquire further knowledge on soil-structure interaction and gain practical skills through the lectures, case studies and design projects.",
+    "faculty": "Engineering",
+    "prereqTree": "CE5108",
+    "title": "Structural Support Systems for Excavation"
+}

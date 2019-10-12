@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5108",
+    "courseCredit": "4",
+    "description": "This is a specialised module targeted to the engineering students. It teaches the students practical design and analytical skills in instrumentation and sensing. This module covers Generalised Measurement System, Interface Electronics and Signal Processing, Noise and Interference in Measurements, and Data Transmission Techniques. As far as sensors are concerned, Motion (displacement, velocity and acceleration), Force & Tactile, Temperature, Pressure/ Flow, Machine Vision & Applications, and Optical Sensors will be discussed. Recent Advances in sensors such as smart sensors and microsensors will be highlighted. Several industrial cases involving advanced sensing and sensory control will be discussed.",
+    "faculty": "Engineering",
+    "preclusion": "MCH5206",
+    "title": "Instrumentation and Sensors"
+}

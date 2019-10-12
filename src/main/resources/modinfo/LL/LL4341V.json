@@ -1,0 +1,19 @@
+{
+    "courseCode": "LL4341V",
+    "courseCredit": "5",
+    "description": "This course critically examines the relationship between law and politics in the international protection of the forcibly displaced, focusing on five groups of migrants, namely, refugees and asylum-seekers, stateless persons, internally displaced persons, victims of trafficking, and climate-change and environmentally displaced persons. After assessing the protection gaps relating to these five groups, this course considers the more complex phenomena of mass influx and 'mixed migration,' immigration detention (specifically of particularly vulnerable migrants), and durable solutions. The roles of regional and institutional organisations will also be studied. An assessed negotiation relating to a present-day forced migration crisis concludes the course.",
+    "faculty": "Law",
+    "preclusion": "LL4341/LL5341/LL6341 The Law and Politics of Forced Migration",
+    "prereqTree": {
+        "or": [
+            "LL4050",
+            "LL5050",
+            "LL6050",
+            "LC5050",
+            "LL5050V",
+            "LL6050V",
+            "LC5050V"
+        ]
+    },
+    "title": "The Law and Politics of Forced Migration"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "SPH3104",
+    "courseCredit": "4",
+    "description": "This module gives an overview of the epidemiology of infectious diseases and its relevance to public health. It outlines fundamental concepts governing the interaction between microbes and host populations, and how such interactions affect the distribution of disease and the options for surveillance, prevention and control. Epidemiology and principles of prevention and control for several types of infectious diseases will be described, and applied to key diseases of global and local importance including vaccine preventable diseases, food-borne diseases, zoonotic and environment-related infectious diseases, vector-borne diseases, healthcare associated infections and drug resistant organisms, tuberculosis, and HIV and other sexually transmitted infections.",
+    "faculty": "SSH School of Public Health",
+    "prereqTree": "SPH2101",
+    "title": "Infectious disease epidemiology and public health"
+}

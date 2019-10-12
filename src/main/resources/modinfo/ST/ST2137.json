@@ -1,0 +1,17 @@
+{
+    "courseCode": "ST2137",
+    "courseCredit": "4",
+    "description": "This module introduces students to the statistical computer packages, with main focus on SAS, Splus and SPSS, that provide the computational tools for performing statistical data analysis using the methodology covered in the prerequisite modules. Topics include data access, transformations, estimation, testing hypotheses, ANOVA, performing resampling methods and simulations. It also equips students with basic computational techniques for maximum likelihood estimation. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST1131",
+            "ST1131A",
+            "ST1232",
+            "ST2334",
+            "ST2131",
+            "MA2216"
+        ]
+    },
+    "title": "Computer Aided Data Analysis"
+}

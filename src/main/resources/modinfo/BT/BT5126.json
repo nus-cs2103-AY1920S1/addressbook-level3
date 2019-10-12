@@ -1,0 +1,9 @@
+{
+    "courseCode": "BT5126",
+    "courseCredit": "4",
+    "description": "The goal of this module is to take students through all the stages of an analytics project from design, data collection, execution and presentation. Through a learning-by-doing approach, students will engage in business cases, guided projects and a project of their own design. Lectures will cover a breadth of technical tools and statistical methods through the data pipeline in an organization. The module will especially emphasize on techniques for causal analysis and econometric identification. Students will get the opportunity to present their projects at a public event open to peers, faculty, investors and industry experts.",
+    "faculty": "Computing",
+    "preclusion": "IS5126 Hands-on with Applied Analytics",
+    "prereqTree": "DSC5103",
+    "title": "Hands-on with Business Analytics"
+}

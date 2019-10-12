@@ -1,0 +1,21 @@
+{
+    "courseCode": "IS4234",
+    "courseCredit": "4",
+    "description": "Organisations today need to ensure that they are aware of and ensure that they comply with relevant laws and regulations. Technology is also utilised to automate and enhance the regulatory monitoring and reporting of compliance. This module provides an opportunity for students to have a comprehensive understanding of the frameworks and standards relating to regulatory compliance and also a good understanding of how technology is applied, for example in financial sector, for compliance.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "IS2102",
+                    "IS2103"
+                ]
+            },
+            "CS2103",
+            "CS2103T",
+            "CS2113",
+            "CS2113T"
+        ]
+    },
+    "title": "Compliance and Regulation Technology"
+}

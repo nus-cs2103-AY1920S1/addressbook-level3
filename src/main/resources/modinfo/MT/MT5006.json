@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "MT5006",
+    "courseCredit": "4",
+    "description": "Companies live or die by their ability to successfully launch new products into the market place. The basic tenets are: know your market, know your customers and develop products that will delight your customers. The objective of this module is to acquaint students with the theory and practice of New Product Development and New Product Introduction (NPI) methods and systems. The module explores various NPI systems, project and portfolio management skills and an extensive toolbox that contains necessary tools to enable companies to make informed, data-driven decisions. The module combines taking a hands-on project through an NPI Phase Gate System, with relevant cases studies on NPI projects that have succeeded and some that have not.",
+    "faculty": "Engineering",
+    "preclusion": "MT5006A New Product Development Process & MT5006B New Product Development and Corporate Strategy",
+    "title": "Strategic & New Product Development"
+}

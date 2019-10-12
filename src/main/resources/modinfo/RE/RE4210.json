@@ -1,0 +1,13 @@
+{
+    "courseCode": "RE4210",
+    "courseCredit": "4",
+    "description": "Institutional investment into real estate has increased both in scale and sophistication in recent years. This module is designed to enable student to study flows of fund into real estate markets and different instruments in structured real estate financing. Topics include real estate capital market private real estate funds, real estate hedge funds, mutual and close-end funds, fund of funds, Islamic financing and issues in cross border real estate investment.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "or": [
+            "RE4211",
+            "RE4212"
+        ]
+    },
+    "title": "Real Estate Finance Seminar"
+}

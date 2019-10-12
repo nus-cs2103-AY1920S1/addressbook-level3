@@ -1,0 +1,9 @@
+{
+    "courseCode": "FNA3116",
+    "courseCredit": "4",
+    "description": "This course is an introduction to basic financial derivatives with an emphasis on forward, futures, and optionA contracts. Topics to be covered include the structure of forward, futures and options markets, the pricing of futures and options contracts, and the applications of futures and options in hedging and speculation. The approach will cover both the theoretical and applied issues in financial derivatives. Key concepts and theories will be illustrated by examples of derivatives usages in practice and the implementation of hedging strategies.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3116 or BZ3312 or BK3109A",
+    "prereqTree": "FNA3102",
+    "title": "Options And Futures"
+}

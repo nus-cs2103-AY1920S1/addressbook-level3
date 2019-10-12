@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG2301",
+    "courseCredit": "4",
+    "description": "This module will expose students to the broader considerations which are necessary for the design of complex engineering systems. Students will be taught through a number of case studies which demonstrate due deliberations to sustainability, entrepreneurship, project risk management, intellectual property, and user oriented design. For example, one case study involves the work of a non-governmental organisation which is helping to develop a rural community in Cambodia. The issues considered include the concern for the sustainability of the livelihood of the inhabitants in the community as well as the environment. Other case studies are presented to demonstrate the success behind a start-up company, the importance of good project management in the design of a complex engineering system, and the need for user-centric designs. Each case has a unique set of learning outcomes. At the end of the module, students will be tasked to build their own case study around a project of their interest. Non-engineering students are welcomed to participate in this module.",
+    "faculty": "Engineering",
+    "title": "Case Studies in Engineering"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "IS6002",
+    "courseCredit": "4",
+    "description": "This module will cover the essential methods in quantitative IS research. It will start with a discussion of measures and data collection. It will then go more in-depth into the experimental methods, design, and analysis using ANOVA and variants. Subsequently, survey design and analysis including regression, moderation, mediation, factor analysis, and structural equation modeling will be covered. Secondary data analysis using discriminant analysis, logistic regression, Bayesian network, clustering, and basic text processing will also be discussed. The course will conclude with discussion on review and critiquing of quantitative research.",
+    "faculty": "Computing",
+    "title": "Quantitative Methods for IS Research"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "MA5260",
+    "courseCredit": "4",
+    "description": "The objective of this course to introduce students the basics of Brownian motion and martingale theory. For Brownian motion, we cover topics such as existence and uniqueness of Brownian motion, Skorokhod embedding, Donsker's invariance principle, exponential martingales associated with Brownian motion, sample path properties of Brownian motion. As for martingales, we confine ourselves to discrete time parameter martingales and cover topics such as conditional expectations and their properties, martingales (submartingales and supermartinmgales), previsible processes, Doob's upcrossing lemma, Doob's martingale convergence theorem, stopping times, martingale transforms and Doob's optional sampling theorems, martingale inequalities and inequalities for martingale transforms.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5267"
+    ],
+    "preclusion": "ST5205",
+    "prereqTree": {
+        "or": [
+            "MA5259",
+            "ST5214"
+        ]
+    },
+    "title": "Probability Theory II"
+}

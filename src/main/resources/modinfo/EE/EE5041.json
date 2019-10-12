@@ -1,0 +1,7 @@
+{
+    "courseCode": "EE5041",
+    "courseCredit": "2",
+    "description": "When synchronous generators in an interconnected grid are subjected to a disturbance, exchange of energy among generators occurs to minimize the power imbalances. Such dynamics are captured in the form of electromechanical oscillations, and are inherent to power grids. From the utility perspective, poorly damped oscillations can trigger rotor-angle instability and cause wide-area blackouts. Hence, real-time assessment using advanced sensors like Phasor Measurement Unit (PMU) are used to improve grid stability. Additionally, proper design of the excitation system in a synchronous generators is critical. This module provides a holistic view of identifying and mitigating stability issues among synchronous generators.",
+    "faculty": "Engineering",
+    "title": "Grid Stability and Security"
+}

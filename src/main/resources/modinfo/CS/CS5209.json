@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5209",
+    "courseCredit": "4",
+    "description": "Many functionalities which were previously handled by electrical or mechanical devices are now computer controlled. In order to develop reliable computer systems, we need to have the foundations for logically reasoning about their behaviour. This module introduces the students to mathematical logic and its usage in modelling/validating computer systems.",
+    "faculty": "Computing",
+    "prereqTree": "CS3234",
+    "title": "Foundation in Logic and AI"
+}

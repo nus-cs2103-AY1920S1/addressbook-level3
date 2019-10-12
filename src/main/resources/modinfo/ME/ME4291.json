@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME4291",
+    "courseCredit": "4",
+    "description": "This course introduces the fundamental concepts of the finite element method, practical techniques in creating an FEM model, and demonstrates its applications to solve some important stress and thermal analysis problems in Mechanical Engineering. Some necessary background in mechanics will be briefed before the foundations of the FEM theory, concept and procedures are covered. Various formulations and applications to one- two- and threedimensional problems in solid mechanics and heat transfer will be covered to reinforce the theory and concepts. The precautions in the actual practice of FE analysis such as mesh design, modeling and verification will also be covered. Some instruction in the use of a commercial FEM software package will be given and students are expected to carry out one or more projects with it independently. This module should give students a good foundation for numerical simulation, and basic skills for carrying out stress and thermal analysis for a mechanical system.",
+    "faculty": "Engineering",
+    "prereqTree": "MA1505",
+    "title": "Finite Element Analysis"
+}

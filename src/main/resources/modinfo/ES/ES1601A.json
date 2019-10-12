@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "courseCode": "ES1601A",
+    "courseCredit": "4",
+    "description": "This module aims to enable students to communicate and write in two main contexts -industry/workplace and academic. It is twinned with GEQ1917 Understanding and Critiquing Sustainability and is read over two semesters. Therefore, the teaching/learning of targeted communication and writing skills are drawn upon the requirements, tasks, assignments, and projects of GEQ1917. By situating communication in different contexts, students learn to shape, articulate and express their ideas, thoughts and messages depending on the audience, purpose, media and platform.",
+    "faculty": "NUS",
+    "preclusion": "CS2101 Effective Communication for Computing Professional, IS2101 Business and Technical Communication, ES2331 Communicating Engineering, ES2002 Business Communication, ES2007D Professional Communication, ES1541/SP1541 Exploring Science Communication through Popular Science, ES1501%.",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1102",
+            "ES1103"
+        ]
+    },
+    "title": "Professional and Academic Communication"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "EC4334",
+    "courseCredit": "5",
+    "description": "Market microstructure studies how trading takes place in financial markets. The module will cover theoretical models and the associated empirical analysis employing game theory and econometric theory. We first analyse the movement of security prices by time series models. Second, we investigate various trading strategies adopted by market participants. We then examine three main types of theoretical models of trading: inventory models, sequential trading models, and strategic trading models. Finally, we study how trading rules and institutional details may lead to different trading processes.",
+    "faculty": "Arts and Social Science",
+    "title": "Financial Market Microstructure"
+}

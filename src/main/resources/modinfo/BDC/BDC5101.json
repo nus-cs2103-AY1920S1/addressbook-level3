@@ -1,0 +1,7 @@
+{
+    "courseCode": "BDC5101",
+    "courseCredit": "4",
+    "description": "This module is a first thread in the quantitative decision making and provides the basic quantitative background for courses in finance, operations management, and supply chain management. Operations research (OR) has been applied extensively in such diverse areas as financial planning, logistics and supply management, public service, health care, manufacturing, telecommunication and military, to name just a few. In this module, deterministic operations research models relevant to business decision making will be covered. The emphasis is on model building, solution methods, and interpretation of results. Topics covered include: linear and non-linear programming, dynamic programming, integer programming, heuristic problem-solving methods and other interesting OR topics. Computer packages for OR modelling may be used.",
+    "faculty": "NUS Business School",
+    "title": "Deterministic Operations Research Models"
+}

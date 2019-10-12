@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5805",
+    "courseCredit": "4",
+    "description": "Design for Manufacture and Assembly (DfMA) aims at ease of manufacture and assembly efficiency in order to increase overall productivity in construction. This course discusses the concepts of constructability and examines the principles of DfMA from the perspective of manufacture and assembly, including the use of BIM and digital technologies while covering logistical considerations to realise just-in-time production and delivery. This course also gives an overview of construction planning with particular considerations for equipment selection and fleet size determination. It also examines productivity enhancement technologies and application of simulation to improve productivity.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5805",
+    "prereqTree": "CE2183",
+    "title": "DfMA & Productivity Analytics in Construction"
+}

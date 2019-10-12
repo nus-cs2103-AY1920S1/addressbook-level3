@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SC2226",
+    "courseCredit": "4",
+    "description": "This module introduces students to the key issues in the sociology of mental health. It emphasizes the social influences on mental disorders, especially factors associated with the family-of-origin, while acknowledging the medical aspects of mental health. The consequences of mental disorders on individuals and their ecological systems will also be discussed. Students will be equipped with the knowledge to frame mental disorders from a biopsychosocial perspective, view mental disorders as social conditions and be able to attest to the social construction of medical diagnosis of mental disorders.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "SC1101E",
+    "title": "Sociology of Mental Health"
+}

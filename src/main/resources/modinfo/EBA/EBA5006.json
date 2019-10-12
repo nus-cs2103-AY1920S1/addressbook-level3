@@ -1,0 +1,13 @@
+{
+    "courseCode": "EBA5006",
+    "courseCredit": "10",
+    "description": "This module teaches the foundation skills and best practices for engineering big data engineering and edge devices (web and IoT) based solutions for analytics projects within the industry which includes understanding how to successfully build data processing pipeplines to meet stakeholder\u2019s requirements, setting up enterprise data lake for insight engineering, performing web analytics towards improved business intelligence, data analytics, management and processing for IoT devices.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "EBA5002",
+            "EBA5001"
+        ]
+    },
+    "title": "Big Data Engineering and Web Analytics"
+}

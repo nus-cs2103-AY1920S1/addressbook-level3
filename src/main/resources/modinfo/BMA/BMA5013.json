@@ -1,0 +1,11 @@
+{
+    "courseCode": "BMA5013",
+    "courseCredit": "4",
+    "description": "This course focuses on the work of top management in business organisations. The primary perspective adopted is that of the general manager at the head of a business entitya?\"the corporation, business, division or planta?\"whose main responsibility is the overall success of his or her organisation. The course concentrates on the skills and actions required of the general manager for the development, communication and implementation of strategic organisational choices in the context of complex business situations. Two related areas comprise the core of the course. The first, strategy formulation, address the goals and objectives of the course, and the means by which these goals and objectives are to be achieved. The second area, strategy implementation, concentrates on how the general manager deploys the organisationa??s resources to implement, control and improve the formulated strategy. In order to capture the pragmatic, action oriented nature of the general managera??s task and the complexity of the environment in which he or she operates, part of the course is taught through the case method. In addition, students will be exposed to a range of practitioner or theoretical readings on the subject.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMA5129",
+        "BMA5126"
+    ],
+    "title": "Corporate Strategy"
+}

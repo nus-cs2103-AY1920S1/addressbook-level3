@@ -1,0 +1,16 @@
+{
+    "courseCode": "ST5215",
+    "courseCredit": "4",
+    "description": "Review: Weak Law of large numbers, central limit theorem, Slutsky theorem, delta method and variance stabilizing transformation. Statistical models. Sufficiency and Neyman's Factorization criterion. Scores. Exponential families. Estimation methods: moment, maximum likelihood, least squares. Optimality of estimates. Unbiasedness, minimum variance, completeness, UMVU estimates. Theorems of Rao-Blackwell, Cramer-Rao, Lehmann-Scheffe. Consistency. Large sample theory of MLE's, Bayes, minimax. Confidence intervals, P-values, classical (Neyman-Pearson) tests, UMP tests, Likelihood ratio test, Power, Wald's test, Rao's Score test, Application of likelihood ratio tests to regression. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5224"
+    ],
+    "prereqTree": {
+        "and": [
+            "ST2131",
+            "ST2132"
+        ]
+    },
+    "title": "Advanced Statistical Theory"
+}

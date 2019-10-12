@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4602",
+    "courseCredit": "4",
+    "description": "The main objective of this module is to introduce biophysics, electric circuit models and engineering oriented principles of bioelectronics and bioelectricity. This module will provide electrical engineering students with central core knowledge to use semiconductor devices as bio-sensing devices, and to understand the electrical biophysics of human physiology and their biomedical applications. The major topics in this module cover: brief review of MOSFET transistor and SPICE modelling, solid-electrolyte Interface, potentiometric bioelectronics devices: principles of MOSFET-based bioelectronic devices, amperometric bioelectronics devices, microfabrication technologies for bioelectronic devices, introduction to bioelectricity, neurons and neuronal networks, bioelectric measurements.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2004",
+    "title": "Bioelectronics"
+}

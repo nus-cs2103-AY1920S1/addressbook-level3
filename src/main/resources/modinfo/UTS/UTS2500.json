@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2500",
+    "courseCredit": "4",
+    "description": "The Capstone Experience is open to undergraduate members of the College (Year 2 and above) and builds on the first and second year modules of the UTown Residential Programme. Students may elect to work individually (e.g. as part of an internship) or in an multidisciplinary group. Together with an external organization, and under the guidance of an academic supervisor, they apply disciplinary knowledge and skills to address an issue or question which is authentic and of practical relevance to the community. In the process, students engage communities and organizations either locally or abroad in planning, implementing and communicating their ideas and concepts, develop collaborative and leadership skills, cultural competency and an awareness of civic values. The learning experience is reflected in well-researched and thoughtful situational analyses, a learning journal, and midterm and final reports or presentations. Capstone experiences will be supervised by College faculty with expertise in the chosen area, with the participation of a qualified preceptor from the external organization.",
+    "faculty": "Residential College",
+    "preclusion": "SSU2001%",
+    "title": "College 3 Capstone Experience"
+}

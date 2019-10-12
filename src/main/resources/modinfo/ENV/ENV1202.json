@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ENV1202",
+    "courseCredit": "4",
+    "description": "This module is designed for undergraduate students pursuing the Bachelor of Environmental Studies degree with the aim of helping them to develop critical thinking, reading, writing and speaking skills relevant for communication with academia and with the public. The curriculum deals with three main interrelated areas: \u2022 Communication with the public - raising public awareness of environmental issues through science-based advocacy \u2022 Communication with academia - developing skills in academic writing \u2022 Argumentation within environmental studies - examining environmental issues using the Precautionary Principle. This module is taught over 1 semester via a blended approach with a three-hour sectional session per week.",
+    "faculty": "Science",
+    "preclusion": "SP1202",
+    "prereqTree": {
+        "or": [
+            "ES1000",
+            "ES1103"
+        ]
+    },
+    "title": "Communications for Environmental Studies"
+}

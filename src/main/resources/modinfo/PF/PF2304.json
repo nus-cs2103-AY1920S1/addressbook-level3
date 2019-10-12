@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2304",
+    "courseCredit": "4",
+    "description": "The module covers the fundamental principles of operations and maintenance of facilities such as organization of O&M team, O&M planning, execution and management, O&M of Mechanical, Electrical, Plumbing & Fire Protection Systems and O&M management systems",
+    "faculty": "Design and Environment",
+    "preclusion": "PF4309, PFM students from AY2018/19 intake and after",
+    "title": "Operations and Maintenance Management"
+}

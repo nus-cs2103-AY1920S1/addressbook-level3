@@ -1,0 +1,28 @@
+{
+    "courseCode": "EN3261",
+    "courseCredit": "4",
+    "description": "This module explores a selection of generally short, popular, and major European literary works which work with the legacy of Romanticism, Realism, and Modernism in the new context of post-World War Two Europe and the rise of the European Union; several texts are by Nobel Prize winners, and all are acknowledged as 'contemporary classics.' Various genres are represented, and the module takes a relatively wide sweep across Europe. In addition, filmed versions of the texts are considered where appropriate and available. The module therefore will explore texts both in their own right and as representative examples of major tendencies and developments of an essentially European tradition.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EU3217",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "European Literature I"
+}

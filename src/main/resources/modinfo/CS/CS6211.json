@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS6211",
+    "courseCredit": "4",
+    "description": "Constructing simple mathematical models to describe a computer system can help in analysis and understanding of the characteristics, behaviour, and performance of the system. This module introduces students to the modelling techniques, commonly used models, applications of the models to performance modelling of computer systems, and experimental validation of the models. After completing the module, students are expected to have the confidence to construct, analyse, and validate a performance model for a computer system that they are interested in.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            },
+            "CS2105",
+            "CS2106"
+        ]
+    },
+    "title": "Analytical Performance Modelling for Computer Systems"
+}

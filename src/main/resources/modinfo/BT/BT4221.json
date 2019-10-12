@@ -1,0 +1,25 @@
+{
+    "courseCode": "BT4221",
+    "courseCredit": "4",
+    "description": "This module teaches students concepts, techniques and technologies in handling and analyzing big data sets, i.e., data sets whose size is beyond the ability of commonly used software tools to capture, manage, and process the data within a tolerable elapsed time. Common sources and domains of big data include ubiquitous information-sensing mobile devices, web and software logs, financial trading transactions, large-scale e-commerce, RFID and wireless sensor networks, etc. Conceptual big data topics covered include big data instructure, analytics scalability and processes, etc. Technical frameworks for big data handling and analytics taught include Hadoop, HBase, Cassandra, MapReduce, Dynamo, R, in-database analytics, mining of data streams, etc.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "CS1010",
+                    "BT2101",
+                    "BT2102"
+                ]
+            },
+            {
+                "and": [
+                    "DAO2702",
+                    "DBA3803",
+                    "IT3010"
+                ]
+            }
+        ]
+    },
+    "title": "Big Data Techniques and Technologies"
+}

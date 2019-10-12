@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM4237",
+    "courseCredit": "4",
+    "description": "The module is intended for those students interested in a deeper understanding of the liquid state and solutions. The content unifies all the material covered in levels one to three in physical chemistry concerning the liquid state. Particular attention is paid to the material taught in CM3232 regarding interfaces and extends it into the liquid state. Topics covered include: Intermolecular interactions, Laplaces, Poissons and Poisson, Boltzmann's equations and their application to Debye-Hckle theory, the Goy Chapman and Stern models, zeta-potential, and the electrostatic potential around proteins. Colloids involving sols, emulsions and foams are considered as well as reactions in solution, computer models of the liquid state and experimental techniques.",
+    "faculty": "Science",
+    "prereqTree": "CM3232",
+    "title": "Interfaces and the Liquid State"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3210D",
+    "courseCredit": "5",
+    "description": "The proseminar in literary studies introduces students to the comparative study of literary form. Students will engage with a range of theoretical and literary critical approaches, beginning with Plato and Aristotle and ending with contemporary Post-Colonial theory and new paradigms of World Literature. The course\u2019s goal is largely methodological, offering students a critical toolbox to help frame their interpretations of literary texts.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Proseminar Lit Studies: How to Do Things with Literature"
+}

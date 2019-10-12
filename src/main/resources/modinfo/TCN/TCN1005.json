@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TCN1005",
+    "courseCredit": "4",
+    "description": "With the widespread use of computers and computational tools in industrial practice and research, it is important for students in the chemical engineering programme to gain a firm understanding and appreciation of the fundamentals of programming, algorithmic problem solving, coding and debugging. The final goal is to be able to apply these skills to solving realistic chemical engineering problems. MATLAB, a high-level computing language will be employed due to its capability to solve domain-specific computing problems more conveniently than with traditional programming languages. MATLAB also provides the platform to span a wide variety of application areas.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TC1005",
+    "title": "MATLAB Programming for Chemical Engineers"
+}

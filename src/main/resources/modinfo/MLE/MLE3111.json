@@ -1,0 +1,18 @@
+{
+    "courseCode": "MLE3111",
+    "courseCredit": "4",
+    "description": "Laboratory class in which students will conduct hands on experiments",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4102A"
+    ],
+    "prereqTree": {
+        "or": [
+            "MLE1002",
+            "MLE2101",
+            "MLE2111",
+            "MLE1001"
+        ]
+    },
+    "title": "Materials Properties & Processing Laboratory"
+}

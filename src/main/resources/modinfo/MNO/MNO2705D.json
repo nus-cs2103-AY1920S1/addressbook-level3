@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO2705D",
+    "courseCredit": "4",
+    "description": "The decisions you make every day will shape your life. In an organization, the decisions you make will impact outcomes for you, your team, and cumulatively affect the trajectory of your career. This module aims to help you navigate the pathways of decision making in organizations. We will undertake an evidence-based approach, tapping on several streams of research \u2013 including behavioral psychology and economics, error management, and intuitive judgment \u2013 to give a rigorous account of what separates good decisions from the rest. These conceptual tools will empower you to make good decisions in an uncertain world, to influence, and to lead.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Leadership and Decision Making under Uncertainty"
+}

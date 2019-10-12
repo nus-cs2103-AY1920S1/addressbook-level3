@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5209",
+    "courseCredit": "3",
+    "description": "The aim of this course is to teach students about building Enterprise applications. Design challenges and issues that need to be considered will be discussed. Java 2 Enterprise Edition (J2EE) as a solution to build Enterprise application will be introduced. J2EE is a framework for building robust, secure and scalable applications. It simplifies the development of enterprise applications using servlet, JSP and EJB technologies to create robust and dynamic web applications, build reusable business objects and services that can be shared across the enterprise. This course will also teach how J2EE implements security and transaction features necessary for typical web-based e-commerce applications. There will be a design/programming project. This course is intended for OO designers/developers who wish to develop enterprise Java applications.",
+    "faculty": "Institute of Systems Science",
+    "title": "Enterprise Java"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TIE2150",
+    "courseCredit": "4",
+    "description": "This course introduces the basic concepts of human factors engineering and ergonomics. The topics covered include: Human Factors in Systems (Human Error), Implications of Human Functions in performance (Work Physiology), Workstation Design (Guidelines and Norms), Environmental Stressors and Ergonomics Fieldwork (Translation and Application).",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE2150E",
+    "title": "Human Factors Engineering"
+}

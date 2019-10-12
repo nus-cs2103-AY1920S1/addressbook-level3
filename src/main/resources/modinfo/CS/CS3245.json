@@ -1,0 +1,32 @@
+{
+    "courseCode": "CS3245",
+    "courseCredit": "4",
+    "description": "This module discusses the basic concepts and methods of information retrieval including capturing, representing, storing, organizing, and retrieving unstructured or loosely structured information. The most well-known aspect of information retrieval is document retrieval: the process of indexing and retrieving text documents. However, the field of information retrieval includes almost any type of unstructured or semi-structured data, including newswire stories, transcribed speech, email, blogs, images, or video. Therefore, information retrieval is a critical aspect of Web search engines. This module also serves as the foundation for subsequent modules on the understanding, processing and retrieval of particular web media.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6242",
+        "CS4241",
+        "CS4248",
+        "CS4242",
+        "CS3283"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS2010",
+            "CS2020",
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CS2030",
+                            "CS2113",
+                            "CS2113T"
+                        ]
+                    },
+                    "CS2040"
+                ]
+            }
+        ]
+    },
+    "title": "Information Retrieval"
+}

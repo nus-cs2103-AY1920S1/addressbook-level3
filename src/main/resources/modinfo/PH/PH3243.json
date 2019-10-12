@@ -1,0 +1,17 @@
+{
+    "courseCode": "PH3243",
+    "courseCredit": "4",
+    "description": "We often appeal to probabilistic notions in everyday life. We say things such as \u2018It\u2019ll probably rain later\u2019, \u2018It\u2019s unlikely that an asteroid will collide with Earth any time soon\u2019, and \u2018There\u2019s a chance that the restaurant will be open\u2019. But what exactly is probability? We shall investigate various answers to this question by looking at various theories of probability, including the subjective theory, the epistemic theory, the frequency theory, and the propensity theory. Along the way, we\u2019ll see how issues in the philosophy of probability bear on issues in the philosophy of science, metaphysics, and epistemology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2110",
+            "GEM2006",
+            "PH2201",
+            "GEM2025",
+            "PH2243",
+            "PH3211"
+        ]
+    },
+    "title": "Chance and Uncertainty"
+}

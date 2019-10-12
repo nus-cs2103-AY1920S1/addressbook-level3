@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5203",
+    "courseCredit": "3",
+    "description": "Customer Relationship Management (CRM) is a business strategy to reduce cost and increase profitability through a better understanding of customers gained from insights into customer data. This course introduces Online Analytical Processing (OLAP) and data mining techniques to derive insights into the behaviour and value of your customers. Participants will learn how to make quicker and better business decisions using customer profiling and targeting, profitability analysis, customer-personalization, event-monitoring, what-if scenarios, and predictive modelling. This course will incorporate industry best practices and latest trends and feature workshops using CRM software to enhance learning and practice.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "Customer Relationship Management"
+}

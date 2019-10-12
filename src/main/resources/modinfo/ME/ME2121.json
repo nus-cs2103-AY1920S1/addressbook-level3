@@ -1,0 +1,13 @@
+{
+    "courseCode": "ME2121",
+    "courseCredit": "4",
+    "description": "This module develops a good understanding of the basic concepts and application of thermodynamics and heat transfer, required for the analysis, modeling and design of processes and thermal-fluid systems in engineering practice. Major topics include the introduction and the application of the First and Second Laws of Thermodynamics, reversible and irreversible processes, entropy, non-flow and flow processes, cycles involving entropy changes, power and refrigeration cycles, as well as convection & radiation heat transfer.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME3221",
+        "ME4223",
+        "ME4226"
+    ],
+    "prereqTree": "ME1102",
+    "title": "Engineering Thermodynamics and Heat Transfer"
+}

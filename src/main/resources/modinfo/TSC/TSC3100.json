@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "TSC3100",
+    "courseCredit": "8",
+    "description": "This is a design project which requires students to form a group, to study, formulate and analyze an actual industrial logistics or supply chain problem with the goal of recommending a design solution that is practical. It also enables students to practice and improve the skills of technical report writing and oral presentation. The objective of the design project is to provide an opportunity for students to gain practical experience on an actual industry problem. It also gives the students a broader scope of applying supply chain management and engineering concepts rather than concentrating on one particular subject area.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "or": [
+            "TIE2100",
+            "TIE2110",
+            "TIE2140"
+        ]
+    },
+    "title": "Supply Chain Design"
+}

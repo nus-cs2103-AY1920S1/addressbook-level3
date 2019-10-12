@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "LC1003",
+    "courseCredit": "8",
+    "description": "This foundational course examines the basic doctrines and issues of contract law, including the creation of rights and obligations from voluntary undertakings, the doctrines which circumscribe the circumstances under which the law permits a dissolution of the contract, and the remedies that the law provides for the breach of contractual obligations. In exploring the constituent components of contracts - formation, privity, frustration, breach, remedies, terms and vitiating factors - the course also examines challenges to the traditional model of contract law, tensions arising from the pulls of certainty and fairness, and other broader issues.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5238",
+        "LL6238",
+        "LL4238"
+    ],
+    "title": "Law Of Contract"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IE1114",
+    "courseCredit": "4",
+    "description": "This module introduces first year engineering students to what engineers do and to the engineer's thought process in industrial, systems engineering and management. Real engineering systems will be used to show how engineers use different disciplines of engineering, and combine them to design, make and test systems. Through grasping engineering fundamentals, students learn how engineering systems work and fail. Through learning of real systems, students learn how multi-disciplinary concepts are tied together. The students will also learn basic design, experimentation and evaluation of engineering systems.",
+    "faculty": "Engineering",
+    "preclusion": "IE1112 ISE Principles and Practices II\nIE2101 Introduction to Systems Thinking",
+    "prereqTree": "IE1113",
+    "title": "Introduction to Systems Thinking and Dynamics"
+}

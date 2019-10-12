@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC4221",
+    "courseCredit": "5",
+    "description": "This advanced course on quantum mechanics follows YSC3210 Introduction to Quantum Mechanics and looks at the application of quantum mechanics to time-independent and time-dependent perturbation theory, scattering theory including scattering matrices, partial wave analysis, Born approximation, the adiabatic theorem and Berry phase and Berry curvature.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC3210",
+    "title": "Advanced Quantum Mechanics"
+}

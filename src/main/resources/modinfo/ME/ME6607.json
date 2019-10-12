@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME6607",
+    "courseCredit": "4",
+    "description": "This module focuses on analysis, optimal design techniques and fabrication methods of multi-functional structures and devices. The underlying principles of calculus of variations, constrained minimization, and design parameterization and solution methods of topology optimization will be fully studied. Key applications include compliant structures/mechanisms and multi-material soft robots. These devices lie at the interface of principles and procedures of structures and machines. The module will bring out methodologies for designing multi-functional structures/machines and fabrication techniques of 3D printing.",
+    "faculty": "Engineering",
+    "preclusion": "ME5613",
+    "title": "Optimal Design of Multi-Functional Structures"
+}

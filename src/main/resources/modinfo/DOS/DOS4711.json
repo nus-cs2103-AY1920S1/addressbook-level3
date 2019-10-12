@@ -1,0 +1,14 @@
+{
+    "courseCode": "DOS4711",
+    "courseCredit": "4",
+    "description": "Through interactive learning ('Learn, Dream, Make') this module trains students to tackle real-world problems with real-world solutions. Students explore contemporary issues in supply chain management through guided analysis of case examples, design and build of an app and development of a basic business plan to support their proposed solutions. Practical experience in the tools and techniques for delivering actionable intelligence complements skills in understanding and navigating organisational behaviour.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "DAO2702",
+            "DAO2703",
+            "DOS3701"
+        ]
+    },
+    "title": "Supply Chain Applied Project"
+}

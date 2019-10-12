@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4703",
+    "courseCredit": "4",
+    "description": "This module provides a broad view of the state-of-the-art in digital media technologies. The major topics covered are: business &amp; market environment, film production technologies, TV technology, audio production, mobile media technologies, human-computer interaction and user interface design, virtual reality, mixed reality, and tangible media.",
+    "faculty": "Engineering",
+    "preclusion": "EE3701",
+    "prereqTree": {
+        "or": [
+            "IT1007",
+            "CS1010"
+        ]
+    },
+    "title": "Digital Media Technologies"
+}

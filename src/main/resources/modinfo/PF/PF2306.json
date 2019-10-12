@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2306",
+    "courseCredit": "4",
+    "description": "This module provides an understanding of how event management is applied in the industry through in-depth case studies. Cases are selected to cover major event types which are relevant and making an impact to the event industry regionally and globally.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF4308, PFM students from AY2017/18 intake and before",
+    "title": "Event Management Case Studies"
+}

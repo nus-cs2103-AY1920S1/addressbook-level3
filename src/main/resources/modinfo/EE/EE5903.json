@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "EE5903",
+    "courseCredit": "4",
+    "description": "The focus in this module is to present the theoretical foundations of real-time system theory. It presents techniques, based on optimization and queuing theory, to schedule a set of tasks such that they meet hard real-time requirements. It also describes the characteristics of a real time computing system. Students are taught how a real-time embedded system can be designed using structured data flow methodology. Concepts of real time operating systems are covered as are the practical implementation of embedded systems and firmware. Deadlock management and process communications are treated at an advanced level. Case studies on real time scheduling and their implementation are presented to give students a better understanding of the subject.",
+    "faculty": "Engineering",
+    "preclusion": "EE4214, MCH5205, TD5103, CS5270 Verification of Real Time Systems, CS5250 Advanced Operating Systems",
+    "prereqTree": {
+        "or": [
+            "CG2271",
+            "EE4218",
+            "CS5272"
+        ]
+    },
+    "title": "Real-Time Systems"
+}

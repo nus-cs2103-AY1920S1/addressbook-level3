@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5236",
+    "courseCredit": "4",
+    "description": "In computer science, automata are an important tool for many theoretical investigations. Various types of automata have been used to characterise complexity classes. This module covers automata theory in depth, describes the Chomsky hierarchy, and introduces various advanced topics including automata structures, automata on infinite words, automata on trees and the learnability of classes of regular languages from queries and positive data.",
+    "faculty": "Computing",
+    "prereqTree": "CS4232",
+    "title": "Advanced Automata Theory"
+}

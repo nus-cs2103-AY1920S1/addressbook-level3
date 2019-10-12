@@ -1,0 +1,7 @@
+{
+    "courseCode": "QF5201",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in quantitative finance. It focuses on advanced topics in interest rate theory and credit risk modelling and emphasizes their analogies. The module covers the following major topics. Products of fixed-income markets, Short rate models, Heath-Jarrow-Morton framework, LIBOR market models. Financial instruments in credit risk management, Models of default: Firm value and first passage time models, intensity based models, models of credit rating migrations. The module also provides a discussion of advantages and shortcomings of synthetic credit-linked instruments; moreover, modeling dependence structure of default events and default contagion will be treated.",
+    "faculty": "Science",
+    "title": "Interest Rate Theory and Credit Risk"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "TMA2103",
+    "courseCredit": "4",
+    "description": "This module serves as an introduction to probability and statistical techniques to students. Topics covered include the basic concepts of probability, conditional probability, independence, random variables, joint and marginal distributions, mean and variance, some common probability distributions, sampling distributions, estimation and hypothesis testing based on a normal population.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE2120, TIE2120, TIE3101, IE3101E",
+    "prereqTree": "TMA2101",
+    "title": "Probability and Statistics"
+}

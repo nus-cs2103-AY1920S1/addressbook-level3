@@ -1,0 +1,13 @@
+{
+    "courseCode": "CM3221",
+    "courseCredit": "4",
+    "description": "This module covers the application of retrosynthetic analysis and various methodologies in chemical synthesis. The topics include C-X disconnection (one-group or two-group), one-group C-C disconnection, two-group C-C disconnection (1,3-, 1,5-, 1,2- 1,4-difunctional compounds), amine synthesis, alkene synthesis and aromatic and saturated heterocycle synthesis.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM5268",
+        "CM4273",
+        "CM4274"
+    ],
+    "prereqTree": "CM2121",
+    "title": "Organic Synthesis: The Disconnection Approach"
+}

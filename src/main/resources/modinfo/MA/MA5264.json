@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5264",
+    "courseCredit": "4",
+    "description": "The course is for graduate students with interest in computational molecular biology. The objective is to develop knowledge and research ability in the subject. This module studies computational biology problems along both algorithmic and statistical approaches. It covers different methods for multiple sequence alignment, genome sequencing, comparative analysis of genome information, gene prediction, finding signals in DNA, phylogenetic analysis, protein structure prediction. Other topics covered include micro-array gene expression analysis and computational proteomics.",
+    "faculty": "Science",
+    "prereqTree": "MA3259",
+    "title": "Computational Molecular Biology Ii"
+}

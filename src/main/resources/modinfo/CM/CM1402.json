@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1402",
+    "courseCredit": "4",
+    "description": "This is a chemistry module designed for non-chemistry majors and deals primarily with basic principles of structure and bonding, thermodynamics, kinetics, basic analytical techniques, properties and reactions of organic functional groups and chemistry of main group elements.",
+    "faculty": "Science",
+    "preclusion": "CM1401 \u2013 Chemistry for Life Sciences",
+    "title": "General Chemistry"
+}

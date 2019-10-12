@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5307B",
+    "courseCredit": "2",
+    "description": "Knowledge of wave mechanics and the prediction of hydrodynamic loads are essential for the design of all types of offshore structures. This module covers the prediction of regular and random wave loads on small and large offshore structures, including added mass concept, Morison equation, hydrodynamic coefficients, diffraction theory, and boundary element method, response amplitude operators and force spectrum.",
+    "faculty": "Engineering",
+    "preclusion": "CE5307, OT5201",
+    "title": "Hydrodynamic Loads on Offshore Structures"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "SPH6003",
+    "courseCredit": "4",
+    "description": "Dietary exposures have an important impact on health, but are highly complex and difficult to assess. This module covers methods for the assessment of diet and nutritional status including specific topical areas such as the use of dietary patterns, and application of nutritional epidemiology in birth-cohort studies. It also covers the design, conduct, analysis, and interpretation of epidemiological studies on diet and health. Students will be trained in the interpretation of published studies, the design of studies, and the analysis of data on diet and health. The emphasis of this course will be on the application of methods to provide skills that can be applied by students to their own research projects.",
+    "faculty": "SSH School of Public Health",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    },
+    "title": "Nutritional Epidemiology"
+}

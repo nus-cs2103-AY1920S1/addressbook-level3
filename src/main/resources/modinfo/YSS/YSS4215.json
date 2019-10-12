@@ -1,0 +1,19 @@
+{
+    "courseCode": "YSS4215",
+    "courseCredit": "5",
+    "description": "This course explores the role that sex plays in the exchanges and circulations that make up human social life. Whether for procreation, pleasure, social status, the solidification of kinship networks, religious devotion, the marketing of reproductive tissue, or social reproduction itself, sex and sexual relations are far from being 'private' acts of no political consequence. On the contrary, they are integral to larger practices and institutions. The course will introduce students to multidisciplinary perspectives on the intersections of sex with money, politics, social status, and access to resources.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC2121",
+            {
+                "or": [
+                    "YSS2227",
+                    "YSS3277",
+                    "YSS3202"
+                ]
+            }
+        ]
+    },
+    "title": "Sexual Economies"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2720",
+    "courseCredit": "4",
+    "description": "Many feel that the current level of income inequality is unfair and that capitalism is not functioning well for a vast majority of the population in several countries. Yet, some amount of inequality is inevitable as different people make different contributions in society. This begs the question: what is a fair level of inequality? This module synthesizes concepts from economics, political philosophy, game theory, information theory, systems engineering and statistical mechanics to provide a mathematical framework to analyse the income inequality problem and suggests options for tax policy, social programs and executive compensation.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Income Inequality: A Teleological Perspective"
+}

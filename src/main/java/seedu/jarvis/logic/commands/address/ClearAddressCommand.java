@@ -3,12 +3,14 @@ package seedu.jarvis.logic.commands.address;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.Person;
 
 /**
  * Clears the address book.
@@ -22,7 +24,16 @@ public class ClearAddressCommand extends Command {
 
     public static final boolean HAS_INVERSE = true;
 
-    private ObservableList<Person> clearedPersons;
+    private List<Person> clearedPersons;
+
+    public ClearAddressCommand() {
+        clearedPersons = new ArrayList<>();
+    }
+
+    public ClearAddressCommand(List<Person> persons) {
+        this();
+        clearedPersons.addAll(persons);
+    }
 
     /**
      * Returns whether the command has an inverse execution.
@@ -37,6 +48,15 @@ public class ClearAddressCommand extends Command {
     }
 
     /**
+     * Gets a {@code List} of {@code Person} objects stored in this {@code ClearAddressCommand}.
+     *
+     * @return {@code List} of {@code Person}.
+     */
+    public List<Person> getClearedPersons() {
+        return clearedPersons;
+    }
+
+    /**
      * Clears all {@code Person} from address book.
      *
      * @param model {@code Model} which the command should operate on.
@@ -47,7 +67,7 @@ public class ClearAddressCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        clearedPersons = model.getFilteredPersonList();
+        clearedPersons = new ArrayList<>(model.getFilteredPersonList());
         model.setAddressBook(new AddressBook());
 
         return new CommandResult(MESSAGE_SUCCESS);

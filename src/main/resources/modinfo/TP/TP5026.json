@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "TP5026",
+    "courseCredit": "4",
+    "description": "This module is designed to provide senior level undergraduate and graduate students with an overall view of the transportation systems, means of managing and influencing the systems to achieve certain goals. The topics covered include the characteristics of land, sea and air transportation systems; roles and structure of government agencies in transportation management; environmental and social impact of transportation systems, travel demand management; public transport management; models of financing transportation services; regulation and deregulation of transportation services; roles of intelligent transportation systems in system management and policy implementation; case studies of transportation policies in several countries",
+    "faculty": "Engineering",
+    "preclusion": "TCE5026",
+    "title": "Transportation Management & Policy"
+}

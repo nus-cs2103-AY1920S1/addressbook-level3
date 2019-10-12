@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MT5010",
+    "courseCredit": "4",
+    "description": "A very important quality of successful R&D engineers and managers is to anticipate and drive technological changes and convert them to strategic assets to organizations. This module aims to equip students with technology forecasting and intelligence skills, make use of the forecast to generate strategic intellectual assets and realize value from them to succeed in competitive environment. Effective collection and transformation of information into competitive intelligence requires a comprehensive awareness of enterprise niches and alternatives, as well as the search and analytical skills of data and information. The module will emphasize these skills as well impart a thorough understanding of the strategic frameworks and decisions with regard to business & technology.",
+    "faculty": "Engineering",
+    "preclusion": "MT5010A Technological Intelligence & MT5010B Intellectual Property Strategies to Support Technological Intelligence",
+    "title": "Technology Forecasting & Intelligence"
+}

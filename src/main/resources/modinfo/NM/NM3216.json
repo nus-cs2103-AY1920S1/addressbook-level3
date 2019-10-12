@@ -1,0 +1,11 @@
+{
+    "courseCode": "NM3216",
+    "courseCredit": "4",
+    "description": "This module explores the factors that make a game successful. Students learn how to critically evaluate game development and gain an understanding of the basic elements of gameplay: balancing game mechanics, creating tension between risk and reward, and encouraging replayability. Students also learn how to document a game design using a game design document. The module includes theories of play as well as an introduction to the game industry and the context of game design in the game development process. It also examines the history of gameplay and the different types of games that have developed in different cultures.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CS3283",
+        "CS4350"
+    ],
+    "title": "Game Design"
+}

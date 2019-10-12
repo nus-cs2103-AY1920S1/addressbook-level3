@@ -1,0 +1,8 @@
+{
+    "courseCode": "IFS4102",
+    "courseCredit": "4",
+    "description": "Digital forensics encompasses the recovery and investigation of material found in digital devices in relation to cyber crime and other crimes where digital evidence is relevant. This module gives an introduction to principles, techniques, and tools to perform digital forensics. Students will gain a good understanding of the fundamentals of digital forensics; key techniques for performing evidence extraction and analysis on UNIX/Linux systems, Windows systems, networks, Web applications, and mobile devices; and gain exposure to available tools. Some legal aspects of digital forensics will also be discussed.",
+    "faculty": "Computing",
+    "prereqTree": "CS3235",
+    "title": "Digital Forensics"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "TE4001",
+    "courseCredit": "12",
+    "description": "In this module, students will do a research project over two semesters on a topic of current interest in Electrical and Computer Engineering. Students learn how to apply skills acquired in the classroom and also think of innovative ways of solving problems. Apart from intrinsic rewards such as the pleasure of problem solving, students are able to acquire skills for independent and lifelong learning. The objective of this module is to teach skills, such as questioning, forming hypotheses and gathering evidence. Students learn to work in a research environment.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE4001",
+    "title": "BTech Dissertation"
+}

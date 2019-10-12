@@ -1,0 +1,17 @@
+{
+    "courseCode": "CS4231",
+    "courseCredit": "4",
+    "description": "This course will examine some fundamental issues in parallel programming and distributed computing, and the relationships between the two. Parallel programming: mutual exclusion, semaphores, consistency, wait-free synchronization. Distributed computing: time, global state, snapshots, message ordering. Relationships: consensus, fault-tolerance, transactions, self-stabilization.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5233",
+        "CS6213"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS3230",
+            "CS3210"
+        ]
+    },
+    "title": "Parallel and Distributed Algorithms"
+}

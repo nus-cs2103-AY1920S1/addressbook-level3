@@ -1,0 +1,11 @@
+{
+    "courseCode": "SW3209",
+    "courseCredit": "4",
+    "description": "This module presents the basic assumptions, strategies, and techniques of selected counselling approaches. Students are trained in counseling methods used by psychosocial, cognitive-behavioural, humanistic, and problem and solution-focussed approaches to the treatment of problems in living. In addition, discussion on the application of counseling in specialized areas such as educational and vocational counseling, rehabilitation counselling, pre-marital and marital counselling, and counselling of specific groups will be included.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SW3214"
+    ],
+    "prereqTree": "SW1101E",
+    "title": "Counselling Theories & Practice"
+}

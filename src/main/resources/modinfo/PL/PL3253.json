@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3253",
+    "courseCredit": "4",
+    "description": "The course will provide an overview of past and current theories on how emotions are implemented in the brain and how they interact with cognitive, behavioural and psychophysiological systems. In accord with current insights, individual emotion systems including happiness, anger, fear, and disgust will be introduced and potential dysfunctions of these systems in relation to psychological and psychiatric disorders will be discussed. The knowledge provided in this course will be applicable to other areas of psychology including but not limited to clinical, social, industrial/organizational and experimental psychology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3232"
+        ]
+    },
+    "title": "Psychobiological Perspectives on Emotion"
+}

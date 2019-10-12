@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AR2326",
+    "courseCredit": "4",
+    "description": "The objectives are firstly to reinforce students' knowledge on reinforced concrete (RC) and steel construction technology, including framed, in situ, precast and composite methods and secondly, to develop the students' understanding of how considerations of construction affect architectural design and the process of construction, with special emphasis on the integration of primary and secondary elements for low rise buildings. This module aims to lead to: Appreciation of the importance and value of the role of technology in architectural design; Understanding of principles of assembly, detailing, and the interfacing of various building components; Integration of technology into their studio design projects",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "AR3721"
+    ],
+    "preclusion": "All non-architecture students",
+    "prereqTree": "AR1326",
+    "title": "Architectural Construction II"
+}

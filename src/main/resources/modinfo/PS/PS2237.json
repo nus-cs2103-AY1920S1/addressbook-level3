@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PS2237",
+    "courseCredit": "4",
+    "description": "Designed as an introductory theoretical module, it covers the basic concepts of International Relations in two halves. The first introduces the concepts of nation, state, sovereignty, non-state actors and their implications for the coexistence of nation-states, as well as a brief roundup of the instruments of conducting relations among them. The other offers a grounding in the major schools of thought on International Relations, namely realism, liberalism/pluralism and revolutionism. Additionally, there will be topics on radical perspectives such as feminism, constructivism and postmodernism. It is hoped the module will provide students with a foundation for other courses in the sub-field.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PS3251",
+        "PS3880F"
+    ],
+    "preclusion": "PS2207, PS2207B",
+    "title": "Introduction to International Relations"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5101",
+    "courseCredit": "4",
+    "description": "This is an advanced module in flow through a two-phase medium. The topics that are covered include steady state seepage and basic transient seepage, basic contaminant transport processes, measurement of hydraulic transport parameters, and its applications to dewatering of excavations and seepage through embankments as to their influence on slope stability. Consolidation theory from 1-D to 3-D consolidation analysis, and methods of accelerating consolidation, with application to computing settlements of foundations. Students are taught Darcy's Law, continuity equation, coupling between effective stress and pore pressure, and the solution methods inclusive of FEM modelling. The goals of the module are analysis of seepage problems, analysis of consolidation problems, design methods to accelerate consolidation to solve stability and settlements problems in geotechnical engineering.",
+    "faculty": "Engineering",
+    "title": "Seepage & Consolidation of Soils"
+}

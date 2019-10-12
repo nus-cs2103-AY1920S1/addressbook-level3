@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF1106",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental principles of the measurement and taking-off of quantities for the trades or elements within the work sections of a building project for the preparation of cost estimates and bills of quantities. Students will acquire skills in the visualization and interpretation of construction drawings. Major topics include the understanding and application of standard methods of measurement including construction electronic measurement standards using 2D/3D CAD and 3D BIM models, construction terminology, standard abbreviations, trade preambles, measurement processes and protocol.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF1102",
+    "title": "Introduction to Measurement"
+}

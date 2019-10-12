@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ME2151E",
+    "courseCredit": "4",
+    "description": "This module provides the foundation for understanding the structure-property-processing relationship in materials common in mechanical engineering. Topics explore the mechanical properties of metals and their alloys, the means of modifying such properties, as well as the failure and environmental degradation of materials. Practical applications are demonstrated through laboratory experiments to illustrate the concepts taught during lectures.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "ME3251E",
+        "ME4251E",
+        "ME4254E",
+        "TME3251",
+        "TME4251",
+        "TME4254",
+        "ME4256E",
+        "TME4256"
+    ],
+    "preclusion": "TM1151, TME2151",
+    "title": "Principles of Mechanical Eng. Materials"
+}

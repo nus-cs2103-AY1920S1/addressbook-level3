@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4438",
+    "courseCredit": "4",
+    "description": "This module covers the theory, operating principles, and basic function of solar cells and photovoltaic modules. Major topics covered are the status of the PV market, the properties of sunlight, properties of semiconductors, efficiency limits of solar cells, carrier properties in semiconductors, currents in p-n diodes in the dark and under illumination, computer simulation of solar cells, characterisation of solar cells, technology of silicon wafer solar cells, technology of thin-film solar cells, properties of interconnected solar cells, technology of PV modules, and the characterisation and testing of PV modules",
+    "faculty": "Engineering",
+    "preclusion": "EE4432 Devices for Electric Energy Generation",
+    "title": "Solar Cells and Modules"
+}

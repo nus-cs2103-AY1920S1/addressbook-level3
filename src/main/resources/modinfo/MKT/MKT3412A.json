@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT3412A",
+    "courseCredit": "4",
+    "description": "To provide an in-depth appreciation and understanding of the unique challenges inherent in managing and delivering service excellence at a profit. Participants will be introduced to and have the opportunity to work with tools and strategies that address these challenges. To develop an understanding of the `state of the art? of service management thinking. To promote a customer service-oriented mindset.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3412 or BH3412A or BH3412B or BZ3612 or BK3205",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003"
+        ]
+    },
+    "title": "Services Marketing"
+}

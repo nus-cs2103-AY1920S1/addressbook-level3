@@ -1,0 +1,24 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ST1131",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic concepts and the methods of statistics. A computer package is used to enhance learning and to enable students to analyse real life data. Topics include descriptive statistics, basic concepts of probability, sampling distribution, statistical estimation, hypothesis testing, linear regression. This module is targeted at students interested in Statistics who are able to meet the prerequisite. It is also an essential module for students in the following programmes: Industrial and Systems Engineering (FoE); E-Commerce (SoC); Project & Facilities Management and Real Estate (SDE).",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSC3223",
+        "FIN4111",
+        "FNA4111",
+        "MNO4312",
+        "IS5152",
+        "ST2137",
+        "ST3244",
+        "ST2288",
+        "ST2335",
+        "ST2289",
+        "SPH3101"
+    ],
+    "preclusion": "ST1131A, ST1232, ST2334, CE2407, CN3421, EC2231, EC2303, PR2103, DSC2008. Engineering students except ISE students.",
+    "title": "Introduction to Statistics"
+}

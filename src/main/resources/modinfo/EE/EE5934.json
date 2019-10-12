@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5934",
+    "courseCredit": "4",
+    "description": "Deep learning refers to machine learning methods based on deep neural networks to learn data representation and perform learning tasks. This course provides an introduction to deep learning. Students taking this course will learn the basic theories, models, algorithms, and recent progress of deep learning, and obtain empirical experience. The course starts with machine learning basics and classical neural network models, followed by deep convolutional neural networks, recurrent neural networks, reinforcement learning and applications to computer vision and speech recognition. The students are expected to have good knowledge of calculus, linear algebra, probability and statistics as a prerequisite.",
+    "faculty": "Engineering",
+    "preclusion": "EE6934 Deep Learning (Advanced)",
+    "prereqTree": {
+        "or": [
+            "EE2012",
+            "IT1007"
+        ]
+    },
+    "title": "Deep Learning"
+}

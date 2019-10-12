@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE5805",
+    "courseCredit": "4",
+    "description": "In a project, the selection of construction method and equipment are important considerations that can affect project execution and even the bottom line profits. This course gives an overview of the construction methods available in civil engineering, industrial, offshore and building type projects, and the considerations in equipment selection and fleet size determination. It also introduces the student to concepts of constructability, simulation and optimization methods related to allocation of scarce resources. Specific topics include constructability concepts and implementation, planning, methods, information technology applications, systems analysis and optimization, construction economics.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE5805",
+    "prereqTree": "TCE2183",
+    "title": "Construction Equipment and Methods"
+}

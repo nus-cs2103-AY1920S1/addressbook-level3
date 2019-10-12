@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4244",
+    "courseCredit": "4",
+    "description": "This course will focus on core issues of representation and reasoning of the knowledge in the context of design of intelligent machines. We will focus on how logic can be used to formalise and perform deduction from existing knowledge. We will then discuss compilation techniques. Finally, we will discuss limitations of monotonic logic and discuss challenges for non-monotonic reasoning.",
+    "faculty": "Computing",
+    "prereqTree": "CS3243",
+    "title": "Knowledge Representation and Reasoning"
+}

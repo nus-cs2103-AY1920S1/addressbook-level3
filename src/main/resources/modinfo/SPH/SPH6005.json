@@ -1,0 +1,13 @@
+{
+    "courseCode": "SPH6005",
+    "courseCredit": "4",
+    "description": "This module will focus on the understanding, familiarization and development of skills related to the use of common software (STATA and TreeAge) and data used in the international health microeconomics literature. Students are required to work on household survey data and decision modelling projects. Student participation will emphasize both research findings as well as ongoing reflections on experiences and lessons for future research practice.",
+    "faculty": "SSH School of Public Health",
+    "prereqTree": {
+        "and": [
+            "CO5204",
+            "CO5103"
+        ]
+    },
+    "title": "Applied Health Economics"
+}

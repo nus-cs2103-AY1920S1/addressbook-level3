@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "DSA5203",
+    "courseCredit": "4",
+    "description": "This course aims at presenting the fundamentations and important computational algorithms that are very related to important applications in visual information processing and analysis: from image acquisition to processing, and to interpretation/understanding. The emphasis is on the tight integration of mathematical foundations, numerical algorithms, and programming implementation techniques related to industrial applications. Major topics include: fundamentals for pictorial data acquisition and processing, Computational method for 3D reconstruction, Visual data categorization and segmentation, computational methods for visual learning and their applications in pattern analysis.",
+    "faculty": "Science",
+    "prereqTree": "MA4230",
+    "title": "Visual Data Processing and Interpretation"
+}

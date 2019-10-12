@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1522T",
+    "courseCredit": "4",
+    "description": "Environmental protection is now fundamental to the development of a sustainable global society. No longer is human influence on the planet confined to the local environment, but now extends across political boundaries - often resulting in regional or even global impacts. As a result, society, industry and agriculture are under increasing pressure to improve environmental performance and cut resource consumption and pollution. Around the world, governments are striving to minimise waste production, protect water resources, reduce energy consumption and improve the quality of the urban living environment. As the human global population grows exponentially and the life-support systems of the planet continue to deteriorate, there is a growing international recognition that environmental problems require truly global solutions. This course will focus on the issues and causes of global environmental issues including: population growth, resource exploitation and threats to the atmosphere, hydrosphere and biosphere. The aim of the course will be to provide students with a knowledge and appreciation of the inter-related problems and challenges of sustainable development.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "GEK1522, GEH1025, GEH1025T",
+    "title": "Global Environmental Issues"
+}

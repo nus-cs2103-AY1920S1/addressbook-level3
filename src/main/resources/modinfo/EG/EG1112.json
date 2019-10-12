@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG1112",
+    "courseCredit": "6",
+    "description": "This is part 2 of a 2-module package that introduces Year 1engineering students to what engineers do and to the engineer's thought process. These modules are Engineering Principles and Practice (EPP) I and II. EPP II will focus on the engineering principle of how systems are energized and controlled and the engineering practice of how they are designed, built and valued. The main assumption here is that most modern engineering systems are powered electrically. They convert some raw form of energy such as fuel (petrol, diesel) or battery (electrochemically stored energy), through a process of energy conversion into electrical energy. Hence energy sources and energy conversion, electrical energy distribution, electrical energy utilization through conversion into various functions, measurement of functions through their performance parameters will form the backbone of this module.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE2027",
+        "TEE2027",
+        "CG2027"
+    ],
+    "title": "Engineering Principles and Practice II"
+}

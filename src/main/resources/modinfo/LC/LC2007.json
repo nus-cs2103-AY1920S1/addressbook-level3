@@ -1,0 +1,11 @@
+{
+    "courseCode": "LC2007",
+    "courseCredit": "8",
+    "description": "This course will introduce the basic principles of constitutional law and administrative law. Public law relates primarily to the inter-relationship between government bodies established by the Constitution and the regulation of relationships between the State, communities and individuals. It is concerned with the extent to which law can promote 'good governance', how political power is legitimated, how abuses of public power are prevented, and the degree of autonomy from state interference individuals should enjoy. Topics will include: the nature of and separation of powers between executives, legislature and judiciary; protection of fundamental libertiesl; judicial review of administrative action.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5190",
+        "LL6190"
+    ],
+    "title": "Constitutional & Administrative Law"
+}

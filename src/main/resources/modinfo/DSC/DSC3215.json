@@ -1,0 +1,19 @@
+{
+    "courseCode": "DSC3215",
+    "courseCredit": "4",
+    "description": "This module introduces students to management science models that characterise random phenomena in real world applications, particularly in the field of finance and operations management. We start with elementary probabilistic models and illustrate their applications in inventory management and financial engineering. We then construct discrete Markov chain models and demonstrate their applications in managing queues and for evaluating the performance measures of queueing systems. When analytical models are inadequate for studying real world random phenomena, simulation might be a feasible approach. We will discuss several well-known methods to simulate randomness.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "IE3110",
+        "IE3110R"
+    ],
+    "prereqTree": {
+        "or": [
+            "DSC1007",
+            "DSC1007X",
+            "ST2131",
+            "ST2334"
+        ]
+    },
+    "title": "Stochastic Models In Management"
+}

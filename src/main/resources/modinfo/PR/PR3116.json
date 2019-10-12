@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "PR3116",
+    "courseCredit": "4",
+    "description": "This module provides pharmacy students with a comprehensive foundation of the concepts of pharmacokinetics and biopharmaceutics. The application of these concepts are important in clinical pharmacy and the drug discovery and development process. Major topics include: basic principles, concepts and processes of drug absorption, distribution, metabolism and excretion, kinetics of drugs following intravascular and extravascular modes of administration, design of appropriate dosage regimens, and application of pharmacokinetic concepts in clinical pharmacy practice and drug design and development.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4207"
+    ],
+    "prereqTree": "PA1113",
+    "title": "Concepts in Pharmacokinetics and Biopharmaceutics"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC4001",
+    "courseCredit": "4",
+    "description": "This module is one of the two modules where students get to practice software engineering concepts learnt in a team environment to produce a well-designed, well-tested, large-scaled software system. This module focuses on software engineering practice of a greenfield project, where students will elicit the requirements, design the software architecture and interfaces, and implement the software from scratch.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC4003",
+        "TIC4004"
+    ],
+    "prereqTree": "TIC3001",
+    "title": "Software Engineering Practicum I"
+}

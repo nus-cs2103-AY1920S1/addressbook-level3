@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "courseCode": "MD2000",
+    "courseCredit": "1",
+    "description": "",
+    "faculty": "Dentistry",
+    "title": "Microbiology & Pathology"
+}

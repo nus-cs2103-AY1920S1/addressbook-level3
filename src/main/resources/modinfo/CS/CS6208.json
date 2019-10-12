@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6208",
+    "courseCredit": "4",
+    "description": "This module covers advanced topics in artificial intelligence that are of current research or application interests. A wide range of topics may be covered including soft computing (fuzzy logic, genetic algorithms, etc.), data mining, machine learning, image and video processing, artificial life, robotics, etc. The exact topics to be taught will depend on the lecturers teaching the module.",
+    "faculty": "Computing",
+    "prereqTree": "CS3243",
+    "title": "Advanced Topics in Artificial Intelligence"
+}

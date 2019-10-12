@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM2254",
+    "courseCredit": "4",
+    "description": "This module introduces students to contemporary plant biology. It focuses on the flowering plants (angiosperms), one of the most successful plant groups that sustains all life on earth, and examines how they are organized, grow, and respond to the environment. A major theme that the module will highlight is that plant growth is highly dynamic \u2013 plants control growth and development through integrating intrinsic and external signals to best adapt to the changing surroundings. The concepts and techniques of gene manipulation for studying plants, as well as their applications in plant biotechnology, will also be discussed.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4251",
+        "LSM3256",
+        "LSM3258"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Fundamentals of Plant Biology"
+}

@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAF1201",
+    "courseCredit": "4",
+    "description": "This course focuses on basic linguistic and communicative structures of the French language. By developing the four skills of listening, speaking, reading and writing as well as teaching basic grammar and vocabulary, it aims at helping students achieve communicative competence in simple everyday situations and personal interaction. The module will also attempt to help students optimise their learning by teaching them vital strategies for language learning and language use. The assessment for this module is 100% Continuous Assessment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAF2201"
+    ],
+    "title": "French 1"
+}

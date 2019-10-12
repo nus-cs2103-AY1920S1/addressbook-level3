@@ -1,0 +1,8 @@
+{
+    "courseCode": "FMS1212P",
+    "courseCredit": "4",
+    "description": "Students often tend to think that if a system displays a complex behavior, it must be itself somehow complicated, difficult to describe. The aim of the module is to show, in a playful way, that this is not (always) the case, that really simple systems ranging from physics, meteorology, engineering, computer science, biology and economics, can have a rich, complex \u2026 and unpredictable behavior. Many notions are at the heart of this module such as determinism versus predictability, chaos, the need for a statistical description, random walks, ergodicity, entropy, fractals, cellular automata, self-organized criticality, emergent behavior, etc.",
+    "faculty": "Science",
+    "preclusion": "Students who have read a Freshman Seminar before will be precluded from reading a second Freshman Seminar.\n\nStudents staying in Residential Colleges in UTown who will be reading or have read the Junior Seminars will be precluded from reading Freshman Seminar in the Faculty.",
+    "title": "SYC: Simple Yet Complex"
+}

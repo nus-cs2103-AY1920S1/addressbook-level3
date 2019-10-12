@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GES1002",
+    "courseCredit": "4",
+    "description": "This course will introduce students to the dynamics of the world economy and the impact on Singapore in the last two centuries. It will demonstrate how Singapore grew through continual dependence on the rest of the world in different ways by focusing on major labour, capital and technological factors, in which threats are also seen as opportunities.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "SSA2220, SSA2220T, GES1002T",
+    "title": "Global EC Dimensions of S'pore"
+}

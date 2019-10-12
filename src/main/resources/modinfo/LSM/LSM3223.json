@@ -1,0 +1,17 @@
+{
+    "courseCode": "LSM3223",
+    "courseCredit": "4",
+    "description": "This course provides the central concepts of immunology and the foundation for understanding how immunity functions. The subjects of innate immunity and haematopoiesis introduce the origin and role of different cell types in immunity. The mechanisms of how the body protects itself from disease are explored in relation to T and B cell biology, antibodies, cytokines, major histocompatibility complex and antigen presentation. Other topics include hypersensitivity, immunodeficiencies, tolerance, autoimmunity, resistance and immunization to infectious diseases.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4226",
+        "LSM4222"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM2233",
+            "PR2122"
+        ]
+    },
+    "title": "Immunology"
+}

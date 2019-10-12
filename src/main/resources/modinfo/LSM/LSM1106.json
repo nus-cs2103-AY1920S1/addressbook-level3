@@ -1,0 +1,33 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1106",
+    "courseCredit": "4",
+    "description": "The objective is to provide the student with a firm and rigorous foundation in current concepts of the structure and functions of biomolecules in molecular cellular biology. These fundamental concepts form the basis of almost all recent advances in biological and the biomedical sciences. The lectures will introduce various cellular organelles as models to gain insights into how structures and functions of classes of biomolecules participating in important cellular processes.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3222",
+        "LSM2233",
+        "LSM2211",
+        "LSM3264",
+        "LSM3245",
+        "LSM2291",
+        "LSM3242",
+        "LSM3215",
+        "LSM2288",
+        "LSM2289",
+        "LSM3243",
+        "LSM2241",
+        "LSM2191",
+        "LSM2232",
+        "LSM2254",
+        "LSM3227",
+        "LSM4218",
+        "FST2106",
+        "FST2201",
+        "FST2108"
+    ],
+    "preclusion": "LSM1101",
+    "title": "Molecular Cell Biology"
+}

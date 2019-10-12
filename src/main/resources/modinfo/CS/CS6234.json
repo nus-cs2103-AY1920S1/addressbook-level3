@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6234",
+    "courseCredit": "4",
+    "description": "This module is aimed at graduate students who are doing or intend to do advanced research in algorithms design and analysis in all areas of computer science. The module covers advanced material on combinatorial and graph algorithms with emphasis on efficient algorithms, and explores their use in a variety of application areas. Topics covered include, but are not restricted to, linear programming, graph matching and network flows, approximation algorithms, randomized algorithms, online algorithms, local search algorithms, algorithms for large datasets. The module will be a seminar-based module that will expose students to current research in these areas.",
+    "faculty": "Computing",
+    "prereqTree": "CS5234",
+    "title": "Advanced Algorithms"
+}

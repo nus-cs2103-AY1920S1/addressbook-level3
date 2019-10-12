@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "LSM1303",
+    "courseCredit": "4",
+    "description": "Understanding animal behaviour awakens the individual to the complexity of daily phenomenon in the animal kingdom - how animals live and survive in their environment. Much of this occurs around us every day and everywhere we go. But the city-dweller lives in increasing isolation of animals and understands little of the world around them. This module will highlight behaviours such as learning, sociality, territoriality, predation and defense, courtship and communication, with examples from across animal diversity. How behaviors have evolved to fit specific ecological conditions will be examined. Students will gain understanding of and empathy for animals, appreciate the value of scientific approach to animal care, human-animal conflict and conservation, and a better insight into our own behavior.",
+    "faculty": "Science",
+    "preclusion": "Life Sciences Major/Minor and student from Bachelor of Environmental Studies Programme",
+    "title": "Animal Behaviour"
+}

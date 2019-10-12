@@ -1,0 +1,21 @@
+{
+    "courseCode": "YSS3277",
+    "courseCredit": "5",
+    "description": "The Anthropological Imagination offers an insights to the practice and creative power of anthropology. The aim of the course is to offer an introduction to how anthropologists, past and present, have viewed the world and approached the study of the human condition. The first half of the course examines foundational figures and moments in the history of the discipline. The second half of the course is geared toward an exploration of recent anthropological writings on topics such as power, representation, history, gender, the Anthropocene, and post-human anthropology.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4215",
+        "YSS4229",
+        "YSS4233",
+        "YSS4242",
+        "YSS4245"
+    ],
+    "preclusion": "YSS2209 (previous module code)",
+    "prereqTree": {
+        "and": [
+            "YCC2121",
+            "YCC1121"
+        ]
+    },
+    "title": "The Anthropological Imagination"
+}

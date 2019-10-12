@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4506",
+    "courseCredit": "4",
+    "description": "This course introduces the principle of operation and design aspects of magnetic recording systems. It introduces the key issues involved in the design and system level integration of disk drives. Students will be exposed to current practice and new trends through both theory and practice in the laboratory. Topics covered include: Basics of magnetic recording and playback, different types of heads used for recording and playback, modeling and mathematical representation of recording/playback process, design and fabrication process for heads and disks. Integration of different components of hard disk drive, signal processing for recording and playback, servomechanism for access of data, efficiency of recording and encoding of data, reliability of recording and error correction codes, transfer of data between hard disk drive and host computer.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2011",
+    "title": "Magnetic Recording Systems"
+}

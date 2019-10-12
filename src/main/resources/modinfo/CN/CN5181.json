@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5181",
+    "courseCredit": "4",
+    "description": "This module introduces students to advanced computational methods and their application to common chemical engineering problems. Computational techniques are commonly used for process design, planning and scheduling, and control. The module provides a practical introduction to basic concepts, tools and techniques in artificial intelligence, symbolic computation, and numerical optimization. Knowledge representation, object-oriented programming, and solution techniques such as search algorithms, neural networks, symbolic algebra, and linear and nonlinear optimization are covered in a hands-on fashion. These are then applied to various industrially relevant problems. This module is for students interested in state-of-the-art computational methods. Some programming background will be beneficial.",
+    "faculty": "Engineering",
+    "preclusion": "CN4229",
+    "title": "Computer Aided Chemical Engineering"
+}

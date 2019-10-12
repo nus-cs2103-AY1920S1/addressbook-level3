@@ -1,0 +1,13 @@
+{
+    "courseCode": "ES5002",
+    "courseCredit": "0",
+    "description": "This advanced level module is designed for international students who are pursuing a PhD in NUS by research. All international PhD students who are not exempted from the Graduate English Course (based on their results for the Diagnostic English Test) are required to take ES5002. All PhD students from non-English medium universities in the School of Medicine are required to take ES5002. This module is taught over 1 semester with 2 two-hour sectional teachings per week. The focus of ES5002 is primarily on the structural and linguistic features of different sections of a PhD thesis.",
+    "faculty": "NUS",
+    "prereqTree": {
+        "or": [
+            "ES5000",
+            "ES5001A"
+        ]
+    },
+    "title": "Graduate English Course (Advanced Level)"
+}

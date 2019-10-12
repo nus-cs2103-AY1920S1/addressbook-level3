@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4205E",
+    "courseCredit": "4",
+    "description": "This module provides students with a working knowledge of selected techniques and software in pinch analysis and process integration as well as their application to chemical processes. The first part of the module covers pinch analysis for heat integration, including data extraction and energy targeting, heat exchanger network design, integration of utilities, heat and power systems, and distillation columns. Application of pinch analysis to maximization of water re-use is also discussed. Another topic is data reconciliation and gross error detection, and their applications. This module is targeted at senior chemical engineering students.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TCN4205",
+    "prereqTree": {
+        "and": [
+            "CN2125E",
+            "CN3421E"
+        ]
+    },
+    "title": "Pinch Analysis and Process Integration"
+}

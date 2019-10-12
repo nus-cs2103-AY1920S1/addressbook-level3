@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4701",
+    "courseCredit": "4",
+    "description": "Digital video technology has become ubiquitous. It allows professionals and amateurs alike to easily capture, record and display moving pictures. Digital video processing algorithms have found their way into camcorders, DVD players, laptops, mobile phones, and many other devices. In this module, we discuss the theoretical foundations and practical applications of video technology. The major topics covered include video representation, motion estimation, video compression, video communication, digital video hardware, as well as video enhancement and understanding.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3206",
+    "title": "Video Processing"
+}

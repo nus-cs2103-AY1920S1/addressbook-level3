@@ -1,0 +1,17 @@
+{
+    "courseCode": "FST2102A",
+    "courseCredit": "6",
+    "description": "This module will cover the chemistry of major food components such as water, lipid, carbohydrate, and protein including enzymes in food processing & systems. The basic functions of these components will also be introduced. Some chemical reactions involving these molecules with relation to food processing and storage are discussed. In addition, methods of enzymatic and chemical modification to change the chemical and physical properties of the food components are also presented. Practical sessions will cover analytical methods for determination of some food components and enzyme activity, kinetics, and inhibitions in the context of foods.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3102",
+        "FST3104"
+    ],
+    "prereqTree": {
+        "and": [
+            "CM1191",
+            "FST1101"
+        ]
+    },
+    "title": "Chemistry of Food Components"
+}

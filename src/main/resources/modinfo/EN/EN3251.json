@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3251",
+    "courseCredit": "4",
+    "description": "This module focuses on the interrelations between philosophy and literature in English (or in translation) from Plato to seventeenth-century natural philosophy to the modernist context. We will read a variety of philosophical and literary works, paying special attention to how philosophical ideas are articulated and interrogated in narrative. Even more specifically, we will analyse how philosophical ideals behave in literary contexts and how these ideals filter into the lives of ordinary people (including critics, authors, and literary characters). We will also spend some time investigating how \u2018literature\u2019 and \u2018philosophy\u2019 evolved as separate yet related disciplines.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Literature and Philosophy"
+}

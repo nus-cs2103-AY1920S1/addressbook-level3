@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MD5140",
+    "courseCredit": "1",
+    "description": "The focus of the medicine module will consist of the following student internship programme (medicine, paediatric medicine, geriatric medicine) and clinical postings (Infectious Disease and Dermatology). The Student Internship Programme (SIP) and clinical postings will allow the students to expand their knowledge and skills obtained from the core clinical practice year and acute and speciality clinical practice year, as well as to apply the knowledge and skills in a clinical setting as student interns under supervision.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "MD4140",
+    "title": "Medicine"
+}

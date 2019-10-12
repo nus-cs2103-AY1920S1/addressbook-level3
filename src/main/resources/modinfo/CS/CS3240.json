@@ -1,0 +1,26 @@
+{
+    "courseCode": "CS3240",
+    "courseCredit": "4",
+    "description": "This course is intended for students in computing and related disciplines whose work focuses on human-computer interaction issues in the design of computer systems. The course stresses the importance of user-centred design and usability in the development of computer applications and systems. Students will be taken through the analysis, design, development, and evaluation of human-computer interaction methods for computer systems. They will acquire hands-on design skills through laboratory exercises and assignments. The course also covers HCI design principles and emphasizes the importance of contextual, organisational, and social factors in system design.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6206",
+        "CS5346",
+        "CS4249",
+        "CS3283"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS1020E",
+            "CS2020",
+            "CS2030",
+            "CS2113",
+            "CS2113T",
+            "NM3209",
+            "NM2207",
+            "NM2207Y"
+        ]
+    },
+    "title": "Interaction Design"
+}

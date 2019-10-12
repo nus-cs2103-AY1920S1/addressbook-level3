@@ -1,0 +1,30 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "LSM1102",
+    "courseCredit": "4",
+    "description": "This module covers topics on (i) the patterns of inheritance, (ii) the molecular properties of genes and chromosomes, (iii) transcription and translation, (iv) genetic methods and technology, and (v) genetic analysis of individuals and populations. This will include an in-depth understanding of mendelian patterns of inheritance and variations that could occur due to multiple alleles, lethal genes, chromosomal variations, linkage, gene interaction and other genetic phenomena. Emphasis is placed on the understanding of the underlying molecular and biochemical basis of inheritance. Quantitative and population genetics will also be discussed with the emphasis of understanding the processes and forces in nature that promote genetic changes.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3222",
+        "LSM2103",
+        "LSM3245",
+        "LSM2291",
+        "LSM3242",
+        "LSM2102",
+        "LSM2288",
+        "LSM2289",
+        "LSM2241",
+        "LSM2191",
+        "LSM2232",
+        "LSM2254",
+        "LSM3227",
+        "LSM4259",
+        "ST5217",
+        "ST4243"
+    ],
+    "title": "Molecular Genetics"
+}

@@ -1,0 +1,30 @@
+{
+    "courseCode": "ST3131",
+    "courseCredit": "4",
+    "description": "This module focuses on data analysis using multiple regression models. Topics include simple linear regression, multiple regression, model building and regression diagnostics. One and two factor analysis of variance, analysis of covariance, linear model as special case of generalized linear model. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "BSN4811A",
+        "BSS4003B",
+        "ST5207",
+        "ST5213",
+        "ST5220",
+        "ST3240",
+        "ST3241",
+        "ST4233",
+        "ST4240",
+        "ST4242",
+        "ST4245",
+        "DSA4211",
+        "ST4248"
+    ],
+    "preclusion": "ST2335, EC3303",
+    "prereqTree": {
+        "or": [
+            "ST2131",
+            "MA2216",
+            "ST2334"
+        ]
+    },
+    "title": "Regression Analysis"
+}

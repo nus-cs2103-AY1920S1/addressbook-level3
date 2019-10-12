@@ -1,0 +1,8 @@
+{
+    "courseCode": "EC6314",
+    "courseCredit": "4",
+    "description": "This is a Ph.D. level course. While it covers the content of EC5314/EC5214, more emphasis is laid on theory.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC6214",
+    "title": "Advanced Time Series Analysis"
+}

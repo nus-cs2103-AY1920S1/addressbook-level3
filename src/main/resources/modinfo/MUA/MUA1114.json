@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1114",
+    "courseCredit": "2",
+    "description": "In this project-based class, students will learn the history, principles and practice of electronic music while composing works using original timbres created with software synthesizers, sampling devices and effects processors.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2105"
+    ],
+    "title": "Introduction to Electronic Music"
+}

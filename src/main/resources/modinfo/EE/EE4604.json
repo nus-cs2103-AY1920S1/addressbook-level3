@@ -1,0 +1,10 @@
+{
+    "courseCode": "EE4604",
+    "courseCredit": "4",
+    "description": "In this module, we introduce the anatomy and physiology of the visual and auditory systems as well as their psychophysical characterizations. In addition, we study computational models that not only serve to provide insights into the functional organization of biological systems, but also to generate predictions for new experiments. These models are used increasingly in digital media coding and compression. They are also the basis for new generations of machines that are more aware of their environment, better adapted to the user and more intuitive to interact with. Major topics include the perception of objects, color, and motion, 3D vision, visual attention, and hearing.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6903"
+    ],
+    "title": "Biological Perception in Digital Media"
+}

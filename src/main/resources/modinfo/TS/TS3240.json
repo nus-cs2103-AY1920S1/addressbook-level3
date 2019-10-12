@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3240",
+    "courseCredit": "4",
+    "description": "This module will cover the writing and the critical aspect of theatre criticism \u2010 the art of writing theatre reviews. The role of the theatre critic will be examined in conjunction with the stylistic and formal contents of theatre criticism. The module will explore the uses and elements of theatre criticism with a heavy emphasis on the practical applications of the techniques and skills of writing play analysis in communicating the theatrical experience to the reader. This module will also explore the different modes of publishing in old and new media and examine how they affect reviewer-reader communication.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Theatre Criticism"
+}

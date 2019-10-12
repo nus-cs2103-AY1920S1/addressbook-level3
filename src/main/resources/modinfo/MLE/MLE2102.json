@@ -1,0 +1,12 @@
+{
+    "courseCode": "MLE2102",
+    "courseCredit": "4",
+    "description": "Thermodynamic laws and relationship, concept of entropy and its relationship to heat, strategy for deriving thermodynamic relationships, general criterion for equilibrium, physical and chemical equilibria; Statistical thermodynamics: micro-states and macro-states, partition function; Phase diagram: unary and multicomponent systems, Clausius-Clapeyron equation, partial molar properties, Gibbs phase rule, applications of phase diagrams; Curvature effects in thermodynamics: surface excess properties, surface tension, phase equilibria, Gibbs adsorption equation; Basic electrochemistry.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE3203",
+        "MLE3102",
+        "MLE2103"
+    ],
+    "title": "Thermodynamics and Phase Diagrams"
+}

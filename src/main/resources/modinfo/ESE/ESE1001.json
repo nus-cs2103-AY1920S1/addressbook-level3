@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ESE1001",
+    "courseCredit": "4",
+    "description": "This introductory module aims to familiarize students with a broad range of environmental engineering topics. Topics to be covered include historical perspective on environmental engineering; interactions of humans and the environment; environmental regulations; ecology and the environment; fundamental chemical kinetics; chemistry of solutions; overview of biology/microbiology organisms and processes; application of physical, chemical and biological parameters to environmental quality; engineering decision analyses.",
+    "faculty": "Engineering",
+    "preclusion": "ESE1001FC/ESE1001X",
+    "title": "Environmental Engineering Fundamentals"
+}

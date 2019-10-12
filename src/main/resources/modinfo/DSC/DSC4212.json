@@ -1,0 +1,13 @@
+{
+    "courseCode": "DSC4212",
+    "courseCredit": "4",
+    "description": "The objective of this course is to help you understand and improve the quality of business decisions and become a better decision maker. Decision-making is becoming increasingly challenging in a fast-paced business world where managers must make frequent decisions in the face of rising uncertainty and complexity. This course will take a systematic view of management decision making from both normative and descriptive perspectives. While the normative perspective focuses on what rational managers should do in order to make optimal decisions, the descriptive perspective offers critical insights about how real managers make judgment and decisions. Class discussion will be organized around the contrasts between what decision-makers should do in a normative sense and how they actually do in a descriptive sense. The normative approach may help decision makers to identify, structure, and analyze decision problems in a systematic and logical manner. On the other hand, the descriptive approach has provided insightful understandings of how people deviate from rational decision making and easily fall into common decision traps. This course will teach you how to think critically about the decisions you and other people make, how to avoid common decision pitfalls, and how to improve your decision making skills by offering a comprehensive cross-disciplinary knowledge of decision making and more importantly its real life applications.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "DSC1007",
+            "BSP1005"
+        ]
+    },
+    "title": "Managerial Decision Analysis"
+}

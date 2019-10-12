@@ -1,0 +1,13 @@
+{
+    "courseCode": "ACC3713",
+    "courseCredit": "4",
+    "description": "Accounting Theory",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "ACC2707",
+            "ACC2708"
+        ]
+    },
+    "title": "Accounting Theory"
+}

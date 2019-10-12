@@ -1,0 +1,14 @@
+{
+    "courseCode": "TEE3408",
+    "courseCredit": "4",
+    "description": "This module focuses on integration of analog circuits on silicon using CMOS technology. The topics covered include processing and modeling background, basic circuits, reference circuit design, single stage amplifiers, operational amplifiers, noise issues and advanced design methods",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3408E",
+    "prereqTree": {
+        "or": [
+            "TEE2021",
+            "TEE2027"
+        ]
+    },
+    "title": "Integrated Analog Design"
+}

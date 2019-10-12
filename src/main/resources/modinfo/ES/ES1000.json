@@ -1,0 +1,21 @@
+{
+    "courseCode": "ES1000",
+    "courseCredit": "0",
+    "description": "This is a required course for students whose Qualifying English Test results show that they would benefit from basic English language skills support. Students in the course must pass it before they are allowed to read the next required English course, English for Academic Purposes (ES1102/ES1103). The purpose of ES1000 is to improve the students' English language skills in reading, writing and grammar. These skills are taught, reviewed and reinforced through online, inclass and appropriate out-of-class activities. Assignments include reflections, written assignments and progress tests. This module is taught over 1 semester with a two-hour online lecture/discussion/quiz and a two-hour sectional teaching per week.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "MNO2706",
+        "PR4196",
+        "IS2101",
+        "ES2002",
+        "ES2007D",
+        "ES2331",
+        "ES1601",
+        "ES1601A",
+        "ENV1202",
+        "CS2101",
+        "FAS1101",
+        "FAS1102"
+    ],
+    "title": "Foundation Academic English"
+}

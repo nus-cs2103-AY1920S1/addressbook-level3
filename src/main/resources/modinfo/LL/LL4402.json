@@ -1,0 +1,9 @@
+{
+    "courseCode": "LL4402",
+    "courseCredit": "8",
+    "description": "Insolvency law is relevant to virtually all aspects of commercial activity involving the provision of credit. This course will explore its key concepts in the context of a winding up u the moratorium, powers of recovery, the pari passu principle, the external manager, avoidance of transactions, proof of debts and set-off. We will then review receivership, judicial management and schemes of arrangement as alternative procedures to the liquidation of a company in a winding up. We conclude with a brief examination of informal debt restructurings. This course will be taught principally through seminars for which prior preparation and participation are required.",
+    "faculty": "Law",
+    "preclusion": "Corporate Insolvency & Rescues I (LLA4038); Corporate Insolvency & Resuces II (LLA4039)",
+    "prereqTree": "LLB2008",
+    "title": "Corporate Insolvency Law"
+}

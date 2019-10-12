@@ -1,0 +1,13 @@
+{
+    "courseCode": "GE3243",
+    "courseCredit": "4",
+    "description": "Students will learn how to apply the theory of petroleum exploration to real data sets provided by Industry and the literature. Data sets to be studied include bathymetric, gravity and magnetic surveys, 2D and 3D seismic surveys, drilling and well log records. Students will make visits to exploration, service and petroleum engineering companies in Singapore and will be encouraged to apply for internships.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "GE3880A",
+            "GE3244"
+        ]
+    },
+    "title": "Applied Petroleum Exploration"
+}

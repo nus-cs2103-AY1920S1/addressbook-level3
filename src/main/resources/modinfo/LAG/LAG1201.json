@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG1201",
+    "courseCredit": "4",
+    "description": "This module focuses on the basic linguistic and communicative structures of the German language. By developing the four skills of listening, speaking, reading and writing as well as teaching basic grammar and vocabulary, it aims at helping students achieve communicative competence in simple everyday situations and personal interaction. The module will also attempt to help students optimise their learning by teaching them vital strategies for language learning and language use.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAG2201"
+    ],
+    "title": "German 1"
+}

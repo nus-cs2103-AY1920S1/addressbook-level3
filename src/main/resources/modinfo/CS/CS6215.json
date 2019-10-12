@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6215",
+    "courseCredit": "4",
+    "description": "Program analysis techniques allow one to automatically analyse the behaviour of a computer program, to identify bugs and performance bottlenecks. This graduate level module covers advanced topics in program analysis that are of current research or application interests. Students will explore the state-of-the-art techniques and systems for program analysis. After taking the module, students will be able to apply advanced automated program analysis tools and techniques to verify, test, and debug programs, as well as be better prepared for conducting research in program analysis and apply them in related research areas.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            "CS4212"
+        ]
+    },
+    "title": "Advanced Topics in Program Analysis"
+}

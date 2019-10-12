@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE6006",
+    "courseCredit": "4",
+    "description": "This module extends further the fundamentals and applications of finite element method to solve complex engineering problems. Topics covered include weak formulation and finite element concepts, degenerated beam and plate elements, time-dependent finite element procedure, nonlinear finite element procedures and meshless finite element method. Student should be able to analyse advanced problems in structural and geotechnical disciplines using finite element methods.",
+    "faculty": "Engineering",
+    "title": "Advanced Finite Element Analysis"
+}

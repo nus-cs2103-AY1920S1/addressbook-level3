@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST4232",
+    "courseCredit": "4",
+    "description": "This module focuses on the theory and methods of making statistical inference based on nonparametric techniques. Students will see the analyses of real data from various areas of applications. Topics include properties of order statistics, statistics based on ranks, distribution-free statistics, inference concerning location and scale parameters for one and two samples, Hajek's projection. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST2132",
+    "title": "Nonparametric Statistics"
+}

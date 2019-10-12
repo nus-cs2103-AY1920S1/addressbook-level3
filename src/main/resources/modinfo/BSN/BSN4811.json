@@ -1,0 +1,26 @@
+{
+    "courseCode": "BSN4811",
+    "courseCredit": "4",
+    "description": "A key challenge for Singapore and other developed economies is to sustain economic growth. Growth can be based on working harder (more labour, more investment, more resources) or working smarter (raising productivity). Innovation contributes to working smarter -- getting more from the same resources. This module introduces recent research in the microeconomics of innovation and productivity, focusing on implications for management and economic policy. The module runs as an interactive seminar, and aims to critically appreciate current research. The instructor and students will present and discuss recently published and ongoing empirical studies, with particular emphasis on causal inference. Students will analyze data, and write technical reports as well as general essays.",
+    "faculty": "NUS Business School",
+    "preclusion": "BSS4003A",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1101E",
+                    "EC1301"
+                ]
+            },
+            {
+                "or": [
+                    "DAO2702",
+                    "EC2303"
+                ]
+            }
+        ]
+    },
+    "title": "Innovation and Productivity"
+}

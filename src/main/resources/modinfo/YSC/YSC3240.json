@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSC3240",
+    "courseCredit": "5",
+    "description": "Foundations of Applied Mathematics introduces important mathematical methods that are essential for treating a variety of problems in applied mathematics, which are useful in physics, chemistry, and economics. Topics include vector calculus, linear algebra, differential equations, complex analysis, Fourier series, and calculus of variations. The module will focus on aspects of each topic pertinent to the applied fields mentioned above.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3211",
+        "YSC4213"
+    ],
+    "preclusion": "YSC2205 Mathematical Methods for Physical Scientists",
+    "title": "Foundations of Applied Mathematics"
+}

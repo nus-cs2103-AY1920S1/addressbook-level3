@@ -1,0 +1,12 @@
+{
+    "courseCode": "BMF5332",
+    "courseCredit": "4",
+    "description": "This module develops a conceptual framework for investment decisions, focusing on the responsibilities, concerns, and methods of analysis for investment professionals. Topics include portfolio construction, asset classes (equity, fixed income, options, futures, etc.), asset allocation, asset pricing, and market (in)efficiency. The rise of various institutional forms, e.g., mutual funds, hedge funds, ETRs, will also be discussed.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMF5341A",
+        "BMF5345"
+    ],
+    "prereqTree": "BMF5322",
+    "title": "Foundation of Investments"
+}

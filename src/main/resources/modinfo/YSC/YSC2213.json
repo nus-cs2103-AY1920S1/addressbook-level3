@@ -1,0 +1,10 @@
+{
+    "courseCode": "YSC2213",
+    "courseCredit": "5",
+    "description": "Discrete mathematics is the art of combining and arranging sets that are naturally composed of individual pieces, such as the integers, one\u2019s network of friends, or the internet. This course develops basic techniques for manipulating discrete sets through a host of concrete examples and applications. Key topics include permutations, partitions, recurrences, generating functions, networks, graph algorithms, and rigorous explorations of the Fibonacci and Catalan numbers, the Principle of Inclusion/Exclusion, the Pigeonhole Principle, and Pascal\u2019s Triangle.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3245"
+    ],
+    "title": "Discrete Mathematics"
+}

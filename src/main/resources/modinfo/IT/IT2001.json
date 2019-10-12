@@ -1,0 +1,15 @@
+{
+    "courseCode": "IT2001",
+    "courseCredit": "4",
+    "description": "The objective of the module is to provide technological background in telecommunications, data communication and Internet technology to non-computer science students. It covers the basic concepts in communication and networking, and looks at Internet and telecommunication in detail. It also deals with some common applications in all these areas and looks at the possible convergence of various communication technologies. The impact on social and business areas as a result of the wide spread use of the fast changing communication technologies are also addressed.",
+    "faculty": "Computing",
+    "preclusion": "CS2105, EE3204/E, EE4210; SoC, EEE & CPE students are not allowed to take this module. Arts and social sciences students reading CNM as a subject/concentration are not allowed to read this module as CFM/URL-Breadth.",
+    "prereqTree": {
+        "or": [
+            "CS1010",
+            "GEK1511",
+            "IT1001"
+        ]
+    },
+    "title": "Network Technology and Applications"
+}

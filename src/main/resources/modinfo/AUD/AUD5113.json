@@ -1,0 +1,21 @@
+{
+    "courseCode": "AUD5113",
+    "courseCredit": "4",
+    "description": "This module is a continuation from AUD5107 that provides an introduction to the normal auditory, speech and language, social and physical development of infants and young children. The focus of this module is on children with hearing impairment. This module is delivered through lecture and clinical practicum takes place in NUH. Students are required to prepare session plans for cases scheduled on the day of observation and discuss them with clinical supervisors.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5218",
+        "AUD5219"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5101",
+            "AUD5102",
+            "AUD5103",
+            "AUD5104",
+            "AUD5106",
+            "AUD5107"
+        ]
+    },
+    "title": "Paediatric Audiology A - Part 2"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM3251",
+    "courseCredit": "4",
+    "description": "This multidisciplinary module provides an in-depth view of the synthesis, characterisation and application of nanostructures using chemical routes. Necessarily, it will incorporate various concepts from colloidal chemistry, supramolecular chemistry, polymer chemistry and electrochemistry, etc. The application of these concepts in nanoscale synthesis will be emphasized and presented in a cohesive manner. The module also highlights the applications of nanostructures such as quantum dots, nanoparticles, nanorods, nanowires, etc. in the areas of biosensors, bioimaging, LEDs and photonic crystals, etc.",
+    "faculty": "Science",
+    "prereqTree": "SP2251",
+    "title": "Nanochemistry"
+}

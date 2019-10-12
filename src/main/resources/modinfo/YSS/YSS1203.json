@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSS1203",
+    "courseCredit": "5",
+    "description": "Economists are mainly concerned with the study of choice: choices made by consumers (buy the latest gizmo or save the money?), firms (how much to produce and what price to charge?) and policy-makers (bailout the banks or reduce income tax rates?) are all within the purview of economic analysis. This module serves as an introduction to economics and the basic mathematical tools for economic analysis. It covers topics in microeconomics, macroeconomics, univariate calculus, and systems of equations.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4217",
+        "YSS3264"
+    ],
+    "preclusion": "A level Mathematics AND A level Economics (or equivalent mathematics and economics courses).",
+    "title": "Principles of Economics"
+}

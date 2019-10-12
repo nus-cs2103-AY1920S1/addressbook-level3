@@ -1,0 +1,7 @@
+{
+    "courseCode": "EE4434",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students to the industry practice on the technology, design, layout and testing of digital and memory integrated circuits (IC). Students will be introduced to the different types of devices which are manufactured in a foundry. Students will learn about the ideas of design for testability through lectures, hands on exposure to different testing and debugging tools and industrial visits. Specific topics include wafer technology and devices, digital logic and memory design and layout, fundamentals of digital and static random access memory (SRAM) testing, design for testability, fault isolation and electrical characterization.",
+    "faculty": "Engineering",
+    "title": "Integrated Circuit Technology, Design and Testing"
+}

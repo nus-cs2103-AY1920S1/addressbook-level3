@@ -1,0 +1,10 @@
+{
+    "courseCode": "AUD5115",
+    "courseCredit": "3",
+    "description": "This compulsory module provides an introduction to research design in the behavioural sciences related to hearing. Topics will include experimental design, basic statistical tools such as parametric and non-parametric tests, correlation and linear regression, and sample size calculation. In this module, students will also learn about research ethics, and identify a research topic and undertake scientific literature search related to the research topic.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5220"
+    ],
+    "title": "Experimental Design & Statistics"
+}

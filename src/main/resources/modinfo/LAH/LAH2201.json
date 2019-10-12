@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAH2201",
+    "courseCredit": "4",
+    "description": "Hindi 2 is a beginners\u2019 module, and is a continuation of Hindi 1. It is an integrated course which will help students gain higher basic proficiency in the four skills (listening, speaking, reading, and writing), grammar, vocabulary (including Devanagari, the Hindi alphabet), for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAH3201"
+    ],
+    "prereqTree": "LAH1201",
+    "title": "Hindi 2"
+}

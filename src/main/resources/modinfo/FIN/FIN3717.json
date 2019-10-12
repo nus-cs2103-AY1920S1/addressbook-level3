@@ -1,0 +1,9 @@
+{
+    "courseCode": "FIN3717",
+    "courseCredit": "4",
+    "description": "This course covers major topics in fixed income securities. The emphasis will be on valuation. Topics covered include the study of bonds, bond derivatives, interest rate derivatives, interest rate swaps, mortgage, asset backed securities, and credit risk. The focus is principally on interest rate risk and valuation of these instruments.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3131",
+    "prereqTree": "FIN3702",
+    "title": "Fixed Income Securities"
+}

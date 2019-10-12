@@ -1,0 +1,13 @@
+{
+    "courseCode": "MA5205",
+    "courseCredit": "5",
+    "description": "This module covers Lebesgue integration and related topics. It is intended for graduate students in mathematics. Major topics: (1) Quick review of properties of Rn, Lebesgue measure on Rn, Borel sets, Lebesgue nonmeasurable sets, Riemann-Lebesgue function, Lusin\u2019s and Egoroff\u2019s Theorems, convergence in measure. (2) Lebesgue integration, convergence theorems, evaluation of the integral in terms of the distribution function, Lp spaces, density of C\ufffd\ufffd functions in Lp(Rn), p < \ufffd\ufffd, abstract integration. (3) Product integration, Fubini\u2019s and Tonelli\u2019s Theorems, application to convolution, approximate identities and maximal function. (4) Lebesgue Differentiation Theorem, Vitali covering, functions of bounded variation, absolutely continuous functions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5238",
+        "MA5206"
+    ],
+    "preclusion": "MA5215",
+    "prereqTree": "MA4262",
+    "title": "Graduate Analysis I"
+}

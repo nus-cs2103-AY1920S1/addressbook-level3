@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5204",
+    "courseCredit": "4",
+    "description": "The module will cover various mooring and riser systems; hydrodynamics and vortex-induced vibrations; moored object dynamics; design of deepwater moorings and risers; design codes and criteria; material selection; fatigue and structural intergrity; offshore installation and practical applications.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CE5307",
+            "OT5201"
+        ]
+    },
+    "title": "Moorings & Risers"
+}

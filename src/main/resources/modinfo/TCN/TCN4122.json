@@ -1,0 +1,23 @@
+{
+    "courseCode": "TCN4122",
+    "courseCredit": "3",
+    "description": "This module aims to provide fundamentals and methods of of process synthesis and simulation, which are required for design of chemical processes/plants. Students learn a heuristic method for process development, simulation strategies, main steps in process design and rigorous process simulation using a commercial simulator through both lectures and many hands-on exercises. They will also learn detailed mechanical design of process equipment, cost estimation and profitability analysis of chemical processes.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4124"
+    ],
+    "preclusion": "CN4122E",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "TCN2116",
+                    "TCN2121",
+                    "TCN3124"
+                ]
+            },
+            "TCN3132"
+        ]
+    },
+    "title": "Process Synthesis and Simulation"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA3163",
+    "courseCredit": "4",
+    "description": "The compulsory module for third year students continue to focus on practical application and expand on the collaborative skills previously acquired in MUA2163 Leading and Guiding Through Music. These include the specific areas of managerial leadership, presentation, promotion, production and conducting. The course introduces students to different musical career pathways while developing their artistic identities through an awareness of the external environment such as the arts ecosystem. The course covers two main areas: 1. Music Entrepreneurship 2. Conducting and musical leadership",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3216"
+    ],
+    "prereqTree": "MUA2163",
+    "title": "Musical Pathways"
+}

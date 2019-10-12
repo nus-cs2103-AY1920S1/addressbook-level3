@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC2708",
+    "courseCredit": "4",
+    "description": "The module covers financial accounting at an intermediate level, with special reference to accounting for financial instruments, deferred tax, leases, provisions, employee benefits, and share-based compensation.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3704",
+        "ACC3713",
+        "ACC4761H"
+    ],
+    "preclusion": "ACC3601",
+    "prereqTree": "ACC2707",
+    "title": "Corporate Accounting & Reporting II"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "PS3251",
+    "courseCredit": "4",
+    "description": "The main aim of this module is to provide a theoretical and empirical understanding of the role of international organisations in contemporary international politics. Scholarly and policy making communities constantly refer to international organisations but there is very little comprehension of how these institutions emerge, evolve and endure. This module will explain concepts such as functionalism, neo-functionalism, integration, regimes and international cooperation. The second part will focus on universal organisations (UN, WTO) and regional entities like the European Union, Mercosur, OAS, GCC etc.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS3254, EU3228",
+    "prereqTree": {
+        "or": [
+            "PS1101E",
+            "PS2237"
+        ]
+    },
+    "title": "International and Regional Organisations"
+}

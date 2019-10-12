@@ -1,0 +1,14 @@
+{
+    "courseCode": "EBA5001",
+    "courseCredit": "10",
+    "description": "This module teaches the foundation skills and best practices for managing business analytics projects within the industry which includes understanding how to successfully manage business analytics projects to meet all stakeholders\u2019 requirements, data analytics framework (CRISP-DM), data cleaning, management and processing, data visualization & data governance.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "EBA5006",
+        "EBA5003",
+        "EBA5004",
+        "EBA5005",
+        "EBA5007"
+    ],
+    "title": "Management of Business Analytics Project"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "ACC4715",
+    "courseCredit": "4",
+    "description": "Accounting theory is a body of rules and theories which governs the practice of financial accounting. Many of the rules and theories are well reasoned economic rationales and tested over time. On the other hand, the state of accounting theory also changes as new accounting and financial transactions are created in the new economy. This module seeks to examine some of the core theories that underpin financial accounting. This is essential to a proper theoretical understanding of the discipline of financial accounting.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC4761C"
+    ],
+    "preclusion": "ACC3615; ACC4616.",
+    "prereqTree": "ACC3704",
+    "title": "Accounting Theory"
+}

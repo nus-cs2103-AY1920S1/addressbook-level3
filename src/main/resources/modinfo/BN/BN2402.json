@@ -1,0 +1,12 @@
+{
+    "courseCode": "BN2402",
+    "courseCredit": "4",
+    "description": "The module introduces students to the basics of bioinstrumentation, electric circuit analysis, biosensors, bioamplifiers and their related applications to biomedical device design. The module covers the topics on fundamentals of biomedical instrumentation design, the use of KVL, KCL, superposition and circuit equivalence techniques to analyze circuits, principles of biosensors and bioamplifiers in biosignals recovery. This module also encompasses the basic elements for biomedical device design and prototyping to solve a medical problem through a hands-on design project performed in teams.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN3401"
+    ],
+    "preclusion": "EG1108 Electrical Engineering",
+    "prereqTree": "PC1432",
+    "title": "Fundamentals of Bioinstrumentation"
+}

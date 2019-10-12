@@ -1,0 +1,8 @@
+{
+    "courseCode": "DTS5736",
+    "courseCredit": "2",
+    "description": "The purpose of this module is to allow students to integrate multi-dimensional defence technology that include C3, Sensors and Intelligence, Artificial Intelligence, Guided Weapons, Unmanned Systems, Cyber, Operations Research, Systems Engineering, etc, to study, formulate and analyse an actual military problem with the goal of recommending a design solution with the principles of systems engineering and design that involve complex systems.",
+    "faculty": "Temasek Defence Sys. Institute",
+    "prereqTree": "DTS5731",
+    "title": "Systems Design Project"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "AH2202",
+    "courseCredit": "4",
+    "description": "What is modern art? How has it been understood and interpreted by artists, critics and art historians? What is the relationship between modern art, modernism and modernity? Is the history of modern art 'multiple'? The course will explore these questions through a chronological introduction to modern art, from the 19th century to the 1950s. Students will be encouraged to critically-analyse visual and textual primary-source material to develop a nuanced understanding of different developments in modern art. Case studies on modern art in Asia will also be included to encourage students to appreciate the multiplicity and global diffusion of modern art.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "AH2101",
+    "title": "Modern Art: A Critical Introduction"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CL1101E",
+    "courseCredit": "4",
+    "description": "This is a bilingual introductory course for undergraduates to learn interesting issues of the Chinese language like the structure of Chinese language, the use and variation of Chinese language in society, changes in Mandarin and Chinese dialects, the comparative and diachronic aspects of Chinese language, and the relationship between Classical Chinese and Modern Chinese dialects. This will give students a new perspective of the Chinese language, making the Chinese language current and relevant in today's world. Classes will be delivered mainly in Chinese, with English as a supplementary tool. Students can choose to do assignments and examinations in either language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CL3204",
+        "CL3206"
+    ],
+    "title": "Chinese Language: Its Past and Present"
+}

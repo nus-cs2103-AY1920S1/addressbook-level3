@@ -1,0 +1,10 @@
+{
+    "courseCode": "YSC1216",
+    "courseCredit": "5",
+    "description": "Calculus unites the study of instantaneous rates of change, area and optimisation, via the mathematical concepts of limit and infinity. This module provides a conceptual framework for Calculus. We eschew full mathematical rigour, but emphasise real world phenomena more than the rote formal calculations that make up a typical high school Calculus class. This module is suitable not only for those who have never learned Calculus before, but also for those who have completed a high school Calculus course. Students completing the module will be prepared for discipline-specific classes in the Sciences and Social Sciences which make use of Calculus.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC2203"
+    ],
+    "title": "Calculus"
+}

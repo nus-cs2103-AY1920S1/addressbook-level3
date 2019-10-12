@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4304",
+    "courseCredit": "4",
+    "description": "This module provides students with system theory, analysis tools and design methods in discrete-time domain. It is the first course in control and automation that systematically introduces the basic concepts and principles in sampling, Z-transform, zero-order-hold, discrete equivalence and the relations to discrete-time control design. It further examines the design issues for digital PID, PID auto-tuning, phase compensator, and the model predictive control, including the performance criteria, pole-placement, as well as numerous illustrative application examples.",
+    "faculty": "Engineering",
+    "preclusion": "EE3304.",
+    "prereqTree": {
+        "or": [
+            "EE2010",
+            "EE3331C"
+        ]
+    },
+    "title": "Digital Control Systems"
+}

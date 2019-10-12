@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA6222",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics, who are interested in set theory. It consists of the following four parts: The Singular Cardinal problem and Silver\u2019s Theorem; Shelah\u2019s Possible Cofinality Thoery; Supercompact Cardinals and Solovay\u2019s Theorem; Negative solutions of SCH from large cardinals; Positive solutions from Forcing Axioms.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA6223"
+    ],
+    "prereqTree": "MA5219",
+    "title": "Set Theory I"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4437",
+    "courseCredit": "4",
+    "description": "Photonics technology is everywhere around us, and disruptive advances in photonics have impacted our everyday lives, e.g., LED lighting, flexible OLED displays in mobile phones, ultra-thin and curved television displays. This course will introduce the underlying photonic principles underlying these recent photonic applications, i.e., the generation, modulation and detection of light, and their application. Emphasis is placed on the fundamentals of device operation and their use in current photonic devices and applications. The aim is to equip students to meet the demand of the expanding optoelectronic industry and to prepare them for advanced study and research in photonic technology. Topics include introduction to photometry, and electro-optical properties of semiconductors and lowdimensional semiconductor structures, as well as applications such as light emitting devices, lasers, detectors, modulators and displays. Recent advances e.g. quantum devices, and organic LEDs and photonic crystals will also be introduced.",
+    "faculty": "Engineering",
+    "preclusion": "EE4401 Optoelectronics",
+    "title": "Photonics - Principles and Applications"
+}

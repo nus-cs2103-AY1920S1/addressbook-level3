@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3272",
+    "courseCredit": "5",
+    "description": "What is the relationship, in modern literature, between literary texts and politics? Can literature transform the world? Or is it just a distraction from engagement? Can it do anything to influence the political landscape? If so, how might it accomplish or document change, and how might different types of literature be suited to activist, reformist, or revolutionary purposes? Through readings from fiction, drama, poetry, history, and literary theory, and from writers that might include Zola, Stowe, Morrison, Thomas Mann, Coetzee, Beauvoir, Sartre, Adorno, Brecht, Allende, Alan Moore, Christa Wolf, and others, this course attempts to address these questions.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Literary Activism: Texts, Aesthetics, & Politics"
+}

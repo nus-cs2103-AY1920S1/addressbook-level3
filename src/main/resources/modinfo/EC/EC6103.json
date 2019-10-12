@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC6103",
+    "courseCredit": "4",
+    "description": "This is a core module for PhD students. It is aimed at providing a good training in econometric theory and applications. It covers some topics already covered in EC5103 but at a more theoretical level. Asymptotic theory, ML and GMM estimation, extremum estimators, non-linear models, simultaneous equations models are among the topics covered under this module.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC6154",
+    "prereqTree": {
+        "or": [
+            "EC5154",
+            "EC5103"
+        ]
+    },
+    "title": "Econometric Modelling and Applications Ii"
+}

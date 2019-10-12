@@ -1,0 +1,20 @@
+{
+    "courseCode": "AUD5111",
+    "courseCredit": "3",
+    "description": "This course introduces students to the design principles of various types of implantable devices (e.g. cochlear implant, middle-ear implant). All aspects of the clinical application of these implantable devices including audiological evaluation, medical issues, counselling, programming of devices and outcome measures are covered.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5217",
+        "AUD5218",
+        "AUD5219",
+        "AUD5221"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5101",
+            "AUD5104",
+            "AUD5105"
+        ]
+    },
+    "title": "Hearing Devices & Rehabilitation A - Part 2"
+}

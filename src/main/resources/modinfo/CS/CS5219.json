@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5219",
+    "courseCredit": "4",
+    "description": "The immense growth in the complexity of software has increased the scope of errors, which are often critical. The nature of these errors is diverse, resulting from the diversity of the various classes of software: sequential, multithreaded, reactive and real-time. In this course, we will study techniques for verification, run-time monitoring and debugging of software which help us to give certain guarantees against such errors. The focus will be on automated validation techniques.",
+    "faculty": "Computing",
+    "prereqTree": "CS2104",
+    "title": "Automated Software Validation"
+}

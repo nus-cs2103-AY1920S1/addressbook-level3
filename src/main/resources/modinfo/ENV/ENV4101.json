@@ -1,0 +1,13 @@
+{
+    "courseCode": "ENV4101",
+    "courseCredit": "4",
+    "description": "ENV4101, the last in a series of integrated BES modules, focuses on Singapore and evaluates how it has managed its environmental challenges. In other words, it examines environmental principles, concepts, policies and strategies learned in the preceding modules, but under a local lens. To facilitate this, the format of ENV4101 involves weekly seminars and/or round-table discussions with the key players in these challenges, in other words people ranging from individual activists, to representatives of the NGO, corporate and government sector",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "ENV3101",
+            "ENV3102"
+        ]
+    },
+    "title": "Environmental Management in Singapore"
+}

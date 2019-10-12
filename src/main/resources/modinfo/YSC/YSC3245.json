@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3245",
+    "courseCredit": "5",
+    "description": "In Operations Research (OR), we apply mathematical methods to model and solve decision-making problems from a wide range of domains, including Management or Engineering. This module will provide students with a broad overview of common problems and techniques from OR. In addition, there will also be continues practices of problem modelling and solving in order to build a solid knowledge of the field.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSC1212",
+            "YSC2213"
+        ]
+    },
+    "title": "Operations Research and Applications"
+}

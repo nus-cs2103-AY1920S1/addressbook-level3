@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "BLD3004",
+    "courseCredit": "4",
+    "description": "This is an independent study module meant to cover any topics that are not covered by any other modules on leadership. The supervisor will provide the details according to the needs of the students and the subject matter.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MNO1706",
+                    "MNO1706X",
+                    "PL3239"
+                ]
+            },
+            "MNO2705"
+        ]
+    },
+    "title": "Topics in Leadership Development"
+}

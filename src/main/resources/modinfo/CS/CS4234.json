@@ -1,0 +1,20 @@
+{
+    "courseCode": "CS4234",
+    "courseCredit": "4",
+    "description": "This module covers common algorithmic techniques for solving optimisation problems, and introduces students to approaches for finding good-enough solutions to NP-hard problems. Topics covered include linear and integer programming, network flow algorithms, local search heuristics, approximation algorithms, and randomized algorithms. Through analysis and application of the techniques to a variety of canonical problems, students develop confidence to (i) appropriately model a given optimisation problem, (ii) apply appropriate algorithmic techniques to solve the problem, (iii) analyse the properties of the problem and candidate algorithms, such as time and space complexity, convergence, approximability, and optimality bound.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            "CS3230"
+        ]
+    },
+    "title": "Optimisation Algorithms"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC2224",
+    "courseCredit": "5",
+    "description": "The structure, properties, and reactivity of carbon-based molecules will be studied in depth, offering the foundation for understanding not only pharmaceuticals, dyes, polymers and other petrochemicals, but also the biochemical processes that constitute life. Topics will include covalent and ionic bonding, aromaticity and stereochemistry, addition and substitution reactions, carbonyl chemistry, molecular orbital theory, as well as Infrared and NMR spectroscopy. Taking YSC2222 Organic Chemistry Laboratory concurrently with YSC2224 is strongly recommended, so that students can put their newly acquired theoretical knowledge in practice and thus gain a much deeper understanding of the material.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4205",
+        "YSC3228",
+        "YSC2222",
+        "YSC4219",
+        "YSC4218"
+    ],
+    "preclusion": "Precludes previous module code of YSC2206",
+    "prereqTree": "YSC1207",
+    "title": "Accelerated Organic Chemistry"
+}

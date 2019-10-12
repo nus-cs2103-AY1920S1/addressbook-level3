@@ -1,0 +1,14 @@
+{
+    "courseCode": "LSM4210",
+    "courseCredit": "4",
+    "description": "Biomedical science is the spectrum of Life Sciences that addresses human health and human diseases. From genetics to metabolism, developmental biology to aging, neurobiology to physiology, microbiology to immunology, these key topics interplay to build up our understanding of the human body, as well as how it responses to internal disruptions and external disturbances especially in disease conditions. This senior level module aim to focus on selected topics in biomedical science so as to trigger students\u2019 appreciation of the multi-facet approaches when engaging issues in this area of Life Sciences. Talks by guest speakers from the industry may be expected to enrich the awareness of real-world strategies in biomedical science.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2211",
+            "LSM2232",
+            "LSM2233"
+        ]
+    },
+    "title": "Topics in Biomedical Science"
+}

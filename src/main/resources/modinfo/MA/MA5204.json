@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA5204",
+    "courseCredit": "4",
+    "description": "This module is a basic introduction to commutative and homological algebra. It covers the following topics: prime spectrum of a commutative ring, exact sequences, projective, injective and flat modules, Ext and Tor, integral ring extensions, Noether\u2019s normalization and Hilbert\u2019s Nullstellensatz, Noetherian and Artinian rings and moduels, dimension theory, Dedekind domains and discrete valuation ring.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5208"
+    ],
+    "prereqTree": "MA5203",
+    "title": "Graduate Algebra IIA"
+}

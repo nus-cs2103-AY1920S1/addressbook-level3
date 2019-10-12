@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "SH5002",
+    "courseCredit": "4",
+    "description": "The course provides basic industrial and process safety knowledge for safety practitioners. It covers the life-cycle (birth-to-death principle) approach in preventing safety problems in industry. Introductory techniques to risk management such as hazard identification, risk assessment, risk evaluation and risk treatment will be covered. Concepts on system safety, inherently safe design, equipment/process reliability, redundancy and common cause failures in the prevention of industrial accidents will also be taught.",
+    "faculty": "Engineering",
+    "title": "Fundamentals in Industrial Safety"
+}

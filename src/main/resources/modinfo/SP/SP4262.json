@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "SP4262",
+    "courseCredit": "4",
+    "description": "Ever wondered how DNA Evidence makes its way from the crime scene to the courtroom? This module is delivered in an interactive seminar-style format, where students will experience first-hand challenges and practical usage relating to Forensic DNA Evidence. Students will undergo practicals to learn the entire chain of forensic DNA techniques, from collection, characterisation, and storage to processing DNA Evidence. Students will also play the role of expert witnesses for the prosecution or defence based on evidence gathered at mock trials. Students will appreciate the importance of DNA as part of a toolkit used for individualisation in forensic investigations.",
+    "faculty": "Science",
+    "prereqTree": "LSM1306",
+    "title": "Forensic Human Identification"
+}

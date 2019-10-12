@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5007A",
+    "courseCredit": "2",
+    "description": "The aim of this course is to help students develop conceptual foundation for managing technological innovation. It introduces concepts and frameworks for analysing how firms can create, commercialize and capture value from technology-based products and services. The focus is on management rather than the specific details of any particular technology.",
+    "faculty": "Engineering",
+    "preclusion": "MT5007 Management of Technological Innovation",
+    "title": "Types and Patterns of Technological Innovation"
+}

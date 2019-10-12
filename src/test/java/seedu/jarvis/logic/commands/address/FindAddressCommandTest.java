@@ -21,8 +21,9 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindAddressCommand}.
@@ -33,15 +34,15 @@ public class FindAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getHistoryManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     /**
-     * Verifies that checking FindAddressCommand for the availability of inverse execution returns false.
+     * Verifies that checking {@code FindAddressCommand} for the availability of inverse execution returns false.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindAddressCommand findAddressCommand = new FindAddressCommand(predicate);
         assertFalse(findAddressCommand.hasInverseExecution());
@@ -95,11 +96,11 @@ public class FindAddressCommandTest {
     }
 
     /**
-     * Verifies that calling inverse execution of FindAddressCommand will always throw command exception with the
-     * correct message.
+     * Verifies that calling inverse execution of {@code FindAddressCommand} will always throw a
+     * {@code CommandException} with the correct message.
      */
     @Test
-    public void test_executeInverse_exceptionThrown() {
+    public void executeInverse_throwsCommandException() {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindAddressCommand findAddressCommand = new FindAddressCommand(predicate);
         assertThrows(CommandException.class,

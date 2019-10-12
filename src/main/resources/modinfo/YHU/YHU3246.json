@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3246",
+    "courseCredit": "5",
+    "description": "This course examines the relationship between British fiction and ideas of evidence in the 19th century. Readings are drawn primarily from novels by Austen, Scott, Shelley, Collins, Trollope, Eliot, and Doyle; excerpted 18th- and 19th-century treatises on evidence law; philosophers of British empiricism like Locke and Hume; Victorian court reports; and theories of law and literature.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Novel Evidence:19th-Century British Fiction and the Law"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "SA4105",
+    "courseCredit": "6",
+    "description": "- Java Programming - Java Object Persistence - Web-based J2EE Applications - Wireless Technology - J2EE Project",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "SA4109",
+        "SA4109A"
+    ],
+    "title": "Web Application Development"
+}

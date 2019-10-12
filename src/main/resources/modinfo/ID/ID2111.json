@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ID2111",
+    "courseCredit": "4",
+    "description": "The module aims to give students a practical understanding on the use Computer Aided Industrial Design (CAID) for design. This will include conceptual design with technical constraints to final rendering of the designed product. It will allow the student greater understanding of the verification tools by using it to assist in executing design decisions. Learning process will deal with theories and methods for constructive modeling, detailing, rendering and presentation, from simple curves and primitives to complex surfaces. Topics discussed will include Point, Line, Plane, 2-D and 3-D Surfaces, Solids, Colour and Texture and application of Lighting and as well as Basic Animation.",
+    "faculty": "Design and Environment",
+    "title": "Computer Aided Industrial Design"
+}

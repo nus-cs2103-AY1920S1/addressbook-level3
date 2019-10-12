@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CL2101",
+    "courseCredit": "4",
+    "description": "This course deals with various aspects of Chinese characters. The historical portion of the course covers the origin of the Chinese characters, the principles of character formation, the evolution of styles over time, analyses of correlations between shapes and meanings, traces of pronunciations of Old Chinese as revealed in phonogram graphs, etc. The contemporary study covers an appraisal of the Simplified Characters, an evaluation of the Chinese characters in terms of frequency studies and neurolinguistic studies.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "CL2201",
+    "title": "The Chinese Script : History and Issues"
+}

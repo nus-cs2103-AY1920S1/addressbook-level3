@@ -1,0 +1,9 @@
+{
+    "courseCode": "CS5230",
+    "courseCredit": "4",
+    "description": "The aim of this module is to study the various measures of difficulty of problem solving in computing, and to introduce some techniques in theoretical computer science such as non-determinism, digitalisation, simulation, padding, reduction, randomisation and interaction. Topics covered include: space and time complexity - the classes P, NP, co-NP, PSPACE, EXP, etc.; tape compression; linear speedup; polynomial reduction; Cook's theorem; Savitch's theorem; translation lemma; Gap theorem; NP-completeness and NP-hard problems; probabilistic complexity classes; approximation algorithms; and interactive protocols.",
+    "faculty": "Computing",
+    "preclusion": "CS4230",
+    "prereqTree": "CS4232",
+    "title": "Computational Complexity"
+}

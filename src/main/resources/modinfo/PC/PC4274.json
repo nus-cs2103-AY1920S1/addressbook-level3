@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC4274",
+    "courseCredit": "4",
+    "description": "This module introduces advanced mathematical methods that are essential in many areas of theoretical physics. The topics covered are: differentiable manifolds, curved manifolds, tangent and dual spaces, calculus of differential forms, Stokes' theorem, and applications to electromagnetic theory; symmetries of manifolds, Lie derivatives, Lie groups and algebras, their representations and physical applications. The module is targeted at students who wish to study theoretical physics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5204B"
+    ],
+    "prereqTree": "PC3274",
+    "title": "Mathematical Methods in Physics III"
+}

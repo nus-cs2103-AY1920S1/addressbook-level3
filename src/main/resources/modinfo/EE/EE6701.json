@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6701",
+    "courseCredit": "4",
+    "description": "This course explores how principles from theories of evolution can be used to construct intelligent systems. Established evolutionary paradigms as well as, significant new developments, including evolutionary algorithms, evolutionary strategies, evolving neural networks, ant-colony optimisation, artificial immune systems, and swarm intelligence will be covered. Students will be taught how these approaches identify and exploit biological processes in nature, allowing a wide range of applications to be solved in industry and business. Key problem domains such as multi-objective scheduling, optimisation, search, and design will be examined. Students will gain hands-on experience in applying these techniques to real-life problems through project work.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401",
+            "EE5103",
+            "EE5103R",
+            "ME5403"
+        ]
+    },
+    "title": "Evolutionary Computation"
+}

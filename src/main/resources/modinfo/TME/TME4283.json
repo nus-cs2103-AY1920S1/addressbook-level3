@@ -1,0 +1,8 @@
+{
+    "courseCode": "TME4283",
+    "courseCredit": "4",
+    "description": "This module enables students to learn the micromachining of both Silicon and non-Silicon materials. The major topics include the basic micro-fabrication as well as the micro-machining processes for microsystems. Some of the processes to be covered: Bulk Processes; Surface Processes; Sacrificial Processes and Bonding Processes; Micro-machining based on conventional machining processes; Micro-machining based on non-conventional machining processes; Special machining; The module is targeted at students seeking to specialise in the Microsystems Technology.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4283, ME4283E",
+    "title": "Micro-Fabrication Processes"
+}

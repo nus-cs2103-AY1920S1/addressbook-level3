@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2163",
+    "courseCredit": "4",
+    "description": "The compulsory module for second year students focuses on the practical application of relevant knowledge and skills previously acquired in The Profession of Music 1 & 2 while forging new collaborative skills through working as a group. The module covers collaborative and group music making skills, audience engagement and innovative practices, presentation skills and introduction to conducting through various hands-on activities.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3163"
+    ],
+    "prereqTree": "MUA1167",
+    "title": "Leading and Guiding Through Music"
+}

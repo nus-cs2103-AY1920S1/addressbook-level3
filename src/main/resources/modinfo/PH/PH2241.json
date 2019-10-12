@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2241",
+    "courseCredit": "4",
+    "description": "What is the nature of mind and its relation to physical body? The mental realm is among the last great unknowns in the modern view of sentient beings and their place in the Universe and is a fertile field of philosophical inquiry. This module examines central conceptual issues surrounding the idea of mind and its relation to physical body. These include the distinction between the mental and the physical, the nature of consciousness, personal identity, disembodied existence, mental representation, and the attempt to tame the mental in purely physical terms.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3241",
+        "PH3242",
+        "PH3244",
+        "PH3245"
+    ],
+    "preclusion": "PH3212 Philosophy of Mind",
+    "title": "Philosophy of Mind"
+}

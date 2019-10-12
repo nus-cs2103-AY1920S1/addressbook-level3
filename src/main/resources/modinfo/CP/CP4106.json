@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "CP4106",
+    "courseCredit": "8",
+    "description": "The objective of this project module enables students to undertake a substantial computing-related project work over a period of one year. Students work individually on self-proposed projects or projects proposed by staff. They will have good opportunity to apply what they have learnt on practical problems, be it research-oriented or software development-oriented. Students should periodically submit a report make a presentation to the respective supervisors. The project will be letter-graded.",
+    "faculty": "Computing",
+    "preclusion": "CG4001, BT4101, CP4101, or any Integrated Honours Thesis/Project/Dissertation module",
+    "title": "Computing Project"
+}

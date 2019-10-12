@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS2220",
+    "courseCredit": "5",
+    "description": "Students taking this course acquire foundational concepts in Urban Studies, including: centrality (cities as economic and demographic concentrations and extensions); relationality (cities in global and regional networks); positionality (cities as pluralistic units of experience and meaning); sustainability (cities as sites of human-environment interface); and collectivity (cities as sites of collaborative problem solving and collective action). It is a required course in Urban Studies, preparing students for Urban Theory as well as other urban thematic courses. It should be the first course students intending to major or minor in Urban Studies take, and must be completed prior to the Senior Year.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS3222",
+        "YSS4220",
+        "YSS3262",
+        "YSS4234",
+        "YSS4239",
+        "YSS3275",
+        "YSS3284"
+    ],
+    "preclusion": "YSS1207 (previous module code)",
+    "title": "Adelaide to Zhuhai: Cities in Comparative Perspective"
+}

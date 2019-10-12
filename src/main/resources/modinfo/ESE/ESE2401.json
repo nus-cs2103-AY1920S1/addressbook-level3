@@ -1,0 +1,13 @@
+{
+    "courseCode": "ESE2401",
+    "courseCredit": "4",
+    "description": "This module provides students with the fundamental aspects of water science and technology in water and wastewater treatment. Applied chemistry, microbiology and biology in fresh water, marine water, drinking water and wastewater will be covered. This module will enable students to understand the global cycle, possible contamination and threats to water in nature. Students also learn how to integrate engineering systems to purify natural water for human uses, and recycle water back to global water cycle through the practice of environmental science and technologies.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE3401",
+        "ESE4401"
+    ],
+    "preclusion": "TCE3001",
+    "prereqTree": "ESE2001",
+    "title": "Water Science & Technology"
+}

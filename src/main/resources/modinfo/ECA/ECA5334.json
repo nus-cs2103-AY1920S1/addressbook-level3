@@ -1,0 +1,15 @@
+{
+    "courseCode": "ECA5334",
+    "courseCredit": "4",
+    "description": "This module provides a theoretical and practical treatment of corporate financial theory for students who have completed an introductory course in financial economics. Topics covered in this course will include: an overview of financial management; comparisons of financial and real investment; capital budgeting and valuing real assets and real options; risk and return of assets; capital structure and dividend policy, and mergers and acquisitions; applications of portfolio management techniques in corporate finance.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC5269/EC5334",
+    "prereqTree": {
+        "or": [
+            "EC5274",
+            "EC5333",
+            "ECA5333"
+        ]
+    },
+    "title": "Corporate Finance"
+}

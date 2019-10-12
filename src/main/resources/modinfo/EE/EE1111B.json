@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE1111B",
+    "courseCredit": "4",
+    "description": "This module is adapted from EE1111A and CG1111 to expose high school students to computer and electrical engineering principles through experiential learning. It focuses on the engineering principles and practice of how computer-aided systems are designed and built. They are first taught the fundamental principles of electronic circuits through laboratory sessions and group discussions. They are then guided to apply these principles to build a sensor-assisted autonomous robotic vehicle. Upon completing the module, they can appreciate the importance of circuits, signals, and sensors in system implementation. This module is only for high school students.",
+    "faculty": "Engineering",
+    "preclusion": "EE1111A, CG1111, EE1112, EG1112",
+    "title": "Electrical & Computer Engineering Principles & Practice"
+}

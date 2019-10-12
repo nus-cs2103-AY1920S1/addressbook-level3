@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "IE3100M",
+    "courseCredit": "12",
+    "description": "This systems design project requires students to work in teams to study, formulate and analyze an actual industrial problem with the goal of recommending a design solution that is practical. It also enables students to engage with industry, gain teamwork experience, practice and improve their oral and written communication skills in technical report writing, case study development, oral presentations and professional project management in the industry. The objective of the systems design project is to provide an opportunity for students to gain practical experience in an actual industry problem. It also gives the students a broader technical scope in applying and validating industrial engineering concepts rather than concentrating on one particular subject area within a classroom context.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "IE2100",
+            "IE2110",
+            "IE1112"
+        ]
+    },
+    "title": "System Design Project"
+}

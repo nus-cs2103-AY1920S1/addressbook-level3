@@ -1,0 +1,16 @@
+{
+    "courseCode": "MNO4313E",
+    "courseCredit": "4",
+    "description": "This course will cover cognition and decision making in organisations. The course will begin with a brief exploration of the bases of cognition, including the topics of neurophysiology, sensation and perception, and cognitive science/psychology. Using this as a basis, the course will go on to explore biases in decision making, the role of emotion in cognition and cognitive styles, persuasion and influence, conformity and obedience, sensemaking and cognition in high-stress/high-reliability environments, cognition in groups and teams, ethical decision-making, and the importance of understanding what makes us happy... the latter of which is often difficult for us to predict and has implications for our (inevitable) lives as employees in organizations. Throughout the course an attempt will be made to understand the way students think, the biases they hold when making decisions and interpreting environmental stimuli in the context of organisations, and the ways in which their emotions influence their decisions and judgments. Also highlighted will be the usefulness of introspection and an awareness of their own thought processes and assumptions... an aim that almost all religions and many academic pursuits attempt forward, yet one which is often excluded from the study of business to the detriment of business people.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "SIMHC: Managerial and Organisational Cognition"
+}

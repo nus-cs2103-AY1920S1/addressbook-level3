@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5001",
+    "courseCredit": "4",
+    "description": "Operations research and its applications, mainly in the area of production planning and control: linear programming, network analysis, project planning and scheduling, dynamic programming, inventory control models, queueing theory, replacement theory and maintenance models.",
+    "faculty": "Engineering",
+    "preclusion": "BDC5101 Deterministic Operations Research Models",
+    "title": "Operations Planning and Control I"
+}

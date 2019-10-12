@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CLC2101",
+    "courseCredit": "4",
+    "description": "From AY2019/2020, CLC2101 will be replaced by CLC1101. This module introduces students to the theory and practice of community development (i.e., engagement of communities so that they become empowered agents of social change). The community development models and frameworks that would be discussed in the module include asset-based community development; community capitals framework; networking approach to community development; community empowerment models; sustainable livelihoods models; and radical community development. Students would develop competencies in applying qualitative research techniques that can be used to map communities. Additionally, students would be exposed to community participation, consensus building and design thinking techniques that can be adopted to generate solutions to community issues.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "CLC2201",
+        "CLC2202"
+    ],
+    "title": "Engaging and Building Communities"
+}

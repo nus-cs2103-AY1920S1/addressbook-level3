@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5514",
+    "courseCredit": "4",
+    "description": "This module provides an overview and the modelling of the different yield loss and reliability mechanisms in integrated circuits. The associated analysis techniques for fault localization and failure characterization are also covered in the module. At the end of this module, the student will gain a basic understanding of the various integrated circuit (IC) yield loss and reliability mechanisms and the various techniques available for IC fault localization and failure analysis. Major topics covered: Introduction to IC Failure Analysis; IC Yield and Reliability; Fault Localization and Physical/Chemical Characterization-Optical Beam, Electron Beam, Surface Analysis and Scanning Probe Techniques; Challenges to IC Failure Analysis.",
+    "faculty": "Engineering",
+    "preclusion": "EE5503",
+    "title": "Ic Yield, Reliability & Failure Analysis"
+}

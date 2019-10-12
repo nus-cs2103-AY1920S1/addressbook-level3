@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3255",
+    "courseCredit": "4",
+    "description": "This course is an intermediate level course in child psychology. It is intended to build greater understanding of the interface between child psychology and medicine, with a focus on how illness can affect development in children. The impact of acute and chronic illness on children transcends their physical health and this course is aimed at teaching students about distinct neuropsychological, emotional, interpersonal and daily living issues that emerge for children who become ill.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3234"
+        ]
+    },
+    "title": "Introduction to Paediatric Psychology"
+}

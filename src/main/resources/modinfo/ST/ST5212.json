@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5212",
+    "courseCredit": "4",
+    "description": "Censoring, probability models for survival times, graphical procedures, Inference procedures. Parametric and nonparametric models, Cox proportional hazards model, regression models for grouped data, Bayesian predictive distributions. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST2132",
+    "title": "Survival Analysis"
+}

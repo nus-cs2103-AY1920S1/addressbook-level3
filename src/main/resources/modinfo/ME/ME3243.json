@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME3243",
+    "courseCredit": "4",
+    "description": "This module will introduce the mobile robot systems\u2019 architecture and key components such as various sensor and actuator technologies. Various locomotion mechanisms adopted by robotic systems will be discussed. The module will also introduce basic principles of robot motion control. Robot Operating System (ROS) will be utilized for simulation in virtual environments.",
+    "faculty": "Engineering",
+    "title": "Robotic System Design"
+}

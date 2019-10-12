@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3254",
+    "courseCredit": "4",
+    "description": "The module aims to encourage a critical understanding of the significant role the media play in shaping our beliefs, values, and identities in contemporary social life. Topics covered: key social, cultural and political issues pertaining to texts and practices of specific types of media. These issues will be approached from an interdisciplinary perspective that brings together media, cultural, and discourse studies. Target students: those with a keen interest in the media, and who are open to interdisciplinary study.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Media, Discourse and Society"
+}

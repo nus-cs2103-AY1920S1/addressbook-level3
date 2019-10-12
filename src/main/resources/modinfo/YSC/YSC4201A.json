@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC4201A",
+    "courseCredit": "5",
+    "description": "Advanced topics in analysis, such as Fourier analysis, measure theory, analytic number theory, partial differential equations, and functional analysis. Topics may vary depending on instructor and students.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSC3206",
+            "YSC2232"
+        ]
+    },
+    "title": "Topics in Analysis"
+}

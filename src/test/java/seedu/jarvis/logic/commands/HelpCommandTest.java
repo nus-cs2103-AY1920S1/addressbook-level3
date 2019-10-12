@@ -14,8 +14,8 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
@@ -24,10 +24,10 @@ public class HelpCommandTest {
     }
 
     /**
-     * Verifies that checking HelpCommand for the availability of inverse execution returns false.
+     * Verifies that checking {@code HelpCommand} for the availability of inverse execution returns false.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         HelpCommand helpCommand = new HelpCommand();
         assertFalse(helpCommand.hasInverseExecution());
     }
@@ -39,11 +39,11 @@ public class HelpCommandTest {
     }
 
     /**
-     * Verifies that calling inverse execution of HelpCommand will always throw command exception with the correct
-     * message.
+     * Verifies that calling inverse execution of {@code HelpCommand} will always throw a {@code CommandException} with
+     * the correct message.
      */
     @Test
-    public void test_executeInverse_exceptionThrown() {
+    public void executeInverse_exceptionThrown() {
         HelpCommand helpCommand = new HelpCommand();
         assertThrows(CommandException.class,
                 HelpCommand.MESSAGE_NO_INVERSE, () -> helpCommand.executeInverse(model));

@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5203",
+    "courseCredit": "4",
+    "description": "This module covers advanced methods for the design, conduct, analysis and interpretation of epidemiologic studies. The main focus is on analytical studies that aim to identify risk factors for diseases particularly case-control and cohort studies. Topics include causal inference, study design, methods of handling confounding and identifying effect modification, measurement error and information bias, selection bias, lifestyle and molecular epidemiology, and meta-analysis.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5215 Advanced Epidemiology I,\nSPH6001 Advanced Epidemiology II",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    },
+    "title": "Advanced Epidemiology I"
+}

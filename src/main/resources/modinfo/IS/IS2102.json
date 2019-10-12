@@ -1,0 +1,24 @@
+{
+    "courseCode": "IS2102",
+    "courseCredit": "4",
+    "description": "This module aims to train students to be proficient in architecting and designing modern large-scale Enterprise Systems that are complex, scalable, distributed, component-based and mission-critical. Students will develop an in-depth understanding of high-level concepts such as enterprise architecture and software architecture. They will then move on to acquire fundamental systems analysis and design techniques such as object-oriented requirements analysis and design using the Unified Modelling Language as well as software design patterns. Essential systems engineering skillsets such as software testing and software configuration management will also be covered.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5004",
+        "IS5003",
+        "IS5128",
+        "IS5002",
+        "IS4303",
+        "IS4103",
+        "IS4100",
+        "IS4234",
+        "IS3240"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS1020",
+            "CS2030"
+        ]
+    },
+    "title": "Enterprise Systems Architecture and Design"
+}

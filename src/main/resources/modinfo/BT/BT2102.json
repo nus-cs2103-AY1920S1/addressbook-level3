@@ -1,0 +1,26 @@
+{
+    "courseCode": "BT2102",
+    "courseCredit": "4",
+    "description": "This module aims to provide students with practical knowledge and understanding of basic issues and techniques in data management and warehousing with relational database management systems, as well as data visualisation principles, techniques and tools. The module covers data management concepts, conceptual and logical design, database management, data warehousing concepts, data warehousing design, relational database management systems and tools, data visualisation and dashboard design concepts, visual perception and design principles, visualisation techniques and tools for temporal and spatial data, proportions and relationships, multivariate and complex data, etc.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "BT4016",
+        "BT4015",
+        "BT4014",
+        "IS4302",
+        "BT3103",
+        "IS4010",
+        "BT4222",
+        "BT4221",
+        "BT4211",
+        "BT3101",
+        "IS3240"
+    ],
+    "prereqTree": {
+        "and": [
+            "CS1010",
+            "BT1101"
+        ]
+    },
+    "title": "Data Management and Visualisation"
+}

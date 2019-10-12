@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE2708",
+    "courseCredit": "4",
+    "description": "This new module introduces fundamental concepts in computational thinking and basic programming techniques (VBA and Python) to Real Estate (RE) students. It aims to strengthen students\u2019 quantitative skills and problem solving capability necessary to lead the future of the real estate and urban planning industry. Topics covered include problem solving by computing, basic problem formulation and problem solving, program development, coding, testing and debugging, fundamental programming constructs, fundamental data structures, simple file processing, basic recursion, and basic data visualization techniques. Students will apply their skills to solve practical problems in real estate and urban planning.",
+    "faculty": "Design and Environment",
+    "title": "Computational Thinking and Programming for Real Estate"
+}

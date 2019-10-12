@@ -1,0 +1,15 @@
+{
+    "courseCode": "PC3274",
+    "courseCredit": "4",
+    "description": "This module introduces important mathematical methods for the solution of a variety of mathematical problems in physics. The following topics are covered: functions of a complex variable, singularities and residues, contour integration; calculus of variations; transformations in physics, symmetries and group theory, discrete groups, group representations and their applications in physics; tensor analysis, application to classical mechanics, electrodynamics, and relativity.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5204B",
+        "PC5210",
+        "PC4274",
+        "PC4248",
+        "PC4232"
+    ],
+    "prereqTree": "PC2134",
+    "title": "Mathematical Methods in Physics II"
+}

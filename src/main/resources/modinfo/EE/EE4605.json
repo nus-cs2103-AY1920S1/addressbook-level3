@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4605",
+    "courseCredit": "4",
+    "description": "This course introduces the fundamentals of medical instrumentation systems, and bio-signal processing. The physiology of bio-signals, including how they are generated, recorded/collected and are used clinically, will be presented. The purpose of the signal processing methods ranges from noise and artifact reduction to extraction of clinically significant features. The course gives each participant the opportunity to study the performance of a method on real bio-signals. The major topics covered in this module are: Basic concepts of biomedical instrumentation, Cardiovascular system and measurements, Respiratory system and measurements, Neuro-physiological measurements, Signal conditioning and various analysis (linear and nonlinear) techniques.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3731C",
+    "title": "Bio-Instrumentation & Signal Analysis"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3260",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the study of the origins, development and cognitive processing of morality. The module will cover the beginnings of moral psychology, the early theories of moral development, the contemporary developmental research on infants\u2019 and children\u2019s moral decision\u2010making, and the influence of society (e.g., media, law, parenting) on children\u2019s moral development. Through lectures, discussions, course readings, and essay writing we will analyse and debate whether morality is innate, adaptive, and unique from other aspects of cognitive development.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "YSS4221",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132"
+        ]
+    },
+    "title": "Moral Development"
+}

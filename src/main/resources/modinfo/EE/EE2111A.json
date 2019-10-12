@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EE2111A",
+    "courseCredit": "4",
+    "description": "This module is the second part of the two part module Engineering Principles and Practice (EPP) I and II and follows closely the same learning objectives. Most modern engineering systems are more electric. They convert some raw form of energy, such as fuel, mechanical or energy stored in battery, into electrical form. We see this in every engineering system from trains, biomedical devices, chemical plants, electric cars, aircrafts and ships to ICT devices such as computers, handphones, tablets etc. Hence, energy conversion, distribution, and sensing & control will form the backbone of this knowledge segment.",
+    "faculty": "Engineering",
+    "preclusion": "EG1112/ME2104, CG1111, EE1112",
+    "title": "Electrical Engineering Principles and Practice II"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "CM4214",
+    "courseCredit": "4",
+    "description": "This module covers the commonly used methods to determine the structure of inorganic and organometallic compounds including symmetry operators, point groups and irreducible representations; Raman or IR active vibrational modes; the principles and theories of single crystal and powder X-ray diffraction techniques; assessment of quality of published crystal structures; NMR as a powerful diagnostic tool to determine structures and fluxional mechanisms. High resolution mass spectrometry, electron paramagnetic resonance and Mossbauer spectroscopy may be introduced.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM5212"
+    ],
+    "prereqTree": {
+        "or": [
+            "CM3211",
+            "CM3212"
+        ]
+    },
+    "title": "Structural Methods in Inorganic Chem"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5238",
+    "courseCredit": "4",
+    "description": "Biology data are too enormous. Handling them using brute-force approaches becomes impossible and efficient algorithms are required. This module has an in-depth study of some of these advanced algorithms. Through the course, students not only are able to understand these algorithms in detail, but are also given chances to solve some research problems in this field. Topics include sequence comparison, structure comparison and prediction, phylogenetic tree reconstruction and comparison, sequencing by hybridisation, Genome rearrangements, gene network, micro-array.",
+    "faculty": "Computing",
+    "prereqTree": "CS3230",
+    "title": "Advanced Combinatorial Methods in Bioinformatics"
+}

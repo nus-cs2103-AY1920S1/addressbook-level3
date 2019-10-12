@@ -1,0 +1,8 @@
+{
+    "courseCode": "DSA4211",
+    "courseCredit": "4",
+    "description": "Dimensionality is an issue that can arise in many scientific fields such as medicine, genetics, business and finance, among others. The statistical properties of estimation and inference procedures must be carefully established when the number of variables is much larger than the number of observations. This module will discuss several statistical methodologies useful for exploring voluminous data. They include principal component analysis, clustering and classification, tree-structured analysis, neural network, hidden Markov models, sliced inverse regression, multiple testing, sure independent screening (SIS) and penalized estimation for variable selection. Real data will be used for illustration of these methods. Some fundamental theory for high-dimensional learning will be covered.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "High-Dimensional Statistical Analysis"
+}

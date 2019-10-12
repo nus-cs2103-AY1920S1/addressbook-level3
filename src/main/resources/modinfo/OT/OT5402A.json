@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5402A",
+    "courseCredit": "2",
+    "description": "This module introduces the basics of seismic surveys for petroleum reservoirs, from the physics to the acquisition and processing of seismic data. Both land and marine acquisition will be covered.",
+    "faculty": "Engineering",
+    "title": "Seismic Acquisition"
+}

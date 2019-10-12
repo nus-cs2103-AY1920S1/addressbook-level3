@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5344",
+    "courseCredit": "4",
+    "description": "This module analysis of data which can not fit in main memory and application of such analysis to web applications. The topics covered include: map-reduce as a tool for creating parallel algorithms that operate on very large amount of data, similarity search, data-streaming processing, search engine techonology, clustering of very large, high-dimensional datasets.",
+    "faculty": "Computing",
+    "prereqTree": "BT5110",
+    "title": "Big-Data Analytics Technology"
+}

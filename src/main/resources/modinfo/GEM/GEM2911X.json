@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM2911X",
+    "courseCredit": "4",
+    "description": "For those seeking mastery of systems thinking and system dynamics modeling, to serve our human species, Donella (Dana) Meadows\u2019 life and work seem uniquely suited to inspire and guide. Her work sets disciplined high standards in multiple areas: systems modeling, systems thinking, modeling methodologies and environmental journalism. She created resilient communities that embodied her values. Mastering skills and practices her work exemplifies will empower students to become proficient disciplined, humane systems citizens, capable of envisioning and traversing life paths that make a difference.",
+    "faculty": "Residential College",
+    "preclusion": "UTC27% or GEM2911",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Committed to Changing Our World: Dana Meadows\u2019 Legacy"
+}

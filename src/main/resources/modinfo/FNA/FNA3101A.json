@@ -1,0 +1,16 @@
+{
+    "courseCode": "FNA3101A",
+    "courseCredit": "4",
+    "description": "This course provides students with an in-depth understanding of the key financial issues faced by modern-day financial managers of corporations. It will equip students with conceptual and analytical skills necessary to make sound financial decisions. Topics to be covered include risk and return, capital budgeting, capital structure, dividend policy and mergers and acquisitions. Cases will be used to illustrate the concepts taught.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3101 or BZ3301 or BK3100 or FNA3101 or FNA3101B",
+    "prereqTree": {
+        "or": [
+            "FNA2004",
+            "BH2004",
+            "BZ2004",
+            "BK2004"
+        ]
+    },
+    "title": "Corporate Finance"
+}

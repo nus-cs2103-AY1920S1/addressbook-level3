@@ -1,0 +1,13 @@
+{
+    "courseCode": "ST4237",
+    "courseCredit": "4",
+    "description": "Probability space, weak and strong laws of large numbers, convergence of random series, zero-one laws, weak convergence of probability measures, characteristic function, central limit theorem. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA2216",
+            "ST2131"
+        ]
+    },
+    "title": "Probability Theory I"
+}

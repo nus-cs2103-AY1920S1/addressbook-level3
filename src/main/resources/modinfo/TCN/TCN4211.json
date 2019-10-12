@@ -1,0 +1,8 @@
+{
+    "courseCode": "TCN4211",
+    "courseCredit": "4",
+    "description": "The course provides an overview of the petrochemical industry, with a focus on the Singapore industry. The following processes are discussed in the first part: Refining, Steam Reforming, Steam Cracking, Ammonia and Methanol production. To provide an in-dept understanding, fundamental aspects of the processes, i.e. catalysis, kinetics, thermodynamics and reactor design will be highlighted. The second part of this module starts with an introduction to the fundamental organic reaction types and the structural characteristics of the compounds involved. It is then followed by an introduction to homogeneous catalysis using organometallic compounds as catalysts. The third topic of this part covers a series of derivatives from ethylene, propene, butenes, BTX (bezene-toluene-xylenes), focusing on functional group conversion ad applications of target compounds. The forth topic covers the main fine chemicals, such as surfactants, special monomers, adhesives and intermediates for personal care and pharmaceutics. The final topic introduces the basic concept of green chemical process, focusing on development of chemicals that are more environmental friendly.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TC4211, CN4211E",
+    "title": "Petrochemicals & Processing Technology"
+}

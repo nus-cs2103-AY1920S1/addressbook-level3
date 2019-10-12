@@ -1,0 +1,12 @@
+{
+    "courseCode": "CM2191",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM3291",
+        "CM3267"
+    ],
+    "prereqTree": "CM1191",
+    "title": "Experiments in Chemistry 2"
+}

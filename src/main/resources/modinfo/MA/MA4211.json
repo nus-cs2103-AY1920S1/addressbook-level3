@@ -1,0 +1,16 @@
+{
+    "courseCode": "MA4211",
+    "courseCredit": "4",
+    "description": "This course is for students who are majors in pure mathematics or who need functional analysis in their applied mathematics courses. The objective of the module is to study linear mappings defined on Banach spaces and Hilbert spaces, especially linear functionals (real-valued mappings) on L(p), C[0,1] and some sequence spaces. In particular, the four big theorems in functional analysis, namely, Hahn-Banach theorem, uniform boundedness theorem, open mapping theorem and Banach-Steinhaus theorem will be covered. Major topics: Normed linear spaces and Banach spaces. Bounded linear operators and continuous linear functionals. Dual spaces. Reflexivity. Hanh-Banach Theorem. Open Mapping Theorem. Uniform Boundedness Principle. Banach-Steinhaus Theorem. The classical Banach spaces : c0, lp, Lp, C(K). Compact operators. Inner product spaces and Hilbert spaces. Orthonormal bases. Orthogonal complements and direct sums. Riesz Representation Theorem. Adjoint operators.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5206"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3207H",
+            "MA3209"
+        ]
+    },
+    "title": "Functional Analysis"
+}

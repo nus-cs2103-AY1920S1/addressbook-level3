@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5004",
+    "courseCredit": "4",
+    "description": "This module aims to provide engineers with a practical treatment of probability. Apart from the fundamental framework, examples showing how various concepts and techniques can be adapted to solve practical problems will be discussed. An introduction to simulation techniques such as the Monte Carlo method together with stochastic modeling are also included.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE5407"
+    ],
+    "title": "Engineering Probability And Simulation"
+}

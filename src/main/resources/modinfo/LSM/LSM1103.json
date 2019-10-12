@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1103",
+    "courseCredit": "4",
+    "description": "The course aims to inculcate in students an understanding for the need of a diverse and intricate balance of nature and the morality of conservation. It involves an introduction to the diversity of major groups of living organisms, and the importance of maintaining diversity in natural ecosystems. Emphasis is on the need for conservation of biodiversity to maintain a balance of nature. The course will highlight to the students the biodiversity in the major habitats and vegetation types in and around Singapore.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3102",
+        "FST2108"
+    ],
+    "title": "Biodiversity"
+}

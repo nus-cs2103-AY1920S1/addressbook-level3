@@ -1,0 +1,16 @@
+{
+    "courseCode": "CM4212",
+    "courseCredit": "4",
+    "description": "The student will acquire an understanding of the various classes of organometallic compounds, the nature of their bonding, synthetic methodology and characterisation techniques, the principles of homogeneous catalysis, the catalytic cycles and the mechanisms of the different catalytic processes of transition metals, and use of the isolobal analogy. Topics covered include ?-complexes; ?-complexes; clusters and metal-metal bonding; Wade-Mingos rules for e-counting, isolobal relationships. Reactions of organometallic compounds - ligand substitution, coordinative, addition/ligand dissociation, oxidative addition/reductive elimination, insertion)/deinsertion, nucleophilic addition and abstraction, electrophilic reactions. Synthetic applications - metal alkyls & hydrides, insertions, protection/deprotection and activation, coupling and cyclization reactions. Homogeneous catalysis. The module is directed towards students majoring in chemistry and related disciplines.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM5211"
+    ],
+    "prereqTree": {
+        "or": [
+            "CM3211",
+            "CM3212"
+        ]
+    },
+    "title": "Advanced Organometallic Chemistry"
+}

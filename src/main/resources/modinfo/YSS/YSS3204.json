@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS3204",
+    "courseCredit": "5",
+    "description": "This course focuses on the understanding of the process of economic development. The course will be structured around the four main questions: (1) Why are some countries much poorer than others? (2) What are the main barriers to the process of economic development? (3) What are the main barriers that prevent the poor to escape from poverty?, and (4) Why do these barriers exist and persist?",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2203",
+            "YSS2211"
+        ]
+    },
+    "title": "Development Economics"
+}

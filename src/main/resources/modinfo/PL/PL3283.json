@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3283",
+    "courseCredit": "4",
+    "description": "This lab module will give students a practical introduction to methods and techniques in developmental psychology. The exact age range and techniques targeted may vary from infancy to adolescence to the aged depending on the instructor and the availability of participants. The aim is to cover essential ethical, theoretical, methodological, and practical issues of importance when conducting research. Observational and experimental methods will be covered, and basic techniques and tools of developmental assessment will be introduced. Target students are single psychology majors, especially those who are also taking or intending to take theoretical courses in Developmental Psychology.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3234"
+        ]
+    },
+    "title": "Lab in Developmental Psychology"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE5102",
+    "courseCredit": "8",
+    "description": "KE5002-1 Neural Network Computing The objectives of this course are to give an introduction to Neural Networks. Topics covered during the course include Perceptrons; Multi-layer Feed-forward Networks with Back-propagation learning; RBF and GRNN networks; Unsupervised Learning with SOM, Fuzzy systems and Soft Computing, Principal Component Analysis based Hybrid architectures; classification, forecasting and other applications including bioinformatics and financial engineering; There is a Neural network computing assignment. This module is compulsory for all KE students. KE5002-2 Scheduling & Resource Allocation The objective of this module is to provide the basic understanding for solving scheduling and resource allocation problems with emphasis on the heuristic search techniques. Topics covered include : Introduction to Scheduling; Modeling of Scheduling Problems; Search Techniques; Problem Abstraction Techniques; A Generic Tool for Solving Scheduling Problem - Ilog Schedule; Implementing a Heuristic Search Solution for a Scheduling Problem. This module is compulsory for all KE students.",
+    "faculty": "Institute of Systems Science",
+    "title": "Advanced Techniques"
+}

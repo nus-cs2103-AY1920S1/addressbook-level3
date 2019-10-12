@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS5151",
+    "courseCredit": "4",
+    "description": "Advances in information technology (IT) are driving the transformation and success of modern organisations. Along with these advances, we see increasing cyber threats and risks that must be appropriately managed by the organisation. This course will prepare IT leaders to manage these challenges through understanding how to build a cybersecurity strategy and program that not only implements technical safeguards, but also employs effective policy, other controls and risk management practices to make the organisation resilient to threats and disruption.",
+    "faculty": "Computing",
+    "preclusion": "IS4231",
+    "prereqTree": "CS2107",
+    "title": "Information Security Policy and Management"
+}

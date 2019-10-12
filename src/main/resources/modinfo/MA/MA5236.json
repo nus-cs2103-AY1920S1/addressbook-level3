@@ -1,0 +1,16 @@
+{
+    "courseCode": "MA5236",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics. It covers the following major topics: Homological algebra: categories and functors, chain complexes, homology, exact sequences, Snake Lemma, Mayer-Vietoris, Kunneth Theorem. Homology theory: Eilenberg-Steenrod homology axioms, singular homology theory, cellular homology, cohomology, cup and cap products, applications of homology (Brouwer fixed-point theorem, vector fields on spheres, Jordan Curve Theorem), H-spaces and Hopf algebra. Manifolds: de Rham cohomology, orientation, Poincare duality.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA6217"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA5209",
+            "MA5210"
+        ]
+    },
+    "title": "Homology Theory"
+}

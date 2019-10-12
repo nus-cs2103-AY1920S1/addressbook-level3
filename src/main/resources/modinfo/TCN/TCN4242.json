@@ -1,0 +1,14 @@
+{
+    "courseCode": "TCN4242",
+    "courseCredit": "4",
+    "description": "Students will learn the basic theories, methods and software for formulating and solving optimization problems relevant to chemical processes. They will study various methods of linear, nonlinear and mixed-integer linear programming, which would enable them to select and use appropriate algorithm and/or software for solving a given problem. They will also execute the various steps in optimization by solving selected practical problems via various case studies as well as a term project. This is for undergraduate students who wish to learn optimization methodology to solve real-life problems in research and chemical industry.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CN4242E",
+    "prereqTree": {
+        "and": [
+            "TCN2411",
+            "TCN3421"
+        ]
+    },
+    "title": "Optimization of Chemical Processes"
+}

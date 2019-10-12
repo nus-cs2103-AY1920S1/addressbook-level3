@@ -1,0 +1,14 @@
+{
+    "courseCode": "BMF5322",
+    "courseCredit": "2",
+    "description": "This module aims to provide students with the foundation to understand the key concepts and tools used in Finance that are necessary for managers to make sound financial decisions. Topics covered include discounted cash flow models, risk and return, capital budgeting, valuation of stocks, as well as an overview of payout policy and capital structure.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMF5342",
+        "BMF5334",
+        "BMF5333",
+        "BMF5332",
+        "BMF5331"
+    ],
+    "title": "Introduction to Finance"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "YID3201",
+    "courseCredit": "5",
+    "description": "An introduction to the principles of conservation biology, including population, community, and ecosystem\u2010level approaches. Students will learn the basics of ecology and population genetics as they pertain to conservation, interrogate classic case studies in the field, and explore relevant examples from around Southeast Asia.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YCC2135",
+            "YCC2132",
+            "YCC2137",
+            "YCC2134"
+        ]
+    },
+    "title": "Conservation Biology"
+}

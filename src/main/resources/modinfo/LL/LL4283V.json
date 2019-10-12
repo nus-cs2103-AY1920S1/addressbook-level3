@@ -1,0 +1,47 @@
+{
+    "courseCode": "LL4283V",
+    "courseCredit": "5",
+    "description": "Advancements in computer science have made it possible to deploy information technology to address legal problems. Improved legal searches, fraud detection, electronic discovery, digital rights management, and automated takedowns are only the beginning. We are beginning to see natural language processing, machine learning and data mining technologies deployed in contract formation, electronic surveillance, autonomous machines and even decision making. This course examines the basis behind these technologies, deploys them in basic scenarios, studies the reasons for their acceptance or rejection, and analyses them for their benefits, limitations and dangers.",
+    "faculty": "Law",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "LL4076",
+                            "LL5076",
+                            "LL6076"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "LL4076V",
+                            "LL5076V",
+                            "LL6076V"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    {
+                        "or": [
+                            "LL4077",
+                            "LL5077",
+                            "LL6077"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "LL4077V",
+                            "LL5077V",
+                            "LL6077V"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Artificial Intelligence, Information Science & Law"
+}

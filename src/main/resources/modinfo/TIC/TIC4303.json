@@ -1,0 +1,13 @@
+{
+    "courseCode": "TIC4303",
+    "courseCredit": "4",
+    "description": "Software engineering processes need to include security considerations in the modern world. This module familiarizes students to security issues in different stages of the software life-cycle. After completing this module, the students are expected to understand secure programming practices, be able to analyse and check for impact of malicious inputs in programmes, and employ specific testing techniques which can help detect software vulnerabilities.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "and": [
+            "TIC2002",
+            "TIC2301"
+        ]
+    },
+    "title": "Software Security"
+}

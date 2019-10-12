@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM1004",
+    "courseCredit": "4",
+    "description": "The first six weeks we read Plato (a 5th Century BC Greek, of whom it has been said, 'All of Western thought is just footnotes to Plato') and Descartes (a 17th Century Frenchman, of 'I think therefore I am' fame.) The second six weeks concern questions and problems raised by Plato and Descartes. We will mull the metaphysics of mind and consciousness; ponder the politics of freedom. The module title hints at a basic question: what sorts of ways of convincing people, and being convinced by people - about life, about anything - are good ways?",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GET1027",
+    "title": "Reason and Persuasion"
+}

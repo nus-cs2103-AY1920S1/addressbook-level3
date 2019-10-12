@@ -1,0 +1,23 @@
+{
+    "courseCode": "CS3236",
+    "courseCredit": "4",
+    "description": "This module introduces the basics of modern information theory. It covers how information can be quantified, and what this quantification tells us about how well we can compress and transmit information without error. It discusses basic error correcting techniques, and information-theoretic cryptography. Topics covered include: mathematical techniques, entropy measures, fundamental limits to data compression and noisy-channel coding, examples of error-correcting codes, examples of information theoretic cryptography (commitments, secure computation, key distribution, randomness extraction).",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            },
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Information Theory"
+}

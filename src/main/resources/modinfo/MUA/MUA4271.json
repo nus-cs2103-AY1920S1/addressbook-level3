@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA4271",
+    "courseCredit": "4",
+    "description": "Advanced Live Sound Reinforcement 1 is an elective module for those students who would like to work in the live sound domain after their graduation. The module offers students advanced live sound knowledge, skills through different case studies and practice opportunities through different practical live sound sessions from classical music recitals to rock concerts. Students will work more professionally with the module director and be better equipped to work as a professional live sound engineer. Students will be requested to finish at 5 live sound projects.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4272"
+    ],
+    "prereqTree": "MUA3188",
+    "title": "Advanced Live Sound Reinforcement 1"
+}

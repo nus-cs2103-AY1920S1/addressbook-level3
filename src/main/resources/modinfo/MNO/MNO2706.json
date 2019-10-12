@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MNO2706",
+    "courseCredit": "4",
+    "description": "The primary purpose of this course is to cultivate a mindset shift \u2013 to be an effective leader, one has to be an effective communicator. This course weighs heavily on oral communication skills, and is centred on real-life business examples to facilitate students\u2019 understanding of the factors that are critical for business communication. The ability to communicate effectively affects one\u2019s employability and career success. Achieving success in one\u2019s career depends on one\u2019s ability to develop relationships, collaborate across teams, present ideas clearly, ask thoughtful questions and listen skillfully. This course is for students pursuing the Bachelor of Business Administration (Accountancy) programme.",
+    "faculty": "NUS Business School",
+    "preclusion": "ES2002",
+    "prereqTree": "ES1000",
+    "title": "Business Communication for Leaders (ACC)"
+}

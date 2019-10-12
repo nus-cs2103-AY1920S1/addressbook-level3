@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5313",
+    "courseCredit": "4",
+    "description": "This module covers the hydrology of groundwater, a very important but often overlooked component in the hydrologic cycle. It starts by introducing the principles of groundwater flow, followed by its flow equations and modeling. It then discusses flow to wells and addresses groundwater monitoring, contamination and remediation. It ends with topics of special interests such as surface water groundwater interactions and sea water intrusions.",
+    "faculty": "Engineering",
+    "title": "Groundwater Hydrology"
+}

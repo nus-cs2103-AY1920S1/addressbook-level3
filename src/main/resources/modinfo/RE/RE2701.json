@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "RE2701",
+    "courseCredit": "4",
+    "description": "The module will provide students with a thorough understanding of urban planning principles and processes that influence the function and design of cities. It will include an introduction to the history of modern city planning, and contemporary planning concepts such as Garden Cities, City Beautiful movement, Vertical Cities, etc. There will also be a discussion of New Town Planning, Urban Renewal and conservation. Singapore will be introduced as a case study, but selected cities elsewhere are discussed for comparison and better understanding.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE4808",
+        "RE3901"
+    ],
+    "preclusion": "RE2103 Urban Planning, AR2223 Theory of Urban Design and Planning",
+    "prereqTree": "RE1701",
+    "title": "Urban Planning"
+}

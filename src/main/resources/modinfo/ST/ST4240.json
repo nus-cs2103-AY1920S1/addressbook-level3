@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST4240",
+    "courseCredit": "4",
+    "description": "The module covers statistical techniques and tools such as kernel methods for estimating the density and regression functions, machine learning, hidden Markov Chain, EM algorithm, classification, cluster analysis and support vector machines for analyzing large data sets and for searching for unexpected relationships in the data. It also covers model selection for searching through a large collection of potential local models that describe some aspect of the data in an easily understandable way. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "Data Mining"
+}

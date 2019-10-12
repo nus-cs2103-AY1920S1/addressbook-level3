@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "TIC3901",
+    "courseCredit": "12",
+    "description": "This is an essential module designed for BTech Computing students. Leveraging the the students' work experience, students in this module will reflect upon how the knowledge gained in the BTech programme can be translated to their workplace, so that they can perform better in their jobs.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TG3001, TTG3001, TG3002, TTG3002",
+    "title": "Industrial Practice"
+}

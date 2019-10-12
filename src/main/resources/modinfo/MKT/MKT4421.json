@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT4421",
+    "courseCredit": "4",
+    "description": "This course aims to provide a diagnostic framework to better understand broader business context confronting a company, which are needed before one can effectively apply classical marketing tools. It seeks to arm marketer with the lens of Business Stakeholders and helps anchor marketing solutions and value propositions on solving top priorities of the company, as opposed to pursuing its silo metrics. Just as Market Research helps define the consumer, and the competitive and channel landscape, this module enables marketer to map the company\u2019s priorities, pressure points, culture and legacy to incorporate these insights into an impactful set of marketing solutions.",
+    "faculty": "NUS Business School",
+    "preclusion": "BMS5502/BMS5502A Marketing Practice & Impact",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X",
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Marketing Practice and Impact"
+}

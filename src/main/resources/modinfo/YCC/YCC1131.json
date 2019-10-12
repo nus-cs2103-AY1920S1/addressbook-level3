@@ -1,0 +1,15 @@
+{
+    "courseCode": "YCC1131",
+    "courseCredit": "5",
+    "description": "Scientific Inquiry exposes students to a series of topics across the sciences designed to develop understanding of the process of science. The module is designed for students of all backgrounds, and addresses questions of what is and is not science, and how scientific theories are created and developed.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YCC2137",
+        "YSC3235",
+        "YHU4232",
+        "YHU3307",
+        "YHU3312",
+        "YSC2240"
+    ],
+    "title": "Scientific Inquiry 1"
+}

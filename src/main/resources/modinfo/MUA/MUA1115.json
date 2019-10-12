@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA1115",
+    "courseCredit": "2",
+    "description": "This module provides first-year piano students with an introduction to vocal accompaniment, equipping students with knowledge and skills essential for working professionally with singers. Students will receive coaching on various selected works and attend classes which provide a general overview and delve into the common issues of vocal accompaniment; as well as participate in public performances and masterclasses. In addition, students will also learn various sight-reading techniques in order to achieve basic proficiency in playing at sight.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2241"
+    ],
+    "title": "Foundations of Vocal Accompaniment / Sight-Reading"
+}

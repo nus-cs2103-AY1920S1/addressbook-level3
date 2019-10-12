@@ -1,0 +1,11 @@
+{
+    "courseCode": "AH2201",
+    "courseCredit": "4",
+    "description": "This is an introductory-level course, providing students a historical survey of three thousand years of Chinese visual arts with emphasis on painting. Through the course, students will gain a basic understanding of the historical transformation of Chinese art from the classical towards the modern and contemporary, as well as key aesthetic and philosophical conceptions underpinning the production of visual arts in the Chinese culture. In addition, the course provides some comparative studies of Chinese and Western visual arts. There will also be a component introducing the special linkages between the history of Singapore art and the Chinese context.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "AH2101",
+    "title": "Chinese Painting: Styles and Masters"
+}

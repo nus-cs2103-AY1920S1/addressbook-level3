@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "ESP4901",
+    "courseCredit": "8",
+    "description": "This module consists mainly of a research-based project carried out under the supervision of one or more faculty members. The module is normally taken over two consecutive semesters and the students are expected to put in about 15 hours per week for their projects. In addition to the specific problem studied, students are exposed to literature survey and research methodologies. These projects are usually open-ended in nature, giving the students flexibility to judiciously select viable alternatives, and challenge students to acquire skills for independent and lifelong learning. The projects range in variety from design and development projects (software and hardware), computer modelling and simulation, to designing experiments and equipment. Guidelines for project proposals stipulate the requirement for elements of innovation, novelty or research.",
+    "faculty": "Engineering",
+    "title": "Research Project"
+}

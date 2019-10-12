@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "TEE4436",
+    "courseCredit": "4",
+    "description": "In the new information age, fabrication process technology continues to be employed in the manufacturing of ultra-high density integrated circuits such as microprocessor devices in computers. This module focuses on the major process technologies and basic building blocks used in the fabrication of integrated circuits and other microelectronic devices (e.g., solar cells). Understanding of fabrication processes is essential for undergraduate students who wish to develop their professional career in the microelectronics industry such as in wafer fabrication plants, foundries and design houses.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE4411E, EE4436E",
+    "prereqTree": {
+        "or": [
+            "TEE2021",
+            "TEE2027"
+        ]
+    },
+    "title": "Fabrication Process Technology"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "TME3112",
+    "courseCredit": "4",
+    "description": "This course covers the fundamental engineering principles on kinematics and kinetics. The topics of rigid body dynamics and vibration will be covered, including the theoretical development and practical application to mechanisms and machinery. The salient features of dynamics to be applied for each instance will be clearly explained and the interpretation of the results obtained will be highlighted.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME4213"
+    ],
+    "preclusion": "TM2112, ME3112E",
+    "title": "Mechanics of Machines"
+}

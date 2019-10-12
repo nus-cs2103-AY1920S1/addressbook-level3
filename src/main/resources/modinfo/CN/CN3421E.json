@@ -1,0 +1,24 @@
+{
+    "courseCode": "CN3421E",
+    "courseCredit": "4",
+    "description": "This module provides students with a working knowledge of numerical methods and their applications to problems in thermodynamics, fluid mechanics, heat and mass transfer, and reaction engineering. The topics covered are linear and nonlinear equations, interpolation, ordinary and partial differential equations. Each topic starts with an introduction of its applications in chemical engineering followed by principle, development and relative merits of selected methods. Use of suitable software for numerical methods is demonstrated. Students complete 1-2 group projects involving chemical engineering problems and its numerical solution using software, which instills independent learning. The module is targeted at the second year part-time chemical engineering students with some experience in the industry.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "CN4238E",
+        "CN4118E",
+        "CN4229E",
+        "CN4205E",
+        "CN4123E",
+        "CN4242E",
+        "CN4124E"
+    ],
+    "preclusion": "TC3411, TCN3421",
+    "prereqTree": {
+        "and": [
+            "CN2116E",
+            "CN2121E",
+            "CN2125E"
+        ]
+    },
+    "title": "Process Modeling & Numerical Simulation"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "PR3124",
+    "courseCredit": "4",
+    "description": "This is a team-taught module that teaches student on the pharmacology of a broad spectrum of antimicrobial agents and the use of these agents in the pharmacotherapeutic management of commonly encountered infectious disease conditions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR3137"
+    ],
+    "prereqTree": {
+        "or": [
+            "PR1120",
+            "PR2133"
+        ]
+    },
+    "title": "Pharmacotherapeutics III"
+}

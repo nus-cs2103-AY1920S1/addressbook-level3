@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TC1411",
+    "courseCredit": "4",
+    "description": "This module provides a basic foundation in calculus and its related subjects required by Chemical Engineering students. The objective is to equip students with various calculus techniques for their Chemical Engineering modules in later semesters. The module emphasizes problem solving and mathematical methods in single-variable and multivariate calculus, vector algebra and matrix algebra as well as their applications in Chemical Engineering.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TC2411"
+    ],
+    "preclusion": "TCN1411",
+    "title": "Mathematics for Chemical Engineers 1"
+}

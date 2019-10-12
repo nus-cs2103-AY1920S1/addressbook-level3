@@ -1,0 +1,9 @@
+{
+    "courseCode": "CN4216E",
+    "courseCredit": "4",
+    "description": "This module provides students with a fundamental knowledge of electronic materials produced or processed in various industries. It imparts a basic understanding in electrical, electro-optic and magnetic properties of electronic materials in relation to their importance in microelectronic/ optoelectronic/semiconductor industry and their technological applications such as wafer devices, solid-state fuel cells, lithium batteries, light-emitting diodes and solid-state lasers. In particular, semi-conductors, electronic ceramics, conducting polymers, optical and magnetic materials, and nanostructured materials will be introduced. This module is targeted at senior engineering students.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TC4216, TCN4216",
+    "prereqTree": "TC1422",
+    "title": "Electronic Materials Science"
+}

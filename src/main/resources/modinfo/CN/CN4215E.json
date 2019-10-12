@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4215E",
+    "courseCredit": "4",
+    "description": "This module combines food science and engineering operations as an integrated food-engineering course. It starts with the food science topics such as, food chemistry, microbiology and nutrition. Then it focuses on the applications of various chemical engineering operations (refrigeration, freezing, evaporation, drying, and thermal processing) to food processing. The course also covers other relevant topics such as, food rheology and packaging of food products.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TC4215, TCN4215",
+    "prereqTree": {
+        "and": [
+            "CN2122E",
+            "CN3132E"
+        ]
+    },
+    "title": "Food Technology And Engineering"
+}

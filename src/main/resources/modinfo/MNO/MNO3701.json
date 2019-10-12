@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO3701",
+    "courseCredit": "4",
+    "description": "This module introduces students to the frameworks and concepts underpinning the contribution of human capital management (HCM) in a constantly changing environment. Students will take a strategic and leadership-oriented approach to examine human capital-related practices using both the employer's and the employee's perspectives. The key areas to be discussed include environmental challenges and strategic HCM, talent acquisition, talent development, talent retention, and global workforce deployment. As environmental challenges are constant (globalisation, technology, and sustainability), this course will address the alignment of key HCM issues with corporate missions, visions, and values in the context of changing environment.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO2302, MNO3333",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Human Capital Management"
+}

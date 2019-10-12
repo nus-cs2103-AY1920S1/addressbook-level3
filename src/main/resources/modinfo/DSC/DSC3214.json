@@ -1,0 +1,36 @@
+{
+    "courseCode": "DSC3214",
+    "courseCredit": "4",
+    "description": "This module introduces students to the theory, algorithms, and applications of optimisation. Optimisation methodologies include linear programming, integer programming, network optimisation, dynamic programming, and nonlinear programming. Problem formulation and interpretation of solutions will be emphasized. Throughout the course, references will be made wherever appropriate, to business applications, such as portfolio selection, options pricing, and vehicle routing. Students who are interested in computer and quantitative approaches in business will learn many useful techniques in large business system management from this course.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DSC3224",
+        "DSC4213",
+        "MA4264",
+        "MA4260",
+        "MA4254"
+    ],
+    "preclusion": "IE2110",
+    "prereqTree": {
+        "or": [
+            "DSC1007",
+            {
+                "and": [
+                    {
+                        "or": [
+                            "MA1101R",
+                            "MA1311"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "MA1521",
+                            "MA1102R"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Introduction To Optimisation"
+}

@@ -1,0 +1,32 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS2201",
+    "courseCredit": "5",
+    "description": "This course will introduce students to themselves and others as viewed through the lens of psychology. We will present and explore the scientific study of human (and animal) behaviour, seeking to understand why we think, feel, and act as we do. The goal is to build a firm foundation for those wishing to major in psychology while simultaneously providing an interesting and revealing elective to those visiting psychology on their way to other disciplines.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS2216",
+        "YSS3214",
+        "YSS3215",
+        "YSS3219",
+        "YSS3228",
+        "YSS4202",
+        "YSS4206A",
+        "YSS4206B",
+        "YSS4214",
+        "YSS4212",
+        "YSS3252",
+        "YSS3249",
+        "YSS4221",
+        "YSS4231",
+        "YSS4240",
+        "YSS3279",
+        "YSS3278",
+        "YSS3285",
+        "YSC2240",
+        "YSS4206C"
+    ],
+    "title": "Understanding Behavior and Cognition"
+}

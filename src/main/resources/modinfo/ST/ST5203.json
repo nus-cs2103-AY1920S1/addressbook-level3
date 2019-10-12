@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ST5203",
+    "courseCredit": "4",
+    "description": "The module introduces designed experiment as a tool for process improvements and designing products that are robust to environmental variability. Inferences about the effect of factors on a product or process can be drawn using designed experiment. Topics include analysis of variance of fixed-effect models, randomized block design, factorial designs, fractional factorial designs, blocking and confounding, response surface methodology, random effects models, nested and split-plot designs. Predictive analytics using designed experiments. This module is targeted at students who are interested in designing robust products and process improvements, and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "preclusion": "ST5318",
+    "title": "Design of Experiments for Product Design and Process Improvements"
+}

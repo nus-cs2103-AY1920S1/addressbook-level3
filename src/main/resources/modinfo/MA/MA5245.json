@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5245",
+    "courseCredit": "4",
+    "description": "This module is designed for honours students in the Quantitative Finance programme and post-graduate students in mathematical finance or quantitative finance. It aims to further students\u2019 understanding in various areas of financial mathematics. Topics include selected materials in the following aspects: Stochastic analysis, stochastic control, and partial differential equations with applications in financial mathematics, exotic options, bond and interest rate models, asset pricing, portfolio selection, Monte Carlo simulation, credit risk analysis, risk management, incomplete markets.",
+    "faculty": "Science",
+    "prereqTree": "MA4269",
+    "title": "Advanced Financial Mathematics"
+}

@@ -1,0 +1,22 @@
+{
+    "courseCode": "MA4269A",
+    "courseCredit": "4",
+    "description": "Major topics include fundamental of asset pricing, basic stochastic calculus, Ito\u2019s formula, Black\u2010Scholes models for European, American, path\u2010dependent options such as Barrier, Asian and Lookback options, as well as multi\u2010asset options and American exchange options.",
+    "faculty": "Science",
+    "preclusion": "MA3245 Financial Mathematics I\nMA4257 Financial Mathematics II",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA1506",
+                    "MA1507",
+                    "MA2104",
+                    "MA2311"
+                ]
+            },
+            "MA3269"
+        ]
+    },
+    "title": "Mathematical Finance II"
+}

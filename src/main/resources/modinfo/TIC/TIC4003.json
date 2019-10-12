@@ -1,0 +1,13 @@
+{
+    "courseCode": "TIC4003",
+    "courseCredit": "4",
+    "description": "This module introduces students to the common concepts, issues, and pitfalls in managing a software project. Topics include: feasibility study, cost estimation and control, task planning and tracking, risk management, productivity and quality metrics, configuration management, team dynamics (including distributed team management).",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "or": [
+            "TIC4001",
+            "TIC4002"
+        ]
+    },
+    "title": "Software Project Management"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC3702",
+    "courseCredit": "4",
+    "description": "The primary aim of this course is to develop a solid understanding of the legal framework required in the operations of business entities especially companies. It covers the entire life-span of a business entity, namely from the formation of the entity to its liquidation. It also includes the various legal obligations and implications in operating the business entity. A secondary objective is to introduce the pertinent provisions of securities legislation such as the Securities & Futures Act and the Takeover Code.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC3604; LC2008",
+    "prereqTree": {
+        "or": [
+            "BSP1702",
+            "BSP1702X"
+        ]
+    },
+    "title": "Corporate and Securities Law"
+}

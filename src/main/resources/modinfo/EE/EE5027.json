@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5027",
+    "courseCredit": "2",
+    "description": "The main objectives of this graduate module are to equip students with the fundamentals of statistical pattern recognition (SPR) algorithms and techniques. PR deals with automated classification, identification, and/or characterisations of signals/data from various sources. Because real world data is noisy and uncertain, we will focus on SPR techniques, with particular emphasis on the theoretical foundations of various techniques. Topics covered include: fundamentals of parameter estimation (maximum likelihood, maximum-a-posteriori, posterior predictive), supervised learning, generative models, naive Bayes, discriminative models, logistic regression, nonparametric techniques, Bayesian decision theory.",
+    "faculty": "Engineering",
+    "title": "Statistical Pattern Recognition"
+}

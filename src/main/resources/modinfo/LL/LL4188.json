@@ -1,0 +1,15 @@
+{
+    "courseCode": "LL4188",
+    "courseCredit": "4",
+    "description": "The course aims to equip business students majoring in finance or international business with basic legal knowledge relating to the regulatory framework of our domestic and foreign financial markets. More specifically, the course examines important corporate finance concepts such as the raising of funds by a company from the domestic and international markets (e.g. IPOs, syndicated loans), trading offences, joint ventures, mergers and acquisitions etc. from a legal point of view. Besides the use of academic textbooks and journal articles, actual legal precedents and documents used by practitioners are also employed to explain drafting styles, negotiation methodology and legal rights and liabilities of the various parties in the transactions.",
+    "faculty": "Law",
+    "preclusion": "LL4409/LLD5409/LL6409 International\nCorporate Finance\n\u2022 LL4182/LLD5182/LL6182 Corporate Finance\nLaw and Practice in Singapore\nLL4055/LL5055/LL6055 Securities Regulation",
+    "prereqTree": {
+        "or": [
+            "LC2008",
+            "BSP1004",
+            "FNA2004"
+        ]
+    },
+    "title": "Corporate Law and Finance"
+}

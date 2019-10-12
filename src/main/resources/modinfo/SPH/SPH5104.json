@@ -1,0 +1,14 @@
+{
+    "courseCode": "SPH5104",
+    "courseCredit": "4",
+    "description": "This module will cover major topics in healthcare analytics, including clinical related analytics (diseases, medication, laboratory test, etc.) and healthcare operations related analytics (resource planning/scheduling, care process analytics and improvement, admission and readmission, etc.). Students will learn the insights of these different healthcare analytics areas, and how to select the right analytics techniques for these healthcare analytics problems.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5237 Healthcare Analytics",
+    "prereqTree": {
+        "or": [
+            "SPH5002",
+            "CO5103"
+        ]
+    },
+    "title": "Healthcare Analytics"
+}

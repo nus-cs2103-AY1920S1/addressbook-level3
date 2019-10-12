@@ -1,0 +1,19 @@
+{
+    "courseCode": "CN2108",
+    "courseCredit": "2",
+    "description": "Students learn practical experience with laboratory-scale experiments as well as team work and technical communication through report writing and oral examination. The experiments are related to chemical engineering thermodynamics, fluid mechanics, heat &amp; mass transfer, particle technology and bioanalytics. Also, students learn the use of safety equipment, safe procedures for handling biological and hazardous waste, assembly and disassembly of equipment, fault diagnosis, understanding and operation of thermocouples and flow meters, instrumental analysis, data logging and processing, operation of process plant items, error analysis and data validation. This module is targeted at level 2 chemical engineering students, who will do experiments in six sessions of five hours each, during the semester.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN3108",
+        "CN4233R",
+        "CN4249"
+    ],
+    "prereqTree": {
+        "or": [
+            "CN2121",
+            "CN2122",
+            "LSM1401"
+        ]
+    },
+    "title": "Chemical Engineering Process Laboratory I"
+}

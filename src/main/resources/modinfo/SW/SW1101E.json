@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SW1101E",
+    "courseCredit": "4",
+    "description": "This module introduces students to the enriching experience of being in social work education. Learning includes both cognitive and experiential knowledge on the needs of individuals, families and society, and the social work response in meeting these needs. Included are the mission, values and principles of the social work profession and its roles and functions in contributing to human well-being. As an integral and compulsory part of this module, students will visit social service organization. The module is open to all NUS students.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SW2101",
+        "SW2105",
+        "SW3101",
+        "SW3202",
+        "SW3209",
+        "SW3216"
+    ],
+    "title": "Social Work: A Heart-Head-Hand Connection"
+}

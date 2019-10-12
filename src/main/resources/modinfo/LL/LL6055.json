@@ -1,0 +1,9 @@
+{
+    "courseCode": "LL6055",
+    "courseCredit": "4",
+    "description": "This course is designed to provide an overview of securities regulation, trusts, corporate governance and M & A, in Singapore and jurisdictions like US, China, UK, Australia, Taiwan and HK. Topics to be covered: use of alternative business entities and nature of shares; \"going public\" process; corporate governance of listed companies and trusts; insider trading and securities frauds; globalisation and technology; and the regulation of takeover activity. It also offers an introduction to the law of trusts, including custody arrangements and securitisation. Students are expected to search Internet for comparative materials but will also be provided with assigned readings.",
+    "faculty": "Law",
+    "preclusion": "LL4055V/LL5055V/LL6055V Securities Regulation;\nStudents doing or have done any of the following module(s) are precluded: (1) International Corporate Finance [8MC -LL4409/LL5409/LLD5409/LL6409; 4MC - LL4238/LL5238/LL6238; 5MC - LL4238V/LL5238V/LL6238V]; (2) Corporate Finance Law & Practice in Singapore - 4MC - LL4182/LL5182/LL6182; 5MC - LL4182V/LL5182V/LL6182V; (3) 8MC - Securities and Capital Markets Regulation - LL4412/LL5412/LL6412.",
+    "prereqTree": "LC2008",
+    "title": "Securities Regulation"
+}

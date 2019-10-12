@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF1107",
+    "courseCredit": "4",
+    "description": "This module covers fundamental principles of law in Singapore. Major topics nclude the Singapore legal system; legal system and method including statutory interpretation and research; basic principles of the laws of contract and negligence; and basic legal principles relevant to enterprises in Singapore including business entities, insolvency and intellectual property.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF2101",
+    "title": "Project And Facilities Management Law"
+}

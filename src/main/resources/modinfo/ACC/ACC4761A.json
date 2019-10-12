@@ -1,0 +1,15 @@
+{
+    "courseCode": "ACC4761A",
+    "courseCredit": "4",
+    "description": "Internal auditing helps the Board of Directors, Audit Committee and Management of an organisation to add value and improve on the organisation?s results and operations. It does this by reviewing and recommending processes for better governance and accountability. This includes giving assurance that polices and procedures are in place to ensure the organisation?s objectives are achieved, risks are managed, controls are complied with, and resources are used efficiently and economically. This module provides students with the knowledge, both theory and practice, of how internal audits are done to achieve these objectives.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4612A",
+    "prereqTree": {
+        "and": [
+            "ACC2706",
+            "ACC3701",
+            "ACC3706"
+        ]
+    },
+    "title": "Seminars in Accounting: Internal Audit"
+}

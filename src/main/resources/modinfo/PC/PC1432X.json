@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1432X",
+    "courseCredit": "4",
+    "description": "This module introduces fundamental concepts of physics and is illustrated with many practical examples. Topics covered include a) Electricity and magnetism, where the basic concepts of electric and magnetic fields, forces on charged particles, electric potential, electromotive force, work and energy, are described. The properties of basic electrical circuits comprising resistors, inductors and capacitors are discussed, along with analysis of their transient and steady-state behaviour. Understanding the role of Maxwell's equations in electromagnetism is emphasized; b) Waves, introducing properties of waves, including geometric optics, propagation, interference and diffraction, and electromagnetic waves; and c) Quantum physics, where new physics concepts which led to the quantization of energy are introduced, leading to an explanation of atomic transitions, atomic spectra and the physical and the chemical properties of the atom. The uncertainty principle, wave-mechanics and wave particle duality concepts are covered, together with the use of wave functions in predicting the behaviour of trapped particles. The module is targeted essentially at Engineering students.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP2251",
+        "PC3232B",
+        "PC2267",
+        "PC2193",
+        "PC2131",
+        "PC2130B",
+        "PC2130"
+    ],
+    "preclusion": "Students majoring in Physics or students who have passed in PC1143 or PC1144 or PC1432 are not allowed to take this module.",
+    "title": "Physics IIE"
+}

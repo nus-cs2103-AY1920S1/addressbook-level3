@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5105",
+    "courseCredit": "4",
+    "description": "This is an advanced module on analytical and numerical methods in foundation engineering. Topics covered include, soil models, analysis of beams and rafts on elastic foundations, analysis of piles subject to torsion, axial and lateral loads, and analysis of piles subject to dynamic loads. Student will learn how to assess the behaviour of shallow and deep foundations under more complex loading modes. Students gain an understanding of Winkler, Pasternak, and continuum soil models, conversant with analytical methods and numerical methods such as finite difference, Galerkin, energy, and finite element methods, and applications to shallow and deep foundations.",
+    "faculty": "Engineering",
+    "prereqTree": "CE2112",
+    "title": "Analytical & Numerical Methods In Foundation Engineering"
+}

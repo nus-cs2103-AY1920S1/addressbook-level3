@@ -1,0 +1,8 @@
+{
+    "courseCode": "BN4406",
+    "courseCredit": "4",
+    "description": "The purpose of this course is to introduce the principles of light-tissue interactions and frontier topics of biomedical optics and biophotonics techniques on biomedical diagnostics and therapy. The major topics covered are the fundamentals of lasers and optics in biomedicine, tissue optics, biospectroscopy, microscopy and imaging, and the development and applications of advanced biophotonics techniques in tissue diagnosis and treatment, and nanobiotechnology. Students will be able to grasp the important biophotonic concepts and instrumentation that are necessary for developing techniques and devices that use light to probe tissues and cells. The target students are bioengineering undergraduate and graduate major students.",
+    "faculty": "Engineering",
+    "prereqTree": "BN2401",
+    "title": "Biophotonics And Bioimaging"
+}

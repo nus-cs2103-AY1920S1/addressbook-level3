@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PR1140",
+    "courseCredit": "4",
+    "description": "This is a foundation module for the development of Pharmacy Professional Skills. An overview of the pharmacy profession, the concept of pharmaceutical care, the healthcare system and the pharmaceutical industry in Singapore will be provided. Skills that students are expected to acquire at the end of the module include basic pharmaceutical compounding skills as well as pharmaceutical calculations for the preparation of different dosage forms encountered in pharmacy practice. This module has a strong emphasis on e-learning.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4201",
+        "PR2131",
+        "PR2134",
+        "PR3146"
+    ],
+    "title": "Pharmacy Professional Skills Development I"
+}

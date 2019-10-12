@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5513A",
+    "courseCredit": "2",
+    "description": "The objective is to expose students to various methods to tackle practical problems related to fatigue of materials and structures additive manufacturing processes, so that students can apply them to real situations. Particular emphasis is placed on fatigue properties of materials and structures. Major topics include: high and low cycle fatigue, factors affecting fatigue properties of materials and structures, conventional and fracture mechanic fatigue design, fatigue crack propagation, fatigue life prediction and monitoring, fatigue mechanisms and control, and fatigue surface analysis. This module is useful for students in a career related to service failure analysis and/or materials applications.",
+    "faculty": "Engineering",
+    "preclusion": "ME 5513: Fracture and Fatigue of Materials",
+    "title": "Fatigue Analysis for Additive Manufacturing"
+}

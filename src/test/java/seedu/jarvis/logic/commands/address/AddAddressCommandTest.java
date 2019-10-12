@@ -17,22 +17,25 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.AddressBook;
+import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.ReadOnlyAddressBook;
-import seedu.jarvis.model.ReadOnlyUserPrefs;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
 
 public class AddAddressCommandTest {
 
     /**
-     * Verifies that checking AddAddressCommand for the availability of inverse execution returns true.
+     * Verifies that checking {@code AddAddressCommand} for the availability of inverse execution returns true.
      */
     @BeforeEach
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
         assertTrue(addAddressCommand.hasInverseExecution());
@@ -128,6 +131,11 @@ public class AddAddressCommandTest {
         }
 
         @Override
+        public void addPerson(int zeroBasedIndex, Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -159,6 +167,51 @@ public class AddAddressCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public HistoryManager getHistoryManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHistoryManager(HistoryManager historyManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getAvailableNumberOfExecutedCommands() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getAvailableNumberOfInverselyExecutedCommands() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRollback() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canCommit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rememberExecutedCommand(Command command) throws CommandNotInvertibleException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean rollback() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean commit() {
             throw new AssertionError("This method should not be called.");
         }
     }

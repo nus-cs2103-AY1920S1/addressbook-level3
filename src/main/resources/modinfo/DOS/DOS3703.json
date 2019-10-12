@@ -1,0 +1,9 @@
+{
+    "courseCode": "DOS3703",
+    "courseCredit": "4",
+    "description": "The objective of this course is to provide a comprehensive and systematic coverage of managing operations in service or service-oriented organisations such as banks, hospitals, airlines, retail outlets, restaurants and consultant agencies. Specifically, students will focus on the problems and analysis relating to the design, planning, control and improvements of service operations. Topics covered include service strategy, system design, location and layout of service systems, resource allocation, workshift scheduling, vehicular scheduling and routing, and service quality. This course is essential for students wishing to work in service or service-oriented environments.",
+    "faculty": "NUS Business School",
+    "preclusion": "DSC3203",
+    "prereqTree": "DAO2703",
+    "title": "Service Operations Management"
+}

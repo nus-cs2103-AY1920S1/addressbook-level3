@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4241",
+    "courseCredit": "4",
+    "description": "This module aims to introduce selected topics on functional genomics. Areas covered include : the assignment of functions to novel genes following from the genome-sequencing projects of human and other organisms; the principles underlying enabling technologies: DNA microarrays, proteomics, protein chips, structural genomics, yeast two-hybrid system, transgenics, and aspects of bioinformatics and its applications; and to understand the impact of functional genomics on the study of diseases such as cancer, drug discovery, pharmacogenetics and healthcare.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3231",
+            "LSM3241"
+        ]
+    },
+    "title": "Functional Genomics"
+}

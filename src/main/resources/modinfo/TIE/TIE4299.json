@@ -1,0 +1,9 @@
+{
+    "courseCode": "TIE4299",
+    "courseCredit": "4",
+    "description": "This module introduces students to either emerging topics in industrial engineering or specialized topics by visiting staff. The students are given the opportunity to learn from visiting staff and also to understand evolving concepts in operations research and industrial engineering.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE4299E",
+    "prereqTree": "TIE2010",
+    "title": "Selected Topics in Industrial Engineering"
+}

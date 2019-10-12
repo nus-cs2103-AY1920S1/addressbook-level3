@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3241",
+    "courseCredit": "4",
+    "description": "Since its articulation at the turn of the twentieth century, psychoanalysis has claimed a privileged relation to literature. Many of its foundational concepts sprang from Freud's life-long engagement with literature. The 'application' of psychoanalytic concepts to the interpretation of literary works will therefore be an important part of our approach. In applying theory to texts, we will identify and explore the plural and contradictory desires that make up literary discourse in particular, and the production of meaning, generally, just as our selections of literary works will help to exemplify key concepts in the psychoanalytic tradition.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Literature and Psychoanalysis"
+}

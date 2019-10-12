@@ -1,0 +1,13 @@
+{
+    "courseCode": "FIN3120D",
+    "courseCredit": "4",
+    "description": "- To provide students with a practical understanding of how the global foreign exchange market functions. - To provide students with an understanding of the use of FX in hedging, trading and investment. - To provide a framework for risk management and opportunities for corporate users, investors, traders and investment managers.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "FIN2004",
+            "FIN3103"
+        ]
+    },
+    "title": "TIF: Foreign Exchange Trading"
+}

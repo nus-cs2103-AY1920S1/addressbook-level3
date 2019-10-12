@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1020",
+    "courseCredit": "4",
+    "description": "This module is designed for students wishing to understand the ethical and existential aspects of work. Key issues such as individual moral responsibility and attribution of corporate social responsibility will be examined from different perspectives. At the end of the module, students are expected to be able:",
+    "faculty": "NUS Business School",
+    "preclusion": "GET1000",
+    "title": "Ethics at Work: Rhyme, Reason and Reality"
+}

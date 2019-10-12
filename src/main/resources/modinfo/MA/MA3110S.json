@@ -1,0 +1,21 @@
+{
+    "courseCode": "MA3110S",
+    "courseCredit": "5",
+    "description": "The objective of this module is to develop the learning capabilities and hone the problem solving skills of talented students at a mathematically deeper and more rigorous level. In addition to lectures and tutorials, one extra special hour each week will be devoted to solving challenging problems and studying some additional topics and those topics briefly mentioned in the regular module. The contents of this module will consist of those in the regular module (MA3110) and the following additional topics: differentiation of vector-valued functions, Riemann-Stieltjes integral.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4229",
+        "MA4207",
+        "MA3209",
+        "MA3111S",
+        "MA3111"
+    ],
+    "preclusion": "MA2118, MA2118H, MA2205, MQ3202, MA3110",
+    "prereqTree": {
+        "or": [
+            "MA2108",
+            "MA2108S"
+        ]
+    },
+    "title": "Mathematical Analysis II (S)"
+}

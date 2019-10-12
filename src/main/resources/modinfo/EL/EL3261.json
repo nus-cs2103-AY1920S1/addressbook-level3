@@ -1,0 +1,14 @@
+{
+    "courseCode": "EL3261",
+    "courseCredit": "4",
+    "description": "This module introduces students to some key topics in the field of applied linguistics (second language teaching and learning). Topics covered may include description of language use (discourse analysis), the core language skills (reading, writing, speaking, and listening), theoretical frameworks of task complexity and taskbased language teaching, and individual differences in language learning (language learning strategies, language learning styles, and motivation) and how such differences influence language performance. Students will reflect on implications of selected theories and research findings for language learning and teaching.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EL3880F",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Foundations in Applied Linguistics"
+}

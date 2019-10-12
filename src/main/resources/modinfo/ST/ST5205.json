@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5205",
+    "courseCredit": "4",
+    "description": "Conditional expectation given a sigma algebra, Martingale, stopping time, Martingale convergence theorems, Doob\u2019s Stopping Theorem and applications, Brownian motion, construction and sample path properties. This module is targeted at students who are interested in Statistics and are able to meet the prerequisites.",
+    "faculty": "Science",
+    "preclusion": "MA5260",
+    "title": "Probability Theory 2"
+}

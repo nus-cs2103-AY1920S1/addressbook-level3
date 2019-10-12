@@ -1,0 +1,16 @@
+{
+    "courseCode": "MA4248",
+    "courseCredit": "4",
+    "description": "Formerly MA3224 Theoretical MechanicsThis course develops the Newtonian, Lagrangian and Hamiltonian formulation of mechanics starting from basic concepts of affine geometry and Newton's three laws as recast in a logical way, where the concepts of mass and force are shown to be derived from the symmetry properties characteristic of empirical measurements. Major topics: Motion in a central force field and Kepler's three laws of planetary motion, D'Alembert's principle of virtual work, Lagrange's equations of motion, Legendre transformations and Hamilton's equations of motion, geodesics description of inertial motion, Euler's equation for rigid body motion, Noether's theorem, canonical transformations, and the Hamilton-Jacobi equations.",
+    "faculty": "Science",
+    "preclusion": "MA3224.",
+    "prereqTree": {
+        "or": [
+            "MA2108",
+            "MA2108S",
+            "MA2212",
+            "PC2212"
+        ]
+    },
+    "title": "Theoretical Mechanics"
+}

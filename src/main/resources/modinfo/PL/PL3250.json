@@ -1,0 +1,13 @@
+{
+    "courseCode": "PL3250",
+    "courseCredit": "4",
+    "description": "This module concerns the application of experimental psychology research to the improvement of human-machine/environment interactions. This is not designed as a \"cookbook\" module where the principles of good human factors are merely enumerated. Rather, the emphasis will be placed on the theoretical principles underlying information processing and human performance. The topics include: signal detection and information theory; attention; spatial displays; navigation; memory and training; selection of action, manual control; time-sharing and workload; and the effects of stress on human error.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3233"
+        ]
+    },
+    "title": "Human Performance"
+}

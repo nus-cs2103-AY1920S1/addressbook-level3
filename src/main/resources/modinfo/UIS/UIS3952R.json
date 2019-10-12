@@ -1,0 +1,13 @@
+{
+    "courseCode": "UIS3952R",
+    "courseCredit": "4",
+    "description": "The module follows CS3208 and completes the requirements of the UROP (Computing) project. Please see CS3208 for description.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CP3208",
+            "UIS3951R"
+        ]
+    },
+    "title": "Independent Study Module (Ride-On)"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5065",
+    "courseCredit": "2",
+    "description": "Artificial intelligence (AI) is set to disrupt practically every industry imaginable, and industrial robotics is no different. The powerful combination of robotics and AI or machine learning is opening the door to entirely new automation possibilities.Currently, artificial intelligence and machine learning are being applied in limited ways and enhancing the capabilities of industrial robotic systems. This module focuses on the areas of robotic processes that AI and machine learning are impacting to make current applications more efficient and profitable.",
+    "faculty": "Engineering",
+    "title": "Tenets of AI in Robotics"
+}

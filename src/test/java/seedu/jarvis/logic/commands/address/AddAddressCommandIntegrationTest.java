@@ -13,8 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
 
 /**
@@ -26,14 +27,14 @@ public class AddAddressCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddAddressCommand(validPerson), model,
@@ -48,14 +49,14 @@ public class AddAddressCommandIntegrationTest {
     }
 
     /**
-     * Ensures that CommandException is thrown if the person to delete is not found in address book.
+     * Ensures that {@code CommandException} is thrown if the person to delete is not found in address book.
      */
     @Test
-    public void executeInverse_personNotFound_exceptionThrown() {
+    public void executeInverse_personNotFound_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -68,15 +69,15 @@ public class AddAddressCommandIntegrationTest {
     }
 
     /**
-     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
-     * that the person to be deleted is removed.
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the person to be deleted is removed.
      */
     @Test
-    public void test_executeInverse_success() {
+    public void executeInverse_success() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -92,10 +93,10 @@ public class AddAddressCommandIntegrationTest {
      * Tests that repeatedly executing and inversely executing command works as intended.
      */
     @Test
-    public void test_repeatedExecutionAndInverseExecution() {
+    public void repeatedExecutionAndInverseExecution() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)

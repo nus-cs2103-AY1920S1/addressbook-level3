@@ -25,11 +25,12 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.model.AddressBook;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -43,14 +44,14 @@ public class EditAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     /**
-     * Verifies that checking EditAddressCommand for the availability of inverse execution returns true.
+     * Verifies that checking {@code EditAddressCommand} for the availability of inverse execution returns true.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON, descriptor);
@@ -65,7 +66,7 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
@@ -87,7 +88,7 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
@@ -101,7 +102,7 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
 
         assertCommandSuccess(editAddressCommand, model, expectedMessage, expectedModel);
@@ -118,7 +119,7 @@ public class EditAddressCommandTest {
 
         String expectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
@@ -173,11 +174,11 @@ public class EditAddressCommandTest {
     }
 
     /**
-     * Ensures that CommandException is thrown with the correct message if the edited person to be reverted is not
-     * in address book when inverse execution is invoked.
+     * Ensures that {@code CommandException} is thrown with the correct message if the edited person to be reverted is
+     * not the in address book when inverse execution is invoked.
      */
     @Test
-    public void executeInverse_editedPersonNotFound_exceptionThrown() {
+    public void executeInverse_editedPersonNotFound_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -187,7 +188,7 @@ public class EditAddressCommandTest {
 
         String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         assertCommandSuccess(editAddressCommand, model, executionExpectedMessage, expectedModel);
@@ -199,11 +200,11 @@ public class EditAddressCommandTest {
     }
 
     /**
-     * Ensures that CommandException is thrown if reverting the edited person will conflict with an existing
+     * Ensures that {@code CommandException} is thrown if reverting the edited person will conflict with an existing
      * person in the address book.
      */
     @Test
-    public void executeInverse_originalPersonAlreadyInAddressBook_exceptionThrown() {
+    public void executeInverse_originalPersonAlreadyInAddressBook_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -213,7 +214,7 @@ public class EditAddressCommandTest {
 
         String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         assertCommandSuccess(editAddressCommand, model, executionExpectedMessage, expectedModel);
@@ -225,8 +226,8 @@ public class EditAddressCommandTest {
     }
 
     /**
-     * Ensures that the CommandResult with the appropriate message is returned from a successful inverse execution,
-     * that edits made to person was reverted.
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that edits made to person was reverted.
      */
     @Test
     public void executeInverse_success() {
@@ -239,7 +240,7 @@ public class EditAddressCommandTest {
 
         String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         assertCommandSuccess(editAddressCommand, model, executionExpectedMessage, expectedModel);
@@ -255,7 +256,7 @@ public class EditAddressCommandTest {
      * Tests that repeatedly executing and inversely executing command works as intended.
      */
     @Test
-    public void test_repeatedExecutionAndInverseExecution() {
+    public void repeatedExecutionAndInverseExecution() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -263,7 +264,7 @@ public class EditAddressCommandTest {
 
         EditAddressCommand editAddressCommand = new EditAddressCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new HistoryManager(), new AddressBook(model.getAddressBook()),
                 new UserPrefs());
 
         String executionExpectedMessage = String.format(EditAddressCommand.MESSAGE_EDIT_PERSON_SUCCESS,

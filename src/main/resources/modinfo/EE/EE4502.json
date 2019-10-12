@@ -1,0 +1,10 @@
+{
+    "courseCode": "EE4502",
+    "courseCredit": "4",
+    "description": "Motion control in industrial, commercial and transportation systems is carried out using electric drives. This module provides students with the working knowledge of various components of an electrical drive system and their control for efficient energy conversion. Students would be taught the basic principle of operation of variable speed DC and AC Drive systems. After completion of this module, students are expected to select and size electrical drives for any given application and should be able to perform design of different drive components. The topics covered are: Characteristics and sizing of power semiconductor controlled electric drives; DC motor drives: speed and torque control; Induction motor drives: voltage control and variable frequency control; Drives application examples.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5703"
+    ],
+    "title": "Electric Drives & Control"
+}

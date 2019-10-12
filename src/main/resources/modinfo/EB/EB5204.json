@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5204",
+    "courseCredit": "3",
+    "description": "The prevalence of social media has enabled normal users to openly voice their opinions and share their experiences about various products or services. These have provided businesses with additional channels to monitor and manage their reputation, increase customer engagement, and discover new opportunities. This course introduces the concepts and techniques for opinion extraction from unstructured text and the classification of sentiment polarity. Participants will learn how to find textual sources containing expressions of opinion/sentiment, and use computerised tools to perform various sentiment analysis tasks.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "New Media and Sentiment Mining"
+}

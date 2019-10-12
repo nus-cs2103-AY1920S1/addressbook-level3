@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6436",
+    "courseCredit": "4",
+    "description": "This is an elective module for postgraduate research students on advanced characterization techniques applied to advanced and emerging research materials and devices. The emphasis of this course is on advanced measurement and characterization principles, instrumentation, data acquisition, models for data analysis, and data interpretation applied to characterization problems encountered in the research and development of advanced and emerging research materials and devices. The characterization methods covered are advanced application modes or techniques of the basic characterization methods discussed in the EE5432R module and new techniques which are not discussed in the aforementioned core module.",
+    "faculty": "Engineering",
+    "preclusion": "EE6503",
+    "prereqTree": {
+        "or": [
+            "EE5434",
+            "EE5432R"
+        ]
+    },
+    "title": "Advanced Characterization of Materials and Devices"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "TIC4306",
+    "courseCredit": "4",
+    "description": "This module is a follow-up from TIC3301 and covers the governance and audit of information security processes within an organisation. Students will learn about various information security assurance frameworks, both international and local, and techniques and procedures to review the effectiveness of information security implementation in the organisation, as well as methods for developing and implementing security strategies using these frameworks.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TIC3301",
+    "title": "Information Security Governance and Audit"
+}

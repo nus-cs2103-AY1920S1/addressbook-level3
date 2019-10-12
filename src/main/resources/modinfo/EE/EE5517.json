@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5517",
+    "courseCredit": "4",
+    "description": "At the end of this module, the students will gain knowledge of optics and laser basics, and the technologies based on optical and laser engineering. Topics will cover optics and laser basics, semiconductor laser technology, optical system layout and design, optical diagnostics, optical precision engineering, and optical nanofabrication technology.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3431C",
+    "title": "Optical Engineering"
+}

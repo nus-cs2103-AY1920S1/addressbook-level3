@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UIT2205",
+    "courseCredit": "4",
+    "description": "One of the most recent advances in the area of computer science and information theory is the emergence of a new notion, the concept of quantum information. The module aims to provide an introduction to the field of quantum computing. While very much a technology of the future, the module will examine some of the possibilities that the quantum world offers in advancing the capabilities of computers and how our notion of information has evolved. Essentially the module showcases, two major paradigm shifts; one from classical physics to quantum physics and the other from the standard Turing principle in computer science to its modern quantum counterpart.",
+    "faculty": "University Scholars Programme",
+    "title": "Quantum computation"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "EE4433",
+    "courseCredit": "4",
+    "description": "Information storage is indispensable for every computerized system. Currently there are three major types of information storage technologies, i.e., magnetic data storage, optical disks, and solid-state memories. Although the operation principles are different, the common driving force for all these surface-based information storage technologies in the last few decades was the reduction of bit size so as to make it possible to store more data on a specific surface area. As a result, all these data storage devices are now operating in the nanometer regime. This module adopts a model-based approach to introduce information storage through focusing on the basic principles of various types of data storage systems and the associated roles of nanotechnology in each field. Emphasis will be on materials, devices and technologies that have made it possible to maintain a remarkable growth rate in storage density in the last decades and emerging technologies for tackling challenges ahead. Topics covered include solid state memory, optical disks, magnetic recording, and emerging technologies.",
+    "faculty": "Engineering",
+    "preclusion": "EE5202, EE4414",
+    "prereqTree": {
+        "and": [
+            "PC2232",
+            {
+                "or": [
+                    "EE3431C",
+                    "EE3406"
+                ]
+            }
+        ]
+    },
+    "title": "Nanometer Scale Information Storage"
+}

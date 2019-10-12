@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5377",
+    "courseCredit": "4",
+    "description": "This course introduces the basic principles to the numerical methods used for analysis of mechanics and environmental flow problems. Fundamental concepts in eigen-analysis and finite difference method, and the associated convergence and stability issues will be covered, with applications in engineering mechanics problems. Fundamental concepts and issues related to environmental flow problems will be covered including the concept of box models, transport processes and the issues related to applying numerical methods for analysis. The module will enable the students to acquire the numerical analysis knowledge and computational skills through miniprojects and homework assignments. Students will also use an established software as part of the class.",
+    "faculty": "Engineering",
+    "preclusion": "CE5311 Environmental modelling with computers, CE6003 Numerical Methods In Engineering and Mechanics, and CE6077 Advanced Numerical Methods in Mechanics & Envr. Flows",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EG1109",
+                    "CE1109"
+                ]
+            },
+            "CE2134"
+        ]
+    },
+    "title": "Numerical Methods in Mechanics & Envr. Flows"
+}

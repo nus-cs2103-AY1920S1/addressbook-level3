@@ -1,0 +1,49 @@
+{
+    "courseCode": "EN2207",
+    "courseCredit": "4",
+    "description": "This module introduces students to literary representations of gender and sexuality in poetry, fiction, nonfiction prose, and drama, and to theories of gender and sexuality. It considers the influence of gender and sexual identity on literature, and the influence of literature on the construction of gender and sexual identities. Students will be introduced to key terms and concepts relevant to the analysis of literature in its cultural and historical context. Topics to be addressed may include first-, second-, and third-wave feminism, postcolonial feminisms, the history of sexuality, queer and transgender theory, and the intersection of gender, sexuality, and racial identity.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EN3221",
+        "EN3222",
+        "EN3223",
+        "EN3224",
+        "EN3226",
+        "EN3227",
+        "EN3228",
+        "EN3241",
+        "EN3243",
+        "EN3244",
+        "EN3246",
+        "GEM3003",
+        "EN3247",
+        "EN3249",
+        "EN3262",
+        "EN3266",
+        "EN3267",
+        "EN3268",
+        "EN3269",
+        "EN3272",
+        "EN3232",
+        "AS3232",
+        "EN3234",
+        "AS3234",
+        "EN3261",
+        "EU3217",
+        "EN3263",
+        "EN3264",
+        "EN3231",
+        "AS3231",
+        "EN3229",
+        "EN3880B",
+        "EN3251",
+        "EN3252"
+    ],
+    "prereqTree": {
+        "or": [
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Gender and Sexuality in Literature"
+}

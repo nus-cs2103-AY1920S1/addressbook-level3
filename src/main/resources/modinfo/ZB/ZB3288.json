@@ -1,0 +1,10 @@
+{
+    "courseCode": "ZB3288",
+    "courseCredit": "4",
+    "description": "This module is intended for students to conduct mini-research projects that make use of computational methods and informatics tools to solve specific biological problems or develop bioinformatics databases and software. In principle, each project is to be supervised by an academic staff from any department in the Faculty of Science. Upon approval by the programme committee, a project can also be co-supervised by an academic staff at the School of Computing.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ZB3289"
+    ],
+    "title": "Advanced UROPS in Computational Biology I"
+}

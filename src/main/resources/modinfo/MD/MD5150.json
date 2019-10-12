@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "MD5150",
+    "courseCredit": "1",
+    "description": "The focus of the surgery module will consist of the following student internship programme (surgery, orthopaedic surgery) and simulation posting. The Student Internship Programmes (SIP) and simulation posting will allow the students to expand their knowledge and skills obtained from the core clinical practice year and acute and speciality clinical practice year, as well as to apply the knowledge and skills in a clinical setting as student interns under supervision.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "MD4140",
+    "title": "Surgery"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "BL5209",
+    "courseCredit": "4",
+    "description": "The trouble with ecology is that there are too many variables: too many species, types of relationships, and environmental factors. This course will introduce new next-generation-sequencing methods that are able to address these challenges. The 'too many species' problem can be solved with NGS barcoding and metabarcoding. 'Types of relationships' are addressed with species-interaction analysis based on trace DNA. Responses to 'environmental factors' can be analysed with comparative transcriptomics and population genomics. The module starts with introducing basic NGS analysis concepts (e.g, QC, assembly, coverage). Afterwards, different types of NGS data will be analysed (e.g., tagged amplicons, RNASeq, RADSeq).",
+    "faculty": "Science",
+    "title": "Directed Studies in Molecular Ecology"
+}

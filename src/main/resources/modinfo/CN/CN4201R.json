@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN4201R",
+    "courseCredit": "4",
+    "description": "This module provides students with a working knowledge of a refinery set-up, major processes and treatment units and off-site requirements. It starts with the origin and characterisation of crude oil and the quality of refinery products. The course then focuses on crude and vacuum distillation, catalytic reformer, visbreaker and hydrocracker. Other areas covered are product treatment, sour water treatment and sulphur recovery units. Off-site facilities including storage, utilities and energy requirements are discussed. Finally, the integration of various units and material balances, including product blending considerations are discussed. The course includes a refinery visit with a briefing on safety aspects and a tour of process units and control rooms. This module is targeted at senior chemical engineering students.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "CN2116",
+            "CN3132"
+        ]
+    },
+    "title": "Petroleum Refining"
+}

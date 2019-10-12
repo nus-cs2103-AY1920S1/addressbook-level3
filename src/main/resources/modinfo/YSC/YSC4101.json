@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "YSC4101",
+    "courseCredit": "10",
+    "description": "The Physical Sciences Capstone Project is a year-long 10-MC module, straddling over two semesters. It is a compulsory module that students in the Physical Sciences major must complete in order to graduate. It allows students the opportunity to pursue, in depth, an advanced project of their own choosing, while working closely with a faculty supervisor. Students will work on an advanced creative and/or research or experiential project that integrates skills from the Common Curriculum and learning in the major. The Capstone Project will culminate in a substantial piece of work that reflects a deep engagement with the topic.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4209"
+    ],
+    "title": "Physical Sciences Capstone Project"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "GL3202",
+    "courseCredit": "4",
+    "description": "This interdisciplinary module analyses the actors, processes, policies, international relations and geopolitics of global refugee governance. The module introduces students to forced migration; the empirics, national and international legal regimes, key multilateral agreements, politics and norms governing refugees across the globe. In exploring the international refugee regime, students will learn and apply concepts from across the social sciences, including global governance, geopolitics, the nation, sovereignty, border securitization, regionalism, biopolitics and governmentality, among others. Key intergovernmental institutions, national and regional case-studies will be investigated, along with potential policy interventions and alternatives to the contemporary refugee regime.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "GL1101E",
+            {
+                "or": [
+                    "GL2101",
+                    "GL2102",
+                    "GL2103"
+                ]
+            }
+        ]
+    },
+    "title": "Global Refugee Management"
+}

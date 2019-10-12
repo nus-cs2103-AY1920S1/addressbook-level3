@@ -1,0 +1,11 @@
+{
+    "courseCode": "EE4104",
+    "courseCredit": "4",
+    "description": "Microwave amplifiers, oscillators, mixer and detectors, and electronic switches are basic components of microwave systems. The performance of these components is critical to system performance. This module therefore teaches the design of these components to satisfy performance specifications. Topics covered: Amplifiers: theory, LNA and multistage design; Oscillator theory: nonlinear negative resistance, startup, stability, power generation; Gunn and IMPATT diode oscillators; Design of planar passive components and their application; PIN diode switch and phase shifter analysis and design; Mixers and detectors: theory, mixer and detector diodes, diode detectors and mixers.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5303"
+    ],
+    "prereqTree": "EE3104C",
+    "title": "Microwave Circuits & Devices"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE4282",
+    "courseCredit": "4",
+    "description": "Building Information Modeling (BIM) is a revolutionary technology and process that provides an integrated digital database and a variety of modelling tools to remarkably change the way buildings and infrastructure facilities are designed, analyzed, constructed, and managed. BIM is rapidly becoming the industry standard and best practice. This course provides a comprehensive coverage with essential details in several key aspects of project development, such as design, building performance, sustainability, engineering, construction, project delivery, and facilities management. It helps the students start their first integrated BIM project through the hands-on of a project assignment employing industry leading BIM software.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE4282",
+    "prereqTree": "TCE2183",
+    "title": "Building Information Modeling for Project Management"
+}

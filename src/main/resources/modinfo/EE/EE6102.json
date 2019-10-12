@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6102",
+    "courseCredit": "4",
+    "description": "The aim is to develop an in-depth understanding of the fundamental concepts in the analysis and design of multivariable feedback control systems. It is tailored for students who are pursuing research in the field of advanced control systems. The topics covered include: Principles of single- and multi-loop feedback designs; poles, zeros and stability of multivariable feedback systems; performance and robustness of multivariable feedback systems; control system design using LQR technique, LQG/LTR method, H2 and H-infinity control, and computer aided design software. Students taking this module will need to complete a self-study project on an advanced topic.",
+    "faculty": "Engineering",
+    "preclusion": "EE5102 Multivariable Control Systems",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401"
+        ]
+    },
+    "title": "Multivariable Control Systems (Advanced)"
+}

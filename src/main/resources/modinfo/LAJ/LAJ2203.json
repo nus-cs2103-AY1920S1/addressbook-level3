@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAJ2203",
+    "courseCredit": "4",
+    "description": "Building upon the basis of Japanese 3, this module aims to further develop students' communication skills on daily topics of general interests. It enhances students? socio-cultural awareness and enables them to communicate meaningfully in an appropriate manner using polite expressions. Approximately 150 kanji and 200 kanji-words will be introduced. With this knowledge of characters, students will be able to understand letters with fairly formal written language.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAJ3201",
+        "LAJ3203"
+    ],
+    "prereqTree": "LAJ2202",
+    "title": "Japanese 4"
+}

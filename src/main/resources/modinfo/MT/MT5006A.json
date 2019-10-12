@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5006A",
+    "courseCredit": "2",
+    "description": "This module introduces the key processes in new product development from opportunity identification to product launch. Relevant tools and techniques such as user observation, survey and prototyping, will be discussed.",
+    "faculty": "Engineering",
+    "preclusion": "MT5006 Strategic and New Product Development",
+    "title": "New Product Development Process"
+}

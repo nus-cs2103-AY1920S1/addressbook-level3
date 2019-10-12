@@ -1,0 +1,14 @@
+{
+    "courseCode": "GE3223",
+    "courseCredit": "4",
+    "description": "The tropics are presently the world's most rapidly changing region. This module looks in detail at the causes and consequences of high rates of environmental change in tropical environments. The content of the module includes an examination of processes of climate and geomorphological (including sea-level) change and human-induced degradation. Current high rates of changes in these processes, and their nature, are placed within the context of the most recent geological period (the Quaternary). Southeast Asia is a particular focus of the module, which will also examine the basis for predictions of future environmental change in the region.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "GE2220",
+            "GE2228",
+            "GE2229"
+        ]
+    },
+    "title": "Environmental Change in the Tropics"
+}

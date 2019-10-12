@@ -1,0 +1,33 @@
+{
+    "courseCode": "MNO4312",
+    "courseCredit": "4",
+    "description": "This module is designed to equip with basic knowledge on how to conduct research. Major topics covered include understanding and formulating research problems, the nature of causation in social research, choice of research design, conceptualisation and measurement, operationalisation of constructs, appreciation and construction of selected sociometric scales and indices, data collection and analysis, and preparation of research reports. When necessary, additional topics will be introduced depending on the needs of students and staff expertise.",
+    "faculty": "NUS Business School",
+    "preclusion": "SC5101",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MNO1001",
+                    "HR2001",
+                    "HR2101",
+                    "HR3111",
+                    "HR3308"
+                ]
+            },
+            {
+                "or": [
+                    "ST1131A",
+                    "ST1131",
+                    "ST1232",
+                    "MA2216",
+                    "ST2131",
+                    "ST2334",
+                    "EE2003",
+                    "ME2491"
+                ]
+            }
+        ]
+    },
+    "title": "Research Methods In Management And Organisations"
+}

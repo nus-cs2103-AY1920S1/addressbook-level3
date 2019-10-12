@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS2221",
+    "courseCredit": "5",
+    "description": "This course offers students an in\u2010depth learning experience in the field of Security Studies. The topics on offer will vary from year to year, but will pertain to specific questions, debates, and literatures in the field of international security. The topics covered within the course will be detailed in the syllabus given to a student in advance of the course. The faculty teaching the course will change and as such topics will change according to their specializations and interests.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4243"
+    ],
+    "preclusion": "YSS3210 (previous module code)",
+    "title": "International Security"
+}

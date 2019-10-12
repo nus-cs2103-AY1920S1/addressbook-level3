@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE5510",
+    "courseCredit": "4",
+    "description": "The objective of this module is to further equip civil engineering students with design knowledge and skills in reinforced and prestressed concrete. The module provides students with fundamental approaches in designing structural concrete components and systems. The students will learn refined methods in the design for action effects and for deflection and crack control, and in the structural design of flat slab systems, slender columns, concrete bridges, concrete water tanks, design and detailing of connections. The module is targeted at MSc civil engineering students and those with a keen interest on advanced structural concrete design.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE5510",
+    "prereqTree": "TCE3165",
+    "title": "Advanced Structural Concrete Design"
+}

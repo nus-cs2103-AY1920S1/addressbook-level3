@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3289",
+    "courseCredit": "4",
+    "description": "This module is designed to provide psychology majors with hands-on experience using research designs and methods commonly used in decision science. Topics to be covered include the decoy effect, framing effect, ambiguity aversion, delay discounting, fairness, game theory, and cooperation. We will review seminal and most recent research on these topics and discuss implications for understanding human decision making in real-life situations. Students will then work in small groups to design and conduct an experiment using these methodologies/paradigms and submit individual research reports.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Lab in Decision Science"
+}

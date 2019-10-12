@@ -1,0 +1,13 @@
+{
+    "courseCode": "BAA6003A",
+    "courseCredit": "4",
+    "description": "This module is designed to prepare doctoral students with the necessary knowledge and skills to complete their dissertations. Methodological and econometric issues surrounding topics such as earnings management and stock market anomalies would be covered.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "BAA6001",
+            "BAA6002"
+        ]
+    },
+    "title": "Seminar on Empirical Capital Markets Research"
+}

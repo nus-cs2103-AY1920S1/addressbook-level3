@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE4203",
+    "courseCredit": "4",
+    "description": "The objective of this module is to teach students to understand and use fuzzy systems .The module begins by describing basic concepts of fuzzy systems, and the main fields of fuzzy logic research. It then goes on to introduce fuzzy set theory and fuzzy logic and shows important applications of fuzzy logic, such as fuzzy control systems, fuzzy expert systems, fuzzy optimization & fuzzy multi-attribute decision making models and fuzzy rule based pattern classification models. Finally the module describes the interaction of fuzzy systems with other KE technologies (e.g. Neural Networks, Genetic Algorithms.) This course is appropriate for knowledge engineers who wish to learn how to use Fuzzy logic systems.",
+    "faculty": "Institute of Systems Science",
+    "title": "Fuzzy Systems"
+}

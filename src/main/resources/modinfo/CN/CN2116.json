@@ -1,0 +1,28 @@
+{
+    "courseCode": "CN2116",
+    "courseCredit": "4",
+    "description": "The module begins with a revision of chemical kinetics and thermodynamics emphasizing on the different definitions of reaction rates, rate expressions, and simple and complex reactions. The design equations for ideal reactors are then introduced followed by the general methods of analysis of rate data. Reactor sequencing, yield versus productivity considerations in multiple reactions, and nonisothermal operations round up the first half of the course. More advanced topics such as residence time distributions in reactors, kinetics of catalytic reactions and catalyst deactivation, coupling of chemical reactions with transport processes, form the bulk of the second half of the course.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN3108",
+        "CN4201R",
+        "CN4211R",
+        "CN4247R",
+        "CN4240R",
+        "CN4246R",
+        "CN4248",
+        "CN4291",
+        "CN4122",
+        "CN4250",
+        "CN4251",
+        "CN3101"
+    ],
+    "prereqTree": {
+        "or": [
+            "CN1111",
+            "CN1111FC",
+            "CN1111X"
+        ]
+    },
+    "title": "Chemical Kinetics & Reactor Design"
+}

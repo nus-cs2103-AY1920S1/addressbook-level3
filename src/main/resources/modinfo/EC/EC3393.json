@@ -1,0 +1,17 @@
+{
+    "courseCode": "EC3393",
+    "courseCredit": "4",
+    "description": "This course defines, describes, and analyses the underlying concepts and characteristic features of modern economic systems. It provides students with tools to understand and compare economic systems in today's rapidly changing world, especially the transition economies.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3391, EC3392, EU3215",
+    "prereqTree": {
+        "or": [
+            "EC1301",
+            "EC1101E",
+            "BSP1005",
+            "BH1005",
+            "USE2301"
+        ]
+    },
+    "title": "Comparative Economic Systems"
+}

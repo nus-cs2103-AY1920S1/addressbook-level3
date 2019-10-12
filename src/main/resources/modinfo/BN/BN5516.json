@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "BN5516",
+    "courseCredit": "4",
+    "description": "This course provides a comprehensive coverage of the initial phases of the product lifecycle, mainly the design, development and testing of the medical device. Although not part of the ISO13485 or 21 CFR 820, they constitute crucial parts of the product lifecycle. Here the students will explores the ideation process considering a myriad of factors including the product market size, the competing products, the regulatory pathway, intellectual property issues, reimbursement model etc. The course will also cover the understanding of various testing standards (US ASTM, China YY, EU ISO etc) for verification and validation of different medical devices.",
+    "faculty": "Engineering",
+    "title": "Medical Device Design, Development and Testing"
+}

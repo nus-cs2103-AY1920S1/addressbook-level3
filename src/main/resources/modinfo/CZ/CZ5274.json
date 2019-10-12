@@ -1,0 +1,7 @@
+{
+    "courseCode": "CZ5274",
+    "courseCredit": "4",
+    "description": "Introduction to theoretical and computational fluid dynamics, assuming no prior knowledge. Kinematics of fluid flow, stress and conservation laws, the governing equations and vorticity transport. Topics include hydroststics, imcompressible and irrotational flows, and an introduction to boundary layers and hydrodynamic stability. There will be extensive computational work on sample applications (e.g. nozzle flows, Orr-Sommerfeld equations, vortex simulation methods, etc).",
+    "faculty": "Science",
+    "title": "Computational Fluid Dynamics"
+}

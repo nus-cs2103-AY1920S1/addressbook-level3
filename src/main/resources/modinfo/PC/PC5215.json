@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC5215",
+    "courseCredit": "4",
+    "description": "Covers computational techniques for the solution of problems arising in physics and engineering, with an emphasis on molecular simulation and modelling. Topics will be from the text, 'Numerical Recipes', Press et al, supplemented with examples in materials and condensed matter physics. This course insures that graduate students intending to do research in computational physics will have sufficient background in computational methods and programming experience.",
+    "faculty": "Science",
+    "prereqTree": "PC3236",
+    "title": "Numerical Recipes With Applications"
+}

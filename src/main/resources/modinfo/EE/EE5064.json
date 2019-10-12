@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5064",
+    "courseCredit": "2",
+    "description": "This module aims to offer a systematic description of the dynamics and control of robot manipulators. After the introduction of Lagrangian and Newtonian approach for the dynaimci modelling of robot manipulators, their properties of the robot dynamics are studied. The students will learn how to correctly establish the dynamic model of the robot manipulators and understand the dynamic characteristics. In the control part, the students will learn many commonly used control algorithms for the robot manipulators, such as computed-torque control, robust control and adaptive control methods. More importantly, some key technologies about the emerging robot human and enviornment interactions, e.g., force and impedance control algorithms will also be introduced to the students in the control part. In general, this module will provide the students with a relatively complete view of the dynamics and control of robot manipulators, and facilitates the implementations of the further industrial applications and research work.",
+    "faculty": "Engineering",
+    "preclusion": "ME5402/EE5106 :  Advanced Robotics",
+    "title": "Dynamics and Control of Robot Manipulators"
+}

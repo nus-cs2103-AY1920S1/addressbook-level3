@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE4250",
+    "courseCredit": "4",
+    "description": "This module introduces to students the system dynamics modelling method, based on the foundations of systems thinking. System dynamics is a powerful methodology to support the inquiry of complex large-scale dynamic sociotechnical systems through computer simulation models. Central topics include feedback mechanisms, nonlinear relationship, time delay models, causal loop diagramming stock-flow models, decision behaviour modelling, testing and validation of models. Instruction is supplemented with case studies from supply chains, population and environmental modelling. Group projects are used facilitate hands-on model building and learning in and outside the classroom.",
+    "faculty": "Engineering",
+    "prereqTree": "IE2111",
+    "title": "System Dynamics Modelling"
+}

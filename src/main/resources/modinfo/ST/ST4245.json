@@ -1,0 +1,11 @@
+{
+    "courseCode": "ST4245",
+    "courseCredit": "4",
+    "description": "The module aims to equip students with a repertoire of statistical analysis and modelling methods that are commonly used in the finance industry. Major topics include statistical properties of returns, regression analysis with applications to single and multi-factor pricing models, multivariate analysis with applications in Markowitz's portfolio management, modelling and estimation of volatilities, calculation of value-at-risk, nonparametric methods with applications to option pricing and interest rate markets. Students are assumed to have had no background in finance or economics and will be acquainted with the foundations of finance such as portfolio optimizing and the Capital Asset Pricing Model. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5218"
+    ],
+    "prereqTree": "ST3131",
+    "title": "Statistical Methods for Finance"
+}

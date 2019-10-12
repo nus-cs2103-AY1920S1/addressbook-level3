@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3283A",
+    "courseCredit": "4",
+    "description": "This module seeks to give students a practical introduction to some of the concepts, methods, and techniques used in research or practical interventions involving adolescents. The aim of the module is to cover essential conceptual, methodological, ethical, and practical issues of importance when conducting research or designing practical interventions on adolescents, especially in Singapore and Asia.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3234"
+        ]
+    },
+    "title": "Lab in Adolescent Psychology"
+}

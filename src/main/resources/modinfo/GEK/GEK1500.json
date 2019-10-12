@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1500",
+    "courseCredit": "4",
+    "description": "This module aims to introduce the students to the basic components of a personal computer, and to help them understand the functions, mechanisms, and interactions of these components. The topics include not only the hardware and software components of the personal computer, but also brief introductions into how the computer interacts with the Internet, and some of its networking and security aspects. Students will also learn about the history of the personal computer, as well as its current and future trends. Upon completing the module, students will be well-equipped for further exploration of computers on their own.",
+    "faculty": "Engineering",
+    "preclusion": "To preclude all FoE, CEG and SoC students.",
+    "title": "Inside Your Personal Computer"
+}

@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCN4217",
+    "courseCredit": "4",
+    "description": "This module provides students with an overview of semiconductor processing with an emphasis on the role of chemical engineering principles. An overall view of manufacturing in the semi-conductor industry and the role of chemical engineers are given. The physics and materials aspects of solid-state devices are introduced with a view towards understanding their functions. The next part takes the students through the various processing events, starting with silicon wafer manufacture and continuing with diffusion, CVD, photolithography, etching and metallization. Chemical engineering principles are highlighted in each section. The module concludes with a description of process integration for device manufacture and a brief discussion about electronic packaging. This module is targeted at level 4 chemical engineering students.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CN4217E",
+    "prereqTree": "TCN1422",
+    "title": "Processing of Microelectronic Materials"
+}

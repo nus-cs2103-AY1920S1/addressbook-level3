@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1421",
+    "courseCredit": "4",
+    "description": "The objective of this module is to equip science students with the basic mathematics concepts and techniques required in many scientific disciplines, notably chemistry. Major topics include mathematical fundamentals (basics of calculus, matrix algebra and differential equations), graphical, numerical and statistical methods, and techniques in data processing.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM3201",
+        "MA2312",
+        "MA2311"
+    ],
+    "preclusion": "Majors in Mathematics, Applied Mathematics, Quantitative Finance or Statistics, second major in Mathematics, Financial Mathematics or Statistics, students who have passed any of the modules MA1102R, MA1312, MA1505, MA1506, MA1507, MA1521.",
+    "title": "Basic Applied Mathematics for Sciences"
+}

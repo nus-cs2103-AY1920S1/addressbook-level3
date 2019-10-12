@@ -1,0 +1,11 @@
+{
+    "courseCode": "BME5045",
+    "courseCredit": "4",
+    "description": "Self-awareness helps us to understand why we do things the way we do and what is important to us. It also helps to understand the people around us. How they perceive us and our behaviors and why they react to us the way they do. Hence, self-awareness is key to breaking routines, to learn new ways of dealing with the challenges we encounter, and to better manager ourselves and lead others. This module is designed for you to gain self-awareness (to explore and assess) and to help you develop both as a person and a leader (to develop). The module will achieve this objective in two ways. First, it will provide you with key insights into who you are as a person and a leader. Second, it will provide you with feedback from experts and insights in how you could optimize your personal and leadership effectiveness.In the module, we will tie concrete situations (as reflected in cases and in your experiences) to essential theories on organizational behaviour and effective leadership practices.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BME5046"
+    ],
+    "preclusion": "BME5033 Leadership: Exploration, Assessment & Development",
+    "title": "Leadership: Exploration, Assessment & Development"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EC6372",
+    "courseCredit": "4",
+    "description": "This course introduces several important economic growth models and modeling techniques. The main focus will be on building and solving mathematical models of growth, studying the underlying sources of economic growth, and analysing how government policies influence the growth process. Major topics include mathematical modeling of growth, exogenous growth models, endogenous growth models with capital accumulation, technological progress through R&D and growth, growth models with learning-by-doing, diffusion of technology and growth, growth in open economy, and empirical studies of economic growth.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC6206",
+    "title": "Advanced Growth Theory"
+}

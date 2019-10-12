@@ -1,0 +1,13 @@
+{
+    "courseCode": "EBA5004",
+    "courseCredit": "13",
+    "description": "This module teaches fundamental and advanced skills in practical language processing. This includes fundamental text processing techniques, text analytics applications, deep learning techniques and their application in sentiment mining and chatbots development.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "EBA5002",
+            "EBA5001"
+        ]
+    },
+    "title": "Practical Language Processing"
+}

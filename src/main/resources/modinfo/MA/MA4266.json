@@ -1,0 +1,12 @@
+{
+    "courseCode": "MA4266",
+    "courseCredit": "4",
+    "description": "The (point-set) topology covered in this module is an abstraction of metric space concepts, and was largely developed in the first half of last century. It forms the basis for much modern mathematics, especially in geometry and analysis, and beyond mathematics is important in computer science, mathematical economics, mathematical physics and robotics. Major topics: metric and topological spaces, continuous maps, bases, homeomorphisms, subspaces, sum, product and quotient topologies, orbit spaces, separation axioms, compact spaces, Tychonoff's theorem, compactness in metric spaces, Urysohn's lemma, Tietze Extension Theorem, connected and path-connected spaces, components, locally compact spaces, function spaces and the compact-open topology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5210",
+        "MA5209"
+    ],
+    "prereqTree": "MA3209",
+    "title": "Topology"
+}

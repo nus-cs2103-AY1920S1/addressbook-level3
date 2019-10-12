@@ -1,0 +1,11 @@
+{
+    "courseCode": "LSM3215",
+    "courseCredit": "4",
+    "description": "The module will provide fundamental knowledge about how neuronal signaling and its higher functions, such as encoding and retrieval of memory, occur in our brain. Learning and memory mechanisms are conserved in all organisms. This module covers topics including the ionic basis of resting and action potentials, molecular biology of ion and TRP channels, ion channelopathies, and the auditory system. It also focuses on neurotransmission with particular emphasis on the glutamate receptors and neuropharmacology. In addition it touches the cellular and molecular basis of learning and memory, and energy utilization in the brain.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4213"
+    ],
+    "prereqTree": "LSM1106",
+    "title": "Neuronal Signaling and Memory Mechanisms"
+}

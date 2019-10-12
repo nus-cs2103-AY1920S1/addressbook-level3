@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME3242E",
+    "courseCredit": "4",
+    "description": "Students will learn the approaches used in the design of sequencing circuits applied to machine-level industrial automation. Special emphasis is given to electromechanical and pneumatic systems. After a quick review of input sensing, pneumatic actuators, basic switching logic and elements, the design of sequential control systems using electromechanical ladder diagrams, purely pneumatic circuits and programmable logic controllers are introduced. Upon successful completion, students should be able to read and understand pneumatic circuits and electromechanical ladder diagrams and be able to quickly design and implement such circuits for any sequencing problem. This is a technical elective course targeted at third year mechanical engineering students.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM3242, TME3242",
+    "title": "Automation"
+}

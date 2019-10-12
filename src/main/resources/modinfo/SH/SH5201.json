@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "SH5201",
+    "courseCredit": "4",
+    "description": "Different types of hazard identification techniques, factors influencing selection, methods for using qualitative results in decision-making and use of PC software will be covered. The following techniques are a sample of those that will be covered in the course. Hazard and Operability Analysis, What-if analysis, Failure Modes and Effects Analysis, Fault Tree Analysis, Event Tree Analysis.",
+    "faculty": "Engineering",
+    "title": "Hazard Identification & Evaluation Techniques"
+}

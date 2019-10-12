@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4268",
+    "courseCredit": "4",
+    "description": "Although animals sense their physical and biotic environments via various modalities, how they sense the environment acoustically is still poorly understood. From low frequency minute vibrations to infrasonic and ultrasonic frequencies, from waterborne to air-transmitted sounds, this module will introduce what sound is (i.e. fundamentals of sound, how sound travels etc), how and why it matters to animals (i.e. mechanisms and adaptive functions of sound production and reception) in both terrestrial and marine habitats, bioacoustic instrumentation and software, industrial applications, and how environmental issues involving sounds such as terrestrial and ocean noise pollution are affecting animals and humans.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3267",
+            "LSM3272"
+        ]
+    },
+    "title": "Environmental Bioacoustics"
+}

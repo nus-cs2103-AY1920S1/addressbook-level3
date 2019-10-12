@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2112",
+    "courseCredit": "4",
+    "description": "Non-classical logic builds on classical logic in two ways. First, classical logic can be extended with modal operators, to reason about necessity and possibility, obligation and permission, and past and future. Classical logic can also be weakened, to accommodate vagueness, paradox, failures of relevance and circular reasoning. In this course, non-classical logic is explored in both these directions.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3250"
+    ],
+    "prereqTree": "GET1028",
+    "title": "Non-Classical Logic"
+}

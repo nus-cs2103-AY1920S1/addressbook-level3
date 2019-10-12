@@ -1,0 +1,14 @@
+{
+    "courseCode": "EL3231",
+    "courseCredit": "4",
+    "description": "The field of phonetics includes the study of how speech sounds are produced, how they may be acoustically characterized, and how they are processed by listeners. This module will explore these three major areas of research, as well as introduce key areas in which phonetics intersects with other disciplines, e.g. phonology, language acquisition, sociolinguistics, psycholinguistics, computational linguistics, and speech-language pathology. Students will become familiar with the major instruments, software tools and statistical methods used in modern phonetics research, and gain experience in carrying out independent data collection, transcription, and acoustic analysis.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EL3202",
+    "prereqTree": {
+        "or": [
+            "EL2202",
+            "EL2102"
+        ]
+    },
+    "title": "Phonetics"
+}

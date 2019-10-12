@@ -1,0 +1,12 @@
+{
+    "courseCode": "RE2707",
+    "courseCredit": "4",
+    "description": "This module discuses asset and property management concepts including aspects such as fire and risk management, maintenance management, lease management and investment management. It will also discuss the role and functions of facility management including design, benchmarking and space planning, building services management, building conservation, etc in relation to the business goals of real estate firms. The management of high-rise private developments, including the Land Titles Strata Act, responsibilities of management corporations and managing agents are also discussed.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE3803"
+    ],
+    "preclusion": "RE1103 Property and Facilities Management",
+    "prereqTree": "RE1706",
+    "title": "Asset and Property Management"
+}

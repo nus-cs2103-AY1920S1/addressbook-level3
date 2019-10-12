@@ -1,0 +1,11 @@
+{
+    "courseCode": "TR3003",
+    "courseCredit": "4",
+    "description": "This course is designed to equip an engineer with the marketing skills needed to launch and lead a high-growth, high-tech venture. Covers marketing challenges facing entrepreneurs who expand internationally early in the life of the company. Combines learning by the case method, working in teams, and a field based entrepreneurial project. Bases 50% of grade on team performance, to cultivate entrepreneurial leadership and teamwork skills.",
+    "faculty": "NUS",
+    "fulfillRequirements": [
+        "TR3014"
+    ],
+    "preclusion": "TR2201",
+    "title": "Global Entrepreneurial Marketing"
+}

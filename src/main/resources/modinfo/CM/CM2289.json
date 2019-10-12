@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "courseCode": "CM2289",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM1111",
+            "CM1121",
+            "CM1131"
+        ]
+    },
+    "title": "Basic UROPS In Chemistry II"
+}

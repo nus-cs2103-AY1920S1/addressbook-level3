@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CDM5102",
+    "courseCredit": "4",
+    "description": "This module teaches translational aspects of human cancer research. It will demonstrate how knowledge of the molecular and cellular basis of cancer can be applied for the improved prevention, diagnosis and treatment of this disease. Topics that will be covered include cancer epidemiology (including genetic epidemiology), histopathology, familial cancers, biomarkers for early detection, prognostic biomarkers, predictive biomarkers, techniques in molecular pathology, drug discovery, targeted cancer treatments and pharmacogenetics. Throughout the module, particular emphasis will be placed on translating research in the field of tumor biology into improved outcomes for cancer patients. This will be illustrated using examples from clinical practice.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "CDM5101",
+    "title": "Translational Cancer Research"
+}

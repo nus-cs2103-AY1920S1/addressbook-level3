@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3238",
+    "courseCredit": "4",
+    "description": "Social Cognition uses cognitive processes to explain how people think and behave in the social world. It operates on the assumption that interpersonal behaviour is cognitively mediated in that social interactions are determined by what we know and believe about ourselves, other people, and the situations in which we encounter them. Topics to be covered include person perception, person memory, social categorization, social judgment, unconscious processes, motivation and emotion, and the development of social cognition.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Social Cognition"
+}

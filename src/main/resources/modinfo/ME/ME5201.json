@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME5201",
+    "courseCredit": "4",
+    "description": "The aim of this module is to introduce the design, simulation and optimization methodologies for generic thermal systems. Students will develop the ability to simulate thermal systems and apply optimization techniques. They will be required to carry out 3 to 5 assignments to gain hands-on experience in design-simulation. The topics include: design analysis process, fluid flow equipment, heat exchanger design options, system simulation and modelling, process integration for industry, system optimization using suitable techniques such as calculus method, Langrange multipliers, search methods, linear, dynamic and geometric programming.",
+    "faculty": "Engineering",
+    "title": "Thermal Systems Design"
+}

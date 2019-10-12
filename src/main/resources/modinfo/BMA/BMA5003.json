@@ -1,0 +1,10 @@
+{
+    "courseCode": "BMA5003",
+    "courseCredit": "4",
+    "description": "The objective of the course is to introduce the basic concepts and principles of both financial and managerial accounting, without being excessively technical and procedural in emphasis. The coverage of topics aims to equip non-accounting managers with a basic understanding of accounting concepts and systems, the limitations of accounting data and financial statements, and the uses of accounting information for decision-making and performance evaluation.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMA5005"
+    ],
+    "title": "Financial Accounting"
+}

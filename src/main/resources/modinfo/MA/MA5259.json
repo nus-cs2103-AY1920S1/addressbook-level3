@@ -1,0 +1,18 @@
+{
+    "courseCode": "MA5259",
+    "courseCredit": "4",
+    "description": "This module studies the theory of probability. It covers the following topics: probability space, weak law of large numbers, strong law of large numbers, convergence of random series, zero-one laws, weak convergence of probability measures, characteristic function, central limit theorem. The course is for graduate students with interest in the theory of probability.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5260"
+    ],
+    "preclusion": "ST4237, ST5214",
+    "prereqTree": {
+        "or": [
+            "MA3207H",
+            "MA3207",
+            "MA4262"
+        ]
+    },
+    "title": "Probability Theory I"
+}

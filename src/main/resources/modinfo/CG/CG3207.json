@@ -1,0 +1,13 @@
+{
+    "courseCode": "CG3207",
+    "courseCredit": "4",
+    "description": "This course teaches students the basics in the design of the various classes of microprocessors. Contents include design of simple micro-controllers, high performance CPU design using parallel techniques, memory organization and parallel processing systems. Topics also include the development of support tools to enable efficient usage of the developed microprocessor. The course emphasizes practical design and includes a group project for students to design and implement a microprocessor with verification on a FPGA.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "CS6280",
+        "CS4223",
+        "EE5902"
+    ],
+    "preclusion": "EE3207E, TEE3207",
+    "title": "Computer Architecture"
+}

@@ -1,0 +1,19 @@
+{
+    "courseCode": "TCN2411",
+    "courseCredit": "4",
+    "description": "This module introduces basic concepts of developing mathematical models for Chemical Engineering systems and trains students on techniques for solving the resulting differential equations. The objective is to provide mathematical foundations for solution of complex Chemical Engineering problems. This module is to be driven from Chemical Engineering systems perspective and expose students to methodology to identify appropriate simplifications in system modeling that lead to simplified mathematical description from a more comprehensive one. The module develops methods for solving first and second order differential equations, partial differential equations, and then applies them to Chemical Engineering systems.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4242",
+        "TCN2122",
+        "TCN3121"
+    ],
+    "preclusion": "TC2411",
+    "prereqTree": {
+        "or": [
+            "CN1411",
+            "TCN1411"
+        ]
+    },
+    "title": "Mathematics for Chemical Engineers 2"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SP1541",
+    "courseCredit": "4",
+    "description": "The SP1541 module aims to equip students with the relevant knowledge and skills of how to communicate complex scientific content in ways that are comprehensible and accessible to non-experts. The module presents principles and strategies to deepen students\u2019 understanding of the differences between scientific academic texts such as research reports and popular science genres such as science news articles (Haupt, 2014). Students will be exposed to popular science texts in various scientific disciplines, which will serve as the basis for group discussions, individual presentations and the writing of science news articles targeted at the educated non-specialist audience.",
+    "faculty": "NUS",
+    "preclusion": "Those who have taken SP1203, ENV1202, SP2171, ES1541, UTown and USP writing modules, ES1601 are precluded from taking SP1541.",
+    "title": "Exploring Science Communication through Popular Science"
+}

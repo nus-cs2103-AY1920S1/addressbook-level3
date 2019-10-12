@@ -1,0 +1,7 @@
+{
+    "courseCode": "FMC1203",
+    "courseCredit": "4",
+    "description": "The reach and applicability of computing is vast -- essentially all of human endeavours. To deal with the complexity, computer scientists have developed thinking methods that are suited for scaling to large and difficult problems. In this course, students will be exposed to computational thinking methods such as the use of abstraction, compositionality, divide and conquer, caching, reduction, invariants, randomness, and parallelism. Students will do case studies to compare and contrast computational thinking with thinking methods used to organize non-computing domains. Small group teaching with emphasis on discovery and insights as well as communication skills will be used. This module will be graded as 'Completed Satisfactory/Completed Unsatisfactory (CS/CU)'.",
+    "faculty": "Computing",
+    "title": "Freshman Seminar: Computational Thinking"
+}

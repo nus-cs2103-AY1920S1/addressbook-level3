@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4103",
+    "courseCredit": "4",
+    "description": "Coding techniques are used for data compression and reliable communication of digital information over imperfect channels. This module introduces students to a wide range of standard enabling techniques and methods that are deployed in the telecommunications and computing industries. The topics covered are: information measures, source and channel models, various source coding schemes including Huffman coding, run-length coding, linear predictive coding, transform coding, and various channel coding schemes including cyclic codes, BCH codes, Reed-Solomon codes and convolutional codes.",
+    "faculty": "Engineering",
+    "prereqTree": "EE2012",
+    "title": "Coding Theory And Applications"
+}

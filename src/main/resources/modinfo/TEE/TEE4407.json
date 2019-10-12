@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TEE4407",
+    "courseCredit": "4",
+    "description": "This module provides students with essential concepts in electronics to enable them to understand and design complex electronics circuits and systems for processing analog signals.Topics covered: Techniques for implementing specific amplifier frequency response involving poles and time constants; Negative feedback amplifiers; Oscillators: RC, LC and crystal-controlled oscillators; Power amplifiers: Output stage, efficiency and distortion; DC power supply design: Linear and switching regulators, current limiting; Mixer, modulators and demodulators for communication systems; Active filters; Instrumentation amplifiers, CMRR; Applications of current mirror circuits.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3407E, TEE3407, EE4407E",
+    "prereqTree": {
+        "or": [
+            "TEE2021",
+            "TEE2027"
+        ]
+    },
+    "title": "Analog Electronics"
+}

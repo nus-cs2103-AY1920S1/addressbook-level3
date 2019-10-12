@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3263",
+    "courseCredit": "4",
+    "description": "Using selected Singapore texts from a variety of different genres, this module aims to enable students to explore the historical roots and contemporary relevance of literary production in Singapore. Beginning with colonial writing, the module moves through considerations of national and postcolonial literatures to contemporary concerns. Given Singapore's history, the notion of a \"Singapore\" text will be used creatively in order to reflect upon the growth of Singaporean identity and culture, and literary texts from other countries in the region may be used for comparative purposes.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Singapore Literature in Context"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "PC4232",
+    "courseCredit": "4",
+    "description": "The topics covered include galaxies, cosmology, cosmological parameters, large scale structures of the universe, dark matter and dark energy, negative energies, cosmic microwave background, baryon genesis, big bang, inflation, open and closed universe, gamma ray burst (standard candles), cosmic acceleration.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC3246",
+            "PC4248",
+            "PC3274"
+        ]
+    },
+    "title": "Cosmology"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ESE5608",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Engineering",
+    "prereqTree": "ESE5003",
+    "title": "Heavy Metals in the Environment"
+}

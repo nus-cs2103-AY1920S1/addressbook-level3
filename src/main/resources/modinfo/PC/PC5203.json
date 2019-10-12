@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5203",
+    "courseCredit": "4",
+    "description": "This module aims to give graduate students additional training in the foundations of solid state physics and is intended to prepare them for research work and other graduate coursework modules. Topics to be covered include: translational symmetry and Bloch's theorem, rotational symmetry and group representation, electron-electron interaction and Hartree-Fock equations, APW, OPW, pseudopotential and LCAO schemes of energy band calculations, Boltzmann equation and thermoelectric phenomena, optical properties of semiconductors, insulators and metals, origin of ferromagnetism, models of Heisenberg, Stoner and Hubbard, Kondo effect. Students are expected to read from a range of recommended and reference texts, and will be given an opportunity to present their reading as part of the regular lessons.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "PC3130",
+            "PC4240"
+        ]
+    },
+    "title": "Advanced Solid State Physics"
+}

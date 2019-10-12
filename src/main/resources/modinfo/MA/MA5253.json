@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5253",
+    "courseCredit": "4",
+    "description": "This course will be an introduction to Riemann surfaces, focusing on topics such as topology of Riemann surfaces, divisors and line bundles, differential forms and Hodge theory, the Riemann-Roch theorem, period mappings, the Poincar\u00e9-Koebe uniformisation theorem. We will also discuss more advanced topics such as algebraic curves, hyperbolic geometry and discrete groups of automorphisms.",
+    "faculty": "Science",
+    "prereqTree": "MA4247",
+    "title": "Riemann Surfaces"
+}

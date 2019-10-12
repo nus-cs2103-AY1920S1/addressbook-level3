@@ -1,0 +1,17 @@
+{
+    "courseCode": "CM2192",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM3242",
+        "CM3261",
+        "CM3292",
+        "CM3295",
+        "CM3267",
+        "CM3241"
+    ],
+    "preclusion": "CM2142",
+    "prereqTree": "CM1191",
+    "title": "Experiments in Chemistry 3"
+}

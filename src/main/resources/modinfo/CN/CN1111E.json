@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CN1111E",
+    "courseCredit": "4",
+    "description": "Students will be introduced to an overview of the chemical process industry and a discussion of several significant examples. The core of the module covers the details of steady state material and energy balance, including recycle, purge, phase change and chemical reaction. The concepts are extended to simultaneous mass and energy balances and unsteady state balances. The module is targeted at first-year part-time chemical engineering students with some working knowledge in the chemical industries.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "CN2116E",
+        "CN2121E",
+        "CN4238E",
+        "CN3132E",
+        "CN4118E"
+    ],
+    "preclusion": "TC1101, TCN1111",
+    "title": "Chemical Engineering Principles"
+}

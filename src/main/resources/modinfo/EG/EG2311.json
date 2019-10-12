@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG2311",
+    "courseCredit": "4",
+    "description": "This module aims to provide an overview and basic knowledge of space systems. The topics covered include satellite classification, space environment, various subsystems that are the fundamental building blocks of a space system. In addition, typical satellite mission payloads and general ground and launch segments will also be covered.",
+    "faculty": "Engineering",
+    "title": "Introduction to Space Systems"
+}

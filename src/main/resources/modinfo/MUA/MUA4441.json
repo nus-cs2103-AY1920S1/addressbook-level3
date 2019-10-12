@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA4441",
+    "courseCredit": "2",
+    "description": "A continuation from MUA4341, piano students will continue to work closely with the Voice department. Students will participate in at least one public performance and/or a final examination of the prepared work(s).",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4541"
+    ],
+    "prereqTree": "MUA4341",
+    "title": "Collaborative Piano - Vocal Accompaniment 5"
+}

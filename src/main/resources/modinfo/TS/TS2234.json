@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2234",
+    "courseCredit": "4",
+    "description": "This module will explore the aesthetic or instrumentalist role of the arts in society and assess its implications on cultural policy, before evaluating different models of state subvention in the arts, from the arm's length approach to the interventionist, incentive and laissez-faire models. In the process, key contemporary policy issues, relating to the civilizing mission of the arts, the notion of identity in a postmodern intercultural situation, the twin demands of nationalism and internationalism, and the questions of corporate sponsorship versus the welfare state will be addressed, with particular emphasis on the Singaporean context.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Cultural Policy, the Arts and Society"
+}

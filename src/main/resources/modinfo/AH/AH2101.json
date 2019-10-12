@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "AH2101",
+    "courseCredit": "4",
+    "description": "This module introduces students to art history both as a field of academic knowledge concerned with works of art (including painting, sculpture and architecture) and as a discipline with a distinctive methodology, vocabulary and theoretical foundations. The module surveys the main trends in the artistic traditions of Europe and Asia paying special attention to cross-cultural comparative analysis (i.e. how the human body and landscape are represented in different artistic traditions).",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "AH3204",
+        "AH3203",
+        "AH2203",
+        "AH3550",
+        "AH3202",
+        "AH3201",
+        "AH2202",
+        "AH2201",
+        "YHU4207"
+    ],
+    "title": "Introduction to Art History"
+}

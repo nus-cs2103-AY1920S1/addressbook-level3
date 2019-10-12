@@ -1,0 +1,14 @@
+{
+    "courseCode": "CM3211",
+    "courseCredit": "4",
+    "description": "This module features the principles of synthesis, structures and reactivity of organometallic compounds. Significance of synergic d-\u03c0 back bonding and different modes of \u03c0 bonding will be illustrated. The course covers the applications of physical and spectroscopic methods in order to provide the scientific bases for the elucidation of \u03c0 bonding, metal-metal and metal-hydrogen bonds, isomerism, fluxionality, and molecular structures. The different modes of reactions of organometallic compounds and their applications will be explored. The catalytic cycles and the mechanisms of the different homogeneous catalytic processes will be illustrated.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM4211",
+        "CM4212",
+        "CM4214",
+        "CM4215"
+    ],
+    "prereqTree": "CM2111",
+    "title": "Organometallic Chemistry"
+}

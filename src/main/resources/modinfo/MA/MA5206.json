@@ -1,0 +1,18 @@
+{
+    "courseCode": "MA5206",
+    "courseCredit": "4",
+    "description": "This module covers basic functional analysis and selected applications. It is intended for graduate students in mathematics. Major topics: (1) Norms and seminorms, Banach and Fr\u00e9chet spaces, Hahn-Banach and separation theorems, Uniform Boundedness Principle, Open Mapping and Closed Graph Theorems. (2) Dual spaces, uniformly convex and reflexive spaces, Radon-Nikod\u00fdm Theorem and the dual of Lp, Banach-Alaoglu\u2019s Theorem, Mazur\u2019s Theorem, adjoint operators. (3) Compact operators, compactness of adjoint, spectral theory and Fredholm alternative for compact operators, application to differential equations. (4) Hilbert space and operators on Hilbert space, Lax-Milgram Theorem, Fourier series, spectral theorem for compact self-adjoint operators, application to differential equations.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "MA4211",
+            {
+                "or": [
+                    "MA4262",
+                    "MA5205"
+                ]
+            }
+        ]
+    },
+    "title": "Graduate Analysis II"
+}

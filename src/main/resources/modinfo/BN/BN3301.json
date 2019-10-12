@@ -1,0 +1,33 @@
+{
+    "courseCode": "BN3301",
+    "courseCredit": "4",
+    "description": "The objective of this module is to give students a strong materials science and engineering base to biomaterials engineering. The principles of materials science and engineering with particular attention to topics most relevant to biomedical engineering will be covered. This would include atomic structures, hard treatment, fundamental of corrosion, manufacturing processes and characterisation of materials. The structure-property relationships of metals, ceramics, polymers and composites as well as hard and soft tissues such as bone, teeth, cartilage, ligament, skin, muscle and vasculature will be described. Behaviour of materials in the physiological environment will be focus. The target students are those who have no background in materials science and engineering but would like to study to biomaterials as a subject in bioengineering.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "BN4301",
+        "MLE4203"
+    ],
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    {
+                        "or": [
+                            "CM1121",
+                            "CM1501"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "LSM1101",
+                            "LSM1401",
+                            "MLE1101"
+                        ]
+                    }
+                ]
+            },
+            "MLE3104"
+        ]
+    },
+    "title": "Introduction To Biomaterials"
+}

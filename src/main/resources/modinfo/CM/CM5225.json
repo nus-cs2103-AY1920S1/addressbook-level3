@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM5225",
+    "courseCredit": "4",
+    "description": "This module builds on the principles and concepts introduced in CM4228. It addresses the major concepts in asymmetric catalysis. To module will introduce students to enantiomeric purity, absolute stereochemistry and resolution. In addition, it will concentrate on chiral pool and chiral auxilaries, chiral reagents and chiral catalysis, substrate control and asymmetric synthesis.",
+    "faculty": "Science",
+    "prereqTree": "CM4228",
+    "title": "Asymmetric Catalysis"
+}

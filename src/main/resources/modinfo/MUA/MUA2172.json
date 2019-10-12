@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2172",
+    "courseCredit": "4",
+    "description": "Acoustics is an integral component that recording engineers need to take account of regarding sound for live music. This module will introduce students to the physics, perception and control of sound. The topics of this course cover topics such as sound diffusion related phenomena and noise reduction related processing.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3173"
+    ],
+    "title": "Room Acoustics"
+}

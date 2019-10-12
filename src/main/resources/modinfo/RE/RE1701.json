@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE1701",
+    "courseCredit": "4",
+    "description": "This is an introductory module providing students with theories, concepts and components of the urban built environment. Discussions will cover the urbanisation process, development of urban forms and structures, land policy and development constraints, national development and the land use planning process, the role of government in the planning process, the property development process, and the roles and functions of parties involved in real estate as well as urban development.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE2701"
+    ],
+    "preclusion": "RE1102 Urban Land Use and Development",
+    "title": "Urban Land Use and Development"
+}

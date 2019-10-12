@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5266",
+    "courseCredit": "4",
+    "description": "Linear optimisation: extreme points, reduced costs, simplex method, interior point methods, formulations of integer linear programming, cutting plane algorithm, branch and bound algorithm, approximation methods. Nonlinear optimisation: gradient and Newton's methods for unconstrained optimisation, Karush-Kuhn-Tucker optimality conditions, minimax theory, sequential quadratic programming methods. Dynamic programming: Examples and formulations, recursive equations for disrete and continuous problems.",
+    "faculty": "Science",
+    "prereqTree": "MA2101",
+    "title": "Optimization"
+}

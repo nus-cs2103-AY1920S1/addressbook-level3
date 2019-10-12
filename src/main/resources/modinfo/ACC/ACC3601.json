@@ -1,0 +1,22 @@
+{
+    "courseCode": "ACC3601",
+    "courseCredit": "4",
+    "description": "This course examines the conceptual and theoretical issues underlying the corporate accounting and reporting requirements under the US, International and Singapore Accounting Standards. This allows the students to understand the economic rationales behind the accounting treatment of major financial statement items. It also equips the students with skills in using financial information for decision-making. Topics to be covered include conceptual framework in financial reporting, accounting for foreign currency translation, leasing, preparation of consolidated financial statements, earnings quality management and off-balance sheet financing.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3606",
+        "ACC3615",
+        "ACC3615A",
+        "ACC3615B",
+        "ACC4616",
+        "ACC4612K"
+    ],
+    "preclusion": "BH3111 or BZ3101 or BK3106 or FNA3111",
+    "prereqTree": {
+        "or": [
+            "FNA1002",
+            "ACC1002"
+        ]
+    },
+    "title": "Corporate Accounting and Reporting"
+}

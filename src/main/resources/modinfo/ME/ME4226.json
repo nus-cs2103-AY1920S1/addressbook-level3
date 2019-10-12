@@ -1,0 +1,13 @@
+{
+    "courseCode": "ME4226",
+    "courseCredit": "4",
+    "description": "The module provides applications of basic concepts in thermodynamics and heat transfer and extends students' understanding of energy technology areas and applications of current interest. Emphasis is on understanding of the principles of operation of various energy systems and their performance. Topics include: General thermodynamics relations and behaviour and process of real gases, Principle of operation and basic performance evaluation of mechanical thermal systems in conventional and new-technology areas such as absorption cooling, conventional and compact heat exchangers, steam power plants, combine cycle, micro gas turbines, cogeneration and fuel cells. This module is meant for students who have a special interest in energy and energy technology systems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ME2121",
+            "ME3122"
+        ]
+    },
+    "title": "Energy and Thermal Systems"
+}

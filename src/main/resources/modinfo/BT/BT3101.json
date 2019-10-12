@@ -1,0 +1,14 @@
+{
+    "courseCode": "BT3101",
+    "courseCredit": "4",
+    "description": "In this module, students are required to complete a real-world business analytics project based on principles taught in previous modules. This project can be viewed as a large-scale practical module. Emphasis will be placed on understanding the objectives of the analytics exercise, applying appropriate analytic methods and techniques, evaluating database designs, modeling strategies and implementation, and monitoring analytics performances. Students will sharpen communication skills through close team interactions, consultations, and formal presentations. Students will also develop a comprehensive understanding of the issues of business analytics such as data privacy and security, legal issues and responsibilities, business/technical communication of the results of data analytics.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "BT2101",
+            "BT2102",
+            "IS2101"
+        ]
+    },
+    "title": "Business Analytics Capstone Project"
+}

@@ -1,0 +1,20 @@
+{
+    "courseCode": "CM3201",
+    "courseCredit": "4",
+    "description": "This module is an introduction to the Chemical Industry and related process industries like the Food Processing and Pharmaceutical Industries, or Petroleum Refining. Process analysis and mass and energy balances of simple and complex systems are covered, including recycle and purge streams. Systems without and with chemical transformations will be treated for batch and steady state flow processes. The concept of unit operations is introduced. Thermal processes (e.g., heat transfer and separation by distillation) will be treated in greater depth. The design of new products and processes is emphasised as an important aspect of the work of an industrial chemist.",
+    "faculty": "Science",
+    "preclusion": "CN1111, CM1161, CM2161",
+    "prereqTree": {
+        "and": [
+            "CM1131",
+            "CM2101",
+            {
+                "or": [
+                    "MA1421",
+                    "MA1102R"
+                ]
+            }
+        ]
+    },
+    "title": "Principles of Chemical Processes"
+}

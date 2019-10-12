@@ -1,0 +1,34 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EC1301",
+    "courseCredit": "4",
+    "description": "This course is designed to teach the basic principles of economics to undergraduates from non-economic majors. It introduces students to elementary microeconomic and macroeconomic concepts and provides them with an economic framework to understand the workings of individual markets, the aggregate economy, as well as international trade and finance.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC2101",
+        "EC2102",
+        "EC2374",
+        "EC3303",
+        "EC3391",
+        "EC3393",
+        "EC2204",
+        "EC2205",
+        "EC2383",
+        "BSS4003A",
+        "BSP2701",
+        "BSE3702",
+        "BSE3703",
+        "BSE3701",
+        "BSE4711",
+        "BSN4811",
+        "BSP2011",
+        "BSP3012",
+        "BSP4011",
+        "MKT4714",
+        "ENV3103"
+    ],
+    "preclusion": "EC1101E, BH1005/BSP1005/BSP1703, RE1704, USE2301. All BBA, BAC, BBA(Hons) and BAC(Hons) students are not allowed to take EC1301.",
+    "title": "Principles of Economics"
+}

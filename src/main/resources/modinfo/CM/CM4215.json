@@ -1,0 +1,14 @@
+{
+    "courseCode": "CM4215",
+    "courseCredit": "4",
+    "description": "The students will learn the basic concepts of modern bioinorganic chemistry including the mechanisms of reactions catalyzed by metalloproteins, spectroscopic and electronic properties of metal sites, and kinetics of electron transfer in proteins. This module covers major areas in modern bioinorganic chemistry including synthetic model compounds for metal sites of metalloproteins, basic protein chemistry, biological electron transfer; hydrolytic enzymes, oxygen transporters; oxygen reacting proteins such as monooxygenase, peroxidase, catalase and superoxide dismutase; physical methods in bioinorganic chemistry. The module is directed towards students majoring in chemistry and related disciplines.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "CM3211",
+            "CM3212",
+            "CM3268"
+        ]
+    },
+    "title": "Bioinorganic Chemistry"
+}

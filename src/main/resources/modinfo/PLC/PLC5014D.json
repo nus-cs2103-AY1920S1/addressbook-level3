@@ -1,0 +1,11 @@
+{
+    "courseCode": "PLC5014D",
+    "courseCredit": "6",
+    "description": "A clinical placement in which the student engages in supervised clinical practice and has a working caseload in a hospital or other clinic setting.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5015E"
+    ],
+    "prereqTree": "PLC5013C",
+    "title": "Clinical\u00a0Placement\u00a04"
+}

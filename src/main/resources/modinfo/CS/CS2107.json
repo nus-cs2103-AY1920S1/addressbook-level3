@@ -1,0 +1,17 @@
+{
+    "courseCode": "CS2107",
+    "courseCredit": "4",
+    "description": "This module serves as an introductory module on information security. It illustrates the fundamentals of how systems fail due to malicious activities and how they can be protected. The module also places emphasis on the practices of secure programming and implementation. Topics covered include classical/historical ciphers, introduction to modern ciphers and cryptosystems, ethical, legal and organisational aspects, classic examples of direct attacks on computer systems such as input validation vulnerability, examples of other forms of attack such as social engineering/phishing attacks, and the practice of secure programming.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS3235",
+        "CS4236",
+        "CS4257",
+        "IS5151",
+        "IFS4101",
+        "IS4010",
+        "IS4231"
+    ],
+    "prereqTree": "CS1010",
+    "title": "Introduction to Information Security"
+}

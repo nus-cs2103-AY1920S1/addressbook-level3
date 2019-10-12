@@ -1,0 +1,14 @@
+{
+    "courseCode": "ECA5103",
+    "courseCredit": "4",
+    "description": "This is an applications-oriented introductory level module for students who do not have a sufficient training in econometrics. Students who have already completed modules at this level can opt for higher level econometric modules. Students will be provided with hands-on training in computer software such as SAS, EViews and Excel. The module covers probability distributions and statistical inference, matrix algebra, simple and multiple linear regression models, diagnostic testing, dummy variable regressions, time series econometrics including cointegration and error correction models.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5103",
+        "ECA5374",
+        "ECA5884",
+        "EC5103R"
+    ],
+    "preclusion": "EC5253, EC5304",
+    "title": "Quantitative & Computing Methods"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2301",
+    "courseCredit": "4",
+    "description": "This is the first half of a two-part course which offers an introduction to philosophical debate in the Warring States period of ancient China, the Classical Age of Chinese Philosophy and the seedbed from which grew all of the native currents of thought that survived from traditional China. It will begin by considering the intellectual-historical background to the ancient philosophies and focus primarily on the Confucius (the Analects), Mozi, Yang Zhu, Mencius and Laozi, closing with a brief introduction to some of the later developments that will be covered more fully in Part II. The approach of the course will be both historical and critical, and we will attempt to both situate Classical Chinese philosophical discourse in its intellectual-historical context and to bring out its continuing relevance.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PH3301"
+    ],
+    "preclusion": "PH2205, GEK2038",
+    "title": "Classical Chinese Philosophy I"
+}

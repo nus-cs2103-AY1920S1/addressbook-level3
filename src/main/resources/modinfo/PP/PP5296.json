@@ -1,0 +1,13 @@
+{
+    "courseCode": "PP5296",
+    "courseCredit": "4",
+    "description": "This module will explore trade and investment issues in goods and services, in the context of ASEAN\u2019s goal to establish an ASEAN Economic Community (AEC) by 2015. The issues will be approached from a mix of theoretical, empirical and practical dimensions. The module will cover the measures that ASEAN members are undertaking to move towards an AEC, and the challenges as well as potential benefits of deeper regional economic integration. Students will learn to analyse policy issues based on a sound understanding of the theories of trade and foreign direct investment and facility with the construction and use of statistical indicators.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": {
+        "or": [
+            "PP5101",
+            "PP5501"
+        ]
+    },
+    "title": "Trade, Investment and Integration Issues in ASEAN"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "NUR2116",
+    "courseCredit": "4",
+    "description": "This module will promote and develop knowledge, skills and attitudes necessary for the provision of nursing care and management for patients with alteration in gastrointestinal, musculoskeletal, renal and urinary, and immunological function. The module also includes management of patients in pain and patients in the operating room.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "NUR3103"
+    ],
+    "prereqTree": "NUR1108A",
+    "title": "Medical-Surgical Nursing II"
+}

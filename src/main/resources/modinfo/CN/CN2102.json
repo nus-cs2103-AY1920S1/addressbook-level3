@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CN2102",
+    "courseCredit": "4",
+    "description": "This module is the second part of a two-part module designed to provide first year Chemical and Biomolecular Engineering students with an experiential exposure to the foundational concepts of Biomolecular/Biochemical/Bioprocess Engineering, including mass and energy balances, biosafety and sterile handling, bioreaction kinetics, bioreactor design, downstream processing and purification, etc., through a series of hands-on experimental laboratories. In the laboratory, they will learn to carry out measurement, data collection, analysis, interpretation and presentation. The laboratory sessions will be blended with real engineering applications of industrial and societal relevance to Singapore.",
+    "faculty": "Engineering",
+    "preclusion": "CN1102",
+    "title": "Chemical Engineering Principles and Practice II"
+}

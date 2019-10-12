@@ -1,0 +1,8 @@
+{
+    "courseCode": "DSC4211E",
+    "courseCredit": "4",
+    "description": "The financial services sector is a very important pillar of the Singapore economy. Today, it is not only very profitable, it is highly competitive. Customer value optimization has become an important goal. This course is primarily concerned with the decision processes and models associated with the credit card industry. The business processes include credit card portfolio management, attrition models, data-mining, risk marketing, call-centre operations, merchant business, delinquency management, fraud containment and operational risk. The decision models are also useful to other banking functions such as Mortgage and Loan Management, Marketing and Customer Service. Relevant aspects of probability theory and statistics will be reviewed in this course. Since no textbook has been written in this area, the students are expected to consult a large number of references.",
+    "faculty": "NUS Business School",
+    "prereqTree": "ST1131A",
+    "title": "SIOSCM: Decision Models in Banking"
+}

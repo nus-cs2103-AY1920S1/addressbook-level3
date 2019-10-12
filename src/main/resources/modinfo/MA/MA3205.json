@@ -1,0 +1,19 @@
+{
+    "courseCode": "MA3205",
+    "courseCredit": "4",
+    "description": "This is an introductory mathematical course in set theory. There are two main objectives: One is to present some basic facts about abstract sets, such as, cardinal and ordinal numbers, axiom of choice and transfinite recursion; the other is to explain why set theory is often viewed as foundation of mathematics. This module is designed for students who are interested in mathematical logic, foundation of mathematics and set theory itself. Major topics: Algebra of sets. Functions and relations. Infinite sets. Induction and definition by recursion. Countable and uncountable sets. Linear orderings. Well orderings and ordinals. Axiom of choice.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5220",
+        "MA4207"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "MA1100S",
+            "CS1231",
+            "CS1231S"
+        ]
+    },
+    "title": "Set Theory"
+}

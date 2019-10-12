@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE5212",
+    "courseCredit": "4",
+    "description": "The module provides a foundation for students interested in doing research into materials related to energy storage and conversion. It will start by introducing the basics of designing and processing materials for energy storage and conversion, their integration into batteries, supercapacitors, and fuel cells as well as methods for the performance characterisation and optimisation of these devices. The module will finish with aspects of current research on materials for energy storage and conversion.",
+    "faculty": "Engineering",
+    "preclusion": "MLE4210 Materials for Energy Storage and Conversion",
+    "title": "Energy Conversion & Storage"
+}

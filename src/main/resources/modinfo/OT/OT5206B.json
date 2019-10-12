@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5206B",
+    "courseCredit": "2",
+    "description": "This module is concerned with the analysis and design of deep foundations for offshore structures. Students will learn the principles, concepts, analysis methodology and design considerations. The major topics covered include: pile driving analysis, piles subject to axial load, and lateral and moment loads. Students gain an understanding of the design methodology for deep offshore foundations for fixed and floating structures.",
+    "faculty": "Engineering",
+    "title": "Deep Offshore Foundations"
+}

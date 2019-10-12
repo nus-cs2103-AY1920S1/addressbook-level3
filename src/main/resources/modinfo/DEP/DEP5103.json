@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "DEP5103",
+    "courseCredit": "8",
+    "description": "This studio-based module develops skills and mindsets for integrative thinking at vastly different scales. Students will be organised into teams and assigned a design and planning brief for a district in a city or metropolitan area that is impacted by regional dynamics and has regional implications. Students will undertake analysis at urban and regional scales to identify the key planning issues and to propose integrated and sustainable planning solutions.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "DEP5109",
+        "DEP5110"
+    ],
+    "prereqTree": {
+        "or": [
+            "UP5101",
+            "UD5622"
+        ]
+    },
+    "title": "Urban and Regional Planning"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5228",
+    "courseCredit": "2",
+    "description": "Biomedical imaging becomes indispensable tool for the biomedical research and modern day clinical management. Many imaging modalities are available such as nuclear medicine techniques (single photon emission tomography - SPECT, positron emission tomography - PET), magnetic resonance imaging (MRI), magnetic resonance spectroscopy (MRS), ultrasonography and optical imaging. Some imaging modalities are utilised to obtain structural, morphological or anatomic information. Others are for obtaining functional, metabolic or molecular information. Every technique has its unique advantages and some draw backs. Combining two or more imaging modalities resulted not only in cancellation of drawbacks and providing complimentary information but also in better interpretation of the fused images.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "title": "Hybrid Imaging: An Advanced Imaging Concept and Modality"
+}

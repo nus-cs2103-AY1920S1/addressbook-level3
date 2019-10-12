@@ -1,0 +1,15 @@
+{
+    "courseCode": "YSC1207",
+    "courseCredit": "5",
+    "description": "An introduction to chemistry emphasizing a microscopic, physical approach. A focus on atomic and molecular structure, chemical bonding and reactivity, and physical properties of molecules. Includes laboratory exercises. For students with an interest in the physical sciences, the life sciences, and environmental studies. The material is discussed at an introductory level, and is focused on developing understanding and ability to apply molecular concepts in further study of the sciences.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3213",
+        "YSC2212",
+        "YSC2225",
+        "YSC2224",
+        "YSC2228",
+        "YSC2246"
+    ],
+    "title": "General Chemistry"
+}

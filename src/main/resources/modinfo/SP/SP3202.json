@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "SP3202",
+    "courseCredit": "4",
+    "description": "This module introduces students to Singapore\u2019s basic criminal laws, evidence and procedures. The module also focuses on the scene of the crime and evidence found there. Topics include crime scene protocols, recognition, collection and preservation of evidence.",
+    "faculty": "Science",
+    "prereqTree": "GEK1542",
+    "title": "Evidence in Forensic Science"
+}

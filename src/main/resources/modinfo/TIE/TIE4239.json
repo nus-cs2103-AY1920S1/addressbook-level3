@@ -1,0 +1,14 @@
+{
+    "courseCode": "TIE4239",
+    "courseCredit": "4",
+    "description": "This module introduces students to either emerging topics in quality engineering or specialised topics. Students will learn and understand concepts in quality management and quality technology. This module will enable them to keep abreast with current developments in quality engineering and broaden their exposure to various specialised topics.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE4239E",
+    "prereqTree": {
+        "or": [
+            "TIE2100",
+            "TIE3101"
+        ]
+    },
+    "title": "Selected Topics in Quality Engineering"
+}

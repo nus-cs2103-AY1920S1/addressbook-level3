@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE4230",
+    "courseCredit": "4",
+    "description": "This module introduces students to advanced topics in quality engineering. Topics covered are: design-in quality, quality function deployment, failure mode and effects analysis, fractional factorial designs, confounding, and robust design. The module also deals with basic tools in reliability analysis and testing. It will enable students to use more advanced techniques in process studies and learn to deal with quality problems from a proactive point of view in terms of process improvement and optimization.",
+    "faculty": "Engineering",
+    "prereqTree": "IE3101",
+    "title": "Quality Engineering II"
+}

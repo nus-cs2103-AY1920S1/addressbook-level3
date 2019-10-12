@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4216",
+    "courseCredit": "4",
+    "description": "This course introduces the programming methodology of Constraint Logic Programming (CLP). It first covers programming in PROLOG, the basic CLP programming language. The main part of the course covers modelling of complex problems using constraints and rules, and the use of advanced algorithms that are supported by the constraint solvers in modern CLP systems. Also covered are the mathematical foundations of CLP. Throughout the course, practical exercises are performed using a modern CLP system such as CLP(R) or Eclipse.",
+    "faculty": "Computing",
+    "prereqTree": "CS2104",
+    "title": "Constraint Logic Programming"
+}

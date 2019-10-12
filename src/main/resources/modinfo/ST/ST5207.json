@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5207",
+    "courseCredit": "4",
+    "description": "Modular Credits: Various smoothing methods, including kernel, spline, nearest neighbour, orthogonal series and penalized likelihood. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "Nonparametric Regression"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4250",
+    "courseCredit": "4",
+    "description": "Many chemical companies are moving towards higher value-added specialty chemical products from commodities. This module prepares students with the expertise of (higher-value-added) chemical product design for such companies. It covers the basic methodology with illustrative examples from many areas such as active ingredients and personal-care products. The module involves active-learning lectures and student teaching (with feedback from the lecturer and peers) so that students will gain competence of thinking divergently and critically, and confidently solving open-ended problems through group discussion.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "CN2116",
+            "CN3132",
+            "CN3135"
+        ]
+    },
+    "title": "Chemical Product Design"
+}

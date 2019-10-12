@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PS2241",
+    "courseCredit": "4",
+    "description": "The module briefly covers the origins, functions, and contexts of public administration, and various comparative approaches to administrative systems in Asian countries. On that foundation, it then focuses on some of the major administrative issues in Asian countries, including local government and decentralisation, privatisation and public sector reform, ethnic representation, bureaucratic corruption, and administrative accountability. The module can be read by year 1-3 students across all faculties at NUS.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK2012, GEM2012K, PS2206, PS2211B",
+    "title": "Public Administration in Asia"
+}

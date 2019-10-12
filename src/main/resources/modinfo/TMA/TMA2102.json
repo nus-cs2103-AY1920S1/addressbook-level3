@@ -1,0 +1,8 @@
+{
+    "courseCode": "TMA2102",
+    "courseCredit": "4",
+    "description": "This module introduces basic concepts in linear algebra that are routinely applied in fields like science, engineering, statistics, economics and operations research. The vector spaces within which the general ideas are developed are all real vector spaces (actually Rn). The objective of the course is to inculcate a facility in both the algebraic and geometric viewpoints of linear algebra. The module will develop basic skills in computing with vectors and matrices (with or without any mathematical software). It will also highlight examples of the more important applications of linear algebra in other fields.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": "TMA1001",
+    "title": "Linear Algebra"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "CS3226",
+    "courseCredit": "4",
+    "description": "This module introduces students to software development on the Web platforms. Students will be exposed to important computer science concepts, including networking, databases, computer security, user interface design, programming languages, and software engineering. These concepts will be tied together through hands-on practice in building a Web-based application using the current Web development technology. At the end of the module, students are expected to be able to design and develop a Web application, to appreciate the underlying technology needed to build a Web application, and to develop a fundamental understanding of related computer science concepts.",
+    "faculty": "Computing",
+    "preclusion": "CP3101B",
+    "prereqTree": {
+        "or": [
+            "CS2010",
+            "CS2020",
+            "CS2030",
+            "CS2113",
+            "CS2113T"
+        ]
+    },
+    "title": "Web Programming and Applications"
+}

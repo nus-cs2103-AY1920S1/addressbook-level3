@@ -1,0 +1,11 @@
+{
+    "courseCode": "EC3102",
+    "courseCredit": "4",
+    "description": "This course follows up on Macroeconomics I (EC2102). We review consumption and investment theories, and study the determinants of money demand and supply. Aggregate Supply functions under differing assumptions regarding labour-market clearing and price expectations (rational or adaptive) are derived next, and combined with the Aggregate Demand function to study policy and other effects. We next examine the expectations-augmented Phillips Curve, and simple inflation-unemployment dynamics. We also study further policy issues (time inconsistency, Ricardian Equivalence, profit-sharing), open-economy macroeconomics (the Mundell-Fleming model), and simple growth theory (the Solow model and the AK endogenous growth model).",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC3880A",
+        "EC3395"
+    ],
+    "title": "Macroeconomic Analysis II"
+}

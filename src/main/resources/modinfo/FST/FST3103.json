@@ -1,0 +1,16 @@
+{
+    "courseCode": "FST3103",
+    "courseCredit": "4",
+    "description": "This module covers a number of the most popular food processing operations, ranging from the conventional thermal processing to the modern membrane separation. Topics include thermal processing, microwave processing, evaporation, freezing, mixing, psychrometrics, mass transfer, membrane separation, and dehydration.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4102"
+    ],
+    "prereqTree": {
+        "and": [
+            "FST1101",
+            "FST1103"
+        ]
+    },
+    "title": "Advanced Food Engineering"
+}

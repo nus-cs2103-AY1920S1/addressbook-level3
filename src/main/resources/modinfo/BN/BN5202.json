@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN5202",
+    "courseCredit": "4",
+    "description": "This module introduces advanced concepts related to tissue biomechanics. Specifically the course will discuss topics related to the mechanical behavior of soft and hard tissues including anisotropy, viscoelasticity, nonlinearity, heterogeneity, fracture and fatigue, growth and remodeling, with emphasis on the role of microarchitecture; structural properties of bones and implants (composite and asymmetric beam theory) and mechanical function of joints. This module will also introduce students to in vivo quantification and analysis tools that can be used in a clinical setting (e.g. imagebased biomechanics and patient-specific computational modeling). This module will also discuss how to bridge the gap between the clinical and the engineering worlds for the benefit of patients without underestimating current challenges.",
+    "faculty": "Engineering",
+    "title": "Advanced Tissue Biomechanics"
+}

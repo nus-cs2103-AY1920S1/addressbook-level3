@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA4173",
+    "courseCredit": "2",
+    "description": "This module covers the theory and hands-on operation of sound design, foley recording, and post-production for video programme. The topics of sound effect recording, dialog recording and editing, background noise recording and editing, and surround sound mixing will be included. Students will be requested to finish at least 3 sound design projects during the semester.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4174"
+    ],
+    "prereqTree": "MUA4170",
+    "title": "Audio for Media 1"
+}

@@ -8,10 +8,15 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
-import seedu.jarvis.model.person.Person;
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +24,27 @@ import seedu.jarvis.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final HistoryManager historyManager;
     private final AddressBook addressBook;
+    //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(HistoryManager historyManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(historyManager, addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new HistoryManager(), new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -65,6 +71,101 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== HistoryManager =============================================================================
+
+    /**
+     * Gets the {@code HistoryManager}.
+     *
+     * @return {@code HistoryManager} object.
+     */
+    @Override
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
+    /**
+     * Replaces {@code HistoryManager} data with the data in {@code HistoryManager} given as argument.
+     *
+     * @param historyManager {@code HistoryManager} data to be used.
+     */
+    @Override
+    public void setHistoryManager(HistoryManager historyManager) {
+        this.historyManager.resetData(historyManager);
+    }
+
+    /**
+     * Gets the number of available executed commands that can be undone.
+     *
+     * @return The number of available executed commands that can be undone.
+     */
+    @Override
+    public int getAvailableNumberOfExecutedCommands() {
+        return historyManager.getNumberOfAvailableExecutedCommands();
+    }
+
+    /**
+     * Gets the number of available inversely executed commands that can be redone.
+     *
+     * @return The number of available inversely executed commands that can be redone.
+     */
+    @Override
+    public int getAvailableNumberOfInverselyExecutedCommands() {
+        return historyManager.getNumberOfAvailableInverselyExecutedCommands();
+    }
+
+    /**
+     * Checks whether it is possible to roll back any commands.
+     *
+     * @return Whether it is possible to roll back any commands.
+     */
+    @Override
+    public boolean canRollback() {
+        return historyManager.canRollback();
+    }
+
+    /**
+     * Checks whether it is possible to commit any commands.
+     *
+     * @return Whether it is possible to commit any commands.
+     */
+    @Override
+    public boolean canCommit() {
+        return historyManager.canCommit();
+    }
+
+    /**
+     * Adds the latest executed command. {@code Command} to be added must be invertible.
+     *
+     * @param command {@code Command} to be added.
+     */
+    @Override
+    public void rememberExecutedCommand(Command command) {
+        historyManager.rememberExecutedCommand(command);
+        historyManager.forgetAllInverselyExecutedCommands();
+    }
+
+    /**
+     * Rolls back the changes made by the latest executed command by inversely executing the command.
+     *
+     * @return Whether the inverse execution of the latest executed command was successful.
+     */
+    @Override
+    public boolean rollback() {
+        return historyManager.rollback(this);
+    }
+
+    /**
+     * Commits the changes made by the latest inversely executed command by executing the command.
+     *
+     * @return Whether the execution of the latest executed command was successful.
+     */
+    @Override
+    public boolean commit() {
+        return historyManager.commit(this);
+    }
+
+    //=========== AddressBook ================================================================================
+
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -75,8 +176,6 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
-
-    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -105,6 +204,17 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    /**
+     * Adds {@code Person} at a given index.
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
+     * @param person {@code Person} to be added.
+     */
+    @Override
+    public void addPerson(int zeroBasedIndex, Person person) {
+        addressBook.addPerson(zeroBasedIndex, person);
+    }
+
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -112,21 +222,18 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return addressBook.getFilteredPersonList();
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        addressBook.updateFilteredPersonList(predicate);
     }
 
     @Override
@@ -143,9 +250,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return historyManager.equals(other.historyManager)
+                && addressBook.equals(other.addressBook)
+                && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
+                && userPrefs.equals(other.userPrefs);
     }
-
 }

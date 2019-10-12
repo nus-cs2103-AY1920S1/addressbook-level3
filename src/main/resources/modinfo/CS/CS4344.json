@@ -1,0 +1,23 @@
+{
+    "courseCode": "CS4344",
+    "courseCredit": "4",
+    "description": "This module aims at providing students a deep understanding of various technical issues pertaining to the development of networked games and mobile games. Students will be exposed to concepts from distributed systems, operating systems, security and cryptography, networking and embedded systems. In particular, issues such as game server architectures (mirrored, centralized, peer-to-peer etc.), consistency management (bucket synchronization, dead reckoning etc.), interest management, scalability to large number of clients (C10K problem), cheat prevention and detection, power management, will be discussed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2106",
+                    "CG2271"
+                ]
+            },
+            {
+                "or": [
+                    "CS3103",
+                    "CG3204L"
+                ]
+            }
+        ]
+    },
+    "title": "Networked and Mobile Gaming"
+}

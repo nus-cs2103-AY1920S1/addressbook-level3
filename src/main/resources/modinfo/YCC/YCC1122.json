@@ -1,0 +1,25 @@
+{
+    "courseCode": "YCC1122",
+    "courseCredit": "5",
+    "description": "This module explores a range of quantitative methods in a manner accessible to all students regardless of level of preparation. Examples are generally chosen from the social sciences, but the methods themselves are applicable to a wide range of topics. Special attention is paid to helping students develop their skills in presenting and analysing quantitative information.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS2216",
+        "YSC2210",
+        "YSC3216",
+        "YSS3231",
+        "YSC1212",
+        "YSC2220",
+        "YCC2137",
+        "YSS3260",
+        "YSC3235",
+        "YSS4223",
+        "YHU3305",
+        "YHU3304",
+        "YSC2239",
+        "YHU3312",
+        "YHU2304",
+        "YSC2240"
+    ],
+    "title": "Quantitative Reasoning"
+}

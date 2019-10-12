@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT3412",
+    "courseCredit": "4",
+    "description": "This module applies marketing principles to service organisations both in the private and public sectors. Students will be taught the unique characteristics that separate services from goods, the managerial problems stemming from these characteristics, and the strategies suggested as appropriate to overcome the problems. Case studies will be used in addition to lectures in conducting this module and students may also be required to complete a project concerning the marketing of services.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3412 or BH3412A or BH3412B or BZ3612 or BK3205 or MKT3412A or MKT3412B",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003"
+        ]
+    },
+    "title": "Services Marketing"
+}

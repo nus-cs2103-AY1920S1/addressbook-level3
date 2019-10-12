@@ -1,0 +1,20 @@
+{
+    "courseCode": "MNO3303",
+    "courseCredit": "4",
+    "description": "This course aims to introduce students to the field of organisational theory - which applies concepts from various disciplines such as management studies, sociology, psychology, political sciences and economics to study organisations. The course is designed to encourage students to actively and critically use these concepts to make sense, diagnose, manage and respond to the emerging organisational needs and problems. The course covers topics such as organisational goals, strategy and effectiveness; dimensions of organisational structure; organisational design and environments; technology and organisational change; and organisational decision-making. The emphasis of this course is on the practical value of organisation theory for students as future members and managers of organisations. Developing an understanding of how organisations (should) operate is effectively critical so that students will able to fulfill their roles as future managers.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3303 or BZ3502 or BK4309D or BK3309N",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "BH1001",
+            "BZ1001",
+            "BK2002",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "Organisational Effectiveness"
+}

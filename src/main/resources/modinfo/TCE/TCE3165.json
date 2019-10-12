@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCE3165",
+    "courseCredit": "4",
+    "description": "This module equips students with knowledge and skills in the design of structural concrete members and systems. The topics cover basic design for action effects as well as the serviceability and ultimate limit state design of real-life structures. The module is compulsory for civil engineering undergraduate students without which he will not be qualified to practice as a professional civil engineer.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCE5510",
+        "TCE5611"
+    ],
+    "preclusion": "CE3165",
+    "prereqTree": "TCE2155",
+    "title": "Structural Concrete Design"
+}

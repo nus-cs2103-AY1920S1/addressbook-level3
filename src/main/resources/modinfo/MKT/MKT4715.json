@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT4715",
+    "courseCredit": "4",
+    "description": "This strategic marketing programme combines theory with practice, linking the classroom with the fast moving consumer goods (FMCG) workplace. It employs Destiny\u00a9, a business simulator that mirrors the buying behaviour of FMCG decision makers, to give participants the unique experience of running a virtual organization. Participants strive to successfully manage and grow their organization; they engage in a broad array of business processes ranging from product development, marketing, retailing, category management, trade marketing and negotiations, financial planning and business strategy.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X",
+            "RE3704"
+        ]
+    },
+    "title": "Business Strategy Simulation for Marketers"
+}

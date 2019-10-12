@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1031",
+    "courseCredit": "4",
+    "description": "Computational thinking is increasingly being recognised as a fundamental problem solving method for everyone. Computational thinking involves problem formulation, solution development, and solution analysis, with a focus on computation and computational tools. This module emphasises the computational thinking thought process and the communication of the process and the solutions, rather than implementation of the solution on a computer. Students learn to apply omputational thinking to solve problems and discover new questions that can be explored within and across disciplines. Students are assumed to already possess elementary critical thinking and logical thinking aptitudes, which are practised in this module.",
+    "faculty": "Computing",
+    "preclusion": "GET1031A",
+    "title": "Computational Thinking"
+}

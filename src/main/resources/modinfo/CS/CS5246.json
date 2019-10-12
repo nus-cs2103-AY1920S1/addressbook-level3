@@ -1,0 +1,27 @@
+{
+    "courseCode": "CS5246",
+    "courseCredit": "4",
+    "description": "Text mining concerns the processing of unstructured natural language text to mine information and knowledge. It is distinguished from data mining in its focus on unstructured text rather than structured data present in traditional databases. Topics include text classification, text clustering, sentiment analysis, text summarization, information extraction (named entity recognition, relation and event extraction), and question answering. The module will emphasize the use of machine learning approaches to text mining.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2103",
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Text Mining"
+}

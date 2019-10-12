@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IS1103",
+    "courseCredit": "4",
+    "description": "The module gives a wide yet insightful understanding of the impact of IT on organisation and society. Issues such as Internet and 'new economy' geographies; impacts of IT and creation of IT innovation for public health, urban planning, and regional equity, food systems, climate change can be discussed. Other issues for consideration could be dark web and IT security advancement, open vs. closed innovation creation. Misuse of IT that put ethics and professionalism into question will be also discussed.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS3103",
+        "IS3251",
+        "IS4250",
+        "IS4241",
+        "IS4240",
+        "IS4100",
+        "IS3240",
+        "IS3221",
+        "IS3101"
+    ],
+    "title": "IS Innovations in Organisations and Society"
+}

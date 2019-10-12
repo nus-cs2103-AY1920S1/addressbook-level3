@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5030",
+    "courseCredit": "4",
+    "description": "The objective is to give students the fundamentals of thermodynamics at an advanced level, so that they can apply them to the analysis of complex processes and equipment design in chemical engineering. The module will begin by reviewing the basic laws of thermodynamics, the basic thermodynamic variables, basic thermodynamic properties and relations, and other concepts. This is to be followed by the fundamentals of equilibrium thermodynamics, thermodynamics of the real gas mixture and the real solution systems, criteria of equilibrium and stability; molecular thermodynamics; thermodynamics of aqueous electrolyte and polymer-solutions; and an introduction to statistical thermodynamics. These concepts are then applied to the analysis chemical engineering processes. This is targeted at students who have a basic degree in science and engineering and are pursuing a higher degree in chemical engineering.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN6163"
+    ],
+    "title": "Advanced Chemical Engineering Thermodynamics"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "DSA5231",
+    "courseCredit": "4",
+    "description": "This course will provide participants with a foundation in data science, and introduce several essential tools and techniques for this field. These tools include the Python programming language; the techniques include frequently used predictive models such as deep learning, regression and random forests. Every industry domain collects more data today than it did just five years ago. This course will utilise real datasets from the manufacturing, human resource, and customer analytics fields to demonstrate how the vast amounts of data collected can be used to improve processes and decision-making.",
+    "faculty": "Science",
+    "title": "Data Analytics for the Digital Workplace"
+}

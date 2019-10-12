@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAK2201",
+    "courseCredit": "4",
+    "description": "Korean 2 is the continuation of Korean 1. This is also an integrated course which will help students gain higher basic proficiency in the four skills (listening, speaking, reading and writing), grammar and vocabulary (including Hanguel, the Korean alphabet) for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAK3201"
+    ],
+    "prereqTree": "LAK1201",
+    "title": "Korean 2"
+}

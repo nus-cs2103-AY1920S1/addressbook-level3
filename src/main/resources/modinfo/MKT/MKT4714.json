@@ -1,0 +1,27 @@
+{
+    "courseCode": "MKT4714",
+    "courseCredit": "4",
+    "description": "Multitudes of research, spanning economics, psychology, sociology among the various behavioral and decision sciences, have been done to understand why we shop the way we shop, why we choose the way we choose, and why we buy the way we buy. Beginning with the foundation of a rational consumer, we systematically examine the choice, purchase and shopping behaviors which deviate from standard rational predictions, the circumstances/contexts of such deviations, and understand their causes and consequences. Key elements underlying choice, purchase and shopping are examined under a generic context before moving to specific contexts such as personal finance, health and consumption.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT4417",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "BSP1703",
+                    "BSP1707",
+                    "EC1101E",
+                    "EC1301"
+                ]
+            },
+            {
+                "or": [
+                    "MKT1705",
+                    "MKT1705X",
+                    "RE3704"
+                ]
+            }
+        ]
+    },
+    "title": "Consumer Decision Making"
+}

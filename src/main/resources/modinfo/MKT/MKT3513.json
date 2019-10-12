@@ -1,0 +1,15 @@
+{
+    "courseCode": "MKT3513",
+    "courseCredit": "4",
+    "description": "This course is an introduction to game theory and its applications in the realm of business. It aims to provide an overview of non-cooperative and cooperative games through the analysis of strategic interactions in conflict situations such as bargaining, market competition, monetary policy, auction, international trade, to name a few. Recurring themes include threatening and bluffing, punishing and rewarding, building reputations, and sustaining cooperation in non-cooperative environments through repeated interactions. More advanced topics on games with incomplete information such as moral hazard and incentives theory, mechanism design and the Revelation Principle will also be covered.",
+    "faculty": "NUS Business School",
+    "preclusion": "EC3312 Game Theory and Applications To Economics\nMA4264 Game Theory",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "TR2201",
+            "BSP1005"
+        ]
+    },
+    "title": "Game Theory And Strategic Analysis"
+}

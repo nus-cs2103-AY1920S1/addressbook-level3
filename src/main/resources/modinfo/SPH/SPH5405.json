@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5405",
+    "courseCredit": "4",
+    "description": "This module is an introduction to the various domains of and methods for health services research. It is designed to provide students with a panorama of health services research and its applications and the information for further learning. The module integrates elements of statistics, psychometrics, health economics, and incorporates a diverse range of subjects including patient-reported outcomes, decision analytic modelling, and cost-effectiveness analysis.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5214 Introduction to Health Services Research",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    },
+    "title": "Introduction to Health Services Research"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "RE4808",
+    "courseCredit": "4",
+    "description": "This module exposes students to current urban challenges faced by Singapore and cities around the world. It provides economic perspectives to link these challenges to fundamental global trends of technological, demographic and climatic changes. Urban development goals of sustainability, liveability and social equity will be discussed, and so will be various urban solutions, from land use pattern, urban transportation system and infrastructure investment, to smart-city technologies. Students are challenged, through case studies, to think about necessary collective choices, including land use policies, taxation and allocation of public resources, and urban governance models, in order to achieve urban goals.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE4222 Public Policy and Real Estate Markets",
+    "prereqTree": {
+        "or": [
+            "RE2701",
+            "RE3703"
+        ]
+    },
+    "title": "Urban Challenges and Policies"
+}

@@ -1,0 +1,10 @@
+{
+    "courseCode": "EE4501",
+    "courseCredit": "4",
+    "description": "Modelling of power systes: bus admittance and bus impedance matrices, network building algorithms. Load flow studies: problem formulation, computer solution techniques; economic load dispatch. Energy market restructuring. Fault analysis: symmetrical components, sequence impedance networks, symmetrical and unsymmetrical faults. Protection: components, differential, and earth fault protection systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE5702"
+    ],
+    "title": "Power System Management And Protection"
+}

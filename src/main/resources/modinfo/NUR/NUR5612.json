@@ -1,0 +1,13 @@
+{
+    "courseCode": "NUR5612",
+    "courseCredit": "8",
+    "description": "The module aims for students to implement advanced practice skills in patient/family assessment, develop and implement a management plan and evaluate the plan\u2019s effectiveness. Care of paediatric patients with approaches to symptoms (SNB developmental milestone for paediatric APN internship) in the setting of general paediatric medical and/or surgical wards. Health promotion, health protection, and health restoration appropriate to these patients and families will be emphasized.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": {
+        "or": [
+            "NUR5601",
+            "NUR5602"
+        ]
+    },
+    "title": "Clinical Practicum II (Paediatrics)"
+}

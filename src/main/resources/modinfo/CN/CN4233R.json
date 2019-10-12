@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4233R",
+    "courseCredit": "4",
+    "description": "This course covers important topics pertaining to regulatory and quality issues associated with pharmaceutical production. The two main components of the module are: regulatory aspects of pharmaceutical manufacture and analytical techniques for quality control. The concept of good manufacturing practices (GMP) and its components including standard operating procedures, documentation, validation, organization and personnel, premises, equipment, production and quality control are covered in the first half of the module. The second part of the module introduces the students to the various analytical techniques employed in pharmaceutical industry to assess drug\u2019s quality.",
+    "faculty": "Engineering",
+    "preclusion": "PR2143 Pharmaceutical Analysis for Quality Assurance\nPR3145 Compliance & Good Practices in Pharmacy\nPR4206 Industrial Pharmacy",
+    "prereqTree": {
+        "or": [
+            "LSM1401",
+            "CN2108"
+        ]
+    },
+    "title": "Good Manufacturing Practices in Pharmaceutical Industry"
+}

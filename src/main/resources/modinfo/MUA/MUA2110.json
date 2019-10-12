@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2110",
+    "courseCredit": "4",
+    "description": "Students will form undirected ensembles of three or more players, consisting of instruments from at least two different instrumental families: - piano (and other keyboard instruments) - strings (including harp) - woodwinds - brass - percussion in order to study and perform selected works of chamber music. The standard wind quintet configuration is NOT considered a mixed ensemble. Students should participate in at least one public performance as well as in a final examination of the prepared work(s), and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3110"
+    ],
+    "preclusion": "MUA1116",
+    "title": "Chamber Music in Mixed Ensemble"
+}

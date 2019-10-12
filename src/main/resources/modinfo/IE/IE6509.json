@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6509",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental models, theory, and algorithms for dynamic programming with an emphasis on Markov decision processes (MDPs). We give particular attention to overcoming the \u2018curse of dimensionality\u2019 and focus on modern techniques for solving large-scale dynamic programs.",
+    "faculty": "Engineering",
+    "preclusion": "BDC6305 Theory and Algorithms for Dynamic Programming",
+    "title": "Theory and Algorithms for Dynamic Programming"
+}

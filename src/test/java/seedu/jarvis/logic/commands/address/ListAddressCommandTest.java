@@ -14,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.UserPrefs;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListAddressCommand.
@@ -26,15 +27,15 @@ public class ListAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
     }
 
     /**
-     * Verifies that checking ListAddressCommand for the availability of inverse execution returns false.
+     * Verifies that checking {@code ListAddressCommand} for the availability of inverse execution returns false.
      */
     @Test
-    public void test_hasInverseExecution() {
+    public void hasInverseExecution() {
         ListAddressCommand listAddressCommand = new ListAddressCommand();
         assertFalse(listAddressCommand.hasInverseExecution());
     }
@@ -53,11 +54,11 @@ public class ListAddressCommandTest {
     }
 
     /**
-     * Verifies that calling inverse execution of ListAddressCommand will always throw command exception with the
-     * correct message.
+     * Verifies that calling inverse execution of {@code ListAddressCommand} will always throw a
+     * {@code CommandException} with the correct message.
      */
     @Test
-    public void test_inverseExecute_exceptionThrown() {
+    public void inverseExecute_throwsCommandException() {
         ListAddressCommand listAddressCommand = new ListAddressCommand();
         assertThrows(CommandException.class,
                 ListAddressCommand.MESSAGE_NO_INVERSE, () -> listAddressCommand.executeInverse(model));

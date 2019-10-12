@@ -1,0 +1,9 @@
+{
+    "courseCode": "ACC4711",
+    "courseCredit": "4",
+    "description": "This module provides students with a foundation in tax planning. Part 1 discusses tax planning opportunities for the business entity in a local (Singapore) context, by making use of available tax incentives, different business structures, etc. Part 2 covers tax planning in an international business context, and will deal with double tax agreements, choice of foreign investment vehicles, repatriation of income and capital, tax havens, tax arbitrage, etc. Part 3 deals with tax planning for the individual operating across international boundaries.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4611",
+    "prereqTree": "ACC3703",
+    "title": "Advanced Taxation"
+}

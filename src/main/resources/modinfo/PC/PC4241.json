@@ -1,0 +1,12 @@
+{
+    "courseCode": "PC4241",
+    "courseCredit": "4",
+    "description": "This module presents the fundamentals of statistical mechanics. Starting with the classical and quantum postulates, the three ensembles of Gibbs are derived. The statistical interpretation of thermodynamics then follows. The thermodynamic quantities are obtained in terms of the number of states, partition and grand partition functions. Applications to independent electron systems, with and without magnetic field, and Bose-Einstein condensation are given. The course ends with a brief introduction to phase transitions. This module is targeted at physics students with at least one year of thermal physics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5204",
+        "PC5202"
+    ],
+    "prereqTree": "PC2230",
+    "title": "Statistical Mechanics"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE5131",
+    "courseCredit": "4",
+    "description": "This course covers various basic topics in wireless communications for voice, data, and multimedia. It begins with an overview of current wireless systems and standards, followed by a characterization of the wireless channel, including path loss, shadowing, and the flat vs. frequency-selective properties of multipath fading. It then examines the fundamental capacity limits of wireless channels and the characteristics of the capacity-achieving transmission strategies. This part is followed by practical digital modulation techniques and their performance under wireless channel impairments, including diversity techniques to compensate for flat-fading, multicarrier modulation to combat frequency-selective fading, and an introduction to multi-antenna communications. The course concludes with a discussion of various practical multiple access schemes in wireless cellular systems.",
+    "faculty": "Engineering",
+    "preclusion": "EE6131 Wireless Communications (Advanced)",
+    "prereqTree": {
+        "or": [
+            "EE4131",
+            "EE5137R",
+            "EE5306"
+        ]
+    },
+    "title": "Wireless Communications"
+}
