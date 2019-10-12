@@ -1,14 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.policy.*;
+import seedu.address.model.policy.Coverage;
+import seedu.address.model.policy.Description;
+import seedu.address.model.policy.EndAge;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.Price;
+import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-
-import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 /**
  * A utility class to help with building Policy objects.
@@ -123,7 +128,7 @@ public class PolicyBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
      */
-    public PolicyBuilder withTags(String ... tags) {
+    public PolicyBuilder withTags(String... tags) {
         this.tags = getTagSet(tags);
         return this;
     }
@@ -131,7 +136,7 @@ public class PolicyBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
      */
-    public PolicyBuilder withCriteria(String ... criteria) {
+    public PolicyBuilder withCriteria(String... criteria) {
         this.criteria = getCriteriaSet(criteria);
         return this;
     }

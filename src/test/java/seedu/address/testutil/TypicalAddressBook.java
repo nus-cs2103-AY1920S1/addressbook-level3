@@ -1,14 +1,17 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
+
+import java.util.List;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 
-import java.util.List;
-
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
-
+/**
+ * A utility class containing an address book to be used in tests.
+ */
 public class TypicalAddressBook {
     /**
      * Returns an {@code AddressBook} with all the typical persons.

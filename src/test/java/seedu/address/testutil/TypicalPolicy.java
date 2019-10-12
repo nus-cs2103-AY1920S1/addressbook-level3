@@ -1,12 +1,35 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HEALTH_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LIFE_INSURANCE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.policy.Policy;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Policy} objects to be used in tests.
