@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,13 @@ public class LoanList implements Iterable<Loan> {
     private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
     private final ObservableList<Loan> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    public LoanList() {}
+
+    public LoanList(ObservableList<Loan> toBeCopied) {
+        requireNonNull(toBeCopied);
+        internalList.setAll(toBeCopied);
+    }
 
     /**
      * Checks if the list contains a loan equivalent to the given loan.
@@ -39,6 +47,28 @@ public class LoanList implements Iterable<Loan> {
     }
 
     /**
+     * Retrieves a loan from the list equivalent to the given loan.
+     * @param toGet The equivalent loan (identical attributes to the target loan).
+     * @return The retrieved loan.
+     */
+    public Loan get(Loan toGet) {
+        requireNonNull(toGet);
+
+        Loan targetLoan = null;
+        for (Loan loan : internalUnmodifiableList) {
+            if (loan.equals(toGet)) {
+                targetLoan = loan;
+            }
+        }
+
+        if (targetLoan == null) {
+            // TODO Handle loan not found in list (make an exception).
+        }
+
+        return targetLoan;
+    }
+
+    /**
      * Replaces the loan {@code target} in the list with {@code editedLoan}.
      * {@code target} must exist in the list.
      * @param target The target loan to be replaced.
@@ -56,15 +86,27 @@ public class LoanList implements Iterable<Loan> {
     }
 
     /**
-     * Removes the equivalent loan from the list.
+     * Replaces the content of this list with the content of {@code replacementList}.
+     * @param replacementList The list to replace the current list with.
+     */
+    public void replaceList(List<Loan> replacementList) {
+        requireNonNull(replacementList);
+        internalList.setAll(replacementList);
+    }
+
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    /**
+     * Deletes the given loan from the list.
      * The loan must exist in the list.
      * @param toRemove The loan to be removed from the list.
      */
-    public void remove(Loan toRemove) {
+    public void delete(Loan toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             // TODO Handle loan not found in list.
-            System.out.println("Loan not found.");
         }
     }
 
