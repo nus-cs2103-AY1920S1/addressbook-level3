@@ -2,17 +2,23 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.ItemDescription;
+import seedu.address.commons.core.item.Priority;
+import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,63 +42,103 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses {@code description} into a {@code ItemDescription} and returns it.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @param description given for the item.
+     * @return a new item description that is processed
+     * @throws ParseException if the description is invalid (empty description).
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static ItemDescription parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!ItemDescription.isValidItemDescription(trimmedDescription)) {
+            throw new ParseException(ItemDescription.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new ItemDescription(trimmedDescription);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * Parse the {@code dateTime} into a {@code Optional<Event>} and returns it.
+     * Converts a String to a LocalDateTime object and creates a new event with it.
+     * @param dateTime representing the deadline of the event
+     * @return Optional.of(event) if the Event created is valid, Optional.empty() otherwise
+     * @throws ParseException if the format of deadline provided is incorrect
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Optional<Event> parseDateTime(String dateTime) throws ParseException {
+        if (dateTime == null) {
+            return Optional.empty();
         }
-        return new Phone(trimmedPhone);
+
+        String trimmedDateTime = dateTime.trim();
+        LocalDateTime formattedDateTime;
+
+        try {
+            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-d 2019-09-25T23:59:50.63\""
+                    + "or \"-d 25/09/2019 2359\"");
+        }
+
+        Event newEvent = new Event(formattedDateTime, null, null);
+
+        return Optional.of(newEvent);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
+     * Parse the {@code reminder} into a {@code Optional<Reminder>} and returns it.
+     * Converts the string time into a LocalDateTime object and create a Reminder with it.
+     * @param reminder representing the time of the reminder
+     * @return Optional.of(reminder) if the reminder created is valid, Optional.empty() otherwise
+     * @throws ParseException if the format of the reminder time is incorrect
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Optional<Reminder> parseReminder(String reminder) throws ParseException {
+        if (reminder == null) {
+            return Optional.empty();
         }
-        return new Address(trimmedAddress);
+
+        String trimmedDateTime = reminder.trim();
+        LocalDateTime formattedDateTime;
+
+        try {
+            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
+                    + "or \"-r 25/09/2019 2359\"");
+        }
+
+        Reminder newReminder = new Reminder(formattedDateTime);
+        return Optional.of(newReminder);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
+     * Parse the {@code priority} into a {@code Optional<Priority>} and returns it.
+     * Converts the string of priority into an enumeration priority object, is case-insensitive.
+     * @param priority of the task or event
+     * @return Optional.of(priority) if the priority is valid, Optional.empty() otherwise
+     * @throws ParseException if the priority given is not high/medium/low
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Optional<Priority> parsePriority(String priority) throws ParseException {
+        if (priority == null) {
+            return Optional.empty();
         }
-        return new Email(trimmedEmail);
+
+        String trimmedPriority = priority.trim();
+        Priority processedPriority;
+
+        if (trimmedPriority.equalsIgnoreCase("HIGH")) {
+            processedPriority = Priority.HIGH;
+        } else if (trimmedPriority.equalsIgnoreCase("MEDIUM")) {
+            processedPriority = Priority.MEDIUM;
+        } else if (trimmedPriority.equalsIgnoreCase("LOW")) {
+            processedPriority = Priority.LOW;
+        } else {
+            throw new ParseException("Priority format given is incorrect. "
+                    + "Please follow this format \"-p High\"");
+        }
+
+        return Optional.of(processedPriority); //maybe use enum here
     }
 
     /**
@@ -120,5 +166,45 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Processes the string by trying out different formats, and returns a LocalDateTime
+     * @param stringDateTime of the date and time
+     * @return a LocalDateTime representation of the given string
+     * @throws DateTimeParseException if the format of the string given is incorrect
+     */
+    private static LocalDateTime getFormattedDateTime(String stringDateTime) throws DateTimeParseException {
+        LocalDateTime processedDateTime;
+
+        try {
+            processedDateTime = LocalDateTime.parse(stringDateTime);
+        } catch (DateTimeParseException e1) {
+            try {
+                processedDateTime = parseUsingFormatter(stringDateTime);
+            } catch (Exception e2) {
+                throw new DateTimeParseException(e2.getMessage(), stringDateTime, 0);
+            }
+        }
+
+        return processedDateTime;
+    }
+
+    /**
+     * Processes the string using the given format and returns a LocalDateTime
+     * @param stringDateTime of the format "dd/MM/yyyy HHmm"
+     * @return LocalDateTime representation of the string
+     */
+    private static LocalDateTime parseUsingFormatter(String stringDateTime) {
+        String[] splitTime = stringDateTime.split(" ");
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate processedDate = LocalDate.parse(splitTime[0], dateFormatter);
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime processedTime = LocalTime.parse(splitTime[1], timeFormatter);
+
+        LocalDateTime processedDateTime = LocalDateTime.of(processedDate, processedTime);
+        return processedDateTime;
     }
 }

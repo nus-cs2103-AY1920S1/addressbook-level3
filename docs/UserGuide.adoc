@@ -85,7 +85,7 @@ Examples:
 === Adding a reminder: `reminder`
 
 Adds a reminder to the reminder list
-Format: `reminder DESCRIPTION -d DATETIME [-p PRIORITY] [-t TAG]...`
+Format: `reminder DESCRIPTION -r REMINDER [-t TAG]...`
 
 [TIP]
 A reminder can have any number of tags (including 0)
