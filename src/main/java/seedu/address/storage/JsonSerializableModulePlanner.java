@@ -1,16 +1,21 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModulePlanner;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.UniqueStudyPlanList;
+import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
  * An Immutable ModulePlanner that is serializable to JSON format.
@@ -21,13 +26,19 @@ class JsonSerializableModulePlanner {
     public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "Study Plan list contains duplicate study plan(s).";
 
     private final List<JsonAdaptedStudyPlan> studyPlans = new ArrayList<>();
+    private final int activeStudyPlanIndex;
+    private final JsonAdaptedVersionTrackingManager manager;
 
     /**
      * Constructs a {@code JsonSerializableModulePlanner} with the given study plans.
      */
     @JsonCreator
-    public JsonSerializableModulePlanner(@JsonProperty("studyPlans") List<JsonAdaptedStudyPlan> studyPlans) {
+    public JsonSerializableModulePlanner(@JsonProperty("studyPlans") List<JsonAdaptedStudyPlan> studyPlans,
+                                         @JsonProperty("activeStudyPlanIndex") StudyPlan activeStudyPlan,
+                                         @JsonProperty("manager") JsonAdaptedVersionTrackingManager manager) {
         this.studyPlans.addAll(studyPlans);
+        this.activeStudyPlanIndex = activeStudyPlan.getIndex();
+        this.manager = manager;
     }
 
     /**
@@ -36,9 +47,16 @@ class JsonSerializableModulePlanner {
      * @param source future changes to this will not affect the created {@code JsonSerializableModulePlanner}.
      */
     public JsonSerializableModulePlanner(ReadOnlyModulePlanner source) {
+        ObservableList<StudyPlan> observableList = source.getStudyPlanList();
+        Iterator<StudyPlan> studyPlanIterator = observableList.iterator();
+        while (studyPlanIterator.hasNext()) {
+            StudyPlan studyPlan = studyPlanIterator.next();
+            studyPlans.add(new JsonAdaptedStudyPlan(studyPlan));
+        }
 
-        // TODO: change this after implementing ReadOnlyModulePlanner
-        //studyPlans.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        activeStudyPlanIndex = source.getActiveStudyPlan().getIndex();
+
+        manager = new JsonAdaptedVersionTrackingManager(source.getVersionTrackingManager());
     }
 
     /**
@@ -46,18 +64,30 @@ class JsonSerializableModulePlanner {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ModulePlanner toModelType() throws IllegalValueException {
-        ModulePlanner modulePlanner = new ModulePlanner();
-        for (JsonAdaptedStudyPlan jsonAdaptedStudyPlan : studyPlans) {
-            StudyPlan studyPlan = jsonAdaptedStudyPlan.toModelType();
-            // if (modulePlanner.hasStudyPlan(studyPlan)) {
-            //    throw new IllegalValueException(MESSAGE_DUPLICATE_STUDYPLAN);
-            // }
+    public ModulePlanner toModelType(ModulesInfo modulesInfo) throws IllegalValueException {
 
-            // TODO: change this after implementing ModulePlanner model
-            //modulePlanner.addStudyPlan(studyPlan);
+        List<StudyPlan> modelStudyPlans = new ArrayList<>();
+        for (JsonAdaptedStudyPlan adaptedStudyPlan : studyPlans) {
+            StudyPlan studyPlan = adaptedStudyPlan.toModelType();
+
+            /*
+            if (modulePlanner.hasStudyPlan(studyPlan)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDYPLAN);
+            }
+             */
+
+            modelStudyPlans.add(studyPlan);
         }
+        UniqueStudyPlanList modelUniqueStudyPlanList = new UniqueStudyPlanList();
+        modelUniqueStudyPlanList.setStudyPlans(modelStudyPlans);
+
+        VersionTrackingManager modelManager = manager.toModelType();
+
+        ModulePlanner modulePlanner = new ModulePlanner(modelUniqueStudyPlanList,
+                modulesInfo, modelManager);
+
+        modulePlanner.activateStudyPlan(activeStudyPlanIndex);
+
         return modulePlanner;
     }
-
 }

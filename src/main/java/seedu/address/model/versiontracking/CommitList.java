@@ -1,6 +1,7 @@
 package seedu.address.model.versiontracking;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.studyplan.StudyPlan;
 
@@ -8,10 +9,18 @@ import seedu.address.model.studyplan.StudyPlan;
  * Represents the list of all the commits in a study plan.
  */
 public class CommitList {
-    private ArrayList<Commit> commits;
+    private List<Commit> commits;
 
     public CommitList() {
         commits = new ArrayList<>();
+    }
+
+    public CommitList(List<Commit> commits) {
+        this.commits = commits;
+    }
+
+    public List<Commit> getCommits() {
+        return commits;
     }
 
     /**
@@ -22,5 +31,4 @@ public class CommitList {
         Commit commit = new Commit(studyPlan);
         commits.add(commit);
     }
-
 }

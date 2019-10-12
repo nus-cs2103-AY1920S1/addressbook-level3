@@ -49,7 +49,7 @@ public class DefaultTag implements Tag {
      * @return The name of the tag.
      */
     public String getTagName() {
-        return defaultTagType.getDefaultTagTypeName();
+        return defaultTagType.name();
     }
 
     /**

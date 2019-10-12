@@ -74,7 +74,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, modulesInfo);
 
         logic = new LogicManager(model, storage);
 
@@ -86,24 +86,24 @@ public class MainApp extends Application {
      * The data from the sample module planner will be used instead if {@code storage}'s module planner is not found,
      * or an empty module planner will be used instead if errors occur when reading {@code storage}'s module planner.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ModulesInfo modulesInfo) {
         Optional<ReadOnlyModulePlanner> modulePlannerOptional;
         ReadOnlyModulePlanner initialData;
         try {
-            modulePlannerOptional = storage.readModulePlanner();
+            modulePlannerOptional = storage.readModulePlanner(modulesInfo);
             if (!modulePlannerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ModulePlanner");
             }
-            initialData = modulePlannerOptional.orElseGet(SampleDataUtil::getSampleModulePlanner);
+            initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner();
+            initialData = new ModulePlanner(modulesInfo);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
-            initialData = new ModulePlanner();
+            initialData = new ModulePlanner(modulesInfo);
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, modulesInfo);
     }
 
     private void initLogging(Config config) {

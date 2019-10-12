@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
+import seedu.address.logic.commands.storage.EditTitleCommand.EditTitleStudyPlanDescriptor;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 
