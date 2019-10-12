@@ -1,10 +1,10 @@
 package dream.fcard.util.json;
 
+import dream.fcard.util.datastructures.Pair;
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import dream.fcard.util.datastructures.Pair;
 
 /**
  * Parses json string to JsonValue structures.
@@ -17,7 +17,7 @@ public class JsonParser {
      * @throws JsonFormatException Exceptions indicate incorrect syntax for json files
      */
     public static JsonValue parseJsonInput(String input) throws JsonFormatException {
-        return processDynamicValue(input.toCharArray(), 0).snd;
+        return processDynamicValue(input.toCharArray(), 0).snd();
     }
 
     /**
@@ -29,34 +29,34 @@ public class JsonParser {
      * @return resulting index and DynamicValue; algebraic sum type of all possible ValueTypes
      * @throws JsonFormatException file format error
      */
-    public static Pair<Integer,JsonValue> processDynamicValue(char[] input, int i)
+    public static Pair<Integer, JsonValue> processDynamicValue(char[] input, int i)
             throws JsonFormatException {
-        Pair<Integer,JsonValue> obj;
+        Pair<Integer, JsonValue> obj;
         try {
-            Pair<Integer,Integer> res1 = parseJsonInt(input, i);
-            obj = new Pair<>(res1.fst, new JsonValue(res1.snd));
+            Pair<Integer, Integer> res1 = parseJsonInt(input, i);
+            obj = new Pair<>(res1.fst(), new JsonValue(res1.snd()));
         } catch (JsonFormatException e1) {
             try {
-                Pair<Integer,Double> res2 = parseJsonDouble(input, i);
-                obj = new Pair<>(res2.fst, new JsonValue(res2.snd));
+                Pair<Integer, Double> res2 = parseJsonDouble(input, i);
+                obj = new Pair<>(res2.fst(), new JsonValue(res2.snd()));
             } catch (JsonFormatException e2) {
                 try {
-                    Pair<Integer,Boolean> res3 = parseJsonBoolean(input, i);
-                    obj = new Pair<>(res3.fst, new JsonValue(res3.snd));
+                    Pair<Integer, Boolean> res3 = parseJsonBoolean(input, i);
+                    obj = new Pair<>(res3.fst(), new JsonValue(res3.snd()));
                 } catch (JsonFormatException e3) {
                     try {
-                        Pair<Integer,String> res4 = parseJsonString(input, i);
-                        obj = new Pair<>(res4.fst, new JsonValue(res4.snd));
+                        Pair<Integer, String> res4 = parseJsonString(input, i);
+                        obj = new Pair<>(res4.fst(), new JsonValue(res4.snd()));
                     } catch (JsonFormatException e4) {
                         try {
-                            Pair<Integer,JsonObject> res5 = parseJsonObject(input,
+                            Pair<Integer, JsonObject> res5 = parseJsonObject(input,
                                     i);
-                            obj = new Pair<>(res5.fst, new JsonValue(res5.snd));
+                            obj = new Pair<>(res5.fst(), new JsonValue(res5.snd()));
                         } catch (JsonFormatException e5) {
                             try {
-                                Pair<Integer,JsonArray> res6 = parseJsonArray(input,
+                                Pair<Integer, JsonArray> res6 = parseJsonArray(input,
                                         i);
-                                obj = new Pair<>(res6.fst, new JsonValue(res6.snd));
+                                obj = new Pair<>(res6.fst(), new JsonValue(res6.snd()));
                             } catch (JsonFormatException e6) {
                                 if (e3.getErrorCode() == 2 && e4.getErrorCode() == 2
                                         && e5.getErrorCode() == 2 && e6.getErrorCode() == 2) {
@@ -88,7 +88,7 @@ public class JsonParser {
      * @return resulting index and array
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,JsonArray> parseJsonArray(char[] input, int i)
+    private static Pair<Integer, JsonArray> parseJsonArray(char[] input, int i)
             throws JsonFormatException {
         JsonArray arr = new JsonArray();
         i = skipWhiteSpace(input, i);
@@ -120,12 +120,12 @@ public class JsonParser {
             }
             // advance ',' between value pairs
 
-            Pair<Integer,JsonValue> valuePair = processDynamicValue(input, i);
-            i = skipWhiteSpace(input, valuePair.fst);
+            Pair<Integer, JsonValue> valuePair = processDynamicValue(input, i);
+            i = skipWhiteSpace(input, valuePair.fst());
             if (i >= input.length) {
                 break;
             }
-            arr.add(valuePair.snd);
+            arr.add(valuePair.snd());
             // parse value
 
             isFirst = false;
@@ -148,7 +148,7 @@ public class JsonParser {
      * @return resulting index and object / key value pairs HashMap
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,JsonObject> parseJsonObject(char[] input, int i)
+    private static Pair<Integer, JsonObject> parseJsonObject(char[] input, int i)
             throws JsonFormatException {
         JsonObject obj = new JsonObject();
         i = skipWhiteSpace(input, i);
@@ -182,9 +182,9 @@ public class JsonParser {
 
             String key;
             try {
-                Pair<Integer,String> keyPair = parseJsonString(input, i);
-                i = keyPair.fst;
-                key = keyPair.snd;
+                Pair<Integer, String> keyPair = parseJsonString(input, i);
+                i = keyPair.fst();
+                key = keyPair.snd();
             } catch (JsonFormatException ignored) {
                 throw new JsonFormatException(input, i, "Object keys must be strings at " + i);
             }
@@ -203,12 +203,12 @@ public class JsonParser {
             }
             // find ':'
 
-            Pair<Integer,JsonValue> valuePair = processDynamicValue(input, i);
-            i = skipWhiteSpace(input, valuePair.fst);
+            Pair<Integer, JsonValue> valuePair = processDynamicValue(input, i);
+            i = skipWhiteSpace(input, valuePair.fst());
             if (i >= input.length) {
                 break;
             }
-            obj.put(key, valuePair.snd);
+            obj.put(key, valuePair.snd());
             // parse value
 
             isFirst = false;
@@ -230,7 +230,7 @@ public class JsonParser {
      * @return resulting index and int
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,Integer> parseJsonInt(char[] input, int i)
+    private static Pair<Integer, Integer> parseJsonInt(char[] input, int i)
             throws JsonFormatException {
         StringBuilder value = new StringBuilder();
         while (i < input.length && (Character.isDigit(input[i]) || input[i] == '-')) {
@@ -255,7 +255,7 @@ public class JsonParser {
      * @return resulting index and double
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,Double> parseJsonDouble(char[] input, int i)
+    private static Pair<Integer, Double> parseJsonDouble(char[] input, int i)
             throws JsonFormatException {
         StringBuilder value = new StringBuilder();
         while (i < input.length && (Character.isDigit(input[i]) || input[i] == 'e' || input[i] == '.'
@@ -281,7 +281,7 @@ public class JsonParser {
      * @return resulting index and boolean
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,Boolean> parseJsonBoolean(char[] input, int i)
+    private static Pair<Integer, Boolean> parseJsonBoolean(char[] input, int i)
             throws JsonFormatException {
         boolean value;
         if (input[i] != 't' && input[i] != 'f') {
@@ -315,7 +315,7 @@ public class JsonParser {
      * @return resulting index and string
      * @throws JsonFormatException file format error
      */
-    private static Pair<Integer,String> parseJsonString(char[] input, int i)
+    private static Pair<Integer, String> parseJsonString(char[] input, int i)
             throws JsonFormatException {
         StringBuilder value = new StringBuilder();
         boolean escape = false;
