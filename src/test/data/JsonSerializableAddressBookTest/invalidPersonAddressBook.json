@@ -2,14 +2,14 @@
   "persons": [ {
     "name": "Hans Muster",
     "phone": "9482424",
-    "email": "valid@nus.edu",
+    "email": "invalid@email!3e",
     "username": "tester11",
     "password": "password"
   } ],
   "vehicles": [{
-    "vehicleType": "Bus",
-    "vehicleNumber": "invalid####",
-    "district": 0,
-    "availability": "BYE"
+    "vehicleType": "Patrol Car",
+    "vehicleNumber": "SBH3100F",
+    "district": 16,
+    "availability": "BUSY"
   }]
 }
