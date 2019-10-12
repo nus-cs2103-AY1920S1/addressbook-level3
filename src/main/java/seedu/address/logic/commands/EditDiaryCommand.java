@@ -19,7 +19,7 @@ import seedu.address.model.diary.Name;
  */
 public class EditDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the diary identified "
             + "by the index number used in the displayed diary list. "

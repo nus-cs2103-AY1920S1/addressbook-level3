@@ -15,7 +15,7 @@ import seedu.address.model.diary.Diary;
  */
 public class DeleteDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the diary identified by the index number used in the displayed diary list.\n"
