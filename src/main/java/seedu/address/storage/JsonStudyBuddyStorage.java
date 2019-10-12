@@ -90,4 +90,23 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyAddressBook> readCheatSheet() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readCheatSheet(Path filePath) throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveCheatSheet(ReadOnlyAddressBook addressBook) throws IOException {
+
+    }
+
+    @Override
+    public void saveCheatSheet(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+
+    }
 }

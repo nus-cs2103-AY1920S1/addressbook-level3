@@ -80,4 +80,24 @@ public class StorageManager implements Storage {
     public Path getCheatSheetFilePath() {
         return addressBookStorage.getCheatSheetFilePath();
     }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readCheatSheet() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readCheatSheet(Path filePath) throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveCheatSheet(ReadOnlyAddressBook addressBook) throws IOException {
+
+    }
+
+    @Override
+    public void saveCheatSheet(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+
+    }
 }
