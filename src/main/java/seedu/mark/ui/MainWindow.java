@@ -202,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
+    /**
+     * Directs to the appropriate handler to switch Tab.
+     * @param tab The tab to switch to
+     */
     private void handleTabSwitchRequestIfAny(Tab tab) {
         switch (tab) {
         case DASHBOARD:
