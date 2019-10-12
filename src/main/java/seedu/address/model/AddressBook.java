@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -156,8 +157,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: Need to refactor for policies list!!
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + policies.asUnmodifiableObservableList().size() + " policies";
     }
 
     @Override
@@ -170,17 +171,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         return policies.asUnmodifiableObservableList();
     }
 
-    // Todo: refactor for policies
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && policies.equals(((AddressBook) other).policies));
     }
 
-    // Todo: refactor for policies
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, policies);
     }
 }

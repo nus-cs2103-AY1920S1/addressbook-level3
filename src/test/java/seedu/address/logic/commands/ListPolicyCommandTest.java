@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertListPolicyCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showPolicyAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +35,8 @@ public class ListPolicyCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        //  showPolicyAtIndex(model, INDEX_FIRST_PERSON);
+        showPolicyAtIndex(model, INDEX_FIRST_PERSON);
+
         assertListPolicyCommandSuccess(new ListPolicyCommand(),
                 model,
                 ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);

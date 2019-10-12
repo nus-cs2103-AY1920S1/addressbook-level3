@@ -9,13 +9,22 @@
     "date of birth" : "12.12.1992",
     "policies" : [ {
       "name": "Health Insurance",
-      "description": "Health Insurance",
-      "coverage": " days/10 months/11 years/12",
-      "price": "$500",
-      "start age": "50",
+      "description": "Insurance for healthcare",
+      "coverage": "days/10 months/11 years/12",
+      "price": "$50000",
+      "start age": "30",
       "end age": "75",
       "criteria": [ "diabetic" ],
-      "tagged": [ "sample" ]
+      "tagged": [ "health insurance" ]
+    }, {
+      "name": "Fire Insurance",
+      "description": "Insurance for fire",
+      "coverage": "days/30 months/12",
+      "price": "$7500",
+      "start age": "0",
+      "end age": "5",
+      "criteria": [ "public housing" ],
+      "tagged": [ "home insurance" ]
     } ],
     "tagged" : [ "diabetic" ]
   }, {
@@ -26,25 +35,15 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "date of birth" : "12.12.1922",
     "policies" : [ {
-      "name": "Health Insurance",
-      "description": "Health Insurance",
-      "coverage": " days/10 months/11 years/12",
-      "price": "$500",
-      "start age": "50",
-      "end age": "75",
-      "criteria": [ "diabetic" ],
-      "tagged": [ "sample" ]
-    },
-      {
-        "name": "Life Insurance",
-        "description": "Life Insurance",
-        "coverage": " days/10 months/11 years/12",
-        "price": "$500",
-        "start age": "50",
-        "end age": "75",
-        "criteria": [ "diabetic" ],
-        "tagged": [ "sample" ]
-      }],
+      "name": "Life Insurance",
+      "description": "Insurance for life",
+      "coverage": "years/50",
+      "price": "$1000000",
+      "start age": "21",
+      "end age": "80",
+      "criteria": [ "high blood pressure" ],
+      "tagged": [ "term insurance" ]
+    }],
     "tagged" : [ "smoker", "disabled" ]
   }, {
     "name" : "Carl Kurz",
@@ -93,22 +92,31 @@
     "tagged" : [ ]
   } ],
   "policies" : [ {
-    "name" : "Health Insurance",
-    "description" : "Insurance for elderly",
-    "coverage" : "10 months",
-    "price" : "$50000",
-    "criteria" : [ ],
-    "tagged" : [ "senior insurance" ],
-    "startAge" : "50",
-    "endAge" : "75"
+    "name": "Health Insurance",
+    "description": "Insurance for healthcare",
+    "coverage": "days/10 months/11 years/12",
+    "price": "$50000",
+    "start age": "30",
+    "end age": "75",
+    "criteria": [ "diabetic" ],
+    "tagged": [ "health insurance" ]
   }, {
-    "name" : "Life Insurance",
-    "description" : "Insurance for elderly",
-    "coverage" : "10 months",
-    "price" : "$50000",
-    "criteria" : [ ],
-    "tagged" : [ "senior insurance" ],
-    "startAge" : "50",
-    "endAge" : "75"
+    "name": "Life Insurance",
+    "description": "Insurance for life",
+    "coverage": "years/50",
+    "price": "$1000000",
+    "start age": "21",
+    "end age": "80",
+    "criteria": [ "high blood pressure" ],
+    "tagged": [ "term insurance" ]
+  }, {
+    "name": "Fire Insurance",
+    "description": "Insurance for fire",
+    "coverage": "days/30 months/12",
+    "price": "$7500",
+    "start age": "0",
+    "end age": "5",
+    "criteria": [ "public housing" ],
+    "tagged": [ "home insurance" ]
   } ]
 }

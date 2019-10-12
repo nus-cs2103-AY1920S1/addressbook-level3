@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+    // TODO: add test case to ensure name doesn't change
     // Don't rename this; breaks the application.
     @FXML
     private StackPane personListPanelPlaceholder;
