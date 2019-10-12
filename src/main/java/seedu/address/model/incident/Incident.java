@@ -35,8 +35,7 @@ public class Incident {
         //this.operator = autofilled on sign in
         // TODO: autofill operator upon sign in. Currently dummy data
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"));
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
         this.incidentDesc = promptForDescription();
@@ -49,8 +48,7 @@ public class Incident {
     public Incident(IncidentId id, District location, IncidentDateTime incidentDateTime, String operator) {
         // TODO: figure out importing rest of person class
         this.operator = new Person(new Name(operator), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"));
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.id = id;
         this.incidentDesc = new Description("Fluff description");
