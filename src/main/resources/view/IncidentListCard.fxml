@@ -33,7 +33,7 @@
 <!--            </HBox>-->
             <Label fx:id="incidentId" styleClass="cell_small_label" text="\$incidentId" />
             <Label fx:id="dateTime" styleClass="cell_small_label" text="\$dateTime" />
-            <Label fx:id="location" styleClass="cell_small_label" text="\$location" />
+            <Label fx:id="incidentlocation" styleClass="cell_small_label" text="\$incidentlocation" />
             <Label fx:id="operator" styleClass="cell_small_label" text="\$operator" />
         </VBox>
     </GridPane>

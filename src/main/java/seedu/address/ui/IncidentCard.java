@@ -34,7 +34,7 @@ public class IncidentCard extends UiPart<Region> {
     @FXML
     private Label incidentId;
     @FXML
-    private Label location;
+    private Label incidentlocation;
     @FXML
     private Label dateTime;
     @FXML
@@ -45,12 +45,8 @@ public class IncidentCard extends UiPart<Region> {
         this.incident = incident;
         id.setText(displayedIndex + ". ");
         incidentId.setText(incident.getIncidentId().getId());
-        location.setText(String.valueOf(incident.getLocation().districtNum));
-
-        // format LocalDateTime dateTime in specified format
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        dateTime.setText(incident.getDateTime().format(formatter));
-
+        incidentlocation.setText(String.valueOf(incident.getLocation().districtNum));
+        dateTime.setText(incident.getDateTime().toString());
         operator.setText(incident.getOperator().getName().toString());
     }
 

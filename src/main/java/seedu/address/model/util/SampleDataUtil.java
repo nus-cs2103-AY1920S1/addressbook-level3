@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -50,18 +51,17 @@ public class SampleDataUtil {
     }
 
     public static Incident[] getSampleIncidents() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         return new Incident[] {
                 new Incident(new IncidentId(3, 2018), new District(3),
-                        LocalDateTime.parse("2018-03-03T10:15:30", formatter), "Jeremy Irons"),
+                        new IncidentDateTime("2018-03-03T10:15:30"), "Jeremy Irons"),
                 new Incident(new IncidentId(10, 2016), new District(20),
-                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
                 new Incident(new IncidentId(2, 2015), new District(20),
-                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
                 new Incident(new IncidentId(3, 2013), new District(20),
-                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt"),
+                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt"),
                 new Incident(new IncidentId(12, 2015), new District(20),
-                        LocalDateTime.parse("2016-10-10T12:30:35", formatter), "Chris Pratt")
+                        new IncidentDateTime("2016-10-10T12:30:35"), "Chris Pratt")
 //                new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
 //                        new District(6), new Availability("BUSY")),
 //                new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),

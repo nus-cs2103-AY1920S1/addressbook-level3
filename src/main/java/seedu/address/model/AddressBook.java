@@ -78,6 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setIncidents(newData.getIncidentList());
         setVehicles(newData.getVehicleList());
     }
 
@@ -121,7 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// incident-level operation
 
     /**
-     * Returns true if a vehicle with the same identity as {@code vehicle} exists in the address book.
+     * Returns true if an incident with the same identity as {@code incident} exists in the address book.
      */
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
@@ -129,8 +130,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a vehicle to the address book.
-     * The vehicle must not already exist in the address book.
+     * Adds an incident to the address book.
+     * The incident must not already exist in the address book.
      */
     public void addIncident(Incident i) {
         incidents.add(i);
@@ -182,7 +183,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons) && vehicles.equals(((AddressBook) other).vehicles));
+                && persons.equals(((AddressBook) other).persons)
+                && incidents.equals(((AddressBook) other).incidents)
+                && vehicles.equals(((AddressBook) other).vehicles));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
 //import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
@@ -47,11 +48,7 @@ class JsonAdaptedIncident {
     public JsonAdaptedIncident(Incident source) {
         incidentId = source.getIncidentId().getId();
         districtNum = source.getLocation().districtNum;
-
-        // format LocalDateTime dateTime in specified format
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-        dateTime = source.getDateTime().format(formatter);
+        dateTime = source.getDateTime().toString();
         operator = source.getOperator().getName().toString();
     }
 
@@ -68,10 +65,9 @@ class JsonAdaptedIncident {
 //        if (!VehicleNumber.isValidVehicleNumber(vehicleNumber)) {
 //            throw new IllegalValueException(VehicleNumber.MESSAGE_CONSTRAINTS);
 //        }
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime dateTimeInDateTime = LocalDateTime.parse(dateTime, formatter);
-        final IncidentId modelIncidentId = new IncidentId(dateTimeInDateTime.getMonthValue(),
-                dateTimeInDateTime.getYear());
+        final IncidentDateTime modelDateTime = new IncidentDateTime(dateTime);
+        final IncidentId modelIncidentId = new IncidentId(modelDateTime.getMonth(),
+                modelDateTime.getYear());
 //
 //        if (districtNum == 0) {
 //            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -89,8 +85,6 @@ class JsonAdaptedIncident {
 //        if (!VehicleType.isValidVehicleType(vehicleType)) {
 //            throw new IllegalValueException(VehicleType.MESSAGE_CONSTRAINTS);
 //        }
-
-        final LocalDateTime modelDateTime = dateTimeInDateTime;
 //
 //        if (availability == null) {
 //            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

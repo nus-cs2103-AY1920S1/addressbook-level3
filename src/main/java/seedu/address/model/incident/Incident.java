@@ -17,14 +17,14 @@ public class Incident {
 
     //is autofilled
     private Person operator;
-    private LocalDateTime dateTime;
+    private IncidentDateTime incidentDateTime;
     private Vehicle car;
     private IncidentId id;
 
     //needs to be entered by operator
-    private Description incidentDesc;
-    private District location;
-    private String callerNumber;
+    private final Description incidentDesc;
+    private final District location;
+    private final CallerNumber callerNumber;
 
 
     /**
@@ -37,25 +37,25 @@ public class Incident {
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"));
-        this.dateTime = LocalDateTime.now();
-        this.id = new IncidentId(dateTime.getMonthValue(), dateTime.getYear());
+        this.incidentDateTime = new IncidentDateTime();
+        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
         this.incidentDesc = promptForDescription();
         this.location = promptForLocation();
-        this.callerNumber = caller;
+        this.callerNumber = new CallerNumber(caller);
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
     // load past incident cases
-    public Incident(IncidentId id, District location, LocalDateTime dateTime, String operator) {
+    public Incident(IncidentId id, District location, IncidentDateTime incidentDateTime, String operator) {
         // TODO: figure out importing rest of person class
         this.operator = new Person(new Name(operator), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"));
-        this.dateTime = dateTime;
+        this.incidentDateTime = incidentDateTime;
         this.id = id;
         this.incidentDesc = new Description("Fluff description");
         this.location = location;
-        this.callerNumber = "9898 9898";
+        this.callerNumber = new CallerNumber("98989898");
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
@@ -91,15 +91,15 @@ public class Incident {
     }
 
 
-    public LocalDateTime getDateTime() {
-        return this.dateTime;
+    public IncidentDateTime getDateTime() {
+        return this.incidentDateTime;
     }
 
     public Description getDesc() {
         return this.incidentDesc;
     }
 
-    public String getCallerNumber() {
+    public CallerNumber getCallerNumber() {
         return this.callerNumber;
     }
 
