@@ -241,6 +241,9 @@ public class ParserUtil {
     public static StartAge parseStartAge (String startAge) throws ParseException {
         requireNonNull(startAge);
         String trimmedStartAge = startAge.trim();
+        if (trimmedStartAge.length() == 0) {
+            return new StartAge();
+        }
         if (!StartAge.isValidAge(trimmedStartAge)) {
             throw new ParseException(StartAge.MESSAGE_CONSTRAINTS);
         }
@@ -256,6 +259,9 @@ public class ParserUtil {
     public static EndAge parseEndAge (String endAge) throws ParseException {
         requireNonNull(endAge);
         String trimmedEndAge = endAge.trim();
+        if (trimmedEndAge.length() == 0) {
+            return new EndAge();
+        }
         if (!EndAge.isValidAge(trimmedEndAge)) {
             throw new ParseException(EndAge.MESSAGE_CONSTRAINTS);
         }
