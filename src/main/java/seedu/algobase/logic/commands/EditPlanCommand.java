@@ -70,7 +70,7 @@ public class EditPlanCommand extends Command {
         List<Plan> lastShownList = model.getFilteredPlanList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
         }
 
         Plan planToEdit = lastShownList.get(index.getZeroBased());

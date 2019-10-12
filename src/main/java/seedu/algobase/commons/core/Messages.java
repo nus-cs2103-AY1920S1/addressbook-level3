@@ -10,5 +10,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_PLAN_DISPLAYED_INDEX = "The Plan index provided is invalid";
     public static final String MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX = "The Problem index provided is invalid";
     public static final String MESSAGE_PROBLEMS_LISTED_OVERVIEW = "%1$d problems listed!";
-
+    public static final String MESSAGE_PLANS_LISTED_OVERVIEW = "%1$d plans listed!";
 }
