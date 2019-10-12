@@ -35,10 +35,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMemeBookStorage addressBookStorage =
+        JsonMemeBookStorage memeBookStorage =
                 new JsonMemeBookStorage(temporaryFolder.resolve("weme.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(memeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 

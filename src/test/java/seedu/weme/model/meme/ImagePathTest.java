@@ -14,21 +14,21 @@ public class ImagePathTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidFilePath_throwsIllegalArgumentException() {
         String invalidUrl = "hello";
         assertThrows(IllegalArgumentException.class, () -> new ImagePath(invalidUrl));
     }
 
     @Test
     public void isValidFilePath() {
-        // null weme
+        // null file path
         assertThrows(NullPointerException.class, () -> ImagePath.isValidFilePath(null));
 
-        // invalid addresses
+        // invalid file paths
         assertFalse(ImagePath.isValidFilePath("hello")); // invalid file path
         assertFalse(ImagePath.isValidFilePath(" ")); // spaces only
 
-        // valid addresses
+        // valid file path
         assertTrue(ImagePath.isValidFilePath("src/test/data/memes/charmander_meme.jpg"));
     }
 }

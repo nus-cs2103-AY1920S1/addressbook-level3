@@ -60,25 +60,25 @@ public class JsonMemeBookStorageTest {
 
     @Test
     public void readAndSaveMemeBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempMemeBook.json");
         MemeBook original = getTypicalMemeBook();
-        JsonMemeBookStorage jsonAddressBookStorage = new JsonMemeBookStorage(filePath);
+        JsonMemeBookStorage jsonMemeBookStorage = new JsonMemeBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveMemeBook(original, filePath);
-        ReadOnlyMemeBook readBack = jsonAddressBookStorage.readMemeBook(filePath).get();
+        jsonMemeBookStorage.saveMemeBook(original, filePath);
+        ReadOnlyMemeBook readBack = jsonMemeBookStorage.readMemeBook(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.removeMeme(DOGE);
-        jsonAddressBookStorage.saveMemeBook(original, filePath);
-        readBack = jsonAddressBookStorage.readMemeBook(filePath).get();
+        jsonMemeBookStorage.saveMemeBook(original, filePath);
+        readBack = jsonMemeBookStorage.readMemeBook(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Save and read without specifying file path
         original.addMeme(DOGE);
-        jsonAddressBookStorage.saveMemeBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readMemeBook().get(); // file path not specified
+        jsonMemeBookStorage.saveMemeBook(original); // file path not specified
+        readBack = jsonMemeBookStorage.readMemeBook().get(); // file path not specified
         assertEquals(original, new MemeBook(readBack));
 
     }
@@ -91,10 +91,10 @@ public class JsonMemeBookStorageTest {
     /**
      * Saves {@code memeBook} at the specified {@code filePath}.
      */
-    private void saveMemeBook(ReadOnlyMemeBook addressBook, String filePath) {
+    private void saveMemeBook(ReadOnlyMemeBook memeBook, String filePath) {
         try {
             new JsonMemeBookStorage(Paths.get(filePath))
-                    .saveMemeBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveMemeBook(memeBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

@@ -45,14 +45,14 @@ public class JsonMemeBookStorage implements MemeBookStorage {
     public Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableMemeBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableMemeBook> jsonMemeBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableMemeBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonMemeBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonMemeBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

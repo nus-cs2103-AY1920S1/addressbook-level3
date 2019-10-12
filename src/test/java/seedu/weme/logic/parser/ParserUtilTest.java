@@ -107,9 +107,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
-        assertEquals(expectedDescription, ParserUtil.parseDescription(addressWithWhitespace));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 
     @Test

@@ -6,7 +6,7 @@ import seedu.weme.model.meme.Meme;
 /**
  * A utility class to help with building MemeBook objects.
  * Example usage: <br>
- *     {@code MemeBook ab = new MemeBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code MemeBook mb = new MemeBookBuilder().withMeme("John", "Doe").build();}
  */
 public class MemeBookBuilder {
 

@@ -10,7 +10,7 @@ import seedu.weme.model.meme.UniqueMemeList;
 
 /**
  * Wraps all data at the weme-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameMeme comparison)
  */
 public class MemeBook implements ReadOnlyMemeBook {
 
@@ -30,7 +30,7 @@ public class MemeBook implements ReadOnlyMemeBook {
     public MemeBook() {}
 
     /**
-     * Creates an MemeBook using the Persons in the {@code toBeCopied}
+     * Creates an MemeBook using the Memes in the {@code toBeCopied}
      */
     public MemeBook(ReadOnlyMemeBook toBeCopied) {
         this();

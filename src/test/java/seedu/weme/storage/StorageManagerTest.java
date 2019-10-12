@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMemeBookStorage addressBookStorage = new JsonMemeBookStorage(getTempFilePath("ab"));
+        JsonMemeBookStorage memeBookStorage = new JsonMemeBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(memeBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

@@ -39,7 +39,7 @@ public class MemeAddCommandParserTest {
         assertParseSuccess(parser, FILEPATH_DESC_CHARMANDER + FILEPATH_DESC_JOKER
                 + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new MemeAddCommand(expectedMeme));
 
-        // multiple addresses - last weme accepted
+        // multiple descriptions - last description accepted
         assertParseSuccess(parser, FILEPATH_DESC_JOKER + DESCRIPTION_DESC_CHARMANDER
                 + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new MemeAddCommand(expectedMeme));
 
