@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalDiaries.ALICE;
+import static seedu.address.testutil.TypicalDiaries.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -73,23 +73,23 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasDiary_nullDiary_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasDiary(null));
     }
 
     @Test
-    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+    public void hasDiary_diaryNotInDukeCooks_returnsFalse() {
         assertFalse(modelManager.hasDiary(ALICE));
     }
 
     @Test
-    public void hasPerson_personInDukeCooks_returnsTrue() {
+    public void hasDiary_diaryInDukeCooks_returnsTrue() {
         modelManager.addDiary(ALICE);
         assertTrue(modelManager.hasDiary(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDiaryList().remove(0));
     }
 

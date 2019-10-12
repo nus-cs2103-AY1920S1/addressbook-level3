@@ -15,7 +15,7 @@ import seedu.address.model.DukeCooks;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,8 +37,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditDiaryDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        DESC_AMY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        DESC_BOB = new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB).build();
     }
 
     /**
@@ -87,7 +87,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the diary at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showDiaryAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDiaryList().size());
 
         Diary diary = model.getFilteredDiaryList().get(targetIndex.getZeroBased());

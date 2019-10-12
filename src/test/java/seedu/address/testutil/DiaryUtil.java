@@ -9,19 +9,19 @@ import seedu.address.model.diary.Diary;
 /**
  * A utility class for Diary.
  */
-public class PersonUtil {
+public class DiaryUtil {
 
     /**
      * Returns an add command string for adding the {@code diary}.
      */
     public static String getAddCommand(Diary diary) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(diary);
+        return AddCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
     }
 
     /**
      * Returns the part of command string for the given {@code diary}'s details.
      */
-    public static String getPersonDetails(Diary diary) {
+    public static String getDiaryDetails(Diary diary) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + diary.getName().fullName + " ");
         return sb.toString();

@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
 public class EditDiaryDescriptorTest {
 
@@ -31,7 +31,8 @@ public class EditDiaryDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditDiaryDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditCommand.EditDiaryDescriptor editedAmy = new EditDiaryDescriptorBuilder(DESC_AMY)
+                .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

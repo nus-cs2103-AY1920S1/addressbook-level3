@@ -21,39 +21,39 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyDukeCooks;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.Diary;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DiaryBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullDiary_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Diary validDiary = new PersonBuilder().build();
+    public void execute_diaryAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingDiaryAdded modelStub = new ModelStubAcceptingDiaryAdded();
+        Diary validDiary = new DiaryBuilder().build();
 
         CommandResult commandResult = new AddCommand(validDiary).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDiary), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validDiary), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validDiary), modelStub.diariesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Diary validDiary = new PersonBuilder().build();
+    public void execute_duplicateDiaries_throwsCommandException() {
+        Diary validDiary = new DiaryBuilder().build();
         AddCommand addCommand = new AddCommand(validDiary);
-        ModelStub modelStub = new ModelStubWithPerson(validDiary);
+        ModelStub modelStub = new ModelStubWithDiary(validDiary);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_DIARY, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Diary alice = new PersonBuilder().withName("Alice").build();
-        Diary bob = new PersonBuilder().withName("Bob").build();
+        Diary alice = new DiaryBuilder().withName("Alice").build();
+        Diary bob = new DiaryBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -152,10 +152,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single diary.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithDiary extends ModelStub {
         private final Diary diary;
 
-        ModelStubWithPerson(Diary diary) {
+        ModelStubWithDiary(Diary diary) {
             requireNonNull(diary);
             this.diary = diary;
         }
@@ -170,19 +170,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the diary being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Diary> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingDiaryAdded extends ModelStub {
+        final ArrayList<Diary> diariesAdded = new ArrayList<>();
 
         @Override
         public boolean hasDiary(Diary diary) {
             requireNonNull(diary);
-            return personsAdded.stream().anyMatch(diary::isSameDiary);
+            return diariesAdded.stream().anyMatch(diary::isSameDiary);
         }
 
         @Override
         public void addDiary(Diary diary) {
             requireNonNull(diary);
-            personsAdded.add(diary);
+            diariesAdded.add(diary);
         }
 
         @Override

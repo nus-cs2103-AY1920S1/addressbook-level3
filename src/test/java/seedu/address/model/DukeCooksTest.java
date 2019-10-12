@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalDiaries.ALICE;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.exceptions.DuplicateDiaryException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DiaryBuilder;
 
 public class DukeCooksTest {
 
@@ -42,9 +42,9 @@ public class DukeCooksTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateDiaries_throwsDuplicateDiaryException() {
         // Two diaries with the same identity fields
-        Diary editedAlice = new PersonBuilder(ALICE).build();
+        Diary editedAlice = new DiaryBuilder(ALICE).build();
         List<Diary> newDiaries = Arrays.asList(ALICE, editedAlice);
         DukeCooksStub newData = new DukeCooksStub(newDiaries);
 
@@ -52,30 +52,30 @@ public class DukeCooksTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasDiary_nullDiary_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dukeCooks.hasDiary(null));
     }
 
     @Test
-    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+    public void hasDiary_diaryNotInDukeCooks_returnsFalse() {
         assertFalse(dukeCooks.hasDiary(ALICE));
     }
 
     @Test
-    public void hasPerson_personInDukeCooks_returnsTrue() {
+    public void hasDiary_diaryInDukeCooks_returnsTrue() {
         dukeCooks.addDiary(ALICE);
         assertTrue(dukeCooks.hasDiary(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
+    public void hasDiary_diaryWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addDiary(ALICE);
-        Diary editedAlice = new PersonBuilder(ALICE).build();
+        Diary editedAlice = new DiaryBuilder(ALICE).build();
         assertTrue(dukeCooks.hasDiary(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getDiaryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getDiaryList().remove(0));
     }
 

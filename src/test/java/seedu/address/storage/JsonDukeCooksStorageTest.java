@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalDiaries.ALICE;
+import static seedu.address.testutil.TypicalDiaries.HOON;
+import static seedu.address.testutil.TypicalDiaries.IDA;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,13 +51,13 @@ public class JsonDukeCooksStorageTest {
     }
 
     @Test
-    public void readDukeCooks_invalidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidPersonDukeCooks.json"));
+    public void readDukeCooks_invalidDiaryDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidDiaryDukeCooks.json"));
     }
 
     @Test
-    public void readDukeCooks_invalidAndValidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidPersonDukeCooks.json"));
+    public void readDukeCooks_invalidAndValidDiaryDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidDiaryDukeCooks.json"));
     }
 
     @Test

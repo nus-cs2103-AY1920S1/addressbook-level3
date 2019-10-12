@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.diary.exceptions.DuplicateDiaryException;
 import seedu.address.model.diary.exceptions.DiaryNotFoundException;
+import seedu.address.model.diary.exceptions.DuplicateDiaryException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

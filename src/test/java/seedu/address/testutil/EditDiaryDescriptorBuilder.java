@@ -8,22 +8,22 @@ import seedu.address.model.diary.Name;
 /**
  * A utility class to help with building EditDiaryDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditDiaryDescriptorBuilder {
 
     private EditCommand.EditDiaryDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditDiaryDescriptorBuilder() {
         descriptor = new EditCommand.EditDiaryDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditDiaryDescriptor descriptor) {
+    public EditDiaryDescriptorBuilder(EditDiaryDescriptor descriptor) {
         this.descriptor = new EditDiaryDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditDiaryDescriptor} with fields containing {@code diary}'s details
      */
-    public EditPersonDescriptorBuilder(Diary diary) {
+    public EditDiaryDescriptorBuilder(Diary diary) {
         descriptor = new EditCommand.EditDiaryDescriptor();
         descriptor.setName(diary.getName());
     }
@@ -31,7 +31,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditDiaryDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditDiaryDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }

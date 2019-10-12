@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the diary in the {@code model}'s diary list at {@code index}.
      */
-    public static Diary getPerson(Model model, Index index) {
+    public static Diary getDiary(Model model, Index index) {
         return model.getFilteredDiaryList().get(index.getZeroBased());
     }
 }

@@ -1,0 +1,18 @@
+{
+  "_comment": "DukeCooks save file which contains the same Diary values as in TypicalDiaries#getTypicalDukeCooks()",
+  "diaries" : [ {
+    "name" : "Alice Pauline"
+  }, {
+    "name" : "Benson Meier"
+  }, {
+    "name" : "Carl Kurz"
+  }, {
+    "name" : "Daniel Meier"
+  }, {
+    "name" : "Elle Meyer"
+  }, {
+    "name" : "Fiona Kunz"
+  }, {
+    "name" : "George Best"
+  } ]
+}
