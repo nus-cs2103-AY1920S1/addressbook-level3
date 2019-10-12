@@ -28,6 +28,8 @@ public class LookUpCommand extends Command {
         PREFIX_COURSE
     );
 
+    public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
+
     public static final String MESSAGE_COURSE_NOT_FOUND =
         "%s: The given course could not be found!";
 
