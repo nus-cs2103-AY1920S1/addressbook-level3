@@ -53,9 +53,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return billboardFilePath;
     }
 
-    public void setBillboardFilePath(Path archiveFilePath) {
-        requireNonNull(archiveFilePath);
-        this.archiveFilePath = archiveFilePath;
+    public void setBillboardFilePath(Path billboardFilePath) {
+        requireNonNull(billboardFilePath);
+        this.billboardFilePath = billboardFilePath;
     }
 
     public Path getArchiveFilePath() {

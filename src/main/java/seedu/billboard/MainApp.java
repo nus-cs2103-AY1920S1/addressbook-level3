@@ -91,7 +91,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyBillboard> archiveOptional;
         ReadOnlyBillboard initialArchiveData;
         try {
-            archiveOptional = storage.readBillboard();
+            archiveOptional = storage.readArchive();
             if (archiveOptional.isEmpty()) {
                 logger.info("Archive file not found. Will be starting with a sample archive");
             }

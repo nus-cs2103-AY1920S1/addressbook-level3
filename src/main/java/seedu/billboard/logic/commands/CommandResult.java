@@ -17,13 +17,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The displayed list needs to be changed */
+    private final boolean defaultListDisplayed;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean defaultListDisplayed) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.defaultListDisplayed = defaultListDisplayed;
     }
 
     /**
@@ -31,7 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, true);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +48,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isDefaultListDisplayed() {
+        return defaultListDisplayed;
     }
 
     @Override
