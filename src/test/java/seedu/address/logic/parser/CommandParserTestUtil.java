@@ -14,6 +14,7 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */
+    /*
     public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
         try {
             Command command = parser.parse(userInput);
@@ -23,10 +24,13 @@ public class CommandParserTestUtil {
         }
     }
 
+     */
+
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
      * equals to {@code expectedMessage}.
      */
+    /*
     public static void assertParseFailure(Parser parser, String userInput, String expectedMessage) {
         try {
             parser.parse(userInput);
@@ -35,4 +39,6 @@ public class CommandParserTestUtil {
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
+
+     */
 }
