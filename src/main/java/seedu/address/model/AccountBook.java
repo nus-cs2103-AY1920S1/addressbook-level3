@@ -3,7 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-
+/**
+ * Import various classes related
+ */
 import javafx.collections.ObservableList;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.UniqueAccountList;
@@ -35,16 +37,6 @@ public class AccountBook implements ReadOnlyAccountBook {
     public AccountBook(ReadOnlyAccountBook toBeCopied) {
         this();
         resetData(toBeCopied);
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setAccounts(List<Account> accounts) {
-        this.accounts.setAccounts(accounts);
     }
 
     /**
@@ -83,6 +75,14 @@ public class AccountBook implements ReadOnlyAccountBook {
         requireNonNull(editedAccount);
 
         accounts.setAccount(target, editedAccount);
+    }
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setAccounts(List<Account> accounts) {
+        this.accounts.setAccounts(accounts);
     }
 
     /**

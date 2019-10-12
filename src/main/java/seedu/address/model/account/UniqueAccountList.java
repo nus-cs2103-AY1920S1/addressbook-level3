@@ -8,15 +8,14 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.account.exception.DuplicateAccountException;
 import seedu.address.model.account.exception.AccountNotFoundException;
+import seedu.address.model.account.exception.DuplicateAccountException;
+
 
 /**
  * A list of accounts that enforces uniqueness between its elements and does not allow nulls.
  * An account is considered unique by comparing using {@code Account#isSameAccount(Account)}. As such, adding and updating of
- * accounts uses Account#isSameAccount(Account) for equality so as to ensure that the account being added or updated is
- * unique in terms of identity in the UniqueAccountList. However, the removal of an account uses Account#equals(Object) so
- * as to ensure that the account with exactly the same fields will be removed.
+ * accounts uses Account#isSameAccount(Account) for equality.
  *
  * Supports a minimal set of list operations.
  *

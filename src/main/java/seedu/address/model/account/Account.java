@@ -36,7 +36,9 @@ public class Account {
         return name;
     }
 
-    public Transaction getTransaction() {return transaction;}
+    public Transaction getTransaction() {
+        return transaction;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
