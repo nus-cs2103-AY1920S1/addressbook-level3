@@ -35,22 +35,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' project dashboard file path.
      */
-    Path getAddressBookFilePath();
+    Path getProjectDashboardFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' project dashboard file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setProjectDashboardFilePath(Path projectDashboardFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code projectDashboard}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ProjectDashboard */
+    ReadOnlyProjectDashboard getProjectDashboard();
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

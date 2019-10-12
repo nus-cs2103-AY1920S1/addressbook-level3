@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ProjectDashboard;
+import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonProjectDashboardStorage projectDashboardStorage = new JsonProjectDashboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(projectDashboardStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void projectDashboardReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonProjectDashboardStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonProjectDashboardStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ProjectDashboard original = getTypicalProjectDashboard();
+        storageManager.saveProjectDashboard(original);
+        ReadOnlyProjectDashboard retrieved = storageManager.readProjectDashBoard().get();
+        assertEquals(original, new ProjectDashboard(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getProjectDashboardFilePath() {
+        assertNotNull(storageManager.getProjectDashboardFilePath());
     }
 
 }

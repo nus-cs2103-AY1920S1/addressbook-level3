@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,25 +22,25 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.TaskBuilder;
 
-public class AddressBookTest {
+public class ProjectDashboardTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ProjectDashboard projectDashboard = new ProjectDashboard();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getTaskList());
+        assertEquals(Collections.emptyList(), projectDashboard.getTaskList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> projectDashboard.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyProjectDashboard_replacesData() {
+        ProjectDashboard newData = getTypicalProjectDashboard();
+        projectDashboard.resetData(newData);
+        assertEquals(newData, projectDashboard);
     }
 
     @Test
@@ -49,47 +49,47 @@ public class AddressBookTest {
         Task editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withTags(VALID_TAG_PUBLICITY)
                 .build();
         List<Task> newTasks = Arrays.asList(ORDER_SHIRTS, editedShirtOrderTask);
-        AddressBookStub newData = new AddressBookStub(newTasks);
+        ProjectDashboardStub newData = new ProjectDashboardStub(newTasks);
 
-        assertThrows(DuplicateTaskException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateTaskException.class, () -> projectDashboard.resetData(newData));
     }
 
     @Test
     public void hasTask_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasTask(null));
+        assertThrows(NullPointerException.class, () -> projectDashboard.hasTask(null));
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTask(ORDER_SHIRTS));
+    public void hasTask_taskNotInProjectDashboard_returnsFalse() {
+        assertFalse(projectDashboard.hasTask(ORDER_SHIRTS));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
-        addressBook.addTask(ORDER_SHIRTS);
-        assertTrue(addressBook.hasTask(ORDER_SHIRTS));
+    public void hasTask_taskInProjectDashboard_returnsTrue() {
+        projectDashboard.addTask(ORDER_SHIRTS);
+        assertTrue(projectDashboard.hasTask(ORDER_SHIRTS));
     }
 
     @Test
-    public void hasTask_taskWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addTask(ORDER_SHIRTS);
+    public void hasTask_taskWithSameIdentityFieldsInProjectDashboard_returnsTrue() {
+        projectDashboard.addTask(ORDER_SHIRTS);
         Task editedShirtOrderTask = new TaskBuilder(ORDER_SHIRTS).withTags(VALID_TAG_URGENCY)
                 .build();
-        assertTrue(addressBook.hasTask(editedShirtOrderTask));
+        assertTrue(projectDashboard.hasTask(editedShirtOrderTask));
     }
 
     @Test
     public void getTaskList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getTaskList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> projectDashboard.getTaskList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose tasks list can violate interface constraints.
+     * A stub ReadOnlyProjectDashboard whose tasks list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ProjectDashboardStub implements ReadOnlyProjectDashboard {
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Task> tasks) {
+        ProjectDashboardStub(Collection<Task> tasks) {
             this.tasks.setAll(tasks);
         }
 

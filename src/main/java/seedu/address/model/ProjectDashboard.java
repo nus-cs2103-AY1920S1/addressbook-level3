@@ -12,7 +12,7 @@ import seedu.address.model.task.UniqueTaskList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameTask comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     private final UniqueTaskList tasks;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks = new UniqueTaskList();
     }
 
-    public AddressBook() {}
+    public ProjectDashboard() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ProjectDashboard using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ProjectDashboard(ReadOnlyProjectDashboard toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyProjectDashboard newData) {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ProjectDashboard}.
      * {@code key} must exist in the address book.
      */
     public void removeTask(Task key) {
@@ -109,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && tasks.equals(((AddressBook) other).tasks));
+                || (other instanceof ProjectDashboard // instanceof handles nulls
+                && tasks.equals(((ProjectDashboard) other).tasks));
     }
 
     @Override

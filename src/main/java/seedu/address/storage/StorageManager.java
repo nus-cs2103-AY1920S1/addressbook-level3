@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ProjectDashboard data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ProjectDashboardStorage projectDashboardStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.projectDashboardStorage = projectDashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,34 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ProjectDashboard methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getProjectDashboardFilePath() {
+        return projectDashboardStorage.getProjectDashboardFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard() throws DataConversionException, IOException {
+        return readProjectDashBoard(projectDashboardStorage.getProjectDashboardFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyProjectDashboard> readProjectDashBoard(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return projectDashboardStorage.readProjectDashBoard(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard) throws IOException {
+        saveProjectDashboard(projectDashboard, projectDashboardStorage.getProjectDashboardFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveProjectDashboard(ReadOnlyProjectDashboard projectDashboard, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        projectDashboardStorage.saveProjectDashboard(projectDashboard, filePath);
     }
 
 }

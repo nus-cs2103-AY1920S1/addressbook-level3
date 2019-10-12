@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
     }
 
     // TODO @ambhinav Test fails with "Operation would result in duplicate tasks"
@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
     public void execute_newTask_success() {
         Task validTask = new TaskBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
         expectedModel.addTask(validTask);
 
         assertCommandSuccess(new AddCommand(validTask), model,
@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateTask_throwsCommandException() {
-        Task taskInList = model.getAddressBook().getTaskList().get(0);
+        Task taskInList = model.getProjectDashboard().getTaskList().get(0);
         assertCommandFailure(new AddCommand(taskInList), model, AddCommand.MESSAGE_DUPLICATE_TASK);
     }
 
