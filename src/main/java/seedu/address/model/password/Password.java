@@ -48,4 +48,17 @@ public class Password {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Description: ")
+                .append(getDescription())
+                .append(" Username: ")
+                .append(getUsername())
+                .append(" Password: ")
+                .append(getPasswordValue());
+
+        return builder.toString();
+    }
 }

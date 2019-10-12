@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,40 +32,46 @@ public class ModelManager implements Model {
     private final FilteredList<Card> filteredCards;
     private final NoteBook noteBook;
     private final FilteredList<Note> filteredNotes;
+    private final PasswordBook passwordBook;
+    private final FilteredList<Password> filteredPasswords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook,
-                        CardBook cardBook, ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
+                        CardBook cardBook, ReadOnlyNoteBook noteBook, PasswordBook passwordBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, fileBook, cardBook, userPrefs);
+        requireAllNonNull(addressBook, fileBook, cardBook, passwordBook, userPrefs);
         logger.fine("Initializing with address book: " + addressBook
                 + " and file book: " + fileBook
                 + " and card book: " + cardBook
                 + " and note book: " + noteBook
+                + " and password book: " + passwordBook
                 + " and user prefs: " + userPrefs);
-
-
         this.addressBook = new AddressBook(addressBook);
         this.fileBook = new FileBook(fileBook);
         this.cardBook = new CardBook(cardBook);
         this.noteBook = new NoteBook(noteBook);
+        this.passwordBook = new PasswordBook(passwordBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredFiles = new FilteredList<>(this.fileBook.getFileList());
         filteredCards = new FilteredList<>(this.cardBook.getCardList());
         filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
+        filteredPasswords = new FilteredList<>(this.passwordBook.getPasswordList());
 
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new FileBook(), new CardBook(), new NoteBook(), userPrefs);
+        this(addressBook, new FileBook(), new CardBook(), new NoteBook(), new PasswordBook(), userPrefs);
     }
 
+
     public ModelManager() {
-        this(new AddressBook(), new FileBook(), new CardBook(), new NoteBook(), new UserPrefs());
+        this(new AddressBook(), new FileBook(), new CardBook(), new NoteBook(), new PasswordBook(), new UserPrefs());
     }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -273,6 +280,18 @@ public class ModelManager implements Model {
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Password> getFilteredPasswordList() {
+        return filteredPasswords;
+    }
+
+    //=========== PasswordBook List Accessors =============================================================
+
+    @Override
+    public void addPassword(Password password) {
+        passwordBook.addPassword(password);
     }
 
     @Override

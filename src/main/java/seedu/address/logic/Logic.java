@@ -14,6 +14,7 @@ import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
 /**
@@ -87,7 +88,11 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+
     void setMode(String newMode);
 
     String getMode();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Password> getFilteredPasswordList();
 }

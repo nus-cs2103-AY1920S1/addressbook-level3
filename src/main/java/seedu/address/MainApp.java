@@ -27,6 +27,8 @@ import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
+import seedu.address.model.util.SampleDataPasswordUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CardBookStorage;
@@ -104,8 +106,8 @@ public class MainApp extends Application {
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialAddressData;
-
-
+        Optional<PasswordBook> passwordBookOptional;
+        PasswordBook initialDataPassword = SampleDataPasswordUtil.getSamplePasswordBook();
         try {
             addressBookOptional = storage.readAddressBook();
 
