@@ -47,13 +47,12 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(description);
         itemBuilder.setTags(tagList);
 
         if (priority.isPresent()) {
-            event.changePriority(priority.get());
+            event = event.changePriority(priority.get());
         }
         itemBuilder.setEvent(event);
 

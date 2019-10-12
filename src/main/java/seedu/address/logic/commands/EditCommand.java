@@ -121,7 +121,7 @@ public class EditCommand extends Command {
 
         if (lastShownList instanceof TaskList) {
             // Change the Priority of this Task. If no priority is given, change back to the default MEDIUM.
-            //updatedTask.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
+            updatedTask.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
         } else if (lastShownList instanceof EventList) {
             // Change the Priority of this Event. If no priority is given, change back to the default MEDIUM.
             updatedEvent.get().changePriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
@@ -130,6 +130,7 @@ public class EditCommand extends Command {
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(updatedDescription);
         itemBuilder.setTags(updatedTags);
+
         if (updatedTask.isPresent()) {
             itemBuilder.setTask(updatedTask.get());
         }

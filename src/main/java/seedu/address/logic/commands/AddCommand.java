@@ -25,8 +25,8 @@ public class AddCommand extends Command {
             + "<Optional> " + PREFIX_PRIORITY + "Priority "
             + "<Optional> " + PREFIX_TAG + "Tag ";
 
-    public static final String MESSAGE_SUCCESS = "New Task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the Task List";
+    public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This item already exists in the List";
 
     private final Item toAdd;
 
