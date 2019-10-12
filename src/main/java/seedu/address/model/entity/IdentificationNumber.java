@@ -23,10 +23,6 @@ public class IdentificationNumber {
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
 
-    private static int countOfBodies = 0;
-    private static int countOfWorkers = 0;
-    private static int countOfFridges = 0;
-
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
 
     private int idNum;
