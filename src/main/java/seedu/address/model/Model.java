@@ -12,7 +12,7 @@ import seedu.address.model.diary.Diary;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Diary> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,33 +55,33 @@ public interface Model {
     /**
      * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
      */
-    boolean hasPerson(Diary diary);
+    boolean hasDiary(Diary diary);
 
     /**
      * Deletes the given diary.
      * The diary must exist in Duke Cooks.
      */
-    void deletePerson(Diary target);
+    void deleteDiary(Diary target);
 
     /**
      * Adds the given diary.
      * {@code diary} must not already exist in Duke Cooks.
      */
-    void addPerson(Diary diary);
+    void addDiary(Diary diary);
 
     /**
      * Replaces the given diary {@code target} with {@code editedDiary}.
      * {@code target} must exist in Duke Cooks.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the Duke Cooks.
      */
-    void setPerson(Diary target, Diary editedDiary);
+    void setDiary(Diary target, Diary editedDiary);
 
     /** Returns an unmodifiable view of the filtered diary list */
-    ObservableList<Diary> getFilteredPersonList();
+    ObservableList<Diary> getFilteredDiaryList();
 
     /**
      * Updates the filter of the filtered diary list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Diary> predicate);
+    void updateFilteredDiaryList(Predicate<Diary> predicate);
 }

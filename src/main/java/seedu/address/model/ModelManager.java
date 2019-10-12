@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDiaries = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredDiaries = new FilteredList<>(this.dukeCooks.getDiaryList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Diary diary) {
+    public boolean hasDiary(Diary diary) {
         requireNonNull(diary);
-        return dukeCooks.hasPerson(diary);
+        return dukeCooks.hasDiary(diary);
     }
 
     @Override
-    public void deletePerson(Diary target) {
-        dukeCooks.removePerson(target);
+    public void deleteDiary(Diary target) {
+        dukeCooks.removeDiary(target);
     }
 
     @Override
-    public void addPerson(Diary diary) {
-        dukeCooks.addPerson(diary);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addDiary(Diary diary) {
+        dukeCooks.addDiary(diary);
+        updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
     }
 
     @Override
-    public void setPerson(Diary target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
 
-        dukeCooks.setPerson(target, editedDiary);
+        dukeCooks.setDiary(target, editedDiary);
     }
 
     //=========== Filtered Diary List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedDukeCooks}
      */
     @Override
-    public ObservableList<Diary> getFilteredPersonList() {
+    public ObservableList<Diary> getFilteredDiaryList() {
         return filteredDiaries;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Diary> predicate) {
+    public void updateFilteredDiaryList(Predicate<Diary> predicate) {
         requireNonNull(predicate);
         filteredDiaries.setPredicate(predicate);
     }

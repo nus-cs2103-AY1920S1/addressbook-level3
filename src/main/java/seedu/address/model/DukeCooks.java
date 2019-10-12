@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.UniquePersonList;
+import seedu.address.model.diary.UniqueDiaryList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameDiary comparison)
  */
 public class DukeCooks implements ReadOnlyDukeCooks {
 
-    private final UniquePersonList persons;
+    private final UniqueDiaryList diaries;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        diaries = new UniqueDiaryList();
     }
 
     public DukeCooks() {}
@@ -43,8 +43,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * Replaces the contents of the diary list with {@code diaries}.
      * {@code diaries} must not contain duplicate diaries.
      */
-    public void setPersons(List<Diary> diaries) {
-        this.persons.setPersons(diaries);
+    public void setDiaries(List<Diary> diaries) {
+        this.diaries.setDiaries(diaries);
     }
 
     /**
@@ -53,7 +53,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void resetData(ReadOnlyDukeCooks newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setDiaries(newData.getDiaryList());
     }
 
     //// diary-level operations
@@ -61,17 +61,17 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     /**
      * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
      */
-    public boolean hasPerson(Diary diary) {
+    public boolean hasDiary(Diary diary) {
         requireNonNull(diary);
-        return persons.contains(diary);
+        return diaries.contains(diary);
     }
 
     /**
      * Adds a diary to Duke Cooks.
      * The diary must not already exist in Duke Cooks.
      */
-    public void addPerson(Diary p) {
-        persons.add(p);
+    public void addDiary(Diary p) {
+        diaries.add(p);
     }
 
     /**
@@ -79,42 +79,42 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * {@code target} must exist in Duke Cooks.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in Duke Cooks.
      */
-    public void setPerson(Diary target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireNonNull(editedDiary);
 
-        persons.setPerson(target, editedDiary);
+        diaries.setDiary(target, editedDiary);
     }
 
     /**
      * Removes {@code key} from this {@code DukeCooks}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removePerson(Diary key) {
-        persons.remove(key);
+    public void removeDiary(Diary key) {
+        diaries.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return diaries.asUnmodifiableObservableList().size() + " diaries";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Diary> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Diary> getDiaryList() {
+        return diaries.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DukeCooks // instanceof handles nulls
-                && persons.equals(((DukeCooks) other).persons));
+                && diaries.equals(((DukeCooks) other).diaries));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return diaries.hashCode();
     }
 }

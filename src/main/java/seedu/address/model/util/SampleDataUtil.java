@@ -9,21 +9,21 @@ import seedu.address.model.diary.Name;
  * Contains utility methods for populating {@code DukeCooks} with sample data.
  */
 public class SampleDataUtil {
-    public static Diary[] getSamplePersons() {
+    public static Diary[] getSampleDiaries() {
         return new Diary[] {
-            new Diary(new Name("Alex Yeoh")),
-            new Diary(new Name("Bernice Yu")),
-            new Diary(new Name("Charlotte Oliveiro")),
-            new Diary(new Name("David Li")),
-            new Diary(new Name("Irfan Ibrahim")),
-            new Diary(new Name("Roy Balakrishnan")),
+            new Diary(new Name("Asian Cuisines")),
+            new Diary(new Name("Healthy Living")),
+            new Diary(new Name("Meat Lovers")),
+            new Diary(new Name("Vegan Diet")),
+            new Diary(new Name("One Week Slimming")),
+            new Diary(new Name("Core Exercises")),
         };
     }
 
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
-        for (Diary sampleDiary : getSamplePersons()) {
-            sampleDc.addPerson(sampleDiary);
+        for (Diary sampleDiary : getSampleDiaries()) {
+            sampleDc.addDiary(sampleDiary);
         }
         return sampleDc;
     }

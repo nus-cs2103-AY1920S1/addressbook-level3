@@ -33,8 +33,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditDiaryDescriptor DESC_AMY;
+    public static final EditCommand.EditDiaryDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
@@ -77,24 +77,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         DukeCooks expectedDukeCooks = new DukeCooks(actualModel.getDukeCooks());
-        List<Diary> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Diary> expectedFilteredList = new ArrayList<>(actualModel.getFilteredDiaryList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedDukeCooks, actualModel.getDukeCooks());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredDiaryList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the diary at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDiaryList().size());
 
-        Diary diary = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Diary diary = model.getFilteredDiaryList().get(targetIndex.getZeroBased());
         final String[] splitName = diary.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredDiaryList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredDiaryList().size());
     }
 
 }

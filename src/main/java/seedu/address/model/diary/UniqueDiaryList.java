@@ -8,21 +8,21 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.diary.exceptions.DuplicatePersonException;
-import seedu.address.model.diary.exceptions.PersonNotFoundException;
+import seedu.address.model.diary.exceptions.DuplicateDiaryException;
+import seedu.address.model.diary.exceptions.DiaryNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A diary is considered unique by comparing using {@code Diary#isSamePerson(Diary)}. As such, adding and updating of
- * persons uses Diary#isSamePerson(Diary) for equality so as to ensure that the diary being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a diary uses Diary#equals(Object) so
+ * A diary is considered unique by comparing using {@code Diary#isSameDiary(Diary)}. As such, adding and updating of
+ * persons uses Diary#isSameDiary(Diary) for equality so as to ensure that the diary being added or updated is
+ * unique in terms of identity in the UniqueDiaryList. However, the removal of a diary uses Diary#equals(Object) so
  * as to ensure that the diary with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Diary#isSamePerson(Diary)
+ * @see Diary#isSameDiary(Diary)
  */
-public class UniquePersonList implements Iterable<Diary> {
+public class UniqueDiaryList implements Iterable<Diary> {
 
     private final ObservableList<Diary> internalList = FXCollections.observableArrayList();
     private final ObservableList<Diary> internalUnmodifiableList =
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Diary> {
      */
     public boolean contains(Diary toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameDiary);
     }
 
     /**
@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Diary> {
     public void add(Diary toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDiaryException();
         }
         internalList.add(toAdd);
     }
@@ -53,16 +53,16 @@ public class UniquePersonList implements Iterable<Diary> {
      * {@code target} must exist in the list.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the list.
      */
-    public void setPerson(Diary target, Diary editedDiary) {
+    public void setDiary(Diary target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new DiaryNotFoundException();
         }
 
-        if (!target.isSamePerson(editedDiary) && contains(editedDiary)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameDiary(editedDiary) && contains(editedDiary)) {
+            throw new DuplicateDiaryException();
         }
 
         internalList.set(index, editedDiary);
@@ -75,11 +75,11 @@ public class UniquePersonList implements Iterable<Diary> {
     public void remove(Diary toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new DiaryNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setDiaries(UniqueDiaryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +88,10 @@ public class UniquePersonList implements Iterable<Diary> {
      * Replaces the contents of this list with {@code diaries}.
      * {@code diaries} must not contain duplicate diaries.
      */
-    public void setPersons(List<Diary> diaries) {
+    public void setDiaries(List<Diary> diaries) {
         requireAllNonNull(diaries);
-        if (!personsAreUnique(diaries)) {
-            throw new DuplicatePersonException();
+        if (!diariesAreUnique(diaries)) {
+            throw new DuplicateDiaryException();
         }
 
         internalList.setAll(diaries);
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Diary> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueDiaryList // instanceof handles nulls
+                        && internalList.equals(((UniqueDiaryList) other).internalList));
     }
 
     @Override
@@ -124,10 +124,10 @@ public class UniquePersonList implements Iterable<Diary> {
     /**
      * Returns true if {@code diaries} contains only unique diaries.
      */
-    private boolean personsAreUnique(List<Diary> diaries) {
+    private boolean diariesAreUnique(List<Diary> diaries) {
         for (int i = 0; i < diaries.size() - 1; i++) {
             for (int j = i + 1; j < diaries.size(); j++) {
-                if (diaries.get(i).isSamePerson(diaries.get(j))) {
+                if (diaries.get(i).isSameDiary(diaries.get(j))) {
                     return false;
                 }
             }

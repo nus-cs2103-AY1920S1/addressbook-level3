@@ -50,7 +50,7 @@ public class TypicalPersons {
     public static DukeCooks getTypicalDukeCooks() {
         DukeCooks ab = new DukeCooks();
         for (Diary diary : getTypicalPersons()) {
-            ab.addPerson(diary);
+            ab.addDiary(diary);
         }
         return ab;
     }

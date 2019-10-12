@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,57 +27,56 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Diary: %1$s";
+    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This diary already exists in the Duke Cooks.";
+    public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in the Duke Cooks.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditDiaryDescriptor editDiaryDescriptor;
 
     /**
      * @param index of the diary in the filtered diary list to edit
-     * @param editPersonDescriptor details to edit the diary with
+     * @param editDiaryDescriptor details to edit the diary with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditDiaryDescriptor editDiaryDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editDiaryDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editDiaryDescriptor = new EditDiaryDescriptor(editDiaryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Diary> lastShownList = model.getFilteredPersonList();
+        List<Diary> lastShownList = model.getFilteredDiaryList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
         }
 
         Diary diaryToEdit = lastShownList.get(index.getZeroBased());
-        Diary editedDiary = createEditedPerson(diaryToEdit, editPersonDescriptor);
+        Diary editedDiary = createEditedDiary(diaryToEdit, editDiaryDescriptor);
 
-        if (!diaryToEdit.isSamePerson(editedDiary) && model.hasPerson(editedDiary)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!diaryToEdit.isSameDiary(editedDiary) && model.hasDiary(editedDiary)) {
+            throw new CommandException(MESSAGE_DUPLICATE_DIARY);
         }
 
-        model.setPerson(diaryToEdit, editedDiary);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedDiary));
+        model.setDiary(diaryToEdit, editedDiary);
+        model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
+        return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary));
     }
 
     /**
      * Creates and returns a {@code Diary} with the details of {@code diaryToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editDiaryDescriptor}.
      */
-    private static Diary createEditedPerson(Diary diaryToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Diary createEditedDiary(Diary diaryToEdit, EditDiaryDescriptor editDiaryDescriptor) {
         assert diaryToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(diaryToEdit.getName());
+        Name updatedName = editDiaryDescriptor.getName().orElse(diaryToEdit.getName());
 
         return new Diary(updatedName);
     }
@@ -98,23 +96,23 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editDiaryDescriptor.equals(e.editDiaryDescriptor);
     }
 
     /**
      * Stores the details to edit the diary with. Each non-empty field value will replace the
      * corresponding field value of the diary.
      */
-    public static class EditPersonDescriptor {
+    public static class EditDiaryDescriptor {
         private Name name;
 
-        public EditPersonDescriptor() {}
+        public EditDiaryDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditDiaryDescriptor(EditDiaryDescriptor toCopy) {
             setName(toCopy.name);
         }
 
@@ -141,12 +139,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditDiaryDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditDiaryDescriptor e = (EditDiaryDescriptor) other;
 
             return getName().equals(e.getName());
         }

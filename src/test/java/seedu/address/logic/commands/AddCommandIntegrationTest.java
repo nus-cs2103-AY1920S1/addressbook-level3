@@ -25,8 +25,8 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Diary diaryInList = model.getDukeCooks().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(diaryInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Diary diaryInList = model.getDukeCooks().getDiaryList().get(0);
+        assertCommandFailure(new AddCommand(diaryInList), model, AddCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
 }

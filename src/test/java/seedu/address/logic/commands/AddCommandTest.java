@@ -47,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validDiary);
         ModelStub modelStub = new ModelStubWithPerson(validDiary);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_DIARY, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Diary diary) {
+        public void addDiary(Diary diary) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Diary diary) {
+        public boolean hasDiary(Diary diary) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Diary target) {
+        public void deleteDiary(Diary target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Diary target, Diary editedDiary) {
+        public void setDiary(Diary target, Diary editedDiary) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Diary> getFilteredPersonList() {
+        public ObservableList<Diary> getFilteredDiaryList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Diary> predicate) {
+        public void updateFilteredDiaryList(Predicate<Diary> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,9 +161,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Diary diary) {
+        public boolean hasDiary(Diary diary) {
             requireNonNull(diary);
-            return this.diary.isSamePerson(diary);
+            return this.diary.isSameDiary(diary);
         }
     }
 
@@ -174,13 +174,13 @@ public class AddCommandTest {
         final ArrayList<Diary> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Diary diary) {
+        public boolean hasDiary(Diary diary) {
             requireNonNull(diary);
-            return personsAdded.stream().anyMatch(diary::isSamePerson);
+            return personsAdded.stream().anyMatch(diary::isSameDiary);
         }
 
         @Override
-        public void addPerson(Diary diary) {
+        public void addDiary(Diary diary) {
             requireNonNull(diary);
             personsAdded.add(diary);
         }

@@ -30,8 +30,8 @@ public interface Logic {
      */
     ReadOnlyDukeCooks getDukeCooks();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Diary> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of diaries */
+    ObservableList<Diary> getFilteredDiaryList();
 
     /**
      * Returns the user prefs' Duke Cooks file path.

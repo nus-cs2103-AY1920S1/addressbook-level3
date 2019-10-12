@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Diary: %1$s";
+    public static final String MESSAGE_DELETE_DIARY_SUCCESS = "Deleted Diary: %1$s";
 
     private final Index targetIndex;
 
@@ -33,15 +33,15 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Diary> lastShownList = model.getFilteredPersonList();
+        List<Diary> lastShownList = model.getFilteredDiaryList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
         }
 
         Diary diaryToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(diaryToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, diaryToDelete));
+        model.deleteDiary(diaryToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete));
     }
 
     @Override

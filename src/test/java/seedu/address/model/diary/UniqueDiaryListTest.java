@@ -13,154 +13,154 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.diary.exceptions.DuplicatePersonException;
-import seedu.address.model.diary.exceptions.PersonNotFoundException;
+import seedu.address.model.diary.exceptions.DuplicateDiaryException;
+import seedu.address.model.diary.exceptions.DiaryNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueDiaryListTest {
 
-    private final UniquePersonList uniquePersonList = new UniquePersonList();
+    private final UniqueDiaryList uniqueDiaryList = new UniqueDiaryList();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.contains(null));
     }
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniquePersonList.contains(ALICE));
+        assertFalse(uniqueDiaryList.contains(ALICE));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        assertTrue(uniquePersonList.contains(ALICE));
+        uniqueDiaryList.add(ALICE);
+        assertTrue(uniqueDiaryList.contains(ALICE));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
+        uniqueDiaryList.add(ALICE);
         Diary editedAlice = new PersonBuilder(ALICE).build();
-        assertTrue(uniquePersonList.contains(editedAlice));
+        assertTrue(uniqueDiaryList.contains(editedAlice));
     }
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.add(null));
     }
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+        uniqueDiaryList.add(ALICE);
+        assertThrows(DuplicateDiaryException.class, () -> uniqueDiaryList.add(ALICE));
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.setDiary(null, ALICE));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.setDiary(ALICE, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
+        assertThrows(DiaryNotFoundException.class, () -> uniqueDiaryList.setDiary(ALICE, ALICE));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(ALICE);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.add(ALICE);
+        uniqueDiaryList.setDiary(ALICE, ALICE);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        expectedUniqueDiaryList.add(ALICE);
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
-        uniquePersonList.add(ALICE);
+        uniqueDiaryList.add(ALICE);
         Diary editedAlice = new PersonBuilder(ALICE).build();
-        uniquePersonList.setPerson(ALICE, editedAlice);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(editedAlice);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.setDiary(ALICE, editedAlice);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        expectedUniqueDiaryList.add(editedAlice);
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, BOB);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.add(ALICE);
+        uniqueDiaryList.setDiary(ALICE, BOB);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        expectedUniqueDiaryList.add(BOB);
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        uniqueDiaryList.add(ALICE);
+        uniqueDiaryList.add(BOB);
+        assertThrows(DuplicateDiaryException.class, () -> uniqueDiaryList.setDiary(ALICE, BOB));
     }
 
     @Test
     public void remove_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.remove(null));
     }
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
+        assertThrows(DiaryNotFoundException.class, () -> uniqueDiaryList.remove(ALICE));
     }
 
     @Test
     public void remove_existingPerson_removesPerson() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.remove(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.add(ALICE);
+        uniqueDiaryList.remove(ALICE);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.setDiaries((UniqueDiaryList) null));
     }
 
     @Test
     public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniquePersonList.add(ALICE);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        uniquePersonList.setPersons(expectedUniquePersonList);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.add(ALICE);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        expectedUniqueDiaryList.add(BOB);
+        uniqueDiaryList.setDiaries(expectedUniqueDiaryList);
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Diary>) null));
+        assertThrows(NullPointerException.class, () -> uniqueDiaryList.setDiaries((List<Diary>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniquePersonList.add(ALICE);
+        uniqueDiaryList.add(ALICE);
         List<Diary> diaryList = Collections.singletonList(BOB);
-        uniquePersonList.setPersons(diaryList);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        assertEquals(expectedUniquePersonList, uniquePersonList);
+        uniqueDiaryList.setDiaries(diaryList);
+        UniqueDiaryList expectedUniqueDiaryList = new UniqueDiaryList();
+        expectedUniqueDiaryList.add(BOB);
+        assertEquals(expectedUniqueDiaryList, uniqueDiaryList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Diary> listWithDuplicateDiaries = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateDiaries));
+        assertThrows(DuplicateDiaryException.class, () -> uniqueDiaryList.setDiaries(listWithDuplicateDiaries));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+            -> uniqueDiaryList.asUnmodifiableObservableList().remove(0));
     }
 }

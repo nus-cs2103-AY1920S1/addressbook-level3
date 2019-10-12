@@ -10,24 +10,24 @@ import seedu.address.model.diary.Name;
 /**
  * Jackson-friendly version of {@link Diary}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedDiary {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary's %s field is missing!";
 
     private final String name;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given diary details.
+     * Constructs a {@code JsonAdaptedDiary} with the given diary details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name) {
+    public JsonAdaptedDiary(@JsonProperty("name") String name) {
         this.name = name;
     }
 
     /**
      * Converts a given {@code Diary} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Diary source) {
+    public JsonAdaptedDiary(Diary source) {
         name = source.getName().fullName;
     }
 

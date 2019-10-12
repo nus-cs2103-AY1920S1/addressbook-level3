@@ -28,36 +28,36 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Diary diaryToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, diaryToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
-        expectedModel.deletePerson(diaryToDelete);
+        expectedModel.deleteDiary(diaryToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiaryList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Diary diaryToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, diaryToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
-        expectedModel.deletePerson(diaryToDelete);
+        expectedModel.deleteDiary(diaryToDelete);
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -69,11 +69,11 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getDiaryList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -102,8 +102,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredDiaryList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredDiaryList().isEmpty());
     }
 }

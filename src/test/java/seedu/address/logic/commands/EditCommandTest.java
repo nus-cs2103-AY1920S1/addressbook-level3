@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditDiaryDescriptor;
 import seedu.address.model.DukeCooks;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,42 +35,42 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Diary editedDiary = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedDiary).build();
+        EditDiaryDescriptor descriptor = new EditPersonDescriptorBuilder(editedDiary).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedDiary);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIARY_SUCCESS, editedDiary);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedDiary);
+        expectedModel.setDiary(model.getFilteredDiaryList().get(0), editedDiary);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Diary lastDiary = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredDiaryList().size());
+        Diary lastDiary = model.getFilteredDiaryList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastDiary);
         Diary editedDiary = personInList.withName(VALID_NAME_BOB).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditDiaryDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedDiary);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIARY_SUCCESS, editedDiary);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(lastDiary, editedDiary);
+        expectedModel.setDiary(lastDiary, editedDiary);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Diary editedDiary = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditDiaryDescriptor());
+        Diary editedDiary = model.getFilteredDiaryList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedDiary);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIARY_SUCCESS, editedDiary);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
 
@@ -81,26 +81,26 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Diary diaryInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Diary diaryInFilteredList = model.getFilteredDiaryList().get(INDEX_FIRST_PERSON.getZeroBased());
         Diary editedDiary = new PersonBuilder(diaryInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedDiary);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_DIARY_SUCCESS, editedDiary);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedDiary);
+        expectedModel.setDiary(model.getFilteredDiaryList().get(0), editedDiary);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Diary firstDiary = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstDiary).build();
+        Diary firstDiary = model.getFilteredDiaryList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditDiaryDescriptor descriptor = new EditPersonDescriptorBuilder(firstDiary).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
     @Test
@@ -108,20 +108,20 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit diary in filtered list into a duplicate in Duke Cooks
-        Diary diaryInList = model.getDukeCooks().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Diary diaryInList = model.getDukeCooks().getDiaryList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(diaryInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiaryList().size() + 1);
+        EditCommand.EditDiaryDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     /**
@@ -133,12 +133,12 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getDiaryList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -146,7 +146,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        EditDiaryDescriptor copyDescriptor = new EditCommand.EditDiaryDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

@@ -29,7 +29,7 @@ public class Diary {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Diary otherDiary) {
+    public boolean isSameDiary(Diary otherDiary) {
         if (otherDiary == this) {
             return true;
         }

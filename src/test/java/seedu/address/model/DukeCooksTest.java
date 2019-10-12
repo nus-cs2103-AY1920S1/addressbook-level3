@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.exceptions.DuplicatePersonException;
+import seedu.address.model.diary.exceptions.DuplicateDiaryException;
 import seedu.address.testutil.PersonBuilder;
 
 public class DukeCooksTest {
@@ -26,7 +26,7 @@ public class DukeCooksTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getPersonList());
+        assertEquals(Collections.emptyList(), dukeCooks.getDiaryList());
     }
 
     @Test
@@ -48,35 +48,35 @@ public class DukeCooksTest {
         List<Diary> newDiaries = Arrays.asList(ALICE, editedAlice);
         DukeCooksStub newData = new DukeCooksStub(newDiaries);
 
-        assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicateDiaryException.class, () -> dukeCooks.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> dukeCooks.hasDiary(null));
     }
 
     @Test
     public void hasPerson_personNotInDukeCooks_returnsFalse() {
-        assertFalse(dukeCooks.hasPerson(ALICE));
+        assertFalse(dukeCooks.hasDiary(ALICE));
     }
 
     @Test
     public void hasPerson_personInDukeCooks_returnsTrue() {
-        dukeCooks.addPerson(ALICE);
-        assertTrue(dukeCooks.hasPerson(ALICE));
+        dukeCooks.addDiary(ALICE);
+        assertTrue(dukeCooks.hasDiary(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        dukeCooks.addPerson(ALICE);
+        dukeCooks.addDiary(ALICE);
         Diary editedAlice = new PersonBuilder(ALICE).build();
-        assertTrue(dukeCooks.hasPerson(editedAlice));
+        assertTrue(dukeCooks.hasDiary(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getDiaryList().remove(0));
     }
 
     /**
@@ -90,7 +90,7 @@ public class DukeCooksTest {
         }
 
         @Override
-        public ObservableList<Diary> getPersonList() {
+        public ObservableList<Diary> getDiaryList() {
             return diaries;
         }
     }
