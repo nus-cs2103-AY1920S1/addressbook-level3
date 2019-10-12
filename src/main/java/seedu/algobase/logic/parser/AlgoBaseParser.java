@@ -8,10 +8,13 @@ import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
+import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
+import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.EditCommand;
+import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.HelpCommand;
@@ -75,6 +78,15 @@ public class AlgoBaseParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddPlanCommand.COMMAND_WORD:
+            return new AddPlanCommandParser().parse(arguments);
+
+        case EditPlanCommand.COMMAND_WORD:
+            return new EditPlanCommandParser().parse(arguments);
+
+        case DeletePlanCommand.COMMAND_WORD:
+            return new DeletePlanCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

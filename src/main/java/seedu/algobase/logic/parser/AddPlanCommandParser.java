@@ -31,7 +31,8 @@ public class AddPlanCommandParser implements Parser<AddPlanCommand> {
      */
     public AddPlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PLAN_NAME, PREFIX_PLAN_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_PLAN_NAME, PREFIX_PLAN_DESCRIPTION,
+                        PREFIX_START_DATE, PREFIX_END_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PLAN_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {

@@ -1,8 +1,10 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDateTime;
@@ -36,8 +38,12 @@ public class EditPlanCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_PLAN_NAME + "NAME] "
             + "[" + PREFIX_PLAN_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_START_DATE + "START_DATE] "
+            + "[" + PREFIX_END_DATE + "END_DATE] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PLAN_DESCRIPTION + "future questions of CS2040 ";
+            + PREFIX_PLAN_DESCRIPTION + "future questions of CS2040 "
+            + PREFIX_START_DATE + "2019/01/01"
+            + PREFIX_END_DATE + "3019/12/12";
 
     public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Edited Plan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -301,9 +301,9 @@ e.g. `newtag n/sssp`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
-* *Add Training Plan* : `addplan n/NAME` +
+* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]` +
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
 e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
