@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.address;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.address.AddressModel.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -97,7 +98,8 @@ public class DeleteAddressCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST, deletedPerson));
         }
 
-        model.addPerson(deletedPerson);
+        model.addPerson(targetIndex.getZeroBased(), deletedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedPerson));
     }

@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CourseCode;
 import seedu.jarvis.model.course.CourseCredit;
@@ -64,7 +65,8 @@ public class CourseUtil {
      * @throws IOException if the file is not found
      */
     private static File getCourseFile(String courseCode)
-            throws IOException {
+            throws CourseNotFoundException {
+
         String coursePrefix = getCoursePrefix(courseCode);
         String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
 
@@ -74,7 +76,7 @@ public class CourseUtil {
         try {
             return new File(Objects.requireNonNull(classLoader.getResource(filePath)).getFile());
         } catch (NullPointerException e) {
-            throw new IOException(fileName + ": file not found");
+            throw new CourseNotFoundException("file not found");
         }
     }
 
@@ -86,12 +88,14 @@ public class CourseUtil {
      * @throws IOException if the file is not found
      */
     public static String getCourseJsonString(String courseCode)
-            throws IOException {
-        File file = getCourseFile(courseCode);
+            throws CourseNotFoundException {
 
+        File file = getCourseFile(courseCode);
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
             fileStream.forEach(text::append);
+        } catch (IOException e) {
+            throw new CourseNotFoundException("file not found");
         }
         return removeSpacesNotWithinQuotes(text.toString());
     }
@@ -123,9 +127,24 @@ public class CourseUtil {
      * @throws IOException if the file is not found
      */
     public static Map<String, String> getCourseMap(String courseCode)
-            throws IOException {
+            throws CourseNotFoundException {
         String json = getCourseJsonString(courseCode);
-        JsonNode root = new ObjectMapper().readTree(json);
+        JsonNode root;
+        try {
+            root = new ObjectMapper().readTree(json);
+            return getCourseProps(root);
+        } catch (IOException e) {
+            throw new CourseNotFoundException("file not found");
+        }
+    }
+
+    /**
+     * Returns a {@code Map} containing the course properties of {@code root}.
+     *
+     * @param root a JsonNode containing course data
+     * @return a {@code Map} containing course data
+     */
+    private static Map<String, String> getCourseProps(JsonNode root) {
         Map<String, String> courseProps = new HashMap<>();
         root.fields().forEachRemaining(entry -> {
             if (entry.getValue().isObject() || entry.getValue().isArray()) {
@@ -144,7 +163,7 @@ public class CourseUtil {
      * @return a {@code Course} object containing information of the course.
      * @throws IOException if the file is not found
      */
-    public static Course getCourse(String courseCode) throws IOException {
+    public static Course getCourse(String courseCode) throws CourseNotFoundException {
         Map<String, String> courseInformation = getCourseMap(courseCode);
         return new Course(
                 new Title(courseInformation.get("title")),
@@ -164,5 +183,4 @@ public class CourseUtil {
     public static String addQuotes(String s) {
         return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
     }
-
 }

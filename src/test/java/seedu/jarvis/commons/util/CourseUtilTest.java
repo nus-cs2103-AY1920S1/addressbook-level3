@@ -3,10 +3,9 @@ package seedu.jarvis.commons.util;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 
 
 /**
@@ -56,9 +55,10 @@ public class CourseUtilTest {
 
 
     @Test
-    public void getCourseJsonString_invalidInput_throwsIoException() {
+    public void getCourseJsonString_invalidInput_throwsException() {
         for (String course : INVALID_COURSE_CODES) {
-            assertThrows(IOException.class, () -> CourseUtil.getCourseJsonString(course));
+            assertThrows(
+                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
         }
     }
 
@@ -70,9 +70,10 @@ public class CourseUtilTest {
     }
 
     @Test
-    public void getJsonMap_invalidInput_throwsIoException() {
+    public void getJsonMap_invalidInput_throwsException() {
         for (String course : INVALID_COURSE_CODES) {
-            assertThrows(IOException.class, () -> CourseUtil.getCourseJsonString(course));
+            assertThrows(
+                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
         }
     }
 
@@ -84,9 +85,9 @@ public class CourseUtilTest {
     }
 
     @Test
-    public void getCourse_invalidInput_throwsIoOException() {
+    public void getCourse_invalidInput_throwsException() {
         for (String course : INVALID_COURSE_CODES) {
-            assertThrows(IOException.class, () -> CourseUtil.getCourse(course));
+            assertThrows(CourseNotFoundException.class, () -> CourseUtil.getCourse(course));
         }
     }
 }

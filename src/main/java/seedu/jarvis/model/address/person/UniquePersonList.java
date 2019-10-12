@@ -49,6 +49,20 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Adds {@code Person} at a given {@code Index}.
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
+     * @param toAdd {@code Person} to be added.
+     */
+    public void add(int zeroBasedIndex, Person toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.add(zeroBasedIndex, toAdd);
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
@@ -113,7 +127,7 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override
