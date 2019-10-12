@@ -1,5 +1,7 @@
 package seedu.jarvis.model.course;
 
+import seedu.jarvis.commons.util.andor.AndOrTree;
+
 import java.util.Objects;
 
 /**
@@ -86,6 +88,24 @@ public class Course {
         }
         Course course = (Course) o;
         return getCourseCode().equals(course.getCourseCode());
+    }
+
+    /**
+     * Returns a more readable {@code String} to be displayed to the user as opposed to
+     * this object's {@code toString} method.
+     *
+     * @return a displayable {@code String}
+     */
+    public String toDisplayableString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getCourseCode()).append("\n")
+                .append(getTitle()).append("\n")
+                .append(getCourseCredit()).append(" MCs\n")
+                .append("Offered by: ").append(getFaculty()).append("\n")
+                .append(getFaculty()).append("\n")
+                .append("Preclusion: ").append(getPreclusion()).append("\n")
+                .append("Required for: ").append(getFulfillRequirements()).append("\n");
+        return builder.toString();
     }
 
     @Override
