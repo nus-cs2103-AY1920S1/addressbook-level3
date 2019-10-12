@@ -29,12 +29,12 @@
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
       <FlowPane fx:id="tags" />
+         <FlowPane fx:id="policies" />
          <Label fx:id="nric" styleClass="cell_small_label" text="\$nric" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
          <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dob" />
-         <FlowPane fx:id="policies" />
     </VBox>
       <rowConstraints>
          <RowConstraints />
