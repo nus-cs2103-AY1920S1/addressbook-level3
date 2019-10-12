@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Difficulty;
-import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 
 /**
