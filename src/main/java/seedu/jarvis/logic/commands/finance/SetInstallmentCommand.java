@@ -9,39 +9,39 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.Installment;
 
 /**
  * Adds a purchase to the finance tracker.
  */
-public class PaidCommand extends Command {
+public class SetInstallmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "paid";
+    public static final String COMMAND_WORD = "intall set";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a payment to the finance tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an installment to the finance tracker. "
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_MONEY + "MONEY "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESCRIPTION + "Aston's for Lunch "
-            + PREFIX_MONEY + "9.50 ";
+            + PREFIX_DESCRIPTION + "Netflix subscription "
+            + PREFIX_MONEY + "13.50 ";
 
-    public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New installment added: %1$s";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Payment: %1$s";
-    public static final String MESSAGE_INVERSE_PAYMENT_NOT_FOUND = "Payment already deleted: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Installment: %1$s";
+    public static final String MESSAGE_INVERSE_PAYMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
-    private final Purchase toAdd;
+    private final Installment toAdd;
 
     /**
-     * Creates a {@code PaidCommand} to add the specified (@code Purchase}.
+     * Creates a {@code SetInstallmentCommand} to add the specified (@code Installment}.
      */
-    public PaidCommand(Purchase purchase) {
-        requireNonNull(purchase);
-        toAdd = purchase;
+    public SetInstallmentCommand(Installment installment) {
+        requireNonNull(installment);
+        toAdd = installment;
     }
 
     /**
@@ -57,7 +57,7 @@ public class PaidCommand extends Command {
     }
 
     /**
-     * Adds {@code Purchase} to the finance tracker.
+     * Adds {@code Installment} to the finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that purchase was added successfully.
@@ -65,7 +65,7 @@ public class PaidCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.addPayment(toAdd);
+        model.addInstallment(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -77,7 +77,7 @@ public class PaidCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PaidCommand // instanceof handles nulls
-                && toAdd.equals(((PaidCommand) other).toAdd));
+                || (other instanceof SetInstallmentCommand // instanceof handles nulls
+                && toAdd.equals(((SetInstallmentCommand) other).toAdd));
     }
 }

@@ -18,7 +18,6 @@ import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
 
 public class ClearAddressCommandTest {
     private Model model;
@@ -64,19 +63,14 @@ public class ClearAddressCommandTest {
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
         model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
-        Person validPerson = new PersonBuilder().build();
-        model.addPerson(validPerson);
         Model expectedModel = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
+        assertCommandSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertCommandSuccess(clearAddressCommand, model,
-                ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
-
-        model.setAddressBook(getTypicalAddressBook());
-
-        assertCommandInverseSuccess(clearAddressCommand, model,
-                ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedModel);
+        expectedModel.setAddressBook(getTypicalAddressBook());
+        assertCommandInverseSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE,
+                expectedModel);
     }
 
     /**
@@ -88,17 +82,14 @@ public class ClearAddressCommandTest {
         model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs());
-        Person validPerson = new PersonBuilder().build();
-
         int cycles = 1000;
         IntStream.range(0, cycles)
                 .forEach(index -> {
-                    model.addPerson(validPerson);
                     expectedModel.setAddressBook(new AddressBook());
-                    assertCommandSuccess(clearAddressCommand, model,
-                            ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
+                    assertCommandSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_SUCCESS,
+                            expectedModel);
 
-                    model.setAddressBook(getTypicalAddressBook());
+                    expectedModel.setAddressBook(getTypicalAddressBook());
                     assertCommandInverseSuccess(clearAddressCommand, model,
                             ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedModel);
                 });

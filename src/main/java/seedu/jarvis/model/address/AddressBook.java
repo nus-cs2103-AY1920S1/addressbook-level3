@@ -3,8 +3,10 @@ package seedu.jarvis.model.address;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.UniquePersonList;
 
@@ -15,6 +17,8 @@ import seedu.jarvis.model.address.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final FilteredList<Person> filteredPersons;
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        filteredPersons = new FilteredList<>(getPersonList(), AddressModel.PREDICATE_SHOW_ALL_PERSONS);
     }
 
     public AddressBook() {}
@@ -54,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        filteredPersons.setPredicate(AddressModel.PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //// person-level operations
@@ -72,6 +78,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds {@code Person} at a given {@code Index}.
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
+     * @param person {@code Person} to be added.
+     */
+    public void addPerson(int zeroBasedIndex, Person person) {
+        persons.add(zeroBasedIndex, person);
     }
 
     /**
@@ -98,12 +114,29 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    /**
+     * Updates {@code filteredPersons} according to the give {@code Predicate}.
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredPersons}.
+     */
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override

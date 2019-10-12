@@ -8,22 +8,22 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
  */
-public class RemovePaidCommand extends Command {
+public class RemoveInstallmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "instal delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the purchase identified by the index number used in the displayed list of purchases.\n"
+            + ": Removes the installment identified by the index number used in the displayed list of purchases.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted Purchase: %1$s";
+    public static final String MESSAGE_DELETE_INSTALLMENT_SUCCESS = "Deleted Installment: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New person added: %1$s";
     public static final String MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
@@ -32,15 +32,15 @@ public class RemovePaidCommand extends Command {
 
     private final Index targetIndex;
 
-    private Purchase toDelete;
+    private Installment toDelete;
 
     /**
-     * Creates a {@code RemovePaidCommand} and sets the targetIndex to the {@code Index}
-     * of the {@code Purchase} to be deleted.
+     * Creates a {@code RemoveInstallmentCommand} and sets the targetIndex to the {@code Index}
+     * of the {@code Installment} to be deleted.
      *
      * @param targetIndex of the {@code Purchase} to be deleted
      */
-    public RemovePaidCommand(Index targetIndex) {
+    public RemoveInstallmentCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -57,7 +57,7 @@ public class RemovePaidCommand extends Command {
     }
 
     /**
-     * Deletes {@code Purchase} from address book.
+     * Deletes {@code Installment} from address book.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
@@ -67,11 +67,11 @@ public class RemovePaidCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            toDelete = model.getPurchase(targetIndex.getZeroBased());
-            model.deletePayment(targetIndex.getZeroBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS));
+            toDelete = model.getInstallment(targetIndex.getZeroBased());
+            model.deleteInstallment(targetIndex.getZeroBased());
+            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS));
         } catch (PurchaseNotFoundException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
         }
     }
 
@@ -83,7 +83,7 @@ public class RemovePaidCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof RemovePaidCommand
-                && toDelete.equals((((RemovePaidCommand) other).toDelete)));
+                || (other instanceof RemoveInstallmentCommand
+                && toDelete.equals((((RemoveInstallmentCommand) other).toDelete)));
     }
 }

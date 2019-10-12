@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.logic.commands.Command;
@@ -33,7 +32,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,7 +47,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.financeTracker = new FinanceTracker(financeTracker);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
@@ -315,6 +312,17 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    /**
+     * Adds {@code Person} at a given index.
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
+     * @param person {@code Person} to be added.
+     */
+    @Override
+    public void addPerson(int zeroBasedIndex, Person person) {
+        addressBook.addPerson(zeroBasedIndex, person);
+    }
+
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -322,21 +330,18 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return addressBook.getFilteredPersonList();
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        addressBook.updateFilteredPersonList(predicate);
     }
 
     @Override
@@ -355,7 +360,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
+                && userPrefs.equals(other.userPrefs);
     }
 }
