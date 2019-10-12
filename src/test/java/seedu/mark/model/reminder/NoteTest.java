@@ -13,27 +13,37 @@ class NoteTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Note(invalidName));
+    public void constructor_invalidNote_throwsIllegalArgumentException() {
+        String invalidNote = "";
+        assertThrows(IllegalArgumentException.class, () -> new Note(invalidNote));
     }
 
     @Test
-    public void isValidName() {
-        // null name
-        assertThrows(NullPointerException.class, () -> Note.isValidName(null));
+    public void isValidNote() {
+        // null remark
+        assertThrows(NullPointerException.class, () -> Note.isValidNote(null));
 
-        // invalid name
-        assertFalse(Note.isValidName("")); // empty string
-        assertFalse(Note.isValidName(" ")); // spaces only
-        assertFalse(Note.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Note.isValidName("open*")); // contains non-alphanumeric characters
+        // invalid notes
+        assertFalse(Note.isValidNote("")); // empty string
+        assertFalse(Note.isValidNote(" ")); // spaces only
+        assertFalse(Note.isValidNote(" r/r")); // contains forward slash
 
-        // valid name
-        assertTrue(Note.isValidName("open bookmark")); // alphabets only
-        assertTrue(Note.isValidName("12345")); // numbers only
-        assertTrue(Note.isValidName("the 2nd bookmark")); // alphanumeric characters
-        assertTrue(Note.isValidName("Take notes")); // with capital letters
-        assertTrue(Note.isValidName("Click into page to do evaluation")); // long names
+        // valid notes
+        assertTrue(Note.isValidNote("Blk 456, Den Road, #01-355"));
+        assertTrue(Note.isValidNote("-")); // one character
+        assertTrue(Note.isValidNote("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long Note
+    }
+
+    @Test
+    public void isEmptyNote() {
+        // null Note
+        assertThrows(NullPointerException.class, () -> Note.isEmptyNote(null));
+
+        // empty notes
+        assertTrue(Note.isEmptyNote("")); // empty string
+        assertTrue(Note.isEmptyNote(" ")); // spaces only
+
+        // non-empty note
+        assertFalse(Note.isEmptyNote("abc"));
     }
 }

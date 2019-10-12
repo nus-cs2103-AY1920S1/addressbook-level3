@@ -8,32 +8,51 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
  */
 public class Note {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Notes should only contain alphanumeric characters and spaces; it should not be blank";
+    public static final String INVALID_CHARACTER = "/";
+
+    public static final String MESSAGE_CONSTRAINTS = "Remarks can contain any characters except " + INVALID_CHARACTER;
 
     /*
-     * The first character of the note must not be a whitespace,
+     * The first character of the remark must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     *
+     * The rest of the remark can contain any character except the invalid character.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s][^" + INVALID_CHARACTER + "]*";
+
+    public static final String DEFAULT_VALUE = "Open";
     private String noteContent;
 
     public Note(String noteContent) {
         requireNonNull(noteContent);
-        checkArgument(isValidName(noteContent), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidNote(noteContent), MESSAGE_CONSTRAINTS);
         this.noteContent = noteContent;
     }
 
     /**
      * Returns true if a given string is a valid note.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidNote(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is an empty remark.
+     */
+    public static boolean isEmptyNote(String test) {
+        return test.trim().equals("");
     }
 
     @Override
     public String toString() {
         return noteContent;
+    }
+
+    /**
+     * Returns a {@code Note} with the default value.
+     */
+    public static Note getDefaultNote() {
+        return new Note(DEFAULT_VALUE);
     }
 
     @Override

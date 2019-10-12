@@ -50,6 +50,39 @@ public class Reminder {
         return note;
     }
 
+    /**
+     * Returns true if both reminders have the same note, the same bookmark and the same time.
+     */
+    public boolean isSameReminder(Reminder otherReminder) {
+        if (otherReminder == this) {
+            return true;
+        }
+
+        return otherReminder != null
+                && otherReminder.getNote().equals(getNote())
+                && otherReminder.getFormattedTime().equals(getFormattedTime())
+                && otherReminder.getBookmark().equals(getBookmark());
+    }
+
+    /**
+     * Returns true if both reminders have the same identity and data fields.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Bookmark)) {
+            return false;
+        }
+
+        Reminder otherReminder = (Reminder) other;
+        return otherReminder.getNote().equals(getNote())
+                && otherReminder.getFormattedTime().equals(getFormattedTime())
+                && otherReminder.getBookmark().equals(getBookmark());
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
@@ -61,6 +94,8 @@ public class Reminder {
 
         final StringBuilder builder = new StringBuilder();
         builder.append(getNote())
+                .append(" Bookmark: ")
+                .append(getBookmark().getName())
                 .append(" Time: ")
                 .append(getFormattedTime());
         return builder.toString();
