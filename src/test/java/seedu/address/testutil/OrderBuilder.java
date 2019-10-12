@@ -4,7 +4,9 @@ import static seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
@@ -20,22 +22,28 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class OrderBuilder {
 
+    private static final UUID DEFAULT_UUID = UUID.randomUUID();
+    private static final Customer DEFAULT_CUSTOMER = CUSTOMERONE;
+    private static final Phone DEFAULT_PHONE = IPHONEONE;
     private static final String DEFAULT_PRICE = "$1212";
     private static final Status DEFAULT_STATUS = Status.UNSCHEDULED;
+    private static final Optional<Schedule> DEFAULT_SCHEDULE = Optional.empty();
 
+    private UUID id;
     private Customer customer;
     private Phone phone;
     private Price price;
     private Status status;
-    private Schedule schedule;
+    private Optional<Schedule> schedule;
     private Set<Tag> tags;
 
     public OrderBuilder() {
-        customer = new CustomerBuilder(CUSTOMERONE).build();
-        phone = new PhoneBuilder(IPHONEONE).build();
+        id = DEFAULT_UUID;
+        customer = DEFAULT_CUSTOMER;
+        phone = DEFAULT_PHONE;
         price = new Price(DEFAULT_PRICE);
         status = DEFAULT_STATUS;
-        schedule = null;
+        schedule = DEFAULT_SCHEDULE;
         tags = new HashSet<>();
     }
 
@@ -43,12 +51,21 @@ public class OrderBuilder {
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
     public OrderBuilder(Order orderToCopy) {
+        id = orderToCopy.getId();
         customer = orderToCopy.getCustomer();
         phone = orderToCopy.getPhone();
         price = orderToCopy.getPrice();
         status = orderToCopy.getStatus();
         schedule = orderToCopy.getSchedule();
         tags = new HashSet<>(orderToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code UUID} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withId(UUID id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -86,7 +103,7 @@ public class OrderBuilder {
     /**
      * Sets the {@code Schedule} of the {@code Order} that we are building.
      */
-    public OrderBuilder withSchedule(Schedule schedule) {
+    public OrderBuilder withSchedule(Optional<Schedule> schedule) {
         this.schedule = schedule;
         return this;
     }
@@ -100,6 +117,6 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(customer, phone, price, status, schedule, tags);
+        return new Order(id, customer, phone, price, status, schedule, tags);
     }
 }
