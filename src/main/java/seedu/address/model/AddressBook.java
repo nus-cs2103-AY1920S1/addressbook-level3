@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
@@ -19,6 +21,8 @@ import seedu.address.model.person.UniqueEntityLists;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntityLists entities;
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -49,6 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.entities.setPersons(persons);
+        indicateModified();
     }
 
     /**
@@ -57,6 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setWorkers(List<Worker> workers) {
         this.entities.setWorkers(workers);
+        indicateModified();
     }
 
     /**
@@ -65,6 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBodies(List<Body> bodies) {
         this.entities.setBodies(bodies);
+        indicateModified();
     }
 
     /**
@@ -73,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setFridges(List<Fridge> fridges) {
         this.entities.setFridges(fridges);
+        indicateModified();
     }
 
     /**
@@ -103,6 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEntity(Entity e) {
         entities.add(e);
+        indicateModified();
     }
 
     /**
@@ -114,6 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntity);
 
         entities.setEntity(target, editedEntity);
+        indicateModified();
     }
 
     /**
@@ -122,6 +132,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEntity(Entity key) {
         entities.remove(key);
+        indicateModified();
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that t
+     * he address book has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
     }
 
     //// util methods
