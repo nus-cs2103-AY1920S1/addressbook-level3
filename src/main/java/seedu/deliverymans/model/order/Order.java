@@ -1,12 +1,12 @@
 package seedu.deliverymans.model.order;
 
-import seedu.address.model.tag.Tag;
-import seedu.deliverymans.model.food.Food;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
+import seedu.deliverymans.model.food.Food;
 
 /**
  * Represents an Order in the application.

@@ -3,10 +3,10 @@ package seedu.deliverymans.logic.commands.deliveryman;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 
-import seedu.address.model.Model;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
@@ -24,7 +24,8 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "New deliveryman added: %1$s";
-    public static final String MESSAGE_DUPLICATE_DELIVERYMAN = "This deliveryman already exists in the deliveryman book.";
+    public static final String MESSAGE_DUPLICATE_DELIVERYMAN =
+            "This deliveryman already exists in the deliveryman book.";
 
     private final Deliveryman toAdd;
 
@@ -51,7 +52,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.deliverymans.logic.commands.deliveryman.AddCommand // instanceof handles nulls
+                || (other instanceof seedu.deliverymans.logic.commands.deliveryman.AddCommand // instanceof handles null
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
 

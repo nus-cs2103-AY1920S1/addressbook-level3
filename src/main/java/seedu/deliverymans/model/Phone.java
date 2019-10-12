@@ -41,8 +41,8 @@ public class Phone {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.person.Phone // instanceof handles nulls
-                && value.equals(((seedu.address.model.person.Phone) other).value)); // state check
+                || (other instanceof seedu.deliverymans.model.Phone // instanceof handles nulls
+                && value.equals(((seedu.deliverymans.model.Phone) other).value)); // state check
     }
 
     @Override
