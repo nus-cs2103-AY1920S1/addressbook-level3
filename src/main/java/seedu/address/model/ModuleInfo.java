@@ -67,6 +67,10 @@ public class ModuleInfo {
         return this.focusElectives;
     }
 
+    public boolean getSuEligibility() {
+        return su;
+    }
+
     /**
      * Returns a String displaying all information about the module, in a human-readable format.
      */

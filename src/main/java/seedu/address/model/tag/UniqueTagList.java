@@ -34,10 +34,9 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     private final HashMap<String, Tag> mapTags = new HashMap<String, Tag>();
 
     /**
-     * Constructs a {@code UniqueTagList} that contains the default tags by default.
+     * Constructs a {@code UniqueTagList}.
      */
     public UniqueTagList() {
-        initDefaultTags();
     }
 
     /**
@@ -63,36 +62,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
-    //    /**
-    //     * Adds a UserTag to the list.
-    //     * The UserTag must not already exist in the list.
-    //     * @param toAdd The {@code UserTag} to be added.
-    //     * @throws DuplicateTagException if the list already contains the tag.
-    //     */
-    //    public void addUserTag(UserTag toAdd) throws DuplicateTagException {
-    //        requireNonNull(toAdd);
-    //        if (contains(toAdd)) {
-    //            throw new DuplicateTagException();
-    //        }
-    //        internalList.add(toAdd);
-    //        mapTags.put(toAdd.getTagName(), toAdd);
-    //    }
-    //
-    //    /**
-    //     * Adds a DefaultTag to the list.
-    //     * The DefaultTag must not already exist in the list.
-    //     * @param toAdd The {@code DefaultTag} to be added.
-    //     * @throws DuplicateTagException if the list already contains the tag.
-    //     */
-    //    private void addDefaultTag(DefaultTag toAdd) throws DuplicateTagException {
-    //        requireAllNonNull(toAdd);
-    //        if (contains(toAdd)) {
-    //            throw new DuplicateTagException();
-    //        }
-    //        internalList.add(toAdd);
-    //        mapTags.put(toAdd.getTagName(), toAdd);
-    //    }
-
     /**
      * Replaces the UserTag {@code target} in the list with {@code editedTag}.
      * {@code target} must exist in the list.
@@ -114,6 +83,14 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         internalList.set(index, editedTag);
         mapTags.remove(target.getTagName());
         mapTags.put(editedTag.getTagName(), editedTag);
+    }
+
+    public DefaultTag getDefaultTag(String defaultTagName) {
+        Tag correspondingTag = mapTags.get(defaultTagName);
+        if (!correspondingTag.isDefault()) {
+            // TODO throw exception
+        }
+        return (DefaultTag) correspondingTag;
     }
 
     /**
@@ -240,9 +217,8 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     /**
      * Initialises default tags for the unique tag list, using all values in {@code DefaultTagType}.
      */
-    private void initDefaultTags() {
+    public void initDefaultTags() {
         for (DefaultTagType defaultTagType: DefaultTagType.values()) {
-            // addDefaultTag(new DefaultTag(defaultTagType));
             addTag(new DefaultTag(defaultTagType));
         }
     }
