@@ -51,7 +51,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validDish);
         ModelStub modelStub = new ModelStubWithDish(validDish);
 
-        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL,()
+        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MEAL, ()
             -> addCommand.execute(modelStub));
     }
 
@@ -134,12 +134,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasDishName(Dish dish){
+        public boolean hasDishName(Dish dish) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Dish getDishByName(Dish dish){
+        public Dish getDishByName(Dish dish) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,7 +194,7 @@ public class AddCommandTest {
      */
     private class ModelStubWithDish extends ModelStub {
         private final Dish dish;
-        final MealLog mealLog = new MealLog();
+        private final MealLog mealLog = new MealLog();
 
         ModelStubWithDish(Dish dish) {
             requireNonNull(dish);
@@ -208,18 +208,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasDishName(Dish dish){
+        public boolean hasDishName(Dish dish) {
             requireNonNull(dish);
             return this.dish.isSameDishName(dish);
         }
 
         @Override
-        public Dish getDishByName(Dish dish){
+        public Dish getDishByName(Dish dish) {
             return this.dish;
         }
 
         @Override
-        public MealLog getMealLog(){
+        public MealLog getMealLog() {
             return mealLog;
         }
     }
@@ -244,13 +244,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasDishName(Dish dish){
+        public boolean hasDishName(Dish dish) {
             requireNonNull(dish);
             return dishesAdded.stream().anyMatch(dish::isSameDishName);
         }
 
         @Override
-        public Dish getDishByName(Dish dish){
+        public Dish getDishByName(Dish dish) {
             for (int i = 0; i < dishesAdded.size(); i++) {
                 Dish dishInList = dishesAdded.get(i);
                 if (dishInList.getName().equals(dish.getName())) {
@@ -261,7 +261,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public MealLog getMealLog(){
+        public MealLog getMealLog() {
             return mealLog;
         }
 

@@ -122,7 +122,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Dish getDishByName(Dish dish){
+    public Dish getDishByName(Dish dish) {
         return dishDatabase.getDishByName(dish);
     }
 
