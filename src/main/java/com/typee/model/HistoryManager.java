@@ -16,7 +16,6 @@ public class HistoryManager extends AddressBook {
 
     public HistoryManager(ReadOnlyAddressBook initialList) {
         super(initialList);
-        
         versionPointer = 0;
         historyBook = new LinkedList<>();
         historyBook.add(new AddressBook(initialList));
