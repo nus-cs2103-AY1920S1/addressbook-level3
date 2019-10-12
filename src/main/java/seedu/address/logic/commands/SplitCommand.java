@@ -8,14 +8,10 @@ import static java.util.Objects.requireNonNull;
 
 public class SplitCommand extends Command {
 
-    public static final String COMMAND_WORD = "split";
-
     public static final String MESSAGE_SUCCESS = "Split amount successful";
+    public static final String COMMAND_WORD = "split";
     Transaction transaction;
 
-    /*
-    incomplete class, is SplitCommand considered a transaction?
-     */
     public SplitCommand(Transaction transaction) {
         this.transaction = transaction;
     }

@@ -6,6 +6,7 @@ import java.util.Date;
 
 
 public abstract class Transaction {
+
     public Amount amount;
     public Date date;
     Person peopleInvolved;
