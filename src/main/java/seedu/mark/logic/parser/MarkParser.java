@@ -16,7 +16,9 @@ import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
+import seedu.mark.logic.commands.RedoCommand;
 import seedu.mark.logic.commands.TabCommand;
+import seedu.mark.logic.commands.UndoCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -72,6 +74,12 @@ public class MarkParser {
 
         case TabCommand.COMMAND_WORD:
             return new TabCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);

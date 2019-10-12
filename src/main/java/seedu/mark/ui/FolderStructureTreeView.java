@@ -42,9 +42,6 @@ public class FolderStructureTreeView extends UiPart<Region> {
         populateTreeWithBookmarks();
         bookmarks.addListener((ListChangeListener<? super Bookmark>) change -> {
             while (change.next()) {
-                for (TreeItem<String> oldBookmarkTreeItem: bookmarkTreeItems) {
-                    oldBookmarkTreeItem.getParent().getChildren().remove(oldBookmarkTreeItem);
-                }
                 populateTreeWithBookmarks();
             }
         });
@@ -68,10 +65,17 @@ public class FolderStructureTreeView extends UiPart<Region> {
         }
         subfolders.addListener((ListChangeListener<? super FolderStructure>) change -> {
             while (change.next()) {
+                for (FolderStructure oldFolderStructure : change.getRemoved()) {
+                    TreeItem<String> oldFolderTreeItem = mapOfFolderToTreeItem.get(oldFolderStructure.getFolder());
+                    oldFolderTreeItem.getParent().getChildren().remove(oldFolderTreeItem);
+                    mapOfFolderToTreeItem.remove(oldFolderStructure.getFolder());
+                    populateTreeWithBookmarks();
+                }
                 for (FolderStructure newFolderStructure : change.getAddedSubList()) {
                     TreeItem<String> newBuilt = buildTree(newFolderStructure);
                     mapOfFolderToTreeItem.put(newFolderStructure.getFolder(), newBuilt);
                     built.getChildren().add(newBuilt);
+                    populateTreeWithBookmarks();
                 }
             }
         });
@@ -82,6 +86,9 @@ public class FolderStructureTreeView extends UiPart<Region> {
      * Populates the folder tree with bookmarks.
      */
     private void populateTreeWithBookmarks() {
+        for (TreeItem<String> oldBookmarkTreeItem: bookmarkTreeItems) {
+            oldBookmarkTreeItem.getParent().getChildren().remove(oldBookmarkTreeItem);
+        }
         bookmarkTreeItems = new ArrayList<>();
         for (Bookmark bookmark: bookmarks) {
             // if the folder is not found, we default it to the root
