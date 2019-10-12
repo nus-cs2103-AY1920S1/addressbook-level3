@@ -12,7 +12,7 @@ public enum Status {
 
     private final String label;
 
-    private Status(String label) {
+    Status(String label) {
         this.label = label;
     }
 

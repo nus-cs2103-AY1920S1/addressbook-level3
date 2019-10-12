@@ -2,14 +2,15 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,13 +19,16 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PhoneBuilder {
 
+    public static final String DEFAULT_IDENTITYNUMBER = "123456789098765";
+    public static final String DEFAULT_SERIALNUMBER = "E0315345346";
     public static final String DEFAULT_NAME = "Samsung Galaxy 10";
     public static final String DEFAULT_BRAND = "Samsung";
     public static final Capacity DEFAULT_CAPACITY = Capacity.SIZE_8GB;
     public static final String DEFAULT_COLOUR = "Vanilla White";
     public static final String DEFAULT_COST = "$42.42";
 
-    private UUID id;
+    private IdentityNumber identityNumber;
+    private SerialNumber serialNumber;
     private PhoneName phoneName;
     private Brand brand;
     private Capacity capacity;
@@ -33,7 +37,8 @@ public class PhoneBuilder {
     private Set<Tag> tags;
 
     public PhoneBuilder() {
-        id = UUID.randomUUID();
+        identityNumber = new IdentityNumber(DEFAULT_IDENTITYNUMBER);
+        serialNumber = new SerialNumber(DEFAULT_SERIALNUMBER);
         phoneName = new PhoneName(DEFAULT_NAME);
         brand = new Brand(DEFAULT_BRAND);
         capacity = DEFAULT_CAPACITY;
@@ -45,12 +50,9 @@ public class PhoneBuilder {
     /**
      * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
      */
-    public PhoneBuilder(Phone phoneToCopy, boolean copyId) {
-        if (copyId) {
-            id = phoneToCopy.getId();
-        } else {
-            id = UUID.randomUUID();
-        }
+    public PhoneBuilder(Phone phoneToCopy) {
+        identityNumber = phoneToCopy.getIdentityNumber();
+        serialNumber = phoneToCopy.getSerialNumber();
         phoneName = phoneToCopy.getPhoneName();
         brand = phoneToCopy.getBrand();
         capacity = phoneToCopy.getCapacity();
@@ -60,14 +62,23 @@ public class PhoneBuilder {
     }
 
     /**
-     * Initializes the PhoneBuilder with the data of {@code phoneToCopy}.
+     * Sets the {@code IdentityNumber} of the {@code Phone} that we are building.
      */
-    public PhoneBuilder(Phone phoneToCopy) {
-        this(phoneToCopy, true);
+    public PhoneBuilder withIdentityNumber(String identityNumber) {
+        this.identityNumber = new IdentityNumber(identityNumber);
+        return this;
     }
 
     /**
-     * Sets the {@code Name} of the {@code Phone} that we are building.
+     * Sets the {@code SerialNumber} of the {@code Phone} that we are building.
+     */
+    public PhoneBuilder withSerialNumber(String serialNumber) {
+        this.serialNumber = new SerialNumber(serialNumber);
+        return this;
+    }
+
+    /**
+     * Sets the {@code PhoneName} of the {@code Phone} that we are building.
      */
     public PhoneBuilder withName(String phoneName) {
         this.phoneName = new PhoneName(phoneName);
@@ -115,7 +126,7 @@ public class PhoneBuilder {
     }
 
     public Phone build() {
-        return new Phone(id, phoneName, brand, capacity, colour, cost, tags);
+        return new Phone(identityNumber, serialNumber, phoneName, brand, capacity, colour, cost, tags);
     }
 
 }
