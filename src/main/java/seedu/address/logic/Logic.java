@@ -46,7 +46,6 @@ public interface Logic {
      * Returns the PhoneBook.
      *
      * @see seedu.address.model.Model#getPhoneBook()
-     * @return
      */
     ReadOnlyDataBook<Phone> getPhoneBook();
 

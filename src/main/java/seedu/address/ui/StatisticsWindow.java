@@ -12,28 +12,27 @@ public class StatisticsWindow extends UiPart<Stage> {
     private static final String FXML = "StatisticsWindow.fxml";
 
     @FXML
+    private Label statsLabel;
+    @FXML
     private Label testLabel;
-    /**
-     * Creates a new Statistics window.
-     *
-     * @param root Stage to use as the root of the StatisticsWindow
-     */
-    public StatisticsWindow(Stage root, String statisticsResult) {
-        super(FXML, root);
-        testLabel.setText(statisticsResult);
-    }
 
+    /**
+     * Create a new Statistic window
+     * @param root Stage in which the window will use
+     */
     public StatisticsWindow(Stage root) {
         super(FXML, root);
     }
 
-
     /**
-     * new Statistics Window that will be called by Mainwindow method to create a new Statistic window
+     * utility method to create statistic window with the data
+     * @param statisticsResult the result of the statistic
+     * @param statsLabel the title of the stats
      */
-    public StatisticsWindow(String input) {
+    public StatisticsWindow(String statisticsResult, String statsLabel) {
         this(new Stage());
-        testLabel.setText(input);
+        this.testLabel.setText(statisticsResult);
+        this.statsLabel.setText(statsLabel);
     }
 
     /**

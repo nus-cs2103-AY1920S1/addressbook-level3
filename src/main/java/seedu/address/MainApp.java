@@ -69,11 +69,7 @@ public class MainApp extends Application {
         //create statistic manager;
         statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage,statistic );
-
-
-
+        logic = new LogicManager(model, storage, statistic);
         ui = new UiManager(logic);
     }
 

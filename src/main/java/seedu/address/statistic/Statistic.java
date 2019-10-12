@@ -11,17 +11,6 @@ import seedu.address.model.phone.Phone;
 public interface Statistic {
 
     /**
-     * calculate total Cost
-     */
-    void calculateTotalCost();
-
-    /**
-     * Insert model into current instance
-     */
-    void getOrderBook(ReadOnlyDataBook<Order> OrderBook);
-
-
-    /**
      * calculate total Gross Profit
      */
     String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
@@ -34,7 +23,7 @@ public interface Statistic {
     /**
      * calculate total Gross Cost
      */
-    String calculateTotalCost(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> PhoneBook);
+    String calculateTotalCost(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
 
 
 }

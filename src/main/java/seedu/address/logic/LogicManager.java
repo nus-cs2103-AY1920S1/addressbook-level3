@@ -65,10 +65,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyDataBook<Order> getOrderBook() { return model.getOrderBook(); }
+    public ReadOnlyDataBook<Order> getOrderBook() {
+        return model.getOrderBook();
+    }
 
     @Override
-    public ReadOnlyDataBook<Phone> getPhoneBook() { return model.getPhoneBook(); }
+    public ReadOnlyDataBook<Phone> getPhoneBook() {
+        return model.getPhoneBook();
+    }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
