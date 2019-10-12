@@ -1,11 +1,11 @@
 package dream.fcard.model.cards;
 
+import java.util.ArrayList;
+
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
-import java.util.ArrayList;
-
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 import javafx.scene.Node;
@@ -41,6 +41,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             }
             obj.put(Schema.TYPE_FIELD, Schema.MULTIPLE_CHOICE_TYPE);
             obj.put(Schema.CHOICES_FIELD, choicesJson);
+            return new JsonValue(obj);
         } catch (JsonWrongValueException e) {
             System.out.println("Inherited FrontBackCard unexpected json object");
         }
