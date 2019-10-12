@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.ActivityCommand.MESSAGE_USAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_TITLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -34,12 +35,25 @@ public class ActivityCommandParserTest {
     }
 
     @Test
-    public void parse_optionalFieldsPresent_success() {
-        // TODO: Update this test when person adding is complete
-        // Person exists
+    public void parse_singleParticipantPresent_success() {
+        // At least one participant exists
         String commandWithPerson = " " + PREFIX_PARTICIPANT + VALID_NAME_BOB + " "
                 + PREFIX_TITLE + VALID_ACTIVITY_TITLE;
+        ArrayList<String> participantList = new ArrayList<String>();
+        participantList.add(VALID_NAME_BOB);
         assertParseSuccess(parser, commandWithPerson,
-                new ActivityCommand(new Title(VALID_ACTIVITY_TITLE), new ArrayList<String>()));
+                new ActivityCommand(new Title(VALID_ACTIVITY_TITLE), participantList));
+    }
+
+    @Test
+    public void parse_multipleParticipantPresent_success() {
+        // At least one participant exists
+        String commandWithPerson = " " + PREFIX_PARTICIPANT + VALID_NAME_BOB + " "
+                + PREFIX_TITLE + VALID_ACTIVITY_TITLE + " " + PREFIX_PARTICIPANT + VALID_NAME_AMY;
+        ArrayList<String> participantList = new ArrayList<String>();
+        participantList.add(VALID_NAME_BOB);
+        participantList.add(VALID_NAME_AMY);
+        assertParseSuccess(parser, commandWithPerson,
+                new ActivityCommand(new Title(VALID_ACTIVITY_TITLE), participantList));
     }
 }
