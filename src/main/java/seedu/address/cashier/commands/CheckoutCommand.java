@@ -29,6 +29,8 @@ public class CheckoutCommand extends Command {
         Person p = modelManager.getCashier();
         modelManager.checkoutAsTransaction(totalAmount, p);
         logger.info(p.toString());
+        modelManager.updateInventoryList();
+        modelManager.writeInInventoryFile();
         return new CommandResult(cashierUi.checkoutSuccessful(String.valueOf(totalAmount), String.valueOf(change)));
     }
 }

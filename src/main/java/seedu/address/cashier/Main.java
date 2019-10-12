@@ -1,8 +1,6 @@
 package seedu.address.cashier;
 
 
-import seedu.address.inventory.Item;
-
 public class Main {
 /*
     private static HashMap<Item, Integer> itemList;

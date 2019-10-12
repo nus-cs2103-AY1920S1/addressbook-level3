@@ -51,8 +51,9 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws Exception {
         Command command = parser.parseCommand(commandText, cashierManager, personModel);
         CommandResult commandResult = command.execute(cashierManager, personModel);
-        cashierManager.updateInventoryList();
-        storage.writeFileToInventory(cashierManager.getInventoryList());
+        //cashierManager.updateInventoryList();
+        //cashierManager.writeInInventoryFile();
+        //storage.writeFileToInventory(cashierManager.getInventoryList());
         return commandResult;
     }
 

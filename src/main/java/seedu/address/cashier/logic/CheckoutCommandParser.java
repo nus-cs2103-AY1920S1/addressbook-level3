@@ -24,7 +24,7 @@ public class CheckoutCommandParser {
         if (amount == totalAmount) {
             change = 0;
         } else if (amount > totalAmount) {
-            change = totalAmount - amount;
+            change = amount - totalAmount;
         } else {
             throw new InsufficientAmountException(CashierUi.INSUFFICIENT_AMOUNT);
         }

@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             throws NoSuchItemException {
         CashierUi cashierUi = new CashierUi();
         Item i = modelManager.addItem(description, quantity);
-        return new CommandResult(CashierUi.addedItem(i));
+        return new CommandResult(cashierUi.addedItem(i));
     }
 }
 

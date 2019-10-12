@@ -12,11 +12,12 @@ import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.util.TransactionList;
 
 public class ModelManager implements Model {
 
+    private static final String SALES_DESCRIPTION = "Items sold";
+    private static final String SALES_CATEGORY = "Sales";
     public Person cashier = null;
     private static ArrayList<Item> salesList = new ArrayList<Item>();
     private InventoryList inventoryList;
@@ -31,8 +32,10 @@ public class ModelManager implements Model {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
+            //System.out.println(inventoryList);
         } catch (Exception e) {
             this.inventoryList = new InventoryList();
+            //System.out.println("not loaded");;
         }
         try {
             this.transactionList = storage.getTransactionList();
@@ -52,38 +55,44 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
-        if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
-            return false;
+        Item originalItem = inventoryList.getOriginalItem(description);
+        for (Item i : salesList) {
+            if (originalItem.isSameItem(i)) {
+                int initialSalesQty = i.getQuantity();
+                return (originalItem.getQuantity() >= (initialSalesQty + quantity));
+            }
         }
-        else {
+        if (originalItem.getQuantity() >= quantity) {
             return true;
         }
+        return false;
+    }
+
+    public int getStockLeft(String description) throws NoSuchItemException {
+        return inventoryList.getOriginalItem(description).getQuantity();
     }
 
     @Override
     public boolean hasItemInInventory(Item item) {
-        for (int i = 0 ; i < inventoryList.size(); i++) {
-            try {
+        //for (int i = 0 ; i < inventoryList.size(); i++) {
+        try {
+            for (int i = 0; i < inventoryList.size(); i++) {
                 if (inventoryList.getItemByIndex(i).isSameItem(item)) {
                     return true;
                 }
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
                 return false;
             }
-        }
         return false;
     }
 
-    public boolean hasItemInInventory(String description) {
-        for (int i = 0 ; i < inventoryList.size(); i++) {
-            try {
-                inventoryList.getOriginalItem(description);
-                return true;
-            } catch (NoSuchItemException e) {
-                return false;
-            }
-        }
-        return false;
+    public void updateRecentInventory() throws Exception {
+        this.inventoryList = storage.getInventoryList();
+    }
+
+    public boolean hasItemInInventory(String description) throws NoSuchIndexException {
+        return inventoryList.hasItem(description);
     }
 
     @Override
@@ -116,7 +125,6 @@ public class ModelManager implements Model {
         salesList.remove(index - 1);
     }
 
-
     @Override
     public void setItem(int i, Item editedItem) throws Exception {
         inventoryList.set(i, editedItem);
@@ -124,25 +132,28 @@ public class ModelManager implements Model {
 
     @Override
     public void writeInInventoryFile() throws Exception{
+        updateInventoryList();
         storage.writeFileToInventory(inventoryList);
     }
 
     public void updateInventoryList() throws Exception {
         for (int i = 0; i < salesList.size(); i++) {
+            System.out.println("size " + salesList.size());
             Item item = salesList.get(i);
-            inventoryList.getOriginalItem(item).setQuantity(i + 1);
+            System.out.println("1item" + item);
+            int originalQty = inventoryList.getOriginalItem(item).getQuantity();
+            System.out.println("original item " + inventoryList.getOriginalItem(item));
+            inventoryList.getOriginalItem(item).setQuantity(originalQty - item.getQuantity());
+            System.out.println("2item" + item);
+            System.out.println("original item2 " + inventoryList.getOriginalItem(item));
+            System.out.println("sales qty " + salesList.get(i).getQuantity());
+            System.out.println("original qty " + originalQty);
+            System.out.println(originalQty - item.getQuantity());
         }
     }
 
-    public void setCashier(Person p, seedu.address.person.model.Model personModel) throws NoSuchPersonException {
+    public void setCashier(Person p) {
         this.cashier = p;
-      /*  try {
-            System.out.println("inside set cashier");
-            this.cashier = p;
-            System.out.println("after setting cashier");
-        } catch (PersonNotFoundException e) {
-            throw new NoSuchPersonException(CashierUi.NO_SUCH_PERSON);
-        }*/
     }
 
     public Person getCashier() throws NoCashierFoundException {
@@ -154,7 +165,7 @@ public class ModelManager implements Model {
 
     public Transaction checkoutAsTransaction(double amount, Person person) throws Exception {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.myFormatter),
-                "salesItems", "sales", amount, person, transactionList.size(), false);
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
         storage.appendToTransaction(transaction);
         return transaction;
     }
@@ -162,7 +173,7 @@ public class ModelManager implements Model {
     public static double getTotalAmount() {
         double total = 0;
         for (Item i : salesList) {
-            total += i.getPrice();
+            total += (i.getPrice() * i.getQuantity());
         }
         return total;
     }

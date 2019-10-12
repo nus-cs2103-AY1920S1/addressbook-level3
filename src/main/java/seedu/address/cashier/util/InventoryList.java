@@ -54,6 +54,15 @@ public class InventoryList {
         }
     }
 
+    public static boolean hasItem(String description) {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int size() {
         return iList.size();
     }

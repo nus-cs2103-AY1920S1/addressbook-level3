@@ -5,7 +5,6 @@ import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
 
-
 public class ModelManager implements Model {
     private InventoryList inventoryList;
     private StorageManager storage;
@@ -76,5 +75,28 @@ public class ModelManager implements Model {
         else {
             return true;
         }
+    }
+
+    @Override
+    public void updateIndexes() throws NoSuchIndexException {
+        for (int i = 0; i < inventoryList.size(); i++) {
+            Item item = inventoryList.get(i);
+            item.setId(i + 1);
+        }
+    }
+
+    @Override
+    public void sortByDescription() {
+        inventoryList.sortByDescription();
+    }
+
+    @Override
+    public void sortByCategory() {
+        inventoryList.sortByCategory();
+    }
+
+    @Override
+    public void sortByQuantity() {
+        inventoryList.sortByQuantity();
     }
 }

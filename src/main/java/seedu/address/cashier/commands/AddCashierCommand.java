@@ -21,7 +21,6 @@ public class AddCashierCommand extends Command {
      * Creates an AddCommand to add the specified {@code Transaction}
      */
     public AddCashierCommand(Person p) {
-        System.out.println(p.getName());
         cashier = p;
     }
 
@@ -29,10 +28,8 @@ public class AddCashierCommand extends Command {
     public CommandResult execute(ModelManager modelManager, Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
         CashierUi cashierUi = new CashierUi();
-        System.out.println("before logger");
-        modelManager.setCashier(cashier, personModel);
-        //logger.info(cashierName);
-        System.out.println("after logger");
+        modelManager.setCashier(cashier);
+        //logger.info((Supplier<String>) cashier.getName());
         return new CommandResult(CashierUi.addCashierSuccessful(cashier));
     }
 }

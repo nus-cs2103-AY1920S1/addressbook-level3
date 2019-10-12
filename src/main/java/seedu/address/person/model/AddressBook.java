@@ -123,7 +123,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public Person getPersonByName(String name) throws PersonNotFoundException {
-        System.out.println("inside addre bk");
         for (Person person : persons) {
             if (person.getName().toString().equals(name)) {
                 return person;
