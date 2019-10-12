@@ -92,7 +92,7 @@ public class FileReadWrite {
     }
 
     /**
-     * Delete the file of the given path
+     * Delete the file of the given path. Can also delete empty directory.
      * @param path  path to file
      * @return      true successful delete
      */
