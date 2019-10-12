@@ -54,6 +54,15 @@ public class AddAddressCommand extends Command {
     }
 
     /**
+     * Gets the {@code Person} to be added in this {@code AddAddressCommand}.
+     *
+     * @return {@code Person} to be added.
+     */
+    public Person getPersonToAdd() {
+        return toAdd;
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.
