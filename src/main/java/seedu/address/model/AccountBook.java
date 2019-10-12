@@ -4,9 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-/**
- * Import various classes related
- */
 import javafx.collections.ObservableList;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.UniqueAccountList;
