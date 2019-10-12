@@ -17,10 +17,11 @@ public class StartAge {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]+";
+    public static final String AGE_ZERO = "0";
 
-    private String age = "0";
+    private final String age;
     /**
-     * Constructs a {@code EndAge}.
+     * Constructs a {@code StartAge}.
      *
      * @param age A valid age.
      */
@@ -28,6 +29,14 @@ public class StartAge {
         requireNonNull(age);
         checkArgument(isValidAge(age), MESSAGE_CONSTRAINTS);
         this.age = age;
+    }
+
+    /**
+     * Constructs a {@code StartAge} starting from 0.
+     *
+     */
+    public StartAge() {
+        this.age = AGE_ZERO;
     }
 
     /**
