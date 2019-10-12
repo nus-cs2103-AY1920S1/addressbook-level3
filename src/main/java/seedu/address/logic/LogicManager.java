@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         if (command.isUndoable()) {
             model.addToHistory();
         }
-      
+
         commandResult = command.execute(model);
 
         try {

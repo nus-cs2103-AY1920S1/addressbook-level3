@@ -139,7 +139,7 @@ public class ModelManager implements Model {
     }
 
     //=========== AliasSettings ==============================================================================
-  
+
     @Override
     public AliasMappings getAliasMappings() {
         return userPrefs.getAliasMappings();
@@ -157,7 +157,7 @@ public class ModelManager implements Model {
     }
 
     //=========== GuiSettings ===============================================================================
-  
+
     @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
