@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
+import seedu.address.ui.UiManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -108,7 +109,7 @@ public class ModelManager implements Model {
     @Override
     public void addContact(seedu.address.model.contact.Contact contact) {
         finSec.addContact(contact);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -177,14 +178,15 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<seedu.address.model.contact.Contact> getFilteredPersonList() {
+    public ObservableList<seedu.address.model.contact.Contact> getFilteredContactList() {
         return filteredContacts;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<seedu.address.model.contact.Contact> predicate) {
+    public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        UiManager.startWithContacts();
     }
 
     @Override
@@ -220,6 +222,7 @@ public class ModelManager implements Model {
     public void updateFilteredClaimList(Predicate<Claim> predicate) {
         requireNonNull(predicate);
         filteredClaims.setPredicate(predicate);
+        UiManager.startWithClaims();
     }
 
     //=========== Filtered Income List Accessors =============================================================
@@ -236,5 +239,6 @@ public class ModelManager implements Model {
     public void updateFilteredIncomeList(Predicate<Income> predicate) {
         requireNonNull(predicate);
         filteredIncomes.setPredicate(predicate);
+        UiManager.startWithIncomes();
     }
 }

@@ -11,7 +11,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.View;
 
 /**
  * The manager of the UI component.
@@ -23,8 +22,8 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic logic;
-    private MainWindow mainWindow;
+    private static Logic logic;
+    public static MainWindow mainWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -38,30 +37,56 @@ public class UiManager implements Ui {
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
         try {
-            if (View.index == 1) {
-                mainWindow = new MainWindow(primaryStage, logic);
-                mainWindow.show(); //This should be called before creating other UI parts
-                mainWindow.fillWithContacts();
-            } else if (View.index == 2) {
-                mainWindow = new MainWindow(primaryStage, logic);
-                mainWindow.show(); //This should be called before creating other UI parts
-                mainWindow.fillWithClaims();
-            } else if (View.index == 3) {
-                mainWindow = new MainWindow(primaryStage, logic);
-                mainWindow.show(); //This should be called before creating other UI parts
-                mainWindow.fillWithIncomes();
-            }
+            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillWithContacts();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
 
-    private Image getImage(String imagePath) {
+    public static void startWithContacts() {
+        logger.info("Changing UI...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillWithContacts();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    public static void startWithClaims() {
+        logger.info("Changing UI...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillWithClaims();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    public static void startWithIncomes() {
+        logger.info("Changing UI...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillWithIncomes();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    private static Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+    static void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
@@ -85,7 +110,7 @@ public class UiManager implements Ui {
      * Shows an error alert dialog with {@code title} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
      */
-    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
+    private static void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();

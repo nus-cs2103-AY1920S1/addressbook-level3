@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.*;
 
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.View;
@@ -46,7 +44,7 @@ public class GotoCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         if (gotoView.getIndex() == 1) { //case of contacts
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
             //message = "contacts listed";
             return new CommandResult(MESSAGE_SUCCESS);
         } else if (gotoView.getIndex() == 2) { //case of claims
