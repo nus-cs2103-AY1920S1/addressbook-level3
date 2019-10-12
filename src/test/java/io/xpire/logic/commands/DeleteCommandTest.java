@@ -94,7 +94,7 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 

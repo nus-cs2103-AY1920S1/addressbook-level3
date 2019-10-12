@@ -1,8 +1,11 @@
 package io.xpire.ui;
 
 import java.util.Comparator;
+import java.util.Optional;
 
+import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.ReminderDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -10,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Item}.
  */
 public class ItemCard extends UiPart<Region> {
 
@@ -21,7 +24,6 @@ public class ItemCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
     public final Item item;
@@ -38,6 +40,8 @@ public class ItemCard extends UiPart<Region> {
     private Label quantity;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label reminder;
 
     public ItemCard(Item item, int displayedIndex) {
         super(FXML);
@@ -46,7 +50,14 @@ public class ItemCard extends UiPart<Region> {
         this.name.setText(item.getName().toString());
         this.expiryDate.setText(item.getExpiryDate().toString());
         this.quantity.setText("Quantity: " + item.getQuantity().toString());
-        item.getTags().stream()
+        Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
+                item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
+        if (reminderDate.isPresent()) {
+            this.reminder.setText(reminderDate.get().toString());
+        } else {
+            this.reminder.setVisible(false);
+        }
+        this.item.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
     }

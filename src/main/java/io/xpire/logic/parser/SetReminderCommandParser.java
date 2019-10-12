@@ -1,17 +1,21 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_REMINDER_THRESHOLD;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.exceptions.IllegalValueException;
 import io.xpire.logic.commands.SetReminderCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.item.ReminderThreshold;
 
 /**
  * Parses input arguments and creates a new SetReminderCommand object.
  */
 public class SetReminderCommandParser implements Parser<SetReminderCommand> {
+
+    private static final String REGEX = "\\|";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetReminderCommand
@@ -22,16 +26,27 @@ public class SetReminderCommandParser implements Parser<SetReminderCommand> {
     public SetReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         Index index;
+        ReminderThreshold threshold;
+
+        if (args.split(REGEX).length < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetReminderCommand.MESSAGE_USAGE));
+        }
 
         try {
-            index = ParserUtil.parseIndex(args.split("\\|")[0]);
+            index = ParserUtil.parseIndex(args.split(REGEX)[0]);
 
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetReminderCommand.MESSAGE_USAGE), e);
         }
 
-        String threshold = args.split("\\|")[1];
+        try {
+            threshold = ParserUtil.parseReminderThreshold(args.split(REGEX)[1]);
+        } catch (IllegalValueException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_REMINDER_THRESHOLD,
+                    SetReminderCommand.MESSAGE_USAGE), e);
+        }
 
         return new SetReminderCommand(index, threshold);
     }

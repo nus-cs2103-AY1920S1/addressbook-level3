@@ -23,7 +23,7 @@ public class ItemTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameItem() {
         // same object -> returns true
         assertTrue(KIWI.isSameItem(KIWI));
 
@@ -59,7 +59,7 @@ public class ItemTest {
         // different type -> returns false
         assertFalse(KIWI.equals(5));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(KIWI.equals(APPLE));
 
         // different name -> returns false

@@ -38,7 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_QUANTITY_MILK = "2";
 
     public static final String VALID_TAG_FRUIT = "fruit";
-    public static final String VALID_TAG_DRINK = "drink";
+    public static final String VALID_TAG_DRINK = "drinks";
     public static final String VALID_TAG_GREEN = "green";
 
     public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;
@@ -124,7 +124,7 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the item at the given {@code targetIndex} in the
      * {@code model}'s expiry date tracker.
      */
     public static void showItemAtIndex(Model model, Index targetIndex) {

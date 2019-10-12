@@ -40,12 +40,11 @@ public class XpireTest {
     public void resetData_withValidReadOnlyExpiryDateTracker_replacesData() {
         Xpire newData = getTypicalExpiryDateTracker();
         xpire.resetData(newData);
-        assertEquals(newData, xpire);
+        assertEquals(newData.getItemList(), xpire.getItemList());
     }
 
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
-        // Two items with the same identity fields
         Item editedAlice = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE)
                 .withQuantity("2").withTags(VALID_TAG_FRUIT).build();
         List<Item> newPersons = Arrays.asList(APPLE, editedAlice);
@@ -84,7 +83,7 @@ public class XpireTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose items list can violate interface constraints.
      */
     private static class XpireStub implements ReadOnlyXpire {
         private final ObservableList<Item> items = FXCollections.observableArrayList();

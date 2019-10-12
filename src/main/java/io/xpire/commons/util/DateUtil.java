@@ -5,9 +5,12 @@ import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import io.xpire.commons.core.LogsCenter;
+import io.xpire.model.item.ReminderDate;
 
 /**
  * Helper functions for handling dates.
@@ -82,10 +85,18 @@ public class DateUtil {
      * @param laterDate The later date.
      * @return Difference in number of days between the 2 dates. 0 is returned when earlierDate is later than laterDate.
      */
-    public static int getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
+    public static long getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
-        int offset = earlierDate.until(laterDate).getDays();
+        long offset = ChronoUnit.DAYS.between(earlierDate, laterDate);
         return Math.max(offset, 0);
+    }
+
+    public static Optional<ReminderDate> getReminderDate(LocalDate laterDate, int offsetDays) {
+        requireAllNonNull(laterDate, offsetDays);
+        if (offsetDays == 0) {
+            return Optional.empty();
+        }
+        return Optional.of(new ReminderDate(laterDate.minusDays(offsetDays)));
     }
 
     /**

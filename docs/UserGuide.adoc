@@ -1,3 +1,12 @@
+// Update the User Guide:
+// 1. Include the new feature.
+// 2. If it is a new command, include the feature in the command summary at the end.
+//    Match the order of command summary with the order of the respective features.
+// 3. If it is not a new command, ensure that the format of the feature in the command summary remain correct.
+// 4. Things have to be included in the feature: Function + Format.
+// 5. Things may be included in the feature: remark, example, tip.
+// 6. Update FAQs if applicable.
+
 = Xpire - User Guide
 :site-section: UserGuide
 :toc:
@@ -47,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<threshold>`, `<index>` and `<threshold>` are parameters which can be used as `set reminder|1|7`.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
 * Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
 ====
@@ -78,6 +87,26 @@ Adds the item `HL Milk` with expiry date `10/10/2019` and two tags `#Dairy` and 
 Shows all items in the list. +
 Format: `view`
 
+=== Setting reminder for an item: `set reminder`
+
+Sets a reminder threshold for the specified item. +
+This allows the check command to quickly find the item once the reminder threshold is exceeded. +
+Format: `set reminder|<index>|<reminder threshold>`
+
+****
+* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
+* All items have their default reminder threshold set to 0.
+* To reset a reminder threshold, simply write over the old one.
+* To delete a reminder, reset the reminder threshold to 0.
+****
+
+Examples:
+
+* `set reminder|2|4` +
+Sets a reminder for the second item in the list 4 days before its expiry date.
+* `set|1|0` +
+Removes the reminder for the first item in the list.
+
 //=== Editing an item : `edit`
 
 //Edits an existing item in the list. +
@@ -100,16 +129,22 @@ Format: `view`
 
 === Listing expiring items : `check`
 
-Shows expiring items in the list. +
-Format: `check[|<days>]`
+Shows items whose reminder has been activated. +
+Format: `check`
+
+Shows items that will expire within the specified number of days in the list. +
+Format: `check|<days>`
 
 ****
-* Lists items expiring within the specified number of `<days>`
-* Number of days *must be a positive integer* 1,2,3,..
+* Number of days *must be a non-negative integer* 0,1,2,3,..
 ****
+
+[TIP]
+`check|0` lists items that have already expired or expire on the day of checking.
 
 Examples:
 
+* `check`
 * `check|20` +
 Lists items expiring in the next 20 days.
 
@@ -120,7 +155,7 @@ Format: `sort|<key>`
 
 ****
 * Sorting by both name and date is done in ascending order.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while 01/01/2000 will sort ahead of 01/01/2001.
 ****
 
 Examples:
@@ -225,21 +260,23 @@ There is no need to save manually.
 
 == Command Summary
 
+* *Help* : `help`
 * *Add* `add|<item name>|<expiry date>|[<tag>]...` +
 e.g. `add|durian|30/9/2019`
-* *Clear* : `clear`
-* *Delete* : `delete|<index>` +
-e.g. `delete|3`
-* *List* : `list`
-* *Sort* : `sort|<key>`+
+* *View* : `view`
+* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
+e.g. `set reminder|1|7`
+* *Check* : `check[|<days>]` +
+e.g. `check|20`
+* *Sort* : `sort|<key>` +
 e.g. `sort|date`
 //* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 //e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
+* *Delete* : `delete|<index>` +
+e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
-* *View* : `view`
-* *Check* : `check[|<days>]` +
-e.g. `check|20`
-* *Help* : `help`
+* *Clear* : `clear`
+* *Exit* : `exit`
 

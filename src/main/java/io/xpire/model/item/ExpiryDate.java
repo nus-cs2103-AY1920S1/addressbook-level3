@@ -12,7 +12,7 @@ import io.xpire.commons.util.DateUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)} (String)}
  */
 public class ExpiryDate {
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final String DATE_FORMAT = "d/M/yyyy";
     private static final String EXPIRED = "Expired!";
     private static final String DAYS_LEFT = "%d day%s left";
     public static final String MESSAGE_CONSTRAINTS =
@@ -39,7 +39,7 @@ public class ExpiryDate {
     }
 
     public String getStatus(LocalDate current) {
-        int offset = DateUtil.getOffsetDays(current, this.date);
+        long offset = DateUtil.getOffsetDays(current, this.date);
         return offset > 0 ? String.format(DAYS_LEFT, offset, offset == 1 ? "" : "s") : EXPIRED;
     }
 

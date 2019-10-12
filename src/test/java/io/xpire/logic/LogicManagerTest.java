@@ -81,15 +81,15 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
                 + "|" + VALID_QUANTITY_KIWI;
-        Item expectedPerson = new ItemBuilder(KIWI).withTags().build();
+        Item expectedItem = new ItemBuilder(KIWI).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addItem(expectedPerson);
+        expectedModel.addItem(expectedItem);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredItemList().remove(0));
     }
 

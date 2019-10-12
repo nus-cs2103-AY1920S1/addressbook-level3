@@ -11,7 +11,7 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Item objects.
  */
 public class ItemBuilder {
 
