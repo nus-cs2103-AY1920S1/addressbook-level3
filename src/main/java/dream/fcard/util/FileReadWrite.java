@@ -100,4 +100,14 @@ public class FileReadWrite {
         File file = new File(normalizePath(path));
         return file.delete();
     }
+
+    /**
+     * Determine if file exists.
+     * @param path  path to file
+     * @return      true if file exists
+     */
+    public static Boolean fileExists(String path) {
+        File file = new File(normalizePath(path));
+        return file.exists();
+    }
 }
