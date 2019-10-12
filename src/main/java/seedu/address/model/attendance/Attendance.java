@@ -7,7 +7,10 @@ import java.util.Map;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
-
+/**
+ * Represents the attendance of a person
+ * Guarantees: a static list of trainings
+ */
 public class Attendance {
     private static List<Training> trainings = new ArrayList<>();
     public Attendance(Training training) {
@@ -25,9 +28,9 @@ public class Attendance {
         double result;
         for (Training training: trainings) {
             if (training.getPersonAttendance(name)) {
-                attended ++;
+                attended++;
             } else {
-                missed ++;
+                missed++;
             }
         }
         result = ((double) attended / (attended + missed));

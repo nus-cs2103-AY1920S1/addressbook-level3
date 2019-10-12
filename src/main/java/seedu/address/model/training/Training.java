@@ -6,10 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.model.person.Person;
-
+/**
+ * Represents a Training
+ * Guarantees: date and training attendance for the particular training
+ */
 public class Training {
     private String date;
     private HashMap<Person, Boolean> trainingAttendance;
+    public Training(String date, HashMap<Person, Boolean> trainingAttendance) {
+        this.date = date;
+        this.trainingAttendance = trainingAttendance;
+    }
     public String getDate() {
         return this.date;
     }
@@ -18,10 +25,6 @@ public class Training {
     }
     public boolean getPersonAttendance(Person name) {
         return this.trainingAttendance.get(name);
-    }
-    public Training(String date, HashMap<Person, Boolean> trainingAttendance) {
-        this.date = date;
-        this.trainingAttendance = trainingAttendance;
     }
     /**
      * Returns a list of person who has attended this training
