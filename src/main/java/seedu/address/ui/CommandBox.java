@@ -42,6 +42,7 @@ public class CommandBox extends UiPart<Region> {
                 case UP:
                 case DOWN:
                     keyEvent.consume();
+                    break;
                 default:
                 }
                 keyPressedNotifier.notify(keyEvent.getCode());
