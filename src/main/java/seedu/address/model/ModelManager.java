@@ -33,7 +33,6 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
-
     private final Optional<Borrower> servingBorrower; // TODO
 
     /**
@@ -248,6 +247,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasBorrower(Borrower borrower) {
+        return borrowerRecords.hasBorrower(borrower);
+    }
+
+    /**
+     * Returns the user prefs' catalog file path.
+     *
+     * @param borrower
+     */
+    @Override
+    public void registerBorrower(Borrower borrower) {
+        borrowerRecords.addBorrower(borrower);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -265,6 +279,11 @@ public class ModelManager implements Model {
                 && loanRecords.equals(other.loanRecords)
                 && catalog.equals(other.catalog)
                 && borrowerRecords.equals(other.borrowerRecords);
+    }
+
+    @Override
+    public void resetGenerator() {
+        BorrowerIdGenerator.setBorrowers(borrowerRecords);
     }
 
 }

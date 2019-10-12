@@ -115,4 +115,13 @@ public interface Model {
      * @return True if Liberry is currently in Serve mode.
      */
     boolean isServeMode();
+
+    boolean hasBorrower(Borrower borrower);
+    /**
+     * Returns the user prefs' catalog file path.
+     */
+
+    void registerBorrower(Borrower borrower);
+
+    void resetGenerator();
 }

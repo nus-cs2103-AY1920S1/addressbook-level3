@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Model;
 import seedu.address.model.borrower.Borrower;
 
@@ -44,7 +45,8 @@ public class RegisterCommand extends Command {
         requireNonNull(model);
 
         if (model.hasBorrower(toAdd)) {
-            // to handle borrower with same name and phone number here next time
+            // borrowers with same name and (phone number or email)
+            model.resetGenerator();
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
@@ -58,4 +60,5 @@ public class RegisterCommand extends Command {
                 || (other instanceof RegisterCommand // instanceof handles nulls
                 && toAdd.equals(((RegisterCommand) other).toAdd));
     }
+
 }
