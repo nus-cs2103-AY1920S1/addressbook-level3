@@ -49,7 +49,7 @@ public class ExpiryDate {
     }
 
     public String getStatus(LocalDate current) {
-        int offset = DateUtil.getOffsetDays(current, this.date);
+        long offset = DateUtil.getOffsetDays(current, this.date);
         return offset > 0 ? String.format(DAYS_LEFT, offset, offset == 1 ? "" : "s") : EXPIRED;
     }
 

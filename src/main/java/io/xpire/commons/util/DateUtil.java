@@ -5,6 +5,7 @@ import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -84,9 +85,9 @@ public class DateUtil {
      * @param laterDate The later date.
      * @return Difference in number of days between the 2 dates. 0 is returned when earlierDate is later than laterDate.
      */
-    public static int getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
+    public static long getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
-        int offset = earlierDate.until(laterDate).getDays();
+        long offset = ChronoUnit.DAYS.between(earlierDate, laterDate);
         return Math.max(offset, 0);
     }
 
