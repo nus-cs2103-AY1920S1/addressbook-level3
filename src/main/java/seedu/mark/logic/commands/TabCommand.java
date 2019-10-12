@@ -2,9 +2,9 @@ package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
-import seedu.mark.logic.commands.commandresult.TabCommandResult;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.TabCommandResult;
 import seedu.mark.model.Model;
 
 /**
