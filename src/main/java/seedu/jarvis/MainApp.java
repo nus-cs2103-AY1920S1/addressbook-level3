@@ -20,6 +20,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.util.SampleDataUtil;
@@ -92,7 +93,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(new HistoryManager(), initialData, userPrefs);
+        return new ModelManager(new HistoryManager(), initialData, userPrefs, new Planner());
     }
 
     private void initLogging(Config config) {

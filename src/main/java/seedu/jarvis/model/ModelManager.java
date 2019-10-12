@@ -16,6 +16,9 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -30,11 +33,13 @@ public class ModelManager implements Model {
     //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final Planner planner;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(HistoryManager historyManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(HistoryManager historyManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        Planner planner) {
         super();
         requireAllNonNull(historyManager, addressBook, userPrefs);
 
@@ -44,10 +49,11 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.planner = new Planner(planner);
     }
 
     public ModelManager() {
-        this(new HistoryManager(), new AddressBook(), new UserPrefs());
+        this(new HistoryManager(), new AddressBook(), new UserPrefs(), new Planner());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -249,5 +255,41 @@ public class ModelManager implements Model {
                 && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Planner =============================================================
+
+    /**
+     * Retrieves the tasks stored in the planner
+     * @return a list of tasks stored in the planner
+     */
+    @Override
+    public TaskList getTasks() {
+        return planner.getTasks();
+    }
+
+    /**
+     * Adds a task to the planner
+     * @param t the task to be added
+     */
+    @Override
+    public void addTask(Task t) {
+        planner.addTask(t);
+    }
+
+    /**
+     * Determines whether the planner contains the given task
+     * @param t the task in question
+     * @return true if the planner already contains the task, false if
+     *         it does not.
+     */
+    @Override
+    public Boolean hasTask(Task t) {
+        return planner.hasTask(t);
+    }
+
+    @Override
+    public Planner getPlanner() {
+        return planner;
     }
 }

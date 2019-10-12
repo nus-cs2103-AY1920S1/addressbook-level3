@@ -27,6 +27,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -476,6 +479,26 @@ public class HistoryManagerTest {
 
         @Override
         public boolean commit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TaskList getTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTask(Task t) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Boolean hasTask(Task t) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Planner getPlanner() {
             throw new AssertionError("This method should not be called.");
         }
     }
