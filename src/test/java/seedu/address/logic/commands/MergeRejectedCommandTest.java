@@ -29,8 +29,8 @@ import seedu.address.testutil.PersonBuilder;
 public class MergeRejectedCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergeCommand(null));
+    public void constructor_nullCommand_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new MergeRejectedCommand(null));
     }
 
     @Test
