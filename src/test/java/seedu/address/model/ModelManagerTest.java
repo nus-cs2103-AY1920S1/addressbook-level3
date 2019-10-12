@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalActivities.BREAKFAST;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.testutil.ActivityBookBuilder;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -27,6 +29,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new ActivityBook(), new ActivityBook(modelManager.getActivityBook()));
     }
 
     @Test
@@ -94,14 +97,28 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setActivityBookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setActivityBookFilePath(null));
+    }
+
+    @Test
+    public void setActivityBookFilePath_validPath_setsActivityBookFilePath() {
+        Path path = Paths.get("activity/book/file/path");
+        modelManager.setActivityBookFilePath(path);
+        assertEquals(path, modelManager.getActivityBookFilePath());
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
+        ActivityBook activityBook = new ActivityBookBuilder().withActivity(BREAKFAST).build();
+        ActivityBook differentActivityBook = new ActivityBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, new ActivityBook());
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, new ActivityBook());
+        modelManager = new ModelManager(addressBook, userPrefs, activityBook);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, activityBook);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +131,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, new ActivityBook())));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, activityBook)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, new ActivityBook())));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, activityBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -127,6 +144,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, new ActivityBook())));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, activityBook)));
     }
 }
