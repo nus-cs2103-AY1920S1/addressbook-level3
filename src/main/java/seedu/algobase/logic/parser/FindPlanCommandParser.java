@@ -2,11 +2,12 @@ package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.plan.NameContainsKeywordsPredicate;
 
-import java.util.Arrays;
 
 
 /**

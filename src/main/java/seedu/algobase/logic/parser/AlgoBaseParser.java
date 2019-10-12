@@ -17,9 +17,11 @@ import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
+import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.SortCommand;
+import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -87,6 +89,12 @@ public class AlgoBaseParser {
 
         case DeletePlanCommand.COMMAND_WORD:
             return new DeletePlanCommandParser().parse(arguments);
+
+        case FindPlanCommand.COMMAND_WORD:
+            return new FindPlanCommandParser().parse(arguments);
+
+        case ListPlanCommand.COMMAND_WORD:
+            return new ListPlanCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
