@@ -23,11 +23,12 @@
              <TableView fx:id="tableView" GridPane.rowIndex="1">
                  <columns>
                      <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
-                     <TableColumn fx:id="descriptionCol" prefWidth="232.80003356933594" text="Description" />
+                     <TableColumn fx:id="descriptionCol" prefWidth="140.80003356933594" text="Description" />
                      <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
                      <TableColumn fx:id="quantityCol" prefWidth="97.60000228881836" text="Quantity" />
-                     <TableColumn fx:id="costCol" prefWidth="92.00003051757812" text="Cost" />
-                     <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="108.00006103515625" text="Price" />
+                     <TableColumn fx:id="costCol" prefWidth="92.00003051757812" text="Cost/Unit" />
+                     <TableColumn fx:id="subtotalCol" prefWidth="92.0" text="Subtotal" />
+                     <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="90.00006103515625" text="Price" />
                  </columns>
                  <GridPane.margin>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

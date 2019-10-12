@@ -24,7 +24,6 @@ public class EditCommand extends Command {
     public EditCommand(int index, EditItemDescriptor editItemDescriptor) {
         this.index = index;
 
-
         this.id = index;
         this.editItemDescriptor = new EditItemDescriptor(editItemDescriptor);
     }
@@ -37,7 +36,7 @@ public class EditCommand extends Command {
 
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
 
-        if (!itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
+        if (itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
         model.setItem(Integer.parseInt(itemToEdit.getId()), editedItem);

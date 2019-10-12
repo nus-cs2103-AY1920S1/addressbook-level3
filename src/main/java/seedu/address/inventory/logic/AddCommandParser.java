@@ -23,7 +23,7 @@ public class AddCommandParser {
                         PREFIX_COST, PREFIX_PRICE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
-                PREFIX_COST, PREFIX_PRICE) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_COST) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(InventoryMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 

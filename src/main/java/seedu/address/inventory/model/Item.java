@@ -11,6 +11,7 @@ public class Item {
     private final String description;
     private int quantity;
     private final double cost;
+    private double subtotal;
     private double price;
     private String id;
 
@@ -22,6 +23,7 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.subtotal = quantity * cost;
         this.price = price;
         this.id = "" + id;
     }
@@ -34,6 +36,7 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.subtotal = quantity * cost;
         this.price = 0;
         this.id = "" + i;
     }
@@ -54,6 +57,10 @@ public class Item {
         return cost;
     }
 
+    public double getSubtotal() {
+        return subtotal;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -64,6 +71,11 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        updateSubtotal();
+    }
+
+    public void updateSubtotal() {
+        this.subtotal = this.cost * this.quantity;
     }
 
     public String getId() {
@@ -138,6 +150,8 @@ public class Item {
                 .append(getQuantity())
                 .append(" Cost: ")
                 .append(getCost())
+                .append( "Subtotal: ")
+                .append(getSubtotal())
                 .append(" Price: ")
                 .append(getPrice());
         return builder.toString();

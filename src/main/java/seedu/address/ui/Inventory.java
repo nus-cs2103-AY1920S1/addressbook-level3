@@ -29,6 +29,8 @@ public class Inventory extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> costCol;
     @FXML
+    private TableColumn<Item, Double> subtotalCol;
+    @FXML
     private TableColumn<Item, Double> priceCol;
 
     private List<Item> parseInventoryList(Logic logic) throws Exception {
@@ -52,6 +54,7 @@ public class Inventory extends UiPart<Region> {
         categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("quantity"));
         costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("cost"));
+        subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
     }
 }
