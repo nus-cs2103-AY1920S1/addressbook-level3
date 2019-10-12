@@ -52,11 +52,11 @@ public class SampleDataUtil {
             new Incident(new IncidentId(10, 2016), new District(20),
                     new IncidentDateTime("2016-10-10T12:30:35"), "David Li"),
             new Incident(new IncidentId(2, 2015), new District(20),
-                    new IncidentDateTime("2016-10-10T12:30:35"), "Bernice Yu"),
+                    new IncidentDateTime("2015-02-02T12:30:35"), "Bernice Yu"),
             new Incident(new IncidentId(3, 2013), new District(20),
-                    new IncidentDateTime("2016-10-10T12:30:35"), "Alex Yeoh"),
+                    new IncidentDateTime("2013-03-03T12:30:35"), "Alex Yeoh"),
             new Incident(new IncidentId(12, 2015), new District(20),
-                    new IncidentDateTime("2016-10-10T12:30:35"), "David Li")
+                    new IncidentDateTime("2015-12-12T12:30:35"), "David Li")
         };
     }
 
