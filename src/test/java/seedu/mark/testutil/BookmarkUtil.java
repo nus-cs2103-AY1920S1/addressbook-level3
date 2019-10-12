@@ -30,7 +30,7 @@ public class BookmarkUtil {
      */
     public static String getBookmarkDetails(Bookmark bookmark) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + bookmark.getName().fullName + " ");
+        sb.append(PREFIX_NAME + bookmark.getName().value + " ");
         sb.append(PREFIX_URL + bookmark.getUrl().value + " ");
         sb.append(PREFIX_REMARK + bookmark.getRemark().value + " ");
         sb.append(PREFIX_FOLDER + bookmark.getFolder().folderName + " ");
@@ -45,7 +45,7 @@ public class BookmarkUtil {
      */
     public static String getEditBookmarkDescriptorDetails(EditCommand.EditBookmarkDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.value).append(" "));
         descriptor.getUrl().ifPresent(url -> sb.append(PREFIX_URL).append(url.value).append(" "));
         descriptor.getRemark().ifPresent(remark -> sb.append(PREFIX_REMARK).append(remark.value).append(" "));
         descriptor.getFolder().ifPresent(folder -> sb.append(PREFIX_FOLDER).append(folder.folderName).append(" "));

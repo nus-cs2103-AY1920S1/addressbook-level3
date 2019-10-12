@@ -1,14 +1,14 @@
 {
   "bookmarks": [ {
-    "name": "Alice Pauline",
-    "url": "https://alice-example.com",
-    "remark": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ],
+    "name": "Duplicate Name",
+    "url": "https://www.example1.com",
+    "remark": "Duplicate bookmark",
+    "tagged": [ "duplicate" ],
     "folder" : "ROOT"
   }, {
-    "name": "Alice Pauline",
-    "url": "https://alice-example.com",
-    "remark": "4th street",
+    "name": "Duplicate Name",
+    "url": "https://www.example2.com",
+    "remark": "Duplicate bookmark",
     "folder" : "ROOT"
   } ],
   "folderStructure": {

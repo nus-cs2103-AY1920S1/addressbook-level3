@@ -1,8 +1,8 @@
 {
   "bookmarks": [ {
-    "name": "Hans Muster",
-    "url": "invalid@url!3e",
-    "remark": "4th street"
+    "name": "Bookmark With Invalid Url Field",
+    "url": "invalid@url!asd",
+    "remark": "This is an invalid bookmark"
   } ],
   "folderStructure": {
     "name": "ROOT",
