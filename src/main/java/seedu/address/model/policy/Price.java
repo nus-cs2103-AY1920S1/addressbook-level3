@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Price should only contain \"$\" and numbers, and it should not be blank";
+            "Price should start off with \"$\" and contain only numbers. It should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[$][\\p{N}]*";
+    public static final String VALIDATION_REGEX = "[$][\\p{N}]+";
 
     public final String price;
 

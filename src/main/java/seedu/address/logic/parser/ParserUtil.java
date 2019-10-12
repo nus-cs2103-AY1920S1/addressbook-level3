@@ -70,7 +70,7 @@ public class ParserUtil {
         if (!Nric.isValidNric(trimmedNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(nric);
+        return new Nric(trimmedNric);
     }
 
     /**
@@ -199,7 +199,7 @@ public class ParserUtil {
         if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(description);
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -228,9 +228,9 @@ public class ParserUtil {
         requireNonNull(price);
         String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }
-        return new Price(price);
+        return new Price(trimmedPrice);
     }
 
     /**
@@ -241,11 +241,11 @@ public class ParserUtil {
      */
     public static StartAge parseStartAge (String startAge) throws ParseException {
         requireNonNull(startAge);
-        String trimmedAge = startAge.trim();
-        if (!StartAge.isValidAge(trimmedAge)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        String trimmedStartAge = startAge.trim();
+        if (!StartAge.isValidAge(trimmedStartAge)) {
+            throw new ParseException(StartAge.MESSAGE_CONSTRAINTS);
         }
-        return new StartAge(trimmedAge);
+        return new StartAge(trimmedStartAge);
     }
 
     /**
@@ -256,10 +256,10 @@ public class ParserUtil {
      */
     public static EndAge parseEndAge (String endAge) throws ParseException {
         requireNonNull(endAge);
-        String trimmedAge = endAge.trim();
-        if (!EndAge.isValidAge(trimmedAge)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        String trimmedEndAge = endAge.trim();
+        if (!EndAge.isValidAge(trimmedEndAge)) {
+            throw new ParseException(EndAge.MESSAGE_CONSTRAINTS);
         }
-        return new EndAge(trimmedAge);
+        return new EndAge(trimmedEndAge);
     }
 }
