@@ -713,7 +713,7 @@ Collapses the folder hierarchy by 1 level.
 Switches the current app view to the tab that corresponds to the given
 index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
 
-Format: `*tab* INDEX` OR `*tab* KEYWORD`
+Format: `*tab* INDEX` or `*tab* KEYWORD`
 
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
