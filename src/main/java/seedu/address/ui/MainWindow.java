@@ -43,8 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private LogPanel logPanel;
     private HelpWindow helpWindow;
 
-    private boolean calendarMode;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -79,7 +77,6 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.uiParser = new UiParser();
-        this.calendarMode = false;
 
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -211,18 +208,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         // Temporary Stub for UI testing.
-        if (commandText.equals("view")) {
-            if (calendarMode) {
-                calendarMode = false;
-                calendarPanel.getRoot().setVisible(false);
-                listPanel.getRoot().setVisible(true);
-            } else {
-                calendarMode = true;
-                listPanel.getRoot().setVisible(false);
-                calendarPanel.getRoot().setVisible(true);
-            }
+        if (commandText.equals("view_calendar")) {
+            calendarPanel.getRoot().setVisible(true);
+            listPanel.getRoot().setVisible(false);
+            return null;
+        } else if (commandText.equals("view_event_list")) {
+            listPanel.getRoot().setVisible(true);
+            calendarPanel.getRoot().setVisible(false);
+            return null;
+        } else if (commandText.equals("view_task_list")) {
+            // nothing
+            System.out.println("Viewing Task List has been called");
             return null;
         }
+
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

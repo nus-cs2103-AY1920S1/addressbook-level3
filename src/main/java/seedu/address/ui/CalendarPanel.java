@@ -93,9 +93,19 @@ public class CalendarPanel extends UiPart<Region> {
                     }
                 } else if (c.wasUpdated()) {
                     //update item
+                    for(EventSource changedEvent : c.getList()) {
+                        System.out.println("I've been edited");
+                        DayCard dayCard = currentMonthDayCards.get(
+                                uiParser.getDay(changedEvent.getStartDateTime().getDateTime()) - 1);
+                    }
                 } else {
                     for (EventSource removedEvent : c.getRemoved()) {
                         // Remove items
+                        DayCard dayCard = currentMonthDayCards.get(
+                                uiParser.getDay(removedEvent.getStartDateTime().getDateTime()) - 1);
+                        if(dayCard.sameDateAsEvent(removedEvent, uiParser)) {
+                            dayCard.removeDayCardEvent(removedEvent);
+                        }
                     }
                     for (EventSource addedEvent : c.getAddedSubList()) {
                         // Adds items

@@ -23,7 +23,7 @@ public class DayCard extends UiPart<Region> {
     private int year;
     private int numDayCardEvent;
 
-    private ArrayList<EventSource> eventList = new ArrayList<>();
+    private ArrayList<DayCardEvent> dayCardEventList = new ArrayList<>();
     private UiParser uiParser;
 
     @FXML
@@ -72,28 +72,26 @@ public class DayCard extends UiPart<Region> {
     public void addDayCardEvent(EventSource event) {
         // We still want to take note of the number of events on that particular day.
         this.numDayCardEvent++;
+        DayCardEvent addedEventLabel = new DayCardEvent(event);
+        dayCardEventList.add(addedEventLabel);
         if (this.numDayCardEvent <= 5) {
-            DayCardEvent addedEventLabel = new DayCardEvent(event.getDescription());
             todayEvents.getChildren().add(addedEventLabel.getRoot());
         }
 
     }
 
+    public void removeDayCardEvent(EventSource event) {
+        dayCardEventList.remove(event);
+        todayEvents.getChildren().remove(getDayCardEvent(event).getRoot());
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
+    }
+
+    private DayCardEvent getDayCardEvent(EventSource event) {
+        for(DayCardEvent dayCardEvent : dayCardEventList) {
+            if(dayCardEvent.getEvent().equals(event)) {
+                return dayCardEvent;
+            }
         }
-
-        // instanceof handles nulls
-        if (!(other instanceof DayCard)) {
-            return false;
-        }
-
-        // state check
-        DayCard card = (DayCard) other;
-        return eventList.equals(card.eventList);
+        return null;
     }
 }

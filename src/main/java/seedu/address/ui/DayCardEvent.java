@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import jdk.jfr.Event;
+import seedu.address.model.events.EventSource;
 
 /**
  * An UI component that displays information of a {@code Event}.
@@ -11,14 +13,20 @@ import javafx.scene.layout.Region;
 public class DayCardEvent extends UiPart<Region> {
 
     private static final String FXML = "DayCardEvent.fxml";
+    private EventSource event;
 
     @FXML
     private Label eventDescription;
 
-    public DayCardEvent(String description) {
+    public DayCardEvent(EventSource event) {
         super(FXML);
-        this.eventDescription.setText(description);
+        this.event = event;
+        this.eventDescription.setText(event.getDescription());
         eventDescription.setPadding(new Insets(0, 0, 0, 5));
+    }
+
+    public EventSource getEvent() {
+        return this.event;
     }
 
     @Override
