@@ -21,6 +21,13 @@ public class SerializableTestClass {
             + "  }%n"
             + "}");
 
+    public static final String JSON_ARRAY_STRING_REPRESENTATION = String.format("[%n "
+            + JSON_STRING_REPRESENTATION
+            + ",%n"
+            + JSON_STRING_REPRESENTATION
+            + "%n"
+            + "]");
+
     private static final String NAME_TEST_VALUE = "This is a test class";
 
     private String name;

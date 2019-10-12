@@ -1,6 +1,7 @@
 package seedu.module.model;
 
 import javafx.collections.ObservableList;
+import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
 
 /**
@@ -13,5 +14,7 @@ public interface ReadOnlyModuleBook {
      * This list will not contain any duplicate modules.
      */
     ObservableList<Module> getModuleList();
+
+    ObservableList<ArchivedModule> getArchivedModuleList();
 
 }

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,7 @@ public class JsonUtil {
 
     private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
@@ -46,6 +48,11 @@ public class JsonUtil {
     static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+
+    static <T> T deserializeObjectFromJsonFile(Path jsonFile, TypeReference<T> typeReferenceClass)
+            throws IOException {
+        return fromJsonString(FileUtil.readFromFile(jsonFile), typeReferenceClass);
     }
 
     /**
@@ -68,6 +75,34 @@ public class JsonUtil {
 
         try {
             jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
+        } catch (IOException e) {
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(jsonFile);
+    }
+
+    /**
+     * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
+     * If any values are missing from the file, default values will be used, as long as the file is a valid json file.
+     * @param filePath cannot be null.
+     * @param typeReferenceClass Json file has to correspond to the structure in the class given here.
+     * @throws DataConversionException if the file format is not as expected.
+     */
+    public static <T> Optional<T> readJsonFile(
+            Path filePath, TypeReference<T> typeReferenceClass) throws DataConversionException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Json file " + filePath + " not found");
+            return Optional.empty();
+        }
+
+        T jsonFile;
+
+        try {
+            jsonFile = deserializeObjectFromJsonFile(filePath, typeReferenceClass);
         } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
@@ -100,6 +135,16 @@ public class JsonUtil {
      */
     public static <T> T fromJsonString(String json, Class<T> instanceClass) throws IOException {
         return objectMapper.readValue(json, instanceClass);
+    }
+
+    /**
+     * Converts a given string representation of a JSON data to instance of a class
+     *
+     * @param <T> The generic type to create an instance of
+     * @return The instance of T with the specified values in the JSON string
+     */
+    public static <T> T fromJsonString(String json, TypeReference<T> typeReferenceClass) throws IOException {
+        return objectMapper.readValue(json, typeReferenceClass);
     }
 
     /**

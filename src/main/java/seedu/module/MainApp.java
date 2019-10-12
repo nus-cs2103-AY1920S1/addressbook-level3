@@ -18,10 +18,11 @@ import seedu.module.logic.LogicManager;
 import seedu.module.model.Model;
 import seedu.module.model.ModelManager;
 import seedu.module.model.ModuleBook;
-import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.ReadOnlyUserPrefs;
 import seedu.module.model.UserPrefs;
+import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.util.SampleDataUtil;
+import seedu.module.storage.JsonArchivedModuleList;
 import seedu.module.storage.JsonModuleBookStorage;
 import seedu.module.storage.JsonUserPrefsStorage;
 import seedu.module.storage.ModuleBookStorage;
@@ -39,6 +40,7 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String ARCHIVED_MODULES_RESOURCE_FILE_NAME = "data/archivedModules.json";
 
     protected Ui ui;
     protected Logic logic;
@@ -74,8 +76,9 @@ public class MainApp extends Application {
      * or an empty module book will be used instead if errors occur when reading {@code storage}'s module book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyModuleBook> moduleBookOptional;
-        ReadOnlyModuleBook initialData;
+        Optional<ModuleBook> moduleBookOptional;
+        ModuleBook initialData;
+
         try {
             moduleBookOptional = storage.readModuleBook();
             if (!moduleBookOptional.isPresent()) {
@@ -89,6 +92,10 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty ModuleBook");
             initialData = new ModuleBook();
         }
+
+        ArchivedModuleList archivedModules = JsonArchivedModuleList.readArchivedModules(
+            ARCHIVED_MODULES_RESOURCE_FILE_NAME);
+        initialData.setArchivedModules(archivedModules);
 
         return new ModelManager(initialData, userPrefs);
     }

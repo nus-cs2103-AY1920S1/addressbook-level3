@@ -1,0 +1,11 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2030",
+    "title" : "Programming Methodology II",
+    "description" : "Lorem Ipsum"
+  },
+  {
+    "moduleCode" : "CS2103T",
+    "title" : "Missing Description"
+  } ]
+}

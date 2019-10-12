@@ -19,18 +19,18 @@ public interface ModuleBookStorage {
     Path getModuleBookFilePath();
 
     /**
-     * Returns ModuleBook data as a {@link ReadOnlyModuleBook}.
+     * Returns ModuleBook data as a {@link ModuleBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyModuleBook> readModuleBook() throws DataConversionException, IOException;
+    Optional<ModuleBook> readModuleBook() throws DataConversionException, IOException;
 
     /**
      * @see #getModuleBookFilePath()
      */
-    Optional<ReadOnlyModuleBook> readModuleBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ModuleBook> readModuleBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyModuleBook} to the storage.

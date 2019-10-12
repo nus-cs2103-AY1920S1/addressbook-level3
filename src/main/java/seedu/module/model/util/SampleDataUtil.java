@@ -1,7 +1,6 @@
 package seedu.module.model.util;
 
 import seedu.module.model.ModuleBook;
-import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.module.Module;
 
 /**
@@ -15,7 +14,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyModuleBook getSampleModuleBook() {
+    public static ModuleBook getSampleModuleBook() {
         ModuleBook sampleMb = new ModuleBook();
         for (Module sampleModule : getSampleModules()) {
             sampleMb.addModule(sampleModule);

@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.module.model.module.ArchivedModule;
+import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.Module;
 import seedu.module.model.module.UniqueModuleList;
 
@@ -15,16 +17,21 @@ import seedu.module.model.module.UniqueModuleList;
 public class ModuleBook implements ReadOnlyModuleBook {
 
     private final UniqueModuleList modules;
+    private ArchivedModuleList archivedModules;
 
-        /*
-        * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-        * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-        *
-        * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-        *   among constructors.
-        */ {
+
+    /*
+    * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+    * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    *
+    * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+    *   among constructors.
+    */
+    {
         modules = new UniqueModuleList();
+        archivedModules = new ArchivedModuleList();
     }
+
 
     public ModuleBook() {
     }
@@ -45,6 +52,13 @@ public class ModuleBook implements ReadOnlyModuleBook {
      */
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
+    }
+
+    /**
+     * Sets the current ArchivedModuleList with another ArchivedModuleList.
+     */
+    public void setArchivedModules(ArchivedModuleList archivedModules) {
+        this.archivedModules = archivedModules;
     }
 
     /**
@@ -93,6 +107,10 @@ public class ModuleBook implements ReadOnlyModuleBook {
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<ArchivedModule> getArchivedModuleList() {
+        return archivedModules.asUnmodifiableObservableList();
     }
 
     @Override

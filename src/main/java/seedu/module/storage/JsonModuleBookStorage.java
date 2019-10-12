@@ -12,6 +12,7 @@ import seedu.module.commons.exceptions.DataConversionException;
 import seedu.module.commons.exceptions.IllegalValueException;
 import seedu.module.commons.util.FileUtil;
 import seedu.module.commons.util.JsonUtil;
+import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
 
 /**
@@ -32,7 +33,7 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyModuleBook> readModuleBook() throws DataConversionException {
+    public Optional<ModuleBook> readModuleBook() throws DataConversionException {
         return readModuleBook(filePath);
     }
 
@@ -42,7 +43,7 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyModuleBook> readModuleBook(Path filePath) throws DataConversionException {
+    public Optional<ModuleBook> readModuleBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableModuleBook> jsonModuleBook = JsonUtil.readJsonFile(
