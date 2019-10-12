@@ -1,18 +1,16 @@
-package dream.fcard.util;
+package dream.fcard.logic.storage;
 
 import dream.fcard.model.Deck;
+import dream.fcard.util.FileReadWrite;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
  * Interface to managing storage for the program.
  */
 public class StorageManager {
-
-    public static String FRONT_BACK_TYPE = "front-back";
 
     private static boolean isRootResolved = false;
 
