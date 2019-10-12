@@ -161,6 +161,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            // Update foodListPanel after every command
+            foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
+            foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

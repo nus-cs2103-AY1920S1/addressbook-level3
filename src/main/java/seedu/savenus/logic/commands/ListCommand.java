@@ -18,6 +18,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOOD);
+        model.updateComparator((x, y) -> 0); // To reset the comparator, if any was provided
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
