@@ -5,6 +5,9 @@ matrix:
     - os: linux
       jdk: oraclejdk11
 
+services:
+  - xvfb
+
 before_install:
   - sudo apt update
   - sudo apt install openjfx
