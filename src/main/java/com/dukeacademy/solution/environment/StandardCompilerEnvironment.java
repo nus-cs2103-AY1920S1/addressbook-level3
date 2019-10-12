@@ -208,7 +208,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             if (!javaFile.delete()) {
                 logger.fine("Could not delete Java file after write failed. File may persist on file system.");
             }
-            throw new JavaFileCreationException(messageCreateJavaFileFailed);
+            throw new JavaFileCreationException(messageWriteJavaFileFailed);
         }
 
         logger.fine("Source code successfully written to file: " + javaFile.getName());

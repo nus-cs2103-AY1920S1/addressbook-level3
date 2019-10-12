@@ -2,10 +2,8 @@ package com.dukeacademy.solution;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.solution.TestCase;
 import com.dukeacademy.model.solution.TestCaseResult;
 import com.dukeacademy.model.solution.TestExecutorResult;
@@ -35,13 +33,11 @@ public class TestExecutor {
     private CompilerEnvironment environment;
     private Compiler compiler;
     private ProgramExecutor executor;
-    private Logger logger;
 
     public TestExecutor(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor) {
         this.environment = environment;
         this.compiler = compiler;
         this.executor = executor;
-        this.logger = LogsCenter.getLogger(TestExecutor.class);
     }
 
     /**

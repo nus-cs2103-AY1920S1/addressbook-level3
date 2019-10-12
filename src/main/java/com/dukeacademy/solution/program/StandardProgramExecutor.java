@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;
@@ -74,7 +73,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
         String error = errorReader.lines().collect(Collectors.joining());
 
         // Return errored program output if present
-        if (!error.equals("")) {
+        if (!"".equals(error)) {
             return ProgramOutput.getErroredProgramOutput(error);
         }
 

@@ -1,5 +1,21 @@
 package com.dukeacademy.solution;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import com.dukeacademy.model.solution.TestCase;
 import com.dukeacademy.model.solution.TestCaseResult;
 import com.dukeacademy.model.solution.TestExecutorResult;
@@ -12,19 +28,6 @@ import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.solution.exceptions.TestExecutorException;
 import com.dukeacademy.solution.program.ProgramExecutor;
 import com.dukeacademy.solution.program.StandardProgramExecutor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TestExecutorTest {
     @TempDir
@@ -37,7 +40,7 @@ class TestExecutorTest {
         Compiler compiler = new StandardCompiler();
         ProgramExecutor executor = new StandardProgramExecutor();
 
-        this.executor= new TestExecutor(environment, compiler, executor);
+        this.executor = new TestExecutor(environment, compiler, executor);
     }
 
     @Test
@@ -132,6 +135,14 @@ class TestExecutorTest {
         });
     }
 
+    /**
+     * Load test cases from a root folder. Each test case is generated from an input text file following
+     * the naming convention "test1.txt", "test2.txt", etc and its corresponding expected value text file
+     * following the naming convention "expected1.txt", "expected2.txt", etc.
+     * @param rootFolder the path to the root folder that contains the text files.
+     * @return a list of corresponding test cases.
+     * @throws IOException if the files cannot be found or read.
+     */
     private List<TestCase> loadTestCases(Path rootFolder) throws IOException {
         String test1 = Files.readString(rootFolder.resolve("test1.txt"));
         String test2 = Files.readString(rootFolder.resolve("test2.txt"));
@@ -155,6 +166,13 @@ class TestExecutorTest {
         return testCases;
     }
 
+    /**
+     * Compares a list of test cases and results sequentially and checks that each result is successful and that
+     * its actual and expected outputs matches those specified in the test case.
+     * @param testCases the list of test cases to be checked against.
+     * @param results the list of results to be checked.
+     * @return true if all the results match the criteria.
+     */
     private boolean matchTestCaseAndResults(List<TestCase> testCases, List<TestCaseResult> results) {
         return IntStream.range(0, testCases.size())
                 .mapToObj(index -> {

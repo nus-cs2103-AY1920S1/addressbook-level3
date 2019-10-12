@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class UserProgramTest {
 
     @Test
-    void getCanonicalName() {
+    public void getCanonicalName() {
         String fileName = "Test";
         String content = "package foo.bar;\n"
                 + "public class Test {\n}";
