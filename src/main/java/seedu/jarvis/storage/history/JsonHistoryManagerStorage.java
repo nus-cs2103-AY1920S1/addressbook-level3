@@ -1,6 +1,7 @@
 package seedu.jarvis.storage.history;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -74,8 +75,7 @@ public class JsonHistoryManagerStorage implements HistoryManagerStorage {
      */
     @Override
     public void saveHistoryManager(HistoryManager historyManager, Path filePath) throws IOException {
-        requireNonNull(historyManager);
-        requireNonNull(filePath);
+        requireAllNonNull(historyManager, filePath);
 
         FileUtil.createIfMissing(filePath);
     }
