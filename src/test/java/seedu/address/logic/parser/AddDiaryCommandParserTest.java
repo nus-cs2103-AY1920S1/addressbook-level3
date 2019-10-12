@@ -14,12 +14,12 @@ import static seedu.address.testutil.TypicalDiaries.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.Name;
 import seedu.address.testutil.DiaryBuilder;
 
-public class AddCommandParserTest {
+public class AddDiaryCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
@@ -27,10 +27,10 @@ public class AddCommandParserTest {
         Diary expectedDiary = new DiaryBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB, new AddCommand(expectedDiary));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB, new AddDiaryCommand(expectedDiary));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB, new AddCommand(expectedDiary));
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB, new AddDiaryCommand(expectedDiary));
     }
 
     @Test
@@ -38,12 +38,12 @@ public class AddCommandParserTest {
         // zero tags
         Diary expectedDiary = new DiaryBuilder(AMY).build();
         assertParseSuccess(parser, NAME_DESC_AMY,
-                new AddCommand(expectedDiary));
+                new AddDiaryCommand(expectedDiary));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDiaryCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB,
@@ -65,6 +65,6 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDiaryCommand.MESSAGE_USAGE));
     }
 }

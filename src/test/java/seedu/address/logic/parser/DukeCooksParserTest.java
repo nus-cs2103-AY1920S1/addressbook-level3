@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -26,8 +26,8 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Diary diary = new DiaryBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(DiaryUtil.getAddCommand(diary));
-        assertEquals(new AddCommand(diary), command);
+        AddDiaryCommand command = (AddDiaryCommand) parser.parseCommand(DiaryUtil.getAddCommand(diary));
+        assertEquals(new AddDiaryCommand(diary), command);
     }
 
     @Test

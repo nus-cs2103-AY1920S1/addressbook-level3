@@ -10,7 +10,7 @@ import seedu.address.model.diary.Diary;
 /**
  * Adds a diary to Duke Cooks.
  */
-public class AddCommand extends Command {
+public class AddDiaryCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -24,9 +24,9 @@ public class AddCommand extends Command {
     private final Diary toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Diary}
+     * Creates an AddDiaryCommand to add the specified {@code Diary}
      */
-    public AddCommand(Diary diary) {
+    public AddDiaryCommand(Diary diary) {
         requireNonNull(diary);
         toAdd = diary;
     }
@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddDiaryCommand // instanceof handles nulls
+                && toAdd.equals(((AddDiaryCommand) other).toAdd));
     }
 }

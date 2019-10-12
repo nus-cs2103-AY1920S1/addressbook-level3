@@ -23,11 +23,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
 
-public class AddCommandTest {
+public class AddDiaryCommandTest {
 
     @Test
     public void constructor_nullDiary_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddDiaryCommand(null));
     }
 
     @Test
@@ -35,33 +35,34 @@ public class AddCommandTest {
         ModelStubAcceptingDiaryAdded modelStub = new ModelStubAcceptingDiaryAdded();
         Diary validDiary = new DiaryBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validDiary).execute(modelStub);
+        CommandResult commandResult = new AddDiaryCommand(validDiary).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDiary), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddDiaryCommand.MESSAGE_SUCCESS, validDiary), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validDiary), modelStub.diariesAdded);
     }
 
     @Test
     public void execute_duplicateDiaries_throwsCommandException() {
         Diary validDiary = new DiaryBuilder().build();
-        AddCommand addCommand = new AddCommand(validDiary);
+        AddDiaryCommand addDiaryCommand = new AddDiaryCommand(validDiary);
         ModelStub modelStub = new ModelStubWithDiary(validDiary);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_DIARY, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddDiaryCommand.MESSAGE_DUPLICATE_DIARY, () -> addDiaryCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Diary alice = new DiaryBuilder().withName("Alice").build();
         Diary bob = new DiaryBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddDiaryCommand addAliceCommand = new AddDiaryCommand(alice);
+        AddDiaryCommand addBobCommand = new AddDiaryCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddDiaryCommand addAliceCommandCopy = new AddDiaryCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

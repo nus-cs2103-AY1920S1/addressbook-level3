@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.EditCommand.EditDiaryDescriptor;
 import seedu.address.model.diary.Diary;
 
@@ -15,7 +15,7 @@ public class DiaryUtil {
      * Returns an add command string for adding the {@code diary}.
      */
     public static String getAddCommand(Diary diary) {
-        return AddCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
+        return AddDiaryCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
     }
 
     /**

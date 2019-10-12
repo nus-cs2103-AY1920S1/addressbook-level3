@@ -12,9 +12,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.Diary;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddDiaryCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddDiaryCommandIntegrationTest {
 
     private Model model;
 
@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Diary diaryInList = model.getDukeCooks().getDiaryList().get(0);
-        assertCommandFailure(new AddCommand(diaryInList), model, AddCommand.MESSAGE_DUPLICATE_DIARY);
+        assertCommandFailure(new AddDiaryCommand(diaryInList), model, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
 }
