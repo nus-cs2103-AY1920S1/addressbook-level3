@@ -3,7 +3,7 @@ package seedu.address.model.rule;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Rule's action.
+ * Represents a RuleAction in a Rule.
  * Guarantees: immutable.
  */
 public class RuleAction {
