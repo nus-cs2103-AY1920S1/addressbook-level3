@@ -110,8 +110,6 @@ public class Person {
                 .append(getEmail())
                 .append(" Username: ")
                 .append(getUsername())
-                .append(" Password (hashed): ")
-                .append(getPassword())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
