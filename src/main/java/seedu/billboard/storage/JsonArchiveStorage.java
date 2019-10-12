@@ -15,42 +15,42 @@ import seedu.billboard.commons.util.JsonUtil;
 import seedu.billboard.model.ReadOnlyBillboard;
 
 /**
- * A class to access Billboard data stored as a json file on the hard disk.
+ * A class to access Archive data stored as a json file on the hard disk.
  */
-public class JsonBillboardStorage extends JsonFileStorage implements BillboardStorage {
+public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonBillboardStorage.class);
 
-    public JsonBillboardStorage(Path filePath) {
+    public JsonArchiveStorage(Path filePath) {
         super(filePath);
     }
 
-    public Path getBillboardFilePath() {
+    public Path getArchiveFilePath() {
         return getFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyBillboard> readBillboard() throws DataConversionException {
-        return readBillboard(getFilePath());
+    public Optional<ReadOnlyBillboard> readArchive() throws DataConversionException {
+        return readArchive(getFilePath());
     }
 
     /**
-     * Similar to {@link #readBillboard()}.
+     * Similar to {@link #readArchive()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyBillboard> readBillboard(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyBillboard> readArchive(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableBillboard> jsonBillboard = JsonUtil.readJsonFile(
+        Optional<JsonSerializableBillboard> jsonArchive = JsonUtil.readJsonFile(
                 filePath, JsonSerializableBillboard.class);
-        if (jsonBillboard.isEmpty()) {
+        if (jsonArchive.isEmpty()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonBillboard.get().toModelType());
+            return Optional.of(jsonArchive.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -58,21 +58,21 @@ public class JsonBillboardStorage extends JsonFileStorage implements BillboardSt
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, getFilePath());
+    public void saveArchive(ReadOnlyBillboard archive) throws IOException {
+        saveArchive(archive, getFilePath());
     }
 
     /**
-     * Similar to {@link #saveBillboard(ReadOnlyBillboard)}.
+     * Similar to {@link #saveArchive(ReadOnlyBillboard)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveArchive(ReadOnlyBillboard archive, Path filePath) throws IOException {
+        requireNonNull(archive);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBillboard(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBillboard(archive), filePath);
     }
 
 }

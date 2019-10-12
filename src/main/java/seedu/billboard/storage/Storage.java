@@ -12,14 +12,16 @@ import seedu.billboard.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends BillboardStorage, UserPrefsStorage {
+public interface Storage extends BillboardStorage, ArchiveStorage, UserPrefsStorage {
 
+    // ================ UserPrefs methods ==============================
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
+    // ================ Billboard methods ==============================
     @Override
     Path getBillboardFilePath();
 
@@ -27,6 +29,16 @@ public interface Storage extends BillboardStorage, UserPrefsStorage {
     Optional<ReadOnlyBillboard> readBillboard() throws DataConversionException, IOException;
 
     @Override
-    void saveBillboard(ReadOnlyBillboard addressBook) throws IOException;
+    void saveBillboard(ReadOnlyBillboard billboard) throws IOException;
+
+    // ================ Archive methods ==============================
+    @Override
+    Path getArchiveFilePath();
+
+    @Override
+    Optional<ReadOnlyBillboard> readArchive() throws DataConversionException, IOException;
+
+    @Override
+    void saveArchive(ReadOnlyBillboard archive) throws IOException;
 
 }

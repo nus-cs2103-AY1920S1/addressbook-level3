@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path billboardFilePath = Paths.get("data" , "billboard.json");
+    private Path archiveFilePath = Paths.get("data" , "archive.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setBillboardFilePath(newUserPrefs.getBillboardFilePath());
+        setArchiveFilePath(newUserPrefs.getArchiveFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,9 +53,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return billboardFilePath;
     }
 
-    public void setBillboardFilePath(Path billboardFilePath) {
-        requireNonNull(billboardFilePath);
-        this.billboardFilePath = billboardFilePath;
+    public void setBillboardFilePath(Path archiveFilePath) {
+        requireNonNull(archiveFilePath);
+        this.archiveFilePath = archiveFilePath;
+    }
+
+    public Path getArchiveFilePath() {
+        return archiveFilePath;
+    }
+
+    public void setArchiveFilePath(Path archiveFilePath) {
+        requireNonNull(archiveFilePath);
+        this.archiveFilePath = archiveFilePath;
     }
 
     @Override
@@ -68,18 +79,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && billboardFilePath.equals(o.billboardFilePath);
+                && billboardFilePath.equals(o.billboardFilePath)
+                && archiveFilePath.equals(o.archiveFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, billboardFilePath);
+        return Objects.hash(guiSettings, billboardFilePath, archiveFilePath);
     }
 
     @Override
     public String toString() {
         return ("Gui Settings : " + guiSettings)
-                + "\nLocal data file location : " + billboardFilePath;
+                + "\nLocal data file location : " + billboardFilePath
+                + "\nLocal archive file location : " + archiveFilePath;
     }
 
 }

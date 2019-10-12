@@ -18,12 +18,14 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private BillboardStorage billboardStorage;
+    private ArchiveStorage archiveStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(BillboardStorage billboardStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BillboardStorage billboardStorage, ArchiveStorage archiveStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.billboardStorage = billboardStorage;
+        this.archiveStorage = archiveStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -64,14 +66,43 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, billboardStorage.getBillboardFilePath());
+    public void saveBillboard(ReadOnlyBillboard billboard) throws IOException {
+        saveBillboard(billboard, billboardStorage.getBillboardFilePath());
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
+    public void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        billboardStorage.saveBillboard(addressBook, filePath);
+        billboardStorage.saveBillboard(billboard, filePath);
+    }
+
+    // ================ Archive methods ==============================
+
+    @Override
+    public Path getArchiveFilePath() {
+        return archiveStorage.getArchiveFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyBillboard> readArchive() throws DataConversionException, IOException {
+        return readArchive(archiveStorage.getArchiveFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyBillboard> readArchive(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from archive file: " + filePath);
+        return archiveStorage.readArchive(filePath);
+    }
+
+    @Override
+    public void saveArchive(ReadOnlyBillboard archive) throws IOException {
+        saveBillboard(archive, archiveStorage.getArchiveFilePath());
+    }
+
+    @Override
+    public void saveArchive(ReadOnlyBillboard archive, Path filePath) throws IOException {
+        logger.fine("Attempting to write to archive file: " + filePath);
+        archiveStorage.saveArchive(archive, filePath);
     }
 
 }

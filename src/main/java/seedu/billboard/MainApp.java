@@ -22,12 +22,7 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.util.SampleDataUtil;
-import seedu.billboard.storage.BillboardStorage;
-import seedu.billboard.storage.JsonBillboardStorage;
-import seedu.billboard.storage.JsonUserPrefsStorage;
-import seedu.billboard.storage.Storage;
-import seedu.billboard.storage.StorageManager;
-import seedu.billboard.storage.UserPrefsStorage;
+import seedu.billboard.storage.*;
 import seedu.billboard.ui.Ui;
 import seedu.billboard.ui.UiManager;
 
@@ -57,7 +52,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         BillboardStorage billboardStorage = new JsonBillboardStorage(userPrefs.getBillboardFilePath());
-        storage = new StorageManager(billboardStorage, userPrefsStorage);
+        ArchiveStorage archiveStorage = new JsonArchiveStorage(userPrefs.getArchiveFilePath());
+        storage = new StorageManager(billboardStorage, archiveStorage, userPrefsStorage);
 
         initLogging(config);
 

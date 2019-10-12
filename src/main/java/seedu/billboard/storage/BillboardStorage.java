@@ -9,7 +9,7 @@ import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
 
 /**
- * Represents a storage for {@link Billboard}.
+ * Represents a storage for {@link Billboard} to store current expenses.
  */
 public interface BillboardStorage {
 
@@ -33,14 +33,14 @@ public interface BillboardStorage {
 
     /**
      * Saves the given {@link ReadOnlyBillboard} to the storage.
-     * @param addressBook cannot be null.
+     * @param billboard cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveBillboard(ReadOnlyBillboard addressBook) throws IOException;
+    void saveBillboard(ReadOnlyBillboard billboard) throws IOException;
 
     /**
      * @see #saveBillboard(ReadOnlyBillboard)
      */
-    void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException;
+    void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException;
 
 }
