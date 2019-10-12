@@ -11,6 +11,7 @@ import seedu.address.model.book.SerialNumber;
 public class SerialNumberGenerator {
     public static final int SERIAL_NUMBER_LENGTH = 5; //excluding prefix 'B'
     public static final String PREFIX = "B";
+    private static final String FIRST_SERIAL_NUMBER = PREFIX + "00001";
 
     private static TreeSet<SerialNumber> serialNumberTree = new TreeSet<>();
 
@@ -30,19 +31,25 @@ public class SerialNumberGenerator {
      */
     public static SerialNumber generateSerialNumber() {
         if (serialNumberTree.isEmpty()) {
-            SerialNumber serialNumber = new SerialNumber(PREFIX + "00001");
+            SerialNumber serialNumber = new SerialNumber(FIRST_SERIAL_NUMBER);
             serialNumberTree.add(serialNumber);
             return serialNumber;
         }
         int key = serialNumberTree.size();
         SerialNumber keyCompare = constructSerialNumberFromInt(key);
-        int newIndex = serialNumberTree.floor(keyCompare).serialNumberToInt() + 1;
-        SerialNumber newSerialNumber = constructSerialNumberFromInt(newIndex);
+        SerialNumber floorKey = serialNumberTree.floor(keyCompare);
+        SerialNumber newSerialNumber;
+        if (floorKey == null) {
+            newSerialNumber = new SerialNumber(FIRST_SERIAL_NUMBER);
+        } else {
+            int newIndex = floorKey.serialNumberToInt() + 1;
+            newSerialNumber = constructSerialNumberFromInt(newIndex);
+        }
         serialNumberTree.add(newSerialNumber);
         return newSerialNumber;
     }
 
-    public static SerialNumber constructSerialNumberFromInt(int k) {
+    private static SerialNumber constructSerialNumberFromInt(int k) {
         return new SerialNumber(PREFIX + getPadding(k) + k);
     }
 
