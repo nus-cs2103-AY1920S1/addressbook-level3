@@ -19,11 +19,10 @@ public class TabCommand extends Command {
     public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
 
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": Switches view to the tab identified by the given index. "
-            + "The dashboard tab is index 1, the online tab is index 2, and the offline tab is index 3.\n"
-            + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 \n"
-            + "Alternatively, use 'tab dash', 'tab on' or 'tab off', respectively.";
+            COMMAND_WORD + ": Switches to the tab specified by the given index or keyword. "
+            + "Dashboard - '1' or 'dash'. Online - '2' or 'on'. Offline - '3' or 'off'.\n"
+            + "Parameter: INDEX or KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     private final Tab tab;
 
