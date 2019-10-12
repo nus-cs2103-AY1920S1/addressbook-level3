@@ -48,11 +48,19 @@
         </StackPane>
 
         <SplitPane>
+<!--          <Label fx:id="district" styleClass="cell_small_label" text="\$district" />-->
           <VBox fx:id="personList" styleClass="pane-with-border" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="incidentList" styleClass="pane-with-border" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="incidentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <VBox fx:id="vehicleList" styleClass="pane-with-border" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS">

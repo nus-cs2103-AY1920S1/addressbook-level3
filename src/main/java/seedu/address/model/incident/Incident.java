@@ -1,10 +1,19 @@
 package seedu.address.model.incident;
-import java.time.LocalDateTime;
-import java.util.Scanner;
 
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Username;
+
+import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Represents an incident report in the IMS.
@@ -12,15 +21,15 @@ import seedu.address.model.vehicle.Vehicle;
 public class Incident {
 
     //is autofilled
-    private Person operator;
-    private LocalDateTime dateTime;
-    private Vehicle car;
-    private IncidentId id;
+    private final Person operator;
+    private final IncidentDateTime incidentDateTime;
+    // private final Vehicle car;
+    private final IncidentId id;
 
     //needs to be entered by operator
-    private Description incidentDesc;
-    private District location;
-    private String callerNumber;
+    private final Description incidentDesc;
+    private final District location;
+    private final CallerNumber callerNumber;
 
 
     /**
@@ -29,11 +38,27 @@ public class Incident {
      */
     public Incident(String caller) {
         //this.operator = autofilled on sign in
-        this.dateTime = LocalDateTime.now();
-        this.id = new IncidentId(dateTime.getMonthValue(), dateTime.getYear());
+        // TODO: autofill operator upon sign in. Currently dummy data
+        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+        this.incidentDateTime = new IncidentDateTime();
+        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
         this.incidentDesc = promptForDescription();
         this.location = promptForLocation();
-        this.callerNumber = caller;
+        this.callerNumber = new CallerNumber(caller);
+        //this.car = VehicleAssigner.assignVehicle(location);
+    }
+
+    // load past incident cases
+    public Incident(IncidentId id, District location, IncidentDateTime incidentDateTime, String operator) {
+        // TODO: figure out importing rest of person class
+        this.operator = new Person(new Name(operator), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+        this.incidentDateTime = incidentDateTime;
+        this.id = id;
+        this.incidentDesc = new Description("Fluff description");
+        this.location = location;
+        this.callerNumber = new CallerNumber("98989898");
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
@@ -69,19 +94,65 @@ public class Incident {
     }
 
 
-    public LocalDateTime getTime() {
-        return this.dateTime;
+    public IncidentDateTime getDateTime() {
+        return this.incidentDateTime;
     }
 
     public Description getDesc() {
         return this.incidentDesc;
     }
 
-    public String getCallerNumber() {
+    public CallerNumber getCallerNumber() {
         return this.callerNumber;
     }
 
-    public Vehicle getCar() {
-        return car;
+    public District getLocation() {
+        return this.location;
+    }
+
+    public IncidentId getIncidentId() {
+        return id;
+    }
+
+    public Person getOperator() {
+        return operator;
+    }
+
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two Vehicles.
+     */
+    public boolean isSameIncident(Incident otherIncident) {
+        if (otherIncident == this) {
+            return true;
+        }
+
+        return otherIncident != null
+                && otherIncident.getIncidentId().equals(getIncidentId());
+    }
+
+    /**
+     * Returns true if both Vehicles have the same identity and data fields.
+     * This defines a stronger notion of equality between two Vehicles.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Incident)) {
+            return false;
+        }
+
+        Incident otherIncident = (Incident) other;
+        return otherIncident.getIncidentId().equals(getIncidentId())
+                && otherIncident.getDesc().equals(getDesc());
     }
 }

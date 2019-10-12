@@ -50,6 +50,7 @@
     "password": "password",
     "tagged" : [ ]
   } ],
+  "incidents": [],
   "vehicles": [ {
     "vehicleType": "Patrol Car",
     "vehicleNumber": "SBH3100F",

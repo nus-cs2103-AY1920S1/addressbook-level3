@@ -13,6 +13,17 @@
     "username": "tester10",
     "password": "password"
   } ],
+  "incidents": [ {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
+  }, {
+    "incidentId": "0320130000",
+    "districtNum": 12,
+    "dateTime": "2013-03-03T12:30:35",
+    "operator": "John"
+  } ],
   "vehicles": [ {
     "vehicleType": "Ambulance",
     "vehicleNumber": "AAA1111A",
