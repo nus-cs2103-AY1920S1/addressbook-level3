@@ -1,8 +1,9 @@
-package seedu.jarvis.commons.util.andor;
+package seedu.jarvis.testutil.course;
 
 import java.util.Collection;
 import java.util.List;
 
+import seedu.jarvis.commons.util.andor.AndOrNode;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CourseCode;
 
@@ -11,9 +12,9 @@ import seedu.jarvis.model.course.CourseCode;
  *
  * @author ryanYtan
  */
-public class AndOrStubsUtil {
+public class CourseTestUtil {
 
-    protected static final List<AndOrNode> CHILDREN = List.of(
+    public static final List<AndOrNode> CHILDREN = List.of(
         new NodeStub(new CourseStub("aaa")),
         new NodeStub(new CourseStub("bbb")),
         new NodeStub(new CourseStub("ccc")),
@@ -25,7 +26,7 @@ public class AndOrStubsUtil {
     /**
      * Stub class to emulate a Course.
      */
-    protected static class CourseStub extends Course {
+    public static class CourseStub extends Course {
         public final String code;
 
         public CourseStub(String code) {
@@ -47,7 +48,7 @@ public class AndOrStubsUtil {
     /**
      * Stub class to emulate a Node.
      */
-    protected static class NodeStub extends AndOrNode {
+    public static class NodeStub extends AndOrNode {
         public NodeStub(CourseStub data) {
             super(data, null, null);
         }
