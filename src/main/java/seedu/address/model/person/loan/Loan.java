@@ -1,12 +1,12 @@
 package seedu.address.model.person.loan;
 
-import seedu.address.model.person.loan.stub.Amount;
-import seedu.address.model.person.loan.stub.Date;
-import seedu.address.model.person.Person;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.loan.stub.Amount;
+import seedu.address.model.person.loan.stub.Date;
 
 /**
  * Represents a Loan in a LoanList.
@@ -35,7 +35,7 @@ public class Loan {
         this.status = status;
     }
 
-    public Person getPerson(){
+    public Person getPerson() {
         return person;
     }
 

@@ -13,7 +13,7 @@ public class Description {
             "Description cannot be only whitespaces or over 140 characters long.";
     public static final long MAX_DESCRIPTION_LENGTH = 140;
 
-    public String description;
+    public final String description;
 
     /**
      * Constructs a {@code description}.
