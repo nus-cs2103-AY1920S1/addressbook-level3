@@ -26,15 +26,15 @@ public class StatisticManager implements Statistic {
     public StatisticManager() {}
 
     @Override
-    public String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook) {
-        double revenueString = Double.parseDouble(this.calculateTotalRevenue(orderBook));
-        double costString = Double.parseDouble(this.calculateTotalCost(orderBook, phoneBook));
+    public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook) {
+        double revenueString = Double.parseDouble(this.calculateTotalRevenueOnCompleted(orderBook));
+        double costString = Double.parseDouble(this.calculateTotalCostOnCompleted(orderBook, phoneBook));
         double totalProfitResult = revenueString - costString;
         return String.valueOf(totalProfitResult);
     }
 
     @Override
-    public String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook) {
+    public String calculateTotalRevenueOnCompleted(ReadOnlyDataBook<Order> orderBook) {
         requireNonNull(orderBook);
         double[] completedOrderPriceArray = getDoubleOrderPriceArray(orderBook);
         double totalRevenue = StatUtils.sum(completedOrderPriceArray);
@@ -42,8 +42,8 @@ public class StatisticManager implements Statistic {
     }
 
     @Override
-    public String calculateTotalCost(ReadOnlyDataBook<Order> orderBook,
-                                     ReadOnlyDataBook<Phone> phoneBook) {
+    public String calculateTotalCostOnCompleted(ReadOnlyDataBook<Order> orderBook,
+                                                ReadOnlyDataBook<Phone> phoneBook) {
         requireAllNonNull(orderBook, phoneBook);
         double[] completedOrderPhoneCostList = getDoublePhoneCostArray(orderBook);
         double totalCost = StatUtils.sum(completedOrderPhoneCostList);

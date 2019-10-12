@@ -21,6 +21,7 @@ public class TypicalOrders {
     private static final String DEFAULT_TAG_2 = "New";
     private static final String DEFAULT_TAG_3 = "Old";
 
+
     public static final Order ORDERONE = new OrderBuilder().withCustomer(CUSTOMERONE).withPhone(IPHONEONE)
             .withPrice(DEFAULT_PRICE_1).withTags(DEFAULT_TAG_1).build();
 
@@ -29,5 +30,6 @@ public class TypicalOrders {
 
     public static final Order ORDERTHREE = new OrderBuilder().withCustomer(CUSTOMERTHREE).withPhone(IPHONETWO)
             .withPrice(DEFAULT_PRICE_3).withTags(DEFAULT_TAG_3).build();
+
 
 }

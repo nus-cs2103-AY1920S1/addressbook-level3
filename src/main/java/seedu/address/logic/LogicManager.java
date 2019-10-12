@@ -114,16 +114,16 @@ public class LogicManager implements Logic {
 
     @Override
     public String calculateTotalProfit() {
-        return this.statistic.calculateTotalProfit(this.getOrderBook(), this.getPhoneBook());
+        return this.statistic.calculateTotalProfitOnCompleted(this.getOrderBook(), this.getPhoneBook());
     }
 
     @Override
     public String calculateTotalRevenue() {
-        return this.statistic.calculateTotalRevenue(this.getOrderBook());
+        return this.statistic.calculateTotalRevenueOnCompleted(this.getOrderBook());
     }
 
     @Override
     public String calculateTotalCost() {
-        return this.statistic.calculateTotalCost(this.getOrderBook(), this.getPhoneBook());
+        return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), this.getPhoneBook());
     }
 }

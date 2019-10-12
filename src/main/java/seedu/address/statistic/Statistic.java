@@ -11,19 +11,27 @@ import seedu.address.model.phone.Phone;
 public interface Statistic {
 
     /**
-     * calculate total Gross Profit
+     * Method to calculate total profit on completed Orders
+     * @param orderBook order book of model
+     * @param phoneBook phone book of model
+     * @return total calculated profit
      */
-    String calculateTotalProfit(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
+    String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
 
     /**
-     * calculate total Gross Revenue
+     * Method to calculate total revenue on completed Orders
+     * @param orderBook order book of model
+     * @return total calculated  revenue
      */
-    String calculateTotalRevenue(ReadOnlyDataBook<Order> orderBook);
+    String calculateTotalRevenueOnCompleted(ReadOnlyDataBook<Order> orderBook);
 
     /**
-     * calculate total Gross Cost
+     * Method to calculate total Cost from {@Code phone} on completed orders
+     * @param orderBook order book of model
+     * @param phoneBook phone book of model
+     * @return total calculated cost
      */
-    String calculateTotalCost(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
+    String calculateTotalCostOnCompleted(ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Phone> phoneBook);
 
 
 }
