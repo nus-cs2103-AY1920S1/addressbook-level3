@@ -6,9 +6,9 @@ import seedu.address.model.Model;
 /**
  * Calculate the total cost on successful orders.
  */
-public class StatsTotalCostCommand extends Command {
+public class StatsTotalCostOnCompletedCommand extends Command {
 
-    public static final String COMMAND_WORD = "generate-totalCost";
+    public static final String COMMAND_WORD = "generate-totalCostCompleted";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generated total cost!!.\n"
             + "Example: " + COMMAND_WORD;

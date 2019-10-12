@@ -6,9 +6,9 @@ import seedu.address.model.Model;
 /**
  * Calculate the total profit on successful orders.
  */
-public class StatsTotalProfitCommand extends Command {
+public class StatsTotalProfitOnCompletedCommand extends Command {
 
-    public static final String COMMAND_WORD = "generate-totalProfit";
+    public static final String COMMAND_WORD = "generate-totalProfitCompleted";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generated Statistics!.\n"
             + "Example: " + COMMAND_WORD;

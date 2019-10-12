@@ -6,8 +6,8 @@ import seedu.address.model.Model;
 /**
  * Calculate the total revenue on successful orders.
  */
-public class StatsTotalRevenueCommand extends Command {
-    public static final String COMMAND_WORD = "generate-totalRevenue";
+public class StatsTotalRevenueCompletedCommand extends Command {
+    public static final String COMMAND_WORD = "generate-totalRevenueCompleted";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generated Total Revenue!.\n"
             + "Example: " + COMMAND_WORD;
