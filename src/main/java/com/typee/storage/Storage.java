@@ -8,11 +8,14 @@ import com.typee.commons.exceptions.DataConversionException;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
+import com.typee.ui.Tab;
+
+import javafx.collections.ObservableList;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, TypeeStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -29,4 +32,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
+    @Override
+    ObservableList<Tab> getTabList() throws DataConversionException;
 }

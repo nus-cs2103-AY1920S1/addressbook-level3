@@ -28,9 +28,9 @@ import com.typee.testutil.EditPersonDescriptorBuilder;
 import com.typee.testutil.PersonBuilder;
 import com.typee.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class TypeeParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final TypeeParser parser = new TypeeParser();
 
     @Test
     public void parseCommand_add() throws Exception {

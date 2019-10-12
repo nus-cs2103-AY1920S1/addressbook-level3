@@ -13,12 +13,13 @@ import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
+import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class TypeeParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -65,6 +66,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case TabCommand.COMMAND_WORD:
+            return new TabCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

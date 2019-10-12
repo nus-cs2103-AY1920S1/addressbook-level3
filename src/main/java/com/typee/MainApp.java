@@ -22,9 +22,11 @@ import com.typee.model.UserPrefs;
 import com.typee.model.util.SampleDataUtil;
 import com.typee.storage.AddressBookStorage;
 import com.typee.storage.JsonAddressBookStorage;
+import com.typee.storage.JsonTypeeStorage;
 import com.typee.storage.JsonUserPrefsStorage;
 import com.typee.storage.Storage;
 import com.typee.storage.StorageManager;
+import com.typee.storage.TypeeStorage;
 import com.typee.storage.UserPrefsStorage;
 import com.typee.ui.Ui;
 import com.typee.ui.UiManager;
@@ -58,7 +60,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TypeeStorage typeeStorage = new JsonTypeeStorage(config.getTabMenuFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
 
         initLogging(config);
 
