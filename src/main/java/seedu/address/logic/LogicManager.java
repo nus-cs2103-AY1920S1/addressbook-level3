@@ -48,9 +48,6 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        try {
-            storage.saveCheatSheetBook(model.ge);
-        }
         return commandResult;
     }
 
