@@ -57,7 +57,8 @@ public class LookUpCommand extends Command {
 
         // TODO execute on model i.e model.lookUpCourse(toShow)
         //      instead of returning it with command result
-        return new CommandResult(toShow.toDisplayableString());
+        String toDisplay = toShow.toDisplayableString();
+        return new CommandResult(toDisplay);
     }
 
     @Override
