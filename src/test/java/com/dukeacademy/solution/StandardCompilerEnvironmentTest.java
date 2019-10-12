@@ -19,7 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import com.dukeacademy.model.solution.UserProgram;
 import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.solution.exceptions.CompilerFileCreationException;
+import com.dukeacademy.solution.exceptions.JavaFileCreationException;
 import com.dukeacademy.solution.models.JavaFile;
 
 class StandardCompilerEnvironmentTest {
@@ -36,7 +36,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    public void createJavaFile() throws CompilerFileCreationException, IOException {
+    public void createJavaFile() throws JavaFileCreationException, IOException {
         String fileName = "Test";
         String content = "public class Test {\n}";
         UserProgram program = new UserProgram(fileName, content);
@@ -49,7 +49,6 @@ class StandardCompilerEnvironmentTest {
 
         File javaFile = javaFilePath.toFile();
         assertTrue(javaFile.exists());
-
 
         Optional<String> fileContent = Files.lines(javaFilePath).reduce((x, y) -> x + "\n" + y);
         assertTrue(fileContent.isPresent());
@@ -77,7 +76,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    public void getJavaFile() throws CompilerFileCreationException, IOException {
+    public void getJavaFile() throws JavaFileCreationException, IOException {
         String fileName = "Test1";
         String content = "public class Test1 {\n}";
 
@@ -100,7 +99,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    public void close() throws CompilerFileCreationException {
+    public void close() throws JavaFileCreationException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         UserProgram program = new UserProgram(fileName, content);
@@ -113,7 +112,7 @@ class StandardCompilerEnvironmentTest {
     }
 
     @Test
-    public void clearEnvironment() throws CompilerEnvironmentException, CompilerFileCreationException, IOException {
+    public void clearEnvironment() throws CompilerEnvironmentException, JavaFileCreationException, IOException {
         String fileName = "Test2";
         String content = "public class Test2 {\n}";
         UserProgram program = new UserProgram(fileName, content);

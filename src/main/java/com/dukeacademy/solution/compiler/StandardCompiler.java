@@ -29,26 +29,73 @@ public class StandardCompiler implements Compiler {
     @Override
     public ClassFile compileJavaFile(JavaFile javaFile) throws CompilerException, CompilerFileContentException {
         try {
-            DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-            StandardJavaFileManager fileManager = javaCompiler
-                    .getStandardFileManager(diagnostics, null, null);
-            Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(javaFile.getFile());
-
-            JavaCompiler.CompilationTask compilationTask = javaCompiler
-                    .getTask(null, fileManager, diagnostics, null, null, sources);
-            compilationTask.call();
-
-            List<Diagnostic<? extends JavaFileObject>> errors = diagnostics.getDiagnostics();
-
-            Optional<Diagnostic<? extends JavaFileObject>> error = errors.stream().findFirst();
-            if (error.isPresent()) {
-                String errorMessage = error.map(diagnostic -> diagnostic.getMessage(null)).get();
-                throw new CompilerFileContentException(errorMessage);
-            }
-
+            Iterable<? extends JavaFileObject> sources = this.getJavaFileObjects(javaFile);
+            this.compileJavaFiles(sources);
             return new ClassFile(javaFile.getCanonicalName(), javaFile.getClassPath());
         } catch (FileNotFoundException e) {
-            throw new CompilerException(MESSAGE_COMPILER_FAILED, e);
+            throw new CompilerException(MESSAGE_COMPILER_FAILED + " Could not retrieve Class file.");
         }
     }
+
+    /**
+     * Retrieves JavaFiles as an iterable of JavaFileObjects object used by the JavaCompiler class for class
+     * compilation during runtime.
+     * @param javaFile an instance of the application's own JavaFile instance.
+     * @return an iterable of JavaFileObjects
+     * @throws CompilerException if the file cannot be retrieved.
+     */
+    private Iterable<? extends JavaFileObject> getJavaFileObjects(JavaFile javaFile) throws CompilerException {
+        // DiagnosticsCollector is used to listen for non-fatal diagnostics
+        DiagnosticCollector<JavaFileObject> fileManagerDiagnostics = new DiagnosticCollector<>();
+
+        // Standard file manager used to get JavaFileObjects
+        StandardJavaFileManager fileManager = javaCompiler
+                .getStandardFileManager(fileManagerDiagnostics, null, null);
+
+        // Retrieve our Java file as a JavaFileObject
+        Iterable<? extends JavaFileObject> sources = fileManager.getJavaFileObjects(javaFile.getFile());
+
+        // Ensure that the DiagnosticsCollector did not collect any errors
+        List<Diagnostic<? extends JavaFileObject>> errors = fileManagerDiagnostics.getDiagnostics();
+        if (errors.size() > 0) {
+            throw new CompilerException(MESSAGE_COMPILER_FAILED + " Could not retrieve Java file.");
+        }
+
+        return sources;
+    }
+
+    /**
+     * Compiles JavaFileObject sources into actual Class files that can be executed by the Java Runtime using the
+     * JavaCompiler class.
+     * @param sources an iterable of JavaFileObjects that can be compiled by the compiler.
+     * @throws CompilerFileContentException if the contents of the Java file leads to a compilation error.
+     */
+    private void compileJavaFiles(Iterable<? extends JavaFileObject> sources) throws CompilerFileContentException {
+        // DiagnosticCollector used to listen for non-fatal diagnostics from the compiler
+        DiagnosticCollector<JavaFileObject> compilerDiagnostics = new DiagnosticCollector<>();
+
+        // Standard file manager used to write newly compiled artifacts
+        StandardJavaFileManager fileManager = javaCompiler
+                .getStandardFileManager(compilerDiagnostics, null, null);
+
+        // Get an asynchronous task representing the compilation of the source Java files
+        JavaCompiler.CompilationTask compilationTask = javaCompiler
+                .getTask(null, fileManager, compilerDiagnostics, null, null, sources);
+
+        // Start the compilation task
+        compilationTask.call();
+
+        // Ensure that the DiagnosticCollector did not collect any errors
+        List<Diagnostic<? extends JavaFileObject>> errors = compilerDiagnostics.getDiagnostics();
+        Optional<String> errorMessages = errors.stream()
+                    .map(diagnostic -> diagnostic.getMessage(null))
+                    .reduce((m1, m2) -> m1 + "\n" + m2);
+
+
+        if (errorMessages.isPresent()) {
+            throw new CompilerFileContentException(errorMessages.get());
+        }
+    }
+
+
 }

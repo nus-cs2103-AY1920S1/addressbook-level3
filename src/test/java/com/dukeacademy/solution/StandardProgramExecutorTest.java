@@ -1,6 +1,8 @@
 package com.dukeacademy.solution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,7 +22,8 @@ import com.dukeacademy.solution.program.StandardProgramExecutor;
 class StandardProgramExecutorTest {
     private static StandardProgramExecutor executor;
 
-    private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms");
+    private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms",
+            "ProgramExecutor");
     private static String noInputTestOutput;
     private static String withInputTestOutput;
     private static String input;
@@ -38,6 +41,7 @@ class StandardProgramExecutorTest {
         ClassFile programClassFile = new ClassFile("NoInputTest", testProgramRootFolder.toUri().getPath());
         ProgramOutput output = executor.executeProgram(programClassFile);
 
+        assertFalse(output.getRuntimeError().isPresent());
         assertEquals(noInputTestOutput, output.getOutput());
     }
 
@@ -48,6 +52,15 @@ class StandardProgramExecutorTest {
         ProgramInput programInput = new ProgramInput(input);
         ProgramOutput output = executor.executeProgram(programClassFile, programInput);
 
+        assertFalse(output.getRuntimeError().isPresent());
         assertEquals(withInputTestOutput, output.getOutput());
+    }
+
+    @Test
+    public void testForRuntimeError() throws ProgramExecutorException, FileNotFoundException {
+        ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramRootFolder.toUri().getPath());
+
+        ProgramOutput output = executor.executeProgram(programClassFile);
+        assertTrue(output.getRuntimeError().isPresent());
     }
 }

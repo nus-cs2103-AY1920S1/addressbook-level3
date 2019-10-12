@@ -1,6 +1,7 @@
 package com.dukeacademy.solution.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,5 +41,21 @@ class JavaFileTest {
         String basePath = tempFolder.toUri().getPath();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foobar", basePath));
+    }
+
+    @Test
+    public void testEquality() throws IOException {
+        String basePath = tempFolder.toUri().getPath();
+        tempFolder.resolve("nested").toFile().mkdir();
+        tempFolder.resolve("nested").resolve("Foo.java").toFile().createNewFile();
+
+        JavaFile javaFile1 = new JavaFile("nested.Foo", basePath);
+        JavaFile javaFile2 = new JavaFile("nested.Foo", basePath);
+
+        assertEquals(javaFile1, javaFile2);
+
+        tempFolder.resolve("Foo.java").toFile().createNewFile();
+        JavaFile javaFile3 = new JavaFile("Foo", basePath);
+        assertNotEquals(javaFile1, javaFile3);
     }
 }
