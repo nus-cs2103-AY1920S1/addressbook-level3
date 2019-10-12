@@ -53,11 +53,11 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
             throw new DuplicateTripException();
         }
 
+        internalList.remove(index);
         if (containsClashing(editedTrip)) {
             internalList.add(index, targetTrip);
             throw new ClashingTripException();
         }
-        internalList.remove(index);
 
         internalList.add(index, editedTrip);
     }

@@ -6,9 +6,9 @@ import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building TravelPal objects.
  * Example usage: <br>
- *     {@code TravelPal ab = new TravelPalBuilder().withPerson("John", "Doe").build();}
+ * {@code TravelPal ab = new TravelPalBuilder().withPerson("John", "Doe").build();}
  */
 public class TravelPalBuilder {
 
@@ -30,11 +30,17 @@ public class TravelPalBuilder {
         return this;
     }
 
-    public TravelPalBuilder withTrip (Trip trip) {
+    /**
+     * Adds a trip to the {@code travelPal} instance.
+     *
+     * @param trip Trip instance to add.
+     * @return TravelPalBuilder.
+     */
+    public TravelPalBuilder withTrip(Trip trip) {
         try {
             travelPal.addTrip(trip);
-        } catch (ClashingTripException e){
-
+        } catch (ClashingTripException e) {
+            //
         }
         return this;
     }

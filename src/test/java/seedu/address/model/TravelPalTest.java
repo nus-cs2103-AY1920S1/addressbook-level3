@@ -1,9 +1,11 @@
 package seedu.address.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_BUDGET_AFRICA;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTrips.TRIP_A;
 import static seedu.address.testutil.TypicalTrips.getTypicalTravelPal;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
@@ -78,23 +81,21 @@ public class TravelPalTest {
 
     @Test
     public void hasTrip_tripInAddressBook_returnsTrue() {
-        try {
+        assertDoesNotThrow(() -> {
             travelPal.addTrip(TRIP_A);
             assertTrue(travelPal.hasTrip(TRIP_A));
-        } catch (ClashingTripException e){
-        }
+        });
     }
 
     @Test
     public void hasTrip_tripWithSameIdentityFieldsInTravelPal_returnsTrue() {
-        try {
+        assertDoesNotThrow(() -> {
             travelPal.addTrip(TRIP_A);
 
             Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
                     .build();
             assertTrue(travelPal.hasTrip(editedTripA));
-        } catch (ClashingTripException e){
-        }
+        });
     }
 
     @Test

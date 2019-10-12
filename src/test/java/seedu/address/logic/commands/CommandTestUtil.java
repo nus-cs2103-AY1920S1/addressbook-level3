@@ -18,9 +18,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
-import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.model.TravelPal;
 import seedu.address.model.Model;
+import seedu.address.model.TravelPal;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -78,7 +77,7 @@ public class CommandTestUtil {
     public static final String VALID_ENDDATE_DAY_2_2 = "07/07/2018 1300";
     public static final String VALID_ENDDATE_DAY_2_3 = "2100";
     public static final String VALID_DESTINATION_DAY_1 = "Gambia";
-    public static final String VALID_DESTINATION_DAY_2_ = "Bali";
+    public static final String VALID_DESTINATION_DAY_2 = "Bali";
     public static final String VALID_TOTAL_BUDGET_DAY_1 = "120.00";
     public static final String VALID_TOTAL_BUDGET_DAY_2 = "3100.00";
     public static final String VALID_DESCRIPTION_DAY_1 = "This is the day of arrival";
@@ -102,13 +101,13 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     /** The required input date format to use. */
-    private static final String DATE_TIME_FORMAT = "d/M/y HHmm";
+    public static final String DATE_TIME_FORMAT = "d/M/y HHmm";
     /** The required input date format to use. */
-    private static final String DATE_FORMAT = "d/M/y";
+    public static final String DATE_FORMAT = "d/M/y";
     /** The required input time format to use. */
-    private static final String TIME_FORMAT = "HHmm";
+    public static final String TIME_FORMAT = "HHmm";
     /** The output format for displaying dates and times. */
-    private static final String DISPLAY_FORMAT = "d MMM y h:mma";
+    public static final String DISPLAY_FORMAT = "d MMM y h:mma";
     /** The dateTime formatter that uses the DATE_TIME_FORMAT pattern. */
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     /** The dateTime formatter that uses the DATE_FORMAT pattern. */
