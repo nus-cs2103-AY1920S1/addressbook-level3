@@ -8,7 +8,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.jarvis.model.address.AddressModel.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.stream.IntStream;
 
@@ -23,7 +23,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

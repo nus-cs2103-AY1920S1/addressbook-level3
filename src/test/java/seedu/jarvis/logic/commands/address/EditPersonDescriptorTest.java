@@ -13,7 +13,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
-import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
+import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
 

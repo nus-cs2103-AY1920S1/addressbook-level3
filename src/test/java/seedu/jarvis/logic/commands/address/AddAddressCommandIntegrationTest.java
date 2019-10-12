@@ -4,7 +4,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFailure;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.stream.IntStream;
 
@@ -16,7 +16,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddAddressCommand}.

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.ALICE;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.ALICE;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.exceptions.DuplicatePersonException;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddressBookTest {
 

@@ -28,9 +28,9 @@ import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
-import seedu.jarvis.testutil.PersonBuilder;
-import seedu.jarvis.testutil.PersonUtil;
+import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonUtil;
 
 public class JarvisParserTest {
 

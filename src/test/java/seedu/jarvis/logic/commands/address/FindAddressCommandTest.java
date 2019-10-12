@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.CARL;
-import static seedu.jarvis.testutil.TypicalPersons.ELLE;
-import static seedu.jarvis.testutil.TypicalPersons.FIONA;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.CARL;
+import static seedu.jarvis.testutil.address.TypicalPersons.ELLE;
+import static seedu.jarvis.testutil.address.TypicalPersons.FIONA;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;

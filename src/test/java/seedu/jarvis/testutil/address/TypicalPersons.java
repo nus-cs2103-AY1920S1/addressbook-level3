@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.address;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;

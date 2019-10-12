@@ -27,7 +27,7 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddAddressCommandTest {
 

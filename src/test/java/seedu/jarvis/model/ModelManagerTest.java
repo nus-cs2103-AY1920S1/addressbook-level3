@@ -2,8 +2,8 @@ package seedu.jarvis.model;
 
 import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.ALICE;
-import static seedu.jarvis.testutil.TypicalPersons.BENSON;
+import static seedu.jarvis.testutil.address.TypicalPersons.ALICE;
+import static seedu.jarvis.testutil.address.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +21,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.AddressBookBuilder;
+import seedu.jarvis.testutil.address.AddressBookBuilder;
 
 public class ModelManagerTest {
 

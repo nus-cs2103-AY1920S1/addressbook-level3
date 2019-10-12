@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.stream.IntStream;
 

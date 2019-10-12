@@ -20,7 +20,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
+import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

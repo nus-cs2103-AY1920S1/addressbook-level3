@@ -8,7 +8,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.AMY;
+import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,7 +30,7 @@ import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

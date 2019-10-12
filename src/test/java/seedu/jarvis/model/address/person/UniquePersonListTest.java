@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.ALICE;
-import static seedu.jarvis.testutil.TypicalPersons.BOB;
+import static seedu.jarvis.testutil.address.TypicalPersons.ALICE;
+import static seedu.jarvis.testutil.address.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.person.exceptions.DuplicatePersonException;
 import seedu.jarvis.model.address.person.exceptions.PersonNotFoundException;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class UniquePersonListTest {
 
