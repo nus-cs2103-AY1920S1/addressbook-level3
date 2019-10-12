@@ -192,18 +192,18 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleStats(UiChange typeOfStats) {
         switch (typeOfStats) {
-        case STATS_TOTAL_PROFIT:
+        case STATS_TOTAL_PROFIT_ON_COMPLETED:
             String totalProfitResult = this.logic.calculateTotalProfit();
             this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit so Far:");
             this.statsWindow.show();
             break;
-        case STATS_TOTAL_REVENUE:
+        case STATS_TOTAL_REVENUE_ON_COMPLETED:
             String totalRevenueResult = this.logic.calculateTotalRevenue();
             this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue on "
                     + "successful orders");
             this.statsWindow.show();
             break;
-        case STATS_TOTAL_COST:
+        case STATS_TOTAL_COST_ON_COMPLETED:
             String totalCostResult = this.logic.calculateTotalCost();
             this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost of incurred on"
                     + " successful orders");
@@ -262,9 +262,9 @@ public class MainWindow extends UiPart<Stage> {
             case EXIT:
                 this.handleExit();
                 break;
-            case STATS_TOTAL_PROFIT:
-            case STATS_TOTAL_COST:
-            case STATS_TOTAL_REVENUE:
+            case STATS_TOTAL_PROFIT_ON_COMPLETED:
+            case STATS_TOTAL_COST_ON_COMPLETED:
+            case STATS_TOTAL_REVENUE_ON_COMPLETED:
                 this.handleStats(type);
                 break;
             default:
