@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemModel;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ItemStorage;
 import seedu.address.model.item.ItemList;
 import seedu.address.storage.Storage;
 
@@ -28,8 +28,9 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
 
     public LogicManager(ItemModel model, Storage storage) {
-        this.model = model;
+
         this.storage = storage;
+        this.model = model;
         addressBookParser = new AddressBookParser();
     }
 
@@ -45,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveItemStorage(model.getItemStorage());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -54,14 +55,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ItemStorage getItemStorage() {
+        return model.getItemStorage();
     }
 
     /*
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getVisualList();
     }
 
      */
@@ -72,7 +73,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getItemStorageFilePath();
     }
 
     @Override

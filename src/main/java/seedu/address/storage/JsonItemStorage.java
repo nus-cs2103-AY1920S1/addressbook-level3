@@ -1,23 +1,50 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.item.Item;
+import java.io.IOException;
+import java.nio.file.Path;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ItemStorage;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * A class that contains all the JSON representation of the string
  */
-public class JsonItemStorage {
+public class JsonItemStorage implements ItemListStorage{
     public static final String MESSAGE_DUPLICATE_ITEM = "Items list contains duplicate items";
 
-    private final List<String> items = new ArrayList<>();
+    private Path itemListFilePath;
 
-    public JsonItemStorage(List<String> items) {
-        this.items.addAll(items);
+    public JsonItemStorage (Path path) {
+        this.itemListFilePath = path;
+    }
+
+    /**
+     * Returns the file path of the data file.
+     */
+    public Path getItemListFilePath() {
+        return this.itemListFilePath;
+    }
+
+
+    /**
+     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * @param itemStorage cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    public void saveItemStorage(ItemStorage itemStorage) throws IOException{
+        saveItemStorage(itemStorage, itemListFilePath);
+    }
+
+    public void saveItemStorage(ItemStorage itemStorage, Path filePath) throws IOException{
+        requireNonNull(itemStorage);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        FileUtil.writeToFile(filePath, itemStorage.toJson());
     }
 
     /**
@@ -27,11 +54,8 @@ public class JsonItemStorage {
      * @throws IOException if there are any problem with reading from the string.
      */
     public ItemStorage toModelType() throws IllegalValueException, IOException {
-        ItemStorage itemStorage = new ItemStorage();
-        for (String itemString: items) {
-            Item item = Item.fromJson(itemString);
-            itemStorage.add(item);
-        }
-        return itemStorage;
+        String jsonString = FileUtil.readFromFile(itemListFilePath);
+        return ItemStorage.fromJson(jsonString);
     }
+
 }

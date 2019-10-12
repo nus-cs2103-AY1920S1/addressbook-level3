@@ -111,4 +111,18 @@ public class ItemList {
     public int size() {
         return list.size();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            if (!(other instanceof ItemList)) {
+                return false;
+            }
+
+            ItemList otherIl = (ItemList) other;
+            return this.list.equals(otherIl.list);
+        }
+    }
 }
