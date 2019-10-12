@@ -89,7 +89,7 @@ public class SwitchOperation {
     }
 
     /**
-     * Returns a {@code ModelQuizManager} with the data from {@code storage}'s and {@code userPrefs}. <br>
+     * Returns a {@code ModelCalendarManager} with the data from {@code storage}'s and {@code userPrefs}. <br>
      */
     private seedu.address.model.quiz.Model initModelManager(seedu.address.storage.quiz.Storage storage,
                                                             seedu.address.model.quiz.ReadOnlyUserPrefs userPrefs) {
