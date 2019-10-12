@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         StudyPlan sp = logic.getActiveStudyPlan();
         UniqueSemesterList u = sp.getSemesters();
         ObservableList<Semester> ol = u.asUnmodifiableObservableList();
-//        logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
+        //  logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
         semesterListPanel = new SemesterListPanel(ol);
         semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
 
