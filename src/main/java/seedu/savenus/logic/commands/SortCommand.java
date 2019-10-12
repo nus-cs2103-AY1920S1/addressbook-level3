@@ -31,6 +31,9 @@ public class SortCommand extends Command {
         this.fields = fields;
     }
 
+    public List<String> getFields() {
+        return this.fields;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -39,5 +42,12 @@ public class SortCommand extends Command {
         SortedList<Food> sortedList = foodList.sorted(new FoodComparator(fields));
         model.setFoods(sortedList);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && getFields().equals(((SortCommand) other).getFields()));
     }
 }
