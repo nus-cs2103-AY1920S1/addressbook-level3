@@ -14,8 +14,6 @@ import seedu.address.model.account.exception.DuplicateAccountException;
 
 /**
  * A list of accounts that enforces uniqueness between its elements and does not allow nulls.
- * An account is considered unique by comparing using {@code Account#isSameAccount(Account)}. As such, adding and updating of
- * accounts uses Account#isSameAccount(Account) for equality.
  *
  * Supports a minimal set of list operations.
  *
