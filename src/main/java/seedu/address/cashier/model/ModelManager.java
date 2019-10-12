@@ -151,7 +151,7 @@ public class ModelManager implements Model {
     }
 
     public Transaction checkoutAsTransaction(double amount, Person person) throws Exception {
-        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.myFormatter),
+        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
                 "salesItems", "sales", amount, person, transactionList.size(), false);
         storage.appendToTransaction(transaction);
         return transaction;
