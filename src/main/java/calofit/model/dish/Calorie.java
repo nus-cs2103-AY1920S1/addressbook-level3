@@ -11,6 +11,7 @@ public class Calorie {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Calories should only be positive values that are not 0";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String calories;
 
@@ -22,6 +23,16 @@ public class Calorie {
     public Calorie(String calorieValue) {
         AppUtil.checkArgument(isNonZeroUnsignedInteger(calorieValue), MESSAGE_CONSTRAINTS);
         calories = calorieValue;
+    }
+
+    /**
+     * Returns true if a given string is a valid name.
+     * @param test a string
+     * @return true if calorie value is valid
+     */
+    public static boolean isValidCalorie(String test) {
+        return isNonZeroUnsignedInteger(test);
+        //return test.matches(VALIDATION_REGEX);
     }
 
     @Override

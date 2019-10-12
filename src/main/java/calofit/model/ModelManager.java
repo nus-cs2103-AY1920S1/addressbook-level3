@@ -116,6 +116,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasDishName(Dish dish) {
+        requireNonNull(dish);
+        return dishDatabase.hasDishName(dish);
+    }
+
+    @Override
+    public Dish getDishByName(Dish dish) {
+        return dishDatabase.getDishByName(dish);
+    }
+
+    @Override
     public void deleteDish(Dish target) {
         dishDatabase.removeDish(target);
     }
