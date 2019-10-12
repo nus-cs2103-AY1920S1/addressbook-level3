@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.commands.TabCommand;
+import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
@@ -103,6 +104,31 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String args} into a {@code Tab}.
+     * {@code args} is valid if it is either 1, 2 or 3, or the keywords of tab.
+     * @param args A valid argument of Tab
+     * @return The corresponding tab
+     * @throws ParseException if the given {@code arg} is invalid.
+     */
+    public static Tab parseTab(String args) throws ParseException {
+
+        Tab tab;
+        try {
+            tab = ParserUtil.parseTabIndex(args);
+        } catch (ParseException pe_index) {
+
+            try {
+                tab = ParserUtil.parseTabKeyword(args);
+            } catch (ParseException pe_kw) {
+                throw pe_index;
+            }
+
+        }
+
+        return tab;
+    }
+
+    /**
      * Parses a {@code String arg} into a {@code Tab}.
      * Parsing will be successful only if {@code arg} is either "1", "2" or "3".
      *
@@ -110,12 +136,12 @@ public class ParserUtil {
      * @return The corresponding tab
      * @throws ParseException if the given {@code arg} is invalid.
      */
-    public static TabCommand.Tab parseTabIndex(String arg) throws ParseException {
-        Index index = null;
+    public static Tab parseTabIndex(String arg) throws ParseException {
+        int index;
         try {
-            index = ParserUtil.parseIndex(arg);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE), pe);
+            index = Integer.parseInt(arg.strip());
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
         }
 
         return convertIndexToTabType(index);
@@ -124,21 +150,21 @@ public class ParserUtil {
     /**
      * Converts an {@code Index} into a {@code Tab}.
      * @param index A one-based index
-     * @return corresponding tab
+     * @return The corresponding tab
      * @throws ParseException if index does not represent 1, 2 or 3.
      */
-    private static TabCommand.Tab convertIndexToTabType(Index index) throws ParseException {
+    private static Tab convertIndexToTabType(int index) throws ParseException {
 
-        TabCommand.Tab type = null;
-        switch (index.getOneBased()) {
+        Tab type = null;
+        switch (index) {
         case 1:
-            type = TabCommand.Tab.DASHBOARD;
+            type = Tab.DASHBOARD;
             break;
         case 2:
-            type = TabCommand.Tab.ONLINE;
+            type = Tab.ONLINE;
             break;
         case 3:
-            type = TabCommand.Tab.OFFLINE;
+            type = Tab.OFFLINE;
             break;
         default:
             throw new ParseException(TabCommand.MESSAGE_INVALID_INDEX);
@@ -155,18 +181,18 @@ public class ParserUtil {
      * @return The corresponding tab
      * @throws ParseException if the given {@code arg} is invalid.
      */
-    public static TabCommand.Tab parseTabKeyword(String arg) throws ParseException {
-        TabCommand.Tab type = null;
+    public static Tab parseTabKeyword(String arg) throws ParseException {
+        Tab type = null;
 
         switch (arg.toLowerCase().strip()) {
         case "dash":
-            type = TabCommand.Tab.DASHBOARD;
+            type = Tab.DASHBOARD;
             break;
         case "on":
-            type = TabCommand.Tab.ONLINE;
+            type = Tab.ONLINE;
             break;
         case "off":
-            type = TabCommand.Tab.OFFLINE;
+            type = Tab.OFFLINE;
             break;
         default:
             throw new ParseException(TabCommand.MESSAGE_INVALID_KEYWORD);

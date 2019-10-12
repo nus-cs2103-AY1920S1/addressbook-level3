@@ -1,34 +1,25 @@
 package seedu.mark.logic.commands.commandresult;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.mark.logic.commands.TabCommand.Tab;
+
 /**
  * Represents the result of a tab command execution.
  */
 public class TabCommandResult extends CommandResult {
 
-    private final boolean switchViewDashboard;
-    private final boolean switchViewOnline;
-    private final boolean switchViewOffline;
+    private Tab tab;
 
-    public TabCommandResult(String feedbackToUser, boolean dashboard, boolean online, boolean offline) {
+    public TabCommandResult(String feedbackToUser, Tab tab) {
         super(feedbackToUser);
-        this.switchViewDashboard = dashboard;
-        this.switchViewOnline = online;
-        this.switchViewOffline = offline;
+        requireNonNull(tab);
+        this.tab = tab;
     }
 
     @Override
-    public boolean isSwitchViewDashboard() {
-        return switchViewDashboard;
-    }
-
-    @Override
-    public boolean isSwitchViewOnline() {
-        return switchViewOnline;
-    }
-
-    @Override
-    public boolean isSwitchViewOffline() {
-        return switchViewOffline;
+    public Tab getTab() {
+        return tab;
     }
 
 }

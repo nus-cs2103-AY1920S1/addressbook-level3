@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
+import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.parser.exceptions.ParseException;
@@ -201,6 +202,22 @@ public class MainWindow extends UiPart<Stage> {
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
+    private void handleTabSwitchRequestIfAny(Tab tab) {
+        switch (tab) {
+        case DASHBOARD:
+            handleSwitchToDashboard();
+            break;
+        case ONLINE:
+            handleSwitchToOnline();
+            break;
+        case OFFLINE:
+            handleSwitchToOffline();
+            break;
+        default:
+            break;
+        }
+    }
+
     public BookmarkListPanel getBookmarkListPanel() {
         return bookmarkListPanel;
     }
@@ -236,13 +253,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchViewDashboard()) {
-                handleSwitchToDashboard();
-            } else if (commandResult.isSwitchViewOnline()) {
-                handleSwitchToOnline();
-            } else if (commandResult.isSwitchViewOffline()) {
-                handleSwitchToOffline();
-            }
+            handleTabSwitchRequestIfAny(commandResult.getTab());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

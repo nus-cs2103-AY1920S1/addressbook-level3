@@ -29,8 +29,10 @@ class TabCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "blob", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "4", TabCommand.MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0", TabCommand.MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "-1", TabCommand.MESSAGE_INVALID_INDEX);
 
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
     }

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.mark.logic.commands.TabCommand;
+
 /**
  * Represents the result of a command execution.
  */
@@ -30,16 +32,8 @@ public class CommandResult {
         return false;
     }
 
-    public boolean isSwitchViewDashboard() {
-        return false;
-    }
-
-    public boolean isSwitchViewOnline() {
-        return false;
-    }
-
-    public boolean isSwitchViewOffline() {
-        return false;
+    public TabCommand.Tab getTab() {
+        return null;
     }
 
     @Override
@@ -57,9 +51,7 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
                 && isExit() == otherCommandResult.isExit()
-                && isSwitchViewDashboard() == otherCommandResult.isSwitchViewDashboard()
-                && isSwitchViewOffline() == otherCommandResult.isSwitchViewOffline()
-                && isSwitchViewOnline() == otherCommandResult.isSwitchViewOnline();
+                && getTab() == otherCommandResult.getTab();
     }
 
     @Override
@@ -67,9 +59,7 @@ public class CommandResult {
         return Objects.hash(feedbackToUser,
                 isShowHelp(),
                 isExit(),
-                isSwitchViewDashboard(),
-                isSwitchViewOffline(),
-                isSwitchViewOnline());
+                getTab());
     }
 
 }

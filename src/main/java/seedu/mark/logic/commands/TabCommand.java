@@ -35,27 +35,7 @@ public class TabCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        boolean isSwitchToOnline = false;
-        boolean isSwitchToOffline = false;
-        boolean isSwitchToDashboard = false;
-
-        switch (tab) {
-        case DASHBOARD:
-            isSwitchToDashboard = true;
-            break;
-        case ONLINE:
-            isSwitchToOnline = true;
-            break;
-        case OFFLINE:
-            isSwitchToOffline = true;
-            break;
-        default:
-            assert false : "execute forced to handle invalid tab type.";
-            break;
-        }
-
-        return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tab.toString()),
-                isSwitchToDashboard, isSwitchToOnline, isSwitchToOffline);
+        return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tab.toString()), tab);
     }
 
     @Override

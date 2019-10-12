@@ -132,32 +132,47 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTab_validIndex_success() throws Exception {
+    public void parseTab_validArgs_success() throws Exception {
         TabCommand.Tab expected = TabCommand.Tab.ONLINE;
         assertEquals(expected, ParserUtil.parseTabIndex("2"));
+        assertEquals(expected, ParserUtil.parseTabKeyword("on"));
+        assertEquals(expected, ParserUtil.parseTab("2"));
+        assertEquals(expected, ParserUtil.parseTab("on"));
+
         expected = TabCommand.Tab.OFFLINE;
         assertEquals(expected, ParserUtil.parseTabIndex("3"));
+        assertEquals(expected, ParserUtil.parseTabKeyword("off"));
+        assertEquals(expected, ParserUtil.parseTab("3"));
+        assertEquals(expected, ParserUtil.parseTab("off"));
+
         expected = TabCommand.Tab.DASHBOARD;
         assertEquals(expected, ParserUtil.parseTabIndex("1"));
+        assertEquals(expected, ParserUtil.parseTabKeyword("dash"));
+        assertEquals(expected, ParserUtil.parseTab("1"));
+        assertEquals(expected, ParserUtil.parseTab("dash"));
     }
 
     @Test
     public void parseTab_invalidIndex_throwsInvalidIndexParseException() {
         assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTabIndex("5"));
-        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTabIndex("0.5"));
+        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTab("5"));
+        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTab("-5"));
     }
 
     @Test
     public void parseTab_invalidArg_throwsInvalidFormatParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTabIndex("invalid arg"));
-        try {
-            ParserUtil.parseTabIndex("invalid arg");
-            fail();
-        } catch (ParseException pe) {
-            assertEquals(new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE)).getMessage(),
-                    pe.getMessage());
-        }
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
+                () -> ParserUtil.parseTabIndex("invalid arg"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
+                () -> ParserUtil.parseTab("invalid arg"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
+                () -> ParserUtil.parseTab(""));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
+                () -> ParserUtil.parseTab("0.5"));
     }
 
     @Test

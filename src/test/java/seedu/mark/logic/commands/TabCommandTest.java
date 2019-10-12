@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.TabCommand.MESSAGE_SWITCH_ACKNOWLEDGEMENT;
+import static seedu.mark.logic.commands.TabCommand.Tab;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,28 +21,25 @@ class TabCommandTest {
     @Test
     public void execute_tab_success() {
         CommandResult expectedCommandResult = new TabCommandResult(
-                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, TabCommand.Tab.DASHBOARD.toString()),
-                true, false, false);
-        assertCommandSuccess(new TabCommand(TabCommand.Tab.DASHBOARD), model, expectedCommandResult, expectedModel);
+                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, Tab.DASHBOARD.toString()), Tab.DASHBOARD);
+        assertCommandSuccess(new TabCommand(Tab.DASHBOARD), model, expectedCommandResult, expectedModel);
 
         expectedCommandResult = new TabCommandResult(
-                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, TabCommand.Tab.OFFLINE.toString()),
-                false, false, true);
-        assertCommandSuccess(new TabCommand(TabCommand.Tab.OFFLINE), model, expectedCommandResult, expectedModel);
+                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, Tab.OFFLINE.toString()), Tab.OFFLINE);
+        assertCommandSuccess(new TabCommand(Tab.OFFLINE), model, expectedCommandResult, expectedModel);
 
         expectedCommandResult = new TabCommandResult(
-                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, TabCommand.Tab.ONLINE.toString()),
-                false, true, false);
-        assertCommandSuccess(new TabCommand(TabCommand.Tab.ONLINE), model, expectedCommandResult, expectedModel);
+                String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, Tab.ONLINE.toString()), Tab.ONLINE);
+        assertCommandSuccess(new TabCommand(Tab.ONLINE), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void equals_success() {
-        assertEquals(new TabCommand(TabCommand.Tab.DASHBOARD), new TabCommand(TabCommand.Tab.DASHBOARD));
-        assertEquals(new TabCommand(TabCommand.Tab.OFFLINE), new TabCommand(TabCommand.Tab.OFFLINE));
-        assertEquals(new TabCommand(TabCommand.Tab.ONLINE), new TabCommand(TabCommand.Tab.ONLINE));
+        assertEquals(new TabCommand(Tab.DASHBOARD), new TabCommand(Tab.DASHBOARD));
+        assertEquals(new TabCommand(Tab.OFFLINE), new TabCommand(Tab.OFFLINE));
+        assertEquals(new TabCommand(Tab.ONLINE), new TabCommand(Tab.ONLINE));
 
-        assertNotEquals(new TabCommand(TabCommand.Tab.DASHBOARD), new TabCommand(TabCommand.Tab.OFFLINE));
+        assertNotEquals(new TabCommand(Tab.DASHBOARD), new TabCommand(Tab.OFFLINE));
 
         assertThrows(NullPointerException.class, () -> new TabCommand(null));
     }
