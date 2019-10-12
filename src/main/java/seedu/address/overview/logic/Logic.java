@@ -1,10 +1,8 @@
 package seedu.address.overview.logic;
 
-import seedu.address.overview.commands.CommandResult;
-import seedu.address.overview.model.Transaction;
-import seedu.address.overview.util.TransactionList;
-
 import java.io.IOException;
+
+import seedu.address.overview.commands.CommandResult;
 
 /**
  * API of the Logic component
@@ -18,11 +16,5 @@ public interface Logic {
      * @throws Exception If an error occurs during command execution.
      */
     CommandResult execute(String commandText) throws Exception;
-
-    /**
-     * Writes the overview information to file.
-     * @throws Exception If an error occurs when writing into the text file.
-     */
-    void writeToOverviewFile() throws IOException;
 
 }

@@ -1,11 +1,8 @@
 package seedu.address.overview.storage;
 
 import seedu.address.overview.model.Model;
-import seedu.address.overview.model.Transaction;
-import seedu.address.overview.util.TransactionList;
 
 import java.io.*;
-import java.util.Optional;
 
 /**
  * Manages storage of transaction data in local storage.

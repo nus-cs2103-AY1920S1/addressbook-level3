@@ -3,12 +3,7 @@ package seedu.address.overview.logic;
 import seedu.address.overview.commands.Command;
 import seedu.address.overview.commands.CommandResult;
 import seedu.address.overview.model.Model;
-import seedu.address.overview.model.Transaction;
 import seedu.address.overview.storage.StorageManager;
-import seedu.address.overview.util.TransactionList;
-import seedu.address.ui.Overview;
-
-import java.io.IOException;
 
 /**
  * Manages the logic behind the transaction tab.
@@ -38,11 +33,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult = command.execute(model);
         storage.writeToFile(model);
         return commandResult;
-    }
-
-    @Override
-    public void writeToOverviewFile() throws IOException {
-        storage.writeToFile(model);
     }
 
 }

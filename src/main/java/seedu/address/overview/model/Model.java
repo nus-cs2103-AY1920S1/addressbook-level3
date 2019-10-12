@@ -1,7 +1,5 @@
 package seedu.address.overview.model;
 
-import seedu.address.overview.util.TransactionList;
-
 /**
  * The API of the Model component.
  */

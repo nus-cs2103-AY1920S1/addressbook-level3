@@ -1,7 +1,6 @@
 package seedu.address.overview.storage;
 
 import seedu.address.overview.model.Model;
-import seedu.address.overview.util.TransactionList;
 
 import java.io.IOException;
 

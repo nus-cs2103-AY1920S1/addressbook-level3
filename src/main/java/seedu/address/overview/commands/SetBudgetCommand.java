@@ -2,16 +2,16 @@ package seedu.address.overview.commands;
 
 import seedu.address.overview.model.Model;
 
-public class SetBudgetCommand extends SetCommand{
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_BUDGET_SUCCESS;
 
-    /**
-     * Creates an AddCommand to add the specified {@code Transaction}
-     */
-    public SetBudgetCommand() {
+public class SetBudgetCommand extends SetCommand {
 
+    public SetBudgetCommand(double amount) {
+        this.amount = amount;
     }
 
-    @Override
     public CommandResult execute(Model model) {
+        model.setBudgetTarget(amount);
+        return new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS, Double.toString(amount)));
     }
 }
