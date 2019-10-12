@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's type in the address book.
+ * Represents a Person's type in ORGANice.
  * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
  */
 public class Type {
