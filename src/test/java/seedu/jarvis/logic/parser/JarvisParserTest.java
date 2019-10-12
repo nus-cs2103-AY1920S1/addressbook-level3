@@ -123,7 +123,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_lookUp() throws Exception {
         assertThrows(ParseException.class, () -> parser.parseCommand(LookUpCommand.COMMAND_WORD));
-        assertTrue(parser.parseCommand(LookUpCommand.COMMAND_WORD + " " + PREFIX_COURSE + "cs2102")
+        assertTrue(parser.parseCommand(LookUpCommand.COMMAND_WORD + " " + PREFIX_COURSE + "CS3230")
                 instanceof LookUpCommand);
     }
 
