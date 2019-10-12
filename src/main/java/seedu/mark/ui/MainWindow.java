@@ -16,7 +16,6 @@ import seedu.mark.logic.Logic;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.bookmark.Url;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -115,7 +114,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
+        browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
@@ -159,14 +158,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens a url.
-     */
-    @FXML
-    public void handleOpen(Url url) {
-        browserPanel.loadPage(url.value);
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -204,10 +195,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isGoto()) {
-                handleOpen(commandResult.getUrl());
             }
 
             return commandResult;

@@ -13,12 +13,10 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.results.CommandResult;
-import seedu.mark.logic.commands.results.GotoCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.Url;
 
 public class GotoCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
@@ -29,9 +27,9 @@ public class GotoCommandTest {
         Bookmark bookmarkToOpen = model.getFilteredBookmarkList().get(INDEX_FIRST_BOOKMARK.getZeroBased());
         GotoCommand gotoCommand = new GotoCommand(INDEX_FIRST_BOOKMARK);
 
+        expectedModel.setCurrentUrl(bookmarkToOpen.getUrl());
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
-        Url expectedUrl = bookmarkToOpen.getUrl();
-        CommandResult expectedCommandResult = new GotoCommandResult(expectedMessage, expectedUrl);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
         assertCommandSuccess(gotoCommand, model, expectedCommandResult, expectedModel);
     }
@@ -52,9 +50,9 @@ public class GotoCommandTest {
         Bookmark bookmarkToOpen = model.getFilteredBookmarkList().get(INDEX_FIRST_BOOKMARK.getZeroBased());
         GotoCommand gotoCommand = new GotoCommand(INDEX_FIRST_BOOKMARK);
 
+        expectedModel.setCurrentUrl(bookmarkToOpen.getUrl());
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
-        Url expectedUrl = bookmarkToOpen.getUrl();
-        CommandResult expectedCommandResult = new GotoCommandResult(expectedMessage, expectedUrl);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
         assertCommandSuccess(gotoCommand, model, expectedCommandResult, expectedModel);
     }

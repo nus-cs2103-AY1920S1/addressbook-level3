@@ -2,6 +2,7 @@ package seedu.mark.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -9,6 +10,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -51,4 +53,19 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Wrapper for current url.
+     * null if not present.
+     *
+     * @see seedu.mark.model.Model#getCurrentUrlProperty()
+     */
+    SimpleObjectProperty<Url> getCurrentUrlProperty();
+
+    /**
+     * Sets the current url.
+     *
+     * @see seedu.mark.model.Model#setCurrentUrl(Url)
+     */
+    void setCurrentUrl(Url url);
 }

@@ -142,5 +142,17 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMarkFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(mark, differentUserPrefs)));
+
+        // different currentUrl, one non-null, one null -> return false
+        modelManagerCopy.setCurrentUrl(ALICE.getUrl());
+        assertFalse(modelManager.equals(modelManagerCopy));
+
+        // different currentUrl, two non-null -> returns false
+        modelManager.setCurrentUrl(BENSON.getUrl());
+        assertFalse(modelManager.equals(modelManagerCopy));
+
+        // same values (including currentUrl) -> return true
+        modelManager.setCurrentUrl(ALICE.getUrl());
+        assertTrue(modelManager.equals(modelManagerCopy));
     }
 }

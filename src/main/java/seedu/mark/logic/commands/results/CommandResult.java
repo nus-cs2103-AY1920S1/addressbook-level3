@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.mark.model.bookmark.Url;
-
 /**
  * Represents the result of a command execution.
  */
@@ -32,13 +30,6 @@ public class CommandResult {
         return false;
     }
 
-    public boolean isGoto() {
-        return getUrl() != null;
-    }
-
-    public Url getUrl() {
-        return null;
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -54,14 +45,12 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
-                && isExit() == otherCommandResult.isExit()
-                && isGoto() == otherCommandResult.isGoto()
-                && getUrl() == otherCommandResult.getUrl();
+                && isExit() == otherCommandResult.isExit();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isShowHelp(), isExit(), isGoto(), getUrl());
+        return Objects.hash(feedbackToUser, isShowHelp(), isExit());
     }
 
 }

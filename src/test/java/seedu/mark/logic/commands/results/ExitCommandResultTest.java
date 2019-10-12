@@ -1,7 +1,6 @@
 package seedu.mark.logic.commands.results;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,5 @@ public class ExitCommandResultTest {
 
         assertTrue(commandResult.isExit());
         assertFalse(commandResult.isShowHelp());
-        assertFalse(commandResult.isGoto());
-        assertNull(commandResult.getUrl());
     }
 }
