@@ -32,7 +32,7 @@ public class InventoryTabParser {
             return new AddCommandParser().parse(arguments, transactionListSize, personModel);
 
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteIndexCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:

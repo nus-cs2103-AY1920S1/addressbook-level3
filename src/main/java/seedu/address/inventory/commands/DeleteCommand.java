@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     /**
-     * Creates an DeleteCommand to delete the specified {@code Transaction}
+     * Creates an DeleteIndexCommand to delete the specified {@code Transaction}
      */
     public DeleteCommand(int index) {
         this.index = index;
