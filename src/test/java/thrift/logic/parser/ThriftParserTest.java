@@ -49,7 +49,8 @@ public class ThriftParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased());
+                DeleteCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX
+                        + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased());
         assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION), command);
     }
 
