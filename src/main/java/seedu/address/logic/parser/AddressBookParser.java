@@ -20,6 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -70,10 +71,10 @@ public class AddressBookParser {
         case AssignPolicyCommand.COMMAND_WORD:
             return new AssignPolicyCommandParser().parse(arguments);
 
-        /*
         case UnassignPolicyCommand.COMMAND_WORD:
             return new UnassignPolicyCommandParser().parse(arguments);
 
+        /*
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
