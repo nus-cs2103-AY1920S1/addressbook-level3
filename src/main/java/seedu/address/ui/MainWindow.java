@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -12,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.ui.FinancialTrackerWindow;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,12 +30,14 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private Scene primaryScene;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private FinancialTrackerWindow financialTrackerWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,10 +67,15 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        financialTrackerWindow = new FinancialTrackerWindow(this);
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public Scene getPrimaryScene() {
+        return primaryScene;
     }
 
     private void setAccelerators() {
@@ -183,11 +192,20 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwitch()) {
+                handleSwitchToFinancialTracker();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void handleSwitchToFinancialTracker() {
+        primaryScene = primaryStage.getScene();
+        primaryStage.setScene(financialTrackerWindow.getFinancialTracker());
     }
 }

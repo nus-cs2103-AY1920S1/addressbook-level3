@@ -25,9 +25,11 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
+
 checkstyle {
     toolVersion = '8.1'
 }
+
 
 jacocoTestReport {
     reports {
