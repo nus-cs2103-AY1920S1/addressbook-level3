@@ -15,7 +15,7 @@ import seedu.address.model.claim.Claim;
  */
 public class ClaimListPanel extends UiPart<Region> {
     private static final String FXML = "ClaimListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ClaimListPanel.class);
 
     @FXML
     private ListView<Claim> claimListView;
