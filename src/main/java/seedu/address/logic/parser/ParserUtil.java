@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Event;
@@ -165,6 +168,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Processes the string by trying out different formats, and returns a LocalDateTime
+     * @param stringDateTime of the date and time
+     * @return a LocalDateTime representation of the given string
+     * @throws DateTimeParseException if the format of the string given is incorrect
+     */
     private static LocalDateTime getFormattedDateTime(String stringDateTime) throws DateTimeParseException {
         LocalDateTime processedDateTime;
 
@@ -173,8 +182,7 @@ public class ParserUtil {
         } catch (DateTimeParseException e1) {
             try {
                 processedDateTime = parseUsingFormatter(stringDateTime);
-            }
-            catch (Exception e2) {
+            } catch (Exception e2) {
                 throw new DateTimeParseException(e2.getMessage(), stringDateTime, 0);
             }
         }
@@ -182,6 +190,11 @@ public class ParserUtil {
         return processedDateTime;
     }
 
+    /**
+     * Processes the string using the given format and returns a LocalDateTime
+     * @param stringDateTime of the format "dd/MM/yyyy HHmm"
+     * @return LocalDateTime representation of the string
+     */
     private static LocalDateTime parseUsingFormatter(String stringDateTime) {
         String[] splitTime = stringDateTime.split(" ");
 
