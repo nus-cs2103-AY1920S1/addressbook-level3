@@ -45,10 +45,10 @@ public class JsonActivityBookStorage implements ActivityBookStorage {
      */
     public Optional<ActivityBook> readActivityBook(Path prefsFilePath) throws DataConversionException {
 
-        requireNonNull(filePath);
+        requireNonNull(prefsFilePath);
 
         Optional<JsonActivityBook> jsonActivityBook = JsonUtil.readJsonFile(
-                filePath, JsonActivityBook.class);
+                prefsFilePath, JsonActivityBook.class);
         if (!jsonActivityBook.isPresent()) {
             return Optional.empty();
         }
