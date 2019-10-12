@@ -4,44 +4,44 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-guiltTrip() is developed by the https://github.com/AY1920S1-CS2103-T16-4[AY1920S1-CS2103-T16-4] team. +
+guiltTrip() is developed by the https://github.com/AY1920S1-CS2103-T16-4[AY1920S1-CS2103-T16-4 team]. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== Ong Ming Chun
+=== Ong Ming Chung
 image::dandford.png[width="150", align="left"]
 {empty}[https://github.com/Dandford[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Leader +
-Responsibilities: Deliverables & deadlines
+Responsibilities: Deliverables & deadlines, Data Representation
 
 === Jessica Phua Shu Xin
 image::jessicax941.png[width="150", align="left"]
 {empty}[https://github.com/jessicax941[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Documentation, UI
 
 === Chan Jing Rong
 image::rongrongrr.png[width="150", align="left"]
 {empty}[http://github.com/rongrongrr[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration, scheduling & tracking
+Responsibilities: Integration, Scheduling & tracking, History
 
 === Tan Yee Jian
 image::swampertx.png[width="150", align="left"]
 {empty}[https://github.com/SwampertX[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Testing, Data organisation
 
 === Tay Yu Hong
 image::yuhongtay.png[width="150", align="left"]
 {empty}[https://github.com/yuhongtay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code quality
+Responsibilities: Code quality, Reminders
 
 
