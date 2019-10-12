@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.Menu;
-import seedu.savenus.testutil.TypicalFood;
+import seedu.savenus.testutil.TypicalMenu;
 
 public class JsonSerializableMenuTest {
 
@@ -21,23 +21,23 @@ public class JsonSerializableMenuTest {
     private static final Path DUPLICATE_FOOD_FILE = TEST_DATA_FOLDER.resolve("duplicateFoodMenu.json");
 
     @Test
-    public void toModelType_invalidfoodFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidMenuFile_throwsIllegalValueException() throws Exception {
         JsonSerializableMenu dataFromFile = JsonUtil.readJsonFile(INVALID_FOOD_FILE,
             JsonSerializableMenu.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_typicalfoodsFile_success() throws Exception {
+    public void toModelType_typicalMenuFile_success() throws Exception {
         JsonSerializableMenu dataFromFile = JsonUtil.readJsonFile(TYPICAL_FOOD_FILE,
             JsonSerializableMenu.class).get();
         Menu menuFromFile = dataFromFile.toModelType();
-        Menu typicalMenu = TypicalFood.getTypicalMenu();
+        Menu typicalMenu = TypicalMenu.getTypicalMenu();
         assertEquals(menuFromFile, typicalMenu);
     }
 
     @Test
-    public void toModelType_duplicatefoods_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateFood_throwsIllegalValueException() throws Exception {
         JsonSerializableMenu dataFromFile = JsonUtil.readJsonFile(DUPLICATE_FOOD_FILE,
             JsonSerializableMenu.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableMenu.MESSAGE_DUPLICATE_FOOD,

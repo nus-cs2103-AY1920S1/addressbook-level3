@@ -55,6 +55,10 @@ class JsonAdaptedWallet {
             throw new IllegalValueException(RemainingBudget.MESSAGE_CONSTRAINTS);
         }
 
+        if (new RemainingBudget(remainingBudget).isOutOfBounds()) {
+            throw new IllegalValueException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
+        }
+
         final RemainingBudget modelRemainingBudget = new RemainingBudget(remainingBudget);
 
         // Sanitisation for daysToExpire
@@ -64,6 +68,10 @@ class JsonAdaptedWallet {
         }
         if (!DaysToExpire.isValidDaysToExpire(daysToExpire)) {
             throw new IllegalValueException(DaysToExpire.MESSAGE_CONSTRAINTS);
+        }
+
+        if (new DaysToExpire(daysToExpire).isOutOfBounds()) {
+            throw new IllegalValueException(DaysToExpire.INTEGER_CONSTRAINTS);
         }
 
         final DaysToExpire modelDaysToExpire = new DaysToExpire(daysToExpire);

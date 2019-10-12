@@ -16,8 +16,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class DaysToExpire {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Number of days to budget expiration should be a positive integer";
-    public static final String VALIDATION_REGEX = "^\\d+$";
+            "Budget Duration should be a positive integer";
+    public static final String INTEGER_CONSTRAINTS =
+            "Due to Integer limitations, this application will not accept Budget Duration of more than 365 days";
+    public static final String VALIDATION_REGEX = "0|[1-9]\\d*$";
 
     private final IntegerProperty daysToExpireProperty;
     private final LocalDateTime expirationDateTime;
@@ -46,6 +48,13 @@ public class DaysToExpire {
      */
     public static boolean isValidDaysToExpire(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if this instance of {@code DaysToExpire} is out of bounds.
+     */
+    public boolean isOutOfBounds() {
+        return (getDaysToExpire() > 365);
     }
 
     /**

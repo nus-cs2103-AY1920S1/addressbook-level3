@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.CARBONARA;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.property.FloatProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,7 +108,7 @@ public class MenuTest {
         }
 
         @Override
-        public FloatProperty getRemainingBudgetProperty() {
+        public DoubleProperty getRemainingBudgetProperty() {
             return wallet.getRemainingBudgetProperty();
         }
 

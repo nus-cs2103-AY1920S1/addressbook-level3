@@ -3,9 +3,8 @@ package seedu.savenus.model.wallet;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
-
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
@@ -14,11 +13,13 @@ import javafx.beans.property.SimpleFloatProperty;
 public class RemainingBudget {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Budget amount should only contain numbers and have either 0 or 2 decimal places.\n"
-                    + "For example: 1.50 or 200";
+            "Budget Amount should only contain numbers and have either 0 or 2 decimal places";
+    public static final String FLOATING_POINT_CONSTRAINTS =
+            "Due to Floating Point limitations, "
+            + "this application will not accept Budget Amounts higher than 1 million dollars";
     public static final String VALIDATION_REGEX = "((0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
-    private final FloatProperty remainingBudgetProperty;
+    private final DoubleProperty remainingBudgetProperty;
 
     /**
      * Constructs a {@code RemainingBudget}.
@@ -28,7 +29,7 @@ public class RemainingBudget {
     public RemainingBudget(String newRemainingBudgetString) {
         requireNonNull(newRemainingBudgetString);
         checkArgument(isValidRemainingBudget(newRemainingBudgetString), MESSAGE_CONSTRAINTS);
-        remainingBudgetProperty = new SimpleFloatProperty(Float.parseFloat(newRemainingBudgetString));
+        remainingBudgetProperty = new SimpleDoubleProperty(Double.parseDouble(newRemainingBudgetString));
     }
 
     /**
@@ -43,16 +44,23 @@ public class RemainingBudget {
     }
 
     /**
-     * Returns the {@code FloatProperty} of this instance.
+     * Returns true if this instance of {@code RemainingBudget} is out of bounds.
      */
-    public FloatProperty getRemainingBudgetProperty() {
+    public boolean isOutOfBounds() {
+        return (getRemainingBudget() >= 1000000);
+    }
+
+    /**
+     * Returns the {@code DoubleProperty} of this instance.
+     */
+    public DoubleProperty getRemainingBudgetProperty() {
         return remainingBudgetProperty;
     }
 
     /**
-     * Returns the {@code float} value of this instance.
+     * Returns the {@code double} value of this instance.
      */
-    public float getRemainingBudget() {
+    public double getRemainingBudget() {
         return remainingBudgetProperty.get();
     }
 

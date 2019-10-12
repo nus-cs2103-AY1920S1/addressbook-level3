@@ -1,6 +1,6 @@
 package seedu.savenus.model.wallet;
 
-import javafx.beans.property.FloatProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 
 /**
@@ -23,15 +23,23 @@ public class Wallet {
     /**
      * Overloaded constructor that sets {@code remainingBudget} and {@code daysToExpire} according to input arguments.
      */
+    public Wallet(String remainingBudgetStr, String daysToExpireStr) {
+        this.remainingBudget = new RemainingBudget(remainingBudgetStr);
+        this.daysToExpire = new DaysToExpire(daysToExpireStr);
+    }
+
+    /**
+     * Overloaded constructor that sets {@code remainingBudget} and {@code daysToExpire} according to input arguments.
+     */
     public Wallet(RemainingBudget remainingBudget, DaysToExpire daysToExpire) {
         this.remainingBudget = remainingBudget;
         this.daysToExpire = daysToExpire;
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code FloatProperty}.
+     * Returns {@code remainingBudget}'s {@code DoubleProperty}.
      */
-    public FloatProperty getRemainingBudgetProperty() {
+    public DoubleProperty getRemainingBudgetProperty() {
         return remainingBudget.getRemainingBudgetProperty();
     }
 
@@ -44,9 +52,9 @@ public class Wallet {
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code float} value.
+     * Returns {@code remainingBudget}'s {@code double} value.
      */
-    public float getRemainingBudgetAmount() {
+    public double getRemainingBudgetAmount() {
         return remainingBudget.getRemainingBudget();
     }
 

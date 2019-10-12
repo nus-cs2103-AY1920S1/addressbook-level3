@@ -2,7 +2,7 @@ package seedu.savenus.logic.commands;
 
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

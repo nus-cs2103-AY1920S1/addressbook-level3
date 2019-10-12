@@ -28,7 +28,7 @@ import seedu.savenus.model.wallet.Wallet;
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
  */
-public class TypicalFood {
+public class TypicalMenu {
 
     public static final Food CARBONARA = new FoodBuilder().withName("Carbonara")
             .withDescription("Italian noodle with cheese and meat")
@@ -85,7 +85,7 @@ public class TypicalFood {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalFood() {} // prevents instantiation
+    private TypicalMenu() {} // prevents instantiation
 
     /**
      * Returns an {@code Menu} with all the typical foods.
@@ -95,8 +95,12 @@ public class TypicalFood {
         for (Food food : getTypicalFood()) {
             menu.addFood(food);
         }
-        menu.addWallet(new Wallet());
+        menu.addWallet(getTypicalWallet());
         return menu;
+    }
+
+    public static Wallet getTypicalWallet() {
+        return new Wallet("100", "30");
     }
 
     public static List<Food> getTypicalFood() {

@@ -116,7 +116,7 @@ public class ModelManager implements Model {
     //=========== Budget Accessors =========================================================================
 
     @Override
-    public float getRemainingBudget() {
+    public double getRemainingBudget() {
         return menu.getWallet().getRemainingBudgetAmount();
     }
 

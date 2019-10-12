@@ -81,7 +81,7 @@ public interface Model {
     /**
      * Getter for current user's {@code budget} amount
      */
-    float getRemainingBudget();
+    double getRemainingBudget();
 
     /**
      * Setter for current user's {@code Budget} to new {@code Budget}

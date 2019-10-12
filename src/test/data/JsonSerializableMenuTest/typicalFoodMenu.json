@@ -64,7 +64,7 @@
     "restrictions": "Halal"
   } ],
   "wallet" : {
-    "remainingBudget" : "0",
-    "daysToExpire" : "0"
+    "remainingBudget" : "100",
+    "daysToExpire" : "30"
   }
 }

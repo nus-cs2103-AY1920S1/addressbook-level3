@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.beans.property.FloatProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
@@ -118,9 +118,9 @@ public class Menu implements ReadOnlyMenu {
     }
 
     /**
-     * Returns the user's {@code RemainingBudget}'s {@code FloatProperty}.
+     * Returns the user's {@code RemainingBudget}'s {@code DoubleProperty}.
      */
-    public FloatProperty getRemainingBudgetProperty() {
+    public DoubleProperty getRemainingBudgetProperty() {
         return wallet.getRemainingBudgetProperty();
     }
 

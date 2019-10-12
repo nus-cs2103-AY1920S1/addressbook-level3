@@ -10,9 +10,9 @@ import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.logic.commands.CommandTestUtil.showFoodAtIndex;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import org.junit.jupiter.api.Test;
 

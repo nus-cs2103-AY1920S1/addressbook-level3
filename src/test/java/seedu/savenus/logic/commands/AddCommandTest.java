@@ -141,7 +141,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public float getRemainingBudget() {
+        public double getRemainingBudget() {
             throw new AssertionError("This method should not be called.");
         }
 
