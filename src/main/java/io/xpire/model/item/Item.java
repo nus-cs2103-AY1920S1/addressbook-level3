@@ -119,10 +119,16 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(this.name + "\n")
-                .append(String.format("Expiry date: %s (%s)\n",
-                        this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
-                .append("Tags: ");
+        if (!this.getTags().isEmpty()) {
+            builder.append(this.name).append("\n")
+                    .append(String.format("Expiry date: %s (%s)\n",
+                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
+                    .append("Tags: ");
+        } else {
+            builder.append(this.name).append("\n")
+                    .append(String.format("Expiry date: %s (%s)\n",
+                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
+        }
         this.getTags().forEach(builder::append);
         return builder.toString();
     }
