@@ -15,7 +15,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, Model personModel) throws NoSuchIndexException {
+    public CommandResult execute(ModelManager modelManager, Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel) throws NoSuchIndexException {
         CashierUi cashierUi = new CashierUi();
         Item item = modelManager.findItemByIndex(index);
         modelManager.deleteItem(index);

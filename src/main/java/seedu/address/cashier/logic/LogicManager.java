@@ -21,6 +21,8 @@ public class LogicManager implements Logic {
     private final seedu.address.reimbursement.storage.Storage reimbursementStorage;
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.transaction.storage.Storage transactionStorage;
+    private final seedu.address.inventory.model.Model inventoryModel;
+    private final seedu.address.inventory.storage.Storage inventoryStorage;
 
     //Model inventoryModel,
     public LogicManager(ModelManager cashierManager,
@@ -30,7 +32,9 @@ public class LogicManager implements Logic {
                         seedu.address.reimbursement.model.Model reimbursementModel,
                         seedu.address.reimbursement.storage.Storage reimbursementStorage,
                         seedu.address.transaction.model.Model transactionModel,
-                        seedu.address.transaction.storage.Storage transactionStorage) {
+                        seedu.address.transaction.storage.Storage transactionStorage,
+                        seedu.address.inventory.model.Model inventoryModel,
+                        seedu.address.inventory.storage.Storage inventoryStorage) {
         //this.model = inventoryModel;
         this.cashierManager = cashierManager;
         this.storage = cashierStorage;
@@ -45,12 +49,16 @@ public class LogicManager implements Logic {
 
         this.transactionModel = transactionModel;
         this.transactionStorage = transactionStorage;
+
+        this.inventoryModel = inventoryModel;
+        this.inventoryStorage = inventoryStorage;
     }
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
         Command command = parser.parseCommand(commandText, cashierManager, personModel);
-        CommandResult commandResult = command.execute(cashierManager, personModel);
+        CommandResult commandResult = command.execute(cashierManager, personModel,
+                transactionModel, inventoryModel);
         //cashierManager.updateInventoryList();
         //cashierManager.writeInInventoryFile();
         //storage.writeFileToInventory(cashierManager.getInventoryList());

@@ -36,7 +36,6 @@ public class Cashier extends UiPart<Region> {
         for (int i = 0; i < logic.getSalesList().size(); i++) {
             logic.getSalesList().get(i).setId(i + 1);
             list.add(logic.getSalesList().get(i));
-            System.out.println(logic.getSalesList().get(i).getQuantity());
         }
         return list;
     }

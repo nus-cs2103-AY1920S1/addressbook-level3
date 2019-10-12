@@ -32,10 +32,8 @@ public class ModelManager implements Model {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
-            //System.out.println(inventoryList);
         } catch (Exception e) {
             this.inventoryList = new InventoryList();
-            //System.out.println("not loaded");;
         }
         try {
             this.transactionList = storage.getTransactionList();
@@ -132,23 +130,14 @@ public class ModelManager implements Model {
 
     @Override
     public void writeInInventoryFile() throws Exception{
-        updateInventoryList();
         storage.writeFileToInventory(inventoryList);
     }
 
     public void updateInventoryList() throws Exception {
         for (int i = 0; i < salesList.size(); i++) {
-            System.out.println("size " + salesList.size());
             Item item = salesList.get(i);
-            System.out.println("1item" + item);
             int originalQty = inventoryList.getOriginalItem(item).getQuantity();
-            System.out.println("original item " + inventoryList.getOriginalItem(item));
             inventoryList.getOriginalItem(item).setQuantity(originalQty - item.getQuantity());
-            System.out.println("2item" + item);
-            System.out.println("original item2 " + inventoryList.getOriginalItem(item));
-            System.out.println("sales qty " + salesList.get(i).getQuantity());
-            System.out.println("original qty " + originalQty);
-            System.out.println(originalQty - item.getQuantity());
         }
     }
 
@@ -163,10 +152,12 @@ public class ModelManager implements Model {
         return this.cashier;
     }
 
-    public Transaction checkoutAsTransaction(double amount, Person person) throws Exception {
+    public Transaction checkoutAsTransaction(double amount, Person person,
+                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
                 SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
         storage.appendToTransaction(transaction);
+        transactionModel.addTransaction(transaction);
         return transaction;
     }
 

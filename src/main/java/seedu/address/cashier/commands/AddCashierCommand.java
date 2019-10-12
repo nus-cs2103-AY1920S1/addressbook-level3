@@ -25,11 +25,14 @@ public class AddCashierCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, Model personModel)
+    public CommandResult execute(ModelManager modelManager, Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
         CashierUi cashierUi = new CashierUi();
         modelManager.setCashier(cashier);
         //logger.info((Supplier<String>) cashier.getName());
         return new CommandResult(CashierUi.addCashierSuccessful(cashier));
     }
+
 }

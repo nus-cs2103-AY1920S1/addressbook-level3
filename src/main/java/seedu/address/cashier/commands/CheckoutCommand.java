@@ -23,14 +23,17 @@ public class CheckoutCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel)
+    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel)
             throws Exception {
         CashierUi cashierUi = new CashierUi();
         Person p = modelManager.getCashier();
-        modelManager.checkoutAsTransaction(totalAmount, p);
+        modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
         logger.info(p.toString());
         modelManager.updateInventoryList();
         modelManager.writeInInventoryFile();
+        inventoryModel.readInUpdatedList();
         return new CommandResult(cashierUi.checkoutSuccessful(String.valueOf(totalAmount), String.valueOf(change)));
     }
 }

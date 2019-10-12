@@ -99,4 +99,13 @@ public class ModelManager implements Model {
     public void sortByQuantity() {
         inventoryList.sortByQuantity();
     }
+
+    @Override
+    public void readInUpdatedList() {
+        try {
+            this.inventoryList = storage.getInventoryList();
+        } catch (Exception e) {
+            this.inventoryList = new InventoryList();
+        }
+    }
 }

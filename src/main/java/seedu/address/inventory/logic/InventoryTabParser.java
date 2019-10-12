@@ -5,11 +5,11 @@ import java.util.regex.Pattern;
 
 import seedu.address.inventory.commands.AddCommand;
 import seedu.address.inventory.commands.Command;
-import seedu.address.inventory.commands.DeleteCommand;
 import seedu.address.inventory.commands.EditCommand;
 import seedu.address.inventory.commands.SortCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.transaction.commands.DeleteIndexCommand;
 
 public class InventoryTabParser {
 

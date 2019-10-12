@@ -25,7 +25,7 @@ public class CashierUi {
 
     public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
-    public static final String NO_SUCH_ITEM_CASHIER = "There is no such item available.";
+    public static final String NO_SUCH_ITEM_CASHIER = "There is no such item available. Please input a valid item.";
 
     public static final String NOT_A_NUMBER = "Please input the index of the item in the table.";
 
