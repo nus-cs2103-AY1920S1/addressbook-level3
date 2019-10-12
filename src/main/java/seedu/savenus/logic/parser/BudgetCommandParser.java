@@ -1,7 +1,5 @@
 package seedu.savenus.logic.parser;
 
-import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.wallet.Wallet;
@@ -22,8 +20,7 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
             Wallet newWallet = ParserUtil.parseWallet(args);
             return new BudgetCommand(newWallet);
         } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE), pe);
+            throw pe;
         }
     }
 

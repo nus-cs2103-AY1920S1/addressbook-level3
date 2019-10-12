@@ -1,6 +1,7 @@
 package seedu.savenus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.commons.util.StringUtil;
+import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
@@ -27,7 +29,6 @@ import seedu.savenus.model.wallet.Wallet;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_WALLET = "Budget parameters is not in the proper format.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -54,7 +55,19 @@ public class ParserUtil {
         if (splitWalletString.length != 2
                 || !RemainingBudget.isValidRemainingBudget(splitWalletString[0])
                 || !DaysToExpire.isValidDaysToExpire(splitWalletString[1])) {
-            throw new ParseException(MESSAGE_INVALID_WALLET);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
+        }
+        if (Double.parseDouble(splitWalletString[0]) > 1000000.00) {
+            throw new ParseException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
+        }
+        int parsedDaysToExpire;
+        try {
+            parsedDaysToExpire = Integer.parseInt(splitWalletString[1]);
+        } catch (NumberFormatException e) {
+            throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
+        }
+        if (parsedDaysToExpire > 365) {
+            throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
         }
         return new Wallet(new RemainingBudget(splitWalletString[0]), new DaysToExpire(splitWalletString[1]));
     }
