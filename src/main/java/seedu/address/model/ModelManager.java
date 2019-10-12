@@ -20,6 +20,7 @@ import seedu.address.model.vehicle.Vehicle;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private Session session;
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -36,12 +37,23 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        session = new Session(null);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredVehicles = new FilteredList<>(this.addressBook.getVehicleList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    @Override
+    public void setSession(Person person) {
+        session = new Session(person);
+    }
+
+    @Override
+    public Person getLoggedInPerson() {
+        return session.getLoggedInPerson();
     }
 
     //=========== UserPrefs ==================================================================================

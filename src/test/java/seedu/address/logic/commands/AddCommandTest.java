@@ -85,6 +85,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setSession(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getLoggedInPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
