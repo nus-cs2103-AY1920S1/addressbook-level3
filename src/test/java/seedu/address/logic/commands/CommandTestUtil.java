@@ -35,8 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_USERNAME_AMY = "SpecOps";
     public static final String VALID_USERNAME_BOB = "BlackOps";
-    public static final String VALID_PASSWORD_AMY = "password";
-    public static final String VALID_PASSWORD_BOB = "password";
+    public static final String VALID_PASSWORD_AMY = "passw0rd";
+    public static final String VALID_PASSWORD_BOB = "pa5sword";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
