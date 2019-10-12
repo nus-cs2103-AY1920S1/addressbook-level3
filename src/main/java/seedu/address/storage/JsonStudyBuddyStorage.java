@@ -91,6 +91,23 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
+    /**
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, Path cheatSheetFilePath)
+            throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+        requireNonNull(cheatSheetFilePath);
+
+        FileUtil.createIfMissing(filePath);
+        FileUtil.createIfMissing(cheatSheetFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), cheatSheetFilePath);
+    }
+
     @Override
     public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
         return Optional.empty();

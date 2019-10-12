@@ -18,12 +18,12 @@ public class Title {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String title;
+    public final String value;
 
     public Title(String title) {
         requireNonNull(title);
         checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
-        this.title = title;
+        this.value = title;
     }
 
     /**
@@ -36,18 +36,18 @@ public class Title {
 
     @Override
     public String toString() {
-        return title;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title // instanceof handles nulls
-                && title.equals(((Title) other).title)); // state check
+                && value.equals(((Title) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return value.hashCode();
     }
 }

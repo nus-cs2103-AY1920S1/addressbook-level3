@@ -35,6 +35,7 @@ public class StorageManager implements Storage {
         return userPrefsStorage.getUserPrefsFilePath();
     }
 
+
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
@@ -67,6 +68,7 @@ public class StorageManager implements Storage {
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, addressBookStorage.getCheatSheetFilePath());
     }
 
     @Override
