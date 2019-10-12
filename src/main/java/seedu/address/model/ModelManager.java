@@ -124,6 +124,11 @@ public class ModelManager implements Model {
     //=========== ActivityBook================== =============================================================
 
     @Override
+    public Path getActivityBookFilePath() {
+        return userPrefs.getActivityBookFilePath();
+    }
+
+    @Override
     public void setActivityBook(ActivityBook activityBook) {
         this.activityBook.resetData(activityBook);
     }

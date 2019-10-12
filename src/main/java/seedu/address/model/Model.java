@@ -86,6 +86,11 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns the user prefs' activity book file path.
+     */
+    Path getActivityBookFilePath();
+
+    /**
      * Replaces activity book data with the data in {@code activityBook}.
      */
     void setActivityBook(ActivityBook activityBook);

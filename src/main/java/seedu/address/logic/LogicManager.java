@@ -48,6 +48,12 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveActivityBook(model.getActivityBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         return commandResult;
     }
 
@@ -64,6 +70,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getActivityBookFilePath() {
+        return model.getActivityBookFilePath();
     }
 
     @Override

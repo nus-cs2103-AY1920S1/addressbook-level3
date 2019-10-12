@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ActivityBook;
@@ -16,6 +19,8 @@ import seedu.address.model.ActivityBook;
  */
 
 public class JsonActivityBookStorage implements ActivityBookStorage {
+
+    private static final Logger logger = LogsCenter.getLogger(JsonActivityBookStorage.class);
 
     private Path filePath;
 
@@ -39,7 +44,22 @@ public class JsonActivityBookStorage implements ActivityBookStorage {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<ActivityBook> readActivityBook(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(filePath, ActivityBook.class);
+
+        requireNonNull(filePath);
+
+        Optional<JsonActivityBook> jsonActivityBook = JsonUtil.readJsonFile(
+                filePath, JsonActivityBook.class);
+        if (!jsonActivityBook.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonActivityBook.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+
     }
 
     @Override
