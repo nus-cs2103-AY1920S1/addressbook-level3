@@ -43,12 +43,6 @@ public class BudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (newRemainingBudget.getRemainingBudget() >= 1000000) {
-            throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
-        }
-        if (newDaysToExpire.getDaysToExpire() > 365) {
-            throw new CommandException(DaysToExpire.INTEGER_CONSTRAINTS);
-        }
         model.setRemainingBudget(newRemainingBudget);
         model.setDaysToExpire(newDaysToExpire);
 
