@@ -160,18 +160,11 @@ public class ParserUtilTest {
 
     @Test
     public void parseTab_invalidArg_throwsInvalidFormatParseException() {
-        assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
-                () -> ParserUtil.parseTabIndex("invalid arg"));
-        assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
-                () -> ParserUtil.parseTab("invalid arg"));
-        assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
-                () -> ParserUtil.parseTab(""));
-        assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE),
-                () -> ParserUtil.parseTab("0.5"));
+        String expectedMsg = String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTabIndex("invalid arg"));
+        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab("invalid arg"));
+        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab(""));
+        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab("0.5"));
     }
 
     @Test
