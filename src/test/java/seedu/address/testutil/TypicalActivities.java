@@ -16,6 +16,13 @@ public class TypicalActivities {
             .withTitle("Breakfast")
             .addPerson(TypicalPersons.ALICE)
             .build();
+    public static final Activity BREAKFAST_SECOND = new ActivityBuilder()
+            .withTitle("Second Breakfast")
+            .addPerson(TypicalPersons.ALICE)
+            .build();
+    public static final Activity BREAKFAST_EMPTY = new ActivityBuilder()
+            .withTitle("Breakfast")
+            .build();
     public static final Activity LUNCH = new ActivityBuilder()
             .withTitle("Lunch")
             .addPerson(TypicalPersons.BENSON)
@@ -36,6 +43,6 @@ public class TypicalActivities {
     }
 
     public static List<Activity> getTypicalActivities() {
-        return new ArrayList<>(Arrays.asList(BREAKFAST));
+        return new ArrayList<>(Arrays.asList(BREAKFAST, LUNCH));
     }
 }

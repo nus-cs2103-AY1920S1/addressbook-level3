@@ -3,5 +3,10 @@
     "title" : "Breakfast",
     "participants" : [ 0 ],
     "expenses" : [ ]
+  },
+  {
+    "title" : "Lunch",
+    "participants" : [ 2, 3 ],
+    "expenses" : [ ]
   } ]
 }

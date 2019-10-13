@@ -49,6 +49,8 @@ public class ActivityBuilder {
         return this;
     }
 
+    // TODO: Add functionality to add expenses once it is working
+
     public Activity build() {
         return new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
     }
