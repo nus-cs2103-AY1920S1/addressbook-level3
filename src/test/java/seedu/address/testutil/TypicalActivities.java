@@ -14,9 +14,12 @@ public class TypicalActivities {
 
     public static final Activity BREAKFAST = new ActivityBuilder()
             .withTitle("Breakfast")
+            .addPerson(TypicalPersons.ALICE)
             .build();
     public static final Activity LUNCH = new ActivityBuilder()
             .withTitle("Lunch")
+            .addPerson(TypicalPersons.BENSON)
+            .addPerson(TypicalPersons.CARL)
             .build();
 
     private TypicalActivities() {} // prevents instantiation

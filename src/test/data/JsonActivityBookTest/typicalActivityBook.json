@@ -1,7 +1,7 @@
 {
   "activityList" : [ {
     "title" : "Breakfast",
-    "participants" : [ ],
+    "participants" : [ 0 ],
     "expenses" : [ ]
   } ]
 }
