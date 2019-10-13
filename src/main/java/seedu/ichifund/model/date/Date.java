@@ -2,20 +2,15 @@ package seedu.ichifund.model.date;
 
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import java.util.Objects;
-import java.util.logging.Logger;
-
-import seedu.ichifund.commons.core.LogsCenter;
 
 /**
  * Represents a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Date implements Comparable<Date> {
-    private static final Logger logger = LogsCenter.getLogger(Date.class);
+    public static final String MESSAGE_CONSTRAINTS =
+            "Day should match with month and year.";
 
     private java.util.Date date;
     private Day day;
@@ -31,14 +26,6 @@ public class Date implements Comparable<Date> {
      */
     public Date(Day day, Month month, Year year) {
         requireAllNonNull(day, month, year);
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("d/M/yyyy");
-
-        try {
-            this.date = dateFormatter.parse(day + "/" + month + "/" + year);
-        } catch (ParseException e) {
-            logger.warning("java.text.ParseException encountered.");
-        }
-
         this.day = day;
         this.month = month;
         this.year = year;
@@ -50,6 +37,26 @@ public class Date implements Comparable<Date> {
 
     public Year getYear() {
         return year;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    /**
+     * Returns true if a given {@code Date} is a valid date.
+     */
+    public static boolean isValidDate(Day day, Month month, Year year) {
+        int dayNumber = day.getDayNumber();
+        if (month.has30Days()) {
+            return dayNumber <= 30;
+        } else if (month.has31Days()) {
+            return dayNumber <= 31;
+        } else if (year.isLeapYear()) {
+            return dayNumber <= 29;
+        } else {
+            return dayNumber <= 28;
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ public class Day {
     public static final String MESSAGE_CONSTRAINTS =
             "Day should only contain numbers, from 1 to 31";
     public static final String VALIDATION_REGEX = "[1-9]|[1-2]\\d|3[0-1]";
+
     public final int dayNumber;
 
     /**
@@ -22,6 +23,10 @@ public class Day {
         requireNonNull(day);
         checkArgument(isValidDay(day), MESSAGE_CONSTRAINTS);
         dayNumber = Integer.parseInt(day);
+    }
+
+    public int getDayNumber() {
+        return dayNumber;
     }
 
     /**

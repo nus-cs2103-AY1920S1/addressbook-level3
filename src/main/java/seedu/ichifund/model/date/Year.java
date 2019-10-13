@@ -31,6 +31,16 @@ public class Year {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if the {@code Year} object represents a leap year.
+     * Leap years occur once every 4 years, except for every year divisible by 100 that is not divisible by 400.
+     *
+     * @return true if the {@code Year} is a leap year.
+     */
+    public boolean isLeapYear() {
+        return (yearNumber % 4 == 0) && (yearNumber % 100 != 0 || yearNumber % 400 == 0);
+    }
+
     @Override
     public String toString() {
         return "" + yearNumber;
