@@ -16,7 +16,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="600" minWidth="1100" onCloseRequest="#handleExit" title="Mark - Your Personal Bookmark Manager"
-         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/bookmark_icon.png" />
   </icons>
