@@ -15,15 +15,25 @@ public class Transaction {
     private final Amount amount;
     private final Description description;
     private final Category category;
+    private final TransactionType transactionType;
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Description description, Amount amount, Category category) {
+    public Transaction(Description description, Amount amount, Category category, TransactionType transactionType) {
         requireAllNonNull(description, amount, category);
         this.amount = amount;
         this.description = description;
         this.category = category;
+        this.transactionType = transactionType;
+    }
+
+    public boolean isIncome() {
+        return transactionType == TransactionType.INCOME;
+    }
+
+    public boolean isExpenditure() {
+        return transactionType == transactionType.EXPENDITURE;
     }
 
 
