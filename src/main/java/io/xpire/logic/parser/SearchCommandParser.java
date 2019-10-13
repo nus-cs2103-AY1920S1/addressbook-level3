@@ -28,6 +28,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
         List<String> keywords = Arrays.stream(trimmedArgs.split("\\|"))
                 .map(String::trim)
+                .filter(keyword -> !keyword.isEmpty())
                 .collect(Collectors.toList());
 
         return new SearchCommand(new ContainsKeywordsPredicate(keywords));

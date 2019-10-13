@@ -1,6 +1,9 @@
 package io.xpire.model.item;
 
+import static io.xpire.commons.util.CollectionUtil.stringifyCollection;
+
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -21,11 +24,13 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
     public boolean test(Item item) {
         boolean keywordsInName;
         boolean keywordsInTags;
-        for (String keyword: keywords) {
+
+        for (String keyword: this.keywords) {
             keywordsInName = StringUtil.containsPhraseIgnoreCase(item.getName().toString(), keyword);
             keywordsInTags = keyword.startsWith("#")
                     && keyword.length() > 1
-                    && item.getTags().contains(keyword.substring(1));
+                    && new HashSet<>(stringifyCollection(item.getTags(), tag -> tag.substring(1, tag.length()-1)))
+                    .contains(keyword.substring(1));
             if (keywordsInName || keywordsInTags) {
                 return true;
             }
