@@ -5,5 +5,6 @@ package dream.fcard.logic.respond.commands;
  */
 public abstract class Command {
 
-    void
+
+
 }
