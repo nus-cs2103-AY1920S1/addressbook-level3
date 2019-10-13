@@ -147,6 +147,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Hides Vehicle & Incident Panels.
+     */
+    void initPreLogin() {
+        incidentListPanelPlaceholder.getParent().setVisible(false);
+        incidentListPanelPlaceholder.getParent().setManaged(false);
+        vehicleListPanelPlaceholder.getParent().setVisible(false);
+        vehicleListPanelPlaceholder.getParent().setManaged(false);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -180,6 +190,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleLogin() {
         // TODO: Implement Login GUI Effect
+        personListPanelPlaceholder.getParent().setVisible(false);
+        personListPanelPlaceholder.getParent().setManaged(false);
+        incidentListPanelPlaceholder.getParent().setVisible(true);
+        incidentListPanelPlaceholder.getParent().setManaged(true);
+        vehicleListPanelPlaceholder.getParent().setVisible(true);
+        vehicleListPanelPlaceholder.getParent().setManaged(true);
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -193,8 +209,6 @@ public class MainWindow extends UiPart<Stage> {
     public VehicleListPanel getVehicleListPanel() {
         return vehicleListPanel;
     }
-
-
 
     /**
      * Executes the command and returns the result.
