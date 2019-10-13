@@ -34,14 +34,16 @@ public class GenReportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Body bodyToGenReport = null;
         List<Body> lastShownList = model.getFilteredBodyList();
 
-        if (!IdentificationNumber.isExistingidentificationNumber(targetIdNum)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        for (Body body : lastShownList) {
+            if (body.getBodyIdNum().equals(targetIdNum)) {
+                bodyToGenReport = body;
+            }
         }
 
-        Body body = lastShownList.get(targetIdNum.getIdNum());
-        ReportGenerator.generate(body);
+        ReportGenerator.generate(bodyToGenReport);
         return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, targetIdNum));
     }
 }
