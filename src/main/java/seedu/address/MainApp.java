@@ -75,7 +75,7 @@ public class MainApp extends Application {
      * @param password the master password used to encrypt data.
      */
     private void initWithPassword(String password) {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing SecureIT ]===========================");
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath(), password);
 

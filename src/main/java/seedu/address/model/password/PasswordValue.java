@@ -1,6 +1,7 @@
 package seedu.address.model.password;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Password's password value in the password book.
@@ -8,19 +9,22 @@ import static java.util.Objects.requireNonNull;
 public class PasswordValue {
     public static final String MESSAGE_CONSTRAINTS = "PasswordValue can take any values, and it should not be blank";
 
-    //public static final String VALIDATION_REGEX = "[^\\p].*";
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String value;
 
     public PasswordValue(String passwordValue) {
         requireNonNull(passwordValue);
-        //checkArgument(isValidPasswordValue(passwordValue), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPasswordValue(passwordValue), MESSAGE_CONSTRAINTS);
         value = passwordValue;
     }
 
-    //public static boolean isValidPasswordValue(String test) {
-    //    return test.matches(VALIDATION_REGEX);
-    //}
+    /**
+     * Returns true if a given string is a valid username.
+     */
+    public static boolean isValidPasswordValue(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
     @Override
     public String toString() {
