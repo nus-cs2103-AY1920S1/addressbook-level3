@@ -3,6 +3,10 @@ package seedu.address.model.member;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Member's name in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class MemberName {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";

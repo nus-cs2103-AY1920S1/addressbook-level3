@@ -9,17 +9,21 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a Member in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Member {
     // Identity fields
     private final MemberName name;
-    private final MemberID id;
+    private final MemberId id;
 
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Member(MemberName name, MemberID id, Set<Tag> tags) {
+    public Member(MemberName name, MemberId id, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
         this.id = id;
@@ -28,7 +32,7 @@ public class Member {
 
     // TODO add multiple constructors so that users can add additional info later
 
-    public MemberID getID() {
+    public MemberId getId() {
         return id;
     }
 
@@ -75,7 +79,7 @@ public class Member {
 
         Member otherMember = (Member) other;
         return otherMember.getName().equals(getName())
-                && (otherMember.getID() == getID())
+                && (otherMember.getId() == getId())
                 && otherMember.getTags().equals(getTags());
     }
 
@@ -89,7 +93,7 @@ public class Member {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("Member ID: " + getID())
+                .append("Member ID: " + getId())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
