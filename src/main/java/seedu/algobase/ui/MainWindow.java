@@ -16,6 +16,7 @@ import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.ModelEnum;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -109,9 +110,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
-        DisplayTab problemListPanelTab = new DisplayTab("Problems", problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab("Tags");
-        DisplayTab planListPanelTab = new DisplayTab("Plans");
+        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getDisplayValue(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getDisplayValue());
+        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getDisplayValue());
 
         displayTabPane =
             new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);
