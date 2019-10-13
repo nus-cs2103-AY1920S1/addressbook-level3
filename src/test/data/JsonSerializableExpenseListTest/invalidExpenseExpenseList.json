@@ -2,7 +2,7 @@
   "expenses": [ {
     "name": "coffee",
     "amount": "a4124",
-    "date": "13/10/19",
+    "date": "13/10/2019",
     "tagged": [ "education" ]
   } ]
 }

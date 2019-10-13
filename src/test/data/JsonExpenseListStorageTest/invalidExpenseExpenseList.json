@@ -2,7 +2,7 @@
   "expenses": [ {
     "name": "Expense with invalid name field: @!asda24",
     "amount": "$23.50",
-    "date": "13/10/19",
+    "date": "13/10/2019",
     "tagged": [ "education" ]
   } ]
 }

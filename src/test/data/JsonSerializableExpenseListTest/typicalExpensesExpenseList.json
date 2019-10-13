@@ -1,39 +1,39 @@
 {
   "_comment": "ExpenseList save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseList()",
   "expenses" : [ {
-    "name" : "coffee",
-    "amount": "$7.95",
-    "date": "13/10/2019",
-    "tagged" : [ "teabreak" ]
-  }, {
-    "name" : "tea",
-    "amount": "$6.90",
-    "date": "11/10/2019",
-    "tagged" : [ "teabreak", "snack" ]
-  }, {
-    "name" : "mocha",
-    "amount": "$8.40",
-    "date": "15/11/2019",
-    "tagged" : [ ]
-  }, {
-    "name" : "cappuccino",
-    "amount": "$11.11",
-    "date": "9/9/2019",
-    "tagged" : [ "coffee" ]
-  }, {
-    "name" : "Teh Kosong",
+    "name" : "Bus",
     "amount": "$3.20",
-    "date": "1/1/2019",
-    "tagged" : [ ]
+    "date": "13/10/2019",
+    "tagged" : [ "school" ]
   }, {
-    "name" : "bread",
-    "amount": "$1.00",
-    "date": "12/12/2019",
-    "tagged" : [ ]
+    "name" : "Lunch",
+    "amount": "$4.50",
+    "date": "14/12/2019",
+    "tagged" : [ "lunch", "school" ]
   }, {
-    "name" : "lunch",
-    "amount": "$3.50",
+    "name" : "Adidas shoe",
+    "amount": "$120.00",
     "date": "24/12/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Groceries",
+    "amount": "$17.80",
+    "date": "1/2/2019",
+    "tagged" : [ "groceries" ]
+  }, {
+    "name" : "Chocolates",
+    "amount": "$12.30",
+    "date": "13/2/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Socks",
+    "amount": "$5.00",
+    "date": "24/12/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Cheese",
+    "amount": "$10.0",
+    "date": "31/12/2019",
     "tagged" : [ ]
   } ]
 }

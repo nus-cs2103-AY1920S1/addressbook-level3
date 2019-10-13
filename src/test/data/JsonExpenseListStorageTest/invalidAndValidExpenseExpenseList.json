@@ -7,7 +7,7 @@
   }, {
     "name": "Expense with Invalid amount",
     "amount": "$94asd44",
-    "date": "hans@example.com",
+    "date": "12/12/2019",
     "tagged": [ "education" ]
   } ]
 }
