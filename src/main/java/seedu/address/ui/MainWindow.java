@@ -184,6 +184,12 @@ public class MainWindow extends UiPart<Stage> {
 
             reminderListPanel = new ReminderListPanel(logic.getVisualList());
             reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+            if (commandResult.isUndo()) {
+
+            }
+
+            personListPanel = new PersonListPanel(logic.getVisualList());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

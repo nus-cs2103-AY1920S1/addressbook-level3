@@ -15,11 +15,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.ItemModel;
-import seedu.address.model.ItemModelManager;
-import seedu.address.model.ItemStorage;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.storage.ItemListStorage;
 import seedu.address.storage.JsonItemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -43,6 +39,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected ItemModel model;
     protected Config config;
+    protected ElisaState state;
 
     @Override
     public void init() throws Exception {
@@ -60,6 +57,8 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+
+        state = new ElisaStateManager(storage, model.getVisualList());
 
         logic = new LogicManager(model, storage);
 
