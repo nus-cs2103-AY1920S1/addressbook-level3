@@ -1,26 +1,24 @@
 package organice.testutil;
 
-import static organice.logic.commands.CommandTestUtil.VALID_AGE_IRENE;
-import static organice.logic.commands.CommandTestUtil.VALID_AGE_JOHN;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_IRENE;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_JOHN;
-import static organice.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
-import static organice.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_NRIC_IRENE;
-import static organice.logic.commands.CommandTestUtil.VALID_NRIC_JOHN;
-import static organice.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static organice.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_PHONE_IRENE;
-import static organice.logic.commands.CommandTestUtil.VALID_PHONE_JOHN;
-import static organice.logic.commands.CommandTestUtil.VALID_TYPE_AMY;
-import static organice.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_AGE_DONOR_JOHN;
+import static organice.logic.commands.CommandTestUtil.VALID_AGE_PATIENT_IRENE;
+import static organice.logic.commands.CommandTestUtil.VALID_NAME_DOCTOR_AMY;
+import static organice.logic.commands.CommandTestUtil.VALID_NAME_DONOR_JOHN;
+import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_IRENE;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_DOCTOR_AMY;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_DONOR_JOHN;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_IRENE;
+import static organice.logic.commands.CommandTestUtil.VALID_PHONE_DONOR_JOHN;
+import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_IRENE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import organice.logic.commands.CommandTestUtil;
 import organice.model.AddressBook;
 import organice.model.person.Doctor;
 import organice.model.person.Donor;
@@ -32,39 +30,40 @@ import organice.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Doctor ALICE = new DoctorBuilder().withNric("S1532142A")
+    public static final Doctor DOCTOR_ALICE = new DoctorBuilder().withNric("S1532142A")
             .withName("Alice Pauline").withPhone("94351253").build();
-    public static final Doctor BENSON = new DoctorBuilder().withNric("T5231426Q")
+    public static final Doctor DOCTOR_BENSON = new DoctorBuilder().withNric("T5231426Q")
             .withName("Benson Meier").withPhone("98765432").build();
-    public static final Patient CARL = new PatientBuilder().withAge("22").withNric("G5642431P")
+    public static final Patient PATIENT_CARL = new PatientBuilder().withAge("22").withNric("G5642431P")
             .withName("Carl Kurz").withPhone("95352563").build();
-    public static final Patient DANIEL = new PatientBuilder().withAge("34").withNric("F6423467F")
+    public static final Patient PATIENT_DANIEL = new PatientBuilder().withAge("34").withNric("F6423467F")
             .withName("Daniel Meier").withPhone("87652533").build();
-    public static final Donor ELLE = new DonorBuilder().withAge("13").withNric("S9374923S")
+    public static final Donor DONOR_ELLE = new DonorBuilder().withAge("13").withNric("S9374923S")
             .withName("Elle Meyer").withPhone("9482224").build();
-    public static final Donor FIONA = new DonorBuilder().withAge("25").withNric("F9183156L")
+    public static final Donor DONOR_FIONA = new DonorBuilder().withAge("25").withNric("F9183156L")
             .withName("Fiona Kunz").withPhone("9482427").build();
-    public static final Donor GEORGE = new DonorBuilder().withAge("44").withNric("S1234567A")
+    public static final Donor DONOR_GEORGE = new DonorBuilder().withAge("44").withNric("S1234567A")
             .withName("George Best").withPhone("9482442").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withType("doctor").withNric("G1245325A")
+    public static final Person PERSON_HOON = new PersonBuilder().withType("doctor").withNric("G1245325A")
             .withName("Hoon Meier").withPhone("8482424").build();
-    public static final Person IDA = new PersonBuilder().withType("doctor").withNric("T1125125L")
+    public static final Person PERSON_IDA = new PersonBuilder().withType("doctor").withNric("T1125125L")
             .withName("Ida Mueller").withPhone("8482131").build();
 
     //Sample Patients
-    public static final Patient IRENE = new PatientBuilder().withAge(VALID_AGE_IRENE).withName(VALID_NAME_IRENE)
-        .withNric(VALID_NRIC_IRENE).withPhone(VALID_PHONE_IRENE).build();
+    public static final Patient PATIENT_IRENE = new PatientBuilder().withAge(VALID_AGE_PATIENT_IRENE)
+            .withName(VALID_NAME_PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_IRENE).withPhone(VALID_PHONE_PATIENT_IRENE)
+            .build();
     //Sample Donors
-    public static final Donor JOHN = new DonorBuilder().withAge(VALID_AGE_JOHN).withName(VALID_NAME_JOHN)
-            .withNric(VALID_NRIC_JOHN).withPhone(VALID_PHONE_JOHN).build();
+    public static final Donor DONOR_JOHN = new DonorBuilder().withAge(VALID_AGE_DONOR_JOHN)
+            .withName(VALID_NAME_DONOR_JOHN).withNric(VALID_NRIC_DONOR_JOHN).withPhone(VALID_PHONE_DONOR_JOHN).build();
 
     // Manually added - person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withType(VALID_TYPE_AMY).withNric(VALID_NRIC_AMY)
-            .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).build();
-    public static final Person BOB = new PersonBuilder().withType(VALID_TYPE_BOB).withNric(VALID_NRIC_BOB)
-            .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
+    public static final Doctor DOCTOR_AMY = new DoctorBuilder().withNric(VALID_NRIC_DOCTOR_AMY)
+            .withName(VALID_NAME_DOCTOR_AMY).withPhone(CommandTestUtil.VALID_PHONE_DOCTOR_AMY).build();
+    public static final Patient PATIENT_BOB = new PatientBuilder().withNric(VALID_NRIC_PATIENT_BOB)
+            .withName(VALID_NAME_PATIENT_BOB).withPhone(VALID_PHONE_PATIENT_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -82,6 +81,7 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(DOCTOR_ALICE, DOCTOR_BENSON, PATIENT_CARL, PATIENT_DANIEL, DONOR_ELLE,
+                DONOR_FIONA, DONOR_GEORGE));
     }
 }

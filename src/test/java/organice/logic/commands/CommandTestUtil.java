@@ -26,46 +26,54 @@ import organice.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_NAME_IRENE = "Irene";
-    public static final String VALID_NAME_JOHN = "John";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_NAME_DOCTOR_AMY = "Amy Bee";
+    public static final String VALID_NAME_DONOR_JOHN = "John";
+    public static final String VALID_NAME_PATIENT_BOB = "Bob Choo";
+    public static final String VALID_NAME_PATIENT_IRENE = "Irene";
 
-    public static final String VALID_PHONE_IRENE = "85355255";
-    public static final String VALID_PHONE_JOHN = "81230942";
-    public static final String VALID_NRIC_AMY = "S1111111A";
-    public static final String VALID_NRIC_BOB = "G2222222B";
-    public static final String VALID_NRIC_IRENE = "S1111111A";
-    public static final String VALID_NRIC_JOHN = "T1312123P";
-    public static final String VALID_TYPE_AMY = "doctor";
-    public static final String VALID_TYPE_BOB = "patient";
-    public static final String VALID_TYPE_IRENE = "patient";
-    public static final String VALID_TYPE_JOHN = "donor";
-    public static final String VALID_AGE_IRENE = "21";
-    public static final String VALID_AGE_BOB = "21";
-    public static final String VALID_AGE_JOHN = "60";
+    public static final String VALID_PHONE_DOCTOR_AMY = "11111111";
+    public static final String VALID_PHONE_DONOR_JOHN = "81230942";
+    public static final String VALID_PHONE_PATIENT_BOB = "22222222";
+    public static final String VALID_PHONE_PATIENT_IRENE = "85355255";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
-    public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
-    public static final String TYPE_DESC_AMY = " " + PREFIX_TYPE + VALID_TYPE_AMY;
-    public static final String TYPE_DESC_BOB = " " + PREFIX_TYPE + VALID_TYPE_BOB;
-    public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
-    public static final String NAME_DESC_IRENE = " " + PREFIX_NAME + VALID_NAME_IRENE;
-    public static final String PHONE_DESC_IRENE = " " + PREFIX_PHONE + VALID_PHONE_IRENE;
-    public static final String NRIC_DESC_IRENE = " " + PREFIX_NRIC + VALID_NRIC_IRENE;
-    public static final String TYPE_DESC_IRENE = " " + PREFIX_TYPE + VALID_TYPE_IRENE;
-    public static final String AGE_DESC_IRENE = " " + PREFIX_AGE + VALID_AGE_IRENE;
-    public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + VALID_NAME_JOHN;
-    public static final String PHONE_DESC_JOHN = " " + PREFIX_PHONE + VALID_PHONE_JOHN;
-    public static final String NRIC_DESC_JOHN = " " + PREFIX_NRIC + VALID_NRIC_JOHN;
-    public static final String TYPE_DESC_JOHN = " " + PREFIX_TYPE + VALID_TYPE_JOHN;
-    public static final String AGE_DESC_JOHN = " " + PREFIX_AGE + VALID_AGE_JOHN;
+    public static final String VALID_NRIC_DOCTOR_AMY = "S1111111A";
+    public static final String VALID_NRIC_DONOR_JOHN = "T1312123P";
+    public static final String VALID_NRIC_PATIENT_BOB = "G2222222B";
+    public static final String VALID_NRIC_PATIENT_IRENE = "S1111111A";
+
+    public static final String VALID_TYPE_DOCTOR_AMY = "doctor";
+    public static final String VALID_TYPE_DONOR_JOHN = "donor";
+    public static final String VALID_TYPE_PATIENT_BOB = "patient";
+    public static final String VALID_TYPE_PATIENT_IRENE = "patient";
+
+    public static final String VALID_AGE_DONOR_JOHN = "60";
+    public static final String VALID_AGE_PATIENT_BOB = "21";
+    public static final String VALID_AGE_PATIENT_IRENE = "21";
+
+    public static final String NAME_DESC_DOCTOR_AMY = " " + PREFIX_NAME + VALID_NAME_DOCTOR_AMY;
+    public static final String NAME_DESC_DONOR_JOHN = " " + PREFIX_NAME + VALID_NAME_DONOR_JOHN;
+    public static final String NAME_DESC_PATIENT_BOB = " " + PREFIX_NAME + VALID_NAME_PATIENT_BOB;
+    public static final String NAME_DESC_PATIENT_IRENE = " " + PREFIX_NAME + VALID_NAME_PATIENT_IRENE;
+
+    public static final String PHONE_DESC_DOCTOR_AMY = " " + PREFIX_PHONE + VALID_PHONE_DOCTOR_AMY;
+    public static final String PHONE_DESC_DONOR_JOHN = " " + PREFIX_PHONE + VALID_PHONE_DONOR_JOHN;
+    public static final String PHONE_DESC_PATIENT_BOB = " " + PREFIX_PHONE + VALID_PHONE_PATIENT_BOB;
+    public static final String PHONE_DESC_PATIENT_IRENE = " " + PREFIX_PHONE + VALID_PHONE_PATIENT_IRENE;
+
+    public static final String NRIC_DESC_DOCTOR_AMY = " " + PREFIX_NRIC + VALID_NRIC_DOCTOR_AMY;
+    public static final String NRIC_DESC_DONOR_JOHN = " " + PREFIX_NRIC + VALID_NRIC_DONOR_JOHN;
+    public static final String NRIC_DESC_PATIENT_BOB = " " + PREFIX_NRIC + VALID_NRIC_PATIENT_BOB;
+    public static final String NRIC_DESC_PATIENT_IRENE = " " + PREFIX_NRIC + VALID_NRIC_PATIENT_IRENE;
+
+
+    public static final String TYPE_DESC_DOCTOR_AMY = " " + PREFIX_TYPE + VALID_TYPE_DOCTOR_AMY;
+    public static final String TYPE_DESC_DONOR_JOHN = " " + PREFIX_TYPE + VALID_TYPE_DONOR_JOHN;
+    public static final String TYPE_DESC_PATIENT_BOB = " " + PREFIX_TYPE + VALID_TYPE_PATIENT_BOB;
+    public static final String TYPE_DESC_PATIENT_IRENE = " " + PREFIX_TYPE + VALID_TYPE_PATIENT_IRENE;
+
+    public static final String AGE_DESC_DONOR_JOHN = " " + PREFIX_AGE + VALID_AGE_DONOR_JOHN;
+    public static final String AGE_DESC_PATIENT_BOB = " " + PREFIX_AGE + VALID_AGE_PATIENT_BOB;
+    public static final String AGE_DESC_PATIENT_IRENE = " " + PREFIX_AGE + VALID_AGE_PATIENT_IRENE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -77,14 +85,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditPersonDescriptor DESC_DOCTOR_AMY;
+    public static final EditCommand.EditPersonDescriptor DESC_PATIENT_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withType("doctor").withNric(VALID_NRIC_AMY)
-                .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withType("patient").withNric(VALID_NRIC_BOB)
-                .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
+        DESC_DOCTOR_AMY = new EditPersonDescriptorBuilder().withType("doctor").withNric(VALID_NRIC_DOCTOR_AMY)
+                .withName(VALID_NAME_DOCTOR_AMY).withPhone(VALID_PHONE_DOCTOR_AMY).build();
+        DESC_PATIENT_BOB = new EditPersonDescriptorBuilder().withType("patient").withNric(VALID_NRIC_PATIENT_BOB)
+                .withName(VALID_NAME_PATIENT_BOB).withPhone(VALID_PHONE_PATIENT_BOB).build();
     }
 
     /**

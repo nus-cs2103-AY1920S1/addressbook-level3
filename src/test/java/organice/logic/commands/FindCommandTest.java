@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static organice.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static organice.testutil.TypicalPersons.CARL;
-import static organice.testutil.TypicalPersons.ELLE;
-import static organice.testutil.TypicalPersons.FIONA;
+import static organice.testutil.TypicalPersons.DONOR_ELLE;
+import static organice.testutil.TypicalPersons.DONOR_FIONA;
+import static organice.testutil.TypicalPersons.PATIENT_CARL;
 import static organice.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -71,7 +71,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(PATIENT_CARL, DONOR_ELLE, DONOR_FIONA), model.getFilteredPersonList());
     }
 
     /**

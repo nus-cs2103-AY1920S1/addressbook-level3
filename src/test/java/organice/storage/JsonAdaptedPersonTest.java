@@ -3,10 +3,10 @@ package organice.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static organice.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static organice.testutil.Assert.assertThrows;
-import static organice.testutil.TypicalPersons.ALICE;
-import static organice.testutil.TypicalPersons.BENSON;
-import static organice.testutil.TypicalPersons.IRENE;
-import static organice.testutil.TypicalPersons.JOHN;
+import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
+import static organice.testutil.TypicalPersons.DOCTOR_BENSON;
+import static organice.testutil.TypicalPersons.DONOR_JOHN;
+import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,34 +26,34 @@ public class JsonAdaptedPersonTest {
 
     private static final String PLACEHOLDER_AGE = "";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_NRIC = BENSON.getNric().toString();
-    private static final String VALID_TYPE = BENSON.getType().toString();
+    private static final String VALID_NAME = DOCTOR_BENSON.getName().toString();
+    private static final String VALID_PHONE = DOCTOR_BENSON.getPhone().toString();
+    private static final String VALID_NRIC = DOCTOR_BENSON.getNric().toString();
+    private static final String VALID_TYPE = DOCTOR_BENSON.getType().toString();
     private static final String VALID_AGE = "28";
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(DOCTOR_BENSON);
+        assertEquals(DOCTOR_BENSON, person.toModelType());
     }
 
     @Test
     public void toModelType_validDoctorDetails_returnsDoctor() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(ALICE);
-        assertEquals(ALICE, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(DOCTOR_ALICE);
+        assertEquals(DOCTOR_ALICE, person.toModelType());
     }
 
     @Test
     public void toModelType_validDonorDetails_returnsDonor() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(JOHN);
-        assertEquals(JOHN, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(DONOR_JOHN);
+        assertEquals(DONOR_JOHN, person.toModelType());
     }
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(IRENE);
-        assertEquals(IRENE, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(PATIENT_IRENE);
+        assertEquals(PATIENT_IRENE, person.toModelType());
     }
 
     @Test

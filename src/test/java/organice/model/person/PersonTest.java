@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static organice.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
-import static organice.testutil.TypicalPersons.ALICE;
-import static organice.testutil.TypicalPersons.BOB;
-import static organice.testutil.TypicalPersons.HOON;
+import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_TYPE_PATIENT_BOB;
+import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
+import static organice.testutil.TypicalPersons.PATIENT_BOB;
+import static organice.testutil.TypicalPersons.PERSON_HOON;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,83 +21,84 @@ public class PersonTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(DOCTOR_ALICE.isSamePerson(DOCTOR_ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(DOCTOR_ALICE.isSamePerson(null));
 
         // different type -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withType(VALID_TYPE_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        Person editedAlice = new PersonBuilder(DOCTOR_ALICE).withType(VALID_TYPE_PATIENT_BOB).build();
+        assertTrue(DOCTOR_ALICE.isSamePerson(editedAlice));
 
         // different nric -> returns false
-        editedAlice = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        editedAlice = new PersonBuilder(DOCTOR_ALICE).withNric(VALID_NRIC_PATIENT_BOB).build();
+        assertFalse(DOCTOR_ALICE.isSamePerson(editedAlice));
 
         // different phone -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        editedAlice = new PersonBuilder(DOCTOR_ALICE).withPhone(VALID_PHONE_PATIENT_BOB).build();
+        assertTrue(DOCTOR_ALICE.isSamePerson(editedAlice));
 
         // different name -> returns true
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        editedAlice = new PersonBuilder(DOCTOR_ALICE).withName(VALID_NAME_PATIENT_BOB).build();
+        assertTrue(DOCTOR_ALICE.isSamePerson(editedAlice));
 
         // different nric, same attributes -> returns false
-        editedAlice = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        editedAlice = new PersonBuilder(DOCTOR_ALICE).withNric(VALID_NRIC_PATIENT_BOB).build();
+        assertFalse(DOCTOR_ALICE.isSamePerson(editedAlice));
 
         // same nric, different attributes -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        editedAlice = new PersonBuilder(DOCTOR_ALICE).withName(VALID_NAME_PATIENT_BOB)
+                .withPhone(VALID_PHONE_PATIENT_BOB).build();
+        assertTrue(DOCTOR_ALICE.isSamePerson(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Person hoonCopy = new PersonBuilder(HOON).build();
-        assertTrue(HOON.equals(hoonCopy));
+        Person hoonCopy = new PersonBuilder(PERSON_HOON).build();
+        assertTrue(PERSON_HOON.equals(hoonCopy));
 
         // same object -> returns true
-        assertTrue(HOON.equals(HOON));
+        assertTrue(PERSON_HOON.equals(PERSON_HOON));
 
         // null -> returns false
-        assertFalse(HOON.equals(null));
+        assertFalse(PERSON_HOON.equals(null));
 
         // different type -> returns false
-        assertFalse(HOON.equals(5));
+        assertFalse(PERSON_HOON.equals(5));
 
         // different person -> returns false
-        assertFalse(HOON.equals(BOB));
+        assertFalse(PERSON_HOON.equals(PATIENT_BOB));
 
         // different name -> returns false
-        Person editedHoon = new PersonBuilder(HOON).withName(VALID_NAME_BOB).build();
-        assertFalse(HOON.equals(editedHoon));
+        Person editedHoon = new PersonBuilder(PERSON_HOON).withName(VALID_NAME_PATIENT_BOB).build();
+        assertFalse(PERSON_HOON.equals(editedHoon));
 
         // different phone -> returns false
-        editedHoon = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedHoon));
+        editedHoon = new PersonBuilder(DOCTOR_ALICE).withPhone(VALID_PHONE_PATIENT_BOB).build();
+        assertFalse(DOCTOR_ALICE.equals(editedHoon));
 
         // different nric -> returns false
-        editedHoon = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
-        assertFalse(ALICE.equals(editedHoon));
+        editedHoon = new PersonBuilder(DOCTOR_ALICE).withNric(VALID_NRIC_PATIENT_BOB).build();
+        assertFalse(DOCTOR_ALICE.equals(editedHoon));
 
         // different person type -> returns false
-        editedHoon = new PersonBuilder(ALICE).withType(VALID_TYPE_BOB).build();
-        assertFalse(ALICE.equals(editedHoon));
+        editedHoon = new PersonBuilder(DOCTOR_ALICE).withType(VALID_TYPE_PATIENT_BOB).build();
+        assertFalse(DOCTOR_ALICE.equals(editedHoon));
     }
 
     @Test
     public void toStringTest() {
-        Person alice = new PersonBuilder(ALICE).build();
+        Person alice = new PersonBuilder(DOCTOR_ALICE).build();
         assertEquals(alice.toString().trim() , "Alice Pauline Person Type: doctor Nric: S1532142A Phone: 94351253");
     }
 
     @Test
     public void hashCodeTest() {
-        Person alice = new PersonBuilder(ALICE).build();
+        Person alice = new PersonBuilder(DOCTOR_ALICE).build();
 
-        assertEquals(alice.hashCode(), new PersonBuilder(ALICE).build().hashCode());
+        assertEquals(alice.hashCode(), new PersonBuilder(DOCTOR_ALICE).build().hashCode());
         assertNotEquals(alice.hashCode(),
-                new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build().hashCode());
+                new PersonBuilder(DOCTOR_ALICE).withPhone(VALID_PHONE_PATIENT_BOB).build().hashCode());
     }
 }

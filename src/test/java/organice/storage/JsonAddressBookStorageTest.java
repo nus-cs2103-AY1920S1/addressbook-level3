@@ -3,9 +3,9 @@ package organice.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static organice.testutil.Assert.assertThrows;
-import static organice.testutil.TypicalPersons.ALICE;
-import static organice.testutil.TypicalPersons.HOON;
-import static organice.testutil.TypicalPersons.IDA;
+import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
+import static organice.testutil.TypicalPersons.PERSON_HOON;
+import static organice.testutil.TypicalPersons.PERSON_IDA;
 import static organice.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
@@ -72,14 +72,14 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addPerson(PERSON_HOON);
+        original.removePerson(DOCTOR_ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addPerson(PERSON_IDA);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.testutil.Assert.assertThrows;
-import static organice.testutil.TypicalPersons.ALICE;
+import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
 import static organice.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -44,8 +44,8 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withNric("S1532142A").build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        Person editedAlice = new PersonBuilder(DOCTOR_ALICE).withNric("S1532142A").build();
+        List<Person> newPersons = Arrays.asList(DOCTOR_ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
@@ -58,19 +58,19 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasPerson(DOCTOR_ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addPerson(DOCTOR_ALICE);
+        assertTrue(addressBook.hasPerson(DOCTOR_ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withNric("S1532142A").build();
+        addressBook.addPerson(DOCTOR_ALICE);
+        Person editedAlice = new PersonBuilder(DOCTOR_ALICE).withNric("S1532142A").build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
