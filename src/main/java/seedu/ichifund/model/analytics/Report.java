@@ -2,13 +2,22 @@ package seedu.ichifund.model.analytics;
 
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.analytics.exceptions.ReportException;
+import seedu.ichifund.model.date.Date;
 
 /**
  * Represents a report with hidden internal logic and the ability to be generated.
  */
 public abstract class Report {
-    // final Date date;
-    // LATER: final Category category
+    final Date reportDate;
+
+    /**
+     * Constructs a {@code Report}.
+     *
+     * @param date A date.
+     */
+    public Report(Date date) {
+        reportDate = date;
+    }
 
     /**
      * Generates the report.

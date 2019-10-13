@@ -1,12 +1,24 @@
 package seedu.ichifund.model.analytics;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.analytics.exceptions.ReportException;
+import seedu.ichifund.model.date.Date;
 
 /**
  * Represents a report for expenditure, income or balance trends.
  */
 public abstract class TrendReport extends Report {
+
+    /**
+     * Constructs a {@code TrendReport}.
+     *
+     * @param date A date.
+     */
+    public TrendReport(Date date) {
+        super(date);
+    }
 
     /**
      * Generates the report.
@@ -17,7 +29,7 @@ public abstract class TrendReport extends Report {
      */
     @Override
     public ReportException generate(Model model) throws ReportException {
-        // TO-DO
+        requireNonNull(model);
         throw new ReportException("TO-DO");
     }
 
@@ -26,6 +38,5 @@ public abstract class TrendReport extends Report {
      *
      * @param model {@code Model} which the report should be based on.
      */
-    public abstract void fetch(Model model);
-    // Another param: Date date
+    public abstract void fetch(Model model, Date date);
 }
