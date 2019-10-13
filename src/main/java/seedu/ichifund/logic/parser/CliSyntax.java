@@ -17,5 +17,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_MONTH = new Prefix("m/");
     public static final Prefix PREFIX_DAY = new Prefix("d/");
     public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
+    public static final Prefix PREFIX_TRANSACTION_TYPE = new Prefix("ty/");
 
 }
