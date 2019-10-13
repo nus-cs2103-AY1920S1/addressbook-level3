@@ -29,7 +29,7 @@ public class NavigationSidebarLeft extends UiPart<Region> {
     void handleEnterOverallView() {
         mainWindow.executeGuiCommand(EnterDayPageCommand.COMMAND_WORD);
     }
-    /*
+
     @FXML
     private void handleEnterBookingsManager() {
 
@@ -39,7 +39,5 @@ public class NavigationSidebarLeft extends UiPart<Region> {
     private void handleEnterInventoryManager(){
 
     }
-    */
-
 
 }

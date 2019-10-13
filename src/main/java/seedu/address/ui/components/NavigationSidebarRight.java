@@ -2,6 +2,7 @@ package seedu.address.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -24,7 +25,7 @@ public class NavigationSidebarRight extends UiPart<Region> {
     void handleEnterItinerary() {
         mainWindow.executeGuiCommand(EnterItineraryPageCommand.COMMAND_WORD);
     }
-    /*
+
     @FXML
     private void handleEnterContactsManager() {
 
@@ -39,5 +40,5 @@ public class NavigationSidebarRight extends UiPart<Region> {
     private void handleEnterDairy() {
 
     }
-    */
+
 }
