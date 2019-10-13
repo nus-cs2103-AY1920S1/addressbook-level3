@@ -5,6 +5,7 @@ import static organice.logic.parser.CliSyntax.PREFIX_AGE;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
+import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.NoSuchElementException;
@@ -20,6 +21,7 @@ import organice.model.person.Name;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Phone;
+import organice.model.person.Priority;
 import organice.model.person.Type;
 
 /**
@@ -46,8 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         //put all the prefixes in the multimap to tokenize.
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NRIC, PREFIX_NAME, PREFIX_AGE, PREFIX_PHONE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NRIC, PREFIX_NAME,
+                PREFIX_AGE, PREFIX_PHONE, PREFIX_PRIORITY);
 
         Type type = parseType(argMultimap);
 
@@ -76,8 +78,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
+            Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
 
-            Patient patient = new Patient(type, nric, name, phone, age);
+            Patient patient = new Patient(type, nric, name, phone, age, priority);
             return new AddCommand(patient);
         } else {
             //TODO: refine error message later
@@ -97,7 +100,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Throws ParseException when one of the required prefixes for {@code Patient} are absent.
      */
     private static void arePrefixesPresentPatient(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE, PREFIX_PRIORITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

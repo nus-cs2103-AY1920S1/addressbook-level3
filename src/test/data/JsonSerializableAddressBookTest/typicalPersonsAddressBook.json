@@ -15,13 +15,15 @@
     "nric": "G5642431P",
     "name" : "Carl Kurz",
     "phone" : "95352563",
-    "age" : "22"
+    "age" : "22",
+    "priority": "high"
   }, {
     "type": "patient",
     "nric": "F6423467F",
     "name" : "Daniel Meier",
     "phone" : "87652533",
-    "age" : "34"
+    "age" : "34",
+    "priority": "low"
   }, {
     "type": "donor",
     "nric": "S9374923S",

@@ -37,6 +37,8 @@ public class PatientCard extends UiPart<Region> {
     private Label type;
     @FXML
     private Label age;
+    @FXML
+    private Label priority;
 
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -47,6 +49,7 @@ public class PatientCard extends UiPart<Region> {
         nric.setText(patient.getNric().value);
         type.setText(patient.getType().value);
         age.setText("Age: " + patient.getAge().value);
+        priority.setText("Priority: " + patient.getPriority().value);
     }
 
     @Override

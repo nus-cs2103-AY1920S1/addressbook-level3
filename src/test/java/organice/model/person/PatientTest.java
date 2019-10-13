@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_PRIORITY_PATIENT_BOB;
 import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
 import static organice.testutil.TypicalPersons.PATIENT_BOB;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
@@ -38,6 +39,14 @@ public class PatientTest {
 
         // different name -> returns true
         editedIrene = new PatientBuilder(PATIENT_IRENE).withName(VALID_NAME_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different nric, same attributes -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different priority -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withPriority(VALID_PRIORITY_PATIENT_BOB).build();
         assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
 
         // different nric, same attributes -> returns false
@@ -89,7 +98,7 @@ public class PatientTest {
     public void toStringTest() {
         Patient irene = new PatientBuilder(PATIENT_IRENE).build();
         assertEquals(irene.toString().trim() , "Irene Person Type: patient Nric: S1111111A"
-                + " Phone: 85355255 Age: 21");
+                + " Phone: 85355255 Age: 21 Priority: high");
     }
 
     @Test

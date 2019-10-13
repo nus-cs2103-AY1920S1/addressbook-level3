@@ -11,4 +11,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_AGE = new Prefix("a/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("pr/");
 }

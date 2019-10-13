@@ -12,6 +12,7 @@ import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.Phone;
+import organice.model.person.Priority;
 import organice.model.person.Type;
 
 /**
@@ -28,6 +29,7 @@ class JsonAdaptedPerson {
 
     //Data fields of Patient
     protected final String age;
+    protected final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -35,13 +37,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("type") String type, @JsonProperty("nric") String nric,
             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("age") String age) {
+            @JsonProperty("age") String age, @JsonProperty("priority") String priority) {
         this.type = type;
         this.nric = nric;
         this.name = name;
         this.phone = phone;
-
         this.age = age;
+        this.priority = priority;
     }
 
     /**
@@ -53,14 +55,18 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
 
-        if (source instanceof Doctor) {
-            age = "";
+        if (source instanceof Patient) {
+            age = ((Patient) source).getAge().value;
+            priority = ((Patient) source).getPriority().value;
         } else if (source instanceof Donor) {
             age = ((Donor) source).getAge().value;
-        } else if (source instanceof Patient) {
-            age = ((Patient) source).getAge().value;
+            priority = "";
+        } else if (source instanceof Doctor) {
+            age = "";
+            priority = "";
         } else {
             age = "";
+            priority = "";
         }
     }
 
@@ -105,6 +111,7 @@ class JsonAdaptedPerson {
 
         if (modelType.isDoctor()) {
             return new Doctor(modelType, modelNric, modelName, modelPhone);
+
         } else if (modelType.isDonor()) {
             if (age == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
@@ -126,10 +133,20 @@ class JsonAdaptedPerson {
             }
             final Age modelAge = new Age(age);
 
-            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge);
-        }
+            if (priority == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Priority.class.getSimpleName()));
+            }
 
-        return new Person(modelType, modelNric, modelName, modelPhone);
+            if (!Priority.isValidPriority(priority)) {
+                throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
+            }
+            final Priority modelPriority = new Priority(priority);
+
+            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge, modelPriority);
+        } else {
+            return new Person(modelType, modelNric, modelName, modelPhone);
+        }
     }
 
 }

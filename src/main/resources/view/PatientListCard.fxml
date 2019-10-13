@@ -38,7 +38,8 @@
         </Label>
       </HBox>
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-         <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+      <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+      <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

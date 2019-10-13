@@ -9,8 +9,8 @@ import organice.model.person.Age;
 import organice.model.person.Name;
 import organice.model.person.Nric;
 import organice.model.person.Phone;
+import organice.model.person.Priority;
 import organice.model.person.Type;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -107,5 +107,20 @@ public class ParserUtil {
         }
 
         return new Age(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String priority} into a {@code Priority}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code priority} is invalid.
+     */
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim();
+        if (!Priority.isValidPriority(trimmedPriority)) {
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        return new Priority(trimmedPriority);
     }
 }

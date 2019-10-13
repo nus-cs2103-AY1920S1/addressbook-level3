@@ -6,6 +6,7 @@ import static organice.logic.parser.CliSyntax.PREFIX_AGE;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
+import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 import static organice.testutil.Assert.assertThrows;
 
@@ -50,6 +51,9 @@ public class CommandTestUtil {
     public static final String VALID_AGE_PATIENT_BOB = "21";
     public static final String VALID_AGE_PATIENT_IRENE = "21";
 
+    public static final String VALID_PRIORITY_PATIENT_IRENE = "high";
+    public static final String VALID_PRIORITY_PATIENT_BOB = "medium";
+
     public static final String NAME_DESC_DOCTOR_AMY = " " + PREFIX_NAME + VALID_NAME_DOCTOR_AMY;
     public static final String NAME_DESC_DONOR_JOHN = " " + PREFIX_NAME + VALID_NAME_DONOR_JOHN;
     public static final String NAME_DESC_PATIENT_BOB = " " + PREFIX_NAME + VALID_NAME_PATIENT_BOB;
@@ -75,12 +79,16 @@ public class CommandTestUtil {
     public static final String AGE_DESC_PATIENT_BOB = " " + PREFIX_AGE + VALID_AGE_PATIENT_BOB;
     public static final String AGE_DESC_PATIENT_IRENE = " " + PREFIX_AGE + VALID_AGE_PATIENT_IRENE;
 
+    public static final String PRIORITY_DESC_PATIENT_IRENE = " " + PREFIX_PRIORITY + VALID_PRIORITY_PATIENT_IRENE;
+    public static final String PRIORITY_DESC_PATIENT_BOB = " " + PREFIX_PRIORITY + VALID_PRIORITY_PATIENT_BOB;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "G123A"; // need exactly 7 numbers in nrics
     public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "student"; // only allow 'patient','donor',
     // 'doctor'
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "-9";
+    public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "med";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
