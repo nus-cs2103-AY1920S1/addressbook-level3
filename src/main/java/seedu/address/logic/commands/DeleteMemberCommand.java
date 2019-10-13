@@ -38,8 +38,8 @@ public class DeleteMemberCommand extends Command {
         boolean contains = false;
         Member memberToDelete = null;
 
-        for(int i = 0; i < lastShownList.size(); i++) {
-            if(lastShownList.get(i).getId() == targetId) {
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i).getId() == targetId) {
                 contains = true;
                 memberToDelete = lastShownList.get(i);
                 break;

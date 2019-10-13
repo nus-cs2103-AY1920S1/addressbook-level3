@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.member.Member;
-import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -154,7 +154,7 @@ public class ModelManager implements Model {
                 && filteredMembers.equals(other.filteredMembers);
     }
 
-    //=========== ProjectDashboard (member) ================================================================================
+    //=========== ProjectDashboard (member) ===============================================
 
     @Override
     public boolean hasMember(Member member) {

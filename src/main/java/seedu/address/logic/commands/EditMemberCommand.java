@@ -20,8 +20,10 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Task;
 
+/**
+ * Edits the details of an existing member in the project dashboard.
+ */
 public class EditMemberCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
@@ -61,8 +63,8 @@ public class EditMemberCommand extends Command {
         boolean contains = false;
         Member memberToEdit = null;
 
-        for(int i = 0; i < lastShownList.size(); i++) {
-            if(lastShownList.get(i).getId() == id) {
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i).getId() == id) {
                 contains = true;
                 memberToEdit = lastShownList.get(i);
                 break;

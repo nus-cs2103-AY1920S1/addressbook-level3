@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.member.Member;
-import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 
 /**
  * The API of the Model component.
