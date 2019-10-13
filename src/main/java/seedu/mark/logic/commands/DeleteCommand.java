@@ -6,8 +6,8 @@ import java.util.List;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 
@@ -42,6 +42,7 @@ public class DeleteCommand extends Command {
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
+        model.saveMark();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
     }
 

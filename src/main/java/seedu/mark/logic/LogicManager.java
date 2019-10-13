@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.commands.Command;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.MarkParser;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.Storage;
 
 /**
@@ -62,6 +65,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public FolderStructure getFolderStructure() {
+        return model.getMark().getFolderStructure();
+    }
+
+    @Override
     public Path getMarkFilePath() {
         return model.getMarkFilePath();
     }
@@ -74,5 +82,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public SimpleObjectProperty<Url> getCurrentUrlProperty() {
+        return model.getCurrentUrlProperty();
+    }
+
+    @Override
+    public void setCurrentUrl(Url url) {
+        model.setCurrentUrl(url);
     }
 }

@@ -34,7 +34,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Bookmark editedBookmark = new BookmarkBuilder().build();
+        Bookmark editedBookmark = new BookmarkBuilder().withFolder("contacts").build();
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(editedBookmark).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOKMARK, descriptor);
 
@@ -42,6 +42,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -63,6 +64,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -75,6 +77,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,6 +95,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

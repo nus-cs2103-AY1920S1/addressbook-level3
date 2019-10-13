@@ -10,5 +10,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_URL = new Prefix("u/");
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
+    public static final Prefix PREFIX_FOLDER = new Prefix("f/");
+    public static final Prefix PREFIX_PARENT_FOLDER = new Prefix("p/");
 }

@@ -3,9 +3,12 @@ package seedu.mark.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * The API of the Model component.
@@ -84,4 +87,50 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
+
+    void addFolder(Folder folder, Folder parentFolder);
+
+    boolean hasFolder(Folder folder);
+
+    /*
+     * Wrapper for current url.
+     * null if not present.
+     */
+    SimpleObjectProperty<Url> getCurrentUrlProperty();
+
+    /**
+     * Returns the current url.
+     * null if not present.
+     */
+    Url getCurrentUrl();
+
+    /**
+     * Sets the current url.
+     */
+    void setCurrentUrl(Url url);
+
+    /**
+     * Returns true if the model has previous Mark states to restore.
+     */
+    boolean canUndoMark();
+
+    /**
+     * Returns true if the model has undone Mark states to restore.
+     */
+    boolean canRedoMark();
+
+    /**
+     * Restores the model's Mark to its previous state.
+     */
+    void undoMark();
+
+    /**
+     * Restores the model's Mark to its previously undone state.
+     */
+    void redoMark();
+
+    /**
+     * Saves the current Mark state for undo/redo.
+     */
+    void saveMark();
 }

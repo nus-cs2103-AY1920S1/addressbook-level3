@@ -3,6 +3,7 @@ package seedu.mark.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.testutil.MarkBuilder;
 
@@ -89,6 +91,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasFolder_folderNotInMark_returnsFalse() {
+        assertFalse(modelManager.hasFolder(new Folder(VALID_FOLDER_CS2103T)));
+    }
+
+    @Test
+    public void hasFolder_folderInMark_returnsTrue() {
+        Folder validFolder = new Folder(VALID_FOLDER_CS2103T);
+        modelManager.addFolder(validFolder, Folder.ROOT_FOLDER);
+        assertTrue(modelManager.hasFolder(validFolder));
+    }
+
+    @Test
     public void getFilteredBookmarkList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredBookmarkList().remove(0));
     }
@@ -128,5 +142,17 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMarkFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(mark, differentUserPrefs)));
+
+        // different currentUrl, one non-null, one null -> return false
+        modelManagerCopy.setCurrentUrl(ALICE.getUrl());
+        assertFalse(modelManager.equals(modelManagerCopy));
+
+        // different currentUrl, two non-null -> returns false
+        modelManager.setCurrentUrl(BENSON.getUrl());
+        assertFalse(modelManager.equals(modelManagerCopy));
+
+        // same values (including currentUrl) -> return true
+        modelManager.setCurrentUrl(ALICE.getUrl());
+        assertTrue(modelManager.equals(modelManagerCopy));
     }
 }

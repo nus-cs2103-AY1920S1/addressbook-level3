@@ -1,0 +1,56 @@
+{
+  "_comment": "Mark save file which contains the same Bookmark values as in TypicalBookmarks#getTypicalMark()",
+  "bookmarks" : [ {
+    "name" : "Alice Pauline",
+    "url" : "https://alice@example.com",
+    "remark" : "123, Jurong West Ave 6, #08-111",
+    "folder" : "contacts",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "url" : "https://johnd@example.com",
+    "remark" : "311, Clementi Ave 2, #02-25",
+    "folder" : "contacts",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "url" : "https://heinz@example.com",
+    "remark" : "wall street",
+    "folder" : "family",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "url" : "https://cornelia@example.com",
+    "remark" : "10th street",
+    "folder" : "ROOT",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "url" : "https://werner@example.com",
+    "remark" : "michegan ave",
+    "folder" : "family",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "url" : "https://lydia@example.com",
+    "remark" : "little tokyo",
+    "folder" : "ROOT",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "url" : "https://anna@example.com",
+    "remark" : "4th street",
+    "folder" : "ROOT",
+    "tagged" : [ ]
+  } ],
+  "folderStructure": {
+    "name": "ROOT",
+    "subfolders": [ {
+      "name": "contacts",
+      "subfolders": [ {
+        "name": "contacts",
+        "subfolders": []
+      } ]
+    } ]
+  }
+}

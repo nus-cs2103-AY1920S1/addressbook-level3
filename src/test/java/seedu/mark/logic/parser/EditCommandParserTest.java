@@ -1,6 +1,9 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.commands.CommandTestUtil.FOLDER_DESC_CS2101;
+import static seedu.mark.logic.commands.CommandTestUtil.FOLDER_DESC_CS2103T;
+import static seedu.mark.logic.commands.CommandTestUtil.INVALID_FOLDER_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.mark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -13,6 +16,8 @@ import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2101;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
@@ -32,6 +37,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
@@ -79,6 +85,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_CONSTRAINTS); // invalid url
         assertParseFailure(parser, "1" + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS); // invalid remark
+        assertParseFailure(parser, "1" + INVALID_FOLDER_DESC, Folder.MESSAGE_CONSTRAINTS); // invalid remark
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid name followed by valid url
@@ -106,10 +113,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_BOOKMARK;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
-                + URL_DESC_AMY + REMARK_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+                + URL_DESC_AMY + REMARK_DESC_AMY + NAME_DESC_AMY + FOLDER_DESC_CS2103T + TAG_DESC_FRIEND;
 
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withUrl(VALID_URL_AMY).withRemark(VALID_REMARK_AMY)
+                .withUrl(VALID_URL_AMY).withRemark(VALID_REMARK_AMY).withFolder(VALID_FOLDER_CS2103T)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -150,6 +157,12 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // folder
+        userInput = targetIndex.getOneBased() + FOLDER_DESC_CS2103T;
+        descriptor = new EditBookmarkDescriptorBuilder().withFolder(VALID_FOLDER_CS2103T).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditBookmarkDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
@@ -162,10 +175,10 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_BOOKMARK;
         String userInput = targetIndex.getOneBased() + REMARK_DESC_AMY + URL_DESC_AMY
                 + TAG_DESC_FRIEND + REMARK_DESC_AMY + URL_DESC_AMY + TAG_DESC_FRIEND
-                + REMARK_DESC_BOB + URL_DESC_BOB + TAG_DESC_HUSBAND;
+                + REMARK_DESC_BOB + URL_DESC_BOB + TAG_DESC_HUSBAND + FOLDER_DESC_CS2101;
 
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder()
-                .withUrl(VALID_URL_BOB).withRemark(VALID_REMARK_BOB)
+                .withUrl(VALID_URL_BOB).withRemark(VALID_REMARK_BOB).withFolder(VALID_FOLDER_CS2101)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

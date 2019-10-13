@@ -7,14 +7,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.mark.logic.commands.AddCommand;
+import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.FindCommand;
+import seedu.mark.logic.commands.GotoCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ListCommand;
+import seedu.mark.logic.commands.RedoCommand;
+import seedu.mark.logic.commands.UndoCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +57,9 @@ public class MarkParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case GotoCommand.COMMAND_WORD:
+            return new GotoCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -67,6 +74,15 @@ public class MarkParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
+        case AddFolderCommand.COMMAND_WORD:
+            return new AddFolderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
