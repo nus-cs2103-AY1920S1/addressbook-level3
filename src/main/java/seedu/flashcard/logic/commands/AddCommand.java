@@ -2,8 +2,8 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.flashcard.Flashcard;
 
 /**
  * Command to add a new model.

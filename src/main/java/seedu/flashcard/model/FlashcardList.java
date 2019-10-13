@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 import seedu.flashcard.model.exceptions.CardNotFoundException;
 import seedu.flashcard.model.exceptions.DuplicateTagException;
-import seedu.flashcard.model.flashcard.*;
+import seedu.flashcard.model.flashcard.Answer;
+import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.McqFlashcard;
+import seedu.flashcard.model.flashcard.McqQuestion;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
+import seedu.flashcard.model.flashcard.ShortAnswerQuestion;
+
 
 /**
  * The list of all model list, meanwhile, holding the {@Code TagManager}
