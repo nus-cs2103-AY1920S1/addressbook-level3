@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.ExpiryDate;
+import seedu.address.model.person.GroceryItem;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,11 +35,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_NAME).get());
+        ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_NAME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, tagList);
+        GroceryItem food = new GroceryItem(name, amount, expiryDate, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(food);
     }
 
     /**
