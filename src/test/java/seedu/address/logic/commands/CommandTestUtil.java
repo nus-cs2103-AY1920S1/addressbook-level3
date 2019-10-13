@@ -135,8 +135,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
 
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
-        final String[] splitName = note.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
         assertEquals(1, model.getFilteredNoteList().size());
     }
