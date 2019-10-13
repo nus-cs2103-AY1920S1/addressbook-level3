@@ -10,10 +10,20 @@ import seedu.algobase.model.tag.Tag;
  */
 public class TagIncludesKeywordsPredicate implements Predicate<Problem> {
 
+    public static final TagIncludesKeywordsPredicate DEFAULT_TAG_PREDICATE =
+        new TagIncludesKeywordsPredicate() {
+            @Override
+            public boolean test(Problem problem) {
+                return true;
+            }
+        };
     private final List<String> keywords;
 
     public TagIncludesKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+    }
+    private TagIncludesKeywordsPredicate() {
+        this.keywords = null;
     }
 
     @Override

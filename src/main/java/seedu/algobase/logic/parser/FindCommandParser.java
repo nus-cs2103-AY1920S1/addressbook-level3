@@ -9,7 +9,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -41,41 +40,31 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        final NameContainsKeywordsPredicate namePredicate;
+        FindCommand.FindProblemDescriptor findProblemDescriptor = new FindCommand.FindProblemDescriptor();
+
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             String trimmedNameArg = argumentMultimap.getValue(PREFIX_NAME).get().trim();
             String[] nameKeywords = trimmedNameArg.split("\\s+");
-            namePredicate = new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
-        } else {
-            namePredicate = null;
+            findProblemDescriptor.setNamePredicate(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
 
-        final AuthorMatchesKeywordPredicate authorPredicate;
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             String authorKeyword = argumentMultimap.getValue(PREFIX_AUTHOR).get();
-            authorPredicate = new AuthorMatchesKeywordPredicate(authorKeyword);
-        } else {
-            authorPredicate = null;
+            findProblemDescriptor.setAuthorPredicate(new AuthorMatchesKeywordPredicate(authorKeyword));
         }
 
-        final DescriptionContainsKeywordsPredicate descriptionPredicate;
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             String trimmedDescriptionArg = argumentMultimap.getValue(PREFIX_DESCRIPTION).get();
             String[] descriptionKeywords = trimmedDescriptionArg.split("\\s+");
-            descriptionPredicate = new DescriptionContainsKeywordsPredicate(Arrays.asList(descriptionKeywords));
-        } else {
-            descriptionPredicate = null;
+            findProblemDescriptor.setDescriptionPredicate(
+                new DescriptionContainsKeywordsPredicate(Arrays.asList(descriptionKeywords)));
         }
 
-        final SourceMatchesKeywordPredicate sourcePredicate;
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
             String sourceKeyword = argumentMultimap.getValue(PREFIX_SOURCE).get();
-            sourcePredicate = new SourceMatchesKeywordPredicate(sourceKeyword);
-        } else {
-            sourcePredicate = null;
+            findProblemDescriptor.setSourcePredicate(new SourceMatchesKeywordPredicate(sourceKeyword));
         }
 
-        final DifficultyIsInRangePredicate difficultyPredicate;
         if (argumentMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             String[] difficultyBounds = argumentMultimap.getValue(PREFIX_DIFFICULTY).get().split("-");
             if (difficultyBounds.length != 2) {
@@ -84,40 +73,24 @@ public class FindCommandParser implements Parser<FindCommand> {
             try {
                 double lowerBound = Double.parseDouble(difficultyBounds[0]);
                 double upperBound = Double.parseDouble(difficultyBounds[1]);
-                difficultyPredicate = new DifficultyIsInRangePredicate(lowerBound, upperBound);
+                findProblemDescriptor.setDifficultyPredicate(new DifficultyIsInRangePredicate(lowerBound, upperBound));
             } catch (NumberFormatException nfe) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), nfe);
             } catch (NullPointerException npe) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), npe);
             }
-        } else {
-            difficultyPredicate = null;
         }
 
-        final TagIncludesKeywordsPredicate tagPredicate;
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
             String trimmedTagArg = argumentMultimap.getValue(PREFIX_TAG).get().trim();
             String[] tagKeywords = trimmedTagArg.split("\\s+");
-            tagPredicate = new TagIncludesKeywordsPredicate(Arrays.asList(tagKeywords));
-        } else {
-            tagPredicate = null;
+            findProblemDescriptor.setTagPredicate(new TagIncludesKeywordsPredicate(Arrays.asList(tagKeywords)));
         }
 
-        Predicate[] predicates = {namePredicate, authorPredicate, descriptionPredicate, sourcePredicate,
-            difficultyPredicate, tagPredicate};
-        boolean allPredicatesAreNull = true;
-        for (Predicate predicate : predicates) {
-            if (predicate != null) {
-                allPredicatesAreNull = false;
-                break;
-            }
-        }
-
-        if (allPredicatesAreNull) {
+        if (!findProblemDescriptor.isAnyFieldProvided()) {
             throw new ParseException(FindCommand.MESSAGE_NO_CONSTRAINTS);
         }
 
-        return new FindCommand(namePredicate, authorPredicate, descriptionPredicate, sourcePredicate,
-                difficultyPredicate, tagPredicate);
+        return new FindCommand(findProblemDescriptor);
     }
 }

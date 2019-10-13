@@ -9,10 +9,20 @@ import seedu.algobase.commons.util.StringUtil;
  * Tests that a {@code Problem}'s {@code Description} includes all of the given keywords (ignoring cases).
  */
 public class DescriptionContainsKeywordsPredicate implements Predicate<Problem> {
+    public static final DescriptionContainsKeywordsPredicate DEFAULT_DESCRIPTION_PREDICATE =
+        new DescriptionContainsKeywordsPredicate() {
+            @Override
+            public boolean test(Problem problem) {
+                return true;
+            }
+        };
     private final List<String> keywords;
 
     public DescriptionContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+    }
+    private DescriptionContainsKeywordsPredicate() {
+        this.keywords = null;
     }
 
     @Override

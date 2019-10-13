@@ -7,10 +7,20 @@ import java.util.function.Predicate;
  */
 public class SourceMatchesKeywordPredicate implements Predicate<Problem> {
 
+    public static final SourceMatchesKeywordPredicate DEFAULT_SOURCE_PREDICATE =
+        new SourceMatchesKeywordPredicate() {
+            @Override
+            public boolean test(Problem problem) {
+                return true;
+            }
+        };
     private final String keyword;
 
     public SourceMatchesKeywordPredicate(String keyword) {
         this.keyword = keyword;
+    }
+    private SourceMatchesKeywordPredicate() {
+        this.keyword = null;
     }
 
     @Override
