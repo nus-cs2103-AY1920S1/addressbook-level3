@@ -5,6 +5,7 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -120,6 +121,12 @@ public class ModelManager implements Model {
         menu.setFood(target, editedFood);
     }
 
+    @Override
+    public void setFoods(List<Food> list) {
+        requireNonNull(list);
+        menu.setFoods(list);
+    }
+
     //=========== Budget Accessors =========================================================================
 
     @Override
@@ -193,7 +200,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return menu.equals(other.menu)
-            && userPrefs.equals(other.userPrefs)
-            && filteredFoods.equals(other.filteredFoods);
+                && userPrefs.equals(other.userPrefs)
+                && filteredFoods.equals(other.filteredFoods);
     }
 }

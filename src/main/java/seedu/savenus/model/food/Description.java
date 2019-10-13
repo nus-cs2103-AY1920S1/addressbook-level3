@@ -7,7 +7,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  * Represents a Food's description in the menu.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Description {
+public class Description implements Field {
 
     public static final String MESSAGE_CONSTRAINTS = "Description should not be blank";
     public static final String DEFAULT_VALUE = "No Description";
@@ -35,6 +35,14 @@ public class Description {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return value;
@@ -52,4 +60,13 @@ public class Description {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Field other) {
+        Description otherDescription = (Description) other;
+        if (otherDescription == null) {
+            return 1;
+        } else {
+            return this.getField().compareTo(otherDescription.getField());
+        }
+    }
 }

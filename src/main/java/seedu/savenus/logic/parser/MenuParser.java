@@ -17,6 +17,7 @@ import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,6 +76,9 @@ public class MenuParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
