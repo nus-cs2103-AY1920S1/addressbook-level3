@@ -18,7 +18,8 @@ public class BorrowerRecordsTest {
     void checkIfBorrowerExists() {
         BorrowerRecords borrowers = new BorrowerRecords();
         Borrower borrower1 = new BorrowerBuilder().actual_build();
-        Borrower borrower2 = new BorrowerBuilder().actual_build();
+        Borrower borrower2 = new BorrowerBuilder().withPhone("12341234")
+                .withEmail("hello@yo.com").actual_build();
         borrowers.addBorrower(borrower1);
         //return true
         assertTrue(borrowers.hasBorrower(borrower1));
