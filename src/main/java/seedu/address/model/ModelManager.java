@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,7 +23,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Expense> filteredEntries;
+    private final FilteredList<Entry> filteredEntries;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEntries = new FilteredList<>(this.addressBook.getExpenseList());
+        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
     }
 
     public ModelManager() {
@@ -113,6 +114,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
 
@@ -126,7 +133,7 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Expense> getFilteredEntryList() {
+    public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
     }
 

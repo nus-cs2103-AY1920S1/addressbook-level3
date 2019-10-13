@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
 
 /**
  * The API of the Model component.
@@ -74,7 +75,14 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addExpense(Expense entry);
+    void addExpense(Expense expense);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addIncome(Income income);
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -83,7 +91,7 @@ public interface Model {
     void setEntry(Entry target, Entry editedEntry);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Expense> getFilteredEntryList();
+    ObservableList<Entry> getFilteredEntryList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

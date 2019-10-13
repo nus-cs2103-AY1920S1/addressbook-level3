@@ -12,7 +12,7 @@ public class Expense extends Entry {
     private static final String ENTRY_TYPE = "Expense";
     private final Time time;
 
-    public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
+    public Expense(Description desc, Amount amount, Time time, Set<Tag> tags) {
         super(desc, amount, tags);
         this.time = time;
     }

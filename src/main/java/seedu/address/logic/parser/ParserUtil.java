@@ -50,6 +50,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    /*public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }  */
+
+
+    /**
      * Parses a stringAmt into an Amount.
      * @param stringAmt the amount as a String.
      * @return an Amount.

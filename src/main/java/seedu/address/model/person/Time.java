@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
 
@@ -33,9 +33,10 @@ public class Time {
     /**
      * Returns true if a given string is a valid name.
      */
-    //public static boolean isValidDescription(String test) {
-    //    return test.matches(VALIDATION_REGEX);
-    //}
+    public static boolean isValidTime(String test) {
+        return test == null; // put this for now
+        //return test.matches(VALIDATION_REGEX);
+    }
 
 
     @Override
