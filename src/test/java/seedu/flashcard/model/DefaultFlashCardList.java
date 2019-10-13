@@ -1,11 +1,8 @@
 package seedu.flashcard.model;
 
-import static seedu.flashcard.model.DefaultFlashCards.KANETSU_CARD;
 import static seedu.flashcard.model.DefaultFlashCards.MOUNT_BLANC_CARD;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 
@@ -14,8 +11,19 @@ import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
  */
 public class DefaultFlashCardList {
 
-    public static final List<ShortAnswerFlashcard> TEMP_SHORTANS = Arrays.asList(KANETSU_CARD, MOUNT_BLANC_CARD);
-
     public static final FlashcardList LIST1 = new FlashcardList(); // empty list for testing
-    public static final FlashcardList LIST2 = new FlashcardList((ArrayList<ShortAnswerFlashcard>) TEMP_SHORTANS);
+    public static final FlashcardList LIST2 = new FlashcardList(init(MOUNT_BLANC_CARD));
+
+    /**
+     * Initialize the default flashcard list to conduct tests
+     * @param card short-answer flashcard to be added, in a vararg way
+     * @return the arraylist of short-answer flashcards
+     */
+    public static ArrayList<ShortAnswerFlashcard> init(ShortAnswerFlashcard... card) {
+        ArrayList<ShortAnswerFlashcard> list = new ArrayList<>();
+        for (ShortAnswerFlashcard c: card) {
+            list.add(c);
+        }
+        return list;
+    }
 }

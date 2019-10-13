@@ -196,8 +196,8 @@ public class FlashcardList {
             return false;
         }
         FlashcardList otherList = (FlashcardList) other;
-        ArrayList<Flashcard> l1 = this.getAllFlashcards();
-        ArrayList<Flashcard> l2 = otherList.getAllFlashcards();
+        ArrayList<? extends Flashcard> l1 = this.getAllFlashcards();
+        ArrayList<? extends Flashcard> l2 = otherList.getAllFlashcards();
         return checkListEqual(l1, l2, 0, 0);
     }
 
@@ -207,7 +207,8 @@ public class FlashcardList {
      * @param list2 the second flashcard list
      * @return a boolean variable representing whether the two lists are identical
      */
-    public boolean checkListEqual(ArrayList<Flashcard> list1, ArrayList<Flashcard> list2, int i, int j) {
+    public boolean checkListEqual(ArrayList<? extends Flashcard> list1,
+                                  ArrayList<? extends Flashcard> list2, int i, int j) {
         if (list1.size() != list2.size()) {
             return false;
         }
