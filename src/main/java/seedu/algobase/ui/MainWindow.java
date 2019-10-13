@@ -114,8 +114,7 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab planListPanelTab = new DisplayTab("Plans");
 
         displayTabPane =
-            new DisplayTabPane(
-                logic.getGuiState().getDisplayTabPaneIndex(), problemListPanelTab, tagListPanelTab, planListPanelTab);
+            new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);
         displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
