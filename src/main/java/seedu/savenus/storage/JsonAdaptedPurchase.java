@@ -8,8 +8,6 @@ import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 
-import java.sql.Time;
-
 /**
  * Jackson-friendly version of {@link Purchase}.
  */

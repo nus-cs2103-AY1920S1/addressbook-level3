@@ -73,7 +73,7 @@
     "timeOfPurchaseInMillisSinceEpochString" : "1570976665687"
   } ],
   "wallet" : {
-    "remainingBudget" : "100",
-    "daysToExpire" : "30"
+    "remainingBudget" : "abc",
+    "daysToExpire" : "def"
   }
 }
