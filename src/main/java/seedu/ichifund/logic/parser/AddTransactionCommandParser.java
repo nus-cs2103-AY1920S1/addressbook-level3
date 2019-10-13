@@ -62,6 +62,15 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         return new AddTransactionCommand(transaction);
     }
 
+    /**
+     * Returns a {@code Date} object from the {@code day}, {@code month} and {@code year}.
+     *
+     * @param day The {@code Day} of the year to be returned.
+     * @param month The {@code Month} of the year to be returned.
+     * @param year The {@code Year} of the year to be returned.
+     * @return A {@code Date} object composed of {@code day}, {@code month} and {@code year}
+     * @throws ParseException If day does not match month and year.
+     */
     private static Date constructDate(Day day, Month month, Year year) throws ParseException {
         if (Date.isValidDate(day, month, year)) {
             return new Date(day, month, year);
