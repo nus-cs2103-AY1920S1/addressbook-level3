@@ -36,7 +36,8 @@ public class LoginCommand extends Command {
         if (model.getFilteredPersonList().size() != 1) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.setSession(model.getFilteredPersonList().get(0)); // Sets session to person remaining in list
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override

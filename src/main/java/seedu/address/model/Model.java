@@ -17,6 +17,16 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
+     * Sets the {@code Person} that is logged into the {@code Session}.
+     */
+    void setSession(Person person);
+
+    /**
+     * Gets the {@code Person} that is logged into the {@code Session}.
+     */
+    Person getLoggedInPerson();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
