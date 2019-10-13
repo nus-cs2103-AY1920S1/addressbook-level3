@@ -10,27 +10,27 @@ public class AddressTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Address(null));
+        assertThrows(NullPointerException.class, () -> new Picture(null));
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+        String invalidPicture = "";
+        assertThrows(IllegalArgumentException.class, () -> new Picture(invalidPicture));
     }
 
     @Test
     public void isValidAddress() {
         // null address
-        assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
+        assertThrows(NullPointerException.class, () -> Picture.isValidPicture(null));
 
         // invalid addresses
-        assertFalse(Address.isValidAddress("")); // empty string
-        assertFalse(Address.isValidAddress(" ")); // spaces only
+        assertFalse(Picture.isValidPicture("")); // empty string
+        assertFalse(Picture.isValidPicture(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Address.isValidAddress("-")); // one character
-        assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Picture.isValidPicture("test.jpg"));
+        assertTrue(Picture.isValidPicture("123.jpg"));
+        assertTrue(Picture.isValidPicture("21!.jpg")); // long address
     }
 }

@@ -2,18 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+
+import seedu.address.model.classid.ClassId;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Participation;
+import seedu.address.model.person.Picture;
+import seedu.address.model.person.Result;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -56,13 +54,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static Picture parsePicture(String picture) throws ParseException {
+        requireNonNull(picture);
+        String trimmedPicture = picture.trim();
+        if (!Picture.isValidPicture(trimmedPicture)) {
+            throw new ParseException(Picture.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Picture(trimmedPicture);
     }
 
     /**
@@ -71,13 +69,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Result parseResult(String result) throws ParseException {
+        requireNonNull(result);
+        String trimmedResult = result.trim();
+        if (!Result.isValidResult(trimmedResult)) {
+            throw new ParseException(Result.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Result(trimmedResult);
     }
 
     /**
@@ -86,39 +84,44 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Attendance parseAttendance(String attendance) throws ParseException {
+        requireNonNull(attendance);
+        String trimmedAttendance = attendance.trim();
+        if (!Attendance.isValidAttendance(trimmedAttendance)) {
+            throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Attendance(trimmedAttendance);
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static ClassId parseClassId(String classId) throws ParseException {
+        requireNonNull(classId);
+        String trimmedId = classId.trim();
+        if (!ClassId.isValidClassId(trimmedId)) {
+            throw new ParseException(ClassId.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new ClassId(trimmedId);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Participation parseParticipation(String participation) throws ParseException {
+        requireNonNull(participation);
+        String trimmedParticipation = participation.trim();
+        if (!Participation.isValidParticipation(trimmedParticipation)) {
+            throw new ParseException(Participation.MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        return new Participation(trimmedParticipation);
     }
+
+
 }
