@@ -18,11 +18,11 @@ import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.question.Topic;
 
 public class JsonAdaptedQuestionTest {
-    private static final String INVALID_TITLE = "R@chel";
-    private static final String INVALID_TOPIC = "+651234";
+    private static final String INVALID_TITLE = " R@chel";
+    private static final String INVALID_TOPIC = " +651234";
     private static final String INVALID_DIFFICULTY = " ";
-    private static final String INVALID_STATUS = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_STATUS = " example.com";
+    private static final String INVALID_TAG = " #friend";
 
     private static final String VALID_TITLE = BENSON.getTitle().toString();
     private static final String VALID_TOPIC = BENSON.getTopic().toString();

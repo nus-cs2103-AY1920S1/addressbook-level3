@@ -81,7 +81,7 @@ class JsonAdaptedQuestion {
         if (topic == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Topic.class.getSimpleName()));
         }
-        if (!Topic.isValidPhone(topic)) {
+        if (!Topic.isValidTopic(topic)) {
             throw new IllegalValueException(Topic.MESSAGE_CONSTRAINTS);
         }
         final Topic modelTopic = new Topic(topic);
@@ -89,7 +89,7 @@ class JsonAdaptedQuestion {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
-        if (!Status.isValidEmail(status)) {
+        if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = new Status(status);

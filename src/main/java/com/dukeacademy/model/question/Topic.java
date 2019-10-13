@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Question's topic number in the question bank.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTopic(String)}
  */
 public class Topic {
 
@@ -28,14 +28,14 @@ public class Topic {
      */
     public Topic(String topic) {
         requireNonNull(topic);
-        checkArgument(isValidPhone(topic), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTopic(topic), MESSAGE_CONSTRAINTS);
         value = topic;
     }
 
     /**
      * Returns true if a given string is a valid topic number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidTopic(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

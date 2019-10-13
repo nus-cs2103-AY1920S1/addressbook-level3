@@ -21,21 +21,17 @@ public class TopicTest {
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidTopic() {
         // null topic number
-        assertThrows(NullPointerException.class, () -> Topic.isValidPhone(null));
+        assertThrows(NullPointerException.class, () -> Topic.isValidTopic(null));
 
         // invalid topic numbers
-        assertFalse(Topic.isValidPhone("")); // empty string
-        assertFalse(Topic.isValidPhone(" ")); // spaces only
-        assertFalse(Topic.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Topic.isValidPhone("topic")); // non-numeric
-        assertFalse(Topic.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Topic.isValidPhone("9312 1534")); // spaces within digits
+        assertFalse(Topic.isValidTopic("")); // empty string
+        assertFalse(Topic.isValidTopic(" ")); // spaces only
 
         // valid topic numbers
-        assertTrue(Topic.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Topic.isValidPhone("93121534"));
-        assertTrue(Topic.isValidPhone("124293842033123")); // long topic numbers
+        assertTrue(Topic.isValidTopic("911")); // exactly 3 numbers
+        assertTrue(Topic.isValidTopic("93121534"));
+        assertTrue(Topic.isValidTopic("124293842033123")); // long topic numbers
     }
 }

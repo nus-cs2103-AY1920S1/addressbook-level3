@@ -56,10 +56,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code topic} is invalid.
      */
-    public static Topic parsePhone(String topic) throws ParseException {
+    public static Topic parseTopic(String topic) throws ParseException {
         requireNonNull(topic);
         String trimmedPhone = topic.trim();
-        if (!Topic.isValidPhone(trimmedPhone)) {
+        if (!Topic.isValidTopic(trimmedPhone)) {
             throw new ParseException(Topic.MESSAGE_CONSTRAINTS);
         }
         return new Topic(trimmedPhone);
@@ -71,7 +71,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code difficulty} is invalid.
      */
-    public static Difficulty parseAddress(String difficulty) throws ParseException {
+    public static Difficulty parseDifficulty(String difficulty) throws ParseException {
         requireNonNull(difficulty);
         String trimmedDifficulty = difficulty.trim();
         if (!Difficulty.isValidDifficulty(trimmedDifficulty)) {
@@ -86,10 +86,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code status} is invalid.
      */
-    public static Status parseEmail(String status) throws ParseException {
+    public static Status parseStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedEmail = status.trim();
-        if (!Status.isValidEmail(trimmedEmail)) {
+        if (!Status.isValidStatus(trimmedEmail)) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         return new Status(trimmedEmail);

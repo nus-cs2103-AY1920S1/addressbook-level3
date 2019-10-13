@@ -20,11 +20,11 @@ import com.dukeacademy.testutil.Assert;
 import com.dukeacademy.testutil.TypicalIndexes;
 
 public class ParserUtilTest {
-    private static final String INVALID_TITLE = "R@chel";
-    private static final String INVALID_TOPIC = "+651234";
+    private static final String INVALID_TITLE = " ";
+    private static final String INVALID_TOPIC = " ";
     private static final String INVALID_DIFFICULTY = " ";
-    private static final String INVALID_STATUS = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_STATUS = " ";
+    private static final String INVALID_TAG = " ";
 
     private static final String VALID_TITLE = "Rachel Walker";
     private static final String VALID_TOPIC = "123456";
@@ -80,71 +80,71 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTopic((String) null));
     }
 
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_TOPIC));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTopic(INVALID_TOPIC));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
         Topic expectedTopic = new Topic(VALID_TOPIC);
-        assertEquals(expectedTopic, ParserUtil.parsePhone(VALID_TOPIC));
+        assertEquals(expectedTopic, ParserUtil.parseTopic(VALID_TOPIC));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_TOPIC + WHITESPACE;
         Topic expectedTopic = new Topic(VALID_TOPIC);
-        assertEquals(expectedTopic, ParserUtil.parsePhone(phoneWithWhitespace));
+        assertEquals(expectedTopic, ParserUtil.parseTopic(phoneWithWhitespace));
     }
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDifficulty((String) null));
     }
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_DIFFICULTY));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDifficulty(INVALID_DIFFICULTY));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
         Difficulty expectedDifficulty = new Difficulty(VALID_DIFFICULTY);
-        assertEquals(expectedDifficulty, ParserUtil.parseAddress(VALID_DIFFICULTY));
+        assertEquals(expectedDifficulty, ParserUtil.parseDifficulty(VALID_DIFFICULTY));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_DIFFICULTY + WHITESPACE;
         Difficulty expectedDifficulty = new Difficulty(VALID_DIFFICULTY);
-        assertEquals(expectedDifficulty, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(expectedDifficulty, ParserUtil.parseDifficulty(addressWithWhitespace));
     }
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseStatus((String) null));
     }
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_STATUS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseStatus(INVALID_STATUS));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         Status expectedStatus = new Status(VALID_STATUS);
-        assertEquals(expectedStatus, ParserUtil.parseEmail(VALID_STATUS));
+        assertEquals(expectedStatus, ParserUtil.parseStatus(VALID_STATUS));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_STATUS + WHITESPACE;
         Status expectedStatus = new Status(VALID_STATUS);
-        assertEquals(expectedStatus, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(expectedStatus, ParserUtil.parseStatus(emailWithWhitespace));
     }
 
     @Test

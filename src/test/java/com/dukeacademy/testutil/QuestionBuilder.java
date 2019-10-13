@@ -73,7 +73,7 @@ public class QuestionBuilder {
     /**
      * Sets the {@code Topic} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withPhone(String topic) {
+    public QuestionBuilder withTopic(String topic) {
         this.topic = new Topic(topic);
         return this;
     }
@@ -81,7 +81,7 @@ public class QuestionBuilder {
     /**
      * Sets the {@code Status} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withEmail(String status) {
+    public QuestionBuilder withStatus(String status) {
         this.status = new Status(status);
         return this;
     }

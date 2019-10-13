@@ -1,10 +1,10 @@
 package com.dukeacademy.model.question;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TOPIC_BOB;
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static com.dukeacademy.testutil.TypicalQuestions.ALICE;
 import static com.dukeacademy.testutil.TypicalQuestions.BOB;
@@ -34,25 +34,27 @@ public class QuestionTest {
 
         // different topic and status -> returns false
         Question
-            editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+            editedAlice = new QuestionBuilder(ALICE).withTopic(VALID_TOPIC_BOB).withStatus(VALID_STATUS_BOB).build();
         assertFalse(ALICE.isSameQuestion(editedAlice));
 
         // different title -> returns false
-        editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_NAME_BOB).build();
+        editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
         assertFalse(ALICE.isSameQuestion(editedAlice));
 
         // same title, same topic, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDifficulty(VALID_ADDRESS_BOB)
+        editedAlice = new QuestionBuilder(ALICE).withStatus(VALID_STATUS_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
                                                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
 
         // same title, same status, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDifficulty(VALID_ADDRESS_BOB)
+        editedAlice = new QuestionBuilder(ALICE).withTopic(VALID_TOPIC_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
                                                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
 
         // same title, same topic, same status, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new QuestionBuilder(ALICE)
+            .withDifficulty(VALID_DIFFICULTY_BOB)
+            .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
     }
 
@@ -76,19 +78,19 @@ public class QuestionTest {
 
         // different title -> returns false
         Question
-            editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_NAME_BOB).build();
+            editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different topic -> returns false
-        editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        editedAlice = new QuestionBuilder(ALICE).withTopic(VALID_TOPIC_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different status -> returns false
-        editedAlice = new QuestionBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new QuestionBuilder(ALICE).withStatus(VALID_STATUS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different difficulty -> returns false
-        editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).build();
+        editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_DIFFICULTY_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

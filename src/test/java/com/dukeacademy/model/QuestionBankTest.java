@@ -1,6 +1,6 @@
 package com.dukeacademy.model;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static com.dukeacademy.testutil.TypicalQuestions.ALICE;
@@ -48,8 +48,9 @@ public class QuestionBankTest {
     @Test
     public void resetData_withDuplicateQuestions_throwsDuplicateQuestionException() {
         // Two questions with the same identity fields
-        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                                                         .build();
+        Question editedAlice = new QuestionBuilder(ALICE)
+            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
+            .build();
         List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
         QuestionBankStub newData = new QuestionBankStub(newQuestions);
 
@@ -75,8 +76,9 @@ public class QuestionBankTest {
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
         questionBank.addQuestion(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                                                         .build();
+        Question editedAlice = new QuestionBuilder(ALICE)
+            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
+            .build();
         assertTrue(questionBank.hasQuestion(editedAlice));
     }
 

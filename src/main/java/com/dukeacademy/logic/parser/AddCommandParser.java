@@ -40,10 +40,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Title title = ParserUtil.parseName(argMultimap.getValue(PREFIX_TITLE).get());
-        Topic topic = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TOPIC).get());
+        Topic topic = ParserUtil.parseTopic(argMultimap.getValue(PREFIX_TOPIC).get());
         Status
-            status = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_STATUS).get());
-        Difficulty difficulty = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+            status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
+        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Question question = new Question(title, topic, status, difficulty, tagList);

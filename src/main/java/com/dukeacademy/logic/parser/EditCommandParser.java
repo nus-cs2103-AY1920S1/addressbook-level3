@@ -49,14 +49,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editQuestionDescriptor.setTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_TOPIC).isPresent()) {
-            editQuestionDescriptor.setTopic(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TOPIC).get()));
+            editQuestionDescriptor.setTopic(ParserUtil.parseTopic(argMultimap.getValue(PREFIX_TOPIC).get()));
         }
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            editQuestionDescriptor.setStatus(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_STATUS).get()));
+            editQuestionDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             editQuestionDescriptor.setDifficulty(ParserUtil
-                .parseAddress(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+                .parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
 

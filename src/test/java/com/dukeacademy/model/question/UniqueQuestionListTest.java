@@ -1,6 +1,6 @@
 package com.dukeacademy.model.question;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static com.dukeacademy.testutil.TypicalQuestions.ALICE;
@@ -44,8 +44,9 @@ public class UniqueQuestionListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueQuestionList.add(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                                                         .build();
+        Question editedAlice = new QuestionBuilder(ALICE)
+            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
+            .build();
         assertTrue(uniqueQuestionList.contains(editedAlice));
     }
 
@@ -90,8 +91,9 @@ public class UniqueQuestionListTest {
     @Test
     public void setQuestion_editedQuestionHasSameIdentity_success() {
         uniqueQuestionList.add(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                                                         .build();
+        Question editedAlice = new QuestionBuilder(ALICE)
+            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
+            .build();
         uniqueQuestionList.setQuestion(ALICE, editedAlice);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(editedAlice);

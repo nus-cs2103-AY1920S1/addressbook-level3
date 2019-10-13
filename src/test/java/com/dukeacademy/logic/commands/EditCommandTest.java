@@ -2,9 +2,9 @@ package com.dukeacademy.logic.commands;
 
 import static com.dukeacademy.logic.commands.CommandTestUtil.DESC_AMY;
 import static com.dukeacademy.logic.commands.CommandTestUtil.DESC_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TOPIC_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.dukeacademy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.dukeacademy.logic.commands.CommandTestUtil.showQuestionAtIndex;
@@ -57,12 +57,12 @@ public class EditCommandTest {
             lastQuestion = model.getFilteredQuestionList().get(indexLastQuestion.getZeroBased());
 
         QuestionBuilder questionInList = new QuestionBuilder(lastQuestion);
-        Question editedQuestion = questionInList.withTitle(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Question editedQuestion = questionInList.withTitle(VALID_TITLE_BOB).withTopic(VALID_TOPIC_BOB)
                                               .withTags(VALID_TAG_HUSBAND).build();
 
         EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
-            .withTitle(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+            .withTitle(VALID_TITLE_BOB)
+            .withTopic(VALID_TOPIC_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastQuestion, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
@@ -96,9 +96,9 @@ public class EditCommandTest {
 
         Question questionInFilteredList = model.getFilteredQuestionList()
                                                .get(TypicalIndexes.INDEX_FIRST_QUESTION.getZeroBased());
-        Question editedQuestion = new QuestionBuilder(questionInFilteredList).withTitle(VALID_NAME_BOB).build();
+        Question editedQuestion = new QuestionBuilder(questionInFilteredList).withTitle(VALID_TITLE_BOB).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_QUESTION,
-                new EditQuestionDescriptorBuilder().withTitle(VALID_NAME_BOB).build());
+                new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
             editedQuestion);
@@ -138,7 +138,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidQuestionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredQuestionList().size() + 1);
-        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withTitle(VALID_NAME_BOB)
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB)
                                                                                          .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -157,7 +157,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getQuestionBank().getQuestionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditQuestionDescriptorBuilder().withTitle(VALID_NAME_BOB).build());
+                new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
     }

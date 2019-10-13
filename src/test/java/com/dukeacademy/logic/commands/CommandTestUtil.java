@@ -22,34 +22,39 @@ import com.dukeacademy.testutil.EditQuestionDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_TITLE_AMY = "Amy Bee";
+    public static final String VALID_TITLE_BOB = "Bob Choo";
+    public static final String VALID_TOPIC_AMY = "11111111";
+    public static final String VALID_TOPIC_BOB = "22222222";
+    public static final String VALID_STATUS_AMY = "amy@example.com";
+    public static final String VALID_STATUS_BOB = "bob@example.com";
+    public static final String VALID_DIFFICULTY_AMY = "Block 312, Amy Street 1";
+    public static final String VALID_DIFFICULTY_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String NAME_DESC_AMY = " " + CliSyntax.PREFIX_TITLE + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + CliSyntax.PREFIX_TITLE + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + CliSyntax.PREFIX_TOPIC + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + CliSyntax.PREFIX_TOPIC + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + CliSyntax.PREFIX_STATUS + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + CliSyntax.PREFIX_STATUS + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + CliSyntax.PREFIX_DIFFICULTY + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + CliSyntax.PREFIX_DIFFICULTY + VALID_ADDRESS_BOB;
+    public static final String TITLE_DESC_AMY = " " + CliSyntax.PREFIX_TITLE + VALID_TITLE_AMY;
+    public static final String TITLE_DESC_BOB = " " + CliSyntax.PREFIX_TITLE + VALID_TITLE_BOB;
+    public static final String TOPIC_DESC_AMY = " " + CliSyntax.PREFIX_TOPIC + VALID_TOPIC_AMY;
+    public static final String TOPIC_DESC_BOB = " " + CliSyntax.PREFIX_TOPIC + VALID_TOPIC_BOB;
+    public static final String STATUS_DESC_AMY = " " + CliSyntax.PREFIX_STATUS + VALID_STATUS_AMY;
+    public static final String STATUS_DESC_BOB = " " + CliSyntax.PREFIX_STATUS + VALID_STATUS_BOB;
+    public static final String DIFFICULTY_DESC_AMY = " " + CliSyntax.PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
+    public static final String DIFFICULTY_DESC_BOB = " " + CliSyntax.PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
     public static final String TAG_DESC_FRIEND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_TITLE + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_TOPIC + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_STATUS + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " "
-            + CliSyntax.PREFIX_DIFFICULTY; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TITLE_DESC =
+        " " + CliSyntax.PREFIX_TITLE; // '&' not allowed in names
+    public static final String INVALID_TOPIC_DESC =
+        " " + CliSyntax.PREFIX_TOPIC; // 'a' not allowed in phones
+    public static final String INVALID_STATUS_DESC =
+        " " + CliSyntax.PREFIX_STATUS; // missing '@' symbol
+    public static final String INVALID_DIFFICULTY_DESC = " "
+        + CliSyntax.PREFIX_DIFFICULTY; // empty string not allowed for
+    // addresses
+    public static final String INVALID_TAG_DESC =
+        " " + CliSyntax.PREFIX_TAG; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -58,15 +63,15 @@ public class CommandTestUtil {
     public static final EditCommand.EditQuestionDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditQuestionDescriptorBuilder().withTitle(VALID_NAME_AMY)
-                                                      .withPhone(VALID_PHONE_AMY)
-                                                      .withEmail(VALID_EMAIL_AMY)
-                                                      .withDifficulty(VALID_ADDRESS_AMY)
+        DESC_AMY = new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_AMY)
+                                                      .withTopic(VALID_TOPIC_AMY)
+                                                      .withStatus(VALID_STATUS_AMY)
+                                                      .withDifficulty(VALID_DIFFICULTY_AMY)
                                                       .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditQuestionDescriptorBuilder().withTitle(VALID_NAME_BOB)
-                                                      .withPhone(VALID_PHONE_BOB)
-                                                      .withEmail(VALID_EMAIL_BOB)
-                                                      .withDifficulty(VALID_ADDRESS_BOB)
+        DESC_BOB = new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB)
+                                                      .withTopic(VALID_TOPIC_BOB)
+                                                      .withStatus(VALID_STATUS_BOB)
+                                                      .withDifficulty(VALID_DIFFICULTY_BOB)
                                                       .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

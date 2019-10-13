@@ -50,7 +50,7 @@ public class EditQuestionDescriptorBuilder {
     /**
      * Sets the {@code Topic} of the {@code EditQuestionDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withPhone(String topic) {
+    public EditQuestionDescriptorBuilder withTopic(String topic) {
         descriptor.setTopic(new Topic(topic));
         return this;
     }
@@ -58,7 +58,7 @@ public class EditQuestionDescriptorBuilder {
     /**
      * Sets the {@code Status} of the {@code EditQuestionDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withEmail(String status) {
+    public EditQuestionDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(new Status(status));
         return this;
     }

@@ -1,9 +1,9 @@
 package com.dukeacademy.logic;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.TITLE_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.TOPIC_DESC_AMY;
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static com.dukeacademy.testutil.TypicalQuestions.AMY;
 
@@ -80,8 +80,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_AMY + TOPIC_DESC_AMY + STATUS_DESC_AMY
+                + DIFFICULTY_DESC_AMY;
         Question expectedQuestion = new QuestionBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);

@@ -2,11 +2,11 @@ package com.dukeacademy.logic.commands;
 
 import static com.dukeacademy.logic.commands.CommandTestUtil.DESC_AMY;
 import static com.dukeacademy.logic.commands.CommandTestUtil.DESC_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
+import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TOPIC_BOB;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,19 +36,19 @@ public class EditQuestionDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditQuestionDescriptor editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY)
-            .withTitle(VALID_NAME_BOB).build();
+            .withTitle(VALID_TITLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different topic -> returns false
-        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
+        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withTopic(VALID_TOPIC_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different status -> returns false
-        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withStatus(VALID_STATUS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different difficulty -> returns false
-        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withDifficulty(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withDifficulty(VALID_DIFFICULTY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

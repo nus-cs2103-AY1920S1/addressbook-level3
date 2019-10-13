@@ -76,6 +76,6 @@ public class TitleContainsKeywordsPredicateTest {
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("12345", "alice@status.com", "Main", "Street"));
         assertFalse(predicate.test(new QuestionBuilder()
             .withTitle("Alice")
-            .withPhone("12345").withEmail("alice@status.com").withDifficulty("Main Street").build()));
+            .withTopic("12345").withStatus("alice@status.com").withDifficulty("Main Street").build()));
     }
 }
