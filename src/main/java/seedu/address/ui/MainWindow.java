@@ -27,14 +27,22 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private EventListPanel eventListPanel;
+    private TaskListPanel taskListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -66,8 +74,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        personListPanel = new PersonListPanel(logic.getVisualList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanel = new TaskListPanel(logic.getVisualList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        eventListPanel = new EventListPanel(logic.getVisualList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getVisualList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -129,9 +143,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
+
+    public EventListPanel getEventListPanel() { return eventListPanel; }
+
+    public ReminderListPanel getReminderListPanel() { return reminderListPanel; }
 
     /**
      * Executes the command and returns the result.
@@ -154,8 +172,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
-            personListPanel = new PersonListPanel(logic.getVisualList());
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            taskListPanel = new TaskListPanel(logic.getVisualList());
+            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+            eventListPanel = new EventListPanel(logic.getVisualList());
+            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+            reminderListPanel = new ReminderListPanel(logic.getVisualList());
+            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
