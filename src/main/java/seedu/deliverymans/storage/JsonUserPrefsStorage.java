@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.commons.util.JsonUtil;
-import seedu.deliverymans.model.addressbook.ReadOnlyUserPrefs;
-import seedu.deliverymans.model.addressbook.UserPrefs;
+import seedu.deliverymans.model.ReadOnlyUserPrefs;
+import seedu.deliverymans.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

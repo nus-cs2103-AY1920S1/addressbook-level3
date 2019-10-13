@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.Logic;
-import seedu.deliverymans.logic.commands.addressbook.CommandResult;
-import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing

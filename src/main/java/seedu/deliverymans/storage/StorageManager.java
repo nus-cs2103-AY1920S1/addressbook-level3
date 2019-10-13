@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.commons.exceptions.DataConversionException;
+import seedu.deliverymans.model.ReadOnlyUserPrefs;
+import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyUserPrefs;
-import seedu.deliverymans.model.addressbook.UserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.
