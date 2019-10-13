@@ -4,9 +4,10 @@ import seedu.address.inventory.commands.Command;
 import seedu.address.inventory.commands.CommandResult;
 import seedu.address.inventory.util.InventoryList;
 
+/**
+ * Manages the logic behind the inventory tab.
+ */
 public class LogicManager implements Logic {
-
-    //private final Model model;
     private final seedu.address.cashier.model.ModelManager cashierManager;
     private final seedu.address.cashier.storage.StorageManager cashierStorage;
     private InventoryTabParser parser;
@@ -38,7 +39,7 @@ public class LogicManager implements Logic {
 
     @Override
     public InventoryList getInventoryList() throws Exception {
-        return null;
+        return inventoryModel.getInventoryList();
     }
 
     public InventoryList getInventoryListFromFile() throws Exception {

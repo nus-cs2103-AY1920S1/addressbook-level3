@@ -17,8 +17,11 @@ import seedu.address.inventory.ui.InventoryMessages;
  * Parser for Add Commands.
  */
 public class AddCommandParser {
+    /**
+     * Parses the input and returns an AddCommand.
+     */
     public static AddCommand parse(String args, int inventoryListSize) throws ParseException {
-        if (args.contains("/p")) {
+        if (args.contains(" /p")) {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
                             PREFIX_COST, PREFIX_PRICE);

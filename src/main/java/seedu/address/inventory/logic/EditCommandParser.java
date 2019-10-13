@@ -1,27 +1,19 @@
 package seedu.address.inventory.logic;
 
+import static seedu.address.inventory.logic.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.inventory.logic.CliSyntax.PREFIX_COST;
+import static seedu.address.inventory.logic.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.inventory.logic.CliSyntax.PREFIX_PRICE;
+import static seedu.address.inventory.logic.CliSyntax.PREFIX_QUANTITY;
+
 import seedu.address.inventory.commands.EditCommand;
-import seedu.address.inventory.logic.ArgumentMultimap;
-import seedu.address.inventory.logic.ArgumentTokenizer;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
-import seedu.address.ui.Inventory;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_COST;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_PRICE;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser {
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
-
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns a EditCommand object for execution.

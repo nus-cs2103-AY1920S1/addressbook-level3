@@ -81,6 +81,9 @@ public class Item {
         updateSubtotal();
     }
 
+    /**
+     * Updates the total cost and total price.
+     */
     public void updateSubtotal() {
         this.totalCost = this.cost * this.quantity;
         this.totalPrice = this.price * this.quantity;
@@ -99,8 +102,8 @@ public class Item {
      * @return a String containing the attributes of the Item.
      */
     public String toWriteIntoFile() {
-        String msg = " | " + this.description + " | " + this.category +
-                " | " + this.quantity + " | " + this.cost + " | " + this.price;
+        String msg = " | " + this.description + " | " + this.category
+                + " | " + this.quantity + " | " + this.cost + " | " + this.price;
         return msg;
     }
 

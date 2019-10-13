@@ -13,7 +13,7 @@ import seedu.address.person.logic.commands.exceptions.CommandException;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE= "The given input is the same as that of item specified.";
+    public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
     private static int id;
     private int index;
     private EditItemDescriptor editItemDescriptor;

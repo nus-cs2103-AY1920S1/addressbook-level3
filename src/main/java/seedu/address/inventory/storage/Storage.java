@@ -1,10 +1,13 @@
 package seedu.address.inventory.storage;
 
+import java.io.IOException;
+
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.util.InventoryList;
 
-import java.io.IOException;
-
+/**
+ * API of the Storage component
+ */
 public interface Storage {
 
     public InventoryList getInventoryList() throws Exception;

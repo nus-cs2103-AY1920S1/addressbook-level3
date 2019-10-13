@@ -11,11 +11,11 @@ import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 
 /**
- *
+ * Wraps all data of the inventory into a list.
+ * Duplicates are allowed but are considered the same item when commands are done.
  */
 public class InventoryList {
-
-    static ArrayList<Item> iList;
+    private static ArrayList<Item> iList;
 
     public InventoryList() {
         this.iList = new ArrayList<Item>();
@@ -42,7 +42,8 @@ public class InventoryList {
         throw new NoSuchItemException(InventoryMessages.NO_SUCH_ITEM_INVENTORY);
     }
 
-    public static Item getOriginalItem(String description) throws seedu.address.inventory.model.exception.NoSuchItemException {
+    public static Item getOriginalItem(String description) throws
+            seedu.address.inventory.model.exception.NoSuchItemException {
         for (int i = 0; i < iList.size(); i++) {
             if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
                 return iList.get(i);
