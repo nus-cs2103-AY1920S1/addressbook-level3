@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.borrower;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.borrower.Borrower;
-import seedu.address.model.borrower.BorrowerId;
-import seedu.address.model.borrower.BorrowerIdGenerator;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.testutil.BorrowerBuilder;
 
 public class BorrowerIdGeneratorTest {
