@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
@@ -30,6 +31,22 @@ public class QuizQuestionList implements Iterable<Question> {
                 internalList.add(target);
             }
         }
+    }
+
+    /**
+     * Checks if the answer input by user is correct and return a boolean value to show the result.
+     */
+    public boolean checkQuizAnswer(int index, Answer answer) {
+        requireAllNonNull(answer);
+
+        return internalList.get(index).getAnswer().equals(answer);
+    }
+
+    /**
+     * Clears the quiz question list.
+     */
+    public void clearQuizQuestionList() {
+        internalList.clear();
     }
 
     @Override
