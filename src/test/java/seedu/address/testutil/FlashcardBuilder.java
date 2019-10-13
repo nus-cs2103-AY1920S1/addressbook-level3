@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,14 +17,17 @@ public class FlashcardBuilder {
 
     public static final String DEFAULT_QUESTION = "What is binary value for true";
     public static final String DEFAULT_ANSWER = "1";
+    public static final String DEFAULT_TITLE = "My first flashcard!";
 
     private Question question;
     private Answer answer;
+    private Title title;
     private Set<Tag> tags;
 
     public FlashcardBuilder() {
         question = new Question(DEFAULT_QUESTION);
         answer = new Answer(DEFAULT_ANSWER);
+        title = new Title(DEFAULT_TITLE);
         tags = new HashSet<>();
     }
 
@@ -33,6 +37,7 @@ public class FlashcardBuilder {
     public FlashcardBuilder(Flashcard flashcardToCopy) {
         question = flashcardToCopy.getQuestion();
         answer = flashcardToCopy.getAnswer();
+        title = flashcardToCopy.getTitle();
         tags = new HashSet<>(flashcardToCopy.getTags());
     }
 
@@ -60,8 +65,16 @@ public class FlashcardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Title} of the {@code Flashcard} that we are building.
+     */
+    public FlashcardBuilder withTitle(String title) {
+        this.title = new Title(title);
+        return this;
+    }
+
     public Flashcard build() {
-        return new Flashcard(question, answer, tags);
+        return new Flashcard(question, answer, title, tags);
     }
 
 }
