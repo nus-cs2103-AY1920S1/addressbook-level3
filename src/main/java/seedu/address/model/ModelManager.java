@@ -17,6 +17,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;

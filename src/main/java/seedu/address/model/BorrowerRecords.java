@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 
 /**
  * Wraps all data at the catalog level
@@ -103,7 +104,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
                 && borrowersMap.equals(((BorrowerRecords) other).borrowersMap));
     }
 
-    int getSize() {
+    public int getSize() {
         return listOfBorrowers.size();
     }
 }
