@@ -10,10 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.AddressBook;
+import seedu.ezwatchlist.model.ReadOnlyAddressBook;
+import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.storage.JsonAddressBookStorage;
+import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
+import seedu.ezwatchlist.storage.StorageManager;
 
 public class StorageManagerTest {
 

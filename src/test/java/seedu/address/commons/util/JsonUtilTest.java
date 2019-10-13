@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
+import seedu.ezwatchlist.commons.util.FileUtil;
+import seedu.ezwatchlist.commons.util.JsonUtil;
 
 /**
  * Tests JSON Read and Write

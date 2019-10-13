@@ -3,6 +3,7 @@ package seedu.address.model.tag;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.model.tag.Tag;
 
 public class TagTest {
 

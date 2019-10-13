@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.commons.util.FileUtil;
 
 public class FileUtilTest {
 

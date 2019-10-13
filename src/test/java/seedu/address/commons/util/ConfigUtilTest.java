@@ -13,8 +13,9 @@ import java.util.logging.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.ezwatchlist.commons.core.Config;
+import seedu.ezwatchlist.commons.exceptions.DataConversionException;
+import seedu.ezwatchlist.commons.util.ConfigUtil;
 
 public class ConfigUtilTest {
 

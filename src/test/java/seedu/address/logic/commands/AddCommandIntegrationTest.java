@@ -7,10 +7,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.ezwatchlist.logic.commands.AddCommand;
+import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ModelManager;
+import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 /**

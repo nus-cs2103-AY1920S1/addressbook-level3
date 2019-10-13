@@ -1,8 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -17,19 +17,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
+import seedu.ezwatchlist.logic.Logic;
+import seedu.ezwatchlist.logic.LogicManager;
+import seedu.ezwatchlist.logic.commands.AddCommand;
+import seedu.ezwatchlist.logic.commands.CommandResult;
+import seedu.ezwatchlist.logic.commands.ListCommand;
+import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ModelManager;
+import seedu.ezwatchlist.model.ReadOnlyAddressBook;
+import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.person.Person;
+import seedu.ezwatchlist.storage.JsonAddressBookStorage;
+import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
+import seedu.ezwatchlist.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
