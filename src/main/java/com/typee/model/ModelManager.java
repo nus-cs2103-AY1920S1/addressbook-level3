@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final HistoryManager statedAppointmentList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,8 +37,9 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.statedAppointmentList = new HistoryManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.statedAppointmentList.getPersonList());
     }
 
     public ModelManager() {
@@ -81,36 +85,36 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        this.statedAppointmentList.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return statedAppointmentList;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return statedAppointmentList.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        statedAppointmentList.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        statedAppointmentList.addPerson(person);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        statedAppointmentList.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -125,9 +129,38 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Undo ================================================================================
+
+    @Override
+    public boolean hasNoUndoableCommand() {
+        return !statedAppointmentList.isUndoable();
+    }
+
+    @Override
+    public void undoAppointmentList() throws NullUndoableActionException {
+        statedAppointmentList.undo();
+    }
+
+    //=========== Redo ================================================================================
+
+    @Override
+    public boolean hasNoRedoableCommand() {
+        return !statedAppointmentList.isRedoable();
+    }
+
+    @Override
+    public void redoAppointmentList() throws NullRedoableActionException {
+        statedAppointmentList.redo();
+    }
+
+    @Override
+    public void saveAppointmentList() {
+        statedAppointmentList.saveState();
     }
 
     @Override
@@ -144,7 +177,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return statedAppointmentList.equals(other.statedAppointmentList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
