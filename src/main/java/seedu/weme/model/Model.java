@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.statistics.LikeData;
@@ -103,4 +104,11 @@ public interface Model {
      * Returns the like data.
      */
     LikeData getLikeData();
+
+    ObservableMap<String, Integer> getObservableLikeData();
+
+    /**
+     * Deletes like data by meme.
+     */
+    void deleteLikesByMeme(Meme memeToDelete);
 }

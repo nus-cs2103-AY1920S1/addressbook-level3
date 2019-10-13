@@ -11,6 +11,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeManager;
 import seedu.weme.testutil.MemeBuilder;
 
 /**
@@ -22,14 +23,14 @@ public class MemeAddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
+        model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
     }
 
     @Test
     public void execute_newMeme_success() {
         Meme validMeme = new MemeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getLikeData());
         expectedModel.addMeme(validMeme);
 
         assertCommandSuccess(new MemeAddCommand(validMeme), model,

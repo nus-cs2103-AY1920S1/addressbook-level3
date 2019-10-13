@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.HelpCommand;
+import seedu.weme.logic.commands.LikeMemeCommand;
 import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.logic.commands.MemeClearCommand;
 import seedu.weme.logic.commands.MemeDeleteCommand;
@@ -54,6 +55,9 @@ public class MemeParser extends WemeParser {
 
         case MemeListCommand.COMMAND_WORD:
             return new MemeListCommand();
+
+        case LikeMemeCommand.COMMAND_WORD:
+            return new MemeLikeCommandParser().parse(arguments);
 
         default:
             return super.parseCommand(userInput);

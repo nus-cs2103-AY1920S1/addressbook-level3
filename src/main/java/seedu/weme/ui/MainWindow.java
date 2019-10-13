@@ -107,7 +107,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getLikeData());
+        memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getObservableLikeData());
         memeGridPanelPlaceholder.getChildren().add(memeGridPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

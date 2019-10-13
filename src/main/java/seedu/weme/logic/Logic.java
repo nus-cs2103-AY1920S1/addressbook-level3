@@ -3,6 +3,7 @@ package seedu.weme.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
@@ -50,4 +51,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     LikeData getLikeData();
+
+    ObservableMap<String, Integer> getObservableLikeData();
 }

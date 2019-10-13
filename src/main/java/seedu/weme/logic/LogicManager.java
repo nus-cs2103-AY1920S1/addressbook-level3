@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.logic.commands.Command;
@@ -83,5 +84,10 @@ public class LogicManager implements Logic {
     @Override
     public LikeData getLikeData() {
         return model.getLikeData();
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return model.getObservableLikeData();
     }
 }

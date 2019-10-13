@@ -9,6 +9,7 @@ import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
+import seedu.weme.statistics.LikeManager;
 
 public class MemeClearCommandTest {
 
@@ -22,8 +23,8 @@ public class MemeClearCommandTest {
 
     @Test
     public void execute_nonEmptyMemeBook_success() {
-        Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
+        Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
         expectedModel.setMemeBook(new MemeBook());
 
         assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
