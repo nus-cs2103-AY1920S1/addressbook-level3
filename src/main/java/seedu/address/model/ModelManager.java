@@ -182,7 +182,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFlashcard(Flashcard target) {
-        return;
+        addressBook.removeFlashcard(target);
     }
 
 }
