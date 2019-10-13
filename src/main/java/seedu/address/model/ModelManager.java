@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Worker> filteredWorkers;
     private final FilteredList<Body> filteredBodies;
+    private final FilteredList<Notif> filteredNotifs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +45,7 @@ public class ModelManager implements Model {
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+        filteredNotifs = new FilteredList<>(this.addressBook.getNotifList());
 
     }
 
@@ -120,6 +123,30 @@ public class ModelManager implements Model {
 
         addressBook.setEntity(target, editedEntity);
     }
+
+    @Override
+    public boolean hasNotif(Notif notif) {
+        requireNonNull(notif);
+        return addressBook.hasNotif(notif);
+    }
+
+    @Override
+    public void deleteNotif(Notif target) {
+        addressBook.removeNotif(target);
+    }
+
+    @Override
+    public void addNotif(Notif notif) {
+        addressBook.addNotif(notif);
+        updateFilteredNotifList(PREDICATE_SHOW_ALL_NOTIFS);
+    }
+
+    @Override
+    public void setNotif(Notif target, Notif editedNotif) {
+        requireAllNonNull(target, editedNotif);
+
+        addressBook.setNotif(target, editedNotif);
+    }
     //=========== Filtered Body List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of
@@ -168,6 +195,22 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Notif List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Notif> getFilteredNotifList() {
+        return filteredNotifs;
+    }
+
+    @Override
+    public void updateFilteredNotifList(Predicate<Notif> predicate) {
+        requireNonNull(predicate);
+        filteredNotifs.setPredicate(predicate);
+    }
+
     //=========== Filtered Entities List Accessors =============================================================
 
     /**
@@ -206,6 +249,7 @@ public class ModelManager implements Model {
         //&& filteredWorkers.equals(other.filteredWorkers);
         //&& filteredBodies.equals(other.filteredBodies);
         //&& filteredFridges.equals(other.filteredFridges);
+        //&& filterdNotifs.equals(other.filteredNotifs);
     }
 
 }

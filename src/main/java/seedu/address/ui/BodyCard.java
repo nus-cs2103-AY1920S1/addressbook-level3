@@ -33,6 +33,8 @@ public class BodyCard extends UiPart<Region> {
     private Label bodyId;
     @FXML
     private Label dateOfAdmission;
+    @FXML
+    private Label bodyStatus;
 
     public BodyCard(Body body, int displayedIndex) {
         super(FXML);
@@ -41,6 +43,7 @@ public class BodyCard extends UiPart<Region> {
         name.setText(body.getName().fullName);
         bodyId.setText(body.getBodyIdNum().toString());
         dateOfAdmission.setText(body.getDateOfAdmission().toString());
+        bodyStatus.setText(body.getBodyStatus().toString());
     }
 
     @Override

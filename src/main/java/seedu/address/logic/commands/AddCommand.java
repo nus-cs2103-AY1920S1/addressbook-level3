@@ -12,9 +12,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
+import seedu.address.model.notif.Notif;
 
 /**
  * Adds a person to the address book.
@@ -68,6 +75,10 @@ public class AddCommand extends Command {
         }
 
         model.addEntity(toAdd);
+        if (toAdd instanceof Body) {
+            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd));
+            notifCommand.execute(model);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

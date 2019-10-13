@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,6 +19,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
+    Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -81,6 +83,31 @@ public interface Model {
      */
     void setEntity(Entity target, Entity editedEntity);
 
+    /**
+     * Returns true if a notif with the same identity as {@code notif} exists in Mortago.
+     */
+    boolean hasNotif(Notif notif);
+
+    /**
+     * Deletes the given notif.
+     * The notif must exist in Mortago.
+     */
+    void deleteNotif(Notif target);
+
+    /**
+     * Adds the given notif.
+     * {@code notif} must not already exist in Mortago.
+     */
+    void addNotif(Notif notif);
+
+    /**
+     * Replaces the given notif {@code target} with {@code editedNotif}.
+     * {@code target} must exist in Mortago.
+     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
+     */
+    void setNotif(Notif target, Notif editedNotif);
+
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -95,6 +122,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of entities */
     ObservableList<? extends Entity> getFilteredEntityList(String entityType);
+
+    /** Returns an unmodifiable view of the filtered list of notifs */
+    ObservableList<Notif> getFilteredNotifList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -113,4 +143,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBodyList(Predicate<Body> predicate);
+
+    /**
+     * Updates the filter of the filtered notif list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNotifList(Predicate<Notif> predicate);
 }

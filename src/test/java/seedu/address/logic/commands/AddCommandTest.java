@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -132,12 +133,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNotif(Notif notif) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteEntity(Entity target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setEntity(Entity target, Entity editedEntity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNotif(Notif notif) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNotif(Notif target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNotif(Notif target, Notif editedEntity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -173,6 +194,16 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Notif> getFilteredNotifList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNotifList(Predicate<Notif> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
