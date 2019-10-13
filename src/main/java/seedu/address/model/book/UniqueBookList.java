@@ -3,7 +3,7 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,7 +24,7 @@ import seedu.address.model.book.exceptions.DuplicateBookException;
  */
 public class UniqueBookList implements Iterable<Book> {
 
-    private final HashSet<SerialNumber> serialNumbers = new HashSet<>();
+    private final HashMap<SerialNumber, Book> booksMap = new HashMap<>();
     private final ObservableList<Book> internalList = FXCollections.observableArrayList();
     private final ObservableList<Book> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -42,7 +42,7 @@ public class UniqueBookList implements Iterable<Book> {
      */
     public boolean containsSerialNumber(SerialNumber toCheck) {
         requireNonNull(toCheck);
-        return serialNumbers.contains(toCheck);
+        return booksMap.containsKey(toCheck);
     }
 
     /**
@@ -55,7 +55,7 @@ public class UniqueBookList implements Iterable<Book> {
             throw new DuplicateBookException();
         }
         internalList.add(toAdd);
-        serialNumbers.add(toAdd.getSerialNumber());
+        booksMap.put(toAdd.getSerialNumber(), toAdd);
     }
 
     /**
@@ -74,8 +74,8 @@ public class UniqueBookList implements Iterable<Book> {
         }
         internalList.set(index, editedBook);
 
-        serialNumbers.remove(target.getSerialNumber());
-        serialNumbers.add(editedBook.getSerialNumber());
+        booksMap.remove(target.getSerialNumber());
+        booksMap.put(editedBook.getSerialNumber(), editedBook);
     }
 
     /**
@@ -87,14 +87,14 @@ public class UniqueBookList implements Iterable<Book> {
         if (!internalList.remove(toRemove)) {
             throw new BookNotFoundException();
         }
-        serialNumbers.remove(toRemove.getSerialNumber());
+        booksMap.remove(toRemove.getSerialNumber());
     }
 
     public void setBooks(UniqueBookList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-        serialNumbers.clear();
-        replacement.forEach(book -> serialNumbers.add(book.getSerialNumber()));
+        booksMap.clear();
+        replacement.forEach(book -> booksMap.put(book.getSerialNumber(), book));
     }
 
     /**
@@ -108,8 +108,8 @@ public class UniqueBookList implements Iterable<Book> {
         }
 
         internalList.setAll(books);
-        serialNumbers.clear();
-        books.forEach(book -> serialNumbers.add(book.getSerialNumber()));
+        booksMap.clear();
+        books.forEach(book -> booksMap.put(book.getSerialNumber(), book));
     }
 
     /**
@@ -129,7 +129,7 @@ public class UniqueBookList implements Iterable<Book> {
         return other == this // short circuit if same object
                 || (other instanceof UniqueBookList // instanceof handles nulls
                         && internalList.equals(((UniqueBookList) other).internalList)
-                        && serialNumbers.equals(((UniqueBookList) other).serialNumbers));
+                        && booksMap.equals(((UniqueBookList) other).booksMap));
     }
 
     @Override
