@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.TitleContainsKeywordPredicate;
+import seedu.address.model.book.BookPredicate;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
@@ -206,8 +205,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = BOOK_1.getTitle().value.split("\\s+");
-        modelManager.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(keywords)));
+        String keywords = BOOK_1.getTitle().value;
+        modelManager.updateFilteredBookList(new BookPredicate().addTitle(keywords));
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

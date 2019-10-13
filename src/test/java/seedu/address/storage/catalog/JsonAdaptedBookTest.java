@@ -15,8 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
-import seedu.address.storage.catalog.JsonAdaptedBook;
-import seedu.address.storage.catalog.JsonAdaptedTag;
 
 public class JsonAdaptedBookTest {
     private static final String INVALID_TITLE = "R@chel";

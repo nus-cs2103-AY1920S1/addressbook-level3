@@ -24,13 +24,23 @@ public class SampleDataUtil {
         SerialNumberGenerator.setCatalog(new Catalog());
         return new Book[] {
             new Book(new Title("Harry Botter"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), null, getTagSet("Fiction")),
+                    new Author("J K Rowling"), null, getGenreSet("Fiction")),
             new Book(new Title("Legend of the Condor Heroes"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Jin Yong"), null, getTagSet("Fiction", "History")),
+                    new Author("Jin Yong"), null, getGenreSet("Fiction", "History")),
             new Book(new Title("Animal the Farm"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("George Orwell"), null, getTagSet("Fiction")),
+                    new Author("George Orwell"), null, getGenreSet("Fiction")),
             new Book(new Title("Harry Botter and the Full Blood Prince"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), null, getTagSet("Fiction", "Action")),
+                    new Author("J K Rowling"), null, getGenreSet("Fiction", "Action")),
+            new Book(new Title("Mans Search for Munning"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Viktor Frankel"), null, getGenreSet("Non-fiction", "Biography")),
+            new Book(new Title("Stefe Jobz"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Walter Izakson"), null, getGenreSet("Non-fiction", "Biography")),
+            new Book(new Title("Behaves"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Robert Sapoloksy"), null, getGenreSet("Non-fiction", "Popular-Science", "Psychology")),
+            new Book(new Title("A Brief History of Space"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Stephen Birding"), null, getGenreSet("Non-fiction", "Popular-Science")),
+            new Book(new Title("Painting with Bobby Ross"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Bobby Ross"), null, getGenreSet("Non-fiction", "Art", "How-to")),
         };
     }
 
@@ -43,7 +53,7 @@ public class SampleDataUtil {
     /**
      * Returns a genre set containing the list of strings given.
      */
-    public static Set<Genre> getTagSet(String... strings) {
+    public static Set<Genre> getGenreSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Genre::new)
                 .collect(Collectors.toSet());

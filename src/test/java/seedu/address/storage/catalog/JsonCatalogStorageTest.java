@@ -18,7 +18,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Catalog;
 import seedu.address.model.ReadOnlyCatalog;
-import seedu.address.storage.catalog.JsonCatalogStorage;
 
 public class JsonCatalogStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCatalogStorageTest");

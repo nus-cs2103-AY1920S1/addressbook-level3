@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -21,7 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Catalog;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.TitleContainsKeywordPredicate;
+import seedu.address.model.book.BookPredicate;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**
@@ -90,7 +89,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -105,7 +104,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -126,6 +125,7 @@ public class CommandTestUtil {
         assertEquals(expectedCatalog, actualModel.getCatalog());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the book at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -134,8 +134,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
 
         Book book = model.getFilteredBookList().get(targetIndex.getZeroBased());
-        final String[] splitName = book.getTitle().value.split("\\s+");
-        model.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
+        final String title = book.getTitle().value;
+        model.updateFilteredBookList(new BookPredicate().addTitle(title));
 
         assertEquals(1, model.getFilteredBookList().size());
     }
