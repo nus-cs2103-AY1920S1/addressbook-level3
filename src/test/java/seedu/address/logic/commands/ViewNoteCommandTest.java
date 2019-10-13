@@ -4,13 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_MATCHING_NOTE_FOUND;
-import static seedu.address.commons.core.Messages.MESSAGE_NOTES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_MATCHING_NOTE_FOUND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalNotes.PIPELINE;
 import static seedu.address.testutil.TypicalNotes.POTATO;
-import static seedu.address.testutil.TypicalNotes.SAMPLE;
 import static seedu.address.testutil.TypicalNotes.getTypicalNoteList;
 
 import java.util.Arrays;
@@ -74,7 +71,7 @@ public class ViewNoteCommandTest {
     @Test
     public void execute_excessKeywordsMatch_noNoteFound() {
         String expectedMessage = MESSAGE_NO_MATCHING_NOTE_FOUND;
-        TitleMatchesKeywordsPredicate predicate = preparePredicate("sample title in excess");
+        TitleMatchesKeywordsPredicate predicate = preparePredicate("sample title pipelining definition");
         ViewNoteCommand command = new ViewNoteCommand(predicate);
         expectedModel.updateFilteredNoteList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
