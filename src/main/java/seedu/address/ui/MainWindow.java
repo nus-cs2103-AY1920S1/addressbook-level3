@@ -141,6 +141,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
