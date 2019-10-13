@@ -18,9 +18,13 @@ public class Project {
         this.title = name;
     }
 
-    public Title getTitle() { return title; }
+    public Title getTitle() {
+        return title;
+    }
 
-    public Description getDescription() { return description; }
+    public Description getDescription() {
+        return description;
+    }
 
     public boolean isSameProject(Project project) {
         return this.title.equals(project.getTitle().title);

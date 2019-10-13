@@ -1,7 +1,6 @@
 package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Title {
 
@@ -16,6 +15,11 @@ public class Title {
     public static final String MESSAGE_CONSTRAINTS =
             "Title should only contain alphanumeric characters and spaces, and it should not be blank";
 
+    public Title(String title) {
+        requireNonNull(title);
+        this.title = title;
+    }
+
     /**
      * Returns true if a given string is a valid title.
      */
@@ -23,10 +27,6 @@ public class Title {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public Title(String title) {
-        requireNonNull(title);
-        this.title = title;
-    }
 
     @Override
     public String toString() {

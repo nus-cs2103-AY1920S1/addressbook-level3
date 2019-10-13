@@ -165,9 +165,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setProjectListFilePath(Path ProjectListFilePath) {
-        requireNonNull(ProjectListFilePath);
-        userPrefs.setProjectListFilePath(ProjectListFilePath);
+    public void setProjectListFilePath(Path projectListFilePath) {
+        requireNonNull(projectListFilePath);
+        userPrefs.setProjectListFilePath(projectListFilePath);
     }
 
     @Override
@@ -192,8 +192,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addProject(Project Project) {
-        projectList.addProject(Project);
+    public void addProject(Project project) {
+        projectList.addProject(project);
         updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
     }
 

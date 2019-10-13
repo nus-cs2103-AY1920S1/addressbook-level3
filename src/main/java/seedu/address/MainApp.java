@@ -15,7 +15,14 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ProjectList;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyProjectList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -27,8 +34,6 @@ import seedu.address.storage.ProjectListStorage;
 import seedu.address.storage.JsonProjectListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-
-import javax.swing.text.html.Option;
 
 /**
  * Runs the application.

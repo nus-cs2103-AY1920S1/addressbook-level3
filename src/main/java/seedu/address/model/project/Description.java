@@ -13,6 +13,10 @@ public class Description {
 
     public final String description;
 
+    public Description(String description) {
+        this.description = description;
+    }
+
     /**
      * Returns true if a given string is a valid description.
      */
@@ -21,9 +25,6 @@ public class Description {
     }
 
 
-    public Description(String description) {
-        this.description = description;
-    }
 
     @Override
     public String toString() {

@@ -108,12 +108,12 @@ public interface Model {
     /**
      * Sets the user prefs' project list file path.
      */
-    void setProjectListFilePath(Path ProjectListFilePath);
+    void setProjectListFilePath(Path projectListFilePath);
 
     /**
      * Replaces project list data with the data in {@code ProjectList}.
      */
-    void setProjectList(ReadOnlyProjectList ProjectList);
+    void setProjectList(ReadOnlyProjectList projectList);
 
     /** Returns the ProjectList */
     ReadOnlyProjectList getProjectList();
@@ -121,14 +121,14 @@ public interface Model {
     /**
      * Returns true if a Project with the same identity as {@code Project} exists in the address book.
      */
-    boolean hasProject(Project Project);
+    boolean hasProject(Project project);
 
     /**
      * Deletes the given Project.
      * The Project must exist in the address book.
      */
     void deleteProject(Project target);
-    
+
     /**
      * Adds the given project.
      */

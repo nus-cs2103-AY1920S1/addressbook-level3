@@ -60,8 +60,8 @@ public class JsonProjectListStorage implements ProjectListStorage {
     }
 
     @Override
-    public void saveProjectList(ReadOnlyProjectList ProjectList) throws IOException {
-        saveProjectList(ProjectList, filePath);
+    public void saveProjectList(ReadOnlyProjectList projectList) throws IOException {
+        saveProjectList(projectList, filePath);
     }
 
     /**
