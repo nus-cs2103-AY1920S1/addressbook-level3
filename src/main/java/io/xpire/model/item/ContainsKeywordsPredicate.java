@@ -29,7 +29,7 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
             keywordsInName = StringUtil.containsPhraseIgnoreCase(item.getName().toString(), keyword);
             keywordsInTags = keyword.startsWith("#")
                     && keyword.length() > 1
-                    && new HashSet<>(stringifyCollection(item.getTags(), tag -> tag.substring(1, tag.length()-1)))
+                    && new HashSet<>(stringifyCollection(item.getTags(), tag -> tag.substring(1, tag.length() - 1)))
                     .contains(keyword.substring(1));
             if (keywordsInName || keywordsInTags) {
                 return true;

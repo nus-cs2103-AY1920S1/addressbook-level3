@@ -41,6 +41,7 @@ public class ContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
+<<<<<<< HEAD:src/test/java/io/xpire/model/item/ContainsKeywordsPredicateTest.java
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new ItemBuilder().withName("Alice Bob").build()));
 
@@ -55,11 +56,28 @@ public class ContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new ContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new ItemBuilder().withName("Alice Bob").build()));
+=======
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Apple"));
+        assertTrue(predicate.test(new ItemBuilder().withName("Apple Banana").build()));
+
+        // Multiple keywords
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Apple", "Banana"));
+        assertTrue(predicate.test(new ItemBuilder().withName("Apple Banana").build()));
+
+        // Only one matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Banana", "Carrot"));
+        assertTrue(predicate.test(new ItemBuilder().withName("Apple Carrot").build()));
+
+        // Mixed-case keywords
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aPPle", "bANana"));
+        assertTrue(predicate.test(new ItemBuilder().withName("Apple Banana").build()));
+>>>>>>> master:src/test/java/io/xpire/model/item/NameContainsKeywordsPredicateTest.java
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
+<<<<<<< HEAD:src/test/java/io/xpire/model/item/ContainsKeywordsPredicateTest.java
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new ItemBuilder().withName("Alice").build()));
 
@@ -70,5 +88,17 @@ public class ContainsKeywordsPredicateTest {
         // Keywords match phone, email and address, but does not match name
         predicate = new ContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new ItemBuilder().withName("Alice").withExpiryDate("01/02/2019").build()));
+=======
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new ItemBuilder().withName("Apple").build()));
+
+        // Non-matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carrot"));
+        assertFalse(predicate.test(new ItemBuilder().withName("Apple Banana").build()));
+
+        // Keywords match phone, email and address, but does not match name
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+        assertFalse(predicate.test(new ItemBuilder().withName("Apple").withExpiryDate("01/02/2020").build()));
+>>>>>>> master:src/test/java/io/xpire/model/item/NameContainsKeywordsPredicateTest.java
     }
 }

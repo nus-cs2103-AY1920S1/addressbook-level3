@@ -16,7 +16,7 @@ import io.xpire.model.util.SampleDataUtil;
 public class ItemBuilder {
 
     public static final String DEFAULT_NAME = "Kiwi";
-    public static final String DEFAULT_EXPIRY_DATE = "01/02/2019";
+    public static final String DEFAULT_EXPIRY_DATE = "01/02/2020";
 
     private Name name;
     private ExpiryDate expiryDate;

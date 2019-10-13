@@ -27,10 +27,10 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BANANA = "Banana";
     public static final String VALID_NAME_MILK = "Milk";
 
-    public static final String VALID_EXPIRY_DATE_KIWI = "01/02/2019";
-    public static final String VALID_EXPIRY_DATE_APPLE = "01/02/2019";
-    public static final String VALID_EXPIRY_DATE_BANANA = "01/02/2019";
-    public static final String VALID_EXPIRY_DATE_MILK = "01/02/2019";
+    public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
 
     public static final String VALID_TAG_FRUIT = "fruit";
     public static final String VALID_TAG_DRINK = "drinks";
