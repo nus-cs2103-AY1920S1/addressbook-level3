@@ -22,7 +22,7 @@
     "address" : "wall street",
     "tagged" : [ ]
   }, {
-    "primaryKey" : 4,
+    "primaryKey" : 1,
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",

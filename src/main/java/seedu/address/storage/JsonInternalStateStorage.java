@@ -31,11 +31,11 @@ public class JsonInternalStateStorage implements InternalStateStorage {
 
     /**
      * Similar to {@link #readInternalState()}
-     * @param prefsFilePath location of the data. Cannot be null.
+     * @param stateFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<InternalState> readInternalState(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(filePath, InternalState.class);
+    public Optional<InternalState> readInternalState(Path stateFilePath) throws DataConversionException {
+        return JsonUtil.readJsonFile(stateFilePath, InternalState.class);
     }
 
     @Override
