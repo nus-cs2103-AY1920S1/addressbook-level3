@@ -20,10 +20,10 @@ public class ActivityBook {
     }
 
     /**
-     * Creates an ActivityBook using the Activities in the {@code previous}
+     * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
-    public ActivityBook(ActivityBook previous) {
-        activityList = previous.getActivityList();
+    public ActivityBook(ActivityBook previousActivityBook) {
+        activityList = previousActivityBook.getActivityList();
     }
 
     //// list overwrite operations
@@ -32,9 +32,7 @@ public class ActivityBook {
      * Replaces the contents of the activity list with {@code activityList}.
      */
     public void setActivities(List<Activity> activities) {
-        while (activityList.size() > 0) {
-            activityList.remove(0);
-        }
+        activityList.clear();
         activityList.addAll(activities);
     }
 
@@ -94,9 +92,11 @@ public class ActivityBook {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-            || (other instanceof ActivityBook
-            && activityList.equals(((ActivityBook) other).activityList));
+        if (other != this) {
+            return other instanceof ActivityBook
+                    && activityList.equals(((ActivityBook) other).activityList);
+        }
+        return true;
     }
 
     @Override
