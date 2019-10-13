@@ -24,7 +24,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;

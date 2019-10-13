@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.parser.history;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
+import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package seedu.jarvis.logic.commands.history;
 
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_UNDO_REDO;
+import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
 
 import java.util.stream.IntStream;
 
