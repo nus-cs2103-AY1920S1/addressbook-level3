@@ -1,11 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.note.Content;
-import seedu.address.model.note.Title;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,7 +24,7 @@ public class NoteBuilder {
     public NoteBuilder() {
         title = new Title(DEFAULT_TITLE);
         phone = new Content(DEFAULT_CONTENT);
-//        tags = new HashSet<>();
+        // tags = new HashSet<>();
     }
 
     /**
@@ -34,7 +33,7 @@ public class NoteBuilder {
     public NoteBuilder(Note noteToCopy) {
         title = noteToCopy.getTitle();
         phone = noteToCopy.getContent();
-//        tags = new HashSet<>(noteToCopy.getTags());
+        // tags = new HashSet<>(noteToCopy.getTags());
     }
 
     /**

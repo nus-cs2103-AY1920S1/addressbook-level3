@@ -101,7 +101,9 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Note> getNoteList() { return notes; }
+        public ObservableList<Note> getNoteList() {
+            return notes;
+        }
     }
 
 }

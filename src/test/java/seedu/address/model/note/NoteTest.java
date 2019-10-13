@@ -2,23 +2,24 @@ package seedu.address.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 public class NoteTest {
     @Test
-    public void ToString_Exists_Success() {
+    public void toString_exists_success() {
         Note note = new Note();
         assertEquals(note.toString(), "Title: sample title\nContent: sample content");
     }
 
     @Test
-    public void ToString_Format_Success() {
+    public void toString_format_success() {
         Note note = new Note(new Title("this is a title"), new Content("this is a content"));
         assertEquals(note.toString(), "Title: this is a title\nContent: this is a content");
     }
 
     @Test
-    public void RequireNonNull_NoTitleProvided_ThrowsIllegalArgumentException() {
+    public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
         assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
                 new Content("")));
     }

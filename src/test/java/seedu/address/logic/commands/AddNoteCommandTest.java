@@ -62,7 +62,7 @@ public class AddNoteCommandTest {
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class, AddNoteCommand.MESSAGE_DUPLICATE_NOTE,
-                () -> addNoteCommand.execute(modelStub));
+            () -> addNoteCommand.execute(modelStub));
     }
 
     @Test
