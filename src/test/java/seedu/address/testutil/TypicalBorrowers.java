@@ -69,10 +69,4 @@ public class TypicalBorrowers {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
     }
 
-    public static BorrowerRecords getTypicalBorrowerRecords() {
-        BorrowerRecords borrowers = new BorrowerRecords();
-        getTypicalBorrowers().stream().forEach(borrower -> borrowers.addBorrower(borrower));
-        return borrowers;
-    }
-
 }
