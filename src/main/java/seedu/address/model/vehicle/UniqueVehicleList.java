@@ -90,13 +90,13 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
      * Replaces the contents of this list with {@code Vehicles}.
      * {@code Vehicles} must not contain duplicate Vehicles.
      */
-    public void setVehicles(List<Vehicle> Vehicles) {
-        requireAllNonNull(Vehicles);
-        if (!vehiclesAreUnique(Vehicles)) {
+    public void setVehicles(List<Vehicle> vehicles) {
+        requireAllNonNull(vehicles);
+        if (!vehiclesAreUnique(vehicles)) {
             throw new DuplicateVehicleException();
         }
 
-        internalList.setAll(Vehicles);
+        internalList.setAll(vehicles);
     }
 
     /**
@@ -126,10 +126,10 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
     /**
      * Returns true if {@code Vehicles} contains only unique Vehicles.
      */
-    private boolean vehiclesAreUnique(List<Vehicle> Vehicles) {
-        for (int i = 0; i < Vehicles.size() - 1; i++) {
-            for (int j = i + 1; j < Vehicles.size(); j++) {
-                if (Vehicles.get(i).isSameVehicle(Vehicles.get(j))) {
+    private boolean vehiclesAreUnique(List<Vehicle> vehicles) {
+        for (int i = 0; i < vehicles.size() - 1; i++) {
+            for (int j = i + 1; j < vehicles.size(); j++) {
+                if (vehicles.get(i).isSameVehicle(vehicles.get(j))) {
                     return false;
                 }
             }

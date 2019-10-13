@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
+import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Incident> filteredIncidents;
+    private final FilteredList<Vehicle> filteredVehicles;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredIncidents = new FilteredList<>(this.addressBook.getIncidentList());
+        filteredVehicles = new FilteredList<>(this.addressBook.getVehicleList());
     }
 
     public ModelManager() {
@@ -127,6 +133,28 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Incident List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Incident> getFilteredIncidentList() {
+        return filteredIncidents;
+    }
+
+    //=========== Filtered Vehicle List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Vehicle} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Vehicle> getFilteredVehicleList() {
+        return filteredVehicles;
     }
 
     @Override
