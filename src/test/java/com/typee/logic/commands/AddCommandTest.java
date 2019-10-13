@@ -167,7 +167,7 @@ public class AddCommandTest {
             return this.person.isSamePerson(person);
         }
     }
-
+:
     /**
      * A Model stub that always accept the person being added.
      */

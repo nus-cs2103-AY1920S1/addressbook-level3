@@ -9,8 +9,8 @@ import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
-import com.typee.model.Tab;
 import com.typee.model.UserPrefs;
+import com.typee.ui.Tab;
 
 import javafx.collections.ObservableList;
 
