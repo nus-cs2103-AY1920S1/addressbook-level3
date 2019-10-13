@@ -102,7 +102,5 @@ public class MainAppTest extends ApplicationTest {
             .startsWith("Opened help window.");
         Assertions.assertThat(window("Help")).isShowing();
         Assertions.assertThat(listWindows().size()).isEqualTo(2);
-        robot.push(KeyCode.ALT, KeyCode.F4);
-        Assertions.assertThat(listWindows().size()).isEqualTo(1);
     }
 }
