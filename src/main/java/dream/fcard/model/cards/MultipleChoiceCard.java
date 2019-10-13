@@ -61,4 +61,12 @@ public class MultipleChoiceCard extends FrontBackCard {
     public Node renderFront() {
         return super.renderFront();
     }
+
+    public String getFront(){
+        return front;
+    }
+
+    public String getBack(){
+        return back;
+    }
 }
