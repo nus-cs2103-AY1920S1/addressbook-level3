@@ -22,10 +22,9 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static boolean isQuiz = false;
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
+    private static boolean isQuiz = false;
 
     private final Model model;
     private final Storage storage;
@@ -91,7 +90,7 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    public void setIsQuiz(boolean isQuiz) {
+    public static void setIsQuiz(boolean isQuiz) {
         LogicManager.isQuiz = isQuiz;
     }
 

@@ -51,7 +51,7 @@ public class QuizModeCommand extends Command {
         requireNonNull(model);
 
         model.setQuizQuestionList(numOfQuestions, subject, difficulty);
-        LogicManager.isQuiz = true;
+        LogicManager.setIsQuiz(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

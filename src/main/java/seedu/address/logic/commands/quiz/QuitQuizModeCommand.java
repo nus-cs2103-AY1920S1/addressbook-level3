@@ -18,7 +18,7 @@ public class QuitQuizModeCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        LogicManager.isQuiz = false;
+        LogicManager.setIsQuiz(false);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
