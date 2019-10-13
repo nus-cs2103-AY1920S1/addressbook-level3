@@ -56,6 +56,7 @@ public class TabBar extends UiPart<Region> {
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                tabBar.requestFocus();
                 Node clickedNode = (Node) event.getTarget();
                 for (int i = 0; i < ols.size(); i++) {
                     Node iv = ols.get(i);

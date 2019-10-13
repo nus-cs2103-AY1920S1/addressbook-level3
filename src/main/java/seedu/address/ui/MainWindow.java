@@ -3,8 +3,10 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -68,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane tabBarPlaceholder;
 
+    @FXML
+    private SplitPane upperPane;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -81,6 +86,19 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                case TAB:
+                    event.consume();
+                    commandBox.getRoot().requestFocus();
+                    break;
+                default:
+                }
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -133,9 +151,8 @@ public class MainWindow extends UiPart<Stage> {
         tabBar = new TabBar(this::onTabSelected);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
-        //TODO: EDIT HERE
         queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
-                                             logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+            logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -186,7 +203,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -195,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+
     public EventListPanel getEventListPanel() {
         return eventListPanel;
     }
