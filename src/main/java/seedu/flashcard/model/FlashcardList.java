@@ -1,5 +1,7 @@
 package seedu.flashcard.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.flashcard.model.exceptions.CardNotFoundException;
@@ -20,8 +22,21 @@ public class FlashcardList {
     private ArrayList<Flashcard> flashcards;
     private TagManager tagManager;
 
+    /**
+     * Construct an instance of a flashcard list object.
+     */
     public FlashcardList() {
-        flashcards = new ArrayList<Flashcard>();
+        flashcards = new ArrayList<>();
+        tagManager = new TagManager();
+    }
+
+    /**
+     * A variant of the flashcard list constructor.
+     * @param list the list to be added in
+     */
+    public FlashcardList(ArrayList<? extends Flashcard> list) {
+        flashcards = new ArrayList<>();
+        flashcards.addAll(list);
         tagManager = new TagManager();
     }
 
@@ -112,13 +127,21 @@ public class FlashcardList {
     }
 
     /**
-     * add an MCQ flash card into the list
+     * add an MCQ flash card into the list.
      * @param question the question of the model
      * @param options the options of the model
      * @param answer the answer of this MCQ, simply "A", "B", "C", "D".
      */
     public void addFlashcard (String question, ArrayList<String> options, String answer) {
         flashcards.add(new McqFlashcard(new McqQuestion(question, options), new Answer(answer)));
+    }
+
+    /**
+     * add a constructed flashcard directly into the list.
+     * @param flashcard the flashcard to be added
+     */
+    public void addFlashcard(Flashcard flashcard) {
+        flashcards.add(flashcard);
     }
 
     /**
@@ -146,5 +169,55 @@ public class FlashcardList {
         }
         targetCard.addTag(targetTag);
         targetTag.addFlashcard(targetCard);
+    }
+
+    /**
+     * Inform whether the flashcardList contains a particular flashcard.
+     * @param flashcard the flashcard to be searched
+     * @return a boolean variable represents the card's existence
+     */
+    public boolean contains(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return flashcards.contains(flashcard);
+    }
+
+    /**
+     * Check if two flashcard lists are equivalent to each other.
+     * Two lists are the same if and only if their content, i.e. the flashcards they contain, are the same.
+     * @param other the other flashcard list to be tested.
+     * @return a boolean variable that informs whether the two flashcard lists are the same.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof FlashcardList)) {
+            return false;
+        }
+        FlashcardList otherList = (FlashcardList) other;
+        ArrayList<Flashcard> l1 = this.getAllFlashcards();
+        ArrayList<Flashcard> l2 = otherList.getAllFlashcards();
+        return checkListEqual(l1, l2, 0, 0);
+    }
+
+    /**
+     * A utility function for checking equivalence of two flashcard lists.
+     * @param list1 the first flashcard list
+     * @param list2 the second flashcard list
+     * @return a boolean variable representing whether the two lists are identical
+     */
+    public boolean checkListEqual(ArrayList<Flashcard> list1, ArrayList<Flashcard> list2, int i, int j) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        if (i == list1.size() && j == list2.size()) {
+            return true;
+        }
+        if (list1.get(i).equals(list2.get(j))) {
+            return checkListEqual(list1, list2, i + 1, j + 1);
+        } else {
+            return false;
+        }
     }
 }

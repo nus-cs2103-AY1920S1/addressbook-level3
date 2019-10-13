@@ -12,7 +12,7 @@ import seedu.flashcard.logic.commands.DeleteCommand;
 import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
-import seedu.flashcard.logic.commands.FlipCommand;
+// import seedu.flashcard.logic.commands.FlipCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
 import seedu.flashcard.logic.commands.ListCommand;
 import seedu.flashcard.logic.commands.TagCommand;
@@ -57,9 +57,11 @@ public class FlashcardListParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
+        /*
         case FlipCommand.COMMAND_WORD:
             return new FlipCommand();
+
+         */
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
