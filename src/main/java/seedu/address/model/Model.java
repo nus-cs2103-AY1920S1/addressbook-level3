@@ -9,7 +9,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
-import seedu.address.model.loan.Loan;
 
 /**
  * The API of the Model component.
@@ -82,8 +81,6 @@ public interface Model {
     Model excludeBookBeingReplaced(Book toBeReplaced);
 
     ObservableList<Book> getOverdueBooks();
-
-    ObservableList<Borrower> getOverdueBooksBorrowers();
 
     // ================================================================ LoanRecords
 

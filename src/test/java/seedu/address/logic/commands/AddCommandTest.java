@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.testutil.BookBuilder;
 
@@ -134,6 +135,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasBook(SerialNumber bookSn) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteBook(Book target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,11 +151,6 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Book> getOverdueBooks() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableList<Borrower> getOverdueBooksBorrowers() {
             throw new AssertionError("This method should not be called");
         }
 
