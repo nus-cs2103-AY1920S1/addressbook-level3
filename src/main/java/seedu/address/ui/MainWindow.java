@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.autocomplete.AutoCompleteWordHandler;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -22,6 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+    private int selectedIndex = 0;
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -32,8 +34,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private AutoCompletePanel autoCompletePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane autoCompletePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -116,8 +124,11 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        autoCompletePanel = new AutoCompletePanel(new AutoCompleteWordHandler());
+        autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
     }
 
     /**
@@ -189,5 +200,44 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void setOnButtonPressedListener() {
+        commandBox.getCommandTextField().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case UP:
+                int newIndex = (selectedIndex - 1);
+                if (newIndex < 0) {
+                    newIndex = 0;
+                }
+                selectedIndex = newIndex;
+
+                System.out.println("PRESSED UP current index" + newIndex);
+                autoCompletePanel.select(newIndex);
+                commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
+                break;
+            case DOWN:
+                int newIndex2 = (selectedIndex + 1);
+                if (newIndex2 > autoCompletePanel.getTotalItems() - 1) {
+                    newIndex2 = autoCompletePanel.getTotalItems() - 1;
+                }
+                selectedIndex = newIndex2;
+
+                System.out.println("PRESSED DOWN current index" + newIndex2);
+                autoCompletePanel.select(newIndex2);
+                break;
+            case SHIFT:
+                System.out.println("PRESSED SHIFT");
+                try {
+                    commandBox.getCommandTextField().setText(autoCompletePanel.getSelected().getSuggestedWord());
+                    commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
+                } catch(NullPointerException e) {
+                    System.out.println("nothing is selected thus shift key does not work");
+                }
+                break;
+            default:
+                autoCompletePanel.updateListView(commandBox.getCommandTextField().getText() + event.getText());
+            }
+        });
     }
 }

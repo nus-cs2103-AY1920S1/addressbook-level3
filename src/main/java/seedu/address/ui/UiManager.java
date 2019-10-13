@@ -41,6 +41,8 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            // Main window listener
+            mainWindow.setOnButtonPressedListener();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
