@@ -17,6 +17,8 @@ import seedu.address.inventory.model.Item;
  */
 public class Cashier extends UiPart<Region> {
 
+    private static final String FXML = "Cashier.fxml";
+
     @FXML
     private TableView<Item> tableView;
     @FXML
@@ -30,24 +32,11 @@ public class Cashier extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> subtotalCol;
 
-    private List<Item> parseTransactionList(Logic logic) throws Exception {
-        // parse and construct User datamodel list by looping your ResultSet rs
-        // and return the list
-        List<Item> list = new ArrayList<>();
-        for (int i = 0; i < logic.getSalesList().size(); i++) {
-            logic.getSalesList().get(i).setId(i + 1);
-            list.add(logic.getSalesList().get(i));
-
-        }
-        return list;
-    }
-
-    private static final String FXML = "Cashier.fxml";
-
     public Cashier (Logic logic) throws Exception {
         super(FXML);
         tableView.getItems().setAll(parseTransactionList(logic));
-        /*ObservableList<Transaction> transactionObservableList = FXCollections.observableArrayList(parseTransactionList(logic));
+        /*ObservableList<Transaction> transactionObservableList = FXCollections.observableArrayList
+        (parseTransactionList(logic));
         tableView.setItems(transactionObservableList);*/
         //personListView.setCellFactory(listView -> new PersonListViewCell());
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
@@ -64,6 +53,18 @@ public class Cashier extends UiPart<Region> {
         amountCol.setCellFactory(view -> new SalesViewCell<Double>("amount"));
         personCol.setCellFactory(view -> new SalesViewCell<String>("name"));*/
 
+    }
+
+    private List<Item> parseTransactionList(Logic logic) throws Exception {
+        // parse and construct User datamodel list by looping your ResultSet rs
+        // and return the list
+        List<Item> list = new ArrayList<>();
+        for (int i = 0; i < logic.getSalesList().size(); i++) {
+            logic.getSalesList().get(i).setId(i + 1);
+            list.add(logic.getSalesList().get(i));
+
+        }
+        return list;
     }
 
     class SalesViewCell<T> extends TableCell<Item, T> {

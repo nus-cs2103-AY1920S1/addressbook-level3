@@ -1,8 +1,12 @@
 package seedu.address.overview.storage;
 
-import seedu.address.overview.model.Model;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import java.io.*;
+import seedu.address.overview.model.Model;
 
 /**
  * Manages storage of transaction data in local storage.
@@ -70,6 +74,10 @@ public class StorageManager implements Storage {
         fw.close();
     }
 
+    /**
+     * Reads in the current file line and stores the value from that line.
+     * @param line The current file line.
+     */
     void readInFileLine(String line) {
         String[] params = line.split("\\|");
         if (params[0] == "budgetTarget") {

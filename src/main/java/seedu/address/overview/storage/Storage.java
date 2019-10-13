@@ -1,8 +1,8 @@
 package seedu.address.overview.storage;
 
-import seedu.address.overview.model.Model;
-
 import java.io.IOException;
+
+import seedu.address.overview.model.Model;
 
 /**
  * API of the Storage component

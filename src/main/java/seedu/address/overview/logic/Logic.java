@@ -1,7 +1,5 @@
 package seedu.address.overview.logic;
 
-import java.io.IOException;
-
 import seedu.address.overview.commands.CommandResult;
 
 /**

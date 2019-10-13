@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -8,13 +11,12 @@ import javafx.scene.layout.Region;
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Defines the display for the Inventory tab in the user interface.
  */
 public class Inventory extends UiPart<Region> {
+
+    private static final String FXML = "Inventory.fxml";
 
     @FXML
     private TableView<Item> tableView;
@@ -31,6 +33,17 @@ public class Inventory extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> priceCol;
 
+    public Inventory(Logic logic) throws Exception {
+        super(FXML);
+        tableView.getItems().setAll(parseInventoryList(logic));
+        idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+        categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("date"));
+        costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("amount"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+    }
+
     private List<Item> parseInventoryList(Logic logic) throws Exception {
         // parse and construct User datamodel list by looping your ResultSet rs
         // and return the list
@@ -42,16 +55,5 @@ public class Inventory extends UiPart<Region> {
         return list;
     }
 
-    private static final String FXML = "Inventory.fxml";
 
-    public Inventory (Logic logic) throws Exception {
-        super(FXML);
-        tableView.getItems().setAll(parseInventoryList(logic));
-        idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
-        categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("date"));
-        costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("amount"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
-    }
 }

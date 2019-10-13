@@ -1,12 +1,13 @@
 package seedu.address.overview.logic;
 
-import seedu.address.overview.commands.*;
-import seedu.address.overview.logic.exception.ParseException;
-import seedu.address.overview.ui.OverviewMessages;
-import seedu.address.person.logic.commands.AddCommand;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.overview.commands.Command;
+import seedu.address.overview.commands.NotifyCommand;
+import seedu.address.overview.commands.SetCommand;
+import seedu.address.overview.logic.exception.ParseException;
+import seedu.address.overview.ui.OverviewMessages;
 
 /**
  * Parses user input.

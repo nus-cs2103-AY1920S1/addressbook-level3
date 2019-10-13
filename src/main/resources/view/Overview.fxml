@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="home" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="home" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <GridPane fx:id="overview" alignment="CENTER" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -32,6 +33,10 @@
                <font>
                   <Font size="18.0" />
                </font>
+               <stylesheets>
+                  <URL value="@Extensions.css" />
+                  <URL value="@DarkTheme.css" />
+               </stylesheets>
             </Label>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
@@ -144,8 +149,20 @@
                      </children>
                   </VBox>
                </children>
+               <stylesheets>
+                  <URL value="@Extensions.css" />
+                  <URL value="@DarkTheme.css" />
+               </stylesheets>
             </GridPane>
          </children>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
       </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@Extensions.css" />
+      <URL value="@DarkTheme.css" />
+   </stylesheets>
 </AnchorPane>

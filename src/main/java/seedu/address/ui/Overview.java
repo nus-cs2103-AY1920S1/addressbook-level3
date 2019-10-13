@@ -1,14 +1,14 @@
 package seedu.address.ui;
 
+import static seedu.address.overview.ui.OverviewMessages.BUDGET_SUMMARY_TEXT;
+import static seedu.address.overview.ui.OverviewMessages.EXPENSE_SUMMARY_TEXT;
+import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
+import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.overview.logic.Logic;
-
-import static seedu.address.overview.ui.OverviewMessages.EXPENSE_SUMMARY_TEXT;
-import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
-import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
-import static seedu.address.overview.ui.OverviewMessages.BUDGET_SUMMARY_TEXT;
 
 
 /**

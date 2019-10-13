@@ -6,6 +6,9 @@ import java.util.logging.Logger;
 import seedu.address.overview.storage.Storage;
 import seedu.address.person.commons.core.LogsCenter;
 
+/**
+ * Manages the data model stored in the Overview tab.
+ */
 public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
 

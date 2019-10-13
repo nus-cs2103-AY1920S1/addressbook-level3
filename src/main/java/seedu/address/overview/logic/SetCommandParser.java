@@ -1,5 +1,9 @@
 package seedu.address.overview.logic;
 
+import static seedu.address.overview.logic.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.overview.logic.CliSyntax.PREFIX_EXPENSE;
+import static seedu.address.overview.logic.CliSyntax.PREFIX_SALES;
+
 import java.util.stream.Stream;
 
 import seedu.address.overview.commands.SetBudgetCommand;
@@ -7,21 +11,16 @@ import seedu.address.overview.commands.SetCommand;
 import seedu.address.overview.commands.SetExpenseCommand;
 import seedu.address.overview.commands.SetSalesCommand;
 import seedu.address.overview.logic.exception.ParseException;
-import seedu.address.overview.model.Model;
 import seedu.address.overview.ui.OverviewMessages;
 
-import static seedu.address.overview.logic.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.overview.logic.CliSyntax.PREFIX_EXPENSE;
-import static seedu.address.overview.logic.CliSyntax.PREFIX_SALES;
-
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new SetCommand object
  */
 public class SetCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SetCommand
+     * and returns an SetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public static SetCommand parse(String args)

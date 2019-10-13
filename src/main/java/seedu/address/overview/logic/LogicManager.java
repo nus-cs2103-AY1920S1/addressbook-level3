@@ -1,15 +1,13 @@
 package seedu.address.overview.logic;
 
-import seedu.address.inventory.model.Item;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
+
 import seedu.address.overview.commands.Command;
 import seedu.address.overview.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.StorageManager;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.ui.Overview;
-
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 /**
  * Manages the logic behind the transaction tab.
@@ -50,10 +48,10 @@ public class LogicManager implements Logic {
     }
 
     public double getTotalInventory() {
-//        Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
-//        return itemStream
-//                .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
-//                .sum();
+        /*Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
+        return itemStream
+                .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
+                .sum();*/
         return 0;
     }
 
