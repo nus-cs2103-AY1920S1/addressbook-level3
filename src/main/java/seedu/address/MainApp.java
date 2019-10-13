@@ -84,7 +84,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
         ReadOnlyAddressBook initialAddressData;
         try {
             Optional<ReadOnlyAddressBook> addressBookOptional = storage.readAddressBook();
@@ -118,7 +118,7 @@ public class MainApp extends Application {
         return new ModelManager(initialAddressData, userPrefs, queueManager, initialAppointmentData);
     }
 
-    protected void initLogging(Config config) {
+    private void initLogging(Config config) {
         LogsCenter.init(config);
     }
 
@@ -127,7 +127,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    private Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -163,7 +163,7 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    private UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 

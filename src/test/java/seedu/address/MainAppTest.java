@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address;
 
 import java.util.concurrent.TimeoutException;
 
@@ -13,24 +13,20 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 
 @ExtendWith(ApplicationExtension.class)
-public class UiTest extends ApplicationTest {
+public class MainAppTest extends ApplicationTest {
 
     @BeforeAll
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() throws TimeoutException {
         FxToolkit.registerPrimaryStage();
         FxToolkit.setupApplication(MainApp.class);
     }
 
     @AfterEach
-    public void afterEachTest() throws TimeoutException {
-        FxToolkit.hideStage();
-        release(new KeyCode[]{});
-        release(new MouseButton[]{});
+    public void afterEach() throws TimeoutException {
+        FxToolkit.cleanupStages();
     }
 
     @Override
@@ -67,7 +63,7 @@ public class UiTest extends ApplicationTest {
     }
 
     @Test
-    public void commandBoxTest(FxRobot robot) {
+    public void traverseAndUnknownCommandTest(FxRobot robot) {
         robot.clickOn("#commandTextField").write("lol").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl()).hasText("Unknown command");
         robot.type(KeyCode.UP);
@@ -75,10 +71,38 @@ public class UiTest extends ApplicationTest {
         robot.type(KeyCode.LEFT, KeyCode.BACK_SPACE);
         Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(1);
         robot.type(KeyCode.RIGHT).eraseText(2);
+    }
 
-        robot.write("enqueue 001A").type(KeyCode.ENTER);
+    @Test
+    public void enqueueAndDequeueTest(FxRobot robot) {
+        robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(0);
+    }
+
+    @Test
+    public void invalidCommandFormatTest(FxRobot robot) {
+        robot.clickOn("#commandTextField").write("addappt").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(7).write("ackappt").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(7).write("appointments").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(12);
+    }
+
+    @Test
+    public void helpCommandTest(FxRobot robot) {
+        robot.clickOn("#commandTextField").write("help").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Opened help window.");
+        Assertions.assertThat(window("Help")).isShowing();
+        Assertions.assertThat(listWindows().size()).isEqualTo(2);
+        robot.push(KeyCode.ALT, KeyCode.F4);
+        Assertions.assertThat(listWindows().size()).isEqualTo(1);
     }
 }
