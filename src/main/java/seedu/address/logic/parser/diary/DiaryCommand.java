@@ -5,6 +5,7 @@ package seedu.address.logic.parser.diary;
  */
 public enum DiaryCommand {
     FLIP,
+    CREATE,
     EDIT,
     DONE,
     ADDPHOTO,

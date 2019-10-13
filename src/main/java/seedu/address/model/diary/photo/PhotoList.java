@@ -32,6 +32,10 @@ public class PhotoList {
         return photos.remove(index.getZeroBased());
     }
 
+    public ObservableList<Photo> getObservablePhotoList() {
+        return photos;
+    }
+
     /**
      * Searches for the first matching photo in the list with the given {@code searchTerm}.
      *

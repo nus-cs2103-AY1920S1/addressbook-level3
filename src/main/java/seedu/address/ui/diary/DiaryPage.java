@@ -14,12 +14,6 @@ import seedu.address.ui.template.PageWithSidebar;
 public class DiaryPage extends PageWithSidebar<BorderPane> {
     private static final String FXML = "diary/DiaryPage.fxml";
 
-    @FXML
-    private VBox sideBarLeft;
-
-    @FXML
-    private VBox sideBarRight;
-
     public DiaryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
 

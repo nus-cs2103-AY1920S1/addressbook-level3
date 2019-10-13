@@ -15,13 +15,13 @@ import seedu.address.model.diary.DiaryEntryList;
 public class JsonAdaptedDiary {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary's %s field is missing!";
 
-    private final DiaryEntryList diaryEntryList;
+    private final JsonAdaptedDiaryEntryList diaryEntryList;
 
     /**
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
      */
     @JsonCreator
-    public JsonAdaptedDiary(@JsonProperty("diaryEntryList") DiaryEntryList diaryEntryList) {
+    public JsonAdaptedDiary(@JsonProperty("diaryEntryList") JsonAdaptedDiaryEntryList diaryEntryList) {
         requireNonNull(diaryEntryList);
         this.diaryEntryList = diaryEntryList;
     }
@@ -31,7 +31,7 @@ public class JsonAdaptedDiary {
      */
     public JsonAdaptedDiary(Diary source) {
         requireNonNull(source);
-        this.diaryEntryList = source.getDiaryEntryList();
+        this.diaryEntryList = new JsonAdaptedDiaryEntryList(source.getDiaryEntryList());
     }
 
     /**
@@ -40,6 +40,6 @@ public class JsonAdaptedDiary {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public Diary toModelType() throws IllegalValueException {
-        return new Diary(diaryEntryList);
+        return new Diary(diaryEntryList.toModelType());
     }
 }

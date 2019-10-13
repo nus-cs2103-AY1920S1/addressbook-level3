@@ -16,6 +16,7 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
+import seedu.address.storage.diary.JsonAdaptedDiary;
 
 /**
  * Jackson friendly version of {@code Trip}.
@@ -28,7 +29,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime endDate;
     private final String destination;
     private final Double totalBudget;
-    private final Diary diary;
+    private final JsonAdaptedDiary jsonAdaptedDiary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
     /**
@@ -42,7 +43,7 @@ public class JsonAdaptedTrip {
             @JsonProperty("destination")String destination,
             @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
-            @JsonProperty("diary")Diary diary) {
+            @JsonProperty("diary") JsonAdaptedDiary jsonAdaptedDiary) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -51,7 +52,7 @@ public class JsonAdaptedTrip {
         if (dayList != null) {
             this.dayList.addAll(dayList);
         }
-        this.diary = diary;
+        this.jsonAdaptedDiary = jsonAdaptedDiary;
     }
 
     /**
@@ -68,7 +69,7 @@ public class JsonAdaptedTrip {
                 .stream().map(JsonAdaptedDay::new)
                 .collect(Collectors.toList())
         );
-        this.diary = source.getDiary();
+        this.jsonAdaptedDiary = new JsonAdaptedDiary(source.getDiary());
     }
 
     /**
@@ -81,6 +82,8 @@ public class JsonAdaptedTrip {
         for (JsonAdaptedDay day : dayList) {
             days.add(day.toModelType());
         }
+
+        Diary diary = jsonAdaptedDiary.toModelType();
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

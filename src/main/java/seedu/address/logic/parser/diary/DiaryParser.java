@@ -35,6 +35,8 @@ public class DiaryParser implements PageParser {
         switch (commandType) {
         case FLIP:
             return new FlipDiaryParser().parse(arguments);
+        case CREATE:
+            return new CreateDiaryEntryParser().parse(arguments);
         case EDIT:
             return new EditDiaryEntryParser().parse(arguments);
         case DONE:
