@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.logic.commands.Command;
