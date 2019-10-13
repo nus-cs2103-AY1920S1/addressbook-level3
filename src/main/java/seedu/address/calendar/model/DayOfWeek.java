@@ -28,7 +28,7 @@ enum DayOfWeek {
                 .findAny();
 
         if (desiredDay.isEmpty()) {
-            assert false : "All days should be represented by some value between 0 and 6 inclusive";
+            assert true : "All days should be represented by some value between 0 and 6 inclusive";
         }
 
         return desiredDay.get();

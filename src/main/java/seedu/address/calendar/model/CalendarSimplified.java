@@ -1,14 +1,26 @@
 package seedu.address.calendar.model;
 
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Simplified and static calendar
  */
 public class CalendarSimplified extends Calendar {
-    int days[] = {1, 2, 3, 4, 5, 6, 7};
 
-    public IntStream getDays() {
-        return IntStream.of(days);
+    Month month = new Month(MonthOfYear.OCTOBER, 2019);
+
+    // todo: use Java built-in function to get current date and time
+    public Stream<Day> getDays() {
+        return (new Month(MonthOfYear.OCTOBER, 2019)).getDaysInMonth();
+    }
+
+    public Month getMonth() {
+        return month;
+    }
+
+    // todo: upgrade this method LOL
+    public void updateMonth(String str) {
+        MonthOfYear newMonth = MonthOfYear.valueOf(str);
+        month = new Month(newMonth, 2019);
     }
 }

@@ -1,6 +1,6 @@
 package seedu.address.calendar.model;
 
-enum MonthOfYear {
+public enum MonthOfYear {
     JANUARY(1, 31),
     FEBRUARY(2, 28),
     MARCH(3, 31),
@@ -19,7 +19,7 @@ enum MonthOfYear {
     private int numericalVal;
     private int numDaysInMonth;
 
-    private MonthOfYear(int numericalVal, int numDaysInMonth) {
+    MonthOfYear(int numericalVal, int numDaysInMonth) {
         this.numericalVal = numericalVal;
         this.numDaysInMonth = numDaysInMonth;
     }
@@ -31,9 +31,9 @@ enum MonthOfYear {
     int getNumDaysInMonth(int year) {
         if (numericalVal == 2) {
             // if it is February
-            return isLeapYear(year) ? DAYS_IN_FEB_LEAP : numericalVal;
+            return isLeapYear(year) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
         }
-        return numericalVal;
+        return numDaysInMonth;
     }
 
     // mathematical approach to determine whether it is a leap year
@@ -49,5 +49,9 @@ enum MonthOfYear {
 
     static int getNumMonthsInYear() {
         return NUM_MONTHS_IN_YEAR;
+    }
+
+    static MonthOfYear convertJavaMonth(int javaMonth) {
+        return MonthOfYear.values()[javaMonth];
     }
 }
