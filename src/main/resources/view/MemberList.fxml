@@ -15,11 +15,19 @@
         <Insets top="5" right="5" bottom="5" left="15" />
     </padding>
     <ScrollPane fx:id="listHeaderContainer" prefWidth="600" vbarPolicy="NEVER" hbarPolicy="NEVER">
-        <StackPane fx:id="listHeaders" prefWidth="600" prefHeight="50">
+        <GridPane fx:id="listHeaders" prefWidth="600" prefHeight="50">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="35" />
+                <ColumnConstraints percentWidth="40" />
+            </columnConstraints>
             <padding>
                 <Insets top="5" right="5" bottom="5" left="20" />
             </padding>
-        </StackPane>
+            <Label text="Name" GridPane.columnIndex="0"/>
+            <Label text="Email" GridPane.columnIndex="1"/>
+            <Label text="Role" GridPane.columnIndex="2"/>
+        </GridPane>
     </ScrollPane>
     <padding>
         <Insets top="5" right="5" bottom="5" left="15" />

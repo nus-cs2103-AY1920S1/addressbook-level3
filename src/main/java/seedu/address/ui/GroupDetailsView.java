@@ -11,6 +11,7 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.util.ColorGenerator;
+import seedu.address.ui.util.GroupDetailCard;
 import seedu.address.ui.util.MemberList;
 
 /**
@@ -42,7 +43,7 @@ public class GroupDetailsView extends UiPart<Region> {
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
         ScheduleView scheduleView = new ScheduleView(schedules, colors);
-        GroupCard groupCard = new GroupCard(detailWindowDisplay.getGroupDisplay(), 1);
+        GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
         groupMembersList.getChildren().add(new MemberList(names, colors).getRoot());
         groupSchedule.getChildren().add(scheduleView.getRoot());

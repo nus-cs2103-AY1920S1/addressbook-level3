@@ -20,7 +20,8 @@ public class ScheduleStub {
 
     public WeekSchedule getSchedule() {
         Person p = new Person(new PersonDescriptor());
-        p.setName(new Name("Alex"));
+        p.setName(new Name("AlexwithaverylongnameSolongthateventhespellingofthisentiresentenceisonlyafraction"
+                + "ofhistruename"));
         Schedule schedule = new Schedule(new PersonId(12345));
         Venue venue = new Venue("Central Library");
 

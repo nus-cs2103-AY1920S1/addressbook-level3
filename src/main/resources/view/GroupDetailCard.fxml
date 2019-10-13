@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<ScrollPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0" hbarPolicy="NEVER" vbarPolicy="NEVER">
+    <VBox fx:id="groupDetailContainer" spacing="10">
+        <VBox spacing="5">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label text="Group Name: " styleClass="cell_big_label"/>
+            <Label fx:id="groupName" styleClass="cell_small_label"/>
+        </VBox>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label text="Group Description: " styleClass="cell_big_label"/>
+            <Label fx:id="groupDescription" styleClass="cell_small_label"/>
+        </VBox>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label text="Group Remark: " styleClass="cell_big_label"/>
+            <Label fx:id="groupRemark" styleClass="cell_small_label"/>
+        </VBox>
+    </VBox>
+</ScrollPane>

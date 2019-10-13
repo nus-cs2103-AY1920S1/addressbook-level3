@@ -1,5 +1,7 @@
 package seedu.address.ui.util;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -11,20 +13,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.ui.UiPart;
 
-import java.util.List;
-
 /**
  * A class to show the members of a group.
  */
 public class MemberList extends UiPart<Region> {
 
     private static final String FXML = "MemberList.fxml";
-    private static final double NAME_SPACE_PERCENT = 25;
-    private static final double EMAIL_SPACE_PERCENT = 35;
-    private static final double ROLE_SPACE_PERCENT = 40;
 
     @FXML
-    private StackPane listHeaders;
+    private GridPane listHeaders;
 
     @FXML
     private VBox listMembers;
@@ -37,35 +34,11 @@ public class MemberList extends UiPart<Region> {
 
     public MemberList(List<String> members, List<String> colors) {
         super(FXML);
-        listHeaders.getChildren().add(generateHeaders());
         for (int i = 0; i < members.size(); i++) {
             MemberCard memberCard = new MemberCard(members.get(i), colors.get(i));
             listMembers.getChildren().add(memberCard.getRoot());
         }
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
-    }
-
-    /**
-     * Method to generate table headers.
-     * @return GridPane representation of the headers.
-     */
-    private GridPane generateHeaders() {
-        GridPane result = new GridPane();
-        ColumnConstraints nameColumnConstraint = new ColumnConstraints();
-        nameColumnConstraint.setPercentWidth(NAME_SPACE_PERCENT);
-        ColumnConstraints emailColumnConstraint = new ColumnConstraints();
-        emailColumnConstraint.setPercentWidth(EMAIL_SPACE_PERCENT);
-        ColumnConstraints roleColumnConstraint = new ColumnConstraints();
-        roleColumnConstraint.setPercentWidth(ROLE_SPACE_PERCENT);
-        result.getColumnConstraints().addAll(nameColumnConstraint, emailColumnConstraint, roleColumnConstraint);
-        Label nameHeader = new Label("Name");
-        Label emailHeader = new Label("Email");
-        Label roleHeader = new Label("Role");
-        result.add(nameHeader, 0, 0);
-        result.add(emailHeader, 1, 0);
-        result.add(roleHeader, 2, 0);
-        result.setStyle("-fx-border-color: lightgrey; -fx-border-width: 2; -fx-border-style: hidden hidden solid hidden;");
-        return result;
     }
 
     class MemberCard extends UiPart<Region> {
