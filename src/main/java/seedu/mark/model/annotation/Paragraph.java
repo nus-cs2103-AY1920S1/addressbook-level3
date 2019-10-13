@@ -4,16 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.index.Index;
 
-public class Paragraph {
+public interface Paragraph {
 
-    /** Paragraph identifier.*/
-    ParagraphIdentifier id;
-    /** Paragraph content. */
-    private String content;
-    /** Paragraph highlight. */
-    private Highlight colour;
-    /** Paragraph notes, if any.*/
-    
+    public ParagraphIdentifier getId();
 
+    public ParagraphContent getParagraphContent();
+
+    public Highlight getHighlight();
+
+    public AnnotationNote getNote();
+
+    public void addAnnotation(Highlight colour);
+    public void addAnnotation(Highlight colour, AnnotationNote note);
 
 }

@@ -2,6 +2,8 @@ package seedu.mark.model.annotation;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.mark.commons.core.index.Index;
 
 /**
@@ -25,6 +27,17 @@ public class ParagraphIdentifier {
                 || (other instanceof ParagraphIdentifier
                 && ((ParagraphIdentifier) other).index == this.index
                 && ((ParagraphIdentifier) other).type == this.type);
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(index, type);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s%d", type, index.getOneBased());
     }
 
     /**
