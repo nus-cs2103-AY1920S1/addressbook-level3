@@ -284,6 +284,7 @@ Refer to the guide <<DevOps#, here>>.
 ** has a need to limit expenditure to a budget
 ** has a need to quickly analyse how to reduce expenditure
 ** has a need to track net worth
+** has a need to track loans and money owed
 ** prefers desktop apps over other types
 ** can type fast
 ** prefers typing over mouse input
@@ -347,6 +348,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user who is keeping track of net worth |view my monthly balance trends |keep track of how much I save per month
 
 |`* *` |long-term user who is keeping track of transactions |find transactions by keyword |conveniently search for transactions to edit or review
+
+|`* * *`|user who wants to keep track of money owed |view all loans |see all money i am owed or currently owe others
+
+|`* * *`|user who wants to keep track of money owed |view all positive loans |see all money people owe me
+
+|`* * *`|user who wants to keep track of money owed |view all negative loans |see all money i owe people
+
+|`* *`|user who wants to keep track of money owed |select loans by names/keywords |see all loans by a particular person
+
+|`* * *`|user who wants to keep track of money owed |new loan in the list |add a new loan to keep track of
+
+|`* * *`|user who wants to keep track of money owed |mark loan as loan paid |remove one of the loans
+
+|`* *`|user who wants to keep track of money owed |paid/add by part |some amont of loan is paid off
+
+|`*`|user who wants to keep track of money owed | reminders to pay loans with dates |I can see updates and reminders for urgent loans
 
 |=======================================================================
 
@@ -464,6 +481,40 @@ Use case ends
 2.  System set the monthly expenditure budget.
 +
 Use case ends.
+
+[discrete]
+=== Use case: Add loan
+
+*MSS*
+
+1. User requests to add a new loan with name, amount and date by.
+2. System parses request to retrive details.
+3. System adds new loan to list.
+4. System updates list and displays what was added.
++
+Use case ends
+
+[discrete]
+=== Use case: View loans with search
+*MSS*
+
+1. User requests to search for all loans, with search keywords.
+2. System parses and decides the request search constrains.
+3. System displays seelected search results.
++
+Use case ends
+
+[discrete]
+=== Use case: Mark loans as part done
+
+*MSS*
+
+1. User requests to mark a lone as paid off.
+2. System removes existing loan from the list.
+3. System updates the total loan value.
+4. System shows the new total loan value, with the new paid off loan.
++
+Use case ends
 
 *Extensions*
 
