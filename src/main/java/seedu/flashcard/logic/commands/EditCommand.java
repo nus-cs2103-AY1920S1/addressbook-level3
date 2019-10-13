@@ -3,8 +3,6 @@ package seedu.flashcard.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.flashcard.model.FlashcardList;
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.Question;
 
 /**
  * Command to edit a flashcard or tag

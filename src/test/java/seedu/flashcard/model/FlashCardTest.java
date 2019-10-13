@@ -5,10 +5,6 @@ import static seedu.flashcard.model.DefaultFlashCards.KANETSU_CARD;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerQuestion;
-
 public class FlashCardTest {
 
     @Test

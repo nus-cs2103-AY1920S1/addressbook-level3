@@ -1,9 +1,5 @@
 package seedu.flashcard.model;
 
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerQuestion;
-
 /**
  * Some built in flashcards to be used in testing periods
  */

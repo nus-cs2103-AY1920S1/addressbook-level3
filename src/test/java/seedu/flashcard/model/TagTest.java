@@ -12,9 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.flashcard.model.exceptions.CardNotFoundException;
 import seedu.flashcard.model.exceptions.DuplicateCardException;
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerQuestion;
 
 public class TagTest {
 

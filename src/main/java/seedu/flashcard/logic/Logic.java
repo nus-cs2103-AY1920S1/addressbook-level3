@@ -1,8 +1,13 @@
 package seedu.flashcard.logic;
 
-import seedu.address.logic.commands.exceptions.CommandException;
+import javafx.collections.ObservableList;
+import seedu.flashcard.commons.core.GuiSettings;
+import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.commands.CommandResult;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
+import seedu.flashcard.model.ReadOnlyFlashcardList;
+
+import java.nio.file.Path;
 
 /**
  * API of the logic component
@@ -17,4 +22,31 @@ public interface Logic {
      * @throws ParseException if an error occurs during parsing
      */
     CommandResult execute(String CommandText) throws CommandException, ParseException;
+
+    /**
+     * Get the flashcard list.
+     * @see seedu.flashcard.model.Model#getFlashcardList()
+     */
+    ReadOnlyFlashcardList getFlashcardList();
+
+    /**
+     * Get an unmodifiable view of the filtered list of flashcards
+     */
+    ObservableList<Flashcard> getFilteredFlashcardList();
+
+    /**
+     * Get the user prefs' flashcard list file path
+     */
+    Path getFlashcardListFilePath();
+
+    /**
+     * Get the user prefs' GUI settings
+     * @return
+     */
+    GuiSettings getGuiSettings();
+
+    /**
+     * set user prefs' GUI settings
+     */
+    void setGuiSettings(GuiSettings guiSettings);
 }

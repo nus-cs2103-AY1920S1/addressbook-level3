@@ -1,7 +1,5 @@
 package seedu.flashcard.model;
 
-import seedu.flashcard.model.flashcard.Flashcard;
-
 /**
  * Helps calculating the correct rate for each model, tag and the whole model set.
  */
