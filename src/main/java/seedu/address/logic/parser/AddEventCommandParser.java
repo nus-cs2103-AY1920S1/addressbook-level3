@@ -67,7 +67,9 @@ public class AddEventCommandParser implements Parser<AddCommand> {
             throw new ParseException(e.getMessage());
         }
 
-        return new AddCommand(newItem);
+        AddCommand addCommand = new AddCommand(newItem);
+        AddCommand.setItemType("E");
+        return addCommand;
     }
 
 
