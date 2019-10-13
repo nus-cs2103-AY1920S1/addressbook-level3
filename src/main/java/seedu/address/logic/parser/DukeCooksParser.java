@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.AddPageCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteDiaryCommand;
+import seedu.address.logic.commands.DeletePageCommand;
 import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.HelpCommand;
 
@@ -51,13 +52,16 @@ public class DukeCooksParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteDiaryCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteDiaryCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
         case AddPageCommand.COMMAND_WORD:
             return new AddPageCommandParser().parse(arguments);
+
+        case DeletePageCommand.COMMAND_WORD:
+            return new DeletePageCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

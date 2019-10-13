@@ -18,7 +18,7 @@ import seedu.address.logic.commands.DeleteDiaryCommand;
  */
 public class DeleteDiaryCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private DeleteDiaryCommandParser parser = new DeleteDiaryCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
