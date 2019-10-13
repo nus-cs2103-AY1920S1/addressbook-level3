@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -85,12 +86,27 @@ public interface Logic {
     String calculateTotalProfit();
 
     /**
+     * Gets logic to calculate total profit based on user input
+     */
+    String calculateTotalProfit(StatsPayload statsPayload);
+
+    /**
      * Gets logic to calculate Total Revenue
      */
     String calculateTotalRevenue();
 
     /**
+     * Gets logic to calculate Total Revenue based on user input
+     */
+    String calculateTotalRevenue(StatsPayload statsPayload);
+
+    /**
      * Gets logic to calculate total profit
      */
     String calculateTotalCost();
+
+    /**
+     * Gets logic to calculate total profit based on user input
+     */
+    String calculateTotalCost(StatsPayload statsPayload);
 }

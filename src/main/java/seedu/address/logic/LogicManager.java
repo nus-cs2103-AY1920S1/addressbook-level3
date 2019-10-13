@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -118,12 +119,27 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String calculateTotalProfit(StatsPayload statsPayload) {
+        return null;
+    }
+
+    @Override
     public String calculateTotalRevenue() {
         return this.statistic.calculateTotalRevenueOnCompleted(this.getOrderBook());
     }
 
     @Override
+    public String calculateTotalRevenue(StatsPayload statsPayload) {
+        return null;
+    }
+
+    @Override
     public String calculateTotalCost() {
         return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), this.getPhoneBook());
+    }
+
+    @Override
+    public String calculateTotalCost(StatsPayload statsPayload) {
+        return null;
     }
 }

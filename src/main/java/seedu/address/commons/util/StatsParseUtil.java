@@ -6,7 +6,7 @@ package seedu.address.commons.util;
 public class StatsParseUtil {
 
     public static final String DATE_MESSAGE_CONSTRAINTS =
-            "Date should only contain numbers in the format of DD/MM/YYYY, and it should not be blank";
+            "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank";
 
     public static final String STATS_MESSAGE_CONSTRAINTS =
             "Stat type should only be either PROFIT, REVENUE or COST, and should not be blank.";

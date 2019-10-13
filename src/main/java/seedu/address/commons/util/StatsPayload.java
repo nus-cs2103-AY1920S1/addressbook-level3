@@ -1,6 +1,6 @@
 package seedu.address.commons.util;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import seedu.address.logic.commands.StatisticType;
 
@@ -9,8 +9,8 @@ import seedu.address.logic.commands.StatisticType;
  */
 public class StatsPayload {
 
-    private final Date startingDate;
-    private final Date endingDate;
+    private final Calendar startingDate;
+    private final Calendar endingDate;
     private final StatisticType statisticType;
     /**
      * Constructs a {@code StatsPayload} with the specified {@code startingDate}, {@code statisticType}
@@ -19,18 +19,18 @@ public class StatsPayload {
      * @param startingDate starting date of query
      * @param endingDate ending date of query
      */
-    public StatsPayload(Date startingDate, Date endingDate,
+    public StatsPayload(Calendar startingDate, Calendar endingDate,
                         StatisticType statisticType) {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
     }
 
-    public Date getStartingDate() {
+    public Calendar getStartingDate() {
         return this.startingDate;
     }
 
-    public Date getEndingDate() {
+    public Calendar getEndingDate() {
         return this.endingDate;
     }
 

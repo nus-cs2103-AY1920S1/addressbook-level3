@@ -2,9 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -184,21 +185,32 @@ public class ParserUtil {
         }
     }
 
+
+    //@@author QiuJiaaa -reused
+    // reused from the parse Calendar method with minor modifications
     /**
-     *Parse a {@Code String date} into a {@Code Date}.
+     *Parse a {@Code String calendar} into a {@Code calendar}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Date parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        String trimmedDate = date.trim();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/MM/YYYY");
-        Date result;
-        try {
-            result = simpleDateFormat.parse(trimmedDate);
-            return result;
-        } catch (java.text.ParseException e) {
+    public static Calendar parseDateCalendar(String calendar) throws ParseException {
+        requireNonNull(calendar);
+        String trimmedDate = calendar.trim();
+        String[] stringCalendar = trimmedDate.split("\\.");
+        if (stringCalendar.length != 3) {
             throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
         }
+        int[] input = new int[3];
+        LocalDateTime localDateTime;
+        try {
+            for (int index = 0; index < 3; index++) {
+                input[index] = Integer.parseInt(stringCalendar[index]);
+            }
+            localDateTime = LocalDateTime.of(input[0], input[1], input[2], input[3], input[4]);
+        } catch (NumberFormatException | DateTimeException e) {
+            throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
+        }
+        //@@author
+        return new Calendar.Builder().setDate(input[0], input[1], input[2]).build();
     }
 
 }

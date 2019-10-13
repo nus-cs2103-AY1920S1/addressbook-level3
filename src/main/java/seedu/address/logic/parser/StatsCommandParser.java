@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.StatisticType;
@@ -31,8 +31,8 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         }
 
         StatisticType type = ParserUtil.parseStatsType(argMultiMap.getValue(PREFIX_STAT_TYPE).get());
-        Date startingDate = ParserUtil.parseDate(argMultiMap.getValue(PREFIX_STARTING_DATE).get());
-        Date endingDate = ParserUtil.parseDate(argMultiMap.getValue(PREFIX_ENDING_DATE).get());
+        Calendar startingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_STARTING_DATE).get());
+        Calendar endingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_ENDING_DATE).get());
 
 
         return new StatsCommand(startingDate, endingDate, StatisticType.REVENUE);

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,14 +15,14 @@ public class StatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": generates statistic for ";
 
-    private final Date startingDate;
+    private final Calendar startingDate;
 
-    private final Date endingDate;
+    private final Calendar endingDate;
 
     private final StatisticType statisticType;
 
 
-    public StatsCommand(Date startingDate, Date endingDate, StatisticType statisticType) {
+    public StatsCommand(Calendar startingDate, Calendar endingDate, StatisticType statisticType) {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
