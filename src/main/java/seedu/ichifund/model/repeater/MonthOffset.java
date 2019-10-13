@@ -11,7 +11,7 @@ public class MonthOffset {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Month offset should be an integer between 1 and 28 inclusive. An empty month offset is also allowed.";
-    public static final String VALIDATION_REGEX = "$[0-9]*^";
+    public static final String VALIDATION_REGEX = "$[1-9]|[1]\\d|[2][0-8]^";
 
     public final Integer value;
 
@@ -29,14 +29,7 @@ public class MonthOffset {
      * Returns true if a given string is a valid offset.
      */
     public static boolean isValidOffset(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
-            return false;
-        } else if (test.equals("")) {
-            return true;
-        } else {
-            int offset = Integer.parseInt(test);
-            return offset >= 0 && offset <= 28;
-        }
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
