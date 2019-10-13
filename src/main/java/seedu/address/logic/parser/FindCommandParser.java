@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
@@ -21,6 +22,8 @@ import seedu.address.model.genre.Genre;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    private final String preamblePlaceholder = " 0 ";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -28,7 +31,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = " 0 " + args.trim();
+
+        String trimmedArgs = preamblePlaceholder + args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -68,7 +72,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * {@code Set<Genre>} containing zero genres.
      */
     private Optional<Set<Genre>> parseGenresForFind(Collection<String> genres) throws ParseException {
-        assert genres != null;
+        requireNonNull(genres);
 
         if (genres.isEmpty()) {
             return Optional.empty();
