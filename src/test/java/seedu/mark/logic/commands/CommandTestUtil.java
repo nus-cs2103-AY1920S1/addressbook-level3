@@ -66,6 +66,11 @@ public class CommandTestUtil {
     public static final EditCommand.EditBookmarkDescriptor DESC_AMY;
     public static final EditCommand.EditBookmarkDescriptor DESC_BOB;
 
+    public static final String VALID_NOTE_OPEN = "Open Website";
+    public static final String VALID_NOTE_READ = "READ ARTICLE";
+    public static final String VALID_TIME_OPEN = "12/12/2020 1800";
+    public static final String VALID_TIME_READ = "02/03/2019 0500";
+
     static {
         DESC_AMY = new EditBookmarkDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withUrl(VALID_URL_AMY).withRemark(VALID_REMARK_AMY)
