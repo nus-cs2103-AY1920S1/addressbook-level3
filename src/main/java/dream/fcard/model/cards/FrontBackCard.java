@@ -47,11 +47,11 @@ public class FrontBackCard implements FlashCard, JsonInterface {
         back = newText;
     }
 
-    public String getFront(){
+    public String getFront() {
         return front;
     }
 
-    public String getBack(){
+    public String getBack() {
         return back;
     }
 }

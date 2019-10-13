@@ -47,11 +47,11 @@ public class JavascriptCard implements FlashCard, JsonInterface {
         output = newText;
     }
 
-    public String getFront(){
+    public String getFront() {
         return front;
     }
 
-    public String getBack(){
+    public String getBack() {
         return output;
     }
 }
