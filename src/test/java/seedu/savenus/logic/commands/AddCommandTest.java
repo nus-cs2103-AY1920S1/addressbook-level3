@@ -10,6 +10,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -174,7 +175,15 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFoodList(Predicate<Food> predicate) {
+        }
+
+        @Override
+        public void updateRecommendationComparator(Comparator<Food> comparator) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetRecommendationComparator() {
         }
     }
 

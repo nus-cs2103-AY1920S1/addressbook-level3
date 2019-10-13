@@ -17,7 +17,11 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        // Reset the predicate and comparator, if any was provided
         model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOOD);
+        model.resetRecommendationComparator();
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,6 +28,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
 
+    private Optional<Comparator<Food>> recommendationComparator;
+
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
@@ -38,6 +42,9 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
+
+        // Initialize recommendationComparator to default
+        recommendationComparator = Optional.empty();
     }
 
     public ModelManager() {
@@ -152,13 +159,30 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
-        return filteredFoods;
+        if (recommendationComparator.isPresent()) {
+            return filteredFoods.sorted(recommendationComparator.get());
+        } else {
+            return filteredFoods;
+        }
     }
+
 
     @Override
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoods.setPredicate(predicate);
+    }
+
+    // Updates the comparator used for recommendations
+    @Override
+    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
+        requireNonNull(recommendationComparator);
+        this.recommendationComparator = Optional.of(recommendationComparator);
+    }
+
+    @Override
+    public void resetRecommendationComparator() {
+        this.recommendationComparator = Optional.empty();
     }
 
     @Override
