@@ -410,12 +410,51 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Change appointment date (UC3)
+=== Use case: Add new appointment for a patient (UC3)
+Pre-condition: Patient exists in the system
 
 *MSS*
 
-1.  Patient calls to change appointment date
-2.  User checks whether the current appointment can be postponed.
+1.  Patient wants to have a new appointment
+2.  User wants to add this appointments for patient
+3.  ClerkPro adds this appointment
+
+Use case ends.
+
+*Extensions*
+
+* 2a. Actor inputs invalid format
++
+
+** 2a1. ClerkPro requests for correct input format +
+
+** 2a2. Actor inputs correct format +
++
+
+Steps 2a1-2a2 are repeated until the appointment has the correct format +
+
+Use case resumes at step 2
+
+* 2b. Actor inputs a appointment which is conflicted with other appointments
++
+
+** 2b1. Actor ask patient to make provide a new appointment date  +
+
+** 2b2. patient give a new appointment date +
++
+Steps 2b1-2b2 are repeated until the appointment is not conflicted
+
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change appointment date (UC4)
+Pre-condition: Patient’s appointment exists
+
+*MSS*
+
+1.  Patient wants to Change a current appointment date
+2.  User checks whether the current appointment can be changed.
 3.  User checks and updates appointment's appointment time slots.
 4.  ClerkPro updates the appointment date of the patient.
 
@@ -423,27 +462,47 @@ Use case ends.
 
 *Extensions*
 
-* 2a. Current appointment date is invalid +
-+
-Use case ends
+* 3a. Current appointment date is invalid format +
 
-* 3a. Appointment date is taken
+** 3a1. ClerkPro requests for correct input format +
+
+** 3a2. Actor inputs correct format +
 +
-Use case ends
+Steps 2a1-2a2 are repeated until the appointment has the correct format +
+
+
+* 3b. Appointment date is conflict with other appointments +
+
+** 3b1. Actor ask patient to make a new appointment  +
+
+** 3b2. patient change appointment to another date +
++
+Steps 3b1-3b2 are repeated until the appointment is not conflicted
++
+Use case resumes at step 3
 
 [discrete]
-=== Use case: Set next appointment (UC4)
+=== Use case: Find patients appointment (UC5)
 
 *MSS*
 
-1.  Patient wants to set next appointment
-2.  User requests to set the patient's appointment date
-3.  ClerkPro changes the patient's appointment date
+1.  Actor requests to find patient's appointment list
+2.  System retrieve and display patient's appointments
 
 Use case ends.
 
+*Extensions*
+
+* 2a. patient is not exist +
+
++
+
+** System displays an error message "No such patient"
+
+Use case ends
+
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC5)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC6)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
@@ -471,7 +530,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (UC6)
+=== Use case: Editing Information in GUI (U7)
 
 *Actor:* Clerk
 
@@ -491,7 +550,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: AutoCompleter (UC7)
+=== Use case: AutoCompleter (UC8)
 
 *Actor:* Clerk
 
@@ -510,7 +569,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC8)
+=== Use case: History (UC9)
 
 *Actor:* Clerk
 
