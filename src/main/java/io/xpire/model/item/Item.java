@@ -21,7 +21,7 @@ public class Item {
 
     // Data fields
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
-    private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
+    private ReminderThreshold reminderThreshold = new ReminderThreshold("0");
 
     /**
      * Every field must be present and not null.
