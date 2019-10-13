@@ -33,7 +33,7 @@ public class ReminderListCard extends UiPart<Region> {
     @FXML
     private Label priority;
     @FXML
-    private Label completed;
+    private Label reminderdatetime;
     @FXML
     private FlowPane tags;
 
@@ -42,7 +42,7 @@ public class ReminderListCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        //priority.setText("Reminder: " + item.getReminder().get().getDateTime().toString());
+        reminderdatetime.setText("Reminder: " + item.getReminder().get().getDateTime().toString());
     }
 
     @Override

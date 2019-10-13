@@ -44,9 +44,9 @@ public class EventListCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        //priority.setText("Priority: " + item.getEvent().get().getPriority().toString());
-        //startdate.setText("Start Date: " + item.getEvent().get().getStartDateTime().toString());
-        //enddate.setText("End Date: " + item.getEvent().get().getEndDateTime().toString());
+        priority.setText("Priority: " + item.getEvent().get().getPriority().toString());
+        startdate.setText("Start Date: " + item.getEvent().get().getStartDateTime().toString());
+        enddate.setText("End Date: " + item.getEvent().get().getEndDateTime().toString());
     }
 
     @Override
