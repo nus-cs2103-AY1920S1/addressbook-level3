@@ -117,6 +117,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the studyPlan at the given {@code targetIndex} in the
      * {@code model}'s module planner.
      */
+    /*
     public static void showStudyPlanAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredStudyPlanList().size());
 
@@ -126,5 +127,6 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredStudyPlanList().size());
     }
+     */
 
 }
