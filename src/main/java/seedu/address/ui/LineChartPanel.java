@@ -13,7 +13,8 @@ import seedu.address.model.entity.body.Body;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ScheduledExecutorService;
 
 
@@ -23,6 +24,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class LineChartPanel extends UiPart<Region> {
 
     private static final String FXML = "LineChartPanel.fxml";
+    private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
     private ScheduledExecutorService scheduledExecutorService;
     private ObservableList<Body> bodyList;
     // this is used to display time in HH:mm:ss format
@@ -32,7 +34,7 @@ public class LineChartPanel extends UiPart<Region> {
     final LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
     final int WINDOW_SIZE = 10;
     private XYChart.Series<String, Number> series = new XYChart.Series<>();
-    private HashMap<String, Number> freqByDate = new HashMap<>();
+    private Map<Date, Number> freqByDate = new TreeMap<>();
 
     @FXML
     private TextArea resultDisplay;
@@ -43,6 +45,14 @@ public class LineChartPanel extends UiPart<Region> {
     }
 
     public LineChart getLineChart() {
+        initialiseHashMap();
+        initialiseLineChart();
+        updateSeries();
+        updateUponChange();
+        return lineChart;
+    }
+
+    private void initialiseLineChart() {
         //defining the axes
         xAxis.setLabel("Day");
         yAxis.setLabel("Number");
@@ -57,38 +67,58 @@ public class LineChartPanel extends UiPart<Region> {
         // add series to chart
         lineChart.getData().add(series);
 
-        bodyList.addListener((ListChangeListener<Body>) c -> {
-            while (c.next()) {
-
-                if (c.wasAdded()) {
-                    Date now = c.getAddedSubList().get(0).getDateOfAdmission();
-                    String dateOnXAxis = simpleDateFormat.format(now);
-                    Number oldFreq = freqByDate.getOrDefault(dateOnXAxis,0);
-                    int newFreq = oldFreq.intValue() + 1;
-                    freqByDate.put(dateOnXAxis, newFreq);
-                }
-
-                if (c.wasRemoved()) {
-                    Date now = c.getRemoved().get(0).getDateOfAdmission();
-                    String dateOnXAxis = simpleDateFormat.format(now);
-                    Number oldFreq = freqByDate.getOrDefault(dateOnXAxis,0);
-                    int newFreq = oldFreq.intValue() - 1;
-                    freqByDate.put(dateOnXAxis, newFreq);
-                }
-                reinitialiseChart();
-            }
-        });
-
-        return lineChart;
+        // add hashmap data to series;
     }
 
-    public void reinitialiseChart() {
+    private void updateUponChange() {
+        bodyList.addListener((ListChangeListener<Body>) c -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    updateBodyAdded(c);
+                    updateSeries();
+                }
+                if (c.wasRemoved()) {
+                    updateBodyRemoved(c);
+                    updateSeries();
+                }
+            }
+        });
+    }
+
+
+    private void initialiseHashMap() {
+        // Fill in the missing dates
+        Date now = new Date();
+        Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
+        for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+            freqByDate.putIfAbsent(date, 0);
+        }
+    }
+
+    private void updateBodyAdded(ListChangeListener.Change<? extends Body> c) {
+        Date now = c.getAddedSubList().get(0).getDateOfAdmission();
+        Number oldFreq = freqByDate.getOrDefault(now,0);
+        int newFreq = oldFreq.intValue() + 1;
+        freqByDate.put(now, newFreq);
+    }
+
+    private void updateBodyRemoved(ListChangeListener.Change<? extends Body> c) {
+        Date now = c.getRemoved().get(0).getDateOfAdmission();
+        Number oldFreq = freqByDate.getOrDefault(now,0);
+        int newFreq = oldFreq.intValue() - 1;
+        freqByDate.put(now, newFreq);
+    }
+
+    private void updateSeries() {
+        // clear previous data
         series.getData().clear();
+        // Update series based on dates in current hashmap
         freqByDate.forEach((date, freq) -> {
-            series.getData().add(new XYChart.Data<>(date, freq));
+            series.getData().add(new XYChart.Data<String, Number>(simpleDateFormat.format(date), freq));
             if (series.getData().size() > WINDOW_SIZE) {
                 series.getData().remove(0);
             }
         });
     }
+
 }
