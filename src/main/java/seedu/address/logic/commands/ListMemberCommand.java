@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
-
 import seedu.address.model.Model;
 
 /**
