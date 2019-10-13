@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false"
-         title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/savenus_logo.png" />
   </icons>
@@ -29,16 +29,7 @@
             <children>
                <AnchorPane styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="NEVER">
                   <children>
-                     <Button layoutX="2.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="86.0" prefWidth="86.0" styleClass="menu-button" stylesheets="@DarkTheme.css">
-                        <graphic>
-                           <ImageView fitHeight="52.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../images/File.png" />
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </Button>
-                     <Button layoutX="2.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="86.0" prefWidth="86.0" styleClass="menu-button" stylesheets="@DarkTheme.css">
+                     <Button layoutX="2.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="86.0" prefWidth="86.0" styleClass="menu-button" stylesheets="@DarkTheme.css">
                         <graphic>
                            <ImageView fitHeight="52.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -50,7 +41,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button layoutX="2.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="86.0" prefWidth="86.0" styleClass="menu-button" stylesheets="@DarkTheme.css">
+                     <Button layoutX="2.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="86.0" prefWidth="86.0" styleClass="menu-button" stylesheets="@DarkTheme.css">
                         <graphic>
                            <ImageView fitHeight="52.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -64,44 +55,64 @@
                      </Button>
                   </children>
                </AnchorPane>
-               <AnchorPane prefHeight="1080.0" prefWidth="556.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
+               <VBox prefHeight="1080.0" prefWidth="1830.0">
                   <children>
-                     <AnchorPane layoutX="1.0" prefHeight="106.0" prefWidth="554.0">
+                       <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                   <padding>
+                     <Insets bottom="5" left="10" right="10" top="5" />
+                   </padding>
+                 </StackPane>
+                       <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                   <padding>
+                     <Insets bottom="5" left="10" right="10" top="5" />
+                   </padding>
+                 </StackPane>
+                     <HBox>
                         <children>
-                           <Text fill="WHITE" layoutX="103.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STATISTICS">
-                              <font>
-                                 <Font name="Arial Black" size="51.0" />
-                              </font>
-                           </Text>
+                           <AnchorPane prefHeight="968.0" prefWidth="667.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
+                              <children>
+                                  <AnchorPane layoutX="1.0" layoutY="2.0" prefWidth="670.0">
+                                      <children>
+                                       <Circle fill="WHITE" layoutX="325.0" layoutY="157.0" radius="110.0" stroke="BLACK" strokeType="INSIDE" styleClass="wallet-circle" />
+                                          <Text layoutX="255.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark" text="Wallet" textAlignment="CENTER" wrappingWidth="137.30078125">
+                                              <font>
+                                                  <Font name="System Bold" size="40.0" />
+                                              </font>
+                                          </Text>
+                                          <Text fx:id="remainingBudgetPlaceholder" layoutX="236.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark" textAlignment="CENTER" wrappingWidth="175.0">
+                                              <font>
+                                                  <Font name="Arial Black" size="27.0" />
+                                              </font>
+                                          </Text>
+                                          <Text fx:id="daysToExpirePlaceholder" layoutX="265.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark" textAlignment="CENTER" wrappingWidth="120.0">
+                                              <font>
+                                                  <Font name="Arial Black" size="20.0" />
+                                              </font>
+                                          </Text>
+                                      </children>
+                                      <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </padding>
+                                  </AnchorPane>
+                              </children>
+                           </AnchorPane>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                   <VBox fx:id="foodList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                            <padding>
+                              <Insets bottom="10" left="10" right="10" top="10" />
+                            </padding>
+                            <StackPane fx:id="foodListPanelPlaceholder" VBox.vgrow="ALWAYS">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </StackPane>
+                          </VBox>
+                                <StackPane fx:id="statusbarPlaceholder" />
+                        </VBox>
                         </children>
-                        <padding>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                     </AnchorPane>
-                  </children></AnchorPane>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="900.0" HBox.hgrow="ALWAYS">
-                    <StackPane fx:id="commandBoxPlaceholder" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
-                </padding>
-              </StackPane>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
-                </padding>
-              </StackPane>
-                       <VBox fx:id="foodList" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
-                <StackPane fx:id="foodListPanelPlaceholder" prefHeight="586.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                     </StackPane>
-              </VBox>
-                    <StackPane fx:id="statusbarPlaceholder" prefWidth="500.0" VBox.vgrow="NEVER" />
-            </VBox>
+                     </HBox>
+                  </children>
+               </VBox>
             </children>
          </HBox>
     </Scene>

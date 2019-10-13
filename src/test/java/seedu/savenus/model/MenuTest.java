@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.CARBONARA;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,10 +15,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class MenuTest {
@@ -87,6 +91,7 @@ public class MenuTest {
      */
     private static class MenuStub implements ReadOnlyMenu {
         private final ObservableList<Food> foods = FXCollections.observableArrayList();
+        private final Wallet wallet = new Wallet();
 
         MenuStub(Collection<Food> foods) {
             this.foods.setAll(foods);
@@ -95,6 +100,21 @@ public class MenuTest {
         @Override
         public ObservableList<Food> getFoodList() {
             return foods;
+        }
+
+        @Override
+        public Wallet getWallet() {
+            return wallet;
+        }
+
+        @Override
+        public DoubleProperty getRemainingBudgetProperty() {
+            return wallet.getRemainingBudgetProperty();
+        }
+
+        @Override
+        public IntegerProperty getDaysToExpireProperty() {
+            return wallet.getDaysToExpireProperty();
         }
     }
 

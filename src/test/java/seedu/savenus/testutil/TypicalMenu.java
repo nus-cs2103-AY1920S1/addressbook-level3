@@ -23,11 +23,12 @@ import java.util.List;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * A utility class containing a list of {@code Food} objects to be used in tests.
  */
-public class TypicalFood {
+public class TypicalMenu {
 
     public static final Food CARBONARA = new FoodBuilder().withName("Carbonara")
             .withDescription("Italian noodle with cheese and meat")
@@ -57,8 +58,8 @@ public class TypicalFood {
             .withDescription("Japanese rice with wagyu beef, with tea").withTags("Expensive", "Beef", "Luxury")
             .withLocation("Atas Place in NUS").withOpeningHours("1000 1700").withRestrictions("Expensive").build();
     public static final Food NASI_AYAM = new FoodBuilder().withName("Nasi Ayam").withPrice("4.80")
-            .withCategory("Malay").withDescription("Rice with fried chicken")
-            .withTags("Chicken", "Roasted").withLocation("Techno Edge")
+            .withCategory("Malay").withDescription("Fatty rice with chicken")
+            .withTags("Chicken", "Roasted", "Steamed").withLocation("Techno Edge")
             .withOpeningHours("0900 1700").withRestrictions("Halal").build();
     // Manually added
     public static final Food BEE_HOON = new FoodBuilder().withName("Bee Hoon").withPrice("3.20")
@@ -84,7 +85,7 @@ public class TypicalFood {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalFood() {} // prevents instantiation
+    private TypicalMenu() {} // prevents instantiation
 
     /**
      * Returns an {@code Menu} with all the typical foods.
@@ -94,7 +95,12 @@ public class TypicalFood {
         for (Food food : getTypicalFood()) {
             menu.addFood(food);
         }
+        menu.addWallet(getTypicalWallet());
         return menu;
+    }
+
+    public static Wallet getTypicalWallet() {
+        return new Wallet("100", "30");
     }
 
     public static List<Food> getTypicalFood() {

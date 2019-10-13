@@ -2,7 +2,7 @@ package seedu.savenus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.savenus.testutil.TypicalFood.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import java.nio.file.Path;
 

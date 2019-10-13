@@ -11,7 +11,7 @@ import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_CH
 import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_DESC_CHICKEN_RICE;
 import static seedu.savenus.testutil.Assert.assertThrows;
-import static seedu.savenus.testutil.TypicalFood.CHICKEN_RICE;
+import static seedu.savenus.testutil.TypicalMenu.CHICKEN_RICE;
 
 import java.io.IOException;
 import java.nio.file.Path;
