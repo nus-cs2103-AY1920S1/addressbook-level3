@@ -60,7 +60,7 @@ public class ActivityCommand extends Command {
         Person toAddPerson;
         Integer id;
 
-        // This loop adds participants one by one using keyword matching
+        // This loop adds participants one by one using keyword matching.
         // For each participant argument passed through, the argument is broken up into keywords
         // which are then used to search through the address book.
         // Participant will only be added if the keyword has a unique match.
