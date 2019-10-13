@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import org.junit.jupiter.api.Test;
+
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 class MultipleChoiceCardTest {
 
