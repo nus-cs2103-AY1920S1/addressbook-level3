@@ -74,7 +74,7 @@ public class AddressBookParser {
             return new AddFlashcardCommandParser().parse(arguments);
 
         case DeleteFlashcardCommand.COMMAND_WORD:
-                return new DeleteFlashcardCommandParser().parse(arguments);
+            return new DeleteFlashcardCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
