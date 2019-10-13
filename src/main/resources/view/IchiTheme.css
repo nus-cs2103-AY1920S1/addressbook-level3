@@ -1,14 +1,29 @@
 .root {
-    -fx-background: #ffffff;
+    -fx-background: white;
+}
+
+.error {
+    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
+}
+
+.tag-selector {
+    -fx-border-width: 1;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.tooltip-text {
+    -fx-text-fill: white;
 }
 
 .menu-bar {
-    -fx-background-color: #00b894;
+    -fx-background-color: #00cec9;
     -fx-font-family: "Segoe UI";
 }
 
 .menu {
-    -fx-background-color: #00b894;
+    -fx-background-color: #00cec9;
 }
 
 .menu .label {
@@ -16,19 +31,19 @@
 }
 
 .menu:hover {
-    -fx-background-color: derive(#00b894, 30%);
+    -fx-background-color: derive(#00cec9, 30%);
 }
 
 .context-menu {
-    -fx-background-color: #00b894;
+    -fx-background-color: #00cec9;
 }
 
 .menu-item {
-    -fx-background-color: #00b894;
+    -fx-background-color: #00cec9;
 }
 
 .menu-item:focused {
-    -fx-background-color: derive(#00b894, 30%);
+    -fx-background-color: derive(#00cec9, 30%);
 }
 
 #commandBoxPlaceholder {
@@ -124,6 +139,7 @@
 }
 
 .list-view {
+    -fx-background-color: derive(#81ecec, 95%);
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
@@ -135,19 +151,32 @@
     -fx-font-family: "Segoe UI";
 }
 
+.list-cell:empty {
+    -fx-background: derive(#81ecec, 95%);
+}
+
 .list-cell:filled:even {
     -fx-background-color: derive(#81ecec, 95%);
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #00cec9;
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
+    -fx-border-color: #00cec9;
+    -fx-border-width: 2px;
+}
+
+.cell_big_label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.cell_small_label {
+    -fx-font-size: 10px;
 }
