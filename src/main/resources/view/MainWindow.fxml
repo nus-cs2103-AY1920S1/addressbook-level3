@@ -55,7 +55,7 @@
               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </padding>
           </StackPane>
-               <StackPane fx:id="informationDisplayTest" prefHeight="337.0" prefWidth="400.0" />
+               <StackPane fx:id="informationDisplayTest" prefHeight="337.0" prefWidth="400.0" styleClass="pane-with-border"/>
 
         </VBox>
       </SplitPane>
