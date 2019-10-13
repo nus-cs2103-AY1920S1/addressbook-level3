@@ -6,6 +6,6 @@
 <fx:root xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
          type="javafx.scene.layout.StackPane">
-    <ProgressBar fx:id="bar"/>
+    <ProgressBar fx:id="bar" maxWidth="Infinity"/>
     <Text fx:id="infoNode" textAlignment="CENTER"/>
 </fx:root>
