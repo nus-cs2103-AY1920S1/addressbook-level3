@@ -9,6 +9,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -22,7 +23,7 @@ public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
     private final Wallet wallet;
-    private PurchaseHistory purchaseHistory;
+    private final PurchaseHistory purchaseHistory;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +35,7 @@ public class Menu implements ReadOnlyMenu {
     {
         foods = new UniqueFoodList();
         wallet = new Wallet();
+        purchaseHistory = new PurchaseHistory();
     }
 
     public Menu() {}
@@ -64,6 +66,7 @@ public class Menu implements ReadOnlyMenu {
 
         setFoods(newData.getFoodList());
         setWallet(newData.getWallet());
+        setPurchaseHistory(newData.getPurchaseHistory());
     }
 
     //// food-level operations
@@ -113,7 +116,7 @@ public class Menu implements ReadOnlyMenu {
     //// wallet operations
 
     /**
-     * Adds a {@code Wallet} to the application.
+     * Set user's {@code Wallet}.
      */
     public void setWallet(Wallet wallet) {
         this.wallet.setRemainingBudget(wallet.getRemainingBudget());
@@ -127,8 +130,31 @@ public class Menu implements ReadOnlyMenu {
         return wallet;
     }
 
-    //// util methods
+    //// Purchase operations
 
+    /**
+     * Set user's {@code PurchaseHistory}.
+     */
+    public void setPurchaseHistory(List<Purchase> purchaseHistory) {
+        this.purchaseHistory.setPurchases(purchaseHistory);
+    }
+
+    /**
+     * Buy food (Adds food to user's {@code PurchaseHistory}).
+     */
+    public void addPurchase(Purchase purchase) {
+        purchaseHistory.add(purchase);
+    }
+
+    /**
+     * Buy food (Adds food to user's {@code PurchaseHistory}).
+     */
+    public void removePurchase(Purchase purchase) {
+        //TODO
+    }
+
+
+    //// util methods
     @Override
     public String toString() {
         return foods.asUnmodifiableObservableList().size()
@@ -139,6 +165,13 @@ public class Menu implements ReadOnlyMenu {
     @Override
     public ObservableList<Food> getFoodList() {
         return foods.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Get user's {@code PurchaseHistory}.
+     */
+    public ObservableList<Purchase> getPurchaseHistory() {
+        return purchaseHistory.asUnmodifiableObservableList();
     }
 
     @Override

@@ -2,6 +2,7 @@ package seedu.savenus.model;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -19,5 +20,10 @@ public interface ReadOnlyMenu {
      * Returns the user's wallet.
      */
     Wallet getWallet();
+
+    /**
+     * Returns the user's purchase history.
+     */
+    ObservableList<Purchase> getPurchaseHistory();
 
 }

@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 
@@ -68,12 +69,6 @@ public interface Model {
     void deleteFood(Food target);
 
     /**
-     * Buy the given food.
-     * The food must exist in the menu.
-     */
-    void buyFood(Food target);
-
-    /**
      * Adds the given food.
      * {@code food} must not already exist in the menu.
      */
@@ -90,6 +85,18 @@ public interface Model {
      * Replace the original list with a new list.
      */
     void setFoods(List<Food> list);
+
+    /**
+     * Buy the given food.
+     * The food must exist in the menu.
+     */
+    void addPurchase(Purchase target);
+
+    /**
+     * Remove purchase.
+     * The purchase must exist in the purchase history.
+     */
+    void removePurchase(Purchase target);
 
     /**
      * Getter for current user's {@code budget} amount

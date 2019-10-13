@@ -1,10 +1,11 @@
 package seedu.savenus.model.purchase;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
 import java.util.Objects;
 
-import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.Price;
 import seedu.savenus.model.util.TimeFormatter;
 
 /**
@@ -13,20 +14,32 @@ import seedu.savenus.model.util.TimeFormatter;
  */
 public class Purchase {
     // Identity fields
-    private final Food foodPurchased;
-    private final LocalDateTime timeOfPurchase;
+    private final Name foodPurchasedName;
+    private final Price foodPurchasedPrice;
+    private final TimeOfPurchase timeOfPurchase;
 
-    public Purchase(Food foodPurchased) {
-        this.foodPurchased = foodPurchased;
-        timeOfPurchase = LocalDateTime.now();
+    public Purchase(Name foodPurchasedName, Price foodPurchasedPrice) {
+        this.foodPurchasedName = foodPurchasedName;
+        this.foodPurchasedPrice = foodPurchasedPrice;
+        timeOfPurchase = TimeOfPurchase.generate();
     }
 
-    public Food getPurchasedFood() {
-        return foodPurchased;
+    public Purchase(Name foodPurchasedName, Price foodPurchasedPrice, TimeOfPurchase timeOfPurchase) {
+        this.foodPurchasedName = foodPurchasedName;
+        this.foodPurchasedPrice = foodPurchasedPrice;
+        this.timeOfPurchase = timeOfPurchase;
     }
 
-    public LocalDateTime getTimeOfPurchase() {
-        return timeOfPurchase;
+    public Name getPurchasedFoodName() {
+        return foodPurchasedName;
+    }
+
+    public Price getPurchasedFoodPrice() {
+        return foodPurchasedPrice;
+    }
+
+    public long getTimeOfPurchaseInMillisSinceEpoch() {
+        return timeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch();
     }
 
     /**
@@ -44,19 +57,22 @@ public class Purchase {
         }
 
         Purchase otherPurchase = (Purchase) other;
-        return otherPurchase.getPurchasedFood().equals(getPurchasedFood())
-                && otherPurchase.getTimeOfPurchase().isEqual(getTimeOfPurchase());
+        return otherPurchase.getPurchasedFoodName().equals(getPurchasedFoodName())
+                && otherPurchase.getPurchasedFoodPrice().equals(getPurchasedFoodPrice())
+                && otherPurchase.getTimeOfPurchaseInMillisSinceEpoch() == getTimeOfPurchaseInMillisSinceEpoch();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(foodPurchased, timeOfPurchase);
+        return Objects.hash(foodPurchasedName, foodPurchasedPrice, timeOfPurchase);
     }
 
     @Override
     public String toString() {
-        return "Bought " + getPurchasedFood().getName() + " at "
-                + TimeFormatter.format(timeOfPurchase.until(LocalDateTime.now(), ChronoUnit.MILLIS));
+        return "Bought " + getPurchasedFoodName() + " for " + getPurchasedFoodPrice()
+                + TimeFormatter.format((
+                        LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                                - getTimeOfPurchaseInMillisSinceEpoch()));
     }
 }

@@ -5,6 +5,7 @@ import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class BuyCommand extends Command {
         }
 
         Food foodToBuy = lastShownList.get(targetIndex.getZeroBased());
-        model.buyFood(foodToBuy);
+        model.addPurchase(new Purchase(foodToBuy.getName(), foodToBuy.getPrice()));
         return new CommandResult(String.format(MESSAGE_BUY_FOOD_SUCCESS, foodToBuy));
     }
 

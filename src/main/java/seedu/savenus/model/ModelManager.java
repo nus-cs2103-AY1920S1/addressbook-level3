@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
@@ -113,11 +114,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void buyFood(Food target) {
-        menu.buyFood(target);
-    }
-
-    @Override
     public void addFood(Food food) {
         menu.addFood(food);
         updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -133,6 +129,18 @@ public class ModelManager implements Model {
     public void setFoods(List<Food> list) {
         requireNonNull(list);
         menu.setFoods(list);
+    }
+
+    //=========== Purchase Methods =========================================================================
+
+    @Override
+    public void addPurchase(Purchase target) {
+        menu.addPurchase(target);
+    }
+
+    @Override
+    public void removePurchase(Purchase target) {
+        //TODO
     }
 
     //=========== Wallet Accessors =========================================================================
