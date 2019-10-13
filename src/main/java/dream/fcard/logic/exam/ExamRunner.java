@@ -10,7 +10,7 @@ import dream.fcard.model.cards.FlashCard;
 /**
  * ...
  */
-public class ExamRunner implements Exam{
+public class ExamRunner implements Exam {
 
     private Deck deck;
     private final int deckSize;
