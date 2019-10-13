@@ -1,5 +1,6 @@
 package seedu.weme.statistics;
 
+import javafx.collections.ObservableMap;
 import seedu.weme.model.meme.Meme;
 
 /**
@@ -11,6 +12,11 @@ public interface LikeData {
      * Returns the like data about a meme.
      */
     int getLikesByMeme(Meme meme);
+
+    /**
+     * Returns the like data in map form.
+     */
+    ObservableMap<String, Integer> getLikeDataMap();
 
     /**
      * Like a meme once.

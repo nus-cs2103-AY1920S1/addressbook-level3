@@ -75,6 +75,7 @@ public class MemeEditCommand extends Command {
 
         model.setMeme(memeToEdit, editedMeme);
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
+        System.out.println("edit");
         return new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
     }
 

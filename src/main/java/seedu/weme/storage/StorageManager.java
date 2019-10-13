@@ -82,23 +82,28 @@ public class StorageManager implements Storage {
 
     // ================ LikeData methods ==============================
 
+    @Override
     public Path getLikeDataFilePath() {
         return likeDataStorage.getLikeDataFilePath();
     }
 
+    @Override
     public Optional<LikeData> readLikeData() throws DataConversionException, IOException {
         return readLikeData(getLikeDataFilePath());
     }
 
+    @Override
     public Optional<LikeData> readLikeData(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return likeDataStorage.readLikeData(filePath);
     }
 
+    @Override
     public void saveLikeData(LikeDataImpl likeData) throws IOException {
         saveLikeData(likeData, likeDataStorage.getLikeDataFilePath());
     }
 
+    @Override
     public void saveLikeData(LikeDataImpl likeData, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         likeDataStorage.saveLikeData(likeData, filePath);

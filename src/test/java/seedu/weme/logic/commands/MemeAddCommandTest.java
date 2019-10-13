@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.MemeBook;
@@ -23,6 +24,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
 import seedu.weme.testutil.MemeBuilder;
 
 public class MemeAddCommandTest {
@@ -154,6 +156,21 @@ public class MemeAddCommandTest {
         @Override
         public SimpleObjectProperty<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public LikeData getLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getObservableLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteLikesByMeme(Meme meme) {
+            throw new AssertionError("This method should not be called");
         }
     }
 

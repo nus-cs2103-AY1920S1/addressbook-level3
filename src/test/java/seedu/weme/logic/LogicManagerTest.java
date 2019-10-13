@@ -20,6 +20,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.UserPrefs;
+import seedu.weme.storage.JsonLikeDataStorage;
 import seedu.weme.storage.JsonMemeBookStorage;
 import seedu.weme.storage.JsonUserPrefsStorage;
 import seedu.weme.storage.StorageManager;
@@ -38,7 +39,8 @@ public class LogicManagerTest {
         JsonMemeBookStorage memeBookStorage =
                 new JsonMemeBookStorage(temporaryFolder.resolve("weme.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(memeBookStorage, userPrefsStorage);
+        JsonLikeDataStorage likeDataStorage = new JsonLikeDataStorage(temporaryFolder.resolve("likeData.json"));
+        StorageManager storage = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -123,7 +125,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getLikeData());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

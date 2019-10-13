@@ -20,9 +20,9 @@ import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.
  */
-public class MemeFindCommandTest {
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs());
+public class FindCommandTest {
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
+    private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
 
     @Test
     public void equals() {

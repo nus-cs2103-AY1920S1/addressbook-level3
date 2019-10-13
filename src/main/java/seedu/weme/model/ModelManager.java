@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
@@ -25,6 +26,11 @@ public class ModelManager implements Model {
     private final MemeBook memeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
+    private final LikeData likeData;
+    private final ObservableMap<String, Integer> observableLikeData;
+
+    // ModelContext determines which parser to use at any point of time.
+    private ModelContext context = ModelContext.CONTEXT_MEMES;
     private final LikeData likeData;
 
     // ModelContext determines which parser to use at any point of time.
@@ -43,6 +49,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
         this.likeData = likeData;
+        this.observableLikeData = new ReadOnlyMapWrapper<String, Integer>(likeData.getLikeDataMap());
     }
 
     public ModelManager() {
@@ -149,6 +156,16 @@ public class ModelManager implements Model {
     @Override
     public LikeData getLikeData() {
         return this.likeData;
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return observableLikeData;
+    }
+
+    @Override
+    public void deleteLikesByMeme(Meme meme) {
+        likeData.deleteLikesByMeme(meme);
     }
 
     @Override

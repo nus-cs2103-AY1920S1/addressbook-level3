@@ -27,10 +27,10 @@ public class SampleDataUtil {
                     getTagSet("doge")),
             new Meme(new ImagePath("src/main/resources/memes/joker_meme.jpg"),
                     new Description("A meme about joker."),
-                    getTagSet("joker")),
+                    getTagSet("joker", "funny")),
             new Meme(new ImagePath("src/main/resources/memes/toy_meme.jpg"),
                     new Description("A meme about toy."),
-                    getTagSet("toy"))
+                    getTagSet("toy", "haha"))
         };
     }
 

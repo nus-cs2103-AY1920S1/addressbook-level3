@@ -7,10 +7,12 @@ import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
+
 import seedu.weme.statistics.LikeData;
 
 /**
@@ -28,7 +30,7 @@ public class MemeGridPanel extends UiPart<Region> {
     public MemeGridPanel(ObservableList<Meme> memeList, ObservableMap<String, Integer> likeData) {
         super(FXML);
         memeGridView.setItems(memeList);
-        memeGridView.setCellFactory(gridView -> new MemeGridViewCell());
+        memeGridView.setCellFactory(listView -> new MemeGridViewCell());
         this.likeData = likeData;
     }
 

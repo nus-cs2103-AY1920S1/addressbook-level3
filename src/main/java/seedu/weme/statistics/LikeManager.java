@@ -1,12 +1,14 @@
 package seedu.weme.statistics;
 
-import seedu.weme.commons.core.LogsCenter;
-import seedu.weme.model.ModelManager;
-import seedu.weme.model.meme.Meme;
+import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.logging.Logger;
 
-import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.ObservableMap;
+
+import seedu.weme.commons.core.LogsCenter;
+import seedu.weme.model.ModelManager;
+import seedu.weme.model.meme.Meme;
 
 /**
  * Implementation of Like interface.
@@ -16,7 +18,7 @@ public class LikeManager implements LikeData {
     private static final int INCREMENT = 1;
     private static final int DECREMENT = -1;
 
-    LikeDataImpl data;
+    private LikeDataImpl data;
 
     public LikeManager(LikeDataImpl data) {
         super();
@@ -36,16 +38,32 @@ public class LikeManager implements LikeData {
         return data.getLikesByMemeRef(memeRef);
     }
 
+    /**
+     * Returns an unmodifiable view of {@code LikeData}.
+     */
+    public ObservableMap<String, Integer> getLikeDataMap() {
+        return data.getInMap();
+    }
+
+    /**
+     * Increments likes of a meme by the Meme object.
+     */
     public void incrementLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, INCREMENT);
     }
 
+    /**
+     * Decrements likes of a meme by the Meme object.
+     */
     public void decrementLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, DECREMENT);
     }
 
+    /**
+     * Deletes like data of a meme when it gets deleted.
+     */
     public void deleteLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.deleteLikesByMemeRef(memeRef);
