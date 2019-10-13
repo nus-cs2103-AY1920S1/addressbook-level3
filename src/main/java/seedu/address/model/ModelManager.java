@@ -21,12 +21,13 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final InternalState internalState;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, userPrefs and internalState.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, InternalState internalState) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -34,14 +35,28 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.internalState = new InternalState(internalState);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new InternalState());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== UserPrefs ====================================================
+
+    @Override
+    public void setInternalState(InternalState internalState) {
+        requireNonNull(internalState);
+        this.internalState.updateInternalState(internalState);
+    }
+
+    @Override
+    public InternalState getInternalState() {
+        return internalState;
+    }
+
+    //=========== UserPrefs ====================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -145,6 +160,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
+                && internalState.equals(other.internalState)
                 && filteredPersons.equals(other.filteredPersons);
     }
 

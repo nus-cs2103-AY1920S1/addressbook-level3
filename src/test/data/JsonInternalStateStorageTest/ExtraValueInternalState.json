@@ -1,4 +1,5 @@
 {
+  "personPriKeyCnt" : 0,
   "guiSettings" : {
     "windowWidth" : 1000.0,
     "windowHeight" : 500.0,
@@ -8,7 +9,5 @@
       "y" : 100,
       "z" : 99
     }
-  },
-  "addressBookFilePath" : "addressbook.json",
-  "internalStateFilePath" : "internalstate.json"
+  }
 }

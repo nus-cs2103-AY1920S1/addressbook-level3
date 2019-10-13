@@ -15,7 +15,10 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
+    private static int primaryKeyCounter;
+
     // Identity fields
+    private final int primaryKey;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -27,13 +30,41 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(int primaryKey, Name name, Phone phone, Email email, Address
+        address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.primaryKey = primaryKey;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructor without primary key field. Auto sets one.
+     */
+    public Person(Name name, Phone phone, Email email, Address
+            address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.primaryKey = primaryKeyCounter++;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public static int getPrimaryKeyCounter() {
+        return primaryKeyCounter;
+    }
+
+    public static void setPrimaryKeyCounter(int pk) {
+        primaryKeyCounter = pk;
     }
 
     public Name getName() {
@@ -70,8 +101,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+            && otherPerson.getName().equals(getName())
+            && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
@@ -80,6 +111,7 @@ public class Person {
      */
     @Override
     public boolean equals(Object other) {
+        // TODO: If pri key ==, then explode?
         if (other == this) {
             return true;
         }
@@ -90,10 +122,10 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getTags().equals(getTags());
     }
 
     @Override
@@ -105,14 +137,16 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+        builder.append(getPrimaryKey())
+            .append(" Name: ")
+            .append(getName())
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

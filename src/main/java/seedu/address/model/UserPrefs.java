@@ -15,11 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path internalStateFilePath = Paths.get("data", "internalstate.json");
 
-    /**
-     * Creates a {@code UserPrefs} with default values.
-     */
-    public UserPrefs() {}
+    public UserPrefs() {};
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -36,6 +34,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setInternalStateFilePath(newUserPrefs.getInternalStateFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,6 +46,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    public Path getInternalStateFilePath() {
+        return internalStateFilePath;
+    }
+
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
@@ -54,6 +57,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public void setInternalStateFilePath(Path internalStateFilePath) {
+        requireNonNull(internalStateFilePath);
+        this.internalStateFilePath = internalStateFilePath;
     }
 
     @Override
@@ -68,7 +76,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && internalStateFilePath.equals(o.internalStateFilePath);
     }
 
     @Override
@@ -80,7 +89,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nAddress data file location : " + addressBookFilePath);
+        sb.append("\nState data file location : " + internalStateFilePath);
         return sb.toString();
     }
 
