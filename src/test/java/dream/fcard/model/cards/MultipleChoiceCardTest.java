@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import dream.fcard.model.exceptions.ChoiceNotFoundException;
 
-//import dream.fcard.model.exceptions.ChoiceNotFoundException;
-
 class MultipleChoiceCardTest {
 
     @Test
