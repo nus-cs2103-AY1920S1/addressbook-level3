@@ -80,14 +80,6 @@ public class AddScheduleCommand extends Command {
         model.setOrder(orderToSchedule, scheduledOrder);
         model.addSchedule(toAdd);
 
-        // For testing without order
-        /*
-        if (model.hasSchedule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
-        }
-        model.addSchedule(toAdd);
-        */
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.SCHEDULE);
     }
 

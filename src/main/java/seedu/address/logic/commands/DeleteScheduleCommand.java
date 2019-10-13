@@ -3,15 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.schedule.Schedule;
 
 /**
@@ -57,24 +54,7 @@ public class DeleteScheduleCommand extends Command {
         }
 
         Schedule toDelete = orderToUnschedule.getSchedule().get();
-        Order unscheduledOrder = new Order(UUID.randomUUID(), orderToUnschedule.getCustomer(),
-                orderToUnschedule.getPhone(), orderToUnschedule.getPrice(), Status.UNSCHEDULED, Optional.empty(),
-                orderToUnschedule.getTags());
-        model.setOrder(orderToUnschedule, unscheduledOrder);
-
-        if (model.hasSchedule(toDelete)) {
-            model.deleteSchedule(toDelete);
-        }
-
-        // For testing without order
-        /*
-        List<Schedule> lastShownList = model.getFilteredScheduleList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
-        }
-        Schedule toDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteSchedule(toDelete);
-        */
 
         return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.SCHEDULE);
     }

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SCHEDULE;
 
 import java.util.Calendar;
@@ -21,7 +20,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
@@ -92,31 +90,8 @@ public class EditScheduleCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }
 
-        Order rescheduledOrder = new Order(orderToReschedule.getId(), orderToReschedule.getCustomer(),
-                orderToReschedule.getPhone(), orderToReschedule.getPrice(), Status.SCHEDULED,
-                Optional.of(editedSchedule), orderToReschedule.getTags());
-
-        model.setOrder(orderToReschedule, rescheduledOrder);
         model.setSchedule(scheduleToEdit, editedSchedule);
         model.updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
-        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDER);
-
-        // For testing without order
-        /*
-        List<Schedule> lastShownList = model.getFilteredScheduleList();
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
-        }
-        Schedule scheduleToEdit = lastShownList.get(index.getZeroBased());
-        Schedule editedSchedule = createEditedSchedule(scheduleToEdit, editScheduleDescriptor);
-
-        if (!scheduleToEdit.isSameSchedule(editedSchedule) && model.hasSchedule(editedSchedule)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
-        }
-
-        model.setSchedule(scheduleToEdit, editedSchedule);
-        */
-
         return new CommandResult(String.format(MESSAGE_EDIT_SCHEDULE_SUCCESS, editedSchedule), UiChange.SCHEDULE);
     }
 
