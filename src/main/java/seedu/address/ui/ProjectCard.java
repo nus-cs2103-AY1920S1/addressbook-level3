@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -34,6 +32,8 @@ public class ProjectCard extends UiPart<Region> {
     private Label title;
     @FXML
     private Label description;
+    @FXML
+    private FlowPane personList;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
@@ -41,6 +41,7 @@ public class ProjectCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
+        project.getPersonList().forEach(person -> personList.getChildren().add(new Label(person.getName().toString())));
     }
 
     @Override
