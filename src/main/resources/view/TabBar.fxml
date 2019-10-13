@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.TilePane?>
+
+<TilePane fx:id="tabBar" alignment="CENTER" focusTraversable="true" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefColumns="1" prefHeight="250.0" prefRows="1" prefTileHeight="50.0" prefTileWidth="50.0" prefWidth="70.0" styleClass="tab-bar" vgap="40.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="patientsTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/patient.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="appointmentsTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/appointment.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="doctorsTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/doctor.png" />
+         </image>
+      </ImageView>
+   </children>
+</TilePane>

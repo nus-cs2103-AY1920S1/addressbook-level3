@@ -42,8 +42,8 @@ test {
 }
 
 dependencies {
-    String jUnitVersion = '5.4.0'
-    String javaFxVersion = '11.0.1'
+    String jUnitVersion = '5.5.2'
+    String javaFxVersion = '11.0.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -58,10 +58,12 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 
-    //implementation group:  'org.controlsfx', name: 'controlsfx', version: '11.0.0'
-
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+
+    implementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    implementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
+    implementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 

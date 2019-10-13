@@ -21,14 +21,15 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
 
+    private SelectionNotifier selectionNotifier;
+
     @FXML
     private ListView<TextFlow> autoCompleteOverlay;
-
-    private SelectionNotifier selectionNotifier;
 
     public AutoCompleteOverlay(SelectionNotifier selectionNotifier) {
         super("AutoCompleteOverlay.fxml");
         this.selectionNotifier = selectionNotifier;
+        this.autoCompleteOverlay.setVisible(false);
         this.autoCompleteOverlay.setMaxHeight(MAX_HEIGHT);
     }
 
@@ -58,7 +59,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         }
         ols.setAll(arrls);
         autoCompleteOverlay.getSelectionModel().select(0);
-        autoCompleteOverlay.setPrefHeight(listOfSuggestions.size() * CELL_HEIGHT);
+        autoCompleteOverlay.setPrefHeight(1 + listOfSuggestions.size() * CELL_HEIGHT);
         if (!arrls.isEmpty()) {
             autoCompleteOverlay.setVisible(true);
         }
@@ -86,7 +87,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     }
 
     public boolean isSuggesting() {
-        return !autoCompleteOverlay.getItems().isEmpty();
+        return autoCompleteOverlay.isVisible();
     }
 
     /**
