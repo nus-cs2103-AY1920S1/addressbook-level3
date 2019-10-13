@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.DiaryEntryList;
 
+/**
+ * Jackson-friendly version of {@link DiaryEntryList}.
+ */
 public class JsonAdaptedDiaryEntryList {
     private final List<DiaryEntry> diaryEntries;
 
@@ -32,7 +34,7 @@ public class JsonAdaptedDiaryEntryList {
      */
     public JsonAdaptedDiaryEntryList(DiaryEntryList source) {
         requireNonNull(source);
-        this.diaryEntries = source.getDiaryEntries();
+        this.diaryEntries = source.getReadOnlyDiaryEntries();
     }
 
     /**

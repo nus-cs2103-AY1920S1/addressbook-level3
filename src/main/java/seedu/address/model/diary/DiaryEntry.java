@@ -12,6 +12,8 @@ import seedu.address.model.itinerary.day.Day;
  * Each entry is linked to a specific {@code Day} and multiple {@code Event}s.
  */
 public class DiaryEntry {
+    public static final String MESSAGE_CONSTRAINTS = "You cannot have multiple diary entries for a one day. ";
+
     private final Index day;
     private final PhotoList photoList;
     private String diaryText;

@@ -2,9 +2,6 @@ package seedu.address.storage.diary;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,6 +9,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.DiaryEntryList;
 
+/**
+ * Jackson-friendly version of {@link Diary}.
+ */
 public class JsonAdaptedDiary {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary's %s field is missing!";
 
@@ -31,7 +31,7 @@ public class JsonAdaptedDiary {
      */
     public JsonAdaptedDiary(Diary source) {
         requireNonNull(source);
-        this.diaryEntryList = source.getDiaryEntries();
+        this.diaryEntryList = source.getDiaryEntryList();
     }
 
     /**

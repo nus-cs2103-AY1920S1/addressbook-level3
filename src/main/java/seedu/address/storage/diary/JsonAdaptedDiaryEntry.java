@@ -15,6 +15,9 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.model.diary.photo.PhotoList;
 
+/**
+ * Jackson-friendly version of {@link DiaryEntry}.
+ */
 public class JsonAdaptedDiaryEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing!";
 

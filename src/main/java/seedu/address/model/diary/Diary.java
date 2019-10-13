@@ -1,7 +1,8 @@
 package seedu.address.model.diary;
 
-import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.model.trip.Trip;
+import java.util.Optional;
+
+import seedu.address.commons.core.index.Index;
 
 /**
  * Abstraction of the in memory storage of the diary in {@link seedu.address.model.TravelPal}.
@@ -18,8 +19,16 @@ public class Diary {
         this.diaryEntryList = diaryEntryList;
     }
 
-    public DiaryEntryList getDiaryEntries() {
+    public DiaryEntryList getDiaryEntryList() {
         return diaryEntryList;
+    }
+
+    public Optional<DiaryEntry> getDiaryEntry(Index index) {
+        return diaryEntryList.getDiaryEntry(index);
+    }
+
+    public Optional<DiaryEntry> getFirstDiaryEntry() {
+        return diaryEntryList.getFirstDiaryEntry();
     }
 
     @Override
@@ -33,7 +42,7 @@ public class Diary {
         }
 
         Diary otherDiary = (Diary) other;
-        return diaryEntryList.equals(otherDiary.getDiaryEntries());
+        return diaryEntryList.equals(otherDiary.getDiaryEntryList());
     }
 
     @Override
