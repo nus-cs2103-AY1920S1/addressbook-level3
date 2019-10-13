@@ -14,6 +14,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Marking;
+import seedu.address.model.task.TaskDescription;
+import seedu.address.model.task.TaskTime;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +123,45 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String taskDescription} into a {@code TaskDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TaskDescription parseTaskDescription(String taskDescription) {
+        requireNonNull(taskDescription);
+        String trimmedTaskDescription = taskDescription.trim();
+        return new TaskDescription(trimmedTaskDescription);
+    }
+
+    /**
+     * Parses a {@code String taskTime} into a {@code TaskTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code taskTime} is invalid.
+     */
+    public static TaskTime parseTaskTime(String taskTime) throws ParseException {
+        requireNonNull(taskTime);
+        String trimmedTaskTime = taskTime.trim();
+        if (!TaskTime.isValidTaskTime(trimmedTaskTime)) {
+            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskTime(trimmedTaskTime);
+    }
+
+    /**
+     * Parses a {@code String marking} into a {@code Marking}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code marking} is invalid.
+     */
+    public static Marking parseMarking(String marking) throws ParseException {
+        requireNonNull(marking);
+        String trimmedMarking = marking.trim();
+        if (!Marking.isValidMark(trimmedMarking)) {
+            throw new ParseException(Marking.MESSAGE_CONSTRAINTS);
+        }
+        return new Marking(trimmedMarking);
     }
 }
