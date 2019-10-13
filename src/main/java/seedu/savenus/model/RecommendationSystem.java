@@ -15,6 +15,9 @@ import seedu.savenus.model.tag.Tag;
  */
 public class RecommendationSystem {
 
+    private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
+    private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
+
     private Comparator<Food> recommendationComparator;
     private Predicate<Food> recommendationPredicate;
     private boolean inUse;
@@ -48,7 +51,7 @@ public class RecommendationSystem {
         if (inUse) {
             return recommendationComparator;
         } else {
-            return (x, y) -> 0;
+            return DEFAULT_COMPARATOR;
         }
     }
 
@@ -60,7 +63,7 @@ public class RecommendationSystem {
         if (inUse) {
             return recommendationPredicate;
         } else {
-            return x -> true;
+            return DEFAULT_PREDICATE;
         }
     }
 
