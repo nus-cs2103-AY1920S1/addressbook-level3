@@ -2,6 +2,11 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,6 +23,7 @@ public class Task {
     // Identity fields
     private final Name name;
     private final TaskStatus taskStatus;
+    private LocalDateTime deadline = null;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -32,6 +38,18 @@ public class Task {
     }
 
     // TODO add multiple constructors so that users can add aditional info later
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public boolean hasDeadline() {
+        return deadline != null;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
 
     public TaskStatus getTaskStatus() {
         return taskStatus;
@@ -79,9 +97,21 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return otherTask.getName().equals(getName())
-                && (otherTask.getTaskStatus() == getTaskStatus())
-                && otherTask.getTags().equals(getTags());
+
+        if (otherTask.hasDeadline() != hasDeadline()) {
+            return false;
+        }
+
+        if (hasDeadline()) {
+            return otherTask.getName().equals(getName())
+                    && (otherTask.getTaskStatus() == getTaskStatus())
+                    && otherTask.getDeadline().equals(getDeadline())
+                    && otherTask.getTags().equals(getTags());
+        } else {
+            return otherTask.getName().equals(getName())
+                    && (otherTask.getTaskStatus() == getTaskStatus())
+                    && otherTask.getTags().equals(getTags());
+        }
     }
 
     @Override
@@ -97,7 +127,13 @@ public class Task {
                 .append("Task status: " + getTaskStatus().getDisplayName())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        if (hasDeadline()) {
+            String formattedDeadline = getDeadline().format(DateTimeFormatter
+                            .ofLocalizedDateTime(FormatStyle.MEDIUM)
+                            .withLocale(Locale.UK));
+            builder.append(" Deadline: ")
+                    .append(formattedDeadline);
+        }
         return builder.toString();
     }
-
 }

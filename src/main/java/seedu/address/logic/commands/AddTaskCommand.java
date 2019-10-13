@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,19 +11,17 @@ import seedu.address.model.task.Task;
 /**
  * Adds a task to the address book.
  */
-public class AddCommand extends Command {
+public class AddTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "
             + PREFIX_TASK_NAME + "NAME "
-            + "[" + PREFIX_TASK_TAG + "TAG]...\n"
+            + PREFIX_MEMBER_NAME + "MEMBER_NAME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_NAME + "John Doe "
-            + PREFIX_TASK_STATUS + "unbegun "
-            + PREFIX_TASK_TAG + "friends "
-            + PREFIX_TASK_TAG + "owesMoney";
+            + PREFIX_TASK_NAME + "finish user guide "
+            + PREFIX_MEMBER_NAME + "elsa koh";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
@@ -34,7 +31,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Task}
      */
-    public AddCommand(Task task) {
+    public AddTaskCommand(Task task) {
         requireNonNull(task);
         toAdd = task;
     }
@@ -54,7 +51,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddTaskCommand // instanceof handles nulls
+                && toAdd.equals(((AddTaskCommand) other).toAdd));
     }
 }

@@ -4,11 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
@@ -18,20 +19,21 @@ import seedu.address.model.task.TaskStatus;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK_NAME, PREFIX_TASK_STATUS, PREFIX_TASK_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK_NAME, PREFIX_MEMBER_NAME, PREFIX_TASK_STATUS,
+                        PREFIX_TASK_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_NAME, PREFIX_MEMBER_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_TASK_NAME).get());
@@ -44,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Task task = new Task(name, taskStatus, tagList);
 
-        return new AddCommand(task);
+        return new AddTaskCommand(task);
     }
 
     /**
