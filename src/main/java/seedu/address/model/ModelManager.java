@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,9 +18,11 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.QuestionList;
+import seedu.address.model.question.QuestionBank;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.student.Student;
-import seedu.address.model.student.UniqueStudentList;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -28,16 +32,20 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final QuestionList questions;
+    private final QuestionBank questionBank;
+    private final QuizBank quizBank;
     private final NoteList notes;
     private final UserPrefs userPrefs;
-    private final UniqueStudentList students;
+    private final StudentRecord studentRecord;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Student> filteredStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyStudentRecord studentRecord,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -45,18 +53,20 @@ public class ModelManager implements Model {
             "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.questions = new QuestionList();
+        this.questionBank = new QuestionBank();
+        this.quizBank = new QuizBank();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
-        this.students = new UniqueStudentList();
+        this.studentRecord = new StudentRecord(studentRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //region PREFERENCES & SETTINGS
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -80,6 +90,9 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //endregion
+
+    //region AddressBook
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -91,8 +104,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
@@ -103,89 +114,26 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    //=========== Students ================================================================================
+    //endregion
 
+    //region FilteredPerson List Accessors
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
-    public void addStudent(Student student) {
-        students.add(student);
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
     }
 
     @Override
-    public Student deleteStudent(Index index) {
-        return students.remove(index);
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
+    //endregion
 
-    @Override
-    public Student getStudent(Index index) {
-        return students.getStudent(index);
-    }
-
-    @Override
-    public void setStudent(Index index, Student student) {
-        students.setStudent(index, student);
-    }
-
-    @Override
-    public String getStudentList() {
-        return students.getStudentList();
-    }
-
-    //=========== Questions ================================================================================
-
-    @Override
-    public void addQuestion(Question question) {
-        questions.addQuestion(question);
-    }
-
-    @Override
-    public Question deleteQuestion(Index index) {
-        return questions.deleteQuestion(index);
-    }
-
-    @Override
-    public Question getQuestion(Index index) {
-        return questions.getQuestion(index);
-    }
-
-    @Override
-    public void setQuestion(Index index, Question question) {
-        questions.setQuestion(index, question);
-    }
-
-    @Override
-    public String getQuestionsSummary() {
-        return questions.getQuestionsSummary();
-    }
-
-    //=========== Notes ================================================================================
-
-    @Override
-    public void addNote(Note note) {
-        notes.addNote(note);
-    }
-
-    @Override
-    public Note deleteNote(Index index) {
-        return notes.deleteNote(index);
-    }
-
-    @Override
-    public Note getNote(Index index) {
-        return notes.getNote(index);
-    }
-
-    @Override
-    public void setNote(Index index, Note question) {
-        notes.setNote(index, question);
-    }
-
-    @Override
-    public String getNoteList() {
-        return notes.getNoteList();
-    }
-
-    //=========== Person ================================================================================
-
+    //region Person
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -209,23 +157,231 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+    //endregion
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
+    //region StudentRecord
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public void setStudentRecordFilePath(Path studentRecordFilePath) {
+        requireNonNull(studentRecordFilePath);
+        userPrefs.setStudentRecordFilePath(studentRecordFilePath);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public Path getStudentRecordFilePath() {
+        return userPrefs.getStudentRecordFilePath();
+    }
+
+    @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        this.studentRecord.resetData(studentRecord);
+    }
+
+    @Override
+    public ReadOnlyStudentRecord getStudentRecord() {
+        return studentRecord;
+    }
+    //endregion
+
+    //region FilteredStudent List Accessors
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredStudents.setPredicate(predicate);
     }
+    //endregion
+
+    //region Students
+    @Override
+    public boolean hasStudent(Student student) {
+        requireNonNull(student);
+        return studentRecord.hasStudent(student);
+    }
+
+    @Override
+    public void deleteStudent(Student target) {
+        studentRecord.removeStudent(target);
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        studentRecord.addStudent(student);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setStudent(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        studentRecord.setStudent(target, editedStudent);
+    }
+    //endregion
+
+    //region Questions
+
+    @Override
+    public void addQuestion(Question question) {
+        questionBank.addQuestion(question);
+    }
+
+    @Override
+    public Question deleteQuestion(Index index) {
+        return questionBank.deleteQuestion(index);
+    }
+
+    @Override
+    public Question getQuestion(Index index) {
+        return questionBank.getQuestion(index);
+    }
+
+    @Override
+    public void setQuestion(Index index, Question question) {
+        questionBank.setQuestion(index, question);
+    }
+
+    @Override
+    public String getQuestionsSummary() {
+        return questionBank.getQuestionsSummary();
+    }
+
+    //endregion
+
+    //region Quizzes
+
+    @Override
+    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+        Quiz quiz = new Quiz(quizId);
+
+        ArrayList<Question> questions = new ArrayList<>();
+        for (Integer i : questionNumbers) {
+            questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
+        }
+
+        for (Question q : questions) {
+            quiz.addQuestion(q);
+        }
+
+        quizBank.addQuiz(quiz);
+    }
+
+    @Override
+    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
+        Quiz quiz = new Quiz(quizId);
+
+        ArrayList<Question> relevantQuestions = new ArrayList<>();
+        switch (type) {
+        case "mcq":
+            relevantQuestions = questionBank.getMcqQuestions();
+            break;
+        case "open":
+            relevantQuestions = questionBank.getOpenEndedQuestions();
+            break;
+        case "all":
+            relevantQuestions = questionBank.getAllQuestions();
+            break;
+        default:
+            break;
+        }
+
+        int listSize = relevantQuestions.size();
+
+        if (listSize > numQuestions) {
+            for (int i = 0; i < numQuestions; i++) {
+                int randomQuestionIndex = getRandomQuestionIndex(listSize);
+                Question randomQuestion = relevantQuestions.get(randomQuestionIndex);
+                boolean isSuccess = quiz.addQuestion(randomQuestion);
+                while (!isSuccess) {
+                    randomQuestionIndex = getRandomQuestionIndex(listSize);
+                    randomQuestion = relevantQuestions.get(randomQuestionIndex);
+                    isSuccess = quiz.addQuestion(randomQuestion);
+                }
+            }
+        } else {
+            for (Question q : relevantQuestions) {
+                quiz.addQuestion(q);
+            }
+        }
+
+        quizBank.addQuiz(quiz);
+    }
+
+    @Override
+    public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
+        int questionIndex = questionNumber - 1;
+        Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
+
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            return quiz.addQuestion(quizQuestionNumber, question);
+        }
+        return false;
+    }
+
+    @Override
+    public void removeQuizQuestion(String quizId, int questionNumber) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            quiz.removeQuestion(questionNumber);
+        }
+    }
+
+    @Override
+    public String getQuestionsAndAnswers(String quizId) {
+        String questions = "";
+        String answers = "";
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            questions = quiz.getFormattedQuestions();
+            answers = quiz.getFormattedAnswers();
+        }
+        return questions + answers;
+    }
+
+    private static int getRandomQuestionIndex(int listSize) {
+        return (int) Math.floor(Math.random() * listSize);
+    }
+
+    //endregion
+
+    //region Notes
+
+    @Override
+    public void addNote(Note note) {
+        notes.addNote(note);
+    }
+
+    @Override
+    public Note deleteNote(Index index) {
+        return notes.deleteNote(index);
+    }
+
+    @Override
+    public Note getNote(Index index) {
+        return notes.getNote(index);
+    }
+
+    @Override
+    public void setNote(Index index, Note question) {
+        notes.setNote(index, question);
+    }
+
+    @Override
+    public List<Note> getNotes() {
+        return notes.getNotes();
+    }
+
+    @Override
+    public String getNoteSummary() {
+        return notes.getNoteSummary();
+    }
+
+    //endregion
 
     @Override
     public boolean equals(Object obj) {

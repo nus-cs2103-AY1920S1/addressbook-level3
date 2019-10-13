@@ -13,7 +13,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 public interface AddressBookStorage {
 
     /**
-     * Returns the file path of the data file.
+     * Returns the file path of the addressbook file.
      */
     Path getAddressBookFilePath();
 

@@ -1,17 +1,34 @@
 package seedu.address.logic.parser.student;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.student.*;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.HashMap;
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 
+import java.util.stream.Stream;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.student.StudentAddCommand;
+import seedu.address.logic.commands.student.StudentCommand;
+import seedu.address.logic.commands.student.StudentDeleteCommand;
+import seedu.address.logic.commands.student.StudentEditCommand;
+import seedu.address.logic.commands.student.StudentEditCommand.EditStudentDescriptor;
+import seedu.address.logic.commands.student.StudentListCommand;
+
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.Student;
+
+/**
+ * Represents a parser for student commands.
+ */
 public class StudentCommandParser implements Parser<StudentCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the CreationQuestionCommand
@@ -63,9 +80,11 @@ public class StudentCommandParser implements Parser<StudentCommand> {
             return new StudentDeleteCommand(index);
         } else if (isEdit) { // Edit command
             // Add parameters to be edited. Note: the fields are optional
-            HashMap<String, String> fields = new HashMap<>();
-            fields.put("name", argMultimap.getValue(PREFIX_QUESTION).orElse(""));
-            return new StudentEditCommand(index, fields);
+            EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
+            //HashMap<String, String> fields = new HashMap<>();
+            //fields.put("name", argMultimap.getValue(PREFIX_QUESTION).orElse(""));
+            editStudentDescriptor.setName(ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_NAME).get()));
+            return new StudentEditCommand(index, editStudentDescriptor);
         } else { // Create command
             if (!arePrefixesPresent(argMultimap, PREFIX_STUDENT)
                     || !argMultimap.getPreamble().isEmpty()) {
@@ -73,10 +92,9 @@ public class StudentCommandParser implements Parser<StudentCommand> {
                         String
                                 .format(MESSAGE_INVALID_COMMAND_FORMAT, StudentAddCommand.MESSAGE_USAGE));
             }
+            Name name = ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_STUDENT).get());
 
-            String name = argMultimap.getValue(PREFIX_STUDENT).orElse("");
-
-            return new StudentAddCommand(name);
+            return new StudentAddCommand(new Student(name));
         }
 
     }

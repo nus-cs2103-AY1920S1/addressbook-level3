@@ -19,7 +19,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudentRecord;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -78,22 +80,31 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyStudentRecord> studentRecordOptional;
+        ReadOnlyAddressBook initialAddressBook;
+        ReadOnlyStudentRecord initialStudentRecord;
         try {
             addressBookOptional = storage.readAddressBook();
+            studentRecordOptional = storage.readStudentRecord();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            if (!studentRecordOptional.isPresent()) {
+                //handle logger.info();
+            }
+            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressBook = new AddressBook();
+            initialStudentRecord = new StudentRecord();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressBook = new AddressBook();
+            initialStudentRecord = new StudentRecord();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialAddressBook, initialStudentRecord, userPrefs);
     }
 
     private void initLogging(Config config) {
