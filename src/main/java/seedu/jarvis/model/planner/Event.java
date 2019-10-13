@@ -1,16 +1,16 @@
 package seedu.jarvis.model.planner;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Represents an Event task in JARVIS
  */
 public class Event extends Task {
 
-    private Date start;
-    private Date end;
+    private Calendar start;
+    private Calendar end;
 
-    public Event(String taskDes, Date start, Date end) {
+    public Event(String taskDes, Calendar start, Calendar end) {
         super(taskDes);
         this.start = start;
         this.end = end;
