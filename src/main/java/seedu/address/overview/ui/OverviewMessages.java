@@ -12,13 +12,13 @@ public class OverviewMessages {
     public static final String MESSAGE_SET_SALES_SUCCESS = "Successfully set sales target to %s.";
 
     public static final String MESSAGE_NOTIFY_BUDGET_SUCCESS = "I'll notify you when you reach "
-            + "%d%% of your total budget.";
+            + "%s%% of your total budget.";
 
     public static final String MESSAGE_NOTIFY_EXPENSE_SUCCESS = "I'll notify you when you reach "
-            + "%d%% of your expense goal.";
+            + "%s%% of your expense goal.";
 
     public static final String MESSAGE_NOTIFY_SALES_SUCCESS = "I'll notify you when you reach "
-            + "%d%% of your sales target.";
+            + "%s%% of your sales target.";
 
     public static final String MESSAGE_INVALID_SET_AMOUNT = "Sorry! That's an invalid amount.";
 
@@ -28,7 +28,15 @@ public class OverviewMessages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! You need to specify an argument with your "
             + "command.";
 
-    public static final String MESSAGE_NO_SUCH_COMMAND = "Sorry! There's no such command here. You can try the"
+    public static final String MESSAGE_NO_SUCH_COMMAND = "Sorry! There's no such command here. You can try the "
             + "following: 'set' or 'notify";
+
+    public static final String EXPENSE_SUMMARY_TEXT = "Total spent: $%s/%s";
+
+    public static final String INVENTORY_SUMMARY_TEXT = "Inventory value: $%s";
+
+    public static final String SALES_SUMMARY_TEXT = "Total sales: $%s/%s";
+
+    public static final String BUDGET_SUMMARY_TEXT = "Amount remaining: $%s/%s";
 
 }

@@ -55,7 +55,7 @@ public class StorageManager implements Storage {
         s.append(System.getProperty("line.separator"));
 
         s.append("budgetThreshold|");
-        s.append(model.getBudgetTarget());
+        s.append(model.getBudgetThreshold());
         s.append(System.getProperty("line.separator"));
 
         s.append("salesThreshold|");

@@ -62,7 +62,7 @@ public class MainApp extends Application {
     protected seedu.address.cashier.model.ModelManager cashierModel;
     protected seedu.address.cashier.storage.StorageManager cashierStorage;
 
-    protected seedu.address.overview.logic.Logic overviewLogic;
+    protected seedu.address.overview.logic.LogicManager overviewLogic;
     protected seedu.address.overview.model.ModelManager overviewModel;
     protected seedu.address.overview.storage.StorageManager overviewStorage;
 
@@ -151,7 +151,7 @@ public class MainApp extends Application {
         /*seedu.address.person.model.ModelManager personMM =
                 new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
 
-        ui = new UiManager(transactionLogic, reimbursementLogic, inventoryLogic, logic, cashierLogic);
+        ui = new UiManager(transactionLogic, reimbursementLogic, inventoryLogic, logic, cashierLogic, overviewLogic);
 
     }
 

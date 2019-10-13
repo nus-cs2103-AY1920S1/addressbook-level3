@@ -53,7 +53,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Total Spent:">
+                        <Label fx:id="totalExpenseValue" text="Total Spent:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -75,7 +75,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Inventory Value:">
+                        <Label fx:id="totalInventoryValue" text="Inventory Value:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -97,7 +97,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Net Profit:">
+                        <Label fx:id="totalSalesValue" text="Total Sales:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -125,7 +125,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Amount Remaining:">
+                        <Label fx:id="totalAmountRemaining" text="Amount Remaining:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>

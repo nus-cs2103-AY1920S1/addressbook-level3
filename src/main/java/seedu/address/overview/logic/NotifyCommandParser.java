@@ -46,7 +46,7 @@ public class NotifyCommandParser {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
 }

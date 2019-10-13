@@ -1,9 +1,15 @@
 package seedu.address.overview.logic;
 
+import seedu.address.inventory.model.Item;
 import seedu.address.overview.commands.Command;
 import seedu.address.overview.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.StorageManager;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.ui.Overview;
+
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 /**
  * Manages the logic behind the transaction tab.
@@ -34,5 +40,46 @@ public class LogicManager implements Logic {
         storage.writeToFile(model);
         return commandResult;
     }
+
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+                .filter(transaction -> !transaction.getCategory().equals("Sales"))
+                .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+                .sum();
+    }
+
+    public double getTotalInventory() {
+//        Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
+//        return itemStream
+//                .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
+//                .sum();
+        return 0;
+    }
+
+    public double getTotalSales() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+                .filter(transaction -> transaction.getCategory().equals("Sales"))
+                .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+                .sum();
+    }
+
+    public double getRemainingBudget() {
+        return model.getBudgetTarget() - getTotalExpenses();
+    }
+
+    public double getExpenseTarget() {
+        return model.getExpenseTarget();
+    }
+
+    public double getSalesTarget() {
+        return model.getSalesTarget();
+    }
+
+    public double getBudgetTarget() {
+        return model.getBudgetTarget();
+    }
+
 
 }

@@ -17,4 +17,11 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws Exception;
 
+    double getTotalExpenses();
+    double getTotalInventory();
+    double getTotalSales();
+    double getRemainingBudget();
+    double getExpenseTarget();
+    double getSalesTarget();
+    double getBudgetTarget();
 }
