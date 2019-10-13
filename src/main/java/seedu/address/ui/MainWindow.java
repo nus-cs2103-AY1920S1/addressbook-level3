@@ -200,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {
-//                modularDisplay.swapToBanks(modularDisplayPlaceholder);
+                //modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else {
                 modularDisplay.swapToHome(modularDisplayPlaceholder);
             }

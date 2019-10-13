@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.logic.Logic;
-import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.PersonListPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 
@@ -11,7 +10,7 @@ import seedu.address.ui.modules.TitleScreenPanel;
  */
 public class ModularDisplay {
 
-//    private final LoadBankPanel loadBankPanel;
+    //private final LoadBankPanel loadBankPanel;
     private final PersonListPanel personListPanel;
     private final TitleScreenPanel titleScreenPanel;
 
@@ -21,7 +20,7 @@ public class ModularDisplay {
      * @param logic Logic used for rendering lists.
      */
     public ModularDisplay(Logic logic) {
-//        loadBankPanel = new LoadBankPanel(logic.getFilteredPersonList());
+        //loadBankPanel = new LoadBankPanel(logic.getFilteredPersonList());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
     }
@@ -60,9 +59,9 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-//    public void swapToBanks(StackPane paneToDisplay) {
-//        paneToDisplay.getChildren().clear();
-//        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
-//    }
+    //public void swapToBanks(StackPane paneToDisplay) {
+    //    paneToDisplay.getChildren().clear();
+    //    paneToDisplay.getChildren().add(loadBankPanel.getRoot());
+    //}
 
 }
