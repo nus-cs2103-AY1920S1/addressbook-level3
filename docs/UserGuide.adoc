@@ -14,36 +14,20 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://ay1920s1-cs2103t-t17-2.github.io/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
 
-Team: *T17-2* +
+Team: *T17-2*
 
-*Content page*
-
-. Introduction
-. Quickstart
-. Features
-.. Financial Tracker
-.. Friend Contact List
-.. Calendar (Event Planner)
-.. Event Itinerary
-.. TRIVAGO, price comparison
-.. Travel Recommendations
-.. NUS trips
-.. Travel Diary with pictures
-.. Engaging Notifications
-. FAQ
-. Command Summary
+*Content*
 
 
-
-*Introduction*
+== Introduction
 
 Welcome and thank you for choosing The Traveller Diary (TTD) to store precious memories of your overseas trips. This travelling diary is well suited for *NUS students who are passionate about travelling across the globe* and *prefer to use a desktop app for managing their trips abroad*. If you can type fast, TTD can help you *store, customize and manage your posts effectively*. Not only that, TTD can *access your contacts with their details* done faster than traditional GUI apps. But wait, there’s more! TTD also has a built in *financial tracker to track your expenses during each trip* to ensure you spend wisely. What are you waiting for? Hop on to this user guide and we will travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to get a copy of your TTD and get started with it. Enjoy! 😊
 
-*Quickstart*
+== Quickstart
 
-. Ensure you java Java 11 or above installed in your Computer.
+. Ensure that you have Java 11 or above installed in your Computer.
 
 . Download the latest TravellerDiary.jar
 
@@ -56,276 +40,296 @@ Welcome and thank you for choosing The Traveller Diary (TTD) to store precious m
 E.g. typing *help* and pressing *<Enter>* will open the help window.
 
 . Examples commands you may try:
-.. *list*: list all contacts
-.. *delete 3* : deletes the 2nd contact shown in the current list
+.. *listContact* : List all contacts that are in your address book
+.. *openCalendar* : Navigate and opens up the calendar page
+.. *deleteEvent 3* : deletes the 3rd event shown in the itinerary
 .. *exit*: exits the app
 
 Refer to Section 3, “Features” for details of each command.
 
 
 
-*Features*
+== Features
 
-*1. Financial Tracker*
+=== Financial Tracker
 
 Keep track of your travelling expenses.
 
-addFin    : add a new expense +
-updateFin : update an existing expense +
-showFin   : show all your expenses +
-deleteFin : delete an expense +
-calFin    : calculate your total expense
+``addFin``    : add a new expense  +
+
+``updateFin`` : update an existing expense +
+
+``showFin``   : show all your expenses +
+
+``deleteFin`` : delete an expense +
+
+``calFin``    : calculate your total expense
 
 The Financial Tracker also provide extra extensions.  +
-(Extensions the group may want to consider)
+_(Extensions the group may want to consider)_
 
-*Check which friend in your contact list owes you money* +
+. *Check which friend in your contact list owes you money* +
 You can update on which friend has previously borrowed money for you. Your personal traveller diary will then keep track of it in case you forget.
 
-*Reminder notification when you exceed your budget* +
+. *Reminder notification when you exceed your budget* +
 Afraid of over-budget? Your personal traveller diary prevents you from doing that by prompting you that you have over spent.
 
 
 
-*2. Friend Contact List*
+=== Friend Contact List
 
 Helps you to keep track of your friends’ contact information.
 
- addCont    : add a new friend to the contact information +
- updateCont : update friend information in the contact list +
- showCont   : show all friends in the contact list +
- deleteCont : delete friends in the contact list +
- listCont   : list all friends in the contact list
+``addCont``    : add a new friend to the contact information +
+
+``updateCont`` : update friend information in the contact list +
+
+``showCont``   : show all friends in the contact list +
+
+``deleteCont`` : delete friends in the contact list +
+
+``listCont``   : list all friends in the contact list
 
 The friend contact list feature also provide certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*duplicateContacts*
-
+. *duplicateContacts* +
 The program does not allow duplicate contacts. Contacts with the same information cannot be added to the contact list. The program may display a possible warning alert when user tries to add duplicate contact information.
 
-*tag / label*
-
+. *tag / label* +
 The program supports tagging / labelling of contacts. The user can tag a contact as ‘ close friends’ for example. This allows the user to identify different contact with similar contact information by tag / label. These tags / label can be color-coded or display icons.
 
-*categories*
-
+. *categories* +
 The user can also categorize a particular contact into categories. This may be useful to differentiate between friends from _‘school’_ category or _‘work’ _category.
 
-*profilePicture*
-
+. *profilePicture* +
 A user profile picture can be added into the contact list. This allow the user to customize a profile picture for a particular contact.
 
-*stickersPack*
-
+. *stickersPack* +
 A way for the user to beautify the appearance for the contact list. _e.g. Putting a crown / tiara / emoticons / sticker pack to beautify the standard contact layout in the contact list._
 
 
 
-*3. Calendar (Event Planner)*
+=== Calendar (Event Planner)
 
-Gives you an overview of when you will be free to travel and recommends when will be a      +
-suitable time to travel.
+Gives you an overview of when you will be free to travel and recommends when will be a suitable time to travel.
 
- addCommitment      : adds commitment to indicate that you won’t be able to  +
-          travel on a day or over a period of time due to commitments  +
-                                                during the public holidays/school vacation +
-  addCommitments     : similar to the above, but we can add multiple commitments  +
-          at once +
-              addPublicHoliday   : adds a public holiday from your calendar +
- addSchoolBreak     : adds the start and end date of your school vacation +
- addTrip            : adds your trip to the calendar +
-  checkAvailability  : checks whether you are available for the stated period of  +
-          time +
-  clearCommitments   : clears all commitments for the stated period of time +
- deleteCommitment   : deletes commitment from your calendar +
- deleteSchoolBreak  : deletes school break from your calendar +
-  deletePublicHoliday: deletes public holiday from your calendar +
- editBreak        : edits the start and/or end date of your school vacation  +
- editCommitment   : edits the duration of your commitment +
- showAvailability : shows you when you have 3 or more “free” days in the given  +
-      period of time which you have specified +
-              suggestDate      : suggests when you can travel for numDays
+``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation +
+
+``addCommitments``     : similar to the above, but we can add multiple commitments at once +
+
+``addPublicHoliday``   : adds a public holiday from your calendar +
+
+``addSchoolBreak``     : adds the start and end date of your school vacation +
+
+``addTrip``            : adds your trip to the calendar +
+
+``checkAvailability``  : checks whether you are available for the stated period of time +
+
+``clearCommitments``   : clears all commitments for the stated period of time +
+
+``deleteCommitment``   : deletes commitment from your calendar +
+
+``deleteSchoolBreak``  : deletes school break from your calendar +
+
+``deletePublicHoliday``: deletes public holiday from your calendar +
+
+``editBreak``        : edits the start and/or end date of your school vacation  +
+
+``editCommitment``   : edits the duration of your commitment +
+
+``showAvailability`` : shows you when you have 3 or more “free” days in the given period of time which you have specified +
+
+``suggestDate``      : suggests when you can travel for numDays
 
 
 
 The event planner feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*advice*
-
+. *advice* + 
 This command suggests whether travelling at the stated period of time is a good idea. For instance, when exams or external commitments are around the corner, the user will be reminded of his/her responsibilities and will be asked whether he/she is sure that he/she wants to go ahead with the travelling plans.
 
-*automaticHolidayDetector *
-
+. *automaticHolidayDetector* +
 Informs user of public holidays and adds them to the calendar without requiring the user to specify it.
 
 
 
-
-
-*4. Event Itinerary*
+=== Event Itinerary
 
 Helps you to plan how exactly you want to spend each hour of your trip. Each event will be numbered numerically in increasing order.
 
- addEvent [title]   : add a new event to your day, title no more than 50 chars +
- listEvent          : show all the events for that day +
- showEvent [index]  : show all the events for that day +
- updateEvent [index]: update an event in your day based on the index +
- sort [type]        : sort events based on the type (time, tag) +
- checkTimeslot      : checks current itinerary and shows empty time slots +
- repeatEvent [index]: repeat the event in your day based on the index +
- doneEvent [index]  : mark the event as done for the day +
- deleteEvent [index]: delete an event in your day based on the index +
- exitEvent   [index]: exit the
+``addEvent [title]``   : add a new event to your day, title no more than 50 chars +
 
-	Customize within each event selected.
- +
- addTime        : add the time for the event +
- addDescription : add a description for the event +
- addLocation    : add the location of the event +
- addNotes       : add additional notes / details for the event +
- addTag         : add a tag to the event for categorization purposes +
- delete [field] : delete the specified field for that particular event
+``listEvent``          : show all the events for that day +
+
+``showEvent [index]``  : show all the events for that day +
+
+``updateEvent [index]``: update an event in your day based on the index +
+
+``sort [type]``        : sort events based on the type (time, tag) +
+
+``checkTimeslot``      : checks current itinerary and shows empty time slots +
+
+``repeatEvent [index]``: repeat the event in your day based on the index +
+
+``doneEvent [index]``  : mark the event as done for the day +
+
+``deleteEvent [index]``: delete an event in your day based on the index +
+
+``exitEvent   [index]``: exit the current event being chosen
+
+{nbsp} +
+
+Customize within each event selected:
+
+``addTime``        : add the time for the event +
+
+``addDescription`` : add a description for the event +
+
+``addLocation``    : add the location of the event +
+
+``addNotes``       : add additional notes / details for the event +
+
+``addTag``         : add a tag to the event for categorization purposes +
+
+``delete [field]`` : delete the specified field for that particular event
 
 The event itinerary feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*repeatEvent*
-
+. *repeatEvent* +
 The program allows the user to repeat events such as tours or planned activities
 
 
-*tag*
-
+. *tag* +
 The program allows the user to tag and highlight events based on type, such as fun, educational, commute etc. This feature will also colour code the events so that the different types of events can be seen clearly on the calendar.
 
-*archive*
-
+. *archive* +
 The user can archive events that he/she is unsure of and wants to review later.
 
-*recommend*
-
+. *recommend* +
 The user can get recommended activities to fill in gaps in the itinerary. The database for these recommended activities will be derived from the archive function.
 
 
 
 
-*5. Travel Diary with pictures*
+=== Travel Diary with pictures
 
-addImage         : add new images to the specified entry conveniently +
-appendToEntry    : appends text to the specified entry
-createEntry      : creates a new entry in your diary +
-deleteEntry      : deletes the specified entry of your diary +
-editEntry        : edit the specified entry of your diary +
-filterEntries    : filters the entries by looking out for the specified expression +
-filterByTag      : filters the entries by the specified tag +
-sortEntries      : sorts your entries in chronological order +
-sortEntriesByTag : sorts your entries by tags +
-tagEntry         : tags your entry with the specified tag(s)
+``addImage``         : add new images to the specified entry conveniently +
+
+``appendToEntry``    : appends text to the specified entry 
+
+``createEntry``      : creates a new entry in your diary +
+
+``deleteEntry``      : deletes the specified entry of your diary +
+
+``editEntry``        : edit the specified entry of your diary +
+
+``filterEntries``    : filters the entries by looking out for the specified expression +
+
+``filterByTag``      : filters the entries by the specified tag +
+
+``sortEntries``      : sorts your entries in chronological order +
+
+``sortEntriesByTag`` : sorts your entries by tags +
+
+``tagEntry``         : tags your entry with the specified tag(s)
 
 The Travel Diary feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*memories*
-
+. *memories* +
 Reminds the user of entries s/he made a year ago.
 
-*milestones*
-
+. *milestones* +
 Congratulates the user when s/he met certain milestones (travelling to a continent that s/he has not previously visited, visiting one of the seven wonders of the world, etc.)
 
 
+== Additional Features (Coming in V2.0)
 
 
-
-*6. TRIVAGO, Price comparison (Coming in V2.0)*
+=== TRIVAGO, Price comparison
 
 Helps to compare the prices between two particular goods or services. Can be used to compare prices of lodging,
 
- addData     : add a new data to be used for price comparison +
- showData    : show the prices for a selected data +
- deleteData  : delete data used for price comparison +
- compareData : compare prices between two data +
- reviewData  : review the previous few comparisons that user did +
- listData    : list out all the data that user has inputted into TTD
+``addData``     : add a new data to be used for price comparison +
+
+``showData``    : show the prices for a selected data +
+
+``deleteData``  : delete data used for price comparison +
+
+``compareData`` : compare prices between two data +
+
+``reviewData``  : review the previous few comparisons that user did +
+
+``listData``    : list out all the data that user has inputted into TTD
 
 The friend contact list feature also provide certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*setConversionRates*
-
+. *setConversionRates* +
 Compare prices based on different countries’ currency and exchange rates. Allow user to also calculate the prices of goods using their home currency.
 
-*tag*
-
+. *tag* +
 The program allows users to classify each data into different categories, such as AirBnB, hotels, restaurants, shopping centre goods.
 
-*undo
-* +
+. *undo* +
 Allow the user to undo their previous comparison or action should they delete the wrong data using function deleteData.
 
-*sort
-* +
+. *sort* +
 Based on the different taggings given by the user, it will help to sort the data based on the total price of each data.
 
 
-
-
-
-*7. Travel Recommendations (Coming in V2.0)*
+=== Travel Recommendations
 
 Gives travel suggestions to the user.
 
- setDates    : set the dates for your proposed trip +
- setPrice    : set your price range +
- setType     : set the type of trip (Fun, educational etc) +
- generate    : generate recommendations from stored diaries
+``setDates``    : set the dates for your proposed trip +
 
-The travel recommendations feature also provides  certain extra extensions.  +
+``setPrice``    : set your price range +
+
+``setType``     : set the type of trip (Fun, educational etc) +
+
+``generate``    : generate recommendations from stored diaries
+
+The travel recommendations feature also provides  certain extra extensions. +
 _(Extensions the group may want to consider)_
 
-*downloadTrips*
-
+. *downloadTrips* +
 The user can download pre planned trips and locations from online sources such as AirB&B Top 10 travel locations.
 
-*saveSources*
-
+. *saveSources* +
 The user can store preferred sources for trips, such as travel websites or personal blogs.
 
 
-
-
-
-*8. NUS trips (Coming in V2.0)*
+=== NUS trips
 
 Helps you get recommendations from NUS societies.
 
- loadTrips   : download trips from NUS societies +
- deleteTrips : delete certain NUS trips +
- showTrip    : show your whole trip in a calendar view +
- getSoc      : get societies from NUS which organise trips +
- deleteSoc   : delete certain societies +
- selectSoc   : select a certain society to load trips
+``loadTrips``   : download trips from NUS societies +
+
+``deleteTrips`` : delete certain NUS trips +
+
+``showTrip``    : show your whole trip in a calendar view +
+
+``getSoc``      : get societies from NUS which organise trips +
+
+``deleteSoc``   : delete certain societies +
+
+``selectSoc``   : select a certain society to load trips
 
 The NUS trips feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-*favourite*
-
+. *favourite* +
 The user can choose preferred societies (NUS mountaineers, CIP clubs)  to favourite.
 
-*filter*
-
+. *filter* +
 The user can filter societies based on preferences such as cost, duration and type.
 
 
-
-
-
-
-
-*9. Engaging Notifications (Coming in V2.0)*
+=== Engaging Notifications
 
 New notifications will be used to alert the user. Notifications can be used to alert the user in the following circumstances:
 
@@ -334,145 +338,182 @@ New notifications will be used to alert the user. Notifications can be used to a
 * Upcoming trip
 * Upcoming event in the calendar
 
-*reminders*
+{nbsp} +
 
+. *reminders* +
 The user can set a reminder on the calendar. When the reminder is due, there will be a new notification from the program.
 
-*colourCode*
-
+. *colourCode* +
 The notification can have different color and design to differentiate between different types of notification. _Red _used to indicate danger while _Yellow _used to indicate warning, _Blue _for general notifications etc.
 
-*growAndShrink*
-
+. *growAndShrink* +
 Grow and shrink animation for notifications.
 
-*music*
-
+. *music* +
 A music will be played when the notification appears. Different music can be used for different notification.
 
-*sendEmailNotification*
-
+. *sendEmailNotification* + 
 An email notification will be sent to the user when the notification appears. _Similar to LumiNUS sending user confirmation email when the post lecture survey is completed_
 
-*customizeNotification *
-
+. *customizeNotification* +
 The user can create their own custom notification. Add colours, emoticons and use different notification styling for different alerts.
 
-*popupAlerts*
-
+. *popupAlerts* +
 Reminders and notifications can be displayed in the form of popup alert to alert the user if something went wrong.
 
-*snooze*
-
+. *snooze* +
 After setting the notification, the user can snooze the notification or reminder for the user to be reminded again.
 
 
-*4. FAQ*
+== FAQ
 
-*Q: *How do I backup my data onto cloud storage? +
-*A: *Locate The Traveller Diary folder in your local drive and compact it into a zip file before uploading it onto a cloud storage online.
+*Q:* How do I backup my data onto cloud storage? +
+*A:* Locate The Traveller Diary folder in your local drive and compact it into a zip file before uploading it onto a cloud storage online.
 
-*Q: *How do I transfer my data onto another computer? +
-*A: *Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
+*Q:* How do I transfer my data onto another computer? +
+*A:* Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
 
-*Q: *Can I change the theme of the application? I prefer to work with a night theme interface.
-*A: *You can go to *settings → themes *→ *night mode *to toggle between day and night mode.
+*Q:* Can I change the theme of the application? I prefer to work with a night theme interface. +
+*A:* You can go to ``settings → themes → night mode`` to toggle between day and night mode.
 
-*Q: *Who can view my travel posts in my TTD? +
-*A: *As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips.**
-** +
-*Q: *Is it possible to connect to social media such as Facebook, Snapchat, Instagram? +
-*A: *Currently, it is not possible to connect to social media using TTD. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
+*Q:* Who can view my travel posts in my TTD? +
+*A:* As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips. +
 
-*Q: Is there any in-app purchase for this application?* +
-*A: NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, **零, nil, kosong. So what are you waiting for get TTD today!*
+*Q:* Is it possible to connect to social media such as Facebook, Snapchat, Instagram? +
+*A:* Currently, it is not possible to connect to social media using TTD. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
 
-
-*Q: *I’m having difficulties uploading the pictures onto the travel diary. +
-*A: *The Traveller Diary only allow uploads of pictures that are in jpg or png. Unfortunately, we do not support gif. Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
-
-*Q: *Who can I contact should there be a bug or feedback that I would like to share? +
-*A: *Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
+*Q:* Is there any in-app purchase for this application? +
+*A:* NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get TTD today!
 
 
+*Q:* I’m having difficulties uploading the pictures onto the travel diary. +
+*A:* The Traveller Diary only allow uploads of pictures that are in jpg or png. Unfortunately, we do not support gif. Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
 
-*5. Command Summary*
+*Q:* Who can I contact should there be a bug or feedback that I would like to share? +
+*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
+
+
+
+== Command Summary
 
 Here is a summary for the list of features available:
 
 Financial Tracker: +
- 	addFin    : add a new expense +
-updateFin : update an existing expense +
-showFin   : show all your expenses +
-deleteFin : delete an expense +
-calFin    : calculate your total expense
+``addFin``    : add a new expense +
+
+``updateFin`` : update an existing expense +
+
+``showFin``   : show all your expenses +
+
+``deleteFin`` : delete an expense +
+
+``calFin``    : calculate your total expense
 
 Friend Contact List: +
-addCont    : add a new friend to the contact information +
-updateCont : update friend information in the contact list +
-showCont   : show all friends in the contact list +
-deleteCont : delete friends in the contact list +
-listCont   : list all friends in the contact list
+``addCont``    : add a new friend to the contact information +
+
+``updateCont`` : update friend information in the contact list +
+
+``showCont``   : show all friends in the contact list +
+
+``deleteCont`` : delete friends in the contact list +
+
+``listCont``   : list all friends in the contact list
 
 Calendar (Event Planner): +
-addCommitment      : adds commitment to indicate that you won’t be able to  +
- 			         travel on a day or over a period of time due to commitments  +
-                                              during the public holidays/school vacation +
-addCommitments     : similar to the above, but we can add multiple commitments  +
-        at once +
-            addPublicHoliday   : adds a public holiday from your calendar +
-addSchoolBreak     : adds the start and end date of your school vacation +
-addTrip             :  adds your trip to the calendar +
-checkAvailability   :  checks whether you are available for the stated period of  +
-             time +
-clearCommitments    :  clears all commitments for the stated period of time +
-deleteCommitment    :  deletes commitment from your calendar +
-deleteSchoolBreak   :  deletes school break from your calendar +
-            deletePublicHoliday :  deletes public holiday from your calendar +
-editBreak           : edits the start and/or end date of your school vacation  +
-editCommitment      : edits the duration of your commitment +
-showAvailability    : shows you when you have 3 or more “free” days in the  +
-          given period of time which you have specified +
-            suggestDate         : suggests when you can travel for numDays
+``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation +
+
+``addCommitments``     : similar to the above, but we can add multiple commitments at once +
+
+``addPublicHoliday``   : adds a public holiday from your calendar +
+
+``addSchoolBreak``     : adds the start and end date of your school vacation +
+
+``addTrip``             :  adds your trip to the calendar +
+
+``checkAvailability``   :  checks whether you are available for the stated period of time +
+
+``clearCommitments``    :  clears all commitments for the stated period of time +
+
+``deleteCommitment``    :  deletes commitment from your calendar +
+
+``deleteSchoolBreak``   :  deletes school break from your calendar +
+
+``deletePublicHoliday`` :  deletes public holiday from your calendar +
+
+``editBreak``           : edits the start and/or end date of your school vacation  +
+
+``editCommitment``      : edits the duration of your commitment +
+
+``showAvailability``    : shows you when you have 3 or more “free” days in the given period of time which you have specified +
+
+``suggestDate``         : suggests when you can travel for numDays
 
 Event Itinerary: +
-addEvent    : add a new event to your day +
-updateEvent : update an event in your day +
-showEvent   : show more information about your day +
-deleteEvent : delete an event from your day +
-compareEvent: place multiple events in the same time slot for ease of comparison +
-showTrip    : show your whole trip in a calendar view
+``addEvent``    : add a new event to your day +
+
+``updateEvent`` : update an event in your day +
+
+``showEvent``   : show more information about your day +
+
+``deleteEvent`` : delete an event from your day +
+
+``compareEvent``: place multiple events in the same time slot for ease of comparison +
+
+``showTrip``    : show your whole trip in a calendar view
 
 TRIVAGO, price comparison: +
-addData     : add a new data to be used for price comparison +
-showData    : show the prices for a selected data +
-deleteData  : delete data used for price comparison +
-compareData : compare prices between two data +
-reviewData  : review the previous few comparisons that user did +
-listData    : list out all the data that user has inputted into TTD
+``addData``     : add a new data to be used for price comparison +
+
+``showData``    : show the prices for a selected data +
+
+``deleteData``  : delete data used for price comparison +
+
+``compareData`` : compare prices between two data +
+
+``reviewData``  : review the previous few comparisons that user did +
+
+``listData``    : list out all the data that user has inputted into TTD
 
 Travel Recommendations: +
-setDates    : set the dates for your proposed trip +
-setPrice    : set your price range +
-setType     : set the type of trip (Fun, educational etc) +
-generate    : generate recommendations from stored diaries
+``setDates``    : set the dates for your proposed trip +
+
+``setPrice``    : set your price range +
+
+``setType``     : set the type of trip (Fun, educational etc) +
+
+``generate``    : generate recommendations from stored diaries
 
 NUS trips: +
-loadTrips   : download trips from NUS societies +
-deleteTrips : delete certain NUS trips +
-showTrip    : show your whole trip in a calendar view +
-getSoc      : get societies from NUS which organise trips +
-deleteSoc   : delete certain societies +
-selectSoc   : select a certain society to load trips
+``loadTrips``   : download trips from NUS societies +
+
+``deleteTrips`` : delete certain NUS trips +
+
+``showTrip``    : show your whole trip in a calendar view +
+
+``getSoc``      : get societies from NUS which organise trips +
+
+``deleteSoc``   : delete certain societies +
+
+``selectSoc``   : select a certain society to load trips
 
 Travel Diary with pictures: +
-addImage         : add new images to the specified entry conveniently +
-appendToEntry    : appends text to the specified entry
-createEntry      : creates a new entry in your diary +
-deleteEntry      : deletes the specified entry of your diary +
-editEntry        : edit the specified entry of your diary +
-filterEntries    : filters the entries by looking out for the specified expression +
-filterByTag      : filters the entries by the specified tag +
-sortEntries      : sorts your entries in chronological order +
-sortEntriesByTag : sorts your entries by tags +
-tagEntry         : tags your entry with the specified tag(s)
+``addImage``         : add new images to the specified entry conveniently +
+
+``appendToEntry``    : appends text to the specified entry +
+
+``createEntry``      : creates a new entry in your diary +
+
+``deleteEntry``      : deletes the specified entry of your diary +
+
+``editEntry``        : edit the specified entry of your diary +
+
+``filterEntries``    : filters the entries by looking out for the specified expression +
+
+``filterByTag``      : filters the entries by the specified tag +
+
+``sortEntries``      : sorts your entries in chronological order +
+
+``sortEntriesByTag`` : sorts your entries by tags +
+
+``tagEntry``         : tags your entry with the specified tag(s)
