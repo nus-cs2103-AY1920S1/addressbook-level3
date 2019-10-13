@@ -3,29 +3,38 @@ package seedu.address.model.activity;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import seedu.address.model.person.Person;
 
 /**
- * Represents an Activity class containing participants and expenses.
+ * Represents an Activity class containing participants ID and expenses.
  */
 public class Activity {
 
-    private final String title;
-    private final ArrayList<Person> participants = new ArrayList<>();
+    private final Title title;
+    private final ArrayList<Integer> participantIds = new ArrayList<>();
     private final ArrayList<Expense> expenses = new ArrayList<>();
 
     /**
      * Constructor for Activity.
-     * @param title A String representation of the activity name.
+     * @param title Title of the activity.
      * @param people The people participating in the activity.
      */
-    public Activity(String title, Person ... people) {
+    public Activity(Title title, Integer ... ids) {
         requireAllNonNull(title);
         this.title = title;
-        for (Person person : people) {
-            participants.add(person);
+        for (Integer id : ids) {
+            participantIds.add(id);
         }
+    }
+
+    /**
+     * Gets the list of id of participants in the activity.
+     * @return An ArrayList containing the id participants.
+     */
+    public ArrayList<Integer> getParticipantIds() {
+        return participantIds;
     }
 
     /**
@@ -33,7 +42,7 @@ public class Activity {
      * @return An ArrayList containing the participants.
      */
     public ArrayList<Person> getParticipants() {
-        return participants;
+        return new ArrayList<Person>();
     }
 
     /**
@@ -48,7 +57,7 @@ public class Activity {
      * Gets the name of the activity.
      * @return A String representation of the name of the activity.
      */
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
@@ -57,11 +66,8 @@ public class Activity {
      * @param people The people that will be added into the activity.
      */
     public void invite(Person ... people) {
-        for (int i = 0; i < people.length; i++) {
-            // TODO: implement check for person with same name, add only if
-            // different name
-            participants.add(people[i]);
-        }
+        // TODO: implement check for person with same name, add only if
+        // different name
     }
 
     /**
@@ -69,12 +75,7 @@ public class Activity {
      * @param people The people that will be removed from the activity.
      */
     public void disinvite(Person ... people) {
-        for (int i = 0; i < people.length; i++) {
-            if (participants.contains(people[i])) {
-                participants.remove(people[i]);
-            }
-            // haven't implemented what if list does not contain that specific person
-        }
+        // haven't implemented what if list does not contain that specific person
     }
 
     /**
@@ -99,5 +100,30 @@ public class Activity {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("Activity \"%s\"\n", title);
+    }
 
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(title, participantIds, expenses);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Activity)) {
+            return false;
+        }
+
+        Activity otherActivity = (Activity) other;
+        return otherActivity.getTitle().equals(getTitle())
+                && otherActivity.getParticipantIds().equals(getParticipantIds())
+                && otherActivity.getExpenses().equals(getExpenses());
+    }
 }

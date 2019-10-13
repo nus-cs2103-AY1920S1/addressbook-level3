@@ -1,10 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 /**
@@ -45,6 +48,11 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Sets the user prefs' activity book file path.
+     */
+    void setActivityBookFilePath(Path activityBookFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
@@ -56,6 +64,11 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+       Finds Person objects with matching keywords, returning matches in ArrayList.
+     */
+    ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate);
 
     /**
      * Deletes the given person.
@@ -78,6 +91,36 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Returns the user prefs' activity book file path.
+     */
+    Path getActivityBookFilePath();
+
+    /**
+     * Replaces activity book data with the data in {@code activityBook}.
+     */
+    void setActivityBook(ActivityBook activityBook);
+
+    /** Returns the ActivityBook */
+    ActivityBook getActivityBook();
+
+    /**
+     * Deletes the given activity.
+     * The activity must exist in the activity book.
+     */
+    void deleteActivity(Activity target);
+
+    /**
+     * Adds the given activity.
+     */
+    void addActivity(Activity activity);
+
+    /**
+     * Replaces the given activity {@code target} with {@code editedActivity}.
+     * {@code target} must exist in the activity book.
+     */
+    void setActivity(Activity target, Activity editedActivity);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
