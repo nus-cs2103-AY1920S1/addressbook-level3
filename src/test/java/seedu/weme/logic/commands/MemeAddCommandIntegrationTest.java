@@ -14,9 +14,9 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.testutil.MemeBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code MemeAddCommand}.
  */
-public class AddCommandIntegrationTest {
+public class MemeAddCommandIntegrationTest {
 
     private Model model;
 
@@ -32,14 +32,14 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.addMeme(validMeme);
 
-        assertCommandSuccess(new AddCommand(validMeme), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validMeme), expectedModel);
+        assertCommandSuccess(new MemeAddCommand(validMeme), model,
+                String.format(MemeAddCommand.MESSAGE_SUCCESS, validMeme), expectedModel);
     }
 
     @Test
     public void execute_duplicateMeme_throwsCommandException() {
         Meme memeInList = model.getMemeBook().getMemeList().get(0);
-        assertCommandFailure(new AddCommand(memeInList), model, AddCommand.MESSAGE_DUPLICATE_MEME);
+        assertCommandFailure(new MemeAddCommand(memeInList), model, MemeAddCommand.MESSAGE_DUPLICATE_MEME);
     }
 
 }

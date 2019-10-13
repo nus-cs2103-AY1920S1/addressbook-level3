@@ -1,7 +1,6 @@
 package seedu.weme.logic.parser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static seedu.weme.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHARMANDER;
 import static seedu.weme.logic.commands.CommandTestUtil.DESCRIPTION_DESC_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.FILEPATH_DESC_CHARMANDER;
@@ -22,14 +21,14 @@ import static seedu.weme.testutil.TypicalMemes.JOKER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.AddCommand;
+import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.MemeBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class MemeAddCommandParserTest {
+    private MemeAddCommandParser parser = new MemeAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -38,17 +37,17 @@ public class AddCommandParserTest {
 
         // multiple paths - last paths accepted
         assertParseSuccess(parser, FILEPATH_DESC_CHARMANDER + FILEPATH_DESC_JOKER
-                + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new AddCommand(expectedMeme));
+                + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new MemeAddCommand(expectedMeme));
 
         // multiple addresses - last weme accepted
         assertParseSuccess(parser, FILEPATH_DESC_JOKER + DESCRIPTION_DESC_CHARMANDER
-                + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new AddCommand(expectedMeme));
+                + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER, new MemeAddCommand(expectedMeme));
 
         // multiple tags - all accepted
         Meme expectedMemeMultipleTags = new MemeBuilder(JOKER).withTags(VALID_TAG_JOKER, VALID_TAG_CHARMANDER)
                 .build();
         assertParseSuccess(parser, FILEPATH_DESC_JOKER + DESCRIPTION_DESC_JOKER
-                + TAG_DESC_JOKER + TAG_DESC_CHARMANDER, new AddCommand(expectedMemeMultipleTags));
+                + TAG_DESC_JOKER + TAG_DESC_CHARMANDER, new MemeAddCommand(expectedMemeMultipleTags));
     }
 
     @Test
@@ -56,13 +55,13 @@ public class AddCommandParserTest {
         // zero tags
         Meme expectedMeme = new MemeBuilder(CHARMANDER).withTags().build();
         assertParseSuccess(parser, FILEPATH_DESC_CHARMANDER + DESCRIPTION_DESC_CHARMANDER,
-                new AddCommand(expectedMeme));
+                new MemeAddCommand(expectedMeme));
         // Empty Description
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemeAddCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_FILEPATH_JOKER + DESCRIPTION_DESC_JOKER,
@@ -86,6 +85,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + FILEPATH_DESC_JOKER
                 + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER + TAG_DESC_CHARMANDER,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemeAddCommand.MESSAGE_USAGE));
     }
 }

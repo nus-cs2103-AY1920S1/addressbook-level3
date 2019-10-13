@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
@@ -27,9 +27,10 @@ import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * MemeEditCommand.
  */
-public class EditCommandTest {
+public class MemeEditCommandTest {
 
     private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
@@ -37,15 +38,15 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Meme editedMeme = new MemeBuilder().build();
-        EditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(editedMeme).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME, descriptor);
+        MemeEditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(editedMeme).build();
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
+        String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
 
     /* Logic about list filtering is not discussed yet.
@@ -60,9 +61,9 @@ public class EditCommandTest {
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withUrl(VALID_FILEPATH_JOKER)
                 .withUrl(VALID_FILEPATH_JOKER).withTags(VALID_TAG_CHARMANDER).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        MemeEditCommand editCommand = new MemeEditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
+        String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(lastMeme, editedMeme);
@@ -73,14 +74,14 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME, new EditMemeDescriptor());
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME, new EditMemeDescriptor());
         Meme editedMeme = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
+        String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -89,24 +90,24 @@ public class EditCommandTest {
 
         Meme memeInFilteredList = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
         Meme editedMeme = new MemeBuilder(memeInFilteredList).withDescription(VALID_DESCRIPTION_JOKER).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder().withDescription(VALID_DESCRIPTION_JOKER).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
+        String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicateMemeUnfilteredList_failure() {
         Meme firstMeme = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(firstMeme).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_MEME, descriptor);
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_SECOND_MEME, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MEME);
+        assertCommandFailure(memeEditCommand, model, MemeEditCommand.MESSAGE_DUPLICATE_MEME);
     }
 
     @Test
@@ -115,19 +116,19 @@ public class EditCommandTest {
 
         // edit meme in filtered list into a duplicate in meme book
         Meme memeInList = model.getMemeBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_MEME,
+        MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder(memeInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MEME);
+        assertCommandFailure(memeEditCommand, model, MemeEditCommand.MESSAGE_DUPLICATE_MEME);
     }
 
     @Test
     public void execute_invalidMemeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemeList().size() + 1);
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_JOKER).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        MemeEditCommand memeEditCommand = new MemeEditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(memeEditCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
     }
 
     /**
@@ -141,19 +142,19 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of meme book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        MemeEditCommand memeEditCommand = new MemeEditCommand(outOfBoundIndex,
                 new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_JOKER).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(memeEditCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_MEME, DESC_CHARMANDER);
+        final MemeEditCommand standardCommand = new MemeEditCommand(INDEX_FIRST_MEME, DESC_CHARMANDER);
 
         // same values -> returns true
         EditMemeDescriptor copyDescriptor = new EditMemeDescriptor(DESC_CHARMANDER);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_MEME, copyDescriptor);
+        MemeEditCommand commandWithSameValues = new MemeEditCommand(INDEX_FIRST_MEME, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,13 +164,13 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new MemeClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_MEME, DESC_CHARMANDER)));
+        assertFalse(standardCommand.equals(new MemeEditCommand(INDEX_SECOND_MEME, DESC_CHARMANDER)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_MEME, DESC_JOKER)));
+        assertFalse(standardCommand.equals(new MemeEditCommand(INDEX_FIRST_MEME, DESC_JOKER)));
     }
 
 }

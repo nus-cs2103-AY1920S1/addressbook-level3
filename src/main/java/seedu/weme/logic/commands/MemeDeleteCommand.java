@@ -13,7 +13,7 @@ import seedu.weme.model.meme.Meme;
 /**
  * Deletes a meme identified using it's displayed index from the meme book.
  */
-public class DeleteCommand extends Command {
+public class MemeDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public MemeDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof MemeDeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((MemeDeleteCommand) other).targetIndex)); // state check
     }
 }

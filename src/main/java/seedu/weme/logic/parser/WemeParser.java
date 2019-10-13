@@ -6,26 +6,21 @@ import static seedu.weme.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.weme.logic.commands.AddCommand;
-import seedu.weme.logic.commands.ClearCommand;
 import seedu.weme.logic.commands.Command;
-import seedu.weme.logic.commands.DeleteCommand;
-import seedu.weme.logic.commands.EditCommand;
 import seedu.weme.logic.commands.ExitCommand;
-import seedu.weme.logic.commands.FindCommand;
 import seedu.weme.logic.commands.HelpCommand;
-import seedu.weme.logic.commands.ListCommand;
+import seedu.weme.logic.commands.TabCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input.
+ * Parses user input. Base context parser that all context parsers inherit from.
  */
-public class MemeBookParser {
+public abstract class WemeParser {
 
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    protected static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -44,23 +39,8 @@ public class MemeBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case TabCommand.COMMAND_WORD:
+            return new TabCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

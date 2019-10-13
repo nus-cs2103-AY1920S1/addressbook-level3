@@ -13,9 +13,9 @@ import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for MemeListCommand.
  */
-public class ListCommandTest {
+public class MemeListCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -28,12 +28,12 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

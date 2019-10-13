@@ -23,20 +23,20 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD_MEME;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.EditCommand;
-import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.MemeEditCommand;
+import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class MemeEditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemeEditCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private MemeEditCommandParser parser = new MemeEditCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -44,7 +44,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_FILEPATH_CHARMANDER, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MemeEditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -89,7 +89,7 @@ public class EditCommandParserTest {
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_CHARMANDER)
                 .withDescription(VALID_DESCRIPTION_CHARMANDER)
                 .withTags(VALID_TAG_CHARMANDER, VALID_TAG_JOKER).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -99,9 +99,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_MEME;
         String userInput = targetIndex.getOneBased() + FILEPATH_DESC_CHARMANDER + DESCRIPTION_DESC_JOKER;
 
-        EditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
+        MemeEditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
                 .withFilePath(VALID_FILEPATH_CHARMANDER).withDescription(VALID_DESCRIPTION_JOKER).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -112,19 +112,19 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_MEME;
         String userInput = targetIndex.getOneBased() + FILEPATH_DESC_CHARMANDER;
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_CHARMANDER).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // weme
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHARMANDER;
         descriptor = new EditMemeDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHARMANDER).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new MemeEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_CHARMANDER;
         descriptor = new EditMemeDescriptorBuilder().withTags(VALID_TAG_CHARMANDER).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new MemeEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -138,7 +138,7 @@ public class EditCommandParserTest {
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_JOKER).withTags(VALID_TAG_JOKER, VALID_TAG_CHARMANDER)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -149,7 +149,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_MEME;
         String userInput = targetIndex.getOneBased() + INVALID_FILEPATH_DESC + FILEPATH_DESC_CHARMANDER;
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_CHARMANDER).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -157,7 +157,7 @@ public class EditCommandParserTest {
                 + FILEPATH_DESC_CHARMANDER;
         descriptor = new EditMemeDescriptorBuilder().withDescription(VALID_DESCRIPTION_JOKER)
                 .withFilePath(VALID_FILEPATH_CHARMANDER).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new MemeEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -167,7 +167,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        MemeEditCommand expectedCommand = new MemeEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

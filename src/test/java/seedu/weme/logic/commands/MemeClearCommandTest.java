@@ -10,14 +10,14 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 
-public class ClearCommandTest {
+public class MemeClearCommandTest {
 
     @Test
     public void execute_emptyMemeBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs());
         expectedModel.setMemeBook(new MemeBook());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

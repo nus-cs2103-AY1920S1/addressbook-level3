@@ -6,8 +6,8 @@ import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.weme.logic.commands.AddCommand;
-import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.MemeAddCommand;
+import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
@@ -20,7 +20,7 @@ public class MemeUtil {
      * Returns an add command string for adding the {@code meme}.
      */
     public static String getAddCommand(Meme meme) {
-        return AddCommand.COMMAND_WORD + " " + getMemeDetails(meme);
+        return MemeAddCommand.COMMAND_WORD + " " + getMemeDetails(meme);
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.weme.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 
@@ -19,15 +20,36 @@ import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_CONTEXT = "NOT A CONTEXT";
     private static final String INVALID_FILEPATH = "Hello world";
     private static final String INVALID_TAG = "#friend";
     private static final String VALID_DESCRIPTION = "Sit vitae voluptas sint non voluptates";
 
+    private static final String VALID_CONTEXT = "memes";
     private static final String VALID_FILEPATH = "src/test/data/memes/charmander_meme.jpg";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    @Test
+    public void forContext_success() {
+        assertEquals(MemeParser.class, ParserUtil.forContext(CONTEXT_MEMES).getClass());
+    }
+
+    @Test
+    public void parseContext_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseContext(INVALID_CONTEXT));
+    }
+
+    @Test
+    public void parseContext_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(CONTEXT_MEMES, ParserUtil.parseContext(VALID_CONTEXT));
+
+        // With whitespaces
+        assertEquals(CONTEXT_MEMES, ParserUtil.parseContext(" " + VALID_CONTEXT + " "));
+    }
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {

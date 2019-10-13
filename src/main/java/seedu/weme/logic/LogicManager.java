@@ -10,9 +10,11 @@ import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
-import seedu.weme.logic.parser.MemeBookParser;
+import seedu.weme.logic.parser.ParserUtil;
+import seedu.weme.logic.parser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.Model;
+import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.storage.Storage;
@@ -26,12 +28,10 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final MemeBookParser memeBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        memeBookParser = new MemeBookParser();
     }
 
     @Override
@@ -39,7 +39,10 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = memeBookParser.parseCommand(commandText);
+
+        ModelContext currentContext = model.getContext();
+        WemeParser wemeParser = ParserUtil.forContext(currentContext);
+        Command command = wemeParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

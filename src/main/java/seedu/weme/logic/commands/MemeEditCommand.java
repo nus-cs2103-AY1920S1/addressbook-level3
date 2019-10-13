@@ -25,7 +25,7 @@ import seedu.weme.model.tag.Tag;
 /**
  * Edits the details of an existing meme in the meme book.
  */
-public class EditCommand extends Command {
+public class MemeEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
      * @param index of the meme in the filtered meme list to edit
      * @param editMemeDescriptor details to edit the meme with
      */
-    public EditCommand(Index index, EditMemeDescriptor editMemeDescriptor) {
+    public MemeEditCommand(Index index, EditMemeDescriptor editMemeDescriptor) {
         requireNonNull(index);
         requireNonNull(editMemeDescriptor);
 
@@ -100,12 +100,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof MemeEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        MemeEditCommand e = (MemeEditCommand) other;
         return index.equals(e.index)
                 && editMemeDescriptor.equals(e.editMemeDescriptor);
     }

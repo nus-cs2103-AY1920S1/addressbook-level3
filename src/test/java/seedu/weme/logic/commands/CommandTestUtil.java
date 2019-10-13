@@ -44,8 +44,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMemeDescriptor DESC_CHARMANDER;
-    public static final EditCommand.EditMemeDescriptor DESC_JOKER;
+    public static final MemeEditCommand.EditMemeDescriptor DESC_CHARMANDER;
+    public static final MemeEditCommand.EditMemeDescriptor DESC_JOKER;
 
     static {
         DESC_CHARMANDER = new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_CHARMANDER)

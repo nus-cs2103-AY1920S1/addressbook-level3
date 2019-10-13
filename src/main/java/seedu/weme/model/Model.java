@@ -84,4 +84,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMemeList(Predicate<Meme> predicate);
+
+    /**
+     * Returns the context of the model.
+     */
+    ModelContext getContext();
+
+    /**
+     * Sets the context of the model.
+     * @param context Context to set.
+     */
+    void setContext(ModelContext context);
 }

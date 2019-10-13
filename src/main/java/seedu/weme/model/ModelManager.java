@@ -23,6 +23,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
 
+    // ModelContext determines which parser to use at any point of time.
+    private ModelContext context = ModelContext.CONTEXT_MEMES;
+
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
@@ -130,6 +133,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ModelContext getContext() {
+        return context;
+    }
+
+    @Override
+    public void setContext(ModelContext context) {
+        this.context = context;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -145,7 +158,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return memeBook.equals(other.memeBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredMemes.equals(other.filteredMemes);
+                && filteredMemes.equals(other.filteredMemes)
+                && context.equals(other.context);
     }
 
 }

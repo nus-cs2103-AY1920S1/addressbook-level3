@@ -15,7 +15,7 @@ import seedu.weme.commons.util.FileUtil;
  */
 public class ImagePath {
 
-    public static final String MESSAGE_CONSTRAINTS = "File not found or invalid file path given";
+    public static final String MESSAGE_CONSTRAINTS = "File not found or invalid file path given.";
 
     public final Path filePath;
 

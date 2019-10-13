@@ -17,7 +17,8 @@ public class EditMemeDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditMemeDescriptor descriptorWithSameValues = new EditCommand.EditMemeDescriptor(DESC_CHARMANDER);
+        MemeEditCommand.EditMemeDescriptor descriptorWithSameValues =
+                new MemeEditCommand.EditMemeDescriptor(DESC_CHARMANDER);
         assertTrue(DESC_CHARMANDER.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -33,7 +34,7 @@ public class EditMemeDescriptorTest {
         assertFalse(DESC_CHARMANDER.equals(DESC_JOKER));
 
         // different url -> returns false
-        EditCommand.EditMemeDescriptor editedAmy = new EditMemeDescriptorBuilder(DESC_CHARMANDER)
+        MemeEditCommand.EditMemeDescriptor editedAmy = new EditMemeDescriptorBuilder(DESC_CHARMANDER)
                 .withFilePath(VALID_FILEPATH_JOKER).build();
         assertFalse(DESC_CHARMANDER.equals(editedAmy));
 

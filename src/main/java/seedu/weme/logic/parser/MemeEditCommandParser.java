@@ -12,22 +12,22 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.EditCommand;
-import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.MemeEditCommand;
+import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new MemeEditCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class MemeEditCommandParser implements Parser<MemeEditCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MemeEditCommand
+     * and returns an MemeEditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public MemeEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILEPATH, PREFIX_DESCRIPTION, PREFIX_TAG);
@@ -37,7 +37,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemeEditCommand.MESSAGE_USAGE), pe);
         }
 
         EditMemeDescriptor editMemeDescriptor = new EditMemeDescriptor();
@@ -51,10 +51,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMemeDescriptor::setTags);
 
         if (!editMemeDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MemeEditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editMemeDescriptor);
+        return new MemeEditCommand(index, editMemeDescriptor);
     }
 
     /**

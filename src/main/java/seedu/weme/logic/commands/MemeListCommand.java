@@ -8,7 +8,7 @@ import seedu.weme.model.Model;
 /**
  * Lists all memes in the meme book to the user.
  */
-public class ListCommand extends Command {
+public class MemeListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 

@@ -10,7 +10,7 @@ import seedu.weme.model.meme.TagContainsKeywordsPredicate;
  * Finds and lists all memes in meme book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class MemeFindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
@@ -21,7 +21,7 @@ public class FindCommand extends Command {
 
     private final TagContainsKeywordsPredicate predicate;
 
-    public FindCommand(TagContainsKeywordsPredicate predicate) {
+    public MemeFindCommand(TagContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -36,7 +36,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof MemeFindCommand // instanceof handles nulls
+                && predicate.equals(((MemeFindCommand) other).predicate)); // state check
     }
 }

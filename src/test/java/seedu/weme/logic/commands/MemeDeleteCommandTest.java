@@ -20,31 +20,31 @@ import seedu.weme.model.meme.Meme;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code MemeDeleteCommand}.
  */
-public class DeleteCommandTest {
+public class MemeDeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MEME);
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
+        String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemeList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(memeDeleteCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
     }
 
     @Test
@@ -52,15 +52,15 @@ public class DeleteCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MEME);
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
+        String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
         Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,21 +71,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of meme book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(memeDeleteCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_MEME);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_MEME);
+        MemeDeleteCommand deleteFirstCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
+        MemeDeleteCommand deleteSecondCommand = new MemeDeleteCommand(INDEX_SECOND_MEME);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_MEME);
+        MemeDeleteCommand deleteFirstCommandCopy = new MemeDeleteCommand(INDEX_FIRST_MEME);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

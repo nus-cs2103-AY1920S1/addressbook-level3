@@ -12,7 +12,7 @@ import seedu.weme.model.meme.Meme;
 /**
  * Adds a meme to the meme book.
  */
-public class AddCommand extends Command {
+public class MemeAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -32,9 +32,9 @@ public class AddCommand extends Command {
     private final Meme toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Meme}
+     * Creates an MemeAddCommand to add the specified {@code Meme}
      */
-    public AddCommand(Meme meme) {
+    public MemeAddCommand(Meme meme) {
         requireNonNull(meme);
         toAdd = meme;
     }
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof MemeAddCommand // instanceof handles nulls
+                && toAdd.equals(((MemeAddCommand) other).toAdd));
     }
 }

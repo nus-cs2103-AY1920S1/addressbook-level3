@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.weme.logic.commands.EditCommand;
-import seedu.weme.logic.commands.EditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.MemeEditCommand;
+import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
@@ -16,13 +16,13 @@ import seedu.weme.model.tag.Tag;
  */
 public class EditMemeDescriptorBuilder {
 
-    private EditCommand.EditMemeDescriptor descriptor;
+    private MemeEditCommand.EditMemeDescriptor descriptor;
 
     public EditMemeDescriptorBuilder() {
         descriptor = new EditMemeDescriptor();
     }
 
-    public EditMemeDescriptorBuilder(EditCommand.EditMemeDescriptor descriptor) {
+    public EditMemeDescriptorBuilder(MemeEditCommand.EditMemeDescriptor descriptor) {
         this.descriptor = new EditMemeDescriptor(descriptor);
     }
 
@@ -64,7 +64,7 @@ public class EditMemeDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditMemeDescriptor build() {
+    public MemeEditCommand.EditMemeDescriptor build() {
         return descriptor;
     }
 }
