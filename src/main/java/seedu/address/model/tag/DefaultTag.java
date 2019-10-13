@@ -37,14 +37,6 @@ public class DefaultTag implements Tag {
     }
 
     /**
-     * Checks if the tag can be renamed.
-     * @return False as default tags cannot be renamed.
-     */
-    public boolean canBeRenamed() {
-        return false;
-    }
-
-    /**
      * Returns the name of the tag.
      * @return The name of the tag.
      */

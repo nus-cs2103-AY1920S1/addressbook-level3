@@ -61,14 +61,6 @@ public class UserTag implements Tag {
     }
 
     /**
-     * Checks if the tag can be renamed.
-     * @return True as user-created tags can be renamed.
-     */
-    public boolean canBeRenamed() {
-        return true;
-    }
-
-    /**
      * Renames the tag.
      * @param newName The new name of the tag.
      */
