@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.UniqueMemberList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.task.UniqueTaskList;
 public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     private final UniqueTaskList tasks;
+    private final UniqueMemberList members;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,8 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     {
         tasks = new UniqueTaskList();
+        members = new UniqueMemberList();
+
     }
 
     public ProjectDashboard() {}
@@ -113,8 +118,74 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
                 && tasks.equals(((ProjectDashboard) other).tasks));
     }
 
-    @Override
+    /*@Override
     public int hashCode() {
         return tasks.hashCode();
+    }*/
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setMembers(List<Member> members) {
+        this.members.setMembers(members);
     }
+
+
+    //// member-level operations
+
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     */
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return members.contains(member);
+    }
+
+    /**
+     * Adds a task to the address book.
+     * The task must not already exist in the address book.
+     */
+    public void addMember(Member member) {
+        members.add(member);
+    }
+
+    /**
+     * Replaces the given task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
+     */
+    public void setMember(Member target, Member editedMember) {
+        requireNonNull(editedMember);
+
+        members.setMember(target, editedMember);
+    }
+
+    /**
+     * Removes {@code key} from this {@code ProjectDashboard}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMember(Member key) {
+        members.remove(key);
+    }
+
+    //// util methods
+
+    /*Override
+    public String toString() {
+        return members.asUnmodifiableObservableList().size() + " members";
+        // TODO: refine later
+    }*/
+
+    @Override
+    public ObservableList<Member> getMemberList() {
+        return members.asUnmodifiableObservableList();
+    }
+
+    /*@Override
+    public int hashCode() {
+        return members.hashCode();
+    }*/
 }

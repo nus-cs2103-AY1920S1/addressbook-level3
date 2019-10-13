@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Member> filteredMembers;
 
     /**
      * Initializes a ModelManager with the given projectDashboard and userPrefs.
@@ -35,11 +37,13 @@ public class ModelManager implements Model {
         this.projectDashboard = new ProjectDashboard(projectDashboard);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
+        filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
     }
 
     public ModelManager() {
         this(new ProjectDashboard(), new UserPrefs());
     }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -78,7 +82,7 @@ public class ModelManager implements Model {
 
     //=========== ProjectDashboard ================================================================================
 
-    @Override
+
     public void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard) {
         this.projectDashboard.resetData(projectDashboard);
     }
@@ -145,7 +149,49 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return projectDashboard.equals(other.projectDashboard)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks);
+                && filteredTasks.equals(other.filteredTasks)
+                && filteredMembers.equals(other.filteredMembers);
+    }
+
+    //=========== ProjectDashboard (member) ================================================================================
+
+    @Override
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return projectDashboard.hasMember(member);
+    }
+
+    @Override
+    public void deleteMember(Member target) {
+        projectDashboard.removeMember(target);
+    }
+
+    @Override
+    public void addMember(Member member) {
+        projectDashboard.addMember(member);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+    }
+
+    @Override
+    public void setMember(Member target, Member editedMember) {
+        requireAllNonNull(target, editedMember);
+
+        projectDashboard.setMember(target, editedMember);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    public ObservableList<Member> getFilteredMembersList() {
+        return filteredMembers;
+    }
+
+    public void updateFilteredMembersList(Predicate<Member> predicate) {
+        requireNonNull(predicate);
+        filteredMembers.setPredicate(predicate);
     }
 
 }
