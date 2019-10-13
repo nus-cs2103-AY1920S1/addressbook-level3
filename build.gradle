@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.ezwatchlist.Main'
+mainClassName = 'seedu.address.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -23,10 +23,6 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven {
-        url  "https://jcenter.bintray.com"
-    }
-    jcenter()
 }
 
 checkstyle {
@@ -68,14 +64,10 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
-
-    compile group: 'info.movito', name: 'themoviedbapi', version:'1.9'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.28'
-    compile group: 'ch.qos.logback', name:'logback-core', version: '1.0.9'
 }
 
 shadowJar {
-    archiveName = 'ezwatchlist.jar'
+    archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
