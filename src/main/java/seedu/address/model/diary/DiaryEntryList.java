@@ -3,6 +3,7 @@ package seedu.address.model.diary;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,6 +13,9 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.DuplicateTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * Abstraction of a list of {@link DiaryEntry}s.
@@ -60,6 +64,12 @@ public class DiaryEntryList {
         requireNonNull(diaryEntry);
         checkArgument(doesClash(diaryEntry), DiaryEntry.MESSAGE_CONSTRAINTS);
         diaryEntries.add(diaryEntry);
+    }
+
+    public void setDiaryEntry(DiaryEntry target, DiaryEntry replacement) {
+        requireAllNonNull(target, replacement);
+        diaryEntries.remove(target);
+        addDiaryEntry(replacement);
     }
 
     public boolean doesClash(DiaryEntry diaryEntry) {

@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public abstract class ParserDateUtil {
     /** The required input date format to use. */
-    private static final String DATE_TIME_FORMAT = "d/M/y HHmm";
+    public static final String DATE_TIME_FORMAT = "d/M/y HHmm";
     /** The required input date format to use. */
     private static final String DATE_FORMAT = "d/M/y";
     /** The required input time format to use. */

@@ -20,7 +20,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     @FXML
     private VBox sideBarRight;
 
-    DiaryPage(MainWindow mainWindow, Logic logic, Model model) {
+    public DiaryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
 
         sideBarRight.getChildren().clear();

@@ -6,6 +6,8 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.index.Index;
+
 /**
  * Abstraction of a list of {@code Photo}s to be displayed in the diary.
  * Supports accessors that use the {@code description} of the Photo.
@@ -24,6 +26,10 @@ public class PhotoList {
 
     public void addPhoto(Photo photo) {
         photos.add(photo);
+    }
+
+    public Photo deletePhoto(Index index) {
+        return photos.remove(index.getZeroBased());
     }
 
     /**

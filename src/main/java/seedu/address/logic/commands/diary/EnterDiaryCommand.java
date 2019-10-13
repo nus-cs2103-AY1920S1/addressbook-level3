@@ -31,7 +31,8 @@ public class EnterDiaryCommand extends Command {
 
         model.setPageStatus(model.getPageStatus()
                 .withNewPageType(PageType.DIARY)
-                .withNewDiaryEntry(firstDiaryEntry.orElse(null)));
+                .withNewDiaryEntry(firstDiaryEntry.orElse(null))
+                .withNewEditDiaryEntryDescriptor(null));
 
         return new CommandResult(MESSAGE_ENTER_DIARY_SUCCESS, true);
     }

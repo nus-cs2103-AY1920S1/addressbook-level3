@@ -5,6 +5,7 @@ import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand.EditTripDescriptor;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.EditDiaryEntryDescriptor;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.trip.Trip;
@@ -22,13 +23,15 @@ public class PageStatus {
     private final EditPrefsDescriptor editPrefsDescriptor;
     private final EditDayFieldCommand.EditDayDescriptor editDayDescriptor;
     private final EditEventFieldCommand.EditEventDescriptor editEventDescriptor;
+    private final EditDiaryEntryDescriptor editDiaryEntryDescriptor;
 
     public PageStatus(PageType pageType, Trip trip, Day day,
                       Event event, DiaryEntry diaryEntry,
                       EditTripDescriptor editTripDescriptor,
                       EditPrefsDescriptor editPrefsDescriptor,
                       EditDayFieldCommand.EditDayDescriptor editDayDescriptor,
-                      EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
+                      EditEventFieldCommand.EditEventDescriptor editEventDescriptor,
+                      EditDiaryEntryDescriptor editDiaryEntryDescriptor) {
         this.pageType = pageType;
         this.trip = trip;
         this.day = day;
@@ -38,6 +41,7 @@ public class PageStatus {
         this.editPrefsDescriptor = editPrefsDescriptor;
         this.editDayDescriptor = editDayDescriptor;
         this.editEventDescriptor = editEventDescriptor;
+        this.editDiaryEntryDescriptor = editDiaryEntryDescriptor;
     }
 
     /**
@@ -48,7 +52,7 @@ public class PageStatus {
      */
     public PageStatus withNewPageType(PageType pageType) {
         return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -59,7 +63,7 @@ public class PageStatus {
      */
     public PageStatus withNewTrip(Trip trip) {
         return new PageStatus(getPageType(), trip, getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -70,7 +74,7 @@ public class PageStatus {
      */
     public PageStatus withNewDay(Day day) {
         return new PageStatus(getPageType(), getTrip(), day, getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -81,7 +85,7 @@ public class PageStatus {
      */
     public PageStatus withNewEvent(Event event) {
         return new PageStatus(getPageType(), getTrip(), getDay(), event, getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     public PageStatus withResetTrip() {
@@ -98,7 +102,7 @@ public class PageStatus {
 
     public PageStatus withNewDiaryEntry(DiaryEntry diaryEntry) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), diaryEntry, getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -109,7 +113,7 @@ public class PageStatus {
      */
     public PageStatus withNewEditTripDescriptor(EditTripDescriptor editTripDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), editTripDescriptor,
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -120,7 +124,7 @@ public class PageStatus {
      */
     public PageStatus withNewEditPrefsDescriptor(EditPrefsDescriptor editPrefsDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor());
+                editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -131,7 +135,7 @@ public class PageStatus {
      */
     public PageStatus withNewEditDayDescriptor(EditDayFieldCommand.EditDayDescriptor editDayDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor());
+                getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -142,7 +146,7 @@ public class PageStatus {
      */
     public PageStatus withNewEditEventDescriptor(EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor);
+                getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor, getEditDiaryEntryDescriptor());
     }
 
     public PageStatus withResetEditTripDescriptor() {
@@ -159,6 +163,11 @@ public class PageStatus {
 
     public PageStatus withResetEditEventDescriptor() {
         return withNewEditEventDescriptor(null);
+    }
+
+    public PageStatus withNewEditDiaryEntryDescriptor(EditDiaryEntryDescriptor editDiaryEntryDescriptor) {
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), editDiaryEntryDescriptor);
     }
 
     public PageType getPageType() {
@@ -195,5 +204,9 @@ public class PageStatus {
 
     public EditPrefsDescriptor getEditPrefsDescriptor() {
         return editPrefsDescriptor;
+    }
+
+    public EditDiaryEntryDescriptor getEditDiaryEntryDescriptor() {
+        return editDiaryEntryDescriptor;
     }
 }

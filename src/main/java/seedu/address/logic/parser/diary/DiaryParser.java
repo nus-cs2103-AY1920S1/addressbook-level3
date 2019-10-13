@@ -3,17 +3,15 @@ package seedu.address.logic.parser.diary;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.diary.DoneEditDiaryEntryCommand;
 import seedu.address.logic.commands.sidebar.EnterDayPageCommand;
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
 import seedu.address.logic.parser.PageParser;
+import seedu.address.logic.parser.diary.gallery.AddPhotoParser;
+import seedu.address.logic.parser.diary.gallery.DeletePhotoParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.itinerary.dayview.EnterDayParser;
-import seedu.address.logic.parser.itinerary.overallview.ItineraryViewCommand;
 import seedu.address.logic.parser.navbar.NavbarViewParser;
-import seedu.address.logic.parser.sidebar.EnterDayPageParser;
-import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
-import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 
 /**
  * Placeholder javadoc.
@@ -38,7 +36,13 @@ public class DiaryParser implements PageParser {
         case FLIP:
             return new FlipDiaryParser().parse(arguments);
         case EDIT:
-            return new EditDiaryParser().parse(arguments);
+            return new EditDiaryEntryParser().parse(arguments);
+        case DONE:
+            return new DoneEditDiaryEntryParser().parse(arguments);
+        case ADDPHOTO:
+            return new AddPhotoParser().parse(arguments);
+        case DELPHOTO:
+            return new DeletePhotoParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

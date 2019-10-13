@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_EXISTING;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;

@@ -3,7 +3,7 @@ package seedu.address.logic.commands.preferences;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
