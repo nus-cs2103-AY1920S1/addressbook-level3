@@ -22,6 +22,8 @@ import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.util.SampleDataUtil;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
@@ -76,21 +78,26 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyCustomerDatabase initialCustomerData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialCustomerData = new CustomerDatabase(); // to change when storage is settled
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialCustomerData, userPrefs);
     }
 
     private void initLogging(Config config) {

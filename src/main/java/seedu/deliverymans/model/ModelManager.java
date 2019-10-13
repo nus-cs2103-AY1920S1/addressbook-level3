@@ -15,6 +15,9 @@ import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
@@ -24,27 +27,31 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final CustomerDatabase customerDatabase;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    //private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Customer> filteredCustomers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyCustomerDatabase customerDatabase,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, customerDatabase, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.customerDatabase = new CustomerDatabase(customerDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        //filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new CustomerDatabase(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -119,31 +126,31 @@ public class ModelManager implements Model {
     }
 
     //=========== Customer Methods =============================================================
-    /*
+
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return addressBook.hasCustomer(customer);
+        return customerDatabase.hasCustomer(customer);
     }
 
     @Override
     public void deleteCustomer(Customer target) {
-        addressBook.removeCustomer(target);
+        customerDatabase.removeCustomer(target);
     }
 
     @Override
     public void addCustomer(Customer customer) {
-        addressBook.addCustomer(customer);
-        //updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS); - to add.
+        customerDatabase.addCustomer(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
-        addressBook.setCustomer(target, editedCustomer);
+        customerDatabase.setCustomer(target, editedCustomer);
     }
-    */
+
     //=========== Deliveryman Methods =============================================================
 
     @Override
@@ -167,10 +174,25 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
     }
 
     @Override

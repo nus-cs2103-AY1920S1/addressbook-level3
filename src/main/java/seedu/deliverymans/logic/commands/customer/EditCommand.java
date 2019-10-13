@@ -18,11 +18,11 @@ import seedu.deliverymans.commons.util.CollectionUtil;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.model.addressbook.tag.Tag;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.customer.Customer;
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -85,7 +85,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Customer} with the details of {@code customerToEdit}
      * edited with {@code editCustomerDescriptor}.
      */
-    private static Customer createEditedCustomer(Customer customerToEdit, EditCustomerDescriptor editCustomerDescriptor) {
+    private static Customer createEditedCustomer(Customer customerToEdit,
+                                                 EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
