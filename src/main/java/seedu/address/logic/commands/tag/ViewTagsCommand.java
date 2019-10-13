@@ -2,7 +2,7 @@ package seedu.address.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Set;
 
 import seedu.address.logic.commands.Command;
@@ -10,10 +10,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -46,7 +44,6 @@ public class ViewTagsCommand extends Command {
         requireNonNull(model);
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueModuleList uniqueModuleList = activeStudyPlan.getModules();
 
         Module module;
         try {
@@ -61,10 +58,10 @@ public class ViewTagsCommand extends Command {
     }
 
     private Module getTargetModule(StudyPlan activeStudyPlan) throws ModuleNotFoundException {
-        UniqueModuleList uniqueModuleList = activeStudyPlan.getModules();
-        Iterator<Module> moduleIterator = uniqueModuleList.iterator();
-        while (moduleIterator.hasNext()) {
-            Module currentModule = moduleIterator.next();
+        HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
+        Set<String> moduleNames = moduleHashMap.keySet();
+        for (String moduleName: moduleNames) {
+            Module currentModule = moduleHashMap.get(moduleName);
             if (currentModule.getModuleCode().toString().equals(moduleCode)) {
                 return currentModule;
             }

@@ -2,8 +2,8 @@ package seedu.address.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,7 +12,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -46,18 +45,18 @@ public class ViewTaggedCommand extends Command {
         requireNonNull(model);
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueModuleList uniqueModuleList = activeStudyPlan.getModules();
+        HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
 
-        Set<Module> allMatchingModules = getAllMatchingModules(uniqueModuleList);
+        Set<Module> allMatchingModules = getAllMatchingModules(moduleHashMap);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, allMatchingModules));
     }
 
-    private Set<Module> getMatchingModules(String tagName, UniqueModuleList uniqueModuleList) {
-        Iterator<Module> moduleIterator = uniqueModuleList.iterator();
+    private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
+        Set<String> moduleNames = moduleHashMap.keySet();
         Set<Module> matchingModules = new HashSet<Module>();
-        while (moduleIterator.hasNext()) {
-            Module currentModule = moduleIterator.next();
+        for (String moduleName: moduleNames) {
+            Module currentModule = moduleHashMap.get(moduleName);
             boolean matches = checkMatch(currentModule, tagName);
             if (matches) {
                 matchingModules.add(currentModule);
@@ -66,10 +65,10 @@ public class ViewTaggedCommand extends Command {
         return matchingModules;
     }
 
-    private Set<Module> getAllMatchingModules(UniqueModuleList uniqueModuleList) {
+    private Set<Module> getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
         Set<Module> allMatchingModules = new HashSet<Module>();
         for (String tagName: tagNames) {
-            Set<Module> matchingModules = getMatchingModules(tagName, uniqueModuleList);
+            Set<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
             if (allMatchingModules.size() == 0) {
                 allMatchingModules.addAll(matchingModules);
             } else {
