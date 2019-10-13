@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.diary.EnterDiaryCommand;
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
@@ -57,11 +58,11 @@ public abstract class PageWithSidebar<T extends Node> extends Page<T> {
     private void handleEnterExpenditureManager() {
 
     }
-
+    */
     @FXML
     private void handleEnterDairy() {
-
+        mainWindow.executeGuiCommand(EnterDiaryCommand.COMMAND_WORD);
     }
-    */
+
 
 }

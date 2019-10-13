@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -27,6 +28,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime endDate;
     private final String destination;
     private final Double totalBudget;
+    private Diary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
     /**
@@ -39,7 +41,8 @@ public class JsonAdaptedTrip {
             @JsonProperty("endDate") LocalDateTime endDate,
             @JsonProperty("destination")String destination,
             @JsonProperty("totalBudget") Double totalBudget,
-            @JsonProperty("dayList")List<JsonAdaptedDay> dayList) {
+            @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
+            @JsonProperty("diary")Diary diary) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -48,6 +51,7 @@ public class JsonAdaptedTrip {
         if (dayList != null) {
             this.dayList.addAll(dayList);
         }
+        this.diary = diary;
     }
 
     /**

@@ -2,6 +2,9 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
 
@@ -13,6 +16,11 @@ public class AppUtil {
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
         return new Image(MainApp.class.getResourceAsStream(imagePath));
+    }
+
+    public static Image getAbsoluteImage(String absoluteImagePath) throws FileNotFoundException {
+        requireNonNull(absoluteImagePath);
+        return new Image(new FileInputStream(absoluteImagePath));
     }
 
     /**
