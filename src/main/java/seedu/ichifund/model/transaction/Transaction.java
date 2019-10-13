@@ -22,7 +22,8 @@ public class Transaction {
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Description description, Amount amount, Category category, Date date, TransactionType transactionType) {
+    public Transaction(Description description, Amount amount, Category category, Date date,
+                       TransactionType transactionType) {
         requireAllNonNull(description, amount, category);
         this.amount = amount;
         this.description = description;
