@@ -75,7 +75,7 @@ public interface Model {
 
     ObservableList<Book> getOverdueBooks();
 
-    ObservableList<Borrower> getOverdueBooksBorrowers();
+    public ObservableList<Borrower> getOverdueBooksBorrowers();
 
     // ================================================================ LoanRecords
 
