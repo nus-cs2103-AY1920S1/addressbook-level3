@@ -14,9 +14,11 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.PersonBuilder;
 
 public class ClearAddressCommandTest {
     private Model model;
