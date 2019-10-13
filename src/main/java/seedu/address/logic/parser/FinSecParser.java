@@ -48,6 +48,12 @@ public class FinSecParser {
         case EditClaimCommand.COMMAND_WORD:
             return new EditClaimCommandParser().parse(arguments);
 
+        case AddIncomeCommand.COMMAND_WORD:
+            return new AddIncomeCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
