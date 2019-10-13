@@ -202,7 +202,8 @@ public class Module {
      * Returns the string indicating which time slot this module occupies.
      * @return Day and TimeSlots of this module
      */
-    String timeSlotsToString() {
+
+    public String timeSlotsToString() {
 
         int[] temp = getTimeSlotToIntArray();
 
