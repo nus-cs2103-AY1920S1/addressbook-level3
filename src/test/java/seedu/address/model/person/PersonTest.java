@@ -20,15 +20,6 @@ public class PersonTest {
 
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
-
-        // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPicture(VALID_PICTURE_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
-
-        // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
-
     }
 
     @Test

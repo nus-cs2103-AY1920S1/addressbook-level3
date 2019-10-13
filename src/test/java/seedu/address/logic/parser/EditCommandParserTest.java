@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ATTENDANCE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CLASSID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ATTENDANCE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASSID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -11,22 +10,14 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PICTURE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RESULT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PARTICIPATION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PARTICIPATION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PICTURE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PICTURE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.RESULT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ATTENDANCE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPATION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPATION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PICTURE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PICTURE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RESULT_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -88,20 +79,6 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + CLASSID_DESC_BOB + PICTURE_DESC_AMY
-                + ATTENDANCE_DESC_AMY + RESULT_DESC_BOB + NAME_DESC_AMY + PARTICIPATION_DESC_BOB;
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withClassId(VALID_CLASSID_BOB).withPicture(VALID_PICTURE_AMY).withAttendance(VALID_ATTENDANCE_AMY)
-                .withResult(VALID_RESULT_BOB).withParticipation(VALID_PARTICIPATION_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PICTURE_DESC_BOB + ATTENDANCE_DESC_AMY;
@@ -127,18 +104,6 @@ public class EditCommandParserTest {
         descriptor = new EditPersonDescriptorBuilder().withParticipation(VALID_PARTICIPATION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-
-    @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_RESULT_DESC + RESULT_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withResult(VALID_RESULT_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
     }
 
 }
