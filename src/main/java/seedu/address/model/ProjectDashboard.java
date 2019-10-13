@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
 
 /**
@@ -15,6 +16,9 @@ import seedu.address.model.task.UniqueTaskList;
 public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     private final UniqueTaskList tasks;
+    private final UniqueTaskList tasksNotStarted;
+    private final UniqueTaskList tasksDoing;
+    private final UniqueTaskList tasksDone;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     {
         tasks = new UniqueTaskList();
+        tasksNotStarted = new UniqueTaskList();
+        tasksDoing = new UniqueTaskList();
+        tasksDone = new UniqueTaskList();
     }
 
     public ProjectDashboard() {}
@@ -45,6 +52,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void setTasks(List<Task> tasks) {
         this.tasks.setTasks(tasks);
+        splitTasksBasedOnStatus();
     }
 
     /**
@@ -52,7 +60,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void resetData(ReadOnlyProjectDashboard newData) {
         requireNonNull(newData);
-
         setTasks(newData.getTaskList());
     }
 
@@ -72,6 +79,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void addTask(Task p) {
         tasks.add(p);
+        splitTasksBasedOnStatus();
     }
 
     /**
@@ -83,6 +91,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         requireNonNull(editedTask);
 
         tasks.setTask(target, editedTask);
+        splitTasksBasedOnStatus();
     }
 
     /**
@@ -91,9 +100,37 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void removeTask(Task key) {
         tasks.remove(key);
+        splitTasksBasedOnStatus();
     }
 
     //// util methods
+
+    public void splitTasksBasedOnStatus() {
+
+        // prevent duplicates
+        tasksNotStarted.clearAll();
+        tasksDoing.clearAll();
+        tasksDone.clearAll();
+
+        for (Task task: tasks) {
+            TaskStatus taskStatus = task.getTaskStatus();
+
+            switch (taskStatus) {
+                case UNBEGUN:
+                    tasksNotStarted.add(task);
+                    break;
+
+                case DOING:
+                    tasksDoing.add(task);
+                    break;
+
+                case DONE:
+                    tasksDone.add(task);
+                    break;
+
+            }
+        }
+    }
 
     @Override
     public String toString() {
@@ -104,6 +141,21 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     @Override
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTasksNotStarted() {
+        return tasksNotStarted.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTasksDoing() {
+        return tasksDoing.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTasksDone() {
+        return tasksDone.asUnmodifiableObservableList();
     }
 
     @Override

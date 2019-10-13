@@ -76,6 +76,12 @@ public interface Model {
      */
     void setTask(Task target, Task editedTask);
 
+    ObservableList<Task> getFilteredTaskListNotStarted();
+
+    ObservableList<Task> getFilteredTaskListDoing();
+
+    ObservableList<Task> getFilteredTaskListDone();
+
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTasksList();
 

@@ -14,4 +14,10 @@ public interface ReadOnlyProjectDashboard {
      */
     ObservableList<Task> getTaskList();
 
+    ObservableList<Task> getTasksNotStarted();
+
+    ObservableList<Task> getTasksDoing();
+
+    ObservableList<Task> getTasksDone();
+
 }

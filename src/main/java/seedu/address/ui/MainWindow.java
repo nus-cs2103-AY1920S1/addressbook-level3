@@ -103,11 +103,18 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void refreshDashboard() {
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
+                logic.getFilteredTaskListDone());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
+                logic.getFilteredTaskListDone());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -182,6 +189,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            refreshDashboard();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

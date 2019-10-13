@@ -18,12 +18,23 @@ public class TaskListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
-    private ListView<Task> taskListView;
+    private ListView<Task> taskListViewNotStarted;
+    @FXML
+    private ListView<Task> taskListViewDoing;
+    @FXML
+    private ListView<Task> taskListViewDone;
 
-    public TaskListPanel(ObservableList<Task> taskList) {
+    public TaskListPanel(ObservableList<Task> taskListNotStarted, ObservableList<Task> taskListDoing,
+                         ObservableList<Task> taskListDone) {
         super(FXML);
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+
+        taskListViewNotStarted.setItems(taskListNotStarted);
+        taskListViewDoing.setItems(taskListDoing);
+        taskListViewDone.setItems(taskListDone);
+
+        taskListViewNotStarted.setCellFactory(listView -> new TaskListViewCell());
+        taskListViewDoing.setCellFactory(listView -> new TaskListViewCell());
+        taskListViewDone.setCellFactory(listView -> new TaskListViewCell());
     }
 
     /**

@@ -84,6 +84,10 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.setAll(replacement.internalList);
     }
 
+    public void clearAll() {
+        internalList.clear();
+    }
+
     /**
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.

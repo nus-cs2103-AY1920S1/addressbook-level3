@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
-</VBox>
+<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label id="notStartedLabel" contentDisplay="CENTER" text="Not Started" />
+          <ListView fx:id="taskListViewNotStarted" minHeight="-Infinity" minWidth="-Infinity" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label id="doingLabel" alignment="CENTER" text="Doing" />
+          <ListView fx:id="taskListViewDoing" minHeight="-Infinity" minWidth="-Infinity" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label id="doneLabel" alignment="CENTER" text="Done" />
+          <ListView fx:id="taskListViewDone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+         </children>
+      </VBox>
+  </children>
+</HBox>
