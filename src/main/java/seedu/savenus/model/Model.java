@@ -121,6 +121,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
+    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    ObservableList<Purchase> getPurchaseHistory();
+
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

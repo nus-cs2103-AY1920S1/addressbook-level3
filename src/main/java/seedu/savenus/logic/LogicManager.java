@@ -15,6 +15,7 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.storage.Storage;
 
 /**
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Food> getFilteredFoodList() {
         return model.getFilteredFoodList();
+    }
+
+    @Override
+    public ObservableList<Purchase> getPurchaseHistory() {
+        return model.getPurchaseHistory();
     }
 
     @Override

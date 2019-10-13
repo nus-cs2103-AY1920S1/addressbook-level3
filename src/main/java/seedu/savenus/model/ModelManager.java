@@ -29,6 +29,7 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
+    private final ObservableList<Purchase> purchaseHistory;
 
     private Optional<Comparator<Food>> recommendationComparator;
 
@@ -44,6 +45,7 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
+        purchaseHistory = this.menu.getPurchaseHistory();
 
         // Initialize recommendationComparator to default
         recommendationComparator = Optional.empty();
@@ -139,6 +141,16 @@ public class ModelManager implements Model {
     @Override
     public void removePurchase(Purchase target) {
         //TODO
+    }
+    //=========== Filtered Purchase List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the {@code PurchaseHistory} backed by the internal list of
+     * {@code versionedMenu}
+     */
+    @Override
+    public ObservableList<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
     }
 
     //=========== Wallet Accessors =========================================================================

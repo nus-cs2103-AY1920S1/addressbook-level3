@@ -9,6 +9,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of food */
     ObservableList<Food> getFilteredFoodList();
+
+    /** Returns an unmodifiable view of the purchase history */
+    ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Returns the user prefs' address book file path.
