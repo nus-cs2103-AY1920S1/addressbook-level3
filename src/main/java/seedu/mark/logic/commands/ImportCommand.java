@@ -149,6 +149,10 @@ public class ImportCommand extends Command {
             return this.model;
         }
 
+        public FolderStructure getFolders() {
+            return this.foldersToImport;
+        }
+
         /**
          * Checks whether the {@code MarkImporter} contains bookmarks that
          * already exist in the {@code model}.
@@ -228,6 +232,7 @@ public class ImportCommand extends Command {
             MarkImporter bi = (MarkImporter) other;
 
             return getModel().equals(bi.getModel())
+                    && getFolders().equals(bi.getFolders())
                     && getExistingBookmarks().equals(bi.getExistingBookmarks())
                     && getBookmarksToImport().equals(bi.getBookmarksToImport());
         }
