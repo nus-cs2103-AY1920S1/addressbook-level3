@@ -412,3 +412,4 @@ Displays expenditure ranking chart for July 2019.
 * *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`
 * *Loan Sort By Value* : `loansort s/BY`
 
+1
