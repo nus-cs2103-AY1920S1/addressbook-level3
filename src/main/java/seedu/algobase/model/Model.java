@@ -134,9 +134,4 @@ public interface Model {
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
 
-    //=========== Plan List =============================================================
-
-    /** Returns an unmodifiable view of the filtered Problem list */
-    ObservableList<Plan> getFilteredPlanList();
-
 }
