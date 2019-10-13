@@ -10,7 +10,7 @@ import dream.fcard.model.cards.FlashCard;
 /**
  * ...
  */
-public class ExamRunner {
+public class ExamRunner implements Exam{
 
     private Deck deck;
     private final int deckSize;
@@ -27,6 +27,7 @@ public class ExamRunner {
     /**
      * Exam driver method.
      */
+    @Override
     public void runExam() {
         System.out.println("Beginning test:");
         iterateThroughDeck();
