@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ItineraryStorage itineraryStorage = new JsonItineraryStorage(userPrefs.getAddressBookFilePath());
+        ItineraryStorage itineraryStorage = new JsonItineraryStorage(userPrefs.getItineraryFilePath());
         storage = new StorageManager(itineraryStorage, userPrefsStorage);
 
         initLogging(config);
@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyItinerary> addressBookOptional;
+        Optional<ReadOnlyItinerary> itineraryOptional;
         ReadOnlyItinerary initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            itineraryOptional = storage.readItinerary();
+            if (!itineraryOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Itinerary");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = itineraryOptional.orElseGet(SampleDataUtil::getSampleItinerary);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Itinerary");
             initialData = new Itinerary();

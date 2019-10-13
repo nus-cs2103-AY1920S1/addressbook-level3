@@ -179,14 +179,14 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedActivity = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedActivity) && model.hasPerson(editedActivity)) {
+    Person contactToEdit = lastShownList.get(index.getZeroBased());
+    Person editedAccommodation = createEditedPerson(contactToEdit, editPersonDescriptor);
+    if (!contactToEdit.isSamePerson(editedAccommodation) && model.hasPerson(editedAccommodation)) {
         throw new CommandException(MESSAGE_DUPLICATE_PERSON);
     }
-    model.setPerson(personToEdit, editedActivity);
+    model.setPerson(contactToEdit, editedAccommodation);
     model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedActivity));
+    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedAccommodation));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.

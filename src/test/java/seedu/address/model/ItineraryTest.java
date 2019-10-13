@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.person.Person;
+import seedu.address.model.activity.Accommodation;
+import seedu.address.model.person.Contact;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
@@ -46,11 +46,11 @@ public class ItineraryTest {
 
     @Test
     public void resetDataPerson_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two contacts with the same identity fields
+        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        ItineraryStub newData = new ItineraryStub(newPersons);
+        List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
+        ItineraryStub newData = new ItineraryStub(newContacts);
 
         assertThrows(DuplicatePersonException.class, () -> itinerary.resetDataPerson(newData));
     }
@@ -74,7 +74,7 @@ public class ItineraryTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         itinerary.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(itinerary.hasPerson(editedAlice));
     }
@@ -85,23 +85,23 @@ public class ItineraryTest {
     }
 
     /**
-     * A stub ReadOnlyItinerary whose persons list can violate interface constraints.
+     * A stub ReadOnlyItinerary whose contacts list can violate interface constraints.
      */
     private static class ItineraryStub implements ReadOnlyItinerary {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Activity> activities = FXCollections.observableArrayList();
+        private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        private final ObservableList<Accommodation> activities = FXCollections.observableArrayList();
 
-        ItineraryStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        ItineraryStub(Collection<Contact> contacts) {
+            this.contacts.setAll(contacts);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Contact> getPersonList() {
+            return contacts;
         }
 
         @Override
-        public ObservableList<Activity> getActivityList() {
+        public ObservableList<Accommodation> getActivityList() {
             return activities; }
 
     }

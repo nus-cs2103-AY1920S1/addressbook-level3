@@ -26,4 +26,5 @@ public class Day {
     public static boolean isValidDayNumber(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
 }

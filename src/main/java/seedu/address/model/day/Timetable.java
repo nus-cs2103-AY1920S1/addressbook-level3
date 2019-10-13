@@ -48,18 +48,18 @@ public class Timetable {
     }
 
     /**
-     * Adds an activity to timetable.
+     * Adds an accommodation to timetable.
      *
-     * @param start first index to add activity
-     * @param end last index to add the activity
+     * @param start first index to add accommodation
+     * @param end last index to add the accommodation
      */
-    private void addActivityToIndexRange(Activity activity, Index start, Index end)
+    private void addActivityToIndexRange(Activity accommodation, Index start, Index end)
             throws TimeSlotUnavailableException {
         for (int i = start.getZeroBased(); i <= end.getZeroBased(); i++) {
             if (timetable[i] != null) {
                 throw new TimeSlotUnavailableException();
             }
-            timetable[i] = new TimeSlot(activity);
+            timetable[i] = new TimeSlot(accommodation);
         }
     }
 

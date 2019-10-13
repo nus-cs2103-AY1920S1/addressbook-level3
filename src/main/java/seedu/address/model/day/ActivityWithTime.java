@@ -5,7 +5,7 @@ import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
 
 /**
- * Wraps the Activity in an object with time and duration fields.
+ * Wraps the Accommodation in an object with time and duration fields.
  */
 public class ActivityWithTime {
     private final Activity activity;

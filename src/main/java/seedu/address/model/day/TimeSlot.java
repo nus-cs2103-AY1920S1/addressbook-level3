@@ -14,9 +14,9 @@ public class TimeSlot {
         activityAtThisTime = null;
     }
 
-    public TimeSlot(Activity activity) {
-        requireNonNull(activity);
-        this.activityAtThisTime = activity;
+    public TimeSlot(Activity accommodation) {
+        requireNonNull(accommodation);
+        this.activityAtThisTime = accommodation;
     }
 
     public boolean isAvailable() {

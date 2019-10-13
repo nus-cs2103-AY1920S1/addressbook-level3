@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`help`* : a list of commands available on Plan^2^Travel
-* **`create activity`**`n/Ernest d/1 l/Tokyo dt/18/9/2019 0900` : adds an activity named `Ernest` at location `Tokyo` from `18/9/2019 0900` to the activity list.
+* **`create accommodation`**`n/Ernest d/1 l/Tokyo dt/18/9/2019 0900` : adds an accommodation named `Ernest` at location `Tokyo` from `18/9/2019 0900` to the accommodation list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -57,56 +57,56 @@ Displays a help page +
 Format: `help`
 
 // tag::createactivity[]
-=== Creating an activity: `create activity`
+=== Creating an accommodation: `create accommodation`
 
-Creates an activity to the activity list +
-Format: `create activity n/NAME d/DURATION [l/LOCATION] [dt/DATE_TIME]`
+Creates an accommodation to the accommodation list +
+Format: `create accommodation n/NAME d/DURATION [l/LOCATION] [dt/DATE_TIME]`
 
 * DURATION is in hours. Shortest acceptable duration is 0.5 hours.
 * DATE_TIME is in dd/mm/yyyy HHHH format.
 
 Examples:
 
-* `create activity n/Oscar d/21`
-* `create activity n/Ernest d/1 l/Tokyo dt/18/9/2019 0900`
+* `create accommodation n/Oscar d/21`
+* `create accommodation n/Ernest d/1 l/Tokyo dt/18/9/2019 0900`
 
 // end::createactivity[]
-=== Editing an activity: `edit activity`
+=== Editing an accommodation: `edit accommodation`
 
-Edits an activity +
-Format: `edit activity INDEX [n/NAME] [d/DURATION] [l/LOCATION]`
+Edits an accommodation +
+Format: `edit accommodation INDEX [n/NAME] [d/DURATION] [l/LOCATION]`
 
-* Edits the activity with the specified INDEX. The index refers to the index number shown in the displayed activity list. The index must be a positive integer 1, 2, 3, ...
+* Edits the accommodation with the specified INDEX. The index refers to the index number shown in the displayed accommodation list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
 Examples:
 
-* `edit activity 1 n/Dinner d/0.5 l/Hotel`
+* `edit accommodation 1 n/Dinner d/0.5 l/Hotel`
 
-Edits the name, duration and location of the 1st activity to be Dinner, 0.5 and Hotel respectively.
+Edits the name, duration and location of the 1st accommodation to be Dinner, 0.5 and Hotel respectively.
 
 // tag::deleteactivity[]
-=== Deleting an activity: `delete activity`
+=== Deleting an accommodation: `delete accommodation`
 
-Delete one or more activities from the activity list +
-Format: `delete activity INDEX...`
+Delete one or more activities from the accommodation list +
+Format: `delete accommodation INDEX...`
 
-* Deletes the activity at the specified INDEX.
-* The index refers to the index number shown in the displayed activity list.
+* Deletes the accommodation at the specified INDEX.
+* The index refers to the index number shown in the displayed accommodation list.
 * The index must be a positive integer 1, 2, 3, …
 
 Examples:
 
-* `delete activity 2`
+* `delete accommodation 2`
 
-Deletes the 2nd activity in the activity list.
+Deletes the 2nd accommodation in the accommodation list.
 
 // end::deleteactivity[]
-=== Listing all activities: `list activity`
+=== Listing all activities: `list accommodation`
 
 Displays a list view of all the activities +
-Format: `list activity`
+Format: `list accommodation`
 
 === Creating a contact: `create contact`
 
@@ -130,7 +130,7 @@ Format: `delete contact INDEX...`
 
 Examples:
 
-* `delete activity 3`
+* `delete accommodation 3`
 
 Deletes the 3rd contact in the contact list.
 
@@ -188,16 +188,16 @@ Examples:
 
 Schedules activities 5, 10, 4, 11 under day 2.
 
-=== Unscheduling activities from a day: `unschedule activity`
+=== Unscheduling activities from a day: `unschedule accommodation`
 
 Unschedule activities from a day +
-Format: `unschedule activity ACTIVITY_INDEX... DAY_NUMBER`
+Format: `unschedule accommodation ACTIVITY_INDEX... DAY_NUMBER`
 
 Examples:
 
-* `unschedule activity 5 day 1`
+* `unschedule accommodation 5 day 1`
 
-This remove activity 5 from day 1.
+This remove accommodation 5 from day 1.
 
 === Unscheduling activities from a day: `unschedule time`
 
@@ -208,7 +208,7 @@ Examples:
 
 * `unschedule time 2300 day 1`
 
-This removes the activity at 2300 from day 1 of the schedule.
+This removes the accommodation at 2300 from day 1 of the schedule.
 
 === List the activities in a day: `list day`
 

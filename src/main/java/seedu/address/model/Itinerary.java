@@ -2,26 +2,30 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.accommodation.UniqueAccommodationList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.day.Day;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.day.DayManager;
+
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class Itinerary implements ReadOnlyItinerary {
-
-    private final UniquePersonList persons;
+    private String country;
     private final UniqueActivityList activities;
-    private final List<Day> days;
+    private final UniqueAccommodationList accommodations;
+    private final UniqueContactList contacts;
+    private final DayManager days;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,9 +35,10 @@ public class Itinerary implements ReadOnlyItinerary {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         activities = new UniqueActivityList();
-        days = new ArrayList<>();
+        accommodations = new UniqueAccommodationList();
+        contacts = new UniqueContactList();
+        days = new DayManager();
     }
 
     public Itinerary() {}
@@ -43,75 +48,69 @@ public class Itinerary implements ReadOnlyItinerary {
      */
     public Itinerary(ReadOnlyItinerary toBeCopied) {
         this();
-        resetDataPerson(toBeCopied);
+        resetDataContact(toBeCopied);
         resetDataActivity(toBeCopied);
+        resetDataAccommodation(toBeCopied);
     }
 
-    //// For PERSON list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
+    //// For ACCOMMODATION list overwrite operations
 
     /**
      * Resets the existing data of this {@code Itinerary} with {@code newData}.
      */
-    public void resetDataPerson(ReadOnlyItinerary newData) {
+    public void resetDataAccommodation(ReadOnlyItinerary newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setAccommodations(newData.getAccommodationList());
     }
 
-    //// person-level operations
-
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Replaces the contents of the contacts list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public void setAccommodations(List<Accommodation> accommodations) {
+        this.accommodations.setAccommodations(accommodations);
     }
 
+    //// accommodation-level operations
+
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public boolean hasAccommodation(Accommodation accommodation) {
+        requireNonNull(accommodation);
+        return accommodations.contains(accommodation);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addAccommodation(Accommodation a) {
+        accommodations.add(a);
+    }
+
+    /**
+     * Replaces the given contacts {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The contacts identity of {@code editedPerson} must not be the same as another existing contacts in the
+     * address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setAccommodation(Accommodation target, Accommodation editedAccommodation) {
+        requireNonNull(editedAccommodation);
 
-        persons.setPerson(target, editedPerson);
+        accommodations.setAccommodation(target, editedAccommodation);
     }
 
     /**
      * Removes {@code key} from this {@code Itinerary}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeAccommodation(Accommodation key) {
+        accommodations.remove(key);
     }
 
     //// For ACTIVITY list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setActivities(List<Activity> activities) {
-        this.activities.setActivities(activities);
-    }
 
     /**
      * Resets the existing data of this {@code Itinerary} with {@code newData}.
@@ -122,10 +121,18 @@ public class Itinerary implements ReadOnlyItinerary {
         setActivities(newData.getActivityList());
     }
 
+    /**
+     * Replaces the contents of the contacts list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setActivities(List<Activity> activities) {
+        this.activities.setActivities(activities);
+    }
+
     //// activity-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
      */
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
@@ -133,17 +140,18 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
      */
     public void addActivity(Activity a) {
         activities.add(a);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given contacts {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The contacts identity of {@code editedPerson} must not be the same as another existing contacts in the address
+     * book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         requireNonNull(editedActivity);
@@ -159,56 +167,109 @@ public class Itinerary implements ReadOnlyItinerary {
         activities.remove(key);
     }
 
-    //// For DAY list overwrite operations
+    //// For CONTACT list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Resets the existing data of this {@code Itinerary} with {@code newData}.
      */
-    public void setDays(List<Day> days) {
-        days.clear();
-        addDays(days);
-    }
+    public void resetDataContact(ReadOnlyItinerary newData) {
+        requireNonNull(newData);
 
-    //// day-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasDay(Day day) {
-        requireNonNull(day);
-        return days.contains(day);
+        setContacts(newData.getContactList());
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Replaces the contents of the contacts list with {@code contacts}.
+     * {@code contacts} must not contain duplicate contacts.
      */
-    public void addDays(List<Day> d) {
-        for (Day day : d) {
-            this.days.add(day);
-        }
+    public void setContacts(List<Contact> contacts) {
+        this.contacts.setContacts(contacts);
+    }
+
+    //// contacts-level operations
+
+    /**
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     */
+    public boolean hasContact(Contact contact) {
+        requireNonNull(contact);
+        return contacts.contains(contact);
+    }
+
+    /**
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addContact(Contact c) {
+        contacts.add(c);
+    }
+
+    /**
+     * Replaces the given contacts {@code target} in the list with {@code editedContact}.
+     * {@code target} must exist in the address book.
+     * The contacts identity of {@code editedContact} must not be the same as another existing contacts in the
+     * address book.
+     */
+    public void setContact(Contact target, Contact editedContact) {
+        requireNonNull(editedContact);
+
+        contacts.setContact(target, editedContact);
     }
 
     /**
      * Removes {@code key} from this {@code Itinerary}.
      * {@code key} must exist in the address book.
      */
-    public void removeDay(Day key) {
-        days.remove(key);
+    public void removeContact(Contact key) {
+        contacts.remove(key);
+    }
+
+    //// For DAY list overwrite operations
+
+    /**
+     * Replaces the contents of the contacts list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setDays(int n) {
+        this.days.setDays(n);
+    }
+
+    /**
+     * Replaces the contents of the contacts list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setDays(List<Day> days) {
+        this.days.setDays(days);
+    }
+
+    /**
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addDays(int n) {
+        this.days.addDays(n);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Itinerary}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDay(int n) {
+        this.days.removeDay(n);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return accommodations.asUnmodifiableObservableList().size() + " accommodations, "
+               + activities.asUnmodifiableObservableList().size() + " activities, "
+               + contacts.asUnmodifiableObservableList().size() + " contacts.";
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Accommodation> getAccommodationList() {
+        return accommodations.asUnmodifiableObservableList();
     }
 
     @Override
@@ -216,15 +277,24 @@ public class Itinerary implements ReadOnlyItinerary {
         return activities.asUnmodifiableObservableList();
     }
 
+
+    @Override
+    public ObservableList<Contact> getContactList() {
+        return contacts.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Itinerary // instanceof handles nulls
-                && persons.equals(((Itinerary) other).persons));
+                && accommodations.equals(((Itinerary) other).accommodations))
+                && activities.equals(((Itinerary) other).activities)
+                && contacts.equals(((Itinerary) other).contacts)
+                && days.equals(((Itinerary) other).days);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return accommodations.hashCode() * activities.hashCode() * contacts.hashCode();
     }
 }

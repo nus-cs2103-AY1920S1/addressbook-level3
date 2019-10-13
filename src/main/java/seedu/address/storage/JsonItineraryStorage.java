@@ -27,32 +27,32 @@ public class JsonItineraryStorage implements ItineraryStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getItineraryFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyItinerary> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException {
+        return readItinerary(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readItinerary}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyItinerary> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyItinerary> readItinerary(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableItinerary> jsonItinerary = JsonUtil.readJsonFile(
+                filePath, JsonSerializableItinerary.class);
+        if (!jsonItinerary.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonItinerary.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonItineraryStorage implements ItineraryStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyItinerary addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveItinerary(ReadOnlyItinerary itinerary) throws IOException {
+        saveItinerary(itinerary, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyItinerary)}.
+     * Similar to {@link #saveItinerary(ReadOnlyItinerary)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyItinerary addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveItinerary(ReadOnlyItinerary itinerary, Path filePath) throws IOException {
+        requireNonNull(itinerary);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableItinerary(itinerary), filePath);
     }
 
 }

@@ -21,12 +21,12 @@ public interface Storage extends ItineraryStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getItineraryFilePath();
 
     @Override
-    Optional<ReadOnlyItinerary> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyItinerary addressBook) throws IOException;
+    void saveItinerary(ReadOnlyItinerary itinerary) throws IOException;
 
 }

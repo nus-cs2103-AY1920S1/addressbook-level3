@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ Itinerary methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return itineraryStorage.getAddressBookFilePath();
+    public Path getItineraryFilePath() {
+        return itineraryStorage.getItineraryFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyItinerary> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(itineraryStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException {
+        return readItinerary(itineraryStorage.getItineraryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyItinerary> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyItinerary> readItinerary(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return itineraryStorage.readAddressBook(filePath);
+        return itineraryStorage.readItinerary(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyItinerary addressBook) throws IOException {
-        saveAddressBook(addressBook, itineraryStorage.getAddressBookFilePath());
+    public void saveItinerary(ReadOnlyItinerary itinerary) throws IOException {
+        saveItinerary(itinerary, itineraryStorage.getItineraryFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyItinerary addressBook, Path filePath) throws IOException {
+    public void saveItinerary(ReadOnlyItinerary itinerary, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        itineraryStorage.saveAddressBook(addressBook, filePath);
+        itineraryStorage.saveItinerary(itinerary, filePath);
     }
 
 }

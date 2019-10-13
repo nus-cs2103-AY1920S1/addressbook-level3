@@ -16,7 +16,7 @@ public interface ItineraryStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getItineraryFilePath();
 
     /**
      * Returns Itinerary data as a {@link ReadOnlyItinerary}.
@@ -24,23 +24,23 @@ public interface ItineraryStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyItinerary> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getItineraryFilePath()
      */
-    Optional<ReadOnlyItinerary> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyItinerary> readItinerary(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyItinerary} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyItinerary addressBook) throws IOException;
+    void saveItinerary(ReadOnlyItinerary addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyItinerary)
+     * @see #saveItinerary(ReadOnlyItinerary)
      */
-    void saveAddressBook(ReadOnlyItinerary addressBook, Path filePath) throws IOException;
+    void saveItinerary(ReadOnlyItinerary itinerary, Path filePath) throws IOException;
 
 }
