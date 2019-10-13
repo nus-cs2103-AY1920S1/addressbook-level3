@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Item itemDeleted = model.removeItem(targetIndex.getZeroBased());
+        Item itemDeleted = model.deleteItem(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
     }
 
