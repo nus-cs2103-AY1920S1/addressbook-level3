@@ -14,7 +14,7 @@ import seedu.mark.model.reminder.Reminder;
  * A utility class to help with building Reminder objects.
  */
 public class ReminderBuilder {
-    public static final String DEFAULT_NOTE = "See Website";
+    public static final String DEFAULT_NOTE = Note.DEFAULT_VALUE;
     public static final Bookmark DEFAULT_BOOKMARK = ALICE;
     public static final String DEFAULT_TIME = "12/12/2020 1800";
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
