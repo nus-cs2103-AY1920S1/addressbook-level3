@@ -78,15 +78,17 @@ class JsonAdaptedItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
         }
-        if (!ExpiryDate.isValidExpiryDate(this.expiryDate)) {
-            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        if (!ExpiryDate.isValidFormatExpiryDate(this.expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
+
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
         if (this.reminderThreshold == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ReminderThreshold.class.getSimpleName()));
         }
+
         if (!ReminderThreshold.isValidReminderThreshold(this.reminderThreshold)) {
             throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }

@@ -37,7 +37,7 @@ public class EditItemDescriptorTest {
         assertFalse(DESC_KIWI.equals(editedAmy));
 
         // different expiry date -> returns false
-        editedAmy = new EditItemDescriptorBuilder(DESC_KIWI).withExpiryDate("10/10/2019").build();
+        editedAmy = new EditItemDescriptorBuilder(DESC_KIWI).withExpiryDate("10/10/2020").build();
         assertFalse(DESC_KIWI.equals(editedAmy));
 
         // different tags -> returns false

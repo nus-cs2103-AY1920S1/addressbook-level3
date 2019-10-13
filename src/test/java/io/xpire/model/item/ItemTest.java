@@ -31,7 +31,7 @@ public class ItemTest {
         assertFalse(KIWI.isSameItem(null));
 
         // different expiry date -> returns false
-        Item editedKiwi = new ItemBuilder(KIWI).withExpiryDate("02/02/2019").build();
+        Item editedKiwi = new ItemBuilder(KIWI).withExpiryDate("02/02/2020").build();
         assertFalse(KIWI.isSameItem(editedKiwi));
 
         // different name -> returns false
@@ -67,7 +67,7 @@ public class ItemTest {
         assertFalse(KIWI.equals(editedKiwi));
 
         // different expiry date -> returns false
-        editedKiwi = new ItemBuilder(KIWI).withExpiryDate("01/01/2019").build();
+        editedKiwi = new ItemBuilder(KIWI).withExpiryDate("01/01/2020").build();
         assertFalse(KIWI.equals(editedKiwi));
 
         // different tags -> returns false
