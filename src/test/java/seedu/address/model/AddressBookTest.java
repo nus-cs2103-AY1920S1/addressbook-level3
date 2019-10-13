@@ -79,7 +79,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void removePerson_personInAddressBook_returnsTrue() {
+    public void removePerson_personInAddressBook_returnsFalse() {
         addressBook.addPerson(ALICE);
         addressBook.removePerson(ALICE);
         assertFalse(addressBook.hasPerson(ALICE));
