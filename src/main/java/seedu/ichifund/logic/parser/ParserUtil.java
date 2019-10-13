@@ -21,6 +21,7 @@ import seedu.ichifund.model.person.Name;
 import seedu.ichifund.model.person.Phone;
 import seedu.ichifund.model.tag.Tag;
 import seedu.ichifund.model.transaction.Category;
+import seedu.ichifund.model.transaction.TransactionType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -145,11 +146,15 @@ public class ParserUtil {
         return new Day("31");
     }
 
-    public static Month parseMonth(List<String> allValues) {
+    public static Month parseMonth(String s) {
         return new Month("10");
     }
 
     public static Year parseYear(String s) {
         return new Year("2019");
+    }
+
+    public static TransactionType parseTransactionType(String s) {
+        return new TransactionType(s);
     }
 }
