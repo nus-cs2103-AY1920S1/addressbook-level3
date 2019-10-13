@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -35,8 +37,9 @@ public class ModelManager implements Model {
     private final FilteredList<Dish> filteredDishes;
     private final FilteredList<Meal> filteredMeals;
     private final SortedList<Meal> sortedMeals;
-
     private final CalorieBudget budget;
+    private final int remainingBudget;
+    private final FilteredList<Dish> suggestedDish;
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
@@ -55,6 +58,14 @@ public class ModelManager implements Model {
         this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
         this.statistics = null;
         this.budget = new CalorieBudget();
+        if (budget.getCurrentBudget().isPresent()) {
+            this.remainingBudget = 1000;
+            //this.remainingBudget = budget.getCurrentBudget().getAsInt();
+        } else {
+            this.remainingBudget = 1000;
+            //this.remainingBudget = 0;
+        }
+        this.suggestedDish = null;
     }
 
     public ModelManager() {
@@ -212,4 +223,14 @@ public class ModelManager implements Model {
     public CalorieBudget getCalorieBudget() {
         return this.budget;
     }
+
+    @Override
+    public ObservableList<Dish> suggestMeal() {
+        for (int i = 0; i < dishDatabase.size(); i++) {
+            if (remainingBudget >= dishDatabase.getDishList().get(i).getCalories().getValue()) {
+                suggestedDish.add(dishDatabase.getDishList().get(i));
+            }
+        }
+        return suggestedDish;
+    };
 }

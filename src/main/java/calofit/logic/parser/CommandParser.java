@@ -16,6 +16,7 @@ import calofit.logic.commands.FindCommand;
 import calofit.logic.commands.HelpCommand;
 import calofit.logic.commands.ListCommand;
 import calofit.logic.commands.ReportCommand;
+import calofit.logic.commands.SuggestCommand;
 import calofit.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class CommandParser {
 
         case ReportCommand.COMMAND_WORD:
             return new ReportCommand();
+
+        case SuggestCommand.COMMAND_WORD:
+            return new SuggestCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

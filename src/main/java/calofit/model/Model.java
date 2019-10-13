@@ -1,6 +1,7 @@
 package calofit.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -105,4 +106,6 @@ public interface Model {
     boolean hasDishName(Dish dish);
 
     CalorieBudget getCalorieBudget();
+
+    ObservableList<Dish> suggestMeal();
 }
