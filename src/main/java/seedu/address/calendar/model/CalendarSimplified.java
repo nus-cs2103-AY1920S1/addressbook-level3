@@ -11,4 +11,5 @@ public class CalendarSimplified extends Calendar {
     public IntStream getDays() {
         return IntStream.of(days);
     }
+
 }
