@@ -28,6 +28,13 @@
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                     </Menu>
+                    <Menu mnemonicParsing="false" text="View">
+                        <MenuItem fx:id="showTransactionMenuItem" mnemonicParsing="false" onAction="#handleShowTransaction" text="Show Transaction" />
+                        <MenuItem fx:id="showRepeaterMenuItem" mnemonicParsing="false" onAction="#handleShowRepeater" text="Show Repeater" />
+                        <MenuItem fx:id="showBudgetMenuItem" mnemonicParsing="false" onAction="#handleShowBudget" text="Show Budget" />
+                        <MenuItem fx:id="showLoanMenuItem" mnemonicParsing="false" onAction="#handleShowLoan" text="Show Loan" />
+                        <MenuItem fx:id="showAnalyticsMenuItem" mnemonicParsing="false" onAction="#handleShowAnalytics" text="Show Analytics" />
+                    </Menu>
                     <Menu mnemonicParsing="false" text="Help">
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
@@ -35,7 +42,7 @@
                 <VBox styleClass="padded-container">
                     <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" />
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" />
-                    <TabPane side="LEFT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <TabPane fx:id="mainTabPane" side="LEFT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                         <tabs>
                             <Tab text="Transaction">
                                 <content>
