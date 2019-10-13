@@ -108,9 +108,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addFood(Food food) {
-        // Choose not to updateFilteredFoodList with PREDICATE_SHOW_ALL_FOOD
-        // The user can clear this by using 'list' command
         menu.addFood(food);
+        updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
     }
 
     @Override
