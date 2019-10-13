@@ -12,7 +12,7 @@ class FileImporterTest {
 
     @Test
     void readJsFile_success() {
-        Path path = Paths.get(".\\src\\test\\java\\dream\\fcard\\util\\code\\testData.js");
+        Path path = Paths.get("./src/test/java/dream/fcard/util/code/testData.js");
         BufferedReader br = FileImporter.readJsFile(path.toString());
         assertNotNull(br);
 
