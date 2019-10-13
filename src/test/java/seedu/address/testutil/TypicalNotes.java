@@ -28,6 +28,8 @@ public class TypicalNotes {
     public static final Note PIPELINE = new NoteBuilder().withTitle("Pipelining Definition")
             .withContent("Pipelining is the process of making a single processor run multiple instructions " 
                     + "simultaneously.").build();
+    public static final Note POTATO =
+            new NoteBuilder().withTitle("Potatoes").withContent("I really like potatoes.").build();
     
 /*
     // Manually added
@@ -50,7 +52,7 @@ public class TypicalNotes {
     /**
      * Returns an {@code AddressBook} with all the typical notes.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalNoteList() {
         AddressBook ab = new AddressBook();
         for (Note note : getTypicalNotes()) {
             ab.addNote(note);
@@ -59,6 +61,6 @@ public class TypicalNotes {
     }
 
     public static List<Note> getTypicalNotes() {
-        return new ArrayList<>(Arrays.asList(SAMPLE, PIPELINE));
+        return new ArrayList<>(Arrays.asList(SAMPLE, PIPELINE, POTATO));
     }
 }
