@@ -13,7 +13,6 @@ import seedu.address.model.module.Name;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
-import seedu.address.model.semester.SemesterNameComparator;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
@@ -151,10 +150,10 @@ public class StudyPlan implements Cloneable {
         List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
         List<String> focusElectives = moduleInfo.getFocusElectives();
         for (String focusPrimary: focusPrimaries) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary));
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
         }
         for (String focusElective: focusElectives) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective));
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective+ ":E"));
         }
         boolean canSu = moduleInfo.getSuEligibility();
         if (canSu) {
@@ -170,7 +169,6 @@ public class StudyPlan implements Cloneable {
                 }
             }
         }
-        SemesterNameComparator semesterNameComparator = new SemesterNameComparator();
         /*
         // For setting completed tag
         // Needs current semester to work
