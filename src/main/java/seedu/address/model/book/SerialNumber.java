@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Book's serial number in the catalog.
  * Guarantees: immutable; is valid as declared in {@link #isValidSerialNumber(String)}
  */
-public class SerialNumber {
+public class SerialNumber implements Comparable<SerialNumber> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Serial numbers should start with prefix \"B\", followed by 5 digits. They should be unique.";
@@ -32,6 +32,16 @@ public class SerialNumber {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Converts a serial number to an integer (for comparing).
+     *
+     * @return an integer represented by the given serial number.
+     */
+    public int serialNumberToInt() {
+        assert this.value.length() > 0 : "Invalid serial number";
+        return Integer.parseInt(this.toString().substring(1));
+    }
+
     @Override
     public String toString() {
         return value;
@@ -42,6 +52,11 @@ public class SerialNumber {
         return other == this // short circuit if same object
                 || (other instanceof SerialNumber // instanceof handles nulls
                 && value.equals(((SerialNumber) other).value)); // state check
+    }
+
+    @Override
+    public int compareTo(SerialNumber b) {
+        return Integer.compare(this.serialNumberToInt(), b.serialNumberToInt());
     }
 
     @Override

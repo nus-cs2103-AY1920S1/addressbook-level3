@@ -38,4 +38,14 @@ class SerialNumberGeneratorTest {
         assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00005"));
         assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00007"));
     }
+
+    @Test
+    void generateSerialNumber_nullFloorKey_success() {
+        Catalog catalog = new Catalog();
+        Book newBook = new BookBuilder().withTitle("testBook").withSerialNumber("B00006").build();
+        catalog.addBook(newBook);
+        SerialNumberGenerator.setCatalog(catalog);
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00001"));
+        assertEquals(SerialNumberGenerator.generateSerialNumber(), new SerialNumber("B00002"));
+    }
 }
