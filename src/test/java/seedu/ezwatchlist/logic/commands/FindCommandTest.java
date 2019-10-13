@@ -4,29 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/FindCommandTest.java
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-=======
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ezwatchlist.testutil.TypicalPersons.CARL;
 import static seedu.ezwatchlist.testutil.TypicalPersons.ELLE;
 import static seedu.ezwatchlist.testutil.TypicalPersons.FIONA;
 import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/FindCommandTest.java
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/FindCommandTest.java
-import seedu.ezwatchlist.logic.commands.FindCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/FindCommandTest.java
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;

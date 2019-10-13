@@ -5,10 +5,6 @@ import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/ClearCommandTest.java
-import seedu.ezwatchlist.logic.commands.ClearCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/ClearCommandTest.java
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;

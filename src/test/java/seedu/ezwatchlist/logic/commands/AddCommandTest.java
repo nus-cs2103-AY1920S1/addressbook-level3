@@ -15,22 +15,13 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest.java
-import seedu.ezwatchlist.logic.commands.AddCommand;
-import seedu.ezwatchlist.logic.commands.CommandResult;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/AddCommandTest.java
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyAddressBook;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.person.Person;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest.java
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/AddCommandTest.java
 
 public class AddCommandTest {
 

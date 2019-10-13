@@ -2,13 +2,8 @@ package seedu.ezwatchlist.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ezwatchlist.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAdaptedPersonTest.java
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalPersons.BENSON;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/JsonAdaptedPersonTest.java
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +16,6 @@ import seedu.ezwatchlist.model.person.Address;
 import seedu.ezwatchlist.model.person.Email;
 import seedu.ezwatchlist.model.person.Name;
 import seedu.ezwatchlist.model.person.Phone;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAdaptedPersonTest.java
-import seedu.ezwatchlist.storage.JsonAdaptedPerson;
-import seedu.ezwatchlist.storage.JsonAdaptedTag;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/JsonAdaptedPersonTest.java
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

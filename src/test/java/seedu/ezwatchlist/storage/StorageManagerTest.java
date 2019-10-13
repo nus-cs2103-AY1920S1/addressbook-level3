@@ -14,12 +14,6 @@ import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.ReadOnlyAddressBook;
 import seedu.ezwatchlist.model.UserPrefs;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/StorageManagerTest.java
-import seedu.ezwatchlist.storage.JsonAddressBookStorage;
-import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
-import seedu.ezwatchlist.storage.StorageManager;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/StorageManagerTest.java
 
 public class StorageManagerTest {
 

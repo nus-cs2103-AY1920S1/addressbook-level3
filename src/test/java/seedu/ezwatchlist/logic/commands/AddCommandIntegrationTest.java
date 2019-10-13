@@ -7,19 +7,11 @@ import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandIntegrationTest.java
-import seedu.ezwatchlist.logic.commands.AddCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/AddCommandIntegrationTest.java
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.person.Person;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandIntegrationTest.java
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/AddCommandIntegrationTest.java
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

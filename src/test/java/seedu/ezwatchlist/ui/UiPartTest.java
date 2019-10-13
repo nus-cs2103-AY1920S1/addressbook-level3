@@ -12,10 +12,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
 import seedu.ezwatchlist.MainApp;
-<<<<<<< HEAD:src/test/java/seedu/address/ui/UiPartTest.java
-import seedu.ezwatchlist.ui.UiPart;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/ui/UiPartTest.java
 
 public class UiPartTest {
 

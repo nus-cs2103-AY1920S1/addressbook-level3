@@ -13,12 +13,7 @@ import static seedu.ezwatchlist.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/person/PersonTest.java
-import seedu.address.testutil.PersonBuilder;
-import seedu.ezwatchlist.model.person.Person;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/person/PersonTest.java
 
 public class PersonTest {
 

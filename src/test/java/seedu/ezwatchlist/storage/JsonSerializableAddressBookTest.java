@@ -11,12 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.commons.util.JsonUtil;
 import seedu.ezwatchlist.model.AddressBook;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonSerializableAddressBookTest.java
-import seedu.address.testutil.TypicalPersons;
-import seedu.ezwatchlist.storage.JsonSerializableAddressBook;
-=======
 import seedu.ezwatchlist.testutil.TypicalPersons;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/JsonSerializableAddressBookTest.java
 
 public class JsonSerializableAddressBookTest {
 

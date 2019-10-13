@@ -1,35 +1,3 @@
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-package seedu.address.logic.parser;
-
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-=======
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -60,26 +28,17 @@ import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFa
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ezwatchlist.testutil.TypicalPersons.AMY;
 import static seedu.ezwatchlist.testutil.TypicalPersons.BOB;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/AddCommandParserTest.java
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.AddCommand;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-import seedu.ezwatchlist.logic.parser.AddCommandParser;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/AddCommandParserTest.java
 import seedu.ezwatchlist.model.person.Address;
 import seedu.ezwatchlist.model.person.Email;
 import seedu.ezwatchlist.model.person.Name;
 import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.person.Phone;
 import seedu.ezwatchlist.model.tag.Tag;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/AddCommandParserTest.java
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

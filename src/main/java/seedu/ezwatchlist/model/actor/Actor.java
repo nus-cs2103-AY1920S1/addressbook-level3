@@ -20,6 +20,8 @@ public class Actor {
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String actorName;
+    //Maybe add a character name for actors?
+    public String characterName;
 
     /**
      * Constructs a {@code Name}.

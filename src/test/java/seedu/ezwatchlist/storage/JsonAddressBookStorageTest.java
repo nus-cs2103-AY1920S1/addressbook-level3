@@ -18,10 +18,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.ReadOnlyAddressBook;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAddressBookStorageTest.java
-import seedu.ezwatchlist.storage.JsonAddressBookStorage;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/JsonAddressBookStorageTest.java
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");

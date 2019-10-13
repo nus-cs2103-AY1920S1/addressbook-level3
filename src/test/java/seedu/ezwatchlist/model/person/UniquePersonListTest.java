@@ -15,17 +15,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/person/UniquePersonListTest.java
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.model.person.UniquePersonList;
-import seedu.ezwatchlist.model.person.exceptions.DuplicatePersonException;
-import seedu.ezwatchlist.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.model.person.exceptions.DuplicatePersonException;
 import seedu.ezwatchlist.model.person.exceptions.PersonNotFoundException;
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/person/UniquePersonListTest.java
 
 public class UniquePersonListTest {
 

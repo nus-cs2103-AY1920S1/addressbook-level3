@@ -3,11 +3,7 @@ package seedu.ezwatchlist.commons.util;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
-<<<<<<< HEAD:src/test/java/seedu/address/commons/util/CollectionUtilTest.java
-import static seedu.address.testutil.Assert.assertThrows;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/commons/util/CollectionUtilTest.java
 
 import java.util.Arrays;
 import java.util.Collection;

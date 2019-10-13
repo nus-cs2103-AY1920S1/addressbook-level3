@@ -3,13 +3,8 @@ package seedu.ezwatchlist.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/ParserUtilTest.java
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/ParserUtilTest.java
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,10 +13,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/ParserUtilTest.java
-import seedu.ezwatchlist.logic.parser.ParserUtil;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/ParserUtilTest.java
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.person.Address;
 import seedu.ezwatchlist.model.person.Email;

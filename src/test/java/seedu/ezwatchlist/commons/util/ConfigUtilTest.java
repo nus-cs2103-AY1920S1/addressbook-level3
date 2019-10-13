@@ -15,10 +15,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.ezwatchlist.commons.core.Config;
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
-<<<<<<< HEAD:src/test/java/seedu/address/commons/util/ConfigUtilTest.java
-import seedu.ezwatchlist.commons.util.ConfigUtil;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/commons/util/ConfigUtilTest.java
 
 public class ConfigUtilTest {
 

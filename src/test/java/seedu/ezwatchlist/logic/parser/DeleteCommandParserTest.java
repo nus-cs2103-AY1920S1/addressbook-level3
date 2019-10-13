@@ -1,23 +1,13 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/DeleteCommandParserTest.java
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-=======
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/DeleteCommandParserTest.java
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/DeleteCommandParserTest.java
-import seedu.ezwatchlist.logic.parser.DeleteCommandParser;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/DeleteCommandParserTest.java
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

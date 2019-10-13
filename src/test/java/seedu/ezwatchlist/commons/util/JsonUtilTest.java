@@ -7,15 +7,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/commons/util/JsonUtilTest.java
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
-import seedu.ezwatchlist.commons.util.FileUtil;
-import seedu.ezwatchlist.commons.util.JsonUtil;
-=======
 import seedu.ezwatchlist.testutil.SerializableTestClass;
 import seedu.ezwatchlist.testutil.TestUtil;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/commons/util/JsonUtilTest.java
 
 /**
  * Tests JSON Read and Write

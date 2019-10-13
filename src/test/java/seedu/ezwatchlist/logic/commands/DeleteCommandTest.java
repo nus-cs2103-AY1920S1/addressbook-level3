@@ -13,10 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/DeleteCommandTest.java
-import seedu.ezwatchlist.logic.commands.DeleteCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/DeleteCommandTest.java
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;

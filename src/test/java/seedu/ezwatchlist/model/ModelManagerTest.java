@@ -4,15 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalPersons.ALICE;
 import static seedu.ezwatchlist.testutil.TypicalPersons.BENSON;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/ModelManagerTest.java
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,16 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.core.GuiSettings;
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-import seedu.ezwatchlist.model.AddressBook;
-import seedu.ezwatchlist.model.ModelManager;
-import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
-=======
 import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.testutil.AddressBookBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/ModelManagerTest.java
 
 public class ModelManagerTest {
 

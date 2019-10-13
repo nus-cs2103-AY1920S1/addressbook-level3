@@ -13,11 +13,7 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.EditCommand.EditPersonDescriptor;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/EditPersonDescriptorTest.java
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-=======
 import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/EditPersonDescriptorTest.java
 
 public class EditPersonDescriptorTest {
 

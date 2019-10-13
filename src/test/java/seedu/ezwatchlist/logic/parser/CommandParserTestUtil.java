@@ -3,10 +3,6 @@ package seedu.ezwatchlist.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.ezwatchlist.logic.commands.Command;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/CommandParserTestUtil.java
-import seedu.ezwatchlist.logic.parser.Parser;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/CommandParserTestUtil.java
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**

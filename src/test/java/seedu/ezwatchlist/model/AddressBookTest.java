@@ -18,17 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/test/java/seedu/address/model/AddressBookTest.java
-import seedu.ezwatchlist.model.AddressBook;
-import seedu.ezwatchlist.model.ReadOnlyAddressBook;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.person.exceptions.DuplicatePersonException;
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/AddressBookTest.java
 
 public class AddressBookTest {
 

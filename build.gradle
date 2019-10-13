@@ -75,7 +75,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'ezwatchlist.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

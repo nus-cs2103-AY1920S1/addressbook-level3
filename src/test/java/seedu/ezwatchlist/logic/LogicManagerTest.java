@@ -3,21 +3,12 @@ package seedu.ezwatchlist.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-=======
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalPersons.AMY;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/LogicManagerTest.java
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,11 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-import seedu.ezwatchlist.logic.Logic;
-import seedu.ezwatchlist.logic.LogicManager;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/LogicManagerTest.java
 import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.ListCommand;
@@ -44,11 +30,7 @@ import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.storage.JsonAddressBookStorage;
 import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
 import seedu.ezwatchlist.storage.StorageManager;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/LogicManagerTest.java
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

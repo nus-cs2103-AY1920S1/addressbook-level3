@@ -1,27 +1,28 @@
 package seedu.ezwatchlist.api;
 
 import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TvResultsPage;
-import info.movito.themoviedbapi.model.Artwork;
-import info.movito.themoviedbapi.model.Genre;
+import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
-import info.movito.themoviedbapi.model.config.TmdbConfiguration;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
-import info.movito.themoviedbapi.model.keywords.Keyword;
 import info.movito.themoviedbapi.model.people.PersonCast;
 
-import javax.imageio.ImageIO;
-
+import info.movito.themoviedbapi.model.tv.TvEpisode;
+import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Main class for the API to connect to the server
@@ -48,20 +49,41 @@ public class ApiMain {
     public List<TvShow> getTvShowByName(String name) {
         TvResultsPage page = ApiCall.getSearch().searchTv(name, null, null);
         ArrayList<TvShow> tvShows = new ArrayList<>();
+
         for (TvSeries tv : page.getResults()) {
+            List<TvSeason> seasons = tv.getSeasons();
+            ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList = new ArrayList<>();
+            Credits credits = tv.getCredits();
+            List<PersonCast> cast = credits.getCast();
+            PersonCast personCast = cast.get(0);
+            personCast.getName();
+            for (TvSeason tvSeason: seasons) {
+                List<TvEpisode> episodes = tvSeason.getEpisodes();
+                ArrayList<Episode> episodeList = new ArrayList<>();
+                for (TvEpisode episode: episodes) {
+                    episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
+                }
+                seedu.ezwatchlist.model.show.TvSeason tvS =
+                        new seedu.ezwatchlist.model.show.TvSeason(tvSeason.getSeasonNumber(), episodes.size(),
+                                episodeList);
+                seasonsList.add(tvS);
+            }
+
             tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
                     new Date(tv.getFirstAirDate()),
                     new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
-                    tv.getNumberOfEpisodes(), null));
+                    tv.getNumberOfEpisodes(), seasonsList));
         }
         return tvShows;
     }
+
+
 
     /**
      * test function
      * @param args
      * @throws IOException
-     */
+
     public static void main(String[] args) throws IOException {
         TmdbApi tmdbApi = new TmdbApi(API_KEY);
         TmdbMovies movies = tmdbApi.getMovies();
@@ -99,4 +121,5 @@ public class ApiMain {
             System.out.println(m.getOriginalTitle());
         }
     }
+    */
 }

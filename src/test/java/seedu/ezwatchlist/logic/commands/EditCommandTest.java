@@ -18,24 +18,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/EditCommandTest.java
-import seedu.ezwatchlist.logic.commands.ClearCommand;
-import seedu.ezwatchlist.logic.commands.EditCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/EditCommandTest.java
 import seedu.ezwatchlist.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.person.Person;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/EditCommandTest.java
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/EditCommandTest.java
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

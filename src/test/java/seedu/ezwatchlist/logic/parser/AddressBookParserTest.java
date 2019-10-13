@@ -4,13 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/AddressBookParserTest.java
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,22 +22,12 @@ import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.FindCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
-import seedu.ezwatchlist.logic.parser.AddressBookParser;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
-=======
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
 import seedu.ezwatchlist.testutil.PersonBuilder;
 import seedu.ezwatchlist.testutil.PersonUtil;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/parser/AddressBookParserTest.java
 
 public class AddressBookParserTest {
 

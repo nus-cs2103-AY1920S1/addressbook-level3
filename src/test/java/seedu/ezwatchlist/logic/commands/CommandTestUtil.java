@@ -7,33 +7,19 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TAG;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-import static seedu.address.testutil.Assert.assertThrows;
-=======
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/CommandTestUtil.java
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.ezwatchlist.commons.core.index.Index;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-import seedu.ezwatchlist.logic.commands.Command;
-import seedu.ezwatchlist.logic.commands.CommandResult;
-import seedu.ezwatchlist.logic.commands.EditCommand;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/CommandTestUtil.java
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.model.person.Person;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-=======
 import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/CommandTestUtil.java
 
 /**
  * Contains helper methods for testing commands.

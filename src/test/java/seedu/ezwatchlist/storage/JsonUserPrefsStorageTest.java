@@ -15,10 +15,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
 import seedu.ezwatchlist.model.UserPrefs;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonUserPrefsStorageTest.java
-import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
-=======
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/storage/JsonUserPrefsStorageTest.java
 
 public class JsonUserPrefsStorageTest {
 

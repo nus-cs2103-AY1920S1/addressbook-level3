@@ -9,12 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/person/NameContainsKeywordsPredicateTest.java
-import seedu.address.testutil.PersonBuilder;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
-=======
 import seedu.ezwatchlist.testutil.PersonBuilder;
->>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/model/person/NameContainsKeywordsPredicateTest.java
 
 public class NameContainsKeywordsPredicateTest {
 
