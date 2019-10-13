@@ -28,6 +28,7 @@ public class JsonActivityBookTest {
                 JsonActivityBook.class).get();
         ActivityBook activityBookFromFile = dataFromFile.toModelType();
         ActivityBook typicalActivityBook = TypicalActivities.getTypicalActivityBook();
+
         assertEquals(activityBookFromFile, typicalActivityBook);
     }
 
