@@ -36,7 +36,7 @@ public class FilterCommand extends Command {
     private String getNoMatchMessage() {
         StringBuilder message = new StringBuilder("There are no tags found matching your query.\n");
         message.append("Try these tags instead: ");
-        Set<String> uniqueTags = new HashSet<String>(Tag.tags);
+        Set<String> uniqueTags = new HashSet<String>(Tag.getAllTags());
         for (String tagName : uniqueTags) {
             message.append(tagName + " ");
         }
