@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -169,4 +171,54 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudyPlans.equals(other.filteredStudyPlans);
     }
+
+
+    @Override
+    public boolean semesterHasModule(String moduleCode, SemesterName semesterName) {
+        Semester semester = getSemester(semesterName);
+        return semester.getModules().contains(moduleCode);
+    }
+
+    @Override
+    public void addModule(String moduleCode, SemesterName semesterName) {
+        this.getSemester(semesterName).addModule(moduleCode);
+    }
+
+    @Override
+    public void removeModule(String moduleCode, SemesterName semesterName) {
+        this.getSemester(semesterName).removeModule(moduleCode);
+    }
+
+    @Override
+    public Semester getSemester(SemesterName semesterName) {
+        for (Semester current : modulePlanner.getActiveStudyPlan().getSemesters()) {
+            if (current.getSemesterName().equals(semesterName)) {
+                return current;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void setSemester(SemesterName semester) {
+        // TODO: setCurrentSemester in StudyPlan class
+        // this.modulePlanner.getActiveStudyPlan().setCurrentSemester(semester);
+    }
+
+    @Override
+    public boolean semesterHasUE(SemesterName semesterName) {
+        // TODO: UE implementation
+        // getSemester(semesterName).getModules().
+        return true;
+    }
+
+    public void renameUEInSemester(SemesterName semesterName, String moduleCode) {
+        // TODO: UE implementation
+    }
+
+    public void blockSemester(SemesterName sem, String reason) {
+        // TODO: blockSemester in StudyPlan class
+        // this.modulePlanner.getActiveStudyPlan().blockSemester(semester);
+    }
+
 }
