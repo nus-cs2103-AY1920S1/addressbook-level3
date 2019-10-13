@@ -27,7 +27,7 @@ public class RegisterCommandTest {
     @Test
     public void execute_borrowerAcceptedByModel_addSuccessful() throws Exception {
         Model modelManager = new ModelManager();
-        Borrower validBorrower = new BorrowerBuilder().actual_build();
+        Borrower validBorrower = new BorrowerBuilder().actualBuild();
 
         CommandResult commandResult = new RegisterCommand(validBorrower).execute(modelManager);
 
@@ -39,7 +39,7 @@ public class RegisterCommandTest {
     public void execute_duplicateBorrower_throwsCommandException() throws CommandException {
         Model modelManager = new ModelManager();
 
-        Borrower validBorrower = new BorrowerBuilder().actual_build();
+        Borrower validBorrower = new BorrowerBuilder().actualBuild();
         RegisterCommand registerCommand = new RegisterCommand(validBorrower);
         registerCommand.execute(modelManager);
         RegisterCommand registerCommand2 = new RegisterCommand(validBorrower);
@@ -49,8 +49,8 @@ public class RegisterCommandTest {
 
     @Test
     public void equals() {
-        Borrower a = new BorrowerBuilder().withName("A").actual_build();
-        Borrower b = new BorrowerBuilder().withName("B").actual_build();
+        Borrower a = new BorrowerBuilder().withName("A").actualBuild();
+        Borrower b = new BorrowerBuilder().withName("B").actualBuild();
         RegisterCommand registerACommand = new RegisterCommand(a);
         RegisterCommand registerBCommand = new RegisterCommand(b);
 

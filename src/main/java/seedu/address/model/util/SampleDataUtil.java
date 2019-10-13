@@ -10,9 +10,9 @@ import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
-import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 
@@ -59,6 +59,7 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    // TODO ZY
     public static ReadOnlyLoanRecords getSampleLoanRecords() {
         LoanRecords loanRecords = new LoanRecords();
         return loanRecords;

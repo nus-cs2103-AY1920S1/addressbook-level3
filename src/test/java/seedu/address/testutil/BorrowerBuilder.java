@@ -71,7 +71,7 @@ public class BorrowerBuilder {
         return new Borrower(name, phone, email, borrowerId);
     }
 
-    public Borrower actual_build() {
+    public Borrower actualBuild() {
         return new Borrower(name, phone, email);
     }
 }

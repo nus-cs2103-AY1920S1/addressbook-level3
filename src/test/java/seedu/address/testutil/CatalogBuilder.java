@@ -8,6 +8,7 @@ import seedu.address.model.book.Book;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
+// TODO EDIT THIS
 public class CatalogBuilder {
 
     private Catalog catalog;

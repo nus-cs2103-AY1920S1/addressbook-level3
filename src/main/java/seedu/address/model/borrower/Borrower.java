@@ -2,8 +2,6 @@ package seedu.address.model.borrower;
 
 import java.util.Objects;
 
-import seedu.address.model.BorrowerIdGenerator;
-
 /**
  * Represents a Borrower.
  * Guarantees: details are present and not null, field values are validated, immutable.

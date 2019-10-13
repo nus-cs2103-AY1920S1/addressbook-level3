@@ -1,6 +1,7 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
+import java.util.Collection;
+
 import seedu.address.model.loan.Loan;
 
 /**
@@ -8,5 +9,5 @@ import seedu.address.model.loan.Loan;
  */
 public interface ReadOnlyLoanRecords {
 
-    ObservableList<Loan> getLoanList();
+    Collection<Loan> getLoanCollection();
 }

@@ -27,9 +27,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.Catalog;
-import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.genre.Genre;
 import seedu.address.testutil.BookBuilder;
 

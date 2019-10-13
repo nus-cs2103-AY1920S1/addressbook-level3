@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 /**
  * Jackson-friendly version of {@link Loan}.
@@ -21,20 +22,22 @@ class JsonAdaptedLoan {
     public static final String START_DATE = "Start Date";
     public static final String DUE_DATE = "Due Date";
 
+    private final String loanId;
     private final String bookSerialNumber;
     private final String borrowerId;
     private final String startDate;
     private final String dueDate;
 
-
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given Loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoan(@JsonProperty("bookSerialNumber") String bookSerialNumber,
+    public JsonAdaptedLoan(@JsonProperty("loanId") String loanId,
+                           @JsonProperty("bookSerialNumber") String bookSerialNumber,
                            @JsonProperty("borrowerId") String borrowerId,
                            @JsonProperty("startDate") String startDate,
                            @JsonProperty("dueDate") String dueDate) {
+        this.loanId = loanId;
         this.bookSerialNumber = bookSerialNumber;
         this.borrowerId = borrowerId;
         this.startDate = startDate;
@@ -45,6 +48,7 @@ class JsonAdaptedLoan {
      * Converts a given {@code Loan} into this class for Jackson use.
      */
     public JsonAdaptedLoan(Loan source) {
+        loanId = source.getLoanId().value;
         bookSerialNumber = source.getBookSerialNumber().value;
         borrowerId = source.getBorrowerId().value;
         startDate = source.getStartDate().toString();
@@ -57,6 +61,15 @@ class JsonAdaptedLoan {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Loan.
      */
     public Loan toModelType() throws IllegalValueException {
+        if (loanId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanId.class.getSimpleName()));
+        }
+        if (!LoanId.isValidLoanId(loanId)) {
+            throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
+        }
+        final LoanId modelBookLoanId = new LoanId(loanId);
+
         if (bookSerialNumber == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     SerialNumber.class.getSimpleName()));
@@ -90,7 +103,7 @@ class JsonAdaptedLoan {
         final LocalDate modelStartDate = LocalDate.parse(startDate);
         final LocalDate modelDueDate = LocalDate.parse(dueDate);
 
-        return new Loan(modelBookSerialNumber, modelBorrowerId, modelStartDate, modelDueDate);
+        return new Loan(modelBookLoanId, modelBookSerialNumber, modelBorrowerId, modelStartDate, modelDueDate);
     }
 
 }
