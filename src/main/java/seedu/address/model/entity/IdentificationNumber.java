@@ -92,28 +92,6 @@ public class IdentificationNumber {
         return false;
     }
 
-    /**
-     * Checks if a given {@code IdentificationNumber id} already exists.
-     * @param id
-     * @return
-     */
-    public static boolean isExistingidentificationNumber(IdentificationNumber id) {
-        if (isValidIdentificationNumber(id.toString())) {
-            String idPrefix = id.toString().charAt(0) + "";
-            switch (idPrefix) {
-            case ID_PREFIX_BODY:
-                return id.getIdNum() <= countOfBodies;
-            case ID_PREFIX_WORKER:
-                return id.getIdNum() <= countOfWorkers;
-            case ID_PREFIX_FRIDGE:
-                return id.getIdNum() <= countOfFridges;
-            default:
-                return false;
-            }
-        }
-        return false;
-    }
-
     public int getIdNum() {
         return idNum;
     }

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -59,12 +60,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand bodyCommand = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + FIRST_BODY_ID_NUM.toString());
-        assertEquals(new DeleteCommand(FIRST_BODY_ID_NUM), bodyCommand);
+                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG + "b "
+                        + FIRST_BODY_ID_NUM.getIdNum());
+        assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b"), bodyCommand);
 
         DeleteCommand workerCommand = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + FIRST_WORKER_ID_NUM.toString());
-        assertEquals(new DeleteCommand(FIRST_WORKER_ID_NUM), workerCommand);
+                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG + "b "
+                        + FIRST_WORKER_ID_NUM.getIdNum());
+        assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w"), workerCommand);
 
         // todo add parser test for fridge class
     }

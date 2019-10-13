@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
@@ -8,6 +9,7 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_I
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 
 /**
@@ -23,8 +25,12 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "B00000000", new DeleteCommand(FIRST_BODY_ID_NUM));
-        assertParseSuccess(parser, "W00000", new DeleteCommand(FIRST_WORKER_ID_NUM));
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "b 1",
+                new DeleteCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "B"));
+
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "w 1",
+                new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()),
+                        "W"));
 
         // todo add test for fridge!!
     }
@@ -32,19 +38,20 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid string
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
 
-        // Invalid Id length
-        assertParseFailure(parser, "B0000", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-
-        // Invalid First Char
-        assertParseFailure(parser, "K000", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-
-        // Invalid Id
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        // Invalid flag
+        assertParseFailure(parser, " " + PREFIX_FLAG + "k a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
 
         // No input given
-        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        // No input given
+        assertParseFailure(parser, " " + PREFIX_FLAG + "b ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
 
     }
 }
