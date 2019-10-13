@@ -15,11 +15,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddDayCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
@@ -71,11 +75,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Day
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddDayCommand for a Day
+     * and returns an AddDayCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private AddCommand parseDay(String args) throws ParseException {
+    private AddDayCommand parseDay(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DAY)
@@ -86,15 +90,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAY).get());
         List<Day> days = Arrays.asList(new Day[numDays]);
 
-        return new AddCommand(days);
+        return new AddDayCommand(days);
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Accommodation
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddActivityCommand for a Activity
+     * and returns an AddActivityCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private AddCommand parseActivity(String args) throws ParseException {
+    private AddActivityCommand parseActivity(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
@@ -106,13 +110,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Contact contact = Contact.emptyContact();
 
-        Accommodation accommodation = new Accommodation(name, address, contact, tagList);
+        Activity activity = new Activity(name, address, contact, tagList);
 
-        return new AddCommand(accommodation);
+        return new AddActivityCommand(activity);
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Contact
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Person
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -128,12 +132,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        seedu.address.model.field.Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Contact contact = new Contact(name, phone, email, address, tagList);
 
-        return new AddCommand(contact);
+        return new AddContactCommand(contact);
     }
 
 }
