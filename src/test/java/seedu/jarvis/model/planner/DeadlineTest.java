@@ -1,10 +1,12 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +19,7 @@ class DeadlineTest {
 
     @Test
     void addPriority_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         d.addPriority("high");
         assertNotNull(d.priority);
@@ -25,7 +27,7 @@ class DeadlineTest {
 
     @Test
     void addPriority_invalidInput_exceptionThrown() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
 
         assertThrows(InvalidPriorityException.class, () -> d.addPriority("highest"));
@@ -33,7 +35,7 @@ class DeadlineTest {
 
     @Test
     void addFrequency_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         d.addFrequency("weekly");
         assertNotNull(d.frequency);
@@ -41,14 +43,14 @@ class DeadlineTest {
 
     @Test
     void addFrequency_invalidInput_exceptionThrown() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         assertThrows(InvalidFrequencyException.class, () -> d.addFrequency("every week"));
     }
 
     @Test
     void addTag_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
@@ -57,10 +59,35 @@ class DeadlineTest {
 
     @Test
     void getTags_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
         assertTrue(d.getTags().contains(t));
+    }
+
+    @Test
+    void isEqual_validInput_true() {
+        Calendar deadlineOneCal = Calendar.getInstance();
+        Calendar deadlineTwoCal = Calendar.getInstance();
+        Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
+        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        assertTrue(deadlineOne.isEqual(deadlineTwo));
+    }
+
+    @Test
+    void isEqual_validInput_false() {
+        Calendar deadlineOneCal = Calendar.getInstance();
+        Calendar deadlineTwoCal = Calendar.getInstance();
+        Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
+        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        assertFalse(deadlineOne.isEqual(deadlineTwo));
+    }
+
+    @Test
+    void getDueDate() {
+        Calendar due = Calendar.getInstance();
+        Deadline d = new Deadline("homework", due);
+        assertEquals(due, d.getDueDate());
     }
 }

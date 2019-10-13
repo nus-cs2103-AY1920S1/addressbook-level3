@@ -13,4 +13,15 @@ public class Todo extends Task {
     public String toString() {
         return "Todo: " + this.taskDes;
     }
+
+    /**
+     * Checks if this task is equal to another task
+     * Condition for equality: same type of task && same description
+     * @param other the task to be compared to
+     * @return true if both tasks are equal, false if they are not
+     */
+    @Override
+    protected Boolean isEqual(Task other) {
+        return (other instanceof Todo) && taskDes.equals(other.taskDes);
+    }
 }
