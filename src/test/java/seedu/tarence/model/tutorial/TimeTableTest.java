@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.TimeTableBuilder;
+import seedu.tarence.model.builder.TimeTableBuilder;
 
 public class TimeTableTest {
 

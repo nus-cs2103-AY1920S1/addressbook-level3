@@ -32,11 +32,7 @@ public class TutorialCard extends UiPart<Region> {
     @FXML
     private Label module;
     @FXML
-    private Label time;
-    @FXML
     private Label day;
-    @FXML
-    private Label duration;
     @FXML
     private Label weeks;
 
@@ -46,9 +42,17 @@ public class TutorialCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(tutorial.getTutName().toString());
         module.setText("Module code: " + tutorial.getModCode().toString());
-        time.setText("Time: " + tutorial.getTimeTable().getStartTime().toString());
-        day.setText("Day: " + tutorial.getTimeTable().getDay().toString().toLowerCase());
-        duration.setText("Duration: " + tutorial.getTimeTable().getDuration().toString());
+
+        // Get day format
+        String tutorialDay = tutorial.getTimeTable().getDay().toString();
+        tutorialDay = tutorialDay.substring(0, 1).toUpperCase() + tutorialDay.substring(1).toLowerCase();
+
+        String dayTimeAndDuration = "Day: "
+                + tutorialDay + " "
+                + tutorial.getTimeTable().getStartTime().toString() + " - "
+                + tutorial.getTimeTable().getStartTime().plus(tutorial.getTimeTable().getDuration());
+        day.setText(dayTimeAndDuration);
+
         String tutorialWeeks = tutorial.getTimeTable().getWeeks().stream()
                 .map(n -> n.toString())
                 .collect(Collectors.joining(", "));

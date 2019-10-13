@@ -1,7 +1,11 @@
 package seedu.tarence.logic.commands;
 
+import java.util.List;
+
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.model.module.ModCode;
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -27,4 +31,10 @@ public abstract class Command {
      * Only needed for commands that require prior user input.
      */
     public abstract boolean needsCommand(Command command);
+
+
+
+    public void suggestSimilarCommands(Tutorial tutorial, List<ModCode> modCodes) {
+
+    }
 }

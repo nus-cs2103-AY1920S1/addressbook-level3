@@ -1,4 +1,4 @@
-package seedu.tarence.testutil;
+package seedu.tarence.model.builder;
 
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;

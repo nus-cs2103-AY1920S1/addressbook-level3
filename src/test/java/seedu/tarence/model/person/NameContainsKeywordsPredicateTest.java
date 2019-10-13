@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.model.builder.PersonBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

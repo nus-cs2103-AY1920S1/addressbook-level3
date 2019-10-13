@@ -2,14 +2,13 @@ package seedu.tarence.model.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.tarence.testutil.TypicalModules.CS1101S;
 import static seedu.tarence.testutil.TypicalModules.CS2103;
 import static seedu.tarence.testutil.TypicalModules.VALID_MODCODE_CS1101S;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.ModuleBuilder;
+import seedu.tarence.model.builder.ModuleBuilder;
 
 public class ModuleTest {
 
@@ -36,4 +35,19 @@ public class ModuleTest {
         assertFalse(CS2103.equals(editedCS2103));
 
     }
+
+    @Test
+    public void isSameModule() {
+        // same object -> returns true
+        assertTrue(CS1101S.isSameModule(CS1101S));
+
+        // null -> returns false
+        assertFalse(CS1101S.isSameModule(null));
+
+        // different modcode -> returns false
+        Module editedModule = new ModuleBuilder(CS1101S).withModCode("CS1231").build();
+        assertFalse(CS1101S.isSameModule(editedModule));
+
+    }
+
 }

@@ -10,6 +10,7 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -17,27 +18,30 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
-import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.StudentBuilder;
-import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddStudentCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
     public static final String VALID_TUT_NAME = "T02";
-    public static final Integer VALID_TUT_INDEX = 1;
+    public static final Index VALID_TUT_INDEX = Index.fromOneBased(1);
+
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -107,10 +111,12 @@ public class AddStudentCommandTest {
                 new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
 
         Student bob = new StudentBuilder().withName("Bob").build();
-        Integer outOfBoundsTutorialIndex = -1;
+        Index outOfBoundsTutorialIndex = Index.fromOneBased(100);
         AddStudentCommand addStudentCommand = new AddStudentCommand(bob, outOfBoundsTutorialIndex);
         String tutorialIndexOutOfBoundsMessage =
-                String.format(AddStudentCommand.MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS, outOfBoundsTutorialIndex);
+                String.format(AddStudentCommand.MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS,
+                        outOfBoundsTutorialIndex.getOneBased());
+
 
         assertThrows(CommandException.class,
                 tutorialIndexOutOfBoundsMessage, () -> addStudentCommand.execute(modelStub));
@@ -235,6 +241,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void updateFilteredStudentList(NameContainsKeywordsPredicate predicate) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -252,6 +264,17 @@ public class AddStudentCommandTest {
         @Override
         public void addStudent(Student student) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStudent(Student target, Student editedStudent) {
+            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -291,6 +314,7 @@ public class AddStudentCommandTest {
         @Override
         public void deleteStudentsFromTutorial(Tutorial tutorial) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -339,7 +363,24 @@ public class AddStudentCommandTest {
         @Override
         public boolean hasPendingCommand() {
             return false;
+
         }
+
+        @Override
+        public void storeSuggestedCommands(List<Command> l, String s) {};
+
+        @Override
+        public List<Command> getSuggestedCommands() {
+            return new ArrayList<Command>();
+        }
+
+        @Override
+        public String getSuggestedCorrections() {
+            return "";
+        }
+
+        @Override
+        public void deleteSuggestedCommands() {};
     }
 
     /**

@@ -21,6 +21,7 @@ import seedu.tarence.logic.commands.FindCommand;
 import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.commands.MarkAttendanceCommand;
+import seedu.tarence.logic.commands.SelectSuggestionCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 
 /**
@@ -77,6 +78,8 @@ public class ApplicationParser {
             return new ConfirmNoCommand();
         } else if (ConfirmYesCommand.isMatchingCommandWord(commandWord)) {
             return new ConfirmYesCommand();
+        } else if (SelectSuggestionCommand.isMatchingCommandWord(commandWord)) {
+            return new SelectSuggestionCommandParser().parse(commandWord);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

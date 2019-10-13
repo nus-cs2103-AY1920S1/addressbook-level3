@@ -16,19 +16,18 @@ import org.junit.jupiter.api.Test;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.EditCommand;
-import seedu.tarence.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.tarence.logic.commands.EditCommand.EditStudentDescriptor;
 import seedu.tarence.logic.commands.ExitCommand;
 import seedu.tarence.logic.commands.FindCommand;
 import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
-import seedu.tarence.testutil.EditPersonDescriptorBuilder;
-import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.testutil.EditStudentDescriptorBuilder;
 import seedu.tarence.testutil.PersonUtil;
-import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.testutil.StudentUtil;
 
 public class ApplicationParserTest {
 
@@ -50,10 +49,10 @@ public class ApplicationParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Student student = new StudentBuilder().build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(student).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_IN_LIST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_IN_LIST.getOneBased() + " " + StudentUtil.getEditStudentDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_IN_LIST, descriptor), command);
     }
 

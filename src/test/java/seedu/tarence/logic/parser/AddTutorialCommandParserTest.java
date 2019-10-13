@@ -28,11 +28,11 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddTutorialCommand;
+import seedu.tarence.model.builder.TimeTableBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
-import seedu.tarence.testutil.TimeTableBuilder;
-import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddTutorialCommandParserTest {
     private AddTutorialCommandParser parser = new AddTutorialCommandParser();

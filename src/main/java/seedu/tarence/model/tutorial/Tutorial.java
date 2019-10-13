@@ -52,6 +52,18 @@ public class Tutorial {
         return students;
     }
 
+    /**
+     * Replaces the given student {@code target} in the list with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
+     */
+    public void setStudent(Student target, Student editedStudent) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).isSameStudent(target)) {
+                students.set(i, editedStudent);
+            }
+        }
+    }
 
     public ModCode getModCode() {
         return modCode;
@@ -70,6 +82,13 @@ public class Tutorial {
     }
 
     /**
+     * Removes a student from a tutorial
+     */
+    public void deleteStudent(Student student) {
+        students.remove(student);
+    }
+
+    /**
      * Sets a Student's Attendance.
      */
     public void setAttendance(Week week, Student student) {
@@ -77,6 +96,7 @@ public class Tutorial {
     }
 
     /**
+
      * Returns true if both tutorials have the same identity or data fields.
      */
     @Override
@@ -107,6 +127,22 @@ public class Tutorial {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTutName());
+        builder.append(" | ");
+        builder.append(getTimeTable().getDay().toString());
+        builder.append(" | ");
+        builder.append(getTimeTable().getStartTime().toString());
+        builder.append(" | ");
+        builder.append(getTimeTable().getWeeks().toString());
+        builder.append(" | ");
+        builder.append(getTimeTable().getDuration().toString());
+        builder.append(" | Students: ");
+        for (Student s : students) {
+            builder.append(s.toString());
+
+        }
+        builder.append(" | ");
+        builder.append(getModCode().toString());
+
         return builder.toString();
     }
 

@@ -1,4 +1,4 @@
-package seedu.tarence.testutil;
+package seedu.tarence.model.builder;
 
 import java.util.Optional;
 

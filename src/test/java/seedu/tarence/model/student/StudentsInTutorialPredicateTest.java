@@ -7,7 +7,7 @@ import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_IN_LIST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.StudentBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
 
 public class StudentsInTutorialPredicateTest {
 

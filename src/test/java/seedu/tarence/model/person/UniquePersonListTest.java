@@ -13,9 +13,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.model.builder.PersonBuilder;
 import seedu.tarence.model.person.exceptions.DuplicatePersonException;
 import seedu.tarence.model.person.exceptions.PersonNotFoundException;
-import seedu.tarence.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
 

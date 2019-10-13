@@ -10,6 +10,7 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -23,17 +24,18 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
+import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
-import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.StudentBuilder;
-import seedu.tarence.testutil.TutorialBuilder;
 
 public class MarkAttendanceCommandTest {
 
@@ -271,6 +273,11 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public void updateFilteredStudentList(NameContainsKeywordsPredicate predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -283,6 +290,16 @@ public class MarkAttendanceCommandTest {
         @Override
         public boolean hasStudent(Student student) {
             return false;
+        }
+
+        @Override
+        public void setStudent(Student target, Student editedStudent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteStudent(Student student) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -309,6 +326,7 @@ public class MarkAttendanceCommandTest {
         public void deleteTutorialsFromModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public boolean hasTutorial(Tutorial tutorial) {
             return false;
@@ -370,6 +388,26 @@ public class MarkAttendanceCommandTest {
         @Override
         public Command peekPendingCommand() {
             return null;
+        }
+
+        @Override
+        public void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections) {
+
+        }
+
+        @Override
+        public List<Command> getSuggestedCommands() {
+            return null;
+        }
+
+        @Override
+        public String getSuggestedCorrections() {
+            return null;
+        }
+
+        @Override
+        public void deleteSuggestedCommands() {
+
         }
 
         @Override

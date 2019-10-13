@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.tarence.model.Application;
+import seedu.tarence.model.builder.PersonBuilder;
 import seedu.tarence.model.person.Person;
 
 /**

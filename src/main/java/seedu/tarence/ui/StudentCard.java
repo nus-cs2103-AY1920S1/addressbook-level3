@@ -2,6 +2,7 @@ package seedu.tarence.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.tarence.model.student.Student;
@@ -33,6 +34,8 @@ public class StudentCard extends UiPart<Region> {
     private Label matric;
     @FXML
     private Label nusnetId;
+    @FXML
+    private FlowPane tags;
 
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
@@ -41,22 +44,20 @@ public class StudentCard extends UiPart<Region> {
         name.setText(student.getName().fullName);
         email.setText("Email: " + student.getEmail().value);
 
-        String matricNumString;
-        String nusnetIdString;
         if (student.getMatricNum().isPresent()) {
-            matricNumString = "Matric number: " + student.getMatricNum().get().toString();
+            matric.setText("Matric number: " + student.getMatricNum().get().toString());
         } else {
-            matricNumString = "Matric number: ";
+            matric.setText(null);
         }
 
         if (student.getNusnetId().isPresent()) {
-            nusnetIdString = "NUS ID: " + student.getNusnetId().get().toString();
+            nusnetId.setText("NUS ID: " + student.getNusnetId().get().toString());
         } else {
-            nusnetIdString = "NUS ID: ";
+            nusnetId.setText(null);
         }
 
-        matric.setText(matricNumString);
-        nusnetId.setText(nusnetIdString);
+        tags.getChildren().add(new Label(student.getModCode().toString()));
+        tags.getChildren().add(new Label(student.getTutName().toString()));
     }
 
     @Override
