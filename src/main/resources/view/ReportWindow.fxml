@@ -3,33 +3,67 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 <?import javafx.stage.Stage?>
 
 <fx:root resizable="false" title="Report" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/help_icon.png" />
-  </icons>
-  <scene>
-    <Scene>
-         <VBox alignment="CENTER" prefHeight="459.0" prefWidth="579.0">
-            <children>
-               <Label fx:id="maximumCalorie" prefHeight="110.0" prefWidth="342.0" text="Label">
-                  <VBox.margin>
-                     <Insets right="5.0" />
-                  </VBox.margin>
-               </Label>
-               <Label fx:id="minimumCalorie" prefHeight="110.0" prefWidth="342.0" text="Label" />
-               <Label fx:id="averageCalorie" prefHeight="110.0" prefWidth="342.0" text="Label" />
-            </children>
-            <opaqueInsets>
-               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-            </opaqueInsets>
-            <padding>
-               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-            </padding>
-         </VBox>
-    </Scene>
-  </scene>
+   <scene>
+      <Scene>
+         <root>
+            <VBox prefHeight="600.0" prefWidth="900.0">
+              <children>
+                <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+                  <items>
+                        <SplitPane dividerPositions="0.5, 0.5, 0.5" orientation="VERTICAL">
+                           <items>
+                              <Label fx:id="numericalStatistics" prefHeight="35.0" prefWidth="225.0" text="Numerical Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font></Label>
+                              <TextFlow fx:id="maximumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="minimumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="averageCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
+                           </items>
+                        </SplitPane>
+                        <SplitPane orientation="VERTICAL">
+                           <items>
+                              <Label fx:id="foodStatistics" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                           </items>
+                        </SplitPane>
+                    <ScrollPane prefHeight="-1.0" prefWidth="-1.0" />
+                  </items>
+                </SplitPane>
+                <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+                  <children>
+                    <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+                      <font>
+                        <Font size="11.0" fx:id="x3" />
+                      </font>
+                      <textFill>
+                        <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+                      </textFill>
+                    </Label>
+                    <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                    <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+                  </children>
+                  <padding>
+                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                  </padding>
+                </HBox>
+              </children>
+            </VBox>
+         </root>
+      </Scene>
+   </scene>
 </fx:root>
