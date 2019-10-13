@@ -71,6 +71,7 @@ public class DeleteCommand extends Command implements Undoable {
 
     @Override
     public void redo(Model model) {
-
+        requireNonNull(model);
+        model.deleteTransaction(actualIndex);
     }
 }

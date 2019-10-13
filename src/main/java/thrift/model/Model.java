@@ -77,6 +77,11 @@ public interface Model {
     void deleteTransaction(Transaction transaction);
 
     /**
+     * Deletes the transaction based on given index.
+     */
+    void deleteTransaction(Index index);
+
+    /**
      * Deletes the last transaction in the full transaction list.
      */
     void deleteLastTransaction();

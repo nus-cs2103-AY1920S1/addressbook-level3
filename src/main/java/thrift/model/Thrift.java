@@ -116,6 +116,13 @@ public class Thrift implements ReadOnlyThrift {
         transactions.removeLast();
     }
 
+    /**
+     * Remove the transaction from the list based on the index.
+     */
+    public void removeTransactionByIndex(Index index) {
+        transactions.removeByIndex(index);
+    }
+
     //// util methods
 
     /**

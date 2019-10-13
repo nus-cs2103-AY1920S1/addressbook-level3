@@ -82,6 +82,13 @@ public class TransactionList implements Iterable<Transaction> {
         internalList.remove(internalList.size() - 1);
     }
 
+    /**
+     * Remove the transaction from the list based on the index.
+     */
+    public void removeByIndex(Index index) {
+        internalList.remove(index.getZeroBased());
+    }
+
     public void setTransactions(TransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

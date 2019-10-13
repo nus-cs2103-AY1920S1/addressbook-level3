@@ -141,4 +141,16 @@ public class CommandTestUtil {
         assertEquals(model, expectedModel);
     }
 
+    /**
+     * Executes redo for the given {@code command} and confirms that the {@code model} matches {@code expectedModel}.
+     *
+     * @param command is the command that you want to perform redo
+     * @param model is the actual model
+     * @param expectedModel is the expected model to compare with
+     */
+    public static void assertRedoCommandSuccess(Undoable command, Model model, Model expectedModel) {
+        command.redo(model);
+        assertEquals(model, expectedModel);
+    }
+
 }

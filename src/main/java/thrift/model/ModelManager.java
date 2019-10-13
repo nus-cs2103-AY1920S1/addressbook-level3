@@ -113,6 +113,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTransaction(Index index) {
+        thrift.removeTransactionByIndex(index);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
     public void deleteLastTransaction() {
         thrift.removeLastTransaction();
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);

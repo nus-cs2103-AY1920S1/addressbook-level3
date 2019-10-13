@@ -194,6 +194,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public void deleteTransaction(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteLastTransaction() {
             throw new AssertionError("This method should not be called.");
 
