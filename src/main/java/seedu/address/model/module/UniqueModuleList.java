@@ -37,19 +37,6 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
-    /**
-     * Adds a module to the list.
-     * The module must not already exist in the list.
-     */
-    // TODO: retrieve Module object from ??
-    public void add(String toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateModuleException();
-        }
-        // internalList.add(toAdd);
-    }
-
     public void add(Module toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {

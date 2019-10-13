@@ -35,7 +35,6 @@ public class AddModuleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // TODO: Create module object to check for duplicate modules?
         if (model.semesterHasModule(this.moduleCode, this.sem)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }

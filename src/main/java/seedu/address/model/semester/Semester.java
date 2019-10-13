@@ -81,10 +81,6 @@ public class Semester {
         modules.add(module);
     }
 
-    public void addModule(String module) {
-        modules.add(module);
-    }
-
     public void removeModule(String module) {
         modules.remove(module);
     }
@@ -97,15 +93,9 @@ public class Semester {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(semesterName + ":" + "\n");
-        if (modules != null) {
-            Iterator<Module> moduleIterator = modules.iterator();
-            while (moduleIterator.hasNext()) {
-                Module module = moduleIterator.next();
-                result.append(module.toString() + "\n");
-            }
-        } else {
-            result.append("NO MODULES FOUND \n");
+        result.append(semesterName).append(":").append("\n");
+        for (Module module : modules) {
+            result.append(module.toString()).append("\n");
         }
 
         return result.toString();

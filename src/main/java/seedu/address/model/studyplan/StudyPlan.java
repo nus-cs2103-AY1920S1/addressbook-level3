@@ -163,11 +163,10 @@ public class StudyPlan implements Cloneable {
     public void addModuleToSemester(ModuleCode moduleCode, SemesterName semesterName)
             throws SemesterNotFoundException {
         Semester targetSemester = null;
-        Iterator<Semester> semesterIterator = semesters.iterator();
-        while (semesterIterator.hasNext()) {
-            Semester semester = semesterIterator.next();
+        for (Semester semester : semesters) {
             if (semester.getSemesterName().equals(semesterName)) {
                 targetSemester = semester;
+                break;
             }
         }
         if (targetSemester == null) {
@@ -175,7 +174,6 @@ public class StudyPlan implements Cloneable {
         }
 
         Module moduleToAdd = modules.get(moduleCode.toString());
-
         targetSemester.addModule(moduleToAdd);
     }
 

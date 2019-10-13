@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
@@ -181,7 +182,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addModule(String moduleCode, SemesterName semesterName) {
-        this.getSemester(semesterName).addModule(moduleCode);
+        this.getActiveStudyPlan().addModuleToSemester(new ModuleCode(moduleCode), semesterName);
     }
 
     @Override
@@ -192,10 +193,11 @@ public class ModelManager implements Model {
     @Override
     public Semester getSemester(SemesterName semesterName) {
         for (Semester current : modulePlanner.getActiveStudyPlan().getSemesters()) {
-            if (current.getSemesterName().equals(semesterName)) {
+            if (current.getSemesterName() == semesterName) {
                 return current;
             }
         }
+        System.out.println("ERROR HERE");
         return null;
     }
 

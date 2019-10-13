@@ -45,7 +45,7 @@ public class ParserUtil {
         if (!trimmedSemester.matches("Y\\dS\\w?\\d")) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        int year = Character.getNumericValue(trimmedSemester.charAt(2));
+        int year = Character.getNumericValue(trimmedSemester.charAt(1));
         int sem = Character.getNumericValue(trimmedSemester.charAt(trimmedSemester.length() - 1));
         if (trimmedSemester.length() == 4) {
             return SemesterName.getEnum(year, sem);
@@ -60,7 +60,7 @@ public class ParserUtil {
      */
     public static String parseModule(String module) throws ParseException {
         // TODO: Check module against megaList to ensure that it is valid
-        return module.trim();
+        return module.toUpperCase().trim();
     }
 
     /**
