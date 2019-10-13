@@ -7,8 +7,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 
 import javafx.scene.Node;
 
-
-
 /**
  * FrontBackCard with additional data of multiple choices.
  */
