@@ -5,10 +5,9 @@ import seedu.address.model.person.Person;
 /**
 * This class holds the actual state of the application.*/
 public final class InternalState {
-    private int primaryKeyCounter;
+    private int personPriKeyCnt;
 
-    public InternalState() {
-    }
+    public InternalState() {}
 
     public InternalState(InternalState state) {
         this();
@@ -20,7 +19,7 @@ public final class InternalState {
     * Applies all the settings in this class to the application.
     */
     public void applyInternalState() {
-        Person.setPrimaryKeyCounter(primaryKeyCounter);
+        Person.setPrimaryKeyCounter(personPriKeyCnt);
     }
 
     /**
@@ -29,7 +28,7 @@ public final class InternalState {
     * @param state The InternalState to copy values from.
     */
     public void updateInternalState(InternalState state) {
-        primaryKeyCounter = state.primaryKeyCounter;
+        personPriKeyCnt = state.personPriKeyCnt;
     }
 
     /**
@@ -37,8 +36,7 @@ public final class InternalState {
     * track.
     */
     public void updateInternalState() {
-        primaryKeyCounter = Person.getPrimaryKeyCounter();
-        System.out.println("IS STATE, pk: " + primaryKeyCounter);
+        personPriKeyCnt = Person.getPrimaryKeyCounter();
     }
 
     @Override
@@ -51,6 +49,6 @@ public final class InternalState {
         }
 
         InternalState o = (InternalState) other;
-        return primaryKeyCounter == o.primaryKeyCounter;
+        return personPriKeyCnt == o.personPriKeyCnt;
     }
 }
