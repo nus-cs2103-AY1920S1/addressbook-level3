@@ -24,11 +24,13 @@ public class JavascriptCard implements FlashCard, JsonInterface {
 
     @Override
     public Node renderFront() {
+        // temporary
         return null;
     }
 
     @Override
     public Node renderBack() {
+        // temporary
         return null;
     }
 
@@ -43,5 +45,13 @@ public class JavascriptCard implements FlashCard, JsonInterface {
 
     public void editBack(String newText) {
         output = newText;
+    }
+
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return output;
     }
 }

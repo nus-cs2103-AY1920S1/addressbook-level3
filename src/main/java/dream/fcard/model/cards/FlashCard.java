@@ -29,6 +29,10 @@ public interface FlashCard {
      */
     Boolean evaluate(String in);
 
+    String getFront();
+
+    String getBack();
+
     void editFront(String newText);
 
     void editBack(String newText);
