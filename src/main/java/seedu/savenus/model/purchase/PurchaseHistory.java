@@ -3,14 +3,19 @@ package seedu.savenus.model.purchase;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
-
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
+
+/**
+ *  A list of purchases made.
+ *
+ *  Supports a minimal set of list operations.
+ */
 public class PurchaseHistory implements Iterable<Purchase> {
     private final ObservableList<Purchase> internalList = FXCollections.observableArrayList();
     private final ObservableList<Purchase> internalUnmodifiableList =
@@ -46,9 +51,9 @@ public class PurchaseHistory implements Iterable<Purchase> {
     /**
      * Replaces the contents of this list with {@code Purchases}.
      */
-    public void setPurchases(List<Purchase> Purchases) {
-        requireAllNonNull(Purchases);
-        internalList.setAll(Purchases);
+    public void setPurchases(List<Purchase> purchases) {
+        requireAllNonNull(purchases);
+        internalList.setAll(purchases);
     }
 
     /**

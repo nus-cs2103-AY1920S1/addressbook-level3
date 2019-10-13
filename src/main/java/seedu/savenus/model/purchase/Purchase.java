@@ -1,12 +1,16 @@
 package seedu.savenus.model.purchase;
 
-import seedu.savenus.model.food.Food;
-import seedu.savenus.model.util.TimeFormatter;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+import seedu.savenus.model.food.Food;
+import seedu.savenus.model.util.TimeFormatter;
+
+/**
+ * Represents a Purchase in the menu.
+ * Guarantees: immutable.
+ */
 public class Purchase {
     // Identity fields
     private final Food foodPurchased;

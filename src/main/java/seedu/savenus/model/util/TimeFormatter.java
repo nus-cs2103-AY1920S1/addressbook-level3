@@ -10,33 +10,36 @@ import java.util.concurrent.TimeUnit;
  */
 public class TimeFormatter {
     // Convert TimeUnits to milliseconds
-    public static final List<Long> times = Arrays.asList(
+    public static final List<Long> TIMES = Arrays.asList(
             TimeUnit.DAYS.toMillis(365),
             TimeUnit.DAYS.toMillis(30),
             TimeUnit.DAYS.toMillis(1),
             TimeUnit.HOURS.toMillis(1),
             TimeUnit.MINUTES.toMillis(1),
-            TimeUnit.SECONDS.toMillis(1) );
+            TimeUnit.SECONDS.toMillis(1));
 
     // Map times to its corresponding string
-    public static final List<String> timesString = Arrays.asList(
-            "year","month","day","hour","minute","second");
+    public static final List<String> TIMES_STRING = Arrays.asList(
+            "year", "month", "day", "hour", "minute", "second");
 
+    /**
+     * Format input duration into timeAgo format.
+     * @param durationInMillis Input duration
+     */
     public static String format(long durationInMillis) {
-            StringBuffer res = new StringBuffer();
-            // Find the largest unit of time
-            for(int i = 0; i < TimeFormatter.times.size(); i++) {
-                Long current = TimeFormatter.times.get(i);
-                long temp = durationInMillis/current;
-                if(temp > 0) {
-                    res.append(temp).append(" ").append(TimeFormatter.timesString.get(i))
-                            .append(temp != 1 ? "s" : "").append(" ago");
-                    break;
-                }
+        StringBuffer res = new StringBuffer();
+        // Find the largest unit of time
+        for (int i = 0; i < TimeFormatter.TIMES.size(); i++) {
+            Long current = TimeFormatter.TIMES.get(i);
+            long temp = durationInMillis / current;
+            if (temp > 0) {
+                res.append(temp).append(" ").append(TimeFormatter.TIMES_STRING.get(i))
+                    .append(temp != 1 ? "s" : "").append(" ago");
+                break;
             }
-            if("".equals(res.toString()))
-                return "0 seconds ago";
-            else
-                return res.toString();
         }
+        return "".equals(res.toString())
+            ? "0 seconds ago"
+            : res.toString();
+    }
 }
