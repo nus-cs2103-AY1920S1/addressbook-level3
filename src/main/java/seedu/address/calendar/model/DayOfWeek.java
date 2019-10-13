@@ -18,5 +18,4 @@ enum DayOfWeek {
     int getNumericalVal() {
         return numericalVal;
     }
-
 }
