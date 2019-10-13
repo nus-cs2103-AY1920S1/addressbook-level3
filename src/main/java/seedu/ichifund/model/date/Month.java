@@ -3,6 +3,10 @@ package seedu.ichifund.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Month in a Date in IchiFund.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Month {
     public static final String MESSAGE_CONSTRAINTS =
             "Month should only contain numbers, from 1 to 12";

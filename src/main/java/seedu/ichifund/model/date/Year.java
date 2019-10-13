@@ -3,6 +3,10 @@ package seedu.ichifund.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Year in a Date in IchiFund.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Year {
     public static final String MESSAGE_CONSTRAINTS =
             "Year should only contain years from 2000 to 9999";

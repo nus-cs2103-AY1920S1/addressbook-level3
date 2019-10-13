@@ -1,26 +1,33 @@
 package seedu.ichifund.model.date;
 
-
-import seedu.ichifund.commons.core.LogsCenter;
+import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.logging.Logger;
 
-import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.ichifund.commons.core.LogsCenter;
 
 /**
- * Represents a Transaction in IchiFund.
+ * Represents a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Date implements Comparable<Date>{
+public class Date implements Comparable<Date> {
+    private static final Logger logger = LogsCenter.getLogger(Date.class);
+
     private java.util.Date date;
     private Day day;
     private Month month;
     private Year year;
 
-    private static final Logger logger = LogsCenter.getLogger(Date.class);
-
+    /**
+     * Constructs a {@code Date}.
+     *
+     * @param day A valid day.
+     * @param month A valid month.
+     * @param year A valid year.
+     */
     public Date(Day day, Month month, Year year) {
         requireAllNonNull(day, month, year);
         SimpleDateFormat dateFormatter = new SimpleDateFormat("d/M/yyyy");
