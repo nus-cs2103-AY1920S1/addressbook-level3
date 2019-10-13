@@ -1,4 +1,4 @@
-package seedu.tarence.testutil;
+package seedu.tarence.model.builder;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -70,6 +70,14 @@ public class TutorialBuilder {
      */
     public TutorialBuilder withModCode(String modCode) {
         this.modCode = new ModCode(modCode);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ModCode} of the {@code Tutorial} that we are building.
+     */
+    public TutorialBuilder withModCode(ModCode modCode) {
+        this.modCode = modCode;
         return this;
     }
 

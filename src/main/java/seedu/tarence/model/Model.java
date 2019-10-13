@@ -1,6 +1,7 @@
 package seedu.tarence.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -230,4 +231,24 @@ public interface Model {
      * Returns the pending command at the top of the execution stack if it exists, else null.
      */
     Command peekPendingCommand();
+
+    /**
+     * Stores a list of suggested commands for future selection and execution.
+     */
+    void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections);
+
+    /**
+     * Gets the stored list of suggested commands for selection and execution.
+     */
+    List<Command> getSuggestedCommands();
+
+    /**
+     * Gets the string representing the corrections in the suggested commands.
+     */
+    String getSuggestedCorrections();
+
+    /**
+     * Deletes the stored list of suggested commands.
+     */
+    void deleteSuggestedCommands();
 }

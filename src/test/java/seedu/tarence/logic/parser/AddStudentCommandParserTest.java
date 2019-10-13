@@ -36,10 +36,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.AddStudentCommand;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.student.Student;
-import seedu.tarence.testutil.StudentBuilder;
 
 public class AddStudentCommandParserTest {
     private AddStudentCommandParser parser = new AddStudentCommandParser();

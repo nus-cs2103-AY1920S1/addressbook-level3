@@ -9,7 +9,7 @@ import static seedu.tarence.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.PersonBuilder;
+import seedu.tarence.model.builder.PersonBuilder;
 
 public class PersonTest {
 

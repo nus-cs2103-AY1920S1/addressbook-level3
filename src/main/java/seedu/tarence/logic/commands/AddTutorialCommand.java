@@ -1,7 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
+import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_MINUTES;
@@ -9,8 +9,14 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_START_TIME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.logic.finder.Finder;
 import seedu.tarence.model.Model;
+import seedu.tarence.model.builder.TutorialBuilder;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -55,17 +61,52 @@ public class AddTutorialCommand extends Command {
     @Override
     public CommandResult execute (Model model) throws CommandException {
         requireNonNull(model);
+
+        // reject input if requested tutorial already exists in application
         if (model.hasTutorial(tutorial)) {
             throw new CommandException(MESSAGE_DUPLICATE_TUTORIAL);
         }
-        if (!model.hasModuleOfCode(tutorial.getModCode())) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
+
+        ModCode modCode = tutorial.getModCode();
+        if (!model.hasModuleOfCode(modCode)) {
+            List<ModCode> similarModCodes = new Finder(model).findSimilarModCodes(modCode);
+            if (similarModCodes.size() == 0) {
+                throw new CommandException(MESSAGE_INVALID_MODULE);
+            }
+
+            String suggestedCorrections = createSuggestedCommands(similarModCodes, model);
+            model.storePendingCommand(new SelectSuggestionCommand());
+            return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Module",
+                    modCode) + suggestedCorrections);
         }
+
         model.addTutorial(tutorial);
         model.addTutorialToModule(tutorial);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutorial, tutorial.getTimeTable().getDay(),
                 tutorial.getTimeTable().getWeeks(), tutorial.getTimeTable().getStartTime(),
                 tutorial.getTimeTable().getDuration().toMinutes()));
+    }
+
+    /**
+     * Generates and stores {@code AddTutorialCommand}s from a list of {@code ModCode}s.
+     *
+     * @param similarModCodes List of {@code ModCode}s similar to the user's input.
+     * @param model The {@code Model} in which to store the generated commands.
+     * @return string representing the suggested {@code ModCode}s and their corresponding indexes for user selection.
+     */
+    private String createSuggestedCommands(List<ModCode> similarModCodes, Model model) {
+        List<Command> suggestedCommands = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        int index = 1;
+        for (ModCode similarModCode : similarModCodes) {
+            Tutorial newTutorial = new TutorialBuilder(tutorial).withModCode(similarModCode).build();
+            suggestedCommands.add(new AddTutorialCommand(newTutorial));
+            s.append(index).append(". ").append(similarModCode).append("\n");
+            index++;
+        }
+        String suggestedCorrections = s.toString();
+        model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+        return suggestedCorrections;
     }
 
     @Override

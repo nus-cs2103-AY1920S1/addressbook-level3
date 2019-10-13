@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -329,6 +330,28 @@ public class ModelManager implements Model {
     @Override
     public Command peekPendingCommand() {
         return application.peekPendingCommand();
+    }
+
+    @Override
+    public void storeSuggestedCommands(List<Command> suggestedCommands,
+                                       String suggestedCorrections) {
+        requireAllNonNull(suggestedCommands, suggestedCorrections);
+        application.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+    }
+
+    @Override
+    public List<Command> getSuggestedCommands() {
+        return application.getSuggestedCommands();
+    }
+
+    @Override
+    public String getSuggestedCorrections() {
+        return application.getSuggestedCorrections();
+    }
+
+    @Override
+    public void deleteSuggestedCommands() {
+        application.deleteSuggestedCommands();
     }
 
     @Override

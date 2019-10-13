@@ -13,8 +13,8 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
 import seedu.tarence.model.module.Module;
-import seedu.tarence.testutil.ModuleBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

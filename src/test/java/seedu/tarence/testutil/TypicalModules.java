@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.tarence.model.Application;
+import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;

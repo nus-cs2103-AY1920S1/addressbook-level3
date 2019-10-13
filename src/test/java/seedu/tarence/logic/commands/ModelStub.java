@@ -1,6 +1,8 @@
 package seedu.tarence.logic.commands;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -232,4 +234,20 @@ class ModelStub implements Model {
     public boolean hasPendingCommand() {
         return false;
     }
+
+    @Override
+    public void storeSuggestedCommands(List<Command> l, String s) {};
+
+    @Override
+    public List<Command> getSuggestedCommands() {
+        return new ArrayList<Command>();
+    }
+
+    @Override
+    public String getSuggestedCorrections() {
+        return "";
+    }
+
+    @Override
+    public void deleteSuggestedCommands() {};
 }

@@ -22,11 +22,11 @@ import seedu.tarence.logic.commands.FindCommand;
 import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.EditStudentDescriptorBuilder;
 import seedu.tarence.testutil.PersonUtil;
-import seedu.tarence.testutil.StudentBuilder;
 import seedu.tarence.testutil.StudentUtil;
 
 public class ApplicationParserTest {

@@ -34,6 +34,8 @@ public class Application implements ReadOnlyApplication {
     private final UniqueTutorialList tutorials;
 
     private Stack<Command> pendingCommands;
+    private List<Command> suggestedCommands;
+    private String suggestedCorrections;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -48,6 +50,7 @@ public class Application implements ReadOnlyApplication {
         modules = new UniqueModuleList();
         tutorials = new UniqueTutorialList();
         pendingCommands = new Stack<>();
+        suggestedCommands = new ArrayList<>();
     }
 
     public Application() {}
@@ -443,6 +446,36 @@ public class Application implements ReadOnlyApplication {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Stores a list of suggested commands for future selection and execution.
+     */
+    void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections) {
+        this.suggestedCommands = suggestedCommands;
+        this.suggestedCorrections = suggestedCorrections;
+    }
+
+    /**
+     * Gets the stored list of suggested commands for selection and execution.
+     */
+    List<Command> getSuggestedCommands() {
+        return suggestedCommands;
+    }
+
+    /**
+     * Gets the string representing the corrections in the suggested commands.
+     */
+    String getSuggestedCorrections() {
+        return suggestedCorrections;
+    }
+
+    /**
+     * Deletes the stored list of suggested commands.
+     */
+    void deleteSuggestedCommands() {
+        suggestedCommands = null;
+        suggestedCorrections = null;
     }
 
     @Override

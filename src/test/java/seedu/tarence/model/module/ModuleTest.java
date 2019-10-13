@@ -2,14 +2,13 @@ package seedu.tarence.model.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.tarence.testutil.TypicalModules.CS1101S;
 import static seedu.tarence.testutil.TypicalModules.CS2103;
 import static seedu.tarence.testutil.TypicalModules.VALID_MODCODE_CS1101S;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.tarence.testutil.ModuleBuilder;
+import seedu.tarence.model.builder.ModuleBuilder;
 
 public class ModuleTest {
 

@@ -10,6 +10,7 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
@@ -31,9 +35,6 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
-import seedu.tarence.testutil.ModuleBuilder;
-import seedu.tarence.testutil.StudentBuilder;
-import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddStudentCommandTest {
 
@@ -364,6 +365,22 @@ public class AddStudentCommandTest {
             return false;
 
         }
+
+        @Override
+        public void storeSuggestedCommands(List<Command> l, String s) {};
+
+        @Override
+        public List<Command> getSuggestedCommands() {
+            return new ArrayList<Command>();
+        }
+
+        @Override
+        public String getSuggestedCorrections() {
+            return "";
+        }
+
+        @Override
+        public void deleteSuggestedCommands() {};
     }
 
     /**

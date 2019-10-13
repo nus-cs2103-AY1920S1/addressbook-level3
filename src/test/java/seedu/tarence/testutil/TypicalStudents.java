@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.tarence.model.Application;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.student.Student;
 
 /**

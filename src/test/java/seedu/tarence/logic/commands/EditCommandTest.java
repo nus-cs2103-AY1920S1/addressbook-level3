@@ -21,9 +21,10 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.EditStudentDescriptorBuilder;
-import seedu.tarence.testutil.StudentBuilder;
+
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
