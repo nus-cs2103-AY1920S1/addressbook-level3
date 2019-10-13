@@ -1,5 +1,7 @@
 package seedu.address.overview.logic;
 
+import java.util.List;
+
 import seedu.address.overview.commands.CommandResult;
 
 /**
@@ -22,4 +24,6 @@ public interface Logic {
     double getExpenseTarget();
     double getSalesTarget();
     double getBudgetTarget();
+    List<String> getTransactionCategories();
+    double getTransactionTotalByCategory(String category);
 }

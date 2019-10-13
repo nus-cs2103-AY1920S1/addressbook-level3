@@ -1,6 +1,9 @@
 package seedu.address.overview.logic;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.overview.commands.Command;
@@ -8,6 +11,7 @@ import seedu.address.overview.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.StorageManager;
 import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * Manages the logic behind the transaction tab.
@@ -79,5 +83,22 @@ public class LogicManager implements Logic {
         return model.getBudgetTarget();
     }
 
+    public List<String> getTransactionCategories() {
+        List<String> categoryList = new ArrayList<>();
+        TransactionList transactionList = transactionLogic.getTransactionList();
+
+        for (int i = 0; i < transactionList.size(); i++) {
+            categoryList.add(transactionList.get(i).getCategory());
+        }
+
+        return categoryList.stream().distinct().collect(Collectors.toList());
+    }
+
+    public double getTransactionTotalByCategory(String category) {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+                .filter(transaction -> transaction.getCategory().equals(category))
+                .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+                .sum();    }
 
 }

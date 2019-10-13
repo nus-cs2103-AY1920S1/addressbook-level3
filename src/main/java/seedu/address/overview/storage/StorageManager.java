@@ -80,17 +80,19 @@ public class StorageManager implements Storage {
      */
     void readInFileLine(String line) {
         String[] params = line.split("\\|");
-        if (params[0] == "budgetTarget") {
+        System.out.println(params[0]);
+        System.out.println(params[1]);
+        if (params[0].equals("budgetTarget")) {
             values[0] = Double.parseDouble(params[1]);
-        } else if (params[0] == "expenseTarget") {
+        } else if (params[0].equals("expenseTarget")) {
             values[1] = Double.parseDouble(params[1]);
-        } else if (params[0] == "salesTarget") {
+        } else if (params[0].equals("salesTarget")) {
             values[2] = Double.parseDouble(params[1]);
-        } else if (params[0] == "budgetThreshold") {
+        } else if (params[0].equals("budgetThreshold")) {
             values[3] = Double.parseDouble(params[1]);
-        } else if (params[0] == "salesThreshold") {
+        } else if (params[0].equals("salesThreshold")) {
             values[4] = Double.parseDouble(params[1]);
-        } else if (params[0] == "expenseThreshold") {
+        } else if (params[0].equals("expenseThreshold")) {
             values[5] = Double.parseDouble(params[1]);
         }
     }
