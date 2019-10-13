@@ -84,6 +84,6 @@ public class RemoveInstallmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof RemoveInstallmentCommand
-                && toDelete.equals((((RemoveInstallmentCommand) other).toDelete)));
+                && targetIndex.equals((((RemoveInstallmentCommand) other).targetIndex)));
     }
 }
