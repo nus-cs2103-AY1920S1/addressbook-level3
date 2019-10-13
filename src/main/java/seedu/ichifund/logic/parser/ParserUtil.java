@@ -130,31 +130,109 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static Category parseCategory(String s) {
-        return new Category("StubbyCat");
+
+    /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if(!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
     }
 
-    public static Description parseDescription(String s) {
-        return new Description("Descripavsi");
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if(!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
-    public static Amount parseAmount(String s) {
-        return new Amount("10.00");
+    /**
+     * Parses a {@code String amount} into a {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if(!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
     }
 
-    public static Day parseDay(String s) {
-        return new Day("31");
+    /**
+     * Parses a {@code String day} into a {@code Day}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code day} is invalid.
+     */
+    public static Day parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if(!Day.isValidDay(trimmedDay)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+        }
+        return new Day(trimmedDay);
     }
 
-    public static Month parseMonth(String s) {
-        return new Month("10");
+    /**
+     * Parses a {@code String month} into a {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+        if(!Month.isValidMonth(trimmedMonth)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Month(trimmedMonth);
     }
 
-    public static Year parseYear(String s) {
-        return new Year("2019");
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if(!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
     }
 
-    public static TransactionType parseTransactionType(String s) {
-        return new TransactionType(s);
+    /**
+     * Parses a {@code String transactionType} into a {@code TransactionType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code transactionType} is invalid.
+     */
+    public static TransactionType parseTransactionType(String transactionType) throws ParseException {
+        requireNonNull(transactionType);
+        String trimmedTransactionType = transactionType.trim();
+        if(!TransactionType.isValidTransactionType(trimmedTransactionType)) {
+            throw new ParseException(TransactionType.MESSAGE_CONSTRAINTS);
+        }
+        return new TransactionType(trimmedTransactionType);
     }
 }
