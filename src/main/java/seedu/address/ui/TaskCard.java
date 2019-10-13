@@ -50,6 +50,8 @@ public class TaskCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         if (task.hasDeadline()) {
             deadline.setText(task.getDeadline().toString());
+        } else {
+            deadline.setText("No Deadline");
         }
     }
 

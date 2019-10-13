@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.stub;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
