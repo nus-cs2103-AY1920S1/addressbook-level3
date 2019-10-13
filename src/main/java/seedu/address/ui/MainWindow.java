@@ -27,7 +27,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ItemListPanel itemListPanel;
+    private EventListPanel eventListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -35,6 +36,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane eventListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -66,8 +70,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        itemListPanel = new ItemListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+        taskListPanel = new TaskListPanel(logic.getVisualList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        eventListPanel = new EventListPanel(logic.getVisualList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -129,8 +136,8 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public ItemListPanel getPersonListPanel() {
-        return itemListPanel;
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     /**
@@ -154,8 +161,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
-            itemListPanel = new ItemListPanel(logic.getVisualList());
-            taskListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+            taskListPanel = new TaskListPanel(logic.getVisualList());
+            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
