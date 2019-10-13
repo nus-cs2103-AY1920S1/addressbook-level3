@@ -21,6 +21,7 @@ import seedu.jarvis.model.address.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -93,6 +94,33 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static String parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return trimmedDescription;
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static String parseMoneySpent(String money) throws ParseException {
+        requireNonNull(money);
+        String trimmedMoney = money.trim();
+        if (Double.parseDouble(money) <= 0) {
+            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
+        }
+        return trimmedMoney;
     }
 
     /**
