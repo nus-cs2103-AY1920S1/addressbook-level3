@@ -13,7 +13,7 @@ public class SwitchCommand extends Command {
 
     public static final String COMMAND_WORD = "switch";
     public static final String MESSAGE_SUCCESS = "Switched to tab %1$s!";
-    public static final String MESSAGE_INVALID_INDEX = "%1$s is not a valid index!";
+    public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!";
 
     private Index index = Index.fromZeroBased(0);
 
@@ -24,7 +24,11 @@ public class SwitchCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.getGuiState().setDisplayTabPaneIndex(index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+        try {
+            model.getGuiState().setDisplayTabPaneIndex(index);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+        } catch (IndexOutOfBoundsException exception) {
+            throw new CommandException(String.format(MESSAGE_INVALID_INDEX, index.getOneBased()));
+        }
     }
 }

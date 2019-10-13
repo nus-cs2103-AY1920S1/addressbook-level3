@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.GuiState;
+import seedu.algobase.model.ModelEnum;
 
 class SwitchCommandTest {
     @Test
@@ -15,15 +17,23 @@ class SwitchCommandTest {
     }
 
     @Test
-    public void execute_displayTabIndexAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_displayTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
-        Index index = Index.fromOneBased(3);
+        Index index = Index.fromOneBased(ModelEnum.PLAN.getDisplayTabPaneIndex());
         CommandResult commandResult = new SwitchCommand(index).execute(modelStub);
 
         assertEquals(
             String.format(SwitchCommand.MESSAGE_SUCCESS, index.getOneBased()),
             commandResult.getFeedbackToUser()
         );
+    }
+
+    @Test
+    public void execute_displayTabIndexRejectedByModel_throwsCommandException() throws Exception {
+        ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
+        Index index = Index.fromZeroBased(ModelEnum.values().length);
+
+        assertThrows(CommandException.class, () -> new SwitchCommand(index).execute(modelStub));
     }
 
     /**

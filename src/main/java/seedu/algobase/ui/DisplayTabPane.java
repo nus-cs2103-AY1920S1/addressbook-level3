@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.GuiState;
 
 /**
@@ -48,11 +49,11 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param indexChangeHandler A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPane(Consumer<Integer> indexChangeHandler) {
+    private void addListenerToTabPane(Consumer<Index> indexChangeHandler) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                indexChangeHandler.accept(newValue.intValue());
+                indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
             }
         });
     }
