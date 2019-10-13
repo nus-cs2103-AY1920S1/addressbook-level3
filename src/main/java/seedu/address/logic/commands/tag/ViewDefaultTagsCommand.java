@@ -29,7 +29,7 @@ public class ViewDefaultTagsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All default tags shown %1$s.";
 
     /**
-     * Creates an {@code ViewDefaultTagsCommand} to show all default tags in the study plan.
+     * Creates an {@code ViewDefaultTagsCommand} to show all default tags in the active study plan.
      */
     public ViewDefaultTagsCommand() {
     }

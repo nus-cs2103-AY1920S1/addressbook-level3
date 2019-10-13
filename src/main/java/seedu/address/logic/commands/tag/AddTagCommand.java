@@ -108,7 +108,7 @@ public class AddTagCommand extends Command {
 
     private UserTag createNewTag(String tagName, UniqueTagList uniqueTagList) {
         UserTag toCreate = new UserTag(tagName);
-        uniqueTagList.addUserTag(toCreate);
+        uniqueTagList.addTag(toCreate);
         newTagCreated = true;
         return toCreate;
     }

@@ -1,7 +1,7 @@
 package seedu.address.model.tag;
 
 /**
- * Represents default types of tags.
+ * Represents default tag types.
  */
 public enum DefaultTagType {
     COMPLETED("Completed"),

@@ -1,7 +1,7 @@
 package seedu.address.model.tag.exceptions;
 
 /**
- * Signals that the operation involves an invalid tag.
+ * Signals that the operation will involve an invalid tag.
  */
 
 public class InvalidTagException extends RuntimeException {

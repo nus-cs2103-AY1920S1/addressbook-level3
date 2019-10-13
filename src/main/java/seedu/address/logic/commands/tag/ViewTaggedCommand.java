@@ -15,6 +15,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Shows all modules attached to specific tags.
@@ -81,7 +82,7 @@ public class ViewTaggedCommand extends Command {
     }
 
     private boolean checkMatch(Module currentModule, String tagName) {
-        Set<Tag> tags = currentModule.getTags();
+        UniqueTagList tags = currentModule.getTags();
         for (Tag tag: tags) {
             boolean match = tag.getTagName().equals(tagName);
             if (match) {

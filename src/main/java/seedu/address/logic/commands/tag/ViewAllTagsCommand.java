@@ -23,7 +23,7 @@ public class ViewAllTagsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All tags shown %1$s.";
 
     /**
-     * Creates an {@code ViewAllTagsCommand} to show all tags in the study plan.
+     * Creates an {@code ViewAllTagsCommand} to show all tags in the active study plan.
      */
     public ViewAllTagsCommand() {
     }

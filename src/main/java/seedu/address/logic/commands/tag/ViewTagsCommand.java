@@ -14,6 +14,7 @@ import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Shows all tags attached to a specific module.
@@ -54,7 +55,7 @@ public class ViewTagsCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-        Set<Tag> tags = module.getTags();
+        UniqueTagList tags = module.getTags();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, tags));
     }
