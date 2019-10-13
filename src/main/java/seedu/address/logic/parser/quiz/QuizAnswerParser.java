@@ -3,7 +3,6 @@ package seedu.address.logic.parser.quiz;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.quiz.QuizCheckAnswer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.question.Answer;
@@ -17,6 +16,10 @@ public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
      */
     private static final Pattern BASIC_INPUT_FORMAT = Pattern.compile("(?<index>\\s+)(?<answer>)");
 
+    /**
+     * Parses the given {@code String} of user input in the context of the quiz answer
+     * and returns an QuizCheckAnswer object for execution.
+     */
     public QuizCheckAnswer parse(String userInput) {
         final Matcher matcher = BASIC_INPUT_FORMAT.matcher(userInput.trim());
 

@@ -7,6 +7,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
+/**
+ * Quits the quiz mode.
+ */
 public class QuitQuizModeCommand extends Command {
     public static final String COMMAND_WORD = "quit";
     public static final String MESSAGE_SUCCESS = "You have successfully exit from the quiz mode!";

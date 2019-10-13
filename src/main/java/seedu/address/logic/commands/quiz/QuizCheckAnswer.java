@@ -7,6 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.question.Answer;
 
+/**
+ * Checks the quiz answer input by users.
+ */
 public class QuizCheckAnswer extends Command {
     public static final String ANSWER_CORRECT = "The answer is correct!";
     public static final String ANSWER_WRONG = "The answer is wrong!";
@@ -14,8 +17,12 @@ public class QuizCheckAnswer extends Command {
     private final int index;
     private final Answer answer;
 
+    /**
+     * @param index of the question the answer is mapped to.
+     * @param answer of the question input by user.
+     */
     public QuizCheckAnswer(int index, Answer answer) {
-        this.index= index;
+        this.index = index;
         this.answer = answer;
     }
 
