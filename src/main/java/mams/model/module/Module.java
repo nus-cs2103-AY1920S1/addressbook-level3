@@ -124,6 +124,17 @@ public class Module {
         return timeSlot;
     }
 
+    public int[] getTimeSlotToIntArray() {
+        String []arr = timeSlot.split(",");
+        int[] slots = new int[arr.length];
+
+        int x = 0;
+        for (String str : arr) {
+            slots[x] = Integer.parseInt(str);
+        }
+        return slots;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -192,13 +203,8 @@ public class Module {
      * @return Day and TimeSlots of this module
      */
     String timeSlotsToString() {
-        String []arr = timeSlot.split(",");
-        int[] temp = new int[arr.length];
 
-        int x = 0;
-        for (String str : arr) {
-            temp[x] = Integer.parseInt(str);
-        }
+        int[] temp = getTimeSlotToIntArray();
 
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
