@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing MemeBook ]===========================");
+        logger.info("=============================[ Initializing Weme ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty meme book will be used instead if errors occur when reading {@code storage}'s meme book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyMemeBook> addressBookOptional;
+        Optional<ReadOnlyMemeBook> memeBookOptional;
         ReadOnlyMemeBook initialData;
         try {
-            addressBookOptional = storage.readMemeBook();
-            if (!addressBookOptional.isPresent()) {
+            memeBookOptional = storage.readMemeBook();
+            if (!memeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MemeBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleMemeBook);
+            initialData = memeBookOptional.orElseGet(SampleDataUtil::getSampleMemeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MemeBook");
             initialData = new MemeBook();
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting MemeBook " + MainApp.VERSION);
+        logger.info("Starting Weme " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Weme ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
