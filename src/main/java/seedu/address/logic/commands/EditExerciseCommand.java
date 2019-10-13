@@ -21,8 +21,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.exercise.Name;
+import seedu.address.model.exercise.*;
 import seedu.address.model.details.ExerciseDetail;
 
 /**
@@ -94,9 +93,14 @@ public class EditExerciseCommand extends Command {
         assert exerciseToEdit != null;
 
         Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        MuscleType updatedPrimaryMuscle = editExerciseDescriptor.getPrimaryMuscle()
+                .orElse(exerciseToEdit.getMusclesTrained().getPrimaryMuscle());
+        MusclesTrained updatedMusclesTrained = new MusclesTrained(updatedPrimaryMuscle,
+                exerciseToEdit.getMusclesTrained().getSecondaryMuscles());
+        Intensity updatedIntensity = editExerciseDescriptor.getIntensity().orElse(exerciseToEdit.getIntensity());
         Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor.getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
 
-        return new Exercise(updatedName, updatedExerciseDetails);
+        return new Exercise(updatedName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails);
     }
 
     @Override
@@ -123,6 +127,8 @@ public class EditExerciseCommand extends Command {
      */
     public static class EditExerciseDescriptor {
         private Name name;
+        private MuscleType primaryMuscle;
+        private Intensity intensity;
         private Set<ExerciseDetail> exerciseDetails;
 
         public EditExerciseDescriptor() {}
@@ -133,6 +139,8 @@ public class EditExerciseCommand extends Command {
          */
         public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
             setName(toCopy.name);
+            setPrimaryMuscle(toCopy.primaryMuscle);
+            setIntensity(toCopy.intensity);
             setExerciseDetails(toCopy.exerciseDetails);
         }
 
@@ -147,10 +155,25 @@ public class EditExerciseCommand extends Command {
             this.name = name;
         }
 
+        public void setIntensity(Intensity intensity) {
+            this.intensity = intensity;
+        }
+
+        public void setPrimaryMuscle(MuscleType primaryMuscle) {
+            this.primaryMuscle = primaryMuscle;
+        }
+
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
+        public Optional<MuscleType> getPrimaryMuscle() {
+            return Optional.ofNullable(primaryMuscle);
+        }
+
+        public Optional<Intensity> getIntensity() {
+            return Optional.ofNullable(intensity);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

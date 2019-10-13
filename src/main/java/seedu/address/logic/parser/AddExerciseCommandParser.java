@@ -21,7 +21,11 @@ import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
 import seedu.address.model.details.Weight;
-import seedu.address.model.exercise.*;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Intensity;
+import seedu.address.model.exercise.MuscleType;
+import seedu.address.model.exercise.MusclesTrained;
+import seedu.address.model.exercise.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object

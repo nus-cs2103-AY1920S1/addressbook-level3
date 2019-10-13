@@ -10,16 +10,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.*;
+import seedu.address.model.exercise.MusclesTrained;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -51,7 +49,54 @@ public class EditCommandParser implements Parser<EditExerciseCommand> {
             editExerciseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExerciseDescriptor::setExerciseDetails);
+        if (argMultimap.getValue(PREFIX_PRIMARY_MUSCLE).isPresent()) {
+            editExerciseDescriptor.setPrimaryMuscle(ParserUtil.parseMuscleType(argMultimap
+                    .getValue(PREFIX_PRIMARY_MUSCLE).get()));
+        }
+
+        Set<ExerciseDetail> exerciseDetails = new HashSet<>();
+
+        argMultimap.getValue(PREFIX_DISTANCE).ifPresent(value -> {
+            Distance distance;
+            try {
+                distance = ParserUtil.parseDistance(value);
+                exerciseDetails.add(distance);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        argMultimap.getValue(PREFIX_REPETITIONS).ifPresent(value -> {
+            Repetitions reps;
+            try {
+                reps = ParserUtil.parseRepetitions(value);
+                exerciseDetails.add(reps);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        argMultimap.getValue(PREFIX_SETS).ifPresent(value -> {
+            Sets sets;
+            try {
+                sets = ParserUtil.parseSets(value);
+                exerciseDetails.add(sets);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        argMultimap.getValue(PREFIX_WEIGHT).ifPresent(value -> {
+            Weight weight;
+            try {
+                weight = ParserUtil.parseWeight(value);
+                exerciseDetails.add(weight);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        editExerciseDescriptor.setExerciseDetails(exerciseDetails);
 
         if (!editExerciseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExerciseCommand.MESSAGE_NOT_EDITED);
@@ -59,20 +104,4 @@ public class EditCommandParser implements Parser<EditExerciseCommand> {
 
         return new EditExerciseCommand(index, editExerciseDescriptor);
     }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<ExerciseDetail>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
-
 }
