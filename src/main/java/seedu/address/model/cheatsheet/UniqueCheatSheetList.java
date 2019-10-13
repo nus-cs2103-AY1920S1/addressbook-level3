@@ -3,7 +3,6 @@ package seedu.address.model.cheatsheet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-//import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -13,7 +12,12 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-public class UniqueCheatSheetList implements Iterable<CheatSheet>{
+/**
+ * Represents a list of CheatSheets that are unique.
+ * See also @UniquePersonList
+ */
+
+public class UniqueCheatSheetList implements Iterable<CheatSheet> {
 
     private final ObservableList<CheatSheet> internalList = FXCollections.observableArrayList();
     private final ObservableList<CheatSheet> internalUnmodifiableList =
@@ -79,7 +83,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet>{
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setCheatSheet(List<CheatSheet> cheatSheets) {
+    public void setCheatSheets(List<CheatSheet> cheatSheets) {
         requireAllNonNull(cheatSheets);
         if (!cheatSheetsAreUnique(cheatSheets)) {
             throw new DuplicatePersonException();

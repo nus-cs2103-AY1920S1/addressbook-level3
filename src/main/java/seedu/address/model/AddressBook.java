@@ -97,6 +97,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Checks if the list of cheatsheets contains this cheatsheet
+     * @param cheatSheet
+     * @return
+     */
     public boolean hasCheatSheet(CheatSheet cheatSheet) {
         requireNonNull(cheatSheet);
         return cheatSheets.contains(cheatSheet);
