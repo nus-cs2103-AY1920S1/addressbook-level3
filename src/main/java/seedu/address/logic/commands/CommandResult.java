@@ -45,16 +45,6 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    /**
-     * Construct a switching command result.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isSwitch) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.isSwitch = isSwitch;
-    }
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }

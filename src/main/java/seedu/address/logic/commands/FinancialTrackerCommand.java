@@ -9,14 +9,11 @@ import seedu.address.model.Model;
  */
 public class FinancialTrackerCommand extends Command {
 
-    public static final String COMMAND_WORD = "finance";
-
-    public static final String MESSAGE_SUCCESS = "switched to Financial Tracker Window";
-
+    public static final String COMMAND_WORD = "financial_tracker";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(COMMAND_WORD, false, false, true);
     }
 }

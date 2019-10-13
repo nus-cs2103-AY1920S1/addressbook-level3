@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.ui.FinancialTrackerWindow;
+import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,14 +24,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements Page {
 
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Scene primaryScene;
+    private Scene mainScene;
     private Logic logic;
     private Pages pages;
 
@@ -40,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FinancialTrackerWindow financialTrackerWindow;
+    private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
 
     @FXML
@@ -71,24 +70,20 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        financialTrackerWindow = new FinancialTrackerWindow(this);
+        financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
 
-        Scene primaryScene = primaryStage.getScene();
+        mainScene = primaryStage.getScene();
 
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene, new SamplePage(), calendarPage);
+        pages = new Pages(this,  calendarPage, financialTrackerPage, new SamplePage());
 
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Scene getPrimaryScene() {
-        return primaryScene;
     }
 
     private void setAccelerators() {
@@ -227,8 +222,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleSwitchToFinancialTracker() {
-        primaryScene = primaryStage.getScene();
-        primaryStage.setScene(financialTrackerWindow.getFinancialTracker());
+    @Override
+    public Scene getScene() {
+        return mainScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return PageType.MAIN;
     }
 }

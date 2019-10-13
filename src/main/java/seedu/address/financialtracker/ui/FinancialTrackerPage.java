@@ -16,21 +16,19 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
-import seedu.address.logic.Logic;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.CommandBox;
-import seedu.address.ui.MainWindow;
-import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.*;
 
 
 /**
  * The Financial Tracker Window
  */
-public class FinancialTrackerWindow {
+public class FinancialTrackerPage implements Page {
 
+    private final static PageType pageType = PageType.FINANCIAL_TRACKER;
     private static final String FXML = "FinancialTrackerWindow.fxml";
     private static final String FXML_FILE_FOLDER = "/view/";
 
@@ -41,7 +39,6 @@ public class FinancialTrackerWindow {
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
-    private final MainWindow main;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerParser financialTrackerParser;
@@ -67,8 +64,7 @@ public class FinancialTrackerWindow {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public FinancialTrackerWindow(MainWindow main) {
-        this.main = main;
+    public FinancialTrackerPage() {
         this.financialTrackerParser = new FinancialTrackerParser();
         fxmlLoader = new FXMLLoader(getFxmlFileUrl());
         fxmlLoader.setController(this);
@@ -81,10 +77,6 @@ public class FinancialTrackerWindow {
         }
         financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();
-    }
-
-    public Scene getFinancialTracker() {
-        return financialTrackerScene;
     }
 
     /**
@@ -118,8 +110,8 @@ public class FinancialTrackerWindow {
                 handleExit();
             }
 
-            if (commandResult.isSwitch()) {
-                handleSwitchToMain();
+            if (commandResult.isShowPage()) {
+                handlePageChange(commandResult);
             }
 
             return commandResult;
@@ -130,9 +122,13 @@ public class FinancialTrackerWindow {
         }
     }
 
-    private void handleSwitchToMain() {
-        Stage primaryStage = main.getPrimaryStage();
-        primaryStage.setScene(main.getPrimaryScene());
+    /**
+     * Changes application page.
+     */
+    @FXML
+    private void handlePageChange(CommandResult commandResult) {
+        Scene requestedPage = Pages.getPage(commandResult);
+        ((Stage) this.getScene().getWindow()).setScene(requestedPage);
     }
 
     /**
@@ -147,10 +143,19 @@ public class FinancialTrackerWindow {
      * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
      */
     private static URL getFxmlFileUrl() {
-        requireNonNull(FinancialTrackerWindow.FXML);
-        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + FinancialTrackerWindow.FXML;
+        requireNonNull(FinancialTrackerPage.FXML);
+        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + FinancialTrackerPage.FXML;
         URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
     }
 
+    @Override
+    public Scene getScene() {
+        return financialTrackerScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return pageType;
+    }
 }

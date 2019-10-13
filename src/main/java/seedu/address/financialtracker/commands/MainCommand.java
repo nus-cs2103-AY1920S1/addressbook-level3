@@ -12,10 +12,7 @@ public class MainCommand extends Command {
 
     public static final String COMMAND_WORD = "main";
 
-    private static final String MESSAGE_SUCCESS = "Backed to Main";
-    private static final String MESSAGE_FAIL = "Back to main failed";
-
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(COMMAND_WORD, false, false, true);
     }
 }
