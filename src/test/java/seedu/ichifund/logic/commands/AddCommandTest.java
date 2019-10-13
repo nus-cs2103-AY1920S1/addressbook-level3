@@ -21,6 +21,7 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -110,6 +111,11 @@ public class AddCommandTest {
 
         @Override
         public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
