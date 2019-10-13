@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.View;
+import seedu.address.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new GotoCommand object
