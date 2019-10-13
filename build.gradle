@@ -64,6 +64,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    // https://mvnrepository.com/artifact/org.controlsfx/controlsfx
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
 }
 
 shadowJar {

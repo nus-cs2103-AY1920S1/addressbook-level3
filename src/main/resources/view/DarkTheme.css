@@ -87,36 +87,36 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-view {
+.list-view, .grid-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-cell {
+.list-cell, .grid-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even, .grid-cell:filled:even {
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd, .grid-cell:filled:odd {
     -fx-background-color: #515658;
 }
 
-.list-cell:filled:selected {
+.list-cell:filled:selected, .grid-cell:filled:selected {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #cardPane, .grid-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
 
-.list-cell .label {
+.list-cell .label, .grid-cell .label {
     -fx-text-fill: white;
 }
 
@@ -328,7 +328,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #memeListPanel {
+#filterField, #memeGridPanel {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

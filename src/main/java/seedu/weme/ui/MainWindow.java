@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private MemeListPanel memeListPanel;
+    private MemeGridPanel memeGridPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane memeListPanelPlaceholder;
+    private StackPane memeGridPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -107,8 +107,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        memeListPanel = new MemeListPanel(logic.getFilteredMemeList());
-        memeListPanelPlaceholder.getChildren().add(memeListPanel.getRoot());
+        memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList());
+        memeGridPanelPlaceholder.getChildren().add(memeGridPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +160,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public MemeListPanel getMemeListPanel() {
-        return memeListPanel;
+    public MemeGridPanel getMemeGridPanel() {
+        return memeGridPanel;
     }
 
     /**

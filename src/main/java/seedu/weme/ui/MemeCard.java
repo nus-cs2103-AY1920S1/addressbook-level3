@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -14,7 +16,7 @@ import seedu.weme.model.meme.Meme;
  */
 public class MemeCard extends UiPart<Region> {
 
-    private static final String FXML = "MemeListCard.fxml";
+    private static final String FXML = "MemeGridCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -29,7 +31,7 @@ public class MemeCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label path;
+    private ImageView display;
     @FXML
     private Label id;
     @FXML
@@ -40,8 +42,8 @@ public class MemeCard extends UiPart<Region> {
     public MemeCard(Meme meme, int displayedIndex) {
         super(FXML);
         this.meme = meme;
-        id.setText(displayedIndex + ". ");
-        path.setText(meme.getFilePath().toString()); // for now the MemeCard displays the path.
+        id.setText(displayedIndex + "");
+        display.setImage(new Image(meme.getFilePath().toUrl().toString()));
         description.setText(meme.getDescription().value);
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="cardPane" xmlns="http://javafx.com/javafx/8">
+  <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="250" prefWidth="250"/>
+    </columnConstraints>
+    <VBox alignment="CENTER" minWidth="250" spacing="5" GridPane.columnIndex="0">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <Label fx:id="id" styleClass="cell_big_label"/>
+      <ImageView fx:id="display" fitHeight="200" fitWidth="200" cache="true" pickOnBounds="true" preserveRatio="true"/>
+      <FlowPane fx:id="tags" alignment="CENTER"/>
+      <Label fx:id="description" styleClass="cell_small_label" text="\$description"/>
+    </VBox>
+  </GridPane>
+</HBox>
