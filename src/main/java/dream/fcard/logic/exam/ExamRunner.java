@@ -46,11 +46,13 @@ public class ExamRunner {
             if (card.evaluate(ans)) {
                 score++;
             }
+            //Display the correct answer
+            card.renderBack();
         }
     }
 
     private String promptUserInput() {
-        System.out.print("Answer for this card:");
+        System.out.print("Your answer for this card:");
         return scanner.nextLine();
     }
 }
