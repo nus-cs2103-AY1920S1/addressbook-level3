@@ -13,8 +13,6 @@ import javafx.collections.ObservableList;
 
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
-import javax.swing.text.html.Option;
-
 /**
  *  A list of purchases made.
  *
@@ -88,11 +86,10 @@ public class PurchaseHistory implements Iterable<Purchase> {
     public String toString() {
         Optional<String> output = StreamSupport.stream(this.spliterator(), false)
                 .map((a) -> a.toString())
-                .reduce((a,b) -> a + "\n" +b);
+                .reduce((a, b) -> a + "\n" + b);
         if (output.isPresent()) {
             return "Current Purchases: \n" + output.get();
-        }
-        else {
+        } else {
             return "No Purchases Made";
         }
     }

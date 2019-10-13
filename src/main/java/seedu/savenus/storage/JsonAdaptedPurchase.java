@@ -2,6 +2,7 @@ package seedu.savenus.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
@@ -64,13 +65,13 @@ class JsonAdaptedPurchase {
         final Price modelPrice = new Price(purchasedFoodPrice);
 
         if (timeOfPurchaseInMillisSinceEpochString == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeOfPurchase.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TimeOfPurchase.class.getSimpleName()));
         }
         if (!TimeOfPurchase.isValidTimeOfPurchase(timeOfPurchaseInMillisSinceEpochString)) {
             throw new IllegalValueException(TimeOfPurchase.MESSAGE_CONSTRAINTS);
         }
-        final TimeOfPurchase modelTimeOfPurchase = new TimeOfPurchase(
-                Long.parseLong(timeOfPurchaseInMillisSinceEpochString));
+        final TimeOfPurchase modelTimeOfPurchase = new TimeOfPurchase(timeOfPurchaseInMillisSinceEpochString);
 
         return new Purchase(modelName, modelPrice, modelTimeOfPurchase);
     }

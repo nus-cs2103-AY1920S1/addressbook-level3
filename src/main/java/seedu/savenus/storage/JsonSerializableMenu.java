@@ -46,7 +46,8 @@ class JsonSerializableMenu {
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
         foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
-        purchases.addAll(source.getPurchaseHistory().stream().map(JsonAdaptedPurchase::new).collect(Collectors.toList()));
+        purchases.addAll(source.getPurchaseHistory().stream()
+                .map(JsonAdaptedPurchase::new).collect(Collectors.toList()));
         wallet = new JsonAdaptedWallet(source.getWallet());
     }
 

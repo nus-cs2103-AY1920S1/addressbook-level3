@@ -4,15 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
-import seedu.savenus.model.wallet.DaysToExpire;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -178,7 +174,9 @@ public class Menu implements ReadOnlyMenu {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Menu // instanceof handles nulls
-                && foods.equals(((Menu) other).foods));
+                && foods.equals(((Menu) other).foods))
+                && purchaseHistory.equals(((Menu) other).purchaseHistory)
+                && wallet.equals(((Menu) other).wallet);
     }
 
     @Override

@@ -1,15 +1,15 @@
 package seedu.savenus.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.savenus.commons.core.Messages;
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Buy a food using it's displayed index from the menu.

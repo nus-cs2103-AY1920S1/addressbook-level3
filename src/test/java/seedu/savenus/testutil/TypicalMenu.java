@@ -23,6 +23,10 @@ import java.util.List;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.Price;
+import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.purchase.TimeOfPurchase;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -95,6 +99,11 @@ public class TypicalMenu {
         for (Food food : getTypicalFood()) {
             menu.addFood(food);
         }
+        menu.setPurchaseHistory(List.of(
+                new Purchase(new Name("Ji Fan"), new Price("3.99"), new TimeOfPurchase("1570976664361")),
+                new Purchase(new Name("Wagyu steak"), new Price("50.00"), new TimeOfPurchase("1570976665687"))
+        ));
+        menu.setWallet(new Wallet("100", "30"));
         return menu;
     }
 
