@@ -13,6 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.LikeManager;
 
 /**
  * Represents the in-memory model of the meme book data.
@@ -23,6 +25,7 @@ public class ModelManager implements Model {
     private final MemeBook memeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
+    private final LikeData likeData;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -30,7 +33,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, LikeData likeData) {
         super();
         requireAllNonNull(memeBook, userPrefs);
 
@@ -39,10 +42,11 @@ public class ModelManager implements Model {
         this.memeBook = new MemeBook(memeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
+        this.likeData = likeData;
     }
 
     public ModelManager() {
-        this(new MemeBook(), new UserPrefs());
+        this(new MemeBook(), new UserPrefs(), new LikeManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -136,6 +140,15 @@ public class ModelManager implements Model {
     @Override
     public SimpleObjectProperty<ModelContext> getContext() {
         return context;
+    }
+
+    public void setContext(ModelContext context) {
+        this.context.set(context);
+    }
+
+    @Override
+    public LikeData getLikeData() {
+        return this.likeData;
     }
 
     @Override

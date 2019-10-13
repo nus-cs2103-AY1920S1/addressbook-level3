@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel = new StackPane();
         storagePanel = new StackPane();
 
-        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList());
+        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getLikeData());
         memesPanel.getChildren().add(memeGridPanel.getRoot());
 
         // TODO: Fill in other panels here

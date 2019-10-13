@@ -52,7 +52,7 @@ class JsonAdaptedMeme {
     }
 
     /**
-     * Converts this Jackson-friendly adapted meme object into the model's {@code Meme} object.
+     * Converts this Json-friendly adapted meme object into the model's {@code Meme} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted meme.
      */

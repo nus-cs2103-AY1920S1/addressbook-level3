@@ -38,8 +38,10 @@ public class MemeCard extends UiPart<Region> {
     private Label description;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label likes;
 
-    public MemeCard(Meme meme, int displayedIndex) {
+    public MemeCard(Meme meme, int displayedIndex, int numOfLikes) {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + "");
@@ -48,6 +50,7 @@ public class MemeCard extends UiPart<Region> {
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        likes.setText("Likes: " + Integer.toString(numOfLikes));
     }
 
     @Override

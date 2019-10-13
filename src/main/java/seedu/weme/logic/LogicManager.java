@@ -18,6 +18,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
 import seedu.weme.storage.Storage;
 
 /**
@@ -83,5 +84,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public LikeData getLikeData() {
+        return model.getLikeData();
     }
 }
