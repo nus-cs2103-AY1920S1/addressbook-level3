@@ -34,4 +34,10 @@ public class EventList extends VisualizeList {
         EventList el = new EventList();
         return find(searchString, el);
     }
+
+    @Override
+    public VisualizeList deepCopy() {
+        EventList el = new EventList();
+        return super.deepCopy(el);
+    }
 }

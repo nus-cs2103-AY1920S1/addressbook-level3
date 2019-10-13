@@ -358,4 +358,8 @@ public class Item {
         return temp.setTags(tagsSet).build();
     }
 
+    public Item deepCopy() throws IOException {
+        return Item.fromJson(this.toJson());
+    }
+
 }
