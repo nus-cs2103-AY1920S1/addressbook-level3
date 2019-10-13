@@ -33,6 +33,18 @@ public class MonthOffset {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MonthOffset // instanceof handles nulls
+                && value.equals(((MonthOffset) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
     public String toString() {
         if (this.value == null) {
             return "";
