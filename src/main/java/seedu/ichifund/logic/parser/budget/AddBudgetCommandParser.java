@@ -1,12 +1,11 @@
 package seedu.ichifund.logic.parser.budget;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.stream.Stream;
 
-import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.parser.ArgumentMultimap;
 import seedu.ichifund.logic.parser.ArgumentTokenizer;

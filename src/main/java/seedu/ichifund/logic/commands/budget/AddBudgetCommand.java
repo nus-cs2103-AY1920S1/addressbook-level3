@@ -1,8 +1,8 @@
 package seedu.ichifund.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
