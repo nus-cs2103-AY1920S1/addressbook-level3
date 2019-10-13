@@ -99,4 +99,10 @@ public interface Model {
     void updateStatistics();
 
     Statistics getStatistics();
+
+    Dish getDishByName(Dish dish);
+
+    boolean hasDishName(Dish dish);
+
+    CalorieBudget getCalorieBudget();
 }

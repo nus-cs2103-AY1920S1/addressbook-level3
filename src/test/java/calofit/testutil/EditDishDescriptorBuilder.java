@@ -46,7 +46,7 @@ public class EditDishDescriptorBuilder {
     /**
      * Sets the {@code Calorie} of the {@code EditDishDescriptor} that we are building.
      */
-    public EditDishDescriptorBuilder withCalories(String calories) {
+    public EditDishDescriptorBuilder withCalories(int calories) {
         descriptor.setCalories(new Calorie(calories));
         return this;
     }

@@ -65,6 +65,22 @@ public class DishDatabase implements ReadOnlyDishDatabase {
     }
 
     /**
+     * Returns true if a dish with the same name as {@code dish} exists in the dish database.
+     */
+    public boolean hasDishName(Dish dish) {
+        requireNonNull(dish);
+        return dishes.containsDishName(dish);
+    }
+
+    /**
+     * Gets the dish by name if it is in the dish database
+     */
+    public Dish getDishByName(Dish dish) {
+        requireNonNull(dish);
+        return dishes.getDishByName(dish);
+    }
+
+    /**
      * Adds a dish to the dish database.
      * The dish must not already exist in the dish database.
      */

@@ -15,7 +15,7 @@ import calofit.model.util.SampleDataUtil;
 public class DishBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_CALORIE = "1000";
+    public static final int DEFAULT_CALORIE = 1000;
 
     private Name name;
     private Calorie calories;
@@ -47,7 +47,7 @@ public class DishBuilder {
     /**
      * Sets the {@code Calorie} of the {@code Dish} that we are building.
      */
-    public calofit.testutil.DishBuilder withCalories(String calories) {
+    public calofit.testutil.DishBuilder withCalories(int calories) {
         this.calories = new Calorie(calories);
         return this;
     }

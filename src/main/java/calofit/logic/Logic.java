@@ -55,4 +55,6 @@ public interface Logic {
     ObservableList<Meal> getFilteredMealList();
 
     Statistics getStatistics();
+
+    Model getModel();
 }

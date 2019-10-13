@@ -6,11 +6,15 @@ import java.util.NavigableMap;
 import java.util.OptionalInt;
 import java.util.TreeMap;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+
 /**
  * Represents a historical record of calorie budget settings.
  */
 public class CalorieBudget {
     private NavigableMap<LocalDate, Integer> budgetHistory;
+    private ReadOnlyDoubleWrapper currentBudget = new ReadOnlyDoubleWrapper(Double.POSITIVE_INFINITY);
 
     /**
      * Construct an empty {@link CalorieBudget}.
@@ -54,5 +58,10 @@ public class CalorieBudget {
      */
     public void setCurrentBudget(int budget) {
         budgetHistory.put(LocalDate.now(), budget);
+        currentBudget.set(budget);
+    }
+
+    public ReadOnlyDoubleProperty currentBudget() {
+        return currentBudget.getReadOnlyProperty();
     }
 }
