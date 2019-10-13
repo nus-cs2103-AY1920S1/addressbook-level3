@@ -20,7 +20,7 @@ public class QuizModeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters quiz mode where questions will be displayed "
             + " and answer input is required to check the accuracy.\n"
             + "Parameters: "
-            + PREFIX_NUMBER + "number of questions (a positive integer) "
+            + PREFIX_NUMBER + "NUMBER OF QUESTIONS (a positive integer) "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
             + PREFIX_SUBJECT + "SUBJECT "
             + "Example: " + COMMAND_WORD + " "
@@ -29,7 +29,7 @@ public class QuizModeCommand extends Command {
             + PREFIX_SUBJECT + "Maths ";
 
     public static final String MESSAGE_SUCCESS = "You have successfully entered quiz mode!";
-    public static final String MESSAGE_NOT_ENOUGH_QUESTIONS = "There are not enough questions to do";
+    public static final String MESSAGE_NOT_ENOUGH_QUESTIONS = "There are not enough questions to do!";
 
 
     private final int numOfQuestions;
@@ -48,6 +48,8 @@ public class QuizModeCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        model.setQuizQuestionList(numOfQuestions, subject, difficulty);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
