@@ -5,12 +5,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Genre in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidGenreName(String)}
  */
 public class Genre {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Genre names should be alphanumeric & hyphenated if needed";
+    public static final String VALIDATION_REGEX = "[\\-\\p{Alnum}]+";
 
     public final String tagName;
 
@@ -21,14 +21,14 @@ public class Genre {
      */
     public Genre(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidGenreName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
     }
 
     /**
      * Returns true if a given string is a valid genre name.
      */
-    public static boolean isValidTagName(String test) {
+    public static boolean isValidGenreName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

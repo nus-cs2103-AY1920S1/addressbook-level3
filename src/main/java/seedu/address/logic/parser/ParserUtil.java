@@ -85,7 +85,7 @@ public class ParserUtil {
     public static Genre parseGenre(String genre) throws ParseException {
         requireNonNull(genre);
         String trimmedTag = genre.trim();
-        if (!Genre.isValidTagName(trimmedTag)) {
+        if (!Genre.isValidGenreName(trimmedTag)) {
             throw new ParseException(Genre.MESSAGE_CONSTRAINTS);
         }
         return new Genre(trimmedTag);

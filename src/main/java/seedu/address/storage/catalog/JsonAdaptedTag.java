@@ -39,7 +39,7 @@ public class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted genre.
      */
     public Genre toModelType() throws IllegalValueException {
-        if (!Genre.isValidTagName(tagName)) {
+        if (!Genre.isValidGenreName(tagName)) {
             throw new IllegalValueException(Genre.MESSAGE_CONSTRAINTS);
         }
         return new Genre(tagName);

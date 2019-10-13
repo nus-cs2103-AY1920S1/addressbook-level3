@@ -13,6 +13,8 @@ public class Messages {
     public static final String MESSAGE_NO_SUCH_BOOK = "No such book!";
     public static final String MESSAGE_INVALID_SERIAL_NUMBER = "Invalid Serial Number! \n%1$s";
 
+    public static final String MESSAGE_DUPLICATE_BORROWER = "Phone/Email is already in used! ";
+
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
     public static final String MESSAGE_BOOK_ON_LOAN = "%1$s is already on loan!";
 

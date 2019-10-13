@@ -27,7 +27,7 @@ import seedu.address.commons.core.GuiSettings;
 //import seedu.address.model.book.Book;
 
 import seedu.address.model.book.Book;
-import seedu.address.model.book.TitleContainsKeywordPredicate;
+import seedu.address.model.book.BookPredicate;
 
 //import seedu.address.model.borrower.BorrowerId;
 //import seedu.address.model.loan.Loan;
@@ -215,8 +215,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = BOOK_1.getTitle().value.split("\\s+");
-        modelManager.updateFilteredBookList(new TitleContainsKeywordPredicate(Arrays.asList(keywords)));
+        String keywords = BOOK_1.getTitle().value;
+        modelManager.updateFilteredBookList(new BookPredicate().addTitle(keywords));
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

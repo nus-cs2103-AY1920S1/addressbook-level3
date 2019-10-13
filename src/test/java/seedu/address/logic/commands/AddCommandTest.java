@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -201,7 +201,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyBorrowerRecords getBorrowerRecords() {
+        public BorrowerRecords getBorrowerRecords() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -218,6 +218,21 @@ public class AddCommandTest {
         @Override
         public boolean isServeMode() {
             throw new AssertionError(" This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBorrower(Borrower borrower) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void registerBorrower(Borrower borrower) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetGenerator() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

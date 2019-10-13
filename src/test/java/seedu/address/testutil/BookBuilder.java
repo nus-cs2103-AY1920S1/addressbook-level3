@@ -58,7 +58,7 @@ public class BookBuilder {
      * Parses the {@code genres} into a {@code Set<Genre>} and set it to the {@code Book} that we are building.
      */
     public BookBuilder withGenres(String ... tags) {
-        this.genres = SampleDataUtil.getTagSet(tags);
+        this.genres = SampleDataUtil.getGenreSet(tags);
         return this;
     }
 

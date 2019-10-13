@@ -125,4 +125,10 @@ public interface Model {
      * @return True if Liberry is currently in Serve mode.
      */
     boolean isServeMode();
+
+    boolean hasBorrower(Borrower borrower);
+
+    void registerBorrower(Borrower borrower);
+
+    void resetGenerator();
 }

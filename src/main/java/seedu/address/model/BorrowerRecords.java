@@ -40,7 +40,8 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      * @param borrower Borrower to be checked.
      */
     public boolean hasBorrower(Borrower borrower) {
-        return borrowersMap.containsKey(borrower.getBorrowerId());
+        return listOfBorrowers.stream().anyMatch(current -> current.getPhone().equals(borrower.getPhone())
+                || current.getEmail().equals(borrower.getEmail()));
     }
 
     /**
@@ -55,13 +56,14 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
 
     private void resetData(ReadOnlyBorrowerRecords newData) {
         requireNonNull(newData);
-        setBorrowers(newData.getBorrowerList());
+        setBorrowers(FXCollections.observableArrayList(newData.getBorrowerList()));
     }
 
     private void setBorrowers(ObservableList<Borrower> borrowerList) {
         this.listOfBorrowers = borrowerList;
         this.borrowersMap = new HashMap<>();
         borrowerList.stream().forEach(borrower -> borrowersMap.put(borrower.getBorrowerId(), borrower));
+        BorrowerIdGenerator.setBorrowers(this);
     }
 
     /**
@@ -99,5 +101,9 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
                 || (other instanceof BorrowerRecords // instanceof handles nulls
                 && listOfBorrowers.equals(((BorrowerRecords) other).listOfBorrowers)
                 && borrowersMap.equals(((BorrowerRecords) other).borrowersMap));
+    }
+
+    int getSize() {
+        return listOfBorrowers.size();
     }
 }

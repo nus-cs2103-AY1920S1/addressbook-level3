@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.genre.Genre;
 
@@ -22,6 +23,13 @@ public class BookUtil {
      */
     public static String getAddCommand(Book book) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(book);
+    }
+
+    /**
+     * Returns an find command string for finding the {@code person}.
+     */
+    public static String getFindCommand(Book book) {
+        return FindCommand.COMMAND_WORD + " " + getPersonDetails(book);
     }
 
     /**
