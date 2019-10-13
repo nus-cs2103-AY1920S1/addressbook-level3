@@ -6,6 +6,10 @@ import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 
+//@@author bernicechio
+/**
+ * Parses input bodyID and creates a new GenReportCommand object.
+ */
 public class GenReportCommandParser {
 
     /**

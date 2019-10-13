@@ -10,9 +10,18 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import seedu.address.model.entity.body.Body;
 
+//@@author bernicechio
+/**
+ * Represents a report generator and the ability to be generate aå report.
+ */
 public class ReportGenerator {
 
-    public static void generate(Body body) {  //pass in body as parameter
+    /**
+     * Generates a PDF report for the specific body.
+     *
+     * @param body which is used to generate the report.
+     */
+    public static void generate(Body body) {
         Document document = new Document();
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
