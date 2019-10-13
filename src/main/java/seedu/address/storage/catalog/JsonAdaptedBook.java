@@ -56,6 +56,7 @@ public class JsonAdaptedBook {
         author = source.getAuthor().value;
         boolean hasLoan = source.getLoan().isPresent();
         if (hasLoan) {
+            // TODO CHANGE TO USE LOANID
             loan = source.getLoan().get().toString(); //toString for now
         } else {
             loan = null;
@@ -97,6 +98,7 @@ public class JsonAdaptedBook {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
         final Author modelAuthor = new Author(author);
+        // TODO model Loan in book json
         final Loan modelLoan = null; //stub as null until we decide how to store loan in json
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);

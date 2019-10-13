@@ -17,8 +17,8 @@ public class BorrowerRecordsTest {
     @Test
     void checkIfBorrowerExists() {
         BorrowerRecords borrowers = new BorrowerRecords();
-        Borrower borrower1 = new BorrowerBuilder().actual_build();
-        Borrower borrower2 = new BorrowerBuilder().actual_build();
+        Borrower borrower1 = new BorrowerBuilder().actualBuild();
+        Borrower borrower2 = new BorrowerBuilder().actualBuild();
         borrowers.addBorrower(borrower1);
         //return true
         assertTrue(borrowers.hasBorrower(borrower1));
