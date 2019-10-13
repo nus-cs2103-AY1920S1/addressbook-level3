@@ -78,7 +78,7 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the dish being added.
      */
-    private static abstract class ModelStubAcceptingDishAdded implements Model {
+    private abstract static class ModelStubAcceptingDishAdded implements Model {
         final ArrayList<Dish> dishesAdded;
         final MealLog mealLog;
 
