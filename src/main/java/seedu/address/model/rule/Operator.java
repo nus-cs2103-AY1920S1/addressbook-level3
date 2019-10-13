@@ -24,7 +24,6 @@ public enum Operator {
                 .anyMatch(operator -> operator.representation.equals(test.toUpperCase()));
     }
 
-
     @Override
     public String toString() {
         return representation;
