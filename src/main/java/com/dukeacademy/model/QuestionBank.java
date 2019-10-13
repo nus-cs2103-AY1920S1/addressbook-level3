@@ -10,7 +10,7 @@ import com.dukeacademy.model.question.UniqueQuestionList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the question-bank level
  * Duplicates are not allowed (by .isSameQuestion comparison)
  */
 public class QuestionBank implements ReadOnlyQuestionBank {
@@ -60,7 +60,7 @@ public class QuestionBank implements ReadOnlyQuestionBank {
     //// question-level operations
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in the question bank.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -68,8 +68,8 @@ public class QuestionBank implements ReadOnlyQuestionBank {
     }
 
     /**
-     * Adds a question to the address book.
-     * The question must not already exist in the address book.
+     * Adds a question to the question bank.
+     * The question must not already exist in the question bank.
      */
     public void addQuestion(Question p) {
         questions.add(p);
@@ -77,9 +77,9 @@ public class QuestionBank implements ReadOnlyQuestionBank {
 
     /**
      * Replaces the given question {@code target} in the list with {@code editedQuestion}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the question bank.
      * The question identity of {@code editedQuestion} must not be the same as
-     * another existing question in the address book.
+     * another existing question in the question bank.
      */
     public void setQuestion(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);
@@ -89,7 +89,7 @@ public class QuestionBank implements ReadOnlyQuestionBank {
 
     /**
      * Removes {@code key} from this {@code QuestionBank}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the question bank.
      */
     public void removeQuestion(Question key) {
         questions.remove(key);

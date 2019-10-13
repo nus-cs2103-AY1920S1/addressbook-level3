@@ -15,12 +15,12 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
+Package Question {
+Class Question
+Class Difficulty
 Class Email
 Class Name
-Class Phone
+Class Topic
 Class UniquePersonList
 }
 
@@ -41,16 +41,16 @@ ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+UniquePersonList o--> "*" Question
+Question *--> Title
+Question *--> Topic
+Question *--> Status
+Question *--> Difficulty
+Question *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Title -[hidden]right-> Topic
+Topic -[hidden]right-> Difficulty
+Difficulty -[hidden]right-> Status
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Question : filtered list
 @enduml

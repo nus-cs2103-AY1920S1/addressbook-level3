@@ -28,6 +28,6 @@ public interface Storage extends QuestionBankStorage, UserPrefsStorage {
     Optional<ReadOnlyQuestionBank> readQuestionBank() throws DataConversionException, IOException;
 
     @Override
-    void saveQuestionBank(ReadOnlyQuestionBank addressBook) throws IOException;
+    void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException;
 
 }

@@ -8,29 +8,29 @@ import com.dukeacademy.model.Model;
 import com.dukeacademy.model.question.Question;
 
 /**
- * Adds a question to the address book.
+ * Adds a question to the question bank.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the question bank. "
             + "Parameters: "
-            + CliSyntax.PREFIX_NAME + "NAME "
-            + CliSyntax.PREFIX_PHONE + "PHONE "
-            + CliSyntax.PREFIX_EMAIL + "EMAIL "
-            + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
+            + CliSyntax.PREFIX_TITLE + "NAME "
+            + CliSyntax.PREFIX_TOPIC + "PHONE "
+            + CliSyntax.PREFIX_STATUS + "EMAIL "
+            + CliSyntax.PREFIX_DIFFICULTY + "ADDRESS "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "John Doe "
-            + CliSyntax.PREFIX_PHONE + "98765432 "
-            + CliSyntax.PREFIX_EMAIL + "johnd@example.com "
-            + CliSyntax.PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + CliSyntax.PREFIX_TITLE + "John Doe "
+            + CliSyntax.PREFIX_TOPIC + "98765432 "
+            + CliSyntax.PREFIX_STATUS + "johnd@example.com "
+            + CliSyntax.PREFIX_DIFFICULTY + "311, Clementi Ave 2, #02-25 "
             + CliSyntax.PREFIX_TAG + "friends "
             + CliSyntax.PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the question bank";
 
     private final Question toAdd;
 

@@ -42,20 +42,20 @@ class JsonSerializableQuestionBank {
     }
 
     /**
-     * Converts this address book into the model's {@code QuestionBank} object.
+     * Converts this question bank into the model's {@code QuestionBank} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public QuestionBank toModelType() throws IllegalValueException {
-        QuestionBank addressBook = new QuestionBank();
+        QuestionBank questionBank = new QuestionBank();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (addressBook.hasQuestion(question)) {
+            if (questionBank.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
-            addressBook.addQuestion(question);
+            questionBank.addQuestion(question);
         }
-        return addressBook;
+        return questionBank;
     }
 
 }

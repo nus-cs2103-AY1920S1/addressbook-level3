@@ -2,45 +2,45 @@
   "_comment": "QuestionBank save file which contains the same Question values as in TypicalQuestions#getTypicalQuestionBank()",
   "questions" : [ {
     "title" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
+    "topic" : "94351253",
+    "status" : "alice@example.com",
+    "difficulty" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
     "title" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
+    "topic" : "98765432",
+    "status" : "johnd@example.com",
+    "difficulty" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "title" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
+    "topic" : "95352563",
+    "status" : "heinz@example.com",
+    "difficulty" : "wall street",
     "tagged" : [ ]
   }, {
     "title" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
+    "topic" : "87652533",
+    "status" : "cornelia@example.com",
+    "difficulty" : "10th street",
     "tagged" : [ "friends" ]
   }, {
     "title" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
+    "topic" : "9482224",
+    "status" : "werner@example.com",
+    "difficulty" : "michegan ave",
     "tagged" : [ ]
   }, {
     "title" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
+    "topic" : "9482427",
+    "status" : "lydia@example.com",
+    "difficulty" : "little tokyo",
     "tagged" : [ ]
   }, {
     "title" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
+    "topic" : "9482442",
+    "status" : "anna@example.com",
+    "difficulty" : "4th street",
     "tagged" : [ ]
   } ]
 }

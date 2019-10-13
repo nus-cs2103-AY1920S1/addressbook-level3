@@ -20,7 +20,7 @@ import com.dukeacademy.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class QuestionBankParser {
 
     /**
      * Used for initial separation of command word and args.

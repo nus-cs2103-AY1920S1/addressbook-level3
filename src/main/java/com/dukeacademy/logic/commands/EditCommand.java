@@ -14,15 +14,15 @@ import com.dukeacademy.commons.util.CollectionUtil;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.question.Address;
-import com.dukeacademy.model.question.Email;
-import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 
 /**
- * Edits the details of an existing question in the address book.
+ * Edits the details of an existing question in the question bank.
  */
 public class EditCommand extends Command {
 
@@ -32,18 +32,18 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed question list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
-            + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
-            + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + CliSyntax.PREFIX_TITLE + "NAME] "
+            + "[" + CliSyntax.PREFIX_TOPIC + "PHONE] "
+            + "[" + CliSyntax.PREFIX_STATUS + "EMAIL] "
+            + "[" + CliSyntax.PREFIX_DIFFICULTY + "ADDRESS] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + CliSyntax.PREFIX_TOPIC + "91234567 "
+            + CliSyntax.PREFIX_STATUS + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the question bank.";
 
     private final Index index;
     private final EditQuestionDescriptor editQuestionDescriptor;
@@ -92,16 +92,17 @@ public class EditCommand extends Command {
         assert questionToEdit != null;
 
         Title updatedTitle = editQuestionDescriptor.getTitle().orElse(questionToEdit.getTitle());
-        Phone updatedPhone = editQuestionDescriptor.getPhone().orElse(
-            questionToEdit.getPhone());
-        Email updatedEmail = editQuestionDescriptor.getEmail().orElse(
-            questionToEdit.getEmail());
-        Address updatedAddress = editQuestionDescriptor.getAddress().orElse(
-            questionToEdit.getAddress());
+        Topic updatedTopic = editQuestionDescriptor.getTopic().orElse(
+            questionToEdit.getTopic());
+        Status updatedStatus = editQuestionDescriptor.getStatus().orElse(
+            questionToEdit.getStatus());
+        Difficulty updatedDifficulty = editQuestionDescriptor.getDifficulty().orElse(
+            questionToEdit.getDifficulty());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(
             questionToEdit.getTags());
 
-        return new Question(updatedTitle, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Question(updatedTitle, updatedTopic, updatedStatus,
+            updatedDifficulty, updatedTags);
     }
 
     @Override
@@ -128,9 +129,9 @@ public class EditCommand extends Command {
      */
     public static class EditQuestionDescriptor {
         private Title title;
-        private Phone phone;
-        private Email email;
-        private Address address;
+        private Topic topic;
+        private Status status;
+        private Difficulty difficulty;
         private Set<Tag> tags;
 
         public EditQuestionDescriptor() {}
@@ -141,9 +142,9 @@ public class EditCommand extends Command {
          */
         public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
             setTitle(toCopy.title);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setTopic(toCopy.topic);
+            setStatus(toCopy.status);
+            setDifficulty(toCopy.difficulty);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +152,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(title, topic, status, difficulty, tags);
         }
 
         public void setTitle(Title title) {
@@ -162,28 +163,28 @@ public class EditCommand extends Command {
             return Optional.ofNullable(title);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setTopic(Topic topic) {
+            this.topic = topic;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Topic> getTopic() {
+            return Optional.ofNullable(topic);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setStatus(Status status) {
+            this.status = status;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Difficulty> getDifficulty() {
+            return Optional.ofNullable(difficulty);
         }
 
         /**
@@ -219,9 +220,9 @@ public class EditCommand extends Command {
             EditQuestionDescriptor e = (EditQuestionDescriptor) other;
 
             return getTitle().equals(e.getTitle())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getTopic().equals(e.getTopic())
+                    && getStatus().equals(e.getStatus())
+                    && getDifficulty().equals(e.getDifficulty())
                     && getTags().equals(e.getTags());
         }
     }

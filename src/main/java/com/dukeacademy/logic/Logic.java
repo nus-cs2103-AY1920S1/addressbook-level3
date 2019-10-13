@@ -36,7 +36,7 @@ public interface Logic {
     ObservableList<Question> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' question bank file path.
      */
     Path getQuestionBankFilePath();
 

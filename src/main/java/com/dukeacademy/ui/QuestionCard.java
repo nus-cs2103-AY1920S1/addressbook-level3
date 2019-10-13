@@ -34,11 +34,11 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label topic;
     @FXML
-    private Label address;
+    private Label difficulty;
     @FXML
-    private Label email;
+    private Label status;
     @FXML
     private FlowPane tags;
 
@@ -47,9 +47,9 @@ public class QuestionCard extends UiPart<Region> {
         this.question = question;
         id.setText(displayedIndex + ". ");
         title.setText(question.getTitle().fullTitle);
-        phone.setText(question.getPhone().value);
-        address.setText(question.getAddress().value);
-        email.setText(question.getEmail().value);
+        topic.setText(question.getTopic().value);
+        difficulty.setText(question.getDifficulty().value);
+        status.setText(question.getStatus().value);
         question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -1,11 +1,11 @@
 package com.dukeacademy.logic.parser;
 
 import static com.dukeacademy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_NAME;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_STATUS;
 import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TAG;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TITLE;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TOPIC;
 
 import static java.util.Objects.requireNonNull;
 
@@ -33,7 +33,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TOPIC,
+                    PREFIX_STATUS, PREFIX_DIFFICULTY, PREFIX_TAG);
 
         Index index;
 
@@ -44,17 +45,18 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditQuestionDescriptor editQuestionDescriptor = new EditQuestionDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editQuestionDescriptor.setTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
+            editQuestionDescriptor.setTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TITLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editQuestionDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_TOPIC).isPresent()) {
+            editQuestionDescriptor.setTopic(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TOPIC).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editQuestionDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            editQuestionDescriptor.setStatus(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_STATUS).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editQuestionDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+            editQuestionDescriptor.setDifficulty(ParserUtil
+                .parseAddress(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
 

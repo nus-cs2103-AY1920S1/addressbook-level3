@@ -33,14 +33,14 @@ public interface QuestionBankStorage {
 
     /**
      * Saves the given {@link ReadOnlyQuestionBank} to the storage.
-     * @param addressBook cannot be null.
+     * @param questionBank cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveQuestionBank(ReadOnlyQuestionBank addressBook) throws IOException;
+    void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException;
 
     /**
      * @see #saveQuestionBank(ReadOnlyQuestionBank)
      */
-    void saveQuestionBank(ReadOnlyQuestionBank addressBook, Path filePath) throws IOException;
+    void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException;
 
 }

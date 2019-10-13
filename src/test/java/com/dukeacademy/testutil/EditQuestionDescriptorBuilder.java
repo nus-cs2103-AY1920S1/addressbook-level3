@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.dukeacademy.logic.commands.EditCommand;
-import com.dukeacademy.model.question.Address;
-import com.dukeacademy.model.question.Email;
-import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 
 /**
@@ -33,9 +33,9 @@ public class EditQuestionDescriptorBuilder {
     public EditQuestionDescriptorBuilder(Question question) {
         descriptor = new EditCommand.EditQuestionDescriptor();
         descriptor.setTitle(question.getTitle());
-        descriptor.setPhone(question.getPhone());
-        descriptor.setEmail(question.getEmail());
-        descriptor.setAddress(question.getAddress());
+        descriptor.setTopic(question.getTopic());
+        descriptor.setStatus(question.getStatus());
+        descriptor.setDifficulty(question.getDifficulty());
         descriptor.setTags(question.getTags());
     }
 
@@ -48,26 +48,26 @@ public class EditQuestionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditQuestionDescriptor} that we are building.
+     * Sets the {@code Topic} of the {@code EditQuestionDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditQuestionDescriptorBuilder withPhone(String topic) {
+        descriptor.setTopic(new Topic(topic));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditQuestionDescriptor} that we are building.
+     * Sets the {@code Status} of the {@code EditQuestionDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditQuestionDescriptorBuilder withEmail(String status) {
+        descriptor.setStatus(new Status(status));
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditQuestionDescriptor} that we are building.
+     * Sets the {@code Difficulty} of the {@code EditQuestionDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditQuestionDescriptorBuilder withDifficulty(String difficulty) {
+        descriptor.setDifficulty(new Difficulty(difficulty));
         return this;
     }
 

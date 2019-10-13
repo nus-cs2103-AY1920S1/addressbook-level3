@@ -26,63 +26,63 @@ import javafx.collections.ObservableList;
 
 public class QuestionBankTest {
 
-    private final QuestionBank addressBook = new QuestionBank();
+    private final QuestionBank questionBank = new QuestionBank();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getQuestionList());
+        assertEquals(Collections.emptyList(), questionBank.getQuestionList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> questionBank.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         QuestionBank newData = getTypicalQuestionBank();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        questionBank.resetData(newData);
+        assertEquals(newData, questionBank);
     }
 
     @Test
     public void resetData_withDuplicateQuestions_throwsDuplicateQuestionException() {
         // Two questions with the same identity fields
-        Question editedAlice = new QuestionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                                                          .build();
         List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
         QuestionBankStub newData = new QuestionBankStub(newQuestions);
 
-        assertThrows(DuplicateQuestionException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateQuestionException.class, () -> questionBank.resetData(newData));
     }
 
     @Test
     public void hasQuestion_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasQuestion(null));
+        assertThrows(NullPointerException.class, () -> questionBank.hasQuestion(null));
     }
 
     @Test
     public void hasQuestion_questionNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasQuestion(ALICE));
+        assertFalse(questionBank.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionInAddressBook_returnsTrue() {
-        addressBook.addQuestion(ALICE);
-        assertTrue(addressBook.hasQuestion(ALICE));
+        questionBank.addQuestion(ALICE);
+        assertTrue(questionBank.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addQuestion(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        questionBank.addQuestion(ALICE);
+        Question editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                                                          .build();
-        assertTrue(addressBook.hasQuestion(editedAlice));
+        assertTrue(questionBank.hasQuestion(editedAlice));
     }
 
     @Test
     public void getQuestionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getQuestionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> questionBank.getQuestionList().remove(0));
     }
 
     /**

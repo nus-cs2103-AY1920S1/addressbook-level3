@@ -65,14 +65,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank addressBook) throws IOException {
-        saveQuestionBank(addressBook, questionBankStorage.getAddressBookFilePath());
+    public void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException {
+        saveQuestionBank(questionBank, questionBankStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank addressBook, Path filePath) throws IOException {
+    public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        questionBankStorage.saveQuestionBank(addressBook, filePath);
+        questionBankStorage.saveQuestionBank(questionBank, filePath);
     }
 
 }

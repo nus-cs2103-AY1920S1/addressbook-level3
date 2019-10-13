@@ -10,29 +10,29 @@ import java.util.Set;
 import com.dukeacademy.model.tag.Tag;
 
 /**
- * Represents a Question in the address book.
+ * Represents a Question in the question bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Question {
 
     // Identity fields
     private final Title title;
-    private final Phone phone;
-    private final Email email;
+    private final Topic topic;
+    private final Status status;
 
     // Data fields
-    private final Address address;
+    private final Difficulty difficulty;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Question(Title title, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(title, phone, email, address, tags);
+    public Question(Title title, Topic topic, Status status, Difficulty difficulty, Set<Tag> tags) {
+        requireAllNonNull(title, topic, status, difficulty, tags);
         this.title = title;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.topic = topic;
+        this.status = status;
+        this.difficulty = difficulty;
         this.tags.addAll(tags);
     }
 
@@ -40,16 +40,16 @@ public class Question {
         return title;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public Email getEmail() {
-        return email;
+    public Status getStatus() {
+        return status;
     }
 
-    public Address getAddress() {
-        return address;
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
     /**
@@ -71,8 +71,8 @@ public class Question {
 
         return otherQuestion != null
                 && otherQuestion.getTitle().equals(getTitle())
-                && (otherQuestion.getPhone().equals(getPhone()) || otherQuestion
-            .getEmail().equals(getEmail()));
+                && (otherQuestion.getTopic().equals(getTopic()) || otherQuestion
+            .getStatus().equals(getStatus()));
     }
 
     /**
@@ -91,28 +91,28 @@ public class Question {
 
         Question otherQuestion = (Question) other;
         return otherQuestion.getTitle().equals(getTitle())
-                && otherQuestion.getPhone().equals(getPhone())
-                && otherQuestion.getEmail().equals(getEmail())
-                && otherQuestion.getAddress().equals(getAddress())
+                && otherQuestion.getTopic().equals(getTopic())
+                && otherQuestion.getStatus().equals(getStatus())
+                && otherQuestion.getDifficulty().equals(getDifficulty())
                 && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, phone, email, address, tags);
+        return Objects.hash(title, topic, status, difficulty, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Topic: ")
+                .append(getTopic())
+                .append(" Status: ")
+                .append(getStatus())
+                .append(" Difficulty: ")
+                .append(getDifficulty())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

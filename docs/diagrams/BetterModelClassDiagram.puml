@@ -10,12 +10,12 @@ UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniquePersonList o-right-> Question
 
-Person o-up-> "*" Tag
+Question o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Question *--> Name
+Question *--> Topic
+Question *--> Status
+Question *--> Difficulty
 @enduml

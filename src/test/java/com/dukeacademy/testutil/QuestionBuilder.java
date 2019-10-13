@@ -3,11 +3,11 @@ package com.dukeacademy.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.dukeacademy.model.question.Address;
-import com.dukeacademy.model.question.Email;
-import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 import com.dukeacademy.model.util.SampleDataUtil;
 
@@ -22,16 +22,16 @@ public class QuestionBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Title title;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Topic topic;
+    private Status status;
+    private Difficulty difficulty;
     private Set<Tag> tags;
 
     public QuestionBuilder() {
         title = new Title(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        topic = new Topic(DEFAULT_PHONE);
+        status = new Status(DEFAULT_EMAIL);
+        difficulty = new Difficulty(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -40,9 +40,9 @@ public class QuestionBuilder {
      */
     public QuestionBuilder(Question questionToCopy) {
         title = questionToCopy.getTitle();
-        phone = questionToCopy.getPhone();
-        email = questionToCopy.getEmail();
-        address = questionToCopy.getAddress();
+        topic = questionToCopy.getTopic();
+        status = questionToCopy.getStatus();
+        difficulty = questionToCopy.getDifficulty();
         tags = new HashSet<>(questionToCopy.getTags());
     }
 
@@ -63,31 +63,31 @@ public class QuestionBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Question} that we are building.
+     * Sets the {@code Difficulty} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public QuestionBuilder withDifficulty(String difficulty) {
+        this.difficulty = new Difficulty(difficulty);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Question} that we are building.
+     * Sets the {@code Topic} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public QuestionBuilder withPhone(String topic) {
+        this.topic = new Topic(topic);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Question} that we are building.
+     * Sets the {@code Status} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public QuestionBuilder withEmail(String status) {
+        this.status = new Status(status);
         return this;
     }
 
     public Question build() {
-        return new Question(title, phone, email, address, tags);
+        return new Question(title, topic, status, difficulty, tags);
     }
 
 }

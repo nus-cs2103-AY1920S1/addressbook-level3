@@ -9,7 +9,7 @@ import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.logic.parser.AddressBookParser;
+import com.dukeacademy.logic.parser.QuestionBankParser;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ReadOnlyQuestionBank;
@@ -27,12 +27,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final QuestionBankParser questionBankParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        questionBankParser = new QuestionBankParser();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = questionBankParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

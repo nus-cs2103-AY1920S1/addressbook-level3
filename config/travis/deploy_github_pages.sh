@@ -14,7 +14,7 @@ cd build/docs/html5
 
 git init
 git config user.title 'Deployment Bot (Travis)'
-git config user.email 'deploy@travis-ci.org'
+git config user.status 'deploy@travis-ci.org'
 
 git config credential.helper 'store --file=.git/credentials'
 echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials

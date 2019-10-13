@@ -1,8 +1,8 @@
 {
   "questions": [ {
     "title": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "topic": "9482424",
+    "status": "invalid@status!3e",
+    "difficulty": "4th street"
   } ]
 }

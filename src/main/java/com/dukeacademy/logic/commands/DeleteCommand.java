@@ -11,7 +11,7 @@ import com.dukeacademy.model.Model;
 import com.dukeacademy.model.question.Question;
 
 /**
- * Deletes a question identified using it's displayed index from the address book.
+ * Deletes a question identified using it's displayed index from the question bank.
  */
 public class DeleteCommand extends Command {
 

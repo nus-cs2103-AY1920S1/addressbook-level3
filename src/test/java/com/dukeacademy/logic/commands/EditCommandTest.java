@@ -126,7 +126,7 @@ public class EditCommandTest {
     public void execute_duplicateQuestionFilteredList_failure() {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
 
-        // edit question in filtered list into a duplicate in address book
+        // edit question in filtered list into a duplicate in question bank
         Question questionInList = model.getQuestionBank().getQuestionList()
                                        .get(TypicalIndexes.INDEX_SECOND_QUESTION.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_QUESTION,
@@ -147,13 +147,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of question bank
      */
     @Test
     public void execute_invalidQuestionIndexFilteredList_failure() {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_QUESTION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of question bank list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getQuestionBank().getQuestionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,

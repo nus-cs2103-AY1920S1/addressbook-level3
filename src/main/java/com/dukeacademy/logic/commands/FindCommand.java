@@ -7,7 +7,7 @@ import com.dukeacademy.model.Model;
 import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose title contains any of the argument keywords.
+ * Finds and lists all persons in question bank whose title contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

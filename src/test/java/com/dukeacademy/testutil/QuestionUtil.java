@@ -25,10 +25,10 @@ public class QuestionUtil {
      */
     public static String getQuestionDetails(Question question) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + question.getTitle().fullTitle + " ");
-        sb.append(CliSyntax.PREFIX_PHONE + question.getPhone().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL + question.getEmail().value + " ");
-        sb.append(CliSyntax.PREFIX_ADDRESS + question.getAddress().value + " ");
+        sb.append(CliSyntax.PREFIX_TITLE + question.getTitle().fullTitle + " ");
+        sb.append(CliSyntax.PREFIX_TOPIC + question.getTopic().value + " ");
+        sb.append(CliSyntax.PREFIX_STATUS + question.getStatus().value + " ");
+        sb.append(CliSyntax.PREFIX_DIFFICULTY + question.getDifficulty().value + " ");
         question.getTags().stream().forEach(
             s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " ")
         );
@@ -40,11 +40,13 @@ public class QuestionUtil {
      */
     public static String getEditQuestionDescriptorDetails(EditCommand.EditQuestionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getTitle().ifPresent(title -> sb.append(CliSyntax.PREFIX_NAME).append(title.fullTitle).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(CliSyntax.PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(CliSyntax.PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(CliSyntax.PREFIX_ADDRESS).append(address.value)
-                .append(" "));
+        descriptor.getTitle().ifPresent(title -> sb.append(CliSyntax.PREFIX_TITLE).append(title.fullTitle).append(" "));
+        descriptor.getTopic().ifPresent(topic -> sb.append(CliSyntax.PREFIX_TOPIC).append(topic.value).append(" "));
+        descriptor.getStatus().ifPresent(status -> sb.append(CliSyntax.PREFIX_STATUS).append(status.value).append(" "));
+        descriptor.getDifficulty().ifPresent(
+            difficulty -> sb.append(CliSyntax.PREFIX_DIFFICULTY)
+                            .append(difficulty.value)
+                            .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

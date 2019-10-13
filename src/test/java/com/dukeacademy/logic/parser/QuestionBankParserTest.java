@@ -29,7 +29,7 @@ import com.dukeacademy.testutil.TypicalIndexes;
 
 public class QuestionBankParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final QuestionBankParser parser = new QuestionBankParser();
 
     @Test
     public void parseCommand_add() throws Exception {

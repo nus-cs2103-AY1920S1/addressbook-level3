@@ -62,8 +62,8 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank addressBook) throws IOException {
-        saveQuestionBank(addressBook, filePath);
+    public void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException {
+        saveQuestionBank(questionBank, filePath);
     }
 
     /**
@@ -71,11 +71,11 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveQuestionBank(ReadOnlyQuestionBank addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
+        requireNonNull(questionBank);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableQuestionBank(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableQuestionBank(questionBank), filePath);
     }
 }

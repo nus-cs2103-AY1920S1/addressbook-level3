@@ -36,17 +36,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' question bank file path.
      */
     Path getQuestionBankFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' question bank file path.
      */
     void setQuestionBankFilePath(Path questionBankFilePath);
 
     /**
-     * Replaces address book data with the data in {@code questionBank}.
+     * Replaces question bank data with the data in {@code questionBank}.
      */
     void setQuestionBank(ReadOnlyQuestionBank questionBank);
 
@@ -54,27 +54,27 @@ public interface Model {
     ReadOnlyQuestionBank getQuestionBank();
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in the question bank.
      */
     boolean hasQuestion(Question question);
 
     /**
      * Deletes the given question.
-     * The question must exist in the address book.
+     * The question must exist in the question bank.
      */
     void deleteQuestion(Question target);
 
     /**
      * Adds the given question.
-     * {@code question} must not already exist in the address book.
+     * {@code question} must not already exist in the question bank.
      */
     void addQuestion(Question question);
 
     /**
      * Replaces the given question {@code target} with {@code editedQuestion}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the question bank.
      * The question identity of {@code editedQuestion} must not be the same as
-     * another existing question in the address book.
+     * another existing question in the question bank.
      */
     void setQuestion(Question target, Question editedQuestion);
 

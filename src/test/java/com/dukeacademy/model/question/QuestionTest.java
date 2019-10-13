@@ -32,7 +32,7 @@ public class QuestionTest {
         // null -> returns false
         assertFalse(ALICE.isSameQuestion(null));
 
-        // different phone and email -> returns false
+        // different topic and status -> returns false
         Question
             editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameQuestion(editedAlice));
@@ -41,18 +41,18 @@ public class QuestionTest {
         editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameQuestion(editedAlice));
 
-        // same title, same phone, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same title, same topic, different attributes -> returns true
+        editedAlice = new QuestionBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDifficulty(VALID_ADDRESS_BOB)
                                                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
 
-        // same title, same email, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        // same title, same status, different attributes -> returns true
+        editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDifficulty(VALID_ADDRESS_BOB)
                                                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
 
-        // same title, same phone, same email, different attributes -> returns true
-        editedAlice = new QuestionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same title, same topic, same status, different attributes -> returns true
+        editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameQuestion(editedAlice));
     }
 
@@ -79,16 +79,16 @@ public class QuestionTest {
             editedAlice = new QuestionBuilder(ALICE).withTitle(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different topic -> returns false
         editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
+        // different status -> returns false
         editedAlice = new QuestionBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new QuestionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different difficulty -> returns false
+        editedAlice = new QuestionBuilder(ALICE).withDifficulty(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

@@ -1,13 +1,13 @@
 {
   "persons": [ {
-    "title": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "title": "Valid Question",
+    "topic": "9482424",
+    "status": "hans@example.com",
+    "difficulty": "4th street"
   }, {
-    "title": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "title": "Question With Invalid Topic Field",
+    "topic": "948asdf2424",
+    "status": "hans@example.com",
+    "difficulty": "4th street"
   } ]
 }

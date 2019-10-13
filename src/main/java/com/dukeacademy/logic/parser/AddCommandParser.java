@@ -1,22 +1,22 @@
 package com.dukeacademy.logic.parser;
 
 import static com.dukeacademy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_NAME;
-import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_STATUS;
 import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TAG;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TITLE;
+import static com.dukeacademy.logic.parser.CliSyntax.PREFIX_TOPIC;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import com.dukeacademy.logic.commands.AddCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.question.Address;
-import com.dukeacademy.model.question.Email;
-import com.dukeacademy.model.question.Phone;
+import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 
 /**
@@ -31,20 +31,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TOPIC,
+                    PREFIX_STATUS, PREFIX_DIFFICULTY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DIFFICULTY, PREFIX_TOPIC, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Title title = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Title title = ParserUtil.parseName(argMultimap.getValue(PREFIX_TITLE).get());
+        Topic topic = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TOPIC).get());
+        Status
+            status = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_STATUS).get());
+        Difficulty difficulty = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Question question = new Question(title, phone, email, address, tagList);
+        Question question = new Question(title, topic, status, difficulty, tagList);
 
         return new AddCommand(question);
     }

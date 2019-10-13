@@ -5,7 +5,7 @@ import com.dukeacademy.model.question.Question;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an question bank
  */
 public interface ReadOnlyQuestionBank {
 
