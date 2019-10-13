@@ -1,18 +1,16 @@
-package seedu.address.ui;
-
-import java.util.Comparator;
+package seedu.address.ui.modules;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Card}.
  */
-public class CardCard extends UiPart<Region> {
+public class WordBankCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -33,20 +31,20 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label address; // todo this should be called description instead
-    @FXML
-    private FlowPane tags;
+    private Label description;
 
-    public CardCard(Card card, int displayedIndex) {
+    /**
+     * Card containing the details of the word bank.
+     *
+     * @param card The card representing its corresponding word bank.
+     * @param displayedIndex The index of the word bank.
+     */
+    public WordBankCard(Card card, int displayedIndex) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         name.setText(card.getWord().value);
-        address.setText(card.getMeaning().value);
-
-        card.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        description.setText(card.getMeaning().value);
     }
 
     @Override
@@ -57,12 +55,12 @@ public class CardCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CardCard)) {
+        if (!(other instanceof WordBankCard)) {
             return false;
         }
 
         // state check
-        CardCard card = (CardCard) other;
+        WordBankCard card = (WordBankCard) other;
         return id.getText().equals(card.id.getText())
                 && this.card.equals(card.card);
     }

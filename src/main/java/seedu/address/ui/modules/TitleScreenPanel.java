@@ -6,7 +6,7 @@ import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the introduction screen.
  */
 public class TitleScreenPanel extends UiPart<Region> {
     private static final String FXML = "TitleScreenPanel.fxml";
