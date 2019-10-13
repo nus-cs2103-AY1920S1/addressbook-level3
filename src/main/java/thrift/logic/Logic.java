@@ -10,6 +10,7 @@ import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.Model;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.transaction.Transaction;
+import thrift.ui.TransactionListPanel;
 
 /**
  * API of the Logic component
@@ -17,12 +18,15 @@ import thrift.model.transaction.Transaction;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
+     * @param transactionListPanel The TransactionListPanel to be manipulated by execution of certain commands.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, TransactionListPanel transactionListPanel)
+            throws CommandException, ParseException;
 
     /**
      * Returns the Thrift.

@@ -49,4 +49,7 @@ public class TransactionListPanel extends UiPart<Region> {
         }
     }
 
+    public ListView<Transaction> getTransactionListView() {
+        return transactionListView;
+    }
 }

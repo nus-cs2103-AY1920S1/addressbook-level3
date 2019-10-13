@@ -10,6 +10,7 @@ import thrift.commons.core.LogsCenter;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.Undoable;
+import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.ThriftParser;
 import thrift.logic.parser.exceptions.ParseException;
@@ -17,6 +18,7 @@ import thrift.model.Model;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.transaction.Transaction;
 import thrift.storage.Storage;
+import thrift.ui.TransactionListPanel;
 
 /**
  * The main LogicManager of the app.
@@ -36,12 +38,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, TransactionListPanel transactionListPanel)
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = thriftParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        if (command instanceof UpdateCommand) {
+            commandResult = ((UpdateCommand) command).execute(model, transactionListPanel);
+        } else {
+            commandResult = command.execute(model);
+        }
         if (command instanceof Undoable) {
             model.keepTrackCommands((Undoable) command);
             logger.info("[UNDOABLE COMMAND][" + commandText + "] is tracked");

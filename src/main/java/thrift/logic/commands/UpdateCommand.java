@@ -22,6 +22,7 @@ import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
+import thrift.ui.TransactionListPanel;
 
 /**
  * Updates the details of an existing transaction in THRIFT.
@@ -61,8 +62,16 @@ public class UpdateCommand extends Command {
         this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
+    /**
+     * Updates the details of a THRIFT Transaction and scrolls to the updated Transaction in the displayed
+     * TransactionListView UI.
+     *
+     * @param model {@code Model} which UpdateCommand should operate on.
+     * @param transactionListPanel {@code TransactionListPanel} which contains the TransactionListView UI.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public CommandResult execute(Model model, TransactionListPanel transactionListPanel) throws CommandException {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
@@ -77,7 +86,18 @@ public class UpdateCommand extends Command {
 
         model.setTransaction(transactionToUpdate, updatedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
+
+        // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
+        // handle JavaFX initialization
+        if (transactionListPanel != null) {
+            transactionListPanel.getTransactionListView().scrollTo(index.getZeroBased());
+        }
+
         return new CommandResult(updatedTransactionNotification + originalTransactionNotification);
+    }
+
+    public CommandResult execute(Model model) throws CommandException {
+        throw new CommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
@@ -98,6 +118,7 @@ public class UpdateCommand extends Command {
         if (transactionToUpdate instanceof Expense) {
             return new Expense(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         } else {
+            assert transactionToUpdate instanceof Income;
             return new Income(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         }
     }

@@ -801,11 +801,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
 .. Test case: `update i/1 n/Fried Rice` +
-   Expected: Details of the updated transaction and original transaction shown in status message. Corresponding listed transaction reflects changes.
+   Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
 .. Test case: `update i/1 c/20` +
-   Expected: Details of the updated transaction and original transaction shown in status message. Corresponding listed transaction reflects changes.
+   Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
 .. Test case: `update i/1 n/Fried Rice c/20 t/Lunch t/Food` +
-   Expected: Details of the updated transaction and original transaction shown in status message. Corresponding listed transaction reflects changes.
+   Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
 .. Test case: `update i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
    Expected: No changes. Error details shown in status message.
 .. Test case: `update i/1 z/Calamari` +

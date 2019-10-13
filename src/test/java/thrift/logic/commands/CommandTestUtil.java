@@ -80,7 +80,12 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result;
+            if (command instanceof UpdateCommand) {
+                result = ((UpdateCommand) command).execute(actualModel, null);
+            } else {
+                result = command.execute(actualModel);
+            }
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -111,7 +116,12 @@ public class CommandTestUtil {
         Thrift expectedThrift = new Thrift(actualModel.getThrift());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        if (command instanceof UpdateCommand) {
+            assertThrows(CommandException.class, expectedMessage, () -> (
+                (UpdateCommand) command).execute(actualModel, null));
+        } else {
+            assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        }
         assertEquals(expectedThrift, actualModel.getThrift());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
     }
