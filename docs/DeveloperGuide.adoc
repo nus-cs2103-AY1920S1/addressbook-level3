@@ -526,6 +526,26 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use Case 7: Switch between view of items.
+
+*MSS*
+
+1.  User launches AlgoBase.
+2.  User requests to switch the current view of items to a different view of items.
+3.  AlgoBase shows the list of items corresponding to that view.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The specified view of items does not exist.
++
+[none]
+** 2a1. AlgoBase informs user that the specified view of items does not exist.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 

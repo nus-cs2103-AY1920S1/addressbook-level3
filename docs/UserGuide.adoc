@@ -257,6 +257,16 @@ Examples:
 
 === Miscellaneous
 
+==== Switching tabs : `switch`
+
+Switches to a tab display in the application. +
+Format: `switch INDEX`
+
+Examples:
+
+* `switch 1`
+Switches to the tab at index 1.
+
 ==== Viewing help : `help`
 
 Format: `help`
