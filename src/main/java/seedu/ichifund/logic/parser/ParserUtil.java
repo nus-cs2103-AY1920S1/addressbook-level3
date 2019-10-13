@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.ichifund.commons.core.index.Index;
@@ -140,7 +139,7 @@ public class ParserUtil {
     public static Category parseCategory(String category) throws ParseException {
         requireNonNull(category);
         String trimmedCategory = category.trim();
-        if(!Category.isValidCategory(trimmedCategory)) {
+        if (!Category.isValidCategory(trimmedCategory)) {
             throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
         return new Category(trimmedCategory);
@@ -155,7 +154,7 @@ public class ParserUtil {
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if(!Description.isValidDescription(trimmedDescription)) {
+        if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
@@ -170,7 +169,7 @@ public class ParserUtil {
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if(!Amount.isValidAmount(trimmedAmount)) {
+        if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
@@ -185,7 +184,7 @@ public class ParserUtil {
     public static Day parseDay(String day) throws ParseException {
         requireNonNull(day);
         String trimmedDay = day.trim();
-        if(!Day.isValidDay(trimmedDay)) {
+        if (!Day.isValidDay(trimmedDay)) {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
         return new Day(trimmedDay);
@@ -200,7 +199,7 @@ public class ParserUtil {
     public static Month parseMonth(String month) throws ParseException {
         requireNonNull(month);
         String trimmedMonth = month.trim();
-        if(!Month.isValidMonth(trimmedMonth)) {
+        if (!Month.isValidMonth(trimmedMonth)) {
             throw new ParseException(Month.MESSAGE_CONSTRAINTS);
         }
         return new Month(trimmedMonth);
@@ -215,7 +214,7 @@ public class ParserUtil {
     public static Year parseYear(String year) throws ParseException {
         requireNonNull(year);
         String trimmedYear = year.trim();
-        if(!Year.isValidYear(trimmedYear)) {
+        if (!Year.isValidYear(trimmedYear)) {
             throw new ParseException(Year.MESSAGE_CONSTRAINTS);
         }
         return new Year(trimmedYear);
@@ -230,7 +229,7 @@ public class ParserUtil {
     public static TransactionType parseTransactionType(String transactionType) throws ParseException {
         requireNonNull(transactionType);
         String trimmedTransactionType = transactionType.trim();
-        if(!TransactionType.isValidTransactionType(trimmedTransactionType)) {
+        if (!TransactionType.isValidTransactionType(trimmedTransactionType)) {
             throw new ParseException(TransactionType.MESSAGE_CONSTRAINTS);
         }
         return new TransactionType(trimmedTransactionType);

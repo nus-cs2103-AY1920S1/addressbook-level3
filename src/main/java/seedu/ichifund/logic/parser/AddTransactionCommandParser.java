@@ -1,7 +1,13 @@
 package seedu.ichifund.logic.parser;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.logic.parser.CliSyntax.*;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
@@ -13,7 +19,6 @@ import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -37,7 +42,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DAY,
                 PREFIX_MONTH, PREFIX_YEAR, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTransactionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTransactionCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
