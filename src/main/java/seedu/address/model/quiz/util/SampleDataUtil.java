@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Question;
+import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
 
 /**

@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Question;
+import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
@@ -87,7 +87,8 @@ class JsonQuizAdaptedQuestion {
         final Answer modelAnswer = new Answer(answer);
 
         if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
         if (!Category.isValidCategory(category)) {
             throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);

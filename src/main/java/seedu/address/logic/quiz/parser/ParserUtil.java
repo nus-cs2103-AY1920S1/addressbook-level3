@@ -9,13 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
-import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Answer;
+import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
-
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
