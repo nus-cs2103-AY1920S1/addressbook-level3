@@ -22,7 +22,7 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
-    private final Quantity quantity;
+    private Quantity quantity;
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
     private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
 
@@ -72,6 +72,15 @@ public class Item {
     public Quantity getQuantity() {
         return this.quantity;
     };
+
+    /**
+     * Sets and overrides the quantity.
+     *
+     * @param newQuantity Quantity to be updated.
+     */
+    public void setQuantity(Quantity newQuantity) {
+        this.quantity = newQuantity;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

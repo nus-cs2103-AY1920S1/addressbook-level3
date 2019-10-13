@@ -9,8 +9,10 @@ import java.util.TreeSet;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
+import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -33,32 +35,46 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + "|1" + "\n"
             + "2) Deletes all tags in the item identified by the index number.\n"
             + "Format: delete|<index>|<tag>[<other tags>]...\n"
-            + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food";
+            + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
+            + "3) Reduces the quantity in the item identified by the index number. \n"
+            + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
     public static final String MESSAGE_DELETE_TAGS_FAILURE = "Did not manage to delete any tags.\n"
             + "You have specified tag(s) that are not found in item: %s";
+    public static final String MESSAGE_DELETE_QUANTITY_SUCCESS = "Reduced quantity by %s from item: %s";
+    public static final String MESSAGE_DELETE_QUANTITY_FAILURE = "Invalid quantity specified.";
     public static final String MESSAGE_DELETE_FAILURE = "Did not manage to delete anything";
 
     private final Index targetIndex;
     private final Set<Tag> tagSet;
+    private final Quantity quantity;
     private final DeleteMode mode;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.tagSet = null;
+        this.quantity = null;
         this.mode = DeleteMode.ITEM;
     }
 
     public DeleteCommand(Index targetIndex, Set<Tag> tagSet) {
         this.targetIndex = targetIndex;
         this.tagSet = tagSet;
+        this.quantity = null;
         this.mode = DeleteMode.TAGS;
     }
 
+    public DeleteCommand(Index targetIndex, Quantity quantity) {
+        this.targetIndex = targetIndex;
+        this.tagSet = null;
+        this.quantity = quantity;
+        this.mode = DeleteMode.QUANTITY;
+    }
+
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
         List<Item> lastShownList = model.getFilteredItemList();
 
@@ -81,6 +97,12 @@ public class DeleteCommand extends Command {
             }
             model.setItem(targetItem, newTaggedItem);
             return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetItem));
+        case QUANTITY:
+            assert this.quantity != null;
+            Item newQuantityItem = reduceItemQuantity(targetItem, quantity);
+            model.setItem(targetItem, newQuantityItem);
+            return new CommandResult(
+                    String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem));
         default:
             return new CommandResult(MESSAGE_DELETE_FAILURE);
         }
@@ -105,6 +127,13 @@ public class DeleteCommand extends Command {
             }
         }
         targetItem.setTags(newTags);
+        return targetItem;
+    }
+
+    private Item reduceItemQuantity(Item targetItem, Quantity reduceByQuantity) throws ParseException {
+        Quantity originalQuantity = targetItem.getQuantity();
+        Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
+        targetItem.setQuantity(updatedQuantity);
         return targetItem;
     }
 
