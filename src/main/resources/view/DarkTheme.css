@@ -29,8 +29,18 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+.tab {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-base-color: white;
+    -fx-border-width: 0 0 0 0;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-radius: 10 10 0 0;
+}
+
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-padding: 0 0 0 0;
 }
 
 .tab-pane .tab-header-area {
@@ -185,7 +195,11 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: #00b894;
+}
+
+.context-menu:hover {
+    -fx-background-color: red;
 }
 
 .context-menu .label {
@@ -193,7 +207,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#00b894, 20%);
 }
 
 .menu-bar .label {

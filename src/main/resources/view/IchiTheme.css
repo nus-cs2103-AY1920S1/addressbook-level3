@@ -1,0 +1,153 @@
+.root {
+    -fx-background: #ffffff;
+}
+
+.menu-bar {
+    -fx-background-color: #00b894;
+    -fx-font-family: "Segoe UI";
+}
+
+.menu {
+    -fx-background-color: #00b894;
+}
+
+.menu .label {
+    -fx-text-fill: white;
+}
+
+.menu:hover {
+    -fx-background-color: derive(#00b894, 30%);
+}
+
+.context-menu {
+    -fx-background-color: #00b894;
+}
+
+.menu-item {
+    -fx-background-color: #00b894;
+}
+
+.menu-item:focused {
+    -fx-background-color: derive(#00b894, 30%);
+}
+
+#commandBoxPlaceholder {
+    -fx-padding: 0 0 10px 0;
+}
+
+#commandTextField {
+    -fx-background-color: derive(#81ecec, 95%);
+    -fx-border-color: derive(#81ecec, 30%);
+    -fx-border-width: 2px;
+    -fx-font-family: "Segoe UI";
+}
+
+#resultDisplayPlaceholder {
+    -fx-padding: 0 0 10px 0;
+}
+
+#resultDisplay {
+    -fx-background-color: derive(#81ecec, 95%);
+    -fx-background-insets: 0;
+}
+
+#resultDisplay .content {
+    -fx-background-color: derive(#81ecec, 95%);
+    -fx-background-radius: 0;
+    -fx-border-color: derive(#81ecec, 30%);
+    -fx-border-width: 2px;
+    -fx-font-family: "Segoe UI";
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-border-radius: 10px 10px 0 0;
+    -fx-faint-focus-color: transparent;
+    -fx-font-family: "Segoe UI";
+    -fx-focus-color: transparent;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#81ecec, 95%);
+    -fx-border-color: derive(#81ecec, 30%);
+    -fx-border-width: 2px 2px 0 2px;
+    -fx-font-family: "Segoe UI";
+}
+
+.tab-pane .tab:focused .label {
+    -fx-background-color: transparent
+}
+
+.padded-container {
+    -fx-padding: 10px;
+}
+
+.pane-with-border {
+    -fx-background-color: derive(#81ecec, 95%);
+    -fx-border-color: derive(#81ecec, 30%);
+    -fx-border-width: 2px;
+}
+
+.scroll-bar {
+    -fx-background-color: derive(#81ecec, 30%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#81ecec, 80%);
+    -fx-background-insets: 5;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+    -fx-font-family: "Segoe UI";
+}
+
+.list-cell:filled:even {
+    -fx-background-color: derive(#81ecec, 95%);
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #ffffff;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
