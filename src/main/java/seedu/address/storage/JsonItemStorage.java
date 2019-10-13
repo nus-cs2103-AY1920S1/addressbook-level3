@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
@@ -14,7 +16,10 @@ import seedu.address.model.ItemStorage;
  * A class that contains all the JSON representation of the string
  */
 public class JsonItemStorage implements ItemListStorage {
+
     public static final String MESSAGE_DUPLICATE_ITEM = "Items list contains duplicate items";
+
+    private static final Logger logger = LogsCenter.getLogger(JsonItemStorage.class);
 
     private Path itemListFilePath;
 
@@ -61,7 +66,12 @@ public class JsonItemStorage implements ItemListStorage {
      */
     public ItemStorage toModelType() throws IOException, DataConversionException {
         String jsonString = FileUtil.readFromFile(itemListFilePath);
-        return ItemStorage.fromJson(jsonString);
+        try {
+            return ItemStorage.fromJson(jsonString);
+        } catch (DataConversionException e) {
+            logger.info("Data from save file corrupted.");
+            throw e;
+        }
     }
 
 }
