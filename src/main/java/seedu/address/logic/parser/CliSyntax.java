@@ -14,4 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_MEMBER_INDEX = new Prefix("mi/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("at/");
 
+    /* Prefix definitions for Member */
+    public static final Prefix PREFIX_MEMBER_ID = new Prefix("mi/");
+    public static final Prefix PREFIX_MEMBER_TAG = new Prefix("mt/");
+
 }
