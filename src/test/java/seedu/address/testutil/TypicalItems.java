@@ -17,7 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.item.Item;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.ItemStorage;
+
 /**
  * A utility class containing a list of {@code Item} objects to be used in tests.
  */
@@ -49,14 +50,14 @@ public class TypicalItems {
 
 
     /**
-     * Returns an {@code ItemList} with all the typical persons.
+     * Returns an {@code ItemStorage} with all the typical persons.
      */
-    public static ItemList getTypicalItemList() {
-        ItemList il = new ItemList();
+    public static ItemStorage getTypicalItemList() {
+        ItemStorage itemStorage = new ItemStorage();
         for (Item item : getTypicalItems()) {
-            il.add(item);
+            itemStorage.add(item);
         }
-        return il;
+        return itemStorage;
     }
 
     public static List<Item> getTypicalItems() {

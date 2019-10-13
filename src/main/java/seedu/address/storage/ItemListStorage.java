@@ -2,10 +2,9 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ItemStorage;
 
 /**
  * Represents a storage for ELISA.
@@ -18,28 +17,17 @@ public interface ItemListStorage {
     Path getItemListFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
-     */
-    Optional<ReadOnlyAddressBook> readItemList() throws DataConversionException, IOException;
-
-    /**
-     * @see #getItemListFilePath()
-     */
-    Optional<ReadOnlyAddressBook> readItemList(Path filePath) throws DataConversionException, IOException;
-
-    /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ItemStorage} to the storage.
+     * @param itemStorage cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveItemList(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveItemStorage(ItemStorage itemStorage) throws IOException;
 
     /**
-     * @see #saveItemList(ReadOnlyAddressBook)
+     * @see #saveItemStorage(ItemStorage itemStorage)
      */
-    void saveItemList(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveItemStorage(ItemStorage itemStorage, Path filePath) throws IOException;
+
+    ItemStorage toModelType() throws IOException, DataConversionException;
 
 }

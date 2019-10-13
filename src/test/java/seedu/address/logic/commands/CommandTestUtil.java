@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
@@ -13,8 +12,8 @@ import java.util.List;
 
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ItemModel;
+import seedu.address.model.ItemStorage;
 import seedu.address.testutil.EditItemDescriptorBuilder;
 
 /**
@@ -105,11 +104,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, ItemModel actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        ItemStorage expectedAddressBook = actualModel.getItemStorage();
         List<Item> expectedVisualList = new ArrayList<>(actualModel.getVisualList().getList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getItemStorage());
         assertEquals(expectedVisualList, actualModel.getVisualList().getList());
     }
 

@@ -122,7 +122,7 @@ public class Event {
      * @throws IOException when the jsonString is not in JSON format
      * @throws IllegalValueException when the JSON string contains incorrect value
      */
-    public static Event fromJson(String jsonString) throws IOException, IllegalValueException {
+    public static Event fromJson(String jsonString) throws IOException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
 
         String startDateTimeString = node.get("startDateTime").asText();

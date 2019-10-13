@@ -8,31 +8,33 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.EventList;
-import seedu.address.model.item.ItemList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Represents the model for ELISA
  */
 public class ItemModelManager implements ItemModel {
-    private ItemList itemList;
     private TaskList taskList;
     private EventList eventList;
     private ReminderList reminderList;
     // The list to be used for visualizing in the Ui
-    private ItemList visualList;
-    private final AddressBook addressBook;
+    private VisualizeList visualList;
     private final UserPrefs userPrefs;
+    private ItemStorage itemStorage;
 
-    public ItemModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this.itemList = new ItemList();
+    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
         this.visualList = taskList;
-        this.addressBook = new AddressBook(addressBook);
+        this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
+
+        for (int i = 0; i < itemStorage.size(); i++) {
+            addToSeparateList(itemStorage.get(i));
+        }
     }
 
     @Override
@@ -58,26 +60,26 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getItemStorageFilePath() {
+        return userPrefs.getItemStorageFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setItemStorageFilePath(Path itemStorageFilePath) {
+        requireNonNull(itemStorageFilePath);
+        userPrefs.setItemStorageFilePath(itemStorageFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setItemStorage(ItemStorage itemStorage) {
+        this.itemStorage = itemStorage;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ItemStorage getItemStorage() {
+        return itemStorage;
     }
 
     /**
@@ -86,7 +88,24 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added to the program
      */
     public void addItem (Item item) {
-        itemList.add(item);
+        itemStorage.add(item);
+        addToSeparateList(item);
+    }
+
+    /**
+     * Adds an item to a specific list
+     * @param item the item to be added to the list
+     * @param il the list the item is to be added to
+     */
+    public void addItem (Item item, VisualizeList il) {
+        il.add(item);
+    }
+
+    /**
+     * Helper function to add an item to it's respective list
+     * @param item the item to be added into the lists
+     */
+    private void addToSeparateList(Item item) {
         if (item.hasTask()) {
             taskList.add(item);
         }
@@ -98,15 +117,6 @@ public class ItemModelManager implements ItemModel {
         if (item.hasReminder()) {
             reminderList.add(item);
         }
-    }
-
-    /**
-     * Adds an item to a specific list
-     * @param item the item to be added to the list
-     * @param il the list the item is to be added to
-     */
-    public void addItem (Item item, ItemList il) {
-        il.add(item);
     }
 
     /**
@@ -136,14 +146,14 @@ public class ItemModelManager implements ItemModel {
      */
     public Item deleteItem(int index) {
         Item item = visualList.remove(index);
-        itemList.remove(item);
+        itemStorage.remove(item);
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
         return item;
     }
 
-    public ItemList getVisualList() {
+    public VisualizeList getVisualList() {
         return this.visualList;
     }
 
@@ -167,7 +177,7 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
-    private void setVisualList(ItemList il) {
+    private void setVisualList(VisualizeList il) {
         this.visualList = il;
     }
 
@@ -180,8 +190,8 @@ public class ItemModelManager implements ItemModel {
         int index = visualList.indexOf(item);
         visualList.setItem(index, newItem);
 
-        if ((index = itemList.indexOf(item)) >= 0) {
-            taskList.setItem(index, newItem);
+        if ((index = itemStorage.indexOf(item)) >= 0) {
+            itemStorage.setItem(index, newItem);
         }
 
         if ((index = taskList.indexOf(item)) >= 0) {
@@ -202,7 +212,7 @@ public class ItemModelManager implements ItemModel {
      * @param searchString the string to search for within the description
      * @return the item list containing all the items that contain the search string
      */
-    public ItemList findItem(String searchString) {
+    public VisualizeList findItem(String searchString) {
         this.visualList = visualList.find(searchString);
         return this.visualList;
     }
