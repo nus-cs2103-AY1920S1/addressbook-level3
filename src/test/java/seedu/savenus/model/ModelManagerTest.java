@@ -2,6 +2,7 @@ package seedu.savenus.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.model.Model.PREDICATE_SHOW_ALL_FOOD;
 import static seedu.savenus.testutil.Assert.assertThrows;
@@ -11,10 +12,13 @@ import static seedu.savenus.testutil.TypicalMenu.TONKATSU_RAMEN;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.GuiSettings;
+import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.testutil.MenuBuilder;
 
@@ -91,6 +95,52 @@ public class ModelManagerTest {
     @Test
     public void getFilteredfoodList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredFoodList().remove(0));
+    }
+
+    @Test
+    public void nullRecommendationComparator_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.updateRecommendationComparator(null));
+    }
+
+    @Test
+    public void nullRecommendationPredicate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.updateRecommendationPredicate(null));
+    }
+
+    @Test
+    public void updateRecommendationPredicate_inUse() {
+        Predicate<Food> recommendationPredicate = x -> false;
+        modelManager.updateRecommendationPredicate(recommendationPredicate);
+        modelManager.setRecommendationSystemInUse(true);
+
+        assertEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
+    }
+
+    @Test
+    public void updateRecommendationPredicate_notInUse() {
+        Predicate<Food> recommendationPredicate = x -> false;
+        modelManager.updateRecommendationPredicate(recommendationPredicate);
+        modelManager.setRecommendationSystemInUse(false);
+
+        assertNotEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
+    }
+
+    @Test
+    public void updateRecommendationComparator_inUse() {
+        Comparator<Food> recommendationComparator = (x, y) -> 12345;
+        modelManager.updateRecommendationComparator(recommendationComparator);
+        modelManager.setRecommendationSystemInUse(true);
+
+        assertEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
+    }
+
+    @Test
+    public void updateRecommendationComparator_notInUse() {
+        Comparator<Food> recommendationComparator = (x, y) -> 12345;
+        modelManager.updateRecommendationComparator(recommendationComparator);
+        modelManager.setRecommendationSystemInUse(false);
+
+        assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
     }
 
     @Test
