@@ -1,5 +1,7 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -62,5 +64,30 @@ class DeadlineTest {
         Tag t = new Tag("school");
         d.addTag(t);
         assertTrue(d.getTags().contains(t));
+    }
+
+    @Test
+    void isEqual_validInput_true() {
+        Calendar deadlineOneCal = Calendar.getInstance();
+        Calendar deadlineTwoCal = Calendar.getInstance();
+        Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
+        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        assertTrue(deadlineOne.isEqual(deadlineTwo));
+    }
+
+    @Test
+    void isEqual_validInput_false() {
+        Calendar deadlineOneCal = Calendar.getInstance();
+        Calendar deadlineTwoCal = Calendar.getInstance();
+        Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
+        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        assertFalse(deadlineOne.isEqual(deadlineTwo));
+    }
+
+    @Test
+    void getDueDate() {
+        Calendar due = Calendar.getInstance();
+        Deadline d = new Deadline("homework", due);
+        assertEquals(due, d.getDueDate());
     }
 }

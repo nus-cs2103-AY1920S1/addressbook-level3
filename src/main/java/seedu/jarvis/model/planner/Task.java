@@ -46,6 +46,14 @@ public abstract class Task {
     public abstract String toString();
 
     /**
+     * Checks if this task is equal to another task
+     * Condition for equality: same type of task && same description
+     * @param other the task to be compared to
+     * @return true if both tasks are equal, false if they are not
+     */
+    protected abstract Boolean isEqual(Task other);
+
+    /**
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
@@ -103,6 +111,5 @@ public abstract class Task {
     protected Set getTags() {
         return this.tags;
     }
-
 
 }

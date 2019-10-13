@@ -1,10 +1,12 @@
 package seedu.jarvis.model.planner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +32,20 @@ class TaskListTest {
     }
 
     @Test
-    void hasTask() {
-        Task t = new Todo("borrow book");
+    void hasTask_validInput_true() {
+        Task tOne = new Todo("borrow book");
+        Task tTwo = new Todo("borrow book");
         TaskList testList = new TaskList();
-        testList.add(t);
-        assertTrue(testList.hasTask(t));
+        testList.add(tOne);
+        assertTrue(testList.hasTask(tTwo));
+    }
+
+    @Test
+    void hasTask_validInput_false() {
+        Task todo = new Todo("borrow book");
+        Task deadline = new Deadline("borrow book", Calendar.getInstance());
+        TaskList testList = new TaskList();
+        testList.add(todo);
+        assertFalse(testList.hasTask(deadline));
     }
 }
