@@ -23,6 +23,13 @@ public class RunningTime {
         value = runningTime;
     }
 
+    /**
+     * Returns true if a given integer is a valid running time.
+     */
+    public static boolean isValidRunningTime(int test) {
+        return test > 0;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value);

@@ -10,7 +10,7 @@ import seedu.address.model.show.UniqueShowList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameShow comparison)
  */
 public class WatchList implements ReadOnlyWatchList {
 
