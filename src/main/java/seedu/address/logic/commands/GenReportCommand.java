@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.storage.ReportGenerator;
@@ -21,17 +26,23 @@ public class GenReportCommand extends Command {
             + "Parameters: BODY_ID\n"
             + "Example: " + COMMAND_WORD + " ";
 
-    //private final Body body;
+    private final IdentificationNumber targetIdNum;
 
-    //public GenReportCommand(Body body) {
-        //this.body = body;
-    //}
+    public GenReportCommand(IdentificationNumber targetIdNum) {
+        this.targetIdNum = targetIdNum;
+    }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ReportGenerator.execute(); //pass in body as parameter
-        String bodyID = "v1.2"; //body.getBodyIdNum();
-        return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, bodyID));
+        List<Body> lastShownList = model.getFilteredBodyList();
+
+        if (!IdentificationNumber.isExistingidentificationNumber(targetIdNum)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
+
+        Body body = lastShownList.get(targetIdNum.getIdNum());
+        ReportGenerator.generate(body);
+        return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, targetIdNum));
     }
 }

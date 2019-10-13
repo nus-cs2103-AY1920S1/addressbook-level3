@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.IdentificationNumber;
 
 public class GenReportCommandParser {
 
@@ -13,14 +14,13 @@ public class GenReportCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenReportCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        if (args.trim().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
         }
 
-        String bodyID = trimmedArgs;
-        //throw exception if invalid bodyID ie not found in list
-        return new GenReportCommand();  //pass in body as parameter
+        IdentificationNumber idNum = ParserUtil.parseIdentificationNumber(args);
+
+        return new GenReportCommand(idNum);
     }
 }

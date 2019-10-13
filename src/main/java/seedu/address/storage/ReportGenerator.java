@@ -12,11 +12,11 @@ import seedu.address.model.entity.body.Body;
 
 public class ReportGenerator {
 
-    public static void execute() {  //pass in body as parameter
+    public static void generate(Body body) {  //pass in body as parameter
         Document document = new Document();
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream("Report.pdf")); //body.getBodyIdNum()
+                    new FileOutputStream(String.format("%1$s.pdf", body.getBodyIdNum())));
             document.open();
             document.add(new Paragraph("A Mortago report document."));
             document.close();
