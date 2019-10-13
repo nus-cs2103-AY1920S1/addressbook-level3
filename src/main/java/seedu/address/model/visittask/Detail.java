@@ -12,7 +12,7 @@ public class Detail {
     public static final String MESSAGE_CONSTRAINTS = "Details can take any values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the detail must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = ".*";
@@ -20,7 +20,7 @@ public class Detail {
     public final String detail;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Detail}.
      *
      * @param detail A valid detail.
      */

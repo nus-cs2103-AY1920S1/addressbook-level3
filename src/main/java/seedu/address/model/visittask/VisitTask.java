@@ -6,7 +6,11 @@ import java.util.Objects;
 
 import seedu.address.model.visittodo.VisitTodo;
 /**
- * Represents a Visit in the application.
+ * Represents a task of a Visit in the application.
+ * As the name suggests, Visit "Tasks" are "Tasks" that the community nurse has to do during a visit.
+ * i.e. VisitTasks are tasks to be done during a visit.
+ * This is in contast to Visit "Todos" which are "Todos" for the community nurse when he/she goes on a visit.
+ * i.e. VisitTodos are template VisitTasks.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class VisitTask {

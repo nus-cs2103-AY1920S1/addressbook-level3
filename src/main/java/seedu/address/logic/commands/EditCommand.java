@@ -12,7 +12,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -252,11 +251,8 @@ public class EditCommand extends Command implements MutatorCommand {
                 //If both collections populated, ensure equal data
                 if (getVisitTodos().isPresent()) {
                     //Verify visit todos separately because .equals doesn't work with Collection<>
-                    Iterator otherPersonVisitTodos = e.getVisitTodos().get().iterator();
-                    for (Object obj : getVisitTodos().get()) {
-                        if (!otherPersonVisitTodos.hasNext() || !obj.equals(otherPersonVisitTodos.next())) {
-                            return false;
-                        }
+                    if (!CollectionUtil.checkEqual(getVisitTodos().get(), e.getVisitTodos().get())) {
+                        return false;
                     }
                 }
             } else {

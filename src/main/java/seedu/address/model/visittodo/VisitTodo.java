@@ -5,6 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a VisitTodo in the application.
+ * As the name suggests, Visit "Todos" are "Todos" for the community nurse when he/she goes on a visit.
+ * i.e. VisitTodos are template VisitTasks.
+ * This is in contrast to Visit "Tasks" which are "Tasks" that the community nurse has to do during a visit.
+ * i.e. VisitTasks are tasks to be done during a visit.
  * Guarantees: immutable; description is valid as declared in {@link #isValidVisitTodoDescription(String)}
  */
 public class VisitTodo {

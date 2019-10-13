@@ -54,23 +54,8 @@ public class Visit {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameVisit(Visit otherVisit) {
-        if (otherVisit == this) {
-            return true;
-        }
-
-        return otherVisit != null
-                && otherVisit.getRemark().equals(getRemark())
-                && (otherVisit.getStartDateTime().equals(getStartDateTime())
-                || otherVisit.getEndDateTime().equals(getEndDateTime()));
-    }
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both visits have the same data fields and visit tasks.
+     * This defines a stronger notion of equality between two visits.
      */
     @Override
     public boolean equals(Object other) {

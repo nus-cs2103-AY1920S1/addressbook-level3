@@ -15,7 +15,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Begins a visit using an appointment identified using it's index in a patient's appointment list,
+ * and said patient identified using his/her index in the patient list.
  */
 public class BeginVisitCommand extends Command {
 

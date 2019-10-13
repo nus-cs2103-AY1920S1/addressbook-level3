@@ -4,7 +4,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.visittask.VisitTask;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code VisitTask} objects to be used in tests.
  */
 public class TypicalVisitTasks {
 
