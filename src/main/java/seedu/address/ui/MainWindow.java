@@ -131,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
         bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
         bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
 
-        lineChartPanel = new LineChartPanel(logic.getAddressBook().getWorkerList());
+        lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();

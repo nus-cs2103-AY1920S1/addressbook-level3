@@ -10,7 +10,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.worker.Worker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +24,7 @@ public class LineChartPanel extends UiPart<Region> {
 
     private static final String FXML = "LineChartPanel.fxml";
     private ScheduledExecutorService scheduledExecutorService;
-    private ObservableList<Worker> bodyList;
+    private ObservableList<Body> bodyList;
     // this is used to display time in HH:mm:ss format
     final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
@@ -38,7 +37,7 @@ public class LineChartPanel extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
-    public LineChartPanel(ObservableList<Worker> bodyList) {
+    public LineChartPanel(ObservableList<Body> bodyList) {
         super(FXML);
         this.bodyList = bodyList;
     }
@@ -58,11 +57,11 @@ public class LineChartPanel extends UiPart<Region> {
         // add series to chart
         lineChart.getData().add(series);
 
-        bodyList.addListener((ListChangeListener<Worker>) c -> {
+        bodyList.addListener((ListChangeListener<Body>) c -> {
             while (c.next()) {
 
                 if (c.wasAdded()) {
-                    Date now = c.getAddedSubList().get(0).getDateOfBirth();
+                    Date now = c.getAddedSubList().get(0).getDateOfAdmission();
                     String dateOnXAxis = simpleDateFormat.format(now);
                     Number oldFreq = freqByDate.getOrDefault(dateOnXAxis,0);
                     int newFreq = oldFreq.intValue() + 1;
@@ -70,7 +69,7 @@ public class LineChartPanel extends UiPart<Region> {
                 }
 
                 if (c.wasRemoved()) {
-                    Date now = c.getRemoved().get(0).getDateOfBirth();
+                    Date now = c.getRemoved().get(0).getDateOfAdmission();
                     String dateOnXAxis = simpleDateFormat.format(now);
                     Number oldFreq = freqByDate.getOrDefault(dateOnXAxis,0);
                     int newFreq = oldFreq.intValue() - 1;
