@@ -189,7 +189,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleLogin() {
-        // TODO: Implement Login GUI Effect
         personListPanelPlaceholder.getParent().setVisible(false);
         personListPanelPlaceholder.getParent().setManaged(false);
         incidentListPanelPlaceholder.getParent().setVisible(true);
