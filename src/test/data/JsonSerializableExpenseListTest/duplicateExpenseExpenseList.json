@@ -1,0 +1,13 @@
+{
+  "expenses": [ {
+    "name": "coffee",
+    "amount": "$23.50",
+    "date": "13/10/19",
+    "tagged": [ "snack" ]
+  }, {
+    "name": "coffee",
+    "amount": "$23.50",
+    "date": "13/10/19",
+    "tagged": [ "teabreak" ]
+  } ]
+}

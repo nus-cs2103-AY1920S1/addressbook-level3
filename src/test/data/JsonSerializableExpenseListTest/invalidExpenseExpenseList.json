@@ -1,0 +1,8 @@
+{
+  "expenses": [ {
+    "name": "coffee",
+    "amount": "a4124",
+    "date": "13/10/19",
+    "tagged": [ "education" ]
+  } ]
+}

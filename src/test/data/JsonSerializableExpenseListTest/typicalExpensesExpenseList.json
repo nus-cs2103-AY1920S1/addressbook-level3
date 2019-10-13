@@ -1,0 +1,39 @@
+{
+  "_comment": "ExpenseList save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseList()",
+  "expenses" : [ {
+    "name" : "coffee",
+    "amount": "$7.95",
+    "date": "13/10/2019",
+    "tagged" : [ "teabreak" ]
+  }, {
+    "name" : "tea",
+    "amount": "$6.90",
+    "date": "11/10/2019",
+    "tagged" : [ "teabreak", "snack" ]
+  }, {
+    "name" : "mocha",
+    "amount": "$8.40",
+    "date": "15/11/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "cappuccino",
+    "amount": "$11.11",
+    "date": "9/9/2019",
+    "tagged" : [ "coffee" ]
+  }, {
+    "name" : "Teh Kosong",
+    "amount": "$3.20",
+    "date": "1/1/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "bread",
+    "amount": "$1.00",
+    "date": "12/12/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "lunch",
+    "amount": "$3.50",
+    "date": "24/12/2019",
+    "tagged" : [ ]
+  } ]
+}
