@@ -34,13 +34,23 @@ public class Event extends Task {
 
     /**
      * Checks if this task is equal to another task
-     * Condition for equality: same type of task && same description
+     * Condition for equality: same type of task && same description && same start and end dates
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
     @Override
     protected Boolean isEqual(Task other) {
-        return (other instanceof Event) && taskDes.equals(other.taskDes);
+        Boolean isSameType = other instanceof Event;
+        Boolean isSameDes = taskDes.equals(other.taskDes);
+        Boolean isSameStartDate = false;
+        Boolean isSameEndDate = false;
+        if (isSameType) {
+            Event eOther = (Event) other;
+            isSameStartDate = start.compareTo(eOther.getStartDate()) == 0;
+            isSameEndDate = end.compareTo(eOther.getEndDate()) == 0;
+        }
+
+        return isSameType && isSameDes && isSameStartDate & isSameEndDate;
     }
 
     @Override

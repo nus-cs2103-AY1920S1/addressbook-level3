@@ -1,10 +1,9 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +41,6 @@ class TodoTest {
 
     @Test
     void addTag() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
         Todo t = new Todo("homework");
         Tag tag = new Tag("school");
         t.addTag(tag);
@@ -52,8 +49,6 @@ class TodoTest {
 
     @Test
     void getTags() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
         Todo t = new Todo("homework");
         Tag tag = new Tag("school");
         t.addTag(tag);
@@ -62,11 +57,16 @@ class TodoTest {
 
     @Test
     void isEqual_validInput_true() {
-
+        Todo tOne = new Todo("borrow book");
+        Todo tTwo = new Todo("borrow book");
+        assertTrue(tOne.isEqual(tTwo));
     }
 
     @Test
     void isEqual_validInput_false() {
+        Todo tOne = new Todo("hello");
+        Todo tTwo = new Todo("hi there");
+        assertFalse(tOne.isEqual(tTwo));
 
     }
 }

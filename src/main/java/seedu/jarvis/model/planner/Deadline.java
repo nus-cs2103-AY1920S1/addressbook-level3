@@ -29,14 +29,22 @@ public class Deadline extends Task {
 
     /**
      * Checks if this task is equal to another task
-     * Condition for equality: same type of task && same description
+     * Condition for equality: same type of task && same description && same due date
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
     @Override
     protected Boolean isEqual(Task other) {
-        return (other instanceof Deadline) && taskDes.equals(other.taskDes)
-                && deadline.equals(((Deadline) other).deadline);
+        //TODO
+        Boolean isSameType = other instanceof Deadline;
+        Boolean isSameDes = taskDes.equals(other.taskDes);
+        Boolean isSameDate = false;
+        if (isSameType) {
+            Deadline dOther = (Deadline) other;
+            isSameDate = deadline.compareTo(dOther.getDueDate()) == 0;
+        }
+
+        return isSameType && isSameDes && isSameDate;
     }
 
 

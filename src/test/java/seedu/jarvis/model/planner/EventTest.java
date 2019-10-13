@@ -1,6 +1,7 @@
 package seedu.jarvis.model.planner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -77,13 +78,33 @@ class EventTest {
 
     @Test
     void isEqual_validInput_true() {
+        Calendar startOne = Calendar.getInstance();
+        Calendar endOne = Calendar.getInstance();
+        endOne.set(Calendar.DAY_OF_MONTH, 20);
+        Event one = new Event("borrow book", startOne, endOne);
 
+        Calendar startTwo = Calendar.getInstance();
+        Calendar endTwo = Calendar.getInstance();
+        endTwo.set(Calendar.DAY_OF_MONTH, 20);
+        Event two = new Event("borrow book", startTwo, endTwo);
+
+        assertTrue(one.isEqual(two));
     }
 
     @Test
     void isEqual_validInput_false() {
+        Calendar startOne = Calendar.getInstance();
+        startOne.set(2019, 12, 10);
+        Calendar endOne = Calendar.getInstance();
+        endOne.set(2019, 12, 10);
+        Event one = new Event("borrow hello", startOne, endOne);
 
+        Calendar startTwo = Calendar.getInstance();
+        Calendar endTwo = Calendar.getInstance();
+        endTwo.set(Calendar.DAY_OF_MONTH, 20);
+        Event two = new Event("borrow book", startTwo, endTwo);
 
+        assertFalse(one.isEqual(two));
     }
 
     @Test
@@ -104,7 +125,7 @@ class EventTest {
         Event testEvent = new Event("borrow book", start, end);
         Calendar testCal = Calendar.getInstance();
         testCal.set(Calendar.DAY_OF_MONTH, 20);
-        assertEquals(0, testCal.compareTo(testEvent.getStartDate()));
+        assertEquals(0, testCal.compareTo(testEvent.getEndDate()));
     }
 
 }
