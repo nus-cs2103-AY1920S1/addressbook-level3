@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -43,6 +44,24 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private MenuItem showTransactionMenuItem;
+
+    @FXML
+    private MenuItem showRepeaterMenuItem;
+
+    @FXML
+    private MenuItem showBudgetMenuItem;
+
+    @FXML
+    private MenuItem showLoanMenuItem;
+
+    @FXML
+    private MenuItem showAnalyticsMenuItem;
+
+    @FXML
+    private TabPane mainTabPane;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
@@ -75,6 +94,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(showTransactionMenuItem, KeyCombination.valueOf("Ctrl+1"));
+        setAccelerator(showRepeaterMenuItem, KeyCombination.valueOf("Ctrl+2"));
+        setAccelerator(showBudgetMenuItem, KeyCombination.valueOf("Ctrl+3"));
+        setAccelerator(showLoanMenuItem, KeyCombination.valueOf("Ctrl+4"));
+        setAccelerator(showAnalyticsMenuItem, KeyCombination.valueOf("Ctrl+5"));
     }
 
     /**
@@ -153,6 +177,46 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Switch the tab to show transactions.
+     */
+    @FXML
+    public void handleShowTransaction() {
+        mainTabPane.getSelectionModel().select(0);
+    }
+
+    /**
+     * Switch the tab to show repeater.
+     */
+    @FXML
+    public void handleShowRepeater() {
+        mainTabPane.getSelectionModel().select(1);
+    }
+
+    /**
+     * Switch the tab to show budget.
+     */
+    @FXML
+    public void handleShowBudget() {
+        mainTabPane.getSelectionModel().select(2);
+    }
+
+    /**
+     * Switch the tab to show loan.
+     */
+    @FXML
+    public void handleShowLoan() {
+        mainTabPane.getSelectionModel().select(3);
+    }
+
+    /**
+     * Switch the tab to show analytics.
+     */
+    @FXML
+    public void handleShowAnalytics() {
+        mainTabPane.getSelectionModel().select(4);
     }
 
     /**
