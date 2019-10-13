@@ -99,6 +99,20 @@ public abstract class Flashcard {
     };
 
     /**
+     * Checks if flashcard has a specific tag
+     * @param tagName
+     * @return
+     */
+    public boolean hasTag (String tagName) {
+        for (Tag tag : tags) {
+            if (tag.getName().equals(tagName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * While searching for a model, decide that whether this model contains the keyword or not.
      * @param s the keyword we are looking for
      * @return true if question, answer or the id contains the keyword, false otherwise
