@@ -86,5 +86,9 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Adds the given transaction.
+     * {@code transaction} must not already exist in the bank account.
+     */
     void addTransaction(Transaction transaction);
 }
