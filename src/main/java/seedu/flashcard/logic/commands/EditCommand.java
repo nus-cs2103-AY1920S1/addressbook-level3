@@ -3,6 +3,8 @@ package seedu.flashcard.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.flashcard.Answer;
+import seedu.flashcard.model.flashcard.Question;
 
 public class EditCommand extends Command {
 
@@ -36,5 +38,7 @@ public class EditCommand extends Command {
      */
     public class EditFlashCardDescriptor {
 
+        private Question question;
+        private Answer answer;
     }
 }
