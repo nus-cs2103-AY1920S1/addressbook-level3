@@ -97,7 +97,7 @@
                         <content>
                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                               <children>
-                                 <StackPane fx:id="reminderListPanelPlaceholder1" prefHeight="550.0" prefWidth="578.0" />
+                                 <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
                               </children>
                            </AnchorPane>
                         </content>

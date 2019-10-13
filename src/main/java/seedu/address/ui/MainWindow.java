@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private EventListPanel eventListPanel;
     private TaskListPanel taskListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -39,6 +40,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,6 +79,9 @@ public class MainWindow extends UiPart<Stage> {
 
         eventListPanel = new EventListPanel(logic.getVisualList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getVisualList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -140,6 +147,10 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
+    public EventListPanel getEventListPanel() { return eventListPanel; }
+
+    public ReminderListPanel getReminderListPanel() { return reminderListPanel; }
+
     /**
      * Executes the command and returns the result.
      *
@@ -163,6 +174,12 @@ public class MainWindow extends UiPart<Stage> {
 
             taskListPanel = new TaskListPanel(logic.getVisualList());
             taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+            eventListPanel = new EventListPanel(logic.getVisualList());
+            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+            reminderListPanel = new ReminderListPanel(logic.getVisualList());
+            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
