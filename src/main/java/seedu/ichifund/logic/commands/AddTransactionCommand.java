@@ -7,6 +7,7 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
@@ -22,6 +23,7 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to IchiFund. "
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_TRANSACTION_TYPE + "TRANSACTION TYPE "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "DAY "
             + PREFIX_MONTH + "MONTH "
@@ -29,6 +31,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_CATEGORY + "CATEGORY "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Buy lunch "
+            + PREFIX_TRANSACTION_TYPE + "expenditure "
             + PREFIX_AMOUNT + "5.28 "
             + PREFIX_DAY + "5 "
             + PREFIX_MONTH + "10 "
