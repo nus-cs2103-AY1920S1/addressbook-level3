@@ -8,7 +8,6 @@ import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.DeleteCommand;
-import io.xpire.logic.commands.EditCommand;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
@@ -50,9 +49,6 @@ public class XpireParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

@@ -82,7 +82,7 @@ public class Item {
     /**
      * Returns the reminder threshold.
      *
-     * @return {@Code ReminderThreshold} object.
+     * @return {@code ReminderThreshold} object.
      */
     public ReminderThreshold getReminderThreshold() {
         return this.reminderThreshold;

@@ -15,7 +15,6 @@ import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.NameContainsKeywordsPredicate;
 import io.xpire.testutil.Assert;
-import io.xpire.testutil.EditItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -62,18 +61,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditItemDescriptor DESC_KIWI;
-    public static final EditCommand.EditItemDescriptor DESC_APPLE;
-
-    static {
-        DESC_KIWI = new EditItemDescriptorBuilder().withName(VALID_NAME_KIWI)
-                                                  .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-        DESC_APPLE = new EditItemDescriptorBuilder().withName(VALID_NAME_BANANA)
-                                                    .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

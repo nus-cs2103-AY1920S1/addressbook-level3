@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.DeleteCommand;
-import io.xpire.logic.commands.EditCommand;
-import io.xpire.logic.commands.EditCommand.EditItemDescriptor;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
@@ -25,7 +23,6 @@ import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.NameContainsKeywordsPredicate;
-import io.xpire.testutil.EditItemDescriptorBuilder;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.ItemUtil;
 
@@ -51,15 +48,6 @@ public class XpireParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_ITEM), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Item item = new ItemBuilder().build();
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(item).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + "|"
-                + INDEX_FIRST_ITEM.getOneBased() + " " + ItemUtil.getEditItemDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_ITEM, descriptor), command);
     }
 
     @Test
