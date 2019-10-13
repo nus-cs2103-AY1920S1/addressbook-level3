@@ -1,4 +1,4 @@
-package seedu.address.model.account;
+package seedu.address.model.transaction;
 
 /**
  * Temporary transaction class
