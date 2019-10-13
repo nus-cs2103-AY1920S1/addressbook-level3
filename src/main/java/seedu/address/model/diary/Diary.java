@@ -8,12 +8,18 @@ import seedu.address.model.trip.Trip;
  */
 public class Diary {
 
-    private final Trip trip;
     private final DiaryEntryList diaryEntryList;
 
-    public Diary(Trip trip) {
-        this.trip = trip;
-        diaryEntryList = new DiaryEntryList(trip.getDayList());
+    public Diary() {
+        this.diaryEntryList = new DiaryEntryList();
+    }
+
+    public Diary(DiaryEntryList diaryEntryList) {
+        this.diaryEntryList = diaryEntryList;
+    }
+
+    public DiaryEntryList getDiaryEntries() {
+        return diaryEntryList;
     }
 
     @Override
@@ -27,15 +33,13 @@ public class Diary {
         }
 
         Diary otherDiary = (Diary) other;
-        return true;
+        return diaryEntryList.equals(otherDiary.getDiaryEntries());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Trip: ")
-                .append(trip.toString())
-                .append(" Diary Entries: ")
+        builder.append(" Diary Entries: ")
                 .append(diaryEntryList.toString());
 
         return builder.toString();

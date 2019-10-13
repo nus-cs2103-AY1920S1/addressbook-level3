@@ -1,5 +1,8 @@
 package seedu.address.model.diary;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.model.diary.photo.PhotoList;
 import seedu.address.model.itinerary.day.Day;
@@ -9,8 +12,8 @@ import seedu.address.model.itinerary.day.Day;
  * Each entry is linked to a specific {@code Day} and multiple {@code Event}s.
  */
 public class DiaryEntry {
-    private final Day day;
-    private PhotoList photoList;
+    private final Index day;
+    private final PhotoList photoList;
     private String diaryText;
 
     /**
@@ -21,18 +24,31 @@ public class DiaryEntry {
      * @param photoList The {@code PhotoList} to use.
      * @param diaryText The {@code String} to use to hold the entry's text.
      */
-    public DiaryEntry(Day day, PhotoList photoList, String diaryText) {
+    public DiaryEntry(Index day, PhotoList photoList, String diaryText) {
+        requireAllNonNull(day, photoList, diaryText);
         this.day = day;
         this.photoList = photoList;
         this.diaryText = diaryText;
     }
 
     /**
-     * Constructs a new {@code DiaryEntry} tied to the specified {@code day} instance.
+     * Constructs a new {@code DiaryEntry} tied to the specified {@code dayIndex} {@code Index}.
      *
-     * @param day The {@code Day} instance to use.
+     * @param dayIndex The {@code Day} instance to use.
      */
-    public DiaryEntry(Day day) {
-        this(day, new PhotoList(), "");
+    public DiaryEntry(Index dayIndex) {
+        this(dayIndex, new PhotoList(), "");
+    }
+
+    public Index getDayIndex() {
+        return day;
+    }
+
+    public PhotoList getPhotoList() {
+        return photoList;
+    }
+
+    public String getDiaryText() {
+        return diaryText;
     }
 }

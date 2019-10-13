@@ -1,5 +1,7 @@
 package seedu.address.model.diary;
 
+import java.util.Collection;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,11 +15,13 @@ public class DiaryEntryList {
 
     private ObservableList<DiaryEntry> diaryEntries;
 
-    DiaryEntryList(DayList dayList) {
+    DiaryEntryList() {
         diaryEntries = FXCollections.observableArrayList();
-        dayList.forEach(day -> {
-            diaryEntries.add(new DiaryEntry(day));
-        });
+    }
+
+    public DiaryEntryList(Collection<DiaryEntry> diaryEntries) {
+        this();
+        this.diaryEntries.addAll(diaryEntries);
     }
 
     public ObservableList<DiaryEntry> getDiaryEntries() {

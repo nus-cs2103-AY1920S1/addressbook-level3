@@ -28,7 +28,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime endDate;
     private final String destination;
     private final Double totalBudget;
-    private Diary diary;
+    private final Diary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
     /**
@@ -68,6 +68,7 @@ public class JsonAdaptedTrip {
                 .stream().map(JsonAdaptedDay::new)
                 .collect(Collectors.toList())
         );
+        this.diary = source.getDiary();
     }
 
     /**
@@ -123,6 +124,6 @@ public class JsonAdaptedTrip {
         modelDayList.set(days);
 
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList);
+                modelDestination, modelTotalBudget, modelDayList, diary);
     }
 }

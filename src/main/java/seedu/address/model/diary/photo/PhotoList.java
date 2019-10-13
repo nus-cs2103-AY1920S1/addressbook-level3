@@ -1,5 +1,6 @@
 package seedu.address.model.diary.photo;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -15,6 +16,10 @@ public class PhotoList {
 
     public PhotoList() {
         this.photos = FXCollections.observableArrayList();
+    }
+
+    public PhotoList(Collection<Photo> photos) {
+        this.photos.addAll(photos);
     }
 
     public void addPhoto(Photo photo) {
