@@ -42,6 +42,11 @@ public class Purchase {
         return timeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch();
     }
 
+    public String getTimeAgoString() {
+        return TimeFormatter.format((
+                LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                        - getTimeOfPurchaseInMillisSinceEpoch()));
+    }
     /**
      * Returns true if both purchase have the same foodPurchased and timeOfPurchase fields.
      * This defines a stronger notion of equality between two purchases.
@@ -70,9 +75,6 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return "Bought " + getPurchasedFoodName() + " for " + getPurchasedFoodPrice()
-                + TimeFormatter.format((
-                        LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-                                - getTimeOfPurchaseInMillisSinceEpoch()));
+        return getPurchasedFoodName() + " for $" + getPurchasedFoodPrice();
     }
 }

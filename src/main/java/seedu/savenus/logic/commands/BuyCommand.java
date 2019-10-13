@@ -41,8 +41,9 @@ public class BuyCommand extends Command {
         }
 
         Food foodToBuy = lastShownList.get(targetIndex.getZeroBased());
-        model.addPurchase(new Purchase(foodToBuy.getName(), foodToBuy.getPrice()));
-        return new CommandResult(String.format(MESSAGE_BUY_FOOD_SUCCESS, foodToBuy));
+        Purchase purchaseToAdd = new Purchase(foodToBuy.getName(), foodToBuy.getPrice());
+        model.addPurchase(purchaseToAdd);
+        return new CommandResult(String.format(MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString()));
     }
 
     @Override

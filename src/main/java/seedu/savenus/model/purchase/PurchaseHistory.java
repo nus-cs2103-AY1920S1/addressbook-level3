@@ -5,11 +5,15 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
+
+import javax.swing.text.html.Option;
 
 /**
  *  A list of purchases made.
@@ -78,5 +82,18 @@ public class PurchaseHistory implements Iterable<Purchase> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        Optional<String> output = StreamSupport.stream(this.spliterator(), false)
+                .map((a) -> a.toString())
+                .reduce((a,b) -> a + "\n" +b);
+        if (output.isPresent()) {
+            return "Current Purchases: \n" + output.get();
+        }
+        else {
+            return "No Purchases Made";
+        }
     }
 }

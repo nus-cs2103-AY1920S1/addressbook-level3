@@ -13,14 +13,11 @@ public class TimeFormatter {
     public static final List<Long> TIMES = Arrays.asList(
             TimeUnit.DAYS.toMillis(365),
             TimeUnit.DAYS.toMillis(30),
-            TimeUnit.DAYS.toMillis(1),
-            TimeUnit.HOURS.toMillis(1),
-            TimeUnit.MINUTES.toMillis(1),
-            TimeUnit.SECONDS.toMillis(1));
+            TimeUnit.DAYS.toMillis(1));
 
     // Map times to its corresponding string
     public static final List<String> TIMES_STRING = Arrays.asList(
-            "year", "month", "day", "hour", "minute", "second");
+            "year", "month", "day", "hour");
 
     /**
      * Format input duration into timeAgo format.
@@ -39,7 +36,7 @@ public class TimeFormatter {
             }
         }
         return "".equals(res.toString())
-            ? "0 seconds ago"
+            ? "today"
             : res.toString();
     }
 }

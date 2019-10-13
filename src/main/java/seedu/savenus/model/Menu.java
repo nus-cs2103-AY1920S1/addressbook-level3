@@ -144,6 +144,8 @@ public class Menu implements ReadOnlyMenu {
      */
     public void addPurchase(Purchase purchase) {
         purchaseHistory.add(purchase);
+        System.out.println("Purchase Added");
+        System.out.println(purchaseHistory.toString());
     }
 
     /**
