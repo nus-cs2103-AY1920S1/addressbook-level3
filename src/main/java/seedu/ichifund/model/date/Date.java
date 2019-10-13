@@ -2,8 +2,6 @@ package seedu.ichifund.model.date;
 
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.ParseException;
-
 import java.util.Objects;
 
 /**
