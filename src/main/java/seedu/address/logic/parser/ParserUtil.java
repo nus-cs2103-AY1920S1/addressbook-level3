@@ -2,12 +2,17 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
+
+import seedu.address.logic.commands.StatisticType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.CustomerName;
@@ -16,6 +21,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -155,5 +161,44 @@ public class ParserUtil {
         return new CustomerName(trimmedCustomerName);
     }
 
+    /**
+     * Parses a {@Code String statsInput} into {@Code statisticType}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@Code statsInput} is invalid.
+     */
+    public static StatisticType parseStatsType(String statsInput) throws ParseException {
+        requireNonNull(statsInput);
+        String trimmedStatsType = statsInput.trim();
+        if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
+            throw new ParseException(StatsParseUtil.STATS_MESSAGE_CONSTRAINTS);
+        }
+        switch (trimmedStatsType) {
+        case "PROFIT":
+            return StatisticType.PROFIT;
+        case "COST":
+            return StatisticType.COST;
+        case "REVENUE":
+            return StatisticType.REVENUE;
+        default:
+            throw new ParseException("if reach here means my regex wrong");
+        }
+    }
+
+    /**
+     *Parse a {@Code String date} into a {@Code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/MM/YYYY");
+        Date result;
+        try {
+            result = simpleDateFormat.parse(trimmedDate);
+            return result;
+        } catch (java.text.ParseException e) {
+            throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
+        }
+    }
 
 }

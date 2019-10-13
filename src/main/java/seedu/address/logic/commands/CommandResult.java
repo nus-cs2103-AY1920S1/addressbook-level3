@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.commons.util.StatsPayload;
 
 /**
  * Represents the result of a command execution.
@@ -16,6 +15,7 @@ public class CommandResult {
 
     private final String feedbackToUser;
     private final List<UiChange> uiChange;
+    private final StatsPayload statsPayload;
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
@@ -24,26 +24,33 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.uiChange = Arrays.asList(type);
+        this.statsPayload = null;
+    }
+
+    public CommandResult(String feedbackToUser, StatsPayload statsPayload, UiChange ...type) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.uiChange = Arrays.asList(type);
+        this.statsPayload = statsPayload;
     }
 
     public List<UiChange> getUiChange() {
         return uiChange;
     }
 
+    public boolean hasPayloadObject() {
+        return this.statsPayload != null;
+    }
+
+    public StatsPayload getPayloadObject() {
+        if (this.hasPayloadObject()) {
+            return this.statsPayload;
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public String getStartingDate() throws CommandException {
-        throw new CommandException("wrong command result type");
-    }
-
-    public String getEndingDate() throws CommandException {
-        throw new CommandException("wrong command result type");
-    }
-
-    public StatisticType getStatisticType() throws CommandException {
-        throw new CommandException("wrong command result type");
     }
 
     @Override

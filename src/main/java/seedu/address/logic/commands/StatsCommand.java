@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import java.util.Date;
+
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -12,27 +15,23 @@ public class StatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": generates statistic for ";
 
-    private final String startingDate;
+    private final Date startingDate;
 
-    private final String endingDate;
+    private final Date endingDate;
 
     private final StatisticType statisticType;
 
 
-    public StatsCommand(String startingDate,  String endingDate, StatisticType statisticType) {
+    public StatsCommand(Date startingDate, Date endingDate, StatisticType statisticType) {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
-
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        CommandResult statsCommand = new CommandStatsResult(MESSAGE_USAGE,
-                startingDate,
-                endingDate,
-                statisticType);
-        return statsCommand;
+        StatsPayload payload = new StatsPayload(startingDate, endingDate, statisticType);
+        return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
     }
 }

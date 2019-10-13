@@ -13,10 +13,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandStatsResult;
-import seedu.address.logic.commands.StatisticType;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -221,11 +220,13 @@ public class MainWindow extends UiPart<Stage> {
      * !!!!!!!!!! HANDLE WITH USER INPUT !!!!!
      */
     @FXML
-    private void handleStats2(String startingDate, String endingDate, StatisticType type) {
-        switch (type) {
+    private void handleStats2(StatsPayload statsPayload) {
+        //calculate stats with input to logic manager
+        switch (statsPayload.getStatisticType()) {
         case COST:
         case PROFIT:
         case REVENUE:
+        default:
 
         }
     }
@@ -241,14 +242,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult instanceof CommandStatsResult) {
-                //directly call the handle stats argument and pass the args in
-                handleStats2(
-                        commandResult.getStartingDate(),
-                        commandResult.getStartingDate(),
-                        commandResult.getStatisticType());
-                //retrieve the type that the command works on here;
+            if (commandResult.hasPayloadObject()) {
+                this.handleStats2(commandResult.getPayloadObject());
             } else {
                 //retrieve the type that the command works on here;
                 List<UiChange> uiChanges = commandResult.getUiChange();

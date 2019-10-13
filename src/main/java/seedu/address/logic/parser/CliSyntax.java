@@ -32,7 +32,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
 
     //// Stats
-    public static final Prefix PREFIX_STAT_REVENUE = new Prefix("s/REVENUE");
+    public static final Prefix PREFIX_STAT_TYPE = new Prefix("s/");
     public static final Prefix PREFIX_STARTING_DATE = new Prefix("d1/");
     public static final Prefix PREFIX_ENDING_DATE = new Prefix("d2/");
 
