@@ -40,9 +40,9 @@ class DialogBox extends HBox {
         Node box = this.getChildren().get(0);
         ObservableList<Node> tmp;
         if (box instanceof HBox) {
-            tmp = FXCollections.observableArrayList(((HBox) box).getChildren());
-            Collections.reverse(tmp);
             HBox tmpBox = (HBox) box;
+            tmp = FXCollections.observableArrayList(tmpBox.getChildren());
+            Collections.reverse(tmp);
             tmpBox.getChildren().setAll(tmp);
             tmpBox.setAlignment(Pos.TOP_LEFT);
             setAlignment(Pos.TOP_LEFT);
