@@ -12,10 +12,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.quiz.commands.AddCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
-import seedu.address.model.quiz.person.Address;
-import seedu.address.model.quiz.person.Email;
+import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Phone;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.tag.Tag;
 
@@ -40,12 +40,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_QUESTION).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_ANSWER).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_CATEGORY).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TYPE).get());
+        Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
+        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Question question = new Question(name, phone, email, address, tagList);
+        Question question = new Question(name, answer, category, type, tagList);
 
         return new AddCommand(question);
     }

@@ -17,22 +17,22 @@ public class Question {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Answer answer;
+    private final Category category;
 
     // Data fields
-    private final Address address;
+    private final Type type;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Question(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Question(Name name, Answer answer, Category category, Type type, Set<Tag> tags) {
+        requireAllNonNull(name, answer, category, type, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.answer = answer;
+        this.category = category;
+        this.type = type;
         this.tags.addAll(tags);
     }
 
@@ -40,16 +40,16 @@ public class Question {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Answer getAnswer() {
+        return answer;
     }
 
-    public Email getEmail() {
-        return email;
+    public Category getCategory() {
+        return category;
     }
 
-    public Address getAddress() {
-        return address;
+    public Type getType() {
+        return type;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Question {
 
         return otherQuestion != null
                 && otherQuestion.getName().equals(getName())
-                && (otherQuestion.getPhone().equals(getPhone()) || otherQuestion.getEmail().equals(getEmail()));
+                && (otherQuestion.getAnswer().equals(getAnswer()) || otherQuestion.getCategory().equals(getCategory()));
     }
 
     /**
@@ -90,28 +90,28 @@ public class Question {
 
         Question otherQuestion = (Question) other;
         return otherQuestion.getName().equals(getName())
-                && otherQuestion.getPhone().equals(getPhone())
-                && otherQuestion.getEmail().equals(getEmail())
-                && otherQuestion.getAddress().equals(getAddress())
+                && otherQuestion.getAnswer().equals(getAnswer())
+                && otherQuestion.getCategory().equals(getCategory())
+                && otherQuestion.getType().equals(getType())
                 && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, answer, category, type, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Answer: ")
+                .append(getAnswer())
+                .append(" Category: ")
+                .append(getCategory())
+                .append(" Type: ")
+                .append(getType())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

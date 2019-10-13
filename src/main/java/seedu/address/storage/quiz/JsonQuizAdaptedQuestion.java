@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.quiz.person.Address;
-import seedu.address.model.quiz.person.Email;
+import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Phone;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.tag.Tag;
 
@@ -25,22 +25,22 @@ class JsonQuizAdaptedQuestion {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
+    private final String answer;
+    private final String category;
+    private final String type;
     private final List<JsonQuizAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      */
     @JsonCreator
-    public JsonQuizAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonQuizAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("answer") String answer,
+            @JsonProperty("category") String category, @JsonProperty("type") String type,
             @JsonProperty("tagged") List<JsonQuizAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.answer = answer;
+        this.category = category;
+        this.type = type;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,9 +51,9 @@ class JsonQuizAdaptedQuestion {
      */
     public JsonQuizAdaptedQuestion(Question source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        answer = source.getAnswer().value;
+        category = source.getCategory().value;
+        type = source.getType().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonQuizAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,32 +78,32 @@ class JsonQuizAdaptedQuestion {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (answer == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Answer.isValidAnswer(answer)) {
+            throw new IllegalValueException(Answer.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Answer modelAnswer = new Answer(answer);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Category modelCategory = new Category(category);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (type == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Type.isValidType(type)) {
+            throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Type modelType = new Type(type);
 
         final Set<Tag> modelTags = new HashSet<>(questionTags);
-        return new Question(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Question(modelName, modelAnswer, modelCategory, modelType, modelTags);
     }
 
 }

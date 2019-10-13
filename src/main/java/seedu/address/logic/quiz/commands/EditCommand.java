@@ -19,15 +19,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.person.Address;
-import seedu.address.model.quiz.person.Email;
+import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Phone;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
- * Edits the details of an existing question in the address book.
+ * Edits the details of an existing question in modulo quiz.
  */
 public class EditCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the modulo quiz.";
 
     private final Index index;
     private final EditQuestionDescriptor editQuestionDescriptor;
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert questionToEdit != null;
 
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
-        Phone updatedPhone = editQuestionDescriptor.getPhone().orElse(questionToEdit.getPhone());
-        Email updatedEmail = editQuestionDescriptor.getEmail().orElse(questionToEdit.getEmail());
-        Address updatedAddress = editQuestionDescriptor.getAddress().orElse(questionToEdit.getAddress());
+        Answer updatedAnswer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getAnswer());
+        Category updatedCategory = editQuestionDescriptor.getCategory().orElse(questionToEdit.getCategory());
+        Type updatedType = editQuestionDescriptor.getType().orElse(questionToEdit.getType());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
 
-        return new Question(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Question(updatedName, updatedAnswer, updatedCategory, updatedType, updatedTags);
     }
 
     @Override
@@ -128,9 +128,9 @@ public class EditCommand extends Command {
      */
     public static class EditQuestionDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+        private Answer answer;
+        private Category category;
+        private Type type;
         private Set<Tag> tags;
 
         public EditQuestionDescriptor() {}
@@ -141,9 +141,9 @@ public class EditCommand extends Command {
          */
         public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setAnswer(toCopy.answer);
+            setCategory(toCopy.category);
+            setType(toCopy.type);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, answer, category, type, tags);
         }
 
         public void setName(Name name) {
@@ -162,28 +162,28 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setAnswer(Answer answer) {
+            this.answer = answer;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Answer> getAnswer() {
+            return Optional.ofNullable(answer);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setCategory(Category category) {
+            this.category = category;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setType(Type type) {
+            this.type = type;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Type> getType() {
+            return Optional.ofNullable(type);
         }
 
         /**
@@ -219,9 +219,9 @@ public class EditCommand extends Command {
             EditQuestionDescriptor e = (EditQuestionDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getAnswer().equals(e.getAnswer())
+                    && getCategory().equals(e.getCategory())
+                    && getType().equals(e.getType())
                     && getTags().equals(e.getTags());
         }
     }
