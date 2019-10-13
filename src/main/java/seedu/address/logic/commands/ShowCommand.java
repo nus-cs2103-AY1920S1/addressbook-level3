@@ -26,8 +26,10 @@ public class ShowCommand extends Command {
     private final String targetView;
     private final String targetList;
 
-    public ShowCommand(String targetView) {
+    public ShowCommand(String unprocessedView) {
+        String targetView = unprocessedView.toUpperCase();
         this.targetView = targetView;
+
         switch(targetView) {
         case TASK_VIEW_COMMAND:
             this.targetList = TASK_VIEW_COMMAND; //"TASK"
@@ -50,7 +52,7 @@ public class ShowCommand extends Command {
         try {
             model.setVisualList(targetList); // should be T/E/R
         } catch (Exception e) {
-            throw new CommandException("Dummy exception");
+            throw new CommandException("Show command format is incorrect. It should be \"show T\"");
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
     }

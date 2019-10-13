@@ -323,7 +323,6 @@ public class Item {
      */
     public static Item fromJson(String jsonString) throws IOException, NullPointerException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
-        System.out.println(node.toString());
         ItemBuilder temp = new ItemBuilder();
 
         String itemDescriptionString = node.get("itemDescription").toString();

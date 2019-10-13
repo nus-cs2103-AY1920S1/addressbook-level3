@@ -209,11 +209,11 @@ public class ItemModelManager implements ItemModel {
 
     /**
      * Find an item based on its description.
-     * @param searchString the string to search for within the description
+     * @param searchStrings the string to search for within the description
      * @return the item list containing all the items that contain the search string
      */
-    public VisualizeList findItem(String searchString) {
-        this.visualList = visualList.find(searchString);
+    public VisualizeList findItem(String[] searchStrings) {
+        this.visualList = visualList.find(searchStrings);
         return this.visualList;
     }
 
@@ -227,4 +227,5 @@ public class ItemModelManager implements ItemModel {
         this.reminderList = new ReminderList();
         this.visualList = taskList;
     }
+
 }

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
  * The central storage of all the items in the program.
@@ -21,7 +22,10 @@ public class ItemStorage {
      * Adds an item to the item list.
      * @param item the item to be added to the item list.
      */
-    public void add(Item item) {
+    public void add(Item item) throws DuplicateItemException {
+        if (items.contains(item)) {
+            throw new DuplicateItemException();
+        }
         items.add(item);
     }
 
@@ -48,6 +52,15 @@ public class ItemStorage {
      */
     public int size() {
         return items.size();
+    }
+
+    /**
+     * Returns if the storage already contains the item.
+     * @param item the item to be searched for
+     * @return
+     */
+    public boolean contains(Item item) {
+        return items.contains(item);
     }
 
     /**
@@ -107,6 +120,8 @@ public class ItemStorage {
                 itemStorage.add(item);
             } catch (NullPointerException e) {
                 throw new DataConversionException(e);
+            } catch (DuplicateItemException e) {
+                System.out.println(e);
             }
         }
         return itemStorage;

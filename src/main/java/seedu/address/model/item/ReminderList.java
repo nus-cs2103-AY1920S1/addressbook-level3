@@ -30,7 +30,7 @@ public class ReminderList extends VisualizeList {
      * @param searchString a string to be search for within the description of an item
      * @return a new ReminderList only containing the items that have the search string in their description
      */
-    public VisualizeList find(String searchString) {
+    public VisualizeList find(String[] searchString) {
         ReminderList rl = new ReminderList();
         return super.find(searchString, rl);
     }

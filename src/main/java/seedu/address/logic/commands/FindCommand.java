@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.model.ItemModel;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -16,28 +19,24 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final String[] searchString;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(String[] searchString) {
+        this.searchString = searchString;
     }
 
     @Override
     public CommandResult execute(ItemModel model) {
-        /* Original Code
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.findItem(searchString);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
-
-         */
-        return new CommandResult("dummy");
+                String.format(Messages.MESSAGE_ITEM_LISTED_OVERVIEW, model.getVisualList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && searchString.equals(((FindCommand) other).searchString)); // state check
     }
 }
