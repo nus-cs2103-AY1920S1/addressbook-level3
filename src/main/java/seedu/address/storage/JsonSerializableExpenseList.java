@@ -16,7 +16,7 @@ import seedu.address.model.expense.Expense;
 /**
  * An Immutable ExpenseList that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "expenselist")
 class JsonSerializableExpenseList {
 
     public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
