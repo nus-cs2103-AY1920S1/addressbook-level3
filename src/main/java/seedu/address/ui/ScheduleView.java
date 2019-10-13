@@ -20,7 +20,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -45,7 +44,7 @@ public class ScheduleView extends UiPart<Region> {
 
     private GridPane scheduleHeader;
     private GridPane scheduleView;
-
+    private List<String> colors;
     private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
     private int oneHourLength = 60;
     private int preferredWidth = 120;
@@ -93,10 +92,11 @@ public class ScheduleView extends UiPart<Region> {
         scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
-    public ScheduleView(ArrayList<WeekSchedule> weekSchedules) {
+    public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
+        this.colors = colors;
         initialise();
         initialiseHeaders();
         initialiseTimeslotHeaders();
@@ -303,7 +303,6 @@ public class ScheduleView extends UiPart<Region> {
         //Put VBoxes of all individuals' timeslot for the day into HBox.
         //Put HBox into dayStackPane.
         //Loop to next day.
-        ArrayList<String> colors = ColorGenerator.generateColorList(schedules.size());
         blockWidth = blockWidth / (schedules.size());
         for (int i = 1; i <= 7; i++) {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));

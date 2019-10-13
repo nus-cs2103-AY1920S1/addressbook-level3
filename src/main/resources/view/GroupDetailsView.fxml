@@ -9,8 +9,14 @@
 <StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <StackPane fx:id="groupDetailContainer" id="groupDetailContainer">
         <VBox fx:id="groupDetailsView" id="groupDetailsView">
-            <StackPane fx:id="groupDetailCard"></StackPane>
-            <StackPane fx:id="groupMembersList"></StackPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30"/>
+                    <ColumnConstraints percentWidth="70"/>
+                </columnConstraints>
+                <StackPane fx:id="groupDetailCard" GridPane.columnIndex="0" GridPane.rowIndex="0"></StackPane>
+                <StackPane fx:id="groupMembersList" GridPane.columnIndex="1" GridPane.rowIndex="0"></StackPane>
+            </GridPane>
             <StackPane fx:id="groupSchedule"></StackPane>
         </VBox>
     </StackPane>

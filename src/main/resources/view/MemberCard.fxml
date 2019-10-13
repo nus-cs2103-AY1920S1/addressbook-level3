@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane fx:id="memberCard" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="1"></ColumnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="25"></ColumnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="35"></ColumnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="39"></ColumnConstraints>
+    </columnConstraints>
+    <Region fx:id="colorRegion" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
+    <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="0" right="0" bottom="0" left="5" />
+        </padding>
+        <Label fx:id="memberName"/>
+    </StackPane>
+    <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="0" right="0" bottom="0" left="5" />
+        </padding>
+        <Label fx:id="memberEmail"/>
+    </StackPane>
+    <StackPane GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="0" right="0" bottom="0" left="5" />
+        </padding>
+        <Label fx:id="memberRole"/>
+    </StackPane>
+</GridPane>
