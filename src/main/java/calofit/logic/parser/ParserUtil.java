@@ -53,10 +53,19 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Calorie parseCalorie(String calories) {
+    public static Calorie parseCalorie(String calories) throws ParseException {
         requireNonNull(calories);
         String trimmedCalorie = calories.trim();
-        return new Calorie(calories);
+        if (!Calorie.isValidCalorie(trimmedCalorie)) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
+        }
+        int value;
+        try {
+            value = Integer.parseInt(trimmedCalorie);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
+        }
+        return new Calorie(value);
     }
 
     /**

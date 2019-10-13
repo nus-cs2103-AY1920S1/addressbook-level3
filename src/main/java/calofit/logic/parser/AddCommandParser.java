@@ -34,7 +34,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Calorie calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
+        Calorie calories;
+        if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
+            calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
+        } else {
+            calories = ParserUtil.parseCalorie("700");
+        }
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Dish dish = new Dish(name, calories, tagList);
