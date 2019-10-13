@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.order.Order;
 
@@ -18,6 +19,7 @@ public class Customer {
 
     // Identity fields
     private final Name name;
+    private final Phone phone;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -26,14 +28,19 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Set<Tag> tags) {
+    public Customer(Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
+        this.phone = phone;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Phone getPhone() {
+        return phone;
     }
 
     /**
@@ -58,7 +65,8 @@ public class Customer {
         }
 
         return otherCustomer != null
-                && otherCustomer.getName().equals(getName());
+                && otherCustomer.getName().equals(getName())
+                && otherCustomer.getPhone().equals(getPhone());
     }
 
     /**
@@ -77,19 +85,22 @@ public class Customer {
 
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
+                && otherCustomer.getPhone().equals(getPhone())
                 && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, phone, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

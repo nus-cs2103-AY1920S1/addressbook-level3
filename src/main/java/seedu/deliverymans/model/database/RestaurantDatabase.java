@@ -70,8 +70,8 @@ public class RestaurantDatabase {
      * Adds a restaurant to the address book.
      * The restaurant must not already exist in the address book.
      */
-    public void addRestaurant(Restaurant p) {
-        restaurants.add(p);
+    public void addRestaurant(Restaurant r) {
+        restaurants.add(r);
     }
 
     /**

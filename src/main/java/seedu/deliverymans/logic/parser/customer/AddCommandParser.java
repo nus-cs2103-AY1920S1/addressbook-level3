@@ -2,6 +2,7 @@ package seedu.deliverymans.logic.parser.customer;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -15,6 +16,7 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.customer.Customer;
 
@@ -31,7 +33,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -39,9 +41,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Customer customer = new Customer(name, tagList);
+        Customer customer = new Customer(name, phone, tagList);
 
         return new AddCommand(customer);
     }
