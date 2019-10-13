@@ -13,15 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.NavigationSidebarLeft;
-import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
 
 /**
@@ -48,12 +46,6 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private Label totalBudgetLabel;
 
-    @FXML
-    private VBox sideBarLeft;
-
-    @FXML
-    private VBox sideBarRight;
-
     public ItineraryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
         fillPage();
@@ -61,14 +53,6 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
 
     @Override
     public void fillPage() {
-        // nav bar
-        sideBarRight.getChildren().clear();
-        sideBarLeft.getChildren().clear();
-        NavigationSidebarRight navigationSidebarRight = new NavigationSidebarRight(mainWindow);
-        NavigationSidebarLeft navigationSidebarLeft = new NavigationSidebarLeft(mainWindow);
-        sideBarLeft.getChildren().add(navigationSidebarLeft.getRoot());
-        sideBarRight.getChildren().add(navigationSidebarRight.getRoot());
-
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
         startDateLabel.setText(model.getPageStatus().getTrip().getStartDate().toString());
         endDateLabel.setText(model.getPageStatus().getTrip().getEndDate().toString());
