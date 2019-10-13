@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+/*
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -32,18 +33,19 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_STUDYPLAN;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_STUDYPLAN;
 
 import org.junit.jupiter.api.Test;
+*/
+//import seedu.address.commons.core.index.Index;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTitleCommand;
-import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
-import seedu.address.model.tag.UserTag;
-import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
+//import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
+//import seedu.address.model.tag.UserTag;
+//import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
 
 public class EditTitleCommandParserTest {
 
     // TODO modify test?
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    //private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTitleCommand.MESSAGE_USAGE);
@@ -136,7 +138,8 @@ public class EditTitleCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_STUDYPLAN;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder()
+                .withName(VALID_NAME_AMY).build();
         EditTitleCommand expectedCommand = new EditTitleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -185,7 +188,8 @@ public class EditTitleCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_STUDYPLAN;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB).build();
         EditTitleCommand expectedCommand = new EditTitleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

@@ -144,6 +144,11 @@ public class StudyPlan implements Cloneable {
         return new Module(name, moduleCode, mcCount, Color.RED, moduleTagList);
     }
 
+    /**
+     * Returns a {@code UniqueTagList} with the default tags attached to the module with the given module info.
+     * @param moduleInfo The module info of the module.
+     * @return A {@code UniqueTagList} with the default tags.
+     */
     private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
         UniqueTagList studyPlanTagList = getTags();
@@ -153,7 +158,7 @@ public class StudyPlan implements Cloneable {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
         }
         for (String focusElective: focusElectives) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective+ ":E"));
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
         }
         boolean canSu = moduleInfo.getSuEligibility();
         if (canSu) {

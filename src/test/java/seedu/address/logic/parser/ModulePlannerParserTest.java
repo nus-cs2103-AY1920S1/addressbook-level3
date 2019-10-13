@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.CreateStudyPlanCommand;
+//import seedu.address.logic.commands.CreateStudyPlanCommand;
+
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -24,7 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
-import seedu.address.testutil.StudyPlanUtil;
+//import seedu.address.testutil.StudyPlanUtil;
 
 public class ModulePlannerParserTest {
 
@@ -36,7 +37,8 @@ public class ModulePlannerParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         StudyPlan studyPlan = new StudyPlanBuilder().build();
-        CreateStudyPlanCommand command = (CreateStudyPlanCommand) parser.parseCommand(StudyPlanUtil.getCreateStudyPlanCommand(studyPlan));
+        CreateStudyPlanCommand command =
+                (CreateStudyPlanCommand) parser.parseCommand(StudyPlanUtil.getCreateStudyPlanCommand(studyPlan));
         assertEquals(new CreateStudyPlanCommand(studyPlan), command);
     }
      */
@@ -59,7 +61,8 @@ public class ModulePlannerParserTest {
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         //EditStudyPlanDescriptor descriptor = new EditStudyPlanDescriptorBuilder(studyPlan).build();
         //EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-        //       + INDEX_FIRST_STUDYPLAN.getOneBased() + " " + StudyPlanUtil.getEditStudyPlanDescriptorDetails(descriptor));
+        //       + INDEX_FIRST_STUDYPLAN.getOneBased() + " "
+        //              + StudyPlanUtil.getEditStudyPlanDescriptorDetails(descriptor));
         //assertEquals(new EditCommand(INDEX_FIRST_STUDYPLAN, descriptor), command);
     }
 

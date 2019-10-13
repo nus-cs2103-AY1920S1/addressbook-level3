@@ -106,6 +106,12 @@ public class AddTagCommand extends Command {
         return toAdd;
     }
 
+    /**
+     * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
+     * @param tagName The name of the tag.
+     * @param uniqueTagList The list that the tag is to be added to.
+     * @return The tag that was created.
+     */
     private UserTag createNewTag(String tagName, UniqueTagList uniqueTagList) {
         UserTag toCreate = new UserTag(tagName);
         uniqueTagList.addTag(toCreate);

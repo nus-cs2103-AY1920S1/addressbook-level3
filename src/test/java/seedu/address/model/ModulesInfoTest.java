@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModulesInfo.CS2040S;
 import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
 
-import java.util.HashSet;
+//import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 

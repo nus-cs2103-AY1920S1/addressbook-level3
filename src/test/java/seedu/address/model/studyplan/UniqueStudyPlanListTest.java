@@ -1,5 +1,6 @@
 package seedu.address.model.studyplan;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.studyplan.exceptions.DuplicateStudyPlanException;
 import seedu.address.testutil.StudyPlanBuilder;
+ */
 
 public class UniqueStudyPlanListTest {
 
@@ -159,7 +161,8 @@ public class UniqueStudyPlanListTest {
     @Test
     public void setStudyPlans_listWithDuplicateStudyPlans_throwsDuplicateStudyPlanException() {
         List<StudyPlan> listWithDuplicateStudyPlans = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateStudyPlanException.class, () -> uniqueStudyPlanList.setStudyPlans(listWithDuplicateStudyPlans));
+        assertThrows(DuplicateStudyPlanException.class,
+                () -> uniqueStudyPlanList.setStudyPlans(listWithDuplicateStudyPlans));
     }
 
     @Test

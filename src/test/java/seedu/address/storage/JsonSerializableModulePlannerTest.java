@@ -1,24 +1,30 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/*
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ModulePlanner;
 import seedu.address.testutil.TypicalStudyPlans;
+ */
 
 public class JsonSerializableModulePlannerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableModulePlannerTest");
-    private static final Path TYPICAL_STUDY_PLANS_FILE = TEST_DATA_FOLDER.resolve("typicalStudyPlansModulePlanner.json");
-    private static final Path INVALID_STUDY_PLAN_FILE = TEST_DATA_FOLDER.resolve("invalidStudyPlanModulePlanner.json");
-    private static final Path DUPLICATE_STUDY_PLAN_FILE = TEST_DATA_FOLDER.resolve("duplicateStudyPlanModulePlanner.json");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonSerializableModulePlannerTest");
+    private static final Path TYPICAL_STUDY_PLANS_FILE =
+            TEST_DATA_FOLDER.resolve("typicalStudyPlansModulePlanner.json");
+    private static final Path INVALID_STUDY_PLAN_FILE =
+            TEST_DATA_FOLDER.resolve("invalidStudyPlanModulePlanner.json");
+    private static final Path DUPLICATE_STUDY_PLAN_FILE =
+            TEST_DATA_FOLDER.resolve("duplicateStudyPlanModulePlanner.json");
 
     //TODO implement tests
 

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+/*
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -33,6 +34,7 @@ import seedu.address.logic.commands.CreateStudyPlanCommand;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UserTag;
 import seedu.address.testutil.StudyPlanBuilder;
+ */
 
 public class CreateStudyPlanCommandParserTest {
 
@@ -66,8 +68,8 @@ public class CreateStudyPlanCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new CreateStudyPlanCommand(expectedStudyPlan));
 
         // multiple tags - all accepted
-        StudyPlan expectedStudyPlanMultipleTags = new StudyPlanBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
+        StudyPlan expectedStudyPlanMultipleTags = new StudyPlanBuilder(BOB).withTags(VALID_TAG_FRIEND,
+                VALID_TAG_HUSBAND).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new CreateStudyPlanCommand(expectedStudyPlanMultipleTags));
     }

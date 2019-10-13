@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
@@ -24,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
+*/
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -113,7 +115,8 @@ public class EditCommandTest {
         showStudyPlanAtIndex(model, INDEX_FIRST_STUDYPLAN);
 
         // edit studyPlan in filtered list into a duplicate in module planner
-        StudyPlan studyPlanInList = model.getModulePlanner().getStudyPlanList().get(INDEX_SECOND_STUDYPLAN.getZeroBased());
+        StudyPlan studyPlanInList = model.getModulePlanner().getStudyPlanList()
+                .get(INDEX_SECOND_STUDYPLAN.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_STUDYPLAN,
                 new EditStudyPlanDescriptorBuilder(studyPlanInList).build());
 

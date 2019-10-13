@@ -80,6 +80,12 @@ public class ViewTaggedCommand extends Command {
         return allMatchingModules;
     }
 
+    /**
+     * Checks if there are any tags attached to the current module that has the given tag name.
+     * @param currentModule The module with an existing list of tags.
+     * @param tagName The name of the tag that is to be checked.
+     * @return True if the module has a tag with the given name.
+     */
     private boolean checkMatch(Module currentModule, String tagName) {
         UniqueTagList tags = currentModule.getTags();
         for (Tag tag: tags) {

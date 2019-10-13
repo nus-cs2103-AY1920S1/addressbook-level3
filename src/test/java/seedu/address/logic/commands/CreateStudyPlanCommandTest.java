@@ -1,26 +1,26 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static java.util.Objects.requireNonNull;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertFalse;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
+//import java.nio.file.Path;
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ModulePlanner;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyModulePlanner;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.studyplan.StudyPlan;
+//import javafx.collections.ObservableList;
+//import seedu.address.commons.core.GuiSettings;
+//import seedu.address.logic.commands.exceptions.CommandException;
+//import seedu.address.model.Model;
+// import seedu.address.model.ModulePlanner;
+//import seedu.address.model.ReadOnlyModulePlanner;
+//import seedu.address.model.ReadOnlyUserPrefs;
+
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
 
@@ -40,7 +40,8 @@ public class CreateStudyPlanCommandTest {
 
         //CommandResult commandResult = new CreateStudyPlanCommand(validStudyPlan).execute(modelStub);
 
-        //assertEquals(String.format(CreateStudyPlanCommand.MESSAGE_SUCCESS, validStudyPlan), commandResult.getFeedbackToUser());
+        //assertEquals(String.format(CreateStudyPlanCommand.MESSAGE_SUCCESS, validStudyPlan),
+        //      commandResult.getFeedbackToUser());
         //assertEquals(Arrays.asList(validStudyPlan), modelStub.studyPlansAdded);
     }
 
@@ -50,7 +51,8 @@ public class CreateStudyPlanCommandTest {
         CreateStudyPlanCommand addCommand = new CreateStudyPlanCommand(validStudyPlan);
         //ModelStub modelStub = new ModelStubWithStudyPlan(validStudyPlan);
 
-        //assertThrows(CommandException.class, CreateStudyPlanCommand.MESSAGE_DUPLICATE_STUDYPLAN, () -> addCommand.execute(modelStub));
+        //assertThrows(CommandException.class, CreateStudyPlanCommand.MESSAGE_DUPLICATE_STUDYPLAN,
+        //      () -> addCommand.execute(modelStub));
     }
 
     /*

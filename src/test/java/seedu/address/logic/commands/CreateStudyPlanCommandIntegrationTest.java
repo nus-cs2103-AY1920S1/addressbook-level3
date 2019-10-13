@@ -1,17 +1,21 @@
 package seedu.address.logic.commands;
 
+/*
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+*/
 
 import seedu.address.model.Model;
+/*
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
+ */
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CreateStudyPlanCommand}.

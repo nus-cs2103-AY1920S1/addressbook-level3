@@ -48,6 +48,9 @@ public class StudyPlanBuilder {
     }
 
 
+    /**
+     * Builds a new studyplan.
+     */
     public StudyPlan build() {
         //return new StudyPlan(name, phone, email, address, tags);
         return new StudyPlan(new Title("this is just a temporary holder"), new ModulesInfo());

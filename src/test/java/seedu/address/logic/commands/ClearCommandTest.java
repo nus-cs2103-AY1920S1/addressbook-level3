@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+/*
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
@@ -9,6 +10,7 @@ import seedu.address.model.ModulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+ */
 
 public class ClearCommandTest {
 
