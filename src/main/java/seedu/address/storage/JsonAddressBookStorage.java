@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -72,8 +74,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
-
         FileUtil.createIfMissing(filePath);
+        List<JsonAdaptedNote> sampleList = new ArrayList<>();
+        sampleList.add(new JsonAdaptedNote("noteSample", "desc"));
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 

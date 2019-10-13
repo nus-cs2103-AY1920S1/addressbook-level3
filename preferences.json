@@ -3,6 +3,7 @@
     "windowWidth" : 960.0,
     "windowHeight" : 1057.0,
     "windowCoordinates" : {
+<<<<<<< HEAD
       "x" : 2400,
       "y" : -701
     }
@@ -10,3 +11,4 @@
   "addressBookFilePath" : "data/addressbook.json",
   "studentRecordFilePath" : "data/students.json"
 }
+
