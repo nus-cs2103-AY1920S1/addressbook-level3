@@ -81,10 +81,6 @@ class JsonAdaptedItem {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
 
-        if (!ExpiryDate.isValidRangeExpiryDate(this.expiryDate)) {
-            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_RANGE);
-        }
-
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
         if (this.reminderThreshold == null) {

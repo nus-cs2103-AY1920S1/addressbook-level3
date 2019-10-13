@@ -29,7 +29,6 @@ public class ExpiryDate {
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
         AppUtil.checkArgument(isValidFormatExpiryDate(expiryDate), MESSAGE_CONSTRAINTS_FORMAT);
-        AppUtil.checkArgument(isValidRangeExpiryDate(expiryDate), MESSAGE_CONSTRAINTS_RANGE);
         this.date = DateUtil.convertStringToDate(expiryDate, DATE_FORMAT);
     }
 
