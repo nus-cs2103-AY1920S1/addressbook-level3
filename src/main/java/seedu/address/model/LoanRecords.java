@@ -46,7 +46,7 @@ public class LoanRecords implements ReadOnlyLoanRecords {
      * @return True if LoanRecords contains this {@code loan} object, false otherwise.
      */
     public boolean hasLoan(Loan loan) {
-        return loansMap.containsValue(loan);
+        return hasLoan(loan.getLoanId());
     }
 
     /**
