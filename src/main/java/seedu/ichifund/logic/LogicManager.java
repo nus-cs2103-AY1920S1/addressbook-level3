@@ -10,10 +10,10 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
-import seedu.ichifund.logic.parser.AddressBookParser;
+import seedu.ichifund.logic.parser.IchiFundParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.Model;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final IchiFundParser ichiFundParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        ichiFundParser = new IchiFundParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = ichiFundParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveFundBook(model.getFundBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyFundBook getFundBook() {
+        return model.getFundBook();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getFundBookFilePath() {
+        return model.getFundBookFilePath();
     }
 
     @Override

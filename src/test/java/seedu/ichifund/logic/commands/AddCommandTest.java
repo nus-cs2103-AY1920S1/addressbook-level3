@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
-import seedu.ichifund.model.AddressBook;
+import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.testutil.PersonBuilder;
@@ -99,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getFundBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setFundBookFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setFundBook(ReadOnlyFundBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFundBook getFundBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyFundBook getFundBook() {
+            return new FundBook();
         }
     }
 

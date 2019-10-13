@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.ichifund.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the fund book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

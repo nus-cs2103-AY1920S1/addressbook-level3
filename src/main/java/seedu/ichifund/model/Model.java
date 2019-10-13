@@ -35,44 +35,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' fund book file path.
      */
-    Path getAddressBookFilePath();
+    Path getFundBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' fund book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFundBookFilePath(Path fundBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces fund book data with the data in {@code fundBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setFundBook(ReadOnlyFundBook fundBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FundBook */
+    ReadOnlyFundBook getFundBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the fund book.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the fund book.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the fund book.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the fund book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the fund book.
      */
     void setPerson(Person target, Person editedPerson);
 

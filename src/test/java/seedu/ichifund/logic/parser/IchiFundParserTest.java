@@ -29,9 +29,9 @@ import seedu.ichifund.testutil.EditPersonDescriptorBuilder;
 import seedu.ichifund.testutil.PersonBuilder;
 import seedu.ichifund.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class IchiFundParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final IchiFundParser parser = new IchiFundParser();
 
     @Test
     public void parseCommand_add() throws Exception {

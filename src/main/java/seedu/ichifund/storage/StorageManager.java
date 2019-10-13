@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.commons.exceptions.DataConversionException;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of FundBook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private FundBookStorage fundBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(FundBookStorage fundBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.fundBookStorage = fundBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ FundBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getFundBookFilePath() {
+        return fundBookStorage.getFundBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyFundBook> readFundBook() throws DataConversionException, IOException {
+        return readFundBook(fundBookStorage.getFundBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFundBook> readFundBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return fundBookStorage.readFundBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveFundBook(ReadOnlyFundBook fundBook) throws IOException {
+        saveFundBook(fundBook, fundBookStorage.getFundBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveFundBook(ReadOnlyFundBook fundBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        fundBookStorage.saveFundBook(fundBook, filePath);
     }
 
 }

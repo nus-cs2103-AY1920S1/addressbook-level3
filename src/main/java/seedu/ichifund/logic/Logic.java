@@ -7,7 +7,7 @@ import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.person.Person;
 
 /**
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FundBook.
      *
-     * @see seedu.ichifund.model.Model#getAddressBook()
+     * @see seedu.ichifund.model.Model#getFundBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFundBook getFundBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' fund book file path.
      */
-    Path getAddressBookFilePath();
+    Path getFundBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

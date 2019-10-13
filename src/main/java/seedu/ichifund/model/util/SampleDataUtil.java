@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.ichifund.model.AddressBook;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.FundBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.person.Address;
 import seedu.ichifund.model.person.Email;
 import seedu.ichifund.model.person.Name;
@@ -14,7 +14,7 @@ import seedu.ichifund.model.person.Phone;
 import seedu.ichifund.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FundBook} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyFundBook getSampleFundBook() {
+        FundBook sampleAb = new FundBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

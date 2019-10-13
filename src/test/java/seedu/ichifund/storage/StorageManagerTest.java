@@ -2,7 +2,7 @@ package seedu.ichifund.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.ichifund.commons.core.GuiSettings;
-import seedu.ichifund.model.AddressBook;
-import seedu.ichifund.model.ReadOnlyAddressBook;
+import seedu.ichifund.model.FundBook;
+import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonFundBookStorage fundBookStorage = new JsonFundBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(fundBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void fundBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonFundBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonFundBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        FundBook original = getTypicalFundBook();
+        storageManager.saveFundBook(original);
+        ReadOnlyFundBook retrieved = storageManager.readFundBook().get();
+        assertEquals(original, new FundBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getFundBookFilePath() {
+        assertNotNull(storageManager.getFundBookFilePath());
     }
 
 }

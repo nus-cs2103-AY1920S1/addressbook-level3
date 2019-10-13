@@ -2,7 +2,7 @@ package seedu.ichifund.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.ichifund.model.AddressBook;
+import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setFundBook(new FundBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
