@@ -278,18 +278,12 @@ Example 2: +
 {empty} +
 
 ==== Edit details of a module : `edit`
-Specify which question you want to edit and modify it from the list of questions.
+Specify which question you want to edit and modify it from the question list.
 
-*Step 1: Specify* +
-
-Format: `edit *[CATEGORY] [NUMBER]*` +
 Usage: +
 - *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. For the question that is uncategorized category, put `uncategorized`. +
 - *[NUMBER]* is the index/row from that category that you want to edit. +
 
-e.g. `*edit* CS2103 1` +
-
-*Step 2: Modify* +
 The details/instructions of the new questions include: +
 - `[qns]` Indicate that the next several phrases will be the new question. +
 - `[ans]` Indicate that the next several phrases will be the answer to the new question. +
@@ -302,16 +296,13 @@ The details/instructions of the new questions include: +
 - *`[qns]` word limit is 200. `[ans]` word limit is 1500. `[cat]` word limit is 10.* +
 - *`[type]` the command after this format should only be: `high`, `normal`, `low`.* +
 
-Format: `*modify [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_ *[type]* _your_new_priority_` +
+Format: `*edit *[CATEGORY] [NUMBER] [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_ *[type]* _your_new_priority_` +
 
 Example 1: +
-*modify [qns]* _How many mammals are there in the universe?_ *[type]* low +
-
-Example 2: +
-*cancel*
+*edit CS2103 1 [qns]* _How many mammals are there in the universe?_ *[type]* low +
 
 Remark: +
-*add [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+*edit CS2103 1 [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
 
 Modulo will detect the new question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
 {empty} +

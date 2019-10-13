@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.quiz.person.Question;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,36 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasQuestion(Question question);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given question.
+     * The question must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteQuestion(Question target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given question.
+     * {@code question} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addQuestion(Question question);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given question {@code target} with {@code editedQuestion}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The question identity of {@code editedQuestion} must not be the same as
+     * another existing question in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setQuestion(Question target, Question editedQuestion);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered question list */
+    ObservableList<Question> getFilteredQuestionList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered question list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredQuestionList(Predicate<Question> predicate);
 }

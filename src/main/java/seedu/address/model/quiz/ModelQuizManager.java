@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.quiz.person.Question;
 
 
 /**
@@ -22,7 +22,7 @@ public class ModelQuizManager implements Model {
 
     private final AddressQuizBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Question> filteredQuestions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,7 +35,7 @@ public class ModelQuizManager implements Model {
 
         this.addressBook = new AddressQuizBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
     }
 
     public ModelQuizManager() {
@@ -90,44 +90,44 @@ public class ModelQuizManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return addressBook.hasQuestion(question);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteQuestion(Question target) {
+        addressBook.removeQuestion(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addQuestion(Question question) {
+        addressBook.addQuestion(question);
+        updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setQuestion(Question target, Question editedQuestion) {
+        requireAllNonNull(target, editedQuestion);
 
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setQuestion(target, editedQuestion);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Question List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Question> getFilteredQuestionList() {
+        return filteredQuestions;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredQuestions.setPredicate(predicate);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class ModelQuizManager implements Model {
         ModelQuizManager other = (ModelQuizManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredQuestions.equals(other.filteredQuestions);
     }
 
 }

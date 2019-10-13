@@ -2,11 +2,11 @@ package seedu.address.logic.quiz.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -14,12 +14,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.quiz.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.quiz.commands.EditCommand.EditQuestionDescriptor;
 import seedu.address.logic.quiz.commands.EditCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import seedu.address.model.quiz.tag.Tag;
-
-
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -34,36 +32,44 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER,
+                        PREFIX_CATEGORY, PREFIX_TYPE, PREFIX_TAG);
 
         Index index;
+        String editParameters = argMultimap.getPreamble();
+        String[] arrParameters = editParameters.split(" ");
+        String category = arrParameters[0];
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        if (arrParameters.length != 2) {
+            throw new ParseException("Please specify the category and question index properly");
+        } else {
+            try {
+                index = ParserUtil.parseIndex(arrParameters[1]);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            }
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        EditQuestionDescriptor editQuestionDescriptor = new EditQuestionDescriptor();
+        if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
+            editQuestionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
+            editQuestionDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_ANSWER).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editQuestionDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_CATEGORY).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            editQuestionDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TYPE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editQuestionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editQuestionDescriptor);
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import javafx.stage.Stage;
@@ -53,7 +54,7 @@ public class SwitchOperation {
     public void execute() {
         if (args.equals("quiz")) {
             Config config = MainApp.getConfig();
-            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(config.getUserPrefsFilePath());
+            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(Paths.get("preferencesQuiz.json"));
             userPrefs = initPrefs(userPrefsStorage);
             AddressBookStorage addressBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
             Storage quizStorage = new StorageQuizManager(addressBookStorage, userPrefsStorage);

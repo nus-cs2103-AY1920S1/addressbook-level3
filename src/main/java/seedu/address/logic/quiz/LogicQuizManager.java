@@ -14,7 +14,7 @@ import seedu.address.logic.quiz.parser.AddressBookParser;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.quiz.person.Question;
 import seedu.address.storage.quiz.Storage;
 
 
@@ -63,8 +63,8 @@ public class LogicQuizManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Question> getFilteredQuestionList() {
+        return model.getFilteredQuestionList();
     }
 
     @Override

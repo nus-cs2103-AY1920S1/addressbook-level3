@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.quiz.person.Question;
 
 
 
@@ -21,16 +21,16 @@ import seedu.address.model.quiz.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonQuizSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Questions list contains duplicate question(s).";
 
-    private final List<JsonQuizAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonQuizAdaptedQuestion> questions = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given questions.
      */
     @JsonCreator
-    public JsonQuizSerializableAddressBook(@JsonProperty("persons") List<JsonQuizAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonQuizSerializableAddressBook(@JsonProperty("questions") List<JsonQuizAdaptedQuestion> questions) {
+        this.questions.addAll(questions);
     }
 
     /**
@@ -39,7 +39,10 @@ class JsonQuizSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonQuizSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonQuizAdaptedPerson::new).collect(Collectors.toList()));
+        questions.addAll(source.getQuestionList()
+                .stream()
+                .map(JsonQuizAdaptedQuestion::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -49,12 +52,12 @@ class JsonQuizSerializableAddressBook {
      */
     public AddressQuizBook toModelType() throws IllegalValueException {
         AddressQuizBook addressBook = new AddressQuizBook();
-        for (JsonQuizAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+        for (JsonQuizAdaptedQuestion jsonAdaptedQuestion : questions) {
+            Question question = jsonAdaptedQuestion.toModelType();
+            if (addressBook.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addQuestion(question);
         }
         return addressBook;
     }
