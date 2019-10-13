@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,9 @@ class EventTest {
 
     @Test
     void addPriority() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         e.addPriority("high");
         assertNotNull(e.priority);
@@ -25,17 +26,18 @@ class EventTest {
 
     @Test
     void addPriority_invalidInput_exceptionThrown() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         assertThrows(InvalidPriorityException.class, () -> e.addPriority("highest"));
     }
 
     @Test
     void addFrequency() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
-
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         e.addFrequency("weekly");
         assertNotNull(e.frequency);
@@ -43,16 +45,18 @@ class EventTest {
 
     @Test
     void addFrequency_invalidInput_exceptionThrown() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         assertThrows(InvalidFrequencyException.class, () -> e.addFrequency("every week"));
     }
 
     @Test
     void addTag() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         Tag t = new Tag("school");
         e.addTag(t);
@@ -61,8 +65,9 @@ class EventTest {
 
     @Test
     void getTags() {
-        Date start = new Date(2019, 10, 10);
-        Date end = new Date(2019, 10, 11);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
         Tag t = new Tag("school");
         e.addTag(t);
