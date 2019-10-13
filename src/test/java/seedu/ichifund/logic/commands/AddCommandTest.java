@@ -20,6 +20,7 @@ import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
+import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.PersonBuilder;
@@ -115,21 +116,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addTransaction(Transaction transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setFundBook(ReadOnlyFundBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyFundBook getFundBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -151,6 +137,50 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBudget(Budget target) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setBudget(Budget target, Budget editedBudget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFundBook(ReadOnlyFundBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyFundBook getFundBook() {
             throw new AssertionError("This method should not be called.");
         }
     }
