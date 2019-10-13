@@ -135,7 +135,7 @@ public class ModelManager implements Model {
     @Override
     public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
-        
+
         addressBook.setNote(target, editedNote);
     }
 

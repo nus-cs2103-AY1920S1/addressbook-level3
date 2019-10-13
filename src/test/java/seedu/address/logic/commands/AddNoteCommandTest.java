@@ -34,9 +34,9 @@ public class AddNoteCommandTest {
     public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
-        
+
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
-        
+
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
