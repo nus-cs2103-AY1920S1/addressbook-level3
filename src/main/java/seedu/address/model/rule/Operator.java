@@ -16,7 +16,7 @@ public enum Operator {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid operator.
      */
     public static boolean isValidOperator(String test) {
         return Arrays
