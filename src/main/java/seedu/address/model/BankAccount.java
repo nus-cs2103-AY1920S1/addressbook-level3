@@ -17,7 +17,7 @@ public class BankAccount implements ReadOnlyBankAccount{
     private Amount balance;
     private UniqueTransactionList transactions;
 
-    BankAccount() {
+    public BankAccount() {
         transactions = new UniqueTransactionList();
     }
 
