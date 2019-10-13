@@ -17,17 +17,24 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The application window should switch */
-    private final boolean isSwitch;
+    /** The application page should change. */
+    private final boolean showPage;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showPage = showPage;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.isSwitch = false;
+        this(feedbackToUser, showHelp, exit, false);
     }
 
     /**
@@ -52,6 +59,14 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    /**
+     * Gets feedback string for system uses.
+     * @return feedback obtained after executing command
+     */
+    public String getFeedback() {
+        return feedbackToUser;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -60,8 +75,11 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isSwitch() {
-        return isSwitch;
+    /** Checks whether user is requesting for a change in page.
+     * @return {@code true} only if user wants to calendar, diary, financial tracker, itinerary or address book to show
+     */
+    public boolean isShowPage() {
+        return showPage;
     }
 
     @Override
