@@ -37,7 +37,7 @@
 
                 <AnchorPane fx:id="anchorPane" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                     <children>
-                        <SplitPane dividerPositions="0.0, 0.0" focusTraversable="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="SOMETIMES">
+                        <SplitPane fx:id="upperPane" dividerPositions="0.0, 0.0" focusTraversable="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="SOMETIMES">
                      <StackPane fx:id="tabBarPlaceholder" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="70.0" />
                              <StackPane fx:id="omniPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" />
                              <StackPane fx:id="queueListPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="150.0" />
