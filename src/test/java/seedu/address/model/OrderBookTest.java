@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.testutil.OrderBuilder;
 
 public class OrderBookTest {
 
@@ -43,7 +44,7 @@ public class OrderBookTest {
     @Test
     public void resetData_withDuplicateOrders_throwsDuplicateOrderException() {
         // Two orders with the same identity fields
-        Order editedVipOrder = (Order) VIPORDER.clone();
+        Order editedVipOrder = new OrderBuilder(VIPORDER, true).build();
         List<Order> newOrders = Arrays.asList(VIPORDER, editedVipOrder);
         OrderBookStub newData = new OrderBookStub(newOrders);
 
@@ -69,7 +70,7 @@ public class OrderBookTest {
     @Test
     public void hasOrder_orderWithSameIdentityFieldsInOrderBook_returnsTrue() {
         orderBook.addOrder(VIPORDER);
-        Order clonedVipOrder = (Order) VIPORDER.clone();
+        Order clonedVipOrder = new OrderBuilder(VIPORDER, true).build();
         assertTrue(orderBook.hasOrder(clonedVipOrder));
     }
 

@@ -13,19 +13,24 @@ import seedu.address.model.phone.Phone;
  */
 public class TypicalPhones {
 
-    public static final Phone IPHONEONE = new PhoneBuilder().withName("iPhone 11").withBrand("iPhone")
+    public static final Phone IPHONEONE = new PhoneBuilder().withIdentityNumber("111111111111111")
+            .withSerialNumber("A342432").withName("iPhone 11").withBrand("iPhone")
             .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$500").withTags("Old").build();
 
-    public static final Phone IPHONETWO = new PhoneBuilder().withName("iPhone X").withBrand("iPhone")
+    public static final Phone IPHONETWO = new PhoneBuilder().withIdentityNumber("111111111122222")
+            .withSerialNumber("A5864").withName("iPhone X").withBrand("iPhone")
             .withCapacity(Capacity.SIZE_64GB).withColour("Green").withCost("$300").withTags("Spoilt").build();
 
-    public static final Phone ANDROIDONE = new PhoneBuilder().withName("Samsung Galaxy 9").withBrand("Samsung")
+    public static final Phone ANDROIDONE = new PhoneBuilder().withIdentityNumber("111143242133111")
+            .withSerialNumber("432").withName("Samsung Galaxy 9").withBrand("Samsung")
             .withCapacity(Capacity.SIZE_32GB).withColour("Black").withCost("$300").withTags("New").build();
 
-    public static final Phone ANDROIDTWO = new PhoneBuilder().withName("Samsung Galaxy 10").withBrand("Samsung")
+    public static final Phone ANDROIDTWO = new PhoneBuilder().withIdentityNumber("222222222222222")
+            .withSerialNumber("603").withName("Samsung Galaxy 10").withBrand("Samsung")
             .withCapacity(Capacity.SIZE_1024GB).withColour("Pink").withCost("$730").withTags("Fresh").build();
 
-    public static final Phone IPHONEXR = new PhoneBuilder().withName("iPhone XR").withBrand("Apple")
+    public static final Phone IPHONEXR = new PhoneBuilder().withIdentityNumber("449682916074069")
+            .withSerialNumber("182n8x81").withName("iPhone XR").withBrand("Apple")
             .withCapacity(Capacity.SIZE_128GB).withColour("Black").withCost("$1000").withTags("Used").build();
 
     /**

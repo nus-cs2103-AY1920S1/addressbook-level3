@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Customer's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidContactNumber(String)}
  */
-public class ContactNumber implements Cloneable {
+public class ContactNumber {
 
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -47,11 +47,6 @@ public class ContactNumber implements Cloneable {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    @Override
-    protected Object clone() {
-        return new ContactNumber(new String(value));
     }
 
 }

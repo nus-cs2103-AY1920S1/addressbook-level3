@@ -44,7 +44,7 @@ public class PhoneBookTest {
     @Test
     public void resetData_withDuplicatePhones_throwsDuplicatePhoneException() {
         // Two phones with the same id
-        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR, true)
+        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR)
                 .build();
         List<Phone> newPhones = Arrays.asList(IPHONEXR, editediPhoneXr);
         PhoneBookStub newData = new PhoneBookStub(newPhones);
@@ -65,7 +65,7 @@ public class PhoneBookTest {
     @Test
     public void hasPhone_phoneWithSameIdentityFieldsInPhoneBook_returnsTrue() {
         phoneBook.addPhone(IPHONEXR);
-        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR, true).withColour("Purple")
+        Phone editediPhoneXr = new PhoneBuilder(IPHONEXR).withColour("Purple")
                 .build();
         assertTrue(phoneBook.hasPhone(editediPhoneXr));
     }
