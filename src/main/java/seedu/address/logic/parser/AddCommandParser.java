@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;

@@ -1,12 +1,11 @@
-package seedu.address.model;
+package seedu.address.model.book;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.book.Book;
-import seedu.address.model.book.SerialNumber;
+import seedu.address.model.Catalog;
 import seedu.address.testutil.BookBuilder;
 
 class SerialNumberGeneratorTest {

@@ -28,7 +28,7 @@ public class TypicalBooks {
     private TypicalBooks() {} // prevents instantiation
 
     /**
-     * Returns an {@code Catalog} with all the typical persons.
+     * Returns a {@code Catalog} with all the typical books.
      */
     public static Catalog getTypicalCatalog() {
         Catalog ab = new Catalog();

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 
 /**
  * Wraps all data at the catalog level
@@ -71,7 +72,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      * @param id is the borrower id.
      * @return a boolean true or false of whether the id exists.
      */
-    boolean checkIfBorrowerIdExists(BorrowerId id) {
+    public boolean checkIfBorrowerIdExists(BorrowerId id) {
         requireNonNull(id);
         return borrowersMap.containsKey(id);
     }
@@ -103,7 +104,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
                 && borrowersMap.equals(((BorrowerRecords) other).borrowersMap));
     }
 
-    int getSize() {
+    public int getSize() {
         return listOfBorrowers.size();
     }
 }

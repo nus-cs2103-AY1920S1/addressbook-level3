@@ -1,15 +1,22 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
+import seedu.address.model.borrower.Borrower;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanIdGenerator;
 
 /**
- * Loans a Book to a Borrower
+ * Loans a Book with the given Serial Number to a Borrower
  */
 public class LoanCommand extends Command {
     public static final String COMMAND_WORD = "loan";
@@ -19,18 +26,18 @@ public class LoanCommand extends Command {
             + "Parameters: " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_SERIAL_NUMBER + "B00001";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$ loaned to Borrower: %12$";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s loaned to Borrower: %2$s";
 
-    private final Book toLoan;
+    private final SerialNumber toLoan;
 
     /**
      * Creates an LoanCommand to loan the specified {@code Book} to the Borrower currently served.
      *
-     * @param book Book to be loaned.
+     * @param bookSn Serial number of Book to be loaned.
      */
-    public LoanCommand(Book book) {
-        requireNonNull(book);
-        this.toLoan = book;
+    public LoanCommand(SerialNumber bookSn) {
+        requireNonNull(bookSn);
+        this.toLoan = bookSn;
     }
 
     /**
@@ -42,15 +49,29 @@ public class LoanCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
+        if (!model.hasBook(this.toLoan)) {
+            throw new CommandException(MESSAGE_NO_SUCH_BOOK);
+        }
 
-        // TODO
-        // check if book is currently on loaned already
-        // check if currently served borrower has already loaned this book
-        // model.loanBook(book);
-        return null;
+        Book bookToBeLoaned = model.getBook(toLoan);
+        if (bookToBeLoaned.isCurrentlyLoanedOut()) {
+            throw new CommandException(String.format(MESSAGE_BOOK_ON_LOAN, bookToBeLoaned));
+        }
+
+        Borrower servingBorrower = model.getServingBorrower().get();
+        Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(14)); // TODO READ FROM MODEL->USERSETTINGS instead!!
+        Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
+                bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
+        model.setBook(bookToBeLoaned, loanedOutBook);
+
+        model.addLoan(loan);
+
+        // TODO ADD LOAN TO BORROWER!
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook.toString(), servingBorrower.toString()));
     }
 }
