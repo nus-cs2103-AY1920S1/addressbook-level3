@@ -50,6 +50,7 @@ public class AddAddressCommand extends Command {
      */
     public AddAddressCommand(Person person) {
         requireNonNull(person);
+        super.setId(COMMAND_WORD);
         toAdd = person;
     }
 

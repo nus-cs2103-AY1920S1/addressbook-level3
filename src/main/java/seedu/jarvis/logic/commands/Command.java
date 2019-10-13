@@ -8,6 +8,16 @@ import seedu.jarvis.model.Model;
  */
 public abstract class Command {
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}

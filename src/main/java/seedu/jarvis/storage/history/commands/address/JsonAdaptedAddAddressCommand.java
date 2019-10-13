@@ -7,12 +7,13 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link AddAddressCommand}.
  */
-public class JsonAdaptedAddAddressCommand {
+public class JsonAdaptedAddAddressCommand extends JsonAdaptedCommand {
 
     public static final String MESSAGE_INVALID_COMMAND = "This command is not an AddAddressCommand.";
 

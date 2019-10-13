@@ -1,14 +1,20 @@
 package seedu.jarvis.testutil.history;
 
-import static seedu.jarvis.testutil.address.TypicalPersons.*;
-
-import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.model.history.HistoryManager;
+import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
+import static seedu.jarvis.testutil.address.TypicalPersons.BENSON;
+import static seedu.jarvis.testutil.address.TypicalPersons.CARL;
+import static seedu.jarvis.testutil.address.TypicalPersons.DANIEL;
+import static seedu.jarvis.testutil.address.TypicalPersons.ELLE;
+import static seedu.jarvis.testutil.address.TypicalPersons.FIONA;
+import static seedu.jarvis.testutil.address.TypicalPersons.GEORGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.address.AddAddressCommand;
+import seedu.jarvis.model.history.HistoryManager;
 
 /**
  * A utility class containing {@code Command} objects to be used in tests.
