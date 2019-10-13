@@ -4,12 +4,10 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static io.xpire.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE;
 import static io.xpire.logic.commands.CommandTestUtil.INVALID_NAME;
-import static io.xpire.logic.commands.CommandTestUtil.INVALID_QUANTITY;
 import static io.xpire.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_APPLE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
 import static io.xpire.testutil.TypicalItems.APPLE;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,6 @@ import io.xpire.logic.commands.AddCommand;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
-import io.xpire.model.item.Quantity;
 import io.xpire.testutil.ItemBuilder;
 
 public class AddCommandParserTest {
@@ -32,9 +29,6 @@ public class AddCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
                 + "|" + VALID_EXPIRY_DATE_APPLE + "|" + VALID_QUANTITY_APPLE,
                 new AddCommand(expectedItem));
-
-        CommandParserTestUtil.assertParseSuccess(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
-                + "|" + VALID_QUANTITY_APPLE, new AddCommand(expectedItem));
     }
 
     @Test
@@ -60,14 +54,15 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + VALID_EXPIRY_DATE_APPLE
-                + "|" + VALID_QUANTITY_APPLE + "|" + VALID_TAG_FRUIT, Name.MESSAGE_CONSTRAINTS);
+            + "|", Name.MESSAGE_CONSTRAINTS);
 
         // invalid expiry date
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE
-                + "|" + VALID_QUANTITY_APPLE, ExpiryDate.MESSAGE_CONSTRAINTS);
+            + "|" , ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
 
-        // invalid quantity
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
-                + "|" + INVALID_QUANTITY, Quantity.MESSAGE_CONSTRAINTS);
+
+        // two invalid values, only first invalid value reported
+        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + VALID_EXPIRY_DATE_APPLE
+            + "|", Name.MESSAGE_CONSTRAINTS);
     }
 }

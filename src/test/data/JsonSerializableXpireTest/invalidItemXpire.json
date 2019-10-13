@@ -3,6 +3,7 @@
     "name": "M@ango",
     "expiryDate": "31122019",
     "quantity" : "-2",
-    "reminderThreshold" : "0"
+    "reminderThreshold" : "0",
+    "tags": [ "#####" ]
   } ]
 }

@@ -56,10 +56,9 @@ public class JsonAdaptedItemTest {
 
     @Test
     public void toModelType_invalidExpiryDate_throwsIllegalValueException() {
-        JsonAdaptedItem item =
-                new JsonAdaptedItem(VALID_NAME, INVALID_EXPIRY_DATE, VALID_QUANTITY,
+        JsonAdaptedItem item = new JsonAdaptedItem(VALID_NAME, INVALID_EXPIRY_DATE, VALID_QUANTITY,
                         VALID_REMINDER_THRESHOLD, VALID_TAGS);
-        String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS;
+        String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT;
         assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
     }
 

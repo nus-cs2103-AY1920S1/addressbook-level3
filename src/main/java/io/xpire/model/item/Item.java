@@ -3,15 +3,17 @@ package io.xpire.model.item;
 import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
+
 /**
- * Represents a Item in xpire.
+ * Represents a Item in Xpire.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
@@ -21,7 +23,7 @@ public class Item {
 
     // Data fields
     private final Quantity quantity;
-    private final Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags = new TreeSet<>(new TagComparator());
     private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
 
     /**
@@ -77,6 +79,15 @@ public class Item {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(this.tags);
+    }
+
+    /**
+     * Sets and overrides the tags.
+     *
+     * @param tags tags.
+     */
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     /**
@@ -140,10 +151,16 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(this.name + "\n")
-                .append(String.format("Expiry date: %s (%s)\n",
-                        this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
-                .append("Tags: ");
+        if (!this.getTags().isEmpty()) {
+            builder.append(this.name).append("\n")
+                    .append(String.format("Expiry date: %s (%s)\n",
+                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
+                    .append("Tags: ");
+        } else {
+            builder.append(this.name).append("\n")
+                    .append(String.format("Expiry date: %s (%s)\n",
+                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
+        }
         this.getTags().forEach(builder::append);
         return builder.toString();
     }

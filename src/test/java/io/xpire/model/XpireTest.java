@@ -47,9 +47,8 @@ public class XpireTest {
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
         Item editedApple = new ItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE)
                 .withQuantity("1").build();
-        List<Item> newPersons = Arrays.asList(APPLE, editedApple);
-        XpireStub newData = new XpireStub(newPersons);
-
+        List<Item> newItems = Arrays.asList(APPLE, editedApple);
+        XpireStub newData = new XpireStub(newItems);
         assertThrows(DuplicateItemException.class, () -> xpire.resetData(newData));
     }
 

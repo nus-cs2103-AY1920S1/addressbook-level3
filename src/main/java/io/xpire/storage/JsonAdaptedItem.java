@@ -1,9 +1,9 @@
 package io.xpire.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,6 +16,7 @@ import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
  * Jackson-friendly version of {@link Item}.
@@ -82,9 +83,10 @@ class JsonAdaptedItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
         }
-        if (!ExpiryDate.isValidExpiryDate(this.expiryDate)) {
-            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        if (!ExpiryDate.isValidFormatExpiryDate(this.expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
+
         final ExpiryDate modelExpiryDate = new ExpiryDate(this.expiryDate);
 
         if (this.quantity == null) {
@@ -100,6 +102,7 @@ class JsonAdaptedItem {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ReminderThreshold.class.getSimpleName()));
         }
+
         if (!ReminderThreshold.isValidReminderThreshold(this.reminderThreshold)) {
             throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
@@ -109,7 +112,8 @@ class JsonAdaptedItem {
         for (JsonAdaptedTag tag : this.tags) {
             itemTags.add(tag.toModelType());
         }
-        final Set<Tag> modelTags = new HashSet<>(itemTags);
+        final Set<Tag> modelTags = new TreeSet<>(new TagComparator());
+        modelTags.addAll(itemTags);
 
         Item item = new Item(modelName, modelExpiryDate, modelQuantity, modelTags);
         item.setReminderThreshold(modelReminderThreshold);
