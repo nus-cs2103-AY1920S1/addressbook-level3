@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.BOOK_3;
 import static seedu.address.testutil.TypicalBooks.BOOK_4;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -62,17 +62,13 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noTitleGiven() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 0);
-        BookPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredBookList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredBookList());
+        assertThrows(IllegalArgumentException.class, () -> preparePredicate("t/"));
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleBooksFound() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 3);
         BookPredicate predicate = preparePredicate("the");
         FindCommand command = new FindCommand(predicate);

@@ -80,10 +80,14 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        String keywords = "foo bar baz";
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords);
-        assertEquals(new FindCommand(new BookPredicate().addTitle(keywords)), command);
+        SerialNumberGenerator.setCatalog(new Catalog());
+        Book book = new BookBuilder().build();
+        FindCommand command = (FindCommand) parser.parseCommand(BookUtil.getFindCommand(book));
+        assertEquals(new FindCommand(new BookPredicate()
+            .addTitle(book.getTitle().value)
+            .addAuthor(book.getAuthor().value)
+            .addSerialNumber(book.getSerialNumber().value)
+            .addGenres(book.getGenres())), command);
     }
 
     @Test

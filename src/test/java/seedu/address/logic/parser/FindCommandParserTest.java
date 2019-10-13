@@ -23,10 +23,10 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new BookPredicate().addTitle("Alice Bob"));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " t/Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + "   t/ Alice Bob ", expectedFindCommand);
     }
 
 }

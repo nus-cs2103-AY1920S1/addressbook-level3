@@ -112,6 +112,9 @@ public class BookPredicate implements Predicate<Book> {
      * @param genres in the form of Collections.Set
      */
     public BookPredicate addGenres(Set<Genre> genres) {
+        if (genres.isEmpty()) {
+            return this;
+        }
         this.genres = genres;
         return this;
     }
@@ -120,9 +123,9 @@ public class BookPredicate implements Predicate<Book> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookPredicate // instanceof handles nulls
-                && title.equals(((BookPredicate) other).title) // state check
-                && author.equals(((BookPredicate) other).author) // state check
-                && serialNumber.equals(((BookPredicate) other).serialNumber) // state check
-                && genres.equals(((BookPredicate) other).genres)); // state check
+                && (title == null || title.equals(((BookPredicate) other).title)) // state check
+                && (author == null || author.equals(((BookPredicate) other).author)) // state check
+                && (serialNumber == null || serialNumber.equals(((BookPredicate) other).serialNumber)) // state check
+                && (genres == null || genres.equals(((BookPredicate) other).genres))); // state check
     }
 }

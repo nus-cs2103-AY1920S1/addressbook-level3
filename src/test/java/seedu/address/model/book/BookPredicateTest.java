@@ -43,7 +43,7 @@ public class BookPredicateTest {
         assertTrue(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
 
         // Multiple keywords
-        predicate = new BookPredicate().addTitle("Harry, Bob");
+        predicate = new BookPredicate().addTitle("Harry Bob");
         assertTrue(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
 
         // Only one matching keyword
