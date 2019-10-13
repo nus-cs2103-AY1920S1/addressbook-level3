@@ -1,17 +1,22 @@
 package seedu.address.model.diary;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Represents a Diary in Duke Cooks.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values validated and immutable.
  */
 public class Diary {
 
     // Identity fields
     private final Name name;
+
+    // Data fields
+    private final ArrayList<Page> pages;
 
     /**
      * Every field must be present and not null.
@@ -19,10 +24,24 @@ public class Diary {
     public Diary(Name name) {
         requireAllNonNull(name);
         this.name = name;
+        this.pages = new ArrayList<>();
+    }
+
+    /**
+     * Overloaded constructor for custom list of pages.
+     */
+    public Diary(Name name, ArrayList<Page> pages) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.pages = pages;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public ArrayList<Page> getPages() {
+        return pages;
     }
 
     /**
@@ -36,6 +55,14 @@ public class Diary {
 
         return otherDiary != null
                 && otherDiary.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if specified Page exists in diary.
+     */
+    public boolean hasPage(Page page) {
+        requireNonNull(page);
+        return pages.contains(page);
     }
 
     /**
