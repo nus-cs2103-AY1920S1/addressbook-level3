@@ -21,7 +21,8 @@ public class CreateTagCommand extends Command {
         + "newtag exchange";
 
     public static final String MESSAGE_SUCCESS = "New tag created: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This tag already exists";
+    public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists";
+    public static final String MESSAGE_INVALID_TAG_NAME = "This name is reserved for default tags";
 
     private final String tagName;
 

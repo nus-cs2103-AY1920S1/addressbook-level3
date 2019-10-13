@@ -53,7 +53,7 @@ public class DefaultTag implements Tag {
     }
 
     /**
-     * Returns true if the other tag is also a {@code DefaultTag} and the two tags have the same default type.
+     * Returns true if the other tag is also a {@code DefaultTag} and both tags have the same default type.
      * @param other The other {@code Tag}.
      */
     @Override
