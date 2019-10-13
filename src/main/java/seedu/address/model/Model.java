@@ -244,6 +244,12 @@ public interface Model {
 
     void addPassword(Password password);
 
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deletePassword(Password password);
+
     /** Returns the PasswordBook */
     PasswordBook getPasswordBook();
 }

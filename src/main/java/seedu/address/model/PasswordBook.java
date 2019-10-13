@@ -28,4 +28,8 @@ public class PasswordBook {
     public ObservableList<Password> getPasswordList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
+
+    public void removePassword(Password p) {
+        internalList.remove(p);
+    }
 }

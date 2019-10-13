@@ -236,7 +236,7 @@ public class AddCommandTest {
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
-
+        }
 
         public ObservableList<Password> getFilteredPasswordList() {
             return null;
@@ -248,14 +248,11 @@ public class AddCommandTest {
         }
 
         @Override
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest
         public void deletePassword(Password password) {
 
         }
 
         @Override
-=======
->>>>>>> Add in storage class for password:src/test/java/seedu/address/logic/commands/AddCommandTest.java
         public PasswordBook getPasswordBook() {
             return null;
         }
