@@ -45,6 +45,7 @@ public class AddScheduleCommand extends Command {
      */
     public AddScheduleCommand(Schedule schedule, Index index) {
         requireNonNull(schedule);
+        requireNonNull(index);
         toAdd = schedule;
         orderIndex = index;
     }
