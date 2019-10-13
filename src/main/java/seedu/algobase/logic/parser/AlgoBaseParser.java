@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
-import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
+import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
@@ -20,8 +20,8 @@ import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
-import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
+import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.model.plan.Plan;
-import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.plan.UniquePlanList;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
