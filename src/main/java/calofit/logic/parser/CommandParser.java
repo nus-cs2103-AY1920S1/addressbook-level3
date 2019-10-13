@@ -72,6 +72,10 @@ public class CommandParser {
         case ReportCommand.COMMAND_WORD:
             return new ReportCommand();
 
+        case "set":
+            return new SetBudgetCommandParser().parse(arguments);
+
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
