@@ -5,17 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULETWO;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.schedule.exceptions.DuplicateScheduleException;
 import seedu.address.model.schedule.exceptions.ScheduleNotFoundException;
-import seedu.address.testutil.ScheduleBuilder;
 
 class UniqueScheduleListTest {
 
@@ -51,9 +50,8 @@ class UniqueScheduleListTest {
     @Test
     void add_uniqueSchedule_success() {
         uniqueScheduleList.add(SCHEDULEONE);
-        Schedule otherSchedule = new ScheduleBuilder(SCHEDULEONE).withId(UUID.randomUUID()).build();
-        uniqueScheduleList.add(otherSchedule);
-        assertTrue(uniqueScheduleList.contains(otherSchedule));
+        uniqueScheduleList.add(SCHEDULETWO);
+        assertTrue(uniqueScheduleList.contains(SCHEDULETWO));
     }
 
     @Test
@@ -68,34 +66,29 @@ class UniqueScheduleListTest {
 
     @Test
     void setSchedule_targetNotInList_throwsScheduleNotFoundException() {
-        Schedule otherSchedule = new ScheduleBuilder(SCHEDULEONE).withId(UUID.randomUUID()).build();
-        assertThrows(ScheduleNotFoundException.class, () -> uniqueScheduleList.setSchedule(SCHEDULEONE, otherSchedule));
+        assertThrows(ScheduleNotFoundException.class, () -> uniqueScheduleList.setSchedule(SCHEDULEONE, SCHEDULETWO));
     }
 
     @Test
     void setSchedule_targetNotSameAsEditedAndEditedIsDuplicate_throwsDuplicateScheduleException() {
         uniqueScheduleList.add(SCHEDULEONE);
-        Schedule otherSchedule = new ScheduleBuilder(SCHEDULEONE).withId(UUID.randomUUID()).build();
-        uniqueScheduleList.add(otherSchedule);
-        Schedule editedSchedule = new ScheduleBuilder(SCHEDULEONE).build();
+        uniqueScheduleList.add(SCHEDULETWO);
         assertThrows(DuplicateScheduleException.class, () ->
-                uniqueScheduleList.setSchedule(otherSchedule, editedSchedule));
+                uniqueScheduleList.setSchedule(SCHEDULETWO, SCHEDULEONE));
     }
 
     @Test
     void setSchedule_targetNotSameAsEditedAndEditedIsNotDuplicate_success() {
         uniqueScheduleList.add(SCHEDULEONE);
-        Schedule otherSchedule = new ScheduleBuilder(SCHEDULEONE).withId(UUID.randomUUID()).build();
-        uniqueScheduleList.setSchedule(SCHEDULEONE, otherSchedule);
-        assertTrue(uniqueScheduleList.contains(otherSchedule));
+        uniqueScheduleList.setSchedule(SCHEDULEONE, SCHEDULETWO);
+        assertTrue(uniqueScheduleList.contains(SCHEDULETWO));
     }
 
     @Test
     void setSchedule_targetSameAsEdited_success() {
         uniqueScheduleList.add(SCHEDULEONE);
-        Schedule editedSchedule = new ScheduleBuilder(SCHEDULEONE).build();
-        uniqueScheduleList.setSchedule(SCHEDULEONE, editedSchedule);
-        assertTrue(uniqueScheduleList.contains(editedSchedule));
+        uniqueScheduleList.setSchedule(SCHEDULEONE, SCHEDULEONE);
+        assertTrue(uniqueScheduleList.contains(SCHEDULEONE));
     }
 
     @Test
