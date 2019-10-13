@@ -13,7 +13,7 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
- * Adds a person to the address book.
+ * Adds a transaction to IchiFund.
  */
 public class AddTransactionCommand extends Command {
 
@@ -40,7 +40,7 @@ public class AddTransactionCommand extends Command {
     private final Transaction toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Transaction}
      */
     public AddTransactionCommand(Transaction transaction) {
         requireNonNull(transaction);
