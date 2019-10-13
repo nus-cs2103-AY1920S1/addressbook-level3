@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -18,9 +20,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.ui.util.GroupDetailsExport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -219,6 +223,35 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Method to handle exportation of view.
+     * @param detailWindowDisplay Details to be exported.
+     */
+    private void handleExport(DetailWindowDisplay detailWindowDisplay) {
+        DetailWindowDisplayType type = detailWindowDisplay.getDetailWindowDisplayType();
+        if (type.equals(DetailWindowDisplayType.PERSON)) {
+            PersonDetailsView personDetailsView = new PersonDetailsView(detailWindowDisplay);
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().add(personDetailsView.getRoot());
+            Scene scene = new Scene(stackPane);
+            try {
+                VisualExporter.exportTo(stackPane, "png", "./export.png");
+            } catch (IOException e) {
+                resultDisplay.setFeedbackToUser("Error exporting");
+            }
+        } else {
+            GroupDetailsExport groupDetailsView = new GroupDetailsExport(detailWindowDisplay);
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().add(groupDetailsView.getRoot());
+            Scene scene = new Scene(stackPane);
+            try {
+                VisualExporter.exportTo(stackPane, "png", "./export.png");
+            } catch (IOException e) {
+                resultDisplay.setFeedbackToUser("Error exporting");
+            }
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -260,6 +293,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isExport()) {
+                handleExport(detailWindowDisplay);
             }
 
             return commandResult;

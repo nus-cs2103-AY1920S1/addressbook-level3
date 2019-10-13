@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.ColumnConstraints;
@@ -19,14 +18,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
 /**
  * A class to generate a schedule table (ui) from a Schedule object.
  */
-public class ScheduleViewExport extends UiPart<Region> {
+public class ScheduleViewExport {
     //Schedule to be received from logic MUST have timeslots in chronological order.
     //ScheduleViewExport must be wrapped in a scroll pane otherwise the view will become distorted.
     private static final String FXML = "ScheduleViewExport.fxml";
@@ -34,20 +32,19 @@ public class ScheduleViewExport extends UiPart<Region> {
             "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
     private static ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
             "darkorange", "lightslategray", "orchid", "teal", "darkmagenta"));
-    @FXML
-    private GridPane scheduleView;
 
+    private GridPane scheduleView;
     private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
+    private List<String> colors;
     private int oneHourLength = 60;
-    private int preferredWidth = 140;
-    private double blockWidth = 140;
+    private int preferredWidth = 100;
+    private double blockWidth = 100;
     private int startTime = 8;
     private int endTime = 20;
     private int currentDay;
     private LocalDate currentDate;
 
     public ScheduleViewExport() {
-        super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
@@ -56,7 +53,6 @@ public class ScheduleViewExport extends UiPart<Region> {
     }
 
     public ScheduleViewExport(WeekSchedule weekSchedule) {
-        super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
@@ -66,10 +62,10 @@ public class ScheduleViewExport extends UiPart<Region> {
         showIndividualSchedule(scheduleMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
     }
 
-    public ScheduleViewExport(ArrayList<WeekSchedule> weekSchedules) {
-        super(FXML);
+    public ScheduleViewExport(ArrayList<WeekSchedule> weekSchedules, List<String> colors) {
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
+        this.colors = colors;
         initialise();
         initialiseHeaders();
         initialiseTableCells();
@@ -267,7 +263,6 @@ public class ScheduleViewExport extends UiPart<Region> {
         //Put VBoxes of all individuals' timeslot for the day into HBox.
         //Put HBox into dayStackPane.
         //Loop to next day.
-        ArrayList<String> colors = ColorGenerator.generateColorList(schedules.size());
         blockWidth = blockWidth / (schedules.size());
         for (int i = 1; i <= 7; i++) {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));

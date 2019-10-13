@@ -48,21 +48,6 @@ public class UiManager implements Ui {
         }
     }
 
-    /*
-    @Override
-    public void exportVisual(PersonDisplay p) {
-        PersonDetailsView detailsView = new PersonDetailsView(p);
-        StackPane sp = new StackPane();
-        sp.getChildren().add(detailsView.exportNode());
-        Scene s = new Scene(sp);
-        try {
-            VisualExporter.exportTo(sp, "png", "./export.png");
-        } catch (IOException e) {
-            //Do nothing.
-        }
-    }
-     */
-
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));

@@ -24,9 +24,9 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="20" />
             </padding>
-            <Label text="Name" GridPane.columnIndex="0"/>
-            <Label text="Email" GridPane.columnIndex="1"/>
-            <Label text="Role" GridPane.columnIndex="2"/>
+            <Label text="Name" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"/>
+            <Label text="Email" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Role" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS"/>
         </GridPane>
     </ScrollPane>
     <padding>

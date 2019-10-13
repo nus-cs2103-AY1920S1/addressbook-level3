@@ -52,7 +52,7 @@ public class ShowCommand<T> extends Command {
 
             model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                    false, COMMAND_WORD);
+                    false);
         } else {
             ObservableList<Group> groupList = model.getObservableGroupList();
             Optional<Group> group = Optional.empty();
@@ -69,7 +69,7 @@ public class ShowCommand<T> extends Command {
 
             model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), DetailWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false,
-                    false, COMMAND_WORD);
+                    false);
         }
     }
 

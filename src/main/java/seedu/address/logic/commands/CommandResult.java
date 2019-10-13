@@ -22,9 +22,9 @@ public class CommandResult {
     private final boolean exit;
 
     /**
-     * The command that was used.
+     * The application should export a file.
      */
-    private final String commandWord;
+    private final boolean export;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -33,17 +33,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.commandWord = null;
+        this.export = false;
     }
 
     /**
      * Constructs an alternative CommandResult that would affect the UI.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.commandWord = commandWord;
+        this.export = export;
     }
 
 
@@ -67,8 +67,8 @@ public class CommandResult {
         return exit;
     }
 
-    public String getCommandWord() {
-        return commandWord;
+    public boolean isExport() {
+        return export;
     }
 
     @Override

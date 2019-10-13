@@ -48,7 +48,7 @@ public class ShowPersonCommand extends Command {
 
         model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
         return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                false, COMMAND_WORD);
+                false);
     }
 
     @Override

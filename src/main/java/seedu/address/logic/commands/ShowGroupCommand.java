@@ -48,7 +48,7 @@ public class ShowGroupCommand extends Command {
 
         model.updateDetailWindowDisplay(groupName, LocalDateTime.now(), DetailWindowDisplayType.GROUP);
         return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false,
-                false, COMMAND_WORD);
+                false);
     }
 
     @Override
