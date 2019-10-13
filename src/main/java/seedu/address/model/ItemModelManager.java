@@ -216,4 +216,15 @@ public class ItemModelManager implements ItemModel {
         this.visualList = visualList.find(searchString);
         return this.visualList;
     }
+
+    /**
+     * Clears the storage for the current ELISA run.
+     */
+    public void clear() {
+        setItemStorage(new ItemStorage());
+        this.taskList = new TaskList();
+        this.eventList = new EventList();
+        this.reminderList = new ReminderList();
+        this.visualList = taskList;
+    }
 }
