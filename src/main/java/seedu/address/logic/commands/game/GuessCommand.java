@@ -14,7 +14,6 @@ public class GuessCommand extends GameCommand {
     public static final String COMMAND_WORD = "guess";
     public static final String MESSAGE_WRONG_GUESS = "Guess is WRONG!";
     public static final String MESSAGE_CORRECT_GUESS = "Guess is CORRECT!";
-    public static final String MESSAGE_NO_ACTIVE_GAME = "There is no active game!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Makes a guess for current flashcard with "
             + "the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"

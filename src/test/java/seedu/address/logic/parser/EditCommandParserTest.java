@@ -26,7 +26,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.app.EditCommand;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;

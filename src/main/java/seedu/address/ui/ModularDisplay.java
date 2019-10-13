@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
+import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.Logic;
 import seedu.address.ui.modules.PersonListPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
@@ -10,8 +11,8 @@ public class ModularDisplay {
     private final PersonListPanel personListPanel;
     private final TitleScreenPanel titleScreenPanel;
 
-    public ModularDisplay(Logic logic) {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+    public ModularDisplay(GameManager gameManager) {
+        personListPanel = new PersonListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
     }
 
