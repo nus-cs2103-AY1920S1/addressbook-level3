@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands.commandresult;
+package seedu.mark.logic.commands.results;
 
 import static java.util.Objects.requireNonNull;
 
@@ -29,6 +29,7 @@ public class CommandResult {
     public boolean isExit() {
         return false;
     }
+
 
     @Override
     public boolean equals(Object other) {

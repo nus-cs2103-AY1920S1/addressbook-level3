@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
@@ -35,8 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_URL_BOB = "https://bob-example.com";
     public static final String VALID_REMARK_AMY = "Block 312, Amy Street 1";
     public static final String VALID_REMARK_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_FOLDER_CONTACTS = "contacts";
     public static final String VALID_FOLDER_CS2103T = "CS2103T";
     public static final String VALID_FOLDER_CS2101 = "CS2101";
@@ -53,10 +53,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob??yahoo"; // double '?'
-    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "t/ means tag"; // '/' not allowed in remarks
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "invalid&"; // '&' not allowed in names
+    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "invalid??url"; // double '?'
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "it/ invalid"; // '/' not allowed in remarks
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "invalid*tag"; // '*' not allowed in tags
     public static final String INVALID_FOLDER_DESC = " " + PREFIX_FOLDER + "fold#er"; // # not allowed in folders
     public static final String INVALID_PARENT_FOLDER_DESC = " " + PREFIX_PARENT_FOLDER + "fold^er";
 
@@ -125,7 +125,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBookmarkList().size());
 
         Bookmark bookmark = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
-        final String[] splitName = bookmark.getName().fullName.split("\\s+");
+        final String[] splitName = bookmark.getName().value.split("\\s+");
         model.updateFilteredBookmarkList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredBookmarkList().size());

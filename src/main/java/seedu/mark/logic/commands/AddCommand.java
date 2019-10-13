@@ -6,8 +6,8 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 
@@ -25,11 +25,11 @@ public class AddCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe " // TODO: Change AddCommand example
-            + PREFIX_URL + "https://johnd-example.com "
-            + PREFIX_REMARK + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "NUSMods "
+            + PREFIX_URL + "https://nusmods.com "
+            + PREFIX_REMARK + "Module planner "
+            + PREFIX_TAG + "school "
+            + PREFIX_TAG + "timetable";
 
     public static final String MESSAGE_SUCCESS = "New bookmark added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "This bookmark already exists in Mark";

@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;

@@ -58,7 +58,7 @@ public class UrlContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_urlDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         UrlContainsKeywordsPredicate predicate = new UrlContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new BookmarkBuilder().withUrl("http://google.com").build()));
@@ -68,8 +68,8 @@ public class UrlContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new BookmarkBuilder().withUrl("http://google.com").build()));
 
         // Keywords match remark and name, but do not match url
-        predicate = new UrlContainsKeywordsPredicate(Arrays.asList("Alice", "Main", "Street"));
-        assertFalse(predicate.test(new BookmarkBuilder().withName("Alice")
-                .withUrl("https://traveller-gmail.com").withRemark("Main Street").build()));
+        predicate = new UrlContainsKeywordsPredicate(Arrays.asList("Example Bookmark", "Example", "Remark"));
+        assertFalse(predicate.test(new BookmarkBuilder().withName("Example Bookmark")
+                .withUrl("https://www.different-url.com").withRemark("Example Remark").build()));
     }
 }
