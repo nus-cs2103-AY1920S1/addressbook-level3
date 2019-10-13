@@ -11,8 +11,9 @@ import seedu.address.model.ReadOnlyCheatSheetBook;
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
+
 public interface AddressBookStorage {
-// TO RENAME THE INTERFACE NAME
+    // TO RENAME THE INTERFACE NAME
     /**
      * Returns the file path of the data file.
      */

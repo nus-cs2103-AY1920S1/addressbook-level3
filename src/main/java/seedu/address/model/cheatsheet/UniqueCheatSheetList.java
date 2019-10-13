@@ -1,5 +1,8 @@
 package seedu.address.model.cheatsheet;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -8,9 +11,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a list of CheatSheets that are unique.
