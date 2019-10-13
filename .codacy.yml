@@ -23,4 +23,3 @@ exclude_paths:
   - '**.min.js'
   - '**/tests/**'
   - '**/test/**'
-  - 'docs/**'
