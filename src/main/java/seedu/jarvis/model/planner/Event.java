@@ -16,9 +16,20 @@ public class Event extends Task {
         this.end = end;
     }
 
-    @Override
-    public String toString() {
-        return "Event: " + this.taskDes + " from " + this.start + " to " + this.end;
+    /**
+     * Retrieves the start date of the event
+     * @return the calendar object that represents the start date
+     */
+    protected Calendar getStartDate() {
+        return start;
+    }
+
+    /**
+     * Retrieves the end date of the event
+     * @return the calendar object that represents the end date
+     */
+    protected Calendar getEndDate() {
+        return end;
     }
 
     /**
@@ -30,5 +41,10 @@ public class Event extends Task {
     @Override
     protected Boolean isEqual(Task other) {
         return (other instanceof Event) && taskDes.equals(other.taskDes);
+    }
+
+    @Override
+    public String toString() {
+        return "Event: " + this.taskDes + " from " + this.start + " to " + this.end;
     }
 }

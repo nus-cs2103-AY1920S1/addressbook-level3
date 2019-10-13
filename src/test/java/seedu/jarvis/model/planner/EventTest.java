@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -82,5 +83,28 @@ class EventTest {
     @Test
     void isEqual_validInput_false() {
 
+
     }
+
+    @Test
+    void getStartDate_true() {
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
+        Event testEvent = new Event("borrow book", start, end);
+        Calendar testCal = Calendar.getInstance();
+        assertEquals(0, testCal.compareTo(testEvent.getStartDate()));
+    }
+
+    @Test
+    void getEndDate_true() {
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.DAY_OF_MONTH, 20);
+        Event testEvent = new Event("borrow book", start, end);
+        Calendar testCal = Calendar.getInstance();
+        testCal.set(Calendar.DAY_OF_MONTH, 20);
+        assertEquals(0, testCal.compareTo(testEvent.getStartDate()));
+    }
+
 }

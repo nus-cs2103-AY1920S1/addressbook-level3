@@ -66,11 +66,15 @@ class DeadlineTest {
 
     @Test
     void isEqual_validInput_true() {
-
+//        Deadline deadlineOne = Deadline;
     }
 
     @Test
     void isEqual_validInput_false() {
 
+    }
+
+    @Test
+    void getDueDate() {
     }
 }

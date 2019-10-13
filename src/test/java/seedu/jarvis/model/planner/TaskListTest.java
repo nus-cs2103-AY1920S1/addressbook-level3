@@ -1,6 +1,7 @@
 package seedu.jarvis.model.planner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -43,5 +44,8 @@ class TaskListTest {
     void hasTask_validInput_false() {
         Task todo = new Todo("borrow book");
         Task deadline = new Deadline("borrow book", Calendar.getInstance());
+        TaskList testList = new TaskList();
+        testList.add(todo);
+        assertFalse(testList.hasTask(deadline));
     }
 }

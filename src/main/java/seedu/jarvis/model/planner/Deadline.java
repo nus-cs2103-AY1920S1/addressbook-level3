@@ -14,6 +14,14 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Retrieves the due date of a deadline task
+     * @return the calendar object that represents the due date
+     */
+    public Calendar getDueDate() {
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return "Deadline: " + this.taskDes + " by " + this.deadline;
@@ -27,6 +35,9 @@ public class Deadline extends Task {
      */
     @Override
     protected Boolean isEqual(Task other) {
-        return (other instanceof Deadline) && taskDes.equals(other.taskDes);
+        return (other instanceof Deadline) && taskDes.equals(other.taskDes)
+                && deadline.equals(((Deadline) other).deadline);
     }
+
+
 }
