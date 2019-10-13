@@ -32,6 +32,7 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         StatsPayload payload = new StatsPayload(startingDate, endingDate, statisticType);
-        return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
+        String statMessage = MESSAGE_USAGE + statisticType.toString();
+        return new CommandResult(statMessage, payload, UiChange.STATS);
     }
 }
