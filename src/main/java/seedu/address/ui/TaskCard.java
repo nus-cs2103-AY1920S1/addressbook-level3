@@ -35,6 +35,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label taskStatus;
     @FXML
+    private Label deadline;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -46,6 +48,9 @@ public class TaskCard extends UiPart<Region> {
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (task.hasDeadline()) {
+            deadline.setText(task.getDeadline().toString());
+        }
     }
 
     @Override
