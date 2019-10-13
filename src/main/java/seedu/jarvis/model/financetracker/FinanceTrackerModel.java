@@ -58,6 +58,8 @@ public interface FinanceTrackerModel {
      */
     void deleteInstallment(int instalNumber);
 
+    boolean hasInstallment(Installment installment);
+
     /**
      * Edits an existing instalment by its value.
      *

@@ -240,4 +240,8 @@ public class FinanceTracker {
         requireNonNull(predicate);
         filteredPurchases.setPredicate(predicate);
     }
+
+    public boolean hasInstallment(Installment installment) {
+        return installmentList.hasInstallment(installment);
+    }
 }

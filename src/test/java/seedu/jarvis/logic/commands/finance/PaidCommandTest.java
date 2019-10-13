@@ -60,26 +60,26 @@ public class PaidCommandTest {
 
     @Test
     public void equals() {
-        Purchase spotify = new PurchaseBuilder().withDescription("spotify").build();
-        Purchase netflix = new PurchaseBuilder().withDescription("netflix").build();
-        PaidCommand addSpotifyCommand = new PaidCommand(spotify);
-        PaidCommand addNetflixCommand = new PaidCommand(netflix);
+        Purchase movie = new PurchaseBuilder().withDescription("movie ticket").build();
+        Purchase karaoke = new PurchaseBuilder().withDescription("karaoke night").build();
+        PaidCommand addMovieCommand = new PaidCommand(movie);
+        PaidCommand addKaraokeCommand = new PaidCommand(karaoke);
 
         // same object -> returns true
-        assertTrue(addSpotifyCommand.equals(addSpotifyCommand));
+        assertTrue(addMovieCommand.equals(addMovieCommand));
 
         // same values -> returns true
-        PaidCommand addSpotifyCommandCopy = new PaidCommand(spotify);
-        assertTrue(addSpotifyCommand.equals(addSpotifyCommandCopy));
+        PaidCommand addMovieCommandCopy = new PaidCommand(movie);
+        assertTrue(addMovieCommand.equals(addMovieCommandCopy));
 
         // different types -> returns false
-        assertFalse(addSpotifyCommand.equals(1));
+        assertFalse(addMovieCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addSpotifyCommand.equals(null));
+        assertFalse(addMovieCommand.equals(null));
 
         // different purchase -> returns false
-        assertFalse(addSpotifyCommand.equals(addNetflixCommand));
+        assertFalse(addMovieCommand.equals(addKaraokeCommand));
     }
 
 
@@ -249,6 +249,11 @@ public class PaidCommandTest {
 
         @Override
         public void deleteInstallment(int instalNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInstallment(Installment installment) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -72,4 +72,8 @@ public class Installment {
                 && description.equals(((Installment) other).description)
                 && moneySpentOnInstallment == ((Installment) other).moneySpentOnInstallment);
     }
+
+    public boolean isSameInstallment(Installment installment) {
+        return this.equals(installment);
+    }
 }

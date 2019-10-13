@@ -150,4 +150,21 @@ public class InstallmentList {
                 || (other instanceof InstallmentList // instanceof handles nulls
                 && allInstallments.equals(((InstallmentList) other).allInstallments));
     }
+
+    /**
+     * Checks for the existence of the installment that has already been added to avoid duplicates in the list.
+     *
+     * @param installment that is to be newly added
+     * @return boolean checking the existence of the same installment
+     */
+    public boolean hasInstallment(Installment installment) {
+        boolean installmentExists = false;
+        for (Installment instal : allInstallments) {
+            if (instal.equals(installment)) {
+                installmentExists = true;
+                break;
+            }
+        }
+        return installmentExists;
+    }
 }

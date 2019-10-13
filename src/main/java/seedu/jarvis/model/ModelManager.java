@@ -222,9 +222,11 @@ public class ModelManager implements Model {
     }
 
     /**
-     * todo change how this is implemented
-     * @param purchase
-     * @return
+     * Checks for the existence of the same purchase. Purchases are allowed to be duplicated, thus method always returns
+     * false.
+     *
+     * @param purchase to be added
+     * @return boolean that is always false
      */
     @Override
     public boolean hasPurchase(Purchase purchase) {
@@ -249,6 +251,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteInstallment(int instalNumber) {
         financeTracker.deleteInstallment(instalNumber);
+    }
+
+    @Override
+    public boolean hasInstallment(Installment installment) {
+        return financeTracker.hasInstallment(installment);
     }
 
     /**
