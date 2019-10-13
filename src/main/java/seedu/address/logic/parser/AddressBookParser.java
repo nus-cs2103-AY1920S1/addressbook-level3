@@ -10,7 +10,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsTotalCostOnCompletedCommand;

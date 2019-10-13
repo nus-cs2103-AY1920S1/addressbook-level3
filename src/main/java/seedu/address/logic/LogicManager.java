@@ -120,7 +120,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String calculateTotalProfit(StatsPayload statsPayload) {
-        return null;
+        return this.statistic.calculateTotalProfitOnCompleted(this.getOrderBook(), this.getPhoneBook(), statsPayload);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String calculateTotalRevenue(StatsPayload statsPayload) {
-        return null;
+        return this.statistic.calculateTotalRevenueOnCompleted(this.getOrderBook(), statsPayload);
     }
 
     @Override
@@ -140,6 +140,6 @@ public class LogicManager implements Logic {
 
     @Override
     public String calculateTotalCost(StatsPayload statsPayload) {
-        return null;
+        return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), this.getPhoneBook(), statsPayload);
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.sun.source.tree.CaseTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -186,10 +187,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
-    /**
-     * handle StatisticsWindow and create a new one
-     */
+/*
     @FXML
     private void handleStats(UiChange typeOfStats) {
         switch (typeOfStats) {
@@ -214,18 +212,37 @@ public class MainWindow extends UiPart<Stage> {
             break;
         }
     }
+    */
 
     /**
      * handle StatisticsWindow and create a new one
      * !!!!!!!!!! HANDLE WITH USER INPUT !!!!!
      */
     @FXML
-    private void handleStats2(StatsPayload statsPayload) {
+    private void handleStats(StatsPayload statsPayload) {
         //calculate stats with input to logic manager
         switch (statsPayload.getStatisticType()) {
-        case COST:
         case PROFIT:
+            String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit from: "
+                    + statsPayload.displayStartingDate() + " to "
+                    + statsPayload.displayEndingDate());
+            this.statsWindow.show();
+            break;
         case REVENUE:
+            String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue from: "
+                    + statsPayload.displayStartingDate() + " to "
+                    + statsPayload.displayEndingDate());
+            this.statsWindow.show();
+            break;
+        case COST:
+            String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost from: "
+                    + statsPayload.displayStartingDate() + " to "
+                    + statsPayload.displayEndingDate());
+            this.statsWindow.show();
+            break;
         default:
 
         }
@@ -243,7 +260,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.hasPayloadObject()) {
-                this.handleStats2(commandResult.getPayloadObject());
+                this.handleStats(commandResult.getPayloadObject());
             } else {
                 //retrieve the type that the command works on here;
                 List<UiChange> uiChanges = commandResult.getUiChange();
@@ -285,7 +302,7 @@ public class MainWindow extends UiPart<Stage> {
             case STATS_TOTAL_PROFIT_ON_COMPLETED:
             case STATS_TOTAL_COST_ON_COMPLETED:
             case STATS_TOTAL_REVENUE_ON_COMPLETED:
-                this.handleStats(type);
+                //this.handleStats(type);
                 break;
             default:
                 //do nothing

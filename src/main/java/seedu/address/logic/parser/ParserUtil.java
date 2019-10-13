@@ -344,7 +344,7 @@ public class ParserUtil {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
             }
-            localDateTime = LocalDateTime.of(input[0], input[1], input[2], input[3], input[4]);
+            localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
             throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
         }
