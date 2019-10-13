@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
 
 /**
  * The API of the Model component.
@@ -49,7 +50,9 @@ public interface Model {
      */
     void setMemeBook(ReadOnlyMemeBook memeBook);
 
-    /** Returns the MemeBook */
+    /**
+     * Returns the MemeBook
+     */
     ReadOnlyMemeBook getMemeBook();
 
     /**
@@ -95,4 +98,9 @@ public interface Model {
      * @param context Context to set.
      */
     void setContext(ModelContext context);
+
+    /**
+     * Returns the like data.
+     */
+    LikeData getLikeData();
 }

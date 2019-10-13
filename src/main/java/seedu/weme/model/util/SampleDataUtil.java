@@ -10,6 +10,8 @@ import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.LikeManager;
 
 /**
  * Contains utility methods for populating {@code MemeBook} with sample data.
@@ -38,6 +40,14 @@ public class SampleDataUtil {
             sampleMb.addMeme(sampleMeme);
         }
         return sampleMb;
+    }
+
+    public static LikeData getSampleLikeData() {
+        LikeData sampleLikeData = new LikeManager();
+        for (Meme sampleMeme : getSampleMemes()) {
+            sampleLikeData.getLikesByMeme(sampleMeme);
+        }
+        return sampleLikeData;
     }
 
     /**

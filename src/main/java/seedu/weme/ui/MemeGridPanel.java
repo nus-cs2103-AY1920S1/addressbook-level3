@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
 
 /**
  * Panel containing the list of memes.
@@ -21,10 +22,13 @@ public class MemeGridPanel extends UiPart<Region> {
     @FXML
     private GridView<Meme> memeGridView;
 
-    public MemeGridPanel(ObservableList<Meme> memeList) {
+    private LikeData likeData;
+
+    public MemeGridPanel(ObservableList<Meme> memeList, LikeData likeData) {
         super(FXML);
         memeGridView.setItems(memeList);
         memeGridView.setCellFactory(gridView -> new MemeGridViewCell());
+        this.likeData = likeData;
     }
 
     /**
@@ -39,7 +43,7 @@ public class MemeGridPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new MemeCard(meme, getIndex() + 1).getRoot());
+                setGraphic(new MemeCard(meme, getIndex() + 1, likeData.getLikesByMeme(meme)).getRoot());
             }
         }
     }

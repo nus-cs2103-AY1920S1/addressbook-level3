@@ -9,6 +9,7 @@ import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.statistics.LikeData;
 
 /**
  * API of the Logic component
@@ -47,4 +48,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    LikeData getLikeData();
 }
