@@ -13,19 +13,19 @@ import io.xpire.model.item.Item;
 public class TypicalItems {
 
     public static final Item BANANA = new ItemBuilder().withName("Banana")
-                                                     .withExpiryDate("01/02/2019")
+                                                     .withExpiryDate("01/02/2020")
                                                       .build();
 
     public static final Item APPLE = new ItemBuilder().withName("Apple")
-                                                      .withExpiryDate("01/02/2019")
+                                                      .withExpiryDate("01/02/2020")
                                                       .build();
 
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
-                                                      .withExpiryDate("01/02/2019")
+                                                      .withExpiryDate("01/02/2020")
                                                       .build();
 
     public static final Item MILK = new ItemBuilder().withName("Milk")
-                                                     .withExpiryDate("01/02/2019")
+                                                     .withExpiryDate("01/02/2020")
                                                      .build();
 
     private TypicalItems() {} // prevents instantiation

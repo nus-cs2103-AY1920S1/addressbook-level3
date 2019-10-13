@@ -62,7 +62,8 @@ public class AddCommandParserTest {
 
         // invalid expiry date
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE
-                + "|" , ExpiryDate.MESSAGE_CONSTRAINTS);
+                + "|" , ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
+
 
         // two invalid values, only first invalid value reported
         CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + VALID_EXPIRY_DATE_APPLE
