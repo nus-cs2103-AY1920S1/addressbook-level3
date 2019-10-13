@@ -11,6 +11,7 @@ import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
 
 class SampleDataUtilTest {
+
     @Test
     public void getSampleCatalog_containsSampleBooks() {
         Catalog sampleAb = new Catalog();
