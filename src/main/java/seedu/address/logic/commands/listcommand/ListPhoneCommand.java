@@ -1,8 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.listcommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PHONES;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
 
 /**
