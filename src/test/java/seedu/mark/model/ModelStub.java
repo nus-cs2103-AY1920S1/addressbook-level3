@@ -4,11 +4,13 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -102,6 +104,21 @@ public class ModelStub implements Model {
 
     @Override
     public void addFolders(FolderStructure foldersToAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public SimpleObjectProperty<Url> getCurrentUrlProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Url getCurrentUrl() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCurrentUrl(Url url) {
         throw new AssertionError("This method should not be called.");
     }
 

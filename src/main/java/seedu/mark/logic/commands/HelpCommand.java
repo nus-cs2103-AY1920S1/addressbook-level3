@@ -1,7 +1,7 @@
 package seedu.mark.logic.commands;
 
-import seedu.mark.logic.commands.commandresult.CommandResult;
-import seedu.mark.logic.commands.commandresult.HelpCommandResult;
+import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.logic.commands.results.HelpCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.storage.Storage;
 

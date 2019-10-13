@@ -4,10 +4,12 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -103,6 +105,23 @@ public interface Model {
      * Implementation to be decided.
      */
     void addFolders(FolderStructure foldersToAdd);
+
+    /*
+     * Wrapper for current url.
+     * null if not present.
+     */
+    SimpleObjectProperty<Url> getCurrentUrlProperty();
+
+    /**
+     * Returns the current url.
+     * null if not present.
+     */
+    Url getCurrentUrl();
+
+    /**
+     * Sets the current url.
+     */
+    void setCurrentUrl(Url url);
 
     /**
      * Returns true if the model has previous Mark states to restore.

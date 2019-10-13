@@ -711,12 +711,14 @@ Collapses the folder hierarchy by 1 level.
 === Switching <<Tabs,tabs>>: *`tab`*
 
 Switches the current app view to the tab that corresponds to the given
-index.
+index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
 
-Format: `*tab* INDEX`
+Format: `*tab* INDEX` or `*tab* KEYWORD`
 
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
+<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
+* `KEYWORD` is `dash`, `on` or `off`, which correspond to the
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
@@ -725,7 +727,7 @@ Examples:
 * `*tab* 1` +
 Goes to the <<Dashboard,Dashboard>> tab.
 
-* `*tab* 2` +
+* `*tab* on` +
 Goes to the Online tab which is a web view.
 
 * `*tab* 3` +

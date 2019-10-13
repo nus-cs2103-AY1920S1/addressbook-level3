@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -25,6 +27,7 @@ public class ModelManager implements Model {
     private final VersionedMark versionedMark;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
+    private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -204,6 +207,23 @@ public class ModelManager implements Model {
         versionedMark.save();
     }
 
+    //=========== Current bookmark ===========================================================================
+
+    @Override
+    public SimpleObjectProperty<Url> getCurrentUrlProperty() {
+        return currentUrl;
+    }
+
+    @Override
+    public Url getCurrentUrl() {
+        return currentUrl.getValue();
+    }
+
+    @Override
+    public void setCurrentUrl(Url url) {
+        currentUrl.setValue(url);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -220,7 +240,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedMark.equals(other.versionedMark)
                 && userPrefs.equals(other.userPrefs)
-                && filteredBookmarks.equals(other.filteredBookmarks);
+                && filteredBookmarks.equals(other.filteredBookmarks)
+                && (currentUrl.getValue() == null
+                    ? other.currentUrl.getValue() == null
+                    : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
-
 }

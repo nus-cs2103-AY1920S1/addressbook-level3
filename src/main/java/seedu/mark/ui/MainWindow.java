@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -13,8 +14,9 @@ import javafx.stage.Stage;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
-import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -35,9 +37,14 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private BrowserPanel browserPanel;
+    private DashboardPanel dashboardPanel;
+    private OfflinePanel offlinePanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private SplitPane splitPane;
+
+    @FXML
+    private StackPane mainViewAreaPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -114,8 +121,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
+        dashboardPanel = new DashboardPanel();
+        offlinePanel = new OfflinePanel();
+        mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
@@ -174,8 +183,58 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleSwitchToDashboard() {
+        //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
+    }
+
+    @FXML
+    private void handleSwitchToOnline() {
+        //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
+    }
+
+    @FXML
+    private void handleSwitchToOffline() {
+        //TODO:
+        mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
+    }
+
+    /**
+     * Directs to the appropriate handler to switch Tab.
+     * @param tab The tab to switch to
+     */
+    private void handleTabSwitchRequestIfAny(Tab tab) {
+        switch (tab) {
+        case DASHBOARD:
+            handleSwitchToDashboard();
+            break;
+        case ONLINE:
+            handleSwitchToOnline();
+            break;
+        case OFFLINE:
+            handleSwitchToOffline();
+            break;
+        default:
+            break;
+        }
+    }
+
     public BookmarkListPanel getBookmarkListPanel() {
         return bookmarkListPanel;
+    }
+
+    public DashboardPanel getDashboardPanel() {
+        return dashboardPanel;
+    }
+
+    public OfflinePanel getOfflinePanel() {
+        return offlinePanel;
+    }
+
+    public BrowserPanel getBrowserPanel() {
+        return browserPanel;
     }
 
     /**
@@ -196,6 +255,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            handleTabSwitchRequestIfAny(commandResult.getTab());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

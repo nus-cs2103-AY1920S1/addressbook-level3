@@ -16,9 +16,9 @@ import seedu.mark.model.util.SampleDataUtil;
  */
 public class BookmarkBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Lee Website";
-    public static final String DEFAULT_URL = "https://alice-lee.com";
-    public static final String DEFAULT_REMARK = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NAME = "Example Website";
+    public static final String DEFAULT_URL = "https://www.example.com";
+    public static final String DEFAULT_REMARK = "This is an example bookmark";
     public static final String DEFAULT_FOLDER = Folder.DEFAULT_FOLDER_NAME;
 
     private Name name;
