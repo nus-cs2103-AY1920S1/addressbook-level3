@@ -1,6 +1,8 @@
 package seedu.savenus.model.food;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -41,5 +43,19 @@ public class PriceTest {
         assertFalse(Price.isValidPrice("")); // empty string
         assertFalse(Price.isValidPrice(" ")); // spaces only
         assertFalse(Price.isValidPrice("           ")); // tons of spaves
+    }
+
+    @Test
+    public void get_field_test() {
+        String sampleString = "5.00";
+        assertEquals(new Price(sampleString).getField(), sampleString);
+        assertNotEquals(new Price(sampleString).getField(), "");
+    }
+
+    @Test
+    public void compareTests() {
+        Price normalPrice = new Price("4.00");
+        assertEquals(normalPrice.compareTo(null), 1);
+        assertEquals(normalPrice.compareTo(normalPrice), 0);
     }
 }

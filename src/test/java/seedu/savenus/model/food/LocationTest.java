@@ -1,6 +1,8 @@
 package seedu.savenus.model.food;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -41,5 +43,19 @@ public class LocationTest {
 
         // with unexpected characters
         assertTrue(Location.isValidLocation("@35^"));
+    }
+
+    @Test
+    public void get_field_test() {
+        String sampleString = "123321";
+        assertEquals(new Location(sampleString).getField(), sampleString);
+        assertNotEquals(new Location(sampleString).getField(), "");
+    }
+
+    @Test
+    public void compareTests() {
+        Location normalLocation = new Location("888888");
+        assertEquals(normalLocation.compareTo(null), 1);
+        assertEquals(normalLocation.compareTo(normalLocation), 0);
     }
 }
