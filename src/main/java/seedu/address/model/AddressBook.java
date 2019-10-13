@@ -10,6 +10,8 @@ import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizQuestionList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -19,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNoteList notes;
     private final QuizQuestionList quiz;
+    private final TaskList tasks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         notes = new UniqueNoteList();
         quiz = new QuizQuestionList();
+        tasks = new TaskList();
     }
 
     public AddressBook() {
@@ -61,6 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setNotes(newData.getNoteList());
+        setTasks(newData.getTaskList());
     }
 
     // note-level operations
@@ -129,5 +134,50 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return notes.hashCode();
+    }
+
+    public ObservableList<Task> getTaskList() {
+        return tasks.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Replaces the contents of the task list with {@code tasks}.
+     */
+    public void setTasks(List<Task> tasks) {
+        this.tasks.setTasks(tasks);
+    }
+
+    // note-level operations
+
+    /**
+     * Returns true if a revision task with the same note / question, same date and time, and same status as {@code task} exists.
+     */
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return tasks.contains(task);
+    }
+
+    /**
+     * Adds a revision task.
+     */
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    /**
+     * Replaces the given task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist beforehand.
+     */
+    public void setTask(Task target, Task editedTask) {
+        requireNonNull(editedTask);
+
+        tasks.setTask(target, editedTask);
+    }
+
+    /**
+     * Removes {@code toRemove} from the revision task list. This task must exist.
+     */
+    public void removeTask(Task toRemove) {
+        tasks.remove(toRemove);
     }
 }

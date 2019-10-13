@@ -21,6 +21,7 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
+    private final List<JsonAdaptedNote> tasks = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given lecture notes.
@@ -37,6 +38,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
+        //add update for Tasks
     }
 
     /**

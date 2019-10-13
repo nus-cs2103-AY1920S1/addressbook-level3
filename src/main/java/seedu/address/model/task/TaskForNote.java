@@ -23,4 +23,21 @@ public class TaskForNote extends Task {
         return super.getStatusIcon() + " " + note.toString() + " by: " + super.getDate().format(FORMAT_FILE_DATE_STRING)
                 + " " + super.getTime().format(FORMAT_FILE_TIME_STRING);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TaskForNote)) {
+            return false;
+        }
+
+        TaskForNote otherTask = (TaskForNote) other;
+        return this.note.isSameNote(otherTask.note)
+                && super.getDate().equals(otherTask.getDate())
+                && super.getTime().equals(otherTask.getTime())
+                && super.getStatusIcon().equals(otherTask.getStatusIcon());
+    }
 }

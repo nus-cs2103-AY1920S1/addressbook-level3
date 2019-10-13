@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import seedu.address.model.note.Note;
+
 /**
  * Represents a NUStudy revision task. Its
  */
@@ -49,4 +51,7 @@ public abstract class Task {
     public LocalTime getTime() {
         return time;
     }
+
+    @Override
+    public abstract boolean equals(Object other);
 }
