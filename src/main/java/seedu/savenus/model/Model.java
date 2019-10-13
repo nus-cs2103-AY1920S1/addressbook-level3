@@ -131,13 +131,25 @@ public interface Model {
     void updateFilteredFoodList(Predicate<Food> predicate);
 
     /**
+     * Gets the current recommendation system.
+     */
+    RecommendationSystem getRecommendationSystem();
+
+    /**
      * Updates the comparator of the food list to filter by the given {@code comparator}.
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateRecommendationComparator(Comparator<Food> recommendationComparator);
 
     /**
-     * Resets the comparator of the food list..
+     * Updates the filter of the recommendation system's food list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    void resetRecommendationComparator();
+    void updateRecommendationPredicate(Predicate<Food> recommendationPredicate);
+
+    /**
+     * Updates if the recommendation system is currently in use.
+     * @throws NullPointerException if {@code inUse} is null.
+     */
+    void setRecommendationSystemInUse(boolean inUse);
 }
