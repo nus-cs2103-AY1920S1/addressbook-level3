@@ -123,6 +123,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMembersList(Predicate<Member> predicate);
-
-    void updateFilteredMembersList(NameContainsKeywordsPredicate predicate);
 }

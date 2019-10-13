@@ -10,7 +10,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_TASK_TAG = new Prefix("t/");
 
-    /* Prefix definitions for task */
+    /* Prefix definitions for Member */
     public static final Prefix PREFIX_MEMBER_NAME = new Prefix("m/");
     public static final Prefix PREFIX_MEMBER_ID = new Prefix("mi/");
     public static final Prefix PREFIX_MEMBER_TAG = new Prefix("mt/");

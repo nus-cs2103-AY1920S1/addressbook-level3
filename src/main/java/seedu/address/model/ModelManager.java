@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.member.Member;
+import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
 
 /**
@@ -189,6 +190,7 @@ public class ModelManager implements Model {
         return filteredMembers;
     }
 
+    @Override
     public void updateFilteredMembersList(Predicate<Member> predicate) {
         requireNonNull(predicate);
         filteredMembers.setPredicate(predicate);
