@@ -414,7 +414,7 @@
       <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
       <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
     </module>
-    
+
   </module>
 
 </module>
