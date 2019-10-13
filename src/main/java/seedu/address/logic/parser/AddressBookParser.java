@@ -16,6 +16,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFlashcardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class AddressBookParser {
 
         case AddFlashcardCommand.COMMAND_WORD:
             return new AddFlashcardCommandParser().parse(arguments);
+
+        case ListFlashcardCommand.COMMAND_WORD:
+            return new ListFlashcardCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

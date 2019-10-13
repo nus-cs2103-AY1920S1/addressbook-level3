@@ -93,7 +93,7 @@ public class Flashcard {
                 .append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
-                .append("Title: ")
+                .append(" Title: ")
                 .append(getTitle())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

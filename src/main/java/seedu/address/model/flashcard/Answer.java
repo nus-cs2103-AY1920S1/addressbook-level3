@@ -10,12 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Answer {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Answers should not be blank! (Or contain only whitespaces)";
+            "Answer can take any values, and it should not be blank";
 
     /*
-     * Regex for not only whitespaces.
+     * The first character of the answer must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(?!^ +$)^.+$*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String fullAnswer;
 
