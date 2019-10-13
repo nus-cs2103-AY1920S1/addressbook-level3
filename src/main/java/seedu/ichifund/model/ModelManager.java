@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the fund book data.
@@ -103,6 +104,10 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         fundBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addTransaction(Transaction transaction) {
     }
 
     @Override

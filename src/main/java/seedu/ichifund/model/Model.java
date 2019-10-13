@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
@@ -68,6 +69,11 @@ public interface Model {
      * {@code person} must not already exist in the fund book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given transaction.
+     */
+    void addTransaction(Transaction transaction);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
