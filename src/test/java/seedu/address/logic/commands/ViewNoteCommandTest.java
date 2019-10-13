@@ -10,7 +10,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalNotes.POTATO;
 import static seedu.address.testutil.TypicalNotes.getTypicalNoteList;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -55,7 +54,7 @@ public class ViewNoteCommandTest {
     @Test
     public void execute_emptyKeywords_throwsIllegalArgumentException() {
         TitleMatchesKeywordsPredicate predicate = preparePredicate(" ");
-        assertThrows(IllegalArgumentException.class,() -> model.updateFilteredNoteList(predicate));
+        assertThrows(IllegalArgumentException.class, () -> model.updateFilteredNoteList(predicate));
     }
 
     @Test
