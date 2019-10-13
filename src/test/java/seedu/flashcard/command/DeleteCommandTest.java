@@ -13,7 +13,7 @@ public class DeleteCommandTest {
     @Test
     public void delete_card_test() {
         FlashcardList temp = new FlashcardList(LIST2.getAllFlashcards());
-        temp.deleteFlashcard(1);
+        temp.deleteFlashcard(temp.getAllFlashcards().get(0).getId().getIdentityNumber());
         assertTrue(LIST1.equals(temp));
     }
 }
