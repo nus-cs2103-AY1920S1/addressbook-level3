@@ -16,8 +16,14 @@ import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.quiz.QuizModeCommand;
+import seedu.address.logic.commands.statistics.GetQnsCommand;
+import seedu.address.logic.commands.statistics.GetReportCommand;
+import seedu.address.logic.commands.statistics.GetStatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.quiz.QuizModeCommandParser;
+import seedu.address.logic.parser.statistics.GetQnsCommandParser;
+import seedu.address.logic.parser.statistics.GetReportCommandParser;
+import seedu.address.logic.parser.statistics.GetStatisticsCommandParser;
 
 /**
  * Parses user input.
@@ -72,6 +78,15 @@ public class AddressBookParser {
 
         case QuizModeCommand.COMMAND_WORD:
             return new QuizModeCommandParser().parse(arguments);
+
+        case GetStatisticsCommand.COMMAND_WORD:
+            return new GetStatisticsCommandParser().parse(arguments);
+
+        case GetQnsCommand.COMMAND_WORD:
+            return new GetQnsCommandParser().parse(arguments);
+
+        case GetReportCommand.COMMAND_WORD:
+            return new GetReportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

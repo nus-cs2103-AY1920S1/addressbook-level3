@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -22,6 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
+    private List<Double> statistics;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -146,5 +150,19 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredNotes.equals(other.filteredNotes);
+    }
+
+    //=========== Statistics ===============================================================================
+    @Override
+    public void setStatistics() {
+        statistics = new Statistics(14.0, 16.0).getStatistics();
+    }
+
+    @Override
+    public ObservableList<PieChart.Data> getStatsChartData() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        pieChartData.add(new PieChart.Data("Correct", statistics.get(0)));
+        pieChartData.add(new PieChart.Data("Incorrect", statistics.get(1)));
+        return pieChartData;
     }
 }

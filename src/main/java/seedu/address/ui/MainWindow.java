@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -34,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private NoteListPanel noteListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsChart statsChart;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -160,6 +163,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void showStats() {
+        statsChart = new StatsChart(logic.getStatsChartData());
+        noteListPanelPlaceholder.getChildren().add(statsChart.getChart());
+        statsChart.getChart().getData().forEach(data -> {
+            String value = "" + data.getPieValue();
+            Tooltip toolTip = new Tooltip(value);
+            toolTip.setStyle("-fx-font-size: 20");
+            toolTip.setShowDelay(Duration.seconds(0));
+            Tooltip.install(data.getNode(), toolTip);
+        });
+    }
+
+    @FXML
+    private void removeStats() {
+        noteListPanelPlaceholder.getChildren().remove(statsChart.getChart());
+    }
+
     public NoteListPanel getNoteListPanel() {
         return noteListPanel;
     }
@@ -181,6 +202,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStats()) {
+                showStats();
+            } else {
+                removeStats();
             }
 
             return commandResult;

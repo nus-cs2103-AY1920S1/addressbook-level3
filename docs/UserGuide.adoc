@@ -196,40 +196,36 @@ Format: `quit`
 
 ==== Get statistics for subjects : `stats`
 
-Gets statistics of how well you answered the questions for a subject.
+Gets statistics of how well you answered the questions for a subject sorted by difficulty level.
 A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
 You can even get the combined statistics of more than one subject. +
 Format: `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
 
-==== Get questions with correct answers: correct
-Gets all questions that have been answered correctly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `correct s/SUBJECT [-a]`
+==== Get questions with correct/incorrect answers: `questions`
+Gets all questions that have been answered correctly/incorrectly for a particular subject by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used.
+You can also choose to see past answers to the questions by adding an optional `-a`. +
+Format: `questions s/SUBJECT [-c] [-i] [-a]`
 
-==== Get questions with incorrect answers: incorrect
-Gets all questions that have been answered incorrectly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `incorrect s/SUBJECT [-a]`
-
-==== Get statistics for individual questions: stats
-Gets statistics of how well you answered a particular question,
+==== Get a report for individual questions: `report`
+Returns a report of how well you have answered a particular question,
 the number of times the question has been attempted and the past answers to the question. +
-Format: `stats INDEX`
+Format: `report INDEX`
 
-==== Statistics for difficulty level: stats -dif
+==== Statistics for difficulty level: stats `-dif`
 Gets statistics of the number of questions within a subject attempted at the specified difficulty level. +
 Format: `stats -dif d/DIFFICULTY s/SUBJECT`
 
-==== Statistics for difficulty level accuracy: accur -dif
+==== Statistics for difficulty level accuracy: accur `-dif`
 Gets statistics of the questions answered correctly and incorrectly within a subject of a specific difficulty level. +
 Format: `accur -dif d/DIFFICULTY s/SUBJECT`
 
-==== Get overview of lecture notes: overview -ln
+==== Get overview of lecture notes: `overview -ln`
 Gets an overview of the types of notes that have been added into the app.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -ln`
 
-==== Get overview of questions attempted: overview -q
+==== Get overview of questions attempted: `overview -q`
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
