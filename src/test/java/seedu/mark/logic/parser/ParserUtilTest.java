@@ -2,7 +2,6 @@ package seedu.mark.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
@@ -14,7 +13,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -128,43 +126,6 @@ public class ParserUtilTest {
         String urlWithWhitespace = WHITESPACE + VALID_URL + WHITESPACE;
         Url expectedUrl = new Url(VALID_URL);
         assertEquals(expectedUrl, ParserUtil.parseUrl(urlWithWhitespace));
-    }
-
-    @Test
-    public void parseTab_validArgs_success() throws Exception {
-        TabCommand.Tab expected = TabCommand.Tab.ONLINE;
-        assertEquals(expected, ParserUtil.parseTabIndex("2"));
-        assertEquals(expected, ParserUtil.parseTabKeyword("on"));
-        assertEquals(expected, ParserUtil.parseTab("2"));
-        assertEquals(expected, ParserUtil.parseTab("on"));
-
-        expected = TabCommand.Tab.OFFLINE;
-        assertEquals(expected, ParserUtil.parseTabIndex("3"));
-        assertEquals(expected, ParserUtil.parseTabKeyword("off"));
-        assertEquals(expected, ParserUtil.parseTab("3"));
-        assertEquals(expected, ParserUtil.parseTab("off"));
-
-        expected = TabCommand.Tab.DASHBOARD;
-        assertEquals(expected, ParserUtil.parseTabIndex("1"));
-        assertEquals(expected, ParserUtil.parseTabKeyword("dash"));
-        assertEquals(expected, ParserUtil.parseTab("1"));
-        assertEquals(expected, ParserUtil.parseTab("dash"));
-    }
-
-    @Test
-    public void parseTab_invalidIndex_throwsInvalidIndexParseException() {
-        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTabIndex("5"));
-        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTab("5"));
-        assertThrows(ParseException.class, TabCommand.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseTab("-5"));
-    }
-
-    @Test
-    public void parseTab_invalidArg_throwsInvalidFormatParseException() {
-        String expectedMsg = String.format(MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE);
-        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTabIndex("invalid arg"));
-        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab("invalid arg"));
-        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab(""));
-        assertThrows(ParseException.class, expectedMsg, () -> ParserUtil.parseTab("0.5"));
     }
 
     @Test
