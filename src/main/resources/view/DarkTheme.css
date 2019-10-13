@@ -17,6 +17,15 @@
     -fx-opacity: 1;
 }
 
+.wallet-circle {
+    -fx-border-color: black;
+}
+
+.wallet-dark {
+    -fx-font-family: "Segoe UI Black";
+    -fx-text-fill: #1d1d1d;
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
