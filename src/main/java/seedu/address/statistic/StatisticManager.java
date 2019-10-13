@@ -1,10 +1,8 @@
-
 package seedu.address.statistic;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +17,7 @@ import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 
 /**
- * Represents the in-memory statistics module of the current SML data.
+ * Represents the in-memory statistics module of the current SML data.Ò
  * Utility module to calculate statistics from the model data.
  */
 public class StatisticManager implements Statistic {
@@ -92,10 +90,10 @@ public class StatisticManager implements Statistic {
     }
 
 
-   /*-------------- helper methods ------------------*/
-   private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
-       ObservableList<Order> orderList = orderBook.getList();
-       List<Double> completedOrderPriceList =
+    /*-------------- helper methods ------------------*/
+    private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
+        ObservableList<Order> orderList = orderBook.getList();
+        List<Double> completedOrderPriceList =
                orderList.stream()
                        .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
                        .filter(currentOrder -> currentOrder.getSchedule().isPresent())
@@ -109,8 +107,8 @@ public class StatisticManager implements Statistic {
                        })
                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                        .collect(Collectors.toList());
-       return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
-   }
+        return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
+    }
 
     private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook) {
         ObservableList<Order> orderList = orderBook.getList();

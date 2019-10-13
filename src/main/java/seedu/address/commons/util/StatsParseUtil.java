@@ -27,7 +27,7 @@ public class StatsParseUtil {
      * Returns true if a given string is a valid Stat Type.
      */
     public static boolean isValidStatType(String test) {
-        return typeList.stream().anyMatch( x -> x.toUpperCase().contains(test.toUpperCase()));
+        return typeList.stream().anyMatch(x -> x.toUpperCase().contains(test.toUpperCase()));
     }
     //generate-s s/PROFIT d1/2018.12.12 d2/2019.12.12
 }

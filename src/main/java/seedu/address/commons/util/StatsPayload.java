@@ -1,10 +1,6 @@
 package seedu.address.commons.util;
 
-import static java.util.Calendar.DAY_OF_WEEK;
-import static java.util.Calendar.LONG;
-
 import java.util.Calendar;
-import java.util.Locale;
 
 import seedu.address.logic.commands.StatisticType;
 
@@ -42,6 +38,9 @@ public class StatsPayload {
         return this.statisticType;
     }
 
+    /**
+     * extract out starting Date with year and date
+     */
     public String displayStartingDate() {
         StringBuilder display = new StringBuilder();
         display.append(this.startingDate.get(Calendar.YEAR));
@@ -49,7 +48,10 @@ public class StatsPayload {
         return display.toString();
     }
 
-    public  String displayEndingDate() {
+    /**
+     * extract out ending date with year and date
+     */
+    public String displayEndingDate() {
         StringBuilder display = new StringBuilder();
         display.append(this.endingDate.get(Calendar.YEAR));
         display.append(this.endingDate.get(Calendar.DATE));
