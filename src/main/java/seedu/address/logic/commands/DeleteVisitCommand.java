@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  * Deletes record of patient by index.
  */
 public class DeleteVisitCommand extends Command {
-    public static final String COMMAND_WORD = "deleteVisit";
+    public static final String COMMAND_WORD = "deletevisit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the visitation record of the person identified "
@@ -27,6 +27,7 @@ public class DeleteVisitCommand extends Command {
             + PREFIX_DELETE_VISIT + "2";
 
     public static final String MESSAGE_DELETE_VISIT_SUCCESS = "Removed visit from Person: %1$s";
+    public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be deleted";
 
     private final Index index;
     private final int id;
@@ -62,6 +63,8 @@ public class DeleteVisitCommand extends Command {
             } catch (IndexOutOfBoundsException e) {
                 throw new CommandException(Messages.MESSAGE_INVALID_REPORT_INDEX);
             }
+        } else {
+            return new CommandResult(MESSAGE_MISSING_INDEX_PROMPT, editedPerson.getVisitList().getObservableRecords());
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
