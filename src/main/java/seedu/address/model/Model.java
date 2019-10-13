@@ -133,7 +133,7 @@ public interface Model {
      * Adds the given project.
      */
     void addProject(Project project);
-    
+
     /**
      * Replaces the given project {@code target} with {@code editedProject}.
      * {@code target} must exist in the project list.
@@ -149,6 +149,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProjectList(Predicate<Project> predicate);
-    
-    
 }

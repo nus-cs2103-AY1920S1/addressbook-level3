@@ -10,11 +10,11 @@ Double-click the file to start the app. The GUI should appear in a few seconds.
 Type the command in the command box and press Enter to execute it.
 e.g. typing help and pressing Enter will open the help window.
 Some example commands you can try:
-list : lists all contacts 
+list : lists all contacts
 exit : exits the app
 Refer to Section 3, “Features” for details of each command.
 Features
-    
+
 
 Viewing help: help
 
@@ -44,15 +44,15 @@ Add Project: addProject
 Adds a project to your list of projects
 Format: addProject pr/PROJECT_NAME [d/PROJECT_DESCRIPTION] [dl/DEADLINE] [m/MEMBERS] [ta/TASKS] [t/TAG]...
 
-Examples: 
+Examples:
 addProject pr/GET1031 project dl/October 11 Tuesday 2359 m/John Lim_Mark Tan_David Chan ta/1. Come up with project outline 2.Research on project topic t/NUS
 
 Add meeting: addMeeting
 addMeeting p/PROJECT_NAME [dt/tentative days for a meeting] [m/MEMBERS INVOLVED] [a/AGENDA]...
 
-Adds a meeting for the specified project. After a meeting is added, the program will automatically work out an available meeting time that suits most people. 
+Adds a meeting for the specified project. After a meeting is added, the program will automatically work out an available meeting time that suits most people.
 
-Examples: 
+Examples:
 addMeeting p/GET1031 project dl/October 11 - October 17 m/John Lim_Mark Tan_David Chan a/decide on the structure of presentation
 
 Add person to addressBook: addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
@@ -62,7 +62,7 @@ Adds a person into the addressbook. After a person is added, they can then be li
 Examples:
 addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 
-Edit 
+Edit
 3.4.1 Edit project: edit
 Edit the attributes of the project.
 Format: edit INDEX [pr/PROJECT_NAME] [pd/PROJECT_DESCRIPTION] [dl/DEADLINE]...
@@ -74,7 +74,7 @@ Upload text file that contains the meeting minute for a specific meeting
 Format: attach pr/PROJECT_NAME [i/INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
 
 Come up with next meeting date: generateTiming [pr/PROJECT_NAME] [mt/MEETING_INDEX]
-All members will record their free meeting timings in a txt file and input it to the app. 
+All members will record their free meeting timings in a txt file and input it to the app.
 The app will calculate a time that involves most important people
 Delete
 Deletes the specified person from the address book.
