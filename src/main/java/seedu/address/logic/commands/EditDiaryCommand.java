@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 
 import java.util.List;
@@ -18,15 +17,15 @@ import seedu.address.model.diary.Name;
 /**
  * Edits the details of an existing diary in Duke Cooks.
  */
-public class EditCommand extends Command {
+public class EditDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the diary identified "
             + "by the index number used in the displayed diary list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + "NAME] "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
@@ -40,7 +39,7 @@ public class EditCommand extends Command {
      * @param index of the diary in the filtered diary list to edit
      * @param editDiaryDescriptor details to edit the diary with
      */
-    public EditCommand(Index index, EditDiaryDescriptor editDiaryDescriptor) {
+    public EditDiaryCommand(Index index, EditDiaryDescriptor editDiaryDescriptor) {
         requireNonNull(index);
         requireNonNull(editDiaryDescriptor);
 
@@ -89,12 +88,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditDiaryCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditDiaryCommand e = (EditDiaryCommand) other;
         return index.equals(e.index)
                 && editDiaryDescriptor.equals(e.editDiaryDescriptor);
     }

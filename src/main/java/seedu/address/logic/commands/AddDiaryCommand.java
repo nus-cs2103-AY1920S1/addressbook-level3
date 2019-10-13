@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -10,13 +9,13 @@ import seedu.address.model.diary.Diary;
 /**
  * Adds a diary to Duke Cooks.
  */
-public class AddCommand extends Command {
+public class AddDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a diary to Duke Cooks. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME ";
+            + "NAME ";
 
     public static final String MESSAGE_SUCCESS = "New diary added: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks";
@@ -24,9 +23,9 @@ public class AddCommand extends Command {
     private final Diary toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Diary}
+     * Creates an AddDiaryCommand to add the specified {@code Diary}
      */
-    public AddCommand(Diary diary) {
+    public AddDiaryCommand(Diary diary) {
         requireNonNull(diary);
         toAdd = diary;
     }
@@ -46,7 +45,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddDiaryCommand // instanceof handles nulls
+                && toAdd.equals(((AddDiaryCommand) other).toAdd));
     }
 }

@@ -9,9 +9,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.AddDiaryCommand;
+import seedu.address.logic.commands.DeleteDiaryCommand;
+import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.Diary;
@@ -26,24 +26,24 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Diary diary = new DiaryBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(DiaryUtil.getAddCommand(diary));
-        assertEquals(new AddCommand(diary), command);
+        AddDiaryCommand command = (AddDiaryCommand) parser.parseCommand(DiaryUtil.getAddCommand(diary));
+        assertEquals(new AddDiaryCommand(diary), command);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_DIARY.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_DIARY), command);
+        DeleteDiaryCommand command = (DeleteDiaryCommand) parser.parseCommand(
+                DeleteDiaryCommand.COMMAND_WORD + " " + INDEX_FIRST_DIARY.getOneBased());
+        assertEquals(new DeleteDiaryCommand(INDEX_FIRST_DIARY), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Diary diary = new DiaryBuilder().build();
-        EditCommand.EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditDiaryCommand.EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
+        EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_DIARY, descriptor), command);
+        assertEquals(new EditDiaryCommand(INDEX_FIRST_DIARY, descriptor), command);
     }
 
     @Test

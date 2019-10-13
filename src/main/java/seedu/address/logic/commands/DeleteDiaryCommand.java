@@ -13,9 +13,9 @@ import seedu.address.model.diary.Diary;
 /**
  * Deletes a diary identified using it's displayed index from Duke Cooks.
  */
-public class DeleteCommand extends Command {
+public class DeleteDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the diary identified by the index number used in the displayed diary list.\n"
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteDiaryCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteDiaryCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteDiaryCommand) other).targetIndex)); // state check
     }
 }

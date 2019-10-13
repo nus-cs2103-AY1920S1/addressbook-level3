@@ -22,31 +22,31 @@ import seedu.address.model.diary.Diary;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteDiaryCommand}.
  */
-public class DeleteCommandTest {
+public class DeleteDiaryCommandTest {
 
     private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_DIARY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
+        String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteDiaryCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiaryList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,15 +54,15 @@ public class DeleteCommandTest {
         showDiaryAtIndex(model, INDEX_FIRST_DIARY);
 
         Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_DIARY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
+        String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
         showNoDiary(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteDiaryCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -73,21 +73,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getDiaryList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_DIARY);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_DIARY);
+        DeleteDiaryCommand deleteFirstCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteSecondCommand = new DeleteDiaryCommand(INDEX_SECOND_DIARY);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteFirstCommandCopy = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

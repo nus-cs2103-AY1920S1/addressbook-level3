@@ -1,9 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditDiaryDescriptor;
+import seedu.address.logic.commands.AddDiaryCommand;
+import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.model.diary.Diary;
 
 /**
@@ -15,7 +13,7 @@ public class DiaryUtil {
      * Returns an add command string for adding the {@code diary}.
      */
     public static String getAddCommand(Diary diary) {
-        return AddCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
+        return AddDiaryCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
     }
 
     /**
@@ -23,7 +21,7 @@ public class DiaryUtil {
      */
     public static String getDiaryDetails(Diary diary) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + diary.getName().fullName + " ");
+        sb.append(diary.getName().fullName);
         return sb.toString();
     }
 
@@ -32,7 +30,7 @@ public class DiaryUtil {
      */
     public static String getEditPersonDescriptorDetails(EditDiaryDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(name.fullName).append(" "));
         return sb.toString();
     }
 }

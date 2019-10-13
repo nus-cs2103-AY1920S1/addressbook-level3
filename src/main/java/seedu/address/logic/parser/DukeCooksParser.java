@@ -6,11 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDiaryCommand;
+import seedu.address.logic.commands.AddPageCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.DeleteDiaryCommand;
+import seedu.address.logic.commands.DeletePageCommand;
+import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.HelpCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -20,6 +23,7 @@ public class DukeCooksParser {
 
     /**
      * Used for initial separation of command word and args.
+     * Ensures that commandWord is non-whitespace word, followed by any number of arguments
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -38,19 +42,26 @@ public class DukeCooksParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddDiaryCommand.COMMAND_WORD:
+            return new AddDiaryCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditDiaryCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteDiaryCommand.COMMAND_WORD:
+            return new DeleteDiaryCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddPageCommand.COMMAND_WORD:
+            return new AddPageCommandParser().parse(arguments);
+
+        case DeletePageCommand.COMMAND_WORD:
+            return new DeletePageCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

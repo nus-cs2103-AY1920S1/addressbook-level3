@@ -31,13 +31,16 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private FlowPane tags;
+    private FlowPane pages;
 
     public PersonCard(Diary diary, int displayedIndex) {
         super(FXML);
         this.diary = diary;
         id.setText(displayedIndex + ". ");
         name.setText(diary.getName().fullName);
+
+        diary.getPages().stream()
+                .forEach(page -> pages.getChildren().add(new Label(page.getTitle().toString())));
     }
 
     @Override
