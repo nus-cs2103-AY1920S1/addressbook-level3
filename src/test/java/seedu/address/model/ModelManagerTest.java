@@ -157,10 +157,11 @@ public class ModelManagerTest {
         ActivityBook activityBook = new ActivityBookBuilder().withActivity(BREAKFAST).build();
         ActivityBook differentActivityBook = new ActivityBook();
         UserPrefs userPrefs = new UserPrefs();
+        InternalState state = new InternalState();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, activityBook);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, activityBook);
+        modelManager = new ModelManager(addressBook, userPrefs, state, activityBook);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, state, activityBook);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -173,12 +174,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, activityBook)));
+        assertFalse(modelManager.equals(
+                new ModelManager(differentAddressBook, userPrefs, state, activityBook)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, activityBook)));
+        assertFalse(modelManager.equals(
+                new ModelManager(addressBook, userPrefs, state, activityBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -186,6 +189,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, activityBook)));
+        assertFalse(modelManager.equals(
+                new ModelManager(addressBook, differentUserPrefs, state, activityBook)));
     }
 }

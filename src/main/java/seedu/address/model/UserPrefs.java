@@ -16,11 +16,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path activityBookFilePath = Paths.get("data" , "activitybook.json");
+    private Path internalStateFilePath = Paths.get("data", "internalstate.json");
 
-    /**
-     * Creates a {@code UserPrefs} with default values.
-     */
-    public UserPrefs() {}
+    public UserPrefs() {};
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -38,6 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setActivityBookFilePath(newUserPrefs.getActivityBookFilePath());
+        setInternalStateFilePath(newUserPrefs.getInternalStateFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,6 +46,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public Path getInternalStateFilePath() {
+        return internalStateFilePath;
     }
 
     public Path getAddressBookFilePath() {
@@ -65,6 +68,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setActivityBookFilePath(Path activityBookFilePath) {
         requireNonNull(activityBookFilePath);
         this.activityBookFilePath = activityBookFilePath;
+
+    public void setInternalStateFilePath(Path internalStateFilePath) {
+        requireNonNull(internalStateFilePath);
+        this.internalStateFilePath = internalStateFilePath;
     }
 
     @Override
@@ -81,6 +88,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && activityBookFilePath.equals(o.activityBookFilePath);
+                && internalStateFilePath.equals(o.internalStateFilePath);
     }
 
     @Override
@@ -94,6 +102,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nActivity data file location: " + activityBookFilePath);
+        sb.append("\nAddress data file location : " + addressBookFilePath);
+        sb.append("\nState data file location : " + internalStateFilePath);
         return sb.toString();
     }
 

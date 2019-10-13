@@ -14,6 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ActivityBook;
 import seedu.address.model.AddressBook;
+import seedu.address.model.InternalState;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
@@ -30,11 +31,27 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonActivityBookStorage activityBookStorage =
                 new JsonActivityBookStorage(getTempFilePath("acb"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, activityBookStorage);
+        JsonInternalStateStorage internalStateStorage =
+                new JsonInternalStateStorage(getTempFilePath("state"));
+        storageManager = new StorageManager(
+                addressBookStorage, userPrefsStorage, internalStateStorage, activityBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
+    }
+
+    @Test
+    public void stateReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonInternalStateStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonInternalStateStorageTest} class.
+         */
+        InternalState original = new InternalState();
+        storageManager.saveInternalState(original);
+        InternalState retrieved = storageManager.readInternalState().get();
+        assertEquals(original, retrieved);
     }
 
     @Test

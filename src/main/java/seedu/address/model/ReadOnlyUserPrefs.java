@@ -15,4 +15,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getActivityBookFilePath();
 
+    Path getInternalStateFilePath();
 }
