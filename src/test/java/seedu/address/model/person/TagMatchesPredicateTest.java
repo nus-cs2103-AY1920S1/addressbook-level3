@@ -28,7 +28,7 @@ public class TagMatchesPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different person -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));

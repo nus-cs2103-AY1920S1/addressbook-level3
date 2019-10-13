@@ -46,7 +46,7 @@ public class FilterCommandTest {
         assertFalse(filterFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(filterFirstCommand.equals(null));
+        assertFalse(filterFirstCommand == null);
 
         // different person -> returns false
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
