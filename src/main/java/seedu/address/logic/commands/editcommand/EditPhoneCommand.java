@@ -107,8 +107,6 @@ public class EditPhoneCommand extends Command {
     private static Phone createEditedPhone(Phone phoneToEdit,
                                                  EditPhoneDescriptor editPhoneDescriptor) {
         assert phoneToEdit != null;
-
-
         IdentityNumber updatedIdentityNumber =
                 editPhoneDescriptor.getIdentityNumber().orElse(phoneToEdit.getIdentityNumber());
         SerialNumber updatedSerialNumber =
@@ -277,8 +275,5 @@ public class EditPhoneCommand extends Command {
                     && getCost().equals(e.getCost())
                     && getTags().equals(e.getTags());
         }
-
-
-
     }
 }

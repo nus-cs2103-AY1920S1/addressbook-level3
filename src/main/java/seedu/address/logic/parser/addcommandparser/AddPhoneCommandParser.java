@@ -52,7 +52,6 @@ public class AddPhoneCommandParser implements Parser<AddPhoneCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhoneCommand.MESSAGE_USAGE));
         }
 
-
         IdentityNumber identityNumber = ParserUtil.parseIdentityNumber(argMultimap.getValue(PREFIX_IDENTITYNUM).get());
         SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIALNUM).get());
         PhoneName phoneName = ParserUtil.parsePhoneName(argMultimap.getValue(PREFIX_PHONENAME).get());

@@ -215,8 +215,8 @@ public class ParserUtil {
         case "1024":
             return Capacity.SIZE_1024GB;
 
-        default: //should i set default as SIZE_64GB?
-            return Capacity.SIZE_64GB;
+        default:
+            throw new ParseException(Capacity.MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -294,8 +294,5 @@ public class ParserUtil {
         }
         return new SerialNumber(trimmedSerialNumber);
     }
-
-
-
 
 }
