@@ -14,7 +14,6 @@ import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-//import seedu.deliverymans.model.Model;
 
 /**
  * Represents the in-memory model of the address book data.

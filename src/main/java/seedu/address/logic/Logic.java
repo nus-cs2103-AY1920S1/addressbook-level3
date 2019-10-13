@@ -10,7 +10,6 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
-
 /**
  * API of the Logic component
  */
