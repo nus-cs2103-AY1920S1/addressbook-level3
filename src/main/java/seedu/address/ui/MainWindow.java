@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane taskListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -67,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         personListPanel = new PersonListPanel(logic.getVisualList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             personListPanel = new PersonListPanel(logic.getVisualList());
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            taskListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

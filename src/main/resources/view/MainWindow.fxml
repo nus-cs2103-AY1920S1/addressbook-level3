@@ -69,17 +69,17 @@
                </children>
             </VBox>
 
-            <VBox fx:id="personList" layoutX="300.0" prefHeight="600.0" prefWidth="600.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+            <VBox layoutX="300.0" prefHeight="600.0" prefWidth="600.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-               <TabPane fx:id="viewsPlaceholder" prefHeight="576.0" prefWidth="578.0" stylesheets="@../images/tabpane.css" tabClosingPolicy="UNAVAILABLE">
+               <TabPane fx:id="viewsPlaceholder" prefHeight="576.0" prefWidth="578.0" stylesheets="@tabpane.css" tabClosingPolicy="UNAVAILABLE">
                  <tabs>
                    <Tab text="(T)ask">
                      <content>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                               <children>
-                                <StackPane fx:id="personListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
+                                <StackPane fx:id="taskListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
                               </children>
                            </AnchorPane>
                      </content>
@@ -88,7 +88,7 @@
                         <content>
                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                               <children>
-                                 <StackPane fx:id="personListPanelPlaceholder2" prefHeight="550.0" prefWidth="578.0" />
+                                 <StackPane fx:id="eventListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
                               </children>
                            </AnchorPane>
                         </content>
@@ -97,7 +97,7 @@
                         <content>
                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                               <children>
-                                 <StackPane fx:id="personListPanelPlaceholder1" prefHeight="550.0" prefWidth="578.0" />
+                                 <StackPane fx:id="reminderListPanelPlaceholder1" prefHeight="550.0" prefWidth="578.0" />
                               </children>
                            </AnchorPane>
                         </content>
@@ -106,7 +106,7 @@
                         <content>
                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                               <children>
-                                 <StackPane fx:id="personListPanelPlaceholder21" prefHeight="550.0" prefWidth="578.0" />
+                                 <StackPane fx:id="calendarPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
                               </children>
                            </AnchorPane>
                         </content>
