@@ -27,7 +27,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ItemListPanel itemListPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -66,8 +66,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        personListPanel = new PersonListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        itemListPanel = new ItemListPanel(logic.getVisualList());
+        taskListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -129,8 +129,8 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ItemListPanel getPersonListPanel() {
+        return itemListPanel;
     }
 
     /**
@@ -154,8 +154,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
-            personListPanel = new PersonListPanel(logic.getVisualList());
-            taskListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            itemListPanel = new ItemListPanel(logic.getVisualList());
+            taskListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
