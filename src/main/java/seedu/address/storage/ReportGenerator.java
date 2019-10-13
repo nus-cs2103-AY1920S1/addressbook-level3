@@ -8,13 +8,17 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class HelloWorld {
-    public static void main(String[] args) {
+import seedu.address.model.entity.body.Body;
+
+public class ReportGenerator {
+
+    public static void execute() {  //pass in body as parameter
         Document document = new Document();
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("HelloWorld.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document,
+                    new FileOutputStream("Report.pdf")); //body.getBodyIdNum()
             document.open();
-            document.add(new Paragraph("A Hello World PDF document."));
+            document.add(new Paragraph("A Mortago report document."));
             document.close();
             writer.close();
         } catch (DocumentException e) {
