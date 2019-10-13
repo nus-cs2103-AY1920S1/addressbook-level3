@@ -6,7 +6,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Food's category in the address book.
  */
-public class Restrictions {
+public class Restrictions implements Field {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Restrictions should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -33,6 +33,14 @@ public class Restrictions {
         return restrictions.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Gets the field as a String.
+     * @return a String representation of the field.
+     */
+    public String getField() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return restrictions;
@@ -48,5 +56,15 @@ public class Restrictions {
     @Override
     public int hashCode() {
         return restrictions.hashCode();
+    }
+
+    @Override
+    public int compareTo(Field other) {
+        Restrictions otherRestrictions = (Restrictions) other;
+        if (otherRestrictions == null) {
+            return 1;
+        } else {
+            return this.getField().compareTo(otherRestrictions.getField());
+        }
     }
 }

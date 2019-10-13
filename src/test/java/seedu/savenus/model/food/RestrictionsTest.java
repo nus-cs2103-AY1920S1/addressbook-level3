@@ -1,6 +1,8 @@
 package seedu.savenus.model.food;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -36,5 +38,19 @@ public class RestrictionsTest {
         assertFalse(Restrictions.isValidRestrictions("")); // empty string
         assertFalse(Restrictions.isValidRestrictions(" ")); // spaces only
         assertFalse(Restrictions.isValidRestrictions("          ")); // tons of spaces
+    }
+
+    @Test
+    public void get_field_test() {
+        String sampleString = "Chinese";
+        assertEquals(new Restrictions(sampleString).getField(), sampleString);
+        assertNotEquals(new Restrictions(sampleString).getField(), "");
+    }
+
+    @Test
+    public void compareTests() {
+        Restrictions normalRestrictions = new Restrictions("Malay");
+        assertEquals(normalRestrictions.compareTo(null), 1);
+        assertEquals(normalRestrictions.compareTo(normalRestrictions), 0);
     }
 }

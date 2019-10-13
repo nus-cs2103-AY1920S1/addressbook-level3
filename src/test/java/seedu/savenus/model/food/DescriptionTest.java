@@ -1,6 +1,8 @@
 package seedu.savenus.model.food;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -35,5 +37,19 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("prawn noodles"));
         assertTrue(Description.isValidDescription("good")); // minimal
         assertTrue(Description.isValidDescription("chicken with plenty rice")); // alphabets only
+    }
+
+    @Test
+    public void get_field_test() {
+        String sampleString = "Chinese";
+        assertEquals(new Description(sampleString).getField(), sampleString);
+        assertNotEquals(new Description(sampleString).getField(), "");
+    }
+
+    @Test
+    public void compareTests() {
+        Description normalDescription = new Description("Malay");
+        assertEquals(normalDescription.compareTo(null), 1);
+        assertEquals(normalDescription.compareTo(normalDescription), 0);
     }
 }

@@ -1,6 +1,8 @@
 package seedu.savenus.model.food;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
@@ -42,5 +44,19 @@ public class CategoryTest {
         assertTrue(Category.isValidCategory("abc")); // short string
         assertTrue(Category.isValidCategory("Abracadabra")); // medium string
         assertTrue(Category.isValidCategory("Abracadabra Alakazam")); // long string
+    }
+
+    @Test
+    public void get_field_test() {
+        String sampleString = "Chinese";
+        assertEquals(new Category(sampleString).getField(), sampleString);
+        assertNotEquals(new Category(sampleString).getField(), "");
+    }
+
+    @Test
+    public void compareTests() {
+        Category normalCategory = new Category("Malay");
+        assertEquals(normalCategory.compareTo(null), 1);
+        assertEquals(normalCategory.compareTo(normalCategory), 0);
     }
 }

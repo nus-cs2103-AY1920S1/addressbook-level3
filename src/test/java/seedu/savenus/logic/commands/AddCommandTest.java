@@ -1,3 +1,4 @@
+
 package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -9,6 +10,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -141,6 +143,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setFoods(List<Food> list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public double getRemainingBudget() {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,5 +219,4 @@ public class AddCommandTest {
             return new Menu();
         }
     }
-
 }
