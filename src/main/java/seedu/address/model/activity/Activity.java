@@ -38,14 +38,6 @@ public class Activity {
     }
 
     /**
-     * Gets the list of participants in the activity.
-     * @return An ArrayList containing the participants.
-     */
-    public ArrayList<Person> getParticipants() {
-        return new ArrayList<Person>();
-    }
-
-    /**
      * Gets the list of expenses in the activity.
      * @return An ArrayList of expenses.
      */

@@ -15,12 +15,12 @@ public class ActivityBuilder {
     public static final String DEFAULT_TITLE = "Resort World Sentosa";
 
     private Title title;
-    private ArrayList<Person> participants;
+    private ArrayList<Integer> participantIds;
     private ArrayList<Expense> expenses;
 
     public ActivityBuilder() {
         title = new Title(DEFAULT_TITLE);
-        participants = new ArrayList<>();
+        participantIds = new ArrayList<>();
         expenses = new ArrayList<>();
     }
 
@@ -29,7 +29,7 @@ public class ActivityBuilder {
      */
     public ActivityBuilder(Activity activityToCopy) {
         title = activityToCopy.getTitle();
-        participants = new ArrayList<>(activityToCopy.getParticipants());
+        participantIds = new ArrayList<>(activityToCopy.getParticipantIds());
         expenses = new ArrayList<>(activityToCopy.getExpenses());
     }
 
@@ -41,8 +41,16 @@ public class ActivityBuilder {
         return this;
     }
 
+    /**
+     * Adds a {@code Person} into the {@code Activity} that we are building.
+     */
+    public ActivityBuilder addPerson(Person person) {
+        participantIds.add(person.getPrimaryKey());
+        return this;
+    }
+
     public Activity build() {
-        return new Activity(title);
+        return new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
     }
 
 }

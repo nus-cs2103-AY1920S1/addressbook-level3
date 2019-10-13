@@ -44,7 +44,40 @@ public class ActivityCommandTest {
         assertEquals(Arrays.asList(validActivity), modelStub.activityList);
     }
 
-    // TODO: Add test for adding valid participants once participants have ID
+    @Test
+    public void execute_validActivityWithParticipant_addSuccessful() throws Exception {
+        ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
+        Activity validActivity = new ActivityBuilder().addPerson(TypicalPersons.ALICE).build();
+        ArrayList<String> searchTerms = new ArrayList<String>();
+        searchTerms.add("Alice");
+
+        CommandResult commandResult =
+                new ActivityCommand(new Title(ActivityBuilder.DEFAULT_TITLE), searchTerms)
+                .execute(modelStub);
+
+        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS, validActivity, "Alice Pauline", ""),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validActivity), modelStub.activityList);
+    }
+
+    @Test
+    public void execute_validActivityWithInvalidParticipant_multipleMatches() throws Exception {
+        ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
+        modelStub.addPerson(TypicalPersons.ANDY);
+        Activity emptyActivity = new ActivityBuilder().build();
+        ArrayList<String> searchTerms = new ArrayList<String>();
+        searchTerms.add("Pauline");
+
+        CommandResult commandResult =
+                new ActivityCommand(new Title(ActivityBuilder.DEFAULT_TITLE), searchTerms)
+                .execute(modelStub);
+
+        String warningMessage = String.format(ActivityCommand.WARNING_SEARCH_RESULTS, "Pauline", 2);
+
+        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS, emptyActivity, "", warningMessage),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(emptyActivity), modelStub.activityList);
+    }
 
     @Test
     public void equals() {
@@ -85,11 +118,16 @@ public class ActivityCommandTest {
      */
     private class ModelStubAcceptingActivityAdded extends ModelStub {
         final ArrayList<Activity> activityList = new ArrayList<>();
+        private final List<Person> personList = TypicalPersons.getTypicalPersons();
+
+        @Override
+        public void addPerson(Person person) {
+            personList.add(person);
+        }
 
         @Override
         public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
             requireNonNull(predicate);
-            List<Person> personList = TypicalPersons.getTypicalPersons();
             ArrayList<Person> matches = new ArrayList<Person>();
             for (Person person : personList) {
                 if (predicate.test(person)) {

@@ -77,7 +77,7 @@ public class ActivityCommand extends Command {
             }
 
             toAddPerson = findResult.get(0);
-            id = toAddPerson.hashCode();
+            id = toAddPerson.getPrimaryKey();
 
             // Person already in this activity - this person is not added
             if (participantIds.contains(id)) {
