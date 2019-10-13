@@ -1,12 +1,10 @@
 package dream.fcard.model.cards;
 
-import java.util.ArrayList;
-
+import dream.fcard.model.exceptions.ChoiceNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonValue;
-
 import javafx.scene.Node;
 
-//import dream.fcard.model.exceptions.ChoiceNotFoundException;
+import java.util.ArrayList;
 
 /**
  * FrontBackCard with additional data of multiple choices.
@@ -38,23 +36,17 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Edits one of string in choices, given new text and index.
      */
-    //ublic void editChoice(String newChoice, int index) throws ChoiceNotFoundException {
-    public void editChoice(String newChoice, int index) {
-        // Handle the exception if index does not exist
-        // Can handle this in command class overall, but here just in case not handled
+    public void editChoice(int index, String newChoice) throws ChoiceNotFoundException {
         if (index < 0 || index > choices.size()) {
-            throw new ArrayIndexOutOfBoundsException();
-            //throw new ChoiceNotFoundException(new Exception());
+            throw new ChoiceNotFoundException(new Exception());
         }
-
         choices.add(index, newChoice);
         choices.remove(index + 1);
     }
 
-    public String getChoice(int index) /*throws ChoiceNotFoundException*/ {
+    public String getChoice(int index) throws ChoiceNotFoundException {
         if (index < 0 || index > choices.size()) {
-            throw new ArrayIndexOutOfBoundsException();
-            //throw new ChoiceNotFoundException(new Exception());
+            throw new ChoiceNotFoundException(new Exception());
         }
         return choices.get(index);
     }
