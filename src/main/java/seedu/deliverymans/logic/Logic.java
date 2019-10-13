@@ -3,12 +3,12 @@ package seedu.deliverymans.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import seedu.deliverymans.commons.core.GuiSettings;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.commons.core.GuiSettings;
-import seedu.deliverymans.logic.commands.addressbook.CommandResult;
-import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
 
 
 /**

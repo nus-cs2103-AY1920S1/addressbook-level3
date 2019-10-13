@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.deliverymans.commons.core.Config;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.commons.core.Version;
@@ -16,12 +15,12 @@ import seedu.deliverymans.commons.util.ConfigUtil;
 import seedu.deliverymans.commons.util.StringUtil;
 import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.LogicManager;
+import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.ModelManager;
+import seedu.deliverymans.model.ReadOnlyUserPrefs;
+import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
-import seedu.deliverymans.model.addressbook.Model;
-import seedu.deliverymans.model.addressbook.ModelManager;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyUserPrefs;
-import seedu.deliverymans.model.addressbook.UserPrefs;
 import seedu.deliverymans.model.addressbook.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;

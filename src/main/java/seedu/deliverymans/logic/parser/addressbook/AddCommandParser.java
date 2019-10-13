@@ -10,13 +10,13 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.deliverymans.logic.commands.addressbook.AddCommand;
+import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
 import seedu.deliverymans.model.addressbook.person.Email;
+import seedu.deliverymans.model.addressbook.person.Name;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.addressbook.tag.Tag;
-import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
-import seedu.deliverymans.model.addressbook.person.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -5,20 +5,17 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.logic.commands.addressbook.Command;
-import seedu.deliverymans.logic.commands.addressbook.CommandResult;
-import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.addressbook.AddressBookParser;
-import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
-import seedu.deliverymans.model.addressbook.Model;
+import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.universal.UniversalParser;
+import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.storage.Storage;
-
-
 
 /**
  * The main LogicManager of the app.
@@ -27,14 +24,14 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final seedu.deliverymans.model.Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final UniversalParser universalParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        universalParser = new UniversalParser();
     }
 
     @Override
@@ -42,7 +39,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = universalParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

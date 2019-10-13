@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.order.Order;
 
 /**
