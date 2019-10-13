@@ -146,7 +146,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFoodList(Predicate<Food> predicate) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -156,7 +155,6 @@ public class AddCommandTest {
 
         @Override
         public void resetRecommendationComparator() {
-            throw new AssertionError("This method should not be called.");
         }
     }
 
