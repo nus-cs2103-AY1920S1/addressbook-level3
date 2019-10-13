@@ -30,17 +30,27 @@ public enum DefaultTagType {
     DB_P("DB:P"), // database systems
     DB_E("DB:E");
 
-    private String defaultName;
+    private String defaultTagTypeName;
 
-    private DefaultTagType(String defaultName) {
-        this.defaultName = defaultName;
+    private DefaultTagType(String defaultTagTypeName) {
+        this.defaultTagTypeName = defaultTagTypeName;
+    }
+
+    public String getDefaultTagTypeName() {
+        return defaultTagTypeName;
     }
 
     /**
-     * Returns the name of the default type.
-     * @return Name of the default type.
+     * Checks if the given name is one of the default tag type names.
+     * @param name The given name that is to be checked.
+     * @return True if it is one of the default tag type names.
      */
-    public String getDefaultTagTypeName() {
-        return defaultName;
+    public static boolean contains(String name) {
+        for (DefaultTagType defaultTagType : DefaultTagType.values()) {
+            if (defaultTagType.name().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

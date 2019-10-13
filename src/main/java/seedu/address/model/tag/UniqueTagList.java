@@ -85,10 +85,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         mapTags.put(editedTag.getTagName(), editedTag);
     }
 
-    public DefaultTag getDefaultTag(String defaultTagName) {
+    public DefaultTag getDefaultTag(String defaultTagName) throws TagNotFoundException {
         Tag correspondingTag = mapTags.get(defaultTagName);
         if (!correspondingTag.isDefault()) {
-            // TODO throw exception
+            throw new TagNotFoundException();
         }
         return (DefaultTag) correspondingTag;
     }
