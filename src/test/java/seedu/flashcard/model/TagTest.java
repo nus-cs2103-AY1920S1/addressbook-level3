@@ -62,13 +62,13 @@ public class TagTest {
 
     @Test
     public void tagDetachFromCardTest() {
-        ShortAnswerFlashcard Zhongnanshan = new ShortAnswerFlashcard(
+        ShortAnswerFlashcard zhongnanshan = new ShortAnswerFlashcard(
                 new ShortAnswerQuestion("How long is the Zhongnanshan tunnel?"),
                 new Answer("18062m"));
         Tag tunnel = new Tag("tunnels");
-        tunnel.addFlashcard(Zhongnanshan);
-        Zhongnanshan.addTag(tunnel);
+        tunnel.addFlashcard(zhongnanshan);
+        zhongnanshan.addTag(tunnel);
         tunnel.detachFromAllCards();
-        assertTrue(Zhongnanshan.getTags().isEmpty());
+        assertTrue(zhongnanshan.getTags().isEmpty());
     }
 }
