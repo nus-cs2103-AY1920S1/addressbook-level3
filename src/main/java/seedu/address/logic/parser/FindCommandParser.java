@@ -22,7 +22,7 @@ import seedu.address.model.genre.Genre;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    private final String preamblePlaceholder = " 0 ";
+    private final String PREAMBLE_PLACEHOLDER = " 0 ";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
