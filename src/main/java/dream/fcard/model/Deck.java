@@ -3,6 +3,7 @@ package dream.fcard.model;
 import java.util.ArrayList;
 
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
@@ -42,6 +43,29 @@ public class Deck implements JsonInterface {
     public void addNewCard(FlashCard newCard) {
         cards.add(newCard);
     }
+
+    /**
+     * Edit front of card.
+     */
+    public void editFrontCardInDeck(String newFront, int index) throws IndexNotFoundException {
+        if(index >= cards.size() || index < 0){
+            throw new IndexNotFoundException(new Exception());
+        }
+        FlashCard cardToChange = cards.get(index);
+        cardToChange.editFront(newFront);
+    }
+
+    /**
+     * Edit back of card.
+     */
+    public void editBackCardInDeck(String newBack, int index) throws IndexNotFoundException {
+        if(index >= cards.size() || index < 0){
+            throw new IndexNotFoundException(new Exception());
+        }
+        FlashCard cardToChange = cards.get(index);
+        cardToChange.editBack(newBack);
+    }
+
 
     @Override
     public JsonValue toJson() {

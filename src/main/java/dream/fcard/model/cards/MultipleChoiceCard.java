@@ -2,7 +2,7 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
-import dream.fcard.model.exceptions.ChoiceNotFoundException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 import javafx.scene.Node;
@@ -37,17 +37,17 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Edits one of string in choices, given new text and index.
      */
-    public void editChoice(int index, String newChoice) throws ChoiceNotFoundException {
+    public void editChoice(int index, String newChoice) throws IndexNotFoundException {
         if (index < 0 || index > choices.size()) {
-            throw new ChoiceNotFoundException(new Exception());
+            throw new IndexNotFoundException(new Exception());
         }
         choices.add(index, newChoice);
         choices.remove(index + 1);
     }
 
-    public String getChoice(int index) throws ChoiceNotFoundException {
+    public String getChoice(int index) throws IndexNotFoundException {
         if (index < 0 || index > choices.size()) {
-            throw new ChoiceNotFoundException(new Exception());
+            throw new IndexNotFoundException(new Exception());
         }
         return choices.get(index);
     }

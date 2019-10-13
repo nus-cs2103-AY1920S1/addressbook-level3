@@ -36,4 +36,12 @@ public class JavascriptCard implements FlashCard, JsonInterface {
     public Boolean evaluate(String in) {
         return null;
     }
+
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    public void editBack(String newText) {
+        output = newText;
+    }
 }
