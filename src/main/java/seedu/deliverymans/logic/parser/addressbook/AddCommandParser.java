@@ -1,22 +1,22 @@
-package seedu.deliverymans.logic.parser.customer;
+package seedu.deliverymans.logic.parser.addressbook;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_EMAIL;
+import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_PHONE;
+import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.deliverymans.logic.commands.customer.AddCommand;
-import seedu.deliverymans.logic.parser.ArgumentMultimap;
-import seedu.deliverymans.logic.parser.ArgumentTokenizer;
-import seedu.deliverymans.logic.parser.Parser;
-import seedu.deliverymans.logic.parser.ParserUtil;
-import seedu.deliverymans.logic.parser.Prefix;
-import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.Name;
+import seedu.deliverymans.logic.commands.addressbook.AddCommand;
+import seedu.deliverymans.logic.parser.addressbook.exceptions.ParseException;
+import seedu.deliverymans.model.addressbook.person.Email;
+import seedu.deliverymans.model.addressbook.person.Name;
+import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.addressbook.person.Phone;
+import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.addressbook.tag.Tag;
-import seedu.deliverymans.model.customer.Customer;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,21 +31,23 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Remark remark = new Remark(""); // add command does not allow adding remarks straight away
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Customer customer = new Customer(name, tagList);
+        Person person = new Person(name, phone, email, remark, tagList);
 
-        return new AddCommand(customer);
+        return new AddCommand(person);
     }
-
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
