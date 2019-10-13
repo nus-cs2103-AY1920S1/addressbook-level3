@@ -66,6 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsChart = new StatsChart(null);
     }
 
     public Stage getPrimaryStage() {
@@ -163,6 +164,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Shows a pie chart and returns the value of the data
+     * in each slice of the chart when the mouse hovers over it.
+     */
     @FXML
     private void showStats() {
         statsChart = new StatsChart(logic.getStatsChartData());
@@ -176,6 +181,9 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Remove the pie chart from the noteListPanel.
+     */
     @FXML
     private void removeStats() {
         noteListPanelPlaceholder.getChildren().remove(statsChart.getChart());

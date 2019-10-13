@@ -10,6 +10,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Gets questions that have been answered correctly/incorrectly by subject.
+ */
 public class GetQnsCommand extends Command {
     public static final String COMMAND_WORD = "questions";
 

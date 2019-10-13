@@ -8,6 +8,9 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 
+/**
+ * A UI component that displays statistics.
+ */
 public class StatsChart extends UiPart<Region> {
 
     private static final String FXML = "StatsChart.fxml";

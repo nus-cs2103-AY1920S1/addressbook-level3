@@ -7,13 +7,16 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Returns a report for questions.
+ */
 public class GetReportCommand extends Command {
     public static final String COMMAND_WORD = "report";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a report of how well you have "
             + "answered a particular question,\n"
             + "the number of times the question has been attempted and the past answers to the question.\n"
-            + "Parameters: INDEX"
+            + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " "
             + "5";
 

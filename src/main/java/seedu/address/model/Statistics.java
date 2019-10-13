@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a statistics object.
+ */
 public class Statistics {
 
     public final double correct;

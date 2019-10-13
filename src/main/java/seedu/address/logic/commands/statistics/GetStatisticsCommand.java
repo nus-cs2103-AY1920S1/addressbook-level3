@@ -11,6 +11,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Gets statistics of how well the user has attempted the questions.
+ */
 public class GetStatisticsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
 

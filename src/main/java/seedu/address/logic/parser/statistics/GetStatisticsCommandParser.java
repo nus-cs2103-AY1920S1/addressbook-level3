@@ -12,8 +12,17 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new GetStatisticsCommand object.
+ */
 public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the GetStatisticsCommand
+     * and returns an GetStatisticsCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format
+     */
     public GetStatisticsCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
