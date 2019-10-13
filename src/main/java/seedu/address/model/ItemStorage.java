@@ -139,4 +139,20 @@ public class ItemStorage {
             }
         }
     }
+
+    /**
+     * Returns a deep copy of this item storage.
+     * @return deep copy of the item storage
+     */
+    public ItemStorage deepCopy() {
+        ItemStorage itemStorage = new ItemStorage();
+        for (Item i : items) {
+            try {
+                itemStorage.add(i.deepCopy());
+            } catch (Exception e) {
+                // not supposed to happen
+            }
+        }
+        return itemStorage;
+    }
 }

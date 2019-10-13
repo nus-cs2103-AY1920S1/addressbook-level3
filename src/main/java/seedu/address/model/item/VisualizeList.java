@@ -88,6 +88,24 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         return il;
     }
 
+    public abstract VisualizeList deepCopy();
+
+    /**
+     * Helper function to return a deep copy of the list.
+     * @param vl the list to be returned
+     * @return
+     */
+    protected VisualizeList deepCopy(VisualizeList vl) {
+        for (Item i : list) {
+            try {
+                vl.add(i.deepCopy());
+            } catch (Exception e) {
+                // not supposed to happen
+            }
+        }
+        return vl;
+    }
+
     public int indexOf(Item item) {
         return list.indexOf(item);
     }
