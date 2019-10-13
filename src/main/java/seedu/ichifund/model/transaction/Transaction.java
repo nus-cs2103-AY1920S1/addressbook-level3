@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
+import seedu.ichifund.model.date.Date;
 
 /**
  * Represents a Transaction in IchiFund.
@@ -15,27 +16,21 @@ public class Transaction {
     private final Amount amount;
     private final Description description;
     private final Category category;
-    private final TransactionType transactionType;
+    private final Date date;
+    private final boolean isExpenditure;
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Description description, Amount amount, Category category, TransactionType transactionType) {
+    public Transaction(Description description, Amount amount, Category category, Date date,
+                       TransactionType transactionType) {
         requireAllNonNull(description, amount, category);
         this.amount = amount;
         this.description = description;
         this.category = category;
-        this.transactionType = transactionType;
+        this.date = date;
+        this.isExpenditure = transactionType.isExpenditure();
     }
-
-    public boolean isIncome() {
-        return transactionType == TransactionType.INCOME;
-    }
-
-    public boolean isExpenditure() {
-        return transactionType == transactionType.EXPENDITURE;
-    }
-
 
     public Amount getAmount() {
         return amount;
@@ -48,6 +43,15 @@ public class Transaction {
     public Category getCategory() {
         return category;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isExpenditure() {
+        return isExpenditure;
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -66,13 +70,15 @@ public class Transaction {
         Transaction otherTransaction = (Transaction) other;
         return otherTransaction.getDescription().equals(getDescription())
                 && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getCategory().equals(getCategory());
+                && otherTransaction.getCategory().equals(getCategory())
+                && otherTransaction.getDate().equals(getDate())
+                && (otherTransaction.isExpenditure() == isExpenditure());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, category);
+        return Objects.hash(amount, description, category, date, isExpenditure);
     }
 
     @Override
@@ -82,7 +88,9 @@ public class Transaction {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Category: ")
-                .append(getCategory());
+                .append(getCategory())
+                .append(" Date: ")
+                .append(getDate());
         return builder.toString();
     }
 
