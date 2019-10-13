@@ -9,10 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -28,8 +24,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Catalog;
 import seedu.address.model.SerialNumberGenerator;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.BookPredicate;
 import seedu.address.model.book.SerialNumber;
-import seedu.address.model.book.TitleContainsKeywordPredicate;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -84,10 +80,14 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new TitleContainsKeywordPredicate(keywords)), command);
+        SerialNumberGenerator.setCatalog(new Catalog());
+        Book book = new BookBuilder().build();
+        FindCommand command = (FindCommand) parser.parseCommand(BookUtil.getFindCommand(book));
+        assertEquals(new FindCommand(new BookPredicate()
+            .addTitle(book.getTitle().value)
+            .addAuthor(book.getAuthor().value)
+            .addSerialNumber(book.getSerialNumber().value)
+            .addGenres(book.getGenres())), command);
     }
 
     @Test

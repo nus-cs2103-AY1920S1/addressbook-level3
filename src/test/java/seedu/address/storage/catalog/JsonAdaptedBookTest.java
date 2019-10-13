@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.catalog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.catalog.JsonAdaptedBook.MISSING_FIELD_MESSAGE_FORMAT;
@@ -15,8 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
-import seedu.address.storage.catalog.JsonAdaptedBook;
-import seedu.address.storage.catalog.JsonAdaptedTag;
 
 public class JsonAdaptedBookTest {
     private static final String INVALID_TITLE = "R@chel";

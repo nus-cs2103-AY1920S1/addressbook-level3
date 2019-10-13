@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.book.TitleContainsKeywordPredicate;
+import seedu.address.model.book.BookPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -14,14 +14,15 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all books whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all books by filtering the ones matching "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: { [t/TITLE] [a/AUTHOR] [g/GENRE]… [sn/BOOK_SN] "
+            + "[-overdue]/[-loaned]/[-available] } [NUMBER]\n"
+            + "Example: " + COMMAND_WORD + " g/mystery g/children -available";
 
-    private final TitleContainsKeywordPredicate predicate;
+    private final BookPredicate predicate;
 
-    public FindCommand(TitleContainsKeywordPredicate predicate) {
+    public FindCommand(BookPredicate predicate) {
         this.predicate = predicate;
     }
 

@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
+import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 
 import java.nio.file.Path;
 
@@ -11,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
+import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
@@ -56,11 +59,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void catalogReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonCatalogStorage} class.
+         * More extensive testing of Catalog saving/reading is done in {@link JsonCatalogStorageTest} class.
          */
         Catalog original = getTypicalCatalog();
         storageManager.saveCatalog(original);
@@ -68,9 +71,42 @@ public class StorageManagerTest {
         assertEquals(original, new Catalog(retrieved));
     }
 
+    /*
     @Test
-    public void getAddressBookFilePath() {
+    public void loanRecordsReadSave() throws Exception {*/
+    /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonLoanRecordsStorage} class.
+         * More extensive testing of LoanRecords saving/reading is done in {@link JsonLoanRecordsStorageTest} class.
+         */
+    /*
+        LoanRecords original = getTypicalLoanRecords();
+        storageManager.saveLoanRecords(original);
+        ReadOnlyLoanRecords retrieved = storageManager.readLoanRecords().get();
+        assertEquals(original, new LoanRecords(retrieved));
+    }
+         */
+
+    @Test
+    public void borrowerRecordsReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonBorrowerRecordsStorage} class.
+         * More extensive testing of BorrowerRecords saving/reading is done in
+         * {@link JsonBorrowerRecordsStorageTest} class.
+         */
+        BorrowerRecords original = getTypicalBorrowerRecords();
+        storageManager.saveBorrowerRecords(original);
+        ReadOnlyBorrowerRecords retrieved = storageManager.readBorrowerRecords().get();
+        assertEquals(original, new BorrowerRecords(retrieved));
+    }
+
+    @Test
+    public void getAllFilePaths() {
         assertNotNull(storageManager.getCatalogFilePath());
+        assertNotNull(storageManager.getLoanRecordsFilePath());
+        assertNotNull(storageManager.getBorrowerRecordsFilePath());
+        assertNotNull(storageManager.getUserPrefsFilePath());
     }
 
 }

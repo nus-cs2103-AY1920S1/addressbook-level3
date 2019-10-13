@@ -54,14 +54,19 @@ public class TypicalBorrowers {
 
     private TypicalBorrowers() {} // prevents instantiation
 
-    public static List<Borrower> getTypicalBorrowers() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
+    /**
+     * Returns an {@code BorrowerRecords} with all the typical persons.
+     */
+    public static BorrowerRecords getTypicalBorrowerRecords() {
+        BorrowerRecords br = new BorrowerRecords();
+        for (Borrower borrower : getTypicalBorrowers()) {
+            br.addBorrower(borrower);
+        }
+        return br;
     }
 
-    public static BorrowerRecords getTypicalBorrowerRecords() {
-        BorrowerRecords borrowers = new BorrowerRecords();
-        getTypicalBorrowers().stream().forEach(borrower -> borrowers.addBorrower(borrower));
-        return borrowers;
+    public static List<Borrower> getTypicalBorrowers() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
     }
 
 }

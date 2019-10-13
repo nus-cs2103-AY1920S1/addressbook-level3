@@ -20,7 +20,7 @@ public class GenreTest {
     @Test
     public void isValidTagName() {
         // null genre name
-        assertThrows(NullPointerException.class, () -> Genre.isValidTagName(null));
+        assertThrows(NullPointerException.class, () -> Genre.isValidGenreName(null));
     }
 
 }
