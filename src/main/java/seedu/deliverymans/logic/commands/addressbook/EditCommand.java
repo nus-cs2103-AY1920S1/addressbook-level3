@@ -1,11 +1,11 @@
 package seedu.deliverymans.logic.commands.addressbook;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.model.addressbook.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_EMAIL;
 import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.addressbook.CliSyntax.PREFIX_TAG;
+import static seedu.deliverymans.model.addressbook.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.deliverymans.commons.core.Messages;
+import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.commons.util.CollectionUtil;
+import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
+import seedu.deliverymans.model.addressbook.Model;
 import seedu.deliverymans.model.addressbook.person.Email;
 import seedu.deliverymans.model.addressbook.person.Name;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.addressbook.tag.Tag;
-import seedu.deliverymans.commons.core.Messages;
-import seedu.deliverymans.commons.core.index.Index;
-import seedu.deliverymans.commons.util.CollectionUtil;
-import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
-import seedu.deliverymans.model.addressbook.Model;
 
 
 /**

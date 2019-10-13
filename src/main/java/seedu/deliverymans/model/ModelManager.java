@@ -15,7 +15,6 @@ import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**

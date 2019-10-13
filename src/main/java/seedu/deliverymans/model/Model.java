@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**

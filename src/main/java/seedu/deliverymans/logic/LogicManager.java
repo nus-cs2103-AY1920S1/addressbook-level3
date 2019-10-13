@@ -18,8 +18,6 @@ import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.storage.Storage;
 
-
-
 /**
  * The main LogicManager of the app.
  */

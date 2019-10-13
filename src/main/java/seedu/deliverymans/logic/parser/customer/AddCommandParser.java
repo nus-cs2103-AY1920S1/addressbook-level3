@@ -7,7 +7,6 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.logic.commands.customer.AddCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
@@ -16,6 +15,7 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.customer.Customer;
 
 /**

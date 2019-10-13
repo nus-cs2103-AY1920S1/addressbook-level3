@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.addressbook.exceptions.CommandException;
 import seedu.deliverymans.model.addressbook.Model;
+import seedu.deliverymans.model.addressbook.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using its displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 

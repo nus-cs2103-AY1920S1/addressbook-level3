@@ -2,9 +2,9 @@ package seedu.deliverymans.logic.commands.addressbook;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.deliverymans.model.addressbook.person.NameContainsKeywordsPredicate;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.model.addressbook.Model;
+import seedu.deliverymans.model.addressbook.person.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
