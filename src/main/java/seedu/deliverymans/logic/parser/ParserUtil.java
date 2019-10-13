@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Email;
-import seedu.deliverymans.model.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.StringUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.addressbook.person.Email;
+import seedu.deliverymans.model.addressbook.person.Phone;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

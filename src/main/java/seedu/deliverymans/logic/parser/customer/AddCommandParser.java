@@ -1,6 +1,12 @@
 package seedu.deliverymans.logic.parser.customer;
 
-import seedu.address.model.tag.Tag;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.deliverymans.logic.commands.customer.AddCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
@@ -9,15 +15,12 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.customer.Customer;
 
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
-
+/**
+ * Parses input arguments and creates a new AddCommand object
+ */
 public class AddCommandParser implements Parser<AddCommand> {
 
     /**

@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.model.Model;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.customer.Customer;
 
 /**
  * Adds a customer to the system.
@@ -42,12 +42,13 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        /*
         if (model.hasCustomer(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 
         model.addCustomer(toAdd);
+        */
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

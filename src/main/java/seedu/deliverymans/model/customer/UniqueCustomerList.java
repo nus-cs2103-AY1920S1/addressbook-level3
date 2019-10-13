@@ -11,6 +11,9 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.customer.exceptions.CustomerNotFoundException;
 import seedu.deliverymans.model.customer.exceptions.DuplicateCustomerException;
 
+/**
+ * Unique list of customers
+ */
 public class UniqueCustomerList implements Iterable<Customer> {
 
     private final ObservableList<Customer> internalList = FXCollections.observableArrayList();
