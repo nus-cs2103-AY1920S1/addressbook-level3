@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Date implements Comparable<Date> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Day should match with month.";
+            "Day should match with month and year.";
 
     private java.util.Date date;
     private Day day;
