@@ -55,11 +55,19 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         TransactionType transactionType = ParserUtil.parseTransactionType(argMultimap
                 .getValue(PREFIX_TRANSACTION_TYPE).get());
 
-        Date date = new Date(day, month, year);
+        Date date = constructDate(day, month, year);
 
         Transaction transaction = new Transaction(description, amount, category, date, transactionType);
 
         return new AddTransactionCommand(transaction);
+    }
+
+    private static Date constructDate(Day day, Month month, Year year) throws ParseException {
+        if (Date.isValidDate(day, month, year)) {
+            return new Date(day, month, year);
+        } else {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**
