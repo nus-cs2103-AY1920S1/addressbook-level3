@@ -4,14 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -20,29 +16,24 @@ import seedu.address.model.transaction.Transaction;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    // TODO: integrate bank account into modelManager, remove stub
-    private final BankAccount bankAccount = new BankAccount();
+    private final BankAccount bankAccount;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given bankAccount and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBankAccount bankAccount, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(bankAccount, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bank account" + bankAccount + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.bankAccount = new BankAccount(bankAccount);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
-
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new BankAccount(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -69,71 +60,46 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     //=========== Bank Account =============================================================
+
+    @Override
+    public Path getBankAccountFilePath() {
+        return userPrefs.getBankAccountFilePath();
+    }
+
+    @Override
+    public void setBankAccountFilePath(Path bankAccountFilePath) {
+        requireNonNull(bankAccountFilePath);
+        userPrefs.setBankAccountFilePath(bankAccountFilePath);
+    }
+
+    // TODO: implement stubs below
+    @Override
+    public void setBankAccount(ReadOnlyBankAccount bankAccount) {
+
+    }
+
+    @Override
+    public ReadOnlyBankAccount getBankAccount() {
+        return null;
+    }
+
+    @Override
+    public boolean hasTransaction(Transaction transaction) {
+        return false;
+    }
+
+    @Override
+    public void deleteTransaction(Transaction transaction) {
+
+    }
+
+    @Override
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+
+    }
+    // stubs end here
+
     @Override
     public void addTransaction(Transaction transaction) {
         bankAccount.addTransaction(transaction);
@@ -153,9 +119,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return bankAccount.equals(other.bankAccount)
+                && userPrefs.equals(other.userPrefs);
     }
 
 }
