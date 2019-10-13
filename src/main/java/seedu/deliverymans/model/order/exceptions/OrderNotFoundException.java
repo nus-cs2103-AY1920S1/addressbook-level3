@@ -1,4 +1,7 @@
 package seedu.deliverymans.model.order.exceptions;
 
-public class OrderNotFoundException {
+/**
+ * Signals that the operation is unable to find the specified customer.
+ */
+public class OrderNotFoundException extends RuntimeException {
 }
