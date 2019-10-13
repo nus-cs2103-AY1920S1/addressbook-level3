@@ -23,9 +23,10 @@ public class Result {
     public Result(String result) {
         requireNonNull(result);
         checkArgument(isValidResult(result), MESSAGE_CONSTRAINTS);
-        if (Integer.parseInt(result) > 100 ) {
+        if (Integer.parseInt(result) > 100) {
             //throw exception here
         }
+
         value = result;
     }
 

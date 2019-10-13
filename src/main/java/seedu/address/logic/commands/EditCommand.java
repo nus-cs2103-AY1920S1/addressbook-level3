@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +14,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classid.ClassId;
-import seedu.address.model.person.Result;
-import seedu.address.model.person.Picture;
-import seedu.address.model.person.Participation;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Participation;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Picture;
+import seedu.address.model.person.Result;
 
 
 /**
@@ -90,11 +88,13 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Result updatedResult = editPersonDescriptor.getResult().orElse(personToEdit.getResult());
         ClassId updatedClassId = editPersonDescriptor.getClassId().orElse(personToEdit.getClassId());
-        Participation updatedParticipation = editPersonDescriptor.getParticipation().orElse(personToEdit.getParticipation());
+        Participation updatedParticipation = editPersonDescriptor.getParticipation()
+                .orElse(personToEdit.getParticipation());
         Picture updatedPicture = editPersonDescriptor.getPicture().orElse(personToEdit.getPicture());
         Attendance updatedAttendance = editPersonDescriptor.getAttendance().orElse(personToEdit.getAttendance());
 
-        return new Person(updatedName, updatedPicture, updatedClassId, updatedAttendance, updatedResult, updatedParticipation);
+        return new Person(updatedName, updatedPicture, updatedClassId,
+                updatedAttendance, updatedResult, updatedParticipation);
     }
 
     @Override

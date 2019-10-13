@@ -32,7 +32,8 @@ public class Person {
         this.participation = new Participation("0");
     }
 
-    public Person(Name name, Picture picture, ClassId classId, Attendance attendance, Result result, Participation participation) {
+    public Person(Name name, Picture picture, ClassId classId, Attendance attendance,
+                  Result result, Participation participation) {
         requireAllNonNull(name, picture);
         this.name = name;
         this.picture = picture;
@@ -69,7 +70,9 @@ public class Person {
     public void setClassId(String value) {
         classId = new ClassId(value);
     }
-
+    /**
+     * Increases attendance of the person by 1.
+     */
     public void increaseAttendance() {
         String currentAttendance = attendance.value;
         int attendanceVal = Integer.parseInt(currentAttendance);

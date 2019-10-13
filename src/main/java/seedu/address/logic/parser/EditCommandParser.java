@@ -2,13 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPATION;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESULT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -28,7 +27,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PICTURE, PREFIX_CLASSID, PREFIX_ATTENDANCE, PREFIX_RESULT, PREFIX_PARTICIPATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PICTURE, PREFIX_CLASSID,
+                        PREFIX_ATTENDANCE, PREFIX_RESULT, PREFIX_PARTICIPATION);
 
         Index index;
 
@@ -49,13 +49,15 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setClassId(ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get()));
         }
         if (argMultimap.getValue(PREFIX_ATTENDANCE).isPresent()) {
-            editPersonDescriptor.setAttendance(ParserUtil.parseAttendance(argMultimap.getValue(PREFIX_ATTENDANCE).get()));
+            editPersonDescriptor
+                    .setAttendance(ParserUtil.parseAttendance(argMultimap.getValue(PREFIX_ATTENDANCE).get()));
         }
         if (argMultimap.getValue(PREFIX_RESULT).isPresent()) {
             editPersonDescriptor.setResult(ParserUtil.parseResult(argMultimap.getValue(PREFIX_RESULT).get()));
         }
         if (argMultimap.getValue(PREFIX_PARTICIPATION).isPresent()) {
-            editPersonDescriptor.setParticipation(ParserUtil.parseParticipation(argMultimap.getValue(PREFIX_PARTICIPATION).get()));
+            editPersonDescriptor
+                    .setParticipation(ParserUtil.parseParticipation(argMultimap.getValue(PREFIX_PARTICIPATION).get()));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

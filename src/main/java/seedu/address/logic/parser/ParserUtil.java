@@ -2,16 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.classid.ClassId;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Attendance;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Participation;
+import seedu.address.model.person.Picture;
+import seedu.address.model.person.Result;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
