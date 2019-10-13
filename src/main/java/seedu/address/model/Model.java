@@ -75,8 +75,6 @@ public interface Model {
 
     ObservableList<Book> getOverdueBooks();
 
-    public ObservableList<Borrower> getOverdueBooksBorrowers();
-
     // ================================================================ LoanRecords
 
     Path getLoanRecordsFilePath();

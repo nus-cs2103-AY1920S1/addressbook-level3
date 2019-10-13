@@ -4,13 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -187,20 +184,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Book> getOverdueBooks() {
         return catalog.getOverdueBooks();
-    }
-
-    /**
-     * Returns a list of overdue books in the catalog.
-     *
-     * @return an <code>ObservableList</code> of overdue books.
-     */
-    @Override
-    public ObservableList<Borrower> getOverdueBooksBorrowers() {
-        List<Borrower> borrowers = catalog.getOverdueBooksBorrowersId()
-                .stream()
-                .map(borrowerId -> borrowerRecords.getBorrowerFromId(borrowerId))
-                .collect(Collectors.toList());
-        return FXCollections.observableArrayList(borrowers);
     }
 
     /**

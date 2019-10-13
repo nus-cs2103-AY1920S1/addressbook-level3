@@ -149,11 +149,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Borrower> getOverdueBooksBorrowers() {
-            return null;
-        }
-
-        @Override
         public ObservableList<Book> getFilteredBookList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -210,17 +205,17 @@ public class AddCommandTest {
 
         @Override
         public boolean hasBorrower(Borrower borrower) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void registerBorrower(Borrower borrower) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetGenerator() {
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 
