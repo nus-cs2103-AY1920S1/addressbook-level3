@@ -48,6 +48,10 @@ public class Task {
         return complete;
     }
 
+    public Task changePriority(Priority priority) {
+        return new Task(priority, isComplete());
+    }
+
     public Task markComplete() {
         return new Task(getPriority(), true);
     }
@@ -56,9 +60,6 @@ public class Task {
         return new Task(getPriority(), false);
     }
 
-    public Task changePriority(Priority priority) {
-        return new Task(priority, isComplete());
-    }
 
     @Override
     public String toString() {
