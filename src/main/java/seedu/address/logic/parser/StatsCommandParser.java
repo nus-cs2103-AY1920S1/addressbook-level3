@@ -34,8 +34,16 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         Calendar startingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_STARTING_DATE).get());
         Calendar endingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_ENDING_DATE).get());
 
-
-        return new StatsCommand(startingDate, endingDate, StatisticType.REVENUE);
+        switch (type) {
+        case COST:
+            return new StatsCommand(startingDate, endingDate, StatisticType.COST);
+        case PROFIT:
+            return new StatsCommand(startingDate, endingDate, StatisticType.PROFIT);
+        case REVENUE:
+            return new StatsCommand(startingDate, endingDate, StatisticType.REVENUE);
+        default:
+            throw new ParseException("WRONG STATISTIC TYPE");
+        }
     }
 
     /**
