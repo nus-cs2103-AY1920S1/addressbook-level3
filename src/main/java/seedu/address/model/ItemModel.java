@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * The API of the Model component.
@@ -58,7 +58,7 @@ public interface ItemModel {
 
     public Item deleteItem(int index);
 
-    public ItemList getVisualList();
+    public VisualizeList getVisualList();
 
     public void setVisualList(String listString) throws IllegalValueException;
 

@@ -8,25 +8,23 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.EventList;
-import seedu.address.model.item.ItemList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Represents the model for ELISA
  */
 public class ItemModelManager implements ItemModel {
-    private ItemList itemList;
     private TaskList taskList;
     private EventList eventList;
     private ReminderList reminderList;
     // The list to be used for visualizing in the Ui
-    private ItemList visualList;
+    private VisualizeList visualList;
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
-        this.itemList = itemStorage.getItems();
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
@@ -34,8 +32,8 @@ public class ItemModelManager implements ItemModel {
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
 
-        for (Item item: itemList.getList()) {
-            addToSeparateList(item);
+        for (int i = 0; i < itemStorage.size(); i++) {
+            addToSeparateList(itemStorage.get(i));
         }
     }
 
@@ -90,7 +88,7 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added to the program
      */
     public void addItem (Item item) {
-        itemList.add(item);
+        itemStorage.add(item);
         addToSeparateList(item);
     }
 
@@ -99,7 +97,7 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added to the list
      * @param il the list the item is to be added to
      */
-    public void addItem (Item item, ItemList il) {
+    public void addItem (Item item, VisualizeList il) {
         il.add(item);
     }
 
@@ -148,14 +146,14 @@ public class ItemModelManager implements ItemModel {
      */
     public Item deleteItem(int index) {
         Item item = visualList.remove(index);
-        itemList.remove(item);
+        itemStorage.remove(item);
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
         return item;
     }
 
-    public ItemList getVisualList() {
+    public VisualizeList getVisualList() {
         return this.visualList;
     }
 
@@ -179,7 +177,7 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
-    private void setVisualList(ItemList il) {
+    private void setVisualList(VisualizeList il) {
         this.visualList = il;
     }
 
@@ -192,8 +190,8 @@ public class ItemModelManager implements ItemModel {
         int index = visualList.indexOf(item);
         visualList.setItem(index, newItem);
 
-        if ((index = itemList.indexOf(item)) >= 0) {
-            itemList.setItem(index, newItem);
+        if ((index = itemStorage.indexOf(item)) >= 0) {
+            itemStorage.setItem(index, newItem);
         }
 
         if ((index = taskList.indexOf(item)) >= 0) {
@@ -214,7 +212,7 @@ public class ItemModelManager implements ItemModel {
      * @param searchString the string to search for within the description
      * @return the item list containing all the items that contain the search string
      */
-    public ItemList findItem(String searchString) {
+    public VisualizeList findItem(String searchString) {
         this.visualList = visualList.find(searchString);
         return this.visualList;
     }
