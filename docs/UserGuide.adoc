@@ -120,7 +120,7 @@ Examples:
 * `txfind m/5 y/2019 c/Education` +
 Finds all transactions in the current list from May 2019 from the category "Education".
 
-==== List all transactions: `txlist`                    
+==== List all transactions: `txlist`
 Lists all transactions. +
 Format `txlist`
 
@@ -196,7 +196,7 @@ Format: `loanshow [s/KEYWORD]`
 Examples:
 
 * `loanshow s/charlie` +
-Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown. 
+Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown.
 
 ==== Adding new loan: `loantotal`
 
@@ -406,10 +406,8 @@ Displays expenditure ranking chart for July 2019.
 * *Month-Based Ranking Chart* : `amthrank [y/YEAR]`
 * *Ranking Chart* : `aexprank [m/MONTH] [y/YEAR]`
 * *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`
-* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]` 
+* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`
 * *Loan Categorical Search* : `loanshow [s/KEYWORD]`
 * *Loan Net Amount* : `loantotal [s/KEYWORD]`
 * *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`
 * *Loan Sort By Value* : `loansort s/BY`
-
-1

@@ -353,9 +353,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|user who wants to keep track of money owed |view all positive loans |see all money people owe me
 
-|`* * *`|user who wants to keep track of money owed |view all negative loans |see all money i owe people 
+|`* * *`|user who wants to keep track of money owed |view all negative loans |see all money i owe people
 
-|`* *`|user who wants to keep track of money owed |select loans by names/keywords |see all loans by a particular person 
+|`* *`|user who wants to keep track of money owed |select loans by names/keywords |see all loans by a particular person
 
 |`* * *`|user who wants to keep track of money owed |new loan in the list |add a new loan to keep track of
 
@@ -506,7 +506,7 @@ Use case ends
 
 [discrete]
 === Use case: Mark loans as part done
- 
+
 *MSS*
 
 1. User requests to mark a lone as paid off.
