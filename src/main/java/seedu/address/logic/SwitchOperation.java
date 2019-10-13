@@ -93,7 +93,7 @@ public class SwitchOperation {
         } else if (args.equals("finance")) {
             Config config = MainApp.getConfig();
             seedu.address.storage.finance.UserPrefsStorage userPrefsStorage =
-                    new JsonFinanceUserPrefsStorage(config.getUserPrefsFilePath());
+                    new JsonFinanceUserPrefsStorage(config.getFinanceUserPrefsFilePath());
             userFinancePrefs = initPrefs(userPrefsStorage);
             seedu.address.storage.finance.FinanceStorage addressBookStorage =
                     new JsonFinanceStorage(userFinancePrefs.getAddressBookFilePath());
