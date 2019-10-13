@@ -40,7 +40,7 @@ public class ExamRunner implements Exam {
     private void iterateThroughDeck() {
         for (FlashCard card : deck.getCards()) {
             //Load front of card
-            card.renderFront();
+            System.out.println(card.getFront());
             // Ask user for input
             String ans = promptUserInput();
             // Check if the answer is correct
@@ -48,7 +48,7 @@ public class ExamRunner implements Exam {
                 score++;
             }
             //Display the correct answer
-            card.renderBack();
+            System.out.println("Correct Answer:" + card.getBack());
         }
     }
 

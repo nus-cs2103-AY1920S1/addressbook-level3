@@ -7,6 +7,9 @@ import javafx.scene.Node;
  */
 public interface FlashCard {
 
+    String getFront();
+
+    String getBack();
     /**
      * Returns render of front of this flash card.
      * @return  JavaFX Node
