@@ -25,4 +25,20 @@ public class SplitTransaction extends Transaction {
     public Amount handleBalance(Amount balance) {
         return balance;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof SplitTransaction) {
+            SplitTransaction splitObj = (SplitTransaction) obj;
+            return super.amount.equals(splitObj.amount)
+                    && super.date.equals(splitObj.date)
+                    && super.peopleInvolved.equals(splitObj.peopleInvolved)
+                    && numOfSplits == splitObj.numOfSplits
+                    && splitAmount.equals(splitObj.splitAmount);
+        } else {
+            return false;
+        }
+    }
 }

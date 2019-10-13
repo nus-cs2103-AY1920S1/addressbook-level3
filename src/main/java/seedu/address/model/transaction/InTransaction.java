@@ -15,4 +15,18 @@ public class InTransaction extends Transaction {
         Amount newBalance = balance.addAmount(super.amount);
         return newBalance;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof InTransaction) {
+            InTransaction inObj = (InTransaction) obj;
+            return super.amount.equals(inObj.amount)
+                    && super.date.equals(inObj.date)
+                    && super.peopleInvolved.equals(inObj.peopleInvolved);
+        } else {
+            return false;
+        }
+    }
 }

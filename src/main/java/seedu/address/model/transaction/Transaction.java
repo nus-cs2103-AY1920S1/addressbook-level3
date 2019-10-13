@@ -25,4 +25,7 @@ public abstract class Transaction {
     }
 
     public abstract Amount handleBalance(Amount balance);
+
+    @Override
+    public abstract boolean equals(Object obj);
 }
