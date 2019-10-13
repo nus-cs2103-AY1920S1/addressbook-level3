@@ -1,8 +1,7 @@
 package seedu.address.model.entitylist;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
@@ -17,14 +16,9 @@ import seedu.address.model.entity.PrefixType;
 public class ParticipantList extends EntityList {
     private static int lastUsedId = 0;
 
-    private List<Participant> participants;
-
-    /**
-     * Constructor.
-     */
-    public ParticipantList() {
-        this.participants = new ArrayList<>();
-    }
+    private ObservableList<Participant> participants = FXCollections.observableArrayList();
+    private ObservableList<Participant> unmodifiableParticipants =
+            FXCollections.unmodifiableObservableList(participants);
 
     /**
      * Gets participant by id.
@@ -103,20 +97,30 @@ public class ParticipantList extends EntityList {
     /**
      * Gets the list but with element type Participant.
      *
-     * @return List of Participants.
+     * @return {@code ObservableList<Participant>}
      */
-    public List<Participant> getSpecificTypedList() {
+    public ObservableList<Participant> getSpecificTypedList() {
         return this.participants;
     }
 
     /**
      * List the participants.
      *
-     * @return List of Participants.
+     * @return {@code ObservableList<? extends Entity>}
      */
     @Override
-    public List<? extends Entity> list() {
+    public ObservableList<? extends Entity> list() {
         return this.participants;
+    }
+
+    /**
+     * Lists the unmodifiable Participants.
+     *
+     * @return {@code ObservableList<? extends Entity>}
+     */
+    @Override
+    public ObservableList<? extends Entity> getUnmodifiableList() {
+        return this.unmodifiableParticipants;
     }
 
     /**

@@ -1,8 +1,7 @@
 package seedu.address.model.entitylist;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
@@ -17,14 +16,9 @@ import seedu.address.model.entity.Team;
 public class TeamList extends EntityList {
     private static int lastUsedId = 0;
 
-    private List<Team> teams;
-
-    /**
-     * Constructor.
-     */
-    public TeamList() {
-        this.teams = new ArrayList<>();
-    }
+    private final ObservableList<Team> teams = FXCollections.observableArrayList();
+    private final ObservableList<Team> unmodifiableTeams =
+            FXCollections.unmodifiableObservableList(teams);
 
     /**
      * Gets team by their ID.
@@ -95,7 +89,7 @@ public class TeamList extends EntityList {
      *
      * @return List of Teams.
      */
-    public List<Team> getSpecificTypedList() {
+    public ObservableList<Team> getSpecificTypedList() {
         return this.teams;
     }
 
@@ -104,8 +98,18 @@ public class TeamList extends EntityList {
      *
      * @return List of Teams.
      */
-    public List<? extends Entity> list() {
+    public ObservableList<? extends Entity> list() {
         return this.teams;
+    }
+
+    /**
+     * List the unmodifiable team of mentors.
+     *
+     * @return {@code ObservableList<? extends Entity>}
+     */
+    @Override
+    public ObservableList<? extends Entity> getUnmodifiableList() {
+        return this.unmodifiableTeams;
     }
 
     /**

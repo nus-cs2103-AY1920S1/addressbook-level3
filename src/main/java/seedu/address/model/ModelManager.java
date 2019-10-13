@@ -46,6 +46,10 @@ public class ModelManager implements Model {
     private TeamList teamList = new TeamList();
     private MentorList mentorList = new MentorList();
 
+    private FilteredList<Participant> filteredParticipantList = null;
+    private FilteredList<Team> filteredTeamList = null;
+    private FilteredList<Mentor> filteredMentorList = null;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -115,6 +119,14 @@ public class ModelManager implements Model {
             logger.warning("MentorList is empty in storage. Writing a new one.");
             this.mentorList = new MentorList();
         }
+
+        this.filteredParticipantList =
+                new FilteredList<>(this.participantList.getSpecificTypedList());
+        this.filteredMentorList =
+                new FilteredList<>(this.mentorList.getSpecificTypedList());
+        this.filteredTeamList =
+                new FilteredList<>(this.teamList.getSpecificTypedList());
+
         // Optional TODO: reimplement this logic here.
         // Optional<ReadOnlyAddressBook> addressBookOptional;
         // ReadOnlyAddressBook initialData;
@@ -195,6 +207,18 @@ public class ModelManager implements Model {
      */
     public ReadOnlyEntityList getMentorList() {
         return this.mentorList;
+    }
+
+    public FilteredList<Participant> getFilteredParticipantList() {
+        return this.filteredParticipantList;
+    }
+
+    public FilteredList<Mentor> getFilteredMentorList() {
+        return this.filteredMentorList;
+    }
+
+    public FilteredList<Team> getFilteredTeamList() {
+        return this.filteredTeamList;
     }
 
     //========== Entity Methods =============================
