@@ -16,6 +16,8 @@ import seedu.address.inventory.model.Item;
  */
 public class Cashier extends UiPart<Region> {
 
+    private static final String FXML = "Cashier.fxml";
+
     @FXML
     private TableView<Item> tableView;
     @FXML
@@ -29,6 +31,24 @@ public class Cashier extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> subtotalCol;
 
+    public Cashier (Logic logic) throws Exception {
+        super(FXML);
+        tableView.getItems().setAll(parseTransactionList(logic));
+        idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, String>("quantity"));
+        subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
+    }
+
+    /**
+     * Parse and construct user datamodel list by looping through a list.
+     * Returns the list.
+     *
+     * @param logic the logic to be used
+     * @return the list of sales with ID updated
+     * @throws Exception if an item is invalid
+     */
     private List<Item> parseTransactionList(Logic logic) throws Exception {
         // parse and construct User datamodel list by looping your ResultSet rs
         // and return the list
@@ -40,17 +60,6 @@ public class Cashier extends UiPart<Region> {
         return list;
     }
 
-    private static final String FXML = "Cashier.fxml";
-
-    public Cashier (Logic logic) throws Exception {
-        super(FXML);
-        tableView.getItems().setAll(parseTransactionList(logic));
-        idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<Item, String>("quantity"));
-        subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
-    }
 
 }
 
