@@ -102,4 +102,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
+
+    // ===================== MODULE INFORMATION ==========================
+
+    /**
+     * Returns true if the module code is a valid, false otherwise.
+     */
+    boolean isValidModuleCode(String moduleCode);
+
+    /**
+     * Returns the module information.
+     */
+    String getModuleInformation(String moduleCode);
 }
