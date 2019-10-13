@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.savenus.logic.commands.CommandTestUtil.ASC_DIRECTION;
+import static seedu.savenus.logic.commands.CommandTestUtil.NAME_FIELD;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
@@ -15,12 +17,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.ClearCommand;
+import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
@@ -85,6 +89,18 @@ public class MenuParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " " + NAME_FIELD
+            + " " + ASC_DIRECTION) instanceof SortCommand);
+    }
+
+    @Test
+    public void parseCommand_default() throws Exception {
+        assertTrue(parser.parseCommand(DefaultCommand.COMMAND_WORD) instanceof DefaultCommand);
+        assertTrue(parser.parseCommand(DefaultCommand.COMMAND_WORD + " 3") instanceof DefaultCommand);
     }
 
     @Test
