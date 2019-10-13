@@ -233,34 +233,65 @@ Sample output:
 `Invalid operation. Module CS1010S session 2 does not exist in student
 A0180001A's timetable`
 
-<<<<<<< HEAD
-=== Approve or reject an appeal `approve` & `reject`
+=== Switching modules for students: `switchmod`
+Switch out one module for another for a specific student
 
-==== Approve an appeal
-This command allows the user to approve an appeal and MAMS will mark the appeal as resolved.
-
-Format: `approve APPEAL_INDEX`
+Format: `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
 
 Examples:
-*  `approve 2`
+
+* `switchmod A0180000A CS1010S CS1010J`
 
 Sample output:
-`Appeal of UC01233 has been approved`
 
-==== Reject an appeal
-This command allows the user to reject an appeal and MAMS will mark the appeak as resolved.
+`Switched CS1010S for CS1010J for student A0180000A`
 
-Format: `reject APPEAL_INDEX`
+=== Update maximum workload for a student: `set`
+Sets an existing student’s maximum modular credit for this semester to a new value.
+
+Format: `set STUDENT_ID NEW_MC` New MC must be a positive integer
 
 Examples:
-*  `reject 3`
+
+* `set A0111111B 28`
 
 Sample output:
-`Appeal of UC12232 has been rejected`
 
+`Updated  maximum workload of student A0111111B to 28 MC.`
 
-=======
+=== Add special remarks to a student’s particulars page: `remark`
+This command allows the administrator to add special remarks to a student’s particulars page. It can be used as a reminder or note eg. a special remark to indicate that student is exempted from a prerequisite. A timestamp will be prefixed to the remark automatically.
 
+Format: `remark STUDENT_ID REMARKS`
+
+Example:
+
+* `remark A0134939W Timetable clash waivered`
+
+Sample Output:
+
+`Under the remarks sections of the particulars page for A0134939W, the following message “[18/09/2019 18:00] Timetable clash waivered” will be appended.`
+
+=== Approve an appeal: `approve`
+Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
+
+Format: `approve APPEAL_ID [APPEAL_MESSAGE]`
+
+Examples:
+
+* `approve 193848 Request for MC limit increase approved. Reminder to balance your workload carefully.`
+
+Sample Output:
+
+`Approve the appeal with ID 193848, with the following student-viewable message: “Request for MC limit increase approved. Reminder to balance your workload carefully.”`
+
+=== Reject an appeal: `reject`
+Marks an existing appeal as rejected. with an optional message that can be supplied in the remarks section of the appeal results.
+
+Format: `reject APPEAL_ID [APPEAL_MESSAGE]`
+
+Examples: `reject 1`
+Marks the 1st appeal in the filtered list as rejected.
 
 === Saving the data
 
@@ -318,5 +349,3 @@ Marks the 2nd appeal in the appeal list as approved.
 * **reject** `reject INDEX`
 - e.g. `reject 3`
 Marks the 3rd appeal in the filtered list as rejected.
-
-
