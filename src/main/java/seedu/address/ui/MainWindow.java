@@ -175,6 +175,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwitchViews()) {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
+            
+            if (commandResult.isUndo()) {
+
+            }
 
             taskListPanel = new TaskListPanel(logic.getVisualList());
             taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
@@ -184,12 +188,6 @@ public class MainWindow extends UiPart<Stage> {
 
             reminderListPanel = new ReminderListPanel(logic.getVisualList());
             reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
-            if (commandResult.isUndo()) {
-
-            }
-
-            personListPanel = new PersonListPanel(logic.getVisualList());
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

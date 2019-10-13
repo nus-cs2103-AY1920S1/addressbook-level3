@@ -59,6 +59,7 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         state = new ElisaStateManager(storage, model.getVisualList());
+        //state.pushCommand();
 
         logic = new LogicManager(model, storage);
 
