@@ -23,6 +23,7 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
+import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -175,6 +176,12 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFoodList(Predicate<Food> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RecommendationSystem getRecommendationSystem() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -183,7 +190,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetRecommendationComparator() {
+        public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecommendationSystemInUse(boolean inUse) {
+            // Empty stub
         }
     }
 

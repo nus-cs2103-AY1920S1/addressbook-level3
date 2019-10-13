@@ -6,7 +6,6 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -19,7 +18,7 @@ import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the menu data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -27,8 +26,7 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
-
-    private Optional<Comparator<Food>> recommendationComparator;
+    private final RecommendationSystem recommendationSystem;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
@@ -43,8 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
 
-        // Initialize recommendationComparator to default
-        recommendationComparator = Optional.empty();
+        this.recommendationSystem = new RecommendationSystem();
     }
 
     public ModelManager() {
@@ -159,11 +156,9 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
-        if (recommendationComparator.isPresent()) {
-            return filteredFoods.sorted(recommendationComparator.get());
-        } else {
-            return filteredFoods;
-        }
+        return filteredFoods
+                .filtered(recommendationSystem.getRecommendationPredicate())
+                .sorted(recommendationSystem.getRecommendationComparator());
     }
 
 
@@ -173,16 +168,27 @@ public class ModelManager implements Model {
         filteredFoods.setPredicate(predicate);
     }
 
-    // Updates the comparator used for recommendations
+    //=========== Recommendation System =============================================================
     @Override
-    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
-        requireNonNull(recommendationComparator);
-        this.recommendationComparator = Optional.of(recommendationComparator);
+    public RecommendationSystem getRecommendationSystem() {
+        return recommendationSystem;
     }
 
     @Override
-    public void resetRecommendationComparator() {
-        this.recommendationComparator = Optional.empty();
+    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
+        requireNonNull(recommendationComparator);
+        this.recommendationSystem.setRecommendationComparator(recommendationComparator);
+    }
+
+    @Override
+    public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
+        requireNonNull(recommendationPredicate);
+        this.recommendationSystem.setRecommendationPredicate(recommendationPredicate);
+    }
+
+    @Override
+    public void setRecommendationSystemInUse(boolean inUse) {
+        this.recommendationSystem.setInUse(inUse);
     }
 
     @Override
