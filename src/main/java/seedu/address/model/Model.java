@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.loan.Loan;
 
 /**
  * The API of the Model component.
@@ -71,6 +72,8 @@ public interface Model {
 
     void addBook(Book book);
 
+    Book getBook(SerialNumber bookSn);
+
     void setBook(Book target, Book editedBook);
 
     /** Returns an unmodifiable view of the filtered person list */
@@ -90,6 +93,8 @@ public interface Model {
 
     /** Returns the LoanRecords*/
     ReadOnlyLoanRecords getLoanRecords();
+
+    void addLoan(Loan loan);
 
     // ================================================================ BorrowerRecords
 

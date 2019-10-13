@@ -58,6 +58,10 @@ public class UniqueBookList implements Iterable<Book> {
         booksMap.put(toAdd.getSerialNumber(), toAdd);
     }
 
+    public Book getBook(SerialNumber bookSn) {
+        return booksMap.get(bookSn);
+    }
+
     /**
      * Replaces the book {@code target} in the list with {@code editedBook}.
      * {@code target} must exist in the list.

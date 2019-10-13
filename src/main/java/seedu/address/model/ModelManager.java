@@ -178,6 +178,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Book getBook(SerialNumber bookSn) {
+        return catalog.getBook(bookSn);
+    }
+
+    @Override
     public void setBook(Book target, Book editedBook) {
         requireAllNonNull(target, editedBook);
         catalog.setBook(target, editedBook);

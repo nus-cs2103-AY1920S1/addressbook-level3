@@ -11,7 +11,8 @@ public class LoanId {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Loan ID should start with prefix \"L\", followed by 6 digits. They should be unique.";
-    public static final String VALIDATION_REGEX = "L\\d{6}";
+    public static final String PREFIX = "L";
+    public static final String VALIDATION_REGEX = PREFIX + "\\d{6}";
     public final String value;
 
     /**

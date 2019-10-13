@@ -152,6 +152,10 @@ public class Catalog implements ReadOnlyCatalog {
 
     //// util methods
 
+    public Book getBook(SerialNumber bookSn) {
+        return books.getBook(bookSn);
+    }
+
     @Override
     public String toString() {
         return books.asUnmodifiableObservableList().size() + " books";

@@ -9,7 +9,7 @@ import seedu.address.model.LoanRecords;
  */
 public class LoanIdGenerator {
     public static final int LOAN_ID_LENGTH = 6; // excluding prefix 'L'
-    public static final String PREFIX = "L";
+    public static final String PREFIX = LoanId.PREFIX;
 
     private static int currentLoanIdIndex = 0;
 
@@ -21,14 +21,18 @@ public class LoanIdGenerator {
     }
 
     /**
-     * TODO!!!
+     * Generates a loan ID based on the current loan ID index.
      *
-     * @return
+     * @return A unused {@code LoanId}.
      */
     public static LoanId generateLoanId() {
         currentLoanIdIndex++;
-        // TODO
-        return null;
+        LoanId id = new LoanId(PREFIX + getPadding() + currentLoanIdIndex);
+        while (loanRecords.hasLoan(id)) {
+            currentLoanIdIndex++;
+            id = new LoanId(PREFIX + getPadding() + currentLoanIdIndex);
+        }
+        return id;
     }
 
     private static int getPaddingLength() {
@@ -40,5 +44,9 @@ public class LoanIdGenerator {
         return IntStream.rangeClosed(1, paddingLength)
                 .mapToObj(x -> "0")
                 .reduce("", (a, b) -> a + b);
+    }
+
+    private static String getPadding() {
+        return getPadding(getPaddingLength());
     }
 }
