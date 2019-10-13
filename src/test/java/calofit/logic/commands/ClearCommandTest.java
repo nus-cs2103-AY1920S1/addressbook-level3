@@ -1,32 +1,27 @@
 package calofit.logic.commands;
 
-import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import calofit.model.Model;
-import calofit.model.ModelManager;
-import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
-import calofit.testutil.TypicalDishes;
 
 public class ClearCommandTest {
 
     @Test
     public void execute_emptyDishDatabase_success() {
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
+        Model mock = Mockito.mock(Model.class);
+        Mockito.doNothing().when(mock).setDishDatabase(Mockito.any());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult result = new ClearCommand().execute(mock);
+
+        ArgumentCaptor<DishDatabase> dbCaptor = ArgumentCaptor.forClass(DishDatabase.class);
+        Mockito.verify(mock).setDishDatabase(dbCaptor.capture());
+        Assertions.assertEquals(new DishDatabase(), dbCaptor.getValue());
+        Mockito.verifyNoMoreInteractions(mock);
+
+        Assertions.assertEquals(result.getFeedbackToUser(), ClearCommand.MESSAGE_SUCCESS);
     }
-
-    @Test
-    public void execute_nonEmptyDishDatabase_success() {
-        Model model = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
-        expectedModel.setDishDatabase(new DishDatabase());
-
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
 }
