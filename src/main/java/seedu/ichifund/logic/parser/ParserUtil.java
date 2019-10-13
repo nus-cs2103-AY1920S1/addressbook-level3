@@ -4,16 +4,23 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.commons.util.StringUtil;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
+import seedu.ichifund.model.Amount;
+import seedu.ichifund.model.Description;
+import seedu.ichifund.model.date.Day;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.person.Address;
 import seedu.ichifund.model.person.Email;
 import seedu.ichifund.model.person.Name;
 import seedu.ichifund.model.person.Phone;
 import seedu.ichifund.model.tag.Tag;
+import seedu.ichifund.model.transaction.Category;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +127,29 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static Category parseCategory(String s) {
+        return new Category("StubbyCat");
+    }
+
+    public static Description parseDescription(String s) {
+        return new Description("Descripavsi");
+    }
+
+    public static Amount parseAmount(String s) {
+        return new Amount("10.00");
+    }
+
+    public static Day parseDay(String s) {
+        return new Day("31");
+    }
+
+    public static Month parseMonth(List<String> allValues) {
+        return new Month("10");
+    }
+
+    public static Year parseYear(String s) {
+        return new Year("2019");
     }
 }
