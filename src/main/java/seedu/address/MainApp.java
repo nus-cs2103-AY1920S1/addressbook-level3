@@ -64,14 +64,14 @@ public class MainApp extends Application {
      * or an empty bank account will be used instead if errors occur when reading {@code storage}'s bank account.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyBankAccount> bankAccountOptional;
         ReadOnlyBankAccount initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            bankAccountOptional = storage.readBankAccount();
+            if (!bankAccountOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = bankAccountOptional.orElseGet(SampleDataUtil::getSampleBankAccount);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new BankAccount();
