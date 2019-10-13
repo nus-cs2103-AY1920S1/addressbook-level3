@@ -13,7 +13,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.item.VisualizeList;
 import seedu.address.storage.Storage;
 
 /**
@@ -67,7 +67,7 @@ public class LogicManager implements Logic {
 
      */
     @Override
-    public ItemList getVisualList() {
+    public VisualizeList getVisualList() {
         return model.getVisualList();
     }
 

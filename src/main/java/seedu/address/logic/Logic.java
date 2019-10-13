@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemStorage;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * API of the Logic component
@@ -50,5 +50,5 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     //ObservableList<Person> getFilteredPersonList();
-    ItemList getVisualList();
+    VisualizeList getVisualList();
 }
