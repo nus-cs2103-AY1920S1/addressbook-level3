@@ -1,14 +1,17 @@
 package seedu.address.logic.commands.student;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-public class StudentAddCommand extends StudentCommand{
+/**
+ * Represents a command for adding students.
+ */
+public class StudentAddCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new student\n"
             + "Parameters:\n"
             + "name/ [NAME]\n"
