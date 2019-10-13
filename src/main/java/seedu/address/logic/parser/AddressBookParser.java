@@ -11,10 +11,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 
-import seedu.address.logic.commands.statisticCommand.StatsCommand;
-import seedu.address.logic.commands.statisticCommand.StatsTotalCostOnCompletedCommand;
-import seedu.address.logic.commands.statisticCommand.StatsTotalProfitOnCompletedCommand;
-import seedu.address.logic.commands.statisticCommand.StatsTotalRevenueCompletedCommand;
 import seedu.address.logic.commands.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.SwitchOrderPanelCommand;
 import seedu.address.logic.commands.SwitchPhonePanelCommand;
@@ -28,6 +24,11 @@ import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
+
+import seedu.address.logic.commands.statisticcommand.StatsCommand;
+import seedu.address.logic.commands.statisticcommand.StatsTotalCostOnCompletedCommand;
+import seedu.address.logic.commands.statisticcommand.StatsTotalProfitOnCompletedCommand;
+import seedu.address.logic.commands.statisticcommand.StatsTotalRevenueCompletedCommand;
 
 import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;

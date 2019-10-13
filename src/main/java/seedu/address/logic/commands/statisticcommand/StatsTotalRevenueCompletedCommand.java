@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.statisticCommand;
+package seedu.address.logic.commands.statisticcommand;
 
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.Command;

@@ -13,7 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
 
-import seedu.address.logic.commands.statisticCommand.StatisticType;
+import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.CustomerName;

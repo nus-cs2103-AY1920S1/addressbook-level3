@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.statisticCommand;
+package seedu.address.logic.commands.statisticcommand;
 
 /**
  * To differentiate which type of statistic to calculate

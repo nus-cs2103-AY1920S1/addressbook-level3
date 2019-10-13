@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.Calendar;
 
-import seedu.address.logic.commands.statisticCommand.StatisticType;
+import seedu.address.logic.commands.statisticcommand.StatisticType;
 
 /**
  * Payload class to send user input to logic Manager via commandResult
