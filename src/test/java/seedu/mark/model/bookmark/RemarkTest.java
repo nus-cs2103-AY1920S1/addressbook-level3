@@ -30,9 +30,9 @@ public class RemarkTest {
         assertFalse(Remark.isValidRemark(" r/r")); // contains forward slash
 
         // valid remarks
-        assertTrue(Remark.isValidRemark("Blk 456, Den Road, #01-355"));
+        assertTrue(Remark.isValidRemark("Learning materials for machine learning"));
         assertTrue(Remark.isValidRemark("-")); // one character
-        assertTrue(Remark.isValidRemark("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long remark
+        assertTrue(Remark.isValidRemark("It contains many useful resources for learning physics")); // long remark
     }
 
     @Test

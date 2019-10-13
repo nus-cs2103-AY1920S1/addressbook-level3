@@ -50,7 +50,7 @@ class JsonAdaptedBookmark {
      * Converts a given {@code Bookmark} into this class for Jackson use.
      */
     public JsonAdaptedBookmark(Bookmark source) {
-        name = source.getName().fullName;
+        name = source.getName().value;
         url = source.getUrl().value;
         remark = source.getRemark().value;
         tagged.addAll(source.getTags().stream()

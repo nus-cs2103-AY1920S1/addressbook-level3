@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_FOLDER + "FOLDER] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_URL + "johndoe@example.com"; // TODO: change EditCommand example
+            + PREFIX_URL + "https://luminus.nus.edu.sg";
 
     public static final String MESSAGE_EDIT_BOOKMARK_SUCCESS = "Edited Bookmark: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
