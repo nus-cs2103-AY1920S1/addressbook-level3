@@ -26,8 +26,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.item.EventList;
-import seedu.address.model.item.ItemList;
 import seedu.address.model.item.TaskList;
+import seedu.address.model.item.VisualizeList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -73,7 +73,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        ItemList lastShownList = model.getVisualList();
+        VisualizeList lastShownList = model.getVisualList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -96,7 +96,7 @@ public class EditCommand extends Command {
      * @throws CommandException representing failure to create new edited item
      */
     private static Item createEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor,
-                                         ItemList lastShownList) throws CommandException {
+                                         VisualizeList lastShownList) throws CommandException {
         assert itemToEdit != null;
 
         ItemDescription updatedDescription = editItemDescriptor

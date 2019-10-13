@@ -7,7 +7,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        ItemList lastShownList = model.getVisualList();
+        VisualizeList lastShownList = model.getVisualList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
