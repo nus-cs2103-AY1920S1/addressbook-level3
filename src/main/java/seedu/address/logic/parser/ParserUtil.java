@@ -21,6 +21,13 @@ import seedu.address.model.customer.Email;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.phone.Brand;
+import seedu.address.model.phone.Capacity;
+import seedu.address.model.phone.Colour;
+import seedu.address.model.phone.Cost;
+import seedu.address.model.phone.IdentityNumber;
+import seedu.address.model.phone.PhoneName;
+import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 
 
@@ -162,6 +169,138 @@ public class ParserUtil {
         return new CustomerName(trimmedCustomerName);
     }
 
+    /**
+     * Parses a {@code String brand} into a {@code brand}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code brand} is invalid.
+     */
+    public static Brand parseBrand(String brand) throws ParseException {
+        requireNonNull(brand);
+        String trimmedBrand = brand.trim();
+        if (!Brand.isValidBrand(trimmedBrand)) {
+            throw new ParseException(Brand.MESSAGE_CONSTRAINTS);
+        }
+        return new Brand(trimmedBrand);
+    }
+
+    /**
+     * Parses a {@code String capacity} into a {@code capacity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code capacity} is invalid.
+     */
+    public static Capacity parseCapacity(String capacity) throws ParseException {
+        requireNonNull(capacity);
+        String trimmedCapacity = capacity.trim();
+        if (!Capacity.isValidCapacity(trimmedCapacity)) {
+            throw new ParseException(Capacity.MESSAGE_CONSTRAINTS);
+        }
+
+        switch(trimmedCapacity) {
+        case "8":
+            return Capacity.SIZE_8GB;
+
+        case "16":
+            return Capacity.SIZE_16GB;
+
+        case "32":
+            return Capacity.SIZE_32GB;
+
+        case "64":
+            return Capacity.SIZE_64GB;
+
+        case "128":
+            return Capacity.SIZE_128GB;
+
+        case "256":
+            return Capacity.SIZE_256GB;
+
+        case "512":
+            return Capacity.SIZE_512GB;
+
+        case "1024":
+            return Capacity.SIZE_1024GB;
+
+        default:
+            throw new ParseException(Capacity.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String colour} into a {@code colour}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code colour} is invalid.
+     */
+    public static Colour parseColour(String colour) throws ParseException {
+        requireNonNull(colour);
+        String trimmedColour = colour.trim();
+        if (!Colour.isValidColour(trimmedColour)) {
+            throw new ParseException(Colour.MESSAGE_CONSTRAINTS);
+        }
+        return new Colour(trimmedColour);
+    }
+
+    /**
+     * Parses a {@code String cost} into a {@code cost}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code cost} is invalid.
+     */
+    public static Cost parseCost(String cost) throws ParseException {
+        requireNonNull(cost);
+        String trimmedCost = cost.trim();
+        if (!Cost.isValidCost(trimmedCost)) {
+            throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+        }
+        return new Cost(trimmedCost);
+    }
+
+    /**
+     * Parses a {@code String phoneName} into a {@code phoneName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phoneName} is invalid.
+     */
+    public static PhoneName parsePhoneName(String phoneName) throws ParseException {
+        requireNonNull(phoneName);
+        String trimmedPhoneName = phoneName.trim();
+        if (!PhoneName.isValidPhoneName(trimmedPhoneName)) {
+            throw new ParseException(PhoneName.MESSAGE_CONSTRAINTS);
+        }
+        return new PhoneName(trimmedPhoneName);
+    }
+
+    /**
+     * Parses a {@code String identityNumber} into a {@code identityNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phoneName} is invalid.
+     */
+    public static IdentityNumber parseIdentityNumber(String identityNumber) throws ParseException {
+        requireNonNull(identityNumber);
+        String trimmedIdentityNumber = identityNumber.trim();
+        if (!IdentityNumber.isValidIdentityNumber(trimmedIdentityNumber)) {
+            throw new ParseException(IdentityNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new IdentityNumber(trimmedIdentityNumber);
+    }
+
+    /**
+     * Parses a {@code String serialNumber} into a {@code serialNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code serialNumber} is invalid.
+     */
+    public static SerialNumber parseSerialNumber(String serialNumber) throws ParseException {
+        requireNonNull(serialNumber);
+        String trimmedSerialNumber = serialNumber.trim();
+        if (!SerialNumber.isValidSerialNumber(trimmedSerialNumber)) {
+            throw new ParseException(SerialNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new SerialNumber(trimmedSerialNumber);
+    }
     /**
      * Parses a {@Code String statsInput} into {@Code statisticType}.
      * Leading and trailing whitespaces will be trimmed.
