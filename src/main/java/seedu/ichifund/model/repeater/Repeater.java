@@ -28,19 +28,19 @@ public class Repeater {
         this.monthEndOffset = monthEndOffset;
     }
 
-    public Amount getAmount() {
-        return this.amount;
-    }
-
     public Description getDescription() {
         return this.description;
+    }
+
+    public Amount getAmount() {
+        return this.amount;
     }
 
     public Category getCategory() {
         return this.category;
     }
 
-    public MonthOffset getMonthStartOfset() {
+    public MonthOffset getMonthStartOffset() {
         return this.monthStartOffset;
     }
 

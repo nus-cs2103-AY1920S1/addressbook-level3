@@ -13,20 +13,16 @@ public class MonthOffset {
         "Month offset should be an integer between 1 and 28 inclusive. An empty month offset is also allowed.";
     public static final String VALIDATION_REGEX = "$[0-9]*^";
 
-    public final Integer offset;
+    public final Integer value;
 
     public MonthOffset(String offset) {
         requireNonNull(offset);
         checkArgument(isValidOffset(offset), MESSAGE_CONSTRAINTS);
         if (offset.equals("")) {
-            this.offset = null;
+            this.value = null;
         } else {
-            this.offset = Integer.parseInt(offset);
+            this.value = Integer.parseInt(offset);
         }
-    }
-
-    private MonthOffset(int offset) {
-        this.offset = offset;
     }
 
     /**
@@ -45,10 +41,10 @@ public class MonthOffset {
 
     @Override
     public String toString() {
-        if (this.offset == null) {
-            return "none";
+        if (this.value == null) {
+            return "";
         } else {
-            return this.offset.toString();
+            return this.value.toString();
         }
     }
 
