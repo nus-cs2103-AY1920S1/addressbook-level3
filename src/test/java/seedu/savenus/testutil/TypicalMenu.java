@@ -100,7 +100,7 @@ public class TypicalMenu {
     }
 
     public static Wallet getTypicalWallet() {
-        return new Wallet("100", "30");
+        return new Wallet();
     }
 
     public static List<Food> getTypicalFood() {
