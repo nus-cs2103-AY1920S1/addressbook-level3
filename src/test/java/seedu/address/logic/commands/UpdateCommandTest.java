@@ -2,11 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
+import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
+import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +49,8 @@ public class UpdateCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
 
+        // Checks integration with UndoableCommand
+        assertEquals(updateCommand.getCommandState(), UndoableCommand.UndoableCommandState.UNDOABLE);
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
@@ -98,6 +105,29 @@ public class UpdateCommandTest {
         assertEquals(descriptor.getCauseOfDeath().get(), body.getCauseOfDeath());
     }
 
+    @Test
+    public void undo_previouslyExecuted_success() throws CommandException {
+        UndoableCommand updateCommand = TYPICAL_UPDATE_COMMAND;
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addEntity(TYPICAL_BODY);
+        updateCommand.execute(model);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addEntity(TYPICAL_BODY);
+        expectedModel.addExecutedCommand(updateCommand);
+
+        UndoCommand undoCommand = new UndoCommand();
+
+        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
+        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void undo_notExecutedBefore_undoFailureException() {
+        UndoableCommand updateCommand = TYPICAL_UPDATE_COMMAND;
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertThrows(CommandException.class, () -> updateCommand.undo(model), MESSAGE_NOT_EXECUTED_BEFORE);
+    }
 
     @Test
     public void equals() {

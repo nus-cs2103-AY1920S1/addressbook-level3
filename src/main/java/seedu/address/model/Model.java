@@ -33,7 +33,19 @@ public interface Model {
     UndoableCommand getExecutedCommand();
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * Adds an undone UndoableCommand.
+     * @param command an UndoableCommand that was undone.
+     */
+    void addUndoneCommand(UndoableCommand command);
+
+    /**
+     * Gets the last undone UndoableCommand.
+     * @returnthe last undone command.
+     */
+    UndoableCommand getUndoneCommand();
+
+    /**
+     * * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 

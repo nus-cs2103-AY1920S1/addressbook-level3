@@ -92,6 +92,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addUndoneCommand(UndoableCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UndoableCommand getUndoneCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }

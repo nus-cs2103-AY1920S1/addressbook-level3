@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Worker> filteredWorkers;
     private final FilteredList<Body> filteredBodies;
     private final CommandHistory commandHistory;
+    private final CommandHistory undoHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,6 +48,7 @@ public class ModelManager implements Model {
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
         commandHistory = new CommandHistory();
+        undoHistory = new CommandHistory();
 
     }
 
@@ -54,17 +56,43 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    //@@author ambervoong
     //=========== CommandHistory ==================================================================================
+    /**
+     * Adds a command that was executed to the top of a list of executed commands. Note that only
+     * executed UndoableCommands should be in this list.
+     * @param command an UndoableCommand that was executed.
+     */
     public void addExecutedCommand(UndoableCommand command) {
         requireNonNull(command);
         commandHistory.addExecutedCommand(command);
     }
 
+    /**
+     * Returns the last command that was executed and added to the list of executed commands. Note that only
+     * executed UndoableCommands should be in this list.
+     * @return the last executed UndoableCommand.
+     */
     public UndoableCommand getExecutedCommand() {
         return commandHistory.getExecutedCommand();
     }
-    //@@author
+
+    /**
+     * Adds a command that was undone to the top of a list of undone commands. Note that only
+     * executed UndoableCommands should be in this list.
+     * @param command an UndoableCommand that was undone.
+     */
+    public void addUndoneCommand(UndoableCommand command) {
+        undoHistory.addExecutedCommand(command);
+    }
+
+    /**
+     * Returns the last command that was undone and added to the list of undone commands. Note that only
+     * undone UndoableCommands should be in this list.
+     * @return the last undone UndoableCommand.
+     */
+    public UndoableCommand getUndoneCommand() {
+        return undoHistory.getExecutedCommand();
+    }
 
     //=========== UserPrefs ==================================================================================
 

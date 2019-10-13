@@ -86,7 +86,7 @@ public class UpdateCommand extends UndoableCommand {
             + PREFIX_LAST_NAME + " Cthulhu";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid edits to entity: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_ENTITY_NOT_FOUND = "The entity with the specified identification number"
             + "was not found.";
@@ -156,7 +156,7 @@ public class UpdateCommand extends UndoableCommand {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         if (!(getCommandState().equals(UndoableCommandState.UNDOABLE))) {
-            throw new CommandException(MESSAGE_UNDO_FAIL);
+            throw new CommandException(MESSAGE_NOT_EXECUTED_BEFORE);
         }
         try {
             model.setEntity(entity, originalEntityDescriptor.apply(entity));
@@ -164,9 +164,8 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
         setRedoable();
-        // todo: add to redo stack.
+        model.addUndoneCommand(this);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
-        // todo: write test for this.
     }
 
     public Entity getEntityFromId(Model model, IdentificationNumber id, UpdateEntityDescriptor descriptor)

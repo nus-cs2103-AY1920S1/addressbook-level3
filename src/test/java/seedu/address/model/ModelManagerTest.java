@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -27,6 +29,19 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+    }
+
+    @Test
+    public void addExecutedCommand_validUndoableCommand_successfullyAdded() {
+        UndoableCommand updateCommand = TYPICAL_UPDATE_COMMAND;
+        modelManager.addExecutedCommand(updateCommand);
+        assertEquals(modelManager.getExecutedCommand(), updateCommand);
+    }
+
+    @Test
+    public void addExecutedCommand_null_throwsNullPointerException() {
+        UndoableCommand updateCommand = null;
+        assertThrows(NullPointerException.class, () ->modelManager.addExecutedCommand(updateCommand));
     }
 
     @Test

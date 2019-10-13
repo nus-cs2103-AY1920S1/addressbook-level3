@@ -1,27 +1,47 @@
 package seedu.address.logic.history;
 
-//@@author ambervoong
-
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import seedu.address.logic.commands.UndoableCommand;
 
+//@@author ambervoong
 /**
  * Stores UndoableCommands that have been executed.
  */
 public class CommandHistory {
-
-    private Stack<UndoableCommand> historyStack;
+    public static final int MAX_SIZE = 10;
+    private Deque<UndoableCommand> history;
 
     public CommandHistory() {
-        historyStack =  new Stack<UndoableCommand>();
+        history = new LinkedList<UndoableCommand>();
     }
 
+    /**
+     * Adds an executed command to the CommandHistory deque.
+     * @param command an executed command.
+     */
     public void addExecutedCommand(UndoableCommand command) {
-        historyStack.push(command);
+        if (history.size() >= MAX_SIZE) {
+            history.pollLast();
+        } else {
+            history.push(command);
+        }
     }
 
+    /**
+     * Gets the last executed command from the CommandHistory deque.
+     * @return the last executed command.
+     */
     public UndoableCommand getExecutedCommand() {
-        return historyStack.pop();
+        return history.poll();
+    }
+
+    /**
+     * Gets the current size of the CommandHistory deque.
+     * @return an int representing the size of the deque.
+     */
+    public int getSize() {
+        return history.size();
     }
 }
