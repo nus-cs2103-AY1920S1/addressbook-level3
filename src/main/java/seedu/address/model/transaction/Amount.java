@@ -1,18 +1,36 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Amount in terms of cents
  */
 public class Amount {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Amounts should only be in integer or double, and it should not be blank";
+
     private int amount;
 
     public Amount(double amount) {
+        requireNonNull(amount);
+        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         this.amount = (int) Math.floor(amount * 100);
     }
 
     public Amount(int amount) {
+        requireNonNull(amount);
+        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         this.amount = amount;
+    }
+
+    // TODO: Confirm?
+    /**
+     * Returns true if a given value is a valid amount.
+     */
+    public static boolean isValidAmount(double amount) {
+        return true;
     }
 
     /**
