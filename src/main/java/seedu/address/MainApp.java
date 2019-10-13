@@ -7,15 +7,25 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+
+import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaStateHistoryManager;
+import seedu.address.model.ItemModel;
+import seedu.address.model.ItemModelManager;
+import seedu.address.model.ItemStorage;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
+
 import seedu.address.storage.ItemListStorage;
 import seedu.address.storage.JsonItemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -39,7 +49,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected ItemModel model;
     protected Config config;
-    protected ElisaState state;
+    protected ElisaStateHistory stateHistory;
 
     @Override
     public void init() throws Exception {
@@ -58,10 +68,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        state = new ElisaStateManager(storage, model.getVisualList());
-        //state.pushCommand();
+        stateHistory = new ElisaStateHistoryManager();
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage, stateHistory);
 
         ui = new UiManager(logic);
     }

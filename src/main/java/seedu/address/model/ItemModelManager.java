@@ -217,6 +217,11 @@ public class ItemModelManager implements ItemModel {
         return this.visualList;
     }
 
+    @Override
+    public void setVisualizeList(VisualizeList list) {
+        this.visualList = list;
+    }
+
     /**
      * Clears the storage for the current ELISA run.
      */

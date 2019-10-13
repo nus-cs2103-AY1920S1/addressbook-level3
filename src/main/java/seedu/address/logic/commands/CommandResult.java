@@ -16,16 +16,21 @@ public class CommandResult {
 
     private final boolean undo;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews, String targetView, boolean undo) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews,
+                         String targetView, boolean undo) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -70,7 +75,9 @@ public class CommandResult {
         return switchViews;
     }
 
-    public boolean isUndo() { return undo; }
+    public boolean isUndo() {
+        return undo;
+    }
 
     public String getTargetView() {
         return targetView;

@@ -11,6 +11,6 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
-        return new CommandResult("Hello from undo");
+        return new CommandResult("Hello from undo", true);
     }
 }

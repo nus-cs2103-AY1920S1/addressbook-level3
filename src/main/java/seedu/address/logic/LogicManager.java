@@ -11,6 +11,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ElisaState;
+import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaStateManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
@@ -26,11 +29,19 @@ public class LogicManager implements Logic {
     private final ItemModel model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final ElisaStateHistory elisaStateHistory;
 
-    public LogicManager(ItemModel model, Storage storage) {
+    public LogicManager(ItemModel model, Storage storage, ElisaStateHistory elisaStateHistory) {
         this.storage = storage;
         this.model = model;
         addressBookParser = new AddressBookParser();
+        this.elisaStateHistory = elisaStateHistory;
+        elisaStateHistory.pushCommand(new ElisaStateManager(model.getItemStorage(), model.getVisualList()).deepCopy());
+    }
+
+    @Override
+    public ElisaStateHistory getElisaStateHistory() {
+        return elisaStateHistory;
     }
 
     @Override
@@ -69,6 +80,17 @@ public class LogicManager implements Logic {
     @Override
     public VisualizeList getVisualList() {
         return model.getVisualList();
+    }
+
+    @Override
+    public void setState(ElisaStateManager state) {
+        this.model.setItemStorage(state.getStorage());
+        this.model.setVisualizeList(state.getVisualizeList());
+    }
+
+    @Override
+    public ElisaState getState() {
+        return new ElisaStateManager(model.getItemStorage(), model.getVisualList()).deepCopy();
     }
 
     @Override

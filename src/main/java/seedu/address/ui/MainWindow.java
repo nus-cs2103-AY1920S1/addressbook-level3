@@ -12,10 +12,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ElisaStateManager;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -89,7 +90,6 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-
     }
 
     /**
@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param targetView
      */
     private void handleSwitchView(String targetView) {
-        switch(targetView) {
+        switch (targetView) {
         case "T":
             viewsPlaceholder.getSelectionModel().select(0);
             break;
@@ -175,9 +175,12 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwitchViews()) {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
-            
-            if (commandResult.isUndo()) {
 
+            if (commandResult.isUndo()) {
+                logic.getElisaStateHistory().popCommand();
+                logic.setState((ElisaStateManager) logic.getElisaStateHistory().peekCommand());
+            } else {
+                logic.getElisaStateHistory().pushCommand(logic.getState());
             }
 
             taskListPanel = new TaskListPanel(logic.getVisualList());
