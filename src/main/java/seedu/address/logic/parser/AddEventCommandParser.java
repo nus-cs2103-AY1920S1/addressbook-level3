@@ -42,7 +42,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME, PREFIX_EVENT_VENUE,
                 PREFIX_EVENT_HOURS_NEEDED, PREFIX_EVENT_MANPOWER_NEEDED,
-                PREFIX_EVENT_START_DATE, PREFIX_EVENT_END_DATE, PREFIX_TAG)
+                PREFIX_EVENT_START_DATE, PREFIX_EVENT_END_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }

@@ -19,7 +19,7 @@ import seedu.address.model.event.Event;
  */
 public class AddEventCommand extends EventRelatedCommand {
 
-    public static final String COMMAND_WORD = "addEvent";
+    public static final String COMMAND_WORD = "addev";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the event book. "
             + "Parameters: "
