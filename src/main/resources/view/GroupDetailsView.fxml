@@ -10,6 +10,7 @@
     <StackPane fx:id="groupDetailContainer" id="groupDetailContainer">
         <VBox fx:id="groupDetailsView" id="groupDetailsView">
             <StackPane fx:id="groupDetailCard"></StackPane>
+            <StackPane fx:id="groupMembersList"></StackPane>
             <StackPane fx:id="groupSchedule"></StackPane>
         </VBox>
     </StackPane>

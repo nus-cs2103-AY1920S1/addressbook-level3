@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      prefHeight="200.0">
+    <ScrollPane fx:id="listHeaderContainer" prefWidth="950" vbarPolicy="NEVER" hbarPolicy="NEVER">
+        <StackPane fx:id="listHeaders" prefWidth="950" prefHeight="50"></StackPane>
+    </ScrollPane>
+    <ScrollPane fx:id="listMemberContainer" minHeight="150" prefWidth="950" vbarPolicy="NEVER" hbarPolicy="NEVER">
+        <VBox fx:id="listMembers" prefWidth="950" spacing="10"/>
+    </ScrollPane>
+</VBox>

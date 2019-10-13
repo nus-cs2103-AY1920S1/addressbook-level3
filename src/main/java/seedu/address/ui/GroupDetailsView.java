@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
+import seedu.address.ui.util.MemberList;
 
 /**
  * A class to handle the details view of a person or a group.
@@ -20,6 +21,9 @@ public class GroupDetailsView extends UiPart<Region> {
 
     @FXML
     private StackPane groupDetailCard;
+
+    @FXML
+    private StackPane groupMembersList;
 
     @FXML
     private StackPane groupSchedule;
@@ -35,6 +39,7 @@ public class GroupDetailsView extends UiPart<Region> {
         ScheduleView scheduleView = new ScheduleView(schedules);
         GroupCard groupCard = new GroupCard(detailWindowDisplay.getGroupDisplay(), 1);
         groupDetailCard.getChildren().add(groupCard.getRoot());
+        groupMembersList.getChildren().add(new MemberList().getRoot());
         groupSchedule.getChildren().add(scheduleView.getRoot());
     }
 
