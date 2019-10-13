@@ -176,6 +176,8 @@ public class StudyPlan implements Cloneable {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
         }
          */
+        //TODO add core, ue?, ulr? tags
+
         return moduleTagList;
     }
 
