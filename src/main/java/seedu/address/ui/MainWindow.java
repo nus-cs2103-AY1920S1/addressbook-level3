@@ -153,6 +153,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
+            personListPanel = new PersonListPanel(logic.getVisualList());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
