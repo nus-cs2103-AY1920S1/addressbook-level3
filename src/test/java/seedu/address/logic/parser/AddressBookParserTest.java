@@ -7,6 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +26,11 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calendar.DateTime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.BloodSugar;
+import seedu.address.model.record.Concentration;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -35,9 +41,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+
+        LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
+        LocalTime lt = LocalTime.of(8, 0, 0);
+        DateTime dt = new DateTime(ld, lt);
+        BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
+
+        //        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bs));
+        AddCommand command = (AddCommand) parser.parseCommand("add rt/BLOODSUGAR con/12.34 dt/01/01/1970 08:00");
+
+        assertEquals(new AddCommand(bs), command);
     }
 
     @Test

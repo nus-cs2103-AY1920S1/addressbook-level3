@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -19,61 +22,74 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecordBook;
+import seedu.address.model.calendar.DateTime;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.record.BloodSugar;
+import seedu.address.model.record.Bmi;
+import seedu.address.model.record.Concentration;
+import seedu.address.model.record.Height;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.Weight;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodMap;
 
+
 public class AddCommandTest {
 
+    private LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
+    private LocalTime lt = LocalTime.of(8, 0, 0);
+    private DateTime dt = new DateTime(ld, lt);
+    private BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
+    private Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
+
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullRecord_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_recordAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingRecordAdded modelStub = new ModelStubAcceptingRecordAdded();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        //        Person validPerson = new PersonBuilder().build();
+        CommandResult commandResult = new AddCommand(bs).execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, bs), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(bs), modelStub.recordsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateRecord_throwsCommandException() {
+        //        Person validPerson = new PersonBuilder().build();
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        AddCommand addCommand = new AddCommand(bs);
+        ModelStub modelStub = new ModelStubWithRecord(bs);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_RECORD, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addBloodSugarCommand = new AddCommand(bs);
+        AddCommand addBmiCommand = new AddCommand(bmi);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addBloodSugarCommand.equals(addBloodSugarCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addBloodSugarCommandCopy = new AddCommand(bs);
+        assertTrue(addBloodSugarCommand.equals(addBloodSugarCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addBloodSugarCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addBloodSugarCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different record -> returns false
+        assertFalse(addBloodSugarCommand.equals(addBmiCommand));
     }
 
     /**
@@ -156,6 +172,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addRecord(Record toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRecord(Record toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRecordBook getRecordBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public FoodMap getFoodMap() {
             return null;
         }
@@ -200,6 +236,48 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    private class ModelStubAcceptingRecordAdded extends ModelStub {
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
+        }
+
+        @Override
+        public ReadOnlyRecordBook getRecordBook() {
+            return new RecordBook();
+        }
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    private class ModelStubWithRecord extends ModelStub {
+        private final Record record;
+
+        ModelStubWithRecord(Record record) {
+            requireNonNull(record);
+            this.record = record;
+        }
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
         }
     }
 

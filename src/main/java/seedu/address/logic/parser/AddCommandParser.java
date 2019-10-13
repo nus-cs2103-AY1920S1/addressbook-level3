@@ -1,23 +1,27 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODSUGAR_CONCENTRATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BMI_HEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BMI_WEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.calendar.DateTime;
+import seedu.address.model.record.BloodSugar;
+import seedu.address.model.record.Bmi;
+import seedu.address.model.record.Concentration;
+import seedu.address.model.record.Height;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.record.Weight;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -32,22 +36,53 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        RecordType rt = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get());
+        LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
+        LocalTime lt = LocalTime.of(8, 0, 0);
+        DateTime dateTime = new DateTime(ld, lt);
 
-        Person person = new Person(name, phone, email, address, tagList);
+        switch(rt) {
+        case BLOODSUGAR:
+            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION, PREFIX_DATETIME);
+            Concentration concentration = ParserUtil.parseConcentration(
+                argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
+            );
+            //dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+            BloodSugar bloodSugar = new BloodSugar(concentration, dateTime);
+            return new AddCommand(bloodSugar);
 
-        return new AddCommand(person);
+        case BMI:
+            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT, PREFIX_DATETIME);
+            Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_BMI_HEIGHT).get());
+            Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_BMI_WEIGHT).get());
+            //dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+            Bmi bmi = new Bmi(height, weight, dateTime);
+            return new AddCommand(bmi);
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Returns a multimap of new new prefixes.
+     */
+    private ArgumentMultimap checkAllOtherPrefixes(ArgumentMultimap argMultimap, Prefix... prefixes)
+        throws ParseException {
+        String s = argMultimap.getValue(PREFIX_RECORDTYPE).toString();
+        ArgumentMultimap a = ArgumentTokenizer.tokenize(s, prefixes);
+
+        if (!arePrefixesPresent(a, prefixes) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        return a;
     }
 
     /**

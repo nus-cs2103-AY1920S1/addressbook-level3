@@ -12,6 +12,10 @@ import java.time.format.DateTimeFormatter;
  * Represents a date and a time.
  */
 public class DateTime {
+
+    //TODO: constraint
+    public static final String MESSAGE_CONSTRAINTS = "some constraint date time";
+
     private LocalDate date;
     private LocalTime time;
 
@@ -20,6 +24,11 @@ public class DateTime {
         requireNonNull(time);
         this.date = date;
         this.time = time;
+    }
+
+    //TODO: regex for date time
+    public static boolean isValidDateTime(String test) {
+        return true;
     }
 
     public LocalDate getDate() {

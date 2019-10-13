@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.sgm.model.food.FilteredFoodMap;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodMap;
@@ -27,11 +28,14 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FoodMap foodMap;
     private final FilteredFoodMap filteredFoodMap;
+    private final RecordBook recordBook;
+    private final FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, FoodMap foodMap) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, FoodMap foodMap,
+        RecordBook recordBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, foodMap);
 
@@ -43,10 +47,12 @@ public class ModelManager implements Model {
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.foodMap = foodMap;
         filteredFoodMap = new FilteredFoodMap(foodMap);
+        this.recordBook = recordBook;
+        this.filteredRecords = new FilteredList<>(this.recordBook.getRecordList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new FoodMap());
+        this(new AddressBook(), new UserPrefs(), new FoodMap(), new RecordBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -92,14 +98,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.hasPerson(person);
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyRecordBook getRecordBook() {
+        return recordBook;
     }
 
     @Override
@@ -178,5 +189,23 @@ public class ModelManager implements Model {
     public void updateFilteredFoodMap(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoodMap.setPredicate(predicate);
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        recordBook.addRecord(record);
+        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+    }
+
+    @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return recordBook.hasRecord(record);
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        requireNonNull(predicate);
+        filteredRecords.setPredicate(predicate);
     }
 }
