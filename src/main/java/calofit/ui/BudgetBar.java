@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.binding.ObjectBinding;
+import javafx.beans.binding.ListBinding;
 import javafx.beans.binding.ObjectExpression;
 import javafx.beans.binding.StringExpression;
 import javafx.beans.property.DoubleProperty;
@@ -39,14 +39,28 @@ public class BudgetBar extends StackPane {
     private static final String FXML = "BudgetBar.fxml";
 
     private ObjectProperty<ObservableList<Meal>> allMeals = new SimpleObjectProperty<>();
-    private ObjectBinding<ObservableList<Meal>> filteredMeals = Bindings.createObjectBinding(() -> {
-        if (allMeals.get() == null) {
-            return FXCollections.emptyObservableList();
+    private ListBinding<Meal> filteredMeals = new ListBinding<Meal>() {
+        {
+            bind(allMeals);
         }
-        return allMeals.get().filtered(BudgetBar::isMealToday);
-    }, allMeals);
+
+        @Override
+        public void dispose() {
+            unbind(allMeals);
+        }
+
+        @Override
+        protected ObservableList<Meal> computeValue() {
+            if (allMeals.get() == null) {
+                return FXCollections.emptyObservableList();
+            }
+            System.out.println(allMeals.get());
+            return allMeals.get().filtered(BudgetBar::isMealToday);
+        }
+    };
     private DoubleBinding totalConsumed = Bindings.createDoubleBinding(() -> {
         double total = 0;
+        System.out.println(filteredMeals.get());
         if (filteredMeals.get() != null) {
             for (Meal m : filteredMeals.get()) {
                 total += m.getDish().getCalories().getValue();
