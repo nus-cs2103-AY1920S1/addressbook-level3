@@ -6,6 +6,9 @@ import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Question;
 
+/**
+ * Command to edit a flashcard or tag
+ */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";

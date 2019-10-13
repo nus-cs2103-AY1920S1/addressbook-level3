@@ -2,13 +2,16 @@ package seedu.flashcard.logic.commands;
 
 import seedu.flashcard.model.FlashcardList;
 
+/**
+ * Command to find a flashcard based on some keywords in its questions or answer.
+ */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
     // TODO: Specify the message of usage of add command.
     //  This will be displayed to the user when the help command is called
-    public final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = "";
 
     private final String findMessage;
 

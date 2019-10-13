@@ -1,9 +1,5 @@
 package seedu.flashcard.logic.parser;
 
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerQuestion;
 import seedu.flashcard.logic.commands.AddCommand;
 
 /**

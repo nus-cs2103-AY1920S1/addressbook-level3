@@ -2,11 +2,10 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.FlashcardList;
 
 /**
- * Command to delete a model
+ * Command to delete a flashcard or tag
  */
 public class DeleteCommand extends Command {
 

@@ -2,6 +2,9 @@ package seedu.flashcard.logic.commands;
 
 import seedu.flashcard.model.FlashcardList;
 
+/**
+ * Command to exit the program.
+ */
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";

@@ -1,7 +1,9 @@
 package seedu.flashcard.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Representing the feed back from a command. Contains information about the feedback to the user,
+ * whether it is an exit command or it is an help command.
+ */
 public class CommandResult {
 
     private final String feedBackToUser;

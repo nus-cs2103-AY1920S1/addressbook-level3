@@ -2,6 +2,9 @@ package seedu.flashcard.logic.commands;
 
 import seedu.flashcard.model.FlashcardList;
 
+/**
+ * The command to list out all possible commands.
+ */
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
