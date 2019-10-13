@@ -10,8 +10,7 @@ class FileImporterTest {
 
     @Test
     void readJsFile_success() {
-        BufferedReader br = FileImporter.readJsFile("C:\\Users\\User\\Documents\\GitHub"
-                + "\\main\\src\\test\\java\\dream\\fcard\\util\\code\\testData.js");
+        BufferedReader br = FileImporter.readJsFile(".\\src\\test\\java\\dream\\fcard\\util\\code\\testData.js");
         assertNotNull(br);
 
     }

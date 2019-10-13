@@ -10,8 +10,7 @@ class JavascriptRunnerTest {
 
     @Test
     void evaluateFromFile_success() throws IOException {
-        String output = JavascriptRunner.evaluateFromFile("C:\\Users\\User\\Documents\\GitHub"
-                + "\\main\\src\\test\\java\\dream\\fcard\\util\\code\\testData.js");
+        String output = JavascriptRunner.evaluateFromFile(".\\src\\test\\java\\dream\\fcard\\util\\code\\testData.js");
         System.out.println(output);
         assertEquals(output, "undefined");
     }
