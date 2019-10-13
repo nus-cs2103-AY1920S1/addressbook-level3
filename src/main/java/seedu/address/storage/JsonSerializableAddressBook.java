@@ -20,6 +20,7 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PRIMARY_KEY = "Persons list contains duplicate primary key(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -51,6 +52,9 @@ class JsonSerializableAddressBook {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            if (addressBook.hasPrimaryKey(person.getPrimaryKey())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PRIMARY_KEY);
             }
             addressBook.addPerson(person);
         }
