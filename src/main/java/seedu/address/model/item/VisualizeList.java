@@ -63,19 +63,27 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         return list.remove(index);
     }
 
-    public abstract VisualizeList find(String searchString);
+    public abstract VisualizeList find(String[] searchString);
 
     /**
      * Helper function to find an item based on their description.
-     * @param searchString the string to be search for within the description of an item
+     * @param searchStrings an array of string to be search for within the description of an item
      * @param il the item list that will hold the items that contain the string within its description
      * @return the item list that was given with the found items added
      */
-    protected VisualizeList find(String searchString, VisualizeList il) {
-        for (Item i : list) {
-            if (i.getItemDescription().getDescription().toLowerCase().contains(searchString.toLowerCase())) {
-                il.add(i);
+    protected VisualizeList find(String[] searchStrings, VisualizeList il) {
+        for (String searchString : searchStrings) {
+            for (Item i : list) {
+                if (il.contains(i)) {
+                    continue;
+                }
+
+                if (i.getItemDescription().getDescription().toLowerCase().contains(searchString.toLowerCase())) {
+                    il.add(i);
+                    System.out.println(i);
+                }
             }
+
         }
         return il;
     }
