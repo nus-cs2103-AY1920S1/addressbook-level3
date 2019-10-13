@@ -8,6 +8,7 @@ import io.xpire.logic.commands.EditCommand.EditItemDescriptor;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 
 /**
@@ -52,6 +53,14 @@ public class EditItemDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code Quantity} of the {@code EditItemDescriptor} that we are building.
+     */
+    public EditItemDescriptorBuilder withQuantity(String quantity) {
+        descriptor.setQuantity(new Quantity(quantity));
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditItemDescriptor}
      * that we are building.
      */
@@ -64,4 +73,5 @@ public class EditItemDescriptorBuilder {
     public EditItemDescriptor build() {
         return descriptor;
     }
+
 }

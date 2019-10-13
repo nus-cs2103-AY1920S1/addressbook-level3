@@ -5,18 +5,18 @@
     "expiryDate" : "01/02/2019",
     "quantity" : "2",
     "reminderThreshold" : "0",
-    "tags" : [ "drinks" ]
+    "tags" : []
   }, {
     "name" : "Banana",
     "expiryDate" : "01/02/2019",
     "quantity" : "5",
     "reminderThreshold" : "0",
-    "tags" : [ "fruit" ]
+    "tags" : []
   }, {
     "name" : "Apple",
     "expiryDate" : "01/02/2019",
-    "quantity" : "2",
+    "quantity" : "1",
     "reminderThreshold" : "0",
-    "tags" : [ "fruit" ]
+    "tags" : []
   } ]
 }

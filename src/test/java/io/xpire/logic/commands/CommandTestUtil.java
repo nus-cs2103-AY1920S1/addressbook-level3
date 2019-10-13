@@ -32,7 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_BANANA = "01/02/2019";
     public static final String VALID_EXPIRY_DATE_MILK = "01/02/2019";
 
-    public static final String VALID_QUANTITY_KIWI = "1";
+    public static final String VALID_QUANTITY_KIWI = "2";
     public static final String VALID_QUANTITY_APPLE = "1";
     public static final String VALID_QUANTITY_BANANA = "5";
     public static final String VALID_QUANTITY_MILK = "2";

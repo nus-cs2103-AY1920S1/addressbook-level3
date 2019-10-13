@@ -14,8 +14,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the list.\n"
-            + "Format: add|<item name>|<expiry date>|<quantity>|[<tag>]... (each tag has to be prefixed with '#')\n"
-            + "Example: " + COMMAND_WORD + "|Strawberry|1|11/12/1999|#fruit #fridge";
+            + "Format: add|<item name>|<expiry date>|[<quantity>]\n"
+            + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999|2";
 
     public static final String MESSAGE_SUCCESS = "New item added: %s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists";

@@ -12,7 +12,7 @@ import io.xpire.commons.util.StringUtil;
 public class Quantity {
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity should be a positive integer and should not be blank";
-
+    public static final String DEFAULT_QUANTITY = "1";
     private final int quantity;
 
     /**
@@ -42,7 +42,7 @@ public class Quantity {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (!(obj instanceof ReminderThreshold)) {
+        } else if (!(obj instanceof Quantity)) {
             return false;
         } else {
             Quantity other = (Quantity) obj;

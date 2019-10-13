@@ -1,5 +1,7 @@
 package io.xpire.model.item;
 
+import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,7 +10,6 @@ import java.util.Set;
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.tag.Tag;
-
 /**
  * Represents a Item in xpire.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -25,6 +26,7 @@ public class Item {
 
     /**
      * Every field must be present and not null.
+     * Only called in Tag and Edit commands.
      */
     public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags) {
         CollectionUtil.requireAllNonNull(name, expiryDate, tags);
@@ -44,6 +46,18 @@ public class Item {
         this.expiryDate = expiryDate;
         this.quantity = quantity;
     }
+
+    /**
+     * Every field must be present and not null.
+     * Quantity is optional.
+     */
+    public Item(Name name, ExpiryDate expiryDate) {
+        CollectionUtil.requireAllNonNull(name, expiryDate);
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.quantity = new Quantity(DEFAULT_QUANTITY);
+    }
+
 
     public Name getName() {
         return this.name;
@@ -112,6 +126,7 @@ public class Item {
             return this.name.equals(other.name)
                     && this.expiryDate.equals(other.expiryDate)
                     && this.tags.equals(other.tags)
+                    && this.quantity.equals(other.quantity)
                     && this.reminderThreshold.equals(other.reminderThreshold);
         }
     }
@@ -119,7 +134,7 @@ public class Item {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.name, this.expiryDate, this.tags, this.reminderThreshold);
+        return Objects.hash(this.name, this.expiryDate, this.tags, this.quantity, this.reminderThreshold);
     }
 
     @Override
@@ -132,4 +147,14 @@ public class Item {
         this.getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    /* TODO: Remove Tag for added items */
+
+    /*   public String getAddedItem() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(this.name + "\n")
+                .append(String.format("Expiry date: %s (%s)\n",
+                        this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
+        return builder.toString();
+    } */
 }

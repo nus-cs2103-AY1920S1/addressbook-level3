@@ -81,7 +81,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
                 + "|" + VALID_QUANTITY_KIWI;
-        Item expectedItem = new ItemBuilder(KIWI).withTags().build();
+        Item expectedItem = new ItemBuilder(KIWI).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedItem);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

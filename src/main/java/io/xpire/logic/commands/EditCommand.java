@@ -202,6 +202,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getExpiryDate().equals(e.getExpiryDate())
+                    && getQuantity().equals(e.getQuantity())
                     && getTags().equals(e.getTags());
         }
     }
