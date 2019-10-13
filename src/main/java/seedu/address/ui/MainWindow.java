@@ -147,9 +147,13 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
-    public EventListPanel getEventListPanel() { return eventListPanel; }
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
+    }
 
-    public ReminderListPanel getReminderListPanel() { return reminderListPanel; }
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
+    }
 
     /**
      * Executes the command and returns the result.
