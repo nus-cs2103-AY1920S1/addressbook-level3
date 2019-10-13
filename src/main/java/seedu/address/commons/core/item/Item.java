@@ -321,8 +321,9 @@ public class Item {
      * @throws IOException when the jsonString is not in JSON format
      * @throws IllegalValueException when the JSON string contains incorrect value
      */
-    public static Item fromJson(String jsonString) throws IOException, IllegalValueException {
+    public static Item fromJson(String jsonString) throws IOException, NullPointerException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
+        System.out.println(node.toString());
         ItemBuilder temp = new ItemBuilder();
 
         String itemDescriptionString = node.get("itemDescription").toString();

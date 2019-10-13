@@ -5,7 +5,7 @@ import seedu.address.commons.core.item.Item;
 /**
  * Object class to store all the items that are events within the program
  */
-public class EventList extends ItemList {
+public class EventList extends VisualizeList {
     public EventList() {
         super();
     }
@@ -14,7 +14,7 @@ public class EventList extends ItemList {
      * Sorts the event list based on the date of the event.
      * @return a sorted EventList of the current list
      */
-    public ItemList sort() {
+    public VisualizeList sort() {
         EventList el = new EventList();
         for (Item item: list) {
             el.add(item);
@@ -30,7 +30,7 @@ public class EventList extends ItemList {
      * @param searchString a string to be search for within the description of an item
      * @return a new EventList only containing the items that have the search string in their description
      */
-    public ItemList find(String searchString) {
+    public VisualizeList find(String searchString) {
         EventList el = new EventList();
         return find(searchString, el);
     }

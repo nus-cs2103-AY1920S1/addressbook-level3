@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.ItemList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * The API of the Model component.
@@ -35,20 +35,20 @@ public interface ItemModel {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getItemStorageFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setItemStorageFilePath(Path addressBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setItemStorage(ItemStorage itemStorage);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ItemStorage getItemStorage();
 
     public void addItem(Item item);
 
@@ -58,9 +58,8 @@ public interface ItemModel {
 
     public Item deleteItem(int index);
 
-    public ItemList getVisualList();
+    public VisualizeList getVisualList();
 
     public void setVisualList(String listString) throws IllegalValueException;
-
 
 }

@@ -66,8 +66,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        //personListPanel = new PersonListPanel(logic.getVisualList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanel = new PersonListPanel(logic.getVisualList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -152,6 +152,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwitchViews()) {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
+
+            personListPanel = new PersonListPanel(logic.getVisualList());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
