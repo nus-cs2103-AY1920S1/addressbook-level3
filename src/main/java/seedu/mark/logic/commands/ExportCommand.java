@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import seedu.mark.commons.core.LogsCenter;
-import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.Storage;

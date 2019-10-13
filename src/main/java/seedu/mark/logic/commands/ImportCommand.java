@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.exceptions.DataConversionException;
-import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
@@ -229,12 +229,12 @@ public class ImportCommand extends Command {
             }
 
             // state check
-            MarkImporter bi = (MarkImporter) other;
+            MarkImporter markImporter = (MarkImporter) other;
 
-            return getModel().equals(bi.getModel())
-                    && getFolders().equals(bi.getFolders())
-                    && getExistingBookmarks().equals(bi.getExistingBookmarks())
-                    && getBookmarksToImport().equals(bi.getBookmarksToImport());
+            return getModel().equals(markImporter.getModel())
+                    && getFolders().equals(markImporter.getFolders())
+                    && getExistingBookmarks().equals(markImporter.getExistingBookmarks())
+                    && getBookmarksToImport().equals(markImporter.getBookmarksToImport());
         }
     }
 }
