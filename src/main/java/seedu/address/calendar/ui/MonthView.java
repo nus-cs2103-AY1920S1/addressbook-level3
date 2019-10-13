@@ -1,6 +1,5 @@
 package seedu.address.calendar.ui;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -34,7 +33,7 @@ class MonthView {
         int width = 150;
 
         days.forEach(day -> {
-            VBox dayView = generateDayView(day.getDayOfMonth());
+            VBox dayView = DayView.generateDayView(day.getDayOfMonth());
             dayView.setPrefWidth(width);
             int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex();
             int rowIndex = (firstDayOfWeekAsNum + day.getDayOfMonth()) / 7;
@@ -46,16 +45,8 @@ class MonthView {
 
     Label generateMonthLabel() {
         String unformattedMonthLabel = month.getMonthOfYear().toString();
-        String formattedMonthLabel = unformattedMonthLabel.charAt(0) + unformattedMonthLabel.substring(1).toLowerCase();
+        String formattedMonthLabel = unformattedMonthLabel.charAt(0)
+                + unformattedMonthLabel.substring(1).toLowerCase();
         return new Label(formattedMonthLabel);
-    }
-
-    // todo change this to a class which has a setDate method
-    private VBox generateDayView(int date) {
-        VBox dayView = new VBox();
-        Label dateOfMonth = new Label(Integer.toString(date));
-        dayView.getChildren().add(dateOfMonth);
-        dayView.setPadding(new Insets(10));
-        return dayView;
     }
 }
