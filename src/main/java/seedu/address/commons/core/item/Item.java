@@ -13,7 +13,6 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.tag.Tag;
@@ -322,15 +321,12 @@ public class Item {
      * @throws IOException when the jsonString is not in JSON format
      * @throws IllegalValueException when the JSON string contains incorrect value
      */
-    public static Item fromJson(String jsonString) throws IOException, DataConversionException {
+    public static Item fromJson(String jsonString) throws IOException, NullPointerException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
         System.out.println(node.toString());
         ItemBuilder temp = new ItemBuilder();
 
         String itemDescriptionString = node.get("itemDescription").toString();
-        if (itemDescriptionString == null) {
-            throw new DataConversionException(new IllegalValueException("Item description cannot be empty"));
-        }
         ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
         temp.setItemDescription(id);
 

@@ -50,9 +50,26 @@ public class ItemStorage {
         Iterator<JsonNode> it = node.iterator();
         while (it.hasNext()) {
             String json = it.next().toString();
-            Item item = Item.fromJson(json);
-            itemStorage.add(item);
+            try {
+                Item item = Item.fromJson(json);
+                itemStorage.add(item);
+            } catch (NullPointerException e) {
+                throw new DataConversionException(e);
+            }
         }
         return itemStorage;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            if (!(other instanceof ItemStorage)) {
+                return false;
+            } else {
+                return this.items.equals(((ItemStorage) other).items);
+            }
+        }
     }
 }
