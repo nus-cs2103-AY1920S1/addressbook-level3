@@ -68,6 +68,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setActivityBookFilePath(Path activityBookFilePath) {
         requireNonNull(activityBookFilePath);
         this.activityBookFilePath = activityBookFilePath;
+    }
 
     public void setInternalStateFilePath(Path internalStateFilePath) {
         requireNonNull(internalStateFilePath);
@@ -87,7 +88,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && activityBookFilePath.equals(o.activityBookFilePath);
+                && activityBookFilePath.equals(o.activityBookFilePath)
                 && internalStateFilePath.equals(o.internalStateFilePath);
     }
 

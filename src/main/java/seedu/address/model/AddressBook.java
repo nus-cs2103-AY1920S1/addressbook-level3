@@ -69,7 +69,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-
      * Finds Person objects with matching keywords, returning all matches in an ArrayList.
      */
     public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
@@ -81,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         return matches;
+    }
 
     /**
      * Returns true if a person with the same primary key as {@code person} exists in the address book.

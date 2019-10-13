@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ActivityBook;
+import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -25,6 +26,16 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setInternalState(InternalState internalState) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public InternalState getInternalState() {
         throw new AssertionError("This method should not be called.");
     }
 
