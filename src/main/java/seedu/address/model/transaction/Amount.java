@@ -61,4 +61,10 @@ public class Amount {
         return String.format("%.2f", amount / 100.0);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj
+                || (obj instanceof Amount
+                && amount == ((Amount) obj).amount);
+    }
 }
