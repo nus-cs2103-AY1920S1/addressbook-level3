@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ class DeadlineTest {
 
     @Test
     void addPriority_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         d.addPriority("high");
         assertNotNull(d.priority);
@@ -25,7 +25,7 @@ class DeadlineTest {
 
     @Test
     void addPriority_invalidInput_exceptionThrown() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
 
         assertThrows(InvalidPriorityException.class, () -> d.addPriority("highest"));
@@ -33,7 +33,7 @@ class DeadlineTest {
 
     @Test
     void addFrequency_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         d.addFrequency("weekly");
         assertNotNull(d.frequency);
@@ -41,14 +41,14 @@ class DeadlineTest {
 
     @Test
     void addFrequency_invalidInput_exceptionThrown() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         assertThrows(InvalidFrequencyException.class, () -> d.addFrequency("every week"));
     }
 
     @Test
     void addTag_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
@@ -57,7 +57,7 @@ class DeadlineTest {
 
     @Test
     void getTags_validInput_success() {
-        Date due = new Date(2019, 10, 10);
+        Calendar due = Calendar.getInstance();
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);

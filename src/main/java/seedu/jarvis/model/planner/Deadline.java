@@ -1,15 +1,15 @@
 package seedu.jarvis.model.planner;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Represents a Deadline task in JARVIS
  */
 public class Deadline extends Task {
 
-    private Date deadline;
+    private Calendar deadline;
 
-    public Deadline(String taskDes, Date deadline) {
+    public Deadline(String taskDes, Calendar deadline) {
         super(taskDes);
         this.deadline = deadline;
     }
