@@ -9,8 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.details.*;
+import seedu.address.model.details.unit.DistanceUnit;
+import seedu.address.model.details.unit.WeightUnit;
+import seedu.address.model.exercise.Intensity;
+import seedu.address.model.exercise.MuscleType;
+import seedu.address.model.exercise.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -47,31 +51,150 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
-
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String muscle} into a {@code MuscleType}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code muscle} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static MuscleType parseMuscleType(String muscle) throws ParseException {
+        requireNonNull(muscle);
+        String trimmedMuscleType = muscle.trim();
+        if (!MuscleType.isValidMuscleType(trimmedMuscleType)) {
+            throw new ParseException(MuscleType.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+
+        return new MuscleType(trimmedMuscleType);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String intensity} into an {@code Intensity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code intensity} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Intensity parseIntensity(String intensity) throws ParseException {
+        requireNonNull(intensity);
+        String trimmedIntensity = intensity.trim();
+        if (!Intensity.isValidIntensity(trimmedIntensity)) {
+            throw new ParseException(Intensity.MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        switch(intensity){
+
+        case "1":
+            return Intensity.LOW;
+
+        case "2":
+            return Intensity.MEDIUM;
+
+        case "3":
+            return Intensity.HIGH;
+
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * Parses a {@code String weight} into a {@code Weight}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String will be interpreted to form the magnitude and unit
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static Weight parseWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedWeight)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        String[] weightSplit = trimmedWeight.split(" ");
+        String unitString = weightSplit[weightSplit.length - 1];
+        WeightUnit unit = parseWeightUnit(unitString);
+        float magnitude = Float.parseFloat(weightSplit[0]);
+
+        return new Weight(magnitude, unit);
+    }
+
+    public static WeightUnit parseWeightUnit(String weightUnit) throws ParseException {
+        switch (weightUnit){
+            case "g":
+                return WeightUnit.GRAM;
+
+            case "kg":
+                return WeightUnit.KILOGRAM;
+
+            case "lbs":
+                return WeightUnit.POUND;
+
+            default:
+                throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String distance} into a {@code Distance}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String will be interpreted to form the magnitude and unit
+     *
+     * @throws ParseException if the given {@code distance} is invalid.
+     */
+    public static Distance parseDistance(String distance) throws ParseException {
+        requireNonNull(distance);
+        String trimmedDistance = distance.trim();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedDistance)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        String[] distanceSplit = trimmedDistance.split(" ");
+        String unitString = distanceSplit[distanceSplit.length - 1];
+        DistanceUnit unit = parseDistanceUnit(unitString);
+        float magnitude = Float.parseFloat(distanceSplit[0]);
+
+        return new Distance(magnitude, unit);
+    }
+
+    public static DistanceUnit parseDistanceUnit(String distanceUnit) throws ParseException {
+        switch (distanceUnit){
+            case "m":
+                return DistanceUnit.METER;
+
+            case "km":
+                return DistanceUnit.KILOMETER;
+
+            default:
+                throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String reps} into a {@code Repetition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code reps} is invalid.
+     */
+    public static Repetitions parseRepetitions(String reps) throws ParseException {
+        requireNonNull(reps);
+        String trimmedReps = reps.trim();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedReps)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        int intReps = Integer.parseInt(reps);
+        return new Repetitions(intReps);
+    }
+
+    /**
+     * Parses a {@code String sets} into a {@code Repetition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sets} is invalid.
+     */
+    public static Sets parseSets(String sets) throws ParseException {
+        requireNonNull(sets);
+        String trimmedSet = sets.trim();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedSet)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        int intSets = Integer.parseInt(sets);
+        return new Sets(intSets);
     }
 }

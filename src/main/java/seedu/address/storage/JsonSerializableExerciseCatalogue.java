@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
@@ -48,11 +48,11 @@ class JsonSerializableExerciseCatalogue {
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (dukeCooks.hasPerson(person)) {
+            Exercise exercise = jsonAdaptedPerson.toModelType();
+            if (dukeCooks.hasPerson(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            dukeCooks.addPerson(person);
+            dukeCooks.addPerson(exercise);
         }
         return dukeCooks;
     }

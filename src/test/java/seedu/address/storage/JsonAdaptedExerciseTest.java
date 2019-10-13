@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
+import seedu.address.model.exercise.Name;
 
-public class JsonAdaptedPersonTest {
+public class JsonAdaptedExerciseTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getExerciseDetails().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 

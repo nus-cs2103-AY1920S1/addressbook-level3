@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * Represents the in-memory model of Duke Cooks data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final DukeCooks dukeCooks;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredExercises = new FilteredList<>(this.dukeCooks.getPersonList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return dukeCooks.hasPerson(person);
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return dukeCooks.hasPerson(exercise);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deleteExercise(Exercise target) {
         dukeCooks.removePerson(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        dukeCooks.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addExercise(Exercise exercise) {
+        dukeCooks.addPerson(exercise);
+        updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setExercise(Exercise target, Exercise editedExercise) {
+        requireAllNonNull(target, editedExercise);
 
-        dukeCooks.setPerson(target, editedPerson);
+        dukeCooks.setPerson(target, editedExercise);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,14 +119,14 @@ public class ModelManager implements Model {
      * {@code versionedDukeCooks}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredExercises.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return dukeCooks.equals(other.dukeCooks)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExercises.equals(other.filteredExercises);
     }
 
 }

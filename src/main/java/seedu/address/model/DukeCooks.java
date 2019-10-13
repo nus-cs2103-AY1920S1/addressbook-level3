@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.UniqueExerciseList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class DukeCooks implements ReadOnlyDukeCooks {
 
-    private final UniquePersonList persons;
+    private final UniqueExerciseList persons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueExerciseList();
     }
 
     public DukeCooks() {}
@@ -43,8 +43,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Exercise> exercises) {
+        this.persons.setPersons(exercises);
     }
 
     /**
@@ -61,16 +61,16 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     /**
      * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Exercise exercise) {
+        requireNonNull(exercise);
+        return persons.contains(exercise);
     }
 
     /**
      * Adds a person to Duke Cooks.
      * The person must not already exist in Duke Cooks.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Exercise p) {
         persons.add(p);
     }
 
@@ -79,17 +79,17 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * {@code target} must exist in Duke Cooks.
      * The person identity of {@code editedPerson} must not be the same as another existing person in Duke Cooks.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Exercise target, Exercise editedExercise) {
+        requireNonNull(editedExercise);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedExercise);
     }
 
     /**
      * Removes {@code key} from this {@code DukeCooks}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Exercise key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Exercise> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

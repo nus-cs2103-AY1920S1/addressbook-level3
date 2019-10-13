@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.testutil.PersonBuilder;
 
 public class DukeCooksTest {
@@ -45,12 +45,12 @@ public class DukeCooksTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Exercise editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newPersons);
+        List<Exercise> newExercises = Arrays.asList(ALICE, editedAlice);
+        DukeCooksStub newData = new DukeCooksStub(newExercises);
 
-        assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicateExerciseException.class, () -> dukeCooks.resetData(newData));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DukeCooksTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Exercise editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(dukeCooks.hasPerson(editedAlice));
     }
@@ -86,15 +86,15 @@ public class DukeCooksTest {
      * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
      */
     private static class DukeCooksStub implements ReadOnlyDukeCooks {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        DukeCooksStub(Collection<Exercise> exercises) {
+            this.exercises.setAll(exercises);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Exercise> getPersonList() {
+            return exercises;
         }
     }
 

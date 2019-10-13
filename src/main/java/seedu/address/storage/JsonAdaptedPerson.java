@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Name;
+import seedu.address.model.details.ExerciseDetail;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Exercise}.
  */
 class JsonAdaptedPerson {
 
@@ -39,9 +39,9 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
+    public JsonAdaptedPerson(Exercise source) {
         name = source.getName().fullName;
-        tagged.addAll(source.getTags().stream()
+        tagged.addAll(source.getExerciseDetails().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
@@ -51,10 +51,10 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    public Exercise toModelType() throws IllegalValueException {
+        final List<ExerciseDetail> personExerciseDetails = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            personExerciseDetails.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -65,8 +65,8 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelTags);
+        final Set<ExerciseDetail> modelExerciseDetails = new HashSet<>(personExerciseDetails);
+        return new Exercise(modelName, modelExerciseDetails);
     }
 
 }

@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddExerciseCommandIntegrationTest {
 
     private Model model;
 
@@ -25,8 +25,8 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getDukeCooks().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Exercise exerciseInList = model.getDukeCooks().getPersonList().get(0);
+        assertCommandFailure(new AddExerciseCommand(exerciseInList), model, AddExerciseCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

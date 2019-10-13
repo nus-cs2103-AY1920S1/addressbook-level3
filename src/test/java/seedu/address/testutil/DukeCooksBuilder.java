@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.DukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.model.exercise.Exercise;
 
 /**
  * A utility class to help with building DukeCooks objects.
@@ -23,8 +23,8 @@ public class DukeCooksBuilder {
     /**
      * Adds a new {@code Person} to the {@code DukeCooks} that we are building.
      */
-    public DukeCooksBuilder withPerson(Person person) {
-        dukeCooks.addPerson(person);
+    public DukeCooksBuilder withPerson(Exercise exercise) {
+        dukeCooks.addPerson(exercise);
         return this;
     }
 

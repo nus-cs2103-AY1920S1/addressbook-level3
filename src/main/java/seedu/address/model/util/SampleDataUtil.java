@@ -6,35 +6,35 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Name;
+import seedu.address.model.details.ExerciseDetail;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"),
+    public static Exercise[] getSamplePersons() {
+        return new Exercise[] {
+            new Exercise(new Name("Alex Yeoh"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"),
+            new Exercise(new Name("Bernice Yu"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"),
+            new Exercise(new Name("Charlotte Oliveiro"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"),
+            new Exercise(new Name("David Li"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"),
+            new Exercise(new Name("Irfan Ibrahim"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"),
+            new Exercise(new Name("Roy Balakrishnan"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleDc.addPerson(samplePerson);
+        for (Exercise sampleExercise : getSamplePersons()) {
+            sampleDc.addPerson(sampleExercise);
         }
         return sampleDc;
     }
@@ -42,9 +42,9 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<ExerciseDetail> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(ExerciseDetail::new)
                 .collect(Collectors.toSet());
     }
 
