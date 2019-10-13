@@ -43,7 +43,14 @@ public class AddNoteCommandTest {
     }
     
     @Test
-    public void constructor_noteOfOnlyWhiteSpaceRejectedByModel_addFailure() {
+    public void constructor_noteTitleOfOnlyWhiteSpace_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle("").build());
+        assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle(" ").build());
+        assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle("  ").build());
+    }
+    
+    @Test
+    public void constructor_noteContentOfOnlyWhiteSpace_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent("").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent(" ").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent("  ").build());
