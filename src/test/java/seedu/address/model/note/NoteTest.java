@@ -10,19 +10,19 @@ public class NoteTest {
         Note note = new Note();
         assertEquals(note.toString(), "Title: sample title\nContent: sample content");
     }
-    
+
     @Test
     public void ToString_Format_Success() {
         Note note = new Note(new Title("this is a title"), new Content("this is a content"));
         assertEquals(note.toString(), "Title: this is a title\nContent: this is a content");
     }
-    
+
     @Test
     public void RequireNonNull_NoTitleProvided_ThrowsIllegalArgumentException() {
         assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
                 new Content("")));
     }
-    
+
     /*
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {

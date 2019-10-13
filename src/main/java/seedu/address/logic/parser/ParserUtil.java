@@ -51,7 +51,7 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
-    
+
     /**
      * Parses a {@code String title} into a {@code Content}.
      * Leading and trailing whitespaces will be trimmed.
@@ -66,7 +66,7 @@ public class ParserUtil {
         }
         return new Title(trimmedContent);
     }
-    
+
     /**
      * Parses a {@code String name} into a {@code Content}.
      * Leading and trailing whitespaces will be trimmed.

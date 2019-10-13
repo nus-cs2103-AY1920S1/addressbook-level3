@@ -20,7 +20,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.NoteBuilder;
@@ -41,21 +40,21 @@ public class AddNoteCommandTest {
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
-    
+
     @Test
     public void constructor_noteTitleOfOnlyWhiteSpace_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle("").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle(" ").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withTitle("  ").build());
     }
-    
+
     @Test
     public void constructor_noteContentOfOnlyWhiteSpace_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent("").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent(" ").build());
         assertThrows(IllegalArgumentException.class, () -> new NoteBuilder().withContent("  ").build());
     }
-    
+
     @Test
     public void execute_duplicateNote_throwsCommandException() {
         Note validNote = new NoteBuilder().build();
@@ -128,8 +127,7 @@ public class AddNoteCommandTest {
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
-    
-    
+
         @Override
         public void addNote(Note note) {
             throw new AssertionError("This method should not be called.");
@@ -159,22 +157,22 @@ public class AddNoteCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public boolean hasNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public void deleteNote(Note target) {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public void setNote(Note target, Note editedNote) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
@@ -184,12 +182,12 @@ public class AddNoteCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public ObservableList<Note> getFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");

@@ -15,7 +15,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class NoteBuilder {
 
     public static final String DEFAULT_TITLE = "Pipeline Definition";
-    public static final String DEFAULT_CONTENT = "Pipelining is a process where a processor simultaneously runs " 
+    public static final String DEFAULT_CONTENT = "Pipelining is a process where a processor simultaneously runs "
             + "multiple instructions";
 
     private Title title;

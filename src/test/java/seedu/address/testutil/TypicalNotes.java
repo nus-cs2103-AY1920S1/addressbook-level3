@@ -26,11 +26,11 @@ public class TypicalNotes {
 
     public static final Note SAMPLE = new NoteBuilder().withTitle("Sample Title").withContent("Sample Content").build();
     public static final Note PIPELINE = new NoteBuilder().withTitle("Pipelining Definition")
-            .withContent("Pipelining is the process of making a single processor run multiple instructions " 
+            .withContent("Pipelining is the process of making a single processor run multiple instructions "
                     + "simultaneously.").build();
     public static final Note POTATO =
             new NoteBuilder().withTitle("Potatoes").withContent("I really like potatoes.").build();
-    
+
 /*
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")

@@ -18,7 +18,7 @@ public class Note {
         this.title = new Title("sample title");
         this.content = new Content("sample content");
     }
-    
+
     /**
      * Every field must be present and not null.
      */
@@ -35,7 +35,7 @@ public class Note {
     public Content getContent() {
         return content;
     }
-    
+
     /**
      * Returns true if both notes of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two notes.

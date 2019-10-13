@@ -25,7 +25,7 @@ import seedu.address.model.note.Note;
 public class DeleteNoteCommandTest {
 
     private Model model = new ModelManager(getTypicalNoteList(), new UserPrefs());
-    
+
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());

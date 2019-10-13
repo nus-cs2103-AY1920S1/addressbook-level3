@@ -50,7 +50,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
     }
-    
+
     /**
      * Replaces the contents of the note list with {@code notes}.
      * {@code notes} must not contain duplicate notes.
@@ -58,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setNotes(List<Note> notes) {
         this.notes.setNotes(notes);
     }
-    
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -105,7 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-    
+
     /**
      * Returns true if a note with the same identity as {@code note} exists in the address book.
      */
@@ -113,7 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(note);
         return notes.contains(note);
     }
-    
+
     /**
      * Adds a note to the address book.
      * The note must not already exist in the address book.
@@ -121,7 +121,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addNote(Note note) {
         notes.add(note);
     }
-    
+
     /**
      * Replaces the given note {@code target} in the list with {@code editedNote}.
      * {@code target} must exist in the address book.
@@ -129,10 +129,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setNote(Note target, Note editedNote) {
         requireNonNull(editedNote);
-        
+
         notes.setNote(target, editedNote);
     }
-    
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -153,7 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
-    
+
     @Override
     public ObservableList<Note> getNoteList() {
         return notes.asUnmodifiableObservableList();

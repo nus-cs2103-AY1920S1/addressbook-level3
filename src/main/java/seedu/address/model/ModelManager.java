@@ -114,31 +114,31 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
-    
+
     @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
         return addressBook.hasNote(note);
     }
-    
+
     @Override
     public void deleteNote(Note target) {
         addressBook.removeNote(target);
     }
-    
+
     @Override
     public void addNote(Note note) {
         addressBook.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
-    
+
     @Override
     public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
         
         addressBook.setNote(target, editedNote);
     }
-    
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -155,7 +155,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    
+
     /**
      * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
      * {@code versionedAddressBook}
@@ -164,13 +164,13 @@ public class ModelManager implements Model {
     public ObservableList<Note> getFilteredNoteList() {
         return filteredNotes;
     }
-    
+
     @Override
     public void updateFilteredNoteList(Predicate<Note> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
