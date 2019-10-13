@@ -30,7 +30,7 @@ public class EventList extends VisualizeList {
      * @param searchString a string to be search for within the description of an item
      * @return a new EventList only containing the items that have the search string in their description
      */
-    public VisualizeList find(String searchString) {
+    public VisualizeList find(String[] searchString) {
         EventList el = new EventList();
         return find(searchString, el);
     }

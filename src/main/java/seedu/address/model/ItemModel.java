@@ -62,4 +62,6 @@ public interface ItemModel {
 
     public void setVisualList(String listString) throws IllegalValueException;
 
+    public VisualizeList findItem(String[] searchStrings);
+
 }
