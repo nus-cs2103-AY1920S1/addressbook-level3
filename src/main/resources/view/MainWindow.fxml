@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Module Appeal Management System" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -46,12 +47,34 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="studentList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <HBox fx:id="DisplayListsContainer" styleClass="pane-with-border" minWidth="340" prefHeight="3000" HBox.hgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
-          <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+
+          <VBox fx:id="appealList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="appealListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="moduleList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="studentList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+        </HBox>
+
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

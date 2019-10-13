@@ -15,11 +15,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import mams.logic.commands.CommandTestUtil;
+import mams.model.module.Module;
 import mams.model.student.Student;
 import mams.model.student.exceptions.DuplicateStudentException;
 import mams.testutil.Assert;
 import mams.testutil.StudentBuilder;
 import mams.testutil.TypicalStudents;
+
 
 public class MamsTest {
 
@@ -90,15 +92,21 @@ public class MamsTest {
      */
     private static class MamsStub implements ReadOnlyMams {
         private final ObservableList<Student> students = FXCollections.observableArrayList();
+        private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
         MamsStub(Collection<Student> students) {
             this.students.setAll(students);
+            this.modules.setAll(modules);
         }
 
         @Override
         public ObservableList<Student> getStudentList() {
             return students;
         }
-    }
 
+        @Override
+        public ObservableList<Module> getModuleList() {
+            return modules;
+        }
+    }
 }

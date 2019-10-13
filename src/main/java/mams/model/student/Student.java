@@ -67,7 +67,6 @@ public class Student {
         if (otherStudent == this) {
             return true;
         }
-
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
                 && (otherStudent.getCredits().equals(getCredits()) || otherStudent.getEmail().equals(getEmail()));
@@ -115,5 +114,4 @@ public class Student {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
