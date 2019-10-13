@@ -10,9 +10,9 @@ import seedu.address.commons.core.item.Item;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class ItemCard extends UiPart<Region> {
+public class ReminderListCard extends UiPart<Region> {
 
-    private static final String FXML = "ItemListCard.fxml";
+    private static final String FXML = "ReminderListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,29 +27,22 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label priority;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label reminderdatetime;
     @FXML
     private FlowPane tags;
 
-    public ItemCard(Item item, int displayedIndex) {
+    public ReminderListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
-        name.setText(item.getItemDescription().toString());
-        //phone.setText(person.getPhone().value);
-        //address.setText(person.getAddress().value);
-        //email.setText(person.getEmail().value);
-        //person.getTags().stream()
-        //       .sorted(Comparator.comparing(tag -> tag.tagName))
-        //        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        description.setText(item.getItemDescription().toString());
+        reminderdatetime.setText("Reminder: " + item.getReminder().get().getDateTime().toString());
     }
 
     @Override
@@ -65,7 +58,7 @@ public class ItemCard extends UiPart<Region> {
         }
 
         // state check
-        ItemCard card = (ItemCard) other;
+        ReminderListCard card = (ReminderListCard) other;
         return id.getText().equals(card.id.getText())
                 && item.equals(card.item);
     }

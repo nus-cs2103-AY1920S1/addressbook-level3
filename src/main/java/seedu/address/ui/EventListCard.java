@@ -10,9 +10,9 @@ import seedu.address.commons.core.item.Item;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class ItemCard extends UiPart<Region> {
+public class EventListCard extends UiPart<Region> {
 
-    private static final String FXML = "ItemListCard.fxml";
+    private static final String FXML = "EventListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,29 +27,26 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label priority;
     @FXML
-    private Label address;
+    private Label startdate;
     @FXML
-    private Label email;
+    private Label enddate;
     @FXML
     private FlowPane tags;
 
-    public ItemCard(Item item, int displayedIndex) {
+    public EventListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
-        name.setText(item.getItemDescription().toString());
-        //phone.setText(person.getPhone().value);
-        //address.setText(person.getAddress().value);
-        //email.setText(person.getEmail().value);
-        //person.getTags().stream()
-        //       .sorted(Comparator.comparing(tag -> tag.tagName))
-        //        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        description.setText(item.getItemDescription().toString());
+        priority.setText("Priority: " + item.getEvent().get().getPriority().toString());
+        startdate.setText("Start Date: " + item.getEvent().get().getStartDateTime().toString());
+        enddate.setText("End Date: " + item.getEvent().get().getEndDateTime().toString());
     }
 
     @Override
@@ -65,7 +62,7 @@ public class ItemCard extends UiPart<Region> {
         }
 
         // state check
-        ItemCard card = (ItemCard) other;
+        EventListCard card = (EventListCard) other;
         return id.getText().equals(card.id.getText())
                 && item.equals(card.item);
     }
