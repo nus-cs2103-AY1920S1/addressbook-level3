@@ -10,7 +10,7 @@ import calofit.model.dish.Calorie;
 
 public class SetBudgetCommandTest {
 
-    private final Calorie VALID_CALORIE = new Calorie(234);
+    private static final Calorie VALID_CALORIE = new Calorie(234);
 
     @Test
     public void testSetBudget() throws CommandException {
