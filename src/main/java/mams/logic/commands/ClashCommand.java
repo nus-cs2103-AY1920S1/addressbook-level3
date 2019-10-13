@@ -1,14 +1,17 @@
 package mams.logic.commands;
 
-import mams.logic.commands.exceptions.CommandException;
-import mams.model.Model;
-import mams.model.module.Module;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.requireNonNull;
+import mams.logic.commands.exceptions.CommandException;
+import mams.model.Model;
+import mams.model.module.Module;
 
+/**
+ * Checks clashes in timetables.
+ */
 public class ClashCommand extends Command {
 
     public static final String COMMAND_WORD = "clash";
@@ -49,6 +52,12 @@ public class ClashCommand extends Command {
         }
     }
 
+    /**
+     * Returns true if there is timetable clash between module A and module B.
+     * @param moduleToCheckA Module object to check
+     * @param moduleToCheckB another Module object to check
+     * @return true if there is any clash.
+     */
     private boolean hasClash(Module moduleToCheckA, Module moduleToCheckB) {
         int[] timeTableA = moduleToCheckA.getTimeSlotToIntArray();
         int[] timeTableB = moduleToCheckB.getTimeSlotToIntArray();
