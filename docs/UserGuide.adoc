@@ -67,15 +67,15 @@ Upon exiting the app, updated lists will be automatically saved.
 
 ==== Checking reminders on expiry dates
 Display list with all food expiring within n days.
-`rem n/NUMBER_OF_DAYS`
+`rem r/NUMBER_OF_DAYS`
 
 Change default number of days which food is expiring in, to be displayed at the start of the app every time the app is launched.
-`remDefault n/NUMBER_OF_DAYS`
+`remDefault r/NUMBER_OF_DAYS`
 
 Examples:
 
-* `rem n/3`
-* `remDefault n/3`
+* `rem r/3`
+* `remDefault r/3`
 
 Upon launching the app, list of food expiring within (default; 3 days if not yet specified) is displayed.
 
