@@ -43,7 +43,9 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         return filePath;
     }
 
-    public Path getCheatSheetFilePath() { return cheatSheetFilePath; }
+    public Path getCheatSheetFilePath() {
+        return cheatSheetFilePath;
+    }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
@@ -114,7 +116,8 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
+            throws DataConversionException, IOException {
         return Optional.empty();
     }
 

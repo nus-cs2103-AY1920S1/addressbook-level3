@@ -89,7 +89,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
+            throws DataConversionException, IOException {
         return Optional.empty();
     }
 

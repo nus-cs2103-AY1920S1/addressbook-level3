@@ -6,9 +6,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.person.Person;
 
 import java.util.Comparator;
+
+/**
+ * Represents a CheatSheetCard for JavaFX, similar to PersonCard
+ */
 
 public class CheatSheetCard extends UiPart<Region> {
     private static final String FXML = "CheatSheetListCard.fxml";
