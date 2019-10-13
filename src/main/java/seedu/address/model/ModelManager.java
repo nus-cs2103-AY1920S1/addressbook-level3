@@ -15,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -407,6 +408,18 @@ public class ModelManager implements Model {
     @Override
     public void deleteSchedule(Schedule target) {
         scheduleBook.removeSchedule(target);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            order.getSchedule().ifPresent(schedule -> {
+                if (schedule.equals(target)) {
+                    Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
+                            order.getPrice(), Status.UNSCHEDULED, Optional.empty(), order.getTags());
+                    orderBook.setOrder(order, editedOrder);
+                }
+            });
+        }
     }
 
     @Override
