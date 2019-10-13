@@ -30,11 +30,6 @@ public interface Logic {
      */
     ReadOnlyModulePlanner getModulePlanner();
 
-    /**
-     * Returns the current active StudyPlan.
-     */
-    StudyPlan getActiveStudyPlan();
-
     /** Returns an unmodifiable view of the filtered list of study plans */
     ObservableList<StudyPlan> getFilteredStudyPlanList();
 

@@ -57,11 +57,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public StudyPlan getActiveStudyPlan() {
-        return model.getActiveStudyPlan();
-    }
-
-    @Override
     public ObservableList<StudyPlan> getFilteredStudyPlanList() {
         return model.getFilteredStudyPlanList();
     }
