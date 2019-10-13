@@ -32,14 +32,16 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
+            for (String tagName : argMultimap.getAllValues(CliSyntax.PREFIX_TAG)) {
+                if (!tagName.isEmpty()) {
+                    Tag tag = new Tag(tagName);
+                    tagSet.add(tag);
+                }
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), pe);
-        }
-        for (String tagName : argMultimap.getAllValues(CliSyntax.PREFIX_TAG)) {
-            if (!tagName.isEmpty()) {
-                Tag tag = new Tag(tagName);
-                tagSet.add(tag);
-            }
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(iae.getMessage(), iae);
         }
 
         if (tagSet.isEmpty()) {

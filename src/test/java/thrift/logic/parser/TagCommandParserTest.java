@@ -7,6 +7,7 @@ import static thrift.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.jupiter.api.Test;
 
 import thrift.logic.commands.TagCommand;
+import thrift.model.tag.Tag;
 import thrift.testutil.TagSetBuilder;
 import thrift.testutil.TypicalIndexes;
 
@@ -24,6 +25,15 @@ class TagCommandParserTest {
 
         assertParseSuccess(parser, input, expectedCommand);
         assertParseSuccess(parser, input2, expectedCommand);
+    }
+
+    @Test
+    void parse_withInvalidTags() {
+        String input = "tag i/1 t/!@#$%^&*()";
+        String input2 = "tag i/1 t/REALTAG t/WRONGTAG!!!";
+
+        assertParseFailure(parser, input, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, input2, Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test

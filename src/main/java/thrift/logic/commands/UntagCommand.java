@@ -40,7 +40,7 @@ public class UntagCommand extends Command {
     public static final String MESSAGE_TAG_NOT_EXISTED = "\nTag(s) %1$s do not exist and will be ignored.";
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";
     public static final String MESSAGE_NOT_UNTAGGED = "At least one tag must be provided.";
-    public static final String MESSAGE_NO_DEL_TAGS = "Specified tags do not exist, the transaction was not updated.";
+    public static final String MESSAGE_NO_DEL_TAGS = "Specified tag(s) do not exist, the transaction was not updated.";
 
     private final Index index;
     private final Set<Tag> tagSet;
