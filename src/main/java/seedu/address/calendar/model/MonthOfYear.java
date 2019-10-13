@@ -1,5 +1,7 @@
 package seedu.address.calendar.model;
 
+import java.util.stream.Stream;
+
 public enum MonthOfYear {
     JANUARY(1, 31),
     FEBRUARY(2, 28),
@@ -53,5 +55,20 @@ public enum MonthOfYear {
 
     static MonthOfYear convertJavaMonth(int javaMonth) {
         return MonthOfYear.values()[javaMonth];
+    }
+
+    public static MonthOfYear convertNumToMonth(int monthNum) {
+        return convertJavaMonth(monthNum);
+    }
+
+    public static MonthOfYear convertStrToMonth(String monthStr) {
+        return Stream.of(MonthOfYear.values())
+                .filter(month -> {
+                    String monthLowerCase = month.toString().toLowerCase();
+                    String monthStrLowerCase = monthStr.toLowerCase();
+                    return monthLowerCase.contains(monthStrLowerCase);
+                })
+                .findFirst()
+                .orElse(JANUARY); // todo: handle exception
     }
 }

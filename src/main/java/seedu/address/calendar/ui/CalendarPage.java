@@ -8,8 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
+import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 
@@ -79,10 +81,17 @@ public class CalendarPage implements Page {
         commandBox.setOnAction(event -> {
             String s = commandBox.getText();
             // todo: change this to process user request
-            calendar.updateMonth(s);
-            Month newMonth = calendar.getMonth();
-            MonthView newMonthView = new MonthView(newMonth);
-            updateCalendarView(newMonthView);
+            // calendar.updateMonth(s);
+            Command command = (new CalendarParser()).parseCommand(s);
+            command.execute(calendar);
+
+            if (calendar.hasViewUpdates()) {
+                Month newMonth = calendar.getMonth();
+                MonthView newMonthView = new MonthView(newMonth);
+                updateCalendarView(newMonthView);
+                calendar.completeUpdate();
+            }
+
             commandBox.setText("");
         });
     }

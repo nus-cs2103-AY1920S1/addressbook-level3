@@ -1,9 +1,9 @@
 package seedu.address.calendar.model;
 
 public class Calendar {
-    Month month;
-    int currentYear;
-
+    private Month monthShown;
+    private int currentYear;
+    private boolean hasVisibleUpdates;
 
     public Calendar() {
         java.util.Calendar currentDate = java.util.Calendar.getInstance();
@@ -13,16 +13,31 @@ public class Calendar {
         int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
         MonthOfYear currentMonth = MonthOfYear.convertJavaMonth(currentUnformattedMonth);
 
-        month = new Month(currentMonth, currentYear);
+        monthShown = new Month(currentMonth, currentYear);
+        hasVisibleUpdates = false;
     }
 
     public Month getMonth() {
-        return month;
+        return monthShown;
     }
 
-    // todo: upgrade this method LOL
-    public void updateMonth(String str) {
-        MonthOfYear newMonth = MonthOfYear.valueOf(str);
-        month = new Month(newMonth, 2019);
+    public void updateMonthShown(Month updatedMonth) {
+        monthShown = updatedMonth;
+        hasVisibleUpdates = true;
+    }
+
+    /**
+     * Checks whether there are any visible update that has to be shown to user.
+     * @return {@code true} if and only if there are visible updates that can be shown to user
+     */
+    public boolean hasViewUpdates() {
+        return hasVisibleUpdates;
+    }
+
+    /**
+     * Marks visible update as complete, i.e. latest visible update has been shown to user.
+     */
+    public void completeUpdate() {
+        hasVisibleUpdates = false;
     }
 }

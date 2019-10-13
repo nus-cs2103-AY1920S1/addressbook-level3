@@ -12,7 +12,7 @@ public class Month {
     int year;
     int daysInMonth;
 
-    Month(MonthOfYear monthOfYear, int year) {
+    public Month(MonthOfYear monthOfYear, int year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
         this.daysInMonth = monthOfYear.getNumDaysInMonth(year);
