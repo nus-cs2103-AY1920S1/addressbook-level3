@@ -1,9 +1,9 @@
 package io.xpire.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -15,6 +15,7 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
  * Jackson-friendly version of {@link Item}.
@@ -97,7 +98,8 @@ class JsonAdaptedItem {
         for (JsonAdaptedTag tag : this.tags) {
             itemTags.add(tag.toModelType());
         }
-        final Set<Tag> modelTags = new HashSet<>(itemTags);
+        final Set<Tag> modelTags = new TreeSet<>(new TagComparator());
+        modelTags.addAll(itemTags);
 
         Item item = new Item(modelName, modelExpiryDate, modelTags);
         item.setReminderThreshold(modelReminderThreshold);

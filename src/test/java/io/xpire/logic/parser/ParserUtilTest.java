@@ -8,14 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -28,8 +29,8 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TAG_1 = "Friend";
+    private static final String VALID_TAG_2 = "Neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -117,8 +118,8 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
-
+        Set<Tag> expectedTagSet = new TreeSet<>(new TagComparator());
+        expectedTagSet.addAll(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
         assertEquals(expectedTagSet, actualTagSet);
     }
 }
