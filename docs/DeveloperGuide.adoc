@@ -1,0 +1,176 @@
+== Developer Guide
+
+=== Target User Profile
+
+Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
+
+=== Value Proposition
+
+A convenient financial tracker targeted at users who prefer typing over other inputs.
+
+=== User Stories
+
+|===
+|+++<u>+++Priority+++</u>+++|+++<u>+++As a...+++</u>+++|+++<u>+++I want to…+++</u>+++|+++<u>+++So that I can…+++</u>+++
+
+|High|As a forgetful user|I would want to ability to list all my expenses|So I can see all my expenses in one glance.
+|High|As a thrifty user|I would like to be able to add items to my wishlist and see the progress made for each of the wishlisted items|So that I can see how much I've saved to each goal.
+|High|As a student with limited income|I need a convenient way to keep track of my spending and my daily expenditure|So that I can better review my finances.
+|High|As a student with almost regular spending habits|I want to record basic, recurring expenses (lunch, shopping, transport etc) easily|So that it is convenient for me to review and reflect on my expenditure.
+|High|As a user|I would like a search function to quickly refer to certain records.|So that it is convenient for me to
+|High|As a user|I would like a manual to refer to when I need help using the app.|So that I can still use the app when I forget its syntax.
+|High|As a new user|I want to be informed when I submit invalid commands.|So that I can learn from my mistakes.
+|High|As a long-time user|I want to be able to search for a past expense. (How long ago should the record be?)|So that I can don’t go crazy when doing taxes.
+|High|As a careless user|I might want to undo/modify/delete the amount/category/description entered by the specific expense in particular|so that I can easily amend any mistakes I made on CL.
+|High|As a detailed and careful user|I need to be able to add the details of the ideas into specific categories.|So that I can stay organised.
+|Medium|As a user with limited allowance|I want to be able to set budgets for how much I want to spend in a week/month, according to different categories.|So that I do not overspend.
+|Medium|As someone who may wish to restart on a clean slate|I wish to have a function to clear or my keyed in data (schedule, current expenditure etc.)|
+|Medium|As a user  |I would like to see my expenses and transactions separated according to different time periods (e.g. week, month, year)|so that I can have a clearer overview of my expenditure.
+|Medium|As a user|I want to be able to customise how the UI looks (color, font, font size, set background feature etc.)|so that it looks more customised towards the user.
+|Medium|As an expert user|I want to be able to set the time(s) that I would receive reminders to record my spending|so that I can do so at convenient times.
+|Medium|As a college student with monthly spending on entertainment sites such as Netflix and Spotify|I want to have these expenses recorded automatically|so that I do not have to record a recurring expense every month.
+|Medium|As a user|I want to differentiate my spendings and wish list items based on whether they are a need or a want|so that I can better plan my finances around what I should buy.
+|Medium|As a forgetful user|I want to have a tooltip to pop up to remind me what inputs I should type in|so that in the event that I forget the commands, I can still use them when the application reminds me.
+|Medium|As a lazy student|I want my finances to be planned automatically rather than having to customize them myself|so I don’t need to spend much time during the first setup and lose interest. I should be able to edit it whenever I want to.
+|Medium|As an expert user|I want to be able to define/customise my own categories for expenses|so that I can customize the software for myself.
+|Medium|As a lazy and expert user|I want to be able to define my own shortcuts to certain functionality myself (eg. spend mala ytd lunch 10.50), and extend/customize them from time to time|so that I can complete commands with convenience and ease.
+|Medium|As a student with limited income|I need a visualizer to show my urgent wishlist|so I can see how much I have saved to each goal.
+|Medium|As a student with limited income|I need a visualizer|so I can see my expenses in proportion to my income at a glance.
+|Medium|As a student who has difficulty planning his finances |I want to have an app help me calculate what to prioritize and how heavily I should prioritize to best meet my needs. I would like the app to have filters|so I can choose what category of spending to prioritize.
+|Medium|As a user who do not have the habit of tracking my expenses|I want to receive some incentive/motivation when I track my expenses|so that I would continue tracking it in the long run.
+|Medium|As a forgetful user|I need to have the ability to add notes to my wishlist detailing where I want to buy the product, link to buy the product etc|so that I can easily refer to the wishlist whenever I forget about the details.
+|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually
+|Medium|As a student trying to address his/her spending habits|I need an app that reminds me if I am spending too much|so that I can work on reducing my spending and improve my habits.
+|Low|As a user|I would like to be able to import details for my wishlist using external files |so that I do not need to key each item in individually.
+|Low|As a student who’s easily influenced|I want the app to provide me with painful reminders|So that I will be wrecked with guilt after indulging in stuff I do not need.
+|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record quickly.
+|===
+
+=== Use Cases
+
+For all use cases:
+
+* System: guiltTrip()
+* Actor: User
+==== Use Case 01: View History
+
+===== MSS
+
+. User requests to view history of expenses for the past month.
+. guiltTrip() shows the history of expenses for the past month.
+. User requests to edit a specific expense in the list.
+. guiltTrip() edits the expense.
+Use case ends.
+===== Extensions
+
+. 2a. The history is empty.
+Use case ends.
+. 3a. The given index is invalid.
+.. 3a1. guiltTrip() shows an error message.
+Use case resumes at step 2
+==== Use Case 02: Add Expense
+
+===== MSS
+
+Use Case: user adds an expense
+
+. User adds an expense.
+. GuiltTrip creates an expense entry.
+. GuiltTrip informs user that the expense have been created.
+==== Use Case 03: Change the details of an existing Expense Entry
+
+===== MSS
+
+. Guilt Trip displays list of expenses.
+. User decides to edit the description/ tag/ amount of an expense.
+. GuiltTrip makes the requested modifications to expenditure entry.
+. GuiltTrip informs user that changes have been made.
+
+==== Use Case 04: Deletes an expenditure
+
+. User keys in command deleteExpense, followed by the index of the expense in the list
+. GuiltTrip deletes the specified expense from the list.
+. GuiltTrip informs user that the expense has been deleted.
+
+==== Use Case 05: Add a recurring expenditure
+
+. User keys in command setAutoExpenditure, followed by the frequency he would want the expenditure to be, the description and amount of the expenditure.
+. GuiltTrip creates an auto-expense entry.
+. GuiltTrip informs user that the auto-expense have been created.
+
+==== Use Case 06: List recurring expenditures
+
+. The user types listAutoExpenditure.
+. GuiltTrip lists all the current automatically recurring expenditures.
+
+==== Use Case 07: Edit a recurring expenditure item
+
+Format: editAutoExpenditure: <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>] +
+Examples:
+
+* editAutoExpenditure 1 --freq month
+* editAutoExpenditure 1 --desc spotify family --amt 14.99
+
+deleteAutoExpenditure: deletes a current automatically recurring expenditure at the given index. +
+Format: deleteAutoExpenditure <index>
+
+==== Use Case 08: Add a new budget for expenditure
+
+. User adds a budget
+. GuiltTrip creates a
+addBudget: adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month +
+Format: addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>] +
+Examples:
+
+* addBudget --desc food budget --period day --amt 200 --tag food
+* addBudget --desc entertainment budget --amt 300
+==== Use Case 09: List existing budgets
+
+
+listBudget: lists all the current budgets the user has. +
+Format: listBudget
+
+editBudget: edits a current budget's description, amount or tag (if applicable) at the given index. +
+Format: editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]  +
+Examples:
+
+* editBudget 1 --desc fooooood budget
+* editBudget 2 --desc lunch budget --amt 150
+* editBudget 2 --tag fun
+
+deleteBudget: deletes a current budget at the given index. +
+Format: deleteBudget <index> +
+Example:
+
+* deleteBudget 2
+=== Non Functional Requirements
+
+. Brownfield
+** The final product should be a result of evolving/enhancing/morphing the given code base.
+. Typing Preferred
+** The product should be targeting users who can type fast and prefer typing over other means of input.
+. Single User
+** The product should be for a single user i.e. (not a multi-user product).
+. Incremental
+** The product needs to be developed incrementally over the project duration.
+. Human Editable File & no DBMS
+** The software should not have a database management system and the data should be stored locally and should be in a human editable text file.
+. Object Oriented
+** The software should follow the Object-oriented paradigm primarily.
+. Java Version
+** Should work on any https://se-education.org/addressbook-level3/DeveloperGuide.html#mainstream-os[mainstream OS] as long as it has Java 11 or above installed.
+. Portable
+** The software should work without requiring an installer.
+. No Remote Server
+** The software should not depend on your own remote server.
+. External Software
+** The use of third-party frameworks/libraries is allowed but only if they are free, open-source, and have permissive license terms, do not require any installation by the user of your software, do not violate other constraints.
+. Quality Requirements
+** The software should be able to be used by a user who has never used an expenditure tracking app before
+** The software should be able to work on different computers if distributed
+=== Glossary
+
+Category - Income, Expense, Wishlist, Budget +
+Entry - any item in a category +
+Tag - label(s) attached to an entry
+

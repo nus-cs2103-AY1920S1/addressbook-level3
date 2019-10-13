@@ -5,8 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseList;
+import seedu.address.model.person.Income;
+import seedu.address.model.person.IncomeList;
+import seedu.address.model.person.UniqueEntryList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +18,9 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueEntryList entries;
+    private final ExpenseList expenses;
+    private final IncomeList incomes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +30,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        expenses = new ExpenseList();
+        entries = new UniqueEntryList();
+        incomes = new IncomeList();
     }
 
     public AddressBook() {}
@@ -43,8 +51,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setEntries(List<Expense> expenses) {
+        this.expenses.setEntries(expenses);
     }
 
     /**
@@ -52,8 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+        setEntries(newData.getExpenseList());
     }
 
     //// person-level operations
@@ -61,17 +68,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasEntry(Entry entry) {
+        requireNonNull(entry);
+        return entries.contains(entry);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addEntry(Entry entry) {
+        entries.add(entry);
+    }
+
+    /**
+     * Adds a specified Expense to the finance app.
+     * @param expense the specified Expense to be added.
+     */
+    public void addExpense(Expense expense) {
+        entries.add(expense);
+        expenses.add(expense);
+    }
+
+    /**
+     * Adds the specified Income to the finance app.
+     * @param income the specified Income to be added.
+     */
+    public void addIncome(Income income) {
+        entries.add(income);
+        incomes.add(income);
     }
 
     /**
@@ -79,42 +104,47 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setEntry(Entry target, Entry editedEntry) {
+        requireNonNull(editedEntry);
 
-        persons.setPerson(target, editedPerson);
+        entries.setPerson(target, editedEntry);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeEntry(Entry key) {
+        entries.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return entries.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Entry> getEntryList() {
+        return entries.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Expense> getExpenseList() {
+        return expenses.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && entries.equals(((AddressBook) other).entries));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return entries.hashCode();
     }
 }
