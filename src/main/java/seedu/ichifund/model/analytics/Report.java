@@ -1,7 +1,7 @@
 package seedu.ichifund.model.analytics;
 
-import seedu.ichifund.model.analytics.exceptions.ReportException;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.analytics.exceptions.ReportException;
 
 /**
  * Represents a report with hidden internal logic and the ability to be generated.

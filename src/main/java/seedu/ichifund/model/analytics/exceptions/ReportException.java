@@ -13,5 +13,7 @@ public class ReportException extends Exception {
     /**
      * Constructs a new {@code ReportException} with the specified detail {@code message} and {@code cause}.
      */
-    public ReportException(String message, Throwable cause) { super(message, cause); }
+    public ReportException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
