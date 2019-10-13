@@ -3,13 +3,12 @@ package seedu.address.model.transaction;
 import java.util.Date;
 
 /**
- * SplitTransaction consists of Amount amount, Date date, int numOfSplits,
- * Amount splitAmount
+ * SplitTransaction consists of Amount amount, Date date, int numOfSplits, Amount splitAmount
  */
-public class SplitTransaction extends Transaction{
+public class SplitTransaction extends Transaction {
 
-    public int numOfSplits;
-    private Amount splitAmount;
+    private final int numOfSplits;
+    private final Amount splitAmount;
 
     public SplitTransaction(Amount amount, Date date, int numOfSplits) {
         super(amount, date);
@@ -23,7 +22,7 @@ public class SplitTransaction extends Transaction{
      * @return balance same Amount of balance as prior to execution
      */
     @Override
-    public Amount handleBalance(Amount balance){
+    public Amount handleBalance(Amount balance) {
         return balance;
     }
 }

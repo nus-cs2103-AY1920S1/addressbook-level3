@@ -1,19 +1,22 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.Person;
-
 import java.util.Date;
 
+import seedu.address.model.person.Person;
 
+/**
+ * API of Transaction.
+ */
 public abstract class Transaction {
 
-    public Amount amount;
-    public Date date;
-    Person peopleInvolved;
+    protected Amount amount;
+    protected Date date;
+    protected Person peopleInvolved;
 
     public Transaction(Amount amount, Date date) {
         this.amount = amount;
         this.date = date;
+        this.peopleInvolved = null;
     }
 
     public Transaction(Amount amount, Date date, Person personInvolved) {

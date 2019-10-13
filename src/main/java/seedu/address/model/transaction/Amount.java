@@ -5,7 +5,7 @@ package seedu.address.model.transaction;
  */
 public class Amount {
 
-    public int amount;
+    private int amount;
 
     public Amount(double amount) {
         this.amount = (int) Math.floor(amount * 100);
@@ -22,16 +22,31 @@ public class Amount {
         return this.amount;
     }
 
+    /**
+     * Adds this.amount by amount.
+     * @param amount Amount to be added.
+     * @return New amount after addition.
+     */
     public Amount addAmount(Amount amount) {
         final int newAmount = this.amount + amount.amount;
         return new Amount(newAmount);
     }
 
+    /**
+     * Subtracts this.amount by amount.
+     * @param amount Amount to be subtracted.
+     * @return New amount after subtraction.
+     */
     public Amount subtractAmount(Amount amount) {
         final int newAmount = this.amount - amount.amount;
         return new Amount(newAmount);
     }
 
+    /**
+     * Divides amount by number of people.
+     * @param numOfPeople Number of people for amount to be divided.
+     * @return Equally (TO BE CHANGED) divided amount.
+     */
     public Amount divideAmount(int numOfPeople) {
         final int newAmount = this.amount / numOfPeople;
         return new Amount(newAmount);
