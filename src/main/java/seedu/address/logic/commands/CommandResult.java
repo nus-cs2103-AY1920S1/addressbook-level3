@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import seedu.address.logic.FunctionMode;
 
 /**
  * Represents the result of a command execution.
@@ -17,13 +20,22 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should toggle to a different function. */
+    private final boolean toggle;
+
+    /** Targeted function. */
+    private final Optional<FunctionMode> targetMode;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean toggle, Optional<FunctionMode> targetMode) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.toggle = toggle;
+        this.targetMode = targetMode;
     }
 
     /**
@@ -31,7 +43,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false,
+                false, Optional.empty());
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +57,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isToggle() {
+        return toggle;
+    }
+
+    public Optional<FunctionMode> getTargetMode() {
+        return targetMode;
     }
 
     @Override
@@ -62,7 +83,6 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);

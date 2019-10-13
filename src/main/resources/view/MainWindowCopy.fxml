@@ -102,7 +102,7 @@
                      <children>
                         <StackPane>
                            <children>
-                              <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="fcHighlightCircle" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/selectCircle.png" />
                                  </image>
@@ -116,7 +116,7 @@
                         </StackPane>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="notesHighlightCircle" fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/selectCircle.png" />
                                  </image>
@@ -130,7 +130,7 @@
                         </StackPane>
                         <StackPane>
                            <children>
-                              <ImageView fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="csHighlightCircle" fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/selectCircle.png" />
                                  </image>

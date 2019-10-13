@@ -17,6 +17,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SwitchModeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,6 +76,9 @@ public class AddressBookParser {
 
         case DeleteFlashcardCommand.COMMAND_WORD:
             return new DeleteFlashcardCommandParser().parse(arguments);
+
+        case SwitchModeCommand.COMMAND_WORD:
+            return new SwitchModeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

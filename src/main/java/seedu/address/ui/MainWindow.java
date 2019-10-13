@@ -2,16 +2,20 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -58,6 +62,18 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private ImageView notesHighlightCircle;
+
+    @FXML
+    private ImageView fcHighlightCircle;
+
+    @FXML
+    private ImageView csHighlightCircle;
+
+    @FXML
+    private ImageView currentHighlightedCircle;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,6 +87,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        currentHighlightedCircle = fcHighlightCircle;
     }
 
     public Stage getPrimaryStage() {
@@ -188,11 +206,44 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isToggle()) {
+                toggleModeTo(commandResult.getTargetMode().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void toggleModeTo (FunctionMode targetMode) {
+        deselectCircle(currentHighlightedCircle);
+        switch (targetMode) {
+            case FLASHCARD:
+                currentHighlightedCircle = fcHighlightCircle;
+                break;
+            case CHEATSHEET:
+                currentHighlightedCircle = csHighlightCircle;
+                break;
+            case NOTES:
+                currentHighlightedCircle = notesHighlightCircle;
+                break;
+            default:
+        }
+        highlightCircle(currentHighlightedCircle);
+    }
+
+    private void deselectCircle(ImageView targetCircle) {
+        FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
+        ft.setToValue(0);
+        ft.play();
+    }
+
+    private void highlightCircle(ImageView targetCircle) {
+        FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
+        ft.setToValue(1);
+        ft.play();
     }
 }
