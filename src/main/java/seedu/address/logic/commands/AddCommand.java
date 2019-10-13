@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the List";
 
-    public static String itemType;
+    private static String itemType;
 
     private final Item toAdd;
 
@@ -42,6 +42,10 @@ public class AddCommand extends Command {
 
     public static void setItemType(String newItemType) {
         itemType = newItemType;
+    }
+
+    public static String getItemType() {
+        return itemType;
     }
 
     @Override
