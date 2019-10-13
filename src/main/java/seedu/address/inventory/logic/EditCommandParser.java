@@ -5,6 +5,7 @@ import seedu.address.inventory.logic.ArgumentMultimap;
 import seedu.address.inventory.logic.ArgumentTokenizer;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.ui.Inventory;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -45,7 +46,7 @@ public class EditCommandParser {
             editPersonDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         }
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
-            editPersonDescriptor.setPrice(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()));
+            editPersonDescriptor.setQuantity(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()));
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
             editPersonDescriptor.setCost(Double.parseDouble(argMultimap.getValue(PREFIX_COST).get()));

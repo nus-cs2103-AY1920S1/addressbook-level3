@@ -29,7 +29,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setItem(int i, Item editedItem) throws Exception {
-                inventoryList.set(i, editedItem);
+                inventoryList.set(i - 1, editedItem);
     }
 
     @Override

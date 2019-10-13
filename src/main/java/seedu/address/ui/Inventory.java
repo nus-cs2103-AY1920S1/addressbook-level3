@@ -29,9 +29,11 @@ public class Inventory extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> costCol;
     @FXML
-    private TableColumn<Item, Double> subtotalCol;
+    private TableColumn<Item, Double> totalCostCol;
     @FXML
     private TableColumn<Item, Double> priceCol;
+    @FXML
+    private TableColumn<Item, Double> totalPriceCol;
 
     private List<Item> parseInventoryList(Logic logic) throws Exception {
         // parse and construct User datamodel list by looping your ResultSet rs
@@ -54,7 +56,8 @@ public class Inventory extends UiPart<Region> {
         categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("quantity"));
         costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("cost"));
-        subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
+        totalCostCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("totalCost"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        totalPriceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("totalPrice"));
     }
 }

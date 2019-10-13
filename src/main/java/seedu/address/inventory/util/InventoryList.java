@@ -3,12 +3,12 @@ package seedu.address.inventory.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Stream;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
-
 
 /**
  *
@@ -86,6 +86,10 @@ public class InventoryList {
 
     public void sortByQuantity() {
         Collections.sort(iList, new SortByQuantity());
+    }
+
+    public Stream<Item> stream() {
+        return this.iList.stream();
     }
 
     public Item get(int i) {
