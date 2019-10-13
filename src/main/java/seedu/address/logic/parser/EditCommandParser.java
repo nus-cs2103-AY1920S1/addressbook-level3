@@ -61,6 +61,11 @@ public class EditCommandParser implements Parser<EditCommand> {
                     ParserUtil.parseDescription(
                             argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).get()));
         }
+        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
+            editItemDescriptor.setEvent(
+                    ParserUtil.parseDateTime(
+                            argMultimap.getValue(PREFIX_DATETIME).get()).get());
+        }
         if (argMultimap.getValue(PREFIX_REMINDER).isPresent()) {
             editItemDescriptor.setReminder(
                     ParserUtil.parseReminder(
