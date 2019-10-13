@@ -1,10 +1,9 @@
-package seedu.jarvis.logic.commands.address;
+package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -19,7 +18,6 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
@@ -30,69 +28,60 @@ import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.PurchaseBuilder;
 
-public class AddAddressCommandTest {
+public class PaidCommandTest {
 
     /**
-     * Verifies that checking {@code AddAddressCommand} for the availability of inverse execution returns true.
+     * Verifies that checking {@code PaidCommand} for the availability of inverse execution returns true.
      */
     @BeforeEach
     public void hasInverseExecution() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        assertTrue(addAddressCommand.hasInverseExecution());
+        Purchase validPurchase = new PurchaseBuilder().build();
+        PaidCommand paidCommand = new PaidCommand(validPurchase);
+        assertTrue(paidCommand.hasInverseExecution());
     }
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddAddressCommand(null));
+    public void constructor_nullPurchase_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new PaidCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_purchaseAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
+        Purchase validPurchase = new PurchaseBuilder().build();
 
-        CommandResult commandResult = new AddAddressCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new PaidCommand(validPurchase).execute(modelStub);
 
-        assertEquals(String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class,
-                AddAddressCommand.MESSAGE_DUPLICATE_PERSON, () -> addAddressCommand.execute(modelStub));
+        assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddAddressCommand addAliceCommand = new AddAddressCommand(alice);
-        AddAddressCommand addBobCommand = new AddAddressCommand(bob);
+        Purchase spotify = new PurchaseBuilder().withDescription("spotify").build();
+        Purchase netflix = new PurchaseBuilder().withDescription("netflix").build();
+        PaidCommand addSpotifyCommand = new PaidCommand(spotify);
+        PaidCommand addNetflixCommand = new PaidCommand(netflix);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSpotifyCommand.equals(addSpotifyCommand));
 
         // same values -> returns true
-        AddAddressCommand addAliceCommandCopy = new AddAddressCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        PaidCommand addSpotifyCommandCopy = new PaidCommand(spotify);
+        assertTrue(addSpotifyCommand.equals(addSpotifyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSpotifyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSpotifyCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different purchase -> returns false
+        assertFalse(addSpotifyCommand.equals(addNetflixCommand));
     }
+
 
     /**
      * A default model stub that have all of the methods failing.
@@ -279,6 +268,11 @@ public class AddAddressCommandTest {
         }
 
         @Override
+        public ObservableList<Purchase> getFilteredPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Purchase> getPurchasesList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -288,46 +282,42 @@ public class AddAddressCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ObservableList<Purchase> getFilteredPurchaseList() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithPurchase extends PaidCommandTest.ModelStub {
+        private final Purchase purchase;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            this.purchase = purchase;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            return this.purchase.isSamePurchase(purchase);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPurchaseAdded extends PaidCommandTest.ModelStub {
+        final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            return purchasesAdded.stream().anyMatch(purchase::isSamePurchase);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            purchasesAdded.add(purchase);
         }
 
         @Override

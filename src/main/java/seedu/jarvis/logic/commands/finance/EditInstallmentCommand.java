@@ -3,6 +3,9 @@ package seedu.jarvis.logic.commands.finance;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_MONEY;
 
+/**
+ * Edits an existing installment using its displayed index in the finance tracker.
+ */
 public class EditInstallmentCommand {
 
     public static final String COMMAND_WORD = "instal edit";

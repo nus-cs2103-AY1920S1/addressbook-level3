@@ -3,7 +3,12 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
 
 /**
@@ -15,6 +20,13 @@ public class FinanceTracker {
     private InstallmentList installmentList;
     private double monthlyLimit;
     private double totalSpending;
+    private final UniquePurchaseList purchases;
+    private final FilteredList<Purchase> filteredPurchases;
+
+    {
+        purchases = new UniquePurchaseList();
+        filteredPurchases = new FilteredList<>(getPurchasesList(), FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+    }
 
     /**
      * Constructs an empty FinanceTracker to store data from the user.
@@ -49,6 +61,16 @@ public class FinanceTracker {
         this.installmentList = new InstallmentList(financeTracker.getInstallmentList());
     }
 
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyAddressBook newData) {
+        requireNonNull(newData);
+
+        setPurchases(newData.getPurchaseList());
+        filteredPurchases.setPredicate(FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+    }
+
     //=========== Setter Methods ==================================================================================
 
     public void setPurchaseList(PurchaseList purchaseList) {
@@ -57,6 +79,17 @@ public class FinanceTracker {
 
     public void setInstallmentList(InstallmentList installmentList) {
         this.installmentList = installmentList;
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setPurchase(Purchase target, Purchase editedPurchase) {
+        requireNonNull(editedPurchase);
+
+        purchases.setPurchase(target, editedPurchase);
     }
 
     //=========== Getter Methods ==================================================================================
@@ -88,7 +121,7 @@ public class FinanceTracker {
      *
      * @param purchase to be added to the finance tracker
      */
-    public void addSinglePayment(Purchase purchase) {
+    public void addSinglePurchase(Purchase purchase) {
         purchaseList.addSinglePurchase(purchase);
     }
 
@@ -97,7 +130,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    public Purchase deleteSinglePayment(int itemNumber) {
+    public Purchase deleteSinglePurchase(int itemNumber) {
         return purchaseList.deletePurchase(itemNumber);
     }
 
@@ -175,5 +208,36 @@ public class FinanceTracker {
                 || (other instanceof FinanceTracker // instanceof handles nulls
                 && purchaseList.equals(((FinanceTracker) other).purchaseList)
                 && installmentList.equals(((FinanceTracker) other).installmentList));
+    }
+
+    /**
+     * Replaces the contents of the person list with {@code purchases}.
+     * {@code purchases} must not contain duplicate purchases.
+     */
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases.setPurchases(purchases);
+    }
+
+
+    public ObservableList<Purchase> getPurchasesList() {
+        return purchases.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Purchase} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return filteredPurchases;
+    }
+
+    /**
+     * Updates {@code filteredPurchases} according to the give {@code Predicate}.
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredPurchases}.
+     */
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        requireNonNull(predicate);
+        filteredPurchases.setPredicate(predicate);
     }
 }

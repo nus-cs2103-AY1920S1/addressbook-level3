@@ -56,4 +56,8 @@ public class Purchase {
                 && description.equals(((Purchase) other).description)
                 && moneySpent == ((Purchase) other).moneySpent);
     }
+
+    public boolean isSamePurchase(Purchase purchase) {
+        return this.equals(purchase);
+    }
 }

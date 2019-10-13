@@ -38,7 +38,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void addPayment_normalInput_addedCorrectly() {
-        financeTracker.addSinglePayment(new PurchaseStub());
+        financeTracker.addSinglePurchase(new PurchaseStub());
         Purchase addedPurchase = financeTracker.getPurchase(4);
         assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), addedPurchase.getMoneySpent());
@@ -47,7 +47,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deletePayment_normalInput_deletedCorrectly() {
-        Purchase deletedPurchase = financeTracker.deleteSinglePayment(2);
+        Purchase deletedPurchase = financeTracker.deleteSinglePurchase(2);
         assertEquals(new PurchaseStub().getDescription(), deletedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), deletedPurchase.getMoneySpent());
         assertEquals(2, financeTracker.getTotalPurchases());
@@ -55,7 +55,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deletePayment_indexNonexistent_throwsError() {
-        assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePayment(4));
+        assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePurchase(4));
         assertEquals(3, financeTracker.getTotalPurchases());
     }
 

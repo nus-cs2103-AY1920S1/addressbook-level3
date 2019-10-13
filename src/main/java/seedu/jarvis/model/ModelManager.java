@@ -207,8 +207,8 @@ public class ModelManager implements Model {
      * @param purchase
      */
     @Override
-    public void addPayment(Purchase purchase) {
-        financeTracker.addSinglePayment(purchase);
+    public void addPurchase(Purchase purchase) {
+        financeTracker.addSinglePurchase(purchase);
     }
 
     /**
@@ -217,8 +217,18 @@ public class ModelManager implements Model {
      * @param itemNumber
      */
     @Override
-    public void deletePayment(int itemNumber) {
-        financeTracker.deleteSinglePayment(itemNumber);
+    public void deletePurchase(int itemNumber) {
+        financeTracker.deleteSinglePurchase(itemNumber);
+    }
+
+    /**
+     * todo change how this is implemented
+     * @param purchase
+     * @return
+     */
+    @Override
+    public boolean hasPurchase(Purchase purchase) {
+        return false;
     }
 
     /**
@@ -270,6 +280,20 @@ public class ModelManager implements Model {
     @Override
     public void listSpending() {
         financeTracker.listSpending();
+    }
+
+    public ObservableList<Purchase> getPurchasesList() {
+        return financeTracker.getPurchasesList();
+    }
+
+    @Override
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        financeTracker.updateFilteredPurchaseList(predicate);
+    }
+
+    @Override
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return financeTracker.getFilteredPurchaseList();
     }
 
     //=========== AddressBook ================================================================================

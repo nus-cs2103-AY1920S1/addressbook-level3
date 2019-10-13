@@ -508,12 +508,17 @@ public class HistoryManagerTest {
         }
 
         @Override
-        public void addPayment(Purchase purchase) {
+        public void addPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePayment(int itemNumber) {
+        public void deletePurchase(int itemNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -539,6 +544,21 @@ public class HistoryManagerTest {
 
         @Override
         public void listSpending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Purchase> getPurchasesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Purchase> getFilteredPurchaseList() {
             throw new AssertionError("This method should not be called.");
         }
     }
