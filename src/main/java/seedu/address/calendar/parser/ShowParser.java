@@ -2,11 +2,14 @@ package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ShowParser {
+    private static final String FORMAT_ERROR_MESSAGE = "Incorrect month/year format.";
+
     private static final String MONTH_ONLY_KEY = "monthOnly";
     private static final String MONTH_ONLY_PATTERN = "(?<" + MONTH_ONLY_KEY + ">\\S+)";
     private static final String MONTH_KEY = "month";
@@ -17,12 +20,11 @@ class ShowParser {
      */
     private static final Pattern MONTH_YEAR_FORMAT = Pattern.compile(MONTH_ONLY_PATTERN + "|" + MONTH_AND_YEAR_PATTERN);
 
-    ShowCommand parse(String userInput) {
+    ShowCommand parse(String userInput) throws ParseException {
         final Matcher matcher = MONTH_YEAR_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-            // todo: add exception handling
-            System.out.println("No such month/year");
+            throw new ParseException(FORMAT_ERROR_MESSAGE);
         }
 
         int year;

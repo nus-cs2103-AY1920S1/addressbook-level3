@@ -12,6 +12,8 @@ import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 
@@ -29,7 +31,7 @@ public class CalendarPage implements Page {
     @FXML
     GridPane monthView;
     @FXML // todo change the following to CommandBox class?
-    TextField commandBox = new TextField();
+    TextField commandBoxPlaceHolder = new TextField();
     @FXML
     Label monthLabel;
 
@@ -37,8 +39,8 @@ public class CalendarPage implements Page {
 
     public CalendarPage() {
         calendar = new Calendar();
+        commandBoxPlaceHolder = new CommandBox(this::executeCommand).getCommandBox();
         setUp();
-        addEventHandlers();
     }
 
     public boolean isOpened() {
@@ -70,30 +72,8 @@ public class CalendarPage implements Page {
         monthLabel.setTextAlignment(TextAlignment.CENTER);
 
         calendarPane.setAlignment(Pos.BOTTOM_LEFT);
-        calendarPane.getChildren().addAll(monthLabel, weekHeader, monthView, commandBox);
+        calendarPane.getChildren().addAll(monthLabel, weekHeader, monthView, commandBoxPlaceHolder);
         calendarScene = new Scene(calendarPane);
-    }
-
-    /**
-     * Adds necessary event handlers to the relevant nodes.
-     */
-    private void addEventHandlers() {
-        commandBox.setOnAction(event -> {
-            String s = commandBox.getText();
-            // todo: change this to process user request
-            // calendar.updateMonth(s);
-            Command command = (new CalendarParser()).parseCommand(s);
-            command.execute(calendar);
-
-            if (calendar.hasViewUpdates()) {
-                Month newMonth = calendar.getMonth();
-                MonthView newMonthView = new MonthView(newMonth);
-                updateCalendarView(newMonthView);
-                calendar.completeUpdate();
-            }
-
-            commandBox.setText("");
-        });
     }
 
     private void updateCalendarView(MonthView updatedMonthView) {
@@ -109,5 +89,22 @@ public class CalendarPage implements Page {
     private void updateMonthGrid(MonthView updatedMonthView) {
         GridPane updatedMonthGrid = updatedMonthView.generateMonthGrid();
         calendarPane.getChildren().set(2, updatedMonthGrid);
+    }
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see seedu.address.logic.Logic#execute(String)
+     */
+    private void executeCommand(String commandText) throws CommandException, ParseException {
+        Command command = (new CalendarParser()).parseCommand(commandText);
+        command.execute(calendar);
+
+        if (calendar.hasViewUpdates()) {
+            Month newMonth = calendar.getMonth();
+            MonthView newMonthView = new MonthView(newMonth);
+            updateCalendarView(newMonthView);
+            calendar.completeUpdate();
+        }
     }
 }

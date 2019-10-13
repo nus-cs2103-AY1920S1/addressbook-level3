@@ -1,5 +1,6 @@
 package seedu.address.calendar.model;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public enum MonthOfYear {
@@ -57,18 +58,36 @@ public enum MonthOfYear {
         return MonthOfYear.values()[javaMonth];
     }
 
+    public static boolean isValidMonthNum(int monthNum) {
+        return monthNum < MonthOfYear.values().length;
+    }
+
     public static MonthOfYear convertNumToMonth(int monthNum) {
         return convertJavaMonth(monthNum);
     }
 
-    public static MonthOfYear convertStrToMonth(String monthStr) {
+    public static boolean isValidMonthStr(String monthStr) {
         return Stream.of(MonthOfYear.values())
+                .anyMatch(month -> {
+                    String monthLowerCase = month.toString().toLowerCase();
+                    String monthStrLowerCase = monthStr.toLowerCase();
+                    return monthLowerCase.contains(monthStrLowerCase);
+                });
+    }
+
+    public static MonthOfYear convertStrToMonth(String monthStr) {
+        Optional<MonthOfYear> monthOfYear = Stream.of(MonthOfYear.values())
                 .filter(month -> {
                     String monthLowerCase = month.toString().toLowerCase();
                     String monthStrLowerCase = monthStr.toLowerCase();
                     return monthLowerCase.contains(monthStrLowerCase);
                 })
-                .findFirst()
-                .orElse(JANUARY); // todo: handle exception
+                .findFirst();
+
+        if (monthOfYear.isEmpty()) {
+            assert false : "monthStr should be a valid representation of a month";
+        }
+
+        return monthOfYear.get();
     }
 }
