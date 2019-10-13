@@ -1,6 +1,9 @@
 package seedu.address.cashier.model.exception;
 
-public class NoSuchIndexException extends Exception{
+/**
+ * Signals that the index that does not exist.
+ */
+public class NoSuchIndexException extends Exception {
 
     private String msg;
 

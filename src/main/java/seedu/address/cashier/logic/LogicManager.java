@@ -9,6 +9,9 @@ import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
+/**
+ * The main LogicManager of the cashier tab.
+ */
 public class LogicManager implements Logic {
 
     //private final Model model;
@@ -59,9 +62,6 @@ public class LogicManager implements Logic {
         Command command = parser.parseCommand(commandText, cashierManager, personModel);
         CommandResult commandResult = command.execute(cashierManager, personModel,
                 transactionModel, inventoryModel);
-        //cashierManager.updateInventoryList();
-        //cashierManager.writeInInventoryFile();
-        //storage.writeFileToInventory(cashierManager.getInventoryList());
         return commandResult;
     }
 

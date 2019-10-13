@@ -14,6 +14,9 @@ import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Manages storage of Inventory List and Transaction List data in local storage.
+ */
 public class StorageManager {
 
     private String filepathToInventory;
@@ -41,6 +44,11 @@ public class StorageManager {
         return new InventoryList(itemArrayList);
     }
 
+    /**
+     * Reads in a single text file line and parses it to create the {@code Item} object.
+     * @param line each line of text in the data file
+     * @return the item created.
+     */
     public static Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ");
         Item i = null;
@@ -55,6 +63,12 @@ public class StorageManager {
         return i;
     }
 
+    /**
+     * Writes the inventory list to the data file.
+     * @param inventoryList the list to be written to file
+     * @throws IOException if the input is invalid
+     * @throws NoSuchIndexException if the index input is invalid
+     */
     public void writeFileToInventory(InventoryList inventoryList) throws IOException, NoSuchIndexException {
         FileWriter fw = new FileWriter(this.filepathToInventory);
         String textFileMsg = "";
@@ -62,8 +76,8 @@ public class StorageManager {
             if (i == 0) {
                 textFileMsg = textFileMsg + (i + 1) + inventoryList.getItemByIndex(i).toWriteIntoFile();
             } else {
-                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) +
-                        inventoryList.getItemByIndex(i).toWriteIntoFile();
+                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1)
+                        + inventoryList.getItemByIndex(i).toWriteIntoFile();
             }
         }
         fw.write(textFileMsg);
@@ -84,6 +98,12 @@ public class StorageManager {
         return new TransactionList(transactionArrayList);
     }
 
+    /**
+     * Reads in a single text file line and parses it to create the {@code Transaction} object.
+     * @param line each line of text in the data file
+     * @param personModel the model used to find person object
+     * @return the transaction created.
+     */
     public static Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
@@ -95,9 +115,14 @@ public class StorageManager {
     }
 
     private static boolean isReimbursed(String num) {
-        return num.equals("1")? true: false;
+        return num.equals("1") ? true : false;
     }
 
+    /**
+     * Appends the specified transaction to the data file.
+     * @param transaction the transaction to be written to file
+     * @throws Exception if the input is invalid
+     */
     public void appendToTransaction(Transaction transaction) throws Exception {
         FileWriter fw = new FileWriter(this.filepathToTransaction, true);
         TransactionList transactionList = getTransactionList();
@@ -105,8 +130,8 @@ public class StorageManager {
         if (transactionList.size() == 0) {
             textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
         } else {
-            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". " +
-                    transaction.toWriteIntoFile();
+            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                    + transaction.toWriteIntoFile();
         }
         fw.write(textFileMsg);
         fw.close();
