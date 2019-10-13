@@ -12,8 +12,8 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.CliSyntax;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
 import io.xpire.testutil.Assert;
 import io.xpire.testutil.EditItemDescriptorBuilder;
 
@@ -126,7 +126,7 @@ public class CommandTestUtil {
 
         Item item = model.getFilteredItemList().get(targetIndex.getZeroBased());
         final String[] splitName = item.getName().toString().split("\\s+");
-        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredItemList().size());
     }

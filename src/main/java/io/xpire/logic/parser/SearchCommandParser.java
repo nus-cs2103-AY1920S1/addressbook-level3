@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import io.xpire.commons.core.Messages;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -30,7 +30,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 .map(String::trim)
                 .collect(Collectors.toList());
 
-        return new SearchCommand(new NameContainsKeywordsPredicate(keywords));
+        return new SearchCommand(new ContainsKeywordsPredicate(keywords));
     }
 
 }

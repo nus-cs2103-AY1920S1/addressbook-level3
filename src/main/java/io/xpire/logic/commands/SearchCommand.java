@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.model.Model;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class SearchCommand extends Command {
             + "Format: search|<keyword>[|<other keywords>]...\n"
             + "Example: " + COMMAND_WORD + "|apple|banana|panadol";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final ContainsKeywordsPredicate predicate;
 
-    public SearchCommand(NameContainsKeywordsPredicate predicate) {
+    public SearchCommand(ContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
