@@ -59,6 +59,10 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    /**
+     * @param otherTag
+     * @return whether the current tag the same as otherTag
+     */
     public boolean isSameTag(Tag otherTag) {
         if (otherTag == this) {
             return true;

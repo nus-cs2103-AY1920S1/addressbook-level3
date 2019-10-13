@@ -124,7 +124,8 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Adds a Tag to the algobase.
      * The Tag must not already exist in the algobase.
      */
-    public void addTag(Tag p) { tags.add(p);
+    public void addTag(Tag p) {
+        tags.add(p);
     }
 
     /**

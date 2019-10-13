@@ -7,14 +7,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
+import seedu.algobase.logic.commands.DeleteTagCommand;
 import seedu.algobase.logic.commands.EditCommand;
+import seedu.algobase.logic.commands.EditTagCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
+import seedu.algobase.logic.commands.ListTagCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -43,7 +47,6 @@ public class AlgoBaseParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -68,6 +71,17 @@ public class AlgoBaseParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
+
+        case EditTagCommand.COMMAND_WORD:
+            return new EditTagCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

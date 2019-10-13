@@ -1,16 +1,15 @@
 package seedu.algobase.model.tag;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.algobase.model.tag.Tag;
-import seedu.algobase.model.tag.exceptions.DuplicateTagException;
-import seedu.algobase.model.tag.exceptions.TagNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.algobase.model.tag.exceptions.DuplicateTagException;
+import seedu.algobase.model.tag.exceptions.TagNotFoundException;
 
 /**
  * A list of tags that enforces uniqueness between its elements and does not allow nulls.

@@ -8,7 +8,6 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
 /**
