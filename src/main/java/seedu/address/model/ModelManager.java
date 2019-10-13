@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.Email;
@@ -156,6 +157,12 @@ public class ModelManager implements Model {
     public boolean hasBook(Book book) {
         requireNonNull(book);
         return catalog.hasBook(book);
+    }
+
+    @Override
+    public boolean hasBook(SerialNumber bookSn) {
+        requireNonNull(bookSn);
+        return catalog.checkIfSerialNumberExists(bookSn);
     }
 
     @Override

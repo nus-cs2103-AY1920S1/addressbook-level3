@@ -14,5 +14,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_SERIAL_NUMBER = "Invalid Serial Number! \n%1$s";
 
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
+    public static final String MESSAGE_BOOK_ON_LOAN = "Book is already on loan!";
 
 }

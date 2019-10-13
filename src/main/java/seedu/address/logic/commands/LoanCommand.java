@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,6 +47,15 @@ public class LoanCommand extends Command {
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
+
+        if (!model.hasBook(this.toLoan)) {
+            throw new CommandException(MESSAGE_NO_SUCH_BOOK);
+        }
+
+        // get the book
+        // check if it is loaned
+        // if not set the loan
+        // add to loan records
 
         // TODO
         // check if book is currently on loaned already
