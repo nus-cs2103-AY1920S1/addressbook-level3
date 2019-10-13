@@ -1,4 +1,4 @@
-package seedu.flashcard.model;
+package seedu.flashcard.model.flashcard;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
