@@ -60,9 +60,13 @@ public class InstallmentList {
         return totalMoneySpentOnInstallments;
     }
 
-    public Installment getInstallment(int installmentNumber) {
-        Index index = Index.fromOneBased(installmentNumber);
-        return allInstallments.get(index.getZeroBased());
+    public Installment getInstallment(int installmentNumber) throws InstallmentNotFoundException {
+        try {
+            Index index = Index.fromOneBased(installmentNumber);
+            return allInstallments.get(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw new InstallmentNotFoundException();
+        }
     }
 
     public int getNumInstallments() {
@@ -108,14 +112,15 @@ public class InstallmentList {
      *
      * @param installmentNumber of the instalment in the list
      * @return Instalment object that has been removed from the list
+     * @throws InstallmentNotFoundException if the installment does not exist
      */
-    public Installment deleteInstallment(int installmentNumber) {
-        if (installmentNumber < 1) {
-            throw new InstallmentNotFoundException();
-        } else {
+    public Installment deleteInstallment(int installmentNumber) throws InstallmentNotFoundException {
+        try {
             Index index = Index.fromOneBased(installmentNumber);
             totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
             return allInstallments.remove(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw new InstallmentNotFoundException();
         }
     }
 

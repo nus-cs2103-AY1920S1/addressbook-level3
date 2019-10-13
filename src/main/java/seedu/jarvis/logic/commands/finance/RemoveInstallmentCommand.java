@@ -9,7 +9,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.financetracker.Installment;
-import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
@@ -67,10 +67,10 @@ public class RemoveInstallmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            toDelete = model.getInstallment(targetIndex.getZeroBased());
-            model.deleteInstallment(targetIndex.getZeroBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS));
-        } catch (PurchaseNotFoundException e) {
+            toDelete = model.getInstallment(targetIndex.getOneBased());
+            model.deleteInstallment(targetIndex.getOneBased());
+            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, toDelete));
+        } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
         }
     }

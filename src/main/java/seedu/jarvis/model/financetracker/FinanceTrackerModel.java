@@ -1,5 +1,6 @@
 package seedu.jarvis.model.financetracker;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -25,9 +26,9 @@ public interface FinanceTrackerModel {
      */
     void setFinanceTracker(FinanceTracker financeTracker);
 
-    public Purchase getPurchase(int paymentIndex);
+    Purchase getPurchase(int paymentIndex);
 
-    public Installment getInstallment(int instalIndex);
+    Installment getInstallment(int instalIndex);
     /**
      * Adds single use payment.
      *
@@ -56,7 +57,7 @@ public interface FinanceTrackerModel {
      *
      * @param instalNumber
      */
-    void deleteInstallment(int instalNumber);
+    Installment deleteInstallment(int instalNumber);
 
     boolean hasInstallment(Installment installment);
 
@@ -68,6 +69,13 @@ public interface FinanceTrackerModel {
      * @param value
      */
     void editInstallmentByValue(int installmentNumber, String description, double value);
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return InstallmentList
+     */
+    ArrayList<Installment> getInstallmentList();
 
     /**
      * Sets the monthly limit for spending.

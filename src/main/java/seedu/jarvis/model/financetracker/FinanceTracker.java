@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
 
 /**
@@ -98,7 +99,7 @@ public class FinanceTracker {
         return purchaseList.getPurchase(paymentIndex);
     }
 
-    public Installment getInstallment(int instalIndex) {
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
         return installmentList.getInstallment(instalIndex);
     }
 
@@ -110,8 +111,8 @@ public class FinanceTracker {
         return purchaseList;
     }
 
-    public InstallmentList getInstallmentList() {
-        return installmentList;
+    public ArrayList<Installment> getInstallmentList() {
+        return installmentList.getAllInstallments();
     }
 
     //=========== Purchase List Command Methods =======================================================================
@@ -154,7 +155,7 @@ public class FinanceTracker {
         installmentList.addInstallment(installment);
     }
 
-    public Installment deleteInstallment(int instalNumber) {
+    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
         return installmentList.deleteInstallment(instalNumber);
     }
 

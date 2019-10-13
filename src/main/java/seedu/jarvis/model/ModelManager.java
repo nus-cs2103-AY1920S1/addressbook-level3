@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -197,7 +199,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Installment getInstallment(int instalIndex) {
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
         return financeTracker.getInstallment(instalIndex);
     }
 
@@ -249,8 +251,8 @@ public class ModelManager implements Model {
      * @param instalNumber
      */
     @Override
-    public void deleteInstallment(int instalNumber) {
-        financeTracker.deleteInstallment(instalNumber);
+    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+        return financeTracker.deleteInstallment(instalNumber);
     }
 
     @Override
@@ -268,6 +270,16 @@ public class ModelManager implements Model {
     @Override
     public void editInstallmentByValue(int installmentNumber, String description, double value) {
         financeTracker.editInstallment(installmentNumber, description, value);
+    }
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return InstallmentList
+     */
+    @Override
+    public ArrayList<Installment> getInstallmentList() {
+        return financeTracker.getInstallmentList();
     }
 
     /**
