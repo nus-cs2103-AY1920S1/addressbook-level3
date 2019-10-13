@@ -197,8 +197,10 @@ public class MainWindow extends UiPart<Stage> {
             gameTimer = new GameTimer("Time left", 800, timerDisplay);
             gameTimer.run();
 
-            if (commandText.equals("home")) {
+            if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
+            } else if (commandText.equals("help")) {
+                //modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else {
                 modularDisplay.swapToHome(modularDisplayPlaceholder);
             }
