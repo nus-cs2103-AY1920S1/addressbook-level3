@@ -138,13 +138,13 @@ public interface Model {
 
 
     /** Returns an unmodifiable view of the filtered contact list */
-    ObservableList<Contact> getFilteredPersonList();
+    ObservableList<Contact> getFilteredContactList();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Contact> predicate);
+    void updateFilteredContactList(Predicate<Contact> predicate);
 
     /** Returns an unmodifiable view of the filtered claim list */
     ObservableList<Claim> getFilteredClaimList();

@@ -142,12 +142,12 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public ObservableList<seedu.address.model.contact.Contact> getFilteredPersonList() {
+        public ObservableList<seedu.address.model.contact.Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<seedu.address.model.contact.Contact> predicate) {
+        public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ClaimListPanel claimListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane claimListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up window with claims
      */
     void fillWithClaims() {
-        //claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
-        //claimListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
+        claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
+        personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
