@@ -12,6 +12,7 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
@@ -141,6 +142,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleInfo(String info) {
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -178,6 +184,20 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
+                handleInfo(commandResult.getFeedbackToUser());
             }
 
             // Update foodListPanel after every command
