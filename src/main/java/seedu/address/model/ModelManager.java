@@ -127,6 +127,48 @@ public class ModelManager implements Model {
     //=========== Filtered Note List Accessors =============================================================
 
     /**
+     * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    //=========== Filtered Task List accessors =============================================================
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return addressBook.hasTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        addressBook.addTask(task);
+        updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+
+        addressBook.setTask(target, editedTask);
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Note}s backed by the internal list of
      * {@code versionedAddressBook}
      */
@@ -157,6 +199,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredNotes.equals(other.filteredNotes);
+                && filteredNotes.equals(other.filteredNotes)
+                && filteredTasks.equals(other.filteredTasks);
     }
 }
