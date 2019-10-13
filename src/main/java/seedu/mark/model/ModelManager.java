@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -114,6 +116,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addBookmarks(List<Bookmark> bookmarksToAdd) {
+        requireNonNull(bookmarksToAdd);
+
+        for (Bookmark bookmark : bookmarksToAdd) {
+            if (hasBookmark(bookmark)) {
+                logger.fine("Duplicate bookmark was not added: " + bookmark);
+                continue;
+            }
+            logger.fine("Bookmark added: " + bookmark);
+            addBookmark(bookmark);
+        }
+    }
+
+    @Override
     public void addFolder(Folder folder, Folder parentFolder) {
         requireAllNonNull(folder, parentFolder);
         versionedMark.addFolder(folder, parentFolder);
@@ -122,6 +138,26 @@ public class ModelManager implements Model {
     @Override
     public boolean hasFolder(Folder folder) {
         return versionedMark.hasFolder(folder);
+    }
+
+    @Override
+    public void addFolders(FolderStructure foldersToAdd) {
+        requireNonNull(foldersToAdd);
+        // TODO: decide what to do here
+
+        // option 1:
+        // get ROOT
+        // add subfolders of imported folder structure to ROOT
+        // check for duplicate folders and ignore them
+        // if folder is found, then ignore
+        // for each Bookmark in list, if name = duplicate-folder, change folder to ROOT
+
+        // option 2:
+        // get ROOT
+        // create a new subfolder for imported bookmarks (de-conflict names if necessary)
+        // import each folder into import-folder
+        // check for duplicate folders and rename if necessary (e.g. folder-1)
+        // for each Bookmark in list, if name = renamed-folder, change name to new-name
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================

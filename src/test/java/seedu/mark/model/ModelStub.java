@@ -1,6 +1,7 @@
 package seedu.mark.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -74,6 +76,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addBookmarks(List<Bookmark> bookmarksToAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Bookmark> getFilteredBookmarkList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -90,6 +97,11 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addFolders(FolderStructure foldersToAdd) {
         throw new AssertionError("This method should not be called.");
     }
 

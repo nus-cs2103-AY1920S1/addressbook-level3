@@ -36,6 +36,17 @@ public class ImportCommandTest {
     private Model model = new ModelManager(new Mark(), new UserPrefs());
     private Storage storage = new StorageStubAllowsRead();
 
+    /**
+     * Converts the list of bookmarks into a multi-line String, where each
+     * line has 4 spaces of indentation.
+     */
+    private static String makeIndentedString(List<Bookmark> bookmarks) {
+        String newlineAndIndent = "\n    ";
+        return bookmarks.stream().map(Bookmark::toString)
+                .map(newlineAndIndent::concat)
+                .reduce("", String::concat);
+    }
+
     @Test
     public void execute_invalidFile_exceptionThrown() {
         // file does not exist
@@ -84,7 +95,7 @@ public class ImportCommandTest {
         Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
 
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
-                ImportCommand.toIndentedString(existingBookmarks));
+                makeIndentedString(existingBookmarks));
 
         // set up expected model with appropriate state
         Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
@@ -102,8 +113,8 @@ public class ImportCommandTest {
         ImportCommand command = new ImportCommand(filePath);
 
         Model initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
-        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
-                ImportCommand.toIndentedString(getTypicalBookmarks()));
+        String expectedMessage = String.format(ImportCommand.MESSAGE_NO_BOOKMARKS_TO_IMPORT,
+                makeIndentedString(getTypicalBookmarks()));
 
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
 
