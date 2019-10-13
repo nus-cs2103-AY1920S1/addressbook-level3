@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.logic.commands.Command;
+import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.ExitCommand;
@@ -67,6 +68,9 @@ public class ExerciseBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case CustomCommand.COMMAND_WORD:
+            return new CustomCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

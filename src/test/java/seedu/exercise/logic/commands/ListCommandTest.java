@@ -2,6 +2,7 @@ package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
+import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 import static seedu.exercise.testutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
@@ -23,8 +24,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
+            new UserPrefs(), getDefaultPropertyManager());
+        expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(),
+            new UserPrefs(), getDefaultPropertyManager());
     }
 
     @Test

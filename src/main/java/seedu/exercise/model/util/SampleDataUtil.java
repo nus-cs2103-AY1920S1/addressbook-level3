@@ -85,9 +85,9 @@ public class SampleDataUtil {
                 getMuscleSet("Chest")));
 
         return new Regime[] {
-            new Regime(new RegimeName("level 1"), list1),
-            new Regime(new RegimeName("level 2"), list2),
-            new Regime(new RegimeName("level 3"), list3)
+            new Regime(new RegimeName("Level 1"), list1),
+            new Regime(new RegimeName("Level 2"), list2),
+            new Regime(new RegimeName("Level 3"), list3)
         };
     }
 
@@ -100,7 +100,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a muscle set containing the list of strings given.
      */
     public static Set<Muscle> getMuscleSet(String... strings) {
         return Arrays.stream(strings)

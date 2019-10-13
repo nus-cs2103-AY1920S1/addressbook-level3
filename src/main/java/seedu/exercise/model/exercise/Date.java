@@ -11,11 +11,11 @@ import java.time.format.DateTimeParseException;
  * Represents an Exercise's date in ExerHealth.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date extends Property {
-
+public class Date {
+    public static final String PROPERTY_DATE = "Date";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/MM/yyyy and must be valid.";
-    private static final String VALIDATION_REGEX = "dd/MM/yyyy";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(VALIDATION_REGEX);
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     public final LocalDate value;
 
     /**
@@ -49,8 +49,8 @@ public class Date extends Property {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && value.equals(((Date) other).value)); // state check
+            || (other instanceof Date // instanceof handles nulls
+            && value.equals(((Date) other).value)); // state check
     }
 
     @Override

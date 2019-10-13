@@ -3,7 +3,9 @@ package seedu.exercise.model.exercise;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,16 +18,31 @@ public class Exercise {
     // Identity fields
     private final Name name;
     private final Date date;
-
-    // Data fields
     private final Quantity quantity;
     private final Unit unit;
     private final Calories calories;
+
+    // Data fields
     private final Set<Muscle> muscles = new HashSet<>();
+    private final Map<String, String> customProperties = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
+    public Exercise(Name name, Date date, Calories calories, Quantity quantity, Unit unit, Set<Muscle> muscles,
+                    Map<String, String> customProperties) {
+        requireAllNonNull(name, date, calories, quantity, unit, muscles);
+        this.name = name;
+        this.date = date;
+        this.calories = calories;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.muscles.addAll(muscles);
+        this.customProperties.putAll(customProperties);
+    }
+
+    // A placeholder constructor to pass the text cases. Will remove it when the necessary test cases have been
+    // updated.
     public Exercise(Name name, Date date, Calories calories, Quantity quantity, Unit unit, Set<Muscle> muscles) {
         requireAllNonNull(name, date, calories, quantity, unit, muscles);
         this.name = name;
@@ -56,12 +73,21 @@ public class Exercise {
         return unit;
     }
 
+
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable muscle set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Muscle> getMuscles() {
         return Collections.unmodifiableSet(muscles);
+    }
+
+    /**
+     * Returns an immutable custom properties map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, String> getCustomProperties() {
+        return Collections.unmodifiableMap(customProperties);
     }
 
     /**
@@ -98,13 +124,14 @@ public class Exercise {
             && otherExercise.getDate().equals(getDate())
             && otherExercise.getQuantity().equals(getQuantity())
             && otherExercise.getUnit().equals(getUnit())
-            && otherExercise.getMuscles().equals(getMuscles());
+            && otherExercise.getMuscles().equals(getMuscles())
+            && otherExercise.getCustomProperties().equals(getCustomProperties());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, calories, quantity, unit, muscles);
+        return Objects.hash(name, date, calories, quantity, unit, muscles, customProperties);
     }
 
     @Override
@@ -118,10 +145,29 @@ public class Exercise {
             .append(" Quantity: ")
             .append(getQuantity())
             .append(" Unit: ")
-            .append(getUnit())
-            .append(" Muscle(s): ");
-        getMuscles().forEach(builder::append);
-        return builder.toString();
+            .append(getUnit());
+        appendMuscles(builder);
+        builder.append(" ");
+        appendCustomProperties(builder);
+        return builder.toString().stripTrailing();
     }
 
+    /**
+     * Appends muscle information into the input StringBuilder, if there are any.
+     */
+    private void appendMuscles(StringBuilder builder) {
+        if (!muscles.isEmpty()) {
+            builder.append(" Muscle(s): ");
+            getMuscles().forEach(builder::append);
+        }
+    }
+
+    /**
+     * Appends custom properties information into the input StringBuilder, if there are any.
+     */
+    private void appendCustomProperties(StringBuilder builder) {
+        if (!customProperties.isEmpty()) {
+            getCustomProperties().forEach((x, y) -> builder.append(x + ": " + y + " "));
+        }
+    }
 }

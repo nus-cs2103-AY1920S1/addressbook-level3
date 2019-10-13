@@ -19,20 +19,22 @@ public interface ExerciseBookStorage {
     Path getExerciseBookFilePath();
 
     /**
-     * Returns ExerciseBook data as a {@link ReadOnlyExerciseBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns ExerciseBook data as a {@code ReadOnlyExerciseBook}.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * @throws IOException             if there was any problem when reading from the storage.
      */
     Optional<ReadOnlyExerciseBook> readExerciseBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getExerciseBookFilePath()
+     * @see #readExerciseBook()
      */
     Optional<ReadOnlyExerciseBook> readExerciseBook(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyExerciseBook} to the storage.
+     * Saves the given {@code ReadOnlyExerciseBook} to the storage.
+     *
      * @param exerciseBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

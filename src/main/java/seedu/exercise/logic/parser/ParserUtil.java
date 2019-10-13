@@ -1,19 +1,25 @@
 package seedu.exercise.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.model.exercise.PropertyManager.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.StringUtil;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.exercise.Calories;
+import seedu.exercise.model.exercise.CustomProperty;
 import seedu.exercise.model.exercise.Date;
 import seedu.exercise.model.exercise.Muscle;
 import seedu.exercise.model.exercise.Name;
+import seedu.exercise.model.exercise.ParameterType;
 import seedu.exercise.model.exercise.Quantity;
 import seedu.exercise.model.exercise.Unit;
 import seedu.exercise.model.regime.RegimeName;
@@ -172,7 +178,7 @@ public class ParserUtil {
      * Parses a {@code String category} into a String.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException
+     * @throws ParseException if the given {@code category} is invalid
      */
     public static String parseCategory(String category) throws ParseException {
         requireNonNull(category);
@@ -182,4 +188,154 @@ public class ParserUtil {
         }
         return trimmedCategory;
     }
+
+    /**
+     * Parses and trims all of the keys in {@code Map<String, String> customProperties}.
+     *
+     * @throws ParseException if any of the keys present in {@code customProperties} is invalid.
+     */
+    static Map<String, String> parseCustomProperties(Map<String, String> customProperties)
+        throws ParseException {
+        requireNonNull(customProperties);
+        List<CustomProperty> allCustomProperties = getCustomProperties();
+        final Map<String, String> customPropertiesMap = new HashMap<>();
+        for (CustomProperty property : allCustomProperties) {
+            String propertyName = property.getFullName();
+            if (customProperties.containsKey(propertyName)) {
+                String rawResult = customProperties.get(propertyName);
+                String trimmedResult = parseCustomProperty(property, rawResult);
+                customPropertiesMap.put(propertyName, trimmedResult);
+            }
+        }
+        return customPropertiesMap;
+    }
+
+    /**
+     * Trims, validates and formats the full name of a {@code String fullName}.
+     *
+     * @param fullName the full name of a custom property
+     * @return a trimmed full name of a custom property in Start Case style.
+     * @throws ParseException if the given full name is invalid.
+     */
+    static String parseFullName(String fullName) throws ParseException {
+        requireNonNull(fullName);
+        String trimmedFullName = fullName.trim();
+        if (!CustomProperty.isValidFullName(trimmedFullName)) {
+            throw new ParseException(CustomProperty.FULL_NAME_CONSTRAINTS);
+        }
+        return toStartCase(trimmedFullName);
+    }
+
+    /**
+     * Parses and trims the leading and trailing whitespaces of {@code String shortName}.
+     *
+     * @param shortName the intended short name for a custom property
+     * @return a {@code Prefix} object containing the trimmed short name for a custom property
+     * @throws ParseException if the given short name is invalid
+     */
+    static Prefix parseShortName(String shortName) throws ParseException {
+        requireNonNull(shortName);
+        String trimmedShortName = shortName.trim();
+        System.out.println(trimmedShortName);
+        if (!CustomProperty.isValidShortName(trimmedShortName)) {
+            throw new ParseException(CustomProperty.SHORT_NAME_CONSTRAINTS);
+        }
+        return new Prefix(shortName + "/");
+    }
+
+    /**
+     * Parses a {@code String parameterType} into a {@code ParameterType}.
+     *
+     * @param parameterType the intended parameter type for a custom property
+     * @return a {@code ParameterType} that corresponds with the intended parameter type
+     * @throws ParseException if the intended parameter type is invalid
+     */
+    static ParameterType parseParameterType(String parameterType) throws ParseException {
+        requireNonNull(parameterType);
+        String trimmedParameterType = parameterType.trim();
+
+        if (!ParameterType.isValidParameterType(trimmedParameterType)) {
+            throw new ParseException(ParameterType.PARAMETER_CONSTRAINTS);
+        }
+
+        String numParam = ParameterType.NUMBER.getParameterName();
+        String textParam = ParameterType.TEXT.getParameterName();
+
+        if (trimmedParameterType.equals(numParam)) {
+            return ParameterType.NUMBER;
+        } else if (trimmedParameterType.equals(textParam)) {
+            return ParameterType.TEXT;
+        } else {
+            return ParameterType.DATE;
+        }
+    }
+
+    /**
+     * Formats a single word by capitalising the first letter and setting the remaining
+     * as lowercase.
+     */
+    private static String capitaliseSingleWord(String word) {
+        String capitalisedFirstLetter = word.substring(0, 1).toUpperCase();
+        String lowercaseRemaining = word.substring(1).toLowerCase();
+        return capitalisedFirstLetter + lowercaseRemaining;
+    }
+
+    /**
+     * Formats a group of words by capitalising the first letter and setting the remaining
+     * as lower case for each word present. Any additional spaces between 2 words are now
+     * reduced to a single space.
+     */
+    private static String toStartCase(String words) {
+        String[] tokens = words.split("\\s+");
+        StringBuilder builder = new StringBuilder();
+        for (String token : tokens) {
+            builder.append(capitaliseSingleWord(token)).append(" ");
+        }
+        return builder.toString().stripTrailing();
+    }
+
+    /**
+     * Parses and trims {@code String propertyValue} based on the {@code CustomProperty}.
+     */
+    private static String parseCustomProperty(CustomProperty property, String propertyValue)
+        throws ParseException {
+        requireNonNull(property, propertyValue);
+        ParameterType paramType = property.getParameterType();
+        if (paramType.equals(ParameterType.DATE)) {
+            return parseDate(propertyValue).toString();
+        } else if (paramType.equals(ParameterType.NUMBER)) {
+            return parseNumber(propertyValue);
+        } else {
+            return parseText(propertyValue);
+        }
+    }
+
+    /**
+     * Parses and trims the leading and trailing white spaces of {@code String text}.
+     *
+     * @throws ParseException if the given {@code text} is invalid.
+     */
+    private static String parseText(String text) throws ParseException {
+        requireNonNull(text);
+        String trimmedText = text.trim();
+        if (!ParameterType.isValidText(trimmedText)) {
+            throw new ParseException(ParameterType.TEXT_CONSTRAINTS);
+        }
+        return trimmedText;
+    }
+
+    /**
+     * Parses and trims the leading and trailing white spaces of {@code String number}.
+     *
+     * @throws ParseException if the given {@code number} is invalid.
+     */
+    private static String parseNumber(String number) throws ParseException {
+        requireNonNull(number);
+        String trimmedNumber = number.trim();
+        if (!ParameterType.isValidNumber(trimmedNumber)) {
+            throw new ParseException(ParameterType.NUMBER_CONSTRAINTS);
+        }
+        return trimmedNumber;
+    }
+
 }

@@ -3,6 +3,9 @@ package seedu.exercise.logic.parser;
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
  * E.g. 'm/' in 'add Run m/Leg'.
+ * <p>
+ * The name of the prefix refers to the text before '/'.
+ * E.g. the name of 'm/' is 'm'.
  */
 public class Prefix {
     private final String prefix;
@@ -11,8 +14,18 @@ public class Prefix {
         this.prefix = prefix;
     }
 
+    /**
+     * Returns the name of the prefix together with the "/".
+     */
     public String getPrefix() {
         return prefix;
+    }
+
+    /**
+     * Returns the name of the prefix.
+     */
+    public String getPrefixName() {
+        return prefix.substring(0, prefix.length() - 1);
     }
 
     public String toString() {

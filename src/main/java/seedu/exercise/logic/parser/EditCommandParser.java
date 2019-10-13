@@ -3,14 +3,18 @@ package seedu.exercise.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
+import static seedu.exercise.logic.parser.CliSyntax.combinePrefixes;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,8 +37,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_CALORIES,
-            PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE);
+        Prefix[] allPrefixes = combinePrefixes(PREFIX_CATEGORY, PREFIX_INDEX);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
 
         Index index;
 
@@ -60,7 +64,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_UNIT).isPresent()) {
             editExerciseDescriptor.setUnit(ParserUtil.parseUnit(argMultimap.getValue(PREFIX_UNIT).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_MUSCLE)).ifPresent(editExerciseDescriptor::setMuscles);
+
+        parseMusclesForEdit(argMultimap.getAllValues(PREFIX_MUSCLE)).ifPresent(editExerciseDescriptor::setMuscles);
+
+
+        parseCustomPropertiesForEdit(argMultimap.getAllCustomProperties())
+            .ifPresent(editExerciseDescriptor::setCustomProperties);
+
 
         if (!editExerciseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -70,18 +80,36 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Muscle>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Muscle>} containing zero tags.
+     * Parses {@code Collection<String> muscles} into a {@code Set<Muscle>} if {@code muscles} is non-empty.
+     * If {@code muscles} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Muscle>} containing zero muscles.
      */
-    private Optional<Set<Muscle>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
+    private Optional<Set<Muscle>> parseMusclesForEdit(Collection<String> muscles) throws ParseException {
+        requireNonNull(muscles);
 
-        if (tags.isEmpty()) {
+        if (muscles.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        Collection<String> tagSet = muscles.size() == 1 && muscles.contains("") ? Collections.emptySet() : muscles;
         return Optional.of(ParserUtil.parseMuscles(tagSet));
+    }
+
+    /**
+     * Parses {@code Map<String, String> customProperties} into a {@code Map<String, String>} if
+     * {@code customProperties} is non-empty.
+     * If {@code customProperties} is empty, a {@code Optional.empty()} is returned instead.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private Optional<Map<String, String>> parseCustomPropertiesForEdit(Map<String, String> customProperties)
+        throws ParseException {
+        requireNonNull(customProperties);
+
+        if (customProperties.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(ParserUtil.parseCustomProperties(customProperties));
     }
 
 }

@@ -11,6 +11,7 @@ import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.exercise.PropertyManager;
 
 /**
  * Manages storage of ExerciseBook data in local storage.
@@ -21,14 +22,17 @@ public class StorageManager implements Storage {
     private ExerciseBookStorage exerciseBookStorage;
     private RegimeBookStorage regimeBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private PropertyManagerStorage propertyManagerStorage;
 
 
     public StorageManager(ExerciseBookStorage exerciseBookStorage,
-                          RegimeBookStorage regimeBookStorage, UserPrefsStorage userPrefsStorage) {
+                          RegimeBookStorage regimeBookStorage, UserPrefsStorage userPrefsStorage,
+                          PropertyManagerStorage propertyManagerStorage) {
         super();
         this.exerciseBookStorage = exerciseBookStorage;
         this.regimeBookStorage = regimeBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.propertyManagerStorage = propertyManagerStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -76,6 +80,34 @@ public class StorageManager implements Storage {
     public void saveExerciseBook(ReadOnlyExerciseBook exerciseBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         exerciseBookStorage.saveExerciseBook(exerciseBook, filePath);
+    }
+
+    // ================ PropertyManager methods ==============================
+    @Override
+    public Path getPropertyManagerFilePath() {
+        return propertyManagerStorage.getPropertyManagerFilePath();
+    }
+
+    @Override
+    public Optional<PropertyManager> readPropertyManager() throws DataConversionException, IOException {
+        return readPropertyManager(propertyManagerStorage.getPropertyManagerFilePath());
+    }
+
+    @Override
+    public Optional<PropertyManager> readPropertyManager(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return propertyManagerStorage.readPropertyManager(filePath);
+    }
+
+    @Override
+    public void savePropertyManager(PropertyManager propertyManager) throws IOException {
+        savePropertyManager(propertyManager, propertyManagerStorage.getPropertyManagerFilePath());
+    }
+
+    @Override
+    public void savePropertyManager(PropertyManager propertyManager, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        propertyManagerStorage.savePropertyManager(propertyManager, filePath);
     }
 
     //===============RegimeBook methods=============================================

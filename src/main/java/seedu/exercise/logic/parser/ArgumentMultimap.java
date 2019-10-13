@@ -1,10 +1,15 @@
 package seedu.exercise.logic.parser;
 
+import static seedu.exercise.model.exercise.PropertyManager.getCustomProperties;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
+
+import seedu.exercise.model.exercise.CustomProperty;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -15,7 +20,9 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    /**
+     * Prefixes mapped to their respective arguments
+     **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -52,9 +59,35 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns a map consisting all of the custom properties that are present together with their respective value.
+     * If no custom properties are defined or no values are present, this will return an empty map.
+     * Modifying the returned map will not affect the underlying data structure of the ArgumentMultimap.
+     */
+    public Map<String, String> getAllCustomProperties() {
+        List<CustomProperty> currentCustomProperties = getCustomProperties();
+        Map<String, String> customPropertiesMap = new HashMap<>();
+        for (CustomProperty property : currentCustomProperties) {
+            Prefix currentPrefix = property.getPrefix();
+            Optional<String> propertyValue = getValue(currentPrefix);
+            if (propertyValue.isPresent()) {
+                customPropertiesMap.put(property.getFullName(), propertyValue.get());
+            }
+        }
+        return customPropertiesMap;
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public boolean arePrefixesPresent(Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> this.getValue(prefix).isPresent());
     }
 }

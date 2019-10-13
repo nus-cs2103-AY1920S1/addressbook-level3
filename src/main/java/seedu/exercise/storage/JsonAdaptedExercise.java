@@ -1,8 +1,10 @@
 package seedu.exercise.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,7 @@ class JsonAdaptedExercise {
     private final String quantity;
     private final String unit;
     private final List<JsonAdaptedMuscle> muscles = new ArrayList<>();
+    private final Map<String, String> customProperties = new HashMap<>();
 
     /**
      * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
@@ -40,7 +43,8 @@ class JsonAdaptedExercise {
     public JsonAdaptedExercise(@JsonProperty("name") String name, @JsonProperty("date") String date,
                                @JsonProperty("calories") String calories, @JsonProperty("quantity") String quantity,
                                @JsonProperty("unit") String unit,
-                               @JsonProperty("muscles") List<JsonAdaptedMuscle> muscles) {
+                               @JsonProperty("muscles") List<JsonAdaptedMuscle> muscles,
+                               @JsonProperty("customProperties") Map<String, String> customProperties) {
         this.name = name;
         this.date = date;
         this.calories = calories;
@@ -48,6 +52,9 @@ class JsonAdaptedExercise {
         this.unit = unit;
         if (muscles != null) {
             this.muscles.addAll(muscles);
+        }
+        if (customProperties != null) {
+            this.customProperties.putAll(customProperties);
         }
     }
 
@@ -63,6 +70,7 @@ class JsonAdaptedExercise {
         muscles.addAll(source.getMuscles().stream()
             .map(JsonAdaptedMuscle::new)
             .collect(Collectors.toList()));
+        customProperties.putAll(source.getCustomProperties());
     }
 
     /**
@@ -72,8 +80,8 @@ class JsonAdaptedExercise {
      */
     public Exercise toModelType() throws IllegalValueException {
         final List<Muscle> personMuscles = new ArrayList<>();
-        for (JsonAdaptedMuscle tag : muscles) {
-            personMuscles.add(tag.toModelType());
+        for (JsonAdaptedMuscle muscle : muscles) {
+            personMuscles.add(muscle.toModelType());
         }
 
         if (name == null) {
@@ -122,7 +130,9 @@ class JsonAdaptedExercise {
         final Unit modelUnit = new Unit(unit);
 
         final Set<Muscle> modelMuscles = new HashSet<>(personMuscles);
-        return new Exercise(modelName, modelDate, modelCalories, modelQuantity, modelUnit, modelMuscles);
+        final Map<String, String> modelCustomProperties = new HashMap<>(customProperties);
+        return new Exercise(modelName, modelDate, modelCalories, modelQuantity, modelUnit, modelMuscles,
+            modelCustomProperties);
     }
 
 }

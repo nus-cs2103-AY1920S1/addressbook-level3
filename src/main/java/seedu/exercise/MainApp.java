@@ -1,5 +1,7 @@
 package seedu.exercise;
 
+import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,11 +25,15 @@ import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.exercise.PropertyManager;
+import seedu.exercise.model.util.DefaultPropertyManagerUtil;
 import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.ExerciseBookStorage;
 import seedu.exercise.storage.JsonExerciseBookStorage;
+import seedu.exercise.storage.JsonPropertyManagerStorage;
 import seedu.exercise.storage.JsonRegimeBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
+import seedu.exercise.storage.PropertyManagerStorage;
 import seedu.exercise.storage.RegimeBookStorage;
 import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageManager;
@@ -62,7 +68,10 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExerciseBookStorage exerciseBookStorage = new JsonExerciseBookStorage(userPrefs.getExerciseBookFilePath());
         RegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(userPrefs.getRegimeBookFilePath());
-        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
+        PropertyManagerStorage propertyManagerStorage =
+            new JsonPropertyManagerStorage(userPrefs.getPropertyManagerFilePath());
+        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage, propertyManagerStorage);
+
 
         initLogging(config);
 
@@ -79,14 +88,20 @@ public class MainApp extends Application {
      * or an empty exercise book will be used instead if errors occur when reading {@code storage}'s exercise book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyExerciseBook initialExerciseData = getInitialExerciseData(storage);
+        ReadOnlyRegimeBook initialRegimeData = getInitialRegimeData(storage);
+        PropertyManager initialPropertyManager = getInitialPropertyManager(storage);
+        return new ModelManager(initialExerciseData, initialRegimeData, userPrefs, initialPropertyManager);
+    }
+
+    private ReadOnlyExerciseBook getInitialExerciseData(Storage storage) {
         Optional<ReadOnlyExerciseBook> exerciseBookOptional;
         ReadOnlyExerciseBook initialExerciseData;
-        Optional<ReadOnlyRegimeBook> regimeBookOptional;
-        ReadOnlyRegimeBook initialRegimeData;
+
         try {
             exerciseBookOptional = storage.readExerciseBook();
-            if (!exerciseBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample ExerciseBook");
+            if (exerciseBookOptional.isEmpty()) {
+                logger.info("Data file for ExerciseBook not found. Will be starting with a sample ExerciseBook");
             }
             initialExerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
         } catch (DataConversionException e) {
@@ -96,10 +111,16 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
             initialExerciseData = new ExerciseBook();
         }
+        return initialExerciseData;
+    }
+
+    private ReadOnlyRegimeBook getInitialRegimeData(Storage storage) {
+        Optional<ReadOnlyRegimeBook> regimeBookOptional;
+        ReadOnlyRegimeBook initialRegimeData;
 
         try {
             regimeBookOptional = storage.readRegimeBook();
-            if (!regimeBookOptional.isPresent()) {
+            if (regimeBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample RegimeBook");
             }
             initialRegimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
@@ -110,8 +131,31 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty RegimeBook");
             initialRegimeData = new RegimeBook();
         }
+        return initialRegimeData;
+    }
 
-        return new ModelManager(initialExerciseData, initialRegimeData, userPrefs);
+    private PropertyManager getInitialPropertyManager(Storage storage) {
+        Optional<PropertyManager> propertyManagerOptional;
+        PropertyManager initialPropertyManager;
+
+        try {
+            propertyManagerOptional = storage.readPropertyManager();
+            if (propertyManagerOptional.isEmpty()) {
+                logger.info("Data for PropertyManager not found. Will be starting with a"
+                    + " default PropertyManager");
+            }
+            initialPropertyManager =
+                propertyManagerOptional.orElseGet(DefaultPropertyManagerUtil::getDefaultPropertyManager);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with "
+                + " a default PropertyManager");
+            initialPropertyManager = getDefaultPropertyManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with "
+                + "a default PropertyManager");
+            initialPropertyManager = getDefaultPropertyManager();
+        }
+        return initialPropertyManager;
     }
 
     private void initLogging(Config config) {
@@ -141,7 +185,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -169,7 +213,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");

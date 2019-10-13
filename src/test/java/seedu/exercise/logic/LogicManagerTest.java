@@ -9,6 +9,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
+import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalExercises.AEROBICS;
 
@@ -31,6 +32,7 @@ import seedu.exercise.model.RegimeBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.storage.JsonExerciseBookStorage;
+import seedu.exercise.storage.JsonPropertyManagerStorage;
 import seedu.exercise.storage.JsonRegimeBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
 import seedu.exercise.storage.StorageManager;
@@ -50,9 +52,12 @@ public class LogicManagerTest {
         JsonExerciseBookStorage exerciseBookStorage =
             new JsonExerciseBookStorage(temporaryFolder.resolve("exerciseBook.json"));
         JsonRegimeBookStorage regimeBookStorage =
-                new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
+            new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
+        JsonPropertyManagerStorage propertyManagerStorage =
+            new JsonPropertyManagerStorage(temporaryFolder.resolve("propertyManager.json"));
+        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage,
+            userPrefsStorage, propertyManagerStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -83,7 +88,11 @@ public class LogicManagerTest {
             new JsonRegimeBookStorage(temporaryFolder.resolve("ioExceptionRegimeBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage);
+        JsonPropertyManagerStorage propertyManagerStorage =
+            new JsonPropertyManagerStorage(temporaryFolder.resolve("ioExceptionPropertyManager.json"));
+        StorageManager storage = new StorageManager(exerciseBookStorage, regimeBookStorage,
+            userPrefsStorage, propertyManagerStorage);
+
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -141,7 +150,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAllExerciseData(), new RegimeBook(),
+            new UserPrefs(), getDefaultPropertyManager());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

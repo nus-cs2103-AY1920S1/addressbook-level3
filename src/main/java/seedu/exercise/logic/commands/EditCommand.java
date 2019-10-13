@@ -9,8 +9,10 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -102,8 +104,13 @@ public class EditCommand extends Command {
         Quantity updatedQuantity = editExerciseDescriptor.getQuantity().orElse(exerciseToEdit.getQuantity());
         Unit updatedUnit = editExerciseDescriptor.getUnit().orElse(exerciseToEdit.getUnit());
         Set<Muscle> updatedMuscles = editExerciseDescriptor.getMuscles().orElse(exerciseToEdit.getMuscles());
+        Map<String, String> updatedCustomProperties = new HashMap<>(exerciseToEdit.getCustomProperties());
+        Map<String, String> newCustomProperties = editExerciseDescriptor.getCustomProperties()
+            .orElse(new HashMap<>());
+        updatedCustomProperties.putAll(newCustomProperties);
 
-        return new Exercise(updatedName, updatedDate, updatedCalories, updatedQuantity, updatedUnit, updatedMuscles);
+        return new Exercise(updatedName, updatedDate, updatedCalories, updatedQuantity, updatedUnit,
+            updatedMuscles, updatedCustomProperties);
     }
 
     @Override
@@ -135,6 +142,7 @@ public class EditCommand extends Command {
         private Quantity quantity;
         private Unit unit;
         private Set<Muscle> muscles;
+        private Map<String, String> customProperties;
 
         public EditExerciseDescriptor() {
         }
@@ -150,13 +158,14 @@ public class EditCommand extends Command {
             setQuantity(toCopy.quantity);
             setUnit(toCopy.unit);
             setMuscles(toCopy.muscles);
+            setCustomProperties(toCopy.customProperties);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, calories, date, quantity, unit, muscles);
+            return CollectionUtil.isAnyNonNull(name, calories, date, quantity, unit, muscles, customProperties);
         }
 
         public void setName(Name name) {
@@ -208,12 +217,29 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable muscle set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code muscles} is null.
          */
         public Optional<Set<Muscle>> getMuscles() {
             return (muscles != null) ? Optional.of(Collections.unmodifiableSet(muscles)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable custom properties map, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code customProperties} is null.
+         */
+        public Optional<Map<String, String>> getCustomProperties() {
+            return (customProperties != null) ? Optional.of(Collections.unmodifiableMap(customProperties))
+                : Optional.empty();
+        }
+
+        /**
+         * Sets {@code customProperties} to this object's {@code customProperties}.
+         */
+        public void setCustomProperties(Map<String, String> customProperties) {
+            this.customProperties = (customProperties != null) ? new HashMap<>(customProperties) : null;
         }
 
         @Override
@@ -236,7 +262,8 @@ public class EditCommand extends Command {
                 && getDate().equals(e.getDate())
                 && getQuantity().equals(e.getQuantity())
                 && getUnit().equals(e.getUnit())
-                && getMuscles().equals(e.getMuscles());
+                && getMuscles().equals(e.getMuscles())
+                && getCustomProperties().equals(e.getCustomProperties());
         }
     }
 }

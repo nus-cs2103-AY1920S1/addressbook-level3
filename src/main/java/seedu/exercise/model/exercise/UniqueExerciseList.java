@@ -18,7 +18,7 @@ import seedu.exercise.model.exercise.exceptions.ExerciseNotFoundException;
  * the exercise being added or updated is unique in terms of identity in the UniqueExerciseList.
  * However, the removal of an exercise uses Exercise#equals(Object) so as to ensure that the exercise with exactly the
  * same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Exercise#isSameExercise(Exercise)
@@ -27,7 +27,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
 
     private final ObservableList<Exercise> internalList = FXCollections.observableArrayList();
     private final ObservableList<Exercise> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent exercise as the given argument.
@@ -113,8 +113,8 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueExerciseList // instanceof handles nulls
-                        && internalList.equals(((UniqueExerciseList) other).internalList));
+            || (other instanceof UniqueExerciseList // instanceof handles nulls
+            && internalList.equals(((UniqueExerciseList) other).internalList));
     }
 
     @Override

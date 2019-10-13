@@ -1,6 +1,7 @@
 package seedu.exercise.model.exercise;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.ValidationRegex.ONLY_ALPHABETS_AND_SPACE;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
 /**
@@ -8,16 +9,14 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; name is valid as declared in {@link #isValidMuscleName(String)}
  */
 public class Muscle {
-
+    public static final String PROPERTY_MUSCLE = "Muscle";
     public static final String MESSAGE_CONSTRAINTS = "Muscle groups should contain only alphabetical characters";
-    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$";
-
     public final String muscleName;
 
     /**
      * Constructs a {@code Muscle}.
      *
-     * @param muscleName A valid tag name.
+     * @param muscleName A valid muscle name.
      */
     public Muscle(String muscleName) {
         requireNonNull(muscleName);
@@ -26,17 +25,17 @@ public class Muscle {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid muscle name.
      */
     public static boolean isValidMuscleName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(ONLY_ALPHABETS_AND_SPACE);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Muscle // instanceof handles nulls
-                && muscleName.equals(((Muscle) other).muscleName)); // state check
+            || (other instanceof Muscle // instanceof handles nulls
+            && muscleName.equals(((Muscle) other).muscleName)); // state check
     }
 
     @Override

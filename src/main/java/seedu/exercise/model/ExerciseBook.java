@@ -26,7 +26,8 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
         exercises = new UniqueExerciseList();
     }
 
-    public ExerciseBook() {}
+    public ExerciseBook() {
+    }
 
     /**
      * Creates an ExerciseBook using the Exercises in the {@code toBeCopied}
@@ -109,8 +110,8 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExerciseBook // instanceof handles nulls
-                && exercises.equals(((ExerciseBook) other).exercises));
+            || (other instanceof ExerciseBook // instanceof handles nulls
+            && exercises.equals(((ExerciseBook) other).exercises));
     }
 
     @Override

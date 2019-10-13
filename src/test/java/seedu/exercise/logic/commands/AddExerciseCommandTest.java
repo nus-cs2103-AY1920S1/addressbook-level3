@@ -16,12 +16,15 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
+import seedu.exercise.model.exercise.CustomProperty;
 import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.exercise.PropertyManager;
 import seedu.exercise.model.regime.Regime;
 import seedu.exercise.testutil.ExerciseBuilder;
 
@@ -199,6 +202,26 @@ public class AddExerciseCommandTest {
 
         @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public PropertyManager getPropertyManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isPrefixPresent(Prefix prefix) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFullNamePresent(String fullName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCustomProperty(CustomProperty customProperty) {
             throw new AssertionError("This method should not be called.");
         }
 
