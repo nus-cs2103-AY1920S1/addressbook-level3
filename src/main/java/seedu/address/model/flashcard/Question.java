@@ -10,18 +10,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Question {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Questions should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Questions should not be blank! (Or contain only whitespaces)";
 
     /*
-     * The first character of the input must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Regex for not only whitespaces.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "(?!^ +$)^.+$*";
 
     public final String fullQuestion;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Question}.
      *
      * @param question A valid question.
      */
@@ -32,7 +31,7 @@ public class Question {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid question.
      */
     public static boolean isValidQuestion(String test) {
         return test.matches(VALIDATION_REGEX);
