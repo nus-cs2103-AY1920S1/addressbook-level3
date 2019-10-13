@@ -25,7 +25,7 @@ public class PhoneBookTest {
     private final PhoneBook phoneBook = new PhoneBook();
 
     @Test
-    public void constructor() {
+    public void constructor_noArgument_equalsEmptyList() {
         assertEquals(Collections.emptyList(), phoneBook.getList());
     }
 

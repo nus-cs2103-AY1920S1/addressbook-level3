@@ -26,7 +26,7 @@ public class CustomerBookTest {
     private final CustomerBook customerBook = new CustomerBook();
 
     @Test
-    public void constructor() {
+    public void constructor_noArgument_equalsEmptyList() {
         assertEquals(Collections.emptyList(), customerBook.getList());
     }
 

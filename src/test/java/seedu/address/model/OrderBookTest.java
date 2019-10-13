@@ -25,7 +25,7 @@ public class OrderBookTest {
     private final OrderBook orderBook = new OrderBook();
 
     @Test
-    public void constructor() {
+    public void constructor_noArgument_equalsEmptyList() {
         assertEquals(Collections.emptyList(), orderBook.getList());
     }
 

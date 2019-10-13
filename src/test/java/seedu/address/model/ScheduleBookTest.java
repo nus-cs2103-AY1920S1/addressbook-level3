@@ -25,7 +25,7 @@ public class ScheduleBookTest {
     private final ScheduleBook scheduleBook = new ScheduleBook();
 
     @Test
-    public void constructor() {
+    public void constructor_noArgument_equalsEmptyList() {
         assertEquals(Collections.emptyList(), scheduleBook.getList());
     }
 
