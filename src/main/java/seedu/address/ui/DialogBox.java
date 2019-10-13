@@ -8,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-
 import java.io.IOException;
 import java.util.Collections;
 
