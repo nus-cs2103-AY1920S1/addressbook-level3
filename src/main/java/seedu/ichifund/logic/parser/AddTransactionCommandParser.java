@@ -1,12 +1,7 @@
 package seedu.ichifund.logic.parser;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
+import static seedu.ichifund.logic.parser.CliSyntax.*;
 
 import java.util.stream.Stream;
 
@@ -21,7 +16,7 @@ import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
-
+import seedu.ichifund.model.transaction.TransactionType;
 
 
 /**
@@ -49,11 +44,14 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
-        Month month = ParserUtil.parseMonth(argMultimap.getAllValues(PREFIX_MONTH));
+        Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
         Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+        TransactionType transactionType = ParserUtil.parseTransactionType(argMultimap
+                .getValue(PREFIX_TRANSACTION_TYPE).get());
+
         Date date = new Date(day, month, year);
 
-        Transaction transaction = new Transaction(description, amount, category, date);
+        Transaction transaction = new Transaction(description, amount, category, date, transactionType);
 
         return new AddTransactionCommand(transaction);
     }
