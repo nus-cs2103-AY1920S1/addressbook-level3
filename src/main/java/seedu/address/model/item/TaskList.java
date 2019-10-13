@@ -42,7 +42,7 @@ public class TaskList extends VisualizeList {
      * @param searchString a string to be search for within the description of an item
      * @return a new TaskList containing only the items that have the search string in their description
      */
-    public VisualizeList find(String searchString) {
+    public VisualizeList find(String[] searchString) {
         TaskList tl = new TaskList();
         return find(searchString, tl);
     }
