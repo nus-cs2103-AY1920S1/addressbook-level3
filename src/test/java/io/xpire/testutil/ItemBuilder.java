@@ -40,7 +40,7 @@ public class ItemBuilder {
         TreeSet<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToCopy.getTags());
         tags = set;
-
+        this.reminderThreshold = itemToCopy.getReminderThreshold();
     }
 
     /**
@@ -77,7 +77,7 @@ public class ItemBuilder {
 
 
     public Item build() {
-        return new Item(name, expiryDate, tags);
+        return new Item(name, expiryDate, tags, reminderThreshold);
     }
 
 }

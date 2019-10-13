@@ -43,6 +43,17 @@ public class Item {
         this.expiryDate = expiryDate;
     }
 
+    /**
+     * Constructor with all parameters for ItemBuilder class. (Used in testing)
+     */
+    public Item(Name name, ExpiryDate expiryDate, Set<Tag> tags, ReminderThreshold reminderThreshold) {
+        CollectionUtil.requireAllNonNull(name, expiryDate, tags);
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.tags.addAll(tags);
+        this.reminderThreshold = reminderThreshold;
+    }
+
     public Name getName() {
         return this.name;
     }
