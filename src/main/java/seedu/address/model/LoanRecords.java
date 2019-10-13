@@ -68,6 +68,17 @@ public class LoanRecords implements ReadOnlyLoanRecords {
         loansMap.put(loan.getLoanId(), loan);
     }
 
+    /**
+     * Returns the number of loans in {@code loansMap}.
+     * Used to find the next LoanId in LoanIdGenerator.
+     * Precondition: Loans will never be deleted or removed from storage.
+     *
+     * @return Number of loans in LoanRecords.
+     */
+    public int getLoanCount() {
+        return loansMap.size();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

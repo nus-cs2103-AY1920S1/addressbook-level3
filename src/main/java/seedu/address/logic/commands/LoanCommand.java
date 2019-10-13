@@ -26,7 +26,7 @@ public class LoanCommand extends Command {
             + "Parameters: " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_SERIAL_NUMBER + "B00001";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$ loaned to Borrower: %12$";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s loaned to Borrower: %2$s";
 
     private final SerialNumber toLoan;
 
@@ -72,6 +72,6 @@ public class LoanCommand extends Command {
 
         // TODO ADD LOAN TO BORROWER!
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook.toString(), servingBorrower.toString()));
     }
 }

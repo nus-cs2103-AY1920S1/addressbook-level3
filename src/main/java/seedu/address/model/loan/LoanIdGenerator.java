@@ -1,23 +1,19 @@
 package seedu.address.model.loan;
 
-import java.util.stream.IntStream;
-
 import seedu.address.model.LoanRecords;
 
 /**
- * TODO!!
+ * Loan ID generator that generates a {@code LoanId} when a new {@code Loan} is created.
  */
 public class LoanIdGenerator {
     public static final int LOAN_ID_LENGTH = 6; // excluding prefix 'L'
     public static final String PREFIX = LoanId.PREFIX;
-
-    private static int currentLoanIdIndex = 0;
+    public static final String LOAN_ID_FORMATTER = PREFIX + "%0" + LOAN_ID_LENGTH + "d";
 
     private static LoanRecords loanRecords;
 
     public static void setLoanRecords(LoanRecords loanRecords) {
         LoanIdGenerator.loanRecords = loanRecords;
-        currentLoanIdIndex = 0;
     }
 
     /**
@@ -26,27 +22,7 @@ public class LoanIdGenerator {
      * @return A unused {@code LoanId}.
      */
     public static LoanId generateLoanId() {
-        currentLoanIdIndex++;
-        LoanId id = new LoanId(PREFIX + getPadding() + currentLoanIdIndex);
-        while (loanRecords.hasLoan(id)) {
-            currentLoanIdIndex++;
-            id = new LoanId(PREFIX + getPadding() + currentLoanIdIndex);
-        }
-        return id;
-    }
-
-    private static int getPaddingLength() {
-        String stringRepresentation = Integer.toString(currentLoanIdIndex);
-        return LOAN_ID_LENGTH - stringRepresentation.length();
-    }
-
-    private static String getPadding(int paddingLength) {
-        return IntStream.rangeClosed(1, paddingLength)
-                .mapToObj(x -> "0")
-                .reduce("", (a, b) -> a + b);
-    }
-
-    private static String getPadding() {
-        return getPadding(getPaddingLength());
+        int nextLoanIdDigits = (loanRecords == null ? 0 : loanRecords.getLoanCount()) + 1;
+        return new LoanId(String.format(LOAN_ID_FORMATTER, nextLoanIdDigits));
     }
 }

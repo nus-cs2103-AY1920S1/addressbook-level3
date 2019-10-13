@@ -78,7 +78,7 @@ public class Loan {
         final StringBuilder builder = new StringBuilder();
         builder.append("Loan ID: ")
                 .append(loanId)
-                .append("Book Serial Number: ")
+                .append(" Book Serial Number: ")
                 .append(bookSerialNumber)
                 .append(" Borrower ID: ")
                 .append(borrowerId)

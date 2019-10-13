@@ -70,7 +70,7 @@ public class LoanTest {
                 new BorrowerId(VALID_BORROWER_ID), DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
 
         // TODO CHANGE ALL TO USE LOANBUILDER AND VALID_LOAN_ID
-        String stringRep = "Loan ID: " + "L123456" + "Book Serial Number: " + VALID_SERIAL_NUMBER_BOOK_1
+        String stringRep = "Loan ID: " + "L123456" + " Book Serial Number: " + VALID_SERIAL_NUMBER_BOOK_1
                 + " Borrower ID: " + VALID_BORROWER_ID + " Loaned from " + DateUtil.getTodayDate()
                 + " to " + DateUtil.getTodayPlusDays(30);
 

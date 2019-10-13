@@ -16,10 +16,12 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanIdGenerator;
 
 /**
  * Represents the in-memory model of the Library data.
@@ -51,6 +53,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         // testing loan records
         this.loanRecords = new LoanRecords(loanRecords);
+        LoanIdGenerator.setLoanRecords(this.loanRecords);
         // testing
         this.catalog = new Catalog(catalog);
         SerialNumberGenerator.setCatalog((Catalog) catalog);
@@ -233,7 +236,8 @@ public class ModelManager implements Model {
     public Optional<Borrower> getServingBorrower() {
         // TODO
         // return servingBorrower;
-        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"))); // STUB
+        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"),
+                new BorrowerId("K1234"))); // STUB
     }
 
     @Override
