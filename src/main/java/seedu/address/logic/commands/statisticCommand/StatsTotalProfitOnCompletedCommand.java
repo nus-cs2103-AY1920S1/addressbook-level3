@@ -1,5 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.statisticCommand;
 
+import seedu.address.commons.util.StatsPayload;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -18,7 +22,7 @@ public class StatsTotalProfitOnCompletedCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
-        return new CommandResult(SHOWING_STATS_MESSAGE, UiChange.STATS_TOTAL_PROFIT_ON_COMPLETED);
+        StatsPayload statsPayload = new StatsPayload(StatisticType.DEFAULT_PROFIT);
+        return new CommandResult(SHOWING_STATS_MESSAGE, statsPayload, UiChange.STATS);
     }
 }

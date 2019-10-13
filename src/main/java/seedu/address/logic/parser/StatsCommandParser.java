@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 import java.util.Calendar;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.StatisticType;
-import seedu.address.logic.commands.StatsCommand;
+import seedu.address.logic.commands.statisticCommand.StatisticType;
+import seedu.address.logic.commands.statisticCommand.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

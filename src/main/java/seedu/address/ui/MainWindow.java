@@ -187,36 +187,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-    /*
-    @FXML
-    private void handleStats(UiChange typeOfStats) {
-        switch (typeOfStats) {
-        case STATS_TOTAL_PROFIT_ON_COMPLETED:
-            String totalProfitResult = this.logic.calculateTotalProfit();
-            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit so Far:");
-            this.statsWindow.show();
-            break;
-        case STATS_TOTAL_REVENUE_ON_COMPLETED:
-            String totalRevenueResult = this.logic.calculateTotalRevenue();
-            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue on "
-                    + "successful orders");
-            this.statsWindow.show();
-            break;
-        case STATS_TOTAL_COST_ON_COMPLETED:
-            String totalCostResult = this.logic.calculateTotalCost();
-            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost of incurred on"
-                    + " successful orders");
-            this.statsWindow.show();
-            break;
-        default:
-            break;
-        }
-    }
-    */
 
     /**
-     * handle StatisticsWindow and create a new one
-     * !!!!!!!!!! HANDLE WITH USER INPUT !!!!!
+     * handle StatisticsWindow and create a new one based on user input
      */
     @FXML
     private void handleStats(StatsPayload statsPayload) {
@@ -243,8 +216,25 @@ public class MainWindow extends UiPart<Stage> {
                     + statsPayload.displayEndingDate());
             this.statsWindow.show();
             break;
+        case DEFAULT_COST:
+            String totalCostResultDefault = this.logic.calculateTotalCost();
+            this.statsWindow = new StatisticsWindow(totalCostResultDefault, "Total Cost of incurred on"
+                    + " successful orders");
+            this.statsWindow.show();
+            break;
+        case DEFAULT_REVENUE:
+            String totalRevenueResultDefault = this.logic.calculateTotalRevenue();
+            this.statsWindow = new StatisticsWindow(totalRevenueResultDefault, "Total Revenue on "
+                    + "successful orders");
+            this.statsWindow.show();
+            break;
+        case DEFAULT_PROFIT:
+            String totalProfitResultDefault = this.logic.calculateTotalProfit();
+            this.statsWindow = new StatisticsWindow(totalProfitResultDefault, "Total Profit so Far:");
+            this.statsWindow.show();
+            break;
         default:
-
+            throw new EnumNotPresentException("Enum not present in stat command");
         }
     }
 
@@ -254,7 +244,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException,
-            ParseException, EnumNotPresentException {
+            ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -267,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
                 performUiChanges(uiChanges);
             }
             return commandResult;
-        } catch (CommandException | ParseException | EnumNotPresentException e) {
+        } catch (CommandException | ParseException  e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -278,7 +268,7 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void performUiChanges(List<UiChange> input) throws EnumNotPresentException {
+    private void performUiChanges(List<UiChange> input) {
         for (UiChange type : input) {
             switch (type) {
             case CUSTOMER:
@@ -298,11 +288,6 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case EXIT:
                 this.handleExit();
-                break;
-            case STATS_TOTAL_PROFIT_ON_COMPLETED:
-            case STATS_TOTAL_COST_ON_COMPLETED:
-            case STATS_TOTAL_REVENUE_ON_COMPLETED:
-                //this.handleStats(type);
                 break;
             default:
                 //do nothing

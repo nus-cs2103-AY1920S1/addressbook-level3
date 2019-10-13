@@ -11,9 +11,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 
-import seedu.address.logic.commands.StatsCommand;
-import seedu.address.logic.commands.StatsTotalCostOnCompletedCommand;
-import seedu.address.logic.commands.StatsTotalRevenueCompletedCommand;
+import seedu.address.logic.commands.statisticCommand.StatsCommand;
+import seedu.address.logic.commands.statisticCommand.StatsTotalCostOnCompletedCommand;
+import seedu.address.logic.commands.statisticCommand.StatsTotalProfitOnCompletedCommand;
+import seedu.address.logic.commands.statisticCommand.StatsTotalRevenueCompletedCommand;
 import seedu.address.logic.commands.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.SwitchOrderPanelCommand;
 import seedu.address.logic.commands.SwitchPhonePanelCommand;
@@ -105,6 +106,14 @@ public class AddressBookParser {
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);
 
+        case StatsTotalRevenueCompletedCommand.COMMAND_WORD:
+            return new StatsTotalRevenueCompletedCommand();
+
+        case StatsTotalProfitOnCompletedCommand.COMMAND_WORD:
+            return new StatsTotalProfitOnCompletedCommand();
+
+        case StatsTotalCostOnCompletedCommand.COMMAND_WORD:
+            return new StatsTotalCostOnCompletedCommand();
 
         case SwitchCustomerPanelCommand.COMMAND_WORD:
             return new SwitchCustomerPanelCommand();
@@ -114,13 +123,6 @@ public class AddressBookParser {
             return new SwitchOrderPanelCommand();
         case SwitchSchedulePanelCommand.COMMAND_WORD:
             return new SwitchSchedulePanelCommand();
-
-        case StatsTotalRevenueCompletedCommand.COMMAND_WORD:
-            return new StatsTotalRevenueCompletedCommand();
-
-        case StatsTotalCostOnCompletedCommand.COMMAND_WORD:
-            return new StatsTotalCostOnCompletedCommand();
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

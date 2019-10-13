@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.Calendar;
 
-import seedu.address.logic.commands.StatisticType;
+import seedu.address.logic.commands.statisticCommand.StatisticType;
 
 /**
  * Payload class to send user input to logic Manager via commandResult
@@ -25,6 +25,14 @@ public class StatsPayload {
         this.endingDate = endingDate;
         this.statisticType = statisticType;
     }
+
+    public StatsPayload(StatisticType statisticType) {
+        this.startingDate = null;
+        this.endingDate = null;
+        this.statisticType = statisticType;
+    }
+
+
 
     public Calendar getStartingDate() {
         return this.startingDate;

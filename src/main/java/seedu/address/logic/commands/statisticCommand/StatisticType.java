@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.statisticCommand;
 
 /**
  * To differentiate which type of statistic to calculate
@@ -6,7 +6,10 @@ package seedu.address.logic.commands;
 public enum StatisticType {
     PROFIT("PROFIT"),
     REVENUE("REVENUE"),
-    COST("COST");
+    COST("COST"),
+    DEFAULT_COST("DEFAULT COST"),
+    DEFAULT_PROFIT("DEFAULT PROFIT"),
+    DEFAULT_REVENUE("DEFAULT REVENUE");
 
     private final String type;
 

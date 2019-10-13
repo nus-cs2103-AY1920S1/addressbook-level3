@@ -1,8 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.statisticCommand;
 
 import java.util.Calendar;
 
 import seedu.address.commons.util.StatsPayload;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
