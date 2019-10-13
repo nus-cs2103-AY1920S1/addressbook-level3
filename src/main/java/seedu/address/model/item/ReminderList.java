@@ -34,4 +34,10 @@ public class ReminderList extends VisualizeList {
         ReminderList rl = new ReminderList();
         return super.find(searchString, rl);
     }
+
+    @Override
+    public VisualizeList deepCopy () {
+        ReminderList rl = new ReminderList();
+        return super.deepCopy(rl);
+    }
 }

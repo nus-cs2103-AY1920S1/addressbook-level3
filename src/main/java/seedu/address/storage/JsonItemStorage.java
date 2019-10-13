@@ -73,5 +73,4 @@ public class JsonItemStorage implements ItemListStorage {
             throw e;
         }
     }
-
 }
