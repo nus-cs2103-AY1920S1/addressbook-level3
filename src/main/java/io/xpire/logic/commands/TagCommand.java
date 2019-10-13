@@ -3,9 +3,9 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -13,10 +13,11 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 
 /**
- * Adds more tag(s) to or clear tag(s) of item identified using its displayed index from the expiry date tracker.
+ * Adds tag(s) to item identified using its displayed index from the expiry date tracker.
  */
 public class TagCommand extends Command {
 
@@ -24,12 +25,11 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the item identified by the index number used in the displayed item list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "|#TAG... (if missing, item will be cleared of its tags)\n"
-            + "Example: " + COMMAND_WORD + "|1|#Food";
+            + "Format: <index>|<tag>[<other tags>]...\n"
+            + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
+            + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
 
     public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
-    public static final String MESSAGE_TAG_CLEAR_ITEM_SUCCESS = "Cleared tags of item: %1$s";
 
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
@@ -53,9 +53,6 @@ public class TagCommand extends Command {
 
         model.setItem(itemToTag, taggedItem);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        if (this.tagItemDescriptor.isClear) {
-            return new CommandResult(String.format(MESSAGE_TAG_CLEAR_ITEM_SUCCESS, taggedItem));
-        }
         return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
 
     }
@@ -66,11 +63,7 @@ public class TagCommand extends Command {
     private static Item createTaggedItem(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
         assert itemToTag != null;
         Set<Tag> updatedTags = updateTags(itemToTag, tagItemDescriptor);
-        if (updatedTags == null) {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate());
-        } else {
-            return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
-        }
+        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
     }
 
     /**
@@ -81,13 +74,33 @@ public class TagCommand extends Command {
      * @return Set containing updated tags.
      */
     private static Set<Tag> updateTags(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
-        if (tagItemDescriptor.isClear) {
-            return null;
-        }
-        Set<Tag> set = new HashSet<>();
+        Set<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToTag.getTags());
         set.addAll(tagItemDescriptor.getTags());
         return set;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.tagItemDescriptor.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+
+        // state check
+        TagCommand e = (TagCommand) other;
+        return index.equals(e.index)
+                && tagItemDescriptor.equals(e.tagItemDescriptor);
     }
 
     /**
@@ -95,14 +108,10 @@ public class TagCommand extends Command {
      */
     public static class TagItemDescriptor {
         private Set<Tag> tags;
-        private boolean isClear = false;
 
         public TagItemDescriptor() {}
 
         public TagItemDescriptor(TagItemDescriptor toCopy) {
-            if (toCopy.tags.isEmpty()) {
-                this.isClear = true;
-            }
             setTags(toCopy.tags);
         }
 
@@ -111,12 +120,38 @@ public class TagCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            if (tags != null) {
+                TreeSet<Tag> set = new TreeSet<>(new TagComparator());
+                set.addAll(tags);
+                this.tags = set;
+            } else {
+                this.tags = null;
+            }
         }
 
         public Set<Tag>getTags() {
             return (this.tags != null) ? Collections.unmodifiableSet(this.tags) : null;
         }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof TagItemDescriptor)) {
+                return false;
+            }
+
+            // state check
+            TagItemDescriptor e = (TagItemDescriptor) other;
+
+            return getTags().equals(e.getTags());
+        }
     }
+
+
 
 }

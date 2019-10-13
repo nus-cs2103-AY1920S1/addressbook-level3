@@ -1,12 +1,13 @@
 package io.xpire.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 import io.xpire.model.util.SampleDataUtil;
 
 /**
@@ -24,7 +25,7 @@ public class ItemBuilder {
     public ItemBuilder() {
         name = new Name(DEFAULT_NAME);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
-        tags = new HashSet<>();
+        tags = new TreeSet<>(new TagComparator());
     }
 
     /**
@@ -33,7 +34,9 @@ public class ItemBuilder {
     public ItemBuilder(Item itemToCopy) {
         name = itemToCopy.getName();
         expiryDate = itemToCopy.getExpiryDate();
-        tags = new HashSet<>(itemToCopy.getTags());
+        TreeSet<Tag> set = new TreeSet<>(new TagComparator());
+        set.addAll(itemToCopy.getTags());
+        tags = set;
     }
 
     /**

@@ -2,8 +2,6 @@ package io.xpire.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import io.xpire.commons.core.Messages;
@@ -36,18 +34,17 @@ public class TagCommandParser implements Parser<TagCommand> {
         Set<Tag> set;
         TagCommand.TagItemDescriptor tagItemDescriptor = new TagCommand.TagItemDescriptor();
         if (hasTags(splitArgs)) {
-            String trimmedTags = splitArgs[1].trim();
-            String[] tags = trimmedTags.split("#");
-            set = ParserUtil.parseTags(Arrays.asList(tags));
+            set = ParserUtil.parseTagsFromInput(splitArgs[1]);
         } else {
-            set = new HashSet<>();
+            throw new ParseException(String
+                    .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         tagItemDescriptor.setTags(set);
         return new TagCommand(index, tagItemDescriptor);
     }
 
-    private static boolean hasTags(String...arguments) {
-        return arguments.length > 1;
+    private static boolean hasTags(String[] arguments) {
+        return arguments.length > 1 && arguments[1].trim().split("#").length > 1;
     }
 
 

@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.commons.util.AppUtil;
 
 /**
- * Represents a Tag in the expiry date tracker.
+ * Represents a Tag in the expiry date tracker. Tags are in Sentence-Case when parsed in.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and start with #";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    private static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     private final String tagName;
 

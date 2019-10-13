@@ -2,9 +2,10 @@ package io.xpire.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.StringUtil;
@@ -14,6 +15,7 @@ import io.xpire.model.item.Name;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -76,7 +78,8 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        String sentenceCaseTag = parseTagsToSentenceCase(trimmedTag);
+        return new Tag(sentenceCaseTag);
     }
 
     /**
@@ -84,7 +87,7 @@ public class ParserUtil {
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<Tag> tagSet = new TreeSet<>(new TagComparator());
         for (String tagName : tags) {
             String trimmedTag = tagName.trim();
             if (!trimmedTag.isEmpty()) {
@@ -122,5 +125,36 @@ public class ParserUtil {
             throw new ParseException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
         return new ReminderThreshold(trimmedReminderThreshold);
+    }
+
+    /**
+     * Parses tags to sentence-case (first character upper-case, the rest lower-case)
+     *
+     * @param tag Tag to be parsed.
+     * @return Parsed tag in sentence-case.
+     */
+    public static String parseTagsToSentenceCase(String tag) {
+        return Character.toUpperCase(tag.charAt(0)) + tag.substring(1).toLowerCase();
+    }
+
+    /**
+     * Parses tag from user input in the form of "#Tag1 #Tag2"
+     *
+     * @param arg Argument that contains tags.
+     * @return Set containing parsed tags from user input.
+     * @throws ParseException if tags cannot be parsed properly.
+     */
+    public static Set<Tag> parseTagsFromInput(String arg) throws ParseException {
+        Set<Tag> set;
+        String tagInput = arg.trim();
+        String[] tags = tagInput.split("#");
+        String[] copiedTags;
+        try {
+            copiedTags = Arrays.copyOfRange(tags, 1, tags.length); //to get rid of empty string
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        set = ParserUtil.parseTags(Arrays.asList(copiedTags));
+        return set;
     }
 }

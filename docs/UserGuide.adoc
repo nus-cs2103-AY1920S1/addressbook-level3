@@ -63,22 +63,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Displays the help window. +
 Format: `help`
+
 
 === Adding an item: `add`
 
 Adds item to list +
-Format: `add|<item name>|<expiry date>|[<tag>]...`
-
-[TIP]
-An item can have any number of tags (including 0)
+Format: `add|<item name>|<expiry date>`
 
 Examples:
 
 * `add|durian|30/09/2019` (without tags) +
-Adds the item `durian` with expiry date `30/09/2019` without any tags
-* `add|HL Milk|10/10/2019|#Dairy #Milk` (with tags) +
-Adds the item `HL Milk` with expiry date `10/10/2019` and two tags `#Dairy` and `#Milk`
+Adds the item `durian` with expiry date `30/09/2019`
 
 //* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
@@ -187,13 +184,17 @@ Returns any items containing the terms `milk`, `tea`, or `pearls`
 // tag::delete[]
 === Deleting an item : `delete`
 
-Deletes the specified item from the list. +
-Format: `delete|<index>`
+Deletes the specified item from the list or deletes tag(s) from the specified item. +
+Format: `delete|<index>` +
+OR +
+Format: `delete|<index>|<tag>[<other tags>]...`
 
 ****
 * Deletes the item at the specified `<index>`.
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Tags must be prefixed with a '#'.
+* The item must contain the tags to be deleted.
 ****
 
 Examples:
@@ -207,19 +208,26 @@ Deletes the 3rd item in the sorted list.
 * `search|potato` +
 `delete|1` +
 Deletes the 1st item in the results of the `search` command.
+* `list` +
+`delete|3|#Fruit #Food` +
+Deletes the tags `#Fruit` and `#Food` from the 3rd item in the list.
 
 // end::delete[]
 
 === Tagging an item : `tag`
 
-Tags an item from the list according to user input or clears item of tags. +
-Format: `tag|<index>|[<tag>]...`
+[TIP]
+An item can have any number of tags (including 0)
+
+Tags an item from the list according to user input +
+Format: `tag|<index>|<tag>[<other tags>]...`
 
 ****
 * Tags the item at the specified `<index>`.
 * The index refers to the index number shown in the list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* If there are no valid tags (e.g. `tag|<index>`), item at the specified `<index>` will be cleared of its tags.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Tags must be prefixed with a '#'.
+* Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 
 Examples:
