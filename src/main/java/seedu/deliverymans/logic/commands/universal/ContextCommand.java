@@ -18,6 +18,7 @@ public class ContextCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        model.setContext(context);
         return new CommandResult(String.format(MESSAGE_SUCCESS, context.toLowerCaseString()));
     }
 }

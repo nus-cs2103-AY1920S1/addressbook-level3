@@ -56,7 +56,7 @@ public class CustomerParser {
             return new HistoryCommand(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(arguments);
+            return new ListCommand();
 
         case OrderCommand.COMMAND_WORD:
             return new OrderCommandParser().parse(arguments);

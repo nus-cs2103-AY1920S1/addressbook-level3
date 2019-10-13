@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
@@ -32,6 +33,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Customer> filteredCustomers;
 
+    private Context context;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -48,6 +51,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
+        context = Context.GLOBAL;
     }
 
     public ModelManager() {
@@ -125,6 +129,23 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Universal Methods =============================================================
+
+    /**
+     * Sets current context of the system.
+     *
+     * @param context current context
+     */
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
     //=========== Customer Methods =============================================================
 
     @Override
@@ -179,8 +200,16 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Customer> getFilteredCustomerList() {
-        return filteredCustomers;
+    public ObservableList<Customer> getFilteredList() {
+        if (context == Context.CUSTOMER) {
+            return filteredCustomers;
+        } else if (context == Context.RESTAURANT) {
+            return null; // change to filteredRestaurant once implemented
+        } else if (context == Context.DELIVERYMEN) {
+            return null; // change to filteredDeliverymen once implemented
+        } else {
+            return null;
+        }
     }
 
     @Override
