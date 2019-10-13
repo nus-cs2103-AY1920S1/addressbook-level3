@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.finance.AddressFinanceBook;
+import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyAddressBook;
 import seedu.address.model.finance.person.Address;
 import seedu.address.model.finance.person.Email;
@@ -41,7 +41,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressFinanceBook sampleAb = new AddressFinanceBook();
+        FinanceLog sampleAb = new FinanceLog();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

@@ -14,7 +14,7 @@ import seedu.address.logic.finance.LogicFinanceManager;
 import seedu.address.logic.quiz.LogicQuizManager;
 import seedu.address.model.calendar.AddressBook;
 import seedu.address.model.calendar.ModelManager;
-import seedu.address.model.finance.AddressFinanceBook;
+import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ModelFinanceManager;
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ModelQuizManager;
@@ -95,10 +95,10 @@ public class SwitchOperation {
             seedu.address.storage.finance.UserPrefsStorage userPrefsStorage =
                     new JsonFinanceUserPrefsStorage(config.getFinanceUserPrefsFilePath());
             userFinancePrefs = initPrefs(userPrefsStorage);
-            seedu.address.storage.finance.FinanceStorage addressBookStorage =
-                    new JsonFinanceStorage(userFinancePrefs.getAddressBookFilePath());
+            seedu.address.storage.finance.FinanceStorage financeLogStorage =
+                    new JsonFinanceStorage(userFinancePrefs.getFinanceLogFilePath());
             seedu.address.storage.finance.Storage financeStorage =
-                    new FinanceStorageManager(addressBookStorage, userPrefsStorage);
+                    new FinanceStorageManager(financeLogStorage, userPrefsStorage);
             financeModel = initModelManager(financeStorage, userFinancePrefs);
             financeLogic = new LogicFinanceManager(financeModel, financeStorage);
             financeUi = new UiFinanceManager(financeLogic);
@@ -272,10 +272,10 @@ public class SwitchOperation {
                     .orElseGet(seedu.address.model.finance.util.SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new seedu.address.model.finance.AddressFinanceBook();
+            initialData = new seedu.address.model.finance.FinanceLog();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressFinanceBook();
+            initialData = new FinanceLog();
         }
         return new ModelFinanceManager(initialData, userPrefs);
     }

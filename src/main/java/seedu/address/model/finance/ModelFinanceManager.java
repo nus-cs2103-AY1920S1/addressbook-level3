@@ -20,7 +20,7 @@ import seedu.address.model.finance.person.Person;
 public class ModelFinanceManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelFinanceManager.class);
 
-    private final AddressFinanceBook addressBook;
+    private final FinanceLog addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -31,15 +31,15 @@ public class ModelFinanceManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with finance log: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressFinanceBook(addressBook);
+        this.addressBook = new FinanceLog(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelFinanceManager() {
-        this(new AddressFinanceBook(), new UserPrefs());
+        this(new FinanceLog(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -68,7 +68,7 @@ public class ModelFinanceManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getFinanceLogFilePath();
     }
 
     @Override
