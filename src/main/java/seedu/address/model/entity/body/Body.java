@@ -1,20 +1,22 @@
 package seedu.address.model.entity.body;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+
 
 //@@author ambervoong
 /**
  * Represents a Body in Mortago.
  * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
  */
-public class Body {
+public class Body implements Entity {
     private final IdentificationNumber bodyIdNum;
     private final Date dateOfAdmission;
 
@@ -25,17 +27,16 @@ public class Body {
     private Religion religion;
 
     private String causeOfDeath;
-    private ArrayList<String> organsForDonation;
-    private Status status;
+    private List<String> organsForDonation;
+    private BodyStatus bodyStatus;
     private IdentificationNumber fridgeId;
-
     private Date dateOfBirth;
     private Date dateOfDeath;
 
     // Next of kin details
     private Name nextOfKin;
     private String relationship;
-    private Phone kinPhoneNumber;
+    private PhoneNumber kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
         this.bodyIdNum = IdentificationNumber.generateNewBodyId();
@@ -43,9 +44,9 @@ public class Body {
     }
 
     public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
-                Religion religion, String causeOfDeath, ArrayList<String> organsForDonation, Status status,
+                Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
-                String relationship, Phone kinPhoneNumber) {
+                String relationship, PhoneNumber kinPhoneNumber) {
         if (isTestUnit) {
             this.bodyIdNum = IdentificationNumber.customGenerateId("B",
                     identificationNumber);
@@ -59,7 +60,7 @@ public class Body {
         this.religion = religion;
         this.causeOfDeath = causeOfDeath;
         this.organsForDonation = organsForDonation;
-        this.status = status;
+        this.bodyStatus = bodyStatus;
         this.fridgeId = fridgeId;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
@@ -141,11 +142,11 @@ public class Body {
         this.relationship = relationship;
     }
 
-    public Phone getKinPhoneNumber() {
+    public PhoneNumber getKinPhoneNumber() {
         return kinPhoneNumber;
     }
 
-    public void setKinPhoneNumber(Phone kinPhoneNumber) {
+    public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
     }
 
@@ -157,20 +158,20 @@ public class Body {
         this.causeOfDeath = causeOfDeath;
     }
 
-    public ArrayList<String> getOrgansForDonation() {
+    public List<String> getOrgansForDonation() {
         return organsForDonation;
     }
 
-    public void setOrgansForDonation(ArrayList<String> organsForDonation) {
+    public void setOrgansForDonation(List<String> organsForDonation) {
         this.organsForDonation = organsForDonation;
     }
 
-    public Status getStatus() {
-        return status;
+    public BodyStatus getBodyStatus() {
+        return bodyStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setBodyStatus(BodyStatus bodyStatus) {
+        this.bodyStatus = bodyStatus;
     }
 
     public IdentificationNumber getFridgeId() {
@@ -204,7 +205,7 @@ public class Body {
                 && getReligion() == body.getReligion()
                 && Objects.equals(getCauseOfDeath(), body.getCauseOfDeath())
                 && Objects.equals(getOrgansForDonation(), body.getOrgansForDonation())
-                && getStatus() == body.getStatus()
+                && getBodyStatus() == body.getBodyStatus()
                 && Objects.equals(getFridgeId(), body.getFridgeId())
                 && Objects.equals(getDateOfBirth(), body.getDateOfBirth())
                 && Objects.equals(getDateOfDeath(), body.getDateOfDeath())
@@ -216,8 +217,8 @@ public class Body {
     @Override
     public int hashCode() {
         return Objects.hash(getBodyIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
-                getReligion(), getCauseOfDeath(), getOrgansForDonation(), getStatus(), getFridgeId(), getDateOfBirth(),
-                getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
+                getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
+                getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }
 
     /**
@@ -235,6 +236,28 @@ public class Body {
         }
         Body body = (Body) o;
         return Objects.equals(getNric(), body.getNric());
+    }
+
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSameBody(o);
+    }
+
+    /**
+     * Returns whether an object is equal to this body. The definition of equality is relaxed here to only include
+     * bodyIdNum.
+     * @param o An object.
+     * @return whether the object is equal to this object.
+     */
+    public boolean isSameBodyIdNum(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Body body = (Body) o;
+        return getBodyIdNum().equals(body.getBodyIdNum());
     }
 }
 

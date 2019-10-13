@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueEntityLists;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +17,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueEntityLists entities;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        entities = new UniqueEntityLists();
     }
 
     public AddressBook() {}
@@ -40,11 +43,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code entities}.
+     * {@code entities} must not contain duplicate entities.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.entities.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the workers list with {@code workers}.
+     * {@code workers} must not contain duplicate workers.
+     */
+    public void setWorkers(List<Worker> workers) {
+        this.entities.setWorkers(workers);
+    }
+
+    /**
+     * Replaces the contents of the bodies list with {@code bodies}.
+     * {@code bodies} must not contain duplicate bodies.
+     */
+    public void setBodies(List<Body> bodies) {
+        this.entities.setBodies(bodies);
     }
 
     /**
@@ -54,67 +73,79 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setWorkers(newData.getWorkerList());
+        setBodies(newData.getBodyList());
     }
 
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an entity with the same identity as {@code entity} exists in Mortago.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasEntity(Entity entity) {
+        requireNonNull(entity);
+        return entities.contains(entity);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an entity to Mortago.
+     * The entity must not already exist in Mortago.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addEntity(Entity e) {
+        entities.add(e);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given entity {@code target} in the list with {@code editedEntity}.
+     * {@code target} must exist in Mortago.
+     * The person identity of {@code editedEntity} must not be the same as another existing entity in Mortago.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setEntity(Entity target, Entity editedEntity) {
+        requireNonNull(editedEntity);
 
-        persons.setPerson(target, editedPerson);
+        entities.setEntity(target, editedEntity);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeEntity(Entity key) {
+        entities.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return entities.asUnmodifiableObservableListPerson().size() + " entities";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return entities.asUnmodifiableObservableListPerson();
+    }
+
+    @Override
+    public ObservableList<Worker> getWorkerList() {
+        return entities.asUnmodifiableObservableListWorker();
+    }
+
+    @Override
+    public ObservableList<Body> getBodyList() {
+        return entities.asUnmodifiableObservableListBody();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && entities.equals(((AddressBook) other).entities));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return entities.hashCode();
     }
 }

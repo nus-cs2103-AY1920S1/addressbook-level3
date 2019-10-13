@@ -10,6 +10,9 @@ import java.util.Objects;
  */
 public class IdentificationNumber {
 
+    public static final String MESSAGE_CONSTRAINTS =
+        "IdentificationNumber should have either of the following formats:\n" + "- B########\n" + "- W#####" + "- F##";
+
     private static final String ID_PREFIX_BODY = "B";
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
@@ -63,6 +66,58 @@ public class IdentificationNumber {
         return new IdentificationNumber(typeOfEntity, idNum);
     }
 
+    private static boolean isValidIdPrefix (String prefix) {
+        return prefix.equalsIgnoreCase(ID_PREFIX_BODY) || (
+                prefix.equalsIgnoreCase(ID_PREFIX_FRIDGE) || prefix.equalsIgnoreCase(ID_PREFIX_WORKER));
+    }
+
+    /**
+     * Checks if given {@code String id} is a valid identification number.
+     */
+    public static boolean isValidIdentificationNumber(String id) {
+        String idPrefix = id.charAt(0) + "";
+        if (isValidIdPrefix(idPrefix)) {
+            int numberLength = id.substring(1).length();
+            switch (idPrefix) {
+            case ID_PREFIX_BODY:
+                return numberLength == 8;
+            case ID_PREFIX_WORKER:
+                return numberLength == 5;
+            case ID_PREFIX_FRIDGE:
+                return numberLength == 2;
+            default:
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a given {@code IdentificationNumber id} already exists.
+     * @param id
+     * @return
+     */
+    public static boolean isExistingidentificationNumber(IdentificationNumber id) {
+        if (isValidIdentificationNumber(id.toString())) {
+            String idPrefix = id.toString().charAt(0) + "";
+            switch (idPrefix) {
+            case ID_PREFIX_BODY:
+                return id.getIdNum() <= countOfBodies;
+            case ID_PREFIX_WORKER:
+                return id.getIdNum() <= countOfWorkers;
+            case ID_PREFIX_FRIDGE:
+                return id.getIdNum() <= countOfFridges;
+            default:
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public int getIdNum() {
+        return idNum;
+    }
+
     @Override
     public String toString() {
         String paddedId;
@@ -106,6 +161,7 @@ public class IdentificationNumber {
         countOfFridges = 0;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -115,7 +171,7 @@ public class IdentificationNumber {
             return false;
         }
         IdentificationNumber that = (IdentificationNumber) o;
-        return typeOfEntity.equals(that.typeOfEntity) && idNum == that.idNum;
+        return idNum == that.idNum && typeOfEntity.equals(that.typeOfEntity);
     }
 
     @Override

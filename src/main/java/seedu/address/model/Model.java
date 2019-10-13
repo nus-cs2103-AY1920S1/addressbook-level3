@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,6 +16,8 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
+    Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +58,59 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an entity with the same identity as {@code entity} exists in Mortago.
      */
-    boolean hasPerson(Person person);
+    boolean hasEntity(Entity entity);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given entity.
+     * The entity must exist in Mortago.
      */
-    void deletePerson(Person target);
+    void deleteEntity(Entity target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given entity.
+     * {@code entity} must not already exist in Mortago.
      */
-    void addPerson(Person person);
+    void addEntity(Entity entity);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given entity {@code target} with {@code editedEntity}.
+     * {@code target} must exist in Mortago.
+     * The entity identity of {@code editedEntity} must not be the same as another existing entity in Mortago.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setEntity(Entity target, Entity editedEntity);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of workers*/
+    ObservableList<Worker> getFilteredWorkerList();
+
+    /** Returns an unmodifiable view of the filtered list of bodies */
+    ObservableList<Body> getFilteredBodyList();
+
+    /** Returns an unmodifiable view of the filtered list of fridges */
+    // ObservableList<Fridge> getFilteredFridgeList();
+
+    /** Returns an unmodifiable view of the filtered list of entities */
+    ObservableList<? extends Entity> getFilteredEntityList(String entityType);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered worker list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWorkerList(Predicate<Worker> predicate);
+
+    /**
+     * Updates the filter of the filtered body list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBodyList(Predicate<Body> predicate);
 }

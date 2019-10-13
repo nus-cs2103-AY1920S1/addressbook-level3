@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.FridgeBuilder;
 
 //@@author arjavibahety
@@ -32,6 +33,26 @@ public class FridgeTest {
         assertFalse(ALICE_FRIDGE.isSameFridge(BOB_FRIDGE));
         assertFalse(EMPTY_FRIDGE.isSameFridge(BOB_FRIDGE));
     }
+
+    //@@author ambervoong
+    @Test
+    public void isSameEntity() {
+        // same object -> returns true
+        assertTrue(ALICE_FRIDGE.isSameEntity(ALICE_FRIDGE));
+        assertTrue(EMPTY_FRIDGE.isSameEntity(EMPTY_FRIDGE));
+
+        // null -> returns false
+        assertFalse(ALICE_FRIDGE.isSameEntity(null));
+        assertFalse(EMPTY_FRIDGE.isSameEntity(null));
+
+        // different fridges entirely -> returns false
+        assertFalse(ALICE_FRIDGE.isSameEntity(BOB_FRIDGE));
+        assertFalse(EMPTY_FRIDGE.isSameEntity(BOB_FRIDGE));
+
+        // different type
+        assertFalse(ALICE_FRIDGE.isSameEntity(new BodyBuilder().build()));
+    }
+    //@@author
 
     @Test
     public void equals() {
