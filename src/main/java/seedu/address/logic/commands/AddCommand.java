@@ -28,6 +28,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the List";
 
+    public static String itemType;
+
     private final Item toAdd;
 
     /**
@@ -36,6 +38,10 @@ public class AddCommand extends Command {
     public AddCommand(Item item) {
         requireNonNull(item);
         toAdd = item;
+    }
+
+    public static void setItemType(String newItemType) {
+        itemType = newItemType;
     }
 
     @Override
@@ -49,7 +55,13 @@ public class AddCommand extends Command {
         */
 
         model.addItem(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        // Notify Ui to change the view the that of the newly added item.
+        try {
+            model.setVisualList(itemType);
+        } catch (Exception e) {
+            // should not enter here as itemType is definitely valid.
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), itemType);
     }
 
     @Override
