@@ -1,7 +1,7 @@
 package seedu.module.logic.parser;
 
 import seedu.module.logic.commands.AddCommand;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -14,9 +14,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) {
 
-        Module module = ArchiveStub.searchArchiveStub(args); //stub
+        TrackedModule trackedModule = ArchiveStub.searchArchiveStub(args); //stub
 
-        return new AddCommand(module);
+        return new AddCommand(trackedModule);
     }
 
 }

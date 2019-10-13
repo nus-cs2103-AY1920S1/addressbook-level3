@@ -8,7 +8,7 @@ import seedu.module.commons.core.Messages;
 import seedu.module.commons.core.index.Index;
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * Deletes a Module identified using it's displayed index from the Module book.
@@ -33,15 +33,15 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Module> lastShownList = model.getFilteredModuleList();
+        List<TrackedModule> lastShownList = model.getFilteredModuleList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
-        Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteModule(moduleToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        TrackedModule trackedModuleToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteModule(trackedModuleToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, trackedModuleToDelete));
     }
 
     @Override

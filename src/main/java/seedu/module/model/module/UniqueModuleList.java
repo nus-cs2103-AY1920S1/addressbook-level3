@@ -20,18 +20,18 @@ import seedu.module.model.module.exceptions.ModuleNotFoundException;
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Module#isSameModule(Module)
+ * @see TrackedModule#isSameModule(TrackedModule)
  */
-public class UniqueModuleList implements Iterable<Module> {
+public class UniqueModuleList implements Iterable<TrackedModule> {
 
-    private final ObservableList<Module> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Module> internalUnmodifiableList =
+    private final ObservableList<TrackedModule> internalList = FXCollections.observableArrayList();
+    private final ObservableList<TrackedModule> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent Module as the given argument.
      */
-    public boolean contains(Module toCheck) {
+    public boolean contains(TrackedModule toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameModule);
     }
@@ -40,7 +40,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * Adds a Module to the list.
      * The Module must not already exist in the list.
      */
-    public void add(Module toAdd) {
+    public void add(TrackedModule toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateModuleException();
@@ -52,7 +52,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * Removes the equivalent module from the list.
      * The modules must exist in the list.
      */
-    public void remove(Module toRemove) {
+    public void remove(TrackedModule toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
@@ -68,24 +68,24 @@ public class UniqueModuleList implements Iterable<Module> {
      * Replaces the contents of this list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */
-    public void setModules(List<Module> modules) {
-        requireAllNonNull(modules);
-        if (!modulesAreUnique(modules)) {
+    public void setModules(List<TrackedModule> trackedModules) {
+        requireAllNonNull(trackedModules);
+        if (!modulesAreUnique(trackedModules)) {
             throw new DuplicateModuleException();
         }
 
-        internalList.setAll(modules);
+        internalList.setAll(trackedModules);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Module> asUnmodifiableObservableList() {
+    public ObservableList<TrackedModule> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Module> iterator() {
+    public Iterator<TrackedModule> iterator() {
         return internalList.iterator();
     }
 
@@ -104,10 +104,10 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if {@code modules} contains only unique modules.
      */
-    private boolean modulesAreUnique(List<Module> modules) {
-        for (int i = 0; i < modules.size() - 1; i++) {
-            for (int j = i + 1; j < modules.size(); j++) {
-                if (modules.get(i).isSameModule(modules.get(j))) {
+    private boolean modulesAreUnique(List<TrackedModule> trackedModules) {
+        for (int i = 0; i < trackedModules.size() - 1; i++) {
+            for (int j = i + 1; j < trackedModules.size(); j++) {
+                if (trackedModules.get(i).isSameModule(trackedModules.get(j))) {
                     return false;
                 }
             }

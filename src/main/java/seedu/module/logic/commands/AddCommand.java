@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * Adds module to be tracked.
@@ -22,14 +22,14 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the module book";
 
-    private final Module toAdd;
+    private final TrackedModule toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Module}
      */
-    public AddCommand(Module module) {
-        requireNonNull(module);
-        toAdd = module;
+    public AddCommand(TrackedModule trackedModule) {
+        requireNonNull(trackedModule);
+        toAdd = trackedModule;
     }
 
     @Override

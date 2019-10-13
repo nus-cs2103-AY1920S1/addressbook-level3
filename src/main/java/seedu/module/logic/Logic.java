@@ -7,7 +7,6 @@ import seedu.module.commons.core.GuiSettings;
 import seedu.module.logic.commands.CommandResult;
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.logic.parser.exceptions.ParseException;
-import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.module.Module;
 
 /**
@@ -25,16 +24,10 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the ModuleBook.
-     *
-     * @see seedu.module.model.Model#getModuleBook()
+     * Returns an unmodifiable view of the current displayed list.
+     * @return
      */
-    ReadOnlyModuleBook getModuleBook();
-
-    /**
-     * Returns an unmodifiable view of the filtered list of modules
-     */
-    ObservableList<Module> getFilteredModuleList();
+    ObservableList<Module> getDisplayedList();
 
     /**
      * Returns the user prefs' Module book file path.

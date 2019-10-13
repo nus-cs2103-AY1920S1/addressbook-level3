@@ -7,11 +7,14 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.module.commons.core.GuiSettings;
 import seedu.module.commons.core.LogsCenter;
+import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * Represents the in-memory model of the module book data.
@@ -21,7 +24,9 @@ public class ModelManager implements Model {
 
     private final ModuleBook moduleBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Module> filteredModules;
+    private final FilteredList<TrackedModule> filteredTrackedModules;
+    private final FilteredList<ArchivedModule> filteredArchivedModules;
+    private ObservableList<Module> displayedList = FXCollections.observableArrayList();
 
     /**
      * Initializes a ModelManager with the given moduleBook and userPrefs.
@@ -34,7 +39,9 @@ public class ModelManager implements Model {
 
         this.moduleBook = new ModuleBook(moduleBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(this.moduleBook.getModuleList());
+        filteredTrackedModules = new FilteredList<>(this.moduleBook.getModuleList());
+        filteredArchivedModules = new FilteredList<>(this.moduleBook.getArchivedModuleList());
+        displayTrackedList();
     }
 
     public ModelManager() {
@@ -89,37 +96,80 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return moduleBook.hasModule(module);
+    public boolean hasModule(TrackedModule trackedModule) {
+        requireNonNull(trackedModule);
+        return moduleBook.hasModule(trackedModule);
     }
 
     @Override
-    public void deleteModule(Module target) {
+    public void deleteModule(TrackedModule target) {
         moduleBook.removeModule(target);
     }
 
     @Override
-    public void addModule(Module module) {
-        moduleBook.addModule(module);
+    public void addModule(TrackedModule trackedModule) {
+        moduleBook.addModule(trackedModule);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     //=========== Filtered module List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code module} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code module} backed by the internal list of.
      * {@code versionedModuleBook}
      */
     @Override
-    public ObservableList<Module> getFilteredModuleList() {
-        return filteredModules;
+    public ObservableList<TrackedModule> getFilteredModuleList() {
+        return filteredTrackedModules;
     }
 
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
-        filteredModules.setPredicate(predicate);
+        filteredTrackedModules.setPredicate(predicate);
+    }
+
+    //=========== Filtered ArchivedModule List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code ArchivedModule} backed by the internal list of.
+     * {@code versionedModuleBook}
+     */
+    @Override
+    public ObservableList<ArchivedModule> getFilteredArchivedModuleList() {
+        return filteredArchivedModules;
+    }
+
+    @Override
+    public void updateFilteredArchivedModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredArchivedModules.setPredicate(predicate);
+    }
+
+    //=========== Displayed List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} based on command.
+     */
+    @Override
+    public ObservableList<Module> getDisplayedList() {
+        return (ObservableList<Module>) displayedList;
+    }
+
+    @Override
+    public void displayArchivedList() {
+        this.displayedList.clear();
+        for (Module i : filteredArchivedModules) {
+            displayedList.add(i);
+        }
+    }
+
+    @Override
+    public void displayTrackedList() {
+        this.displayedList.clear();
+        for (Module i : filteredTrackedModules) {
+            displayedList.add(i);
+        }
     }
 
     @Override
@@ -138,7 +188,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return moduleBook.equals(other.moduleBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules);
+                && filteredTrackedModules.equals(other.filteredTrackedModules)
+                && filteredArchivedModules.equals(other.filteredArchivedModules);
     }
 
 }

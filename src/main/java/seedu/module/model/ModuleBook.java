@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 import seedu.module.model.module.UniqueModuleList;
 
 /**
@@ -50,8 +50,8 @@ public class ModuleBook implements ReadOnlyModuleBook {
      * Replaces the contents of the module list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */
-    public void setModules(List<Module> modules) {
-        this.modules.setModules(modules);
+    public void setModules(List<TrackedModule> trackedModules) {
+        this.modules.setModules(trackedModules);
     }
 
     /**
@@ -68,6 +68,7 @@ public class ModuleBook implements ReadOnlyModuleBook {
         requireNonNull(newData);
 
         setModules(newData.getModuleList());
+        setArchivedModules(newData.getRawArchivedModuleList());
     }
 
     //// module-level operations
@@ -75,16 +76,16 @@ public class ModuleBook implements ReadOnlyModuleBook {
     /**
      * Returns true if a module with the same identity as {@code module} exists in the module book.
      */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
+    public boolean hasModule(TrackedModule trackedModule) {
+        requireNonNull(trackedModule);
+        return modules.contains(trackedModule);
     }
 
     /**
      * Adds a module to the module book.
      * The module must not already exist in the module book.
      */
-    public void addModule(Module p) {
+    public void addModule(TrackedModule p) {
         modules.add(p);
     }
 
@@ -92,7 +93,7 @@ public class ModuleBook implements ReadOnlyModuleBook {
      * Removes {@code key} from this {@code ModuleBook}.
      * {@code key} must exist in the module book.
      */
-    public void removeModule(Module key) {
+    public void removeModule(TrackedModule key) {
         modules.remove(key);
     }
 
@@ -105,12 +106,18 @@ public class ModuleBook implements ReadOnlyModuleBook {
     }
 
     @Override
-    public ObservableList<Module> getModuleList() {
+    public ObservableList<TrackedModule> getModuleList() {
         return modules.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<ArchivedModule> getArchivedModuleList() {
         return archivedModules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ArchivedModuleList getRawArchivedModuleList() {
+        return this.archivedModules;
     }
 
     @Override

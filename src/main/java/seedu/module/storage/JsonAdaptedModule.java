@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.module.commons.exceptions.IllegalValueException;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
- * Jackson-friendly version of {@link Module}.
+ * Jackson-friendly version of {@link TrackedModule}.
  */
 class JsonAdaptedModule {
 
@@ -29,9 +29,9 @@ class JsonAdaptedModule {
     }
 
     /**
-     * Converts a given {@code Module} into this class for Jackson use.
+     * Converts a given {@code TrackedModule} into this class for Jackson use.
      */
-    public JsonAdaptedModule(Module source) {
+    public JsonAdaptedModule(TrackedModule source) {
         moduleCode = source.getModuleCode();
         title = source.getTitle();
         description = source.getDescription();
@@ -42,7 +42,7 @@ class JsonAdaptedModule {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
-    public Module toModelType() throws IllegalValueException {
+    public TrackedModule toModelType() throws IllegalValueException {
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "moduleCode"));
         }
@@ -54,7 +54,7 @@ class JsonAdaptedModule {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "description"));
         }
-        return new Module(moduleCode, title, description);
+        return new TrackedModule(moduleCode, title, description);
     }
 
 }

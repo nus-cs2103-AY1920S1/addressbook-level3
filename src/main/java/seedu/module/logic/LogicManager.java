@@ -13,7 +13,6 @@ import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.logic.parser.ModuleBookParser;
 import seedu.module.logic.parser.exceptions.ParseException;
 import seedu.module.model.Model;
-import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.module.Module;
 import seedu.module.storage.Storage;
 
@@ -52,13 +51,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyModuleBook getModuleBook() {
-        return model.getModuleBook();
-    }
-
-    @Override
-    public ObservableList<Module> getFilteredModuleList() {
-        return model.getFilteredModuleList();
+    public ObservableList<Module> getDisplayedList() {
+        return model.getDisplayedList();
     }
 
     @Override

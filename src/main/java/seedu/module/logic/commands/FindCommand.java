@@ -7,14 +7,15 @@ import seedu.module.model.Model;
 import seedu.module.model.module.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all modules in Module book with names that contain any of the argument keywords.
+ * Finds and lists all modules in Module book ArchivedModuleList with names that contain any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Modules whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Modules in the archive of all modules with"
+            + " names that contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " cs2103";
@@ -28,9 +29,10 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredModuleList(predicate);
+        model.updateFilteredArchivedModuleList(predicate);
+        model.displayArchivedList();
         return new CommandResult(
-                String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, model.getFilteredModuleList().size()));
+                String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, model.getFilteredArchivedModuleList().size()));
     }
 
     @Override

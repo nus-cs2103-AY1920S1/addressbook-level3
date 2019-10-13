@@ -19,6 +19,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        model.displayTrackedList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

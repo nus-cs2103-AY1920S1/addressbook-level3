@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.module.commons.exceptions.IllegalValueException;
 import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * An Immutable ModuleBook that is serializable to JSON format.
@@ -48,11 +48,11 @@ class JsonSerializableModuleBook {
     public ModuleBook toModelType() throws IllegalValueException {
         ModuleBook moduleBook = new ModuleBook();
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
-            Module module = jsonAdaptedModule.toModelType();
-            if (moduleBook.hasModule(module)) {
+            TrackedModule trackedModule = jsonAdaptedModule.toModelType();
+            if (moduleBook.hasModule(trackedModule)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULES);
             }
-            moduleBook.addModule(module);
+            moduleBook.addModule(trackedModule);
         }
         return moduleBook;
     }

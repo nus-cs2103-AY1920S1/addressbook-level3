@@ -1,7 +1,7 @@
 package seedu.module.testutil;
 
 import seedu.module.model.ModuleBook;
-import seedu.module.model.module.Module;
+import seedu.module.model.module.TrackedModule;
 
 /**
  * A utility class to help with building Modulebook objects.
@@ -23,8 +23,8 @@ public class ModuleBookBuilder {
     /**
      * Adds a new {@code Module} to the {@code ModuleBook} that we are building.
      */
-    public ModuleBookBuilder withModule(Module module) {
-        moduleBook.addModule(module);
+    public ModuleBookBuilder withModule(TrackedModule trackedModule) {
+        moduleBook.addModule(trackedModule);
         return this;
     }
 

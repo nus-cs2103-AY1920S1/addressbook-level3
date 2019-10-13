@@ -69,8 +69,8 @@ public class CommandTestUtil {
     public static void showModuleAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
 
-        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
-        final String[] splitName = module.getTitle().split("\\s+");
+        Module trackedModule = model.getFilteredModuleList().get(targetIndex.getZeroBased());
+        final String[] splitName = trackedModule.getTitle().split("\\s+");
         model.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredModuleList().size());

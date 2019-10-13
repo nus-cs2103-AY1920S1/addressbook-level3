@@ -3,10 +3,9 @@ package seedu.module.model.module;
 import java.util.Objects;
 
 /**
- * Represents an Archived Module. An Archived Module is an Object containing data on a module
- * provided by the institution. Should be read-only.
+ * Represents a TrackedModule in the ModuleList.
  */
-public class ArchivedModule implements Module {
+public class TrackedModule implements Module {
 
     // Identity field
     private final String moduleCode;
@@ -16,7 +15,7 @@ public class ArchivedModule implements Module {
     /**
      * Every field must be present and not null.
      */
-    public ArchivedModule(String moduleCode, String title, String description) {
+    public TrackedModule(String moduleCode, String title, String description) {
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
@@ -35,19 +34,20 @@ public class ArchivedModule implements Module {
     }
 
     /**
-     * Returns true if both archived modules of the same name have the same identity field.
+     * Returns true if both modules of the same name have the same identity field.
      * This defines a weaker notion of equality between two modules.
      */
-    public boolean isSameArchivedModule(ArchivedModule otherModule) {
-        if (otherModule == this) {
+    public boolean isSameModule(TrackedModule otherTrackedModule) {
+        if (otherTrackedModule == this) {
             return true;
         }
 
-        return otherModule != null && otherModule.getModuleCode().equals(getModuleCode());
+        return otherTrackedModule != null
+                && otherTrackedModule.getModuleCode().equals(getModuleCode());
     }
 
     /**
-     * Returns true if both archived modules have the same identity and data fields.
+     * Returns true if both modules have the same identity and data fields.
      * This defines a stronger notion of equality between two modules.
      */
     @Override
@@ -56,13 +56,14 @@ public class ArchivedModule implements Module {
             return true;
         }
 
-        if (!(other instanceof ArchivedModule)) {
+        if (!(other instanceof TrackedModule)) {
             return false;
         }
 
-        ArchivedModule otherModule = (ArchivedModule) other;
-        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getTitle().equals(getTitle())
-                && otherModule.getDescription().equals(getDescription());
+        TrackedModule otherTrackedModule = (TrackedModule) other;
+        return otherTrackedModule.getModuleCode().equals(getModuleCode())
+                && otherTrackedModule.getTitle().equals(getTitle())
+                && otherTrackedModule.getDescription().equals(getDescription());
     }
 
     @Override
@@ -74,7 +75,10 @@ public class ArchivedModule implements Module {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getModuleCode()).append(" Title: ").append(getTitle()).append(" Description: ")
+        builder.append(getModuleCode())
+                .append(" Title: ")
+                .append(getTitle())
+                .append(" Description: ")
                 .append(getDescription());
         return builder.toString();
     }
