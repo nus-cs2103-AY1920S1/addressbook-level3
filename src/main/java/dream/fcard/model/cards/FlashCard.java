@@ -28,4 +28,8 @@ public interface FlashCard {
      * @return true if its a valid match
      */
     Boolean evaluate(String in);
+
+    void editFront(String newText);
+
+    void editBack(String newText);
 }

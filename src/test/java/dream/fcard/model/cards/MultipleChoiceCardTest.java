@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import dream.fcard.model.exceptions.ChoiceNotFoundException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 class MultipleChoiceCardTest {
 
@@ -32,7 +32,7 @@ class MultipleChoiceCardTest {
     }
 
     @Test
-    void editChoice_changeChoiceSuccessfully() throws ChoiceNotFoundException {
+    void editChoice_changeChoiceSuccessfully() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();
 
         choices.add("bye");
@@ -56,7 +56,7 @@ class MultipleChoiceCardTest {
         choices.add("moin");
 
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "hello", choices);
-        assertThrows(ChoiceNotFoundException.class, () -> {
+        assertThrows(IndexNotFoundException.class, () -> {
             card.editChoice(-1, "hello");
         });
     }
