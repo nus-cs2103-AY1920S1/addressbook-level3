@@ -5,6 +5,7 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import seedu.ichifund.commons.core.LogsCenter;
@@ -59,5 +60,10 @@ public class Date implements Comparable<Date> {
     @Override
     public String toString() {
         return day + "/" + month + "/" + year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, month, year, date);
     }
 }
