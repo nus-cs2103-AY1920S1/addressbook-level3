@@ -33,7 +33,7 @@ public class FilterCommand extends Command {
      * Creates the message in the event that no tag has been found.
      * @return Suggestion of tags that exist which the user can search instead.
      */
-    private String getNoMatchMessage() {
+    public String getNoMatchMessage() {
         StringBuilder message = new StringBuilder("There are no tags found matching your query.\n");
         message.append("Try these tags instead: ");
         Set<String> uniqueTags = new HashSet<String>(Tag.getAllTags());
