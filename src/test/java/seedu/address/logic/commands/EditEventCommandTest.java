@@ -9,8 +9,6 @@ import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_REMIND
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_START_DATE_TIME;
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_TAGS;
 
-import java.time.Instant;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,9 +54,9 @@ class EditEventCommandTest {
         assertDoesNotThrow(() -> {
 
             Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("c", new DateTime(Instant.now())));
+            model.addEvent(EventSource.newBuilder("a", DateTime.now()).build());
+            model.addEvent(EventSource.newBuilder("b", DateTime.now()).build());
+            model.addEvent(EventSource.newBuilder("c", DateTime.now()).build());
 
             Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
@@ -96,8 +94,8 @@ class EditEventCommandTest {
         String[] indexes = new String[]{"1", "2", "3"};
         assertThrows(CommandException.class, () -> {
             Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
+            model.addEvent(EventSource.newBuilder("a", DateTime.now()).build());
+            model.addEvent(EventSource.newBuilder("b", DateTime.now()).build());
             assertEquals(model.getEventList().getReadOnlyList().size(), 2);
 
             Command command = EditEventCommand.newBuilder(model)

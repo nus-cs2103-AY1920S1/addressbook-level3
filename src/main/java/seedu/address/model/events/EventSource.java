@@ -1,10 +1,7 @@
 package seedu.address.model.events;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents an EventSource in Horo.
@@ -17,16 +14,18 @@ public class EventSource {
     private final DateTime start;
 
     // Optional
-    private DateTime end;
-    private Set<Tag> tags = new HashSet<>();
+    private final DateTime end;
+    private final Set<String> tags;
 
     /**
-     * Creates an EventSource.
+     * Creates an EventSource from an EventSourceBuilder.
      * All fields must be non null.
      */
-    public EventSource(String description, DateTime start) {
-        this.description = Objects.requireNonNull(description);
-        this.start = Objects.requireNonNull(start);
+    EventSource(EventSourceBuilder builder) {
+        this.description = builder.getDescription();
+        this.start = builder.getStart();
+        this.end = builder.getEnd();
+        this.tags = builder.getTags();
     }
 
     /**
@@ -41,6 +40,10 @@ public class EventSource {
         this.tags = eventSource.tags;
     }
 
+    public static EventSourceBuilder newBuilder(String description, DateTime start) {
+        return new EventSourceBuilder(description, start);
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -49,14 +52,22 @@ public class EventSource {
         return this.start;
     }
 
+    public DateTime getEnd() {
+        return end;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof EventSource) {
             EventSource e = (EventSource) object;
-            return this.description.equals(e.description)
-                && this.start.equals(e.start)
-                && this.end.equals(e.end)
-                && this.tags.equals(e.tags);
+            return Objects.equals(this.description, e.description)
+                && Objects.equals(this.start, e.start)
+                && Objects.equals(this.end, e.end)
+                && Objects.equals(this.tags, e.tags);
         }
         return false;
     }

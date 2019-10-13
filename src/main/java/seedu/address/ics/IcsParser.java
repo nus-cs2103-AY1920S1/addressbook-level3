@@ -128,6 +128,7 @@ public class IcsParser {
         if (description.equals("")) {
             throw new IcsException("The description of an event cannot be empty!");
         }
-        return new EventSource(description, dateTime);
+        return EventSource.newBuilder(description, dateTime)
+            .build();
     }
 }

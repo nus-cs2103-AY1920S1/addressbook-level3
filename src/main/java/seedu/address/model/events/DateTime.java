@@ -1,6 +1,7 @@
 package seedu.address.model.events;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import seedu.address.logic.composers.InstantComposer;
@@ -15,12 +16,16 @@ public class DateTime implements Comparable<DateTime> {
 
     public static final String USER_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
 
+    private static final ZoneId TIMEZONE = ZoneId.systemDefault();
+
     private static final DateTimeParser USER_PARSER =
-        new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN));
+        new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
+            .withZone(TIMEZONE));
     private static final InstantComposer USER_COMPOSER =
         new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
-    private static final DateTimeFormatter ICS_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
+    private static final DateTimeFormatter ICS_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
+        .withZone(ZoneId.of("UTC"));
     private static final DateTimeParser ICS_PARSER = new DateTimeParser(ICS_FORMATTER);
     private static final InstantComposer ICS_COMPOSER = new InstantComposer(ICS_FORMATTER);
 
