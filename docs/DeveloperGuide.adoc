@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TravEzy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://ay1920s1-cs2103t-t17-2.github.io/main/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T17-2`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -368,6 +368,118 @@ Use case resumes at step 2.
 _{More to be added}_
 
 [discrete]
+=== Use case:  Itinerary
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UC01 - Add an event into itinerary page
+Actor: User
+
+Guarantees:
+    . A new event will be added to the itinerary page upon successful command
+
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be added to the itinerary
+    4. TravEzy add the event in sequential order
+
+Extensions
+    2a. The list is empty.
+    Use case ends.
+    
+    3a. No event name is given.
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+----
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UC02 - Delete an event into itinerary page
+Actor: User
+
+Guarantees:
+    . Specified event will be deleted in the itinerary page upon successful command
+    . Event will not be delete if an invalid index is given
+    
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be added to the itinerary
+    4. TravEzy add the event in sequential order
+
+Extensions
+    2a. The list is empty.
+    Use case ends.
+    
+    3a. The given index is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+----
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UC03 - Accessing an event
+Actor: User
+
+Precondition: Specified event is contain in the list
+
+Guarantees:
+    . Highlights the specific event to be edited
+    
+MSS:
+    1. User requests to list events
+    2. TravEzy shows a list of events in the itinerary page
+    3. User type in the event to be accessed
+    4. TravEzy highlights the specified event to be edited
+
+Extensions
+    2a. The list is empty.
+    Use case ends.
+    
+    3a. The given index is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+    
+----
+
+
+{empty} +
+
+----
+Software System : TravEzy Travelling Diary
+Use Case: UC04 - Add details to event
+Actor: User
+
+Precondition: User must access to an event (UC03)
+
+Guarantees:
+    . Update highlighted event with the details
+    
+MSS:
+    1. User requests to edit location / time / description for highlighted event
+    2. TravEzy prompt for the location / timing / description to be added
+    3. User inserts the necessary description
+    4. TravEzy display the changes for that event
+
+Extensions
+    3a. The given location / timing / description is invalid
+        3a1. TravEzy shows an error message.
+        Use case resumes at step 2.
+        
+    *a. At any time, User chooses to cancel adding details to the event and exit
+        *a1. TravEzy requests to confirm the exit of event
+        *a2. User confirms the exit
+        *a3. TravEzy un-highlights the event selected
+        
+----
+
+
+[discrete]
 === Use case: Finance Tracker
 
 _{More to be added}_
@@ -379,11 +491,6 @@ _{More to be added}_
 
 [discrete]
 === Use case: Diary
-
-_{More to be added}_
-
-[discrete]
-=== Use case:  Itinerary
 
 _{More to be added}_
 
