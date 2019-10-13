@@ -350,3 +350,13 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#country {
+    -fx-text-fill: white;
+    -fx-background-color: transparent, #7B1FA2;
+    -fx-label-padding: 5, 2, 5, 2;
+    -fx-border-radius: 2;
+    -fx-background-radius: 0, 2;
+    -fx-font-size: 11;
+    -fx-background-insets: 2;
+}

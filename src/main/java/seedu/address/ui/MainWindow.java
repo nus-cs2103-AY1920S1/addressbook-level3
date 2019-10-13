@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -72,7 +71,8 @@ public class MainWindow extends UiPart<Stage> {
 
         Scene primaryScene = primaryStage.getScene();
 
-        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
+        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene,
+        // diaryScene)
         // note that one of the PageScene's constructor is a vararg
         pages = new Pages(primaryScene, new SamplePage(), calendarPage);
 
@@ -193,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-              CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.country.Country;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String remark;
+    private final String country;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -38,7 +40,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("country") String country) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -47,6 +50,7 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.country = country;
     }
 
     /**
@@ -61,6 +65,7 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        country = source.getCountry().value;
     }
 
     /**
@@ -111,8 +116,16 @@ class JsonAdaptedPerson {
         }
         final Remark modelRemark = new Remark(remark);
 
+        if (country == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Country.class.getSimpleName()));
+        }
+        if (!Country.isValidCountry(country)) {
+            throw new IllegalValueException(Country.MESSAGE_CONSTRAINTS);
+        }
+        final Country modelCountry = new Country(country);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, modelCountry);
     }
 
 }

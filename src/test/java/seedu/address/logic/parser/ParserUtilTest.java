@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.country.Country;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COUNTRY = "Korea";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_COUNTRY = "South Korea";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -142,10 +145,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseCountry_validValueWithWhitespace_returnsTrimmedCountry() throws Exception {
+        String countryWithWhitespace = WHITESPACE + VALID_COUNTRY + WHITESPACE;
+        Country expectedCountry = new Country(VALID_COUNTRY);
+        assertEquals(expectedCountry, ParserUtil.parseCountry(countryWithWhitespace));
+    }
+
+    @Test
+    public void parseCountry_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCountry((String) null));
+    }
+
+    @Test
+    public void parseCountry_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCountry(INVALID_COUNTRY));
+    }
+
+    @Test
+    public void parseCountry_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Country expectedCountry = new Country(VALID_COUNTRY);
+        assertEquals(expectedCountry, ParserUtil.parseCountry(VALID_COUNTRY));
     }
 
     @Test

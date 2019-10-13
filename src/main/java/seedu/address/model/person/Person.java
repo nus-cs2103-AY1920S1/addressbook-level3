@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.country.Country;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +22,7 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Country country;
     private final Address address;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
@@ -28,14 +30,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags, Country country) {
+        requireAllNonNull(name, phone, email, address, tags, country);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.remark = remark;
         this.tags.addAll(tags);
+        this.country = country;
     }
 
     public Name getName() {
@@ -48,6 +51,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Country getCountry() {
+        return country;
     }
 
     public Address getAddress() {
@@ -99,13 +106,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getCountry().equals(getCountry());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, country);
     }
 
     @Override
