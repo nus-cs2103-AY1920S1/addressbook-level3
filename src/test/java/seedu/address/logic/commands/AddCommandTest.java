@@ -213,11 +213,6 @@ public class AddCommandTest {
             return false;
         }
 
-        /**
-         * Returns the user prefs' catalog file path.
-         *
-         * @param borrower
-         */
         @Override
         public void registerBorrower(Borrower borrower) {
 

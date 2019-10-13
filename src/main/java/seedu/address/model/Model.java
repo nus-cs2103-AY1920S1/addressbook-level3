@@ -117,9 +117,6 @@ public interface Model {
     boolean isServeMode();
 
     boolean hasBorrower(Borrower borrower);
-    /**
-     * Returns the user prefs' catalog file path.
-     */
 
     void registerBorrower(Borrower borrower);
 

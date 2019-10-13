@@ -251,11 +251,6 @@ public class ModelManager implements Model {
         return borrowerRecords.hasBorrower(borrower);
     }
 
-    /**
-     * Returns the user prefs' catalog file path.
-     *
-     * @param borrower
-     */
     @Override
     public void registerBorrower(Borrower borrower) {
         borrowerRecords.addBorrower(borrower);
