@@ -20,7 +20,7 @@ public class JsonAdaptedDishTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = TypicalDishes.MUSHROOM_SOUP.getName().toString();
-    private static final String VALID_CALORIE = calofit.testutil.TypicalDishes.MUSHROOM_SOUP.getCalories().toString();
+    private static final int VALID_CALORIE = calofit.testutil.TypicalDishes.MUSHROOM_SOUP.getCalories().getValue();
     private static final List<JsonAdaptedTag> VALID_TAGS = TypicalDishes.MUSHROOM_SOUP.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import calofit.commons.core.GuiSettings;
 import calofit.logic.commands.exceptions.CommandException;
+import calofit.model.CalorieBudget;
 import calofit.model.Model;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.dish.Dish;
@@ -180,6 +181,11 @@ public class AddCommandTest {
 
         @Override
         public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public CalorieBudget getCalorieBudget() {
             throw new AssertionError("This method should not be called");
         }
 

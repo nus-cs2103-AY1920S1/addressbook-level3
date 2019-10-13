@@ -18,20 +18,20 @@ public class SampleDataUtil {
     public static Dish[] getSampleDishes() {
         return new Dish[] {
             new Dish(new Name("Spaghetti"),
-                new Calorie("689"),
+                new Calorie(689),
                 getTagSet("creamys")),
             new Dish(new Name("Mushroom Soup"),
-                new Calorie("439"),
+                new Calorie(439),
                 getTagSet("shitake", "expensive")),
             new Dish(new Name("Chicken Rice"),
-                    new Calorie("894")),
+                    new Calorie(894)),
             new Dish(new Name("Nasi Lemak"),
-                new Calorie("742"),
+                new Calorie(742),
                 getTagSet("value")),
             new Dish(new Name("Cheese Baked Rice"),
-                    new Calorie("1132")),
+                    new Calorie(1132)),
             new Dish(new Name("Apple Pie"),
-                    new Calorie("196"))
+                    new Calorie(196))
         };
     }
 

@@ -26,4 +26,8 @@ public class Timestamp implements Comparable<Timestamp> {
         }
         return Integer.compare(tiebreaker, timestamp.tiebreaker);
     }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 }

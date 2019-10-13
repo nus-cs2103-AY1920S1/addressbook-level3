@@ -62,12 +62,12 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEAL);
         } else {
 
-            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(new Calorie("700"))) {
+            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(new Calorie(700))) {
                 model.addDish(wantToAdd);
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
 
-            } else if (model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(new Calorie("700"))) {
+            } else if (model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(new Calorie(700))) {
                 wantToAdd = model.getDishByName(toAdd);
                 if (!wantToAdd.getCalories().equals(toAdd.getCalories())) {
                     wantToAdd = toAdd;

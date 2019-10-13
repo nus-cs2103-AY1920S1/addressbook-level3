@@ -103,4 +103,6 @@ public interface Model {
     Dish getDishByName(Dish dish);
 
     boolean hasDishName(Dish dish);
+
+    CalorieBudget getCalorieBudget();
 }
