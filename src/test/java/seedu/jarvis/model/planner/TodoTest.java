@@ -59,4 +59,14 @@ class TodoTest {
         t.addTag(tag);
         assertTrue(t.getTags().contains(tag));
     }
+
+    @Test
+    void isEqual_validInput_true() {
+
+    }
+
+    @Test
+    void isEqual_validInput_false() {
+
+    }
 }

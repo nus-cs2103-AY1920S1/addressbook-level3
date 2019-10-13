@@ -68,4 +68,14 @@ class EventTest {
         e.addTag(t);
         assertTrue(e.getTags().contains(t));
     }
+
+    @Test
+    void isEqual_validInput_true() {
+
+    }
+
+    @Test
+    void isEqual_validInput_false() {
+
+    }
 }

@@ -63,4 +63,14 @@ class DeadlineTest {
         d.addTag(t);
         assertTrue(d.getTags().contains(t));
     }
+
+    @Test
+    void isEqual_validInput_true() {
+
+    }
+
+    @Test
+    void isEqual_validInput_false() {
+
+    }
 }

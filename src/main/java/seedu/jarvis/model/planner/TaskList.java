@@ -39,6 +39,11 @@ public class TaskList {
      * @return true if Task t already exists in the planner, and false if it does not
      */
     public Boolean hasTask(Task t) {
-        return tasks.contains(t);
+        for (Task task : tasks ) {
+            if (task.isEqual(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
