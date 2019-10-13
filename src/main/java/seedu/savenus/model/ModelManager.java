@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
@@ -17,6 +19,7 @@ import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -110,6 +113,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void buyFood(Food target) {
+        menu.buyFood(target);
+    }
+
+    @Override
     public void addFood(Food food) {
         menu.addFood(food);
         updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -127,7 +135,14 @@ public class ModelManager implements Model {
         menu.setFoods(list);
     }
 
-    //=========== Budget Accessors =========================================================================
+    //=========== Wallet Accessors =========================================================================
+
+    /**
+     * Get user's {@code Wallet}.
+     */
+    public Wallet getWallet() {
+        return menu.getWallet();
+    }
 
     @Override
     public double getRemainingBudget() {
@@ -137,7 +152,7 @@ public class ModelManager implements Model {
     @Override
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         requireAllNonNull(newRemainingBudget);
-        menu.setRemainingBudget(newRemainingBudget);
+        menu.getWallet().setRemainingBudget(newRemainingBudget);
     }
 
     @Override
@@ -148,7 +163,7 @@ public class ModelManager implements Model {
     @Override
     public void setDaysToExpire(DaysToExpire newDaysToExpire) {
         requireAllNonNull(newDaysToExpire);
-        menu.setDaysToExpire(newDaysToExpire);
+        menu.getWallet().setDaysToExpire(newDaysToExpire);
     }
 
     //=========== Filtered Food List Accessors =============================================================

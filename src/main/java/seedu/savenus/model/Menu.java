@@ -9,6 +9,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
@@ -20,7 +21,8 @@ import seedu.savenus.model.wallet.Wallet;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
-    private Wallet wallet = new Wallet();
+    private final Wallet wallet;
+    private PurchaseHistory purchaseHistory;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +33,7 @@ public class Menu implements ReadOnlyMenu {
      */
     {
         foods = new UniqueFoodList();
+        wallet = new Wallet();
     }
 
     public Menu() {}
@@ -60,7 +63,7 @@ public class Menu implements ReadOnlyMenu {
         requireNonNull(newData);
 
         setFoods(newData.getFoodList());
-        addWallet(newData.getWallet());
+        setWallet(newData.getWallet());
     }
 
     //// food-level operations
@@ -100,14 +103,21 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
+    /**
+     * Buy {@code food}
+     */
+    public void buyFood(Food food) {
+        // Todo
+    }
 
     //// wallet operations
 
     /**
      * Adds a {@code Wallet} to the application.
      */
-    public void addWallet(Wallet wallet) {
-        this.wallet = wallet;
+    public void setWallet(Wallet wallet) {
+        this.wallet.setRemainingBudget(wallet.getRemainingBudget());
+        this.wallet.setDaysToExpire(wallet.getDaysToExpire());
     }
 
     /**
@@ -115,34 +125,6 @@ public class Menu implements ReadOnlyMenu {
      */
     public Wallet getWallet() {
         return wallet;
-    }
-
-    /**
-     * Returns the user's {@code RemainingBudget}'s {@code DoubleProperty}.
-     */
-    public DoubleProperty getRemainingBudgetProperty() {
-        return wallet.getRemainingBudgetProperty();
-    }
-
-    /**
-     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
-     */
-    public IntegerProperty getDaysToExpireProperty() {
-        return wallet.getDaysToExpireProperty();
-    }
-
-    /**
-     * Set user's {@code RemainingBudget}.
-     */
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
-        wallet.setRemainingBudget(newRemainingBudget);
-    }
-
-    /**
-     * Set user's {@code DaysToExpire}.
-     */
-    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
-        wallet.setDaysToExpire(newDaysToExpire);
     }
 
     //// util methods

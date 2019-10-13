@@ -59,7 +59,7 @@ class JsonSerializableMenu {
             }
             menu.addFood(food);
         }
-        menu.addWallet(wallet.toModelType());
+        menu.setWallet(wallet.toModelType());
         return menu;
     }
 

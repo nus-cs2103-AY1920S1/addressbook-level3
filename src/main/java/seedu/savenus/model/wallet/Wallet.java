@@ -43,7 +43,6 @@ public class Wallet {
         return remainingBudget.getRemainingBudgetProperty();
     }
 
-
     /**
      * Returns the {@code wallet}'s {@code remainingBudget}.
      */

@@ -95,12 +95,7 @@ public class TypicalMenu {
         for (Food food : getTypicalFood()) {
             menu.addFood(food);
         }
-        menu.addWallet(getTypicalWallet());
         return menu;
-    }
-
-    public static Wallet getTypicalWallet() {
-        return new Wallet();
     }
 
     public static List<Food> getTypicalFood() {

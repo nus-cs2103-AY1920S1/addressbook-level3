@@ -68,6 +68,12 @@ public interface Model {
     void deleteFood(Food target);
 
     /**
+     * Buy the given food.
+     * The food must exist in the menu.
+     */
+    void buyFood(Food target);
+
+    /**
      * Adds the given food.
      * {@code food} must not already exist in the menu.
      */

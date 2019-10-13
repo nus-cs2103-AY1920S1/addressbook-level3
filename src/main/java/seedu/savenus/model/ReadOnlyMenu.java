@@ -1,13 +1,11 @@
 package seedu.savenus.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an menu
  */
 public interface ReadOnlyMenu {
 
@@ -22,13 +20,4 @@ public interface ReadOnlyMenu {
      */
     Wallet getWallet();
 
-    /**
-     * Returns the user's {@code RemainingBudget}'s {@code DoubleProperty}.
-     */
-    DoubleProperty getRemainingBudgetProperty();
-
-    /**
-     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
-     */
-    IntegerProperty getDaysToExpireProperty();
 }
