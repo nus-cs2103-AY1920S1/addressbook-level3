@@ -24,4 +24,9 @@ public class Guess {
     public boolean matches(Word word) {
         return guessString.toLowerCase().equals(word.value.toLowerCase());
     }
+
+    @Override
+    public String toString() {
+        return guessString;
+    }
 }

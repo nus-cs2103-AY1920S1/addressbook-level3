@@ -47,7 +47,7 @@ public class CommandResult {
     }
 
     public CommandResult(String feedbackToUser, boolean promptsGuess) {
-        this(feedbackToUser, false, false, true);
+        this(feedbackToUser, false, false, promptsGuess);
     }
 
     public String getFeedbackToUser() {

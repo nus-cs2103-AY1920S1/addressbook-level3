@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.game.GameCommandResult;
 import seedu.address.logic.commands.game.GuessCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -30,11 +31,11 @@ public class GameManager {
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatistics gameStatisticsBuilder = null;
+    private GameStatistics gameStatistics = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
-        gameStatisticsBuilder = new GameStatistics();
+        gameStatistics = new GameStatistics();
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -69,14 +70,11 @@ public class GameManager {
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
 
-        if (commandResult instanceof GuessCommandResult) {
+        if (commandResult instanceof GameCommandResult) {
             // update statistics
-            GuessCommandResult guessCommandResult = (GuessCommandResult) commandResult;
-            GameStatistics.GuessData guessData = new GameStatistics.GuessData(
-                    guessCommandResult.getGuess(),
-                    gameTimer.getElapsedMillis()
-            );
-            gameStatisticsBuilder.addGuessData(guessData, guessCommandResult.getCard());
+            GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
+            gameStatistics.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                    gameCommandResult.getCard());
         }
 
         // GameTimer is always abort when a new command is entered while Game is running.
@@ -84,9 +82,11 @@ public class GameManager {
 
         if (commandResult.isPromptingGuess()) {
             Platform.runLater(() -> setAndRunGameTimer());
+        } else {
+            // todo clear the timer display
         }
 
-        System.out.println(gameStatisticsBuilder);
+        System.out.println(gameStatistics);
         return commandResult;
     }
 

@@ -43,11 +43,11 @@ public class GuessCommand extends GameCommand {
         game.moveToNextCard();
 
         if (game.isOver()) {
-            msg = "GAME OVER!!!";
+            msg = "GAME OVER!";
         } else {
             msg = game.getCurrQuestion();
         }
 
-        return new GuessCommandResult(inputGuess, guessedCard, msg);
+        return new GuessCommandResult(inputGuess, guessedCard, msg, game.isOver());
     }
 }
