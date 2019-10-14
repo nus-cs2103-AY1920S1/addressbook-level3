@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.parser.course;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_COURSE;
+import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

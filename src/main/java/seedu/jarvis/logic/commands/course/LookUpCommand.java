@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_COURSE;
+import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
 import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 import seedu.jarvis.commons.util.CourseUtil;

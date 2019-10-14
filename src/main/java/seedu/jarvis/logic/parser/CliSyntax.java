@@ -20,22 +20,6 @@ public class CliSyntax {
         public static final Prefix PREFIX_TAG = new Prefix("t/");
     }
 
-
-    /* Prefix definitions */
-    public static final Prefix PREFIX_TASK_TYPE = new Prefix("t/");
-    public static final Prefix PREFIX_TASK_DES = new Prefix("des/");
-    public static final Prefix PREFIX_DATE = new Prefix("d/");
-    public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
-    public static final Prefix PREFIX_FREQ = new Prefix("f/");
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
-    public static final Prefix PREFIX_UNDO_REDO = new Prefix("r/");
-    public static final Prefix PREFIX_COURSE = new Prefix("c/");
-
-
     /**
      * CLI syntax for Planner commands.
      */
@@ -46,6 +30,13 @@ public class CliSyntax {
         public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
         public static final Prefix PREFIX_FREQ = new Prefix("f/");
         public static final Prefix PREFIX_TAG = new Prefix("t/");
+    }
+
+    /**
+     * CLI syntax for Course commands.
+     */
+    public static class CourseSyntax {
+        public static final Prefix PREFIX_COURSE = new Prefix("c/");
     }
 
     /**
