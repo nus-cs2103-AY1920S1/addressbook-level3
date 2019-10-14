@@ -232,6 +232,9 @@ public class ModelManager implements Model {
 
     @Override
     public Borrower getServingBorrower() {
+        if (!isServeMode()) {
+            throw new AssertionError("Not in Serve mode!");
+        }
         return servingBorrower.get();
     }
 

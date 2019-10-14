@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWERID;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
@@ -40,7 +40,7 @@ public class ServeCommandTest {
         BorrowerId invalidId = new BorrowerId(VALID_ID_AMY);
         ServeCommand serveCommand = new ServeCommand(invalidId);
 
-        Assert.assertThrows(CommandException.class, MESSAGE_NO_SUCH_BORROWERID, () ->
+        Assert.assertThrows(CommandException.class, MESSAGE_NO_SUCH_BORROWER_ID, () ->
                 serveCommand.execute(modelManager));
     }
 }

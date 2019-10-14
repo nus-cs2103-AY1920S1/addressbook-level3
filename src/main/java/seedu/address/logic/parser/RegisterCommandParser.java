@@ -24,8 +24,7 @@ public class RegisterCommandParser implements Parser<RegisterCommand> {
      * and returns an RegisterCommand object for execution.
      *
      * @return RegisterCommand object.
-     * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does not conform the
-     * expected format
+     * @throws ParseException if the user input does not conform the expected format
      */
     public RegisterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

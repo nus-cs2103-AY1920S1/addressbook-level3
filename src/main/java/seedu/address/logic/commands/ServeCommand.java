@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWERID;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -31,7 +31,7 @@ public class ServeCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasBorrowerId(borrowerId)) {
-            throw new CommandException(MESSAGE_NO_SUCH_BORROWERID);
+            throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);
         }
 
         model.setServingBorrower(borrowerId);
