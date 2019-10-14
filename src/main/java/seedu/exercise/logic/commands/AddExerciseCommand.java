@@ -10,6 +10,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
@@ -56,7 +57,12 @@ public class AddExerciseCommand extends AddCommand {
         }
 
         model.addExercise(toAdd);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    public Exercise getExercise() {
+        return toAdd;
     }
 
     @Override

@@ -16,7 +16,9 @@ import seedu.exercise.logic.commands.ExitCommand;
 import seedu.exercise.logic.commands.FindCommand;
 import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
+import seedu.exercise.logic.commands.RedoCommand;
 import seedu.exercise.logic.commands.SuggestCommand;
+import seedu.exercise.logic.commands.UndoCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 
 /**
@@ -57,6 +59,12 @@ public class ExerciseBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

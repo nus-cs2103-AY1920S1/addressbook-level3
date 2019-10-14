@@ -7,7 +7,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 /**
  * Represents a DeleteCommand with hidden internal logic and the ability to be executed.
  */
-public abstract class DeleteCommand extends Command {
+public abstract class DeleteCommand extends Command implements UndoableCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE_EXERCISE = "Parameters: INDEX (must be a positive integer)\n"
