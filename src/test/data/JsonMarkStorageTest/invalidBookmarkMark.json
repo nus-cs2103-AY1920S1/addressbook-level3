@@ -1,8 +1,8 @@
 {
   "bookmarks": [ {
-    "name": "Bookmark with invalid name field: Ha!ns Mu@ster",
-    "url": "https://hans-example.com",
-    "remark": "4th street"
+    "name": "Bookmark With Invalid Name field: bo!ok Ma@rk",
+    "url": "https://www.example.com",
+    "remark": "This is an invalid bookmark"
   } ],
   "folderStructure": {
     "name": "ROOT",

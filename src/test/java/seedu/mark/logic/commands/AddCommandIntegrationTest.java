@@ -11,6 +11,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
 /**
@@ -33,14 +34,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addBookmark(validBookmark);
         expectedModel.saveMark();
 
-        assertCommandSuccess(new AddCommand(validBookmark), model,
+        assertCommandSuccess(new AddCommand(validBookmark), model, new StorageStub(),
                 String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), expectedModel);
     }
 
     @Test
     public void execute_duplicateBookmark_throwsCommandException() {
         Bookmark bookmarkInList = model.getMark().getBookmarkList().get(0);
-        assertCommandFailure(new AddCommand(bookmarkInList), model, AddCommand.MESSAGE_DUPLICATE_BOOKMARK);
+        assertCommandFailure(new AddCommand(bookmarkInList), model, new StorageStub(),
+                AddCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
 }

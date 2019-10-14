@@ -13,11 +13,14 @@ import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
+import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.GotoCommand;
 import seedu.mark.logic.commands.HelpCommand;
+import seedu.mark.logic.commands.ImportCommand;
 import seedu.mark.logic.commands.ListCommand;
 import seedu.mark.logic.commands.RedoCommand;
+import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.commands.UndoCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
@@ -69,11 +72,20 @@ public class MarkParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case TabCommand.COMMAND_WORD:
+            return new TabCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

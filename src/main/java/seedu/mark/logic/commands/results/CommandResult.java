@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.mark.logic.commands.TabCommand;
+
 /**
  * Represents the result of a command execution.
  */
@@ -30,6 +32,10 @@ public class CommandResult {
         return false;
     }
 
+    public TabCommand.Tab getTab() {
+        return null;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -45,12 +51,16 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
-                && isExit() == otherCommandResult.isExit();
+                && isExit() == otherCommandResult.isExit()
+                && getTab() == otherCommandResult.getTab();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isShowHelp(), isExit());
+        return Objects.hash(feedbackToUser,
+                isShowHelp(),
+                isExit(),
+                getTab());
     }
 
 }

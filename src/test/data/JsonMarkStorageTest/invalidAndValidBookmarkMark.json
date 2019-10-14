@@ -1,12 +1,12 @@
 {
   "bookmarks": [ {
     "name": "Valid Bookmark",
-    "url": "https://hans@example.com",
-    "remark": "4th street"
+    "url": "https://www.example.com",
+    "remark": "This is a valid bookmark"
   }, {
     "name": "Bookmark With Invalid Url Field",
-    "url": "hans@invalid!3e",
-    "remark": "4th street"
+    "url": "invalid@url!asd",
+    "remark": "This is an invalid bookmark"
   } ],
   "folderStructure": {
     "name": "ROOT",

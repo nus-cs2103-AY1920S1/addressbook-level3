@@ -21,36 +21,44 @@ import seedu.mark.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    private static final String CONTACTS = "contacts";
-    private static final String FAMILY = "family";
+    private static final String SCHOOL = "School";
+    private static final String ENTERTAINMENT = "Entertainment";
+    private static final String GENERAL = "General";
 
     public static Bookmark[] getSampleBookmarks() {
-        return new Bookmark[]{
-            new Bookmark(new Name("Alex Yeoh"), new Url("https://www.alexyeoh.com/"),
-                    new Remark("Blk 30 Geylang Street 29, #06-40"),
-                    new Folder(CONTACTS), getTagSet("friends")),
-            new Bookmark(new Name("Bernice Yu"), new Url("https://www.berniceyu.com/"),
-                    new Remark("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    new Folder(CONTACTS), getTagSet("colleagues", "friends")),
-            new Bookmark(new Name("Charlotte Oliveiro"), new Url("http://charlotte.sg/"),
-                    new Remark("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    new Folder(CONTACTS), getTagSet("neighbours")),
-            new Bookmark(new Name("David Li"), new Url("https://david.org/"),
-                    new Remark("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    new Folder(FAMILY), getTagSet("family")),
-            new Bookmark(new Name("Irfan Ibrahim"), new Url("https://irfan-i.com/"),
-                    new Remark("Blk 47 Tampines Street 20, #17-35"),
-                    new Folder(CONTACTS), getTagSet("classmates")),
-            new Bookmark(new Name("Roy Balakrishnan"), new Url("https://roy.facebook.com/"),
-                    new Remark("Blk 45 Aljunied Street 85, #11-31"),
-                    new Folder(CONTACTS), getTagSet("colleagues"))
+        return new Bookmark[] {
+            new Bookmark(new Name("Luminus"), new Url("https://luminus.nus.edu.sg/"),
+                    new Remark("Announcements, course materials"),
+                    new Folder(GENERAL),
+                    getTagSet("NUS")),
+            new Bookmark(new Name("NUSMods"), new Url("https://nusmods.com/"),
+                    new Remark("Timetable planning"),
+                    new Folder(GENERAL),
+                    getTagSet("NUS")),
+            new Bookmark(new Name("CS2103T Website"), new Url("https://nus-cs2103-ay1920s1.github.io/website/"),
+                    new Remark("Learning materials for Software Engineering"),
+                    new Folder(SCHOOL),
+                    getTagSet("NUS", "CS2103T")),
+            new Bookmark(new Name("Facebook"), new Url("https://www.facebook.com/"),
+                    new Remark("-"),
+                    new Folder(ENTERTAINMENT),
+                    getTagSet("SocialMedia")),
+            new Bookmark(new Name("Reddit"), new Url("https://www.reddit.com/"),
+                new Remark(Remark.DEFAULT_VALUE),
+                    new Folder(ENTERTAINMENT),
+                    getTagSet("SocialMedia")),
+            new Bookmark(new Name("McDelivery"), new Url("https://www.mcdelivery.com.sg/sg/"),
+                    new Remark(Remark.DEFAULT_VALUE),
+                    new Folder(Folder.DEFAULT_FOLDER_NAME),
+                    getTagSet("Food"))
         };
     }
 
     public static FolderStructure getSampleFolderStructure() {
-        FolderStructure family = new FolderStructure(new Folder(FAMILY), new ArrayList<>());
-        FolderStructure contacts = new FolderStructure(new Folder(CONTACTS), List.of(family));
-        FolderStructure root = new FolderStructure(Folder.ROOT_FOLDER, List.of(contacts));
+        FolderStructure general = new FolderStructure(new Folder(GENERAL), new ArrayList<>());
+        FolderStructure school = new FolderStructure(new Folder(SCHOOL), List.of(general));
+        FolderStructure entertainment = new FolderStructure(new Folder(ENTERTAINMENT), new ArrayList<>());
+        FolderStructure root = new FolderStructure(Folder.ROOT_FOLDER, List.of(school, entertainment));
         return root;
     }
 

@@ -22,6 +22,7 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
+import seedu.mark.storage.Storage;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
@@ -35,8 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_URL_BOB = "https://bob-example.com";
     public static final String VALID_REMARK_AMY = "Block 312, Amy Street 1";
     public static final String VALID_REMARK_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_FOLDER_CONTACTS = "contacts";
     public static final String VALID_FOLDER_CS2103T = "CS2103T";
     public static final String VALID_FOLDER_CS2101 = "CS2101";
@@ -53,10 +54,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "bob??yahoo"; // double '?'
-    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "t/ means tag"; // '/' not allowed in remarks
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "invalid&"; // '&' not allowed in names
+    public static final String INVALID_URL_DESC = " " + PREFIX_URL + "invalid??url"; // double '?'
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "it/ invalid"; // '/' not allowed in remarks
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "invalid*tag"; // '*' not allowed in tags
     public static final String INVALID_FOLDER_DESC = " " + PREFIX_FOLDER + "fold#er"; // # not allowed in folders
     public static final String INVALID_PARENT_FOLDER_DESC = " " + PREFIX_PARENT_FOLDER + "fold^er";
 
@@ -85,10 +86,10 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, Storage actualStorage,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, actualStorage);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -97,13 +98,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, Storage, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, Storage actualStorage,
+                                            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, actualModel, actualStorage, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -112,13 +113,14 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the mark model, filtered bookmark list and selected bookmark in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command command, Model actualModel, Storage actualStorage,
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Mark expectedMark = new Mark(actualModel.getMark());
         List<Bookmark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookmarkList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualStorage));
         assertEquals(expectedMark, actualModel.getMark());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
@@ -130,7 +132,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBookmarkList().size());
 
         Bookmark bookmark = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
-        final String[] splitName = bookmark.getName().fullName.split("\\s+");
+        final String[] splitName = bookmark.getName().value.split("\\s+");
         model.updateFilteredBookmarkList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredBookmarkList().size());
