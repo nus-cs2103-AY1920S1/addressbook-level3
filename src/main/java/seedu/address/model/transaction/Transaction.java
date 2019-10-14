@@ -23,7 +23,8 @@ public abstract class Transaction {
     public Transaction(Amount amount, Date date) {
         this.amount = amount;
         this.date = date;
-        this.peopleInvolved = new Person(new Name("Alex"), new Phone("82831821"), new Email("wallace@gmail.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());;
+        // TODO: remove this stub
+        this.peopleInvolved = new Person(new Name("Alex"), new Phone("82831821"), new Email("person@gmail.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());;
     }
 
     public Transaction(Amount amount, Date date, Person personInvolved) {
