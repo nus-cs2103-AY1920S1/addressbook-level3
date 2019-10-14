@@ -57,7 +57,6 @@ public class GameTimer implements Runnable {
      */
     public void run() {
         timer.schedule(new TimerTask() {
-            private long timeLeft = currentMilliSeconds;
             private boolean cancelled = false;
             public void run() {
                 Platform.runLater(() -> {

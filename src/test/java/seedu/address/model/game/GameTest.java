@@ -23,17 +23,17 @@ public class GameTest {
         Game game = new Game(wb);
 
         // Makes correct guess; guess Abra as Abra
-        assertEquals(Game.CORRECT_GUESS, game.makeGuess(
+        assertEquals(Game.CORRECT_GUESS, game.checkGuess(
                 new Guess(ABRA.getWord().toString())));
 
         // Makes wrong guess; guess Abra as Butterfree
-        assertEquals(Game.WRONG_GUESS, game.makeGuess(
+        assertEquals(Game.WRONG_GUESS, game.checkGuess(
                 new Guess(BUTTERFREE.getWord().toString())));
 
         // When a guess is made after game has already ended
         assertThrows(UnsupportedOperationException.class, () -> {
             game.moveToNextCard();
-            game.makeGuess(new Guess(BUTTERFREE.getWord().toString()));
+            game.checkGuess(new Guess(BUTTERFREE.getWord().toString()));
         });
     }
 
@@ -56,24 +56,24 @@ public class GameTest {
         game.moveToNextCard();
 
         // Current card is BUTTERFREE now.
-        assertEquals(game.showCurrQuestion(), BUTTERFREE.getMeaning().toString());
+        assertEquals(game.getCurrQuestion(), BUTTERFREE.getMeaning().toString());
 
         // Current card is NOT ABRA.
-        assertNotEquals(game.showCurrQuestion(), ABRA.getMeaning().toString());
+        assertNotEquals(game.getCurrQuestion(), ABRA.getMeaning().toString());
 
         game.moveToNextCard();
         game.moveToNextCard();
 
         // Current card is DITTO now.
-        assertEquals(game.showCurrQuestion(), DITTO.getMeaning().toString());
+        assertEquals(game.getCurrQuestion(), DITTO.getMeaning().toString());
 
         // Current card is NOT CHARIZARD now.
-        assertNotEquals(game.showCurrQuestion(), CHARIZARD.getMeaning().toString());
+        assertNotEquals(game.getCurrQuestion(), CHARIZARD.getMeaning().toString());
 
         game.moveToNextCard();
 
         // Game should be over now.
-        assertThrows(UnsupportedOperationException.class, () -> game.showCurrQuestion());
+        assertThrows(UnsupportedOperationException.class, () -> game.getCurrQuestion());
     }
 
     @Test
@@ -107,17 +107,17 @@ public class GameTest {
         Game game = new Game(wb);
 
         // ABRA card shows correctly.
-        assertEquals(ABRA.getMeaning().toString(), game.showCurrQuestion());
+        assertEquals(ABRA.getMeaning().toString(), game.getCurrQuestion());
 
         game.moveToNextCard();
 
         // BUTTERFREE card shows correctly.
-        assertEquals(BUTTERFREE.getMeaning().toString(), game.showCurrQuestion());
+        assertEquals(BUTTERFREE.getMeaning().toString(), game.getCurrQuestion());
 
         game.moveToNextCard();
 
         // Attempting to show current card's meaning when game already ended
-        assertThrows(UnsupportedOperationException.class, () -> game.showCurrQuestion());
+        assertThrows(UnsupportedOperationException.class, () -> game.getCurrQuestion());
     }
 
 }

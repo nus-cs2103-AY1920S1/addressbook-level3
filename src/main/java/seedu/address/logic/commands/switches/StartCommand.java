@@ -64,7 +64,7 @@ public class StartCommand extends SwitchCommand {
         }
         Game newGame = new Game(wordBank);
         model.setGame(newGame);
-        String currQuestion = model.getGame().showCurrQuestion();
+        String currQuestion = model.getGame().getCurrQuestion();
         return new CommandResult(
                 MESSAGE_GAME_START_SUCCESS + FIRST_QUESTION_MESSAGE
                         + "\n"

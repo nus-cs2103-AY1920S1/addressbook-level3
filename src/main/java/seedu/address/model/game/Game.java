@@ -36,7 +36,7 @@ public class Game {
      * Returns current Card at the current index. Throws {@code UnsupportedOperationException}
      * if game has already ended (no more available cards).
      */
-    private Card getCurrCard() throws UnsupportedOperationException {
+    public Card getCurrCard() throws UnsupportedOperationException {
         if (isOver()) {
             throw new UnsupportedOperationException("Game is already Over");
         }
@@ -47,18 +47,17 @@ public class Game {
      * Returns meaning of current Card at the current index as a string.
      * Throws {@code UnsupportedOperationException} if game has already ended (no more available cards).
      */
-    public String showCurrQuestion() throws UnsupportedOperationException {
+    public String getCurrQuestion() throws UnsupportedOperationException {
         return getCurrCard().getMeaning().toString();
     }
 
     /**
-     * Returns an integer representing whether the user's guess is correct.
+     * Returns true if the user's guess is correct.
      * @param inputGuess User's input guess of the game's current card.
-     * @return 1 if guess is correct, 0 if guess is wrong.
      * @throws UnsupportedOperationException if game has already ended.
      */
-    public int makeGuess(Guess inputGuess) throws UnsupportedOperationException {
-        return inputGuess.matches(getCurrCard().getWord()) ? CORRECT_GUESS : WRONG_GUESS;
+    public boolean checkGuess(Guess inputGuess) throws UnsupportedOperationException {
+        return inputGuess.matches(getCurrCard().getWord());
     }
 
     private Index getCurrIndex() {

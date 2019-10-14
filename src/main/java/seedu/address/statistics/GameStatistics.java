@@ -1,4 +1,4 @@
-package seedu.address.stats;
+package seedu.address.statistics;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Guess;
@@ -8,14 +8,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GameStatisticsBuilder {
+public class GameStatistics {
     private Map<Card, List<GuessData>> data;
 
-    public GameStatisticsBuilder() {
+    public GameStatistics() {
         data = new LinkedHashMap<>();
     }
 
-    public void addGuessData(Card card, GuessData guessData) {
+    public void addGuessData(GuessData guessData, Card card) {
         if (data.containsKey(card)) {
             data.get(card).add(guessData);
         } else {
@@ -25,7 +25,7 @@ public class GameStatisticsBuilder {
         }
     }
 
-    public class GuessData {
+    public static class GuessData {
         private final Guess guess;
         private final long millisTaken;
 
@@ -33,5 +33,22 @@ public class GameStatisticsBuilder {
             this.guess = guess;
             this.millisTaken = millisTaken;
         }
+
+        @Override
+        public String toString() {
+            return guess + ": " + millisTaken + "ms";
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Card, List<GuessData>> entry : data.entrySet()) {
+            sb.append("-------").append(entry.getKey()).append("-------\n");
+            for (GuessData guessData : entry.getValue()) {
+                sb.append("   ").append(guessData).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

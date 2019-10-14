@@ -29,7 +29,7 @@ public class SkipCommand extends GameCommand {
 
         if (!game.isOver()) {
             return new CommandResult(MESSAGE_SKIPPED
-                    + "\n" + game.showCurrQuestion(), true);
+                    + "\n" + game.getCurrQuestion(), true);
         } else {
             return new CommandResult(MESSAGE_SKIPPED
                     + "\n" + "GAME IS OVER!");

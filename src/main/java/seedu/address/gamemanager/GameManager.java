@@ -10,10 +10,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.game.GuessCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
-import seedu.address.stats.GameStatisticsBuilder;
+import seedu.address.statistics.GameStatistics;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -29,11 +30,11 @@ public class GameManager {
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatisticsBuilder gameStatisticsBuilder = null;
+    private GameStatistics gameStatisticsBuilder = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
-        gameStatisticsBuilder = new GameStatisticsBuilder();
+        gameStatisticsBuilder = new GameStatistics();
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -68,6 +69,16 @@ public class GameManager {
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
 
+        if (commandResult instanceof GuessCommandResult) {
+            // update statistics
+            GuessCommandResult guessCommandResult = (GuessCommandResult) commandResult;
+            GameStatistics.GuessData guessData = new GameStatistics.GuessData(
+                    guessCommandResult.getGuess(),
+                    gameTimer.getElapsedMillis()
+            );
+            gameStatisticsBuilder.addGuessData(guessData, guessCommandResult.getCard());
+        }
+
         // GameTimer is always abort when a new command is entered while Game is running.
         abortAnyExistingGameTimer();
 
@@ -75,6 +86,7 @@ public class GameManager {
             Platform.runLater(() -> setAndRunGameTimer());
         }
 
+        System.out.println(gameStatisticsBuilder);
         return commandResult;
     }
 
