@@ -1,5 +1,7 @@
 package io.xpire.model.item;
 
+import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
+
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -20,22 +22,36 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
+    private Quantity quantity = new Quantity(DEFAULT_QUANTITY);
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
     private ReminderThreshold reminderThreshold = new ReminderThreshold("0");
 
     /**
      * Every field must be present and not null.
+     * Only called in Tag and Edit commands.
      */
-    public Item(Name name, ExpiryDate expiryDate, Set<Tag> tags) {
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags) {
         CollectionUtil.requireAllNonNull(name, expiryDate, tags);
         this.name = name;
         this.expiryDate = expiryDate;
+        this.quantity = quantity;
         this.tags.addAll(tags);
     }
 
     /**
      * Every field must be present and not null.
      * Tags are optional.
+     */
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity) {
+        CollectionUtil.requireAllNonNull(name, expiryDate);
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.quantity = quantity;
+    }
+
+    /**
+     * Every field must be present and not null.
+     * Quantity is optional.
      */
     public Item(Name name, ExpiryDate expiryDate) {
         CollectionUtil.requireAllNonNull(name, expiryDate);
@@ -46,10 +62,12 @@ public class Item {
     /**
      * Constructor with all parameters for ItemBuilder class. (Used in testing)
      */
-    public Item(Name name, ExpiryDate expiryDate, Set<Tag> tags, ReminderThreshold reminderThreshold) {
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags,
+                ReminderThreshold reminderThreshold) {
         CollectionUtil.requireAllNonNull(name, expiryDate, tags);
         this.name = name;
         this.expiryDate = expiryDate;
+        this.quantity = quantity;
         this.tags.addAll(tags);
         this.reminderThreshold = reminderThreshold;
     }
@@ -60,6 +78,10 @@ public class Item {
 
     public ExpiryDate getExpiryDate() {
         return this.expiryDate;
+    }
+
+    public Quantity getQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -126,6 +148,7 @@ public class Item {
             return this.name.equals(other.name)
                     && this.expiryDate.equals(other.expiryDate)
                     && this.tags.equals(other.tags)
+                    && this.quantity.equals(other.quantity)
                     && this.reminderThreshold.equals(other.reminderThreshold);
         }
     }
@@ -133,7 +156,7 @@ public class Item {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.name, this.expiryDate, this.tags, this.reminderThreshold);
+        return Objects.hash(this.name, this.expiryDate, this.tags, this.quantity, this.reminderThreshold);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
@@ -16,19 +17,22 @@ import io.xpire.model.util.SampleDataUtil;
  */
 public class ItemBuilder {
 
-    public static final String DEFAULT_NAME = "Banana";
-    public static final String DEFAULT_EXPIRY_DATE = "12/06/2020";
+    public static final String DEFAULT_NAME = "Kiwi";
+    public static final String DEFAULT_QUANTITY = "1";
+    public static final String DEFAULT_EXPIRY_DATE = "1/2/2020";
 
     private Name name;
     private ExpiryDate expiryDate;
+    private Quantity quantity;
     private Set<Tag> tags;
     private ReminderThreshold reminderThreshold;
 
     public ItemBuilder() {
-        this.name = new Name(DEFAULT_NAME);
-        this.expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
-        this.tags = new TreeSet<>(new TagComparator());
-        this.reminderThreshold = new ReminderThreshold("0");
+        name = new Name(DEFAULT_NAME);
+        expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
+        quantity = new Quantity(DEFAULT_QUANTITY);
+        tags = new TreeSet<>(new TagComparator());
+        reminderThreshold = new ReminderThreshold("0");
     }
 
     /**
@@ -37,6 +41,7 @@ public class ItemBuilder {
     public ItemBuilder(Item itemToCopy) {
         name = itemToCopy.getName();
         expiryDate = itemToCopy.getExpiryDate();
+        quantity = itemToCopy.getQuantity();
         TreeSet<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToCopy.getTags());
         tags = set;
@@ -75,9 +80,16 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Quantity} of the {@code Item} that we are building.
+     */
+    public ItemBuilder withQuantity(String quantity) {
+        this.quantity = new Quantity(quantity);
+        return this;
+    }
 
     public Item build() {
-        return new Item(name, expiryDate, tags, reminderThreshold);
+        return new Item(name, expiryDate, quantity, tags, reminderThreshold);
     }
 
 }

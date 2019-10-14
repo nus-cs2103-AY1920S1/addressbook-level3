@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -28,10 +28,10 @@ public class SearchCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        ContainsKeywordsPredicate firstPredicate =
+                new ContainsKeywordsPredicate(Collections.singletonList("first"));
+        ContainsKeywordsPredicate secondPredicate =
+                new ContainsKeywordsPredicate(Collections.singletonList("second"));
 
         SearchCommand findFirstCommand = new SearchCommand(firstPredicate);
         SearchCommand findSecondCommand = new SearchCommand(secondPredicate);
@@ -56,7 +56,7 @@ public class SearchCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        ContainsKeywordsPredicate predicate = preparePredicate(" ");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Milk Banana");
+        ContainsKeywordsPredicate predicate = preparePredicate("Milk Banana");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -74,9 +74,9 @@ public class SearchCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code ContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private ContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new ContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

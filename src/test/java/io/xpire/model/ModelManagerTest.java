@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.GuiSettings;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.testutil.Assert;
 import io.xpire.testutil.ExpiryDateTrackerBuilder;
 import io.xpire.testutil.TypicalItems;
@@ -119,7 +119,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
-        modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(xpire, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

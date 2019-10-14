@@ -63,7 +63,7 @@ public class TagCommand extends Command {
     private static Item createTaggedItem(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
         assert itemToTag != null;
         Set<Tag> updatedTags = updateTags(itemToTag, tagItemDescriptor);
-        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), updatedTags);
+        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), itemToTag.getQuantity(), updatedTags);
     }
 
     /**

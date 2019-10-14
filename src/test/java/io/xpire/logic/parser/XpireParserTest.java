@@ -21,8 +21,8 @@ import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.ItemUtil;
 
@@ -61,7 +61,7 @@ public class XpireParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + "|" + keywords.stream().collect(Collectors.joining("|")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

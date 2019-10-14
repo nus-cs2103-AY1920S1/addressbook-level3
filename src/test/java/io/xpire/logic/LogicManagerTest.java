@@ -4,6 +4,7 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDE
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_KIWI;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.KIWI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,8 +79,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI;
-        Item expectedItem = new ItemBuilder(KIWI).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
+                + "|" + VALID_QUANTITY_KIWI;
+        Item expectedItem = new ItemBuilder(KIWI).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedItem);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

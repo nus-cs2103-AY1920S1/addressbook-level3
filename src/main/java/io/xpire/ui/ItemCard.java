@@ -36,6 +36,8 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private Label expiryDate;
     @FXML
+    private Label quantity;
+    @FXML
     private FlowPane tags;
     @FXML
     private Label reminder;
@@ -46,6 +48,7 @@ public class ItemCard extends UiPart<Region> {
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
         this.expiryDate.setText(item.getExpiryDate().toString());
+        this.quantity.setText("Quantity: " + item.getQuantity().toString());
         Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
                 item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
         if (reminderDate.isPresent()) {

@@ -12,8 +12,8 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.CliSyntax;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
 import io.xpire.testutil.Assert;
 
 /**
@@ -30,6 +30,11 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
+
+    public static final String VALID_QUANTITY_KIWI = "1";
+    public static final String VALID_QUANTITY_APPLE = "1";
+    public static final String VALID_QUANTITY_BANANA = "5";
+    public static final String VALID_QUANTITY_MILK = "2";
 
     public static final String VALID_TAG_FRUIT = "fruit";
     public static final String VALID_TAG_DRINK = "drinks";
@@ -58,6 +63,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME = "James&";
     public static final String INVALID_EXPIRY_DATE = "";
     public static final String INVALID_TAG = "hubby*";
+    public static final String INVALID_QUANTITY = "-2";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -113,7 +119,7 @@ public class CommandTestUtil {
 
         Item item = model.getFilteredItemList().get(targetIndex.getZeroBased());
         final String[] splitName = item.getName().toString().split("\\s+");
-        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredItemList().size());
     }

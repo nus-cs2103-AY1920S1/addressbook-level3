@@ -20,13 +20,14 @@ public class TypicalItems {
     public static final Item APPLE = new ItemBuilder().withName("Apple")
                                                       .withExpiryDate("01/02/2020")
                                                       .build();
-    //no tags; no reminder threshold
+    //no tags; no reminder threshold; to-add item
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
-                                                      .withExpiryDate("01/02/2020")
-                                                      .build();
-    //no tags; no reminder threshold
+                                                     .withExpiryDate("01/02/2020")
+                                                     .build();
+    //with quantity
     public static final Item MILK = new ItemBuilder().withName("Milk")
                                                      .withExpiryDate("01/02/2020")
+                                                     .withQuantity("2")
                                                      .build();
     //with tags
     public static final Item TOFU = new ItemBuilder().withName("Tofu")
@@ -38,13 +39,27 @@ public class TypicalItems {
                                                      .withExpiryDate("01/02/2020")
                                                      .withReminderThreshold("7")
                                                      .build();
-    //with all fields (tags, reminder threshold)
+    //with all fields (tags, reminder threshold, quantity)
     public static final Item AVOCADO = new ItemBuilder().withName("Avocado")
                                                         .withExpiryDate("01/02/2020")
+                                                        .withQuantity("4")
                                                         .withTags("Fat")
                                                         .withReminderThreshold("3")
                                                         .build();
 
+    /*
+    public static final Item APPLE = new ItemBuilder().withName("Apple")
+                                                      .withExpiryDate("01/02/2020")
+                                                      .withQuantity("1").build();
+
+    public static final Item KIWI = new ItemBuilder().withName("Kiwi")
+                                                      .withExpiryDate("01/02/2020")
+                                                      .withQuantity("2").build();
+
+    public static final Item MILK = new ItemBuilder().withName("Milk")
+                                                     .withExpiryDate("01/02/2020")
+                                                     .withQuantity("2").build();
+    */
     private TypicalItems() {} // prevents instantiation
 
     /**

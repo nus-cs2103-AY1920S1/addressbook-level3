@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -31,5 +33,25 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    /**
+     * Converts a collection of objects into its string representation.
+     * Optional mapper functions can be provided to mutate the string representation.
+     *
+     * @param items Any java object.
+     * @param mappers Functions that do string processing.
+     * @return A collection of strings.
+     */
+    @SafeVarargs
+    public static Collection<String> stringifyCollection(Collection<?> items, Function<String, String>... mappers) {
+        Function<String, String> finalMapper = Function.identity();
+        for (Function<String, String> mapper : mappers) {
+            finalMapper = finalMapper.andThen(mapper);
+        }
+        return items.stream()
+                .map(Object::toString)
+                .map(finalMapper)
+                .collect(Collectors.toList());
     }
 }

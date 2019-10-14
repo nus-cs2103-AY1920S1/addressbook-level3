@@ -8,7 +8,7 @@ import io.xpire.commons.util.StringUtil;
 
 /**
  * Represents an Item's reminder threshold.
- * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}.
  */
 public class ReminderThreshold {
 
@@ -50,6 +50,7 @@ public class ReminderThreshold {
         } else if (!(obj instanceof ReminderThreshold)) {
             return false;
         } else {
+            System.out.println("LOL");
             ReminderThreshold other = (ReminderThreshold) obj;
             return this.reminderThreshold == other.reminderThreshold;
         }
