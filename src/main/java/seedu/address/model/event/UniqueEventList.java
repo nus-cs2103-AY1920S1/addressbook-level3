@@ -7,8 +7,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.Employee.exceptions.DuplicateEmployeeException;
+import seedu.address.model.Employee.exceptions.EmployeeNotFoundException;
 
 /**
  * A list of Events that enforces uniqueness
@@ -23,7 +23,7 @@ public class UniqueEventList {
     }
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent employee as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -32,47 +32,47 @@ public class UniqueEventList {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a employee to the list.
+     * The employee must not already exist in the list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEmployeeException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the employee {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The employee identity of {@code editedPerson} must not be the same as another existing employee in the list.
      */
     public void setEvent(Event target, Event editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new EmployeeNotFoundException();
         }
 
         if (!target.isSameEvent(editedPerson) && contains(editedPerson)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEmployeeException();
         }
 
         internalList.set(index, editedPerson);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent employee from the list.
+     * The employee must exist in the list.
      *
      * @param toRemove
      */
     public void remove(Event toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new EmployeeNotFoundException();
         }
     }
 
@@ -88,7 +88,7 @@ public class UniqueEventList {
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);
         /*if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEmployeeException();
         }*/
 
         internalList.setAll(events);
@@ -110,7 +110,7 @@ public class UniqueEventList {
      * Returns true if {@code persons} contains only unique events.
      */
     /*
-    private boolean personsAreUnique(List<Person> persons) {
+    private boolean personsAreUnique(List<Employee> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
                 if (persons.get(i).isSamePerson(persons.get(j))) {

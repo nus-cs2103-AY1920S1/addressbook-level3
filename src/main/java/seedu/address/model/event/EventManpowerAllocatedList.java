@@ -3,16 +3,16 @@ package seedu.address.model.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.Employee.Employee;
 
 /**
  * List of employees allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
-    public final List<Person> manpowerList;
+    public final List<Employee> manpowerList;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code EmployeeName}.
      */
     public EventManpowerAllocatedList() {
         manpowerList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class EventManpowerAllocatedList {
      * @param employee to be allocated
      * @return boolean to represent if employee is successfully allocated to event
      */
-    public boolean allocateEmployee(Person employee) {
+    public boolean allocateEmployee(Employee employee) {
         if (manpowerList.contains(employee)) {
             return false;
         } else {

@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Adds a person to the address book.
+ * Adds a employee to the address book.
  */
 public class AddEventCommand extends EventRelatedCommand {
 
@@ -47,7 +47,7 @@ public class AddEventCommand extends EventRelatedCommand {
 
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Employee}
      */
     public AddEventCommand(Event event) {
         requireNonNull(event);

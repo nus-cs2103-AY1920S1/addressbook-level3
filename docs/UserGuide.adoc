@@ -100,7 +100,7 @@ Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG
 Event Format: `addev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A employee can have any number of tags (including 0)
 
 Add Employee Examples:
 * `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
@@ -131,16 +131,16 @@ Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY t
 Employee Edit Examples:
 
 * `edit_em 1 no/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+Edits the employeePhone number and employeeEmail employeeAddress of the 1st employee to be `91234567` and `johndoe@example.com` respectively.
 * `edit_em 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the employeeName of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
 Event Edit Examples:
 
 * `edit_ev 1 on/16092019` +
 Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
-Edits the name of the 2nd event to be `Concert` and clears all existing tags.
+Edits the employeeName of the 2nd event to be `Concert` and clears all existing tags.
 
 ==== Fetch Full Details of Entity: `fetch_em | fetch_ev`
 
@@ -173,7 +173,7 @@ Event Format: `find_ev KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name of the entity is searched.
+* Only the employeeName of the entity is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
@@ -195,7 +195,7 @@ Event Format: `delete_ev INDEX`
 
 ****
 * Deletes the entity at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed employee list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -217,8 +217,8 @@ Logs the working hours of the current employee for today. Useful for employees w
 Format: `log INDEX DDMMYYYY HOURSWORKED`
 
 ****
-* Logs working hours of a person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Logs working hours of a employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * `HOURSWORKED` must be a positive integer.
 * If the hours worked for that day is already recorded, a new entry will override the previous log.
@@ -393,7 +393,7 @@ Format: `generate_stats`
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the employeeAddress book.
 
 Format: `clear`
 

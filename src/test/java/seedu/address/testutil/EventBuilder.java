@@ -17,7 +17,7 @@ import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Employee objects.
  */
 public class EventBuilder {
 
@@ -52,18 +52,18 @@ public class EventBuilder {
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     /*public EventBuilder(Event personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
+        name = personToCopy.getEmployeeName();
+        phone = personToCopy.getEmployeePhone();
+        email = personToCopy.getEmployeeEmail();
+        address = personToCopy.getEmployeeAddress();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
     /*
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code EmployeeName} of the {@code Employee} that we are building.
 
     public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = new EmployeeName(name);
         return this;
     }
 
@@ -73,17 +73,17 @@ public class EventBuilder {
     }
 
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.address = new EmployeeAddress(address);
         return this;
     }
 
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = new EmployeePhone(phone);
         return this;
     }
 
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = new EmployeeEmail(email);
         return this;
     }
     */
