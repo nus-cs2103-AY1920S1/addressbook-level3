@@ -22,6 +22,7 @@ import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.PersonBuilder;
 
@@ -144,6 +145,39 @@ public class AddCommandTest {
         public void addTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
+
+
+        @Override
+        public void addRepeater(Repeater repeater) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRepeater(Repeater repeater) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRepeater(Repeater target) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setRepeater(Repeater target, Repeater editedRepeater) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Repeater> getFilteredRepeaterList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRepeaterList(Predicate<Repeater> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+
 
         @Override
         public void addBudget(Budget budget) {

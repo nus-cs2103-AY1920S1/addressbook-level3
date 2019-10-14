@@ -13,6 +13,7 @@ import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final FundBook fundBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
     /**
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.fundBook = new FundBook(fundBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.fundBook.getPersonList());
+        filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
     }
 
@@ -121,6 +124,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRepeater(Repeater repeater) {
+        requireNonNull(repeater);
+        return fundBook.hasRepeater(repeater);
+    }
+
+    @Override
+    public void deleteRepeater(Repeater target) {
+        fundBook.removeRepeater(target);
+    }
+
+    @Override
+    public void addRepeater(Repeater repeater) {
+        fundBook.addRepeater(repeater);
+        updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);
+    }
+
+    @Override
+    public void setRepeater(Repeater target, Repeater editedRepeater) {
+        requireAllNonNull(target, editedRepeater);
+
+        fundBook.setRepeater(target, editedRepeater);
+    }
+
+    @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
         return fundBook.hasBudget(budget);
@@ -178,6 +205,20 @@ public class ModelManager implements Model {
         return fundBook.equals(other.fundBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+
+    //=========== Filtered Repeater List Accessors =============================================================
+
+    @Override
+    public ObservableList<Repeater> getFilteredRepeaterList() {
+        return filteredRepeaters;
+    }
+
+    @Override
+    public void updateFilteredRepeaterList(Predicate<Repeater> predicate) {
+        requireNonNull(predicate);
+        filteredRepeaters.setPredicate(predicate);
     }
 
     //=========== Filtered Budget List Accessors =============================================================
