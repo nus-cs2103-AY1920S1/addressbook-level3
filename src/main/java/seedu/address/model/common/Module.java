@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Represents a NUS modules in the address book.
  */
-public class Modules {
+public class Module {
     private String moduleCode;
     private String title;
     private int credit;
@@ -21,7 +21,7 @@ public class Modules {
      * @param faculty The faculty the module is held at.
      * @param su Satisfactory and unsatisfactory option for grade
      */
-    public Modules(String moduleCode, String title, int credit, String faculty, boolean su) {
+    public Module(String moduleCode, String title, int credit, String faculty, boolean su) {
         requireNonNull(moduleCode);
         requireNonNull(title);
         requireNonNull(credit);
