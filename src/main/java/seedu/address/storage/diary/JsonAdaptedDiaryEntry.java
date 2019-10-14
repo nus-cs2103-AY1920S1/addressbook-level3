@@ -21,7 +21,7 @@ import seedu.address.model.diary.photo.PhotoList;
 public class JsonAdaptedDiaryEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing!";
 
-    private final Index day;
+    private final int day;
     private final String diaryText;
     private final PhotoList photoList;
 
@@ -34,7 +34,7 @@ public class JsonAdaptedDiaryEntry {
             @JsonProperty("photolist") List<Photo> photos,
             @JsonProperty("text") String diaryText) {
         requireAllNonNull(dayOneBasedIndex, diaryText);
-        this.day = Index.fromOneBased(dayOneBasedIndex);
+        this.day = dayOneBasedIndex;
         this.diaryText = diaryText;
 
         if (photos != null) {
@@ -45,21 +45,21 @@ public class JsonAdaptedDiaryEntry {
     }
 
     /**
-     * Converts a given {@code Diary} into this class for Jackson use.
+     * Converts a given {@code DiaryEntry} into this class for Jackson use.
      */
     public JsonAdaptedDiaryEntry(DiaryEntry source) {
         requireNonNull(source);
-        this.day = source.getDayIndex();
+        this.day = source.getDayIndex().getOneBased();
         this.diaryText = source.getDiaryText();
         this.photoList = source.getPhotoList();
     }
 
     /**
-     * Converts this Jackson-friendly adapted diary object into the model's {@code Diary} object.
+     * Converts this Jackson-friendly adapted diary entry object into the model's {@code DiaryEntry} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted diary entry.
      */
     public DiaryEntry toModelType() throws IllegalValueException {
-        return new DiaryEntry(day, photoList, diaryText);
+        return new DiaryEntry(Index.fromOneBased(day), photoList, diaryText);
     }
 }

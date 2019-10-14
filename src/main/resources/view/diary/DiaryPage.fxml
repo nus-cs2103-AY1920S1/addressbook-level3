@@ -14,7 +14,7 @@
         <VBox fx:id="sideBarLeft" prefHeight="200.0" prefWidth="100.0" />
     </left>
     <right>
-        <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" />
     </right>
    <bottom>
       <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">

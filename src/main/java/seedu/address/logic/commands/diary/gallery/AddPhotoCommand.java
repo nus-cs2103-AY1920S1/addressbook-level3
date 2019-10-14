@@ -28,6 +28,8 @@ public class AddPhotoCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + "./image01.png "
             + PREFIX_DATE_TIME_START + "01/08/2019 1245 " + PREFIX_DESCRIPTION + "...";
 
+    public static final String MESSAGE_INVALID_PHOTO = "The photo you specified wasn't valid or dosen't exist!";
+
     public static final String MESSAGE_ADD_SUCCESS = "Added your photo! %1$s";
 
     private final Photo photo;

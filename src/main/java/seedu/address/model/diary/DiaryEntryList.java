@@ -62,7 +62,7 @@ public class DiaryEntryList {
 
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         requireNonNull(diaryEntry);
-        checkArgument(doesClash(diaryEntry), DiaryEntry.MESSAGE_CONSTRAINTS);
+        checkArgument(!doesClash(diaryEntry), DiaryEntry.MESSAGE_CONSTRAINTS);
         diaryEntries.add(diaryEntry);
     }
 

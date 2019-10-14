@@ -38,7 +38,7 @@ public class NavigationSidebarRight extends UiPart<Region> {
     }
 
     @FXML
-    private void handleEnterDairy() {
+    private void handleEnterDiary() {
         mainWindow.executeGuiCommand(EnterDiaryCommand.COMMAND_WORD);
     }
 

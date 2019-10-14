@@ -33,7 +33,7 @@ public class Photo {
     private LocalDateTime dateTaken;
 
     public Photo(Path imagePath, String description, LocalDateTime dateTaken) {
-        requireAllNonNull(image, description, dateTaken);
+        requireAllNonNull(imagePath, description, dateTaken);
         validateImagePath(imagePath);
         validateDescription(description);
         this.dateTaken = dateTaken;

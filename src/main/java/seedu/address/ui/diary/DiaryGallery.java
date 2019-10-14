@@ -67,7 +67,8 @@ public class DiaryGallery extends UiPart<VBox> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DiaryGalleryCard(photo).getRoot());
+                setGraphic(new DiaryGalleryCard(photo,
+                        Index.fromZeroBased(this.getIndex())).getRoot());
             }
         }
     }

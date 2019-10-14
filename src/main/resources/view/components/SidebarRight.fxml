@@ -20,7 +20,7 @@
          <font>
             <Font size="6.0" />
          </font></Button>
-      <Button fx:id="diaryLabel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onDragEntered="#handleEnterDairy" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Diary" textFill="WHITE" wrapText="true">
+      <Button fx:id="diaryLabel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleEnterDiary" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Diary" textFill="WHITE" wrapText="true">
          <font>
             <Font size="6.0" />
          </font>

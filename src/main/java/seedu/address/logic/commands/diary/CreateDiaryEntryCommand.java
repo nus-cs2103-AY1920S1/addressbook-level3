@@ -20,7 +20,7 @@ public class CreateDiaryEntryCommand extends Command {
 
     public static final String MESSAGE_ENTRY_EXISTS = "There is already an entry for this day! %1$s";
 
-    public static final String MESSAGE_CREATE_SUCCESS = "Brought up the edit window, go ahead and type!";
+    public static final String MESSAGE_CREATE_SUCCESS = "Created a new diary entry!";
 
     private Index dayIndex;
 

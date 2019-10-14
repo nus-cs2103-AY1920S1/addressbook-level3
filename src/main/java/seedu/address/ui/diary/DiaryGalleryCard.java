@@ -4,10 +4,12 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
@@ -20,26 +22,22 @@ public class DiaryGalleryCard extends UiPart<AnchorPane> {
 
     private static final String FXML = "components/DiaryGalleryCard.fxml";
 
-    public final Photo photo;
+    private final Photo photo;
+    private final Index displayIndex;
 
     @FXML
-    private HBox cardPane;
+    private Label photoIndexLabel;
     @FXML
-    private Label name;
+    private Label photoDescriptionLabel;
     @FXML
-    private Label id;
+    private Label photoDateLabel;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private ImageView photoImageView;
 
-    public DiaryGalleryCard(Photo photo) {
+    public DiaryGalleryCard(Photo photo, Index displayIndex) {
         super(FXML);
         this.photo = photo;
+        this.displayIndex = displayIndex;
     }
 
     @Override

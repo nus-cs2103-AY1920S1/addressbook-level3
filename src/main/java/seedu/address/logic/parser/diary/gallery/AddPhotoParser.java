@@ -46,7 +46,7 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
         try {
             photo = new Photo(filePath, description, localDateTime);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_USAGE), ex);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_INVALID_PHOTO), ex);
         }
 
 
