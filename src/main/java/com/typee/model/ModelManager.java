@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final HistoryManager statedAppointmentList;
+    private final HistoryManager historyManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,9 +37,9 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.statedAppointmentList = new HistoryManager(addressBook);
+        this.historyManager = new HistoryManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.statedAppointmentList.getPersonList());
+        filteredPersons = new FilteredList<>(this.historyManager.getPersonList());
     }
 
     public ModelManager() {
@@ -85,28 +85,28 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.statedAppointmentList.resetData(addressBook);
+        this.historyManager.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return statedAppointmentList;
+        return historyManager;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return statedAppointmentList.hasPerson(person);
+        return historyManager.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        statedAppointmentList.removePerson(target);
+        historyManager.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        statedAppointmentList.addPerson(person);
+        historyManager.addPerson(person);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
@@ -114,7 +114,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
 
-        statedAppointmentList.setPerson(target, editedPerson);
+        historyManager.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -138,29 +138,29 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasNoUndoableCommand() {
-        return !statedAppointmentList.isUndoable();
+        return !historyManager.isUndoable();
     }
 
     @Override
     public void undoAppointmentList() throws NullUndoableActionException {
-        statedAppointmentList.undo();
+        historyManager.undo();
     }
 
     //=========== Redo ================================================================================
 
     @Override
     public boolean hasNoRedoableCommand() {
-        return !statedAppointmentList.isRedoable();
+        return !historyManager.isRedoable();
     }
 
     @Override
     public void redoAppointmentList() throws NullRedoableActionException {
-        statedAppointmentList.redo();
+        historyManager.redo();
     }
 
     @Override
     public void saveAppointmentList() {
-        statedAppointmentList.saveState();
+        historyManager.saveState();
     }
 
     @Override
@@ -177,7 +177,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return statedAppointmentList.equals(other.statedAppointmentList)
+        return historyManager.equals(other.historyManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

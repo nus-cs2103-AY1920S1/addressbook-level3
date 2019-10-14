@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.typee.logic.commands.CommandTestUtil;
 import com.typee.model.AddressBook;
+import com.typee.model.HistoryManager;
 import com.typee.model.person.Person;
 
 /**
@@ -42,7 +43,8 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
-        return ab;
+        HistoryManager hm = new HistoryManager(ab);
+        return hm;
     }
 
     public static List<Person> getTypicalPersons() {
