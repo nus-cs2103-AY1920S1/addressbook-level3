@@ -40,7 +40,7 @@ public class DisplayTabPane extends UiPart<Region> {
 
     private void addListenerForIndex(ObservableIntegerValue displayTabPaneIndex) {
         displayTabPaneIndex.addListener((observable, oldValue, newValue) -> {
-            selectTab((int) newValue);
+            selectTab((newValue.intValue()));
         });
     }
 

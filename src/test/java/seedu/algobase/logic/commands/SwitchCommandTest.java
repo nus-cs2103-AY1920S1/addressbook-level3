@@ -37,7 +37,7 @@ class SwitchCommandTest {
     }
 
     /**
-     * A Model stub that always accept the problem being added.
+     * A Model stub that always accepts the problem being added.
      */
     private class ModelStubAcceptingDisplayTabIndex extends DefaultModelStub {
 

@@ -110,9 +110,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
-        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getDisplayValue(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getDisplayValue());
-        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getDisplayValue());
+        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName());
 
         displayTabPane =
             new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);

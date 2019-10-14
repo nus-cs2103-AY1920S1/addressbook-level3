@@ -14,12 +14,12 @@ public class GuiStateTest {
     private static final Index ILLEGAL_VALUE = Index.fromZeroBased(ModelEnum.values().length);
 
     @Test
-    public void test_setDisplayTabPaneIndex_success() {
+    public void setDisplayTabPaneIndex_indexWithinRange_success() {
         GuiState guiState = new GuiState();
         Index[] testValues = new Index[] { OLD_VALUE };
 
         guiState.getDisplayTabPaneIndex().addListener((observable, oldValue, newValue) -> {
-            testValues[0] = Index.fromZeroBased((int) newValue);
+            testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
         guiState.setDisplayTabPaneIndex(NEW_VALUE);
 
@@ -27,12 +27,12 @@ public class GuiStateTest {
     }
 
     @Test
-    public void test_setDisplayTabPaneIndex_throwsIndexOutOfBoundsException() {
+    public void setDisplayTabPaneIndex_indexOutsideRange_throwsIndexOutOfBoundsException() {
         GuiState guiState = new GuiState();
         Index[] testValues = new Index[] { OLD_VALUE };
 
         guiState.getDisplayTabPaneIndex().addListener((observable, oldValue, newValue) -> {
-            testValues[0] = Index.fromZeroBased((int) newValue);
+            testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
 
         assertThrows(IndexOutOfBoundsException.class, () -> guiState.setDisplayTabPaneIndex(ILLEGAL_VALUE));

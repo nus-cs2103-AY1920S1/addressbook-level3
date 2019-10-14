@@ -10,12 +10,12 @@ public enum ModelEnum {
 
     private final int displayTabPaneIndex;
     private final String commandArgumentValue;
-    private final String displayValue;
+    private final String tabName;
 
-    ModelEnum(int displayTabPaneIndex, String commandArgumentValue, String displayValue) {
+    ModelEnum(int displayTabPaneIndex, String commandArgumentValue, String tabName) {
         this.displayTabPaneIndex = displayTabPaneIndex;
         this.commandArgumentValue = commandArgumentValue;
-        this.displayValue = displayValue;
+        this.tabName = tabName;
     }
 
     public int getDisplayTabPaneIndex() {
@@ -26,7 +26,7 @@ public enum ModelEnum {
         return commandArgumentValue;
     }
 
-    public String getDisplayValue() {
-        return displayValue;
+    public String getTabName() {
+        return tabName;
     }
 }
