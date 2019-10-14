@@ -51,7 +51,9 @@ public class FilterCommand extends Command {
             return new CommandResult(getNoMatchMessage());
         }
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(
+                        Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
+                        model.getFilteredPersonList().size()));
     }
 
     @Override
