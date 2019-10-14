@@ -387,7 +387,7 @@ MSS:
 Extensions
     2a. The list is empty.
     Use case ends.
-    
+
     3a. No event name is given.
         3a1. TravEzy shows an error message.
         Use case resumes at step 2.
@@ -403,7 +403,7 @@ Actor: User
 Guarantees:
     . Specified event will be deleted in the itinerary page upon successful command
     . Event will not be delete if an invalid index is given
-    
+
 MSS:
     1. User requests to list events
     2. TravEzy shows a list of events in the itinerary page
@@ -413,7 +413,7 @@ MSS:
 Extensions
     2a. The list is empty.
     Use case ends.
-    
+
     3a. The given index is invalid
         3a1. TravEzy shows an error message.
         Use case resumes at step 2.
@@ -430,7 +430,7 @@ Precondition: Specified event is contain in the list
 
 Guarantees:
     . Highlights the specific event to be edited
-    
+
 MSS:
     1. User requests to list events
     2. TravEzy shows a list of events in the itinerary page
@@ -440,11 +440,11 @@ MSS:
 Extensions
     2a. The list is empty.
     Use case ends.
-    
+
     3a. The given index is invalid
         3a1. TravEzy shows an error message.
         Use case resumes at step 2.
-    
+
 ----
 
 
@@ -459,7 +459,7 @@ Precondition: User must access to an event (UC03)
 
 Guarantees:
     . Update highlighted event with the details
-    
+
 MSS:
     1. User requests to edit location / time / description for highlighted event
     2. TravEzy prompt for the location / timing / description to be added
@@ -470,12 +470,12 @@ Extensions
     3a. The given location / timing / description is invalid
         3a1. TravEzy shows an error message.
         Use case resumes at step 2.
-        
+
     *a. At any time, User chooses to cancel adding details to the event and exit
         *a1. TravEzy requests to confirm the exit of event
         *a2. User confirms the exit
         *a3. TravEzy un-highlights the event selected
-        
+
 ----
 
 

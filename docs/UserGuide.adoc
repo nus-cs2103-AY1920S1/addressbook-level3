@@ -147,7 +147,7 @@ Gives you an overview of when you will be free to travel and recommends when wil
 The event planner feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
-. *advice* + 
+. *advice* +
 This command suggests whether travelling at the stated period of time is a good idea. For instance, when exams or external commitments are around the corner, the user will be reminded of his/her responsibilities and will be asked whether he/she is sure that he/she wants to go ahead with the travelling plans.
 
 . *automaticHolidayDetector* +
@@ -218,7 +218,7 @@ The user can get recommended activities to fill in gaps in the itinerary. The da
 
 ``addImage``         : add new images to the specified entry conveniently +
 
-``appendToEntry``    : appends text to the specified entry 
+``appendToEntry``    : appends text to the specified entry
 
 ``createEntry``      : creates a new entry in your diary +
 
@@ -352,7 +352,7 @@ Grow and shrink animation for notifications.
 . *music* +
 A music will be played when the notification appears. Different music can be used for different notification.
 
-. *sendEmailNotification* + 
+. *sendEmailNotification* +
 An email notification will be sent to the user when the notification appears. _Similar to LumiNUS sending user confirmation email when the post lecture survey is completed_
 
 . *customizeNotification* +
