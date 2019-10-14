@@ -70,7 +70,7 @@ public class EditPersonCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         } else {
             // update main window display
-            model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+            model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.PERSON);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);

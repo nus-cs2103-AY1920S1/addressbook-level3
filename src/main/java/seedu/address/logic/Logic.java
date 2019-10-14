@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.group.Group;
@@ -99,4 +100,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<PersonDisplay> getFilteredPersonDisplayList();
+
+    ObservableList<GroupDisplay> getFilteredGroupDisplayList();
 }

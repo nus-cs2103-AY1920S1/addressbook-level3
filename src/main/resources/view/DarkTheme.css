@@ -37,14 +37,19 @@
 
 
 .tab-pane .tab  {
-    -fx-background-color: grey;
-    -fx-border-radius: 5;
+    -fx-background-color: transparent;
     -fx-pref-height: 50;
-    -fx-pref-width: 150;
+    -fx-pref-width: 153;
+    -fx-border-width: 4;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: slategray;
+    -fx-border-width: 4;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: lightgrey;
 }
 
 .tab-pane .tab-label {

@@ -2,9 +2,11 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import seedu.address.model.group.Group;
+import javafx.scene.layout.StackPane;
+import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.ui.util.BubbleGenerator;
 
 /**
  * Class to view groups.
@@ -17,7 +19,10 @@ public class GroupCard extends UiPart<Region> {
     private static final Label memberLabel = new Label("Members:");
 
     @FXML
-    private VBox groupCardPane;
+    private StackPane groupId;
+
+    @FXML
+    private HBox groupCardPane;
 
     @FXML
     private Label groupName;
@@ -25,12 +30,13 @@ public class GroupCard extends UiPart<Region> {
     @FXML
     private Label groupDescription;
 
-    private Group group;
+    private GroupDisplay groupDisplay;
 
-    public GroupCard(Group g, int displayedIndex) {
+    public GroupCard(GroupDisplay groupDisplay, int displayedIndex) {
         super(FXML);
-        this.group = g;
-        groupName.setText(g.getGroupName().toString());
+        this.groupDisplay = groupDisplay;
+        groupId.getChildren().add(new BubbleGenerator(displayedIndex, 50, 2).getBubble());
+        groupName.setText(groupDisplay.getGroupName().toString());
         //Remark field in groups cannot be initialised to null.
         groupDescription.setText("REMARK");
     }
@@ -43,7 +49,7 @@ public class GroupCard extends UiPart<Region> {
             GroupCard g = (GroupCard) o;
             return groupDescription.getText().equals(g.groupDescription.getText())
                     && groupName.getText().equals(g.groupName.getText())
-                    && group.equals(g.group);
+                    && groupDisplay.equals(g.groupDisplay);
         } else {
             return false;
         }
