@@ -1,7 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.verification;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -26,10 +28,11 @@ public class CheckCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // TODO: add module information to ModelManager, and add methods to ModelManager and Model
-        // throw new CommandException("This command has not been implemented yet.");
-
-        return new CommandResult("HAHAHAHHA");
+        String result = model.getModuleInformation(this.moduleCode);
+        if (result == null) {
+            throw new CommandException("Module not found!");
+        }
+        return new CommandResult(result);
     }
 
     @Override

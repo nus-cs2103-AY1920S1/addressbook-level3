@@ -13,6 +13,7 @@ public class ModuleInfo {
     private String name;
     private int mc;
     private boolean su;
+    private boolean isCore;
     private List<String> focusPrimaries;
     private List<String> focusElectives;
     private String description;
@@ -22,12 +23,13 @@ public class ModuleInfo {
     public ModuleInfo() {
     }
 
-    public ModuleInfo(String code, String name, int mc, boolean su, List<String> focusPrimaries,
+    public ModuleInfo(String code, String name, int mc, boolean su, boolean isCore, List<String> focusPrimaries,
                       List<String> focusElectives, String description, String prereqTreeString) {
         this.code = code;
         this.name = name;
         this.mc = mc;
         this.su = su;
+        this.isCore = isCore;
         this.focusPrimaries = focusPrimaries;
         this.focusElectives = focusElectives;
         this.description = description;
@@ -59,6 +61,10 @@ public class ModuleInfo {
         return mc;
     }
 
+    public boolean getIsCore() {
+        return isCore;
+    }
+
     public List<String> getFocusPrimaries() {
         return this.focusPrimaries;
     }
@@ -75,7 +81,7 @@ public class ModuleInfo {
      * Returns a String displaying all information about the module, in a human-readable format.
      */
     public String getInformation() {
-        return this.code + ": " + this.name + " " + "\n"
+        return this.code + ": " + this.name + (this.isCore ? "(Core module)" : "") + "\n"
                 + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
                 + this.description;
     }
@@ -154,6 +160,7 @@ public class ModuleInfo {
                 && name.equals(o.name)
                 && mc == o.mc
                 && su == o.su
+                && isCore == o.isCore
                 && focusPrimaries.equals(o.focusPrimaries)
                 && focusElectives.equals(o.focusElectives)
                 && description.equals(o.description)
