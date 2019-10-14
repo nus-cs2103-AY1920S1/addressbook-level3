@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -168,6 +169,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredBodyList(Predicate<Body> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Fridge> getFilteredFridgeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

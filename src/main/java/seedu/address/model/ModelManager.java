@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
@@ -27,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Worker> filteredWorkers;
     private final FilteredList<Body> filteredBodies;
+    private final FilteredList<Fridge> filteredFridges;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,7 +44,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
-        //filteredFridge = new FilteredList<>(this.addressBook.getFridgeList());
+        filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
 
     }
 
@@ -152,6 +154,22 @@ public class ModelManager implements Model {
         filteredWorkers.setPredicate(predicate);
     }
 
+    //=========== Filtered Fridge List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Fridge} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Fridge> getFilteredFridgeList() {
+        return filteredFridges;
+    }
+
+    @Override
+    public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
+        requireNonNull(predicate);
+        filteredFridges.setPredicate(predicate);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -180,8 +198,9 @@ public class ModelManager implements Model {
             return filteredWorkers;
         } else if (entityType.equals("B") || entityType.equals("b")) {
             return filteredBodies;
+        } else if (entityType.equals("F") || entityType.equals("f")) {
+            return filteredFridges;
         }
-        // to add fridge!
         return null;
     }
 

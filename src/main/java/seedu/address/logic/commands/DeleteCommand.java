@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 
 /**
@@ -63,6 +64,14 @@ public class DeleteCommand extends Command {
             for (Worker worker : lastShownList) {
                 if (worker.getWorkerIdNum().equals(targetIdNum)) {
                     entityToDelete = worker;
+                    break;
+                }
+            }
+        } else if (entityType.equals("F")) {
+            List<Fridge> lastShownList = model.getFilteredFridgeList();
+            for (Fridge fridge : lastShownList) {
+                if (fridge.getFridgeIdNum().equals(targetIdNum)) {
+                    entityToDelete = fridge;
                     break;
                 }
             }

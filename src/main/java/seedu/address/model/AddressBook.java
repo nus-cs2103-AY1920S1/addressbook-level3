@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityLists;
@@ -67,6 +68,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the fridges list with {@code fridges}.
+     * {@code fridges} must not contain duplicate fridges.
+     */
+    public void setFridges(List<Fridge> fridges) {
+        this.entities.setFridges(fridges);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -75,6 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setWorkers(newData.getWorkerList());
         setBodies(newData.getBodyList());
+        setFridges(newData.getFridgeList());
     }
 
     //// person-level operations
@@ -135,6 +145,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Body> getBodyList() {
         return entities.asUnmodifiableObservableListBody();
+    }
+
+    @Override
+    public ObservableList<Fridge> getFridgeList() {
+        return entities.asUnmodifiableObservableListFridge();
     }
 
     @Override
