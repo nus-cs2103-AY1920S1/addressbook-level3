@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.BankAccountParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
@@ -21,15 +21,14 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final BankAccountParser bankAccountParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        bankAccountParser = new BankAccountParser();
     }
 
     @Override
@@ -37,7 +36,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = bankAccountParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
