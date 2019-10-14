@@ -14,6 +14,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
 /**
  * Adds a person to the address book.
  */
+
 public class AddCheatSheetCommand extends Command {
 
     public static final String COMMAND_WORD = "addcs";

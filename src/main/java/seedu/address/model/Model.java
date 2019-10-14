@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import jdk.jshell.PersistentSnippet;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
