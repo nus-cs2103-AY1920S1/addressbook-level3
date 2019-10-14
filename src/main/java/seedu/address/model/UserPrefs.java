@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path bankAccountFilePath = Paths.get("data" , "addressbook.json");
+    private Path bankAccountFilePath = Paths.get("data" , "bankaccount.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -22,7 +22,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public UserPrefs() {}
 
     /**
-     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.s
      */
     public UserPrefs(ReadOnlyUserPrefs userPrefs) {
         this();

@@ -25,17 +25,17 @@ class JsonAdaptedTransaction {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
     // TODO: Have to convert to Strings
-    private final Amount amount;
-    private final Date date;
-    private final Person peopleInvolved;
+    private final String amount;
+    private final String date;
+    private final JsonAdaptedPerson peopleInvolved;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTransaction} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedTransaction(@JsonProperty("amount") Amount amount, @JsonProperty("date") Date date,
-                             @JsonProperty("people") Person peopleInvolved,
+    public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
+                             @JsonProperty("people") JsonAdaptedPerson peopleInvolved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.amount = amount;
         this.date = date;
@@ -49,9 +49,9 @@ class JsonAdaptedTransaction {
      * Converts a given {@code Transaction} into this class for Jackson use.
      */
     public JsonAdaptedTransaction(Transaction source) {
-        amount = source.getAmount();
-        date = source.getDate();
-        peopleInvolved = source.getPeopleInvolved();
+        amount = source.getAmount().toString();
+        date = source.getDate().toString();
+        peopleInvolved = new JsonAdaptedPerson(source.getPeopleInvolved());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -71,17 +71,19 @@ class JsonAdaptedTransaction {
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Amount.isValidAmount(amount.getAmount())) {
+        if (!Amount.isValidAmount(Integer.parseInt(amount))) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmount = new Amount(amount.getAmount());
+        final Amount modelAmount = new Amount(Integer.parseInt(amount));
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
+        Person person = this.peopleInvolved.toModelType();
+
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
-        return new InTransaction(amount, date); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
+        return new InTransaction(new Amount(Integer.parseInt(amount)), new Date(date)); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
     }
 
 }

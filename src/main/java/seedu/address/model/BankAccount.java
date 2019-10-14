@@ -18,6 +18,7 @@ public class BankAccount implements ReadOnlyBankAccount{
     private UniqueTransactionList transactions;
 
     public BankAccount() {
+        balance = new Amount(0);
         transactions = new UniqueTransactionList();
     }
 
