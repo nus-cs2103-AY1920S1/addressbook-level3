@@ -108,7 +108,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dateFormat = Task.FORMAT_USER_INPUT_DATE;
             return LocalDate.parse(trimmedDate, dateFormat);
         } catch (DateTimeParseException e) {
             throw new ParseException(Task.MESSAGE_DATE_CONSTRAINT);
@@ -119,7 +119,7 @@ public class ParserUtil {
         requireNonNull(time);
         String trimmedTime = time.trim();
         try {
-            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
+            DateTimeFormatter timeFormat = Task.FORMAT_USER_INPUT_TIME;
             return LocalTime.parse(trimmedTime, timeFormat);
         } catch (DateTimeParseException e) {
             throw new ParseException(Task.MESSAGE_TIME_CONSTRAINT);

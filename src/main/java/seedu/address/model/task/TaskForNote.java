@@ -25,6 +25,11 @@ public class TaskForNote extends Task {
         this.note = note;
     }
 
+    public TaskForNote(Note note, LocalDate date, LocalTime time, boolean isDone) {
+        super(date, time, isDone);
+        this.note = note;
+    }
+
     public void setNote(Note note) {
         requireNonNull(note);
         this.note = note;

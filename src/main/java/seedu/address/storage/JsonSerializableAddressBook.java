@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.task.Task;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -19,16 +20,19 @@ import seedu.address.model.note.Note;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
+    public static final String MESSAGE_DUPLICATE_TASK = "Task list contains duplicate tasks.";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
-    private final List<JsonAdaptedNote> tasks = new ArrayList<>();
+    private final List<JsonAdaptedTaskForNote> tasks = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given lecture notes.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes) {
+    public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes,
+                                       @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks) {
         this.notes.addAll(notes);
+        this.tasks.addAll(tasks);
     }
 
     /**
@@ -38,7 +42,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
-        //add update for Tasks
+        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +58,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TITLE);
             }
             addressBook.addNote(note);
+        }
+
+        for (JsonAdaptedTaskForNote jsonAdaptedTaskForNote : tasks) {
+            Task task = jsonAdaptedTaskForNote.toModelType();
+            if (addressBook.hasTask(task)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
+            }
+            addressBook.addTask(task);
         }
         return addressBook;
     }

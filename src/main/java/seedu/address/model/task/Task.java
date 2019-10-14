@@ -18,17 +18,15 @@ public abstract class Task {
             "with 1 <= dd <= 31, 1 <= MM <= 12, -9999 < yyyy < 9999";
     public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm'," +
             "with 00 <= HH <= 23, 00 <= mm <= 59";
-    static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-    static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
-    private static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter FORMAT_USER_INPUT_TIME = DateTimeFormatter.ofPattern("HHmm");
+    public static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    public static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
+    public static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter FORMAT_USER_INPUT_TIME = DateTimeFormatter.ofPattern("HHmm");
 
 
     private boolean isDone;
     private LocalDate date;
     private LocalTime time;
-
-
 
     Task(LocalDate date, LocalTime time) {
         requireNonNull(date);
@@ -37,6 +35,17 @@ public abstract class Task {
 //        this.time = LocalTime.parse(time, FORMAT_USER_INPUT_TIME);
         this.date = date;
         this.time = time;
+    }
+
+    public Task(LocalDate date, LocalTime time, boolean isDone) {
+        requireNonNull(date);
+        this.isDone = isDone;
+        this.date = date;
+        this.time = time;
+    }
+
+    public static boolean isValidStatusIcon(String status) {
+        return status.equals("[Y]") || status.equals("[N]");
     }
 
     /**
