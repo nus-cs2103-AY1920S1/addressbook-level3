@@ -9,6 +9,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Schedule;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Slot;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -96,6 +101,34 @@ public class AddCommandTest {
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setScheduleList(LinkedList<Schedule> schedulesList) {
+
+        }
+
+        @Override
+        public LinkedList<Schedule> getSchedulesList() {
+            // TODO: Implementation
+            return null;
+        }
+
+        @Override
+        public List<ObservableList<ObservableList<String>>> getObservableLists() {
+            // TODO: Implementation
+            return null;
+        }
+
+        @Override
+        public Slot getInterviewSlot(String intervieweeName) {
+            // TODO: Implementation
+            return null;
+        }
+
+        @Override
+        public boolean addInterviewer(Interviewer interviewer) {
+            return true;
         }
 
         @Override

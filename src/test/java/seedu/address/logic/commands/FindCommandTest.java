@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +25,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>());
 
     @Test
     public void equals() {

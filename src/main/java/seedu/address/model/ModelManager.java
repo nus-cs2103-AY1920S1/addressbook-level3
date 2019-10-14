@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,12 +13,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Slot;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+    public static final Schedule EMPTY_SCHEDULE = new Schedule("", new LinkedList<>());
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -26,7 +31,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        LinkedList<Schedule> schedulesList) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -38,7 +44,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new LinkedList<>());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -74,6 +80,49 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    //=========== Schedule ================================================================================
+    /**
+     * Replaces schedule data with the data in {@code schedule}.
+     */
+    @Override
+    public void setScheduleList(LinkedList<Schedule> schedulesList) {
+
+    }
+
+    /** Returns the schedulesList **/
+    @Override
+    public LinkedList<Schedule> getSchedulesList() {
+        // TODO: Implementation
+        return null;
+    }
+
+    /**
+     * Returns a list of observable list of the schedules.
+     */
+    @Override
+    public List<ObservableList<ObservableList<String>>> getObservableLists() {
+        // TODO: Implementation
+        return null;
+    }
+
+    /**
+     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
+     */
+    @Override
+    public Slot getInterviewSlot(String intervieweeName) {
+        // TODO: Implementation
+        return null;
+    }
+
+    /**
+     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules,
+     * else the method will not add the interviewer.
+     */
+    @Override
+    public boolean addInterviewer(Interviewer interviewer) {
+        return true;
     }
 
     //=========== AddressBook ================================================================================
@@ -144,8 +193,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons);
     }
 
 }

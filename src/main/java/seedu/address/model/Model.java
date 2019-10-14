@@ -1,11 +1,15 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Slot;
 
 /**
  * The API of the Model component.
@@ -33,6 +37,30 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Replaces schedule data with the data in {@code schedule}.
+     */
+    void setScheduleList(LinkedList<Schedule> schedulesList);
+
+    /** Returns the schedulesList **/
+    List<Schedule> getSchedulesList();
+
+    /**
+     * Returns a list of observable list of the schedules.
+     */
+    List<ObservableList<ObservableList<String>>> getObservableLists();
+
+    /**
+     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
+     */
+    Slot getInterviewSlot(String intervieweeName);
+
+    /**
+     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
+     * and returns true. Otherwise, the method will not add the interviewer and return false.
+     */
+    boolean addInterviewer(Interviewer interviewer);
 
     /**
      * Returns the user prefs' address book file path.

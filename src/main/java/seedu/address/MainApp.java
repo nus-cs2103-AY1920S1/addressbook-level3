@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -90,7 +91,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, new LinkedList<>());
     }
 
     private void initLogging(Config config) {
