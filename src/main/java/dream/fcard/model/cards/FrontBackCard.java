@@ -24,16 +24,34 @@ public class FrontBackCard implements FlashCard, JsonInterface {
 
     @Override
     public Node renderFront() {
+        // temporary
         return null;
     }
 
     @Override
     public Node renderBack() {
+        // temporary
         return null;
     }
 
     @Override
     public Boolean evaluate(String in) {
         return in.equals(back);
+    }
+
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    public void editBack(String newText) {
+        back = newText;
+    }
+
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return back;
     }
 }
