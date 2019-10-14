@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
+import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizQuestionList;
@@ -37,8 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks = new TaskList();
     }
 
-    public AddressBook() {
-    }
+    public AddressBook() {}
 
     /**
      * Creates an AddressBook using the Notes in {@code toBeCopied}.
@@ -96,6 +96,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Retrieves {@code title} from the note list. The note must exists.
+     * @param title The note with the same tile to be retrieved.
+     * @return The note with the same title as specified in input.
+     */
+    public Note getNote(Note title) {
+        return notes.get(title);
+    }
+
+    /**
      * Removes {@code title} from the lecture note list. This title must exist.
      */
     public void removeNote(Note title) {
@@ -111,6 +120,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
     }
 
+    /**
+     * Checks the answer input by user and return a boolean value as the result.
+     */
+    public boolean checkQuizAnswer(int index, Answer answer) {
+        return quiz.checkQuizAnswer(index, answer);
+    }
+
+    /**
+     * Clears the quiz question list.
+     */
+    public void clearQuizQuestionList() {
+        quiz.clearQuizQuestionList();
+    }
     // util methods
 
     @Override

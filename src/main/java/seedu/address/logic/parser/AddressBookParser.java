@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddNoteCommand;
+import seedu.address.logic.commands.AddTaskForNoteCommand;
 import seedu.address.logic.commands.ClearNoteCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteNoteCommand;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.quiz.QuizModeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.quiz.QuizModeCommandParser;
+import seedu.address.logic.parser.task.AddTaskForNoteCommandParser;
 
 /**
  * Parses user input.
@@ -72,6 +74,9 @@ public class AddressBookParser {
 
         case QuizModeCommand.COMMAND_WORD:
             return new QuizModeCommandParser().parse(arguments);
+
+        case AddTaskForNoteCommand.COMMAND_WORD:
+            return new AddTaskForNoteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

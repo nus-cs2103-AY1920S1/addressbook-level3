@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
@@ -37,7 +38,7 @@ public class QuizModeCommand extends Command {
     private final Difficulty difficulty;
 
     /**
-     * @param numOfQuestions total number of questions for user to do
+     * Sets the quiz question with specific {@code subject} and {@code difficulty}.
      */
     public QuizModeCommand(int numOfQuestions, Subject subject, Difficulty difficulty) {
         this.numOfQuestions = numOfQuestions;
@@ -50,6 +51,7 @@ public class QuizModeCommand extends Command {
         requireNonNull(model);
 
         model.setQuizQuestionList(numOfQuestions, subject, difficulty);
+        LogicManager.setIsQuiz(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

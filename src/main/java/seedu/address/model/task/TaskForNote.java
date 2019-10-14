@@ -1,10 +1,17 @@
 package seedu.address.model.task;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import seedu.address.model.note.Note;
+
 /**
  * Represents a task for revision of notes.
  */
 public class TaskForNote extends Task {
-    private NoteStub note;
+    private Note note;
 
     /**
      * Constructs a new revision task for lecture notes. Date field must be non-null.
@@ -13,9 +20,18 @@ public class TaskForNote extends Task {
      * @param date The date by when the task should be done.
      * @param time The time in a day by which the task should be done.
      */
-    public TaskForNote(NoteStub note, String date, String time) {
+    public TaskForNote(Note note, LocalDate date, LocalTime time) {
         super(date, time);
         this.note = note;
+    }
+
+    public void setNote(Note note) {
+        requireNonNull(note);
+        this.note = note;
+    }
+
+    public Note getNote() {
+        return this.note;
     }
 
     @Override

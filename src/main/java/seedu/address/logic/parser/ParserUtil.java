@@ -2,6 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -9,6 +14,7 @@ import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Task;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -96,5 +102,27 @@ public class ParserUtil {
             throw new ParseException(Difficulty.MESSAGE_CONSTRAINT);
         }
         return new Difficulty((trimmedDifficulty));
+    }
+
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        try {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return LocalDate.parse(trimmedDate, dateFormat);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Task.MESSAGE_DATE_CONSTRAINT);
+        }
+    }
+
+    public static LocalTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        try {
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
+            return LocalTime.parse(trimmedTime, timeFormat);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Task.MESSAGE_TIME_CONSTRAINT);
+        }
     }
 }
