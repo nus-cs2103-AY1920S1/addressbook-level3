@@ -1,7 +1,10 @@
 package seedu.address.model.task;
 
 import java.text.ParseException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,48 +14,31 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Task {
     // Identity fields
     private final TaskDescription taskDescription;
-    private final TaskTime taskTime;
+    private final Set<TaskTime> taskTimeSet = new HashSet<>();
     private final Marking marking;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskDescription taskDescription, TaskTime taskTime, Marking marking) {
-        requireAllNonNull(taskDescription, taskTime, marking);
-        this.taskDescription = taskDescription;
-        this.taskTime = taskTime;
-        this.marking = marking;
+    public Task(TaskDescription description, Set<TaskTime> taskTimes, Marking mark) {
+        requireAllNonNull(description, taskTimes, mark);
+        taskDescription = description;
+        taskTimeSet.addAll(taskTimes);
+        marking = mark;
     }
 
     public TaskDescription getDescription() {
         return taskDescription;
     }
 
-    public TaskTime getTime() {
-        return taskTime;
+    public Set<TaskTime> getTime() {
+        return Collections.unmodifiableSet(taskTimeSet);
     }
 
     public Marking getMarking() {
         return marking;
     }
 
-
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean hasTimeConflict(Task otherTask) {
-        if (otherTask == this) {
-            return true;
-        }
-
-        try {
-            return otherTask != null
-                    && otherTask.getTime().hasTimeConflict(getTime());
-        } catch (ParseException e) {
-            return true;
-        }
-    }
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -77,7 +63,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskDescription, taskTime, marking);
+        return Objects.hash(taskDescription, taskTimeSet, marking);
     }
 
     @Override

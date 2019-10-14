@@ -5,7 +5,12 @@ import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Marking;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDescription;
+import seedu.address.model.task.TaskTime;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -28,15 +33,13 @@ public class AddTaskCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        TaskDescription taskDescription = ParserUtil.parseTaskDescription(argMultimap.getValue(PREFIX__TASK_DESCRIPTION).get());
+        Marking marking = ParserUtil.parseMarking(argMultimap.getValue(PREFIX_MARKING).get());
+        Set<TaskTime> taskTimeList = ParserUtil.parseTaskTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Task task = new Task(taskDescription, taskTimeList, marking);
 
-        return new AddCommand(person);
+        return new AddTaskCommand(task);
     }
 
     /**

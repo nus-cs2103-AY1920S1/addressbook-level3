@@ -46,7 +46,7 @@ public class TaskTime {
         }
         return dateStart != null;
     }
-
+/*
     public boolean hasTimeConflict(TaskTime otherTaskTime) throws ParseException {
         Date thisStarting = convertToDate(starting);
         Date thisEnding = convertToDate(ending);
@@ -63,7 +63,7 @@ public class TaskTime {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return simpleDateFormat.parse(time);
     }
-
+*/
     @Override
     public String toString() {
         return "Starting:\n" + starting + "\nEnding:\n" + ending + "\n";
