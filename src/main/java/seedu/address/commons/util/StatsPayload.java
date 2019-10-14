@@ -51,7 +51,8 @@ public class StatsPayload {
      */
     public String displayStartingDate() {
         StringBuilder display = new StringBuilder();
-        display.append(this.startingDate.get(Calendar.YEAR));
+        display.append(this.startingDate.get(Calendar.YEAR) + ".");
+        display.append((this.startingDate.get(Calendar.MONTH) + 1) + ".");
         display.append(this.startingDate.get(Calendar.DATE));
         return display.toString();
     }
@@ -61,7 +62,8 @@ public class StatsPayload {
      */
     public String displayEndingDate() {
         StringBuilder display = new StringBuilder();
-        display.append(this.endingDate.get(Calendar.YEAR));
+        display.append(this.endingDate.get(Calendar.YEAR) + ".");
+        display.append((this.endingDate.get(Calendar.MONTH) + 1) + ".");
         display.append(this.endingDate.get(Calendar.DATE));
         return display.toString();
     }

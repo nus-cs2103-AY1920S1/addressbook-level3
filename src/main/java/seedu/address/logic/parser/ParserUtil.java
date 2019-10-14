@@ -343,6 +343,11 @@ public class ParserUtil {
         try {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
+                System.out.println(input[index]);
+                //offset for month
+                if (index == 1) {
+                    input[index] -= 1;
+                }
             }
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
