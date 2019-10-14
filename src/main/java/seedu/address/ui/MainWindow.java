@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private TimerDisplay timerDisplay;
     private ResultDisplay resultDisplay;
     private ModularDisplay modularDisplay;
+    private CurrentModeFooter currentModeFooter;
     private HelpWindow helpWindow;
 
     @FXML
@@ -57,6 +58,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane currentModePlaceholder;
+
 
     public MainWindow(Stage primaryStage, GameManager gameManager) {
         super(FXML, primaryStage);
@@ -135,6 +140,10 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(gameManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
+        //Displays the current mode. Starts in "load" mode.
+        currentModeFooter = new CurrentModeFooter();
+        currentModePlaceholder.getChildren().add(currentModeFooter.getRoot());
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -191,7 +200,14 @@ public class MainWindow extends UiPart<Stage> {
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            //This is temporary. Todo: Make a separate class to handle switching and ui updates.
+            if (commandText.equals("home")) {
+                currentModeFooter.changeMode("home");
+            } else if (commandText.matches("start [1-9]")) {
+                currentModeFooter.changeMode("game");
+            }
 
+            //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
             if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {

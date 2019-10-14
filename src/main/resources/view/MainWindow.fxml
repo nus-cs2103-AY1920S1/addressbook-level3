@@ -54,9 +54,12 @@
           </padding>
         </StackPane>
             <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
-<!--            <StackPane fx:id="titleScreenPanelPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />-->
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            <HBox>
+               <children>
+              <StackPane fx:id="statusbarPlaceholder" HBox.hgrow="ALWAYS" />
+                  <StackPane fx:id="currentModePlaceholder" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
       </VBox>
     </Scene>
   </scene>
