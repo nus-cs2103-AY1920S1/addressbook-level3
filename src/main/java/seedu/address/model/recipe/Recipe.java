@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.recipe;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in Duke Cooks.
+ * Represents a Recipe in Duke Cooks.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Recipe {
 
     // Identity fields
     private final Name name;
@@ -24,7 +24,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Set<Tag> tags) {
+    public Recipe(Name name, Set<Tag> tags) {
         requireAllNonNull(name, tags);
         this.name = name;
         this.tags.addAll(tags);
@@ -44,21 +44,21 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both recipes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two recipes.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameRecipe(Recipe otherRecipe) {
+        if (otherRecipe == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherRecipe != null
+                && otherRecipe.getName().equals(getName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both recipes have the same identity and data fields.
+     * This defines a stronger notion of equality between two recipes.
      */
     @Override
     public boolean equals(Object other) {
@@ -66,13 +66,13 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Recipe)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getTags().equals(getTags());
+        Recipe otherRecipe = (Recipe) other;
+        return otherRecipe.getName().equals(getName())
+                && otherRecipe.getTags().equals(getTags());
     }
 
     @Override

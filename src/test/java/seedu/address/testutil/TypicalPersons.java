@@ -10,38 +10,38 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.DukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Recipe} objects to be used in tests.
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
+    public static final Recipe ALICE = new PersonBuilder().withName("Alice Pauline")
             .withTags("friends").build();
-    public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
+    public static final Recipe BENSON = new PersonBuilder().withName("Benson Meier")
             .withTags("owesMoney", "friends").build();
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
+    public static final Recipe CARL = new PersonBuilder().withName("Carl Kurz")
             .build();
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
+    public static final Recipe DANIEL = new PersonBuilder().withName("Daniel Meier")
             .withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
+    public static final Recipe ELLE = new PersonBuilder().withName("Elle Meyer")
             .build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
+    public static final Recipe FIONA = new PersonBuilder().withName("Fiona Kunz")
             .build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best")
+    public static final Recipe GEORGE = new PersonBuilder().withName("George Best")
             .build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
+    public static final Recipe HOON = new PersonBuilder().withName("Hoon Meier")
             .build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
+    public static final Recipe IDA = new PersonBuilder().withName("Ida Mueller")
             .build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY)
+    // Manually added - Recipe's details found in {@code CommandTestUtil}
+    public static final Recipe AMY = new PersonBuilder().withName(VALID_NAME_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB)
+    public static final Recipe BOB = new PersonBuilder().withName(VALID_NAME_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
@@ -54,13 +54,13 @@ public class TypicalPersons {
      */
     public static DukeCooks getTypicalDukeCooks() {
         DukeCooks ab = new DukeCooks();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Recipe recipe : getTypicalPersons()) {
+            ab.addPerson(recipe);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    public static List<Recipe> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

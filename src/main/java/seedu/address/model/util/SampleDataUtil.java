@@ -6,35 +6,35 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"),
+    public static Recipe[] getSamplePersons() {
+        return new Recipe[] {
+            new Recipe(new Name("Alex Yeoh"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"),
+            new Recipe(new Name("Bernice Yu"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"),
+            new Recipe(new Name("Charlotte Oliveiro"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"),
+            new Recipe(new Name("David Li"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"),
+            new Recipe(new Name("Irfan Ibrahim"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"),
+            new Recipe(new Name("Roy Balakrishnan"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleDc.addPerson(samplePerson);
+        for (Recipe sampleRecipe : getSamplePersons()) {
+            sampleDc.addPerson(sampleRecipe);
         }
         return sampleDc;
     }

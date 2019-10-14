@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.testutil.PersonBuilder;
 
 public class DukeCooksTest {
@@ -44,13 +44,13 @@ public class DukeCooksTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        // Two recipes with the same identity fields
+        Recipe editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newPersons);
+        List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
+        DukeCooksStub newData = new DukeCooksStub(newRecipes);
 
-        assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicateRecipeException.class, () -> dukeCooks.resetData(newData));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DukeCooksTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(dukeCooks.hasPerson(editedAlice));
     }
@@ -83,18 +83,18 @@ public class DukeCooksTest {
     }
 
     /**
-     * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
+     * A stub ReadOnlyDukeCooks whose recipes list can violate interface constraints.
      */
     private static class DukeCooksStub implements ReadOnlyDukeCooks {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        DukeCooksStub(Collection<Recipe> recipes) {
+            this.recipes.setAll(recipes);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Recipe> getPersonList() {
+            return recipes;
         }
     }
 

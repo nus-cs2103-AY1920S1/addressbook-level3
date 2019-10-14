@@ -3,13 +3,13 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Recipe objects.
  */
 public class PersonBuilder {
 
@@ -24,15 +24,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code recipeToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Recipe recipeToCopy) {
+        name = recipeToCopy.getName();
+        tags = new HashSet<>(recipeToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Recipe} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -40,7 +40,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Recipe} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -48,8 +48,8 @@ public class PersonBuilder {
     }
 
 
-    public Person build() {
-        return new Person(name, tags);
+    public Recipe build() {
+        return new Recipe(name, tags);
     }
 
 }

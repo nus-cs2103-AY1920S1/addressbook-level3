@@ -6,16 +6,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
- * Adds a person to Duke Cooks.
+ * Adds a recipe to Duke Cooks.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to Duke Cooks. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to Duke Cooks. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -24,17 +24,17 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in Duke Cooks";
+    public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in Duke Cooks";
 
-    private final Person toAdd;
+    private final Recipe toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Recipe}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Recipe recipe) {
+        requireNonNull(recipe);
+        toAdd = recipe;
     }
 
     @Override

@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Recipe> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,35 @@ public interface Model {
     ReadOnlyDukeCooks getDukeCooks();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
+     * Returns true if a recipe with the same identity as {@code recipe} exists in Duke Cooks.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Recipe recipe);
 
     /**
-     * Deletes the given person.
-     * The person must exist in Duke Cooks.
+     * Deletes the given recipe.
+     * The recipe must exist in Duke Cooks.
      */
-    void deletePerson(Person target);
+    void deletePerson(Recipe target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in Duke Cooks.
+     * Adds the given recipe.
+     * {@code recipe} must not already exist in Duke Cooks.
      */
-    void addPerson(Person person);
+    void addPerson(Recipe recipe);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given recipe {@code target} with {@code editedRecipe}.
      * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the Duke Cooks.
+     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the Duke Cooks.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Recipe target, Recipe editedRecipe);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered recipe list */
+    ObservableList<Recipe> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Recipe> predicate);
 }

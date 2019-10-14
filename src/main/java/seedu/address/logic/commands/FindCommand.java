@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in Duke Cooks whose name contains any of the argument keywords.

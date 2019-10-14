@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "exercisecatalogue")
 class JsonSerializableExerciseCatalogue {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -48,11 +48,11 @@ class JsonSerializableExerciseCatalogue {
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (dukeCooks.hasPerson(person)) {
+            Recipe recipe = jsonAdaptedPerson.toModelType();
+            if (dukeCooks.hasPerson(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            dukeCooks.addPerson(person);
+            dukeCooks.addPerson(recipe);
         }
         return dukeCooks;
     }
