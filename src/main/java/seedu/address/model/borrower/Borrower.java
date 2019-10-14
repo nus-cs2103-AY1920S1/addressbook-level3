@@ -2,6 +2,9 @@ package seedu.address.model.borrower;
 
 import java.util.Objects;
 
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanList;
+
 /**
  * Represents a Borrower.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -12,12 +15,14 @@ public class Borrower {
     private Phone phone;
     private Email email;
     private final BorrowerId borrowerId;
+    private LoanList currentLoanList;
 
     public Borrower(Name name, Phone phone, Email email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.borrowerId = BorrowerIdGenerator.generateBorrowerId();
+        this.currentLoanList = new LoanList();
     }
 
     /**
@@ -32,6 +37,7 @@ public class Borrower {
         this.phone = phone;
         this.email = email;
         this.borrowerId = borrowerId;
+        this.currentLoanList = new LoanList();
     }
 
     public Name getName() {
@@ -48,6 +54,10 @@ public class Borrower {
 
     public Email getEmail() {
         return email;
+    }
+
+    public void addNewLoan(Loan loan) {
+        currentLoanList.add(loan);
     }
 
     /**

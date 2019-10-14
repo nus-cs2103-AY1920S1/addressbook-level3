@@ -66,12 +66,12 @@ public class LoanCommand extends Command {
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(14)); // TODO READ FROM MODEL->USERSETTINGS instead!!
         Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
                 bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
+
+        // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, loanedOutBook);
+        servingBorrower.addNewLoan(loan); // add Loan object to Borrower
+        model.addLoan(loan); // add Loan object to LoanRecords in model
 
-        model.addLoan(loan);
-
-        // TODO ADD LOAN TO BORROWER!
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook.toString(), servingBorrower.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
     }
 }
