@@ -9,7 +9,7 @@ public class SuggestCommand extends Command {
 
     public static final String COMMAND_WORD = "suggest";
 
-    public static final String MESSAGE_SUCCESS = "These are the suggested meals";
+    public static final String MESSAGE_SUCCESS = "The suggested meals are listed below!";
 
 
     @Override
