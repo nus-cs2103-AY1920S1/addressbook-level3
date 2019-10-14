@@ -7,6 +7,9 @@ import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Represents a command to list all reimbursements.
+ */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     private final Logger logger = LogsCenter.getLogger(getClass());

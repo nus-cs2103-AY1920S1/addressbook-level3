@@ -2,7 +2,6 @@ package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Stream;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.comparators.SortByAmount;
@@ -10,7 +9,6 @@ import seedu.address.reimbursement.model.comparators.SortByDeadline;
 import seedu.address.reimbursement.model.comparators.SortByName;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.util.TransactionList;
 
 /**
@@ -122,6 +120,12 @@ public class ReimbursementList {
         throw new NoSuchPersonReimbursementException();
     }
 
+    /**
+     * Marks a reimbursement as done.
+     * @param person the person this reimbursement is owed to.
+     * @return the new reimbursement object.
+     * @throws NoSuchPersonReimbursementException if no such reimbursement is owed to this person.
+     */
     public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
         rmb.done();

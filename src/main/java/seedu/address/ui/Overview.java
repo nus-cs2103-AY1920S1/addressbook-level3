@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
 import static seedu.address.overview.ui.OverviewMessages.BUDGET_SUMMARY_TEXT;
+import static seedu.address.overview.ui.OverviewMessages.EXPENSE_PIE_CHART_TITLE;
 import static seedu.address.overview.ui.OverviewMessages.EXPENSE_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
-import static seedu.address.overview.ui.OverviewMessages.EXPENSE_PIE_CHART_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +55,9 @@ public class Overview extends UiPart<Region> {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getTransactionCategories();
 
-        for(int i = 0; i < categoryList.size(); i++) {
-            pieChartData.add(new PieChart.Data(categoryList.get(i), overviewLogic.getTransactionTotalByCategory(categoryList.get(i))));
+        for (int i = 0; i < categoryList.size(); i++) {
+            pieChartData.add(new PieChart.Data(categoryList.get(i),
+                    overviewLogic.getTransactionTotalByCategory(categoryList.get(i))));
         }
 
         ObservableList<PieChart.Data> dataToDisplay = FXCollections.observableList(pieChartData);
