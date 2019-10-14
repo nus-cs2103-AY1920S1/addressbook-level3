@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private FoodListPanel foodListPanel;
+    private PurchaseListPanel purchaseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private double xOffset = 0;
@@ -39,6 +40,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane foodListPanelPlaceholder;
+
+    @FXML
+    private StackPane purchaseListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -78,6 +82,9 @@ public class MainWindow extends UiPart<Stage> {
         foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
         foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
+        purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+        purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -89,14 +96,14 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         remainingBudgetPlaceholder.textProperty().bind(logic.getMenu()
-                .getRemainingBudgetProperty().asString("$%.02f"));
+                .getWallet().getRemainingBudgetProperty().asString("$%.02f"));
 
         // Update number of days left
         logic.getMenu().getWallet().updateDaysToExpire();
 
         // Bind number of days to budget expiration to displayed value
         daysToExpirePlaceholder.textProperty().bind(logic.getMenu()
-                .getDaysToExpireProperty().asString("%d days"));
+                .getWallet().getDaysToExpireProperty().asString("%d days"));
     }
 
     /**
@@ -161,6 +168,10 @@ public class MainWindow extends UiPart<Stage> {
         return foodListPanel;
     }
 
+    public PurchaseListPanel getPurchaseListPanel() {
+        return purchaseListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -183,6 +194,10 @@ public class MainWindow extends UiPart<Stage> {
             // Update foodListPanel after every command
             foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
             foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+
+            // Update purchaseListPanel after every command
+            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+            purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

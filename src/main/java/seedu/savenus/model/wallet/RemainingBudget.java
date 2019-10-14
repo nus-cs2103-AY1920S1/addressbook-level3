@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
- * Guarantees: immutable; is valid as declared in {@link #isValidRemainingBudget(String)}
  */
 public class RemainingBudget {
 

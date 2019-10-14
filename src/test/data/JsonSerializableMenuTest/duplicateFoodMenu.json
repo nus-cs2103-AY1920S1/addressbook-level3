@@ -17,5 +17,18 @@
     "location": "The Deck",
     "openingHours": "0800 2100",
     "restrictions": "Epic"
-  } ]
+  } ],
+  "purchases" : [ {
+    "purchasedFoodName" : "Ji Fan",
+    "purchasedFoodPrice" : "3.99",
+    "timeOfPurchaseInMillisSinceEpochString" : "1570976664361"
+  }, {
+    "purchasedFoodName" : "Wagyu steak",
+    "purchasedFoodPrice" : "50.00",
+    "timeOfPurchaseInMillisSinceEpochString" : "1570976665687"
+  } ],
+  "wallet" : {
+    "remainingBudget" : "100",
+    "daysToExpire" : "30"
+  }
 }

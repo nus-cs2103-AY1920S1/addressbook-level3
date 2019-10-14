@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Represents the number of days to budget expiration in the application.
- * Guarantees: immutable; is valid as declared in {@link #isValidDaysToExpire(String)}
  */
 public class DaysToExpire {
 
@@ -22,7 +21,7 @@ public class DaysToExpire {
     public static final String VALIDATION_REGEX = "0|[1-9]\\d*$";
 
     private final IntegerProperty daysToExpireProperty;
-    private final LocalDateTime expirationDateTime;
+    private LocalDateTime expirationDateTime;
 
     /**
      * Constructs a {@code daysToExpire}.
@@ -76,6 +75,7 @@ public class DaysToExpire {
      */
     public void setDaysToExpire(DaysToExpire newDaysToExpire) {
         daysToExpireProperty.setValue(newDaysToExpire.getDaysToExpire());
+        expirationDateTime = newDaysToExpire.expirationDateTime;
     }
 
     @Override

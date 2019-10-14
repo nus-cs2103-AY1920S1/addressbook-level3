@@ -15,13 +15,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.FoodBuilder;
 
@@ -91,6 +90,7 @@ public class MenuTest {
      */
     private static class MenuStub implements ReadOnlyMenu {
         private final ObservableList<Food> foods = FXCollections.observableArrayList();
+        private final ObservableList<Purchase> purchaseHistory = FXCollections.observableArrayList();
         private final Wallet wallet = new Wallet();
 
         MenuStub(Collection<Food> foods) {
@@ -108,13 +108,8 @@ public class MenuTest {
         }
 
         @Override
-        public DoubleProperty getRemainingBudgetProperty() {
-            return wallet.getRemainingBudgetProperty();
-        }
-
-        @Override
-        public IntegerProperty getDaysToExpireProperty() {
-            return wallet.getDaysToExpireProperty();
+        public ObservableList<Purchase> getPurchaseHistory() {
+            return purchaseHistory;
         }
     }
 

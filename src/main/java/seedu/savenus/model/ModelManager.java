@@ -14,8 +14,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Represents the in-memory model of the menu data.
@@ -26,6 +28,7 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
+    private final ObservableList<Purchase> purchaseHistory;
     private final RecommendationSystem recommendationSystem;
 
     /**
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
+        purchaseHistory = this.menu.getPurchaseHistory();
 
         this.recommendationSystem = new RecommendationSystem();
     }
@@ -124,7 +128,36 @@ public class ModelManager implements Model {
         menu.setFoods(list);
     }
 
-    //=========== Budget Accessors =========================================================================
+    //=========== Purchase Methods =========================================================================
+
+    @Override
+    public void addPurchase(Purchase target) {
+        menu.addPurchase(target);
+    }
+
+    @Override
+    public void removePurchase(Purchase target) {
+        //TODO
+    }
+    //=========== Filtered Purchase List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the {@code PurchaseHistory} backed by the internal list of
+     * {@code versionedMenu}
+     */
+    @Override
+    public ObservableList<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    //=========== Wallet Accessors =========================================================================
+
+    /**
+     * Get user's {@code Wallet}.
+     */
+    public Wallet getWallet() {
+        return menu.getWallet();
+    }
 
     @Override
     public double getRemainingBudget() {
@@ -134,7 +167,7 @@ public class ModelManager implements Model {
     @Override
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         requireAllNonNull(newRemainingBudget);
-        menu.setRemainingBudget(newRemainingBudget);
+        menu.getWallet().setRemainingBudget(newRemainingBudget);
     }
 
     @Override
@@ -145,7 +178,7 @@ public class ModelManager implements Model {
     @Override
     public void setDaysToExpire(DaysToExpire newDaysToExpire) {
         requireAllNonNull(newDaysToExpire);
-        menu.setDaysToExpire(newDaysToExpire);
+        menu.getWallet().setDaysToExpire(newDaysToExpire);
     }
 
     //=========== Filtered Food List Accessors =============================================================

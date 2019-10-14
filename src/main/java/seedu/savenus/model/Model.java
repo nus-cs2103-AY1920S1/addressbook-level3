@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 
@@ -86,6 +87,18 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * Buy the given food.
+     * The food must exist in the menu.
+     */
+    void addPurchase(Purchase target);
+
+    /**
+     * Remove purchase.
+     * The purchase must exist in the purchase history.
+     */
+    void removePurchase(Purchase target);
+
+    /**
      * Getter for current user's {@code budget} amount
      */
     double getRemainingBudget();
@@ -107,6 +120,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
+
+    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.

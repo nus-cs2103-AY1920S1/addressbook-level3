@@ -25,6 +25,7 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.testutil.FoodBuilder;
@@ -150,6 +151,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPurchase(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePurchase(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public double getRemainingBudget() {
             throw new AssertionError("This method should not be called.");
         }
@@ -171,6 +182,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Food> getFilteredFoodList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Purchase> getPurchaseHistory() {
             throw new AssertionError("This method should not be called.");
         }
 

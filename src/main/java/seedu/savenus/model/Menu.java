@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
-import seedu.savenus.model.wallet.DaysToExpire;
-import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -20,7 +18,8 @@ import seedu.savenus.model.wallet.Wallet;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
-    private Wallet wallet = new Wallet();
+    private final Wallet wallet;
+    private final PurchaseHistory purchaseHistory;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +30,8 @@ public class Menu implements ReadOnlyMenu {
      */
     {
         foods = new UniqueFoodList();
+        wallet = new Wallet();
+        purchaseHistory = new PurchaseHistory();
     }
 
     public Menu() {}
@@ -60,7 +61,8 @@ public class Menu implements ReadOnlyMenu {
         requireNonNull(newData);
 
         setFoods(newData.getFoodList());
-        addWallet(newData.getWallet());
+        setWallet(newData.getWallet());
+        setPurchaseHistory(newData.getPurchaseHistory());
     }
 
     //// food-level operations
@@ -100,14 +102,21 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
+    /**
+     * Buy {@code food}
+     */
+    public void buyFood(Food food) {
+        // Todo
+    }
 
     //// wallet operations
 
     /**
-     * Adds a {@code Wallet} to the application.
+     * Set user's {@code Wallet}.
      */
-    public void addWallet(Wallet wallet) {
-        this.wallet = wallet;
+    public void setWallet(Wallet wallet) {
+        this.wallet.setRemainingBudget(wallet.getRemainingBudget());
+        this.wallet.setDaysToExpire(wallet.getDaysToExpire());
     }
 
     /**
@@ -117,36 +126,31 @@ public class Menu implements ReadOnlyMenu {
         return wallet;
     }
 
+    //// Purchase operations
+
     /**
-     * Returns the user's {@code RemainingBudget}'s {@code DoubleProperty}.
+     * Set user's {@code PurchaseHistory}.
      */
-    public DoubleProperty getRemainingBudgetProperty() {
-        return wallet.getRemainingBudgetProperty();
+    public void setPurchaseHistory(List<Purchase> purchaseHistory) {
+        this.purchaseHistory.setPurchases(purchaseHistory);
     }
 
     /**
-     * Returns the user's {@code DaysToExpire}'s {@code IntegerProperty}.
+     * Buy food (Adds food to user's {@code PurchaseHistory}).
      */
-    public IntegerProperty getDaysToExpireProperty() {
-        return wallet.getDaysToExpireProperty();
+    public void addPurchase(Purchase purchase) {
+        purchaseHistory.add(purchase);
     }
 
     /**
-     * Set user's {@code RemainingBudget}.
+     * Buy food (Adds food to user's {@code PurchaseHistory}).
      */
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
-        wallet.setRemainingBudget(newRemainingBudget);
+    public void removePurchase(Purchase purchase) {
+        //TODO
     }
 
-    /**
-     * Set user's {@code DaysToExpire}.
-     */
-    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
-        wallet.setDaysToExpire(newDaysToExpire);
-    }
 
     //// util methods
-
     @Override
     public String toString() {
         return foods.asUnmodifiableObservableList().size()
@@ -159,11 +163,20 @@ public class Menu implements ReadOnlyMenu {
         return foods.asUnmodifiableObservableList();
     }
 
+    /**
+     * Get user's {@code PurchaseHistory}.
+     */
+    public ObservableList<Purchase> getPurchaseHistory() {
+        return purchaseHistory.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Menu // instanceof handles nulls
-                && foods.equals(((Menu) other).foods));
+                && foods.equals(((Menu) other).foods))
+                && purchaseHistory.equals(((Menu) other).purchaseHistory)
+                && wallet.equals(((Menu) other).wallet);
     }
 
     @Override
