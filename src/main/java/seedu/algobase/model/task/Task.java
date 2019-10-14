@@ -27,6 +27,13 @@ public class Task {
         this.dateTime = null;
     }
 
+    public Task(Problem problem, boolean isSolved) {
+        requireAllNonNull(problem);
+        this.problem = problem;
+        this.isSolved = isSolved;
+        this.dateTime = null;
+    }
+
     public Problem getProblem() {
         return problem;
     }

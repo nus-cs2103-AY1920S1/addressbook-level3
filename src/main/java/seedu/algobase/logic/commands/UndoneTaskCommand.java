@@ -17,14 +17,14 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.task.Task;
 
 /**
- * Deletes a Task identified using its index in the Plan and the Plan index.
+ * Marks a Task identified using its index in the Plan and the Plan index as undone.
  */
-public class DeleteTaskCommand extends Command {
+public class UndoneTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletetask";
+    public static final String COMMAND_WORD = "undonetask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Task identified by the index in the plan.\n"
+            + ": Marks the Task identified by the index as undone in the plan.\n"
             + "Parameters: "
             + PREFIX_PLAN + "PLAN"
             + PREFIX_TASK + "TASK\n"
@@ -32,17 +32,17 @@ public class DeleteTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Marked Task as undone: %1$s";
 
-    private final DeleteTaskDescriptor deleteTaskDescriptor;
+    private final UndoneTaskDescriptor undoneTaskDescriptor;
 
     /**
-     * Creates a DeleteTaskCommand to delete a {@code Task} to the specified {@code Plan}
+     * Creates a UndoneTaskCommand to mark a {@code Task} as undone in the specified {@code Plan}
      *
-     * @param deleteTaskDescriptor details of the plan and problem involved
+     * @param undoneTaskDescriptor details of the plan and problem involved
      */
-    public DeleteTaskCommand(DeleteTaskDescriptor deleteTaskDescriptor) {
-        this.deleteTaskDescriptor = deleteTaskDescriptor;
+    public UndoneTaskCommand(UndoneTaskDescriptor undoneTaskDescriptor) {
+        this.undoneTaskDescriptor = undoneTaskDescriptor;
     }
 
     @Override
@@ -50,36 +50,37 @@ public class DeleteTaskCommand extends Command {
         requireNonNull(model);
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
-        if (deleteTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
+        if (undoneTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Plan planToUpdate = lastShownPlanList.get(deleteTaskDescriptor.planIndex.getZeroBased());
+        Plan planToUpdate = lastShownPlanList.get(undoneTaskDescriptor.planIndex.getZeroBased());
         Set<Task> taskSet = planToUpdate.getTasks();
         List<Task> taskList = new ArrayList<>(taskSet);
-        Task task = taskList.get(deleteTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(deleteTaskDescriptor.taskIndex.getZeroBased());
+        Task task = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
+        taskList.remove(undoneTaskDescriptor.taskIndex.getZeroBased());
         taskSet = new HashSet<>(taskList);
+        taskSet.add(new Task(task.getProblem(), false));
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
+        return new CommandResult(String.format(MESSAGE_UNDONE_TASK_SUCCESS, task));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && deleteTaskDescriptor.equals(((DeleteTaskCommand) other).deleteTaskDescriptor)); // state check
+                || (other instanceof UndoneTaskCommand // instanceof handles nulls
+                && undoneTaskDescriptor.equals(((UndoneTaskCommand) other).undoneTaskDescriptor)); // state check
     }
 
     /**
      * Stores the details of the plan and problem involved.
      */
-    public static class DeleteTaskDescriptor {
+    public static class UndoneTaskDescriptor {
         private Index planIndex;
         private Index taskIndex;
 
-        public DeleteTaskDescriptor(Index planIndex, Index problemIndex) {
+        public UndoneTaskDescriptor(Index planIndex, Index problemIndex) {
             this.planIndex = planIndex;
             this.taskIndex = problemIndex;
         }
@@ -87,9 +88,9 @@ public class DeleteTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof DeleteTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((DeleteTaskDescriptor) other).planIndex)
-                && taskIndex.equals(((DeleteTaskDescriptor) other).taskIndex));
+                || (other instanceof UndoneTaskDescriptor // instanceof handles nulls
+                && planIndex.equals(((UndoneTaskDescriptor) other).planIndex)
+                && taskIndex.equals(((UndoneTaskDescriptor) other).taskIndex));
         }
     }
 }
