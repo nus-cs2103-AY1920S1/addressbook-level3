@@ -61,7 +61,7 @@ public class LoanCommand extends Command {
             throw new CommandException(String.format(MESSAGE_BOOK_ON_LOAN, bookToBeLoaned));
         }
 
-        Borrower servingBorrower = model.getServingBorrower().get();
+        Borrower servingBorrower = model.getServingBorrower();
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(14)); // TODO READ FROM MODEL->USERSETTINGS instead!!
         Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
