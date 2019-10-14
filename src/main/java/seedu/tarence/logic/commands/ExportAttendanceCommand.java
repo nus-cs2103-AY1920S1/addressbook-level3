@@ -1,13 +1,8 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
-
-import com.opencsv.CSVWriter;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -16,10 +11,14 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.opencsv.CSVWriter;
+
 import seedu.tarence.commons.core.Messages;
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
@@ -34,14 +33,13 @@ import seedu.tarence.model.tutorial.Week;
  * Keyword matching is case insensitive.
  */
 public class ExportAttendanceCommand extends Command {
+    public static final String MESSAGE_EXPORT_ATTENDANCE_SUCCESS = "Attendance of %1$s exported successfully to /data";
+    public static final String COMMAND_WORD = "export";
 
     private static final String EXPORT_PATH = "./data/%s.csv";
-
-    public static final String EXPORT_ATTENDANCE_SUCCESS = "Attendance of %1$s exported successfully to /data";
-
-    public static final String COMMAND_WORD = "export";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
+    // TODO: Update the message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the attendance of a tutorial in a csv file.\n"
             + "Parameters: "
             + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
@@ -50,22 +48,16 @@ public class ExportAttendanceCommand extends Command {
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 ";
 
-    private final ModCode targetModCode;
-    private final TutName targetTutName;
-    private final String fileName;
+    private final Optional<ModCode> targetModCode;
+    private final Optional<TutName> targetTutName;
+    private final Optional<Index> targetIndex;
+    private Optional<String> fileName;
 
-    public ExportAttendanceCommand(ModCode modCode, TutName tutName) {
-        requireAllNonNull(modCode, tutName);
-        this.targetModCode = modCode;
-        this.targetTutName = tutName;
-        this.fileName = String.format("Attendance_%s_%s", modCode, tutName);
-    }
-
-    public ExportAttendanceCommand(ModCode modCode, TutName tutName, String fileName) {
-        requireAllNonNull(modCode, tutName);
-        this.targetModCode = modCode;
-        this.targetTutName = tutName;
-        this.fileName = fileName;
+    public ExportAttendanceCommand(ModCode modCode, TutName tutName, Index index, String fileName) {
+        this.targetModCode = Optional.ofNullable(modCode);
+        this.targetTutName = Optional.ofNullable(tutName);
+        this.targetIndex = Optional.ofNullable(index);
+        this.fileName = Optional.ofNullable(fileName);
     }
 
     @Override
@@ -73,13 +65,34 @@ public class ExportAttendanceCommand extends Command {
         requireNonNull(model);
         List<Tutorial> lastShownList = model.getFilteredTutorialList();
 
-        // TODO: Multiple tutorials, students error?
-        Tutorial targetTutorial = lastShownList.stream()
-                .filter(tut -> tut.getTutName().equals(targetTutName) && tut.getModCode().equals(targetModCode))
-                .findFirst()
-                .orElse(null);
-        if (targetTutorial == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+        // TODO: Consider cases with multiple matching tutorials, students
+        Tutorial targetTutorial = null;
+        if (targetModCode.isPresent() && targetTutName.isPresent()) {
+            // format with modcode and tut name
+            targetTutorial = lastShownList.stream()
+                    .filter(tut -> tut.getTutName().equals(targetTutName.get())
+                    && tut.getModCode().equals(targetModCode.get()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (targetTutorial == null) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+            }
+        } else if (targetIndex.isPresent()) {
+            // format with tutorial index
+            try {
+                targetTutorial = lastShownList.get(targetIndex.get().getZeroBased());
+            } catch (IndexOutOfBoundsException e) {
+                throw new CommandException(
+                    String.format(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX));
+            }
+        }
+
+        if (fileName.isEmpty()) {
+            fileName = Optional.of(
+                    String.format("Attendance_%1$s_%2$s",
+                    targetTutorial.getTutName(),
+                    targetTutorial.getModCode()));
         }
 
         List<Student> students = targetTutorial.getStudents();
@@ -88,7 +101,7 @@ public class ExportAttendanceCommand extends Command {
 
         // try-with-resources
         try (
-            Writer writer = Files.newBufferedWriter(Paths.get(String.format(EXPORT_PATH, fileName)));
+            Writer writer = Files.newBufferedWriter(Paths.get(String.format(EXPORT_PATH, fileName.get())));
 
             CSVWriter csvWriter = new CSVWriter(writer,
                     CSVWriter.DEFAULT_SEPARATOR,
@@ -118,7 +131,7 @@ public class ExportAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FILE);
         }
 
-        return new CommandResult(String.format(EXPORT_ATTENDANCE_SUCCESS, targetTutorial.getTutName()));
+        return new CommandResult(String.format(MESSAGE_EXPORT_ATTENDANCE_SUCCESS, targetTutorial.getTutName()));
     }
 
     @Override
@@ -151,6 +164,8 @@ public class ExportAttendanceCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ExportAttendanceCommand // instanceof handles nulls
                 && targetModCode.equals(((ExportAttendanceCommand) other).targetModCode)
-                && targetTutName.equals(((ExportAttendanceCommand) other).targetTutName)); // state check
+                && targetTutName.equals(((ExportAttendanceCommand) other).targetTutName)
+                && targetIndex.equals(((ExportAttendanceCommand) other).targetIndex)
+                && fileName.equals(((ExportAttendanceCommand) other).fileName)); // state check
     }
 }

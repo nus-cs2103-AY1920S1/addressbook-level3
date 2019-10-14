@@ -110,6 +110,7 @@ public class DeleteModuleCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+        // TODO: Need to consider case where targetIndex is not specified
         return other == this // short circuit if same object
                 || (other instanceof DeleteModuleCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteModuleCommand) other).targetIndex)); // state check

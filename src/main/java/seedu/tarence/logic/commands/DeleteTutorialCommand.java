@@ -136,6 +136,7 @@ public class DeleteTutorialCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+        // TODO: Need to consider case where targetIndex is not specified
         return other == this // short circuit if same object
                 || (other instanceof DeleteTutorialCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteTutorialCommand) other).targetIndex)); // state check

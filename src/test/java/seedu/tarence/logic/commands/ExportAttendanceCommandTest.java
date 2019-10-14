@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.Messages;
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
@@ -29,7 +30,6 @@ import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
-import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
@@ -37,14 +37,14 @@ import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
 
-public class MarkAttendanceCommandTest {
+public class ExportAttendanceCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
     public static final String VALID_TUT_NAME = "T02";
     public static final Integer VALID_TUT_INDEX = 1;
 
     @Test
-    public void execute_personAcceptedByModel_markAttendanceSuccessful() throws Exception {
+    public void execute_personAcceptedByModel_exportAttendanceSuccessful() throws Exception {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
 
         final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
@@ -63,114 +63,83 @@ public class MarkAttendanceCommandTest {
 
         final ModCode validModCode = new ModCode(VALID_MOD_CODE);
         final TutName validTutName = new TutName(VALID_TUT_NAME);
-        final Week validWeek = new Week(3);
-        final Name validStudName = validStudent.getName();
 
-        CommandResult commandResult = new MarkAttendanceCommand(
-                validModCode, validTutName, null, validWeek, validStudName).execute(modelStub);
+        CommandResult commandResult = new ExportAttendanceCommand(
+                validModCode, validTutName, null, null).execute(modelStub);
 
-        assertEquals(String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS, validStudName, "present"),
+        assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
+                validTutName),
                 commandResult.getFeedbackToUser());
-        assertTrue(validTutorial.getAttendance().isPresent(validWeek, validStudent));
+        // TODO: Assert presence of exported file
     }
 
     @Test
     public void execute_invalidModule_throwsCommandException() {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        final Student validStudent = new StudentBuilder()
-                .withModCode(VALID_MOD_CODE)
-                .withTutName(VALID_TUT_NAME)
-                .build();
 
         final ModCode validModCode = new ModCode(VALID_MOD_CODE);
         final TutName validTutName = new TutName(VALID_TUT_NAME);
-        final Week validWeek = new Week(3);
-        final Name validStudName = validStudent.getName();
-        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
-                validModCode, validTutName, null, validWeek, validStudName);
+        ExportAttendanceCommand exportAttendanceCommand = new ExportAttendanceCommand(
+                validModCode, validTutName, null, null);
 
         assertThrows(CommandException.class,
-            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> markAttendanceCommand.execute(modelStub));
+            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> exportAttendanceCommand.execute(modelStub));
     }
 
     @Test
     public void execute_invalidTutorial_throwsCommandException() {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
         final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
-        final Student validStudent = new StudentBuilder()
-                .withModCode(VALID_MOD_CODE)
-                .withTutName(VALID_TUT_NAME)
-                .build();
         modelStub.addModule(validModule);
 
         final ModCode validModCode = new ModCode(VALID_MOD_CODE);
         final TutName validTutName = new TutName(VALID_TUT_NAME);
-        final Week validWeek = new Week(3);
-        final Name validStudName = validStudent.getName();
-        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
-                validModCode, validTutName, null, validWeek, validStudName);
+        ExportAttendanceCommand exportAttendanceCommand = new ExportAttendanceCommand(
+                validModCode, validTutName, null, null);
 
         assertThrows(CommandException.class,
-            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> markAttendanceCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_invalidStudent_throwsCommandException() {
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-
-        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
-        final Student validStudent = new StudentBuilder()
-                .withModCode(VALID_MOD_CODE)
-                .withTutName(VALID_TUT_NAME)
-                .build();
-        final Tutorial validTutorial = new TutorialBuilder()
-                .withModCode(VALID_MOD_CODE)
-                .withTutName(VALID_TUT_NAME)
-                .build();
-        modelStub.addModule(validModule);
-        modelStub.addTutorial(validTutorial);
-        modelStub.addTutorialToModule(validTutorial);
-
-        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
-        final TutName validTutName = new TutName(VALID_TUT_NAME);
-        final Week validWeek = new Week(3);
-        final Name validStudName = validStudent.getName();
-        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
-                validModCode, validTutName, null, validWeek, validStudName);
-
-        assertThrows(CommandException.class,
-            Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL, () -> markAttendanceCommand.execute(modelStub));
+            Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> exportAttendanceCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Student alice = new StudentBuilder().withName("Alice").build();
-        Student bob = new StudentBuilder().withName("Bob").build();
-
         final ModCode validModCode = new ModCode(VALID_MOD_CODE);
         final TutName validTutName = new TutName(VALID_TUT_NAME);
-        final Week validWeek = new Week(3);
-        MarkAttendanceCommand markAliceCommand = new MarkAttendanceCommand(
-                validModCode, validTutName, null, validWeek, alice.getName());
-        MarkAttendanceCommand markBobCommand = new MarkAttendanceCommand(
-            validModCode, validTutName, null, validWeek, bob.getName());
+        final Index validIndex = Index.fromOneBased(1);
+        final String fileName = "fileName";
+
+        ExportAttendanceCommand validExportAttendanceCommand = new ExportAttendanceCommand(
+                validModCode, validTutName, null, fileName);
 
         // same object -> returns true
-        assertTrue(markAliceCommand.equals(markAliceCommand));
+        assertTrue(validExportAttendanceCommand.equals(validExportAttendanceCommand));
 
         // same values -> returns true
-        MarkAttendanceCommand markAliceCommandCopy = new MarkAttendanceCommand(
-            validModCode, validTutName, null, validWeek, alice.getName());
-        assertTrue(markAliceCommandCopy.equals(markAliceCommand));
+        ExportAttendanceCommand validExportAttendanceCommandCopy = new ExportAttendanceCommand(
+            validModCode, validTutName, null, fileName);
+        assertTrue(validExportAttendanceCommand.equals(validExportAttendanceCommandCopy));
 
         // different types -> returns false
-        assertFalse(markAliceCommand.equals(1));
+        assertFalse(validExportAttendanceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(markAliceCommand.equals(null));
+        assertFalse(validExportAttendanceCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(markAliceCommand.equals(markBobCommand));
+        // different modcode -> returns false
+        assertFalse(validExportAttendanceCommand.equals(
+                new ExportAttendanceCommand(null, validTutName, null, fileName)));
+
+        // different tut name -> returns false
+        assertFalse(validExportAttendanceCommand.equals(
+                new ExportAttendanceCommand(validModCode, null, null, fileName)));
+
+        // different index -> returns false
+        assertFalse(validExportAttendanceCommand.equals(
+                new ExportAttendanceCommand(validModCode, validTutName, validIndex, fileName)));
+
+        // different file name -> returns false
+        assertFalse(validExportAttendanceCommand.equals(
+                new ExportAttendanceCommand(validModCode, validTutName, null, null)));
     }
 
     /**
