@@ -9,7 +9,7 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.ui.LineChartPanel;
+
 //@@author ambervoong
 /**
  * Represents a Body in Mortago.
