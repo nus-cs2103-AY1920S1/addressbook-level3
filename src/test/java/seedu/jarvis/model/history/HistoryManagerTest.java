@@ -27,6 +27,8 @@ import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
@@ -488,7 +490,17 @@ public class HistoryManagerTest {
         }
 
         @Override
+        public void contains(Cca cca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public TaskList getTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCca(Cca cca) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -498,14 +510,36 @@ public class HistoryManagerTest {
         }
 
         @Override
-        public Boolean hasTask(Task t) {
+        public void removeCca(Cca cca) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Boolean hasTask(Task t) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCca(Cca cca) {
+            return false;
+        }
+
+        @Override
+        public CcaTracker getCcaTracker() {
+            return null;
         }
 
         @Override
         public Planner getPlanner() {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 
     /**

@@ -21,7 +21,7 @@ public class Name {
     public final String fullName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code CcaName}.
      *
      * @param name A valid name.
      */
