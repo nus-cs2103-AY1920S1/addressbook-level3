@@ -1,0 +1,11 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 740.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : {
+      "x" : 424,
+      "y" : 200
+    }
+  },
+  "addressBookFilePath" : "data\\financelog.json"
+}
