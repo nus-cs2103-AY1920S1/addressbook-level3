@@ -9,7 +9,7 @@ import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.card.Card;
 
 /**
  * Adds a card to the word bank.
@@ -31,14 +31,14 @@ public class AddCommand extends AppCommand {
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank";
 
-    private final WordBank toAdd;
+    private final Card toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Card}
      */
-    public AddCommand(WordBank wordBank) {
-        requireNonNull(wordBank);
-        toAdd = wordBank;
+    public AddCommand(Card card) {
+        requireNonNull(card);
+        toAdd = card;
     }
 
     @Override
@@ -46,11 +46,11 @@ public class AddCommand extends AppCommand {
         System.err.println("in add command execute: " + model);
         requireNonNull(model);
 
-        if (model.hasWordBank(toAdd)) {
+        if (model.hasCard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
-        model.addWordBank(toAdd);
+        model.addCard(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

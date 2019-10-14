@@ -7,8 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.wordbank.WordBank;
-import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 
 /**
  * The API of the Model component.
@@ -16,7 +15,6 @@ import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
-    Predicate<WordBank> PREDICATE_SHOW_ALL_WORDBANKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -51,43 +49,43 @@ public interface Model {
     /**
      * Replaces word bank data with the data in {@code wordBank}.
      */
-    void setWordBankList(ReadOnlyWordBankList wordBankList);
+    void setWordBank(ReadOnlyWordBank wordBank);
 
     /** Returns the WordBank */
-    ReadOnlyWordBankList getWordBankList();
+    ReadOnlyWordBank getWordBank();
 
     /**
      * Returns true if a card with the same name as {@code card} exists in the word bank.
      */
-    boolean hasWordBank(WordBank wordBank);
+    boolean hasCard(Card card);
 
     /**
      * Deletes the given card.
      * The card must exist in the word bank.
      */
-    void deleteWordBank(WordBank target);
+    void deleteCard(Card target);
 
     /**
      * Adds the given card.
      * {@code card} must not already exist in the word bank.
      */
-    void addWordBank(WordBank card);
+    void addCard(Card card);
 
     /**
      * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the word bank.
      * The card name of {@code editedCard} must not be the same as another existing card in the word bank.
      */
-    void setWordBankList(WordBank target, WordBank editedwordBank);
+    void setCard(Card target, Card editedCard);
 
     /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<WordBank> getFilteredWordBankList();
+    ObservableList<Card> getFilteredCardList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredWordBankList(Predicate<WordBank> predicate);
+    void updateFilteredCardList(Predicate<Card> predicate);
 
     void setGame(Game game);
 

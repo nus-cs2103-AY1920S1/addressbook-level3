@@ -131,7 +131,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     /**
      * Returns true if both cards have the same meaning.
      */
-    public boolean isSameMeaning(WordBankList other) {
+    public boolean isSameMeaning(WordBank other) {
         if (other == null) {
             return false;
         }
