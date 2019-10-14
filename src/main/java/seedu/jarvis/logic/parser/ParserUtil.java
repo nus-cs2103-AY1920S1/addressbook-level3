@@ -14,8 +14,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Task;
-import seedu.jarvis.model.planner.Todo;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

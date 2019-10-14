@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
 /**
  * Represents a Todo task in JARVIS

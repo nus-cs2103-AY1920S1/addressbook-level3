@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
 import java.util.HashSet;
 import java.util.Set;

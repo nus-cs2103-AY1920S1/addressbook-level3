@@ -12,7 +12,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Adds a task to JARVIS

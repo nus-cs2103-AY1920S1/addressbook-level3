@@ -1,5 +1,9 @@
 package seedu.jarvis.model.planner;
 
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

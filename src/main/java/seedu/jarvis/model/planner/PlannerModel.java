@@ -1,5 +1,7 @@
 package seedu.jarvis.model.planner;
 
+import seedu.jarvis.model.planner.tasks.Task;
+
 /**
  * The API of the PlannerModel component
  */

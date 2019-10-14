@@ -1,5 +1,7 @@
 package seedu.jarvis.model.planner;
 
+import seedu.jarvis.model.planner.tasks.Task;
+
 import java.util.ArrayList;
 
 /**

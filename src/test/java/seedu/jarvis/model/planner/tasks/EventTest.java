@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
 import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
+import seedu.jarvis.model.planner.tasks.Event;
 
 class EventTest {
 
