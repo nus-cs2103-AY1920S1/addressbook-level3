@@ -1,4 +1,4 @@
-package seedu.address.model.cap.tag;//package seedu.address.model.calendar.tag;
+//package seedu.address.model.cap.tag;
 //
 //import static seedu.address.testutil.Assert.assertThrows;
 //

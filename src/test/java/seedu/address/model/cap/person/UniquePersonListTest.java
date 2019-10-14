@@ -1,4 +1,4 @@
-package seedu.address.model.cap.person;//package seedu.address.model.calendar.person;
+//package seedu.address.model.cap.person;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
