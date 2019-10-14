@@ -3,7 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T11-1/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103-T11-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-T11-1/main/badge.svg?branch=master[Coverage Status]]
-image:https://api.codacy.com/project/badge/Grade/ce01660ac3c2476396d4c476921027a5["Codacy code quality", link="https://www.codacy.com/manual/madanalogy/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103-T11-1/main&utm_campaign=Badge_Grade"]
+https://codacy.com/manual/madanalogy/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103-T11-1/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/ce01660ac3c2476396d4c476921027a5[Codacy Badge]]
 https://app.netlify.com/sites/whattheduke/deploys[image:https://api.netlify.com/api/v1/badges/3b2b545d-4c96-47b6-8dcb-6f818d9621fb/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
