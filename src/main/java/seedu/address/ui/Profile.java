@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A ui for the user's profile header consisting of the user's name and customisable description.
  */
 public class Profile extends UiPart<Region> {
 
