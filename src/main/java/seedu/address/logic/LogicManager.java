@@ -62,32 +62,23 @@ public class LogicManager implements Logic {
                 Reminder reminder;
                 ArrayList<Item> reminders = model.getFutureRemindersList();
                 ArrayList<Item> activeReminders = new ArrayList<Item> (0);
-                synchronized (reminders) {
-                    if (reminders.size() > 0) {
-                        System.out.println("There are pending reminders: " + reminders.toString());
-                        //TODO: Check if Optional is present before .get()
-                        reminder = reminders.get(0).getReminder().get();
-                        //TODO: Find out why the reminders is not emptying out. without the while i<1 block.
+                if (reminders.size() > 0) {
+                    System.out.println("There are pending reminders: " + reminders.toString());
+                    //TODO: Check if Optional is present before .get()
+                    reminder = reminders.get(0).getReminder().get();
 
-                        int i = 0;
-                        while (i < 1) {
-                            System.out.println("Hi");
-                            i++;
+                    while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
+                        System.out.println("Adding a new task to be reminded.");
+                        Item item = reminders.remove(0);
+                        activeReminders.add(item);
+                        if (reminders.size() > 0) {
+                            reminder = reminders.get(0).getReminder().get();
+                        } else {
+                            reminder = null;
                         }
-
-                        while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
-                            System.out.println("Adding a new task to be reminded.");
-                            Item item = reminders.remove(0);
-                            activeReminders.add(item);
-                            if (reminders.size() > 0) {
-                                reminder = reminders.get(0).getReminder().get();
-                            } else {
-                                reminder = null;
-                            }
-                        }
-                        System.out.println("Adding in model");
-                        model.getActiveReminderListProperty().addReminders(activeReminders);
                     }
+                    System.out.println("Adding in model");
+                    model.getActiveReminderListProperty().addReminders(activeReminders);
                 }
             }
         };
