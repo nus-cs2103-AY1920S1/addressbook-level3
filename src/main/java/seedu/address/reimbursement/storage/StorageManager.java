@@ -66,7 +66,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void writeFile(ReimbursementList reimbursementList) throws Exception {
+    public void writeFile(ReimbursementList reimbursementList) throws IOException {
         FileWriter fw = new FileWriter(this.filepathReimbursement);
         String textFileMsg = "";
         for (int i = 0; i < reimbursementList.size(); i++) {

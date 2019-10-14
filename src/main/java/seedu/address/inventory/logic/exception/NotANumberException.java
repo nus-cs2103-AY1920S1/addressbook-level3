@@ -1,5 +1,8 @@
 package seedu.address.inventory.logic.exception;
 
+/**
+ * Signals that the user input is not a number.
+ */
 public class NotANumberException extends Exception {
 
     private String msg;

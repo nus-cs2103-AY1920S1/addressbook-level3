@@ -1,5 +1,8 @@
 package seedu.address.cashier.logic.exception;
 
+/**
+ * Represents a "no such person" error encountered by a parser.
+ */
 public class NoSuchPersonException extends Exception {
 
     private String msg;

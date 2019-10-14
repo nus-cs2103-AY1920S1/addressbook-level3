@@ -9,7 +9,7 @@ import seedu.address.person.model.person.Person;
  * Represents a transaction with its specified attributes.
  */
 public class Transaction {
-    public static final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private LocalDate date;
     private String description;
     private String category;
@@ -31,7 +31,7 @@ public class Transaction {
      */
     public Transaction(String date, String description, String category,
                        double amount, Person person, int id, boolean isReimbursed) {
-        this.date = LocalDate.parse(date, myFormatter);
+        this.date = LocalDate.parse(date, DATE_TIME_FORMATTER);
         this.description = description;
         this.category = category;
         this.amount = amount;
@@ -50,7 +50,7 @@ public class Transaction {
     }
 
     public String getDate() {
-        return date.format(myFormatter);
+        return date.format(DATE_TIME_FORMATTER);
     }
 
     public LocalDate getDateObject() {
@@ -102,7 +102,7 @@ public class Transaction {
      * @return Formatted String.
      */
     public String toWriteIntoFile() {
-        String msg = this.date.format(myFormatter) + " | " + this.description + " | " + this.category
+        String msg = this.date.format(DATE_TIME_FORMATTER) + " | " + this.description + " | " + this.category
                 + " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
         return msg;
     }
@@ -112,7 +112,8 @@ public class Transaction {
      * @return Formatted String.
      */
     public String toString() {
-        String msg = "Date: " + this.date.format(myFormatter) + "\nDescription: " + this.description + "\nCategory: "
+        String msg = "Date: " + this.date.format(DATE_TIME_FORMATTER) + "\nDescription: " + this.description
+                + "\nCategory: "
                 + this.category + "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
         return msg;
     }

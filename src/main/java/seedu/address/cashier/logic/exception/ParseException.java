@@ -1,5 +1,8 @@
 package seedu.address.cashier.logic.exception;
 
+/**
+ * Represents a parse error encountered by a parser.
+ */
 public class ParseException extends Exception {
     private String msg;
 
@@ -12,3 +15,4 @@ public class ParseException extends Exception {
         return this.msg;
     }
 }
+

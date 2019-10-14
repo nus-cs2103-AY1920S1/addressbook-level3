@@ -7,13 +7,14 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
-
     private final String category;
     private final String description;
     private int quantity;
     private final double cost;
-    private static double price;
-    private static String id;
+    private double totalCost;
+    private double price;
+    private double subtotal;
+    private String id;
 
     /**
      * Every field must be present and not null.
@@ -23,19 +24,24 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.totalCost = quantity * cost;
         this.price = price;
+        this.subtotal = quantity * price;
         this.id = "" + id;
     }
 
     /**
      * A separate constructor in the event that the Item is not for sale. Price can be set later.
      */
-    public Item(String description, String category, int quantity, double cost) {
+    public Item(String description, String category, int quantity, double cost, int i) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.totalCost = quantity * cost;
         this.price = 0;
+        this.subtotal = 0;
+        this.id = "" + i;
     }
 
     public String getDescription() {
@@ -54,8 +60,16 @@ public class Item {
         return cost;
     }
 
+    public double getTotalCost() {
+        return totalCost;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
     }
 
     public void setPrice(double price) {
@@ -64,6 +78,18 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        updateSubtotal();
+    }
+
+    /**
+     * Updates the subtotal.
+     */
+    public void updateSubtotal() {
+        this.subtotal = this.price * this.quantity;
+    }
+
+    public void updateTotalCost() {
+        this.totalCost = this.cost * this.quantity;
     }
 
     public String getId() {
@@ -79,8 +105,8 @@ public class Item {
      * @return a String containing the attributes of the Item.
      */
     public String toWriteIntoFile() {
-        String msg = this.description + " | " + this.category +
-                " | " + this.quantity + " | " + this.cost + " | " + this.price;
+        String msg = " | " + this.description + " | " + this.category
+                + " | " + this.quantity + " | " + this.cost + " | " + this.price;
         return msg;
     }
 
@@ -116,7 +142,7 @@ public class Item {
         Item otherItem = (Item) other;
         return otherItem.getDescription().equals(getDescription())
                 && otherItem.getCategory().equals(getCategory())
-                //&& otherItem.getQuantity() == getQuantity()
+                && otherItem.getQuantity() == getQuantity()
                 && otherItem.getCost() == getCost()
                 && otherItem.getPrice() == getPrice();
     }
@@ -131,15 +157,19 @@ public class Item {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
-                .append(getDescription())
+                .append(getDescription() + "\n")
                 .append(" Category: ")
-                .append(getCategory())
+                .append(getCategory() + "\n")
                 .append(" Quantity: ")
-                .append(getQuantity())
+                .append(getQuantity() + "\n")
                 .append(" Cost: ")
-                .append(getCost())
+                .append(getCost() + "\n")
+                .append(" Total Cost: ")
+                .append(getTotalCost() + "\n")
                 .append(" Price: ")
-                .append(getPrice());
+                .append(getPrice() + "\n")
+                .append(" Subtotal: ")
+                .append(getSubtotal() + "\n");
         return builder.toString();
     }
 }

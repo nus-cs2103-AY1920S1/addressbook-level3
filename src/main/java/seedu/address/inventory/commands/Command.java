@@ -1,6 +1,5 @@
 package seedu.address.inventory.commands;
 
-import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 

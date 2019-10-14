@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.tag.Tag;
 
 /**
@@ -14,6 +16,8 @@ import seedu.address.person.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     // Identity fields
     private final Name name;
@@ -96,13 +100,15 @@ public class Person {
     @Override
     public boolean equals(Object other) {
         if (other == this) {
+            logger.info("same object");
             return true;
         }
 
         if (!(other instanceof Person)) {
+            logger.info("false object");
             return false;
         }
-
+        logger.info("check object");
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())

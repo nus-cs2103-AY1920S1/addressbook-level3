@@ -3,10 +3,13 @@ package seedu.address.cashier.commands;
 import java.util.logging.Logger;
 
 import seedu.address.cashier.model.ModelManager;
-import seedu.address.cashier.ui.CashierUi;
+import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
+/**
+ * Checkout a list of item to be sold.
+ */
 public class CheckoutCommand extends Command {
 
     public static final String COMMAND_WORD = "checkout";
@@ -15,7 +18,9 @@ public class CheckoutCommand extends Command {
     private final double change;
 
     /**
-     * Creates an AddCommand to add the specified {@code Transaction}
+     * Creates a CheckoutCommand to update the inventory and the transaction.
+     * @param totalAmount of the sales list
+     * @param change to be returned to the customer
      */
     public CheckoutCommand(double totalAmount, double change) {
         this.totalAmount = totalAmount;
@@ -23,12 +28,20 @@ public class CheckoutCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel)
+    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel)
             throws Exception {
-        CashierUi cashierUi = new CashierUi();
+        CashierMessages cashierMessages = new CashierMessages();
         Person p = modelManager.getCashier();
-        modelManager.checkoutAsTransaction(totalAmount, p);
+        modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
         logger.info(p.toString());
-        return new CommandResult(cashierUi.checkoutSuccessful(String.valueOf(totalAmount), String.valueOf(change)));
+        modelManager.updateInventoryList();
+        modelManager.writeInInventoryFile();
+        inventoryModel.readInUpdatedList();
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
+        return new CommandResult(cashierMessages.checkoutSuccessful(String.valueOf(totalAmount),
+                String.valueOf(change)));
     }
 }
