@@ -6,9 +6,12 @@ package seedu.address.model.module;
 public class LessonNo {
     private String lessonNo;
 
+    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]*"; // alphanumeric
+
     public LessonNo(String lessonNo) {
         this.lessonNo = lessonNo;
     }
+
 
     @Override
     public String toString() {
@@ -28,5 +31,10 @@ public class LessonNo {
         } else {
             return false;
         }
+    }
+
+
+    public static boolean isValidLesson(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 }

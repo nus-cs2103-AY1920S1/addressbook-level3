@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModuleToEventMappingException;
 import seedu.address.model.Model;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Lesson;
@@ -96,6 +97,8 @@ public class AddNusModsCommand extends Command {
                 eventsToAdd.add(e);
             } catch (ModuleNotFoundException e) {
                 return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
+            } catch (ModuleToEventMappingException e) {
+                return new CommandResult(e.getMessage());
             }
         }
 
@@ -110,11 +113,15 @@ public class AddNusModsCommand extends Command {
      * Converts a {@code Module} to an {@code Event}.
      * @return an Event based on an NUS module
      */
-    public Event createEvent(Module module, String startAcadSemDateString, SemesterNo semesterNo,
-                             List<LessonNo> lessonNos, List<String> holidayDateStrings) {
+    public static Event createEvent(Module module, String startAcadSemDateString, SemesterNo semesterNo,
+                     List<LessonNo> lessonNos, List<String> holidayDateStrings) throws ModuleToEventMappingException{
         ArrayList<Lesson> lessons = new ArrayList<>();
         for (LessonNo lessonNo : lessonNos) {
-            lessons.addAll(module.getSemester(semesterNo).findLessons(lessonNo));
+            List<Lesson> lessonsFound = module.getSemester(semesterNo).findLessons(lessonNo);
+            if (lessonsFound.isEmpty()) {
+                throw new ModuleToEventMappingException("Lesson number not found!");
+            }
+            lessons.addAll(lessonsFound);
         }
 
         ArrayList<Timeslot> timeslots = new ArrayList<>();
@@ -128,7 +135,7 @@ public class AddNusModsCommand extends Command {
     /**
      * Generate all timeslots for the lesson, taking into account of holidays.
      */
-    public List<Timeslot> generateTimeslots(Lesson lesson, String startAcadSemDateString,
+    public static List<Timeslot> generateTimeslots(Lesson lesson, String startAcadSemDateString,
                                             List<String> holidayDateStrings) {
         // TODO: SLAP
         List<Timeslot> timeslots = new ArrayList<>();
