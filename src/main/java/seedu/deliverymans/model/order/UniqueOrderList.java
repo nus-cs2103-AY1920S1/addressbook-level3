@@ -8,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.deliverymans.model.customer.exceptions.CustomerNotFoundException;
-import seedu.deliverymans.model.customer.exceptions.DuplicateCustomerException;
 import seedu.deliverymans.model.order.exceptions.DuplicateOrderException;
 import seedu.deliverymans.model.order.exceptions.OrderNotFoundException;
 

@@ -58,6 +58,24 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns the user prefs' order book file path.
+     */
+    Path getOrderBookFilePath();
+
+    /**
+     * Sets the user prefs' order book file path.
+     */
+    void setOrderBookFilePath(Path orderBookFilePath);
+
+    /**
+     * Replaces order book data with the data in {@code OrderBook}.
+     */
+    void setOrderBook(ReadOnlyOrderBook orderBook);
+
+    /** Returns the OrderBook */
+    ReadOnlyOrderBook getOrderBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);

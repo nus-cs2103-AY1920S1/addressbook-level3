@@ -13,8 +13,10 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.storage.Storage;
 
 /**
@@ -64,6 +66,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyOrderBook getOrderBook() {
+        return model.getOrderBook();
+    }
+
+    @Override
+    public ObservableList<Order> getFilteredOrderList() {
+        return model.getFilteredOrderList();
+    }
+
+    @Override
+    public Path getOrderBookFilePath() {
+        return model.getOrderBookFilePath();
     }
 
     @Override

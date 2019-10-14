@@ -60,6 +60,10 @@ public class Order {
         return sb.toString();
     }
 
+    public Set<Food> getFoods() {
+        return Collections.unmodifiableSet(foods);
+    }
+
     public String getRestaurant() {
         return restaurant;
     }

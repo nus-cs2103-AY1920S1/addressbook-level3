@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.deliverymans.model.OrderBook;
+import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Email;
@@ -12,6 +14,7 @@ import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.order.Order;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -36,6 +39,17 @@ public class SampleDataUtil {
         };
     }
 
+    public static Order[] getSampleOrders() {
+        return new Order[]{
+            new Order("o1", "Alex Yeoh", "87438807", "friends"),
+            new Order("o2", "Bernice Yu", "99272758", "berniceyu@example.com"),
+            new Order("o3", "Charlotte Oliveiro", "93210283", "charlotte@example.com"),
+            new Order("o4", "David Li", "91031282", "lidavid@example.com"),
+            new Order("o5", "Irfan Ibrahim", "92492021", "irfan@example.com"),
+            new Order("o6", "Roy Balakrishnan", "92624417", "royb@example.com")
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -51,5 +65,13 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public static ReadOnlyOrderBook getSampleOrderBook() {
+        OrderBook sampleOb = new OrderBook();
+        for (Order sampleOrder : getSampleOrders()) {
+            sampleOb.addOrder(sampleOrder);
+        }
+        return sampleOb;
     }
 }
