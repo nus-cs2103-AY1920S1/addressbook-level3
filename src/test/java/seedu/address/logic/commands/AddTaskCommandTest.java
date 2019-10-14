@@ -45,10 +45,11 @@ public class AddTaskCommandTest {
     @Test
     public void execute_duplicateTask_throwsCommandException() {
         Task validTask = new TaskBuilder().build();
-        AddTaskCommand AddTaskCommand = new AddTaskCommand(validTask);
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
-        assertThrows(CommandException.class, AddTaskCommand.MESSAGE_DUPLICATE_TASK, () -> AddTaskCommand.execute(modelStub));
+        assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK,
+                () -> addTaskCommand.execute(modelStub));
     }
 
     @Test

@@ -55,8 +55,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String DeleteTaskCommand = "delete 9";
-        assertCommandException(DeleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        String deleteTaskCommand = "delete 9";
+        assertCommandException(deleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -77,12 +77,12 @@ public class LogicManagerTest {
 
         // Execute add command
 
-        String AddTaskCommand = seedu.address.logic.commands.AddTaskCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
+        String addTaskCommand = seedu.address.logic.commands.AddTaskCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
         Task expectedTask = new TaskBuilder(REVIEW_BUDGET).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTask(expectedTask);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(AddTaskCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(addTaskCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test

@@ -29,22 +29,22 @@ public class DeleteTaskCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Task taskToDelete = model.getFilteredTasksList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(deleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
 
-        assertCommandSuccess(DeleteTaskCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteTaskCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTasksList().size() + 1);
-        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
+        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
 
-        assertCommandFailure(DeleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -52,15 +52,15 @@ public class DeleteTaskCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
         Task taskToDelete = model.getFilteredTasksList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(deleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
         Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
         showNoTask(expectedModel);
 
-        assertCommandSuccess(DeleteTaskCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteTaskCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,9 +71,9 @@ public class DeleteTaskCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getProjectDashboard().getTaskList().size());
 
-        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
+        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
 
-        assertCommandFailure(DeleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
