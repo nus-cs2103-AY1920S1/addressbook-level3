@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final OrderBook orderBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     //private final FilteredList<Customer> filteredCustomers;
@@ -33,21 +34,22 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyOrderBook orderBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.orderBook = new OrderBook(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         //filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
-        filteredOrders = new FilteredList<>(this.addressBook.getOrderList());
+        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new OrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -85,6 +87,16 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getOrderBookFilePath() {
+        return userPrefs.getOrderBookFilePath();
+    }
+
+    @Override
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        userPrefs.setOrderBookFilePath(orderBookFilePath);
+    }
     //=========== AddressBook ================================================================================
 
     @Override
@@ -162,19 +174,29 @@ public class ModelManager implements Model {
 
     //=========== Order Methods =============================================================
     @Override
+    public void setOrderBook(ReadOnlyOrderBook orderBook) {
+        this.orderBook.resetData(orderBook);
+    }
+
+    @Override
+    public ReadOnlyOrderBook getOrderBook() {
+        return orderBook;
+    }
+
+    @Override
     public boolean hasOrder(Order order) {
         requireNonNull(order);
-        return addressBook.hasOrder(order);
+        return orderBook.hasOrder(order);
     }
 
     @Override
     public void deleteOrder(Order order) {
-        addressBook.removeOrder(order);
+        orderBook.removeOrder(order);
     }
 
     @Override
     public void addOrder(Order order) {
-        addressBook.addOrder(order);
+        orderBook.addOrder(order);
         updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -182,7 +204,7 @@ public class ModelManager implements Model {
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
 
-        addressBook.setOrders(target, editedOrder);
+        orderBook.setOrder(target, editedOrder);
     }
 
     //=========== Filtered Person List Accessors =============================================================

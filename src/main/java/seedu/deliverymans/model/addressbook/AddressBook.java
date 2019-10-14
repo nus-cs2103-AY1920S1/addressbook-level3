@@ -17,7 +17,6 @@ import seedu.deliverymans.model.order.UniqueOrderList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueOrderList orders;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,7 +27,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        orders = new UniqueOrderList();
     }
 
     public AddressBook() {}
@@ -52,14 +50,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the order list with {@code orders}.
-     * {@code orders} must not contain duplicate orderss.
-     */
-    public void setOrders(List<Order> orders) {
-        this.orders.setOrders(orders);
-    }
-
-    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -67,42 +57,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
     }
-
-    /**
-     * Returns true if an order with the same identity as {@code order} exists in the address book.
-     */
-    public boolean hasOrder(Order order) {
-        requireNonNull(order);
-        return orders.contains(order);
-    }
-
-    /**
-     * Adds an order to the address book.
-     * The order must not already exist in the address book.
-     */
-    public void addOrder(Order o) {
-        orders.add(o);
-    }
-
-    /**
-     * Replaces the given order {@code target} in the list with {@code editedOrder}.
-     * {@code target} must exist in the address book.
-     * The order identity of {@code editedorder} must not be the same as another existing order in the address book.
-     */
-    public void setOrders(Order target, Order editedOrder) {
-        requireNonNull(editedOrder);
-
-        orders.setOrder(target, editedOrder);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removeOrder(Order key) {
-        orders.remove(key);
-    }
-
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -150,10 +104,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
-    }
-
-    public ObservableList<Order> getOrderList() {
-        return orders.asUnmodifiableObservableList();
     }
 
     @Override
