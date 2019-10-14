@@ -2,19 +2,16 @@ package calofit.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.binding.ListBinding;
 import javafx.beans.binding.ObjectExpression;
 import javafx.beans.binding.StringExpression;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,36 +35,17 @@ import calofit.model.meal.Meal;
 public class BudgetBar extends StackPane {
     private static final String FXML = "BudgetBar.fxml";
 
-    private ObjectProperty<ObservableList<Meal>> allMeals = new SimpleObjectProperty<>();
-    private ListBinding<Meal> filteredMeals = new ListBinding<Meal>() {
-        {
-            bind(allMeals);
-        }
+    private ListProperty<Meal> todayMeals = new SimpleListProperty<>();
 
-        @Override
-        public void dispose() {
-            unbind(allMeals);
-        }
-
-        @Override
-        protected ObservableList<Meal> computeValue() {
-            if (allMeals.get() == null) {
-                return FXCollections.emptyObservableList();
-            }
-            System.out.println(allMeals.get());
-            return allMeals.get().filtered(BudgetBar::isMealToday);
-        }
-    };
     private DoubleBinding totalConsumed = Bindings.createDoubleBinding(() -> {
         double total = 0;
-        System.out.println(filteredMeals.get());
-        if (filteredMeals.get() != null) {
-            for (Meal m : filteredMeals.get()) {
+        if (todayMeals.get() != null) {
+            for (Meal m : todayMeals.get()) {
                 total += m.getDish().getCalories().getValue();
             }
         }
         return total;
-    }, filteredMeals);
+    }, todayMeals);
     private DoubleProperty budget = new SimpleDoubleProperty(Double.POSITIVE_INFINITY);
     private DoubleExpression budgetPercent = Bindings.createDoubleBinding(() -> {
         if (budget.getValue() < 0) {
@@ -125,18 +103,13 @@ public class BudgetBar extends StackPane {
         return new Background(new BackgroundFill(barColor.get(), CornerRadii.EMPTY, Insets.EMPTY));
     }
 
-    private static boolean isMealToday(Meal meal) {
-        return meal.getTimestamp()
-            .getDateTime().toLocalDate()
-            .equals(LocalDate.now());
-    }
 
     public ObservableList<Meal> getMeals() {
-        return allMeals.get();
+        return todayMeals.get();
     }
 
     public void setMeals(ObservableList<Meal> meals) {
-        allMeals.set(meals);
+        todayMeals.set(meals);
     }
 
     public DoubleProperty budgetProperty() {
