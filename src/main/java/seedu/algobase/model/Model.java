@@ -1,6 +1,8 @@
 package seedu.algobase.model;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -103,10 +105,22 @@ public interface Model {
     void deleteTag(Tag target);
 
     /**
+     * Deletes the given Tag for all problems.
+     * The Tag must exist in the algobase.
+     */
+    void deleteTags(Tag target);
+
+    /**
      * Adds the given Tag.
      * {@code Tag} must not already exist in the algobase.
      */
     void addTag(Tag tag);
+
+    /**
+     * Adds the given Tag lists.
+     * {@code Tag} must not already exist in the algobase.
+     */
+    void addTags(Set<Tag> tags);
 
     /**
      * Replaces the given Tag {@code target} with {@code editedTag}.
@@ -114,6 +128,13 @@ public interface Model {
      * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
      */
     void setTag(Tag target, Tag editedTag);
+
+    /**
+     * Replaces the given Tag {@code target} with {@code editedTag} for all problems in AlgoBase.
+     * {@code target} must exist in the algobase.
+     * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
+     */
+    void setTags(Tag target, Tag editedTag);
 
     /** Returns an unmodifiable view of the filtered Tag list */
     ObservableList<Tag> getFilteredTagList();

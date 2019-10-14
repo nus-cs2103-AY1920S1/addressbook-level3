@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -129,9 +130,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTags(Tag target) {
+        for(Problem problem : filteredProblems) {
+            Set<Tag> targetTags = problem.getTags();
+            for(Tag tag : targetTags) {
+                if(tag.getName().equals(target.getName())) {
+                    problem.deleteTag(tag);
+                }
+            }
+        }
+    }
+
+    @Override
     public void addTag(Tag tag) {
         algoBase.addTag(tag);
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+    }
+
+    @Override
+    public void addTags(Set<Tag> tags) {
+        for(Tag tag : tags) {
+            addTag(tag);
+        }
     }
 
     @Override
@@ -139,6 +159,20 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTag);
 
         algoBase.setTag(target, editedTag);
+    }
+
+    @Override
+    public void setTags(Tag target, Tag editedTag) {
+        requireAllNonNull(target, editedTag);
+        for(Problem problem : filteredProblems) {
+            Set<Tag> targetTags = problem.getTags();
+            for(Tag tag : targetTags) {
+                if(tag.getName().equals(target.getName())) {
+                    problem.addTag(editedTag);
+                    problem.deleteTag(tag);
+                }
+            }
+        }
     }
 
     //=========== Filtered Problem List Accessors =============================================================
@@ -193,25 +227,4 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTags.setPredicate(predicate);
     }
-
-    /*
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return algoBase.equals(other.algoBase)
-                && userPrefs.equals(other.userPrefs)
-                && filteredProblems.equals(other.filteredProblems);
-    }
-    */
 }

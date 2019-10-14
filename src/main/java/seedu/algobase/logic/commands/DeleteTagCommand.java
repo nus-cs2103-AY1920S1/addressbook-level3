@@ -41,6 +41,7 @@ public class DeleteTagCommand extends Command {
 
         Tag tagToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTag(tagToDelete);
+        model.deleteTags(tagToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete));
     }
 

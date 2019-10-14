@@ -15,6 +15,7 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 import seedu.algobase.storage.Storage;
 
 /**
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
         return model.getFilteredProblemList();
+    }
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return model.getFilteredTagList();
     }
 
     @Override

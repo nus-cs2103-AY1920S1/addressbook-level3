@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_TAGS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
@@ -13,6 +15,7 @@ import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Edits the details of an existing Tag in the algobase.
@@ -29,21 +32,21 @@ public class EditTagCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "Easy";
     public static final String MESSAGE_EDIT_PROBLEM_SUCCESS = "Edited Tag: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Tag already exists in the algobase.";
+    public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
 
     private final Index index;
-    private final EditTagDescriptor editTagDescriptor;
+    private final Optional<String> name;
 
     /**
      * @param index of the Tag in the filtered Tag list to edit
-     * @param editTagDescriptor details to edit the Tag with
+     * @param name details to edit the Tag with
      */
-    public EditTagCommand(Index index, EditTagDescriptor editTagDescriptor) {
+    public EditTagCommand(Index index, Optional<String> name) {
         requireNonNull(index);
-        requireNonNull(editTagDescriptor);
+        requireNonNull(name);
 
         this.index = index;
-        this.editTagDescriptor = new EditTagDescriptor(editTagDescriptor);
+        this.name = name;
     }
 
     @Override
@@ -56,13 +59,16 @@ public class EditTagCommand extends Command {
         }
 
         Tag tagToEdit = lastShownList.get(index.getZeroBased());
-        Tag editedTag = createEditedTag(tagToEdit, editTagDescriptor);
+        Tag editedTag = createEditedTag(tagToEdit, name);
+
 
         if (!tagToEdit.isSameTag(editedTag) && model.hasTag(editedTag)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
+            throw new CommandException(MESSAGE_DUPLICATE_TAG);
         }
 
         model.setTag(tagToEdit, editedTag);
+        model.setTags(tagToEdit, editedTag);
+
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
         return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedTag));
     }
@@ -71,12 +77,14 @@ public class EditTagCommand extends Command {
      * Creates and returns a {@code Tag} with the details of {@code tagToEdit}
      * edited with {@code editTagDescriptor}.
      */
-    private static Tag createEditedTag(Tag tagToEdit, EditTagDescriptor editTagDescriptor) {
+    private static Tag createEditedTag(Tag tagToEdit, Optional<String> name) {
         assert tagToEdit != null;
-
-        String updatedName = editTagDescriptor.getName().orElse(tagToEdit.getName());
-
-
+        String updatedName;
+        if(name.isPresent()) {
+            updatedName = name.get();
+        } else {
+            throw new TagNotFoundException();
+        }
         return new Tag(updatedName);
     }
 
@@ -95,57 +103,6 @@ public class EditTagCommand extends Command {
         // state check
         EditTagCommand e = (EditTagCommand) other;
         return index.equals(e.index)
-                && editTagDescriptor.equals(e.editTagDescriptor);
-    }
-
-    /**
-     * Stores the details to edit the Tag with. Each non-empty field value will replace the
-     * corresponding field value of the Tag.
-     */
-    public static class EditTagDescriptor {
-        private String name;
-
-        public EditTagDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditTagDescriptor(EditTagDescriptor toCopy) {
-            setName(toCopy.name);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name);
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Optional<String> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditTagDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditTagDescriptor e = (EditTagDescriptor) other;
-
-            return getName().equals(e.getName());
-        }
+                && name.equals(e.name);
     }
 }

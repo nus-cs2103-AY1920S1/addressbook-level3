@@ -12,7 +12,7 @@ import seedu.algobase.model.tag.Tag;
  */
 public class AddTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
+    public static final String COMMAND_WORD = "newtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tag to the algobase. "
             + "Parameters: "
