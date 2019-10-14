@@ -9,6 +9,7 @@ import io.xpire.model.Xpire;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 
 /**
@@ -18,9 +19,9 @@ public class SampleDataUtil {
     public static Item[] getSampleItems() {
         return new Item[] {
             new Item(new Name("Ice Cream"), new ExpiryDate("12/10/2019"),
-                getTagSet("food")),
+                new Quantity("1"), getTagSet("food")),
             new Item(new Name("Jeremy Vaseline"), new ExpiryDate("30/06/2022"),
-                getTagSet("moisturiser", "lube")),
+                new Quantity("10"), getTagSet("moisturiser", "lube")),
         };
     }
 

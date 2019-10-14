@@ -32,6 +32,11 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
 
+    public static final String VALID_QUANTITY_KIWI = "2";
+    public static final String VALID_QUANTITY_APPLE = "1";
+    public static final String VALID_QUANTITY_BANANA = "5";
+    public static final String VALID_QUANTITY_MILK = "2";
+
     public static final String VALID_TAG_FRUIT = "fruit";
     public static final String VALID_TAG_DRINK = "drinks";
     public static final String VALID_TAG_GREEN = "green";
@@ -59,6 +64,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME = "James&";
     public static final String INVALID_EXPIRY_DATE = "";
     public static final String INVALID_TAG = "hubby*";
+    public static final String INVALID_QUANTITY = "-2";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

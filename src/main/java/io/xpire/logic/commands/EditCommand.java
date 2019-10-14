@@ -19,6 +19,7 @@ import io.xpire.model.Model;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 
 /**
@@ -88,9 +89,10 @@ public class EditCommand extends Command {
 
         Name updatedName = editItemDescriptor.getName().orElse(itemToEdit.getName());
         ExpiryDate updatedExpiryDate = editItemDescriptor.getExpiryDate().orElse(itemToEdit.getExpiryDate());
+        Quantity updatedQuantity = editItemDescriptor.getQuantity().orElse(itemToEdit.getQuantity());
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
 
-        return new Item(updatedName, updatedExpiryDate, updatedTags);
+        return new Item(updatedName, updatedExpiryDate, updatedQuantity, updatedTags);
     }
 
     @Override
@@ -118,6 +120,7 @@ public class EditCommand extends Command {
     public static class EditItemDescriptor {
         private Name name;
         private ExpiryDate expiryDate;
+        private Quantity quantity;
         private Set<Tag> tags;
 
         public EditItemDescriptor() {}
@@ -129,6 +132,7 @@ public class EditCommand extends Command {
         public EditItemDescriptor(EditItemDescriptor toCopy) {
             setName(toCopy.name);
             setExpiryDate(toCopy.expiryDate);
+            setQuantity(toCopy.quantity);
             setTags(toCopy.tags);
         }
 
@@ -145,6 +149,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setQuantity(Quantity quantity) {
+            this.quantity = quantity;
+        }
+
+        public Optional<Quantity> getQuantity() {
+            return Optional.ofNullable(quantity);
         }
 
         public void setExpiryDate(ExpiryDate expiryDate) {
@@ -190,6 +202,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getExpiryDate().equals(e.getExpiryDate())
+                    && getQuantity().equals(e.getQuantity())
                     && getTags().equals(e.getTags());
         }
     }

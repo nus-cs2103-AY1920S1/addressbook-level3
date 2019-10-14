@@ -7,7 +7,7 @@ import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_MILK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_MILK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_MILK;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
@@ -59,11 +59,13 @@ public class EditCommandTest {
         Item lastItem = model.getFilteredItemList().get(indexLastItem.getZeroBased());
 
         ItemBuilder itemInList = new ItemBuilder(lastItem);
-        Item editedItem = itemInList.withName(VALID_NAME_MILK).withExpiryDate(VALID_EXPIRY_DATE_MILK).build();
+        Item editedItem = itemInList.withName(VALID_NAME_MILK).withExpiryDate(VALID_EXPIRY_DATE_MILK)
+                            .withQuantity(VALID_QUANTITY_MILK).build();
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_MILK)
                                                                        .withExpiryDate(VALID_EXPIRY_DATE_MILK)
-                                                                       .withTags(VALID_TAG_DRINK).build();
+                                                                       .withQuantity(VALID_QUANTITY_MILK).build();
+
         EditCommand editCommand = new EditCommand(indexLastItem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
@@ -118,9 +120,9 @@ public class EditCommandTest {
 
         // edit item in filtered list into a duplicate in address book
         Item itemInList = model.getXpire().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
+        System.out.println(itemInList);
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
                 new EditItemDescriptorBuilder(itemInList).build());
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 

@@ -14,8 +14,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the list.\n"
-            + "Format: add|<item name>|<expiry date>\n"
-            + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999";
+            + "Format: add|<item name>|<expiry date>|[<quantity>]\n"
+            + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999|2";
 
     public static final String MESSAGE_SUCCESS = "New item added: %s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists";
@@ -30,6 +30,13 @@ public class AddCommand extends Command {
         this.toAdd = item;
     }
 
+    /**
+     * Executes {@code AddCommand}.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return success message from {@code CommandResult} if item is successfully added.
+     * @throws CommandException if item added is a duplicate.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
