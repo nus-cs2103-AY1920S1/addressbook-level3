@@ -91,4 +91,8 @@ public class Deck implements JsonInterface {
     public Node renderTileView() {
         return null;
     }
+
+    public ArrayList<FlashCard> getCards() {
+        return this.cards;
+    }
 }
