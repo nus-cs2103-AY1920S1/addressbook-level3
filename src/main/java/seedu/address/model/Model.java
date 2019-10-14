@@ -5,15 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.groceryitem.Food;
-import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.food.GroceryItem;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Food> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<GroceryItem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,5 +83,5 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredGroceryItemList(Predicate<Food> predicate);
+    void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate);
 }

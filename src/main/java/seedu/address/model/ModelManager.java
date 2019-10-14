@@ -11,8 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.groceryitem.Food;
-import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.food.GroceryItem;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -129,7 +128,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredGroceryItemList(Predicate<Food> predicate) {
+    public void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate) {
         requireNonNull(predicate);
         filteredGroceryItems.setPredicate(predicate);
     }

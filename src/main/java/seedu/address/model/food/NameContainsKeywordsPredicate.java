@@ -1,4 +1,4 @@
-package seedu.address.model.groceryitem;
+package seedu.address.model.food;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -8,7 +8,7 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Food> {
+public class NameContainsKeywordsPredicate implements Predicate<GroceryItem> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -16,9 +16,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Food> {
     }
 
     @Override
-    public boolean test(Food food) {
+    public boolean test(GroceryItem groceryItem) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(food.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(groceryItem.getName().fullName, keyword));
     }
 
     @Override

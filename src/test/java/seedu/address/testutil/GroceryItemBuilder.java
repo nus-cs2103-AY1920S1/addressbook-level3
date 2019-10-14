@@ -3,10 +3,10 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.groceryitem.Amount;
-import seedu.address.model.groceryitem.ExpiryDate;
-import seedu.address.model.groceryitem.GroceryItem;
-import seedu.address.model.groceryitem.Name;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 

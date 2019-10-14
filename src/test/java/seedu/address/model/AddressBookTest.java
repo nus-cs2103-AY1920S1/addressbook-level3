@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.groceryitem.GroceryItem;
-import seedu.address.model.groceryitem.exceptions.DuplicateFoodException;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.exceptions.DuplicateFoodException;
 import seedu.address.testutil.GroceryItemBuilder;
 
 public class AddressBookTest {

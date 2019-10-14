@@ -1,4 +1,4 @@
-package seedu.address.model.groceryitem;
+package seedu.address.model.food;
 
 public class FoodTest {
 /*

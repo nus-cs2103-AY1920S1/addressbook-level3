@@ -20,7 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.groceryitem.NameContainsKeywordsPredicate;
+import seedu.address.model.food.NameContainsKeywordsPredicate;
 
 public class AddressBookParserTest {
 

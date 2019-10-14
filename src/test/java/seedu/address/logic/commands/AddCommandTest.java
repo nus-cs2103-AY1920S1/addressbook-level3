@@ -19,8 +19,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.groceryitem.Food;
-import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.GroceryItem;
 import seedu.address.testutil.GroceryItemBuilder;
 
 public class AddCommandTest {
@@ -135,7 +135,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredGroceryItemList(Predicate<Food> predicate) {
+        public void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

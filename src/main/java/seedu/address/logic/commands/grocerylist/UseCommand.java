@@ -15,10 +15,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.groceryitem.Amount;
-import seedu.address.model.groceryitem.ExpiryDate;
-import seedu.address.model.groceryitem.GroceryItem;
-import seedu.address.model.groceryitem.Name;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 
 /**

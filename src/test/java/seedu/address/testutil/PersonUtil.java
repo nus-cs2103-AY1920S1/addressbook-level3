@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditFoodDescriptor;
-import seedu.address.model.groceryitem.Food;
+import seedu.address.model.food.Food;
 import seedu.address.model.tag.Tag;
 
 /**
