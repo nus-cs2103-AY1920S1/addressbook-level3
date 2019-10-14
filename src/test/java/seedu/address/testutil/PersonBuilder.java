@@ -1,6 +1,15 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.util.SampleDataUtil.collateVisitTasks;
+import static seedu.address.model.util.SampleDataUtil.collateVisits;
+import static seedu.address.model.util.SampleDataUtil.makeVisit;
+import static seedu.address.model.util.SampleDataUtil.makeVisitTask;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -10,6 +19,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.visit.Visit;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * A utility class to help with building Person objects.
@@ -26,6 +37,8 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Collection<VisitTodo> visitTodos;
+    private List<Visit> visits;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +46,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        visitTodos = new LinkedHashSet<>();
+        visits = new ArrayList<>();
     }
 
     /**
@@ -44,6 +59,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        visitTodos = new LinkedHashSet<>(personToCopy.getVisitTodos());
+        visits = new ArrayList<>(personToCopy.getVisits());
     }
 
     /**
@@ -86,8 +103,60 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code visitTodos} into a {@code Collection<VisitTodo>}
+     * and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withVisitTodos(String ... visitTodos) {
+        this.visitTodos = SampleDataUtil.getVisitTodos(visitTodos);
+        return this;
+    }
+
+    /**
+     * Adds finished visits to the list of visits.
+     */
+    public PersonBuilder withPreviousVisits() {
+        this.visits.addAll(collateVisits(makeVisit("",
+                "10-11-2019 1500",
+                "10-11-2019 1700",
+                collateVisitTasks(
+                        makeVisitTask("Apply Eyedrops", "", true),
+                        makeVisitTask("Top-up medicine", "", true),
+                        makeVisitTask("Check his diet",
+                                "Stopped eating donuts", true),
+                        makeVisitTask("Check his sleep cycle",
+                                "Could not sleep on Monday and Thursday", true)
+                        )
+                ),
+                makeVisit("Patient was very quiet.",
+                        "12-11-2018 1500",
+                        "12-11-2018 1700",
+                        collateVisitTasks(
+                                makeVisitTask("Check bed for bugs", "", true),
+                                makeVisitTask("Top-up medicine", "", true)
+                        )
+                )
+        ));
+        return this;
+    }
+
+    /**
+     * Adds finished visits to the list of visits.
+     */
+    public PersonBuilder withOngoingVisit() {
+        this.visits.addAll(collateVisits(makeVisit("",
+                "10-11-2019 1500",
+                null,
+                collateVisitTasks(
+                        makeVisitTask("Apply Eyedrops", "", true),
+                        makeVisitTask("Top-up medicine", "Need more Vit. D",
+                                false)
+                ))));
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, visitTodos, visits);
     }
 
 }

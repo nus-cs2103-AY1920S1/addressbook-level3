@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -32,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_PATIENT_VISIT_TODO);
 
         Index index;
 
@@ -56,6 +59,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseVisitTodosForEdit(argMultimap.getAllValues(PREFIX_PATIENT_VISIT_TODO))
+                .ifPresent(editPersonDescriptor::setVisitTodos);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -79,4 +84,22 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Parses {@code Collection<String> VisitTodos} into a {@code Collection<VisitTodos>}
+     * if {@code VisitTodos} is non-empty.
+     * If {@code VisitTodos} contain only one element which is an empty string, it will be parsed into a
+     * {@code Collection<VisitTodo>} containing zero VisitTodos.
+     */
+    private Optional<Collection<VisitTodo>> parseVisitTodosForEdit(Collection<String> visitTodos)
+            throws ParseException {
+        assert visitTodos != null;
+
+        if (visitTodos.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> visitTodosSet = visitTodos.size() == 1
+                && visitTodos.contains("")
+                ? Collections.emptySet() : visitTodos;
+        return Optional.of(ParserUtil.parseVisitTodos(visitTodosSet));
+    }
 }
