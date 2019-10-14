@@ -14,8 +14,8 @@ import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 /**
  * A list of flashcards that enforces uniqueness between its elements and does not allow nulls.
  * A flashcard is considered unique by comparing using {@code Flashcard#equals(Object)}. As such, adding and
- * updating of persons uses Flashcard#equals(Object) for equality so as to ensure that the flashcard being added or
- * updated is unique in the UniqueFlashcardList. The removal of a person uses Flashcard#equals(Object) as well so
+ * updating of flashcards uses Flashcard#equals(Object) for equality so as to ensure that the flashcard being added or
+ * updated is unique in the UniqueFlashcardList. The removal of a flashcard uses Flashcard#equals(Object) as well so
  * as to ensure that the flashcard with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -79,6 +79,9 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
         }
     }
 
+    /**
+     * Replaces the contents of this list with {@code replacement}.
+     */
     public void setFlashcards(UniqueFlashcardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -88,7 +91,7 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      * Replaces the contents of this list with {@code flashcards}.
      * {@code flashcards} must not contain duplicate flashcards.
      */
-    public void setPersons(List<Flashcard> flashcards) {
+    public void setFlashcards(List<Flashcard> flashcards) {
         requireAllNonNull(flashcards);
         if (!flashcardsAreUnique(flashcards)) {
             throw new DuplicateFlashcardException();

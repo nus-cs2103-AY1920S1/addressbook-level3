@@ -19,10 +19,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFlashcardCommand;
 import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
 import seedu.address.logic.commands.ViewFlashcardCommand;
 import seedu.address.logic.commands.ViewNoteCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -90,6 +92,9 @@ public class AddressBookParser {
 
         case AddFlashcardCommand.COMMAND_WORD:
             return new AddFlashcardCommandParser().parse(arguments);
+
+        case ListFlashcardCommand.COMMAND_WORD:
+            return new ListFlashcardCommand();
 
         case DeleteFlashcardCommand.COMMAND_WORD:
             return new DeleteFlashcardCommandParser().parse(arguments);

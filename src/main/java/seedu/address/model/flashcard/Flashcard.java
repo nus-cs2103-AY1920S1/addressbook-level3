@@ -17,6 +17,7 @@ public class Flashcard {
 
     private final Question question;
     private final Answer answer;
+    private final Title title;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -24,10 +25,11 @@ public class Flashcard {
     /**
      * Every field must be present and not null.
      */
-    public Flashcard(Question question, Answer answer, Set<Tag> tags) {
+    public Flashcard(Question question, Answer answer, Title title, Set<Tag> tags) {
         requireAllNonNull(question, answer, tags);
         this.question = question;
         this.answer = answer;
+        this.title = title;
         this.tags.addAll(tags);
     }
 
@@ -37,6 +39,10 @@ public class Flashcard {
 
     public Answer getAnswer() {
         return answer;
+    }
+
+    public Title getTitle() {
+        return title;
     }
 
     /**
@@ -67,16 +73,17 @@ public class Flashcard {
             return false;
         }
 
-        Flashcard otherPerson = (Flashcard) other;
-        return otherPerson.getQuestion().equals(getQuestion())
-                && otherPerson.getAnswer().equals(getAnswer())
-                && otherPerson.getTags().equals(getTags());
+        Flashcard otherFlashcard = (Flashcard) other;
+        return otherFlashcard.getQuestion().equals(getQuestion())
+                && otherFlashcard.getAnswer().equals(getAnswer())
+                && otherFlashcard.getTitle().equals(getTitle())
+                && otherFlashcard.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, tags);
+        return Objects.hash(question, answer, title, tags);
     }
 
     @Override
@@ -86,6 +93,8 @@ public class Flashcard {
                 .append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
+                .append(" Title: ")
+                .append(getTitle())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
