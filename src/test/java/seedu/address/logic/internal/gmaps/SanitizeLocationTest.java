@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,18 @@ class SanitizeLocationTest {
     @BeforeEach
     void init() {
         sanitizeLocation = new SanitizeLocation(new GmapsApiStub());
+    }
+
+    @Test
+    void getValidLocationList() throws ConnectException, TimeBookInvalidLocation {
+        sanitizeLocation.sanitize("FOO");
+        sanitizeLocation.sanitize("FOO-12345");
+        sanitizeLocation.sanitize("FOO_12345");
+        sanitizeLocation.sanitize("BAR");
+        assertThrows(TimeBookInvalidLocation.class, ()-> sanitizeLocation.sanitize("FOOLED"));
+        ArrayList<String> expectedValidLocationList =
+                new ArrayList<String>(Arrays.asList("NUS_FOO", "NUS_BAR"));
+        assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
     }
 
     @Test
