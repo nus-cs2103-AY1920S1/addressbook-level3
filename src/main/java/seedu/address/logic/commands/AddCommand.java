@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
+            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S000001J "
