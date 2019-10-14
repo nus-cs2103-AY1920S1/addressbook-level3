@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AverageCommand;
+import seedu.address.logic.commands.exceptions.AverageType;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -17,18 +18,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
+    private static final String COUNT_REGEX = "[1-9]";
+
     /**
      * Type of record that can be used.
      */
     public enum RecordType {
         DIET, EXERCISE, BLOODSUGAR, HEIGHTANDWEIGHT, MEDICALEXPENSES
-    }
-
-    /**
-     * Type of average that can be computed.
-     */
-    public enum AvgType {
-        DAILY, WEEKLY, MONTHLY
     }
 
     /**
@@ -45,17 +41,15 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
         }
 
-        AvgType avgType;
+        AverageType averageType;
 
-        switch (argMultimap.getValue(PREFIX_AVGTYPE).get().toLowerCase()) {
-        case "daily":
-            avgType = AvgType.DAILY;
-            break;
-        case "weekly":
-            avgType = AvgType.WEEKLY;
-            break;
-        case "monthly":
-            avgType = AvgType.MONTHLY;
+        switch (argMultimap.getValue(PREFIX_AVGTYPE).get().toUpperCase()) {
+        case "DAILY":
+            //fallthrough
+        case "WEEKLY":
+            //fallthrough
+        case "MONTHLY":
+            averageType = AverageType.valueOf(argMultimap.getValue(PREFIX_AVGTYPE).get().toUpperCase());
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
@@ -64,21 +58,17 @@ public class AverageCommandParser implements Parser<AverageCommand> {
 
         RecordType recordType;
 
-        switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toLowerCase()) {
-        case "diet":
-            recordType = RecordType.DIET;
-            break;
-        case "exercise":
-            recordType = RecordType.EXERCISE;
-            break;
-        case "bloodsugar":
-            recordType = RecordType.BLOODSUGAR;
-            break;
-        case "heightandweight":
-            recordType = RecordType.HEIGHTANDWEIGHT;
-            break;
-        case "medicalexpenses":
-            recordType = RecordType.MEDICALEXPENSES;
+        switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase()) {
+        case "DIET":
+            //fallthrough
+        case "EXERCISE":
+            //fallthrough
+        case "BLOODSUGAR":
+            //fallthrough
+        case "HEIGHTANDWEIGHT":
+            //fallthrough
+        case "MEDICALEXPENSES":
+            recordType = RecordType.valueOf(argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase());
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
@@ -93,15 +83,14 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             strCount = DEFAULT_COUNT_STRING;
         }
 
-        int count;
-
-        try {
-            count = Integer.parseInt(strCount);
-        } catch (NumberFormatException e) {
+        if (!strCount.matches(COUNT_REGEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
                     AverageCommand.MESSAGE_INVALID_COUNT));
         }
-        return new AverageCommand(avgType, recordType, count);
+
+        int count = Integer.parseInt(strCount);
+
+        return new AverageCommand(averageType, recordType, count);
     }
 
     /**
