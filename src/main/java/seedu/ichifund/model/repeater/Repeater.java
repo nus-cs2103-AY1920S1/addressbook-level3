@@ -13,8 +13,8 @@ import seedu.ichifund.model.transaction.Category;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Repeater {
-    private final Amount amount;
     private final Description description;
+    private final Amount amount;
     private final Category category;
     private final MonthOffset monthStartOffset;
     private final MonthOffset monthEndOffset;

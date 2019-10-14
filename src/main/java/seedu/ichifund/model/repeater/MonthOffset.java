@@ -11,7 +11,7 @@ public class MonthOffset {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Month offset should be an integer between 1 and 28 inclusive. An empty month offset is also allowed.";
-    public static final String VALIDATION_REGEX = "$[1-9]|[1]\\d|[2][0-8]^";
+    public static final String VALIDATION_REGEX = "^$|([1-9]|1[0-9]|2[0-8])";
 
     public final Integer value;
 

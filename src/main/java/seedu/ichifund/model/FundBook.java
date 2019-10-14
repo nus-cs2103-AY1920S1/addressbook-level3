@@ -10,6 +10,8 @@ import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.UniquePersonList;
+import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.UniqueRepeaterList;
 
 /**
  * Wraps all data at the fund book level
@@ -18,6 +20,7 @@ import seedu.ichifund.model.person.UniquePersonList;
 public class FundBook implements ReadOnlyFundBook {
 
     private final UniquePersonList persons;
+    private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
 
     /*
@@ -29,6 +32,7 @@ public class FundBook implements ReadOnlyFundBook {
      */
     {
         persons = new UniquePersonList();
+        repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
     }
 
@@ -53,6 +57,14 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     /**
+     * Replaces the contents of the repeater list with {@code repeaters}.
+     * {@code repeaters} must not contain duplicate repeaters.
+     */
+    public void setRepeaters(List<Repeater> repeaters) {
+        this.repeaters.setRepeaters(repeaters);
+    }
+
+    /**
      * Replaces the contents of the budget list with {@code budgets}.
      * {@code budgets} must not contain duplicate budgets.
      */
@@ -67,6 +79,7 @@ public class FundBook implements ReadOnlyFundBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
     }
 
@@ -105,6 +118,44 @@ public class FundBook implements ReadOnlyFundBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    //// repeater-level operations
+
+    /**
+     * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.
+     */
+    public boolean hasRepeater(Repeater repeater) {
+        requireNonNull(repeater);
+        return repeaters.contains(repeater);
+    }
+
+    /**
+     * Adds a repeater to the fund book.
+     * The repeater must not already exist in the fund book.
+     */
+    public void addRepeater(Repeater repeater) {
+        repeaters.add(repeater);
+    }
+
+    /**
+     * Replaces the given repeater {@code target} in the list with {@code editedRepeater}.
+     * {@code target} must exist in the fund book.
+     * The repeater identity of {@code editedRepeater} must not be the same as another existing repeater in the fund
+     * book.
+     */
+    public void setRepeater(Repeater target, Repeater editedRepeater) {
+        requireNonNull(editedRepeater);
+
+        repeaters.setRepeater(target, editedRepeater);
+    }
+
+    /**
+     * Removes repeater {@code key} from this {@code FundBook}.
+     * {@code key} must exist in the fund book.
+     */
+    public void removeRepeater(Repeater key) {
+        repeaters.remove(key);
     }
 
     //// budget-level operations
@@ -155,6 +206,11 @@ public class FundBook implements ReadOnlyFundBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Repeater> getRepeaterList() {
+        return repeaters.asUnmodifiableObservableList();
     }
 
     @Override

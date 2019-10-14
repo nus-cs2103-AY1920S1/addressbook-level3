@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -15,6 +16,7 @@ import seedu.ichifund.model.transaction.Transaction;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Repeater> PREDICATE_SHOW_ALL_REPEATERS = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
@@ -92,6 +94,40 @@ public interface Model {
      * Adds the given transaction.
      */
     void addTransaction(Transaction transaction);
+
+    /**
+     * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.
+     */
+    boolean hasRepeater(Repeater repeater);
+
+    /**
+     * Deletes the given repeater.
+     * The repeater must exist in the fund book.
+     */
+    void deleteRepeater(Repeater target);
+
+    /**
+     * Adds the given repeater.
+     * {@code repeater} must not already exist in the fund book.
+     */
+    void addRepeater(Repeater repeater);
+
+    /**
+     * Replaces the given repeater {@code target} with {@code editedRepeater}.
+     * {@code target} must exist in the fund book.
+     * The repeater identity of {@code editedRepeater} must not be the same as another existing repeater in the fund
+     * book.
+     */
+    void setRepeater(Repeater target, Repeater editedRepeater);
+
+    /** Returns an unmodifiable view of the filtered repeater list */
+    ObservableList<Repeater> getFilteredRepeaterList();
+
+    /**
+     * Updates the filter of the filtered repeater list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRepeaterList(Predicate<Repeater> predicate);
 
     /**
      * Returns true if a budget with the same identity as {@code budget} exists in the fund book.
