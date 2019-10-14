@@ -64,6 +64,8 @@ public interface ItemModel {
 
     public void clear();
 
+    public void emptyLists();
+
     public VisualizeList findItem(String[] searchStrings);
 
     public void setVisualizeList(VisualizeList list);

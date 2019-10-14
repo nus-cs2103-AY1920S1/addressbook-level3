@@ -61,4 +61,6 @@ public interface Logic {
     ElisaState getState();
 
     ElisaStateHistory getElisaStateHistory();
+
+    void updateModelLists();
 }

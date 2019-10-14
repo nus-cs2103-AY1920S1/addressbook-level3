@@ -12,11 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ItemModel;
-import seedu.address.model.ItemModelManager;
-import seedu.address.model.ItemStorage;
-import seedu.address.model.Model;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.storage.JsonItemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -38,7 +34,9 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(jsonItemStorage, userPrefsStorage);
         model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get());
-        logic = new LogicManager(model, storage);
+        ElisaStateHistory historyManager = new ElisaStateHistoryManager();
+        historyManager.pushCommand(logic.getState().deepCopy());
+        logic = new LogicManager(model, storage, historyManager);
     }
 
     /*

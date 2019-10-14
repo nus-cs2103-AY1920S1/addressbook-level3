@@ -10,4 +10,6 @@ public interface ElisaStateHistory {
     public ElisaState popCommand();
 
     public ElisaState peekCommand();
+
+    public int size();
 }

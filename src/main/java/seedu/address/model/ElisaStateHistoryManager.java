@@ -15,12 +15,12 @@ public class ElisaStateHistoryManager implements ElisaStateHistory {
 
     @Override
     public void pushCommand(ElisaState currentState) {
-        undoStack.push(currentState);
+        undoStack.push(currentState.deepCopy());
     }
 
     @Override
     public ElisaState popCommand() {
-        if (!undoStack.empty()) {
+        if (undoStack.size() > 1) {
             return undoStack.pop();
         } else {
             return null;
@@ -29,6 +29,10 @@ public class ElisaStateHistoryManager implements ElisaStateHistory {
 
     @Override
     public ElisaState peekCommand() {
-        return undoStack.peek();
+        return undoStack.peek().deepCopy();
+    }
+
+    public int size() {
+        return undoStack.size();
     }
 }

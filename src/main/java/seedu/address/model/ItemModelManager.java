@@ -105,7 +105,7 @@ public class ItemModelManager implements ItemModel {
      * Helper function to add an item to it's respective list
      * @param item the item to be added into the lists
      */
-    private void addToSeparateList(Item item) {
+    public void addToSeparateList(Item item) {
         if (item.hasTask()) {
             taskList.add(item);
         }
@@ -231,6 +231,15 @@ public class ItemModelManager implements ItemModel {
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
         this.visualList = taskList;
+    }
+
+    /**
+     * Clears the 3 lists for re-populating
+     * */
+    public void emptyLists() {
+        this.taskList = new TaskList();
+        this.eventList = new EventList();
+        this.reminderList = new ReminderList();
     }
 
 }
