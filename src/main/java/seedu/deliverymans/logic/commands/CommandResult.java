@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.deliverymans.logic.parser.universal.Context;
+
 /**
  * Represents the result of a command execution.
  */
@@ -16,6 +18,8 @@ public class CommandResult {
 
     /** The application should exit. */
     private final boolean exit;
+
+    private Context context;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -34,6 +38,15 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * other fields set to their default value and passes the current context of the system.
+     */
+    public CommandResult(String feedbackToUser, Context context) {
+        this(feedbackToUser, false, false);
+        this.context = context;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -44,6 +57,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     @Override
@@ -60,12 +77,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && context == otherCommandResult.context;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, context);
     }
 
 }

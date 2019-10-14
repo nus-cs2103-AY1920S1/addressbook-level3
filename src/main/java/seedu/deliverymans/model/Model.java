@@ -92,9 +92,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /** Returns an unmodifiable view of the filtered list */
-    ObservableList<Customer> getFilteredList();
-
     //=========== Universal methods =============================================================
 
     /**
@@ -133,6 +130,8 @@ public interface Model {
      */
     void setCustomer(Customer target, Customer editedCustomer);
 
+    /** Returns an unmodifiable view of the filtered customer list */
+    ObservableList<Customer> getFilteredCustomerList();
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.

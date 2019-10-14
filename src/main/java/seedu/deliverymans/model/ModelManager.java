@@ -200,16 +200,8 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Customer> getFilteredList() {
-        if (context == Context.CUSTOMER) {
-            return filteredCustomers;
-        } else if (context == Context.RESTAURANT) {
-            return null; // change to filteredRestaurant once implemented
-        } else if (context == Context.DELIVERYMEN) {
-            return null; // change to filteredDeliverymen once implemented
-        } else {
-            return null;
-        }
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
     }
 
     @Override
