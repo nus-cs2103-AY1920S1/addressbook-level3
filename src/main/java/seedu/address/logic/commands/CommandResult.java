@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.logic.FunctionMode;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
@@ -30,24 +31,29 @@ public class CommandResult {
     /** Flashcard to display (if any) */
     private final Optional<Flashcard> flashcard;
 
+    /** Cheatsheet to display (if any) */
+    private final Optional<CheatSheet> cheatSheet;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean toggle, Optional<FunctionMode> targetMode, Optional<Flashcard> flashcard) {
+                         boolean toggle, Optional<FunctionMode> targetMode,
+                         Optional<Flashcard> flashcard, Optional<CheatSheet> cheatSheet) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.toggle = toggle;
         this.targetMode = targetMode;
         this.flashcard = flashcard;
+        this.cheatSheet = cheatSheet;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, Optional.empty(), Optional.empty());
+        this(feedbackToUser, showHelp, exit, false, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -56,7 +62,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false,
-                false, Optional.empty(), Optional.empty());
+                false, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     public String getFeedbackToUser() {
@@ -81,6 +87,10 @@ public class CommandResult {
 
     public Optional<Flashcard> getFlashcard() {
         return flashcard;
+    }
+
+    public Optional<CheatSheet> getCheatSheet() {
+        return cheatSheet;
     }
 
     @Override
