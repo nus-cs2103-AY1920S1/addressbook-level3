@@ -79,7 +79,6 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public void updateIndexes() throws NoSuchIndexException {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
@@ -87,22 +86,18 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public void sortByDescription() {
         inventoryList.sortByDescription();
     }
 
-    @Override
     public void sortByCategory() {
         inventoryList.sortByCategory();
     }
 
-    @Override
     public void sortByQuantity() {
         inventoryList.sortByQuantity();
     }
 
-    @Override
     public void readInUpdatedList() {
         try {
             this.inventoryList = storage.getInventoryList();
