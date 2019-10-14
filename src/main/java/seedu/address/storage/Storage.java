@@ -57,7 +57,8 @@ public interface Storage extends UserPrefsStorage,
     Path getBorrowerRecordsFilePath();
 
     @Override
-    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords() throws DataConversionException, IOException;
+    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException;
 
     @Override
     void saveBorrowerRecords(ReadOnlyBorrowerRecords borrowerRecords) throws IOException;

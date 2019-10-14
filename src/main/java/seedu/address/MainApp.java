@@ -126,7 +126,7 @@ public class MainApp extends Application {
         }
 
         try {
-            borrowerRecordsOptional = storage.readBorrowerRecords();
+            borrowerRecordsOptional = storage.readBorrowerRecords(initialLoanRecords);
             if (!borrowerRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
             }

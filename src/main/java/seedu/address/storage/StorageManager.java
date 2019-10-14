@@ -123,16 +123,16 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords()
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(ReadOnlyLoanRecords initialLoanRecords)
             throws DataConversionException, IOException {
-        return readBorrowerRecords(borrowerRecordsStorage.getBorrowerRecordsFilePath());
+        return readBorrowerRecords(borrowerRecordsStorage.getBorrowerRecordsFilePath(), initialLoanRecords);
     }
 
     @Override
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath)
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath, ReadOnlyLoanRecords initialLoanRecords)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return borrowerRecordsStorage.readBorrowerRecords(filePath);
+        return borrowerRecordsStorage.readBorrowerRecords(filePath, initialLoanRecords);
     }
 
     @Override

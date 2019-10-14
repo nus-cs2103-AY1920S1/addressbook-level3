@@ -1,5 +1,7 @@
 package seedu.address.storage.borrowerrecords;
 
+import static seedu.address.storage.loanrecords.JsonLoanRecordsStorage.LOAN_ID_DOES_NOT_EXISTS;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +9,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 import seedu.address.model.loan.LoanList;
 
 /**
@@ -59,7 +64,7 @@ class JsonAdaptedBorrower {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
-    public Borrower toModelType() throws IllegalValueException {
+    public Borrower toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -101,7 +106,19 @@ class JsonAdaptedBorrower {
                     LoanList.class.getSimpleName()));
         }
         final LoanList modelCurrentLoanList = new LoanList();
-        //currentLoanList.forEach(loanIdString -> modelCurrentLoanList.add(new Loan(/*TODO*/)));
+        for (String loanIdString : currentLoanList) {
+            if (!LoanId.isValidLoanId(loanIdString)) {
+                throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
+            }
+
+            LoanId loanId = new LoanId(loanIdString);
+            Loan modelLoan = initialLoanRecords.getLoansMap().get(loanId);
+            if (modelLoan == null) {
+                throw new IllegalValueException(String.format(LOAN_ID_DOES_NOT_EXISTS, loanId));
+            }
+
+            modelCurrentLoanList.add(modelLoan);
+        }
 
         return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId, modelCurrentLoanList);
     }

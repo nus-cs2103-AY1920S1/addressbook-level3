@@ -1,5 +1,7 @@
 package seedu.address.storage.catalog;
 
+import static seedu.address.storage.loanrecords.JsonLoanRecordsStorage.LOAN_ID_DOES_NOT_EXISTS;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -122,7 +124,11 @@ public class JsonAdaptedBook {
         } else if (!LoanId.isValidLoanId(loan)) {
             throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
         } else {
-            modelLoan = initialLoanRecords.getLoansMap().get(new LoanId(loan));
+            LoanId loanId = new LoanId(loan);
+            modelLoan = initialLoanRecords.getLoansMap().get(loanId);
+            if (modelLoan == null) {
+                throw new IllegalValueException(String.format(LOAN_ID_DOES_NOT_EXISTS, loanId));
+            }
         }
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);

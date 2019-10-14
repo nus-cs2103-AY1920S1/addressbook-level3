@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.borrower.Borrower;
 
 /**
@@ -45,10 +46,10 @@ class JsonSerializableBorrowerRecords {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public BorrowerRecords toModelType() throws IllegalValueException {
+    public BorrowerRecords toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         for (JsonAdaptedBorrower jsonAdaptedBorrower : borrowers) {
-            Borrower borrower = jsonAdaptedBorrower.toModelType();
+            Borrower borrower = jsonAdaptedBorrower.toModelType(initialLoanRecords);
             if (borrowerRecords.hasBorrower(borrower)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BORROWER);
             }
