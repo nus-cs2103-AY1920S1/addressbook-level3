@@ -64,7 +64,7 @@ enum Responses {
         // programState.getDecks().add(newDeck);
         return true; // capture is valid, end checking other commands
     }),
-    TEST("(?i)^(test)?(\\s)+(duration/[\\w\\p{Punct}]+)?(deck/[\\w\\p{Punct}]+){1}(\\s)*", (
+    TEST("(?i)^(test)?(\\\\s)+(duration/[\\\\w\\\\p{Punct}]+)?(\\\\s)+(deck/[\\\\w\\\\p{Punct}]+){1}(\\\\s)*", (
             commandInput, programState) -> {
         System.out.println("Current command is TEST");
         // ArrayList<Deck> allDecks = programState.getDecks();
@@ -78,13 +78,14 @@ enum Responses {
         // *Initiate test with Test Deck*
         return true; // capture is valid, end checking other commands
     }),
-    EXIT("(?i)^(exit)?", (commandInput, programState) -> {
+    EXIT("(?i)^(exit)?.", (commandInput, programState) -> {
         System.out.println("Current command is EXIT");
         // Exit from application
         return true; // capture is valid, end checking other commands
     }),
-    EDIT("(?i)^(edit)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(action/[\\w\\p{Punct}]+){1}(index/[\\w\\p{Punct}]+)?"
-            + "(front/[\\w\\p{Punct}]+)?(back/[\\w\\p{Punct}]+)?(\\s)*", (
+    EDIT("(?i)^(edit)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)+(action/[\\w\\p{Punct}]+){1}(\\s)*((\\s)+"
+            + "(index/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+(front/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+"
+            + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
             commandInput, programState) -> {
                 System.out.println("Current command is EDIT");
                 // Will plan an implement soon (a bit busy now lol)
