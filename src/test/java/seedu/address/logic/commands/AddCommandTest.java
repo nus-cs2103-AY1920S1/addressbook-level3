@@ -216,6 +216,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void addCheatSheet(CheatSheet cheatSheet) {
             throw new AssertionError("This method should not be called.");
         }
