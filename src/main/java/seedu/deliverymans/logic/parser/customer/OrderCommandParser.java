@@ -30,7 +30,7 @@ public class OrderCommandParser implements Parser<OrderCommand> {
         String customer;
         String restaurant;
         String deliveryman;
-        
+
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ORDER, PREFIX_CUSTOMER,
                 PREFIX_RESTAURANT, PREFIX_DELIVERYMAN);
