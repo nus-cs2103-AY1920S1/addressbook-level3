@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.utils.ReversibleCommandStub;
+import seedu.address.logic.commands.utils.ReversibleActionPairCommandStub;
 import seedu.address.model.Model;
 import seedu.address.testutil.TestUtil;
 
@@ -29,7 +29,7 @@ class RedoCommandTest {
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
-        history.addToCommandHistory(new ReversibleCommandStub(commandResultMessage));
+        history.addToCommandHistory(new ReversibleActionPairCommandStub(commandResultMessage));
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         try {

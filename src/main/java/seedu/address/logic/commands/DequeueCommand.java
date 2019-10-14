@@ -22,6 +22,8 @@ public class DequeueCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %1$s";
+    public static final String MESSAGE_DEQUEUE_PERSON_NOT_FOUND =
+            Messages.MESSAGE_INVAILD_REFERENCE_ID + ". '%1$s' patient has been removed from queue";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
     public static final String MESSAGE_UNDO_DEQUEUE_ERROR = "Could not undo the dequeue of patient '%1$s'.";
 
@@ -35,17 +37,16 @@ public class DequeueCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.hasPerson(patientReferenceId)) {
-            model.removeFromQueue(patientReferenceId);
-            throw new CommandException(String.format(
-                "%1$s '%2$s' patient has been removed from queue",
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                patientReferenceId));
-        } else if (!model.isPatientInQueue(patientReferenceId)) {
+
+        if (!model.isPatientInQueue(patientReferenceId)) {
             throw new CommandException(String.format(MESSAGE_PERSON_NOT_IN_QUEUE, patientReferenceId));
         }
-
         model.removeFromQueue(patientReferenceId);
+
+        if (!model.hasPerson(patientReferenceId)) {
+            throw new CommandException(String.format(MESSAGE_DEQUEUE_PERSON_NOT_FOUND, patientReferenceId));
+        }
+
         return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, patientReferenceId));
     }
 
@@ -53,22 +54,6 @@ public class DequeueCommand extends ReversibleCommand {
     public String getFailedUndoMessage() {
         return String.format(MESSAGE_UNDO_DEQUEUE_ERROR, patientReferenceId);
     }
-
-    /*
-    @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (referenceId == null || !model.hasPerson(referenceId) || model.isPatientInQueue(referenceId)) {
-            throw new CommandException(MESSAGE_UNDO_DEQUEUE_ERROR);
-        }
-
-        model.enqueuePatient(referenceId);
-        model.updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
-        return new CommandResult(String.format(MESSAGE_UNDO_DEQUEUE_SUCCESS, referenceId));
-    }
-    */
-
 
     @Override
     public boolean equals(Object other) {

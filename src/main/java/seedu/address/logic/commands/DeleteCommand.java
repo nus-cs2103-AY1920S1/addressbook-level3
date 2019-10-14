@@ -27,6 +27,7 @@ public class DeleteCommand extends ReversibleCommand {
     private final Person toDelete;
 
     public DeleteCommand(Person toDelete) {
+        requireNonNull(toDelete);
         this.toDelete = toDelete;
     }
 
@@ -35,7 +36,7 @@ public class DeleteCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (!model.hasExactPerson(toDelete)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, toDelete));
+            throw new CommandException(String.format(Messages.MESSAGE_PERSON_NOT_FOUND, toDelete));
         }
 
         if (model.isPatientInQueue(toDelete.getReferenceId())) {

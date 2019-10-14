@@ -10,8 +10,8 @@ import seedu.address.model.Model;
  */
 public class ReversibleActionPairCommand implements Command {
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo successful! %1$s";
-    public static final String MESSAGE_REDO_SUCCESS = "Redo successful! %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo successful!\r\n%1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "Redo successful!\r\n%1$s";
 
     private final ReversibleCommand primaryCommand;
     private final ReversibleCommand reverseCommand;
@@ -75,5 +75,14 @@ public class ReversibleActionPairCommand implements Command {
         executionPhase = ExecutionPhase.EXECUTED;
         CommandResult commandResult = primaryCommand.execute(model);
         return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, commandResult.getFeedbackToUser()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ReversibleActionPairCommand // instanceof handles nulls
+            && primaryCommand.equals(((ReversibleActionPairCommand) other).primaryCommand)
+            && reverseCommand.equals(((ReversibleActionPairCommand) other).reverseCommand)
+            && executionPhase.equals(((ReversibleActionPairCommand) other).executionPhase));
     }
 }

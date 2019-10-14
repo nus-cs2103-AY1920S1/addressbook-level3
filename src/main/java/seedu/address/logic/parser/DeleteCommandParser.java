@@ -30,15 +30,16 @@ public class DeleteCommandParser implements Parser<ReversibleActionPairCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
+        Index index;
         try {
-            Index index = ParserUtil.parseIndex(args);
-            Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);
-
-            return new ReversibleActionPairCommand(new DeleteCommand(personToDelete), new AddCommand(personToDelete));
+            index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
+
+        Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);
+        return new ReversibleActionPairCommand(new DeleteCommand(personToDelete), new AddCommand(personToDelete));
     }
 
 }
