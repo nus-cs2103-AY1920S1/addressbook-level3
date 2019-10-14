@@ -175,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public Editor getEditorPanel() {
-        return editorPlaceholder;
+        return editorPanel;
     }
 
     /**
