@@ -314,4 +314,17 @@ public class Team extends Entity {
         return builder.toString();
     }
 
+    /**
+     * This offers a looser definition of equality for Team.
+     * @param otherTeam
+     * @return boolean
+     */
+    public boolean isSameTeam(Team otherTeam) {
+        if (otherTeam == this) {
+            return true;
+        }
+
+        return this.name.equals(otherTeam.getName())
+                || this.id.equals(otherTeam.getId());
+    }
 }

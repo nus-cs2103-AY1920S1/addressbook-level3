@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
+import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
@@ -25,15 +26,15 @@ public class TeamList extends EntityList {
      *
      * @param id
      * @return Team
-     * @throws AlfredException
+     * @throws MissingEntityException if the team to get does not exist.
      */
-    public Team get(Id id) throws AlfredException {
+    public Team get(Id id) throws MissingEntityException {
         for (Team t: this.teams) {
             if (t.getId().equals(id)) {
                 return t;
             }
         }
-        throw new AlfredModelException("Team to get does not exist!");
+        throw new MissingEntityException("Team to get does not exist!");
     }
 
     /**
@@ -41,16 +42,16 @@ public class TeamList extends EntityList {
      *
      * @param id
      * @param updatedTeam
-     * @return boolean
+     * @throws MissingEntityException if the team to update does not exist.
      */
-    public boolean update(Id id, Team updatedTeam) {
+    public void update(Id id, Team updatedTeam) throws MissingEntityException {
         for (int i = 0; i < this.teams.size(); i++) {
             if (this.teams.get(i).getId().equals(id)) {
                 this.teams.set(i, updatedTeam);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new MissingEntityException("Team to update does not exist");
     }
 
     /**
@@ -59,7 +60,7 @@ public class TeamList extends EntityList {
      * @param team
      * @throws AlfredException
      */
-    public void add(Team team) throws AlfredException {
+    public void add(Team team) throws AlfredModelException {
         for (Team t: this.teams) {
             if (t.getId().equals(team.getId())) {
                 throw new AlfredModelException("Team to add already exists.");
@@ -72,16 +73,16 @@ public class TeamList extends EntityList {
      * Deletes team by id.
      *
      * @param id
-     * @throws AlfredException
+     * @throws MissingEntityException if team to delete cannot be found.
      */
-    public Team delete(Id id) throws AlfredException {
+    public Team delete(Id id) throws MissingEntityException {
         for (Team t: this.teams) {
             if (t.getId().equals(id)) {
                 this.teams.remove(t);
                 return t;
             }
         }
-        throw new AlfredModelException("Team to delete cannot be found.");
+        throw new MissingEntityException("Team to delete cannot be found.");
     }
 
     /**

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
+import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Participant;
@@ -25,15 +26,15 @@ public class ParticipantList extends EntityList {
      *
      * @param id
      * @return Participant
-     * @throws AlfredException if the participant to get does not exist.
+     * @throws MissingEntityException if the participant to get does not exist.
      */
-    public Participant get(Id id) throws AlfredException {
+    public Participant get(Id id) throws MissingEntityException {
         for (Participant p: this.participants) {
             if (p.getId().equals(id)) {
                 return p;
             }
         }
-        throw new AlfredModelException("Participant to get does not exist");
+        throw new MissingEntityException("Participant to get does not exist");
     }
 
     /**
@@ -41,26 +42,17 @@ public class ParticipantList extends EntityList {
      *
      * @param id
      * @param updatedParticipant
-     * @return boolean
+     * @throws MissingEntityException if the participant to update does not exist.
      */
-    public boolean update(Id id, Participant updatedParticipant) {
-        // Also check if new Participant with updated details exists already
-        // i.e. update John to Joshua, but list already contains Joshua
-        // AB3 had a isSamePerson() method
-        // so maybe we can have a isSameParticipant() in the Participant class (and rest of the entities)
-        /*
-         * for each p in this.participants
-         *     if p.isSameParticipant(updatedParticipant)
-         *         return false
-         */
+    public void update(Id id, Participant updatedParticipant) throws MissingEntityException {
         for (int i = 0; i < this.participants.size(); i++) {
             if (this.participants.get(i).getId().equals(id)) {
                 this.participants.set(i, updatedParticipant);
-                return true;
+                return;
             }
         }
         // Participant to update does not exist
-        return false;
+        throw new MissingEntityException("Participant to update does not exist");
     }
 
     /**
@@ -69,7 +61,7 @@ public class ParticipantList extends EntityList {
      * @param participant
      * @throws AlfredException if there was an error while adding.
      */
-    public void add(Participant participant) throws AlfredException {
+    public void add(Participant participant) throws AlfredModelException {
         for (Participant p: this.participants) {
             if (p.getId().equals(participant.getId())) {
                 throw new AlfredModelException("Participant already exists in list");
@@ -82,16 +74,16 @@ public class ParticipantList extends EntityList {
      * Deletes participant by ID.
      *
      * @param id
-     * @throws AlfredException if error while deleting.
+     * @throws MissingEntityException if entity to delete does not exist.
      */
-    public Participant delete(Id id) throws AlfredException {
+    public Participant delete(Id id) throws MissingEntityException {
         for (Participant p: this.participants) {
             if (p.getId().equals(id)) {
                 this.participants.remove(p);
                 return p;
             }
         }
-        throw new AlfredModelException("Participant to delete does not exist");
+        throw new MissingEntityException("Participant to delete does not exist");
     }
 
     /**

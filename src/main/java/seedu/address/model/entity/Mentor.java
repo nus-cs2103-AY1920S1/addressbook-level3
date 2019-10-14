@@ -150,4 +150,20 @@ public class Mentor extends Entity {
                 && otherMentor.getSubject().equals(this.getSubject());
     }
 
+    /**
+     * This checks for a looser definition of equality for mentors.
+     *
+     * @param otherMentor
+     * @return boolean
+     */
+    public boolean isSameMentor(Mentor otherMentor) {
+        if (otherMentor == this) {
+            return true;
+        }
+
+        return this.id.equals(otherMentor.getId())
+            && (this.phone.equals(otherMentor.getPhone())
+                || this.email.equals(otherMentor.getEmail()));
+    }
+
 }
