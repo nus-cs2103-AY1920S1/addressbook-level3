@@ -1,5 +1,6 @@
 package seedu.address.ui.itinerary;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
+import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.MainWindow;
@@ -26,6 +28,9 @@ import seedu.address.ui.template.PageWithSidebar;
  * {@code Page} class implementing the itinerary landing page.
  */
 public class ItineraryPage extends PageWithSidebar<AnchorPane> {
+    private final String DATE_FORMAT = "d/M/y";
+    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
     private static final String FXML = "itinerary/ItineraryPage.fxml";
 
     @FXML
@@ -54,10 +59,10 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @Override
     public void fillPage() {
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
-        startDateLabel.setText(model.getPageStatus().getTrip().getStartDate().toString());
-        endDateLabel.setText(model.getPageStatus().getTrip().getEndDate().toString());
-        //destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
-        totalBudgetLabel.setText(model.getPageStatus().getTrip().getBudget().toString());
+        startDateLabel.setText("Arrival: " + model.getPageStatus().getTrip().getStartDate().format(DATE_FORMATTER).toString());
+        endDateLabel.setText("Departure: " + model.getPageStatus().getTrip().getEndDate().format(DATE_FORMATTER).toString());
+        destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
+        totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
 
         List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
 
