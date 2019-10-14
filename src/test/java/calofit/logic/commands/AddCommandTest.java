@@ -3,7 +3,6 @@ package calofit.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;

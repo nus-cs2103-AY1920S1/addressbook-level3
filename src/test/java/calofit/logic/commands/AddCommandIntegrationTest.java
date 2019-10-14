@@ -1,6 +1,5 @@
 package calofit.logic.commands;
 
-import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
