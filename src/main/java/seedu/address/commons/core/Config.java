@@ -15,6 +15,7 @@ public class Config {
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
+    private Path financeUserPrefsFilePath = Paths.get("financepreferences.json");
 
     public Level getLogLevel() {
         return logLevel;
@@ -26,6 +27,10 @@ public class Config {
 
     public Path getUserPrefsFilePath() {
         return userPrefsFilePath;
+    }
+
+    public Path getFinanceUserPrefsFilePath() {
+        return financeUserPrefsFilePath;
     }
 
     public void setUserPrefsFilePath(Path userPrefsFilePath) {

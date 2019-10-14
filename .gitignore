@@ -9,12 +9,11 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-#/data/
+/data/
 /config.json
 /preferences.json
 /*.log.*
-
-/data/addressbook.json
+/.settings/
 
 # Test sandbox files
 src/test/data/sandbox/
