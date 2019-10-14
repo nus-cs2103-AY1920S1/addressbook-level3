@@ -18,16 +18,6 @@ public class FrontBackCard implements FlashCard, JsonInterface {
     }
 
     @Override
-    public String getFront() {
-        return front;
-    }
-
-    @Override
-    public String getBack() {
-        return back;
-    }
-
-    @Override
     public JsonValue toJson() {
         return null;
     }
