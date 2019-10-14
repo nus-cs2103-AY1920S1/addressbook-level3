@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.Storage;
+import seedu.mark.storage.StorageStub;
 
 public class UndoCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+    private Storage storage = new StorageStub();
 
     @Test
     public void execute() {
@@ -25,13 +28,13 @@ public class UndoCommandTest {
 
         // Two undoable Mark states
         expectedModel.undoMark();
-        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, storage, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // Single undoable Mark state
         expectedModel.undoMark();
-        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, storage, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // No undoable Mark state
-        assertCommandFailure(new UndoCommand(), model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(), model, storage, UndoCommand.MESSAGE_FAILURE);
     }
 }

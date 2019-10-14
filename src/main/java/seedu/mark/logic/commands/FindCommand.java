@@ -6,6 +6,7 @@ import seedu.mark.commons.core.Messages;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
+import seedu.mark.storage.Storage;
 
 /**
  * Finds and lists all bookmarks in Mark whose identifiers contain any of the argument keywords.
@@ -27,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Storage storage) {
         requireNonNull(model);
         model.updateFilteredBookmarkList(predicate);
         return new CommandResult(

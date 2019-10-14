@@ -7,6 +7,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.CliSyntax;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.storage.Storage;
 
 /**
  * Creates a new folder in Mark.
@@ -31,15 +32,14 @@ public class AddFolderCommand extends Command {
      * @param folder the folder to add
      * @param parentFolder the parent folder to add it under
      */
-    public AddFolderCommand(Folder folder,
-            Folder parentFolder) {
+    public AddFolderCommand(Folder folder, Folder parentFolder) {
         requireNonNull(folder);
         this.folder = folder;
         this.parentFolder = parentFolder == null ? Folder.ROOT_FOLDER : parentFolder;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         if (model.hasFolder(folder)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }

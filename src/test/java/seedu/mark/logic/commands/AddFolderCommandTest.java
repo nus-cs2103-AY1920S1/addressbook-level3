@@ -18,6 +18,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.storage.StorageStub;
 
 public class AddFolderCommandTest {
     private static final String NON_NULL_STRING = "nonNull";
@@ -47,7 +48,7 @@ public class AddFolderCommandTest {
     public void execute_folderAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingFolderAdded modelStub = new ModelStubAcceptingFolderAdded();
 
-        CommandResult commandResult = new AddFolderCommand(NON_NULL_FOLDER, null).execute(modelStub);
+        CommandResult commandResult = new AddFolderCommand(NON_NULL_FOLDER, null).execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddFolderCommand.MESSAGE_SUCCESS, NON_NULL_FOLDER.folderName),
                 commandResult.getFeedbackToUser());
@@ -63,7 +64,7 @@ public class AddFolderCommandTest {
         ModelStub modelStub = new ModelStubWithFolder(NON_NULL_FOLDER);
 
         assertThrows(CommandException.class, AddFolderCommand.MESSAGE_DUPLICATE_FOLDER, () ->
-                addFolderCommand.execute(modelStub));
+                addFolderCommand.execute(modelStub, new StorageStub()));
     }
 
     @Test

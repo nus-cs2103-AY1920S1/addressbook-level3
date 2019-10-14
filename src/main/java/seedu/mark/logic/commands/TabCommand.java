@@ -6,6 +6,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.TabCommandResult;
 import seedu.mark.model.Model;
+import seedu.mark.storage.Storage;
 
 /**
  * Switches the main viewing tab to either the Dashboard, Online or Offline tab.
@@ -33,7 +34,7 @@ public class TabCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
 
         return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tab.toString()), tab);
     }

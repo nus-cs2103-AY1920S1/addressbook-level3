@@ -17,6 +17,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -37,7 +38,7 @@ public class DeleteCommandTest {
         expectedModel.deleteBookmark(bookmarkToDelete);
         expectedModel.saveMark();
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -45,7 +46,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookmarkList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, new StorageStub(),
+                Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -62,7 +64,7 @@ public class DeleteCommandTest {
         expectedModel.saveMark();
         showNoBookmark(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -75,7 +77,8 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, new StorageStub(),
+                Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test

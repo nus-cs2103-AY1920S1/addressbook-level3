@@ -17,10 +17,13 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.Storage;
+import seedu.mark.storage.StorageStub;
 
 public class GotoCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+    private Storage storage = new StorageStub();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -31,7 +34,7 @@ public class GotoCommandTest {
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
-        assertCommandSuccess(gotoCommand, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(gotoCommand, model, storage, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -39,7 +42,7 @@ public class GotoCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookmarkList().size() + 1);
         GotoCommand gotoCommand = new GotoCommand(outOfBoundIndex);
 
-        assertCommandFailure(gotoCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(gotoCommand, model, storage, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,7 +57,7 @@ public class GotoCommandTest {
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
-        assertCommandSuccess(gotoCommand, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(gotoCommand, model, storage, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -67,6 +70,6 @@ public class GotoCommandTest {
 
         GotoCommand gotoCommand = new GotoCommand(outOfBoundIndex);
 
-        assertCommandFailure(gotoCommand, model, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+        assertCommandFailure(gotoCommand, model, storage, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 }

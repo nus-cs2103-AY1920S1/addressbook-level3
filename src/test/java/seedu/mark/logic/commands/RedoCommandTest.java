@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.Storage;
+import seedu.mark.storage.StorageStub;
 
 public class RedoCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+    private Storage storage = new StorageStub();
 
     @Test
     public void execute() {
@@ -29,13 +32,13 @@ public class RedoCommandTest {
 
         // Two redoable Mark states
         expectedModel.redoMark();
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, storage, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // Single redoable Mark state
         expectedModel.redoMark();
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, storage, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // No redoable Mark state
-        assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, storage, RedoCommand.MESSAGE_FAILURE);
     }
 }
