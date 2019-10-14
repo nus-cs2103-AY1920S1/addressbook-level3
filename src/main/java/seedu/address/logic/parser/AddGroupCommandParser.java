@@ -40,7 +40,8 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            groupDescriptor.setGroupDescription(new GroupDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim()));
+            groupDescriptor.setGroupDescription(new GroupDescription(
+                    argMultimap.getValue(PREFIX_DESCRIPTION).get().trim()));
         }
 
         return new AddGroupCommand(groupDescriptor);

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.group.Group;
 import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.modelutil.TypicalModel;
 
@@ -33,7 +34,7 @@ class AddToGroupCommandTest {
         PersonToGroupMapping map = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(person.getName(), group.getGroupName()).execute(model);
+                new AddToGroupCommand(person.getName(), group.getGroupName(), Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_SUCCESS + map.toString());
@@ -48,7 +49,7 @@ class AddToGroupCommandTest {
     void execute_nullPerson() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(null, GROUPNAME1).execute(model);
+                new AddToGroupCommand(null, GROUPNAME1, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
@@ -60,7 +61,7 @@ class AddToGroupCommandTest {
     void execute_nullGroup() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(ALICE.getName(), null).execute(model);
+                new AddToGroupCommand(ALICE.getName(), null, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
@@ -72,7 +73,7 @@ class AddToGroupCommandTest {
     void execute_allNull() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(null, null).execute(model);
+                new AddToGroupCommand(null, null, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_FAILURE);
@@ -84,7 +85,7 @@ class AddToGroupCommandTest {
     void execute_duplicate() throws CommandException {
 
         CommandResult actualCommandResult =
-                new AddToGroupCommand(ALICE.getName(), GROUPNAME1).execute(model);
+                new AddToGroupCommand(ALICE.getName(), GROUPNAME1, Role.emptyRole()).execute(model);
 
         CommandResult expectedCommandResult =
                 new CommandResult(AddToGroupCommand.MESSAGE_DUPLICATE);

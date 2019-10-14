@@ -1,9 +1,12 @@
 package seedu.address.model.group;
 
+/**
+ * Description of the Group.
+ */
 public class GroupDescription {
     public final String description;
 
-    public GroupDescription (String description) {
+    public GroupDescription(String description) {
         this.description = description;
     }
 
@@ -11,17 +14,18 @@ public class GroupDescription {
         description = "";
     }
 
+    public static GroupDescription emptyDescription() {
+        return new GroupDescription();
+    }
+
     @Override
     public String toString() {
         return description;
     }
 
-    public static GroupDescription emptyDescription() {
-        return new GroupDescription();
-    }
-
     /**
      * Checks if this GroupDescription is equal to other GroupDescription.
+     *
      * @param other to be compared
      * @return boolean
      */

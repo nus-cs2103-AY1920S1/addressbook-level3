@@ -1,6 +1,5 @@
 package seedu.address.model.display.detailwindow;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import seedu.address.model.display.sidepanel.GroupDisplay;

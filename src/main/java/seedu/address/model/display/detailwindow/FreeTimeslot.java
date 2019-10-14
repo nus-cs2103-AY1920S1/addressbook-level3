@@ -1,10 +1,14 @@
 package seedu.address.model.display.detailwindow;
 
-import seedu.address.model.person.schedule.Venue;
-
 import java.time.LocalTime;
+
 import java.util.ArrayList;
 
+import seedu.address.model.person.schedule.Venue;
+
+/**
+ * A Free Timeslot class that represents the free time of the group schedule and the previous locations of the members.
+ */
 public class FreeTimeslot {
 
     private ArrayList<Venue> venues;
@@ -17,10 +21,10 @@ public class FreeTimeslot {
         this.startTime = startTime;
         this.endTime = endTime;
 
-        for(int i = 0; i < this.venues.size(); i++) {
-            if(this.venues.get(i) == null) {
+        for (int i = 0; i < this.venues.size(); i++) {
+            if (this.venues.get(i) == null) {
                 this.venues.remove(i);
-                i --;
+                i--;
             }
         }
     }

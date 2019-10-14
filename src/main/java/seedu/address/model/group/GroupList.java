@@ -62,8 +62,8 @@ public class GroupList {
     public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) {
         Group toEdit = findGroup(groupName);
 
-        if (groupDescriptor.getGroupName() != null &&
-                !groupDescriptor.getGroupName().equals(GroupName.emptyGroupName())) {
+        if (groupDescriptor.getGroupName() != null
+                && !groupDescriptor.getGroupName().equals(GroupName.emptyGroupName())) {
             GroupName otherName = groupDescriptor.getGroupName();
             if (findGroup(otherName) != null) {
                 return null;
@@ -71,13 +71,13 @@ public class GroupList {
             toEdit.setGroupName(groupDescriptor.getGroupName());
         }
 
-        if (groupDescriptor.getGroupRemark() != null &&
-                !groupDescriptor.getGroupRemark().equals(GroupRemark.emptyRemark())) {
+        if (groupDescriptor.getGroupRemark() != null
+                && !groupDescriptor.getGroupRemark().equals(GroupRemark.emptyRemark())) {
             toEdit.setGroupRemark(groupDescriptor.getGroupRemark());
         }
 
-        if (groupDescriptor.getGroupDescription() != null &&
-                !groupDescriptor.getGroupDescription().equals(GroupDescription.emptyDescription())) {
+        if (groupDescriptor.getGroupDescription() != null
+                && !groupDescriptor.getGroupDescription().equals(GroupDescription.emptyDescription())) {
             toEdit.setGroupDescription(groupDescriptor.getGroupDescription());
         }
 
@@ -133,6 +133,7 @@ public class GroupList {
 
     /**
      * Retrun an unmodifiable observable list of Groups.
+     *
      * @return ObservableList
      */
     public ObservableList<Group> asUnmodifiableObservableList() {
@@ -142,6 +143,7 @@ public class GroupList {
 
     /**
      * Returns an ArrayList of Groups.
+     *
      * @return ArrayList
      */
     public ArrayList<Group> getGroups() {

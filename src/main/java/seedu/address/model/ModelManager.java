@@ -296,7 +296,7 @@ public class ModelManager implements Model {
     public boolean isEventClash(Name name, Event event) {
         Person person = findPerson(name);
         Schedule schedule = person.getSchedule();
-        if(schedule.isClash(event)) {
+        if (schedule.isClash(event)) {
             return true;
         } else {
             return false;
@@ -430,7 +430,7 @@ public class ModelManager implements Model {
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
             Role role = findRole(personIds.get(i), groupId);
-            if(role == null) {
+            if (role == null) {
                 role = Role.emptyRole();
             }
             WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
@@ -516,7 +516,7 @@ public class ModelManager implements Model {
     @Override
     public NusModsData getNusModsData() {
         return nusModsData;
-    };
+    }
 
     @Override
     public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) {
@@ -541,7 +541,7 @@ public class ModelManager implements Model {
         }
 
         return module;
-    };
+    }
 
     //=========== Others =============================================================
 

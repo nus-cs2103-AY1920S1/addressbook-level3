@@ -20,6 +20,7 @@ public class Timeslot {
 
     /**
      * Compares if it is equal to another timeslot object.
+     *
      * @param timeslot to be compared
      * @return boolean
      */
@@ -49,19 +50,25 @@ public class Timeslot {
         return this.venue;
     }
 
+
+    /**
+     * Checks if there is a clash in this timeslot with another timeslot.
+     *
+     * @param other to be checked
+     * @return boolean
+     */
     public boolean isClash(Timeslot other) {
 
         LocalDateTime otherStartTime = other.getStartTime();
         LocalDateTime otherEndTime = other.getEndTime();
 
-        if( (otherStartTime.isBefore(startTime) && otherEndTime.isBefore(startTime)) ||
-                (otherStartTime.isAfter(endTime) && otherEndTime.isAfter(endTime)) ) {
+        if ((otherStartTime.isBefore(startTime) && otherEndTime.isBefore(startTime))
+                || (otherStartTime.isAfter(endTime) && otherEndTime.isAfter(endTime))) {
             return false;
         } else {
             return true;
         }
     }
-
 
 
     /**

@@ -48,9 +48,9 @@ public class AddEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         if (event == null) {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_WRONG_TIMINGS);
-        } else if(model.findPerson(name) == null) {
+        } else if (model.findPerson(name) == null) {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON);
-        } else if(model.isEventClash(name, event)) {
+        } else if (model.isEventClash(name, event)) {
             return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_CLASH_IN_EVENTS);
         } else if (model.addEvent(name, event)) {
 

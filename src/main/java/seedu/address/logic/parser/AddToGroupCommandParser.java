@@ -35,7 +35,7 @@ public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
         GroupName groupName = new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get());
         Role role = Role.emptyRole();
 
-        if(argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_REMARK).get());
         }
 

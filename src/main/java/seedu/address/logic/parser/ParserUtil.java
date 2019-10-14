@@ -222,7 +222,14 @@ public class ParserUtil {
         return new GroupRemark(trimmedRemark);
     }
 
-    public static GroupDescription parseGroupDescription (String description) throws ParseException {
+    /**
+     * Parse a String description, and trims the String.
+     *
+     * @param description String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static GroupDescription parseGroupDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
 

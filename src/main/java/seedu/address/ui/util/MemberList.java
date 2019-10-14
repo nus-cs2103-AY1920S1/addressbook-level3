@@ -9,8 +9,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.mapping.Role;
-import seedu.address.model.person.Email;
 import seedu.address.ui.UiPart;
 
 /**
@@ -63,13 +61,13 @@ public class MemberList extends UiPart<Region> {
 
             this.memberName.setText(name);
 
-            if(email.equals("")) {
+            if (email.equals("")) {
                 this.memberEmail.setText("No Email Available");
             } else {
                 this.memberEmail.setText(email);
             }
 
-            if(role.equals("")){
+            if (role.equals("")) {
                 this.memberRole.setText("No Role Available");
             } else {
                 this.memberRole.setText(role);

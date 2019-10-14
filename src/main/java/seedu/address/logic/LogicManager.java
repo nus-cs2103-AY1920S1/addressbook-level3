@@ -82,8 +82,8 @@ public class LogicManager implements Logic {
     public ObservableList<PersonDisplay> getFilteredPersonDisplayList() {
         ObservableList<Person> persons = model.getObservablePersonList();
         return FXCollections.observableList(persons.stream()
-                        .map(person -> new PersonDisplay((Person) person))
-                        .collect(Collectors.toCollection(ArrayList::new)));
+                .map(person -> new PersonDisplay((Person) person))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 
     @Override

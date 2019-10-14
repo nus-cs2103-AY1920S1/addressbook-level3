@@ -14,6 +14,7 @@ import static seedu.address.testutil.personutil.TypicalPersonDescriptor.WHITESPA
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.model.mapping.Role;
 
 class AddToGroupCommandParserTest {
 
@@ -25,12 +26,12 @@ class AddToGroupCommandParserTest {
         assertParseSuccess(parser,
                 WHITESPACE + PREFIX_NAME + ALICE.getName().toString()
                         + WHITESPACE + PREFIX_GROUPNAME + GROUPNAME1.toString(),
-                new AddToGroupCommand(ALICE.getName(), GROUPNAME1));
+                new AddToGroupCommand(ALICE.getName(), GROUPNAME1, Role.emptyRole()));
 
         assertParseSuccess(parser,
                 WHITESPACE + PREFIX_NAME + BENSON.getName().toString()
                         + WHITESPACE + PREFIX_GROUPNAME + GROUPNAME2.toString(),
-                new AddToGroupCommand(BENSON.getName(), GROUPNAME2));
+                new AddToGroupCommand(BENSON.getName(), GROUPNAME2, Role.emptyRole()));
     }
 
     @Test

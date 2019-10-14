@@ -45,9 +45,15 @@ public class Schedule {
         return output;
     }
 
+    /**
+     * Checks is there is a clash in the schedule with another event.
+     *
+     * @param event to be checked
+     * @return boolean
+     */
     public boolean isClash(Event event) {
-        for(int i = 0; i < events.size(); i++) {
-            if(event.isClash(events.get(i))) {
+        for (int i = 0; i < events.size(); i++) {
+            if (event.isClash(events.get(i))) {
                 return true;
             }
         }

@@ -1,12 +1,16 @@
 package seedu.address.model.display.detailwindow;
 
-import seedu.address.model.person.schedule.Venue;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import seedu.address.model.person.schedule.Venue;
+
+/**
+ * A FreeSchedule class that represents the free timeslot among the Persons for the week.
+ */
 public class FreeSchedule {
 
     private static final int DAYS_OF_THE_WEEK = 7;
@@ -59,8 +63,8 @@ public class FreeSchedule {
                     }
                 } else {
                     if (newFreeStartTime != null) {
-                        freeSchedule.get(DayOfWeek.of(i)).
-                                add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
+                        freeSchedule.get(DayOfWeek.of(i))
+                                .add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
                         newFreeStartTime = null;
                     }
                 }
@@ -68,8 +72,8 @@ public class FreeSchedule {
                 if (currentTime.equals(ENDTIME)) {
 
                     if (!isClash) {
-                        freeSchedule.get(DayOfWeek.of(i)).
-                                add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
+                        freeSchedule.get(DayOfWeek.of(i))
+                                .add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
                     }
                     break;
                 }

@@ -1,4 +1,5 @@
 package seedu.address.logic.parser;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
@@ -35,15 +36,18 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         GroupDescriptor groupDescriptor = new GroupDescriptor();
 
         if (argMultimap.getValue(PREFIX_GROUPNAME).isPresent()) {
-            groupDescriptor.setGroupName(ParserUtil.parseGroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()));
+            groupDescriptor.setGroupName(ParserUtil.parseGroupName(
+                    argMultimap.getValue(PREFIX_GROUPNAME).get()));
         }
 
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            groupDescriptor.setGroupRemark(ParserUtil.parseGroupRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+            groupDescriptor.setGroupRemark(ParserUtil.parseGroupRemark(
+                    argMultimap.getValue(PREFIX_REMARK).get()));
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            groupDescriptor.setGroupDescription(ParserUtil.parseGroupDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            groupDescriptor.setGroupDescription(ParserUtil.parseGroupDescription(
+                    argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         return new EditGroupCommand(groupName, groupDescriptor);
