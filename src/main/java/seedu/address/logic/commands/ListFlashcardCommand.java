@@ -5,8 +5,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import java.util.List;
 
-import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Lists all flashcards in the StudyBuddy application to the user.
