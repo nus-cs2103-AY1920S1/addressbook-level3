@@ -4,16 +4,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a countdown timer that runs during a Game session (if enabled).
  */
-public class GameTimer {
+public class GameTimer implements Runnable {
 
     private Timer timer;
-    private long currentMilliSeconds;
+    private long currentMilliSeconds; // the initial time allocated for the timer.
+    private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private GameManager.TimerDisplayCallBack timerDisplayCallBack;
@@ -32,12 +34,10 @@ public class GameTimer {
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
         this.currentMilliSeconds = durationInMs;
+        this.timeLeft = currentMilliSeconds;
         this.timer = new Timer(true);
     }
 
-    private void updateMilliSecondsLeft() {
-        currentMilliSeconds--;
-    }
 
     public double getTimeLeft() {
         return currentMilliSeconds;
@@ -55,19 +55,14 @@ public class GameTimer {
      * Starts the timer and updates the JavaFX UI periodically.
      * Runs on same thread as JavaFX UI.
      */
-    /**
-     * Starts the timer and updates the JavaFX UI periodically.
-     * Runs on same thread as JavaFX UI.
-     */
     public void run() {
         timer.schedule(new TimerTask() {
-            private long timeLeft = currentMilliSeconds;
             private boolean cancelled = false;
             public void run() {
                 Platform.runLater(() -> {
                     if (timeLeft >= 0) {
                         timerDisplayCallBack.updateTimerDisplay(
-                                mainMessage + ": " + ((double) timeLeft) / 100, timeLeft);
+                                mainMessage + ": " + ((double) timeLeft) / 1000, timeLeft);
                     } else {
                         /* Guard block to prevent concurrency issues. Timer.cancel() has no
                         * real time guarantee.
@@ -78,6 +73,7 @@ public class GameTimer {
                         cancelled = true;
 
                         timer.cancel();
+
                         // Show Time is Up.
                         timerDisplayCallBack.updateTimerDisplay("Time's up!", timeLeft);
 
@@ -93,6 +89,11 @@ public class GameTimer {
                     --timeLeft;
                 });
             }
-        }, 0, 10); // Start timer immediately, and refresh every 1ms
+        }, 0, 1); // Start timer immediately, and refresh every 1ms
     }
+
+    public long getElapsedMillis() {
+        return currentMilliSeconds - timeLeft;
+    }
+
 }

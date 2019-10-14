@@ -17,6 +17,7 @@ import seedu.address.logic.commands.app.HelpCommand;
 import seedu.address.logic.commands.app.ListCommand;
 import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.game.SkipCommand;
+import seedu.address.logic.commands.load.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -89,6 +90,9 @@ public class AddressBookParser {
 
         case SkipCommand.COMMAND_WORD:
             return new SkipCommand();
+
+        case BankCommand.COMMAND_WORD:
+            return new BankCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

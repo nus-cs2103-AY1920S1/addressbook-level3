@@ -16,8 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.game.GameCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -186,6 +186,19 @@ public class MainWindow extends UiPart<Stage> {
         gameManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        //Platform.exit();
+        //System.exit(0);
+    }
+
+    /**
+     * Opens the result stats window when the game is finished.
+     */
+    private void handleFinishedGame() {
+        if (gameManager.getGameStatistics() == null) {
+            throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
+                    + "is finished");
+        }
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics());
     }
 
     /**
@@ -208,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
+
             if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {
@@ -222,6 +236,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult instanceof GameCommandResult) {
+                GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
+                if (gameCommandResult.isFinishedGame()) {
+                    handleFinishedGame();
+                }
             }
 
             return commandResult;

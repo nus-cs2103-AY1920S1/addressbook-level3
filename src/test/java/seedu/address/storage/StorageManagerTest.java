@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
 
 //import seedu.address.commons.core.GuiSettings;
-//import seedu.address.model.wordbank.ReadOnlyWordBank;
+//import seedu.address.model.wordbank.ReadOnlyWordBankList;
 //import seedu.address.model.UserPrefs;
 //import seedu.address.model.wordbank.WordBank;
 
@@ -57,7 +57,7 @@ public class StorageManagerTest {
     //         */
     //        WordBank original = getTypicalWordBank();
     //        storageManager.saveAddressBook(original);
-    //        ReadOnlyWordBank retrieved = storageManager.readAddressBook().get();
+    //        ReadOnlyWordBankList retrieved = storageManager.readAddressBook().get();
     //        assertEquals(original, new WordBank(retrieved));
     //    }
 

@@ -25,13 +25,11 @@ import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**
- * Start the game.
+ * Starts the game.
  */
 public class StartCommand extends SwitchCommand {
 
     public static final String COMMAND_WORD = "start";
-    public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";
-    public static final String FIRST_QUESTION_MESSAGE = "guess the keyword! ";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -54,21 +52,19 @@ public class StartCommand extends SwitchCommand {
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
         addressBookStorage.getWordBankList();
+        String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
             Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
             if (thisBank.isPresent()) {
                 wordBank = (WordBank) thisBank.get();
+                usedWordBankTitle = wordBankName;
             }
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
         Game newGame = new Game(wordBank);
         model.setGame(newGame);
-        String currQuestion = model.getGame().showCurrQuestion();
-        return new CommandResult(
-                MESSAGE_GAME_START_SUCCESS + FIRST_QUESTION_MESSAGE
-                        + "\n"
-                        + currQuestion,
-                true);
+        String currQuestion = model.getGame().getCurrQuestion();
+        return new StartCommandResult(usedWordBankTitle, currQuestion);
     }
 }
