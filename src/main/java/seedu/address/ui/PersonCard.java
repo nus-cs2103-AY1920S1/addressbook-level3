@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     private Label participation;
     @FXML
     private Label result;
+    @FXML
+    private ImageView picture;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -47,6 +51,8 @@ public class PersonCard extends UiPart<Region> {
         attendance.setText("Attendance: " + person.getAttendance().value);
         participation.setText("Class Participation: " + person.getParticipation().value);
         result.setText("Result: " + person.getResult().value);
+        Image studentPicture = new Image("file:" + person.getPicture().value);
+        picture.setImage(studentPicture);
     }
 
     @Override
