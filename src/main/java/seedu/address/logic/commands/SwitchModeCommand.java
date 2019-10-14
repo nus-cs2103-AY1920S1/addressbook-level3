@@ -43,7 +43,7 @@ public class SwitchModeCommand extends Command {
         default:
             feedBackString = null; // To be re-implemented
         }
-        return new CommandResult(feedBackString, false, false,true,
+        return new CommandResult(feedBackString, false, false, true,
                 Optional.of(targetMode), Optional.empty());
     }
 
