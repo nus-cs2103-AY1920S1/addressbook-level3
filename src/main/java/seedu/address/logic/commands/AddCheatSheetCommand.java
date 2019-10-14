@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
 
+/**
+ * Adds a cheatsheet to the address book.
+ */
 public class AddCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = "addcs";
 

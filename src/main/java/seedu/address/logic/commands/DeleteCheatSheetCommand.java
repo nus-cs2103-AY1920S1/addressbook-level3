@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
 
+/**
+ * Deletes a cheatsheet identified using it's displayed index from the address book.
+ */
 public class DeleteCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
