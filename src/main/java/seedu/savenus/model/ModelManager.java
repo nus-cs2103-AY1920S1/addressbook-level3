@@ -169,8 +169,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException {
         requireNonNull(newRemainingBudget);
+        if (newRemainingBudget.getRemainingBudget().compareTo(new BigDecimal(1000000.00)) == 1) {
+            throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
+        }
         menu.getWallet().setRemainingBudget(newRemainingBudget);
     }
 
@@ -180,8 +183,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
+    public void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException {
         requireNonNull(newDaysToExpire);
+        if (newDaysToExpire.getDaysToExpire() > 365) {
+            throw new CommandException(DaysToExpire.INTEGER_CONSTRAINTS);
+        }
         menu.getWallet().setDaysToExpire(newDaysToExpire);
     }
 

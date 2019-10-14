@@ -32,11 +32,19 @@ public class RemainingBudgetTest {
         // invalid remainingBudget
         assertFalse(RemainingBudget.isValidRemainingBudget("^")); // only non-alphanumeric characters
         assertFalse(RemainingBudget.isValidRemainingBudget("prata*")); // contains non-alphanumeric characters
-        // assertFalse(RemainingBudget.isValidRemainingBudget("123400000000000000")); // too long remainingBudget
         assertFalse(RemainingBudget.isValidRemainingBudget("-123.50")); // negative remainingBudget
 
         // valid remainingBudget
         assertTrue(RemainingBudget.isValidRemainingBudget("123.50")); // valid remainingBudget
+    }
+
+    public void isOutOfBoundsTest() {
+
+        // in bound remainingBudget
+        assertFalse(new RemainingBudget("10000").isOutOfBounds()); // only non-alphanumeric characters
+
+        // out of bounds remainingBudget
+        assertTrue(new RemainingBudget("1000000000").isOutOfBounds()); // only non-alphanumeric characters
     }
 
     @Test

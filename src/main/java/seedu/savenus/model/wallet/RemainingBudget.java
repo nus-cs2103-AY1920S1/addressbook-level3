@@ -88,6 +88,6 @@ public class RemainingBudget {
         }
 
         RemainingBudget otherRemainingBudget = (RemainingBudget) other;
-        return otherRemainingBudget.getRemainingBudget() == this.getRemainingBudget();
+        return otherRemainingBudget.getRemainingBudget().compareTo(this.getRemainingBudget()) == 0;
     }
 }

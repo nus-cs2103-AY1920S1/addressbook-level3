@@ -34,9 +34,10 @@ public class BudgetCommandTest {
                 testRemainingBudget.toString(), testDaysToExpire.toString());
 
         ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs());
-        expectedModel.setRemainingBudget(testRemainingBudget);
-        expectedModel.setDaysToExpire(testDaysToExpire);
-
+        try {
+            expectedModel.setRemainingBudget(testRemainingBudget);
+            expectedModel.setDaysToExpire(testDaysToExpire);
+        } catch (Exception e) {}
         assertCommandSuccess(budgetCommand, model, expectedMessage, expectedModel);
     }
 

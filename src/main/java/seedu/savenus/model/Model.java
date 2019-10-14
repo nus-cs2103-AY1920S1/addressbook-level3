@@ -109,7 +109,7 @@ public interface Model {
     /**
      * Setter for current user's {@code Budget} to new {@code Budget}
      */
-    void setRemainingBudget(RemainingBudget newRemainingBudget);
+    void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException;
 
     /**
      * Getter for current user's {@code daysToExpire}
@@ -119,7 +119,7 @@ public interface Model {
     /**
      * Setter for current user's {@code DaysToExpire} to new {@code DaysToExpire}
      */
-    void setDaysToExpire(DaysToExpire newDaysToExpire);
+    void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException;
 
     /**
      * Deducts the input price from wallet, returns true if successful and false otherwise.

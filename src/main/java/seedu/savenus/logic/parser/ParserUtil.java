@@ -61,18 +61,14 @@ public class ParserUtil {
         BigDecimal budgetAmount = new BigDecimal(splitWalletString[0].contains(".")
                 ? splitWalletString[0]
                 : String.format("%s.00", splitWalletString[0]));
-        if (budgetAmount.compareTo(new BigDecimal(1000000.00)) == 1) {
-            throw new ParseException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
-        }
+
         int parsedDaysToExpire;
         try {
             parsedDaysToExpire = Integer.parseInt(splitWalletString[1]);
         } catch (NumberFormatException e) {
             throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
         }
-        if (parsedDaysToExpire > 365) {
-            throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
-        }
+
         return new Wallet(new RemainingBudget(budgetAmount.toString()),
                 new DaysToExpire(splitWalletString[1]));
     }

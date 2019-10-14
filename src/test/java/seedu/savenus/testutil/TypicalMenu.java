@@ -103,7 +103,7 @@ public class TypicalMenu {
                 new Purchase(new Name("Ji Fan"), new Price("3.99"), new TimeOfPurchase("1570976664361")),
                 new Purchase(new Name("Wagyu steak"), new Price("50.00"), new TimeOfPurchase("1570976665687"))
         ));
-        menu.setWallet(new Wallet("100", "30"));
+        menu.setWallet(new Wallet("100.00", "30"));
         return menu;
     }
 

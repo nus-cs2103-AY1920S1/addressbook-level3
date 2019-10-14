@@ -32,11 +32,18 @@ public class DaysToExpireTest {
         // invalid daysToExpire
         assertFalse(DaysToExpire.isValidDaysToExpire("^")); // only non-alphanumeric characters
         assertFalse(DaysToExpire.isValidDaysToExpire("prata*")); // contains non-alphanumeric characters
-        // assertFalse(DaysToExpire.isValidDaysToExpire("1234")); // too long daysToExpire
         assertFalse(DaysToExpire.isValidDaysToExpire("-10")); // negative daysToExpire
 
         // valid daysToExpire
         assertTrue(DaysToExpire.isValidDaysToExpire("123")); // valid daysToExpire
+    }
+
+    public void isOutOfBoundsTest() {
+        // in bound remainingBudget
+        assertFalse(new DaysToExpire("100").isOutOfBounds()); // only non-alphanumeric characters
+
+        // out of bounds remainingBudget
+        assertTrue(new DaysToExpire("1000000000").isOutOfBounds()); // only non-alphanumeric characters
     }
 
     @Test
