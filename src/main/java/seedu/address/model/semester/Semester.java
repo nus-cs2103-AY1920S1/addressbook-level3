@@ -53,51 +53,49 @@ public class Semester {
         return isBlocked;
     }
 
-    public String getReasonForBlocked() {
-        return reasonForBlocked;
-    }
-
-    public boolean isExpanded() {
-        return isExpanded;
-    }
-
-    public int getMcCount() {
-        return modules.getMcCount();
-    }
-
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
+    }
+
+    public String getReasonForBlocked() {
+        return reasonForBlocked;
     }
 
     public void setReasonForBlocked(String reasonForBlocked) {
         this.reasonForBlocked = reasonForBlocked;
     }
 
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
     public void setExpanded(boolean expanded) {
         isExpanded = expanded;
+    }
+
+    public int getMcCount() {
+        return modules.getMcCount();
     }
 
     public void addModule(Module module) {
         modules.add(module);
     }
 
-    public void removeModule(Module module) {
+    public void removeModule(String module) {
         modules.remove(module);
+    }
+
+    public boolean hasModule(String module) {
+        return this.modules.contains(module);
     }
 
     // NOTE: this is for the GUI to use for Milestone 2
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(semesterName + ":" + "\n");
-        if (modules != null) {
-            Iterator<Module> moduleIterator = modules.iterator();
-            while (moduleIterator.hasNext()) {
-                Module module = moduleIterator.next();
-                result.append(module.toString() + "\n");
-            }
-        } else {
-            result.append("NO MODULES FOUND \n");
+        result.append(semesterName).append(":").append("\n");
+        for (Module module : modules) {
+            result.append(module.toString()).append("\n");
         }
 
         return result.toString();

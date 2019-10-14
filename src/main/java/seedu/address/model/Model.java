@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -114,4 +116,37 @@ public interface Model {
      * Returns the module information.
      */
     String getModuleInformation(String moduleCode);
+
+
+    /**
+     * Returns true if a Semester contains a module with same identity as {@code module}.
+     */
+    boolean semesterHasModule(String moduleCode, SemesterName semesterName);
+
+    /**
+     * Adds specified module to specified semester
+     */
+    void addModule(String moduleCode, SemesterName sem);
+
+    /**
+     * Blocks specified semester with given reason
+     */
+    void blockSemester(SemesterName sem, String reason);
+
+    /**
+     * Removes module from semester
+     */
+    void removeModule(String moduleCode, SemesterName semesterName);
+
+    /**
+     * Checks whether or not the specified semester contains a UE
+     */
+    boolean semesterHasUE(SemesterName semesterName);
+
+    void renameUEInSemester(SemesterName semesterName, String moduleCode);
+
+    void setSemester(SemesterName semester);
+
+    Semester getSemester(SemesterName semesterName);
+
 }
