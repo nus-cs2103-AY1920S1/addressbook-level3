@@ -118,15 +118,11 @@ public class Reimbursement {
      * @param date the date by which the reimbursement is due.
      * @throws InvalidDeadlineException If the date is in an incorrect format.
      */
-    public void addDeadline(String date) throws InvalidDeadlineException {
-        if (date.length() != 8) {
-            throw new InvalidDeadlineException();
-        } else {
-            int year = Integer.parseInt(date.substring(0, 4));
-            int month = Integer.parseInt(date.substring(4, 6));
-            int day = Integer.parseInt(date.substring(6, 8));
-            deadline = new Deadline(year, month, day);
-        }
+    public void addDeadline(String date) {
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(4, 6));
+        int day = Integer.parseInt(date.substring(6, 8));
+        deadline = new Deadline(year, month, day);
     }
 
     /**
@@ -135,12 +131,11 @@ public class Reimbursement {
      * @param date The date of the deadline.
      */
     public void matchDeadline(String date) {
-        try {
+        if(date.length() == 8) {
             this.addDeadline(date);
-        } catch (InvalidDeadlineException e) {
+        }else {
             deadline = new Deadline();
         }
-
     }
 
 

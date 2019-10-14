@@ -91,10 +91,7 @@ public class ReimbursementList {
         }
     }
 
-    public Reimbursement get(int index) throws NoSuchIndexException {
-        if (index >= list.size()) {
-            throw new NoSuchIndexException(invalidIndex);
-        }
+    public Reimbursement get(int index) {
         return list.get(index);
     }
 

@@ -39,19 +39,22 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
+    //transaction
     protected seedu.address.transaction.model.ModelManager transactionModel;
     protected seedu.address.transaction.storage.StorageManager transactionStorage;
+    protected seedu.address.transaction.logic.LogicManager transactionLogic;
+    //reimbursement
     protected seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     protected seedu.address.reimbursement.model.ModelManager reimbursementModel;
-    protected seedu.address.transaction.logic.LogicManager transactionLogic;
     protected seedu.address.reimbursement.logic.LogicManager reimbursementLogic;
-
+    //cashier
     protected seedu.address.cashier.logic.LogicManager cashierLogic;
     protected seedu.address.cashier.model.ModelManager cashierModel;
     protected seedu.address.cashier.storage.StorageManager cashierStorage;
@@ -75,6 +78,7 @@ public class MainApp extends Application {
 
 
         //ui = new UiManager(logic);
+
         //For Transaction Storage and Manager
         transactionStorage =
                 new seedu.address.transaction.storage.StorageManager("data/transactionHistory.txt", model);
@@ -83,16 +87,31 @@ public class MainApp extends Application {
 
         //For Reimbursement Storage and Manager
         reimbursementStorage =
-                new seedu.address.reimbursement.storage.StorageManager("data"
-                        + "/reimbursementInformation.txt", "data/transactionHistory.txt", model);
+                new seedu.address.reimbursement.storage.StorageManager(FILE_PATH_REIMBURSEMENT, transactionStorage);
         reimbursementModel =
-                new seedu.address.reimbursement.model.ModelManager(reimbursementStorage);
+                new seedu.address.reimbursement.model.ModelManager(reimbursementStorage.readReimbursementList());
 
         //For Inventory Storage and Manager
         seedu.address.inventory.storage.StorageManager inventoryStorage =
                 new seedu.address.inventory.storage.StorageManager("data/inventoryInformation.txt");
         seedu.address.inventory.model.ModelManager inventoryManager =
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
+
+        //All logic
+//        seedu.address.transaction.logic.LogicManager transactionLogic = new
+//                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, storage,
+//                reimbursementModel, reimbursementStorage);
+//        seedu.address.reimbursement.logic.LogicManager reimbursementLogic = new
+//                seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
+//                transactionModel, transactionStorage, model);
+
+
+        //For Cashier Storage and Manager
+        cashierStorage =
+                new seedu.address.cashier.storage.StorageManager("data"
+                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
+        cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierStorage);
 
         //All logic
         seedu.address.transaction.logic.LogicManager transactionLogic = new
@@ -105,21 +124,6 @@ public class MainApp extends Application {
                 seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage, model, storage,
                 reimbursementModel, reimbursementStorage, transactionModel, transactionStorage, inventoryManager,
                 inventoryStorage);
-
-        //For Cashier Storage and Manager
-        cashierStorage =
-                new seedu.address.cashier.storage.StorageManager("data"
-                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
-        cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierStorage);
-
-        //All logic
-        transactionLogic = new
-                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, storage,
-                reimbursementModel, reimbursementStorage);
-        reimbursementLogic = new
-                seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
-                transactionModel, transactionStorage, model);
         cashierLogic = new
                 seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
                 reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);
@@ -259,7 +263,8 @@ public class MainApp extends Application {
             storage.saveUserPrefs(model.getUserPrefs());
             transactionModel.sortReset();
             transactionStorage.writeFile(transactionModel.getTransactionList());
-        } catch (IOException e) {
+            reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
+        } catch (Exception e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
     }
