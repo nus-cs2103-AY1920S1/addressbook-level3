@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.StatsPayload;
 
@@ -15,7 +16,7 @@ public class CommandResult {
 
     private final String feedbackToUser;
     private final List<UiChange> uiChange;
-    private final StatsPayload statsPayload;
+    private final Optional<StatsPayload> statsPayload;
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
@@ -24,13 +25,19 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.uiChange = Arrays.asList(type);
-        this.statsPayload = null;
+        this.statsPayload = Optional.empty();
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and {@code statsPayload}
+     * and specified {@Code type},
+     * @param statsPayload user input argument for statistics command
+     */
     public CommandResult(String feedbackToUser, StatsPayload statsPayload, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.uiChange = Arrays.asList(type);
-        this.statsPayload = statsPayload;
+        this.statsPayload = Optional.of(statsPayload);
     }
 
     public List<UiChange> getUiChange() {
@@ -38,15 +45,11 @@ public class CommandResult {
     }
 
     public boolean hasPayloadObject() {
-        return this.statsPayload != null;
+        return this.statsPayload.isPresent();
     }
 
     public StatsPayload getPayloadObject() {
-        if (this.hasPayloadObject()) {
-            return this.statsPayload;
-        } else {
-            throw new NullPointerException();
-        }
+        return this.statsPayload.get();
     }
 
     public String getFeedbackToUser() {

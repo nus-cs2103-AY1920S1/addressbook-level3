@@ -317,6 +317,12 @@ public class ParserUtil {
             throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
         }
         switch (trimmedStatsType) {
+        case "DEFAULT_PROFIT":
+            return StatisticType.DEFAULT_PROFIT;
+        case "DEFAULT_COST":
+            return StatisticType.DEFAULT_COST;
+        case "DEFAULT_REVENUE":
+            return StatisticType.DEFAULT_REVENUE;
         case "PROFIT":
             return StatisticType.PROFIT;
         case "COST":
@@ -324,7 +330,8 @@ public class ParserUtil {
         case "REVENUE":
             return StatisticType.REVENUE;
         default:
-            throw new ParseException("if reach here means my regex wrong");
+            throw new ParseException("Invalid type of Statistics. Only possible ones include:\n"
+                    + "DEFAULT_PROFIT, DEFAULT_COST, DEFAULT_REVENUE, PROFIT, COST, REVENUE");
         }
     }
 

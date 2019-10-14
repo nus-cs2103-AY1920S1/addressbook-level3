@@ -23,7 +23,11 @@ public class Messages {
 
 
     public static final String DATE_MESSAGE_CONSTRAINTS =
-            "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank";
+            "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "
+                    + "for PROFIT, COST, REVENUE type";
+    public static final String OPTIONAL_DATE_MESSAGE_CONSTRAINTS =
+            "Date should have starting and ending in the format YYYY.MM.DD\n"
+                    + "Example: d1/2018.10.05 d2/2019.04.12";
     public static final String STATS_MESSAGE_CONSTRAINTS =
             "Stat type should only be either PROFIT, REVENUE or COST, and should not be blank.";
     public static final String MESSAGE_INVALID_DATE_INPUT_FORMAT =
