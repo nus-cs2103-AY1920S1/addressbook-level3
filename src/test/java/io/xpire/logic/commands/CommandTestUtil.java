@@ -25,6 +25,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_CORN = "Corn";
     public static final String VALID_NAME_DUCK = "Duck";
     public static final String VALID_NAME_EGGS = "Eggs";
+    public static final String VALID_NAME_FAKECRABSTICK = "Fake Crab Stick";
     public static final String VALID_NAME_JELLY = "Jelly";
     public static final String VALID_NAME_KIWI = "Kiwi";
 
@@ -33,6 +34,7 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_CORN = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_DUCK = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_EGGS = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_FAKECRABSTICK = "15/12/2019";
     public static final String VALID_EXPIRY_DATE_JELLY = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
 
@@ -41,6 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_QUANTITY_CORN = "2";
     public static final String VALID_QUANTITY_DUCK = "1";
     public static final String VALID_QUANTITY_EGGS = "1";
+    public static final String VALID_QUANTITY_FAKECRABSTICK = "1";
     public static final String VALID_QUANTITY_JELLY = "4";
     public static final String VALID_QUANTITY_KIWI = "1";
 
@@ -54,6 +57,7 @@ public class CommandTestUtil {
     public static final String VALID_REMINDER_THRESHOLD_CORN = "0";
     public static final String VALID_REMINDER_THRESHOLD_DUCK = "0";
     public static final String VALID_REMINDER_THRESHOLD_EGGS = "7";
+    public static final String VALID_REMINDER_THRESHOLD_FAKECRABSTICK = "0";
     public static final String VALID_REMINDER_THRESHOLD_JELLY = "3";
     public static final String VALID_REMINDER_THRESHOLD_KIWI = "0";
 

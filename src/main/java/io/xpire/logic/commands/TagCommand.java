@@ -2,10 +2,12 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -39,6 +41,12 @@ public class TagCommand extends Command {
         this.tagItemDescriptor = new TagItemDescriptor(tagItemDescriptor);
     }
 
+    public TagCommand(Index index, String[] str) {
+        this.index = index;
+        this.tagItemDescriptor = new TagItemDescriptor();
+        this.tagItemDescriptor.setTags(Arrays.stream(str).map(Tag::new).collect(Collectors.toSet()));
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -52,7 +60,6 @@ public class TagCommand extends Command {
         Item taggedItem = createTaggedItem(itemToTag, this.tagItemDescriptor);
 
         model.setItem(itemToTag, taggedItem);
-        model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
 
     }
