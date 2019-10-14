@@ -27,7 +27,7 @@ public class ExpenseBuilder {
     public ExpenseBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
-        date = new Date(DEFAULT_DATE, true);
+        date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
     }
 
@@ -52,7 +52,7 @@ public class ExpenseBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withTags(String ... tags) {
+    public ExpenseBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -66,15 +66,22 @@ public class ExpenseBuilder {
     }
 
     /**
+     * Sets empty {@code Date} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withDate() {
+        this.date = new Date();
+        return this;
+    }
+
+    /**
      * Sets the {@code Date} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withDate(String date) {
-        this.date = new Date(date, true);
+        this.date = new Date(date);
         return this;
     }
 
     public Expense build() {
         return new Expense(name, amount, date, tags);
     }
-
 }

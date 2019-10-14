@@ -76,7 +76,7 @@ public class ParserUtil {
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedDate, true);
+        return new Date(trimmedDate);
     }
 
     /**

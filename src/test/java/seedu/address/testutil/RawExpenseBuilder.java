@@ -69,7 +69,7 @@ public class RawExpenseBuilder {
      * Sets the {@code Date} of the {@code Expense} that we are building.
      */
     public RawExpenseBuilder withDate(String date) {
-        this.date = new Date(date, true);
+        this.date = new Date(date);
         return this;
     }
 

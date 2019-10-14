@@ -36,15 +36,35 @@ public class Date {
 
     /**
      * Constructs an {@code Date}.
-     * @param date A valid date.
-     * @param ifConverted
-     *
      */
-    public Date(String date, boolean ifConverted) {
+    public Date() {
+        rawValue = null;
+        value = null;
+    }
+
+    /**
+     * Constructs an {@code Date}.
+     *
+     * @param date A valid date.
+     */
+    public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         rawValue = date;
-        value = ifConverted ? convertDate(date) : date;
+        value = convertDate(date);
+    }
+
+    /**
+     * Constructs an {@code Date}.
+     *
+     * @param rawDate     A valid rawDate.
+     * @param ifConverted Status to determine whether to convert the date
+     */
+    public Date(String rawDate, boolean ifConverted) {
+        requireNonNull(rawDate);
+        checkArgument(isValidDate(rawDate), MESSAGE_CONSTRAINTS);
+        rawValue = rawDate;
+        value = ifConverted ? convertDate(rawDate) : rawDate;
     }
 
     /**

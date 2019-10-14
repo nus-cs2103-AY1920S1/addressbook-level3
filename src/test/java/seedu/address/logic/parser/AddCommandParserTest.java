@@ -85,10 +85,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_RUM + VALID_AMOUNT_RUM + DATE_DESC_RUM,
                 expectedMessage);
 
-        // missing date prefix
-        assertParseFailure(parser, NAME_DESC_RUM + AMOUNT_DESC_RUM + VALID_DATE_RUM,
-                expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_RUM + VALID_AMOUNT_RUM + VALID_DATE_RUM,
                 expectedMessage);

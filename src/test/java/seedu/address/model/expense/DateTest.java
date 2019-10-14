@@ -10,13 +10,13 @@ public class DateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Date(null, false));
+        assertThrows(NullPointerException.class, () -> new Date(null));
     }
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
         String invalidDate = "";
-        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate, false));
+        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate));
     }
 
     @Test

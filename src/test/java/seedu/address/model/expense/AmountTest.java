@@ -34,6 +34,7 @@ public class AmountTest {
 
         // valid amounts
         assertTrue(Amount.isValidAmount("1")); // exactly 1 digit
+        assertTrue(Amount.isValidAmount("1.1")); // exactly 1 decimal
         assertTrue(Amount.isValidAmount("1.15")); // exactly 2 decimals
         assertTrue(Amount.isValidAmount("1472745.15")); // less than 12 digits and exactly 2 decimals
         assertTrue(Amount.isValidAmount("93121534")); // less than 12 digits

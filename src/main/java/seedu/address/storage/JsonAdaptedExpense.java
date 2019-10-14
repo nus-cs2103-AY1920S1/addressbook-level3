@@ -88,7 +88,7 @@ class JsonAdaptedExpense {
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDate = new Date(date, true);
+        final Date modelDate = new Date(date);
 
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
         return new Expense(modelName, modelAmount, modelDate, modelTags);
