@@ -6,6 +6,7 @@ import static seedu.address.transaction.logic.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
 
+import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
@@ -51,11 +52,12 @@ public class AddCommandParser {
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {
-            System.out.println("invalid add command");
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
         } catch (Exception e) {
-            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
-        }
+         throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
+         }
     }
 
     /**

@@ -2,7 +2,6 @@ package seedu.address.transaction.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import seedu.address.person.model.person.Person;
 
 /**
