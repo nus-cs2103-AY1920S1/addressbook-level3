@@ -2,8 +2,8 @@ package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 

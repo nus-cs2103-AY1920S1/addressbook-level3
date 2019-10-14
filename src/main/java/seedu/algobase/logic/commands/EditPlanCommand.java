@@ -1,8 +1,9 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
+
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
