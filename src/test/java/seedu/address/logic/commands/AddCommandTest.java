@@ -209,7 +209,6 @@ public class AddCommandTest {
         @Override
         public boolean hasTestFlashCard() {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -219,6 +218,11 @@ public class AddCommandTest {
 
         @Override
         public String getTestAnswer() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<FlashCard> getFlashCardList() {
             throw new AssertionError("This method should not be called.");
         }
     }

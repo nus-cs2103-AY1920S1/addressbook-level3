@@ -109,7 +109,9 @@ public interface Model {
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
 
     //@@author keiteo
-    // TODO: replace arraylist with actual decks
+
+    ObservableList<FlashCard> getFlashCardList();
+
     void initializeTestModel(ArrayList<FlashCard> testList);
 
     boolean hasTestFlashCard();

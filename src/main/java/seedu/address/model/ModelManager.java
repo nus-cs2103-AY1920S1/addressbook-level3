@@ -152,6 +152,11 @@ public class ModelManager implements Model {
     }
 
     //@@author keiteo
+    @Override
+    public ObservableList<FlashCard> getFlashCardList() {
+        return addressBook.getFlashcardList();
+    }
+
     //=========== FlashCardTestModel ================================================================================
     @Override
     public void initializeTestModel(ArrayList<FlashCard> testList) {
