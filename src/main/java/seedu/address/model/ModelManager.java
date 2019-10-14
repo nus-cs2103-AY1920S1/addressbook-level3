@@ -3,12 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.net.ConnectException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import org.json.simple.JSONObject;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -42,7 +44,7 @@ import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 //import seedu.address.websocket.ApiCache;
 import seedu.address.websocket.NusModsApi;
-import seedu.address.websocket.NusModsApiParser;
+import seedu.address.websocket.NusModsParser;
 
 
 /**
@@ -524,12 +526,17 @@ public class ModelManager implements Model {
                 Path path = this.userPrefs.getDetailedModuleListFilePath();
                 String key = acadYear.toString() + " " + moduleCode.toString();
                 //TODO: implement ApiCache first
-                // module = NusModsApiParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
+                // module = NusModsParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
                 throw ex1;
             } catch (ModuleNotFoundException ex2) {
                 try {
-                    module = NusModsApiParser.parseModule(new NusModsApi(acadYear).getModule(moduleCode));
-                } catch (ModuleNotFoundException | ConnectException ex3) {
+                    Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
+                    if (moduleObj.isPresent()) {
+                        module = NusModsParser.parseModule(moduleObj.get());
+                    } else {
+                        throw new ModuleNotFoundException();
+                    }
+                } catch (ModuleNotFoundException ex3) {
                     throw new ModuleNotFoundException();
                 }
             }
