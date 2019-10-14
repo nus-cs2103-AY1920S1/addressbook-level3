@@ -43,21 +43,7 @@ public class Appeal {
     private boolean isModified;
 
 
-    /**
-     * Returns true if a given string is a valid appeal Id.
-     */
-    public static boolean isValidAppealId(String test) {
-        return test.matches(VALIDATION_REGEX_APPEAL_CODE);
-    }
 
-    /**
-     * Returns true if given string is of correct type
-     */
-    public static boolean isValidAppealType(String test) {
-        return test.equalsIgnoreCase("increase workload")
-                || test.equalsIgnoreCase("add module")
-                || test.equalsIgnoreCase("remove module");
-    }
 
     /**
      * Constructor for Appeal object when it is loaded from file
@@ -304,6 +290,22 @@ public class Appeal {
                     this.moduleToAdd, this.moduleToDrop, false, "rejected", remark);
         }
         return appeal;
+    }
+
+    /**
+     * Returns true if a given string is a valid appeal Id.
+     */
+    public static boolean isValidAppealId(String test) {
+        return test.matches(VALIDATION_REGEX_APPEAL_CODE);
+    }
+
+    /**
+     * Returns true if given string is of correct type
+     */
+    public static boolean isValidAppealType(String test) {
+        return test.equalsIgnoreCase("increase workload")
+                || test.equalsIgnoreCase("add module")
+                || test.equalsIgnoreCase("remove module");
     }
 
 
