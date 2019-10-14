@@ -1,13 +1,14 @@
 package seedu.address.model.loan;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // TODO add more methods
 // will implement remove, etc when i implement my return command
 /**
  * A list of {@code Loan} objects that represents the loans a borrower currently has.
  */
-public class LoanList {
+public class LoanList implements Iterable<Loan> {
     private ArrayList<Loan> loanList;
 
     public LoanList() {
@@ -28,5 +29,10 @@ public class LoanList {
      */
     public boolean isEmpty() {
         return loanList.isEmpty();
+    }
+
+    @Override
+    public Iterator<Loan> iterator() {
+        return loanList.iterator();
     }
 }

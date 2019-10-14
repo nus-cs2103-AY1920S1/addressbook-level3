@@ -40,6 +40,14 @@ public class Borrower {
         this.currentLoanList = new LoanList();
     }
 
+    public Borrower(Name name, Phone phone, Email email, BorrowerId borrowerId, LoanList currentLoanList) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.borrowerId = borrowerId;
+        this.currentLoanList = currentLoanList;
+    }
+
     public Name getName() {
         return name;
     }
@@ -54,6 +62,10 @@ public class Borrower {
 
     public Email getEmail() {
         return email;
+    }
+
+    public LoanList getCurrentLoanList() {
+        return currentLoanList;
     }
 
     public void addNewLoan(Loan loan) {

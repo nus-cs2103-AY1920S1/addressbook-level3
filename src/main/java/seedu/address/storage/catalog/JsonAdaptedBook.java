@@ -3,6 +3,7 @@ package seedu.address.storage.catalog;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,8 @@ public class JsonAdaptedBook {
      * Constructs a {@code JsonAdaptedBook} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedBook(@JsonProperty("title") String title, @JsonProperty("serialNumber") String serialNumber,
+    public JsonAdaptedBook(@JsonProperty("title") String title,
+                           @JsonProperty("serialNumber") String serialNumber,
                            @JsonProperty("author") String author,
                            @JsonProperty("loan") String loan,
                            @JsonProperty("genres") List<JsonAdaptedTag> genres) {
@@ -54,13 +56,14 @@ public class JsonAdaptedBook {
         title = source.getTitle().value;
         serialNumber = source.getSerialNumber().value;
         author = source.getAuthor().value;
-        boolean hasLoan = source.getLoan().isPresent();
-        if (hasLoan) {
-            // TODO CHANGE TO USE LOANID
-            loan = source.getLoan().get().toString(); //toString for now
+
+        Optional<Loan> optionalLoan = source.getLoan();
+        if (optionalLoan.isPresent()) {
+            loan = optionalLoan.get().getLoanId().toString();
         } else {
             loan = null;
         }
+
         genres.addAll(source.getGenres().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -100,6 +103,9 @@ public class JsonAdaptedBook {
         final Author modelAuthor = new Author(author);
         // TODO model Loan in book json
         final Loan modelLoan = null; //stub as null until we decide how to store loan in json
+
+        // TODO modelLoan
+        //final Loan modelLoan = loan == null ? null :
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);
         return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres);
