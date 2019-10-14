@@ -27,9 +27,9 @@ public class StorageManager implements Storage {
     }
 
     /**
-     * Reads in the file line for reimbursement records.
-     * @param map map of names.
-     * @param line file line.
+     * Reads in a line of the file and adds it to the map.
+     * @param map the map to add the new record to.
+     * @param line the current line being read.
      */
     public static void readInFileLine(HashMap<String, String> map, String line) {
         String[] stringArr = line.split(VBSPLIT, 0);

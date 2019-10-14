@@ -156,6 +156,6 @@ defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
 
 run {
 
-	standardInput = System.in 
+	standardInput = System.in
 
 }
