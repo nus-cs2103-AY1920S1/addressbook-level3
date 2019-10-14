@@ -31,6 +31,7 @@ public class MarkAttendanceCommand extends Command {
     public static final String MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT = "Do you want to mark "
             + "%1$s's attendance?\n"
             + "(y/n)";
+    public static final String MESSAGE_MARK_ATTENDANCE_TUTORIAL = "Marking attendance of %1$s";
 
     public static final String COMMAND_WORD = "mark";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
@@ -74,16 +75,22 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
         }
 
-        Student targetStudent;
-        // starts the chain of commands to mark attendance of a class if targetStudName is not specified
+        // stores the chain of commands to mark attendance of a class if targetStudName is not specified
         if (targetStudName.isEmpty()) {
-            targetStudent = targetTutorial.getStudents().get(0);
-            model.storePendingCommand(new MarkAttendanceVerifiedCommand(targetTutorial, week, targetStudent));
+            List<Student> students = targetTutorial.getStudents();
+            for (int i = students.size() - 1; i >= 0; i--) {
+                model.storePendingCommand(
+                        new MarkAttendanceVerifiedCommand(targetTutorial, week, students.get(i)));
+                model.storePendingCommand(
+                        new DisplayCommand(
+                        String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT,students.get(i).getName())));
+            }
+            
             return new CommandResult(
-                    String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, targetStudent.getName()));
+                    String.format(MESSAGE_MARK_ATTENDANCE_TUTORIAL, targetTutorial.getTutName()));
         }
 
-        targetStudent = targetTutorial.getStudents().stream()
+        Student targetStudent = targetTutorial.getStudents().stream()
             .filter(student -> student.getName().equals(targetStudName.get()))
             .findFirst()
             .orElse(null);
