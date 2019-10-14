@@ -9,6 +9,7 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.StorageStub;
 
 public class ClearCommandTest {
 
@@ -18,7 +19,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.saveMark();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, new StorageStub(),
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -28,7 +30,8 @@ public class ClearCommandTest {
         expectedModel.setMark(new Mark());
         expectedModel.saveMark();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, new StorageStub(),
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

@@ -10,6 +10,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.Storage;
 
 /**
  * Opens a bookmark.
@@ -32,7 +33,7 @@ public class GotoCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 

@@ -9,6 +9,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.HelpCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
+import seedu.mark.storage.StorageStub;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();
@@ -17,6 +18,7 @@ public class HelpCommandTest {
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new HelpCommandResult(SHOWING_HELP_MESSAGE);
-        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, new StorageStub(),
+                expectedCommandResult, expectedModel);
     }
 }

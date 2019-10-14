@@ -17,6 +17,7 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {
@@ -31,7 +32,8 @@ public class AddCommandTest {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBookmark).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validBookmark)
+                .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
                 commandResult.getFeedbackToUser());
@@ -45,7 +47,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, new StorageStub()));
     }
 
     @Test
