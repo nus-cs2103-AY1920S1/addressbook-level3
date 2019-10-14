@@ -2,66 +2,66 @@ package seedu.address.model.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BURGER;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalRecipes.BURGER;
+import static seedu.address.testutil.TypicalRecipes.MILO;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecipeBuilder;
 
 public class RecipeTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Recipe recipe = new PersonBuilder().build();
+        Recipe recipe = new RecipeBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> recipe.getIngredients().remove(0));
     }
 
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(ALICE.isSameRecipe(ALICE));
+        assertTrue(MILO.isSameRecipe(MILO));
 
         // null -> returns false
-        assertFalse(ALICE.isSameRecipe(null));
+        assertFalse(MILO.isSameRecipe(null));
 
         // different name -> returns false
-        Recipe editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameRecipe(editedAlice));
+        Recipe editedAlice = new RecipeBuilder(MILO).withName(VALID_NAME_BURGER).build();
+        assertFalse(MILO.isSameRecipe(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        editedAlice = new RecipeBuilder(MILO)
+                .withIngredients(VALID_INGREDIENT_BURGER).build();
+        assertTrue(MILO.isSameRecipe(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Recipe aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Recipe aliceCopy = new RecipeBuilder(MILO).build();
+        assertTrue(MILO.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(MILO.equals(MILO));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(MILO.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(MILO.equals(5));
 
         // different recipe -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(MILO.equals(BURGER));
 
         // different name -> returns false
-        Recipe editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Recipe editedAlice = new RecipeBuilder(MILO).withName(VALID_NAME_BURGER).build();
+        assertFalse(MILO.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO.equals(editedAlice));
     }
 }

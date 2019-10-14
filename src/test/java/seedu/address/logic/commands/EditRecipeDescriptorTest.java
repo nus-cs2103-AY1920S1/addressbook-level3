@@ -2,42 +2,43 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BURGER;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 public class EditRecipeDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditRecipeCommand.EditRecipeDescriptor descriptorWithSameValues = new EditRecipeCommand.EditRecipeDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditRecipeCommand.EditRecipeDescriptor descriptorWithSameValues = new EditRecipeCommand
+                .EditRecipeDescriptor(DESC_FISH);
+        assertTrue(DESC_FISH.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_FISH.equals(DESC_FISH));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_FISH.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_FISH.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_FISH.equals(DESC_BURGER));
 
         // different name -> returns false
-        EditRecipeDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(DESC_FISH).withName(VALID_NAME_BURGER).build();
+        assertFalse(DESC_FISH.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_FISH).withIngredients(VALID_INGREDIENT_BURGER).build();
+        assertFalse(DESC_FISH.equals(editedAmy));
     }
 }

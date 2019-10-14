@@ -22,7 +22,7 @@ public class DeleteRecipeCommand extends DeleteCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Recipe: %1$s";
+    public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
 
     private final Index targetIndex;
 
@@ -41,7 +41,7 @@ public class DeleteRecipeCommand extends DeleteCommand {
 
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecipe(recipeToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, recipeToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete));
     }
 
     @Override

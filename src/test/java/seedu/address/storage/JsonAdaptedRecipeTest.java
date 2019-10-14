@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecipes.OMELETTE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,45 +12,96 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Protein;
 
 public class JsonAdaptedRecipeTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NAME = "@melette";
+    private static final String INVALID_INGREDIENT = "#eggs";
+    private static final String INVALID_CALORIES = "1a";
+    private static final String INVALID_CARBS = "1a";
+    private static final String INVALID_FATS = "1a";
+    private static final String INVALID_PROTEIN = "1a";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final List<JsonAdaptedIngredient> VALID_TAGS = BENSON.getIngredients().stream()
+    private static final String VALID_NAME = OMELETTE.getName().toString();
+    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = OMELETTE.getIngredients().stream()
             .map(JsonAdaptedIngredient::new)
             .collect(Collectors.toList());
+    private static final String VALID_CALORIES = OMELETTE.getCalories().value;
+    private static final String VALID_CARBS = OMELETTE.getCarbs().value;
+    private static final String VALID_FATS = OMELETTE.getFats().value;
+    private static final String VALID_PROTEIN = OMELETTE.getProtein().value;
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedRecipe person = new JsonAdaptedRecipe(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonAdaptedRecipe person = new JsonAdaptedRecipe(OMELETTE);
+        assertEquals(OMELETTE, person.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedRecipe person =
-                new JsonAdaptedRecipe(INVALID_NAME, VALID_TAGS);
+                new JsonAdaptedRecipe(INVALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedRecipe person = new JsonAdaptedRecipe(null, VALID_TAGS);
+        JsonAdaptedRecipe person = new JsonAdaptedRecipe(null, VALID_INGREDIENTS,
+                VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedIngredient> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedIngredient(INVALID_TAG));
+    public void toModelType_invalidIngredients_throwsIllegalValueException() {
+        List<JsonAdaptedIngredient> invalidTags = new ArrayList<>(VALID_INGREDIENTS);
+        invalidTags.add(new JsonAdaptedIngredient(INVALID_INGREDIENT));
         JsonAdaptedRecipe person =
-                new JsonAdaptedRecipe(VALID_NAME, invalidTags);
+                new JsonAdaptedRecipe(VALID_NAME, invalidTags,
+                        VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         assertThrows(IllegalValueException.class, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidCalories_throwsIllegalValueException() {
+        JsonAdaptedRecipe person =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        INVALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
+        String expectedMessage = Calories.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidCarbs_throwsIllegalValueException() {
+        JsonAdaptedRecipe person =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, INVALID_CARBS, VALID_FATS, VALID_PROTEIN);
+        String expectedMessage = Carbs.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidFats_throwsIllegalValueException() {
+        JsonAdaptedRecipe person =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, VALID_CARBS, INVALID_FATS, VALID_PROTEIN);
+        String expectedMessage = Fats.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidProtein_throwsIllegalValueException() {
+        JsonAdaptedRecipe person =
+                new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
+                        VALID_CALORIES, VALID_CARBS, VALID_FATS, INVALID_PROTEIN);
+        String expectedMessage = Protein.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
 }

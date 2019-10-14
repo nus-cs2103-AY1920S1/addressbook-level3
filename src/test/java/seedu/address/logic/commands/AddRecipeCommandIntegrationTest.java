@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +24,9 @@ public class AddRecipeCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateRecipe_throwsCommandException() {
         Recipe recipeInList = model.getDukeCooks().getRecipeList().get(0);
-        assertCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
 }

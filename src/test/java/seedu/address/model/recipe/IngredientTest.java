@@ -1,9 +1,8 @@
-package seedu.address.model.ingredient;
+package seedu.address.model.recipe;
 
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.recipe.Ingredient;
 
 public class IngredientTest {
 

@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -16,37 +20,64 @@ import seedu.address.model.DukeCooks;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_FISH = "Fish and Chips";
+    public static final String VALID_NAME_BURGER = "Cheese Burger";
+    public static final String VALID_INGREDIENT_FISH = "Dory Fish";
+    public static final String VALID_INGREDIENT_BURGER = "Beef Patty";
+    public static final String VALID_CALORIES_FISH = "600";
+    public static final String VALID_CALORIES_BURGER = "610";
+    public static final String VALID_CARBS_FISH = "59";
+    public static final String VALID_CARBS_BURGER = "57";
+    public static final String VALID_FATS_FISH = "25";
+    public static final String VALID_FATS_BURGER = "31";
+    public static final String VALID_PROTEIN_FISH = "35";
+    public static final String VALID_PROTEIN_BURGER = "28";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_INGREDIENT + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_INGREDIENT + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
+    public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
+    public static final String INGREDIENT_DESC_FISH = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_FISH;
+    public static final String INGREDIENT_DESC_BURGER = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_BURGER;
+    public static final String CALORIES_DESC_FISH = " " + PREFIX_CALORIES + VALID_CALORIES_FISH;
+    public static final String CALORIES_DESC_BURGER = " " + PREFIX_CALORIES + VALID_CALORIES_BURGER;
+    public static final String CARBS_DESC_FISH = " " + PREFIX_CARBS + VALID_CARBS_FISH;
+    public static final String CARBS_DESC_BURGER = " " + PREFIX_CARBS + VALID_CARBS_BURGER;
+    public static final String FATS_DESC_FISH = " " + PREFIX_FATS + VALID_FATS_FISH;
+    public static final String FATS_DESC_BURGER = " " + PREFIX_FATS + VALID_FATS_BURGER;
+    public static final String PROTEIN_DESC_FISH = " " + PREFIX_PROTEIN + VALID_PROTEIN_FISH;
+    public static final String PROTEIN_DESC_BURGER = " " + PREFIX_PROTEIN + VALID_PROTEIN_BURGER;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = " " + PREFIX_INGREDIENT + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
+    public static final String INVALID_INGREDIENT_DESC = " " + PREFIX_INGREDIENT
+            + "Cheese*Burger"; // '*' not allowed in ingredient names
+    public static final String INVALID_CALORIES_DESC = " " + PREFIX_CALORIES + "1a"; // 'a' not allowed in calories
+    public static final String INVALID_CARBS_DESC = " " + PREFIX_CARBS + "1a"; // 'a' not allowed in carbs
+    public static final String INVALID_FATS_DESC = " " + PREFIX_FATS + "1a"; // 'a' not allowed in fats
+    public static final String INVALID_PROTEIN_DESC = " " + PREFIX_PROTEIN + "1a"; // 'a' not allowed in protein
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditRecipeCommand.EditRecipeDescriptor DESC_AMY;
-    public static final EditRecipeCommand.EditRecipeDescriptor DESC_BOB;
+    public static final EditRecipeCommand.EditRecipeDescriptor DESC_FISH;
+    public static final EditRecipeCommand.EditRecipeDescriptor DESC_BURGER;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
+                .withIngredients(VALID_INGREDIENT_FISH)
+                .withCalories(VALID_CALORIES_FISH).withCarbs(VALID_CARBS_FISH)
+                .withFats(VALID_FATS_FISH).withProtein(VALID_PROTEIN_FISH)
+                .build();
+        DESC_BURGER = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER)
+                .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
+                .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
+                .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
+                .build();
     }
 
     /**
@@ -95,7 +126,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showRecipeAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
 
         Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());

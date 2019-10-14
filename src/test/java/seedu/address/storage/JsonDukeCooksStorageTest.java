@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.KAPPA;
+import static seedu.address.testutil.TypicalRecipes.MILO;
+import static seedu.address.testutil.TypicalRecipes.TAMAGO;
+import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -72,14 +72,14 @@ public class JsonDukeCooksStorageTest {
         assertEquals(original, new DukeCooks(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addRecipe(HOON);
-        original.removeRecipe(ALICE);
+        original.addRecipe(TAMAGO);
+        original.removeRecipe(MILO);
         jsonDukeCooksStorage.saveDukeCooks(original, filePath);
         readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
         assertEquals(original, new DukeCooks(readBack));
 
         // Save and read without specifying file path
-        original.addRecipe(IDA);
+        original.addRecipe(KAPPA);
         jsonDukeCooksStorage.saveDukeCooks(original); // file path not specified
         readBack = jsonDukeCooksStorage.readDukeCooks().get(); // file path not specified
         assertEquals(original, new DukeCooks(readBack));

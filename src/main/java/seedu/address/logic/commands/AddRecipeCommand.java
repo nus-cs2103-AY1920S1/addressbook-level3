@@ -37,7 +37,7 @@ public class AddRecipeCommand extends AddCommand {
             + PREFIX_PROTEIN + "21 ";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in Duke Cooks";
+    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in Duke Cooks";
 
     private final Recipe toAdd;
 
@@ -54,7 +54,7 @@ public class AddRecipeCommand extends AddCommand {
         requireNonNull(model);
 
         if (model.hasRecipe(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
         model.addRecipe(toAdd);

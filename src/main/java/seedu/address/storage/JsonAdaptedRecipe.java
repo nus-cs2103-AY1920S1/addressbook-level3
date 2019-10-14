@@ -37,19 +37,19 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name,
+                             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
                              @JsonProperty("calories") String calories,
                              @JsonProperty("carbs") String carbs,
                              @JsonProperty("fats") String fats,
-                             @JsonProperty("protein") String protein,
-                             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
+                             @JsonProperty("protein") String protein) {
+        if (ingredients != null) {
+            this.ingredients.addAll(ingredients);
+        }
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;
         this.fats = fats;
         this.protein = protein;
-        if (ingredients != null) {
-            this.ingredients.addAll(ingredients);
-        }
     }
 
     /**

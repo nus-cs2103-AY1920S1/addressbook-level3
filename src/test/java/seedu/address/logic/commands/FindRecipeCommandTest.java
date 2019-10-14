@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_RECIPE_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.CHICKEN;
+import static seedu.address.testutil.TypicalRecipes.TEA;
+import static seedu.address.testutil.TypicalRecipes.TUNA;
+import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,8 +55,8 @@ public class FindRecipeCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noRecipeFound() {
+        String expectedMessage = String.format(MESSAGE_RECIPE_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
@@ -65,13 +65,13 @@ public class FindRecipeCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_multipleRecipesFound() {
+        String expectedMessage = String.format(MESSAGE_RECIPE_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredRecipeList());
+        assertEquals(Arrays.asList(TUNA, CHICKEN, TEA), model.getFilteredRecipeList());
     }
 
     /**

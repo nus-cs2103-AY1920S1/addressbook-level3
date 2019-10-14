@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.DukeCooks;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalRecipes;
 
 public class JsonSerializableRecipeBookTest {
 
@@ -21,7 +21,7 @@ public class JsonSerializableRecipeBookTest {
         JsonSerializableRecipeBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableRecipeBook.class).get();
         DukeCooks dukeCooksFromFile = dataFromFile.toModelType();
-        DukeCooks typicalPersonsDukeCooks = TypicalPersons.getTypicalDukeCooks();
+        DukeCooks typicalPersonsDukeCooks = TypicalRecipes.getTypicalDukeCooks();
         assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);
     }
 }

@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.MILO;
+import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,7 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecipeBuilder;
 
 public class DukeCooksTest {
 
@@ -45,9 +45,9 @@ public class DukeCooksTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
-        List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
+        List<Recipe> newRecipes = Arrays.asList(MILO, editedAlice);
         DukeCooksStub newData = new DukeCooksStub(newRecipes);
 
         assertThrows(DuplicateRecipeException.class, () -> dukeCooks.resetData(newData));
@@ -60,19 +60,19 @@ public class DukeCooksTest {
 
     @Test
     public void hasPerson_personNotInDukeCooks_returnsFalse() {
-        assertFalse(dukeCooks.hasRecipe(ALICE));
+        assertFalse(dukeCooks.hasRecipe(MILO));
     }
 
     @Test
     public void hasPerson_personInDukeCooks_returnsTrue() {
-        dukeCooks.addRecipe(ALICE);
-        assertTrue(dukeCooks.hasRecipe(ALICE));
+        dukeCooks.addRecipe(MILO);
+        assertTrue(dukeCooks.hasRecipe(MILO));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        dukeCooks.addRecipe(ALICE);
-        Recipe editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        dukeCooks.addRecipe(MILO);
+        Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
         assertTrue(dukeCooks.hasRecipe(editedAlice));
     }
