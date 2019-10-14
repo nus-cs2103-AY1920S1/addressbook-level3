@@ -81,7 +81,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene, new SamplePage(), itineraryPage, financialTrackerPage, calendarPage);
+        pages = new Pages(this, new SamplePage(), itineraryPage, financialTrackerPage, calendarPage);
 
     }
 
