@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLASHCARD_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -22,10 +22,10 @@ public class AddFlashcardCommand extends Command {
             + "Flashcard will be assigned a unique id when created.\n"
             + "Parameters: " + PREFIX_QUESTION + "[QUESTION] "
             + PREFIX_ANSWER + "[ANSWER] "
-            + PREFIX_TITLE + "[TITLE]\n"
+            + PREFIX_FLASHCARD_TITLE + "[TITLE]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_QUESTION + "What is 6 + 19? "
             + PREFIX_ANSWER + "25 "
-            + PREFIX_TITLE + "Basic addition question 1";
+            + PREFIX_FLASHCARD_TITLE + "Basic addition question 1";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the application";
