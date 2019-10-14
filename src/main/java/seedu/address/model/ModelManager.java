@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.ui.UiManager;
 
@@ -24,7 +25,7 @@ public class ModelManager implements Model {
 
     private final FinSec finSec;
     private final UserPrefs userPrefs;
-    private final FilteredList<seedu.address.model.contact.Contact> filteredContacts;
+    private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Claim> filteredClaims;
     private final FilteredList<Income> filteredIncomes;
 

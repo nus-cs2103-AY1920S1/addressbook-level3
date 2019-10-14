@@ -23,7 +23,7 @@ import seedu.address.model.ReadOnlyFinSec;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "finsec")
 
 class JsonSerializableFinSec {
 

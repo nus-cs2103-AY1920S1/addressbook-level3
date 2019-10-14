@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.UniqueClaimsList;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.model.income.UniqueIncomesList;
 import seedu.address.model.contact.UniqueContactsList;
@@ -51,8 +52,24 @@ public class FinSec implements ReadOnlyFinSec {
      * Replaces the contents of the contact list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.
      */
-    public void setContacts(List<seedu.address.model.contact.Contact> contacts) {
+    public void setContacts(List<Contact> contacts) {
         this.persons.setContacts(contacts);
+    }
+
+    /**
+     * Replaces the contents of the claims list with {@code claims}.
+     * {@code claims} must not contain duplicate claims.
+     */
+    public void setClaims(List<Claim> claims) {
+        this.claims.setClaims(claims);
+    }
+
+    /**
+     * Replaces the contents of the income list with {@code incomes}.
+     * {@code incomes} must not contain duplicate incomes.
+     */
+    public void setIncomes(List<Income> incomes) {
+        this.incomes.setIncomes(incomes);
     }
 
     /**
@@ -62,6 +79,9 @@ public class FinSec implements ReadOnlyFinSec {
         requireNonNull(newData);
 
         setContacts(newData.getContactList());
+        setClaims(newData.getClaimList());
+        setIncomes(newData.getIncomeList());
+
     }
 
     //// contact-level operations
@@ -69,7 +89,7 @@ public class FinSec implements ReadOnlyFinSec {
     /**
      * Returns true if a contact with the same identity as {@code contact} exists in the address book.
      */
-    public boolean hasContact(seedu.address.model.contact.Contact contact) {
+    public boolean hasContact(Contact contact) {
         requireNonNull(contact);
         return persons.contains(contact);
     }
@@ -78,7 +98,7 @@ public class FinSec implements ReadOnlyFinSec {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addContact(seedu.address.model.contact.Contact p) {
+    public void addContact(Contact p) {
         persons.add(p);
     }
 
@@ -87,7 +107,7 @@ public class FinSec implements ReadOnlyFinSec {
      * {@code target} must exist in the address book.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
      */
-    public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+    public void setContact(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
 
         persons.setPerson(target, editedContact);
@@ -97,7 +117,7 @@ public class FinSec implements ReadOnlyFinSec {
      * Removes {@code key} from this {@code FinSec}.
      * {@code key} must exist in the address book.
      */
-    public void removeContact(seedu.address.model.contact.Contact key) {
+    public void removeContact(Contact key) {
         persons.remove(key);
     }
 
