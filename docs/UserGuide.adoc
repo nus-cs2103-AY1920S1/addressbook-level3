@@ -246,7 +246,7 @@ Example:
 
 ==== Locating entries by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds bodies or workers whose names contain any of the given keywords. +
 
 Below are some important information regarding this command:
 ****
@@ -256,14 +256,14 @@ Below are some important information regarding this command:
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
-Format: `find (keyword)...`
+Format: `find (flag) (keyword)...`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -b John` +
+Returns any bodies having names `John`
+* `find -w Betsy Tim John` +
+Returns any workers having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
 ==== Deleting a person : `delete`
