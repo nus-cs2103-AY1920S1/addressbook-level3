@@ -67,11 +67,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExerciseBookStorage exerciseBookStorage = new JsonExerciseBookStorage(userPrefs.getExerciseBookFilePath());
+        ExerciseBookStorage exerciseDatabaseStorage =
+                new JsonExerciseBookStorage(userPrefs.getAllExerciseBookFilePath());
         RegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(userPrefs.getRegimeBookFilePath());
         PropertyManagerStorage propertyManagerStorage =
             new JsonPropertyManagerStorage(userPrefs.getPropertyManagerFilePath());
-        storage = new StorageManager(exerciseBookStorage, regimeBookStorage, userPrefsStorage, propertyManagerStorage);
 
+        storage = new StorageManager(exerciseBookStorage, regimeBookStorage,
+                exerciseDatabaseStorage, userPrefsStorage, propertyManagerStorage);
 
         initLogging(config);
 
@@ -88,52 +91,64 @@ public class MainApp extends Application {
      * or an empty exercise book will be used instead if errors occur when reading {@code storage}'s exercise book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyExerciseBook initialExerciseData = getInitialExerciseData(storage);
-        ReadOnlyRegimeBook initialRegimeData = getInitialRegimeData(storage);
+        ReadOnlyExerciseBook initialData = readExerciseData(storage, storage.getExerciseBookFilePath());
+        ReadOnlyRegimeBook initialRegimeData = readRegimeData(storage, storage.getRegimeBookFilePath());
+        ReadOnlyExerciseBook exerciseDatabase = readExerciseData(storage, storage.getAllExerciseBookFilePath());
         PropertyManager initialPropertyManager = getInitialPropertyManager(storage);
-        return new ModelManager(initialExerciseData, initialRegimeData, userPrefs, initialPropertyManager);
+
+        return new ModelManager(initialData, initialRegimeData, exerciseDatabase, userPrefs, initialPropertyManager);
     }
 
-    private ReadOnlyExerciseBook getInitialExerciseData(Storage storage) {
-        Optional<ReadOnlyExerciseBook> exerciseBookOptional;
-        ReadOnlyExerciseBook initialExerciseData;
-
-        try {
-            exerciseBookOptional = storage.readExerciseBook();
-            if (exerciseBookOptional.isEmpty()) {
-                logger.info("Data file for ExerciseBook not found. Will be starting with a sample ExerciseBook");
-            }
-            initialExerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseBook");
-            initialExerciseData = new ExerciseBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
-            initialExerciseData = new ExerciseBook();
-        }
-        return initialExerciseData;
-    }
-
-    private ReadOnlyRegimeBook getInitialRegimeData(Storage storage) {
+    /**
+     * Returns a {@code ReadOnlyRegimeBook} using the file at {@code path}. <br>
+     * The data is read from {@code storage}.
+     */
+    private ReadOnlyRegimeBook readRegimeData(Storage storage, Path path) {
         Optional<ReadOnlyRegimeBook> regimeBookOptional;
-        ReadOnlyRegimeBook initialRegimeData;
-
+        ReadOnlyRegimeBook regimeData;
         try {
             regimeBookOptional = storage.readRegimeBook();
             if (regimeBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample RegimeBook");
             }
-            initialRegimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
+            regimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RegimeBook");
-            initialRegimeData = new RegimeBook();
+            regimeData = new RegimeBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RegimeBook");
-            initialRegimeData = new RegimeBook();
+            regimeData = new RegimeBook();
         }
-        return initialRegimeData;
+        return regimeData;
     }
 
+    /**
+     * Returns a {@code ReadOnlyExerciseBook} using the file at {@code path}. <br>
+     * The data is read from {@code storage}.
+     */
+    private ReadOnlyExerciseBook readExerciseData(Storage storage, Path path) {
+        Optional<ReadOnlyExerciseBook> exerciseBookOptional;
+        ReadOnlyExerciseBook exerciseData;
+
+        try {
+            exerciseBookOptional = storage.readExerciseBook(path);
+            if (exerciseBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ExerciseBook");
+            }
+            exerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in correct format. Will be starting with an empty ExerciseBook");
+            exerciseData = new ExerciseBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
+            exerciseData = new ExerciseBook();
+        }
+        return exerciseData;
+    }
+
+    /**
+     * Returns a {@code PropertyManager} from {@code storage}.
+     */
     private PropertyManager getInitialPropertyManager(Storage storage) {
         Optional<PropertyManager> propertyManagerOptional;
         PropertyManager initialPropertyManager;

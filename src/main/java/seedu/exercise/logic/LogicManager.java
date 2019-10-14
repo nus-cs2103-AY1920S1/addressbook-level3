@@ -45,16 +45,15 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveExerciseBook(model.getAllExerciseData());
+            storage.saveExerciseBook(model.getExerciseBookData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         try {
             storage.saveRegimeBook(model.getAllRegimeData());
-            storage.saveExerciseBook(model.getAllExerciseData());
+            storage.saveExerciseBook(model.getExerciseBookData());
             storage.savePropertyManager(model.getPropertyManager());
-
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -64,7 +63,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyExerciseBook getExerciseBook() {
-        return model.getAllExerciseData();
+        return model.getExerciseBookData();
     }
 
     @Override
@@ -90,6 +89,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getRegimeBookFilePath() {
         return model.getRegimeBookFilePath();
+    }
+
+    @Override
+    public ObservableList<Exercise> getSuggestedExerciseList() {
+        return model.getSuggestedExerciseList();
     }
 
     @Override

@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
@@ -54,17 +56,30 @@
                         <StackPane fx:id="regimeListPanelPlaceholder" minHeight="150.0" minWidth="100.0"
                                    prefHeight="150.0" prefWidth="400.0" BorderPane.alignment="CENTER"/>
                     </left>
+                    <center>
+                        <BorderPane>
+                            <top>
+                                <StackPane fx:id="exerciseListPanelPlaceholder" prefHeight="450.0" prefWidth="500.0"
+                                           BorderPane.alignment="CENTER"/>
+                            </top>
+                            <bottom>
+                                <StackPane fx:id="suggestionPanelPlaceholder" prefHeight="450.0" prefWidth="500.0"
+                                           BorderPane.alignment="CENTER"/>
+                            </bottom>
+                        </BorderPane>
+                    </center>
+                    <right>
+                        <StackPane fx:id="resultPanelPlaceholder" prefHeight="100.0" prefWidth="400.0"
+                                   BorderPane.alignment="CENTER">
+                            <padding>
+                                <Insets bottom="67" />
+                            </padding>
+                        </StackPane>
+
+                    </right>
                     <bottom>
                         <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER"/>
                     </bottom>
-                    <right>
-                        <StackPane fx:id="exerciseListPanelPlaceholder" prefHeight="150.0" prefWidth="400.0"
-                                   BorderPane.alignment="CENTER"/>
-                    </right>
-                    <center>
-                        <StackPane fx:id="resultPanel" prefHeight="150.0" prefWidth="500.0"
-                                   BorderPane.alignment="CENTER"/>
-                    </center>
                 </BorderPane>
             </VBox>
         </Scene>

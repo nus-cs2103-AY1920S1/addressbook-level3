@@ -20,16 +20,18 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ExerciseBookStorage exerciseBookStorage;
+    private ExerciseBookStorage allExerciseBookStorage;
     private RegimeBookStorage regimeBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private PropertyManagerStorage propertyManagerStorage;
 
 
-    public StorageManager(ExerciseBookStorage exerciseBookStorage,
-                          RegimeBookStorage regimeBookStorage, UserPrefsStorage userPrefsStorage,
+    public StorageManager(ExerciseBookStorage exerciseBookStorage, RegimeBookStorage regimeBookStorage,
+                          ExerciseBookStorage allExerciseBookStorage, UserPrefsStorage userPrefsStorage,
                           PropertyManagerStorage propertyManagerStorage) {
         super();
         this.exerciseBookStorage = exerciseBookStorage;
+        this.allExerciseBookStorage = allExerciseBookStorage;
         this.regimeBookStorage = regimeBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.propertyManagerStorage = propertyManagerStorage;
@@ -108,6 +110,25 @@ public class StorageManager implements Storage {
     public void savePropertyManager(PropertyManager propertyManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         propertyManagerStorage.savePropertyManager(propertyManager, filePath);
+    }
+
+    // ================ AllExerciseBook methods ==============================
+
+    @Override
+    public Path getAllExerciseBookFilePath() {
+        return allExerciseBookStorage.getExerciseBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyExerciseBook> readAllExerciseBook() throws DataConversionException, IOException {
+        return readExerciseBook(allExerciseBookStorage.getExerciseBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyExerciseBook> readAllExerciseBook(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return allExerciseBookStorage.readExerciseBook();
     }
 
     //===============RegimeBook methods=============================================

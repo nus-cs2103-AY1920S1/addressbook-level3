@@ -338,4 +338,19 @@ public class ParserUtil {
         return trimmedNumber;
     }
 
+
+    /**
+     * Parses a {@code String suggestType} into a String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static String parseSuggestType(String suggestType) throws ParseException {
+        requireNonNull(suggestType);
+        String trimmedSuggestType = suggestType.trim();
+        if (!trimmedSuggestType.equals("basic")) {
+            throw new ParseException("Suggest type can only be \'basic\'");
+        }
+        return trimmedSuggestType;
+    }
 }

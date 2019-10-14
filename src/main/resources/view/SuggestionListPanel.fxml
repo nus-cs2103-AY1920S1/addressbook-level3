@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
+
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox spacing="20" alignment="CENTER">
-        <Label styleClass="cell_list_label" text="Regimes" />
-    </HBox>
-    <ListView fx:id="regimeListView" VBox.vgrow="ALWAYS" />
+<HBox spacing="20" alignment="CENTER">
+    <Label styleClass="cell_list_label" text="Suggestions" />
+</HBox>
+<ListView fx:id="suggestionListView" VBox.vgrow="ALWAYS" />
 </VBox>

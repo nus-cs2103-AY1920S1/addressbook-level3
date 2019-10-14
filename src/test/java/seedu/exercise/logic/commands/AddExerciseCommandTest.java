@@ -125,7 +125,7 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ReadOnlyExerciseBook getAllExerciseData() {
+        public ReadOnlyExerciseBook getExerciseBookData() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,6 +229,23 @@ public class AddExerciseCommandTest {
         public void updateFilteredRegimeList(Predicate<Regime> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=======================suggest================================================================================
+
+        @Override
+        public ReadOnlyExerciseBook getDatabaseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSuggestedExerciseList(Predicate<Exercise> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Exercise> getSuggestedExerciseList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -268,7 +285,7 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ReadOnlyExerciseBook getAllExerciseData() {
+        public ReadOnlyExerciseBook getExerciseBookData() {
             return new ExerciseBook();
         }
     }

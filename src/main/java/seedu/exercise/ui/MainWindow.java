@@ -36,6 +36,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ResolveWindow resolveWindow;
+    private ExerciseListPanel resultPanel;
+    private SuggestionListPanel suggestionPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -59,7 +61,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane resultPanel;
+    private StackPane suggestionPanelPlaceholder;
+
+    @FXML
+    private StackPane resultPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -116,24 +121,30 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+
+
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        filteredListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        exerciseListPanelPlaceholder.getChildren().add(filteredListPanel.getRoot());
-
-        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
-        regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExerciseBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
+        regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        filteredListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        exerciseListPanelPlaceholder.getChildren().add(filteredListPanel.getRoot());
+
+        suggestionPanel = new SuggestionListPanel(logic.getSuggestedExerciseList());
+        suggestionPanelPlaceholder.getChildren().add(suggestionPanel.getRoot());
+
+        resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
+
     }
 
     /**

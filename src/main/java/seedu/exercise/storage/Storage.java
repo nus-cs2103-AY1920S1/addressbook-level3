@@ -39,4 +39,22 @@ public interface Storage extends ExerciseBookStorage, RegimeBookStorage, UserPre
     @Override
     void saveRegimeBook(ReadOnlyRegimeBook regimeBook) throws IOException;
 
+    /**
+     * Returns the file path of the data file.
+     * @return
+     */
+    Path getAllExerciseBookFilePath();
+
+    /**
+     * Returns AllExerciseBook data as a {@link ReadOnlyExerciseBook}.
+     *   Returns {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException if there was any prolbem when reading from the storage.
+     */
+    Optional<ReadOnlyExerciseBook> readAllExerciseBook() throws DataConversionException, IOException;
+
+    /**
+     * @see #getAllExerciseBookFilePath()
+     */
+    Optional<ReadOnlyExerciseBook> readAllExerciseBook(Path filePath) throws DataConversionException, IOException;
 }

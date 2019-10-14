@@ -24,9 +24,9 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
+        Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ExerciseBook(),
             new UserPrefs(), getDefaultPropertyManager());
-        Model expectedModel = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
+        Model expectedModel = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ExerciseBook(),
             new UserPrefs(), getDefaultPropertyManager());
         expectedModel.setExerciseBook(new ExerciseBook());
 
