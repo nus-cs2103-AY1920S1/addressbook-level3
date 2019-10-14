@@ -174,6 +174,10 @@ public class MainWindow extends UiPart<Stage> {
         return questionListPanel;
     }
 
+    public Editor getEditorPanel() {
+        return editorPlaceholder;
+    }
+
     /**
      * Executes the command and returns the result.
      *

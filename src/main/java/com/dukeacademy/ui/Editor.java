@@ -21,8 +21,6 @@ import javafx.stage.Stage;
  * Creates a Text Editor window for the user to input code.
  */
 public class Editor extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
     static private final String FXML = "Editor.fxml";
 
     @FXML
@@ -37,7 +35,6 @@ public class Editor extends UiPart<Region> {
     public Editor() {
         super(FXML);
     }
-
 
     /**
      * Initializes the initial configurations for the Editor Window upon startup.
