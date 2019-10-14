@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Food;
-import seedu.address.model.person.GroceryItem;
-import seedu.address.model.person.Name;
+import seedu.address.model.groceryitem.Amount;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.groceryitem.Name;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -41,22 +41,22 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited food item: %1$s";
+    public static final String MESSAGE_EDIT_GROCERY_ITEM_SUCCESS = "Edited food item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
-    private final EditFoodDescriptor editFoodDescriptor;
+    private final EditGroceryItemDescriptor editGroceryItemDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param editGroceryItemDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditFoodDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditGroceryItemDescriptor editGroceryItemDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editGroceryItemDescriptor);
 
         this.index = index;
-        this.editFoodDescriptor = new EditFoodDescriptor(editPersonDescriptor);
+        this.editGroceryItemDescriptor = new EditGroceryItemDescriptor(editGroceryItemDescriptor);
     }
 
     @Override
@@ -69,24 +69,25 @@ public class EditCommand extends Command {
         }
 
         GroceryItem foodToEdit = lastShownList.get(index.getZeroBased());
-        GroceryItem editedFood = createEditedFood(foodToEdit, editFoodDescriptor);
+        GroceryItem editedFood = createEditedGroceryItem(foodToEdit, editGroceryItemDescriptor);
 
         model.setGroceryItem(foodToEdit, editedFood);
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedFood));
+        return new CommandResult(String.format(MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedFood));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static GroceryItem createEditedFood(GroceryItem foodToEdit, EditFoodDescriptor editFoodDescriptor) {
+    private static GroceryItem createEditedGroceryItem(GroceryItem foodToEdit,
+                                                       EditGroceryItemDescriptor editGroceryItemDescriptor) {
         assert foodToEdit != null;
 
-        Name updatedName = editFoodDescriptor.getName().orElse(foodToEdit.getName());
-        Amount updatedAmount = editFoodDescriptor.getAmount().orElse(foodToEdit.getAmount());
-        ExpiryDate updatedExpiryDate = editFoodDescriptor.getExpiryDate().orElse(foodToEdit.getExpiryDate());
-        Set<Tag> updatedTags = editFoodDescriptor.getTags().orElse(foodToEdit.getTags());
+        Name updatedName = editGroceryItemDescriptor.getName().orElse(foodToEdit.getName());
+        Amount updatedAmount = editGroceryItemDescriptor.getAmount().orElse(foodToEdit.getAmount());
+        ExpiryDate updatedExpiryDate = editGroceryItemDescriptor.getExpiryDate().orElse(foodToEdit.getExpiryDate());
+        Set<Tag> updatedTags = editGroceryItemDescriptor.getTags().orElse(foodToEdit.getTags());
 
         return new GroceryItem(updatedName, updatedAmount, updatedExpiryDate, updatedTags);
     }
@@ -95,19 +96,19 @@ public class EditCommand extends Command {
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditFoodDescriptor {
+    public static class EditGroceryItemDescriptor {
         private Name name;
         private Amount amount;
         private ExpiryDate expiryDate;
         private Set<Tag> tags;
 
-        public EditFoodDescriptor() {}
+        public EditGroceryItemDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditFoodDescriptor(EditFoodDescriptor toCopy) {
+        public EditGroceryItemDescriptor(EditGroceryItemDescriptor toCopy) {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setExpiryDate(toCopy.expiryDate);

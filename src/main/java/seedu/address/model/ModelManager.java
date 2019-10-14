@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Food;
-import seedu.address.model.person.GroceryItem;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
 
 /**
  * Represents the in-memory model of the address book data.

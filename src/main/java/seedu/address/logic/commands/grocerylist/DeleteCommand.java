@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
 
@@ -18,11 +18,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the food item identified by the index number used in the displayed grocery list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_GROCERY_ITEM_SUCCESS = "Deleted food item: %1$s";
 
     private final Index targetIndex;
 
@@ -36,12 +36,12 @@ public class DeleteCommand extends Command {
         List<GroceryItem> lastShownList = model.getFilteredGroceryItemList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_GROCERY_ITEM_DISPLAYED_INDEX);
         }
 
         GroceryItem foodToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteGroceryItem(foodToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS, foodToDelete));
     }
 
     @Override

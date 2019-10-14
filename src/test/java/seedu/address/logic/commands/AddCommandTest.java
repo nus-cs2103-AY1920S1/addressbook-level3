@@ -19,8 +19,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Food;
-import seedu.address.model.person.GroceryItem;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
 import seedu.address.testutil.GroceryItemBuilder;
 
 public class AddCommandTest {

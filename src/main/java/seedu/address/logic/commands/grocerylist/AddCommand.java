@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "fruit";
 
     public static final String MESSAGE_SUCCESS = "New food item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This food item already exists in the grocery list";
+    public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "This food item already exists in the grocery list";
 
     private final GroceryItem toAdd;
 
@@ -48,7 +48,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasGroceryItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
         }
 
         model.addGroceryItem(toAdd);

@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Food;
-import seedu.address.model.person.GroceryItem;
-import seedu.address.model.person.UniqueFoodList;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.groceryitem.UniqueFoodList;
 
 /**
  * Wraps all data at the address-book level
