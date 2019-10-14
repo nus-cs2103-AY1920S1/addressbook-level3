@@ -82,7 +82,6 @@ public class QuestionEditCommand extends QuestionCommand {
             case "mcq":
                 formatMcqOptions(questionObj);
                 questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
-                System.out.println("HERE 1");
                 break;
             default:
                 questionObj = new OpenEndedQuestion(question, answer);
@@ -142,6 +141,9 @@ public class QuestionEditCommand extends QuestionCommand {
 
         // state check
         QuestionEditCommand e = (QuestionEditCommand) other;
-        return question.equals(e.question);
+        return index.equals(e.index)
+            && question.equals(e.question)
+            && answer.equals(e.answer)
+            && type.equals(e.type);
     }
 }

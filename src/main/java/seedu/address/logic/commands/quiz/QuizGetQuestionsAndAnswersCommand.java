@@ -41,7 +41,6 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(String message) {
-        System.out.println(message);
         return "These are the questions & answers for " + quizId + " "
                     + message;
     }

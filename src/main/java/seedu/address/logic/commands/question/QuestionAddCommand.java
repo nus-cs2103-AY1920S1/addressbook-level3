@@ -17,12 +17,20 @@ public class QuestionAddCommand extends QuestionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new question\n"
         + "Parameters:\n"
-        + "topic/ [TOPIC]\n"
-        + "Example: topic/ What is the year that Singapore gained independence?\n\n"
+        + "question/ [TOPIC]\n"
+        + "Example: question/ What is the year that Singapore gained independence?\n\n"
         + "answer/ [ANSWER]\n"
         + "Example: answer/ 1965\n\n"
         + "type/ [TYPE: open/mcq]\n"
-        + "Example: type/ open";
+        + "Example: type/ open"
+        + "a/ [OPTION (*ONLY FOR MCQ)]\n"
+        + "Example: a/ 1945"
+        + "b/ [OPTION (*ONLY FOR MCQ)]\n"
+        + "Example: b/ 1941"
+        + "c/ [OPTION (*ONLY FOR MCQ)]\n"
+        + "Example: c/ 1942"
+        + "d/ [OPTION (*ONLY FOR MCQ)]\n"
+        + "Example: d/ 1943";
 
     private final String question;
     private final String answer;

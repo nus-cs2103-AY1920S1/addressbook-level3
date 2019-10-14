@@ -100,9 +100,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         String optionC = argMultimap.getValue(PREFIX_OPTIONC).orElse("");
         String optionD = argMultimap.getValue(PREFIX_OPTIOND).orElse("");
 
-        System.out.println(typeName);
         if (typeName.equals("mcq")) {
-            System.out.println("HERE");
             return new QuestionAddCommand(question, answer, typeName, optionA, optionB, optionC,
                 optionD);
         }
