@@ -7,11 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ConnectException;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.GmapsApi;
@@ -24,13 +22,11 @@ public class ProcessVenues implements Serializable {
     private JSONArray venuesNusMods;
     private ArrayList<Location> venues = new ArrayList<>();
     private transient GmapsApi gmapsApi = new GmapsApi();
-    private ArrayList<String> gmapsRecognisedLocationList = new ArrayList<>();
+    private SanitizeLocation sanitizeLocation = new SanitizeLocation(gmapsApi);
 
     public ProcessVenues(){
     }
-    private ProcessVenues(JSONArray venuesNusMods, ArrayList<String> gmapsRecognisedLocationList,
-                          ArrayList<Location> venues) {
-        this.gmapsRecognisedLocationList = gmapsRecognisedLocationList;
+    private ProcessVenues(JSONArray venuesNusMods, ArrayList<Location> venues) {
         this.venues = venues;
         this.venuesNusMods = venuesNusMods;
     }
@@ -94,7 +90,7 @@ public class ProcessVenues implements Serializable {
     }
 
     public ArrayList<String> getGmapsRecognisedLocationList() {
-        return gmapsRecognisedLocationList;
+        return sanitizeLocation.getValidLocationList();
     }
 
     /**
@@ -104,7 +100,7 @@ public class ProcessVenues implements Serializable {
      */
     private ProcessVenues populateVenues() throws ConnectException {
         if (venuesNusMods == null) {
-            throw new InvalidParameterException("Cannot call getLocation before calling get"
+            throw new IllegalStateException("Cannot call getLocation before calling get"
                     + "getVenuesJsonArray");
         } else {
             for (int i = 0; i < venuesNusMods.size(); i++) {
@@ -113,47 +109,25 @@ public class ProcessVenues implements Serializable {
                 venues.add(currLocation);
             }
         }
-        return new ProcessVenues(venuesNusMods, gmapsRecognisedLocationList, venues);
+        sanitizeLocation.save();
+        return new ProcessVenues(venuesNusMods, venues);
     }
 
     private ProcessVenues getVenuesJsonArray() {
         NusModsApi nusmodApi = new NusModsApi();
         JSONArray currVenuesNusMod = nusmodApi.getVenues("/1");
-        return new ProcessVenues(currVenuesNusMod, gmapsRecognisedLocationList, venues);
+        return new ProcessVenues(currVenuesNusMod, venues);
     }
 
-    private Location getLocation(int i) throws InvalidParameterException, ConnectException {
+    private Location getLocation(int i) throws ConnectException {
         if (venuesNusMods == null) {
-            throw new InvalidParameterException("Cannot call getLocation before calling get"
+            throw new IllegalStateException("Cannot call getLocation before calling get"
                    + "getVenuesJsonArray");
         } else {
-            String currLocationName = (String) venuesNusMods.get(i);
-            Location currLocation = new Location(currLocationName);
-            String gmapsRecognisedLocation = "NUS_" + currLocationName;
-            String newGmapsRecognisedLocation = gmapsRecognisedLocation.split("-")[0];
-            if (gmapsRecognisedLocationList.contains(newGmapsRecognisedLocation)) {
-                currLocation.setGoogleRecognisedLocation(newGmapsRecognisedLocation);
-            } else {
-                JSONObject apiResponse = gmapsApi.getLocation(newGmapsRecognisedLocation);
-                String status = GmapsJsonUtils.getStatus(apiResponse);
-                if (status.equals("OK")) {
-                    currLocation.setGoogleRecognisedLocation(newGmapsRecognisedLocation);
-                    gmapsRecognisedLocationList.add(newGmapsRecognisedLocation);
-                    System.out.println(gmapsRecognisedLocationList);
-                } else {
-                    String newGmapsRecognisedLocation2 = "NUS_" + newGmapsRecognisedLocation.split("_")[1];
-                    JSONObject newApiResponse2 = gmapsApi.getLocation(newGmapsRecognisedLocation2);
-                    String newStatus2 = GmapsJsonUtils.getStatus(newApiResponse2);
-                    if (newStatus2.equals("OK")) {
-                        currLocation.setGoogleRecognisedLocation(newGmapsRecognisedLocation2);
-                        System.out.println(gmapsRecognisedLocationList);
-                        gmapsRecognisedLocationList.add(newGmapsRecognisedLocation2);
-                    } else {
-                        System.out.println("Cannot identify" + newGmapsRecognisedLocation2);
-                    }
-                }
-            }
-
+            String locationName = (String) venuesNusMods.get(i);
+            Location currLocation = new Location(locationName);
+            String validLocation = sanitizeLocation.sanitize(locationName);
+            currLocation.setGoogleRecognisedLocation(validLocation);
             return currLocation;
         }
     }

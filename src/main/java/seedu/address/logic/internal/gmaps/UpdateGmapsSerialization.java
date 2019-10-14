@@ -15,11 +15,35 @@ public class UpdateGmapsSerialization {
      * This method is used to save the instance of LocationGraph into memory.
      * @throws ConnectException
      */
-    public static void execute() throws ConnectException {
+    public static void updateAll() throws ConnectException {
         ProcessVenues processVenues = new ProcessVenues().process();
         LocationGraph locationGraph = new LocationGraph(processVenues);
         ProcessLocationGraph processLocationGraph = new ProcessLocationGraph(locationGraph);
         processLocationGraph.populateMatrix();
         processLocationGraph.saveLocationGraph();
+    }
+
+    /**
+     * This method is used to update the ProcessVenues Object
+     * @throws ConnectException
+     */
+    public static void updateProcessVenues() throws ConnectException {
+        ProcessVenues processVenues = new ProcessVenues().process();
+    }
+
+    /**
+     * This method is used to update the Location Graph object only
+     * @throws ConnectException
+     */
+    public static void updateLocationGraph() throws ConnectException {
+        ProcessVenues processVenues = new ProcessVenues().load();
+        LocationGraph locationGraph = new LocationGraph(processVenues);
+        ProcessLocationGraph processLocationGraph = new ProcessLocationGraph(locationGraph);
+        processLocationGraph.populateMatrix();
+        processLocationGraph.saveLocationGraph();
+    }
+
+    public static void main(String[] args) throws ConnectException {
+        UpdateGmapsSerialization.updateProcessVenues();
     }
 }
