@@ -1,5 +1,7 @@
 package dream.fcard.logic.respond;
 
+import dream.fcard.model.State;
+
 /**
  * Interface to take in user input and execute program behaviour.
  */
