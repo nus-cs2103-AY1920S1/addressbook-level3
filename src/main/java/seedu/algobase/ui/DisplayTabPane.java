@@ -32,12 +32,22 @@ public class DisplayTabPane extends UiPart<Region> {
         addListenerToTabPane(guiState::setDisplayTabPaneIndex);
     }
 
+    /**
+     * Adds a list of display tabs to the tab pane.
+     *
+     * @param displayTabs List of tabs to be displayed.
+     */
     private void addTabsToTabPane(DisplayTab... displayTabs) {
         for (DisplayTab displayTab: displayTabs) {
             this.tabsPlaceholder.getTabs().add(displayTab.getTab());
         }
     }
 
+    /**
+     * Adds a listener to the tab pane that watches for an index change.
+     *
+     * @param displayTabPaneIndex The observable index.
+     */
     private void addListenerForIndex(ObservableIntegerValue displayTabPaneIndex) {
         displayTabPaneIndex.addListener((observable, oldValue, newValue) -> {
             selectTab((newValue.intValue()));
