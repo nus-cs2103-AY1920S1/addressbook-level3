@@ -15,7 +15,7 @@ public class LogicManager implements Logic {
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.transaction.storage.StorageManager transactionStorage;
-    private ReimbursementTabParser parser;
+    private final ReimbursementTabParser parser;
 
 
     public LogicManager(Model reimbursementModel,
@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void writeIntoReimbursementFile() throws Exception{
+    public void writeIntoReimbursementFile() throws Exception {
         reimbursementStorage.writeFile(this.getReimbursementList());
     }
 

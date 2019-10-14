@@ -18,20 +18,25 @@ public class StorageManager implements Storage {
     private static final String VBSPLIT = " [|] ";
     private static final String DOTSPLIT = "[.] ";
     private final String filepathReimbursement;
-    private final seedu.address.transaction.storage.StorageManager transactionStorageManager;
+    private final seedu.address.transaction.model.Model transactionModelManager;
 
     public StorageManager(String filepathReimbursement,
-                          seedu.address.transaction.storage.StorageManager transactionStorageManager) {
+                          seedu.address.transaction.model.Model transactionModelManager) {
         this.filepathReimbursement = filepathReimbursement;
-        this.transactionStorageManager = transactionStorageManager;
+        this.transactionModelManager = transactionModelManager;
     }
 
+    /**
+     * Reads in the file line for reimbursement records.
+     * @param map map of names.
+     * @param line file line.
+     */
     public static void readInFileLine(HashMap<String, String> map, String line) {
         String[] stringArr = line.split(VBSPLIT, 0);
         String[] nameArr = stringArr[0].split(DOTSPLIT);
         String personName = nameArr[1];
         String parsedDate = "";
-        if(stringArr.length == 3) {
+        if (stringArr.length == 3) {
             String date = stringArr[2];
             //remove dash in deadline date
             parsedDate = date.substring(0, 4) + date.substring(5, 7) + date.substring(8);
@@ -55,7 +60,7 @@ public class StorageManager implements Storage {
                 this.readInFileLine(map, line);
             }
             //read transaction list from transaction storage
-            TransactionList transList = transactionStorageManager.readTransactionList();
+            TransactionList transList = transactionModelManager.getTransactionList();
             //generate reimbursement list from transaction list
             ReimbursementList newList = new ReimbursementList(transList);
             this.matchDeadline(newList, map);
@@ -93,7 +98,7 @@ public class StorageManager implements Storage {
             String date = "";
             Reimbursement rmb = newList.get(i);
             String rbPersonName = rmb.getPerson().getName().toString();
-            if(map.containsKey(rbPersonName)) {
+            if (map.containsKey(rbPersonName)) {
                 date = map.get(rbPersonName);
             }
             rmb.matchDeadline(date);

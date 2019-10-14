@@ -2,6 +2,9 @@ package seedu.address.transaction.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
+
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
 /**
@@ -9,6 +12,7 @@ import seedu.address.person.model.person.Person;
  */
 public class Transaction {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private LocalDate date;
     private String description;
     private String category;
@@ -89,7 +93,7 @@ public class Transaction {
     }
 
     public void updateStatus() {
-        isReimbursed = true;
+        this.isReimbursed = true;
     }
 
     private String isOne(boolean isReimbursed) {
@@ -103,6 +107,7 @@ public class Transaction {
     public String toWriteIntoFile() {
         String msg = this.date.format(DATE_TIME_FORMATTER) + " | " + this.description + " | " + this.category
                 + " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
+        logger.info("wrote into file: " + msg);
         return msg;
     }
 

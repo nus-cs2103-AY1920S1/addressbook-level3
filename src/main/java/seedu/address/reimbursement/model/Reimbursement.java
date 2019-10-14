@@ -2,6 +2,9 @@ package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
 
+import java.util.logging.Logger;
+
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.exception.InvalidDeadlineException;
 import seedu.address.reimbursement.model.util.Deadline;
@@ -13,6 +16,7 @@ import seedu.address.transaction.model.Transaction;
  */
 public class Reimbursement {
     private static final String VB = " | ";
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private ArrayList<Transaction> list;
     private Person person;
     private double amount;
@@ -30,8 +34,10 @@ public class Reimbursement {
      * @param trans Transaction that I want to create reimbursement for.
      */
     public Reimbursement(Transaction trans) {
+        logger.info("reimbursement only trans: " + trans);
         list = new ArrayList<>();
         list.add(trans);
+        logger.info("first in list in reimbursement:" + list.get(0));
         amount = trans.getAmount();
         person = trans.getPerson();
         description = new Description(list);
@@ -131,9 +137,9 @@ public class Reimbursement {
      * @param date The date of the deadline.
      */
     public void matchDeadline(String date) {
-        if(date.length() == 8) {
+        if (date.length() == 8) {
             this.addDeadline(date);
-        }else {
+        } else {
             deadline = new Deadline();
         }
     }
@@ -159,6 +165,7 @@ public class Reimbursement {
     public void done() {
         for (Transaction trans : list) {
             trans.updateStatus();
+            logger.info("trans updated: " + trans);
         }
     }
 

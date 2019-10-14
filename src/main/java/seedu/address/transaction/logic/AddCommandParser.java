@@ -56,8 +56,8 @@ public class AddCommandParser {
         } catch (DateTimeParseException e) {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
         } catch (Exception e) {
-         throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
-         }
+            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
+        }
     }
 
     /**
