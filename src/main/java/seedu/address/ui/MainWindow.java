@@ -229,19 +229,23 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches the list of available commands based on the function that the user wants to use.
+     * @param targetMode Function mode that user wants to switch to
+     */
     private void toggleModeTo (FunctionMode targetMode) {
         deselectCircle(currentHighlightedCircle);
         switch (targetMode) {
-            case FLASHCARD:
-                currentHighlightedCircle = fcHighlightCircle;
-                break;
-            case CHEATSHEET:
-                currentHighlightedCircle = csHighlightCircle;
-                break;
-            case NOTES:
-                currentHighlightedCircle = notesHighlightCircle;
-                break;
-            default:
+        case FLASHCARD:
+            currentHighlightedCircle = fcHighlightCircle;
+            break;
+        case CHEATSHEET:
+            currentHighlightedCircle = csHighlightCircle;
+            break;
+        case NOTES:
+            currentHighlightedCircle = notesHighlightCircle;
+            break;
+        default:
         }
         highlightCircle(currentHighlightedCircle);
     }
