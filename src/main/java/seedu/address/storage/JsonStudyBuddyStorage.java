@@ -133,8 +133,8 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, Path cheatSheetFilePath, Path flashcardFilePath)
-            throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, Path cheatSheetFilePath,
+                                Path flashcardFilePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
         requireNonNull(cheatSheetFilePath);

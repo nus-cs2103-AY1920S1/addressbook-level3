@@ -37,7 +37,8 @@ class JsonSerializableFlashcardBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableFlashcardBook}.
      */
     public JsonSerializableFlashcardBook(ReadOnlyFlashcardBook source) {
-        flashcards.addAll(source.getFlashcardList().stream().map(JsonAdaptedFlashcard::new).collect(Collectors.toList()));
+        flashcards.addAll(source.getFlashcardList().stream()
+                .map(JsonAdaptedFlashcard::new).collect(Collectors.toList()));
     }
 
     /**
