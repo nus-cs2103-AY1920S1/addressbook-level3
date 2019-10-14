@@ -17,6 +17,7 @@ public class Date {
             "Date should only contain numbers, and it should be at least 3 digits long";
     public static final String VALIDATION_REGEX = "^([0-2][0-9]|(3)[0-1])(\\-)(((0)[0-9])|((1)[0-2]))(\\-)\\d{4}$";
     private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public final String text;
     public final LocalDate date;
 
     /**
@@ -27,6 +28,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        this.text = date;
         this.date = LocalDate.parse(date, format);
     }
 

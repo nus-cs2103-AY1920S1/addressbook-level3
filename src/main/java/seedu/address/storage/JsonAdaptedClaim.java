@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ class JsonAdaptedClaim {
 
     private final String description;
     private final String amount;
+    private final String date;
     private final String name;
     private final String phone;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +36,12 @@ class JsonAdaptedClaim {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedClaim(@JsonProperty("description") String description, @JsonProperty("amount") String amount,
-                             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedClaim(@JsonProperty("description") String description, @JsonProperty("date") String date,
+                            @JsonProperty("amount") String amount, @JsonProperty("name") String name,
+                            @JsonProperty("phone") String phone, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.amount = amount;
+        this.date = date;
         this.name = name;
         this.phone = phone;
         if (tagged != null) {
@@ -52,6 +55,7 @@ class JsonAdaptedClaim {
     public JsonAdaptedClaim(Claim source) {
         description = source.getDescription().text;
         amount = source.getAmount().value;
+        date = source.getDate().text;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         tagged.addAll(source.getTags().stream()
@@ -87,6 +91,15 @@ class JsonAdaptedClaim {
         }
         final Amount modelAmount = new Amount(amount);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modelDate = new Date(date);
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -104,7 +117,7 @@ class JsonAdaptedClaim {
         final Phone modelPhone = new Phone(phone);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Claim(modelDescription, modelAmount, modelName, modelPhone, modelTags);
+        return new Claim(modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
     }
 
 }

@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 /**
@@ -32,6 +33,8 @@ public class ClaimCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label date;
+    @FXML
     private Label description;
     @FXML
     private Label amount;
@@ -46,6 +49,7 @@ public class ClaimCard extends UiPart<Region> {
         super(FXML);
         this.claim = claim;
         id.setText(displayedIndex + ". ");
+        date.setText(claim.getDate().text);
         description.setText(claim.getDescription().text);
         amount.setText(claim.getAmount().value);
         name.setText(claim.getName().fullName);
