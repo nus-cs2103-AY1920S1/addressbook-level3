@@ -16,6 +16,7 @@ import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.order.Order;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,27 +25,31 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final OrderBook orderBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     //private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Order> filteredOrders;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyOrderBook orderBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.orderBook = new OrderBook(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         //filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new OrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,6 +87,16 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getOrderBookFilePath() {
+        return userPrefs.getOrderBookFilePath();
+    }
+
+    @Override
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        userPrefs.setOrderBookFilePath(orderBookFilePath);
+    }
     //=========== AddressBook ================================================================================
 
     @Override
@@ -156,6 +171,42 @@ public class ModelManager implements Model {
     public void addDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
     }
+
+    //=========== Order Methods =============================================================
+    @Override
+    public void setOrderBook(ReadOnlyOrderBook orderBook) {
+        this.orderBook.resetData(orderBook);
+    }
+
+    @Override
+    public ReadOnlyOrderBook getOrderBook() {
+        return orderBook;
+    }
+
+    @Override
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return orderBook.hasOrder(order);
+    }
+
+    @Override
+    public void deleteOrder(Order order) {
+        orderBook.removeOrder(order);
+    }
+
+    @Override
+    public void addOrder(Order order) {
+        orderBook.addOrder(order);
+        updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+    }
+
+    @Override
+    public void setOrder(Order target, Order editedOrder) {
+        requireAllNonNull(target, editedOrder);
+
+        orderBook.setOrder(target, editedOrder);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -168,9 +219,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Order> getFilteredOrderList() {
+        return filteredOrders;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredOrders.setPredicate(predicate);
     }
 
     @Override

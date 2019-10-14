@@ -60,6 +60,10 @@ public class Order {
         return sb.toString();
     }
 
+    public Set<Food> getFoods() {
+        return Collections.unmodifiableSet(foods);
+    }
+
     public String getRestaurant() {
         return restaurant;
     }
@@ -81,6 +85,22 @@ public class Order {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameOrder(Order otherOrder) {
+        if (otherOrder == this) {
+            return true;
+        }
+
+        return otherOrder != null
+                && otherOrder.getCustomer().equals(getCustomer())
+                && otherOrder.getDeliveryman().equals(getDeliveryman())
+                && otherOrder.getRestaurant().equals(getRestaurant())
+                && otherOrder.getFood().equals(getFood());
     }
 
     /**
