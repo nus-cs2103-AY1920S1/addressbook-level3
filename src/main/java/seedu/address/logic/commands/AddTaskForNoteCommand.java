@@ -57,7 +57,7 @@ public class AddTaskForNoteCommand extends Command {
         }
 
         model.addTask(toAdd);
-        System.out.println("Task" + toAdd.toString() + "is added");
+        //System.out.println("Task" + toAdd.toString() + "is added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

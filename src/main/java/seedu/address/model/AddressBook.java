@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
@@ -150,12 +151,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && notes.equals(((AddressBook) other).notes));
+                && notes.equals(((AddressBook) other).notes)
+                && tasks.equals(((AddressBook) other).tasks));
     }
 
     @Override
     public int hashCode() {
-        return notes.hashCode();
+//        return notes.hashCode();
+        return Objects.hash(notes, tasks);
     }
 
     public ObservableList<Task> getTaskList() {
