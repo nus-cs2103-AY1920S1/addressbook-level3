@@ -15,10 +15,9 @@ import seedu.algobase.model.problem.Problem;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
-
-    //=========== UserPref =============================================================
     Predicate<Plan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
 
+    //=========== UserPref ==============================================================
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -56,7 +55,7 @@ public interface Model {
      */
     GuiState getGuiState();
 
-    //=========== AlgoBase =============================================================
+    //=========== AlgoBase ==============================================================
 
     /**
      * Replaces algobase data with the data in {@code algoBase}.
@@ -66,7 +65,7 @@ public interface Model {
     /** Returns the AlgoBase */
     ReadOnlyAlgoBase getAlgoBase();
 
-    //=========== Problem List =============================================================
+    //=========== Problem ===============================================================
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the algobase.
@@ -108,7 +107,7 @@ public interface Model {
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
 
-    //=========== Plan List =============================================================
+    //=========== Plan ==================================================================
 
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.

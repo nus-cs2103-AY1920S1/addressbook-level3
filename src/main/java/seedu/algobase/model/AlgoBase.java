@@ -41,16 +41,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the Problem list with {@code problems}.
-     * {@code problems} must not contain duplicate problems.
-     */
-    public void setProblems(List<Problem> problems) {
-        this.problems.setProblems(problems);
-    }
-
     /**
      * Resets the existing data of this {@code AlgoBase} with {@code newData}.
      */
@@ -60,7 +50,15 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setProblems(newData.getProblemList());
     }
 
-    //// Problem-level operations
+    //========== Problem ================================================================
+
+    /**
+     * Replaces the contents of the Problem list with {@code problems}.
+     * {@code problems} must not contain duplicate problems.
+     */
+    public void setProblems(List<Problem> problems) {
+        this.problems.setProblems(problems);
+    }
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the algobase.
@@ -102,7 +100,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return problems.asUnmodifiableObservableList();
     }
 
-    //// Plan-level operations
+    //========== Plan ===================================================================
 
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
@@ -144,7 +142,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return plans.asUnmodifiableObservableList();
     }
 
-    //// util methods
+    //========== Util ===================================================================
 
     @Override
     public String toString() {
