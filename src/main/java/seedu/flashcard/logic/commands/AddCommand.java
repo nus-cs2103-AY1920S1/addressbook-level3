@@ -2,7 +2,8 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.Model;
+import seedu.flashcard.model.flashcard.Flashcard;
 
 /**
  * Command to add a new model.
@@ -25,8 +26,7 @@ public class AddCommand extends Command {
     // TODO: implement the following execution method for add command, beware to generate a good command result.
     // TODO: write corresponding tests to test out this execution methods.
     @Override
-    public CommandResult execute(FlashcardList flashcardList) {
+    public CommandResult execute(Model model) {
         return null;
     }
-
 }

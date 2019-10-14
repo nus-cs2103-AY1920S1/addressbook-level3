@@ -10,8 +10,8 @@ import static seedu.flashcard.model.DefaultFlashCards.MOUNT_BLANC_CARD;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.flashcard.model.exceptions.CardNotFoundException;
-import seedu.flashcard.model.exceptions.DuplicateCardException;
+import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
+import seedu.flashcard.model.flashcard.exceptions.DuplicateCardException;
 
 public class TagTest {
 

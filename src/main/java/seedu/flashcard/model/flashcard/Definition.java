@@ -13,14 +13,12 @@ public class Definition {
     public static final String MESSAGE_CONSTRAINTS = "Definition can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final Speech speech;
     public final String definition;
 
-    public Definition(String definition, Speech speech) {
+    public Definition(String definition) {
         requireNonNull(definition);
         checkArgument(isValidDefinition(definition));
         this.definition = definition;
-        this.speech = speech;
     }
 
     /**
@@ -32,19 +30,18 @@ public class Definition {
 
     @Override
     public String toString() {
-        return speech.toString() + " " + definition;
+        return definition;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Definition)
-                && definition.equals(((Definition) other).definition)
-                && speech.equals(((Definition) other).speech);
+                && definition.equals(((Definition) other).definition);
     }
 
     @Override
     public int hashCode() {
-        return hash(definition, speech);
+        return hash(definition);
     }
 }

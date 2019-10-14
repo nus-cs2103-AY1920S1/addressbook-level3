@@ -1,4 +1,4 @@
-package seedu.flashcard.model.exceptions;
+package seedu.flashcard.model.flashcard.exceptions;
 
 /**
  * The exception when a particular card id cannot be found

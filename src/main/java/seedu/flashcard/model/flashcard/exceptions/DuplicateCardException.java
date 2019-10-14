@@ -1,4 +1,4 @@
-package seedu.flashcard.model.exceptions;
+package seedu.flashcard.model.flashcard.exceptions;
 
 /**
  * Exception for when adding two same cards into a tag

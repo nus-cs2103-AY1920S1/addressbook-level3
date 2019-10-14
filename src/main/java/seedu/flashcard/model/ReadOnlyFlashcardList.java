@@ -1,6 +1,7 @@
 package seedu.flashcard.model;
 
 import javafx.collections.ObservableList;
+import seedu.flashcard.model.flashcard.Flashcard;
 
 public interface ReadOnlyFlashcardList {
 

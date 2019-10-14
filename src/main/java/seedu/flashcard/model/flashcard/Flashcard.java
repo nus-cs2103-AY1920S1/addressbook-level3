@@ -19,13 +19,13 @@ public class Flashcard {
     private final Word word;
 
     // Data fields
-    private final Set<Definition> definitions = new HashSet<>();
+    private final Definition definition;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Flashcard(Word word, Set<Definition> definitions, Set<Tag> tags) {
+    public Flashcard(Word word, Definition definitions, Set<Tag> tags) {
         requireAllNonNull(word, definitions, tags);
         this.word = word;
-        this.definitions.addAll(definitions);
+        this.definition = definitions;
         this.tags.addAll(tags);
     }
 
@@ -37,8 +37,8 @@ public class Flashcard {
      * Returns an immutable definition set, which throws {@code UnsupportedOperationException}
      * if modification is attempted
      */
-    public Set<Definition> getDefinitions() {
-        return Collections.unmodifiableSet(definitions);
+    public Definition getDefinition() {
+        return definition;
     }
 
     /**
@@ -74,7 +74,7 @@ public class Flashcard {
         }
         Flashcard otherFlashcard = (Flashcard) other;
         return otherFlashcard.getWord().equals(getWord())
-                && otherFlashcard.getDefinitions().equals(getDefinitions())
+                && otherFlashcard.getDefinition().equals(getDefinition())
                 && otherFlashcard.getTags().equals(getTags());
     }
 
@@ -82,15 +82,15 @@ public class Flashcard {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getWord())
-                .append(" Definitions: ");
-        getDefinitions().forEach(builder::append);
-        builder.append(" Tags: ");
+                .append(" Definitions: ")
+                .append(getDefinition())
+                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(word, definitions, tags);
+        return Objects.hash(word, definition, tags);
     }
 }
