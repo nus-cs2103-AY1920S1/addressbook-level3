@@ -30,6 +30,9 @@ public class InfoWindow extends UiPart<Stage> {
     @FXML
     private Label output;
 
+    @FXML
+    private Button quitButton;
+
     /**
      * Creates a new InfoWindow.
      *
@@ -47,6 +50,10 @@ public class InfoWindow extends UiPart<Stage> {
      */
     public InfoWindow() {
         this(new Stage());
+    }
+
+    public void closeWindow() {
+        getRoot().close();
     }
 
     /**
@@ -85,13 +92,6 @@ public class InfoWindow extends UiPart<Stage> {
      */
     public boolean isShowing() {
         return getRoot().isShowing();
-    }
-
-    /**
-     * Hides the info window.
-     */
-    public void hide() {
-        getRoot().hide();
     }
 
     /**
