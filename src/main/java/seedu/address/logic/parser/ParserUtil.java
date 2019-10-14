@@ -352,7 +352,7 @@ public class ParserUtil {
         }
         //@@author
         //offset month as Calendar takes in 0-based month
-        int offsetMonth = input[1] -1 ;
+        int offsetMonth = input[1] - 1;
         return new Calendar.Builder().setDate(input[0], offsetMonth, input[2]).build();
     }
 
