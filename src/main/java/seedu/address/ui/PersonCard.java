@@ -34,6 +34,14 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label calories;
+    @FXML
+    private Label carbs;
+    @FXML
+    private Label fats;
+    @FXML
+    private Label protein;
+    @FXML
     private VBox ingredients;
 
     public PersonCard(Recipe recipe, int displayedIndex) {
@@ -44,6 +52,10 @@ public class PersonCard extends UiPart<Region> {
         recipe.getIngredients().stream()
                 .sorted(Comparator.comparing(ingredient -> ingredient.ingredientName))
                 .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.ingredientName)));
+        calories.setText(recipe.getCalories().cardValue);
+        carbs.setText(recipe.getCarbs().cardValue);
+        fats.setText(recipe.getFats().cardValue);
+        protein.setText(recipe.getProtein().cardValue);
     }
 
     @Override

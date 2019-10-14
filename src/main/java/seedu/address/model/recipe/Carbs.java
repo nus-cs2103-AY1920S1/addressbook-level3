@@ -12,6 +12,7 @@ public class Carbs {
             "Amount of carbohydrates should only contain numbers, express in grams, with units omitted.";
     public static final String VALIDATION_REGEX = "\\d*";
     public final String value;
+    public final String cardValue;
 
     /**
      * Constructs a {@Carbs}.
@@ -22,6 +23,7 @@ public class Carbs {
         requireNonNull(carbs);
         checkArgument(isValidCarbs(carbs), MESSAGE_CONSTRAINTS);
         value = carbs;
+        cardValue = "Carbs: " + value + "g";
     }
 
     /**

@@ -35,9 +35,10 @@
             <VBox.margin>
                <Insets left="10.0" />
             </VBox.margin></VBox>
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="calories" styleClass="cell_small_label" text="\$calories" />
+      <Label fx:id="carbs" styleClass="cell_small_label" text="\$carbs" />
+      <Label fx:id="fats" styleClass="cell_small_label" text="\$fats" />
+      <Label fx:id="protein" styleClass="cell_small_label" text="\$protein" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

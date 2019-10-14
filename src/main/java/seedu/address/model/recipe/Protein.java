@@ -12,6 +12,7 @@ public class Protein {
             "Amount of protein should only contain numbers, express in g, with units omitted.";
     public static final String VALIDATION_REGEX = "\\d*";
     public final String value;
+    public final String cardValue;
 
     /**
      * Constructs a {@Protein}.
@@ -22,6 +23,7 @@ public class Protein {
         requireNonNull(protein);
         checkArgument(isValidProtein(protein), MESSAGE_CONSTRAINTS);
         value = protein;
+        cardValue = "Protein: " + value + "g";
     }
 
     /**

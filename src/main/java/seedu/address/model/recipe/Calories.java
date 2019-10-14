@@ -12,6 +12,7 @@ public class Calories {
             "Number of calories should only contain numbers, express in kcal, with units omitted.";
     public static final String VALIDATION_REGEX = "\\d*";
     public final String value;
+    public final String cardValue;
 
     /**
      * Constructs a {@Calorie}.
@@ -22,6 +23,7 @@ public class Calories {
         requireNonNull(calories);
         checkArgument(isValidCalories(calories), MESSAGE_CONSTRAINTS);
         value = calories;
+        cardValue = "Calories: " + value + "kcal";
     }
 
     /**

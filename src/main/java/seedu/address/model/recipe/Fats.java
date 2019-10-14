@@ -12,6 +12,7 @@ public class Fats {
             "Amount of fats should only contain numbers, express in g, with units omitted.";
     public static final String VALIDATION_REGEX = "\\d*";
     public final String value;
+    public final String cardValue;
 
     /**
      * Constructs a {@Fats}.
@@ -22,6 +23,7 @@ public class Fats {
         requireNonNull(fats);
         checkArgument(isValidFats(fats), MESSAGE_CONSTRAINTS);
         value = fats;
+        cardValue = "Fats: " + value + "g";
     }
 
     /**
