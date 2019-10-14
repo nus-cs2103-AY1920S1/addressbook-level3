@@ -24,7 +24,6 @@ import seedu.savenus.model.wallet.Wallet;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
@@ -38,7 +37,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(menu, userPrefs);
 
-        logger.fine("Initializing with address book: " + menu + " and user prefs " + userPrefs);
+        logger.fine("Initializing with $aveNUS menu: " + menu + " and user prefs " + userPrefs);
 
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);

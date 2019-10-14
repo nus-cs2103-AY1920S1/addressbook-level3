@@ -27,6 +27,10 @@ public class FoodListPanel extends UiPart<Region> {
         foodListView.setCellFactory(listView -> new FoodListViewCell());
     }
 
+    public void showLastItem() {
+        foodListView.scrollTo(foodListView.getItems().size() - 1);
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Food} using a {@code FoodCard}.
      */

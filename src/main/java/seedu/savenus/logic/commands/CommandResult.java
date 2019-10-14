@@ -17,13 +17,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** New food was added by user. Scroll to latest added food item */
+    private boolean justAdd;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean justAdd) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.justAdd = justAdd;
     }
 
     /**
@@ -31,7 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -40,6 +44,14 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public void justAdded(boolean justAdd) {
+        this.justAdd = justAdd;
+    }
+
+    public boolean isJustAdd() {
+        return justAdd;
     }
 
     public boolean isExit() {

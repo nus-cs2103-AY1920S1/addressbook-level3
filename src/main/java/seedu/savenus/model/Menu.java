@@ -78,6 +78,7 @@ public class Menu implements ReadOnlyMenu {
     /**
      * Adds a food to the menu.
      * The food must not already exist in the menu.
+     * UniqueFoodList foods has an add method that adds p only if it is not a duplicate
      */
     public void addFood(Food p) {
         foods.add(p);

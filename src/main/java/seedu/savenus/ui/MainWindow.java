@@ -194,6 +194,9 @@ public class MainWindow extends UiPart<Stage> {
             // Update foodListPanel after every command
             foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
             foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+            if (commandResult.isJustAdd()) {
+                foodListPanel.showLastItem();
+            }
 
             // Update purchaseListPanel after every command
             purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
