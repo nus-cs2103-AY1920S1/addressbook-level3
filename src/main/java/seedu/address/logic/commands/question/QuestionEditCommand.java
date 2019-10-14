@@ -29,9 +29,15 @@ public class QuestionEditCommand extends QuestionCommand {
     private final String answer;
     private final String type;
 
+    private String optionA = null;
+    private String optionB = null;
+    private String optionC = null;
+    private String optionD = null;
+
     /**
      * Creates a QuestionEditCommand object.
      *
+     * @param index  of question in the list.
      * @param fields to edit.
      */
     public QuestionEditCommand(Index index, HashMap<String, String> fields) {
@@ -39,6 +45,26 @@ public class QuestionEditCommand extends QuestionCommand {
         this.question = fields.get("question");
         this.answer = fields.get("answer");
         this.type = fields.get("type");
+    }
+
+    /**
+     * Creates a QuestionEditCommand object with MCQ options.
+     *
+     * @param index   of question in the list.
+     * @param fields  to edit.
+     * @param options for mcq.
+     */
+    public QuestionEditCommand(Index index, HashMap<String, String> fields,
+        HashMap<String, String> options) {
+        this.index = index;
+        this.question = fields.get("question");
+        this.answer = fields.get("answer");
+        this.type = fields.get("type");
+
+        this.optionA = options.get("optionA");
+        this.optionB = options.get("optionB");
+        this.optionC = options.get("optionC");
+        this.optionD = options.get("optionD");
     }
 
     @Override
@@ -54,7 +80,8 @@ public class QuestionEditCommand extends QuestionCommand {
                 questionObj = new OpenEndedQuestion(question, answer);
                 break;
             case "mcq":
-                questionObj = new McqQuestion(question, answer);
+                formatMcqOptions(questionObj);
+                questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
                 break;
             default:
                 questionObj = new OpenEndedQuestion(question, answer);
@@ -63,6 +90,12 @@ public class QuestionEditCommand extends QuestionCommand {
         } else {
             questionObj.setQuestion(question);
             questionObj.setAnswer(answer);
+
+            if (questionObj instanceof McqQuestion) {
+                formatMcqOptions(questionObj);
+                questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
+            }
+
         }
 
         model.setQuestion(index, questionObj);
@@ -76,6 +109,22 @@ public class QuestionEditCommand extends QuestionCommand {
      */
     private String generateSuccessMessage(Question question) {
         return "Edited question: " + question;
+    }
+
+    /**
+     * Sets the mcq options to either the new value or the stored value.
+     *
+     * @param questionObj from list.
+     */
+    private void formatMcqOptions(Question questionObj) {
+        optionA = (!this.optionA.isBlank()) ? this.optionA
+            : ((McqQuestion) questionObj).getOptionA();
+        optionB = (!this.optionB.isBlank()) ? this.optionB
+            : ((McqQuestion) questionObj).getOptionB();
+        optionC = (!this.optionC.isBlank()) ? this.optionC
+            : ((McqQuestion) questionObj).getOptionC();
+        optionD = (!this.optionD.isBlank()) ? this.optionD
+            : ((McqQuestion) questionObj).getOptionD();
     }
 
     @Override
@@ -92,6 +141,9 @@ public class QuestionEditCommand extends QuestionCommand {
 
         // state check
         QuestionEditCommand e = (QuestionEditCommand) other;
-        return question.equals(e.question);
+        return index.equals(e.index)
+            && question.equals(e.question)
+            && answer.equals(e.answer)
+            && type.equals(e.type);
     }
 }

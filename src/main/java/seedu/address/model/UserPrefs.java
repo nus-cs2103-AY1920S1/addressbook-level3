@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path studentRecordFilePath = Paths.get("data" , "students.json");
+    private Path savedQuestionsFilePath = Paths.get("data" , "questions.json");
 
 
     /**
@@ -59,6 +60,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    //region StudentRecord
     public Path getStudentRecordFilePath() {
         return studentRecordFilePath;
     }
@@ -67,6 +69,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(studentsFilePath);
         this.studentRecordFilePath = studentsFilePath;
     }
+
+    //endregion
+
+    //region SavedQuestions
+    public Path getSavedQuestionsFilePath() {
+        return savedQuestionsFilePath;
+    }
+
+    public void setSavedQuestionsFilePath(Path savedQuestionsFilePath) {
+        requireNonNull(savedQuestionsFilePath);
+        this.savedQuestionsFilePath = savedQuestionsFilePath;
+    }
+
+    //endregion
 
     @Override
     public boolean equals(Object other) {
@@ -95,6 +111,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal address book data file location : " + addressBookFilePath);
         sb.append("\nLocal student data file location : " + studentRecordFilePath);
+        sb.append("\nLocal questions data file location : " + savedQuestionsFilePath);
         return sb.toString();
     }
 
