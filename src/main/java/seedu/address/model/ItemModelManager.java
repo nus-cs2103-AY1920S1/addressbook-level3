@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ListPropertyBase;
@@ -14,6 +17,7 @@ import seedu.address.commons.core.item.Task;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
+import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -35,9 +39,10 @@ public class ItemModelManager implements ItemModel {
     private PriorityQueue<Item> sortedTask = null;
 
     //Bryan Reminder
+    //These three lists must be synchronized
     private ReminderList pastReminders;
-    private ListPropertyBase<Item> activeReminders;
-    private ReminderList futureReminders;
+    private ActiveRemindersList activeReminders;
+    private ArrayList<Item> futureReminders;
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
 
@@ -52,6 +57,8 @@ public class ItemModelManager implements ItemModel {
         //Bryan Reminder
         pastReminders = new ReminderList();
 
+        activeReminders = new ActiveRemindersList(new ReminderList());
+        /*
         activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
             @Override
             public Object getBean() {
@@ -62,9 +69,25 @@ public class ItemModelManager implements ItemModel {
             public String getName() {
                 return null;
             }
-        };
 
-        futureReminders = new ReminderList();
+            public synchronized Item popReminder() {
+                if(!isEmpty()) {
+                    return remove(0);
+                } else {
+                    //Should have this throw an exception
+                    return null;
+                }
+            }
+
+            public synchronized void addReminders(Collection<Item> reminders) {
+                for (Item item:reminders) {
+                    add(0, item);
+                }
+            }
+        };
+        */
+
+        futureReminders = new ArrayList<Item>();
 
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
@@ -81,7 +104,8 @@ public class ItemModelManager implements ItemModel {
      */
 
     //Function to get property
-    private ListPropertyBase<Item> getActiveReminderListProperty() {
+    @Override
+    public ActiveRemindersList getActiveReminderListProperty() {
         return activeReminders;
     }
 
@@ -92,6 +116,11 @@ public class ItemModelManager implements ItemModel {
     //Function to edit property //which should trigger a change event
     public final void addReminderToActive(Item item) {
         activeReminders.add(item);
+    }
+
+    @Override
+    public final ArrayList<Item> getFutureRemindersList() {
+        return futureReminders;
     }
 
     @Override
@@ -146,6 +175,7 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         visualList.add(item);
+        //TODO: Shouldnt addToSeparateList be successful before we store the item?
         itemStorage.add(item);
         addToSeparateList(item);
     }
@@ -174,6 +204,7 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
+            futureReminders.add(item);
         }
     }
 

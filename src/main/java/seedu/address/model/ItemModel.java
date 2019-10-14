@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
+import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
 
 /**
@@ -92,5 +94,7 @@ public interface ItemModel {
 
     public void updateState();
     //Bryan Reminder
-    ListPropertyBase<Item> getActiveRemindersListProperty();
+    ActiveRemindersList getActiveReminderListProperty();
+
+    ArrayList<Item> getFutureRemindersList();
 }

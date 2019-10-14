@@ -2,8 +2,11 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -11,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.item.Item;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -102,6 +106,24 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        //Get property.addListener
+        logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
+            @Override
+            public void onChanged(Change<? extends Item> c) {
+                System.out.println("Change Detected");
+                while (c.next()) {
+                    for (Item newItem : c.getAddedSubList()) {
+                        Platform.runLater(() -> {
+                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                        });
+                    }
+                }
+            }
+        });
+        //to listen for change in active
+        //while !active.isEmpty()
+        //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
