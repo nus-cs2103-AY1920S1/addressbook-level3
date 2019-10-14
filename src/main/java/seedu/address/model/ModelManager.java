@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -17,8 +18,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.JsonUtil;
 import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
@@ -35,6 +34,7 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.SemesterNo;
@@ -518,13 +518,14 @@ public class ModelManager implements Model {
     };
 
     @Override
-    public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) {
+    public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) throws ModuleNotFoundException {
         Module module;
 
         try {
             module = nusModsData.getDetailedModuleList().findModule(acadYear, moduleCode);
         } catch (ModuleNotFoundException ex1) {
             try {
+                //TODO: just remove this layer altogether, module list should be small enough to keep in-memory
                 Path path = this.userPrefs.getDetailedModuleListFilePath();
                 String key = acadYear.toString() + " " + moduleCode.toString();
                 Optional<JSONObject> objOptional = SimpleJsonUtil.readJsonFile(path, JSONObject.class);
@@ -533,21 +534,35 @@ public class ModelManager implements Model {
                 }
                 module = NusModsParser.parseModule(objOptional.get());
             } catch (ModuleNotFoundException ex2) {
-                try {
-                    Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
-                    if (moduleObj.isPresent()) {
-                        module = NusModsParser.parseModule(moduleObj.get());
-                    } else {
-                        throw new ModuleNotFoundException();
-                    }
-                } catch (ModuleNotFoundException ex3) {
+                Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
+                if (moduleObj.isEmpty()) {
                     throw new ModuleNotFoundException();
                 }
+                module = NusModsParser.parseModule(moduleObj.get());
+                nusModsData.addDetailedModule(module);
             }
         }
 
         return module;
     };
+
+    @Override
+    public DetailedModuleList getDetailedModuleList() {
+        return nusModsData.getDetailedModuleList();
+    }
+
+    @Override
+    public void addDetailedModule(Module module) {
+        nusModsData.addDetailedModule(module);
+    }
+
+    public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
+        return nusModsData.getAcadCalendar().getStartDateString(acadYear, semesterNo);
+    };
+
+    public List<String> getHolidayDateStrings() {
+        return nusModsData.getHolidays().getHolidayDates();
+    }
 
     //=========== Others =============================================================
 
