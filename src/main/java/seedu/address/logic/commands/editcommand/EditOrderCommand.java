@@ -132,7 +132,7 @@ public class EditOrderCommand extends Command {
         Customer customer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
         Phone phone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Price price = editOrderDescriptor.getPrice().orElse(orderToEdit.getPrice());
-        Status status = editOrderDescriptor.getStatus().orElse(orderToEdit.getStatus());
+        Status status = orderToEdit.getStatus();
         Optional<Schedule> schedule = orderToEdit.getSchedule();
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
