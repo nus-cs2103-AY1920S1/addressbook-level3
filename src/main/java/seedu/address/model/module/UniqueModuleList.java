@@ -16,9 +16,8 @@ import seedu.address.model.module.exceptions.ModuleNotFoundException;
  * A module is considered unique by comparing using {@code Module#equals(Module)}. As such, adding, updating and
  * removing of modules uses Module#equals(Module) for equality so as to ensure that the module
  * is unique in terms of identity in the UniqueModuleList.
- *
+ * <p>
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueModuleList implements Iterable<Module> {
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
@@ -28,15 +27,16 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if the list contains an equivalent module as the given argument.
      */
+    public boolean contains(String toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(module -> module.getModuleCode().toString().equals(toCheck));
+    }
+
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
-    /**
-     * Adds a module to the list.
-     * The module must not already exist in the list.
-     */
     public void add(Module toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
@@ -46,34 +46,21 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Replaces the module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the list.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the list.
-     */
-    public void setModule(Module target, Module editedModule) {
-        requireAllNonNull(target, editedModule);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new ModuleNotFoundException();
-        }
-
-        if (!target.equals(editedModule) && contains(editedModule)) {
-            throw new DuplicateModuleException();
-        }
-
-        internalList.set(index, editedModule);
-    }
-
-    /**
      * Removes the equivalent module from the list.
      * The module must exist in the list.
      */
-    public void remove(Module toRemove) {
+    public void remove(String toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ModuleNotFoundException();
+        this.internalList.remove(getModule(toRemove));
+    }
+
+    private Module getModule(String moduleCode) {
+        for (Module mod : this.internalList) {
+            if (mod.getModuleCode().toString().equals(moduleCode)) {
+                return mod;
+            }
         }
+        return null;
     }
 
     public void setModules(UniqueModuleList replacement) {
@@ -134,5 +121,23 @@ public class UniqueModuleList implements Iterable<Module> {
 
     public int getMcCount() {
         return internalList.stream().map(Module::getMcCount).reduce(Integer::sum).get();
+    }
+
+    /**
+     * Replaces the module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the list.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the list.
+     */
+    public void setModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!target.equals(editedModule) && contains(editedModule)) {
+            internalList.set(index, editedModule);
+        }
     }
 }
