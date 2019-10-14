@@ -5,13 +5,12 @@ import static seedu.jarvis.testutil.cca.TypicalCcas.CANOEING;
 
 import org.junit.jupiter.api.Test;
 
-public class CcaListTest {
+public class CcaTrackerTest {
 
-    private final CcaList ccaList = new CcaList();
+    private final CcaTracker ccaTracker = new CcaTracker();
 
     @Test
     public void contains_ccaNotInList_returnsFalse() {
-        assertFalse(ccaList.contains(CANOEING));
+        assertFalse(ccaTracker.contains(CANOEING));
     }
-
 }
