@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private Editor editorPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane editorPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -120,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        editorPanel = new Editor();
+        editorPlaceholder.getChildren().add(editorPanel.getRoot());
     }
 
     /**
@@ -164,6 +172,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public QuestionListPanel getPersonListPanel() {
         return questionListPanel;
+    }
+
+    public Editor getEditorPanel() {
+        return editorPanel;
     }
 
     /**
