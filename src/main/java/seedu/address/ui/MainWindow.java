@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -15,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -22,16 +22,17 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements Page {
 
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private Scene mainScene;
     private Logic logic;
     private Pages pages;
 
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
 
@@ -70,14 +72,16 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
 
-        Scene primaryScene = primaryStage.getScene();
+        mainScene = primaryStage.getScene();
 
-        // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
+        // todo-this-week: call the PageScene constructor with your page scene instead,
+        // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene, new SamplePage(), itineraryPage, calendarPage);
+        pages = new Pages(this, new SamplePage(), itineraryPage, financialTrackerPage, calendarPage);
 
     }
 
@@ -98,18 +102,18 @@ public class MainWindow extends UiPart<Stage> {
 
         /*
          * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -196,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-              CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -218,5 +222,15 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @Override
+    public Scene getScene() {
+        return mainScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return PageType.MAIN;
     }
 }
