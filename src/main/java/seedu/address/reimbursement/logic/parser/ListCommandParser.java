@@ -6,6 +6,9 @@ import seedu.address.reimbursement.commands.ListCommand;
 import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Parses List commands.
+ */
 public class ListCommandParser implements SortParser<ListCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());

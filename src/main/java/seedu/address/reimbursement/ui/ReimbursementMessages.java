@@ -68,6 +68,10 @@ public class ReimbursementMessages {
         return msg;
     }
 
+    /**
+     * Message in reply to list all reimbursements.
+     * @return a string for use when listing all reimbursements.
+     */
     public static String listReimbursement() {
         String msg = "List all reimbursements." + System.lineSeparator();
         return msg;

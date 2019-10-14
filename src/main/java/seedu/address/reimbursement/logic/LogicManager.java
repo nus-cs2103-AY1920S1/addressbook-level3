@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void writeIntoReimbursementFile() throws Exception{
+    public void writeIntoReimbursementFile() throws Exception {
         reimbursementStorage.writeFile(this.getReimbursementList());
     }
 

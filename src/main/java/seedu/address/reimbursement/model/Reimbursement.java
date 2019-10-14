@@ -131,9 +131,9 @@ public class Reimbursement {
      * @param date The date of the deadline.
      */
     public void matchDeadline(String date) {
-        if(date.length() == 8) {
+        if (date.length() == 8) {
             this.addDeadline(date);
-        }else {
+        } else {
             deadline = new Deadline();
         }
     }
