@@ -13,8 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,9 +23,9 @@ import seedu.address.model.wordbank.WordBank;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final WordBank wordBank;
+    private final WordBankList wordBankList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
+    private final FilteredList<WordBank> filteredWordBank;
 
     //Placeholder game model
     private Game game = null;
@@ -32,19 +33,19 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWordBankList wordBankList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(wordBank, userPrefs);
+        requireAllNonNull(wordBankList, userPrefs);
 
-        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
+        logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank);
+        this.wordBankList = new WordBankList(wordBankList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredWordBank = new FilteredList<>(this.wordBankList.getWordBankList());
     }
 
     public ModelManager() {
-        this(new WordBank(), new UserPrefs());
+        this(new WordBankList(), new UserPrefs());
     }
 
     // Placeholder setGame method
@@ -91,40 +92,40 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== WordBank ================================================================================
+    //=========== WordBankList ================================================================================
 
     @Override
-    public void setWordBank(ReadOnlyWordBank wordBank) {
-        this.wordBank.resetData(wordBank);
+    public void setWordBankList(ReadOnlyWordBankList wordBankList) {
+        this.wordBankList.resetData(wordBankList);
     }
 
     @Override
-    public ReadOnlyWordBank getWordBank() {
-        return wordBank;
+    public ReadOnlyWordBankList getWordBankList() {
+        return wordBankList;
     }
 
     @Override
-    public boolean hasCard(Card card) {
-        requireNonNull(card);
-        return wordBank.hasCard(card);
+    public boolean hasWordBank(WordBank wordBank) {
+        requireNonNull(wordBank);
+        return wordBankList.hasWordBank(wordBank);
     }
 
     @Override
-    public void deleteCard(Card target) {
-        wordBank.removeCard(target);
+    public void deleteWordBank(WordBank target) {
+        wordBankList.removeCard(target);
     }
 
     @Override
-    public void addCard(Card card) {
-        wordBank.addCard(card);
-        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+    public void addWordBank(WordBank card) {
+        wordBankList.addCard(card);
+        updateFilteredWordBankList(PREDICATE_SHOW_ALL_WORDBANKS);
     }
 
     @Override
-    public void setCard(Card target, Card editedCard) {
-        requireAllNonNull(target, editedCard);
+    public void setWordBankList(WordBank target, WordBank editedWordBank) {
+        requireAllNonNull(target, editedWordBank);
 
-        wordBank.setCard(target, editedCard);
+        wordBankList.setWordBankList(target, editedWordBank);
     }
 
     //=========== Filtered Card List Accessors =============================================================
@@ -134,14 +135,14 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook} // todo what is this versionedAddressBook?
      */
     @Override
-    public ObservableList<Card> getFilteredCardList() {
-        return filteredCards;
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return filteredWordBank;
     }
 
     @Override
-    public void updateFilteredCardList(Predicate<Card> predicate) {
+    public void updateFilteredWordBankList(Predicate<WordBank> predicate) {
         requireNonNull(predicate);
-        filteredCards.setPredicate(predicate);
+        filteredWordBank.setPredicate(predicate);
     }
 
     @Override
@@ -158,9 +159,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return wordBank.equals(other.wordBank)
+        return wordBankList.equals(other.wordBankList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredCards.equals(other.filteredCards);
+                && filteredWordBank.equals(other.filteredWordBank);
     }
 
 }

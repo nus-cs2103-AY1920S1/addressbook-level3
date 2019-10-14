@@ -22,7 +22,7 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.wordbank.WordBank#isSameMeaning(seedu.address.model.wordbank.WordBank)
+ * @see seedu.address.model.wordbank.WordBank#isSameName(seedu.address.model.wordbank.WordBank)
  */
 public class UniqueWordBankList implements Iterable<WordBank> {
 
@@ -35,7 +35,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      */
     public boolean contains(WordBank toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMeaning);
+        return internalList.stream().anyMatch(toCheck::isSameName);
     }
 
 
@@ -66,7 +66,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
             throw new CardNotFoundException();
         }
 
-        if (!target.isSameMeaning(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameName(editedPerson) && contains(editedPerson)) {
             throw new DuplicateCardException();
         }
 
@@ -137,10 +137,10 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     /**
      * Returns true if {@code cards} contains only unique cards.
      */
-    private boolean wordBanksAreUnique(List<WordBank> cards) {
-        for (int i = 0; i < cards.size() - 1; i++) {
-            for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).isSameMeaning(cards.get(j))) {
+    private boolean wordBanksAreUnique(List<WordBank> wordBank) {
+        for (int i = 0; i < wordBank.size() - 1; i++) {
+            for (int j = i + 1; j < wordBank.size(); j++) {
+                if (wordBank.get(i).isSameName(wordBank.get(j))) {
                     return false;
                 }
             }
