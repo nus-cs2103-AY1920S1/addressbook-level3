@@ -49,6 +49,21 @@ public class Timeslot {
         return this.venue;
     }
 
+    public boolean isClash(Timeslot other) {
+
+        LocalDateTime otherStartTime = other.getStartTime();
+        LocalDateTime otherEndTime = other.getEndTime();
+
+        if( (otherStartTime.isBefore(startTime) && otherEndTime.isBefore(startTime)) ||
+                (otherStartTime.isAfter(endTime) && otherEndTime.isAfter(endTime)) ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
     /**
      * Converts to String.
      *

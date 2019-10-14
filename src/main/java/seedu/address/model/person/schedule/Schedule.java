@@ -45,6 +45,15 @@ public class Schedule {
         return output;
     }
 
+    public boolean isClash(Event event) {
+        for(int i = 0; i < events.size(); i++) {
+            if(event.isClash(events.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Event> getEvents() {
         return this.events;
     }

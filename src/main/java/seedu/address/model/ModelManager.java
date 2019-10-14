@@ -39,6 +39,7 @@ import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 //import seedu.address.websocket.ApiCache;
+import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.NusModsApi;
 import seedu.address.websocket.NusModsApiParser;
 
@@ -218,15 +219,6 @@ public class ModelManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return timeBook.getUnmodifiablePersonList();
-    }
-
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
@@ -239,6 +231,11 @@ public class ModelManager implements Model {
     @Override
     public PersonList getPersonList() {
         return personList;
+    }
+
+    @Override
+    public ObservableList<Person> getObservablePersonList() {
+        return timeBook.getUnmodifiablePersonList();
     }
 
     @Override
@@ -292,6 +289,17 @@ public class ModelManager implements Model {
     @Override
     public ArrayList<GroupId> findGroupsOfPerson(PersonId personId) {
         return personToGroupMappingList.findGroupsOfPerson(personId);
+    }
+
+    @Override
+    public boolean isEventClash(Name name, Event event) {
+        Person person = findPerson(name);
+        Schedule schedule = person.getSchedule();
+        if(schedule.isClash(event)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //=========== Group Accessors =============================================================

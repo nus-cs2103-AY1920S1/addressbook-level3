@@ -37,11 +37,15 @@ public class GroupDetailsExport extends UiPart<Region> {
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> emails = schedules.stream()
+                .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
+                .collect(Collectors.toCollection(ArrayList::new));
+
         ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
         ScheduleViewExport scheduleView = new ScheduleViewExport(schedules, colors);
         GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
-        groupMembersList.getChildren().add(new MemberList(names, colors).getRoot());
+        groupMembersList.getChildren().add(new MemberList(names, emails, colors).getRoot());
         groupSchedule.getChildren().add(scheduleView.getScheduleView());
     }
 }

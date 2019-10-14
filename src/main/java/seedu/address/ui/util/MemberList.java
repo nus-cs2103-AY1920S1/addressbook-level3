@@ -30,10 +30,10 @@ public class MemberList extends UiPart<Region> {
     @FXML
     private ScrollPane listMemberContainer;
 
-    public MemberList(List<String> members, List<String> colors) {
+    public MemberList(List<String> members, List<String> email, List<String> colors) {
         super(FXML);
         for (int i = 0; i < members.size(); i++) {
-            MemberCard memberCard = new MemberCard(members.get(i), colors.get(i));
+            MemberCard memberCard = new MemberCard(members.get(i), email.get(i), colors.get(i));
             listMembers.getChildren().add(memberCard.getRoot());
         }
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
@@ -56,11 +56,19 @@ public class MemberList extends UiPart<Region> {
         @FXML
         private Region colorRegion;
 
-        public MemberCard(String name, String color) {
+        public MemberCard(String name, String email, String color) {
             super(FXML);
+
             this.memberName.setText(name);
-            this.memberEmail.setText("MY EMAIL");
+
+            if(email.equals("")) {
+                this.memberEmail.setText("No Email Available");
+            } else {
+                this.memberEmail.setText(email);
+            }
+
             this.memberRole.setText("MY ROLE");
+
             setUpCard(color);
         }
 

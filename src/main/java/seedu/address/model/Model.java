@@ -97,7 +97,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered person list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getObservablePersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -147,6 +147,11 @@ public interface Model {
      * Returns the list of GroupIds which person with PersonId is in.
      */
     ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
+
+    /**
+     * Checks if current event of Person clashes with other events in the schedule.
+     */
+    boolean isEventClash(Name name, Event event);
 
     //=========== Group Accessors =============================================================
 

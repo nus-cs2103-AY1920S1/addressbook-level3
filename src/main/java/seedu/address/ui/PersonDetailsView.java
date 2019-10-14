@@ -26,7 +26,7 @@ public class PersonDetailsView extends UiPart<Region> {
         super(FXML);
         WeekSchedule schedule = detailWindowDisplay.getWeekSchedules().get(0);
         PersonDetailCard personDetailCard = new PersonDetailCard(schedule.getPersonDisplay());
-        ScheduleView sv = new ScheduleView();
+        ScheduleView sv = new ScheduleView(schedule);
         this.personDetailCard.getChildren().add(personDetailCard.getRoot());
         this.personSchedule.getChildren().add(sv.getRoot());
     }

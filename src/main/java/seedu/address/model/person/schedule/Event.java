@@ -95,4 +95,16 @@ public class Event {
             return true;
         }
     }
+
+    public boolean isClash(Event other) {
+        ArrayList<Timeslot> otherTimeslots = other.getTimeslots();
+        for(int i = 0; i < timeslots.size(); i++) {
+            for(int j = 0; j < otherTimeslots.size(); j++) {
+                if(timeslots.get(i).isClash(otherTimeslots.get(j))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

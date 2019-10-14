@@ -62,7 +62,8 @@ public class GroupList {
     public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) {
         Group toEdit = findGroup(groupName);
 
-        if (groupDescriptor.getGroupName() != null) {
+        if (groupDescriptor.getGroupName() != null &&
+                !groupDescriptor.getGroupName().equals(GroupName.emptyGroupName())) {
             GroupName otherName = groupDescriptor.getGroupName();
             if (findGroup(otherName) != null) {
                 return null;
@@ -70,7 +71,8 @@ public class GroupList {
             toEdit.setGroupName(groupDescriptor.getGroupName());
         }
 
-        if (groupDescriptor.getGroupRemark() != null) {
+        if (groupDescriptor.getGroupRemark() != null &&
+                !groupDescriptor.getGroupRemark().equals(GroupRemark.emptyRemark())) {
             toEdit.setGroupRemark(groupDescriptor.getGroupRemark());
         }
 

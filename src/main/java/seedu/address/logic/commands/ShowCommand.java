@@ -37,7 +37,7 @@ public class ShowCommand<T> extends Command {
         requireNonNull(model);
 
         if (name instanceof Name) {
-            ObservableList<Person> personList = model.getFilteredPersonList();
+            ObservableList<Person> personList = model.getObservablePersonList();
             Optional<Person> person = Optional.empty();
             for (Person p : personList) {
                 if (p.getName().equals((Name) name)) {
