@@ -3,7 +3,6 @@ package calofit.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
@@ -37,19 +35,6 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDish), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validDish), modelStub.dishesAdded);
-    }
-
-    @Test
-    public void execute_duplicateDish_throwsCommandException() {
-        Dish validDish = new DishBuilder().build();
-        MealLog mealLog = new MealLog();
-        Model mock = Mockito.mock(Model.class);
-        Mockito.when(mock.hasDish(validDish)).thenReturn(true);
-        Mockito.when(mock.getMealLog()).thenReturn(mealLog);
-
-        AddCommand addCommand = new AddCommand(validDish);
-
-        assertThrows(CommandException.class, () -> addCommand.execute(mock), AddCommand.MESSAGE_DUPLICATE_MEAL);
     }
 
     @Test
