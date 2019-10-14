@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -17,9 +17,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.utils.EditPersonDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
@@ -33,11 +37,11 @@ import seedu.address.model.person.parameters.Phone;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser implements Parser<ReversibleActionPairCommand> {
+public class EditPatientDetailsCommandParser implements Parser<ReversibleActionPairCommand> {
 
     private List<Person> lastShownList;
 
-    public EditCommandParser(Model model) {
+    public EditPatientDetailsCommandParser(Model model) {
         this.lastShownList = model.getFilteredPersonList();
     }
 
@@ -58,15 +62,16 @@ public class EditCommandParser implements Parser<ReversibleActionPairCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditPatientDetailsCommand.MESSAGE_USAGE), pe);
         }
         EditPersonDescriptor editPersonDescriptor = createEditedPersonDescriptor(argMultimap);
         Person personToEdit = ParserUtil.getEntryFromList(lastShownList, index);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         return new ReversibleActionPairCommand(
-            new EditCommand(personToEdit, editedPerson),
-            new EditCommand(editedPerson, personToEdit));
+            new EditPatientDetailsCommand(personToEdit, editedPerson),
+            new EditPatientDetailsCommand(editedPerson, personToEdit));
     }
 
     /**
@@ -112,7 +117,7 @@ public class EditCommandParser implements Parser<ReversibleActionPairCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
         }
 
         return editPersonDescriptor;

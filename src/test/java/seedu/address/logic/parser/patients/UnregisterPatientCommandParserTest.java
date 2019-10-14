@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TestUtil;
@@ -26,23 +26,24 @@ import seedu.address.testutil.TestUtil;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class DeleteCommandParserTest {
+public class UnregisterPatientCommandParserTest {
 
     private Model model = TestUtil.getTypicalModelManager();
-    private DeleteCommandParser parser = new DeleteCommandParser(model);
+    private UnregisterPatientCommandParser parser = new UnregisterPatientCommandParser(model);
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertParseSuccess(parser, "1",
             new ReversibleActionPairCommand(
-                new DeleteCommand(personToDelete),
-                new AddCommand(personToDelete)));
+                new UnregisterPatientCommand(personToDelete),
+                new RegisterPatientCommand(personToDelete)));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(
+            MESSAGE_INVALID_COMMAND_FORMAT, UnregisterPatientCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class DeleteCommandParserTest {
 
         String userInput = String.valueOf(outOfBoundIndex.getOneBased());
 
-        assertParseFailure(new DeleteCommandParser(model), userInput,
+        assertParseFailure(new UnregisterPatientCommandParser(model), userInput,
             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 }

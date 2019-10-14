@@ -1,13 +1,15 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -15,11 +17,11 @@ import seedu.address.model.person.Person;
 /**
  * Parses input arguments and creates a new DeleteAppCommand object
  */
-public class DeleteCommandParser implements Parser<ReversibleActionPairCommand> {
+public class UnregisterPatientCommandParser implements Parser<ReversibleActionPairCommand> {
 
     private List<Person> lastShownList;
 
-    public DeleteCommandParser(Model model) {
+    public UnregisterPatientCommandParser(Model model) {
         this.lastShownList = model.getFilteredPersonList();
     }
 
@@ -35,11 +37,12 @@ public class DeleteCommandParser implements Parser<ReversibleActionPairCommand> 
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnregisterPatientCommand.MESSAGE_USAGE), pe);
         }
 
         Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);
-        return new ReversibleActionPairCommand(new DeleteCommand(personToDelete), new AddCommand(personToDelete));
+        return new ReversibleActionPairCommand(new UnregisterPatientCommand(personToDelete),
+            new RegisterPatientCommand(personToDelete));
     }
 
 }

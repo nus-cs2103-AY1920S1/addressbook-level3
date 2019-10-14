@@ -8,11 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DequeueCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -22,7 +19,13 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
+import seedu.address.logic.parser.patients.RegisterPatientCommandParser;
+import seedu.address.logic.parser.patients.UnregisterPatientCommandParser;
 import seedu.address.model.Model;
 
 /**
@@ -58,14 +61,14 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case RegisterPatientCommand.COMMAND_WORD:
+            return new RegisterPatientCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser(model).parse(arguments);
+        case EditPatientDetailsCommand.COMMAND_WORD:
+            return new EditPatientDetailsCommandParser(model).parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser(model).parse(arguments);
+        case UnregisterPatientCommand.COMMAND_WORD:
+            return new UnregisterPatientCommandParser(model).parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

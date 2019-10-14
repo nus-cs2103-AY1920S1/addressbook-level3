@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -19,9 +19,9 @@ import seedu.address.model.person.Person;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends ReversibleCommand {
+public class EditPatientDetailsCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -48,7 +48,7 @@ public class EditCommand extends ReversibleCommand {
      * @param personToEdit person to be edited details
      * @param editedPerson person with edited details
      */
-    public EditCommand(Person personToEdit, Person editedPerson) {
+    public EditPatientDetailsCommand(Person personToEdit, Person editedPerson) {
         requireAllNonNull(personToEdit, editedPerson);
         this.personToEdit = personToEdit;
         this.editedPerson = editedPerson;
@@ -89,12 +89,12 @@ public class EditCommand extends ReversibleCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditPatientDetailsCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditPatientDetailsCommand e = (EditPatientDetailsCommand) other;
         return personToEdit.equals(e.personToEdit)
                 && editedPerson.equals(e.editedPerson);
     }

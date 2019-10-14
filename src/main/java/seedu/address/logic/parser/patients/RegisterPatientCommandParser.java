@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -11,9 +11,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
@@ -26,7 +31,7 @@ import seedu.address.model.person.parameters.Phone;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<ReversibleActionPairCommand> {
+public class RegisterPatientCommandParser implements Parser<ReversibleActionPairCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -42,7 +47,8 @@ public class AddCommandParser implements Parser<ReversibleActionPairCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RegisterPatientCommand.MESSAGE_USAGE));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
@@ -54,7 +60,8 @@ public class AddCommandParser implements Parser<ReversibleActionPairCommand> {
 
         Person person = new Person(referenceId, name, phone, email, address, tagList);
 
-        return new ReversibleActionPairCommand(new AddCommand(person), new DeleteCommand(person));
+        return new ReversibleActionPairCommand(new RegisterPatientCommand(person),
+            new UnregisterPatientCommand(person));
     }
 
     /**

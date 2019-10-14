@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -35,9 +35,9 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -47,15 +47,15 @@ import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class RegisterPatientCommandParserTest {
+    private RegisterPatientCommandParser parser = new RegisterPatientCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
         ReversibleActionPairCommand expectedCommand = new ReversibleActionPairCommand(
-                new AddCommand(expectedPerson),
-                new DeleteCommand(expectedPerson)
+                new RegisterPatientCommand(expectedPerson),
+                new UnregisterPatientCommand(expectedPerson)
             );
 
         // whitespace only preamble
@@ -84,8 +84,8 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, ID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new ReversibleActionPairCommand(
-                    new AddCommand(expectedPersonMultipleTags),
-                    new DeleteCommand(expectedPersonMultipleTags)
+                    new RegisterPatientCommand(expectedPersonMultipleTags),
+                    new UnregisterPatientCommand(expectedPersonMultipleTags)
                 ));
     }
 
@@ -96,14 +96,14 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, ID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new ReversibleActionPairCommand(
-                    new AddCommand(expectedPerson),
-                    new DeleteCommand(expectedPerson)
+                    new RegisterPatientCommand(expectedPerson),
+                    new UnregisterPatientCommand(expectedPerson)
                 ));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterPatientCommand.MESSAGE_USAGE);
 
         // missing id prefix
         assertParseFailure(parser, VALID_ID_BOB + NAME_DESC_BOB
@@ -176,6 +176,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterPatientCommand.MESSAGE_USAGE));
     }
 }

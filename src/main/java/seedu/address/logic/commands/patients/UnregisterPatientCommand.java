@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,9 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a patient identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends ReversibleCommand {
+public class UnregisterPatientCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -26,7 +26,7 @@ public class DeleteCommand extends ReversibleCommand {
 
     private final Person toDelete;
 
-    public DeleteCommand(Person toDelete) {
+    public UnregisterPatientCommand(Person toDelete) {
         requireNonNull(toDelete);
         this.toDelete = toDelete;
     }
@@ -55,7 +55,7 @@ public class DeleteCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && toDelete.equals(((DeleteCommand) other).toDelete)); // state check
+                || (other instanceof UnregisterPatientCommand // instanceof handles nulls
+                && toDelete.equals(((UnregisterPatientCommand) other).toDelete)); // state check
     }
 }

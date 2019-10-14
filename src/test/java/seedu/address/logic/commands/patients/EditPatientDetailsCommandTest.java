@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +17,7 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -25,20 +26,20 @@ import seedu.address.testutil.TestUtil;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
-public class EditCommandTest {
+public class EditPatientDetailsCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
         Person personToEdit = model.getFilteredPersonList().get(0);
 
-        EditCommand editCommand = new EditCommand(personToEdit, BOB);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, BOB);
 
         Model expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.setPerson(personToEdit, BOB);
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, BOB);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, BOB);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -47,13 +48,13 @@ public class EditCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(0);
         Person editedPerson = new PersonBuilder(BOB).withId(personToEdit.getReferenceId().toString()).build();
 
-        EditCommand editCommand = new EditCommand(personToEdit, editedPerson);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
 
         Model expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.setPerson(personToEdit, editedPerson);
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -67,21 +68,21 @@ public class EditCommandTest {
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                                       .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand editCommand = new EditCommand(lastPerson, editedPerson);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(lastPerson, editedPerson);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.setPerson(lastPerson, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
-        EditCommand editCommand = new EditCommand(ALICE, ALICE);
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NOT_EDITED);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(ALICE, ALICE);
+        assertCommandFailure(editPatientDetailsCommand, model, EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
@@ -91,14 +92,15 @@ public class EditCommandTest {
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(personInFilteredList, editedPerson);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(
+            personInFilteredList, editedPerson);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.setPerson(personInFilteredList, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -107,9 +109,9 @@ public class EditCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withId(secondPerson.getReferenceId().toString()).build();
-        EditCommand editCommand = new EditCommand(firstPerson, editedPerson);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(firstPerson, editedPerson);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editPatientDetailsCommand, model, EditPatientDetailsCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -120,17 +122,18 @@ public class EditCommandTest {
         // edit person in filtered list into a duplicate in address book
         Person firstPersonInList = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person secondPersonInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(firstPersonInList, secondPersonInList);
+        EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(
+            firstPersonInList, secondPersonInList);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editPatientDetailsCommand, model, EditPatientDetailsCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(ALICE, BOB);
+        final EditPatientDetailsCommand standardCommand = new EditPatientDetailsCommand(ALICE, BOB);
 
         // same values -> returns true
-        assertTrue(standardCommand.equals(new EditCommand(ALICE, BOB)));
+        assertTrue(standardCommand.equals(new EditPatientDetailsCommand(ALICE, BOB)));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -142,10 +145,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ExitCommand()));
 
         // different person to edit -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(ALICE, CARL)));
+        assertFalse(standardCommand.equals(new EditPatientDetailsCommand(ALICE, CARL)));
 
         // different edited person -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(CARL, BOB)));
+        assertFalse(standardCommand.equals(new EditPatientDetailsCommand(CARL, BOB)));
     }
 
 }

@@ -14,9 +14,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -26,6 +23,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
+import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.commands.utils.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -47,8 +47,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         Command command = parser.parseCommand(PersonUtil.getAddCommand(person), model);
         assertEquals(new ReversibleActionPairCommand(
-            new AddCommand(person),
-            new DeleteCommand(person)
+            new RegisterPatientCommand(person),
+            new UnregisterPatientCommand(person)
             ), command);
     }
 
@@ -56,11 +56,11 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         Person toDelete = model.getFilteredPersonList().get(0);
         Command command = parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(), model);
+                UnregisterPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(), model);
 
         assertEquals(new ReversibleActionPairCommand(
-            new DeleteCommand(toDelete),
-            new AddCommand(toDelete)
+            new UnregisterPatientCommand(toDelete),
+            new RegisterPatientCommand(toDelete)
         ), command);
     }
 
@@ -70,13 +70,13 @@ public class AddressBookParserTest {
         Person editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personToEdit)
                 .withName(VALID_NAME_BOB).build();
-        Command command = parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        Command command = parser.parseCommand(EditPatientDetailsCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor),
                 model);
 
         assertEquals(new ReversibleActionPairCommand(
-            new EditCommand(personToEdit, editedPerson),
-            new EditCommand(editedPerson, personToEdit)
+            new EditPatientDetailsCommand(personToEdit, editedPerson),
+            new EditPatientDetailsCommand(editedPerson, personToEdit)
         ), command);
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -39,8 +39,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.model.Model;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
@@ -51,15 +51,15 @@ import seedu.address.model.person.parameters.Phone;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
 
-public class EditCommandParserTest {
+public class EditPatientDetailsCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPatientDetailsCommand.MESSAGE_USAGE);
 
     private Model model = TestUtil.getTypicalModelManager();
-    private EditCommandParser parser = new EditCommandParser(model);
+    private EditPatientDetailsCommandParser parser = new EditPatientDetailsCommandParser(model);
 
     @Test
     public void parse_missingParts_failure() {
@@ -67,7 +67,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -134,8 +134,8 @@ public class EditCommandParserTest {
 
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(personToEdit, editedPerson),
-                new EditCommand(editedPerson, personToEdit)
+                new EditPatientDetailsCommand(personToEdit, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, personToEdit)
         ));
     }
 
@@ -149,8 +149,8 @@ public class EditCommandParserTest {
 
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(ALICE, editedPerson),
-                new EditCommand(editedPerson, ALICE)
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
             ));
 
     }
@@ -163,8 +163,8 @@ public class EditCommandParserTest {
         Person editedPerson = new PersonBuilder(CARL).withName(VALID_NAME_AMY).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
 
         // phone
@@ -172,8 +172,8 @@ public class EditCommandParserTest {
         editedPerson = new PersonBuilder(CARL).withPhone(VALID_PHONE_AMY).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
 
         // email
@@ -181,8 +181,8 @@ public class EditCommandParserTest {
         editedPerson = new PersonBuilder(CARL).withEmail(VALID_EMAIL_AMY).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
 
         // address
@@ -190,8 +190,8 @@ public class EditCommandParserTest {
         editedPerson = new PersonBuilder(CARL).withAddress(VALID_ADDRESS_AMY).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
 
         // tags
@@ -199,8 +199,8 @@ public class EditCommandParserTest {
         editedPerson = new PersonBuilder(CARL).withTags(VALID_TAG_FRIEND).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
 
     }
@@ -220,8 +220,8 @@ public class EditCommandParserTest {
                                                   .build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(ALICE, editedPerson),
-                new EditCommand(editedPerson, ALICE)
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
             ));
     }
 
@@ -233,8 +233,8 @@ public class EditCommandParserTest {
         Person editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(ALICE, editedPerson),
-                new EditCommand(editedPerson, ALICE)
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
             ));
 
         // other valid values specified
@@ -244,8 +244,8 @@ public class EditCommandParserTest {
                              .withAddress(VALID_ADDRESS_BOB).build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(ALICE, editedPerson),
-                new EditCommand(editedPerson, ALICE)
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
             ));
     }
 
@@ -257,8 +257,8 @@ public class EditCommandParserTest {
         Person editedPerson = new PersonBuilder(CARL).withTags().build();
         assertParseSuccess(parser, userInput,
             new ReversibleActionPairCommand(
-                new EditCommand(CARL, editedPerson),
-                new EditCommand(editedPerson, CARL)
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
             ));
     }
 
@@ -276,7 +276,7 @@ public class EditCommandParserTest {
 
         String userInput = outOfBoundIndex.getOneBased() + TAG_EMPTY;
 
-        assertParseFailure(new EditCommandParser(model), userInput,
+        assertParseFailure(new EditPatientDetailsCommandParser(model), userInput,
             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 }

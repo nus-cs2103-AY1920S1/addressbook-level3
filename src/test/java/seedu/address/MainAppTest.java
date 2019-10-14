@@ -73,6 +73,7 @@ public class MainAppTest extends ApplicationTest {
         robot.type(KeyCode.RIGHT).eraseText(2);
     }
 
+    /*
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
         robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
@@ -80,6 +81,7 @@ public class MainAppTest extends ApplicationTest {
         robot.write("dequeue 1").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(0);
     }
+    */
 
     @Test
     public void invalidCommandFormatTest(FxRobot robot) {

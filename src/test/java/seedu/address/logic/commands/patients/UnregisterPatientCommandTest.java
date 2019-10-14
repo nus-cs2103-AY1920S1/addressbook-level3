@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,41 +20,42 @@ import seedu.address.testutil.TestUtil;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
-public class DeleteCommandTest {
+public class UnregisterPatientCommandTest {
 
     private Model model = TestUtil.getTypicalModelManager();
 
     @Test
     public void execute_validUnfilteredList_success() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(personToDelete);
+        UnregisterPatientCommand unregisterPatientCommand = new UnregisterPatientCommand(personToDelete);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(UnregisterPatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.deletePerson(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unregisterPatientCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidUnfilteredList_throwsCommandException() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         model.deletePerson(personToDelete);
-        DeleteCommand deleteCommand = new DeleteCommand(personToDelete);
+        UnregisterPatientCommand unregisterPatientCommand = new UnregisterPatientCommand(personToDelete);
 
-        assertCommandFailure(deleteCommand, model, String.format(Messages.MESSAGE_PERSON_NOT_FOUND, personToDelete));
+        assertCommandFailure(unregisterPatientCommand, model,
+            String.format(Messages.MESSAGE_PERSON_NOT_FOUND, personToDelete));
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(ALICE);
+        UnregisterPatientCommand deleteFirstCommand = new UnregisterPatientCommand(ALICE);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        assertTrue(deleteFirstCommand.equals(new DeleteCommand(ALICE)));
+        assertTrue(deleteFirstCommand.equals(new UnregisterPatientCommand(ALICE)));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
@@ -63,7 +64,7 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(new DeleteCommand(BOB)));
+        assertFalse(deleteFirstCommand.equals(new UnregisterPatientCommand(BOB)));
     }
 
     /**

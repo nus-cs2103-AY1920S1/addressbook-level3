@@ -22,9 +22,9 @@ public class AppointmentsCommand extends NonActionableCommand {
 
     public static final String COMMAND_WORD = "appointments";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose reference Id contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD \n"
+            + "Optional parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
     private final ContainsKeywordsPredicate predicate;
@@ -38,6 +38,7 @@ public class AppointmentsCommand extends NonActionableCommand {
         requireNonNull(model);
         model.updateFilteredEventList(predicate);
         autoMissEvent(model.getFilteredEventList());
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }

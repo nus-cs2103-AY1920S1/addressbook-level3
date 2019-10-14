@@ -151,8 +151,8 @@ public class MainWindow extends UiPart<Stage> {
         tabBar = new TabBar(this::onTabSelected);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
-        queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
-            logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+        queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
+            logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
