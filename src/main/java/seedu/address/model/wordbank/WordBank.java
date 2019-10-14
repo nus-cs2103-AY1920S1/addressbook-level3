@@ -44,8 +44,8 @@ public class WordBank implements ReadOnlyWordBank {
      * Replaces the contents of the card list with {@code cards}.
      * {@code cards} must not contain any cards with the same meaning.
      */
-    public void setCard(List<Card> cards) {
-        this.cards.setCard(cards);
+    public void setCards(List<Card> cards) {
+        this.cards.setCards(cards);
     }
 
     /**
@@ -54,7 +54,7 @@ public class WordBank implements ReadOnlyWordBank {
     public void resetData(ReadOnlyWordBank newData) {
         requireNonNull(newData);
 
-        setCard(newData.getCardList());
+        setCards(newData.getCardList());
     }
 
     //// card-level operations

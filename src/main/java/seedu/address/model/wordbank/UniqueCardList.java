@@ -82,7 +82,7 @@ public class UniqueCardList implements Iterable<Card> {
         }
     }
 
-    public void setCard(UniqueCardList replacement) {
+    public void setCards(UniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -91,7 +91,7 @@ public class UniqueCardList implements Iterable<Card> {
      * Replaces the contents of this list with {@code cards}.
      * {@code cards} must not contain duplicate persons.
      */
-    public void setCard(List<Card> cards) {
+    public void setCards(List<Card> cards) {
         requireAllNonNull(cards);
         if (!cardsAreUnique(cards)) {
             throw new DuplicateCardException();

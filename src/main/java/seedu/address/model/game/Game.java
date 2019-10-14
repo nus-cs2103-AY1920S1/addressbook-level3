@@ -11,10 +11,6 @@ import seedu.address.model.wordbank.WordBank;
  * Guarantees: WordBank is not null, and that WordBank is not empty.
  */
 public class Game {
-
-    public static final int CORRECT_GUESS = 1;
-    public static final int WRONG_GUESS = 0;
-
     // Current WordBank cannot be changed once assigned.
     private final WordBank wordBank;
 

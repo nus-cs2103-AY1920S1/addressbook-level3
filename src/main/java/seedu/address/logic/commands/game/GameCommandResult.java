@@ -4,6 +4,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameDataPoint;
 
+/**
+ * Represents the command result returned by a game command.
+ * This class is needed to pass some info to the {@code GameManager} to populate the {@code GameStatistics}.
+ */
 public abstract class GameCommandResult extends CommandResult {
 
     /** Game should finish and open game result display **/
@@ -22,6 +26,9 @@ public abstract class GameCommandResult extends CommandResult {
         this.card = card;
     }
 
+    /**
+     * Used to populate the {@code GameStatistics}.
+     */
     public abstract GameDataPoint getGameDataPoint(long millisElapsed);
 
     public Card getCard() {

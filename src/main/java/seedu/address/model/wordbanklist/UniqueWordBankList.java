@@ -9,9 +9,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
@@ -73,17 +73,6 @@ public class UniqueWordBankList implements Iterable<WordBank> {
         internalList.set(index, editedPerson);
     }
 
-    /**
-     * Removes the equivalent card from the list.
-     * The card must exist in the list.
-     */
-    public void remove(WordBank toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new CardNotFoundException();
-        }
-    }
-
     public void setWordBankList(UniqueWordBankList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -100,6 +89,17 @@ public class UniqueWordBankList implements Iterable<WordBank> {
         }
 
         internalList.setAll(cards);
+    }
+
+    /**
+     * Removes the equivalent card from the list.
+     * The card must exist in the list.
+     */
+    public void remove(WordBank toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new CardNotFoundException();
+        }
     }
 
     public WordBank get(Index index) {

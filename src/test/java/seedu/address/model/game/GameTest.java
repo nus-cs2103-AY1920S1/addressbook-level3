@@ -1,7 +1,9 @@
 package seedu.address.model.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
@@ -23,12 +25,10 @@ public class GameTest {
         Game game = new Game(wb);
 
         // Makes correct guess; guess Abra as Abra
-        assertEquals(Game.CORRECT_GUESS, game.checkGuess(
-                new Guess(ABRA.getWord().toString())));
+        assertTrue(game.checkGuess(new Guess(ABRA.getWord().toString())));
 
         // Makes wrong guess; guess Abra as Butterfree
-        assertEquals(Game.WRONG_GUESS, game.checkGuess(
-                new Guess(BUTTERFREE.getWord().toString())));
+        assertFalse(game.checkGuess(new Guess(BUTTERFREE.getWord().toString())));
 
         // When a guess is made after game has already ended
         assertThrows(UnsupportedOperationException.class, () -> {

@@ -39,13 +39,13 @@ public class WordBankList implements ReadOnlyWordBankList {
         }
     }
 
-//    /**
-//     * Creates a WordBank using the Cards in the {@code toBeCopied}
-//     */
-//    public WordBankList(ReadOnlyWordBankList toBeCopied) {
-//        this();
-//        resetData(toBeCopied);
-//    }
+    //    /**
+    //     * Creates a WordBank using the Cards in the {@code toBeCopied}
+    //     */
+    //    public WordBankList(ReadOnlyWordBankList toBeCopied) {
+    //        this();
+    //        resetData(toBeCopied);
+    //    }
 
     //// list overwrite operations
 
@@ -84,16 +84,16 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList.add(p);
     }
 
-//    /**
-//     * Replaces the given card {@code target} in the list with {@code editedCard}.
-//     * {@code target} must exist in the word bank.
-//     * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
-//     */
-//    public void setWordBankList(WordBank target, WordBank editedCard) {
-//        requireNonNull(editedCard);
-//
-//        wordBankList.setWordBankList(target, editedCard);
-//    }
+    //    /**
+    //     * Replaces the given card {@code target} in the list with {@code editedCard}.
+    //     * {@code target} must exist in the word bank.
+    //     * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
+    //     */
+    //    public void setWordBankList(WordBank target, WordBank editedCard) {
+    //        requireNonNull(editedCard);
+    //
+    //        wordBankList.setWordBankList(target, editedCard);
+    //    }
 
     /**
      * Removes {@code key} from this {@code WordBank}.

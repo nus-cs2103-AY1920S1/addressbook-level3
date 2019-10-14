@@ -21,12 +21,12 @@
       </HBox>
       <Region prefHeight="20.0" />
       <Label fx:id="title1" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Score:" textAlignment="CENTER" />
-      <Label fx:id="score_text" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="XX" textAlignment="CENTER" />
+      <Label fx:id="scoreText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="XX" textAlignment="CENTER" />
       <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
          <children>
             <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
             <Label fx:id="title11" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Time taken: " textAlignment="CENTER" />
-            <Label fx:id="time_taken_text" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXs" textAlignment="CENTER" />
+            <Label fx:id="timeTakenText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXs" textAlignment="CENTER" />
             <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
          </children>
          <padding>

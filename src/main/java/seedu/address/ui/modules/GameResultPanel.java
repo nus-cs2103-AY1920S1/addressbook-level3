@@ -6,8 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.UiPart;
@@ -20,11 +18,11 @@ public class GameResultPanel extends UiPart<Region> {
 
     private static final String BADGE_PATH = "/images/badges/";
     private static final Image BADGE_1_BNW = AppUtil.getImage(BADGE_PATH + "normal_badge_bnw.png");
-    private static final Image BADGE_2_BNW =  AppUtil.getImage(BADGE_PATH + "medium_badge_bnw.png");
-    private static final Image BADGE_3_BNW =  AppUtil.getImage(BADGE_PATH + "hard_badge_bnw.png");
-    private static final Image BADGE_1_COLOR =  AppUtil.getImage(BADGE_PATH + "normal_badge.png");
+    private static final Image BADGE_2_BNW = AppUtil.getImage(BADGE_PATH + "medium_badge_bnw.png");
+    private static final Image BADGE_3_BNW = AppUtil.getImage(BADGE_PATH + "hard_badge_bnw.png");
+    private static final Image BADGE_1_COLOR = AppUtil.getImage(BADGE_PATH + "normal_badge.png");
     private static final Image BADGE_2_COLOR = AppUtil.getImage(BADGE_PATH + "medium_badge.png");
-    private static final Image BADGE_3_COLOR =  AppUtil.getImage(BADGE_PATH + "hard_badge.png");
+    private static final Image BADGE_3_COLOR = AppUtil.getImage(BADGE_PATH + "hard_badge.png");
 
     @FXML
     private Label title;
@@ -39,10 +37,10 @@ public class GameResultPanel extends UiPart<Region> {
     private ImageView badge3;
 
     @FXML
-    private Label score_text;
+    private Label scoreText;
 
     @FXML
-    private Label time_taken_text;
+    private Label timeTakenText;
 
     public GameResultPanel(GameStatistics gameStatistics) {
         super(FXML);
@@ -57,19 +55,21 @@ public class GameResultPanel extends UiPart<Region> {
         // init score text
         int score = gameStatistics.getScore();
         GameStatistics.ScoreGrade grade = gameStatistics.getScoreGrade();
-        score_text.setText(score + "");
+        scoreText.setText(score + "");
         switch (grade) {
-            case HIGH:
-                score_text.setStyle("-fx-text-fill: #ADFF2F;");
-                break;
-            case MEDIUM:
-                break;
-            case LOW:
-                score_text.setStyle("-fx-text-fill: #FF69B4;");
-                break;
+        case HIGH:
+            scoreText.setStyle("-fx-text-fill: #ADFF2F;");
+            break;
+        case MEDIUM:
+            break;
+        case LOW:
+            scoreText.setStyle("-fx-text-fill: #FF69B4;");
+            break;
+        default:
+            throw new IllegalArgumentException("This happens if there is an enum value not put as a case block");
         }
 
         // init time taken text
-        time_taken_text.setText(String.format("%.2fs", gameStatistics.getTimeTakenSec()));
+        timeTakenText.setText(String.format("%.2fs", gameStatistics.getTimeTakenSec()));
     }
 }

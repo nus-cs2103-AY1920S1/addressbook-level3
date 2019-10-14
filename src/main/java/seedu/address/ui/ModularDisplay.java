@@ -56,6 +56,12 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(personListPanel.getRoot());
     }
 
+    /**
+     * Changes to the game result.
+     *
+     * @param paneToDisplay The view to change.
+     * @param gameStatistics The statistics to be shown in the game result panel.
+     */
     public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics) {
         paneToDisplay.getChildren().clear();
         paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics).getRoot());

@@ -14,8 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class GameTimer implements Runnable {
 
     private Timer timer;
-    private long currentMilliSeconds;
-    private long timeLeft;
+    private long currentMilliSeconds; // the initial time allocated for the timer.
+    private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private GameManager.TimerDisplayCallBack timerDisplayCallBack;

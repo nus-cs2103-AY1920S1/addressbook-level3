@@ -74,7 +74,7 @@ public class GameManager {
         }
 
         if (commandResult instanceof GameCommandResult) {
-            // update statistics
+            // update statistics upon receiving a GameCommandResult
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
             gameStatistics.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                     gameCommandResult.getCard());

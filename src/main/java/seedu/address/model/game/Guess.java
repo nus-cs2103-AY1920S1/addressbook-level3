@@ -2,7 +2,6 @@ package seedu.address.model.game;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.card.Card;
 import seedu.address.model.card.Word;
 
 /**
