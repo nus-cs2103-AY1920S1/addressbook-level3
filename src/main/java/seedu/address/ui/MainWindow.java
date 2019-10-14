@@ -16,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -131,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
         bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
 
-        lineChartPanel = new LineChartPanel(logic.getAddressBook().getWorkerList());
+        lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
