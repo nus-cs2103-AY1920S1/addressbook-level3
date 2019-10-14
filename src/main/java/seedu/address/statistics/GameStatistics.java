@@ -10,6 +10,8 @@ import java.util.Optional;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Guess;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A class that manages all statistics to be shown at the end of the game.
  */
@@ -21,6 +23,7 @@ public class GameStatistics {
     private final String title;
 
     public GameStatistics(String title) {
+        requireNonNull(title);
         this.title = title;
         data = new LinkedHashMap<>();
     }

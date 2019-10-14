@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import seedu.address.model.game.Guess;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a data point of a game, consisting of an action (GUESS or SKIP) and the time elapsed.
  * The collection of {@code GameDataPoint} is located in {@code GameStatistics}.
@@ -19,6 +21,10 @@ public class GameDataPoint {
     private final Optional<Guess> guess;
 
     private GameDataPoint(GameDataType dataType, Optional<Guess> guess, long millisTaken) {
+        requireAllNonNull(dataType, guess);
+        if (millisTaken < 0) {
+            throw new AssertionError("Millis taken cannot be negative");
+        }
         this.dataType = dataType;
         this.guess = guess;
         this.millisTaken = millisTaken;

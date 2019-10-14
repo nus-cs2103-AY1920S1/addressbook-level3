@@ -25,6 +25,23 @@ public class Guess {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Guess) {
+            return guessString.equals(((Guess) obj).guessString);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return guessString.hashCode();
+    }
+
+    @Override
     public String toString() {
         return guessString;
     }
