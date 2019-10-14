@@ -1,4 +1,4 @@
-package seedu.address.model.wordbank;
+package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by Card#isSameMeaning(Card) comparison)
  */
-public class WordBank implements ReadOnlyWordBank {
+public class WordBankList implements ReadOnlyWordBankList {
 
-    private final UniqueCardList cards;
+    private final UniqueWordBankList wordBankList;
     private String name;
 
     /*
@@ -25,15 +25,15 @@ public class WordBank implements ReadOnlyWordBank {
      *   among constructors.
      */
     {
-        cards = new UniqueCardList();
+        wordBankList = new UniqueWordBankList();
     }
 
-    public WordBank() {}
+    public WordBankList() {}
 
     /**
      * Creates a WordBank using the Cards in the {@code toBeCopied}
      */
-    public WordBank(ReadOnlyWordBank toBeCopied) {
+    public WordBankList(ReadOnlyWordBankList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -44,17 +44,17 @@ public class WordBank implements ReadOnlyWordBank {
      * Replaces the contents of the card list with {@code cards}.
      * {@code cards} must not contain any cards with the same meaning.
      */
-    public void setCard(List<Card> cards) {
-        this.cards.setCard(cards);
+    public void setWordBankList(List<WordBank> wordBankList) {
+        this.wordBankList.setWordBankList(wordBankList);
     }
 
     /**
      * Resets the existing data of this {@code WordBank} with {@code newData}.
      */
-    public void resetData(ReadOnlyWordBank newData) {
+    public void resetData(ReadOnlyWordBankList newData) {
         requireNonNull(newData);
 
-        setCard(newData.getCardList());
+        setWordBankList(newData.getWordBankList());
     }
 
     //// card-level operations
@@ -62,17 +62,17 @@ public class WordBank implements ReadOnlyWordBank {
     /**
      * Returns true if a card with the same meaning as {@code card} exists in the word bank.
      */
-    public boolean hasCard(Card card) {
-        requireNonNull(card);
-        return cards.contains(card);
+    public boolean hasWordBank(WordBank wordBank) {
+        requireNonNull(wordBank);
+        return wordBankList.contains(wordBank);
     }
 
     /**
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addCard(Card p) {
-        cards.add(p);
+    public void addCard(WordBank p) {
+        wordBankList.add(p);
     }
 
     /**
@@ -80,53 +80,53 @@ public class WordBank implements ReadOnlyWordBank {
      * {@code target} must exist in the word bank.
      * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
      */
-    public void setCard(Card target, Card editedCard) {
+    public void setWordBankList(WordBank target, WordBank editedCard) {
         requireNonNull(editedCard);
 
-        cards.setCard(target, editedCard);
+        wordBankList.setWordBankList(target, editedCard);
     }
 
     /**
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeCard(Card key) {
-        cards.remove(key);
+    public void removeCard(WordBank key) {
+        wordBankList.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " cards";
+        return wordBankList.asUnmodifiableObservableList().size() + " cards";
         // TODO: refine later
     }
 
     @Override
     public int size() {
-        return cards.size();
+        return wordBankList.size();
     }
 
     @Override
-    public ObservableList<Card> getCardList() {
-        return cards.asUnmodifiableObservableList();
+    public ObservableList<WordBank> getWordBankList() {
+        return wordBankList.asUnmodifiableObservableList();
     }
 
     @Override
-    public Card getCard(Index index) {
-        return cards.get(index);
+    public WordBank getWordBank(Index index) {
+        return wordBankList.get(index);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WordBank // instanceof handles nulls
-                && cards.equals(((WordBank) other).cards));
+                && wordBankList.equals(((WordBankList) other).wordBankList));
     }
 
     @Override
     public int hashCode() {
-        return cards.hashCode();
+        return wordBankList.hashCode();
     }
     /**
      * Returns true if both cards have the same meaning.

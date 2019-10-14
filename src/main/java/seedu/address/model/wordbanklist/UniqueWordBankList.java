@@ -1,4 +1,4 @@
-package seedu.address.model.wordbank;
+package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 
@@ -19,31 +19,33 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
  * cards uses Card#isSameMeaning(Card) for equality so as to ensure that the person being added or updated is
  * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.card.Card#isSameMeaning(seedu.address.model.card.Card)
+ * @see seedu.address.model.wordbank.WordBank#isSameMeaning(seedu.address.model.wordbank.WordBank)
  */
-public class UniqueCardList implements Iterable<Card> {
+public class UniqueWordBankList implements Iterable<WordBank> {
 
-    private final ObservableList<Card> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Card> internalUnmodifiableList =
+    private final ObservableList<WordBank> internalList = FXCollections.observableArrayList();
+    private final ObservableList<WordBank> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains a card with the same meaning.
      */
-    public boolean contains(Card toCheck) {
+    public boolean contains(WordBank toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameMeaning);
     }
 
+
     /**
      * Adds a card to the list.
      * The card must not exist in the list.
-     * @see UniqueCardList#contains(Card)
+     *
+     * @see UniqueWordBankList#contains(WordBank)
      */
-    public void add(Card toAdd) {
+    public void add(WordBank toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateCardException();
@@ -56,7 +58,7 @@ public class UniqueCardList implements Iterable<Card> {
      * {@code target} must exist in the list.
      * The name of {@code editedPerson} must not be the same as another existing card in the list.
      */
-    public void setCard(Card target, Card editedPerson) {
+    public void setWordBankList(WordBank target, WordBank editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
@@ -75,14 +77,14 @@ public class UniqueCardList implements Iterable<Card> {
      * Removes the equivalent card from the list.
      * The card must exist in the list.
      */
-    public void remove(Card toRemove) {
+    public void remove(WordBank toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new CardNotFoundException();
         }
     }
 
-    public void setCard(UniqueCardList replacement) {
+    public void setWordBankList(UniqueWordBankList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -91,16 +93,16 @@ public class UniqueCardList implements Iterable<Card> {
      * Replaces the contents of this list with {@code cards}.
      * {@code cards} must not contain duplicate persons.
      */
-    public void setCard(List<Card> cards) {
+    public void setWordBankList(List<WordBank> cards) {
         requireAllNonNull(cards);
-        if (!cardsAreUnique(cards)) {
+        if (!wordBanksAreUnique(cards)) {
             throw new DuplicateCardException();
         }
 
         internalList.setAll(cards);
     }
 
-    public Card get(Index index) {
+    public WordBank get(Index index) {
         return internalList.get(index.getZeroBased());
     }
 
@@ -111,20 +113,20 @@ public class UniqueCardList implements Iterable<Card> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Card> asUnmodifiableObservableList() {
+    public ObservableList<WordBank> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Card> iterator() {
+    public Iterator<WordBank> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueCardList // instanceof handles nulls
-                        && internalList.equals(((UniqueCardList) other).internalList));
+                || (other instanceof UniqueWordBankList // instanceof handles nulls
+                && internalList.equals(((UniqueWordBankList) other).internalList));
     }
 
     @Override
@@ -135,7 +137,7 @@ public class UniqueCardList implements Iterable<Card> {
     /**
      * Returns true if {@code cards} contains only unique cards.
      */
-    private boolean cardsAreUnique(List<Card> cards) {
+    private boolean wordBanksAreUnique(List<WordBank> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
                 if (cards.get(i).isSameMeaning(cards.get(j))) {
@@ -145,4 +147,5 @@ public class UniqueCardList implements Iterable<Card> {
         }
         return true;
     }
+
 }

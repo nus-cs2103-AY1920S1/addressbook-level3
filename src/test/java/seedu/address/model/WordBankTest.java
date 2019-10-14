@@ -87,7 +87,7 @@ public class WordBankTest {
     }
 
     /**
-     * A stub ReadOnlyWordBank whose cards list can violate interface constraints.
+     * A stub ReadOnlyWordBankList whose cards list can violate interface constraints.
      */
     private static class WordBankStub implements ReadOnlyWordBank {
         private final ObservableList<Card> cards = FXCollections.observableArrayList();

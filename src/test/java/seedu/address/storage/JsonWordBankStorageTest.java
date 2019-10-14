@@ -17,7 +17,7 @@ package seedu.address.storage;
 //
 //import seedu.address.commons.exceptions.DataConversionException;
 //import seedu.address.model.wordbank.WordBank;
-//import seedu.address.model.wordbank.ReadOnlyWordBank;
+//import seedu.address.model.wordbank.ReadOnlyWordBankList;
 
 public class JsonWordBankStorageTest {
 //    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
@@ -30,7 +30,7 @@ public class JsonWordBankStorageTest {
 //        assertThrows(NullPointerException.class, () -> readAddressBook(null));
 //    }
 //
-//    private java.util.Optional<ReadOnlyWordBank> readAddressBook(String filePath) throws Exception {
+//    private java.util.Optional<ReadOnlyWordBankList> readAddressBook(String filePath) throws Exception {
 //        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
 //    }
 //
@@ -68,7 +68,7 @@ public class JsonWordBankStorageTest {
 //
 //        // Save in new file and read back
 //        jsonAddressBookStorage.saveAddressBook(original, filePath);
-//        ReadOnlyWordBank readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+//        ReadOnlyWordBankList readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
 //        assertEquals(original, new WordBank(readBack));
 //
 //        // Modify data, overwrite exiting file, and read back
@@ -94,7 +94,7 @@ public class JsonWordBankStorageTest {
 //    /**
 //     * Saves {@code addressBook} at the specified {@code filePath}.
 //     */
-//    private void saveAddressBook(ReadOnlyWordBank addressBook, String filePath) {
+//    private void saveAddressBook(ReadOnlyWordBankList addressBook, String filePath) {
 //        try {
 //            new JsonAddressBookStorage(Paths.get(filePath))
 //                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
