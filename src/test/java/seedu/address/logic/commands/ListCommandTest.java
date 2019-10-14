@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.profile.Model;
+import seedu.address.profile.ModelManager;
+import seedu.address.profile.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

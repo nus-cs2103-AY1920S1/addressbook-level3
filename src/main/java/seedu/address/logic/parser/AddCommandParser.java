@@ -1,43 +1,62 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medical.MedicalHistory;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.profile.medical.MedicalHistory;
+import seedu.address.profile.person.BloodType;
+import seedu.address.profile.person.DoB;
+import seedu.address.profile.person.Gender;
+import seedu.address.profile.person.Height;
+import seedu.address.profile.person.Name;
+import seedu.address.profile.person.Person;
+import seedu.address.profile.person.Weight;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddProfileCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<AddProfileCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddProfileCommand
+     * and returns an AddProfileCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddProfileCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MEDICALHISTORY, PREFIX_DOB, PREFIX_GENDER,
+                        PREFIX_BLOODTYPE, PREFIX_WEIGHT, PREFIX_HEIGHT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DOB, PREFIX_GENDER, PREFIX_BLOODTYPE,
+                PREFIX_WEIGHT, PREFIX_HEIGHT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProfileCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Set<MedicalHistory> medicalHistoryList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        DoB dateOfBirth = ParserUtil.parseDoB(argMultimap.getValue(PREFIX_DOB).get());
+        Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
+        BloodType bloodGroup = ParserUtil.parseBloodType(argMultimap.getValue(PREFIX_BLOODTYPE).get());
+        Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+        Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
 
-        Person person = new Person(name, medicalHistoryList);
+        Set<MedicalHistory> medicalHistoryList = ParserUtil.parseMedicalHistories(
+                argMultimap.getAllValues(PREFIX_MEDICALHISTORY));
 
-        return new AddCommand(person);
+        Person person = new Person(name, dateOfBirth, gender, bloodGroup, weight, height, medicalHistoryList);
+
+        return new AddProfileCommand(person);
     }
 
     /**

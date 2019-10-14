@@ -1,14 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.medical.MedicalHistory;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.AddProfileCommand;
+import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
+import seedu.address.profile.medical.MedicalHistory;
+import seedu.address.profile.person.Person;
 
 /**
  * A utility class for Person.
@@ -19,7 +24,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddProfileCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
@@ -27,9 +32,11 @@ public class PersonUtil {
      */
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        sb.append(PREFIX_NAME + person.getName().fullName + " " + PREFIX_DOB + person.getDateOfBirth().dateOfBirth + " "
+                + PREFIX_GENDER + person.getGender().gender + PREFIX_BLOODTYPE + person.getBloodType().bloodGroup + " "
+                + PREFIX_WEIGHT + person.getWeight().weight + PREFIX_HEIGHT + person.getHeight().height);
         person.getMedicalHistories().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.medicalHistoryName + " ")
+            s -> sb.append(PREFIX_MEDICALHISTORY + s.medicalHistoryName + " ")
         );
         return sb.toString();
     }
@@ -43,9 +50,10 @@ public class PersonUtil {
         if (descriptor.getMedicalHistories().isPresent()) {
             Set<MedicalHistory> medicalHistories = descriptor.getMedicalHistories().get();
             if (medicalHistories.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_MEDICALHISTORY);
             } else {
-                medicalHistories.forEach(s -> sb.append(PREFIX_TAG).append(s.medicalHistoryName).append(" "));
+                medicalHistories.forEach(s -> sb.append(PREFIX_MEDICALHISTORY)
+                        .append(s.medicalHistoryName).append(" "));
             }
         }
         return sb.toString();

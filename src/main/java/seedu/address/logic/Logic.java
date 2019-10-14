@@ -7,8 +7,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.profile.Model;
+import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.person.Person;
 
 /**
  * API of the Logic component
@@ -26,7 +27,7 @@ public interface Logic {
     /**
      * Returns DukeCooks.
      *
-     * @see seedu.address.model.Model#getDukeCooks()
+     * @see Model#getDukeCooks()
      */
     ReadOnlyDukeCooks getDukeCooks();
 

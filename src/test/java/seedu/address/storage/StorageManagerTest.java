@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.UserPrefs;
+import seedu.address.profile.DukeCooks;
+import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.UserPrefs;
 
 public class StorageManagerTest {
 

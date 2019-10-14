@@ -1,71 +1,92 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditProfileCommand;
+import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medical.MedicalHistory;
+import seedu.address.profile.medical.MedicalHistory;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditProfileCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class EditCommandParser implements Parser<EditProfileCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditProfileCommand
+     * and returns an EditProfileCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditProfileCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        }
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOB, PREFIX_GENDER, PREFIX_BLOODTYPE,
+                        PREFIX_HEIGHT, PREFIX_WEIGHT, PREFIX_MEDICALHISTORY);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setMedicalHistories);
-
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        if (argMultimap.getValue(PREFIX_DOB).isPresent()) {
+            editPersonDescriptor.setDateOfBirth(ParserUtil.parseDoB(argMultimap.getValue(PREFIX_DOB).get()));
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_BLOODTYPE).isPresent()) {
+            editPersonDescriptor.setBloodType(ParserUtil.parseBloodType(argMultimap.getValue(PREFIX_BLOODTYPE).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_WEIGHT).isPresent()) {
+            editPersonDescriptor.setWeight(ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_HEIGHT).isPresent()) {
+            editPersonDescriptor.setHeight(ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get()));
+        }
+
+        parseMedicalHistoriesForEdit(argMultimap.getAllValues(PREFIX_MEDICALHISTORY))
+                .ifPresent(editPersonDescriptor::setMedicalHistories);
+
+        if (!editPersonDescriptor.isAnyFieldEdited() || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(EditProfileCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditProfileCommand(editPersonDescriptor);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<MedicalHistory>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<MedicalHistory>} containing zero tags.
+     * Parses {@code Collection<String> medicalHistories} into a {@code Set<MedicalHistory>} if
+     * {@code medicalHistories} is non-empty.
+     *
+     * If {@code medicalHistories} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<MedicalHistory>} containing zero medicalHistories.
      */
-    private Optional<Set<MedicalHistory>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
+    private Optional<Set<MedicalHistory>> parseMedicalHistoriesForEdit(Collection<String> medicalHistories)
+            throws ParseException {
+        assert medicalHistories != null;
 
-        if (tags.isEmpty()) {
+        if (medicalHistories.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        Collection<String> tagSet = medicalHistories.size() == 1 && medicalHistories.contains("")
+                ? Collections.emptySet() : medicalHistories;
+        return Optional.of(ParserUtil.parseMedicalHistories(tagSet));
     }
 
 }

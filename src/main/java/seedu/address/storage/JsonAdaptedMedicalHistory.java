@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.medical.MedicalHistory;
+import seedu.address.profile.medical.MedicalHistory;
 
 /**
  * Jackson-friendly version of {@link MedicalHistory}.

@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.profile.DukeCooks;
+import seedu.address.profile.ReadOnlyDukeCooks;
 
 /**
  * Represents a storage for {@link DukeCooks}.

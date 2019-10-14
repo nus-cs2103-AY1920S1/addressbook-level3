@@ -5,21 +5,27 @@ import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORM
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
+import seedu.address.profile.person.Name;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_MEDICALHISTORY = "#high blood pressure";
 
     private static final String VALID_NAME = BENSON.getName().toString();
-    private static final List<JsonAdaptedMedicalHistory> VALID_TAGS = BENSON.getMedicalHistories().stream()
+    private static final String VALID_DOB = BENSON.getDateOfBirth().toString();
+    private static final String VALID_BLOODTYPE = BENSON.getBloodType().toString();
+    private static final String VALID_GENDER = BENSON.getGender().toString();
+    private static final String VALID_WEIGHT = BENSON.getWeight().toString();
+    private static final String VALID_WEIGHT_TIMESTAMP = BENSON.getWeight().timestamp;
+    private static final String VALID_HEIGHT = BENSON.getHeight().toString();
+    private static final String VALID_HEIGHT_TIMESTAMP = BENSON.getHeight().timestamp;
+    private static final List<JsonAdaptedMedicalHistory> VALID_MEDICALHISTORIES = BENSON.getMedicalHistories().stream()
             .map(JsonAdaptedMedicalHistory::new)
             .collect(Collectors.toList());
 
@@ -32,25 +38,21 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_NAME, VALID_TAGS);
+                new JsonAdaptedPerson(INVALID_NAME, VALID_DOB, VALID_GENDER, VALID_BLOODTYPE,
+                        VALID_WEIGHT, VALID_WEIGHT_TIMESTAMP, VALID_HEIGHT, VALID_HEIGHT_TIMESTAMP,
+                        VALID_MEDICALHISTORIES);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_TAGS);
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(null, VALID_DOB, VALID_GENDER, VALID_BLOODTYPE,
+                        VALID_WEIGHT, VALID_WEIGHT_TIMESTAMP, VALID_HEIGHT, VALID_HEIGHT_TIMESTAMP,
+                        VALID_MEDICALHISTORIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedMedicalHistory> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedMedicalHistory(INVALID_TAG));
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
     }
 
 }

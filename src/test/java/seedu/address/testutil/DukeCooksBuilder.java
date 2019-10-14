@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.DukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.profile.DukeCooks;
+import seedu.address.profile.person.Person;
 
 /**
  * A utility class to help with building DukeCooks objects.
