@@ -2,13 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.address.logic.FunctionMode;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new SwitchModeCommand object
@@ -31,17 +27,17 @@ public class SwitchModeCommandParser implements Parser<SwitchModeCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
         }
         switch (trimmedArgs.toUpperCase()) {
-            case CHEATSHEET_ABBREVIATION:
-                return new SwitchModeCommand(FunctionMode.CHEATSHEET);
+        case CHEATSHEET_ABBREVIATION:
+            return new SwitchModeCommand(FunctionMode.CHEATSHEET);
 
-            case FLASHCARD_ABBREVIATION:
-                return new SwitchModeCommand(FunctionMode.FLASHCARD);
+        case FLASHCARD_ABBREVIATION:
+            return new SwitchModeCommand(FunctionMode.FLASHCARD);
 
-            case NOTES_ABBREVIATION:
-                return new SwitchModeCommand(FunctionMode.NOTES);
+        case NOTES_ABBREVIATION:
+            return new SwitchModeCommand(FunctionMode.NOTES);
 
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
+        default:
+           throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
         }
     }
 }

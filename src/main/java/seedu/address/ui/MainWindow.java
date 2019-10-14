@@ -221,16 +221,16 @@ public class MainWindow extends UiPart<Stage> {
     private void toggleModeTo (FunctionMode targetMode) {
         deselectCircle(currentHighlightedCircle);
         switch (targetMode) {
-            case FLASHCARD:
-                currentHighlightedCircle = fcHighlightCircle;
-                break;
-            case CHEATSHEET:
-                currentHighlightedCircle = csHighlightCircle;
-                break;
-            case NOTES:
-                currentHighlightedCircle = notesHighlightCircle;
-                break;
-            default:
+        case FLASHCARD:
+            currentHighlightedCircle = fcHighlightCircle;
+            break;
+        case CHEATSHEET:
+            currentHighlightedCircle = csHighlightCircle;
+            break;
+        case NOTES:
+            currentHighlightedCircle = notesHighlightCircle;
+            break;
+        default:
         }
         highlightCircle(currentHighlightedCircle);
     }
