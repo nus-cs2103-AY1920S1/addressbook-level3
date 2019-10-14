@@ -9,7 +9,7 @@ import java.util.List;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
-import io.xpire.logic.parser.CliSyntax;
+//import io.xpire.logic.parser.CliSyntax;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
@@ -21,49 +21,47 @@ import io.xpire.testutil.Assert;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_KIWI = "Kiwi";
-    public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
+    public static final String VALID_NAME_APPLE = "Apple";
+    public static final String VALID_NAME_KIWI = "Kiwi";
     public static final String VALID_NAME_MILK = "Milk";
+    public static final String VALID_NAME_TOFU = "Tofu";
+    public static final String VALID_NAME_RICE = "Rice";
+    public static final String VALID_NAME_AVOCADO = "Avocado";
 
-    public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_APPLE = "01/02/2020";
+    public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_TOFU = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_RICE = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_AVOCADO = "1/2/2020";
 
-    public static final String VALID_QUANTITY_KIWI = "1";
-    public static final String VALID_QUANTITY_APPLE = "1";
     public static final String VALID_QUANTITY_BANANA = "5";
+    public static final String VALID_QUANTITY_APPLE = "1";
+    public static final String VALID_QUANTITY_KIWI = "1";
     public static final String VALID_QUANTITY_MILK = "2";
+    public static final String VALID_QUANTITY_TOFU = "1";
+    public static final String VALID_QUANTITY_RICE = "1";
+    public static final String VALID_QUANTITY_AVOCADO = "4";
 
-    public static final String VALID_TAG_FRUIT = "fruit";
-    public static final String VALID_TAG_DRINK = "drinks";
-    public static final String VALID_TAG_GREEN = "green";
+    public static final String VALID_TAG_FRUIT = "Fruit";
+    public static final String VALID_TAG_DRINK = "Drink";
 
-    public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;
-    public static final String NAME_DESC_APPLE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_APPLE;
-    public static final String NAME_DESC_BANANA = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BANANA;
-    public static final String NAME_DESC_MILK = " " + CliSyntax.PREFIX_NAME + VALID_NAME_MILK;
+    public static final String VALID_REMINDERTHRESHOLD_BANANA = "0";
+    public static final String VALID_REMINDERTHRESHOLD_APPLE = "0";
+    public static final String VALID_REMINDERTHRESHOLD_KIWI = "0";
+    public static final String VALID_REMINDERTHRESHOLD_MILK = "0";
+    public static final String VALID_REMINDERTHRESHOLD_TOFU = "0";
+    public static final String VALID_REMINDERTHRESHOLD_RICE = "7";
+    public static final String VALID_REMINDERTHRESHOLD_AVOCADO = "3";
 
-    public static final String EXPIRY_DATE_DESC_KIWI = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_KIWI;
-    public static final String EXPIRY_DATE_DESC_APPLE = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_APPLE;
-    public static final String EXPIRY_DATE_DESC_BANANA = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
-    public static final String EXPIRY_DATE_DESC_MILK = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_MILK;
-    public static final String TAG_DESC_FRUIT = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRUIT;
-    public static final String TAG_DESC_DRINK = " " + CliSyntax.PREFIX_TAG + VALID_TAG_DRINK;
-    public static final String TAG_DESC_GREEN = " " + CliSyntax.PREFIX_TAG + VALID_TAG_GREEN;
-
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&";
-    public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a";
-    public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + CliSyntax.PREFIX_ADDRESS;
-    public static final String INVALID_EXPIRY_DATE_DESC = " " + CliSyntax.PREFIX_EXPIRY_DATE + "";
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String INVALID_NAME = "James&";
-    public static final String INVALID_EXPIRY_DATE = "";
-    public static final String INVALID_TAG = "hubby*";
+    public static final String INVALID_NAME = "@pple";
+    public static final String INVALID_EXPIRY_DATE = "50/50/5000";
+    public static final String INVALID_TAG = "$cold";
     public static final String INVALID_QUANTITY = "-2";
+    public static final String INVALID_REMINDERTHRESHOLD = "-5";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

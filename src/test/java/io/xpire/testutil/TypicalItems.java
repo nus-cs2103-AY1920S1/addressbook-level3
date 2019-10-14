@@ -74,6 +74,6 @@ public class TypicalItems {
     }
 
     public static List<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(MILK, BANANA, APPLE, TOFU, RICE, AVOCADO));
+        return new ArrayList<>(Arrays.asList(BANANA, APPLE, MILK, TOFU, RICE, AVOCADO));
     }
 }
