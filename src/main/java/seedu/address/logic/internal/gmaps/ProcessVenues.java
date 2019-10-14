@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
+import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.GmapsApi;
 import seedu.address.websocket.NusModsApi;
@@ -126,8 +127,12 @@ public class ProcessVenues implements Serializable {
         } else {
             String locationName = (String) venuesNusMods.get(i);
             Location currLocation = new Location(locationName);
-            String validLocation = sanitizeLocation.sanitize(locationName);
-            currLocation.setGoogleRecognisedLocation(validLocation);
+            try {
+                String validLocation = sanitizeLocation.sanitize(locationName);
+                currLocation.setGoogleRecognisedLocation(validLocation);
+            } catch (TimeBookInvalidLocation e) {
+                System.out.println(e.getMessage());
+            }
             return currLocation;
         }
     }

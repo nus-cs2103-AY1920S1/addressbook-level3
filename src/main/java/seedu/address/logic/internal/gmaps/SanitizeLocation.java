@@ -6,10 +6,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.json.simple.JSONObject;
 
+import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.websocket.GmapsApi;
 
 /**
@@ -41,27 +41,27 @@ public class SanitizeLocation implements Serializable {
      * @return
      * @throws ConnectException
      */
-    public String sanitize(String locationName) throws ConnectException {
+    public String sanitize(String locationName) throws ConnectException, TimeBookInvalidLocation {
         String validLocation = "NUS_" + locationName;
         validLocation = validLocation.split("-")[0];
-        if (validLocationList.contains(validLocation)) {
-        } else {
+        if (!validLocationList.contains(validLocation)) {
             JSONObject apiResponse = gmapsApi.getLocation(validLocation);
             String status = GmapsJsonUtils.getStatus(apiResponse);
             if (status.equals("OK")) {
                 validLocationList.add(validLocation);
             } else {
                 validLocation = "NUS_" + validLocation.split("_")[1];
-                apiResponse = gmapsApi.getLocation(validLocation);
-                status = GmapsJsonUtils.getStatus(apiResponse);
-                if (status.equals("OK")) {
-                    validLocationList.add(validLocation);
-                } else {
-                    System.out.println("Cannot identify" + validLocation);
+                if (!validLocationList.contains(validLocation)) {
+                    apiResponse = gmapsApi.getLocation(validLocation);
+                    status = GmapsJsonUtils.getStatus(apiResponse);
+                    if (status.equals("OK")) {
+                        validLocationList.add(validLocation);
+                    } else {
+                        throw new TimeBookInvalidLocation("Cannot identify" + validLocation);
+                    }
                 }
             }
         }
-        System.out.println(locationName + "identified as" + validLocation);
         return validLocation;
     }
 
