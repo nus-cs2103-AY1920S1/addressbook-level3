@@ -59,6 +59,13 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Returns true if a given {@code Date} is a valid date.
+     */
+    public static boolean isValidDate(Date date) {
+        return isValidDate(date.getDay(), date.getMonth(), date.getYear());
+    }
+
     @Override
     public int compareTo(Date other) {
         return this.date.compareTo(other.date);
