@@ -18,10 +18,13 @@ import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
+import seedu.address.logic.commands.addcommand.AddScheduleCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
+import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand;
+import seedu.address.logic.commands.editcommand.EditScheduleCommand;
 import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 
@@ -32,10 +35,13 @@ import seedu.address.logic.commands.statisticcommand.StatsTotalRevenueCompletedC
 
 import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;
+import seedu.address.logic.parser.addcommandparser.AddScheduleCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
+import seedu.address.logic.parser.deletecommandparser.DeleteScheduleCommandParser;
 import seedu.address.logic.parser.editcommandparser.EditCustomerCommandParser;
 import seedu.address.logic.parser.editcommandparser.EditPhoneCommandParser;
+import seedu.address.logic.parser.editcommandparser.EditScheduleCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -77,15 +83,24 @@ public class AddressBookParser {
         case AddPhoneCommand.COMMAND_WORD:
             return new AddPhoneCommandParser().parse(arguments);
 
+        case AddScheduleCommand.COMMAND_WORD:
+            return new AddScheduleCommandParser().parse(arguments);
+
         case EditCustomerCommand.COMMAND_WORD:
             return new EditCustomerCommandParser().parse(arguments);
 
+        case EditScheduleCommand.COMMAND_WORD:
+            return new EditScheduleCommandParser().parse(arguments);
 
         case EditPhoneCommand.COMMAND_WORD:
             return new EditPhoneCommandParser().parse(arguments);
 
         case DeletePhoneCommand.COMMAND_WORD:
             return new DeletePhoneCommandParser().parse(arguments);
+
+        case DeleteScheduleCommand.COMMAND_WORD:
+            return new DeleteScheduleCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 

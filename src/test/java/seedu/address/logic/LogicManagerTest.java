@@ -25,14 +25,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-//import seedu.address.model.person.Person;
-import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
+import seedu.address.storage.JsonPhoneBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-//import seedu.address.testutil.PersonBuilder;
-
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
@@ -48,6 +45,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonCustomerBookStorage customerBookStorage =
                 new JsonCustomerBookStorage(temporaryFolder.resolve("customerBook.json"));
+        JsonPhoneBookStorage phoneBookStorage =
+                new JsonPhoneBookStorage(temporaryFolder.resolve("phoneBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, customerBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage, new StatisticManager());
