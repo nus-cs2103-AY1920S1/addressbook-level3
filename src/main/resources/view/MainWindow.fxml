@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fullScreen="true" height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/savenus_logo.png" />
   </icons>
