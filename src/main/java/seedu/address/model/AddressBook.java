@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.UniqueFlashcardList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
@@ -17,6 +19,9 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+
+    private final UniqueFlashcardList flashcards;
+
     private final UniqueNoteList notes;
 
     /*
@@ -28,6 +33,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+
+        flashcards = new UniqueFlashcardList();
+
         notes = new UniqueNoteList();
     }
 
@@ -107,6 +115,33 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+<<<<<<< HEAD
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeFlashcard(Flashcard key) {
+        flashcards.remove(key);
+    }
+
+
+
+    /**
+     * Returns true if a flashcard with the same identity as {@code flashcard} exists in the application.
+     */
+    public boolean hasFlashcard(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return flashcards.contains(flashcard);
+    }
+
+    /**
+     * Adds a flashcard to the application.
+     * The flashcard must not already exist in the application.
+     */
+    public void addFlashcard(Flashcard f) {
+        flashcards.add(f);
+    }
+
+    /**
      * Returns true if a note with the same identity as {@code note} exists in the address book.
      */
     public boolean hasNote(Note note) {
@@ -152,6 +187,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Flashcard> getFlashcardList() {
+        return flashcards.asUnmodifiableObservableList();
     }
 
     @Override

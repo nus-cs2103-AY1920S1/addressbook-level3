@@ -14,4 +14,7 @@ public class Messages {
     public static final String MESSAGE_MATCHING_NOTE_FOUND = "Note matching the title exists.";
     public static final String MESSAGE_NO_MATCHING_NOTE_FOUND = "No note with that title exists!";
 
+    public static final String MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX = "The flashcard index provided is invalid";
+
+
 }

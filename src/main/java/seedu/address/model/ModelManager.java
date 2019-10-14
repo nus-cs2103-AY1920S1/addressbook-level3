@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Flashcard> filteredFlashcards;
     private final FilteredList<Note> filteredNotes;
 
     /**
@@ -37,6 +39,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
     }
 
@@ -116,6 +119,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasFlashcard(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return addressBook.hasFlashcard(flashcard);
+    }
+
+    @Override
+    public void addFlashcard(Flashcard flashcard) {
+        addressBook.addFlashcard(flashcard);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+    }
+
+    @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
         return addressBook.hasNote(note);
@@ -156,6 +171,23 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Flashcard List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return filteredFlashcards;
+    }
+
+    @Override
+    public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+        requireNonNull(predicate);
+        filteredFlashcards.setPredicate(predicate);
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
      * {@code versionedAddressBook}
@@ -191,4 +223,8 @@ public class ModelManager implements Model {
                 && filteredNotes.equals(other.filteredNotes);
     }
 
+    @Override
+    public void deleteFlashcard(Flashcard target) {
+        addressBook.removeFlashcard(target);
+    }
 }
