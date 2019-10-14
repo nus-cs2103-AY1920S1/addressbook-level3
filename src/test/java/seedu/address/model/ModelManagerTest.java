@@ -65,7 +65,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setItineraryFilePath_validPath_setsAddressBookFilePath() {
+    public void setItineraryFilePath_validPath_setsItineraryFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setItineraryFilePath(path);
         assertEquals(path, modelManager.getItineraryFilePath());

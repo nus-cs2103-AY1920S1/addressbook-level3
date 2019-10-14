@@ -28,7 +28,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getItinerary()
      */
-    ReadOnlyItinerary getAddressBook();
+    ReadOnlyItinerary getItinerary();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Contact> getFilteredContactList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getItineraryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

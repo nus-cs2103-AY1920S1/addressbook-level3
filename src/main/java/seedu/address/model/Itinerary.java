@@ -49,8 +49,8 @@ public class Itinerary implements ReadOnlyItinerary {
     public Itinerary(ReadOnlyItinerary toBeCopied) {
         this();
         resetDataContact(toBeCopied);
-        resetDataActivity(toBeCopied);
-        resetDataAccommodation(toBeCopied);
+        //resetDataActivity(toBeCopied);
+        //resetDataAccommodation(toBeCopied);
     }
 
     //// For ACCOMMODATION list overwrite operations

@@ -9,28 +9,28 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Contact.
  */
-public class PersonUtil {
+public class ContactUtil {
 
     /**
      * Returns an add command string for adding the {@code contacts}.
      */
     public static String getAddCommand(Contact contact) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(contact);
+        return AddCommand.COMMAND_WORD + " " + getContactDetails(contact);
     }
 
     /**
      * Returns the part of command string for the given {@code contacts}'s details.
      */
-    public static String getPersonDetails(Contact contact) {
+    public static String getContactDetails(Contact contact) {
         StringBuilder sb = new StringBuilder();
-        sb.append("contacts ");
+        sb.append("contact ");
         sb.append(PREFIX_NAME + contact.getName().toString() + " ");
         sb.append(PREFIX_PHONE + contact.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + contact.getEmail().value + " ");
@@ -44,7 +44,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditContactDescriptorDetails(EditContactDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.toString()).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

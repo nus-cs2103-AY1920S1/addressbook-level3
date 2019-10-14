@@ -33,7 +33,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|person)(?<arguments>.*)");
+    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|contact)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -55,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             return parseDay(arguments);
         case "activity":
             return parseActivity(arguments);
-        case "contacts":
+        case "contact":
             return parseContact(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

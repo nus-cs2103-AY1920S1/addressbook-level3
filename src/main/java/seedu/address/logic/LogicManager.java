@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final ItineraryParser addressBookParser;
+    private final ItineraryParser itineraryParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new ItineraryParser();
+        itineraryParser = new ItineraryParser();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = itineraryParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyItinerary getAddressBook() {
+    public ReadOnlyItinerary getItinerary() {
         return model.getItinerary();
     }
 
@@ -62,7 +62,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getItineraryFilePath() {
         return model.getItineraryFilePath();
     }
 

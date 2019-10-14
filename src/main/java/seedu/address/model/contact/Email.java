@@ -9,6 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
 
+    public static final String EMPTY_EMAIL = "No email recorded.";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
@@ -36,12 +37,12 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmail(email) | isEmptyEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 
     public static Email emptyEmail() {
-        return new Email("No email recorded.");
+        return new Email(EMPTY_EMAIL);
     }
 
     /**
@@ -49,6 +50,13 @@ public class Email {
      */
     public static boolean isValidEmail(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns if a given string is an empty email.
+     */
+    public static boolean isEmptyEmail(String test) {
+        return test.matches(EMPTY_EMAIL);
     }
 
     @Override

@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,7 +40,7 @@ public class ItineraryTest {
 
     @Test
     public void resetDataContact_withValidReadOnlyItinerary_replacesData() {
-        Itinerary newData = getTypicalAddressBook();
+        Itinerary newData = getTypicalItinerary();
         itinerary.resetDataContact(newData);
         assertEquals(newData, itinerary);
     }

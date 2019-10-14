@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
 
 import java.nio.file.Path;
 
@@ -54,14 +54,14 @@ public class StorageManagerTest {
          * {@link JsonItineraryStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonItineraryStorageTest} class.
          */
-        Itinerary original = getTypicalAddressBook();
+        Itinerary original = getTypicalItinerary();
         storageManager.saveItinerary(original);
         ReadOnlyItinerary retrieved = storageManager.readItinerary().get();
         assertEquals(original, new Itinerary(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getItineraryFilePath() {
         assertNotNull(storageManager.getItineraryFilePath());
     }
 

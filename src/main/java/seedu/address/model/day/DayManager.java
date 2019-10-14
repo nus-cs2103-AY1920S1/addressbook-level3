@@ -20,6 +20,10 @@ public class DayManager {
         numberOfDays = 0;
     }
 
+    public List<Day> getDays() {
+        return days;
+    }
+
     /**
      * Sets the total number of days in the itinerary.
      * @param n number of days.
@@ -56,6 +60,11 @@ public class DayManager {
      */
     public void removeDay(int n) {
         days.remove(n - 1);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return days.equals(((DayManager) object).getDays());
     }
 
 }

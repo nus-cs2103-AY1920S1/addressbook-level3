@@ -91,7 +91,7 @@ public class UniqueContactList implements Iterable<Contact> {
      */
     public void setContacts(List<Contact> contacts) {
         requireAllNonNull(contacts);
-        if (!personsAreUnique(contacts)) {
+        if (!contactsAreUnique(contacts)) {
             throw new DuplicateContactException();
         }
 
@@ -125,7 +125,7 @@ public class UniqueContactList implements Iterable<Contact> {
     /**
      * Returns true if {@code contacts} contains only unique contacts.
      */
-    private boolean personsAreUnique(List<Contact> contacts) {
+    private boolean contactsAreUnique(List<Contact> contacts) {
         for (int i = 0; i < contacts.size() - 1; i++) {
             for (int j = i + 1; j < contacts.size(); j++) {
                 if (contacts.get(i).isSameContact(contacts.get(j))) {

@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.HOON;
 import static seedu.address.testutil.TypicalContacts.IDA;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,12 +26,12 @@ public class JsonItineraryStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readItinerary_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readItinerary(null));
     }
 
-    private java.util.Optional<ReadOnlyItinerary> readAddressBook(String filePath) throws Exception {
-        return new JsonItineraryStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyItinerary> readItinerary(String filePath) throws Exception {
+        return new JsonItineraryStorage(Paths.get(filePath)).readItinerary(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +42,69 @@ public class JsonItineraryStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readItinerary("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readItinerary("notJsonFormatItinerary.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readItinerary_invalidContactItinerary_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readItinerary("invalidContactItinerary.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readItinerary_invalidAndValidContactItinerary_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readItinerary("invalidAndValidContactItinerary.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        Itinerary original = getTypicalAddressBook();
-        JsonItineraryStorage jsonAddressBookStorage = new JsonItineraryStorage(filePath);
+    public void readAndSaveItinerary_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempItinerary.json");
+        Itinerary original = getTypicalItinerary();
+        JsonItineraryStorage jsonItineraryStorage = new JsonItineraryStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyItinerary readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonItineraryStorage.saveItinerary(original, filePath);
+        ReadOnlyItinerary readBack = jsonItineraryStorage.readItinerary(filePath).get();
         assertEquals(original, new Itinerary(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        original.addContact(HOON);
+        original.removeContact(ALICE);
+        jsonItineraryStorage.saveItinerary(original, filePath);
+        readBack = jsonItineraryStorage.readItinerary(filePath).get();
         assertEquals(original, new Itinerary(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        original.addContact(IDA);
+        jsonItineraryStorage.saveItinerary(original); // file path not specified
+        readBack = jsonItineraryStorage.readItinerary().get(); // file path not specified
         assertEquals(original, new Itinerary(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveItinerary_nullItinerary_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveItinerary(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyItinerary addressBook, String filePath) {
+    private void saveItinerary(ReadOnlyItinerary itinerary, String filePath) {
         try {
             new JsonItineraryStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveItinerary(itinerary, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new Itinerary(), null));
+    public void saveItinerary_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveItinerary(new Itinerary(), null));
     }
 }
