@@ -85,6 +85,10 @@ public class UniqueBudgetList implements Iterable<Budget> {
         return primaryBudget;
     }
 
+    public boolean isEmpty() {
+        return internalList.size() == 0;
+    }
+
     public ObservableList<Budget> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }

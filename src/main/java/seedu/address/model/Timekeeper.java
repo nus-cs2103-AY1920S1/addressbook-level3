@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Reminder;
 
@@ -18,9 +19,11 @@ public class Timekeeper {
     public static final LocalDate SYSTEM_DATE = LocalDate.now();
     public static final long THRESHOLD = 7;
     private ObservableList<Event> events;
+    private ObservableList<Budget> budgets;
 
     public Timekeeper(Model model) {
         events = model.getFilteredEventList();
+        budgets = model.getAddressBook().getBudgetList();
     }
 
     public List<Reminder> getReminders() {
@@ -34,12 +37,20 @@ public class Timekeeper {
         return reminders;
     }
 
+   public void refreshBudgets() {
+        for (Budget budget : budgets) {
+            if (budget.expired(SYSTEM_DATE)) {
+                budget.refresh(SYSTEM_DATE);
+            }
+        }
+    }
+
     /**
      * Dummy.
      *
      * @param event dummy.
      */
-    private static Optional<Reminder> createReminderIfValid(Event event) {
+    private Optional<Reminder> createReminderIfValid(Event event) {
         LocalDate timestamp = event.getTimestamp().timestamp;
 
         long daysLeft = SYSTEM_DATE.until(timestamp, ChronoUnit.DAYS);
@@ -48,7 +59,7 @@ public class Timekeeper {
         return (isUrgent(daysLeft)) ? Optional.of(new Reminder(event, totalTimeDifference)) : Optional.empty();
     }
 
-    private static boolean isUrgent(long daysLeft) {
+    private boolean isUrgent(long daysLeft) {
         return daysLeft < THRESHOLD;
     }
 }

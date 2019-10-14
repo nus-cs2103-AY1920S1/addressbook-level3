@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,12 +19,19 @@ import seedu.address.model.expense.Price;
  */
 public class Budget {
     private final Description description;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final Period period;
     private final Price amount;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private final Period period;
     private final List<Expense> expenses;
     private boolean isPrimary;
+    private Percentage proportionUsed;
+
+    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
+    private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
+    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
+    private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
+    private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
 
     public Budget(Description description, Price amount, LocalDate startDate, Period period) {
@@ -35,6 +43,7 @@ public class Budget {
         this.endDate = startDate.plus(period);
         this.expenses = new ArrayList<>();
         this.isPrimary = false;
+        this.proportionUsed = new Percentage(0);
     }
 
     public Description getDescription() {
@@ -65,15 +74,48 @@ public class Budget {
         expenses.add(e);
     }
 
-    /**
-     * Checks whether the budget is exceeded.
-     */
-    public boolean isExceeded() {
+    public static Budget createDefaultBudget() {
+       return new Budget(DEFAULT_BUDGET_DESCRIPTION,
+               DEFAULT_BUDGET_AMOUNT,
+               DEFAULT_BUDGET_START_DATE,
+               DEFAULT_BUDGET_PERIOD);
+    }
+
+    public double getExpenseSum() {
         double sum = 0;
         for (int i = 0; i < expenses.size(); i++) {
             sum = sum + expenses.get(i).getPrice().getAsDouble();
         }
-        return sum > amount.getAsDouble();
+        return sum;
+    }
+
+    public Percentage getProportionUsed() {
+        return Percentage.calculate(getExpenseSum(), amount.getAsDouble());
+    }
+
+    public boolean isNear() {
+        return getProportionUsed().reach(IS_NEAR_THRESHOLD);
+    }
+
+    /**
+     * Checks whether the budget is exceeded.
+     */
+    public boolean isExceeded() {
+        return getExpenseSum() > amount.getAsDouble();
+    }
+
+    public boolean expired(LocalDate date) {
+        return endDate.isBefore(date);
+    }
+
+    public void refresh(LocalDate date) {
+        assert endDate.isBefore(date) : "Budget is refreshed only when expired";
+        long daysDiff = ChronoUnit.DAYS.between(endDate, date);
+        int periodDays = period.getDays();
+        long cycles = daysDiff / periodDays;
+        long offset = cycles * periodDays;
+        startDate = endDate.plusDays(offset);
+        endDate = startDate.plus(period);
     }
 
     public boolean isPrimary() {

@@ -33,6 +33,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
+        if (budgets.isEmpty()) {
+            budgets.add(Budget.createDefaultBudget());
+        }
         events = new UniqueEventList();
     }
 
