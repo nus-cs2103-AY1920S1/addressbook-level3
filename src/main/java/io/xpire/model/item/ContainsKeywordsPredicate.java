@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import io.xpire.commons.util.StringUtil;
 
@@ -16,8 +17,10 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
     private final List<String> keywords;
 
     public ContainsKeywordsPredicate(List<String> keywords) {
-        Collections.sort(keywords);
-        this.keywords = keywords;
+        this.keywords = keywords.stream()
+                .map(keyword -> keyword.startsWith("#") ? keyword : keyword.toLowerCase())
+                .collect(Collectors.toList());
+        Collections.sort(this.keywords);
     }
 
     @Override

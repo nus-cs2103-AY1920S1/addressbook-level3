@@ -40,9 +40,10 @@ public class CollectionUtil {
      * Optional mapper functions can be provided to mutate the string representation.
      *
      * @param items Any java object.
-     * @param mappers Functions that do string processing.
+     * @param mappers String processing functions.
      * @return A collection of strings.
      */
+    @SafeVarargs
     public static Collection<String> stringifyCollection(Collection<?> items, Function<String, String>... mappers) {
         Function<String, String> finalMapper = Function.identity();
         for (Function<String, String> mapper : mappers) {

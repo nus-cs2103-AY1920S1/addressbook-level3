@@ -107,7 +107,9 @@ public class CollectionUtilTest {
 
     @Test
     public void stringifyCollection_multipleElements_multipleStrings() {
-        Object obj1 = new Object(), obj2 = new Object(), obj3 =  new Object();
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        Object obj3 = new Object();
         Object[] objects = new Object[] {obj1, obj2, obj3};
         String[] objectStrings = new String[] {obj1.toString(), obj2.toString(), obj3.toString()};
 
@@ -118,7 +120,9 @@ public class CollectionUtilTest {
 
     @Test
     public void stringifyCollection_multipleMappersOrderSensitive_multipleMappedStrings() {
-        Object obj1 = new Object(), obj2 = new Object(), obj3 =  new Object();
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        Object obj3 = new Object();
         Object[] objects = new Object[] {obj1, obj2, obj3};
         String[] objectStrings = new String[] {
                 obj1.toString().toUpperCase().concat("test"),
@@ -129,12 +133,11 @@ public class CollectionUtilTest {
         Collection<Object> objectCollection = Arrays.asList(objects);
         Collection<String> expected = Arrays.asList(objectStrings);
         assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
-                item -> item.toUpperCase(),
-                item -> item.concat("test")));
+            item -> item.toUpperCase(),
+            item -> item.concat("test")));
         assertNotEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
-                item -> item.concat("test"),
-                item -> item.toUpperCase()
-                ));
+            item -> item.concat("test"),
+            item -> item.toUpperCase()));
     }
 
     /**

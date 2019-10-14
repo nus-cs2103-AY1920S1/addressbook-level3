@@ -28,10 +28,10 @@ public class AddCommandParserTest {
         Item expectedItem = new ItemBuilder(APPLE).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
+        CommandParserTestUtil.assertEqualsParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
                 + "|" + VALID_EXPIRY_DATE_APPLE, new AddCommand(expectedItem));
 
-        CommandParserTestUtil.assertParseSuccess(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE,
+        CommandParserTestUtil.assertEqualsParseSuccess(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE,
                 new AddCommand(expectedItem));
 
     }
