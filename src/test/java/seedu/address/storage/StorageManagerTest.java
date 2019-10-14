@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonItineraryStorage addressBookStorage = new JsonItineraryStorage(getTempFilePath("ab"));
+        JsonItineraryStorage itineraryStorage = new JsonItineraryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(itineraryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void itineraryReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonItineraryStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonItineraryStorageTest} class.
          */
         Itinerary original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyItinerary retrieved = storageManager.readAddressBook().get();
+        storageManager.saveItinerary(original);
+        ReadOnlyItinerary retrieved = storageManager.readItinerary().get();
         assertEquals(original, new Itinerary(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getItineraryFilePath());
     }
 
 }

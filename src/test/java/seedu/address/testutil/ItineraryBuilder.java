@@ -1,30 +1,30 @@
 package seedu.address.testutil;
 
 import seedu.address.model.Itinerary;
-import seedu.address.model.person.Contact;
+import seedu.address.model.contact.Contact;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code Itinerary ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code Itinerary ab = new ItineraryBuilder().withPerson("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class ItineraryBuilder {
 
     private Itinerary itinerary;
 
-    public AddressBookBuilder() {
+    public ItineraryBuilder() {
         itinerary = new Itinerary();
     }
 
-    public AddressBookBuilder(Itinerary itinerary) {
+    public ItineraryBuilder(Itinerary itinerary) {
         this.itinerary = itinerary;
     }
 
     /**
      * Adds a new {@code Contact} to the {@code Itinerary} that we are building.
      */
-    public AddressBookBuilder withPerson(Contact contact) {
-        itinerary.addPerson(contact);
+    public ItineraryBuilder withContact(Contact contact) {
+        itinerary.addContact(contact);
         return this;
     }
 

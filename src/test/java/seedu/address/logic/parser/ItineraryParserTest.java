@@ -23,19 +23,19 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Contact;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.field.NameContainsKeywordsPredicate;
+import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class ItineraryParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ItineraryParser parser = new ItineraryParser();
 
     @Test
     public void parseCommand_add() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ContactBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
@@ -55,8 +55,8 @@ public class ItineraryParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Contact contact = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
+        Contact contact = new ContactBuilder().build();
+        EditPersonDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

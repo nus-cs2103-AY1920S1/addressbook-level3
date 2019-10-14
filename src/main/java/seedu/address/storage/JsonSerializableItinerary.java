@@ -19,7 +19,7 @@ import seedu.address.model.contact.Contact;
 @JsonRootName(value = "itinerary")
 class JsonSerializableItinerary {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate contacts(s).";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contacts(s).";
 
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
 
@@ -50,7 +50,7 @@ class JsonSerializableItinerary {
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
             if (itinerary.hasContact(contact)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CONTACT);
             }
             itinerary.addContact(contact);
         }

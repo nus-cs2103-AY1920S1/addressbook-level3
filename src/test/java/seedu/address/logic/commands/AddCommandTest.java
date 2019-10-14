@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,11 @@ import seedu.address.model.Itinerary;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyItinerary;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Contact;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.day.Day;
+import seedu.address.testutil.ContactBuilder;
 
 public class AddCommandTest {
 
@@ -32,18 +36,18 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Contact validContact = new PersonBuilder().build();
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Contact validContact = new ContactBuilder().build();
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validContact), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Contact validContact = new PersonBuilder().build();
+        Contact validContact = new ContactBuilder().build();
         AddCommand addCommand = new AddCommand(validContact);
         ModelStub modelStub = new ModelStubWithPerson(validContact);
 
@@ -52,8 +56,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Contact alice = new PersonBuilder().withName("Alice").build();
-        Contact bob = new PersonBuilder().withName("Bob").build();
+        Contact alice = new ContactBuilder().withName("Alice").build();
+        Contact bob = new ContactBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -98,18 +102,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // ITINERARY METHODS
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getItineraryFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Contact contact) {
+        public void setItineraryFilePath(Path itineraryFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -123,28 +123,114 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // ACCOMMODATION METHODS
         @Override
-        public boolean hasPerson(Contact contact) {
+        public void addAccommodation(Accommodation accommodation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Contact target) {
+        public boolean hasAccommodation(Accommodation accommodation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Contact target, Contact editedContact) {
+        public void deleteAccommodation(Accommodation target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Contact> getFilteredPersonList() {
+        public void setAccommodation(Accommodation target, Accommodation editedAccommodation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // ACTIVITY METHODS
+        @Override
+        public void addActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Contact> predicate) {
+        public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteActivity(Activity target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivity(Activity target, Activity editedActivity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // CONTACT METHODS
+        @Override
+        public void addContact(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasContact(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteContact(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // DAY METHODS
+        public void addDays(int n) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteDay(int n) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setDays(int n) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setDays(List<Day> days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // FILTERED LIST METHODS
+        @Override
+        public ObservableList<Accommodation> getFilteredAccommodationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAccommodationList(Predicate<Accommodation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Activity> getFilteredActivityList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActivityList(Predicate<Activity> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Contact> getFilteredContactList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,28 +247,28 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Contact contact) {
+        public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return this.contact.isSamePerson(contact);
+            return this.contact.isSameContact(contact);
         }
     }
 
     /**
      * A Model stub that always accept the contacts being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Contact> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingContactAdded extends ModelStub {
+        final ArrayList<Contact> contactsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Contact contact) {
+        public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return personsAdded.stream().anyMatch(contact::isSamePerson);
+            return contactsAdded.stream().anyMatch(contact::isSameContact);
         }
 
         @Override
-        public void addPerson(Contact contact) {
+        public void addContact(Contact contact) {
             requireNonNull(contact);
-            personsAdded.add(contact);
+            contactsAdded.add(contact);
         }
 
         @Override
