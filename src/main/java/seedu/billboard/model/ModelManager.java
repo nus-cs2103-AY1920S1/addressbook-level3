@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
 /**
@@ -154,6 +155,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasArchive(String archiveName) {
+        return archives.hasArchive(archiveName);
+    }
+
+    @Override
     public void deleteArchiveExpense(String archiveName, Expense target) {
         archives.removeArchiveExpense(archiveName, target);
     }
@@ -162,6 +168,11 @@ public class ModelManager implements Model {
     public void addArchiveExpense(String archiveName, Expense expense) {
         archives.addArchiveExpense(archiveName, expense);
         updateFilteredArchiveExpenses(archiveName, PREDICATE_SHOW_ALL_EXPENSES);
+    }
+
+    @Override
+    public void addArchive(Archive archive) {
+        archives.addArchive(archive);
     }
 
     @Override

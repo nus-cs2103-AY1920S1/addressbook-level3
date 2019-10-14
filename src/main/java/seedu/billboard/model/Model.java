@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
 /**
@@ -113,6 +114,11 @@ public interface Model {
     boolean hasArchiveExpense(String archiveName, Expense expense);
 
     /**
+     * Returns true if an archive with the same name as {@code archiveName} exists in the archives.
+     */
+    boolean hasArchive(String archive);
+
+    /**
      * Deletes the given expense in the given archive.
      * The given {@code archiveName} must exist.
      */
@@ -123,6 +129,12 @@ public interface Model {
      * The given {@code archiveName} must exist.
      */
     void addArchiveExpense(String archiveName, Expense expense);
+
+    /**
+     * Adds the given expense into the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void addArchive(Archive archive);
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense} in the given archive.

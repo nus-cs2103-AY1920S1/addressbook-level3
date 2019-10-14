@@ -6,16 +6,7 @@ import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.billboard.logic.commands.AddCommand;
-import seedu.billboard.logic.commands.ClearCommand;
-import seedu.billboard.logic.commands.Command;
-import seedu.billboard.logic.commands.DeleteCommand;
-import seedu.billboard.logic.commands.EditCommand;
-import seedu.billboard.logic.commands.ExitCommand;
-import seedu.billboard.logic.commands.FindCommand;
-import seedu.billboard.logic.commands.HelpCommand;
-import seedu.billboard.logic.commands.ListCommand;
-import seedu.billboard.logic.commands.ListArchiveCommand;
+import seedu.billboard.logic.commands.*;
 
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
@@ -70,8 +61,14 @@ public class BillboardParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case CreateArchiveCommand.COMMAND_WORD:
+            return new CreateArchiveCommandParser().parse(arguments);
+
         case ListArchiveCommand.COMMAND_WORD:
-            return new ListArchiveCommand();
+            return new ListArchiveCommandParser().parse(arguments);
+
+        case "test":
+            return new TestCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

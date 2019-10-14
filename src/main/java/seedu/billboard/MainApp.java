@@ -90,8 +90,7 @@ public class MainApp extends Application {
             if (archiveOptional.isEmpty()) {
                 logger.info("Archive file not found. Will be starting with an empty archive");
             }
-            initialArchiveData = new ArchiveWrapper();
-            //initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleBillboard);
+            initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleArchiveWrapper);
         } catch (DataConversionException e) {
             logger.warning("Archive file not in the correct format. Will be starting with an empty archive");
             initialArchiveData = new ArchiveWrapper();

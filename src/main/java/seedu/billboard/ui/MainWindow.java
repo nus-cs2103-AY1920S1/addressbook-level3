@@ -175,8 +175,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (!commandResult.isDefaultListDisplayed()) {
-                expenseListPanel.setExpenseListView(logic.getFilteredArchiveExpenseList());
+            String listNameToBeDisplayed = commandResult.getListToBeDisplayed();
+            if (!(listNameToBeDisplayed.equals("non-archive"))) {
+                expenseListPanel.setExpenseListView(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
             } else {
                 expenseListPanel.setExpenseListView(logic.getFilteredExpenseList());
             }

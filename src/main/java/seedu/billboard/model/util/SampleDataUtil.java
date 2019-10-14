@@ -1,11 +1,16 @@
 package seedu.billboard.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.billboard.model.ArchiveWrapper;
 import seedu.billboard.model.Billboard;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
@@ -31,6 +36,20 @@ public class SampleDataUtil {
             new Expense(new Name("buy weed"), new Description("jk haha"),
                     new Amount("150.00"), getTagSet("PGP"))
         };
+    }
+
+    public static Archive getSampleArchive() {
+        List<Expense> expenses = new ArrayList<>();
+        for (Expense sampleExpense : getSampleExpenses()) {
+            expenses.add(sampleExpense);
+        }
+        return new Archive("Sample Archive", expenses);
+    }
+
+    public static ReadOnlyArchiveWrapper getSampleArchiveWrapper() {
+        ArchiveWrapper sampleAw =  new ArchiveWrapper();
+        sampleAw.addArchive(getSampleArchive());
+        return sampleAw;
     }
 
     public static ReadOnlyBillboard getSampleBillboard() {

@@ -18,16 +18,16 @@ public class CommandResult {
     private final boolean exit;
 
     /** The displayed list needs to be changed */
-    private final boolean defaultListDisplayed;
+    private final String listToBeDisplayed;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean defaultListDisplayed) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String listToBeDisplayed) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.defaultListDisplayed = defaultListDisplayed;
+        this.listToBeDisplayed = listToBeDisplayed;
     }
 
     /**
@@ -35,7 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, true);
+        this(feedbackToUser, false, false, "non-archive");
     }
 
     public String getFeedbackToUser() {
@@ -50,8 +50,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isDefaultListDisplayed() {
-        return defaultListDisplayed;
+    public String getListToBeDisplayed() {
+        return listToBeDisplayed;
     }
 
     @Override
